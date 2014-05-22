@@ -19,11 +19,14 @@ Start eclipse and create Eclipse workspace: /projects/IHTSDO/workspace
 
 Check the project out of GIT
 1. Install m2e egit connector 
-- Help --> Eclipse Marketplace --> search for "m2e egit"
-- install
+	- Help --> Eclipse Marketplace --> search for "m2e egit"
+	- Install
 2. File-->Import --> Check out existing Maven project from SCM
-- Pick "git" and enter repo url: git@github.com:IHTSDO/MLDS.git
-- next,next,finish.  Nothing special
+	- Go to the m2e Marketplace and search for 'egit'
+	- Install the plugin and restart Eclipse
+3. File-->Import --> Check out existing Maven project from SCM
+	- Pick "git" and enter repo url: git@github.com:IHTSDO/MLDS.git
+	- next,next,finish.  Nothing special
 
 Install Tomcat 7 in project directory
 
