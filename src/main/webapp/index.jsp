@@ -7,10 +7,10 @@
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="font/font-awesome.min.css">
 </head>
-<body>
+<body class="body-dark">
 	<%@include file="registration.jsp" %>
 	
 	<script src="bower_components/jquery/jquery.js"></script>
