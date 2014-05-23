@@ -8,11 +8,10 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="/styles/style.css" media="screen">
-<link rel="stylesheet" href="/styles/main.css">
+<link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-	<h2>Hello World!</h2>
+	<%@include file="registration.jsp" %>
 	
 	<script src="bower_components/jquery/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
