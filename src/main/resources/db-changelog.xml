@@ -4,4 +4,14 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
+    <changeSet author="MB" id="MLDS-01-1">
+    	<createSequence sequenceName="hibernate_sequence"/>
+    	
+    	<createTable tableName="user_registration">
+            <column autoIncrement="true" name="user_registration_id" type="NUMBER">
+                <constraints primaryKey="true" primaryKeyName="user_registraPK"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

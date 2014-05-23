@@ -28,8 +28,8 @@
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
 		<property name="jpaProperties">
 			<props>
+				<prop key="hibernate.show_sql">true</prop>
 			<!-- 
-				<prop key="hibernate.show_sql">${jpaProperties.show_sql}</prop>
 				<prop key="hibernate.format_sql">${jpaProperties.format_sql}</prop>
 				<prop key="use_sql_comments">${jpaProperties.use_sql_comments}</prop>
 				<prop key="hibernate.search.default.directory_provider">${jpaProperties.lucense.directory_provider}</prop>
