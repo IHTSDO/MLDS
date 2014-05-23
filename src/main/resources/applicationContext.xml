@@ -23,7 +23,6 @@
         <property name="jndiName" value="java:comp/env/jdbc/mlds" />
     </bean>
     
-			<!-- 
  	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 	</bean>
 
@@ -34,12 +33,14 @@
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
 		<property name="jpaProperties">
 			<props>
+			<!-- 
 				<prop key="hibernate.show_sql">${jpaProperties.show_sql}</prop>
 				<prop key="hibernate.format_sql">${jpaProperties.format_sql}</prop>
 				<prop key="use_sql_comments">${jpaProperties.use_sql_comments}</prop>
 				<prop key="hibernate.search.default.directory_provider">${jpaProperties.lucense.directory_provider}</prop>
 				<prop key="hibernate.search.default.indexBase">${jpaProperties.lucense.directory_path}</prop>
 				<prop key="org.hibernate.envers.default_schema">${jpaProperties.default_schema}</prop>
+			 -->
 				<prop key="hibernate.connection.useUnicode">true</prop>
 				<prop key="hibernate.connection.charSet">UTF-8</prop>
 				<prop key="hibernate.connection.characterEncoding">UTF-8</prop>
@@ -47,7 +48,6 @@
 			</props>
 		</property>
 	</bean>
-			 -->
 
 	<bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
 		<property name="changeLog" value="classpath:db-changelog.xml" />
