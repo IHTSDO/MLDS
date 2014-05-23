@@ -11,7 +11,9 @@
            	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
            " >
            
-    <context:component-scan base-package="ca.intelliware.ihtsdo.mlds" />
+    <context:component-scan base-package="ca.intelliware.ihtsdo.mlds" >
+    	<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+   	</context:component-scan>
     
     <context:annotation-config/>
     
