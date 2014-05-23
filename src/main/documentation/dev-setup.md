@@ -4,7 +4,6 @@
 ###Create project directory
 - /projects/IHTSDO
 
-
 ###Install Java 7
 //iwdbdc/iwd/iwd_apps/Java/1.7/
 
@@ -18,10 +17,11 @@
 
 ####Runnning Eclipse on on the jdk7
 Edit eclipse.ini - beside eclipse.exe on Windows, in the .app bundle under /Contents/MacOS/
-- Add two lines just before the -vmargs line
+- Add two lines just before the `-vmargs` line
+
 	-vm
 	PATH_TO_JAVAW (e.g. C:\Java\JDK\1.6\bin\javaw.exe)
-
+	
 ####Workspace
 Start eclipse and create Eclipse workspace: /projects/IHTSDO/workspace
 
@@ -44,13 +44,14 @@ Start eclipse and create Eclipse workspace: /projects/IHTSDO/workspace
 
 Create "Server" definition inside eclipse using Servers view and deploy the app
 
-Start the server and verify that the app has started at http://localhost:8080/ihtsdo-mlds/
+Start the server and verify that the app has started at http://localhost:8080/
 
-DB -
+###Install Database
 Install Postgres
 Create mlds user password=password
 Create mlds database, owned by mlds user.
 Create Datasource in tomcat context.xml - Add
+
 	<!-- IHTSDO MLDS datasource -->  
     <Resource 
     	name="jdbc/mlds" 
@@ -62,10 +63,10 @@ Create Datasource in tomcat context.xml - Add
     	password="password" 
     	maxActive="20" maxIdle="4" 
     	/>
-to the end of the <Context> section.
+to the end of the `<Context>` section.
 "Publish" the changes to the server.
 
 Download a driver from http://jdbc.postgresql.org/download/postgresql-9.3-1101.jdbc41.jar
-and copy to the Tomcat /lib folder
+and copy to the Tomcat `/lib` folder
 
 
