@@ -50,10 +50,10 @@ DB -
 Install Postgres
 Create mlds user password=password
 Create mlds database, owned by mlds user.
-Create Datasource in tomcat server.xml - Add
+Create Datasource in tomcat context.xml - Add
 	<!-- IHTSDO MLDS datasource -->  
     <Resource 
-    	name="comp:env/jdbc/mlds" 
+    	name="jdbc/mlds" 
     	type="javax.sql.DataSource" 
     	url="jdbc:postgresql:mlds" 
     	driverClassName="org.postgresql.Driver" 
@@ -62,7 +62,7 @@ Create Datasource in tomcat server.xml - Add
     	password="password" 
     	maxActive="20" maxIdle="4" 
     	/>
-to the <GlobalNamingResources> section.
+to the end of the <Context> section.
 "Publish" the changes to the server.
 
 Download a driver from http://jdbc.postgresql.org/download/postgresql-9.3-1101.jdbc41.jar
