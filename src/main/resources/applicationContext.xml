@@ -12,20 +12,15 @@
            " >
            
     <context:component-scan base-package="ca.intelliware.ihtsdo.mlds" />
+    
     <context:annotation-config/>
-    <!-- 
-    <tx:annotation-driven proxy-target-class="true"/>
+    
+    <tx:annotation-driven/>
     
     <jpa:repositories base-package="ca.intelliware.ihtsdo.mlds" />
-     -->
-    
-    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" lazy-init="false">
-        <property name="jndiName" value="java:comp/env/jdbc/mlds" />
-    </bean>
     
  	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 	</bean>
-
 	
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -53,11 +48,9 @@
 		<property name="changeLog" value="classpath:db-changelog.xml" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-<!-- 
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-     		<property name="entityManagerFactory" ref="entityManagerFactory" />
-    	</bean>
- -->
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+   	</bean>
 
 </beans>
