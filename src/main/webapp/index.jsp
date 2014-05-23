@@ -7,8 +7,8 @@
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-<link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="font/font-awesome.min.css">
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body class="body-dark">
 	<%@include file="registration.jsp" %>

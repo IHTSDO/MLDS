@@ -1,5 +1,4 @@
-<div class="container">
-	<div class="col-md-8">
+ <div class="container">
 	<div class="panel-group" id="accordion">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -11,7 +10,7 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse in">
       <div class="panel-body">
-      <div class="col-lg-3">
+      <div class="col-lg-4">
       	<div class="media bg-info">
 		  <a href="#">
 		  	<i class="fa fa-user fa-3x"></i>
@@ -21,7 +20,7 @@
 		</div>
 	  </div>
 	  </div>
-	  <div class="col-lg-3">
+	  <div class="col-lg-4">
 	  <div class="media">
 		  <a href="#">
 		  	<i class="fa fa-user fa-3x"></i>
@@ -31,7 +30,7 @@
 		</div>
 	  </div>
 	  </div>
-	  <div class="col-lg-3">
+	  <div class="col-lg-4">
      <div class="media">
 		  <a href="#">
 		  	<i class="fa fa-user fa-3x"></i>
@@ -56,15 +55,29 @@
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
 	        <form class="form-signin" role="form">
-	        	<label for="exampleInputEmail1">Email address</label>
-		        <input class="form-control" placeholder="johnsmith@email.com" required autofocus>
-		        <label for="exampleInputEmail1">Password</label>
-		        <input class="form-control" placeholder="Password" required autofocus>
-		        <input class="form-control" placeholder="Verify Password" required>
-		        <label for="exampleInputEmail1">Credentials</label>
-		        <input class="form-control" placeholder="Name" required>
-		        <input class="form-control" placeholder="Address" required>
-		        <input class="form-control" placeholder="Phone" required>
+	        	<div class="form-group">
+	        		<label for="exampleInputEmail1">Email address</label>
+					<input class="form-control" placeholder="johnsmith@email.com" required autofocus>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<label for="exampleInputEmail1">Password</label>
+					<input class="form-control" placeholder="Password" required autofocus>
+				</div>
+			     <div class="form-group">    
+			        <input class="form-control" placeholder="Verify Password" required>
+		        </div>
+		        
+		        <div class="form-group">
+		        	<label for="exampleInputEmail1">Credentials</label>
+					<input class="form-control" placeholder="Name" required>
+				</div>
+				<div class="form-group">
+			        <input class="form-control" placeholder="Address" required>
+			    </div>
+				<div class="form-group">
+					<input class="form-control" placeholder="Phone" required>
+		        </div>
 	        </form>
       </div>
     </div>
@@ -79,20 +92,25 @@
     </div>
     <div id="collapseThree" class="panel-collapse">
       <div class="panel-body">
-            <form class="form-signin" role="form">
-             <label for="exampleInputEmail1">Company Name</label>
+		      <div class="form-group">
+				<label for="exampleInputEmail1">Company Name</label>
 		        <input class="form-control" placeholder="Company Name" required autofocus>
-		         <label for="exampleInputEmail1">Address</label>
-		        <input class="form-control" placeholder="Company Address" required autofocus>
+		       </div>
+		       <div class="form-group">
+			    <label for="exampleInputEmail1">Address</label>
+				<input class="form-control" placeholder="Company Address" required autofocus>
+			</div>
+			<div class="form-group">
 		        <input class="form-control" placeholder="Address Continued" required autofocus>
-		         <label for="exampleInputEmail1">Phone Number</label>
-		        <form class="form-inline" role="form">
-					<div class="form-group">
-						<input class="form-control" placeholder="Phone Number" required autofocus>
-					</div>
-					 <div class="form-group">
-						 <input class="form-control" placeholder="Extension" required autofocus>
-					</div>
+		      </div>
+		        
+		        <div class="form-group"> 
+		        	<label for="exampleInputEmail1">Phone Number</label>
+					<input class="form-control" placeholder="Phone Number" required autofocus>
+				</div>
+				<div class="form-group">
+					<input class="form-control" placeholder="Extension" required autofocus>
+				</div>
 				</form>
 		        <label for="exampleInputEmail1">Position</label>
 		        <input class="form-control" placeholder="Position" required autofocus>
@@ -101,14 +119,5 @@
     </div>
   </div>
 </div>
-
-
-
-  </div> <!-- /container -->
- 
- <div id="footer">
-      <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
-      </div>
-</div>
+</div> <!-- /container -->
 
