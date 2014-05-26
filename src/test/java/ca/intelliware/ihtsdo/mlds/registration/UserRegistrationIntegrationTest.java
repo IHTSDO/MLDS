@@ -13,7 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:applicationContext.xml", "classpath:applicationContext-integrationTest.xml"})
+@ContextConfiguration(locations={
+		"classpath:applicationContext.xml", 
+		"classpath:applicationContext-integrationTest.xml",
+		"file:src/main/webapp/WEB-INF/dispatcher-servlet.xml"})
 public class UserRegistrationIntegrationTest {
 	@Resource
 	UserRegistrationController controller;
