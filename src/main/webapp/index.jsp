@@ -9,20 +9,28 @@
     <![endif]-->
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/main.css">
 </head>
 <body class="body-dark">
 	
-	<div class="debug" ng-controller="UserListController">		
-		<h2>List of Users</h2>
-		<div ng-repeat="user in users">
-			<div>
-				{{user.email}}
-			</div>
-		</div>
-	</div>
-	
 	<%@include file="registration.jsp" %>
+	
+	<div class="debug container" ng-controller="UserListController">
+		<form role="form" ng-submit="createUser()">
+			<div class="form-control" style="height: auto;">
+				<label for="userEmail">Email:</label> 		
+				<input class="form-control" id="userEmail" type="email" ng-model="user.email" /><br />
+			</div>
+    		<input type="submit" class="btn btn-default" name="Submit"/>
+		</form>	
+		<h2>List of Users</h2>
+		
+		<table class="table">
+			<tr><th>Email</th></tr>
+			<tr ng-repeat="user in users">
+				<td>{{user.email}}</td>
+			</tr>
+		</table>
+	</div>
 	
 	<script src="bower_components/jquery/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
