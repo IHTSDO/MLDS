@@ -9,8 +9,19 @@
     <![endif]-->
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/main.css">
 </head>
 <body class="body-dark">
+	
+	<div class="debug" ng-controller="UserListController">		
+		<h2>List of Users</h2>
+		<div ng-repeat="user in users">
+			<div>
+				{{user.email}}
+			</div>
+		</div>
+	</div>
+	
 	<%@include file="registration.jsp" %>
 	
 	<script src="bower_components/jquery/jquery.js"></script>
@@ -25,6 +36,8 @@
 	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
 	<script src="js/app/app.js"></script>
+	<script src="js/app/services/UserRegistrationService.js"></script>
+	<script src="js/app/controllers/UserListController.js"></script>
 	<script src="js/app/translations.js"></script>
 </body>
 </html>
