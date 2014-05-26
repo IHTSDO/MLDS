@@ -2,10 +2,8 @@
 
 angular.module('MLDS')
     .controller('UserListController',
-        [ '$scope', '$log', 'UserRegistrationService', function ($scope, $log, UserRegistrationService) {
-        	
+        [ '$scope', '$log', 'UserRegistrationService', 'Events', function ($scope, $log, UserRegistrationService, Events) {
         	$scope.users = [];
-        	$scope.user = {};
         	
         	function getUsers() {
         		var queryPromise =  UserRegistrationService.getUsers();
@@ -15,17 +13,8 @@ angular.module('MLDS')
         		});
         	}
         	
-        	$scope.reset = function() {
-        		$scope.user = {};
-        	};
-        	
-        	$scope.createUser = function() {
-        		UserRegistrationService.createUser($scope.user).then(function(response) {
-					//Success Handler
-        			getUsers();
-				});
-        	};
-        	
         	getUsers();
+        	
+        	$scope.$on(Events.newUser, getUsers);
         }
     ]);

@@ -14,7 +14,7 @@
 	
 	<%@include file="registration.jsp" %>
 	
-	<div class="debug container" ng-controller="UserListController">
+	<div class="container" ng-controller="UserRegistrationController">
 		<form role="form" ng-submit="createUser()">
 			<div class="form-control" style="height: auto;">
 				<label for="userEmail">Email:</label> 		
@@ -22,8 +22,9 @@
 			</div>
     		<input type="submit" class="btn btn-default" name="Submit"/>
 		</form>	
+	</div>
+	<div class="container" ng-controller="UserListController">	
 		<h2>List of Users</h2>
-		
 		<table class="table">
 			<tr><th>Email</th></tr>
 			<tr ng-repeat="user in users">
@@ -45,7 +46,9 @@
 
 	<script src="js/app/app.js"></script>
 	<script src="js/app/services/UserRegistrationService.js"></script>
+	<script src="js/app/services/Events.js"></script>
 	<script src="js/app/controllers/UserListController.js"></script>
+	<script src="js/app/controllers/UserRegistrationController.js"></script>
 	<script src="js/app/translations.js"></script>
 </body>
 </html>

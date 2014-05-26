@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS')
-	.factory('UserRegistrationService', ['$http', function($http){
+	.factory('UserRegistrationService', ['$http', '$rootScope', 'Events', function($http, $rootScope, Events){
 		return {
 			getUsers: function() {
 				return $http.get('/registrations');
@@ -13,6 +13,11 @@ angular.module('MLDS')
 					    url: '/registrations/create',
 					    params: user
 					});
+				
+				httpPromise.then(function() {
+					$rootScope.$broadcast(Events.newUser);
+				});
+				
 				return httpPromise;
 			}
 		};
