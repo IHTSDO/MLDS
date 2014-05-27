@@ -1,10 +1,44 @@
-<div class="container">
-	<h1>Registration</h1>
-	<form role="form" ng-submit="createUser()">
-		<div class="form-control" style="height: auto;">
-			<label for="userEmail">Email:</label> 		
-			<input class="form-control" id="userEmail" type="email" ng-model="user.email" /><br />
+<div class="row">
+	<div class="container-fluid">
+		<div class="login-masthead">
+			<img class="center-block"src="images/ihtsdo-logo-lg.gif" alt="ihtsdo-logo" width="516" height="102">
 		</div>
-   		<input type="submit" class="btn btn-default" name="Submit"/>
-	</form>	
+	</div>
 </div>
+<div class="row">
+	<div class="container"  id="welcome">
+	<div class="col-lg-6">
+		<header>
+			<h2>Welcome</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus interdum metus in leo rutrum, a pellentesque mi pretium. </p>
+			<ul>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+			</ul>
+		</header>
+	</div>
+	<div class="col-lg-6">
+      <form class="form-welcome" ng-submit="createUser()">
+        <h2 class="form-signin-heading">Register</h2>
+        <div class="form-group">
+	        <input type="text" class="form-control" placeholder="Your name" required autofocus>
+	      </div>
+	      <div class="form-group">
+	        <input type="email" class="form-control" placeholder="Email address" ng-model="user.email" required autofocus>
+	      </div>
+	      <div class="form-group">
+	        <input type="password" class="form-control" placeholder="Password" required>
+	      </div>
+	      
+		  <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
+		  
+	      </form>
+
+	<div>
+     </div>
+    </div> <!-- /container -->
+</div>
+</div>
+</div>
+<!-- /container -->
