@@ -24,7 +24,7 @@
  	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 	</bean>
 	
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="liquibase">
 		<property name="dataSource" ref="dataSource" />
 		<property name="persistenceUnitName" value="mlds" />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
