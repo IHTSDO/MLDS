@@ -14,6 +14,16 @@ angular.module('MLDS', ['ngCookies', 'ngResource', 'ngRoute', 'pascalprecht.tran
               controller: 'UserRegistrationFlowController'
             })
             
+            .when('/registration-progress', {
+              templateUrl: 'templates/RegistrationApproval.jsp',
+              controller: 'UserRegistrationApprovalController'
+            })
+            
+            .when('/dashboard', {
+              templateUrl: 'templates/Dashboard.jsp',
+              controller: 'DashboardController'
+            })
+            
             .when('/', {
                 templateUrl: 'templates/Login.jsp',
                 controller: 'UserLoginController'

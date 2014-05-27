@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('MLDS')
-    .controller('UserRegistrationFlowController',
+    .controller('UserRegistrationApprovalsController',
         [ '$scope', '$log', function ($scope, $log) {
         	
-        	$scope.form = {};
-        	
+        	$scope.status = "processing";
         }
     ]);

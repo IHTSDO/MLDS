@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('MLDS')
-    .controller('UserRegistrationFlowController',
+    .controller('DashboardController',
         [ '$scope', '$log', function ($scope, $log) {
         	
-        	$scope.form = {};
-        	
+        	console.log('Dashboard Controller');
         }
     ]);

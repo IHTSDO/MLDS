@@ -18,6 +18,8 @@
 	<script type='text/ng-template' id='templates/Login.jsp'><%@include file="js/app/templates/Login.jsp" %></script>
 	<script type='text/ng-template' id='templates/Registration.jsp'><%@include file="js/app/templates/Registration.jsp" %></script>
 	<script type='text/ng-template' id='templates/RegistrationFlow.jsp'><%@include file="js/app/templates/RegistrationFlow.jsp" %></script>
+	<script type='text/ng-template' id='templates/RegistrationApproval.jsp'><%@include file="js/app/templates/RegistrationApproval.jsp" %></script>
+	<script type='text/ng-template' id='templates/Dashboard.jsp'><%@include file="js/app/templates/Dashboard.jsp" %></script>
 	
 	<script src="bower_components/jquery/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
@@ -28,7 +30,6 @@
 	<script src="bower_components/underscore/underscore.js"></script>
 	<script src="bower_components/js-base64/base64.js"></script>
 
-	
 	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
 	<script src="js/app/app.js"></script>
@@ -38,6 +39,8 @@
 	<script src="js/app/controllers/UserListController.js"></script>
 	<script src="js/app/controllers/UserRegistrationController.js"></script>
 	<script src="js/app/controllers/UserRegistrationFlowController.js"></script>
+	<script src="js/app/controllers/UserRegistrationProgressController.js"></script>
+	<script src="js/app/controllers/DashboardController.js"></script>
 	<script src="js/app/translations.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <div class="container">
+	<h1>Registration</h1>
 	<form role="form" ng-submit="createUser()">
 		<div class="form-control" style="height: auto;">
 			<label for="userEmail">Email:</label> 		
