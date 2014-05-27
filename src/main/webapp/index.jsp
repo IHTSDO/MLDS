@@ -39,7 +39,7 @@
 	<script src="js/app/controllers/UserListController.js"></script>
 	<script src="js/app/controllers/UserRegistrationController.js"></script>
 	<script src="js/app/controllers/UserRegistrationFlowController.js"></script>
-	<script src="js/app/controllers/UserRegistrationProgressController.js"></script>
+	<script src="js/app/controllers/UserRegistrationApprovalController.js"></script>
 	<script src="js/app/controllers/DashboardController.js"></script>
 	<script src="js/app/translations.js"></script>
 </body>
