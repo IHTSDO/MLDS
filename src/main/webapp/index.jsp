@@ -11,27 +11,13 @@
 <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body class="body-dark">
-	
-	<%@include file="registration.jsp" %>
-	
-	<div class="container" ng-controller="UserRegistrationController">
-		<form role="form" ng-submit="createUser()">
-			<div class="form-control" style="height: auto;">
-				<label for="userEmail">Email:</label> 		
-				<input class="form-control" id="userEmail" type="email" ng-model="user.email" /><br />
-			</div>
-    		<input type="submit" class="btn btn-default" name="Submit"/>
-		</form>	
+	<div ng-view>
 	</div>
-	<div class="container" ng-controller="UserListController">	
-		<h2>List of Users</h2>
-		<table class="table">
-			<tr><th>Email</th></tr>
-			<tr ng-repeat="user in users">
-				<td>{{user.email}}</td>
-			</tr>
-		</table>
-	</div>
+	
+	
+	<script type='text/ng-template' id='templates/Login.jsp'><%@include file="js/app/templates/Login.jsp" %></script>
+	<script type='text/ng-template' id='templates/Registration.jsp'><%@include file="js/app/templates/Registration.jsp" %></script>
+	<script type='text/ng-template' id='templates/RegistrationFlow.jsp'><%@include file="js/app/templates/RegistrationFlow.jsp" %></script>
 	
 	<script src="bower_components/jquery/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
@@ -42,13 +28,16 @@
 	<script src="bower_components/underscore/underscore.js"></script>
 	<script src="bower_components/js-base64/base64.js"></script>
 
+	
 	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
 	<script src="js/app/app.js"></script>
 	<script src="js/app/services/UserRegistrationService.js"></script>
 	<script src="js/app/services/Events.js"></script>
+	<script src="js/app/controllers/UserLoginController.js"></script>
 	<script src="js/app/controllers/UserListController.js"></script>
 	<script src="js/app/controllers/UserRegistrationController.js"></script>
+	<script src="js/app/controllers/UserRegistrationFlowController.js"></script>
 	<script src="js/app/translations.js"></script>
 </body>
 </html>
