@@ -12,7 +12,7 @@ angular.module('MLDS')
         	
         	$scope.createUser = function() {
         		UserRegistrationService.createUser($scope.user).then(function(response) {
-					//Success Handler        			
+					window.location = '/';  			
 				});
         	};
         	
