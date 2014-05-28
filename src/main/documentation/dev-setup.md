@@ -37,6 +37,11 @@ Start eclipse and create Eclipse workspace: /projects/IHTSDO/workspace
 	- next,next,finish.  Nothing special
 
 
+###Install Database
+Install Postgres
+Create mlds user password=password
+Create mlds database, owned by mlds user.
+
 ###Install Tomcat 7
 
 - //iwdbdc/iwd/iwd_apps/Apache Group/tomcat/Tomcat7/
@@ -46,10 +51,6 @@ Create "Server" definition inside eclipse using Servers view and deploy the app
 
 Start the server and verify that the app has started at http://localhost:8080/
 
-###Install Database
-Install Postgres
-Create mlds user password=password
-Create mlds database, owned by mlds user.
 Create Datasource in tomcat context.xml - Add
 
 	<!-- IHTSDO MLDS datasource -->  
@@ -64,6 +65,14 @@ Create Datasource in tomcat context.xml - Add
     	maxActive="20" maxIdle="4" 
     	/>
 to the end of the `<Context>` section.
+
+Uncomment the SSL connector in server.xml.
+
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11Protocol"
+               maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" />
+
+Create an ssl certificate - http://tomcat.apache.org/tomcat-7.0-doc/ssl-howto.html#Quick_Start
 "Publish" the changes to the server.
 
 Download a driver from http://jdbc.postgresql.org/download/postgresql-9.3-1101.jdbc41.jar
