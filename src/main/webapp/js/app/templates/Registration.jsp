@@ -31,7 +31,7 @@
 	        <input type="password" class="form-control" placeholder="Password" required>
 	      </div>
 	      
-		  <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
+		  <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
 		  
 	      </form>
 
