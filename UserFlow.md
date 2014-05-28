@@ -3,12 +3,14 @@
 
 
 * Landing page
+    * First time user landing page
+    * Registered landing page
 * Registration
+  * Returning User 
 * Dashboard
+  * Edit Profile
 * Admin Dashboard
-
-
-
+  * Approval
 
 
 
