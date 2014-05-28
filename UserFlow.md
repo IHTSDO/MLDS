@@ -3,10 +3,10 @@
 
 
 * Landing page
-    * First time user landing page
-         * Welcome page 
-    * Registered landing page
-         * Returning users 
+    * Direct first time users to Register
+         * Registration page 
+    * Direct Registered users to Login
+         * Login Page
 * Registration
   * Returning User 
 * Dashboard
