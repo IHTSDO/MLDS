@@ -5,28 +5,33 @@
 * Landing page 
     - [x] New User
     - [x] Returning User
+<br>
+<br>
 * New user - Go to Registration page 
    - [x] Register 
 * Registered User - to Login Page
     - [x] Login
-
+<br>
+<br>
 * Registration
    - [x] User Infomation
    - [x] Organization Information
    - [x] *Accept* Website Terms 
    - [x] *Accept* SNOWMED License
   *  **Submit Registration** 
-
+<br>
+<br>
 * - [x] Email validation sent
 * - [x] User clicks link to vaildate Email
       * Return to Login Page 
-
-  
+<br>
+<br>
 * Dashboard
  - [x]Edit Profile
 * Admin Dashboard
   - [x] Approval
-
+<br>
+<br>
 
 
 ###First Time User
