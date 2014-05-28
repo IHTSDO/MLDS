@@ -2,7 +2,7 @@
 #User Flow
 
 
-####Landing page
+######Landing page
 - [x] New User
 - [x] Returning User
 <br>
@@ -15,7 +15,7 @@
 <br>
 <br>
 
-####Registration
+######Registration
    - [x] User Infomation
    - [x] Organization Information
    - [x] *Accept* Website Terms 
@@ -29,8 +29,8 @@
 <br>
 <br>
 
-####Dashboard
- - [x]Edit Profile
+######Dashboard
+   - [x]Edit Profile
 * Admin Dashboard
   - [x] Approval
 <br>
