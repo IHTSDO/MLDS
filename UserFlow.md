@@ -1,7 +1,17 @@
 
 #User Flow
 
-##User & Affiliate License Registration
+
+* Landing page
+* Registration
+* Dashboard
+* Admin Dashboard
+
+
+
+
+
+
 ###First Time User
 User will land on a welcome page
 * User registers for new account
