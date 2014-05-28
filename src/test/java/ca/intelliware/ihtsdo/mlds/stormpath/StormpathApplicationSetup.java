@@ -35,9 +35,9 @@ public class StormpathApplicationSetup {
 		applicationSetup.testConnect();
 		
 		applicationSetup.loadApplication();
-		//applicationSetup.createUserInApplication("a2@example.com","password");
+		applicationSetup.createUserInApplication("sptest@mailinator.com","password");
 
-		applicationSetup.authenticate("a@example.com", "password");
+		applicationSetup.authenticate("sptest@mailinator.com", "password");
 		//applicationSetup.createApplication();
 	}
 	

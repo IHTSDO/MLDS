@@ -2,6 +2,15 @@
 
 angular.module('MLDS', ['ngCookies', 'ngResource', 'ngRoute', 'pascalprecht.translate'])
 	.config(
+      ['$httpProvider', function ($httpProvider) {
+
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
+      }]
+    );
+
+angular.module('MLDS-Registration', ['MLDS'])
+	.config(
         ['$routeProvider', function ($routeProvider) {
           $routeProvider
             .when('/registration', {
@@ -19,13 +28,8 @@ angular.module('MLDS', ['ngCookies', 'ngResource', 'ngRoute', 'pascalprecht.tran
               controller: 'UserRegistrationApprovalController'
             })
             
-            .when('/dashboard', {
-              templateUrl: 'templates/Dashboard.jsp',
-              controller: 'DashboardController'
-            })
-            
             .when('/', {
-                templateUrl: 'templates/Login.jsp',
+                templateUrl: 'templates/LandingPage.html',
                 controller: 'UserLoginController'
             })
             
@@ -33,10 +37,32 @@ angular.module('MLDS', ['ngCookies', 'ngResource', 'ngRoute', 'pascalprecht.tran
               redirectTo: '/'
             });
         }]
-    ).config(
-      ['$httpProvider', function ($httpProvider) {
-
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
-
-      }]
     );
+
+angular.module('MLDS-User', ['MLDS'])
+.config(
+    ['$routeProvider', function ($routeProvider) {
+      $routeProvider
+        .when('/', {
+            templateUrl: 'templates/User/Dashboard.html',
+            controller: 'UserDashboardController'
+        })
+        .otherwise({
+          redirectTo: '/'
+        });
+    }]
+);
+
+angular.module('MLDS-Admin', ['MLDS'])
+.config(
+    ['$routeProvider', function ($routeProvider) {
+      $routeProvider
+        .when('/', {
+            templateUrl: 'templates/Admin/Dashboard.html',
+            controller: 'AdminDashboardController'
+        })
+        .otherwise({
+          redirectTo: '/'
+        });
+    }]
+);

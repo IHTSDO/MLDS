@@ -18,6 +18,7 @@
     	<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     	<context:include-filter type="regex" expression="^ca.intelliware.ihtsdo.mlds.web"/>
 	</context:component-scan>
+	
 	<mvc:default-servlet-handler/>
 	<!-- 
     <mvc:resources mapping="/styles/**" location="/styles/" />
