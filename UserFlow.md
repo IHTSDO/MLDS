@@ -1,19 +1,19 @@
 
 #User Flow
-
+======
 
 ######Landing page
 - [x] New User
 - [x] Returning User
-<br>
-<br>
 
-* New user - Go to **Registration page**
+
+* New user
+* to **Registration page**
 - [x] Register 
-* Registered User - to **Login Page**
+* Registered User 
+* to **Login Page**
 - [x] Login
-<br>
-<br>
+
 
 ######Registration
 - [x] User Infomation
@@ -21,23 +21,45 @@
 - [x] *Accept* Website Terms 
 - [x] *Accept* SNOWMED License
   *  **Submit Registration** 
-<br>
-<br>
-- [x] Email validation sent
-- [x] User clicks link to vaildate Email
-   * Return to Login Page
+
+
+######Thank you for your Registrating
+- [x] Send email to verify account
+- [x] User *clicks* link to vaildate Email
+   * *Returns* to Login Page
    
-<br>
-<br>
 
 ######Dashboard
    - [x]Edit Profile
-* Admin Dashboard
+
+######Admin Dashboard
   - [x] Approval
 <br>
 <br>
 
 
+##Misc Pages
+======
+
+######Terminate Registration Process page
+* User does not accept terms and conditions
+
+######Application in progress
+######Forgot username/password
+
+======
+======
+
+##Email Templates
+======
+* Validate account
+* Forgot username & password
+* Registration Accepted - Welcome 
+* Registration denied
+
+
+==========
+----------
 ###First Time User
 User will land on a welcome page
 * User registers for new account
