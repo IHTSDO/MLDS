@@ -2,17 +2,30 @@
 #User Flow
 
 
-* Landing page
-    * Direct first time users to Register
-         * Registration page 
-    * Direct Registered users to Login
-         * Login Page
+* Landing page 
+    - [x] New User
+    - [x] Returning User
+* New user - Go to Registration page 
+   - [x] Register 
+* Registered User - to Login Page
+    - [x] Login
+
 * Registration
-  * Returning User 
+   - [x] User Infomation
+   - [x] Organization Information
+   - [x] *Accept* Website Terms 
+   - [x] *Accept* SNOWMED License
+  *  **Submit Registration** 
+
+* - [x] Email validation sent
+* - [x] User clicks link to vaildate Email
+      * Return to Login Page 
+
+  
 * Dashboard
-  * Edit Profile
+ - [x]Edit Profile
 * Admin Dashboard
-  * Approval
+  - [x] Approval
 
 
 
