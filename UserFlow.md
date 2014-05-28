@@ -2,18 +2,20 @@
 #User Flow
 
 
-<h4>Landing page</h4>
+####Landing page
 - [x] New User
 - [x] Returning User
 <br>
 <br>
+
 * New user - Go to **Registration page**
    - [x] Register 
 * Registered User - to Login Page
     - [x] Login
 <br>
 <br>
-<h4> Registration</h4>
+
+####Registration
    - [x] User Infomation
    - [x] Organization Information
    - [x] *Accept* Website Terms 
@@ -26,7 +28,8 @@
       * Return to Login Page 
 <br>
 <br>
-</h4>Dashboard</h4>
+
+####Dashboard
  - [x]Edit Profile
 * Admin Dashboard
   - [x] Approval
