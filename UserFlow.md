@@ -1,20 +1,37 @@
 
 #User Flow
 
-##First Time User
-
+##User & Affiliate License Registration
+###First Time User
 User will land on a welcome page
+* User registers for new account
+* Form is submitted for approval
+* Email sent to user to validate email 
+* User clicks activation link in email 
 
-1.  User registers for new account
-2.	Form is submitted for approval
-3. 	User is redirected to an "Approval in progress" page
-4.  Account is approved
-5.  User returns to site via email link
-6.  User lands on Login page
+*  **Login page**
+Returns to site as logged in user
 
-## Returning User
+* **Registration**
+* Collect remaining user info 
+* Collect Organization Organization affiliate registrations  
 
-1. Login page
+### Returning User
+
+* **Login page**
+* Registration Dashboard
+* Collect remaining user info 
+* Collect Organization Organization affiliate registrations  
+* Present website terms and conditions
+* ** user accepts
+* ** user does not accept 
+* Present SNOMED CT License terms & conditions
+*  **Usage Reporting**
+* User does not have information to continue
+* User continues with usage report
+
+## Applicant Approval
+
 
 
 
