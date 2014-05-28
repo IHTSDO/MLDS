@@ -9,23 +9,24 @@
 <br>
 
 * New user - Go to **Registration page**
-   - [x] Register 
+- [x] Register 
 * Registered User - to **Login Page**
-    - [x] Login
+- [x] Login
 <br>
 <br>
 
 ######Registration
-   - [x] User Infomation
-   - [x] Organization Information
-   - [x] *Accept* Website Terms 
-   - [x] *Accept* SNOWMED License
+- [x] User Infomation
+- [x] Organization Information
+- [x] *Accept* Website Terms 
+- [x] *Accept* SNOWMED License
   *  **Submit Registration** 
 <br>
 <br>
-* - [x] Email validation sent
-* - [x] User clicks link to vaildate Email
-      * Return to Login Page 
+- [x] Email validation sent
+- [x] User clicks link to vaildate Email
+   * Return to Login Page
+   
 <br>
 <br>
 
