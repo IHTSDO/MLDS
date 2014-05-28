@@ -23,8 +23,8 @@ Returns to site as logged in user
 * Collect remaining user info 
 * Collect Organization Organization affiliate registrations  
 * Present website terms and conditions
-* ** user accepts
-* ** user does not accept 
+* **user accepts**
+* **user does not accept**
 * Present SNOMED CT License terms & conditions
 *  **Usage Reporting**
 * User does not have information to continue
