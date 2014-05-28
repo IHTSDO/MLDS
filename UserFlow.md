@@ -4,7 +4,9 @@
 
 * Landing page
     * First time user landing page
+         * Welcome page 
     * Registered landing page
+         * Returning users 
 * Registration
   * Returning User 
 * Dashboard
