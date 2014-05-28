@@ -8,7 +8,7 @@ angular.module('MLDS')
         	$scope.login = function() {
         		//FIXME: AC-looking for test user to bypass to show registration-flow screen
         		if ($scope.loginForm.username === 'test') {
-        			window.location = '#/registration-flow';
+        			window.location = '#/dashboard';
         		}
         	};
         }

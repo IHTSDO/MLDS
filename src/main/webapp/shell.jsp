@@ -1,4 +1,5 @@
-<html id="ng-app" ng-app="MLDS">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>  
+<html id="ng-app" ng-app="${applicationName}">
 <head>
 <title ng-bind="'TITLE' | translate">IHTSDO - MLDS</title>
 <!--[if lt IE 9]>
@@ -11,15 +12,19 @@
 <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body class="body-dark">
+Hello!!! ${ applicationName }
 	<div ng-view>
 	</div>
 	
 	
+	<script type='text/ng-template' id='templates/LandingPage.html'><%@include file="js/app/templates/LandingPage.html" %></script>
 	<script type='text/ng-template' id='templates/Login.jsp'><%@include file="js/app/templates/Login.jsp" %></script>
 	<script type='text/ng-template' id='templates/Registration.jsp'><%@include file="js/app/templates/Registration.jsp" %></script>
 	<script type='text/ng-template' id='templates/RegistrationFlow.jsp'><%@include file="js/app/templates/RegistrationFlow.jsp" %></script>
 	<script type='text/ng-template' id='templates/RegistrationApproval.jsp'><%@include file="js/app/templates/RegistrationApproval.jsp" %></script>
-	<script type='text/ng-template' id='templates/Dashboard.jsp'><%@include file="js/app/templates/Dashboard.jsp" %></script>
+
+	<script type='text/ng-template' id='templates/Admin/Dashboard.html'><%@include file="js/app/templates/Admin/Dashboard.html" %></script>
+	<script type='text/ng-template' id='templates/User/Dashboard.html'><%@include file="js/app/templates/User/Dashboard.html" %></script>
 	
 	<script src="bower_components/jquery/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
