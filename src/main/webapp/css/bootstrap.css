@@ -6,13 +6,6 @@
   font-style: normal;
 }
 @font-face {
-  font-family: 'cabinmedium';
-  src: url('fonts/cabin-medium-webfont.eot');
-  src: url('fonts/cabin-medium-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/cabin-medium-webfont.woff') format('woff'), url('fonts/cabin-medium-webfont.ttf') format('truetype'), url('fonts/cabin-medium-webfont.svg#cabinmedium') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
   font-family: 'cabinregular';
   src: url('fonts/cabin-regular-webfont.eot');
   src: url('fonts/cabin-regular-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/cabin-regular-webfont.woff') format('woff'), url('fonts/cabin-regular-webfont.ttf') format('truetype'), url('fonts/cabin-regular-webfont.svg#cabinregular') format('svg');
@@ -381,7 +374,7 @@ h6,
   font-family: "cabinbold";
   font-weight: 500;
   line-height: 1.1;
-  color: inherit;
+  color: #04add8;
 }
 h1 small,
 h2 small,
@@ -2034,7 +2027,7 @@ select[multiple].input-lg {
 }
 .btn:hover,
 .btn:focus {
-  color: #264161;
+  color: #380516;
   text-decoration: none;
 }
 .btn:active,
@@ -2055,7 +2048,7 @@ fieldset[disabled] .btn {
   box-shadow: none;
 }
 .btn-default {
-  color: #264161;
+  color: #380516;
   background-color: #cedbeb;
   border-color: #cccccc;
 }
@@ -2064,7 +2057,7 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: #264161;
+  color: #380516;
   background-color: #b0c6e0;
   border-color: #adadad;
 }
@@ -2093,12 +2086,12 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-default .badge {
   color: #cedbeb;
-  background-color: #264161;
+  background-color: #380516;
 }
 .btn-primary {
   color: #ffffff;
-  background-color: #4372aa;
-  border-color: #3c6698;
+  background-color: #960d3c;
+  border-color: #7f0b33;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -2106,8 +2099,8 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
   color: #ffffff;
-  background-color: #375e8d;
-  border-color: #2a486c;
+  background-color: #700a2d;
+  border-color: #46061c;
 }
 .btn-primary:active,
 .btn-primary.active,
@@ -2129,11 +2122,11 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-  background-color: #4372aa;
-  border-color: #3c6698;
+  background-color: #960d3c;
+  border-color: #7f0b33;
 }
 .btn-primary .badge {
-  color: #4372aa;
+  color: #960d3c;
   background-color: #ffffff;
 }
 .btn-success {
@@ -2179,8 +2172,8 @@ fieldset[disabled] .btn-success.active {
 }
 .btn-info {
   color: #ffffff;
-  background-color: #40acd6;
-  border-color: #2da2d0;
+  background-color: #960d3c;
+  border-color: #7f0b33;
 }
 .btn-info:hover,
 .btn-info:focus,
@@ -2188,8 +2181,8 @@ fieldset[disabled] .btn-success.active {
 .btn-info.active,
 .open .dropdown-toggle.btn-info {
   color: #ffffff;
-  background-color: #2a98c3;
-  border-color: #227b9d;
+  background-color: #700a2d;
+  border-color: #46061c;
 }
 .btn-info:active,
 .btn-info.active,
@@ -2211,11 +2204,11 @@ fieldset[disabled] .btn-info:active,
 .btn-info.disabled.active,
 .btn-info[disabled].active,
 fieldset[disabled] .btn-info.active {
-  background-color: #40acd6;
-  border-color: #2da2d0;
+  background-color: #960d3c;
+  border-color: #7f0b33;
 }
 .btn-info .badge {
-  color: #40acd6;
+  color: #960d3c;
   background-color: #ffffff;
 }
 .btn-warning {
@@ -4319,11 +4312,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #5fa634;
 }
 .label-info {
-  background-color: #40acd6;
+  background-color: #960d3c;
 }
 .label-info[href]:hover,
 .label-info[href]:focus {
-  background-color: #2892bb;
+  background-color: #670929;
 }
 .label-warning {
   background-color: #fac567;
@@ -4567,7 +4560,7 @@ a.thumbnail.active {
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .progress-bar-info {
-  background-color: #40acd6;
+  background-color: #960d3c;
 }
 .progress-striped .progress-bar-info {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -5816,9 +5809,8 @@ button.close {
   margin-bottom: 15px;
 }
 #welcome {
-  background-color: #40acd6;
+  background-color: #ededed;
   border-radius: 4px;
-  color: #ffffff;
 }
 .form-welcome {
   width: 400px;
