@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body class="body-dark">
-Hello!!! ${ applicationName }
 	<div ng-view>
 	</div>
 	
