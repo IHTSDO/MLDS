@@ -10,7 +10,7 @@
 
 * New user - Go to **Registration page**
    - [x] Register 
-* Registered User - to Login Page
+* Registered User - to **Login Page**
     - [x] Login
 <br>
 <br>
