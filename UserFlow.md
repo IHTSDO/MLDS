@@ -1,8 +1,13 @@
 
-#User Flow
+#User Flows
 ======
 
+## Pages
+
 ######Landing page
+Content: orienting copy
+Links: New User --> [Registration page](#registration-page)
+
 - [x] New User
 - [x] Returning User
 
@@ -15,7 +20,7 @@
 - [x] Login
 
 
-######Registration
+######Registration page
 - [x] User Infomation
 - [x] Organization Information
 - [x] *Accept* Website Terms 
