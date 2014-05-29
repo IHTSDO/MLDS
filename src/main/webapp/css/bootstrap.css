@@ -4504,6 +4504,17 @@ a.thumbnail.active {
 .alert-danger .alert-link {
   color: #953b39;
 }
+.alert-welcome {
+  background-color: #ededed;
+  border-color: #ededed;
+  color: #5d5d5d;
+}
+.alert-welcome hr {
+  border-top-color: #e0e0e0;
+}
+.alert-welcome .alert-link {
+  color: #444444;
+}
 @-webkit-keyframes progress-bar-stripes {
   from {
     background-position: 40px 0;
