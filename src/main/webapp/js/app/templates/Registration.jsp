@@ -17,10 +17,10 @@
 </div>
 <div class="row">
    <div class="container-fluid">
- 	 <div class="alert alert-info alert-dismissable">
+ 	 <div class="alert alert-welcome alert-dismissable">
   		<button type="button" class="close" data-dismiss="alert">&times;</button>
   		<div class="page-header">
-		  <h1>Title <small>Subtext</small></h1>
+		  <h1>Title</h1>
 		  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna leo, gravida vitae diam posuere, posuere accumsan mauris. Morbi sed erat ut velit ultrices interdum. </p>
 		</div>
 	</div>
@@ -45,7 +45,9 @@
 								      <div class="caption">
 								        <h3>Individual</h3>
 								        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. </p>
-								        <p><button type="button" class="btn btn-lg btn-default">Individual</button></p>
+								       <div class="center-block">
+								       	 <p class="block-centre"><button type="button" class="btn btn-lg btn-default">Individual</button></p>
+								       </div>
 								      </div>
 								    </div>
 								</div> 
@@ -260,9 +262,7 @@
 											<input type="checkbox"> I agree to the Terms &amp; Conditions
 										</label>						
 							</div>
-
 						</div>
-						
 						</div>
 				</div>
 		</div>
@@ -274,30 +274,44 @@
 	</div>
 </div>
 	<div class="col-sx-12 col-md-4 col-lg-4">
-		<ul class="nav nav-pills nav-stacked">
-		<li class="active"><a href="#">Applicant</a>
-			<address class="muted">
-				1234 Lane Street
-			</address>
-			<p><a href="#">Edit</a></p>
-		</li>	
-		<li><a href="#">User</a>
-			<address class="muted">
-				1234 Lane Street
-			</address>
-			<p><a href="#">Edit</a></p>
-		
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+   		 		<h3 class="panel-title">Applicant</h3>
+  			</div>
+			  <div class="panel-body">
+			    Organization Type
+			  </div>
+			   <div class="panel-footer">
+				<a class="btn btn-link" href="#">Edit</a>
+			    </div>
+			</div>	
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+				    <h3 class="panel-title">User</h3>
+				</div>
+			
+			  <div class="panel-body">
+			  User Info		   
+			  </div>
+			   <div class="panel-footer">
+				<a class="btn btn-link" href="#">Edit</a>
+			    </div>
+			</div>	
+			<div class="panel panel-default">
+			<div class="panel-heading">
+   			 <h3 class="panel-title">Organization</h3>
+  </div>
+			  <div class="panel-body">
+			    Organization	  
+			  </div>
+			   <div class="panel-footer">
+				<a class="btn btn-link" href="#">Edit</a>
+			    </div>
+			</div>	
 		</li>
-		<li><a href="#">Organization</a>
-			<address class="muted">
-				<p>Organization Name</p>
-				<p>Address</p>
-				<p>City</p>
-				<p>Country</p>
-				<p>Phone Number Extenstion</p>
-			</address>
-			<p><a href="#">Edit</a></p>
-		</li>
+
     </ul>
 	</div> 
 	</div><!-- main END -->
