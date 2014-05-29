@@ -6,7 +6,7 @@
 
 ######Landing page
 Content: orienting copy
-Links: New User --> [Registration page](#Registration-page)
+Links: New User --> [Registration page](#registration-page)
 
 - [x] New User
 - [x] Returning User
