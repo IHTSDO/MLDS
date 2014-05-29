@@ -1,58 +1,67 @@
 
 #User Flows
-======
 
 ## Pages
 
-###### Landing page
-- Content: orienting copy
-- Links: 
-    - New User --> [Registration page](#registration-page)
-    - Returning User --> [User Dashboard](#user-dashboard) or [Login page](#login-page)
+##### Landing page
+- Content: orienting copy about IHTSDO, SNOMED, licensing, etc.
+- Primary action: 
+    - New User --> [New User Registration page](#new-user-registration-page)
+- Secondary actions:
+    - User login --> [User Dashboard](#user-dashboard) or [Login page](#login-page)
 
-###### Registration page
+##### New User Registration page
+- Primary Action: Create user by form submit  --> [Email verification page](#email-verification-page)
+- User fields
+    - Name (or First and Last?)
+    - Email
+    - password
+    - password confirm
+    - *Accept* Website Terms 
+
+##### Email verification page
+- Content: Thank the user, and direct them to check their email.
+- Behaviour: Send email containing verification link
+- Offline: User *clicks* link to vaildate Email, *Returns* to [Affiliate Registration Page] via Login Page
+
+##### Affiliate Registration Page
 - Long form with sub-sections
     - User Infomation
     - Organization Information
-    - *Accept* Website Terms 
     - *Accept* SNOWMED License
-    - **Submit Registration** --> [Thank you page](#thank-you-page)
+    - **Submit Registration** --> [Pending Registration Page](#pending-registration-page)
 
-###### Thank you page
-- Actions: Send email to verify account
-- Offline: User *clicks* link to vaildate Email, *Returns* to [Login Page](#login-page)
+##### Pending Registration Page
+- Content: Thank user, explain and outline timeframe of approval process.
+- Terminal page.
 
-###### Login Page
+##### Login Page
    
-###### Dashboard
-   - [x]Edit Profile
+##### User Dashboard
+- Behaviour: If the user is not yet attached to an approved affiliate, we redirect to [Pending Registration Page](#pending-registration-page)
+- Actions:
+    - Enter usage information (if agent?)
+    - Download standard
+    - Edit Profile
 
-###### Admin Dashboard
-  - [x] Approval
-  
+##### Admin Dashboard
+- Actions: review and approve registration applications
 
-##Misc Pages
-======
+###Misc Pages
+##### Forgot username/password
+##### FAQ???  About? Copies of the licenses, T&C?
 
-######Terminate Registration Process page
-* User does not accept terms and conditions
-
-######Application in progress
-######Forgot username/password
-
-======
-======
+-------
 
 ##Email Templates
-======
 * Validate account
 * Forgot username & password
 * Registration Accepted - Welcome 
 * Registration denied
 
+-------
 
-==========
-----------
+## Flows
 ###First Time User
 User will land on a welcome page
 * User registers for new account
