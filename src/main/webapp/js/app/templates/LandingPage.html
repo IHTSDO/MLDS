@@ -1,10 +1,51 @@
-<div class="container">
-	<h1>IHTSDO - MLDS</h1>
-	Hello.  Who are you?
-	<ul>
-		<li>New user?  Go to <a href="#/registration">registration</a></li>
-		<li>Existing user? go to your <a href="/dashboard">dashboard</a></li>
-		<li>An administrator?  Go the <a href="/admin">administration</a></li>
-		<li>Logout? <form action="/j_spring_security_logout" method="post"><button type="submit">out</button></form>
-	</ul>
+<div class="row">
+	<div class="container-fluid">
+		<div class="login-masthead">
+		<div class="col-lg-6">
+			<img class="pull-left"src="images/ihtsdo-logo-lg.gif" alt="ihtsdo-logo" width="516" height="102">
+		</div>
+		<div class="col-lg-6">
+			<div class="pull-right">
+				<form action="/j_spring_security_logout" method="post">
+					<button class="btn btn-link" type="submit">Logout</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
+<div class="row">
+	<div class="container"  id="welcome">
+		<h2>IHTSDO - MLDS</h2>
+		<p class="lead">Hello.  Who are you?</p>					
+			<div class="col-lg-4">
+					<div class="thumbnail">
+			      <div class="caption">
+			        <h3>I'm an Administrator</h3>
+			        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. </p>
+			        <p><a class="btn btn-lg btn-default" href="/admin">Administration</a></p>
+			      </div>
+			    </div>
+			</div> 
+			<div class="col-lg-4">
+				<div class="thumbnail">
+			      <div class="caption">
+			        <h3>I'm an Existing User</h3>
+			        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. </p>
+			          <p><a class="btn btn-lg btn-default" href="/dashboard">Dashboard</a></p>
+			      </div>
+			    </div>
+			</div> 
+
+	
+			<div class="col-lg-4">
+				<div class="thumbnail">
+			      <div class="caption">
+			        <h3>I'm a New User?</h3>
+			        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. </p>
+			         <p><a class="btn btn-lg btn-primary" href="#/registration">Register</a></p>
+			      </div>
+			    </div>
+			</div> 
+		</div>
+     </div>
+    </div> <!-- /container -->
