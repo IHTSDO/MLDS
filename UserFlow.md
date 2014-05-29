@@ -4,44 +4,32 @@
 
 ## Pages
 
-######Landing page
-Content: orienting copy
-Links: New User --> [Registration page](#registration-page)
+###### Landing page
+- Content: orienting copy
+- Links: 
+    - New User --> [Registration page](#registration-page)
+    - Returning User --> [User Dashboard](#user-dashboard) or [Login page](#login-page)
 
-- [x] New User
-- [x] Returning User
+###### Registration page
+- Long form with sub-sections
+    - User Infomation
+    - Organization Information
+    - *Accept* Website Terms 
+    - *Accept* SNOWMED License
+    - **Submit Registration** --> [Thank you page](#thank-you-page)
 
+###### Thank you page
+- Actions: Send email to verify account
+- Offline: User *clicks* link to vaildate Email, *Returns* to [Login Page](#login-page)
 
-* New user
-* to **Registration page**
-- [x] Register 
-* Registered User 
-* to **Login Page**
-- [x] Login
-
-
-######Registration page
-- [x] User Infomation
-- [x] Organization Information
-- [x] *Accept* Website Terms 
-- [x] *Accept* SNOWMED License
-  *  **Submit Registration** 
-
-
-######Thank you for your Registrating
-- [x] Send email to verify account
-- [x] User *clicks* link to vaildate Email
-   * *Returns* to Login Page
+###### Login Page
    
-
-######Dashboard
+###### Dashboard
    - [x]Edit Profile
 
-######Admin Dashboard
+###### Admin Dashboard
   - [x] Approval
-<br>
-<br>
-
+  
 
 ##Misc Pages
 ======
@@ -81,10 +69,11 @@ Returns to site as logged in user
 
 ### Returning User
 
-* **Login page**
+* [Login page](#login-page)
 * Registration Dashboard
 * Collect remaining user info 
-* Collect Organization Organization affiliate registrations  
+* Collect sublicense usage information
+* Organization Organization affiliate registrations  
 * Present website terms and conditions
 * **user accepts**
 * **user does not accept**
