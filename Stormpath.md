@@ -1,3 +1,5 @@
+It looks like we're using https://usermanagement.ihtsdotools.org/security-web-example/ instead.
+
 #Stormpath integration
 
 Stormpath is the online directory service that we use to manage users and authentication.  Populations of users are stored in objects called a "Directory", and an "Application" is associated with one or more Directories (or subgroups there-of) to provide user login, etc. services.
