@@ -29,7 +29,7 @@ public class MigrationSuggestionGenerator {
 		
 		Database jdbcConnectionDatabase = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(dataSource.getConnection()));
 
-		String hibernateUrl = "hibernate:spring:ca.intelliware.ihtsdo.mlds?dialect=org.hibernate.dialect.ProgressDialect";
+		String hibernateUrl = "hibernate:spring:ca.intelliware.ihtsdo.mlds?dialect=org.hibernate.dialect.PostgreSQL82Dialect";
 		//String hibernateUrl = "hibernate:ejb3:mlds?dialect=org.hibernate.dialect.PostgreSQL9Dialect";
 		Database hibernateDatabase = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(new HibernateConnection(hibernateUrl)));
 

@@ -1,7 +1,7 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>  
 <%@page import="org.apache.commons.io.IOUtils"%>
 <%@page import="java.io.Reader"%>
 <%@page import="java.io.InputStreamReader"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>  
 <%@page import="java.util.List"%>
 <%@page import="ca.intelliware.ihtsdo.mlds.web.TemplateCollector"%>
 <%@page import="java.nio.file.FileVisitor"%>
@@ -58,7 +58,7 @@
 	<script src="js/app/controllers/UserListController.js"></script>
 	<script src="js/app/controllers/UserRegistrationFlowController.js"></script>
 	<script src="js/app/controllers/UserRegistrationApprovalController.js"></script>
-	<script src="js/app/controllers/DashboardController.js"></script>
+	<script src="js/app/controllers/UserDashboardController.js"></script>
 	<script src="js/app/controllers/AdminDashboardController.js"></script>
 	<script src="js/app/translations.js"></script>
 </body>
