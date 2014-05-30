@@ -13,26 +13,13 @@ angular.module('MLDS-Registration', ['MLDS'])
 	.config(
         ['$routeProvider', function ($routeProvider) {
           $routeProvider
-            .when('/registration', {
-              templateUrl: 'templates/Registration.jsp',
-              controller: 'UserRegistrationController'
+          .when('/', {
+              templateUrl: 'templates/LandingPage.html',
+              controller: 'LandingPageController'
+          })
+            .when('/emailVerification', {
+            	templateUrl: 'templates/registration/emailVerification.html',
             })
-            
-            .when('/registration-flow', {
-              templateUrl: 'templates/RegistrationFlow.jsp',
-              controller: 'UserRegistrationFlowController'
-            })
-            
-            .when('/registration-progress', {
-              templateUrl: 'templates/RegistrationApproval.jsp',
-              controller: 'UserRegistrationApprovalController'
-            })
-            
-            .when('/', {
-                templateUrl: 'templates/LandingPage.html',
-                controller: 'UserLoginController'
-            })
-            
             .otherwise({
               redirectTo: '/'
             });
@@ -47,6 +34,15 @@ angular.module('MLDS-User', ['MLDS'])
             templateUrl: 'templates/User/Dashboard.html',
             controller: 'UserDashboardController'
         })
+        .when('/affiliateRegistration', {
+          templateUrl: 'templates/registration/affiliateRegistration.html',
+        })
+        
+        .when('/pendingRegistration', {
+          templateUrl: 'templates/registration/pendingRegistration.html',
+        })
+            
+            
         .otherwise({
           redirectTo: '/'
         });
