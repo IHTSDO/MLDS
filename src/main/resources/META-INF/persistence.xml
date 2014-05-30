@@ -8,6 +8,7 @@
     	<properties>
     		<!-- prevents flushing inserts too early for large insert sets -->
     		<property name="hibernate.default_batch_fetch_size" value="100"/>
+    		<property name="hibernate.id.new_generator_mappings" value="true"/>
     	</properties>
     </persistence-unit>
 </persistence>
