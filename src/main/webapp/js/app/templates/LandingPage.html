@@ -4,14 +4,14 @@
      <p class="navbar-brand">IHTSDO</p>
     </div>
         <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right">
+          <form class="navbar-form navbar-right" action="/j_spring_security_check" method="POST">
             <div class="form-group">
               <input type="text" placeholder="Email" class="form-control">
             </div>
             <div class="form-group">
               <input type="password" placeholder="Password" class="form-control">
             </div>
-            <a class="btn btn-default" href="#/dashboard">Login</a>
+            <button class="btn btn-default" type="submit">Login</button>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
