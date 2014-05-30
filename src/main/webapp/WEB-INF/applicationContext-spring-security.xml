@@ -44,7 +44,7 @@
 		<beans:property name="client" ref="stormpathClient"/>
 		<beans:property name="applicationRestUrl" value="https://api.stormpath.com/v1/applications/25dDiN6pTMT6tP1sfQGP78"/>
 	</beans:bean>
-	<beans:bean id="stormpathClient" class="ca.intelliware.ihtsdo.mlds.web.StormpathClientFactory">
+	<beans:bean id="stormpathClient" class="ca.intelliware.ihtsdo.mlds.stormpath.StormpathClientFactory">
 		<beans:property name="apiKeyProperties">
 			<beans:props>
 				<beans:prop key="apiKey.id">59DFF1KVG4OXXEJGVZNX04QXM</beans:prop>
