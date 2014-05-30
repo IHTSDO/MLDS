@@ -15,7 +15,6 @@ angular.module('MLDS-Registration', ['MLDS'])
           $routeProvider
           .when('/', {
               templateUrl: 'templates/LandingPage.html',
-              controller: 'LandingPageController'
           })
             .when('/emailVerification', {
             	templateUrl: 'templates/registration/emailVerification.html',
