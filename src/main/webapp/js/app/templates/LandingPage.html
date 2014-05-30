@@ -1,15 +1,17 @@
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-inverse  navbar-fixed-top landing-masthead">
       <div class="container">
-
+ <div class="navbar-header">
+     <p class="navbar-brand">IHTSDO</p>
+    </div>
         <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form">
+          <form class="navbar-form navbar-right">
             <div class="form-group">
               <input type="text" placeholder="Email" class="form-control">
             </div>
             <div class="form-group">
               <input type="password" placeholder="Password" class="form-control">
             </div>
-            <a class="btn btn-success" href="#/registration">Register</a>
+            <a class="btn btn-success" href="#/dashboard">Login</a>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
@@ -17,10 +19,10 @@
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <div class="container">
-      
+      <div class="container" id="welcome">
       <div class="col-lg-8">
-       	<img src="images/ihtsdo-logo-lg.gif" alt="ihtsdo-logo" width="516" height="102">
+      	<img src="images/logo.jpg" alt="ihtsdo-logo" width="455" height="114">
+     		<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus interdum metus in leo rutrum, a pellentesque mi pretium. </p>
 			<ul>
 				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
@@ -29,8 +31,8 @@
 			</ul>
 		</div>
 	<div class="col-lg-4">
-      <form class="form" ng-submit="createUser()">
-        <h2 class="form-signin-heading">Register</h2>
+      <form class="form signin"  ng-submit="createUser()">
+        <h4 class="form-signin-heading">Register</h4>
         <div class="form-group">
 	        <input type="text" class="form-control" placeholder="Your name" required autofocus>
 	      </div>
@@ -41,7 +43,7 @@
 	        <input type="password" class="form-control" placeholder="Password" required>
 	      </div>
 	      
-		 <a class="btn btn-lg btn-primary btn-block" href="#/registration">Register</a>
+		 <a class="btn btn-lg btn-primary btn-block" href="#/registration">Start Registration</a>
 		  
 	      </form>
 		</div>
@@ -71,6 +73,6 @@
       <hr>
 
       <footer>
-        <p>&copy; Company 2014</p>
+        <p>&copy; IHTSDO 2014</p>
       </footer>
     </div> <!-- /container -->
