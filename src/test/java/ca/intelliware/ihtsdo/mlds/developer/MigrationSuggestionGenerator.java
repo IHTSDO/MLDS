@@ -28,12 +28,10 @@ public class MigrationSuggestionGenerator {
 		initSpring();
 		
 		Database jdbcConnectionDatabase = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(dataSource.getConnection()));
-		jdbcConnectionDatabase.setDefaultSchemaName("CrossReference");
 
 		String hibernateUrl = "hibernate:spring:ca.intelliware.ihtsdo.mlds?dialect=org.hibernate.dialect.ProgressDialect";
 		//String hibernateUrl = "hibernate:ejb3:mlds?dialect=org.hibernate.dialect.PostgreSQL9Dialect";
 		Database hibernateDatabase = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(new HibernateConnection(hibernateUrl)));
-	    hibernateDatabase.setDefaultSchemaName("CrossReference");
 
 		CommandLineUtils.doDiffToChangeLog(null,hibernateDatabase, jdbcConnectionDatabase, diffControl);
 	}
