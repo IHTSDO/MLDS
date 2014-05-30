@@ -5839,10 +5839,6 @@ button.close {
   height: 80px;
   margin-bottom: 30px;
 }
-.sidenav.affix {
-  position: fixed;
-  top: 30px;
-}
 #applicant {
   position: relative;
 }
@@ -5853,4 +5849,10 @@ button.close {
 #applicant .thumbnail .btn {
   position: absolute;
   bottom: 28px;
+}
+.terms {
+  height: 400px;
+  overflow: scroll;
+  padding: 0 10px;
+  margin-bottom: 10px;
 }

@@ -217,7 +217,26 @@
 						<div class="panel-body">
 							<div class="terms">
 							
-							<h3>Website Terms &amp; Conditions</h3>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna leo, gravida vitae diam posuere, posuere accumsan mauris. Morbi sed erat ut velit ultrices interdum. Proin id enim posuere, gravida sapien non, rutrum nibh. Maecenas sollicitudin velit nec sollicitudin euismod. Vivamus ac hendrerit mi. Vivamus viverra, libero ut facilisis tempus, mauris lorem accumsan sem, ut congue dui ipsum eu velit. Curabitur rhoncus faucibus neque a semper. Suspendisse ultricies nisi nec magna hendrerit tincidunt in sit amet dui.
+							
+							Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget blandit odio. Sed vitae egestas dui. Sed eu pulvinar metus, nec imperdiet lorem. Donec elementum arcu et enim scelerisque, ut dictum justo dictum. Cras et turpis a enim facilisis facilisis id sed justo. Donec semper pharetra quam et dapibus.
+							
+							Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce quis eros ante. Nam fringilla in justo eu gravida. Mauris a ullamcorper tellus, in pulvinar elit. Curabitur varius lectus quis enim faucibus semper. Nullam nunc libero, ultrices eu bibendum et, facilisis id nunc. Nam sit amet sapien neque. Mauris vitae urna sagittis lorem faucibus elementum a vitae risus.
+							
+							In hac habitasse platea dictumst. Nullam vestibulum leo turpis, sed luctus tellus lacinia vel. Sed est diam, laoreet sed consectetur vel, tristique vitae magna. Aenean augue tortor, rhoncus viverra nunc in, ultricies egestas risus. Proin porttitor massa nec eros faucibus, fermentum porttitor quam auctor. Phasellus a nibh erat. Donec dapibus ante id urna lacinia rhoncus. Nulla facilisi. Aenean sodales mauris ut placerat dapibus.
+							
+							Integer metus metus, consectetur ut tortor at, lacinia hendrerit nisl. Phasellus et ultrices sapien. Donec in erat tellus. Fusce eu lorem a nunc molestie consectetur sed ac ligula. Vivamus non cursus nisl. Fusce vestibulum ante id odio tincidunt, et semper massa laoreet. Ut porta erat sem, quis pharetra ante feugiat non. Duis tristique, nulla at aliquet lacinia, elit mi aliquam mi, vel blandit odio dui vitae lorem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris pellentesque, enim a pulvinar condimentum, dui lorem vestibulum odio, eu cursus odio justo non sem. Praesent bibendum tellus nec urna fermentum vulputate id sit amet libero.
+							
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna leo, gravida vitae diam posuere, posuere accumsan mauris. Morbi sed erat ut velit ultrices interdum. Proin id enim posuere, gravida sapien non, rutrum nibh. Maecenas sollicitudin velit nec sollicitudin euismod. Vivamus ac hendrerit mi. Vivamus viverra, libero ut facilisis tempus, mauris lorem accumsan sem, ut congue dui ipsum eu velit. Curabitur rhoncus faucibus neque a semper. Suspendisse ultricies nisi nec magna hendrerit tincidunt in sit amet dui.
+							
+							Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget blandit odio. Sed vitae egestas dui. Sed eu pulvinar metus, nec imperdiet lorem. Donec elementum arcu et enim scelerisque, ut dictum justo dictum. Cras et turpis a enim facilisis facilisis id sed justo. Donec semper pharetra quam et dapibus.
+							
+							Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce quis eros ante. Nam fringilla in justo eu gravida. Mauris a ullamcorper tellus, in pulvinar elit. Curabitur varius lectus quis enim faucibus semper. Nullam nunc libero, ultrices eu bibendum et, facilisis id nunc. Nam sit amet sapien neque. Mauris vitae urna sagittis lorem faucibus elementum a vitae risus.
+							
+							In hac habitasse platea dictumst. Nullam vestibulum leo turpis, sed luctus tellus lacinia vel. Sed est diam, laoreet sed consectetur vel, tristique vitae magna. Aenean augue tortor, rhoncus viverra nunc in, ultricies egestas risus. Proin porttitor massa nec eros faucibus, fermentum porttitor quam auctor. Phasellus a nibh erat. Donec dapibus ante id urna lacinia rhoncus. Nulla facilisi. Aenean sodales mauris ut placerat dapibus.
+							
+							Integer metus metus, consectetur ut tortor at, lacinia hendrerit nisl. Phasellus et ultrices sapien. Donec in erat tellus. Fusce eu lorem a nunc molestie consectetur sed ac ligula. Vivamus non cursus nisl. Fusce vestibulum ante id odio tincidunt, et semper massa laoreet. Ut porta erat sem, quis pharetra ante feugiat non. Duis tristique, nulla at aliquet lacinia, elit mi aliquam mi, vel blandit odio dui vitae lorem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris pellentesque, enim a pulvinar condimentum, dui lorem vestibulum odio, eu cursus odio justo non sem. Praesent bibendum tellus nec urna fermentum vulputate id sit amet libero.
+							
 							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna leo, gravida vitae diam posuere, posuere accumsan mauris. Morbi sed erat ut velit ultrices interdum. Proin id enim posuere, gravida sapien non, rutrum nibh. Maecenas sollicitudin velit nec sollicitudin euismod. Vivamus ac hendrerit mi. Vivamus viverra, libero ut facilisis tempus, mauris lorem accumsan sem, ut congue dui ipsum eu velit. Curabitur rhoncus faucibus neque a semper. Suspendisse ultricies nisi nec magna hendrerit tincidunt in sit amet dui.
 							
 							Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget blandit odio. Sed vitae egestas dui. Sed eu pulvinar metus, nec imperdiet lorem. Donec elementum arcu et enim scelerisque, ut dictum justo dictum. Cras et turpis a enim facilisis facilisis id sed justo. Donec semper pharetra quam et dapibus.
@@ -227,12 +246,14 @@
 							In hac habitasse platea dictumst. Nullam vestibulum leo turpis, sed luctus tellus lacinia vel. Sed est diam, laoreet sed consectetur vel, tristique vitae magna. Aenean augue tortor, rhoncus viverra nunc in, ultricies egestas risus. Proin porttitor massa nec eros faucibus, fermentum porttitor quam auctor. Phasellus a nibh erat. Donec dapibus ante id urna lacinia rhoncus. Nulla facilisi. Aenean sodales mauris ut placerat dapibus.
 							
 							Integer metus metus, consectetur ut tortor at, lacinia hendrerit nisl. Phasellus et ultrices sapien. Donec in erat tellus. Fusce eu lorem a nunc molestie consectetur sed ac ligula. Vivamus non cursus nisl. Fusce vestibulum ante id odio tincidunt, et semper massa laoreet. Ut porta erat sem, quis pharetra ante feugiat non. Duis tristique, nulla at aliquet lacinia, elit mi aliquam mi, vel blandit odio dui vitae lorem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris pellentesque, enim a pulvinar condimentum, dui lorem vestibulum odio, eu cursus odio justo non sem. Praesent bibendum tellus nec urna fermentum vulputate id sit amet libero. 
-						</div>
-							<div class="pull-right">
-										<label>
+							
+							
+							<div class="clearfix">
+										<label class="cen">
 											<input type="checkbox"> I agree to the Terms &amp; Conditions
 										</label>						
 							</div>
+						</div>
 						</div>
 				</div>
 		</div>
@@ -255,13 +276,37 @@
 							
 							In hac habitasse platea dictumst. Nullam vestibulum leo turpis, sed luctus tellus lacinia vel. Sed est diam, laoreet sed consectetur vel, tristique vitae magna. Aenean augue tortor, rhoncus viverra nunc in, ultricies egestas risus. Proin porttitor massa nec eros faucibus, fermentum porttitor quam auctor. Phasellus a nibh erat. Donec dapibus ante id urna lacinia rhoncus. Nulla facilisi. Aenean sodales mauris ut placerat dapibus.
 							
+							Integer metus metus, consectetur ut tortor at, lacinia hendrerit nisl. Phasellus et ultrices sapien. Donec in erat tellus. Fusce eu lorem a nunc molestie consectetur sed ac ligula. Vivamus non cursus nisl. Fusce vestibulum ante id odio tincidunt, et semper massa laoreet. Ut porta erat sem, quis pharetra ante feugiat non. Duis tristique, nulla at aliquet lacinia, elit mi aliquam mi, vel blandit odio dui vitae lorem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris pellentesque, enim a pulvinar condimentum, dui lorem vestibulum odio, eu cursus odio justo non sem. Praesent bibendum tellus nec urna fermentum vulputate id sit amet libero.
+							
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna leo, gravida vitae diam posuere, posuere accumsan mauris. Morbi sed erat ut velit ultrices interdum. Proin id enim posuere, gravida sapien non, rutrum nibh. Maecenas sollicitudin velit nec sollicitudin euismod. Vivamus ac hendrerit mi. Vivamus viverra, libero ut facilisis tempus, mauris lorem accumsan sem, ut congue dui ipsum eu velit. Curabitur rhoncus faucibus neque a semper. Suspendisse ultricies nisi nec magna hendrerit tincidunt in sit amet dui.
+							
+							Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget blandit odio. Sed vitae egestas dui. Sed eu pulvinar metus, nec imperdiet lorem. Donec elementum arcu et enim scelerisque, ut dictum justo dictum. Cras et turpis a enim facilisis facilisis id sed justo. Donec semper pharetra quam et dapibus.
+							
+							Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce quis eros ante. Nam fringilla in justo eu gravida. Mauris a ullamcorper tellus, in pulvinar elit. Curabitur varius lectus quis enim faucibus semper. Nullam nunc libero, ultrices eu bibendum et, facilisis id nunc. Nam sit amet sapien neque. Mauris vitae urna sagittis lorem faucibus elementum a vitae risus.
+							
+							In hac habitasse platea dictumst. Nullam vestibulum leo turpis, sed luctus tellus lacinia vel. Sed est diam, laoreet sed consectetur vel, tristique vitae magna. Aenean augue tortor, rhoncus viverra nunc in, ultricies egestas risus. Proin porttitor massa nec eros faucibus, fermentum porttitor quam auctor. Phasellus a nibh erat. Donec dapibus ante id urna lacinia rhoncus. Nulla facilisi. Aenean sodales mauris ut placerat dapibus.
+							
+							Integer metus metus, consectetur ut tortor at, lacinia hendrerit nisl. Phasellus et ultrices sapien. Donec in erat tellus. Fusce eu lorem a nunc molestie consectetur sed ac ligula. Vivamus non cursus nisl. Fusce vestibulum ante id odio tincidunt, et semper massa laoreet. Ut porta erat sem, quis pharetra ante feugiat non. Duis tristique, nulla at aliquet lacinia, elit mi aliquam mi, vel blandit odio dui vitae lorem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris pellentesque, enim a pulvinar condimentum, dui lorem vestibulum odio, eu cursus odio justo non sem. Praesent bibendum tellus nec urna fermentum vulputate id sit amet libero.
+							
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna leo, gravida vitae diam posuere, posuere accumsan mauris. Morbi sed erat ut velit ultrices interdum. Proin id enim posuere, gravida sapien non, rutrum nibh. Maecenas sollicitudin velit nec sollicitudin euismod. Vivamus ac hendrerit mi. Vivamus viverra, libero ut facilisis tempus, mauris lorem accumsan sem, ut congue dui ipsum eu velit. Curabitur rhoncus faucibus neque a semper. Suspendisse ultricies nisi nec magna hendrerit tincidunt in sit amet dui.
+							
+							Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget blandit odio. Sed vitae egestas dui. Sed eu pulvinar metus, nec imperdiet lorem. Donec elementum arcu et enim scelerisque, ut dictum justo dictum. Cras et turpis a enim facilisis facilisis id sed justo. Donec semper pharetra quam et dapibus.
+							
+							Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce quis eros ante. Nam fringilla in justo eu gravida. Mauris a ullamcorper tellus, in pulvinar elit. Curabitur varius lectus quis enim faucibus semper. Nullam nunc libero, ultrices eu bibendum et, facilisis id nunc. Nam sit amet sapien neque. Mauris vitae urna sagittis lorem faucibus elementum a vitae risus.
+							
+							In hac habitasse platea dictumst. Nullam vestibulum leo turpis, sed luctus tellus lacinia vel. Sed est diam, laoreet sed consectetur vel, tristique vitae magna. Aenean augue tortor, rhoncus viverra nunc in, ultricies egestas risus. Proin porttitor massa nec eros faucibus, fermentum porttitor quam auctor. Phasellus a nibh erat. Donec dapibus ante id urna lacinia rhoncus. Nulla facilisi. Aenean sodales mauris ut placerat dapibus.
+							
 							Integer metus metus, consectetur ut tortor at, lacinia hendrerit nisl. Phasellus et ultrices sapien. Donec in erat tellus. Fusce eu lorem a nunc molestie consectetur sed ac ligula. Vivamus non cursus nisl. Fusce vestibulum ante id odio tincidunt, et semper massa laoreet. Ut porta erat sem, quis pharetra ante feugiat non. Duis tristique, nulla at aliquet lacinia, elit mi aliquam mi, vel blandit odio dui vitae lorem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris pellentesque, enim a pulvinar condimentum, dui lorem vestibulum odio, eu cursus odio justo non sem. Praesent bibendum tellus nec urna fermentum vulputate id sit amet libero. 
-						</div>
-							<div class="pull-right">
-										<label>
+							
+							
+							<div class="clearfix">
+										<label class="cen">
 											<input type="checkbox"> I agree to the Terms &amp; Conditions
 										</label>						
 							</div>
+						
+						</div>
+							
 						</div>
 						</div>
 				</div>
