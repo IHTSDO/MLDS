@@ -1,4 +1,13 @@
+<%@page import="org.apache.commons.io.IOUtils"%>
+<%@page import="java.io.Reader"%>
+<%@page import="java.io.InputStreamReader"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>  
+<%@page import="java.util.List"%>
+<%@page import="ca.intelliware.ihtsdo.mlds.web.TemplateCollector"%>
+<%@page import="java.nio.file.FileVisitor"%>
+<%@page import="java.nio.file.Path"%>
+<%@page import="java.nio.file.Files"%>
+
 <html id="ng-app" ng-app="${applicationName}">
 <head>
 <title ng-bind="'TITLE' | translate">IHTSDO - MLDS</title>
@@ -16,14 +25,19 @@
 	</div>
 	
 	
-	<script type='text/ng-template' id='templates/LandingPage.html'><%@include file="js/app/templates/LandingPage.html" %></script>
-	<script type='text/ng-template' id='templates/Login.jsp'><%@include file="js/app/templates/Login.jsp" %></script>
-	<script type='text/ng-template' id='templates/Registration.jsp'><%@include file="js/app/templates/Registration.jsp" %></script>
-	<script type='text/ng-template' id='templates/RegistrationFlow.jsp'><%@include file="js/app/templates/RegistrationFlow.jsp" %></script>
-	<script type='text/ng-template' id='templates/RegistrationApproval.jsp'><%@include file="js/app/templates/RegistrationApproval.jsp" %></script>
-
-	<script type='text/ng-template' id='templates/Admin/Dashboard.html'><%@include file="js/app/templates/Admin/Dashboard.html" %></script>
-	<script type='text/ng-template' id='templates/User/Dashboard.html'><%@include file="js/app/templates/User/Dashboard.html" %></script>
+	<%
+		TemplateCollector collector =  (TemplateCollector)request.getAttribute("templateCollector");
+		List<String> templateFiles = collector.getRelativeFiles("/js/app/templates");
+		for(String templateFile: templateFiles) {
+			Reader templateReader = new InputStreamReader(config.getServletContext().getResourceAsStream("/js/app/templates/" +templateFile),"UTF-8");
+			%>
+			<script type='text/ng-template' id='templates/<%= templateFile %>'><%
+				IOUtils.copy(templateReader, out);
+				templateReader.close();
+			%></script>
+			<%
+		}
+	%>
 	
 	<script src="bower_components/jquery/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
@@ -39,9 +53,9 @@
 	<script src="js/app/app.js"></script>
 	<script src="js/app/services/UserRegistrationService.js"></script>
 	<script src="js/app/services/Events.js"></script>
-	<script src="js/app/controllers/UserLoginController.js"></script>
+	<script src="js/app/controllers/registration/UserRegistrationController.js"></script>
+	<script src="js/app/controllers/LandingPageController.js"></script>
 	<script src="js/app/controllers/UserListController.js"></script>
-	<script src="js/app/controllers/UserRegistrationController.js"></script>
 	<script src="js/app/controllers/UserRegistrationFlowController.js"></script>
 	<script src="js/app/controllers/UserRegistrationApprovalController.js"></script>
 	<script src="js/app/controllers/DashboardController.js"></script>
