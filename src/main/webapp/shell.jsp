@@ -59,6 +59,7 @@
 	<script src="js/app/controllers/UserRegistrationFlowController.js"></script>
 	<script src="js/app/controllers/UserRegistrationApprovalController.js"></script>
 	<script src="js/app/controllers/DashboardController.js"></script>
+	<script src="js/app/controllers/AdminDashboardController.js"></script>
 	<script src="js/app/translations.js"></script>
 </body>
 </html>
