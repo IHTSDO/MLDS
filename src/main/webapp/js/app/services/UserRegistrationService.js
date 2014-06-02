@@ -12,6 +12,10 @@ angular.module('MLDS')
 					    method: 'POST',
 					    url: '/registrations/create',
 					    params: user
+					})
+					.error(function(data) {
+						console.log(data);
+						$rootScope.$broadcast(Events.registrationError, data);
 					});
 				
 				httpPromise.then(function() {

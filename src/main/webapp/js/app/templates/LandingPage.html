@@ -25,6 +25,7 @@
 	<div class="col-lg-4">
 		<div class="signin">
 			<form class="form" ng-controller="NewUserRegistrationController" ng-submit="createUser()">
+				<span ng-show="error" class="label label-danger">{{error.developerMessage}}</span>
 				<h4 class="form-signin-heading">Register</h4>
 	        <div class="form-group">
 		        <input ng-model="user.name" type="text" class="form-control" placeholder="Your name" required autofocus>
