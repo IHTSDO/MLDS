@@ -2,6 +2,7 @@ package ca.intelliware.ihtsdo.mlds.stormpath;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.stormpath.sdk.account.Account;
@@ -73,7 +74,8 @@ public class StormpathApplicationSetup {
 	}
 
 
-	private void init() {
+	@Before
+	public void init() {
 		ApiKey apiKey = ApiKeys.builder()
 				.setId("***REMOVED***")
 				.setSecret("S35jsyb1CVUL0JVj6fPsTNTol8tp3Qq85Eusva631aQ")
