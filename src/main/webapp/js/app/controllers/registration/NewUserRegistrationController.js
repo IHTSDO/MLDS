@@ -2,7 +2,7 @@
 
 angular.module('MLDS')
     .controller('NewUserRegistrationController',
-        [ '$scope', '$log', 'UserRegistrationService', function ($scope, $log, UserRegistrationService) {
+        [ '$scope', '$log', 'UserRegistrationService', '$location', function ($scope, $log, UserRegistrationService, $location) {
         	
         	$scope.user = {};
         	
@@ -12,8 +12,7 @@ angular.module('MLDS')
         	
         	$scope.createUser = function() {
         		UserRegistrationService.createUser($scope.user).then(function(response) {
-        			// FIXME MLDS-02 Extract navigation to service.
-					window.location = '/emailVerification';  			
+        			$location.path('/emailVerification');  			
 				});
         	};
         	
