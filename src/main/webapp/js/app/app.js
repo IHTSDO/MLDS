@@ -10,14 +10,14 @@ angular.module('MLDS', ['ngCookies', 'ngResource', 'ngRoute', 'pascalprecht.tran
     );
 
 angular.module('MLDS-Registration', ['MLDS'])
-	.config(
-        ['$routeProvider', function ($routeProvider) {
+.config(
+    ['$routeProvider', function ($routeProvider) {
           $routeProvider
-          .when('/', {
-              templateUrl: 'templates/LandingPage.html',
-          })
+            .when('/', {
+                templateUrl: 'templates/LandingPage.html',
+            })
             .when('/emailVerification', {
-            	templateUrl: 'templates/registration/emailVerification.html',
+                templateUrl: 'templates/registration/emailVerification.html',
             })
             .otherwise({
               redirectTo: '/'
