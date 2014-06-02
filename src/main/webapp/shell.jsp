@@ -29,9 +29,10 @@
 		TemplateCollector collector =  (TemplateCollector)request.getAttribute("templateCollector");
 		List<String> templateFiles = collector.getRelativeFiles("/js/app/templates");
 		for(String templateFile: templateFiles) {
-			Reader templateReader = new InputStreamReader(config.getServletContext().getResourceAsStream("/js/app/templates/" +templateFile),"UTF-8");
+			Reader templateReader = new InputStreamReader(config.getServletContext().getResourceAsStream("/js/app/templates/" +templateFile),"UTF-8");			
+			String url = templateFile.replace("\\", "/");			
 			%>
-			<script type='text/ng-template' id='templates/<%= templateFile %>'><%
+			<script type='text/ng-template' id='templates/<%= url %>'><%
 				IOUtils.copy(templateReader, out);
 				templateReader.close();
 			%></script>
@@ -54,7 +55,6 @@
 	<script src="js/app/services/UserRegistrationService.js"></script>
 	<script src="js/app/services/Events.js"></script>
 	<script src="js/app/controllers/registration/NewUserRegistrationController.js"></script>
-	<script src="js/app/controllers/LandingPageController.js"></script>
 	<script src="js/app/controllers/UserListController.js"></script>
 	<script src="js/app/controllers/UserRegistrationFlowController.js"></script>
 	<script src="js/app/controllers/UserRegistrationApprovalController.js"></script>
