@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import ca.intelliware.ihtsdo.mlds.stormpath.StormpathApplication;
+
 @Controller
 public class UserRegistrationController {
 	@Resource
@@ -25,7 +27,11 @@ public class UserRegistrationController {
 	
 	@RequestMapping(value="/registrations/create",method=RequestMethod.POST)
 	@ResponseStatus( HttpStatus.OK )
-	public void createRegistration(@RequestParam String email) {
+	public void createRegistration(@RequestParam String email, @RequestParam String name, @RequestParam String password) {
+		
+		StormpathApplication application = new StormpathApplication();
+		application.createUser(email, password, name, name, name);
+		
 		userRegistrationService.createRegistration(email);
 	}
 
