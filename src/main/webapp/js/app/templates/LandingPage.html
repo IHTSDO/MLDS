@@ -1,22 +1,19 @@
-      <div class="navbar navbar-inverse  navbar-fixed-top landing-masthead">
+      <div class="navbar navbar-inverse  navbar-fixed-top masthead">
       <div class="container">
  <div class="navbar-header">
-     <p class="navbar-brand">IHTSDO</p>
+  	<img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo">
     </div>
-        <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" action="/j_spring_security_check" method="POST">
+          <form class="navbar-form navbar-right navbar-login">
             <div class="form-group">
               <input type="text" placeholder="Email" class="form-control">
             </div>
             <div class="form-group">
               <input type="password" placeholder="Password" class="form-control">
             </div>
-            <button class="btn btn-default" type="submit">Login</button>
+            <a class="btn btn-default" href="#/dashboard">Login</a>
           </form>
-        </div><!--/.navbar-collapse -->
       </div>
     </div>
-
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container" id="welcome">
@@ -25,7 +22,7 @@
      		<h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus interdum metus in leo rutrum, a pellentesque mi pretium. </p>
 		</div>
-	<div class="col-lg-4"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo">
+	<div class="col-lg-4">
       <form class="form signin" ng-controller="NewUserRegistrationController" ng-submit="createUser()">
         <h4 class="form-signin-heading">Register</h4>
         <div class="form-group">
@@ -49,16 +46,19 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
+        <img src="http://placehold.it/350x150">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
+          <img src="http://placehold.it/350x150">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
        </div>
         <div class="col-md-4">
+       <img src="http://placehold.it/350x150"> 
           <h2>Heading</h2>
           <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
