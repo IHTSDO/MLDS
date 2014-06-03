@@ -35,6 +35,7 @@ angular.module('MLDS-User', ['MLDS'])
         })
         .when('/affiliateRegistration', {
           templateUrl: 'templates/registration/affiliateRegistration.html',
+          controller: 'AffiliateRegistrationController'
         })
         
         .when('/pendingRegistration', {
