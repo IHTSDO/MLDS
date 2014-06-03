@@ -55,6 +55,7 @@
 	<script src="js/app/services/UserRegistrationService.js"></script>
 	<script src="js/app/services/Events.js"></script>
 	<script src="js/app/controllers/registration/NewUserRegistrationController.js"></script>
+	<script src="js/app/controllers/registration/AffiliateRegistrationController.js"></script>
 	<script src="js/app/controllers/UserListController.js"></script>
 	<script src="js/app/controllers/UserRegistrationFlowController.js"></script>
 	<script src="js/app/controllers/UserRegistrationApprovalController.js"></script>
