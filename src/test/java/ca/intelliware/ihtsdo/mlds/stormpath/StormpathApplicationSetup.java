@@ -1,7 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.stormpath;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +8,6 @@ import com.stormpath.sdk.application.Application;
 import com.stormpath.sdk.application.ApplicationList;
 import com.stormpath.sdk.application.Applications;
 import com.stormpath.sdk.application.CreateApplicationRequest;
-import com.stormpath.sdk.application.CreateApplicationRequestBuilder;
 import com.stormpath.sdk.authc.AuthenticationRequest;
 import com.stormpath.sdk.authc.AuthenticationResult;
 import com.stormpath.sdk.authc.UsernamePasswordRequest;
