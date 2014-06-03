@@ -4380,7 +4380,7 @@ a.list-group-item.active > .badge,
 }
 .jumbotron h1,
 .jumbotron .h1 {
-  color: inherit;
+  color: #4372aa;
 }
 .jumbotron p {
   margin-bottom: 15px;
@@ -5802,13 +5802,6 @@ button.close {
     display: none !important;
   }
 }
-#welcome {
-  padding: 30px 0 0;
-}
-#welcome h1 {
-  padding-top: 60px;
-  color: #4372aa;
-}
 .navbar-login {
   margin-top: 20px;
 }
@@ -5817,8 +5810,8 @@ button.close {
   background-color: #f5f5f5;
   border-radius: 6px;
   border: 1px solid #ededed;
-  height: 280px;
-  margin-top: 60px;
+  height: 300px;
+  margin-top: 30px;
 }
 .intro {
   background-color: #ffffff;
