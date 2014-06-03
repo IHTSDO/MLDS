@@ -1,7 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.registration;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.junit.Assert;
@@ -28,8 +26,8 @@ public class UserRegistrationIntegrationTest {
 		String email = "email" + System.currentTimeMillis() + "@example.com";
 		controller.createRegistration(email);
 		
-		List<UserRegistration> found = userRegistrationRepository.findByEmail(email);
-		Assert.assertTrue("found some", !found.isEmpty());
+		UserRegistration found = userRegistrationRepository.findByEmail(email);
+		Assert.assertNotNull("found some", found);
 		
 	}
 }
