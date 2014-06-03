@@ -1,3 +1,4 @@
+<%@page import="org.codehaus.jackson.map.ObjectMapper"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>  
 <%@page import="org.apache.commons.io.IOUtils"%>
 <%@page import="java.io.Reader"%>
@@ -39,6 +40,10 @@
 			<%
 		}
 	%>
+	<script type="text/javascript">
+		var mlds = mlds || {};
+		mlds.userRegistration = <%= new ObjectMapper().writer().writeValueAsString(request.getAttribute("userRegistration")) %>;
+	</script>
 	
 	<script src="bower_components/jquery/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>

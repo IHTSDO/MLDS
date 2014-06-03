@@ -2,7 +2,6 @@ package ca.intelliware.ihtsdo.mlds.web;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
