@@ -1,0 +1,2 @@
+
+ihtsdo-demo.intware.com ansible_ssh_user=administrator ansible_ask_sudo_pass=True ask_sudo_pass=True ansible_sudo_pass=88888
