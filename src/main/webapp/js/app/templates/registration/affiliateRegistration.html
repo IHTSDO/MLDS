@@ -55,7 +55,8 @@
 												<div class="center-block">
 													<p class="block-centre">
 														<label for="individual" class="btn btn-lg btn-default">Individual
-															<input style="display: none;" type="radio"  id="individual"  ng-model="affilateform.type" value="Individual">
+															<input style="display: none;" type="radio"  id="individual"  
+															ng-model="affilateform.type" value="Individual">
 														</label>
 													</p>
 												</div>
@@ -71,7 +72,8 @@
 													elit. Aenean commodo ligula eget dolor.</p>
 												<p>
 													<label for="vendor" class="btn btn-lg btn-default">Vendor or Developer
-														<input style="display: none;" type="radio"  id="vendor"  ng-model="affilateform.type" value="Vendor/Developer">
+														<input style="display: none;" type="radio"  id="vendor" 
+														ng-model="affilateform.type" value="Vendor/Developer">
 													</label>
 												</p>
 											</div>
@@ -86,7 +88,8 @@
 													elit. Aenean commodo ligula eget dolor.</p>
 												<p>
 													<label for="research" class="btn btn-lg btn-default">Research Organization
-														<input style="display: none;" type="radio"  id="research"  ng-model="affilateform.type" value="Research Organization">
+														<input style="display: none;" type="radio"  id="research"  
+														ng-model="affilateform.type" value="Research Organization">
 													</label>
 												</p>
 											</div>
@@ -99,18 +102,21 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion"
+									<a ng-click="collapsePanel.organization = !collapsePanel.organization"
 										href="#collapseThree"> Organization </a>
+										
+									
 								</h4>
 							</div>
-							<div id="collapseThree" class="panel-collapse">
+							<div id="collapseThree" class="panel-collapse" ng-show="!collapsePanel.organization">
 								<div class="panel-body">
 									<form>
 										<div class="row">
 											<div class="col-lg-6">
 												<div class="form-group">
 													<label>Name</label> <input class="form-control"
-														placeholder="Organization Name" required autofocus>
+														placeholder="Organization Name" required autofocus 
+														ng-model="affilateform.organization.name">
 												</div>
 											</div>
 										</div>
@@ -118,7 +124,8 @@
 											<div class="col-lg-6">
 												<div class="form-group">
 													<label>Address</label> <input class="form-control"
-														placeholder="123 Somewhere Avenue" required autofocus>
+														placeholder="123 Somewhere Avenue" required autofocus 
+														ng-model="affilateform.organization.address">
 												</div>
 											</div>
 										</div>
@@ -126,13 +133,18 @@
 											<div class="col-lg-3">
 												<div class="form-group">
 													<input class="form-control" placeholder="City" required
-														autofocus>
+														autofocus ng-model="affilateform.organization.city">
 												</div>
 											</div>
 											<div class="col-lg-3">
 												<div class="form-group">
-													<select class="form-control input-md">
+													<select class="form-control input-md" 
+													ng-model="affilateform.organization.country">
 														<option value="">Country</option>
+														<option value="Canada">Canada</option>
+														<option value="Denmark">Denmark</option>
+														<option value="England">England</option>
+														<option value="USA">USA</option>
 													</select>
 												</div>
 											</div>
@@ -141,13 +153,13 @@
 											<div class="col-lg-4">
 												<div class="form-group">
 													<input class="form-control" placeholder="Phone Number"
-														required autofocus>
+														required autofocus ng-model="affilateform.organization.phonenumber">
 												</div>
 											</div>
 											<div class="col-lg-2">
 												<div class="form-group">
 													<input class="form-control" placeholder="Extenstion"
-														required autofocus>
+														required autofocus ng-model="affilateform.organization.extension">
 												</div>
 											</div>
 										</div>
@@ -156,7 +168,7 @@
 												<div class="form-group">
 													<label>Department/Sub Division</label> <input
 														class="form-control" placeholder="Position" required
-														autofocus>
+														autofocus ng-model="affilateform.organization.position">
 												</div>
 											</div>
 										</div>
@@ -164,7 +176,7 @@
 											<div class="col-lg-6">
 												<div class="form-group">
 													<label>Website</label> <input class="form-control"
-														placeholder="www.organization.com" required autofocus>
+														placeholder="www.organization.com" required autofocus ng-model="affilateform.organization.website">
 												</div>
 											</div>
 										</div>
@@ -510,13 +522,18 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">Organization</h3>
 						</div>
-						<div class="panel-body">Organization</div>
+						<div class="panel-body">
+							<label>Name:<span> {{affilateform.organization.name}}</span></label><br>
+							<label>Address:<span>{{affilateform.organization.address}}</span></label><br>
+							<label>City:<span>{{affilateform.organization.city}}</span></label><br>
+							{{affilateform.organization}}
+						</div>
 						<div class="panel-footer">
 							<a class="btn btn-link" href="#">Edit</a>
 						</div>
 					</div>
 					</li>
-
+	
 					</ul>
 				</div>
 			</div>
