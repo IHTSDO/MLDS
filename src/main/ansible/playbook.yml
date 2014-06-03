@@ -1,0 +1,24 @@
+---
+- hosts: all
+  sudo: yes
+  roles:
+    - IHTSDO.oraclejava
+  tasks:
+    - name: ensure postgres is installed
+      apt: pkg=postgresql-9.1 state=latest
+    - name: ansible postgres python deps
+      apt: pkg=python-psycopg2
+    - name: create mlds user
+      sudo_user: postgres
+      postgresql_user: name=mlds password=password role_attr_flags=LOGIN,NOSUPERUSER
+    - name: create mlds db
+      sudo_user: postgres
+      postgresql_db: name=mlds 
+                     encoding='UTF-8' 
+                     lc_collate=en_US.UTF-8
+                     lc_ctype=en_US.UTF-8
+                     template='template0'
+    - name: ensure tomcat7 is at the latest version
+      apt: pkg=tomcat7 state=latest
+    - name: create ssl cert
+      command: keytool -keystore /var/lib/tomcat7/conf/keystore -genkey -alias tomcat -keyalg RSA -keypass changeit -storepass changeit -dname 'CN=IHTSDO-demo, OU=Intelliware-IHTSDO, O=Intelliware, ST=Ontario, C=CA'
