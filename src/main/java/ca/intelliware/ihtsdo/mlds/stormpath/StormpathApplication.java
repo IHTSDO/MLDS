@@ -8,6 +8,7 @@ import com.stormpath.sdk.client.ApiKey;
 import com.stormpath.sdk.client.ApiKeys;
 import com.stormpath.sdk.client.Client;
 import com.stormpath.sdk.client.Clients;
+import com.stormpath.sdk.resource.ResourceException;
 
 public class StormpathApplication {
 	String applicationName = "IHTSDO-MLDS-DEV";
@@ -31,7 +32,7 @@ public class StormpathApplication {
 		client = Clients.builder().setApiKey(apiKey).build();
 	}
 
-	public void createUser(String email, String password, String givenName, String middleName, String surname) {
+	public void createUser(String email, String password, String givenName, String middleName, String surname) throws ResourceException {
 		Account account = client.instantiate(Account.class);
 		account.setEmail(email);
 		account.setPassword(password);
