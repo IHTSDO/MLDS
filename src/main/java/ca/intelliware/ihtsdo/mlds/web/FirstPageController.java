@@ -1,6 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.web;
 
-import java.security.Principal;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -43,6 +42,44 @@ public class FirstPageController   {
 		}
 		return email == null ? null : userRegistrationRepository.findByEmail(email);
 	}
+	
+	public static class UserInfo {
+		UserRegistration userRegistration;
+		boolean hasApplied = false;
+		boolean isApproved = false;
+
+		public boolean getHasApplied() {
+			return hasApplied;
+		}
+
+		public void setHasApplied(boolean hasApplied) {
+			this.hasApplied = hasApplied;
+		}
+		
+		public void setUserRegistration(UserRegistration currentRegistration) {
+			this.userRegistration = currentRegistration;
+		}
+
+		public boolean isApproved() {
+			return isApproved;
+		}
+
+		public void setApproved(boolean isApproved) {
+			this.isApproved = isApproved;
+		}
+
+		public UserRegistration getUserRegistration() {
+			return userRegistration;
+		}
+
+	}
+	private UserInfo createUserInfo() {
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUserRegistration(getCurrentRegistration());
+		userInfo.setHasApplied(true);
+		userInfo.setApproved(true);
+		return userInfo;
+	}
 
 	@RequestMapping("/")
 	public ModelAndView getFirstPage()  {
@@ -53,9 +90,10 @@ public class FirstPageController   {
 		ModelAndView modelAndView = new ModelAndView(new InternalResourceView("shell.jsp"));
 		modelAndView.addObject("applicationName", applicationName);
 		modelAndView.addObject("templateCollector", templateCollector);
-		modelAndView.addObject("userRegistration", getCurrentRegistration());
+		modelAndView.addObject("userInfo", createUserInfo());
 		return modelAndView;
 	}
+
 	@RequestMapping("/dashboard")
 	public ModelAndView getUserDashboard()  {
 		ModelAndView modelAndView = createApplicationShell("MLDS-User");

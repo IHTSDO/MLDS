@@ -1,3 +1,14 @@
+Assuming:
+
+- Java 7
+- Ubuntu
+- Tomcat 7
+- Postgres 9.1
+- Angular 1.2.16
+
+- -K or ansible_sudo_password or ansible hangs on sudo password prompt!!!
+
+
 repositories
 Nexus as deb
 
