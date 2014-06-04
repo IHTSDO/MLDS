@@ -15,8 +15,20 @@ public class Application {
     private Long applicationId;
 	
 	String username;
-	
 	boolean approved;
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
 
 	public boolean isApproved() {
 		return approved;

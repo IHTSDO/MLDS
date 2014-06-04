@@ -2,9 +2,15 @@
 
 angular.module('MLDS')
     .controller('AffiliateRegistrationController',
-        [ '$scope', '$log',  function ($scope, $log) {
+        [ '$scope', '$log', 'UserRegistrationService', function ($scope, $log, UserRegistrationService) {
         	
-        	$scope.affilateform = {};
+        	$scope.affiliateform = {};
+        	
+        	$scope.affiliateform.submit = function affiliateRegistrationSubmit() {
+				$log.log('AffiliateRegistrationController submit()', $scope.affiliateform);
+
+        		UserRegistrationService.createApplication($scope.affiliateform);
+        	};
         	
         	$scope.collapsePanel = {};
         	
