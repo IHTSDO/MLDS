@@ -42,7 +42,7 @@
 	%>
 	<script type="text/javascript">
 		var mlds = mlds || {};
-		mlds.userRegistration = <%= new ObjectMapper().writer().writeValueAsString(request.getAttribute("userRegistration")) %>;
+		mlds.userInfo = <%= new ObjectMapper().writer().writeValueAsString(request.getAttribute("userInfo")) %>;
 	</script>
 	
 	<script src="bower_components/jquery/jquery.js"></script>
@@ -58,6 +58,7 @@
 
 	<script src="js/app/app.js"></script>
 	<script src="js/app/services/UserRegistrationService.js"></script>
+	<script src="js/app/services/UserSession.js"></script>
 	<script src="js/app/services/Events.js"></script>
 	<script src="js/app/controllers/registration/NewUserRegistrationController.js"></script>
 	<script src="js/app/controllers/registration/AffiliateRegistrationController.js"></script>
