@@ -32,7 +32,7 @@ public class StormpathApplication {
 		client = Clients.builder().setApiKey(apiKey).build();
 	}
 
-	public void createUser(String email, String password, String givenName, String middleName, String surname) throws ResourceException {
+	public Account createUser(String email, String password, String givenName, String middleName, String surname) throws ResourceException {
 		Account account = client.instantiate(Account.class);
 		account.setEmail(email);
 		account.setPassword(password);
@@ -40,6 +40,6 @@ public class StormpathApplication {
 		account.setGivenName(givenName);
 		account.setMiddleName(middleName);
 		account.setSurname(surname);
-		application.createAccount(account);
+		return application.createAccount(account);
 	}
 }
