@@ -2049,8 +2049,8 @@ fieldset[disabled] .btn {
 }
 .btn-default {
   color: #ffffff;
-  background-color: #04add8;
-  border-color: #04a1c9;
+  background-color: #bababa;
+  border-color: #e5e5e5;
 }
 .btn-default:hover,
 .btn-default:focus,
@@ -2058,8 +2058,8 @@ fieldset[disabled] .btn {
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
   color: #ffffff;
-  background-color: #038db0;
-  border-color: #03718d;
+  background-color: #a6a6a6;
+  border-color: #c7c7c7;
 }
 .btn-default:active,
 .btn-default.active,
@@ -2081,11 +2081,11 @@ fieldset[disabled] .btn-default:active,
 .btn-default.disabled.active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
-  background-color: #04add8;
-  border-color: #04a1c9;
+  background-color: #bababa;
+  border-color: #e5e5e5;
 }
 .btn-default .badge {
-  color: #04add8;
+  color: #bababa;
   background-color: #ffffff;
 }
 .btn-primary {
@@ -4374,7 +4374,7 @@ a.list-group-item.active > .badge,
 }
 .jumbotron {
   padding: 60px 30px;
-  margin-top: 80px;
+  margin-bottom: 30px;
   color: inherit;
   background-color: #ffffff;
 }
@@ -4777,8 +4777,6 @@ a.list-group-item-danger.active:focus {
   background-color: #ffffff;
   border: 1px solid transparent;
   border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .panel-body {
   padding: 15px;
@@ -4971,18 +4969,18 @@ a.list-group-item-danger.active:focus {
   border-bottom: 1px solid #dddddd;
 }
 .panel-default {
-  border-color: #dddddd;
+  border-color: #d4d4d4;
 }
 .panel-default > .panel-heading {
-  color: #6ab93b;
-  background-color: #ffffff;
-  border-color: #dddddd;
+  color: #ffffff;
+  background-color: #0385a6;
+  border-color: #d4d4d4;
 }
 .panel-default > .panel-heading + .panel-collapse .panel-body {
-  border-top-color: #dddddd;
+  border-top-color: #d4d4d4;
 }
 .panel-default > .panel-footer + .panel-collapse .panel-body {
-  border-bottom-color: #dddddd;
+  border-bottom-color: #d4d4d4;
 }
 .panel-primary {
   border-color: #960d3c;
@@ -5841,7 +5839,7 @@ button.close {
 }
 #applicant .thumbnail {
   height: 240px;
-  background-color: #ededed;
+  background-color: #ffffff;
 }
 #applicant .thumbnail .btn {
   position: absolute;
