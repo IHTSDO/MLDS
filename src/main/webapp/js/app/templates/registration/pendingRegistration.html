@@ -1,40 +1,14 @@
-<div class="navbar navbar-fixed-top masthead">
-	<div class="container">
-		<div class="navbar-header">
-			<img
-				class="img-responsive"
-				src="images/logo.jpg"
-				alt="ihtsdo-logo">
-		</div>
-	</div>
-</div>
+
 <div class="jumbotron">
-	<div
-		class="container"
-		id="welcome">
+	<div class="container" id="welcome">
+		<img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo">
+		<hr>
 		<div class="col-lg-8">
 			<h1>Registration Approval</h1>
 			<p>Your registration is being processed.</p>
-			<a href="#/">Go to Dashboard</a> <a href="#/affiliateRegistration">Go
-				to Affiliate Registration</a>
+			<a href="#/">Go to Dashboard</a> <a href="#/affiliateRegistration">Go to Affiliate Registration</a>
 		</div>
-
 	</div>
 </div>
 
-<footer>
-	<div class="container">
-		<div class="col-lg-6">
-			<p>&copy; IHTSDO 2014</p>
-		</div>
-		<div class="col-lg-6">
-			<div class="pull-right">
-				<a
-					class="btn btn-link"
-					href="#">Terms and Conditions</a> <a
-					class="btn btn-link"
-					href="#">Privacy Policy</a>
-			</div>
-		</div>
-	</div>
-</footer>
+<footer ng-include="'templates/common/footer.html'"> </footer>
