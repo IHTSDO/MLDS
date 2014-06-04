@@ -16,9 +16,9 @@
   </div>
 </div>
 <div class="row">
+      <form ng-submit="affiliateform.submit()">
   <div class="container-fluid">
     <div class="col-sx-12 col-md-8 col-md-8">
-      <form ng-submit="submit()">
         <div class="panel-group" id="accordion">
           <div class="panel panel-default" id="applicant">
             <div class="panel-heading">
@@ -36,7 +36,7 @@
                       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
                       <div class="center-block">
                         <p class="block-centre">
-                          <label for="individual" class="btn btn-lg btn-default"> Individual <input style="display: none;" type="radio" id="individual" ng-model="affilateform.type"
+                          <label for="individual" class="btn btn-lg btn-default"> Individual <input style="display: none;" type="radio" id="individual" ng-model="affiliateform.type"
                             value="Individual"
                           >
                           </label>
@@ -51,7 +51,7 @@
                       <h3>Vendor or Developer</h3>
                       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
                       <p>
-                        <label for="vendor" class="btn btn-lg btn-default"> Vendor or Developer <input style="display: none;" type="radio" id="vendor" ng-model="affilateform.type"
+                        <label for="vendor" class="btn btn-lg btn-default"> Vendor or Developer <input style="display: none;" type="radio" id="vendor" ng-model="affiliateform.type"
                           value="Vendor/Developer"
                         >
                         </label>
@@ -65,7 +65,7 @@
                       <h3>Research Organization</h3>
                       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
                       <p>
-                        <label for="research" class="btn btn-lg btn-default"> Research Organization <input style="display: none;" type="radio" id="research" ng-model="affilateform.type"
+                        <label for="research" class="btn btn-lg btn-default"> Research Organization <input style="display: none;" type="radio" id="research" ng-model="affiliateform.type"
                           value="Research Organization"
                         >
                         </label>
@@ -84,31 +84,30 @@
             </div>
             <div id="collapseTwo" class="panel-collapse" ng-show="!collapsePanel.organization">
               <div class="panel-body">
-                <form>
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
                         <p>Name</p>
-                        <input class="form-control" placeholder="Organization Name" required autofocus ng-model="affilateform.organization.name">
+                        <input class="form-control" placeholder="Organization Name" required autofocus ng-model="affiliateform.organization.name">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label>Address </label> <input class="form-control" placeholder="123 Somewhere Avenue" required autofocus ng-model="affilateform.organization.address">
+                        <label>Address </label> <input class="form-control" placeholder="123 Somewhere Avenue" required autofocus ng-model="affiliateform.organization.address">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-3">
                       <div class="form-group">
-                        <input class="form-control" placeholder="City" required autofocus ng-model="affilateform.organization.city">
+                        <input class="form-control" placeholder="City" required autofocus ng-model="affiliateform.organization.city">
                       </div>
                     </div>
                     <div class="col-lg-3">
                       <div class="form-group">
-                        <select class="form-control input-md" ng-model="affilateform.organization.country">
+                        <select class="form-control input-md" ng-model="affiliateform.organization.country">
                           <option value="">Country</option>
                           <option value="Canada">Canada</option>
                           <option value="Denmark">Denmark</option>
@@ -121,30 +120,29 @@
                   <div class="row">
                     <div class="col-lg-4">
                       <div class="form-group">
-                        <input class="form-control" placeholder="Phone Number" required autofocus ng-model="affilateform.organization.phonenumber">
+                        <input class="form-control" placeholder="Phone Number" required autofocus ng-model="affiliateform.organization.phonenumber">
                       </div>
                     </div>
                     <div class="col-lg-2">
                       <div class="form-group">
-                        <input class="form-control" placeholder="Extenstion" required autofocus ng-model="affilateform.organization.extension">
+                        <input class="form-control" placeholder="Extenstion" required autofocus ng-model="affiliateform.organization.extension">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label> Department/Sub Division </label> <input class="form-control" placeholder="Position" required autofocus ng-model="affilateform.organization.position">
+                        <label> Department/Sub Division </label> <input class="form-control" placeholder="Position" required autofocus ng-model="affiliateform.organization.position">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label> Website </label> <input class="form-control" placeholder="www.organization.com" required autofocus ng-model="affilateform.organization.website">
+                        <label> Website </label> <input class="form-control" placeholder="www.organization.com" required autofocus ng-model="affiliateform.organization.website">
                       </div>
                     </div>
                   </div>
-                </form>
                 <div class="col-lg-6">
                   <p>
                     <button type="button" class="pull-right btn btn-muted">Save</button>
@@ -173,7 +171,7 @@
         <div class="row">
           <div class="pull-right">
             <p>
-              <button type="button" class="btn btn-lg btn-success">Register</button>
+              <button type="submit" class="btn btn-lg btn-success">Register</button>
               <a class="btn btn-lg btn-primary btn-block" href="#/pendingRegistration">Register (fake) </a>
               <button type="button" class="btn btn-lg btn-link">Cancel</button>
             </p>
@@ -189,7 +187,7 @@
           <p>
             <strong>Organization Type:</strong>
           </p>
-          <p>{{affilateform.type}}</p>
+          <p>{{affiliateform.type}}</p>
         </div>
       </div>
       <div class="panel panel-default">
@@ -200,43 +198,43 @@
           <p>
             <strong>Name:</strong>
           </p>
-          <p>{{affilateform.organization.name}}</p>
+          <p>{{affiliateform.organization.name}}</p>
           <hr>
           <p>
             <strong>Address:</strong>
           </p>
-          <p>{{affilateform.organization.address}}</p>
+          <p>{{affiliateform.organization.address}}</p>
           <hr>
           <p>
             <strong>City:</strong>
           </p>
-          <p>{{affilateform.organization.city}}</p>
+          <p>{{affiliateform.organization.city}}</p>
           <hr>
           <p>
             <strong>Country:</strong>
           </p>
-          <p>{{affilateform.organization.country}}</p>
+          <p>{{affiliateform.organization.country}}</p>
           <hr>
           <p>
             <strong>Phone Number:</strong>
           </p>
-          <p>{{affilateform.organization.phonenumber}} {{affilateform.organization.extension}}</p>
+          <p>{{affiliateform.organization.phonenumber}} {{affiliateform.organization.extension}}</p>
           <hr>
           <p>
             <strong>Department/Sub Division:</strong>
           </p>
-          <p>{{affilateform.organization.position}}</p>
+          <p>{{affiliateform.organization.position}}</p>
           <hr>
           <p>
             <strong>Website:</strong>
           </p>
-          <p>{{affilateform.organization.website}}</p>
+          <p>{{affiliateform.organization.website}}</p>
 
         </div>
       </div>
     </div>
-    </form>
   </div>
+    </form>
   <!-- main END -->
 </div>
 <!-- /container -->
