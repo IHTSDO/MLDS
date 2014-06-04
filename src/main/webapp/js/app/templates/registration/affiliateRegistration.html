@@ -1,242 +1,242 @@
 
 <div class="masthead">
-	<div class="container">	
-			<img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo">
-	</div>
+  <div class="container">
+    <img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo">
+  </div>
 </div>
 
 <div class="row">
-	<div class="container-fluid">
-		<div class="col-sx-12 col-md-8 col-md-8">
-		<div class="page-header">
-			<h1>Affiliate Registration</h1>
-			<p class="lead">Please fill complete the form.</p>
-		</div>
-	</div>
-	</div>
+  <div class="container-fluid">
+    <div class="col-sx-12 col-md-8 col-md-8">
+      <div class="page-header">
+        <h1>Affiliate Registration</h1>
+        <p class="lead">Please fill complete the form.</p>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="row">
-		<div class="container-fluid">
-			<div class="col-sx-12 col-md-8 col-md-8">
-			<form ng-submit="submit()">
-				<div class="panel-group" id="accordion">
-					<div class="panel panel-default" id="applicant">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-							<a ng-click="collapsePanel.applicant = !collapsePanel.applicant">Applicant </a>
-							</h4>
-						</div>
-						<div id="collapseOne" ng-show="!collapsePanel.applicant" class="panel-collapse">
-							<div class="panel-body">
-								<h4>
-								Select your Organization type </h4>
-								<div class="col-lg-4">
-									<div class="thumbnail">
-										<div class="caption">
-											<h3>Individual </h3>
-											<p>
-												 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-											</p>
-											<div class="center-block">
-												<p class="block-centre">
-													<label for="individual" class="btn btn-lg btn-default">
-													Individual <input style="display: none;" type="radio" id="individual" ng-model="affilateform.type" value="Individual">
-													</label>
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="thumbnail">
-										<div class="caption">
-											<h3>Vendor or Developer </h3>
-											<p>
-												 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-											</p>
-											<p>
-												<label for="vendor" class="btn btn-lg btn-default">
-												Vendor or Developer <input style="display: none;" type="radio" id="vendor" ng-model="affilateform.type" value="Vendor/Developer">
-												</label>
-											</p>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="thumbnail">
-										<div class="caption">
-											<h3>
-											Research Organization </h3>
-											<p>
-												 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-											</p>
-											<p>
-												<label for="research" class="btn btn-lg btn-default">
-												Research Organization <input style="display: none;" type="radio" id="research" ng-model="affilateform.type" value="Research Organization">
-												</label>
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-							<a ng-click="collapsePanel.organization = !collapsePanel.organization" href="#collapseTwo">Organization </a>
-							</h4>
-						</div>
-						<div id="collapseTwo" class="panel-collapse" ng-show="!collapsePanel.organization">
-							<div class="panel-body">
-								<form>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<p>Name </p>
-												<input class="form-control" placeholder="Organization Name" required autofocus ng-model="affilateform.organization.name">
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Address </label>
-												<input class="form-control" placeholder="123 Somewhere Avenue" required autofocus ng-model="affilateform.organization.address">
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-3">
-											<div class="form-group">
-												<input class="form-control" placeholder="City" required autofocus ng-model="affilateform.organization.city">
-											</div>
-										</div>
-										<div class="col-lg-3">
-											<div class="form-group">
-												<select class="form-control input-md" ng-model="affilateform.organization.country">
-													<option value="">Country </option>
-													<option value="Canada">Canada </option>
-													<option value="Denmark">Denmark </option>
-													<option value="England">England </option>
-													<option value="USA">USA </option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-4">
-											<div class="form-group">
-												<input class="form-control" placeholder="Phone Number" required autofocus ng-model="affilateform.organization.phonenumber">
-											</div>
-										</div>
-										<div class="col-lg-2">
-											<div class="form-group">
-												<input class="form-control" placeholder="Extenstion" required autofocus ng-model="affilateform.organization.extension">
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>
-												Department/Sub Division </label>
-												<input class="form-control" placeholder="Position" required autofocus ng-model="affilateform.organization.position">
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>
-												Website </label>
-												<input class="form-control" placeholder="www.organization.com" required autofocus ng-model="affilateform.organization.website">
-											</div>
-										</div>
-									</div>
-								</form>
-								<div class="col-lg-6">
-									<p>
-										<button type="button" class="pull-right btn btn-muted">Save </button>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-							SNOMED License </a>
-							</h4>
-						</div>
-						<div id="collapseThree" class="panel-collapse">
-							<div class="panel-body">
-								<div class="terms">
-									
-									<div class="clearfix">
-										<label class="cen">
-										<input type="checkbox">I agree to the Terms &amp; Conditions </label>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="pull-right">
-						<p>
-							<button type="button" class="btn btn-lg btn-success">Register </button>
-							<a class="btn btn-lg btn-primary btn-block" href="#/pendingRegistration">Register (fake) </a>
-							<button type="button" class="btn btn-lg btn-link">Cancel </button>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-sx-12 col-md-4 col-lg-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Applicant </h3>
-					</div>
-					<div class="panel-body">
-						<p><strong>Organization Type:</strong></p>
-						<p>{{affilateform.type}}</p>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Organization </h3>
-					</div>
-					<div class="panel-body">
-						<p><strong>Name:</strong></p>
-						<p>{{affilateform.organization.name}} </p>
-					<hr>
-						<p><strong>Address:</strong></p> 
-						<p>{{affilateform.organization.address}} </p>
-					<hr>
-						<p><strong>City:</strong></p>
-						<p>{{affilateform.organization.city}} </p>
-					<hr>	
-						<p><strong>Country:</strong></p>
-						<p>{{affilateform.organization.country}}</p>
-					<hr>
-						<p><strong>Phone Number:</strong></p>
-						<p>{{affilateform.organization.phonenumber}} {{affilateform.organization.extension}}</p>
-					<hr>
-						<p><strong>Department/Sub Division:</strong></p>
-						<p>{{affilateform.organization.position}}</p>
-					<hr>
-						<p><strong>Website:</strong></p>
-						<p>{{affilateform.organization.website}}</p>
-						
-					</div>
-					<div class="panel-footer">
-						<a class="btn btn-link" href="#">Edit </a>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-<!-- main END -->
+  <div class="container-fluid">
+    <div class="col-sx-12 col-md-8 col-md-8">
+      <form ng-submit="submit()">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default" id="applicant">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a ng-click="collapsePanel.applicant = !collapsePanel.applicant">Applicant </a>
+              </h4>
+            </div>
+            <div id="collapseOne" ng-show="!collapsePanel.applicant" class="panel-collapse">
+              <div class="panel-body">
+                <h4>Select your Organization type</h4>
+                <div class="col-lg-4">
+                  <div class="thumbnail">
+                    <div class="caption">
+                      <h3>Individual</h3>
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+                      <div class="center-block">
+                        <p class="block-centre">
+                          <label for="individual" class="btn btn-lg btn-default"> Individual <input style="display: none;" type="radio" id="individual" ng-model="affilateform.type"
+                            value="Individual"
+                          >
+                          </label>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="thumbnail">
+                    <div class="caption">
+                      <h3>Vendor or Developer</h3>
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+                      <p>
+                        <label for="vendor" class="btn btn-lg btn-default"> Vendor or Developer <input style="display: none;" type="radio" id="vendor" ng-model="affilateform.type"
+                          value="Vendor/Developer"
+                        >
+                        </label>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="thumbnail">
+                    <div class="caption">
+                      <h3>Research Organization</h3>
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+                      <p>
+                        <label for="research" class="btn btn-lg btn-default"> Research Organization <input style="display: none;" type="radio" id="research" ng-model="affilateform.type"
+                          value="Research Organization"
+                        >
+                        </label>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a ng-click="collapsePanel.organization = !collapsePanel.organization" href="#collapseTwo">Organization </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse" ng-show="!collapsePanel.organization">
+              <div class="panel-body">
+                <form>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <p>Name</p>
+                        <input class="form-control" placeholder="Organization Name" required autofocus ng-model="affilateform.organization.name">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label>Address </label> <input class="form-control" placeholder="123 Somewhere Avenue" required autofocus ng-model="affilateform.organization.address">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <input class="form-control" placeholder="City" required autofocus ng-model="affilateform.organization.city">
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <select class="form-control input-md" ng-model="affilateform.organization.country">
+                          <option value="">Country</option>
+                          <option value="Canada">Canada</option>
+                          <option value="Denmark">Denmark</option>
+                          <option value="England">England</option>
+                          <option value="USA">USA</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <input class="form-control" placeholder="Phone Number" required autofocus ng-model="affilateform.organization.phonenumber">
+                      </div>
+                    </div>
+                    <div class="col-lg-2">
+                      <div class="form-group">
+                        <input class="form-control" placeholder="Extenstion" required autofocus ng-model="affilateform.organization.extension">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label> Department/Sub Division </label> <input class="form-control" placeholder="Position" required autofocus ng-model="affilateform.organization.position">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label> Website </label> <input class="form-control" placeholder="www.organization.com" required autofocus ng-model="affilateform.organization.website">
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div class="col-lg-6">
+                  <p>
+                    <button type="button" class="pull-right btn btn-muted">Save</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> SNOMED License </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse">
+              <div class="panel-body">
+              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+              <p><a href="#" class="btn btn-link">SNOMED License</a></p>
+                    
+                    <p><label class="cen"> <input type="checkbox"> I agree to the Terms &amp; Conditions</label></p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="pull-right">
+            <p>
+              <button type="button" class="btn btn-lg btn-success">Register</button>
+              <a class="btn btn-lg btn-primary btn-block" href="#/pendingRegistration">Register (fake) </a>
+              <button type="button" class="btn btn-lg btn-link">Cancel</button>
+            </p>
+          </div>
+        </div>
+    </div>
+    <div class="col-sx-12 col-md-4 col-lg-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Applicant</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            <strong>Organization Type:</strong>
+          </p>
+          <p>{{affilateform.type}}</p>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Organization</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            <strong>Name:</strong>
+          </p>
+          <p>{{affilateform.organization.name}}</p>
+          <hr>
+          <p>
+            <strong>Address:</strong>
+          </p>
+          <p>{{affilateform.organization.address}}</p>
+          <hr>
+          <p>
+            <strong>City:</strong>
+          </p>
+          <p>{{affilateform.organization.city}}</p>
+          <hr>
+          <p>
+            <strong>Country:</strong>
+          </p>
+          <p>{{affilateform.organization.country}}</p>
+          <hr>
+          <p>
+            <strong>Phone Number:</strong>
+          </p>
+          <p>{{affilateform.organization.phonenumber}} {{affilateform.organization.extension}}</p>
+          <hr>
+          <p>
+            <strong>Department/Sub Division:</strong>
+          </p>
+          <p>{{affilateform.organization.position}}</p>
+          <hr>
+          <p>
+            <strong>Website:</strong>
+          </p>
+          <p>{{affilateform.organization.website}}</p>
+
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>
+  <!-- main END -->
 </div>
 <!-- /container -->
