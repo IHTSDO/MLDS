@@ -2,15 +2,13 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', function ($scope, $log, $location) {
-        	var isApplied = false;
-        	var isApproved = false;
-        	if (!isApplied) {
+        [ '$scope', '$log', '$location', 'UserSession', function ($scope, $log, $location, UserSession) {
+        	if (!UserSession.hasApplied()) {
         		$location.path('/affiliateRegistration');
-        		
-        	} else if (!isApproved) {
-        		// redirect to pending approval
+        	} else if (!UserSession.isApproved()) {
         		$location.path('/pendingRegistration');
+        	} else {
+        		// setup dashboard?
         	}
         }
     ]);
