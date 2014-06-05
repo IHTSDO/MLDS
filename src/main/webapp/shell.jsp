@@ -19,6 +19,7 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 <link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body>
