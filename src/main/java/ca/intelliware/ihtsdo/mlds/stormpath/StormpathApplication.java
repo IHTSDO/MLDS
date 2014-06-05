@@ -42,4 +42,9 @@ public class StormpathApplication {
 		account.setSurname(surname);
 		return application.createAccount(account);
 	}
+	
+	public Object resetPassword(String email) {
+		return application.sendPasswordResetEmail(email);
+	}
+	
 }

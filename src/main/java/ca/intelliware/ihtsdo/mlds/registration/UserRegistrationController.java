@@ -28,6 +28,14 @@ public class UserRegistrationController {
 		return userRegistrationRepository.findAll();
 	}
 	
+	@RequestMapping("/reset-password")
+	public Object resetPassword(@RequestParam String email) {
+		System.out.println("reset password for " + email);
+		StormpathApplication application = new StormpathApplication();
+		application.resetPassword(email);
+		return null;
+	}
+	
 	@RequestMapping(value="/registrations/create",method=RequestMethod.POST)
 	@ResponseStatus( HttpStatus.OK )
 	public ResponseEntity<ResourceException> createRegistration(@RequestParam String email, @RequestParam String name, @RequestParam String password) {
