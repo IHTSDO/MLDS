@@ -7,7 +7,7 @@
 
 <div class="row">
   <div class="container-fluid">
-    <div class="col-sx-12 col-md-8 col-md-8">
+    <div class="col-sx-12 col-md-12 col-md-12">
       <div class="page-header">
         <h1>Affiliate Registration</h1>
         <p class="lead">Please fill complete the form.</p>
@@ -79,10 +79,11 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a ng-click="collapsePanel.organization = !collapsePanel.organization" href="#collapseTwo"><i class="fa fa-building"></i> Organization </a>
+                <a ng-click="collapsePanel.organization = !collapsePanel.organization" href="#collapseTwo">
+                  <i class="fa fa-building"></i> Organization </a>
               </h4>
             </div>
-            <div id="collapseTwo" class="panel-collapse" ng-show="!collapsePanel.organization">
+            <div id="collapseTwo" class="panel-collapse collapse in" ng-show="!collapsePanel.organization">
               <div class="panel-body">
                   <div class="row">
                     <div class="col-lg-6">
@@ -202,9 +203,6 @@
 
         </div>
         
-         <div class="panel-footer">
-              <a class="btn btn-muted btn-default">Save</a>
-        </div>
       </div>
       
       <div class="panel panel-default">
