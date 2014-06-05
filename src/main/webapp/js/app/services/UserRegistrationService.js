@@ -32,6 +32,10 @@ angular.module('MLDS')
 			createApplication: function createApplication(applicationForm) {
 				$log.log('createApplication', applicationForm);
 				return $http.post('/api/applications/create', applicationForm);
+			},
+			
+			approveApplication: function approveApplication(username) {
+				return $http.post('/api/applications/approve', username);
 			}
 		};
 		

@@ -4,8 +4,38 @@
 	<li ng-repeat="user in users">{{user.email}}</li>
 	</ul>
 	<hr>
-	<ul>
-	<li ng-repeat="application in applications">{{application}}<li>
-	</ul>
+	
+	<table class="table table-bordered">
+		<tr>
+			<th>user</th>
+			<th>approved</th>
+			<th>type</th>
+			<th>name</th>
+			<th>address</th>
+			<th>city</th>
+			<th>country</th>
+			<th>phone number</th>
+			<th>extension</th>
+			<th>position</th>
+			<th>site</th>
+			<th>snomed license</th>
+			<th>actions</th>
+		</tr>
+		<tr ng-repeat="application in applications">
+			<td>{{application.username}}</td>
+			<td>{{application.approved}}</td>
+			<td>{{application.type}}</td>
+			<td>{{application.name}}</td>
+			<td>{{application.address}}</td>
+			<td>{{application.city}}</td>
+			<td>{{application.country}}</td>
+			<td>{{application.phoneNumber}}</td>
+			<td>{{application.extension}}</td>
+			<td>{{application.position}}</td>
+			<td>{{application.website}}</td>
+			<td>{{application.snoMedLicence}}</td>
+			<td><button class="btn btn-default" ng-click="approveApplication(application.username)">Approve Application</button></td>
+		</tr>
+	</table>
 	
 </div>
