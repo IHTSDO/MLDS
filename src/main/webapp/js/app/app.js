@@ -14,10 +14,10 @@ angular.module('MLDS-Registration', ['MLDS'])
     ['$routeProvider', function ($routeProvider) {
           $routeProvider
             .when('/', {
-                templateUrl: 'templates/LandingPage.html',
+                templateUrl: 'templates/LandingPage.html'
             })
             .when('/emailVerification', {
-                templateUrl: 'templates/registration/emailVerification.html',
+                templateUrl: 'templates/registration/emailVerification.html'
             })
             .otherwise({
               redirectTo: '/'
@@ -39,7 +39,7 @@ angular.module('MLDS-User', ['MLDS'])
         })
         
         .when('/pendingRegistration', {
-          templateUrl: 'templates/registration/pendingRegistration.html',
+          templateUrl: 'templates/registration/pendingRegistration.html'
         })
             
             
