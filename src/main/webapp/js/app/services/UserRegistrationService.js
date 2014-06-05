@@ -25,9 +25,13 @@ angular.module('MLDS')
 				return httpPromise;
 			},
 			
+			getApplications: function() {
+				return $http.get('/api/applications');
+			},
+			
 			createApplication: function createApplication(applicationForm) {
 				$log.log('createApplication', applicationForm);
-				return $http.post('/api/applications', applicationForm);
+				return $http.post('/api/applications/create', applicationForm);
 			}
 		};
 		

@@ -27,4 +27,30 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet author="AC" id="MLDS-04-1">
+    	<dropTable tableName="application"/>
+        <createTable tableName="application">
+	        <column name="application_id" type="NUMBER">
+                <constraints primaryKey="true" primaryKeyName="applicationPK"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="approved" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="country" type="VARCHAR(255)"/>
+            <column name="extension" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="phonenumber" type="VARCHAR(255)"/>
+            <column name="position" type="VARCHAR(255)"/>
+            <column name="snomedlicense" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(255)"/>
+            <column name="website" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
