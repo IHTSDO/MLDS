@@ -50,7 +50,7 @@
             <column name="position" type="VARCHAR(255)"/>
     	</addColumn>
     	<addColumn tableName="application">
-            <column name="snomedlicense" type="BOOLEAN">
+            <column name="snomedlicense" type="BOOLEAN" defaultValue="false">
                 <constraints nullable="false"/>
             </column>
     	</addColumn>
