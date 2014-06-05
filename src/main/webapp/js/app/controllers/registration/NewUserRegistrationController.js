@@ -13,7 +13,13 @@ angular.module('MLDS')
         	};
         	
         	$scope.createUser = function() {
+        		if ($scope.createUserForm.$invalid) {
+        			return;
+        		}
         		$scope.error = {};
+        		
+        		$log.log('createUserForm', $scope.createUserForm);
+        		$log.log('$scope', $scope);
         		
         		UserRegistrationService.createUser($scope.user).then(function(response) {
         			$location.path('/emailVerification');  			

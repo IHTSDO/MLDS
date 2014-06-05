@@ -68,7 +68,7 @@ angular.module('MLDS').config(
 
         $translateProvider.translations('fr', {
 
-          'TITLE': 'IHTSDO - MLDS en français',
+          'TITLE': 'IHTSDO - MLDS en franÃ§ais',
           'FOOTER_COPY': 'FR_All rights reserved.',
 
           'HOME': 'FR_Home',

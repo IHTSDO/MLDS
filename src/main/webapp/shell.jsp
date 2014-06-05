@@ -57,6 +57,7 @@
 	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
 	<script src="js/app/app.js"></script>
+	<script src="js/app/translations.js"></script>
 	<script src="js/app/services/UserRegistrationService.js"></script>
 	<script src="js/app/services/UserSession.js"></script>
 	<script src="js/app/services/Events.js"></script>
@@ -67,7 +68,7 @@
 	<script src="js/app/controllers/UserRegistrationApprovalController.js"></script>
 	<script src="js/app/controllers/UserDashboardController.js"></script>
 	<script src="js/app/controllers/AdminDashboardController.js"></script>
-	<script src="js/app/translations.js"></script>
+	<script src="js/app/directives/bsValidation.js"></script>
 </body>
 </html>
 
