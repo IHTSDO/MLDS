@@ -18,5 +18,15 @@ angular.module('MLDS')
         	}
         	
         	getApplications();
+        	
+        	
+        	$scope.approveApplication = function(username){
+        		console.log('approveApplication for ', username);
+        		var queryPromise = UserRegistrationService.approveApplication(username);
+        		
+        		queryPromise.then(function(){
+        			getApplications();
+        		});
+        	};
         }
     ]);
