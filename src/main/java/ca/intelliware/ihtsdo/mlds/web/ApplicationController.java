@@ -28,6 +28,21 @@ public class ApplicationController {
 		return applicationRepository.findAll();
 	}
 	
+	@RequestMapping(value="api/applications/approve")
+	public Object approveApplication() {
+		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
+		if (applications.size() == 0) {
+			new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		Application application = applications.get(0);
+		
+		application.setApproved(true);
+		applicationRepository.save(application);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/api/applications/create",method=RequestMethod.POST)
 	public Object createApplication(@RequestBody Map request) {
 		Map<String, String> organization = (Map<String, String>) request.get("organization");
