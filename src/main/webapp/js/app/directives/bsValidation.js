@@ -17,7 +17,7 @@ angular.module('MLDS')
                 var input = formGroupEl.find('input[ng-model],textarea[ng-model]');
                 if (input.length > 0) {
                     scope.$watch(function() {
-                        return input.hasClass('ng-invalid') && input.hasClass('ng-dirty');
+                        return input.hasClass('ng-invalid');
                     }, function(isInvalid) {
                     	//$log.log('bsValidation - in $watch callback', isInvalid, formGroupEl, input);
                         formGroupEl.toggleClass('has-error', isInvalid);
