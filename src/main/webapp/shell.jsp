@@ -8,7 +8,7 @@
 <%@page import="java.nio.file.FileVisitor"%>
 <%@page import="java.nio.file.Path"%>
 <%@page import="java.nio.file.Files"%>
-
+<!doctype html>
 <html id="ng-app" ng-app="${applicationName}">
 <head>
 <title ng-bind="'TITLE' | translate">IHTSDO - MLDS</title>
