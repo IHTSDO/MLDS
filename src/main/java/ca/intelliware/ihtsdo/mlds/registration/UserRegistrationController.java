@@ -30,10 +30,15 @@ public class UserRegistrationController {
 	
 	@RequestMapping("/reset-password")
 	public Object resetPassword(@RequestParam String email) {
-		System.out.println("reset password for " + email);
-		StormpathApplication application = new StormpathApplication();
-		application.resetPassword(email);
-		return null;
+		UserRegistration user = userRegistrationRepository.findByEmail(email);
+		
+		if (user != null) {
+			StormpathApplication application = new StormpathApplication();
+			application.resetPassword(email);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
 	@RequestMapping(value="/registrations/create",method=RequestMethod.POST)
