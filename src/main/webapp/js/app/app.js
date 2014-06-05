@@ -41,6 +41,10 @@ angular.module('MLDS-User', ['MLDS'])
         .when('/pendingRegistration', {
           templateUrl: 'templates/registration/pendingRegistration.html'
         })
+        .when('/logout', {
+            templateUrl: 'templates/LandingPage.html',
+            controller: 'LogoutController'
+        })
             
             
         .otherwise({
