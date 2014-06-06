@@ -61,4 +61,30 @@
             <column name="website" type="VARCHAR(255)"/>
     	</addColumn>
     </changeSet>
+
+    <changeSet author="MB" id="MLDS-02-2-TOS">
+    	<comment>Create an event log so we can record TOS acceptance</comment>
+    	<createTable tableName="event">
+            <column name="event_id" type="INT8">
+                <constraints primaryKey="true" primaryKeyName="EventPK"/>
+            </column>
+            <column name="type" type="VARCHAR(31)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(4096)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_sub_type" type="VARCHAR(255)"/>
+            <column name="principal" type="VARCHAR(255)"/>
+            <column name="browser_type" type="VARCHAR(32)"/>
+            <column name="browser_version" type="VARCHAR(32)"/>
+            <column name="ip_address" type="VARCHAR(32)"/>
+            <column name="locale" type="VARCHAR(5)"/>
+            <column name="session_id" type="VARCHAR(255)"/>
+            <column name="user_agent" type="VARCHAR(1024)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
