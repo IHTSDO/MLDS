@@ -7,11 +7,16 @@ angular.module('MLDS')
 		
 		var service = {
 		};
+		
 		service.hasApplied = function hasApplied() {
 			return $window.mlds.userInfo.hasApplied;
 		};
 		service.isApproved = function isApproved() {
 			return $window.mlds.userInfo.approved;
+		};
+		
+		service.updateSession = function updateSession() {
+			$window.mlds.userInfo.hasApplied = true;
 		};
 		
 		return service;
