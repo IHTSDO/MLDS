@@ -12,7 +12,7 @@ angular.module('MLDS')
         		var httpPromise = UserRegistrationService.createApplication($scope.affiliateform);
         		
         		httpPromise.then(function() {
-        			$location.path('#/pendingRegistration');
+        			$location.path('/dashboard');
         		});
         	};
         	

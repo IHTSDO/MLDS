@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.intelliware.ihtsdo.mlds.registration.Application;
@@ -29,10 +30,10 @@ public class ApplicationController {
 	}
 	
 	@RequestMapping(value="api/applications/approve")
-	public Object approveApplication() {
-		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
+	public Object approveApplication(@RequestParam String email) {
+		List<Application> applications = applicationRepository.findByUsername(email);
 		if (applications.size() == 0) {
-			new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		Application application = applications.get(0);

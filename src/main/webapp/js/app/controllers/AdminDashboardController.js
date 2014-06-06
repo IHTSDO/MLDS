@@ -4,10 +4,9 @@ angular.module('MLDS')
     .controller('AdminDashboardController',
         [ '$scope', '$log', 'UserRegistrationService', function ($scope, $log, UserRegistrationService) {
         	
-        	console.log('Dashboard Controller');
+        	$log.log('Dashboard Controller');
         	
         	$scope.applications = {};
-        	
         	
         	function getApplications() {
         		var queryPromise =  UserRegistrationService.getApplications();
@@ -19,9 +18,7 @@ angular.module('MLDS')
         	
         	getApplications();
         	
-        	
         	$scope.approveApplication = function(username){
-        		console.log('approveApplication for ', username);
         		var queryPromise = UserRegistrationService.approveApplication(username);
         		
         		queryPromise.then(function(){
