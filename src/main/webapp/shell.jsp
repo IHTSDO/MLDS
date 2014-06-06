@@ -9,10 +9,11 @@
 <%@page import="java.nio.file.Path"%>
 <%@page import="java.nio.file.Files"%>
 <!doctype html>
-<html id="ng-app" ng-app="${applicationName}">
+<html id="ng-app" ng-app="${applicationName}" xmlns:ng="http://angularjs.org">
 <head>
 <title ng-bind="'TITLE' | translate">IHTSDO - MLDS</title>
 <!--[if lt IE 9]>
+	  <meta http-equiv="X-UA-Compatible" content="IE=8">
       <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
       <script src="bower_components/respond/respond.min.js"></script>
       <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -66,8 +67,6 @@
 	<script src="js/app/controllers/registration/AffiliateRegistrationController.js"></script>
 	<script src="js/app/controllers/LogoutController.js"></script>
 	<script src="js/app/controllers/UserListController.js"></script>
-	<script src="js/app/controllers/UserRegistrationFlowController.js"></script>
-	<script src="js/app/controllers/UserRegistrationApprovalController.js"></script>
 	<script src="js/app/controllers/UserDashboardController.js"></script>
 	<script src="js/app/controllers/AdminDashboardController.js"></script>
 	<script src="js/app/directives/bsValidation.js"></script>
