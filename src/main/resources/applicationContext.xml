@@ -11,7 +11,7 @@
            	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
            " >
            
-    <context:component-scan base-package="ca.intelliware.ihtsdo.mlds" >
+    <context:component-scan base-package="ca.intelliware.ihtsdo.commons.event,ca.intelliware.ihtsdo.mlds" >
     	<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     	<context:exclude-filter type="regex" expression="ca.intelliware.ihtsdo.mlds.web.*"/>
    	</context:component-scan>
@@ -20,7 +20,7 @@
     
     <tx:annotation-driven/>
     
-    <jpa:repositories base-package="ca.intelliware.ihtsdo.mlds" />
+    <jpa:repositories base-package="ca.intelliware.ihtsdo.commons.event,ca.intelliware.ihtsdo.mlds" />
     
  	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 	</bean>
