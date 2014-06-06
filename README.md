@@ -13,4 +13,4 @@ Please refer to [Stormpath Authentication](Stormpaths.md)
 
 ##Theme
 
-Please refer to [Theme](src/main/theme/theme/.html)
+Please refer to [Theme](http://htmlpreview.github.com/?src/main/theme/theme/.html)
