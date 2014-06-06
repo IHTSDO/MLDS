@@ -14,7 +14,7 @@ angular.module('MLDS')
 					    params: user
 					})
 					.error(function(data) {
-						console.log(data);
+						$log.log(data);
 						$rootScope.$broadcast(Events.registrationError, data);
 					});
 				
@@ -35,7 +35,12 @@ angular.module('MLDS')
 			},
 			
 			approveApplication: function approveApplication(username) {
-				return $http.post('/api/applications/approve', username);
+				$log.log('approveApplication', username);
+				return $http({
+					method: 'POST',
+					url: 'api/applications/approve',
+					params: {email: username}
+				});
 			}
 		};
 		
