@@ -9,6 +9,7 @@
     		<!-- prevents flushing inserts too early for large insert sets -->
     		<property name="hibernate.default_batch_fetch_size" value="100"/>
     		<property name="hibernate.id.new_generator_mappings" value="true"/>
+			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/> 
     	</properties>
     </persistence-unit>
 </persistence>
