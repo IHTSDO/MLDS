@@ -11,9 +11,9 @@
 <!doctype html>
 <html id="ng-app" ng-app="${applicationName}" xmlns:ng="http://angularjs.org">
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title ng-bind="'TITLE' | translate">IHTSDO - MLDS</title>
 <!--[if lt IE 9]>
-	  <meta http-equiv="X-UA-Compatible" content="IE=8">
       <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
       <script src="bower_components/respond/respond.min.js"></script>
       <script src="bower_components/es5-shim/es5-shim.js"></script>
