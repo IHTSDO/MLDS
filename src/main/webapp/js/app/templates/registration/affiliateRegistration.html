@@ -16,60 +16,134 @@
   </div>
 </div>
 <div class="row">
-      <form ng-submit="affiliateform.submit()" bs-validation>
-  <div class="container-fluid">
-    <div class="col-sx-12 col-md-8 col-md-8">
+  <form ng-submit="affiliateform.submit()" bs-validation>
+    <div class="container-fluid">
+      <div class="col-sx-12 col-md-8 col-md-8">
+        <div class="panel panel-default applicant">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a ng-click="collapsePanel.individual = !collapsePanel.individual" href="#collapseIndividual"> <i class="fa fa-building"></i> Applicant
+              </a>
+            </h4>
+          </div>
+          <div id="collapseIndividual" ng-show="!collapsePanel.individual" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <h4>Select your Organisation type</h4>
+              <div class="col-lg-6">
+                <div class="thumbnail">
+                  <div class="caption">
+                    <h3>Vendor or Developer</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+                    <div class="center-block">
+                      <p class="block-centre">
+                        <label for="Vendor or Developer" class="btn btn-lg btn-default"><i class="fa fa-cube"></i> Vendor or Developer <input style="display: none;" type="radio" id="Vendor or Developer"
+                          ng-model="affiliateform.type" value="Vendor or Developer"
+                        > </label>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-lg-6">
+                <div class="thumbnail">
+                  <div class="caption">
+                    <h3>Research Organisation</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+                    <div class="center-block">
+                      <p class="block-centre">
+                        <label for="Research Organisation" class="btn btn-lg btn-default"><i class="fa fa-user-md"></i> Research Organisation <input style="display: none;" type="radio" id="Research Organisation"
+                          ng-model="affiliateform.type" value="Research Organisation"
+                        > </label>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
         <div class="panel-group" id="accordion">
-          <div class="panel panel-default" id="applicant">
+          <div class="panel panel-default applicant">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a ng-click="collapsePanel.applicant = !collapsePanel.applicant"><i class="fa fa-cog"></i> Applicant </a>
+                <a ng-click="collapsePanel.applicant = !collapsePanel.applicant"><i class="fa fa-file"></i> Licence</a>
               </h4>
             </div>
-            <div id="collapseOne" ng-show="!collapsePanel.applicant" class="panel-collapse">
+            <div id="collapseOne" ng-show="!collapsePanel.applicant" class="panel-collapse collapse in">
               <div class="panel-body">
-                <h4>Select your Organization type</h4>
-                <div class="col-lg-4">
+                <h4>Select your Licence</h4>
+                <div class="col-lg-6">
                   <div class="thumbnail">
                     <div class="caption">
                       <h3>Individual</h3>
                       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
                       <div class="center-block">
                         <p class="block-centre">
-                          <label for="individual" class="btn btn-lg btn-default"><i class="fa fa-user"></i> Individual <input style="display: none;" type="radio" id="individual" ng-model="affiliateform.type"
-                            value="Individual"
-                          >
-                          </label>
+                          <label for="individual" class="btn btn-lg btn-default"><i class="fa fa-user"></i> Individual <input style="display: none;" type="radio" id="individual"
+                            ng-model="affiliateform.licence.type" value="Individual"
+                          > </label>
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <div class="thumbnail">
                     <div class="caption">
-                      <h3>Vendor or Developer</h3>
+                      <h3>Organisation</h3>
                       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
                       <p>
-                        <label for="vendor" class="btn btn-lg btn-default"><i class="fa fa-users"></i>  Vendor or Developer <input style="display: none;" type="radio" id="vendor" ng-model="affiliateform.type"
-                          value="Vendor/Developer"
-                        >
-                        </label>
+                        <label for="Organisation" class="btn btn-lg btn-default"><i class="fa fa-building"></i></i> Organisation <input style="display: none;" type="radio" id="Organisation"
+                          ng-model="affiliateform.licence.type" value="Organisation"
+                        > </label>
                       </p>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-4">
-                  <div class="thumbnail">
-                    <div class="caption">
-                      <h3>Research Organization</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a ng-click="collapsePanel.individual = !collapsePanel.individual" href="#collapseIndividual"> <i class="fa fa-user"></i> Individual
+                </a>
+              </h4>
+            </div>
+            <div id="collapseIndividual" ng-show="!collapsePanel.individual" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
                       <p>
-                        <label for="research" class="btn btn-lg btn-default"><i class="fa fa-user-md"></i>  Research Organization <input style="display: none;" type="radio" id="research" ng-model="affiliateform.type"
-                          value="Research Organization"
-                        >
-                        </label>
+                        <strong>Name</strong>
                       </p>
+                      <input class="form-control" placeholder="John Smith" required autofocus ng-model="affiliateform.individual.name">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>
+                        <strong>Email</strong>
+                      </p>
+                      <input class="form-control" placeholder="JohnSmith@OrganisationABC.com" required autofocus ng-model="affiliateform.individual.email">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>
+                        <strong>Password</strong>
+                      </p>
+                      <input class="form-control" placeholder="*****************" required autofocus ng-model="affiliateform.individual.password">
                     </div>
                   </div>
                 </div>
@@ -79,150 +153,195 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a ng-click="collapsePanel.organization = !collapsePanel.organization" href="#collapseTwo">
-                  <i class="fa fa-building"></i> Organization </a>
+                <a ng-click="collapsePanel.Organisation = !collapsePanel.Organisation" href="#collapseOrganisation"> <i class="fa fa-building"></i> Organisation
+                </a>
               </h4>
             </div>
-            <div id="collapseTwo" class="panel-collapse collapse in" ng-show="!collapsePanel.organization">
+            <div id="collapseOrganisation" class="panel-collapse collapse in" ng-show="!collapsePanel.Organisation">
               <div class="panel-body">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <p><strong>Name</strong></p>
-                        <input class="form-control" placeholder="Organization Name" required autofocus ng-model="affiliateform.organization.name">
-                      </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>
+                        <strong>Name</strong>
+                      </p>
+                      <input class="form-control" placeholder="Organisation Name" required autofocus ng-model="affiliateform.Organisation.name">
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label>Address </label> <input class="form-control" placeholder="123 Somewhere Avenue" required autofocus ng-model="affiliateform.organization.address">
-                      </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Address </label> <input class="form-control" placeholder="123 Somewhere Avenue" required autofocus ng-model="affiliateform.Organisation.address">
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <input class="form-control" placeholder="City" required autofocus ng-model="affiliateform.organization.city">
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <select class="form-control input-md" ng-model="affiliateform.organization.country">
-                          <option value="">Country</option>
-                          <option value="Canada">Canada</option>
-                          <option value="Denmark">Denmark</option>
-                          <option value="England">England</option>
-                          <option value="USA">USA</option>
-                        </select>
-                      </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <input class="form-control" placeholder="City" required autofocus ng-model="affiliateform.Organisation.city">
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                        <input class="form-control" placeholder="Phone Number" required autofocus ng-model="affiliateform.organization.phonenumber">
-                      </div>
-                    </div>
-                    <div class="col-lg-2">
-                      <div class="form-group">
-                        <input class="form-control" placeholder="Extenstion" required autofocus ng-model="affiliateform.organization.extension">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label> Department/Sub Division </label> <input class="form-control" placeholder="Position" required autofocus ng-model="affiliateform.organization.position">
-                      </div>
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <select class="form-control input-md" ng-model="affiliateform.Organisation.country">
+                        <option value="">Country</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Denmark">Denmark</option>
+                        <option value="England">England</option>
+                        <option value="USA">USA</option>
+                      </select>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label> Website </label> <input class="form-control" placeholder="www.organization.com" required autofocus ng-model="affiliateform.organization.website">
-                      </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <input class="form-control" placeholder="Phone Number" required autofocus ng-model="affiliateform.Organisation.phonenumber">
                     </div>
                   </div>
+                  <div class="col-lg-2">
+                    <div class="form-group">
+                      <input class="form-control" placeholder="Extenstion" required autofocus ng-model="affiliateform.Organisation.extension">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label> Department/Sub Division </label> <input class="form-control" placeholder="Position" required autofocus ng-model="affiliateform.Organisation.position">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label> Website </label> <input class="form-control" placeholder="www.Organisation.com" required autofocus ng-model="affiliateform.Organisation.website">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-    </div>
-    <div class="col-sx-12 col-md-4 col-lg-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"><i class="fa fa-cog"></i> Applicant</h3>
-        </div>
-        <div class="panel-body">
-          <p>
-            <strong>Organization Type:</strong>
-          </p>
-          <p>{{affiliateform.type}}</p>
-        </div>
       </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"><i class="fa fa-building"></i> Organization</h3>
-        </div>
-        <div class="panel-body">
-          <p>
-            <strong>Name:</strong>
-          </p>
-          <p>{{affiliateform.organization.name}}</p>
-          <hr>
-          <p>
-            <strong>Address:</strong>
-          </p>
-          <p>{{affiliateform.organization.address}}</p>
-          <hr>
-          <p>
-            <strong>City:</strong>
-          </p>
-          <p>{{affiliateform.organization.city}}</p>
-          <hr>
-          <p>
-            <strong>Country:</strong>
-          </p>
-          <p>{{affiliateform.organization.country}}</p>
-          <hr>
-          <p>
-            <strong>Phone Number:</strong>
-          </p>
-          <p>{{affiliateform.organization.phonenumber}} {{affiliateform.organization.extension}}</p>
-          <hr>
-          <p>
-            <strong>Department/Sub Division:</strong>
-          </p>
-          <p>{{affiliateform.organization.position}}</p>
-          <hr>
-          <p>
-            <strong>Website:</strong>
-          </p>
-          <p>{{affiliateform.organization.website}}</p>
-
+      <div class="col-sx-12 col-md-4 col-lg-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <i class="fa fa-cog"></i> Applicant
+            </h3>
+          </div>
+          <div class="panel-body">
+            <p><strong>{{affiliateform.type}}</strong></p>
+          </div>
         </div>
         
-      </div>
-      
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">SNOMED Agreement</h3>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <i class="fa fa-file"></i> Licence
+            </h3>
+          </div>
+          <div class="panel-body">
+             <p><strong>{{affiliateform.licence.type}}</strong></p>
+          </div>
         </div>
-        <div class="panel-body">
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
-              <p><a href="#" class="btn btn-default btn-block"><i class="fa fa-file-pdf-o fa-lg"></i> SNOMED License</span></a></p>
-              <p><label class="cen"> <input type="checkbox" name="snomed" ng-model="affiliateform.snoMedTC"/> I agree to the Terms &amp; Conditions</label></p>
-            
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+             <i class="fa fa-user"></i> Individual
+            </h3>
+          </div>
+          <div class="panel-body">
+            <p>
+              <strong>Name:</strong>
+            </p>
+            <p>{{affiliateform.individual.name}}</p>
+            <hr>
+            <p>
+              <strong>Email:</strong>
+            </p>
+            <p>{{affiliateform.individual.email}}</p>
+            <hr>
+            <p>
+              <strong>Password:</strong>
+            </p>
+            <p>{{affiliateform.individual.password}}</p>
+
+          </div>
+        </div>
+
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <i class="fa fa-building"></i> Organisation
+            </h3>
+          </div>
+          <div class="panel-body">
+            <p>
+              <strong>Name:</strong>
+            </p>
+            <p>{{affiliateform.Organisation.name}}</p>
+            <hr>
+            <p>
+              <strong>Address:</strong>
+            </p>
+            <p>{{affiliateform.Organisation.address}}</p>
+            <hr>
+            <p>
+              <strong>City:</strong>
+            </p>
+            <p>{{affiliateform.Organisation.city}}</p>
+            <hr>
+            <p>
+              <strong>Country:</strong>
+            </p>
+            <p>{{affiliateform.Organisation.country}}</p>
+            <hr>
+            <p>
+              <strong>Phone Number:</strong>
+            </p>
+            <p>{{affiliateform.Organisation.phonenumber}} {{affiliateform.Organisation.extension}}</p>
+            <hr>
+            <p>
+              <strong>Department/Sub Division:</strong>
+            </p>
+            <p>{{affiliateform.Organisation.position}}</p>
+            <hr>
+            <p>
+              <strong>Website:</strong>
+            </p>
+            <p>{{affiliateform.Organisation.website}}</p>
+
+          </div>
+
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">SNOMED Agreement</h3>
+          </div>
+          <div class="panel-body">
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+            <p>
+              <a href="#" class="btn btn-default btn-block"><i class="fa fa-file-pdf-o fa-lg"></i> SNOMED License</span></a>
+            </p>
+            <p>
+              <label class="cen"> <input type="checkbox" name="snomed" ng-model="affiliateform.snoMedTC" /> I agree to the Terms &amp; Conditions
+              </label>
+            </p>
+
             <div class="panel-footer">
-              <input type="submit" class="btn btn-muted btn-default" value="Register"/>
+              <input type="submit" class="btn btn-muted btn-default" value="Register" />
               <button type="button" class="btn btn-link">Cancel</button>
-             </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-    </form>
+  </form>
   <!-- main END -->
 </div>
 <!-- /container -->

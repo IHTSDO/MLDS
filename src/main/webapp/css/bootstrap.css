@@ -5842,14 +5842,14 @@ button.close {
   position: relative;
   left: 30px;
 }
-#applicant {
+.applicant {
   position: relative;
 }
-#applicant .thumbnail {
+.applicant .thumbnail {
   height: 240px;
   background-color: #ffffff;
 }
-#applicant .thumbnail .btn {
+.applicant .thumbnail .btn {
   position: absolute;
   bottom: 28px;
 }
