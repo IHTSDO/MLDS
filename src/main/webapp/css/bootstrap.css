@@ -3065,7 +3065,7 @@ input[type="button"].btn-block {
   color: #ffffff;
   text-decoration: none;
   outline: 0;
-  background-color: #960d3c;
+  background-color: #04add8;
 }
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
@@ -3580,7 +3580,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
   color: #ffffff;
-  background-color: #960d3c;
+  background-color: #04add8;
 }
 .nav-stacked > li {
   float: none;
@@ -4663,18 +4663,26 @@ a.list-group-item.active:hover,
 a.list-group-item.active:focus {
   z-index: 2;
   color: #ffffff;
-  background-color: #960d3c;
-  border-color: #960d3c;
+  background-color: #04add8;
+  border-color: #04add8;
 }
 a.list-group-item.active .list-group-item-heading,
 a.list-group-item.active:hover .list-group-item-heading,
 a.list-group-item.active:focus .list-group-item-heading {
   color: inherit;
 }
+a.list-group-item.active.active:hover,
+a.list-group-item.active:hover.active:hover,
+a.list-group-item.active:focus.active:hover {
+  z-index: 2;
+  color: #ffffff;
+  background-color: #0499bf;
+  border-color: #0499bf;
+}
 a.list-group-item.active .list-group-item-text,
 a.list-group-item.active:hover .list-group-item-text,
 a.list-group-item.active:focus .list-group-item-text {
-  color: #f47ba5;
+  color: #abedfd;
 }
 .list-group-item-success {
   color: #468847;
