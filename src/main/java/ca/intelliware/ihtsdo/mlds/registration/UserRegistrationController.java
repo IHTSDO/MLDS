@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.registration;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.http.HttpStatus;
@@ -11,8 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import ca.intelliware.ihtsdo.commons.event.EventRepository;
+import ca.intelliware.ihtsdo.commons.event.model.user.RegisterNewUserEvent;
+import ca.intelliware.ihtsdo.commons.event.model.user.RegistrationEventType;
 import ca.intelliware.ihtsdo.mlds.stormpath.StormpathApplication;
+import ca.intelliware.ihtsdo.mlds.web.WebAttributesService;
 
+import com.google.common.collect.Maps;
 import com.stormpath.sdk.resource.ResourceException;
 
 @Controller
@@ -22,6 +29,12 @@ public class UserRegistrationController {
 	
 	@Resource
 	UserRegistrationRepository userRegistrationRepository;
+	
+	@Resource
+	EventRepository eventRepository;
+	
+	@Resource
+	WebAttributesService eventService;
 
 	@RequestMapping("/registrations")
 	public @ResponseBody Iterable<UserRegistration> getRegistrations() {
@@ -43,12 +56,22 @@ public class UserRegistrationController {
 	
 	@RequestMapping(value="/registrations/create",method=RequestMethod.POST)
 	@ResponseStatus( HttpStatus.OK )
-	public ResponseEntity<ResourceException> createRegistration(@RequestParam String email, @RequestParam String name, @RequestParam String password) {
+	public ResponseEntity<?> createRegistration(@RequestParam String email, @RequestParam String name, @RequestParam String password, @RequestParam boolean tos) {
 		StormpathApplication application = new StormpathApplication();
+		
+		// FIXME MB this needs to go down into service, and we need an exception layer.
+		if (!tos) {
+			Map<String,Object> errors = Maps.newHashMap();
+			// FIXME MB just emulating the SP exception until I re-write this.
+			errors.put("code","");
+			errors.put("developerMessage","The TOS terms must be accepted to continue");
+			return new ResponseEntity<Object>(errors,HttpStatus.FORBIDDEN);
+		}
 		
 		try {
 			application.createUser(email, password, name, name, name);
 			userRegistrationService.createRegistration(email);
+			eventRepository.save(new RegisterNewUserEvent(RegistrationEventType.TOS_AGREEMENT,email,eventService.getCurrentRequestWebAttributes()));
 		} catch (ResourceException error){
 			
 			ResponseEntity<ResourceException> errorMessage = new ResponseEntity<ResourceException>(error , HttpStatus.BAD_REQUEST);
