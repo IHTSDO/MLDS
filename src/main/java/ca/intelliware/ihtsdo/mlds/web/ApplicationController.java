@@ -47,6 +47,7 @@ public class ApplicationController {
 	@RequestMapping(value="/api/applications/create",method=RequestMethod.POST)
 	public Object createApplication(@RequestBody Map request) {
 		Map<String, String> organization = (Map<String, String>) request.get("organization");
+		Map<String, String> individual = (Map<String, String>) request.get("individual");
 		
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		Application application = new Application();
@@ -57,16 +58,24 @@ public class ApplicationController {
 		
 		application.setUsername(sessionService.getUsernameOrNull());
 		application.setType((String) request.get("type"));
+		application.setApplicantType((String) request.get("applicantType"));
 		
-		application.setName(organization.get("name"));
-		application.setAddress(organization.get("address"));
-		application.setCity(organization.get("city"));
-		application.setCountry(organization.get("country"));
-		application.setPhoneNumber(organization.get("phonenumber"));
-		application.setExtension(organization.get("extension"));
-		application.setPosition(organization.get("position"));
-		application.setWebsite(organization.get("website"));
+		if ((String) request.get("applicantType") == "Individual") {
+			application.setName(individual.get("name"));
+			application.setPhoneNumber(individual.get("phone"));
+		}
 		
+		if ((String) request.get("applicantType") == "Organisation") {
+			application.setName(organization.get("name"));
+			application.setAddress(organization.get("address"));
+			application.setCity(organization.get("city"));
+			application.setCountry(organization.get("country"));
+			application.setPhoneNumber(organization.get("phonenumber"));
+			application.setExtension(organization.get("extension"));
+			application.setPosition(organization.get("position"));
+			application.setWebsite(organization.get("website"));
+		}
+			
 		application.setSnoMedLicence((boolean) request.get("snoMedTC"));
 		
 		application.setApproved(false);
