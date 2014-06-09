@@ -62,6 +62,7 @@
 	<script src="js/app/translations.js"></script>
 	<script src="js/app/services/UserRegistrationService.js"></script>
 	<script src="js/app/services/UserSession.js"></script>
+	<script src="js/app/services/DomainBlacklistService.js"></script>
 	<script src="js/app/services/Events.js"></script>
 	<script src="js/app/controllers/registration/NewUserRegistrationController.js"></script>
 	<script src="js/app/controllers/registration/AffiliateRegistrationController.js"></script>

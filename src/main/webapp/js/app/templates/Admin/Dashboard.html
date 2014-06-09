@@ -1,10 +1,32 @@
 <div class="container">
 	<h1>Dashboard</h1>
+	
+	<h3>Registered Users</h3>
 	<ul ng-controller="UserListController">
 	<li ng-repeat="user in users">{{user.email}}</li>
 	</ul>
-	<hr>
 	
+	<h3>Blacklisted Domains</h3>
+	<table class="table table-bordered">
+		<tr>
+			<th>domain</th>
+			<th>action</th>
+		</tr>
+		<tr ng-repeat="domain in domainBlacklist">
+			<td>{{domain.domainname}}</td>
+			<td><button class="btn btn-default" ng-click="removeDomain(domain.domainname)">Remove Domain</button></td>
+		</tr>
+	</table>
+	
+	<h5>Add to Blacklist</h5>
+	<form ng-submit="domainform.submit()">
+		<input type="text" ng-model="domainform.name"/>
+		
+		<input type="submit" class="btn btn-muted btn-default" value="Add"/>
+	</form>
+	
+	
+	<h3>Affilate Applications</h3>
 	<table class="table table-bordered">
 		<tr>
 			<th>user</th>
