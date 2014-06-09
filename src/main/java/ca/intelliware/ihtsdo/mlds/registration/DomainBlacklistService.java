@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.registration;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -14,7 +16,13 @@ public class DomainBlacklistService {
 	public boolean isDomainBlacklisted(String email) {
 		String requestEmailDomain = extractDomain(email);
 				
-		return domainBlacklistRespository.findByDomainname(requestEmailDomain) != null;
+		List<DomainBlacklist> result = domainBlacklistRespository.findByDomainname(requestEmailDomain);
+		
+		if (result.size() > 0) {
+			return true;
+		}
+				
+		return false;
 	}
 
 	private String extractDomain(String email) {
