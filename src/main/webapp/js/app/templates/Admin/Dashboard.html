@@ -32,7 +32,7 @@
 			<th>user</th>
 			<th>approved</th>
 			<th>type</th>
-			<th>organizationType</th>
+			<th>applicantType</th>
 			<th>snomed license</th>
 			<th>actions</th>
 		</tr>
@@ -40,7 +40,7 @@
 			<td>{{application.username}}</td>
 			<td>{{application.approved}}</td>
 			<td>{{application.type}}</td>
-			<td>{{application.organizationType}}</td>
+			<td>{{application.applicantType}}</td>
 			<td>{{application.snoMedLicence}}</td>
 			<td><button class="btn btn-default" ng-disabled="application.approved" ng-click="approveApplication(application.username)">Approve Application</button></td>
 		</tr>
