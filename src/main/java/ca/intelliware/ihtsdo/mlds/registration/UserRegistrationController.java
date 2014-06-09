@@ -35,6 +35,9 @@ public class UserRegistrationController {
 	
 	@Resource
 	WebAttributesService eventService;
+	
+	@Resource
+	DomainBlacklistService domainBlacklistService;
 
 	@RequestMapping("/registrations")
 	public @ResponseBody Iterable<UserRegistration> getRegistrations() {
@@ -65,6 +68,14 @@ public class UserRegistrationController {
 			// FIXME MB just emulating the SP exception until I re-write this.
 			errors.put("code","");
 			errors.put("developerMessage","The TOS terms must be accepted to continue");
+			return new ResponseEntity<Object>(errors,HttpStatus.FORBIDDEN);
+		}
+		
+		// FIXME AC to be added to the exception layer
+		if(domainBlacklistService.isDomainBlacklisted(email)) {
+			Map<String,Object> errors = Maps.newHashMap();
+			errors.put("code","");
+			errors.put("developerMessage","The email domain used is not accepted.");
 			return new ResponseEntity<Object>(errors,HttpStatus.FORBIDDEN);
 		}
 		
