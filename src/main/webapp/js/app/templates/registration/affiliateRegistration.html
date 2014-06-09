@@ -10,7 +10,7 @@
     <div class="col-sx-12 col-md-12 col-md-12">
       <div class="page-header">
         <h1>Affiliate Registration</h1>
-        <p class="lead">Please fill complete the form.</p>
+        <p class="lead">Please complete the application.</p>
       </div>
     </div>
   </div>
@@ -22,22 +22,22 @@
         <div class="panel panel-default applicant">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a ng-click="collapsePanel.individual = !collapsePanel.individual" href="#collapseIndividual"> <i class="fa fa-building"></i> Applicant
+              <a ng-click="collapsePanel.type = !collapsePanel.type"> <i class="fa fa-cog"></i> License Type
               </a>
             </h4>
           </div>
-          <div id="collapseIndividual" ng-show="!collapsePanel.individual" class="panel-collapse collapse in">
+          <div id="collapseIndividual" ng-show="!collapsePanel.type" class="panel-collapse collapse in">
             <div class="panel-body">
-              <h4>Select your Organisation type</h4>
+              <h4>How will you be using the standard? FIXME COPY</h4>
               <div class="col-lg-6">
                 <div class="thumbnail">
                   <div class="caption">
-                    <h3>Vendor or Developer</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+                    <h3>Software application</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME copy</p>
                     <div class="center-block">
                       <p class="block-centre">
-                        <label for="Vendor or Developer" class="btn btn-lg btn-default"><i class="fa fa-cube"></i> Vendor or Developer <input style="display: none;" type="radio" id="Vendor or Developer"
-                          ng-model="affiliateform.type" value="Vendor or Developer"
+                        <label class="btn btn-lg btn-default"><i class="fa fa-cube"></i> Vendor or Developer <input style="display: none;" type="radio" name="typeVendor"
+                          ng-model="affiliateform.type" value="Software Vendor"
                         > </label>
                       </p>
                     </div>
@@ -48,12 +48,12 @@
               <div class="col-lg-6">
                 <div class="thumbnail">
                   <div class="caption">
-                    <h3>Research Organisation</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+                    <h3>Research or Public Good</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME copy</p>
                     <div class="center-block">
                       <p class="block-centre">
-                        <label for="Research Organisation" class="btn btn-lg btn-default"><i class="fa fa-user-md"></i> Research Organisation <input style="display: none;" type="radio" id="Research Organisation"
-                          ng-model="affiliateform.type" value="Research Organisation"
+                        <label class="btn btn-lg btn-default"><i class="fa fa-user-md"></i> Research Organisation <input style="display: none;" type="radio" id="typeResearch"
+                          ng-model="affiliateform.type" value="Research"
                         > </label>
                       </p>
                     </div>
@@ -68,22 +68,22 @@
           <div class="panel panel-default applicant">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a ng-click="collapsePanel.applicant = !collapsePanel.applicant"><i class="fa fa-file"></i> Licence</a>
+                <a ng-click="collapsePanel.applicantType = !collapsePanel.applicantType"><i class="fa fa-file"></i> Applicant</a>
               </h4>
             </div>
-            <div id="collapseOne" ng-show="!collapsePanel.applicant" class="panel-collapse collapse in">
+            <div id="collapseOne" ng-show="!collapsePanel.applicantType" class="panel-collapse collapse in">
               <div class="panel-body">
-                <h4>Select your Licence</h4>
+                <h4>Will you be using SNOMED CT as an individual, or do you represent an organization? FIXME COPY</h4>
                 <div class="col-lg-6">
                   <div class="thumbnail">
                     <div class="caption">
                       <h3>Individual</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME COPY</p>
                       <div class="center-block">
                         <p class="block-centre">
-                          <label for="individual" class="btn btn-lg btn-default"><i class="fa fa-user"></i> Individual <input style="display: none;" type="radio" id="individual"
-                            ng-model="affiliateform.licence.type" value="Individual"
-                          > </label>
+                          <label class="btn btn-lg btn-default"><i class="fa fa-user"></i> Individual 
+                          	<input class="hide" type="radio" ng-model="affiliateform.applicantType" value="Individual" >
+                          </label>
                         </p>
                       </div>
                     </div>
@@ -93,11 +93,11 @@
                   <div class="thumbnail">
                     <div class="caption">
                       <h3>Organisation</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME COPY</p>
                       <p>
-                        <label for="Organisation" class="btn btn-lg btn-default"><i class="fa fa-building"></i></i> Organisation <input style="display: none;" type="radio" id="Organisation"
-                          ng-model="affiliateform.licence.type" value="Organisation"
-                        > </label>
+                        <label class="btn btn-lg btn-default"><i class="fa fa-building"></i> Organisation 
+                        	<input class="hide" type="radio" ng-model="affiliateform.applicantType" value="Organisation" >
+                        </label>
                       </p>
                     </div>
                   </div>
@@ -109,11 +109,11 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a ng-click="collapsePanel.individual = !collapsePanel.individual" href="#collapseIndividual"> <i class="fa fa-user"></i> Individual
+                <a ng-click="collapsePanel.contact = !collapsePanel.contact" > <i class="fa fa-user"></i> Contact Information
                 </a>
               </h4>
             </div>
-            <div id="collapseIndividual" ng-show="!collapsePanel.individual" class="panel-collapse collapse in">
+            <div id="collapseIndividual" ng-show="!collapsePanel.contact" class="panel-collapse collapse in">
               <div class="panel-body">
                 <div class="row">
                   <div class="col-lg-6">
@@ -141,16 +141,16 @@
                   <div class="col-lg-6">
                     <div class="form-group">
                       <p>
-                        <strong>Password</strong>
+                        <strong>Phone Number</strong>
                       </p>
-                      <input class="form-control" placeholder="*****************" required autofocus ng-model="affiliateform.individual.password">
+                      <input class="form-control" placeholder="tel." required autofocus ng-model="affiliateform.individual.phone">
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="panel panel-default">
+          <div class="panel panel-default" ng-show="affiliateform.applicantType!='Individual'">
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a ng-click="collapsePanel.Organisation = !collapsePanel.Organisation" href="#collapseOrganisation"> <i class="fa fa-building"></i> Organisation
@@ -159,6 +159,17 @@
             </div>
             <div id="collapseOrganisation" class="panel-collapse collapse in" ng-show="!collapsePanel.Organisation">
               <div class="panel-body">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>
+                        Are you authorized by your organization to enter into legal agreements?  FIXME - copy FIXME - tooltip
+                      </p> 
+                      <label><input type="checkbox" ng-model="affiliateform.Organisation.isAgent"> Yes, I am an agent for my organization.
+                      </label>
+                    </div>
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group">
@@ -188,8 +199,7 @@
                         <option value="">Country</option>
                         <option value="Canada">Canada</option>
                         <option value="Denmark">Denmark</option>
-                        <option value="England">England</option>
-                        <option value="USA">USA</option>
+                        <option value="Spain">Spain</option>
                       </select>
                     </div>
                   </div>
@@ -229,7 +239,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <i class="fa fa-cog"></i> Applicant
+              <i class="fa fa-cog"></i> License Type
             </h3>
           </div>
           <div class="panel-body">
@@ -240,11 +250,11 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <i class="fa fa-file"></i> Licence
+              <i class="fa fa-file"></i> Applicant
             </h3>
           </div>
           <div class="panel-body">
-             <p><strong>{{affiliateform.licence.type}}</strong></p>
+             <p><strong>{{affiliateform.applicantType}}</strong></p>
           </div>
         </div>
         <div class="panel panel-default">
@@ -321,16 +331,15 @@
 
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">SNOMED Agreement</h3>
+            <h3 class="panel-title">SNOMED CT Agreement</h3>
           </div>
           <div class="panel-body">
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+            <p>License abstract -- explain importance of terms.  Describe reporting and possible $$$ obligations!  FIXME - copy</p>
             <p>
               <a href="http://ihtsdo.org/fileadmin/user_upload/Docs_01/License/Ihtsdo_AffiliateLicenceAgreement_v11.pdf" target="_blank" class="btn btn-default btn-block"><i class="fa fa-file-pdf-o fa-lg"></i> SNOMED License</span></a>
             </p>
             <p>
-              <label class="cen"> <input type="checkbox" name="snomed" ng-model="affiliateform.snoMedTC" /> I agree to the Terms &amp; Conditions
-              </label>
+              <label class="cen"> <input type="checkbox" name="snomed" ng-model="affiliateform.snoMedTC" /> I agree to the license</label>
             </p>
 
             <div class="panel-footer">
