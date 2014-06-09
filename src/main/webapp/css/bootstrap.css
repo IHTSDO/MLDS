@@ -5842,6 +5842,12 @@ button.close {
   position: relative;
   left: 30px;
 }
+.tos-bg {
+  background-color: #EEEEEE;
+  margin: 10px 0;
+  overflow: hidden;
+  padding: 20px 20px 20px 0;
+}
 .applicant {
   position: relative;
 }
