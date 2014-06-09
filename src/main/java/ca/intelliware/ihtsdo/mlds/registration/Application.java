@@ -15,6 +15,7 @@ public class Application {
 	String username;
 	boolean approved;
 	String type;
+	String applicantType;
 	String name;
 	String address;
 	String city;
@@ -25,6 +26,14 @@ public class Application {
 	String website;
 	boolean snomedlicense;
 	
+	public String getApplicantType() {
+		return applicantType;
+	}
+
+	public void setApplicantType(String applicantType) {
+		this.applicantType = applicantType;
+	}
+
 	public String getUsername() {
 		return username;
 	}

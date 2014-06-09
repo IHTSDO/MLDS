@@ -95,4 +95,10 @@
             <column name="domainname" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
+    <changeSet author="AC" id="MLDS-04-3">
+        <addColumn tableName="application">
+            <column name="applicant_type" type="VARCHAR(255)"/>
+    	</addColumn>
+    </changeSet>
+    
 </databaseChangeLog>
