@@ -102,7 +102,7 @@ mldsApp
                     }
                 })
                 .otherwise({
-                    templateUrl: 'views/main.html',
+                    templateUrl: 'js/app/templates/LandingPage.html',
                     controller: 'MainController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]

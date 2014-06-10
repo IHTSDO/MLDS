@@ -65,16 +65,20 @@ mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register',
         $scope.doNotMatch = null;
         $scope.errorUserExists = null;
         $scope.register = function () {
+        	/*
             if ($scope.registerAccount.password != $scope.confirmPassword) {
                 $scope.doNotMatch = "ERROR";
             } else {
+            */
                 $scope.registerAccount.langKey = $translate.use();
                 $scope.doNotMatch = null;
+                $scope.registerAccount.login =$scope.registerAccount.email; 
                 Register.save($scope.registerAccount,
                     function (value, responseHeaders) {
                         $scope.error = null;
                         $scope.errorUserExists = null;
                         $scope.success = 'OK';
+                        // FIXME redirect to success page.
                     },
                     function (httpResponse) {
                         $scope.success = null;
@@ -87,7 +91,7 @@ mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register',
                             $scope.errorUserExists = null;
                         }
                     });
-            }
+           // }
         }
     }]);
 
