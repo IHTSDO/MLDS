@@ -22,8 +22,9 @@
         <div class="panel panel-default applicant">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a ng-click="collapsePanel.type = !collapsePanel.type"> <i class="fa fa-cog"></i> License Type
-              </a>
+              <span> <i class="fa fa-cog"></i> License Type <span ng-show="collapsePanel.type"> - {{affiliateform.type}}</span>
+              </span>
+	          <a class="pull-right" ng-show="collapsePanel.type" ng-click="collapsePanel.type = !collapsePanel.type">Edit</a>
             </h4>
           </div>
           <div id="collapseIndividual" ng-show="!collapsePanel.type" class="panel-collapse collapse in">
@@ -36,9 +37,11 @@
                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME copy</p>
                     <div class="center-block">
                       <p class="block-centre">
-                        <label class="btn btn-lg btn-default"><i class="fa fa-cube"></i> Vendor or Developer <input style="display: none;" type="radio" name="typeVendor"
-                          ng-model="affiliateform.type" value="Software Vendor"
-                        > </label>
+                        <label class="btn btn-lg btn-default"><i class="fa fa-cube"></i> Vendor or Developer 
+                        	<input class="hide" type="radio" name="typeVendor"
+                        		ng-click="collapsePanel.type = !collapsePanel.type" 
+                        		ng-model="affiliateform.type" value="Software Vendor"> 
+                        </label>
                       </p>
                     </div>
                   </div>
@@ -52,9 +55,11 @@
                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME copy</p>
                     <div class="center-block">
                       <p class="block-centre">
-                        <label class="btn btn-lg btn-default"><i class="fa fa-user-md"></i> Research Organisation <input style="display: none;" type="radio" id="typeResearch"
-                          ng-model="affiliateform.type" value="Research"
-                        > </label>
+                        <label class="btn btn-lg btn-default"><i class="fa fa-user-md"></i> Research Organisation
+                        	<input class="hide" type="radio" id="typeResearch"
+                        		ng-click="collapsePanel.type = !collapsePanel.type" 
+                        		ng-model="affiliateform.type" value="Research"> 
+                        </label>
                       </p>
                     </div>
                   </div>
@@ -68,7 +73,9 @@
           <div class="panel panel-default applicant">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a ng-click="collapsePanel.applicantType = !collapsePanel.applicantType"><i class="fa fa-file"></i> Applicant</a>
+              	<span> <i class="fa fa-file"></i> Applicant <span ng-show="collapsePanel.applicantType"> - {{affiliateform.applicantType}}</span>
+             	</span>
+          	    <a class="pull-right" ng-show="collapsePanel.applicantType" ng-click="collapsePanel.applicantType = !collapsePanel.applicantType">Edit</a>
               </h4>
             </div>
             <div id="collapseOne" ng-show="!collapsePanel.applicantType" class="panel-collapse collapse in">
@@ -82,7 +89,9 @@
                       <div class="center-block">
                         <p class="block-centre">
                           <label class="btn btn-lg btn-default"><i class="fa fa-user"></i> Individual 
-                          	<input class="hide" type="radio" ng-model="affiliateform.applicantType" value="Individual" >
+                          	<input class="hide" type="radio"
+                          		ng-click="collapsePanel.applicantType = !collapsePanel.applicantType" 
+                          		ng-model="affiliateform.applicantType" value="Individual" >
                           </label>
                         </p>
                       </div>
@@ -96,7 +105,9 @@
                       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME COPY</p>
                       <p>
                         <label class="btn btn-lg btn-default"><i class="fa fa-building"></i> Organisation 
-                        	<input class="hide" type="radio" ng-model="affiliateform.applicantType" value="Organisation" >
+                        	<input class="hide" type="radio" 
+                        		ng-click="collapsePanel.applicantType = !collapsePanel.applicantType"
+                        		ng-model="affiliateform.applicantType" value="Organisation" >
                         </label>
                       </p>
                     </div>
@@ -106,10 +117,11 @@
             </div>
           </div>
 
-          <div class="panel panel-default" ng-show="affiliateform.applicantType=='Individual'">
+          <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a ng-click="collapsePanel.contact = !collapsePanel.contact" > <i class="fa fa-user"></i> Contact Information
+                <a ng-click="collapsePanel.contact = !collapsePanel.contact" >
+                	<i class="fa fa-user"></i> Contact Information 
                 </a>
               </h4>
             </div>
@@ -121,7 +133,8 @@
                       <p>
                         <strong>Name</strong>
                       </p>
-                      <input class="form-control" placeholder="John Smith" ng-required="affiliateform.applicantType=='Individual'" autofocus ng-model="affiliateform.individual.name">
+                      <input class="form-control" placeholder="John Smith" 
+                      	required autofocus ng-model="affiliateform.individual.name">
                     </div>
                   </div>
                 </div>
@@ -132,7 +145,8 @@
                       <p>
                         <strong>Email</strong>
                       </p>
-                      <input class="form-control" placeholder="JohnSmith@OrganisationABC.com" ng-required="affiliateform.applicantType=='Individual'" autofocus ng-model="affiliateform.individual.email">
+                      <input class="form-control" placeholder="JohnSmith@OrganisationABC.com" 
+                      	required autofocus ng-model="affiliateform.individual.email">
                     </div>
                   </div>
                 </div>
@@ -143,7 +157,8 @@
                       <p>
                         <strong>Phone Number</strong>
                       </p>
-                      <input class="form-control" placeholder="tel." ng-required="affiliateform.applicantType=='Individual'" autofocus ng-model="affiliateform.individual.phone">
+                      <input class="form-control" placeholder="tel." 
+                      	required autofocus ng-model="affiliateform.individual.phone">
                     </div>
                   </div>
                 </div>
@@ -235,30 +250,13 @@
           </div>
         </div>
       </div>
+      
+      
+      
+      
       <div class="col-sx-12 col-md-4 col-lg-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <i class="fa fa-cog"></i> License Type
-            </h3>
-          </div>
-          <div class="panel-body">
-            <p><strong>{{affiliateform.type}}</strong></p>
-          </div>
-        </div>
         
         <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <i class="fa fa-file"></i> Applicant
-            </h3>
-          </div>
-          <div class="panel-body">
-             <p><strong>{{affiliateform.applicantType}}</strong></p>
-          </div>
-        </div>
-        
-        <div class="panel panel-default" ng-show="affiliateform.applicantType=='Individual'">
           <div class="panel-heading">
             <h3 class="panel-title">
              <i class="fa fa-user"></i> Individual
