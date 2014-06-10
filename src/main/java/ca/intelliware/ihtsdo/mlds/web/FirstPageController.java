@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceView;
 
 @Controller
 public class FirstPageController   {
-	
+	/*
 	Date serverStartDate = new Date();
 	
 	@Resource
@@ -43,4 +43,5 @@ public class FirstPageController   {
 		ModelAndView modelAndView = createApplicationShell("MLDS-Admin");
 		return modelAndView;
 	}
+	*/
 }

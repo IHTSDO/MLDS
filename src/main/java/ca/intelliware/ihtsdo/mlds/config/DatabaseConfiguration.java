@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-@EnableJpaRepositories("ca.intelliware.ihtsdo.mlds.repository")
+@EnableJpaRepositories({"ca.intelliware.ihtsdo.mlds.repository", "ca.intelliware.ihtsdo.mlds.registration", "ca.intelliware.ihtsdo.commons.event"})
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class DatabaseConfiguration implements EnvironmentAware {
@@ -63,9 +63,13 @@ public class DatabaseConfiguration implements EnvironmentAware {
 
     @Bean(name = {"org.springframework.boot.autoconfigure.AutoConfigurationUtils.basePackages"})
     public List<String> getBasePackages() {
-        List<String> basePackages = new ArrayList<>();
-        basePackages.add("ca.intelliware.ihtsdo.mlds.domain");
-        return basePackages;
+    	return Arrays.asList(
+    			"ca.intelliware.ihtsdo.mlds.domain",
+    			"ca.intelliware.ihtsdo.commons.event.model",
+    			"ca.intelliware.ihtsdo.commons.event.model.user",
+    			"ca.intelliware.ihtsdo.commons.event.model.system",
+    			"ca.intelliware.ihtsdo.mlds.registration"
+    			);
     }
 
     @Bean
