@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.commons.event.model;
+package ca.intelliware.ihtsdo.mlds.domain;
 
 import java.sql.Timestamp;
 
