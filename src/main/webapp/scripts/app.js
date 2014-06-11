@@ -69,15 +69,22 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+                .when('/adminDashboard', {
+                    templateUrl: 'views/admin/dashboard.html',
+                    controller: 'AdminDashboardController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
                 .when('/metrics', {
-                    templateUrl: 'views/metrics.html',
+                    templateUrl: 'views/admin/metrics.html',
                     controller: 'MetricsController',
                     access: {
                         authorizedRoles: [USER_ROLES.admin]
                     }
                 })
                 .when('/logs', {
-                    templateUrl: 'views/logs.html',
+                    templateUrl: 'views/admin/logs.html',
                     controller: 'LogsController',
                     resolve:{
                         resolvedLogs:['LogsService', function (LogsService) {
@@ -89,7 +96,7 @@ mldsApp
                     }
                 })
                 .when('/audits', {
-                    templateUrl: 'views/audits.html',
+                    templateUrl: 'views/admin/audits.html',
                     controller: 'AuditsController',
                     access: {
                         authorizedRoles: [USER_ROLES.admin]
