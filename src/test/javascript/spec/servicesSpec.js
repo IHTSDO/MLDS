@@ -2,7 +2,7 @@
 
 describe('Services Tests ', function () {
 
-    beforeEach(module('mldsApp'));
+    beforeEach(module('MLDS'));
 
     describe('AuthenticationSharedService', function () {
         var serviceTested,

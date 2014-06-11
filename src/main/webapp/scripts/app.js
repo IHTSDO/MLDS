@@ -2,7 +2,7 @@
 
 /* App Module */
 
-var mldsApp = angular.module('mldsApp', ['http-auth-interceptor', 'tmh.dynamicLocale',
+var mldsApp = angular.module('MLDS', ['http-auth-interceptor', 'tmh.dynamicLocale',
     'ngResource', 'ngRoute', 'ngCookies', 'mldsAppUtils', 'pascalprecht.translate', 'truncate']);
 
 mldsApp
@@ -22,7 +22,7 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
-                .when('/affilateRegistration', {
+                .when('/affiliateRegistration', {
                     templateUrl: 'views/registration/affiliateRegistration.html',
                     controller: 'AffiliateRegistrationController',
                     access: {
@@ -34,6 +34,13 @@ mldsApp
                     controller: 'ActivationController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    }
+                })
+                .when('/dashboard', {
+                    templateUrl: 'views/Dashboard.html',
+                    controller: 'UserDashboardController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.user]
                     }
                 })
                 .when('/login', {
@@ -155,7 +162,7 @@ mldsApp
                 $rootScope.$on('event:auth-loginConfirmed', function(data) {
                     $rootScope.authenticated = true;
                     if ($location.path() === "/login") {
-                        $location.path('/').replace();
+                        $location.path('/dashboard').replace();
                     }
                 });
 

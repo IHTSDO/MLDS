@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mldsApp')
+angular.module('MLDS')
     .directive('activeMenu', ['$translate', '$locale', 'tmhDynamicLocale', function($translate, $locale, tmhDynamicLocale) {
         return {
             restrict: 'A',

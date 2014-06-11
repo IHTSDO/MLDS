@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mldsApp')
+angular.module('MLDS')
   .directive('bsValidation', ['$log', function($log) {
     return {
         restrict: "A",

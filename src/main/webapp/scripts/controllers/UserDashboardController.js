@@ -1,5 +1,7 @@
 'use strict';
 
+//FIXME: Rename usersession and move into /scripts
+
 angular.module('MLDS')
     .controller('UserDashboardController',
         [ '$scope', '$log', '$location', 'UserSession', function ($scope, $log, $location, UserSession) {

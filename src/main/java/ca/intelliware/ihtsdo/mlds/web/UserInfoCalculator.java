@@ -14,7 +14,7 @@ public class UserInfoCalculator {
 	@Resource
 	ApplicationRepository applicationRepository;
 	
-	UserInfo createUserInfo() {
+	public UserInfo createUserInfo() {
 		UserInfo userInfo = new UserInfo();
 		
 		String usernameOrNull = sessionService.getUsernameOrNull();
