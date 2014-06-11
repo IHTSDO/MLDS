@@ -35,15 +35,18 @@ public class UserRegistrationController {
 	
 	@Resource
 	WebAttributesService eventService;
-	
+
+	// FIXME: JH have new registration controller use this
 	@Resource
 	DomainBlacklistService domainBlacklistService;
 
+	// FIXME: JH-update angular so that admin dashboard can see registrations
 	@RequestMapping("/registrations")
 	public @ResponseBody Iterable<UserRegistration> getRegistrations() {
 		return userRegistrationRepository.findAll();
 	}
 	
+	// FIXME: JH-replace password handling with stormpath replacement
 	@RequestMapping("/reset-password")
 	public Object resetPassword(@RequestParam String email) {
 		UserRegistration user = userRegistrationRepository.findByEmail(email);
