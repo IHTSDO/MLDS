@@ -4,17 +4,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 public class Application {
 	@Id
 	@GeneratedValue
+	@Column(name="application_id")
     private Long applicationId;
 	
 	String username;
 	boolean approved;
 	String type;
+	@Column(name="applicant_type")
 	String applicantType;
 	String name;
 	String address;
