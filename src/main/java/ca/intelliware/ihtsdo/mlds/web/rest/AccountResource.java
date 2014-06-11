@@ -67,12 +67,14 @@ public class AccountResource {
             method = RequestMethod.POST,
             produces = "application/json")
     @Timed
+    //FIXME - JH-add account to stormpath wrapper
     public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO, HttpServletRequest request,
                                              HttpServletResponse response) {
         User user = userRepository.findOne(userDTO.getLogin());
         if (user != null) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         } else {
+        	//FIXME - JH-Add terms of service check and create new exception layer to pass back to angular
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
                     userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey());
             final Locale locale = Locale.forLanguageTag(user.getLangKey());
@@ -124,6 +126,7 @@ public class AccountResource {
         for (Authority authority : user.getAuthorities()) {
             roles.add(authority.getName());
         }
+        //FIXME: JH-update user object for emailverification and calculate application approval flags
         return new ResponseEntity<>(
             new UserDTO(
                 user.getLogin(),
@@ -132,7 +135,8 @@ public class AccountResource {
                 user.getLastName(),
                 user.getEmail(),
                 user.getLangKey(),
-                roles),
+                roles
+                ),
             HttpStatus.OK);
     }
 

@@ -1,7 +1,7 @@
 'use strict';
 
-mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register',
-    function ($scope, $translate, Register) {
+mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$location',
+    function ($scope, $translate, Register, $location) {
         $scope.success = null;
         $scope.error = null;
         $scope.doNotMatch = null;
@@ -20,7 +20,7 @@ mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register',
                         $scope.error = null;
                         $scope.errorUserExists = null;
                         $scope.success = 'OK';
-                        // FIXME redirect to success page.
+                        $location.path('/emailVerification');
                     },
                     function (httpResponse) {
                         $scope.success = null;

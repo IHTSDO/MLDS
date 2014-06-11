@@ -2,12 +2,6 @@
 
 /* Services */
 
-mldsApp.factory('Register', ['$resource',
-    function ($resource) {
-        return $resource('app/rest/register', {}, {
-        });
-    }]);
-
 mldsApp.factory('Activate', ['$resource',
     function ($resource) {
         return $resource('app/rest/activate', {}, {
@@ -109,12 +103,6 @@ mldsApp.factory('Session', [
         };
         return this;
     }]);
-
-mldsApp.constant('USER_ROLES', {
-        all: '*',
-        admin: 'ROLE_ADMIN',
-        user: 'ROLE_USER'
-    });
 
 mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authService', 'Session', 'Account',
     function ($rootScope, $http, authService, Session, Account) {
