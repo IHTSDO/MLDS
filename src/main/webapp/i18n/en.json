@@ -16,7 +16,8 @@
                 "login": "Authenticate",
                 "logout": "Log out",
                 "apidocs": "API",
-                "register": "Register"
+                "register": "Register",
+                "affilates": "Affilates"
             },
             "admin": "Administration",
             "language": "Language"

@@ -16,7 +16,8 @@
                 "login": "Autoryzacja",
                 "logout": "Wyloguj",
                 "apidocs": "API",
-                "register": "Register"
+                "register": "Register",
+                "affilates": "Affilates-Pl"
             },
             "admin": "Administracja",
             "language": "Język"
