@@ -32,7 +32,7 @@ public class MigrationSuggestionGenerator {
 		String hibernateUrl = "hibernate:ejb3:mlds?hibernate.dialect=org.hibernate.dialect.PostgreSQL82Dialect";
 		Database hibernateDatabase = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(new HibernateConnection(hibernateUrl)));
 
-		CommandLineUtils.doDiffToChangeLog(null,hibernateDatabase, jdbcConnectionDatabase, diffControl);
+		CommandLineUtils.doDiffToChangeLog(null,hibernateDatabase, jdbcConnectionDatabase, diffControl, null);
 	}
 
 	private void initSpring() {

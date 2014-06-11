@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mldsApp')
+angular.module('MLDS')
 	.directive('passwordStrengthBar', function() {
         return {
             replace: true,

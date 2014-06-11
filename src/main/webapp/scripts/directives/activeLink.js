@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mldsApp')
+angular.module('MLDS')
     .directive('activeLink', ['$location', function(location) {
         return {
             restrict: 'A',
