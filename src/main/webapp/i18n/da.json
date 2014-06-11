@@ -16,7 +16,8 @@
                 "login": "Log ind",
                 "logout": "Log ud",
                 "apidocs": "API",
-                "register": "Register"
+                "register": "Register",
+                "affilates": "Affilates-Da"
             },
             "admin": "Administration",
             "language": "Sprog"
