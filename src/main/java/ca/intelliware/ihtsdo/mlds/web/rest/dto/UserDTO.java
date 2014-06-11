@@ -21,14 +21,16 @@ public class UserDTO {
     private boolean emailVerified;
 
 	private boolean applicationApproved;
+	
+	private boolean applicationMade;
     
-    public UserDTO() {
+
+	public UserDTO() {
     }
 
     
-    //FIXME: JH-update to set emailVerified and applicationApproved flags
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   List<String> roles) {
+                   List<String> roles, boolean emailVerified, boolean applicationMade, boolean applicationApproved) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -36,8 +38,15 @@ public class UserDTO {
         this.email = email;
         this.langKey = langKey;
         this.roles = roles;
+        this.emailVerified = emailVerified;
+        this.applicationMade = applicationMade;
+        this.applicationApproved = applicationApproved;
     }
 
+    public boolean isApplicationMade() {
+    	return applicationMade;
+    }
+    
     public boolean isEmailVerified() {
     	return emailVerified;
     }
@@ -74,8 +83,6 @@ public class UserDTO {
         return roles;
     }
 
-    
-    //FIXME: JH-add email verification and application approval to method
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("UserDTO{");

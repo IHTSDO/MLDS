@@ -1,7 +1,7 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationController',
-        [ '$scope', '$log', 'UserRegistrationService', '$location', function ($scope, $log, UserRegistrationService, $location) {
+        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', function ($scope, $log, UserRegistrationService, $location, UserSession) {
         	
         	window.regScope = $scope;
         	$scope.affiliateform = {};
@@ -12,7 +12,7 @@ mldsApp.controller('AffiliateRegistrationController',
         		var httpPromise = UserRegistrationService.createApplication($scope.affiliateform);
         		
         		httpPromise.then(function() {
-        			//UserSession.updateSession();
+        			UserSession.updateSession();
         			$location.path('/dashboard');
         		});
         	};
