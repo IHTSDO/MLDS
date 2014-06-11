@@ -543,30 +543,35 @@ a.text-danger:hover {
 .bg-primary {
   color: #fff;
   background-color: #960d3c;
+  padding: 15px;
 }
 a.bg-primary:hover {
   background-color: #670929;
 }
 .bg-success {
   background-color: #dff0d8;
+  padding: 15px;
 }
 a.bg-success:hover {
   background-color: #c1e2b3;
 }
 .bg-info {
   background-color: #d9edf7;
+  padding: 15px;
 }
 a.bg-info:hover {
   background-color: #afd9ee;
 }
 .bg-warning {
   background-color: #fbeed5;
+  padding: 15px;
 }
 a.bg-warning:hover {
   background-color: #f7dba6;
 }
 .bg-danger {
   background-color: #f2dede;
+  padding: 15px;
 }
 a.bg-danger:hover {
   background-color: #e4b9b9;
@@ -4300,6 +4305,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .label-primary {
   background-color: #960d3c;
+  letter-spacing: 0.0683em;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 .label-primary[href]:hover,
 .label-primary[href]:focus {
@@ -4807,6 +4814,7 @@ a.list-group-item-danger.active:focus {
 .panel-title > a {
   color: inherit;
   display: block;
+  text-decoration: none;
 }
 .panel-footer {
   padding: 10px 15px;
@@ -4966,6 +4974,12 @@ a.list-group-item-danger.active:focus {
 }
 .panel-group .panel-heading {
   border-bottom: 0;
+}
+.panel-group .panel-heading:hover,
+.panel-group .panel-heading:focus {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #025d74;
 }
 .panel-group .panel-heading + .panel-collapse .panel-body {
   border-top: 1px solid #dddddd;
