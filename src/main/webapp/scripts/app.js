@@ -16,6 +16,12 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+                .when('/emailVerification', {
+                    templateUrl: 'views/emailVerification.html',
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    }
+                })
                 .when('/affilateRegistration', {
                     templateUrl: 'views/registration/affiliateRegistration.html',
                     controller: 'AffiliateRegistrationController',
@@ -110,7 +116,7 @@ mldsApp
                     }
                 })
                 .when('/docs', {
-                    templateUrl: 'views/docs.html',
+                    templateUrl: 'views/admin/docs.html',
                     access: {
                         authorizedRoles: [USER_ROLES.admin]
                     }
