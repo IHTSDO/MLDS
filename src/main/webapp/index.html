@@ -130,11 +130,9 @@
             </div>
         </nav>
         <div class="container">
-            <div class="well" ng-view=""></div>
+          <div class="well" ng-view=""></div>
 
-            <div class="footer">
-                <p translate="footer">This is your footer</p>
-            </div>
+					<footer ng-include="view/footer.html"> </footer>
         </div>
 
         <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
