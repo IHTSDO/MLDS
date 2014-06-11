@@ -16,6 +16,13 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+                .when('/affilateRegistration', {
+                    templateUrl: 'views/registration/affiliateRegistration.html',
+                    controller: 'AffiliateRegistrationController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    }
+                })
                 .when('/activate', {
                     templateUrl: 'views/activate.html',
                     controller: 'ActivationController',
@@ -102,7 +109,7 @@ mldsApp
                     }
                 })
                 .otherwise({
-                    templateUrl: 'js/app/templates/LandingPage.html',
+                    templateUrl: 'views/landingPage.html',
                     controller: 'MainController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]

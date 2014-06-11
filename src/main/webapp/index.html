@@ -52,6 +52,8 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu" ng-controller="MenuController">
+                            		 <li ng-switch-when="true"><a href="#/affilateRegistration"><span class="glyphicon glyphicon-wrench"></span>
+                                    &nbsp;<span translate="global.menu.account.affilates">Affilates</span></a></li>
                                 <li ng-switch-when="true"><a href="#/settings"><span class="glyphicon glyphicon-wrench"></span>
                                     &nbsp;<span translate="global.menu.account.settings">Settings</span></a></li>
                                 <li ng-switch-when="true"><a href="#/password"><span class="glyphicon glyphicon-lock"></span>
@@ -161,7 +163,12 @@
         <script src="scripts/utils.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers.js"></script>
+        <script src="scripts/controllers/AffiliateRegistrationController.js"></script>
+        <script src="scripts/controllers/LoginController.js"></script>
+        <script src="scripts/controllers/RegisterController.js"></script>
         <script src="scripts/services.js"></script>
+        <script src="scripts/services/Events.js"></script>
+        <script src="scripts/services/UserRegistrationService.js"></script>
         <script src="scripts/directives.js"></script>
         <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/affix.js"></script>
         <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/alert.js"></script>
