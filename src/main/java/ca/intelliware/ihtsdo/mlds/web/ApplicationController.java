@@ -47,7 +47,7 @@ public class ApplicationController {
 	@RequestMapping(value="/api/applications/create",method=RequestMethod.POST)
 	public Object createApplication(@RequestBody Map request) {
 		Map<String, String> organization = (Map<String, String>) request.get("organization");
-		Map<String, String> individual = (Map<String, String>) request.get("individual");
+		Map<String, String> contact = (Map<String, String>) request.get("contact");
 		
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		Application application = new Application();
@@ -60,11 +60,9 @@ public class ApplicationController {
 		application.setType((String) request.get("type"));
 		application.setApplicantType((String) request.get("applicantType"));
 		
-		if ((String) request.get("applicantType") == "Individual") {
-			application.setName(individual.get("name"));
-			application.setPhoneNumber(individual.get("phone"));
-		}
-		
+		application.setName(contact.get("name"));
+		application.setPhoneNumber(contact.get("phone"));
+
 		if ((String) request.get("applicantType") == "Organisation") {
 			application.setName(organization.get("name"));
 			application.setAddress(organization.get("address"));
