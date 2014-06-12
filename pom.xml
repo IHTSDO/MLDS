@@ -4,6 +4,8 @@
 	<artifactId>mlds</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+	<name>ihtsdo-mlds Maven Webapp</name>
+	<url>http://maven.apache.org</url>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
