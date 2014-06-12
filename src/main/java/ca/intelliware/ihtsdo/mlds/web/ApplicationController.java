@@ -1,11 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.web;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.codehaus.jackson.JsonNode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
@@ -46,7 +52,9 @@ public class ApplicationController {
 	}
 	
 	@RequestMapping(value="/api/applications/create",method=RequestMethod.POST)
-	public Object createApplication(@RequestBody JsonNode request) {
+	public Object createApplication(@RequestBody String rawRequest) throws JsonParseException, JsonMappingException, IOException {
+		JsonNode request = new ObjectMapper().readTree(rawRequest);
+		System.out.println("in call " + request);
 		JsonNode organization = request.get("organization");
 		JsonNode contact =  request.get("contact");
 		
