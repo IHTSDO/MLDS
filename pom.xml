@@ -164,6 +164,17 @@
 
 	<build>
 		<finalName>ihtsdo-mlds</finalName>
+		<plugins>
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+				<version>1.0-m2</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<enableSshAgent>true</enableSshAgent>
+				</configuration>
+			</plugin>
+		</plugins>
 		<pluginManagement>
 			<plugins>
 				<plugin>
