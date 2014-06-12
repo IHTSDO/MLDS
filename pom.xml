@@ -444,6 +444,7 @@
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<enableSshAgent>true</enableSshAgent>
 					<useReleaseProfile>false</useReleaseProfile><!-- no need for source or javadoc -->
+					<noDeploy>true</noDeploy><!--  turn off nexus deploy until we have accounts -->
 				</configuration>
 			</plugin>
 			<plugin>
