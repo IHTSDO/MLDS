@@ -22,7 +22,7 @@
         <div class="panel panel-default applicant">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a ng-click="collapsePanel.type = !collapsePanel.type"> <span> <i class="fa fa-cog"></i> License Type <span ng-show="affiliateform.type"> - {{affiliateform.type}}</span>
+              <a ng-click="collapsePanel.type = !collapsePanel.type"> <span> <i class="fa fa-cog"></i> License Type 
               </span> <span class="pull-right" ng-show="collapsePanel.type">Edit</span>
               </a>
             </h4>
@@ -69,9 +69,7 @@
           <div class="panel panel-default applicant">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a ng-disabled="collapsePanel.applicantType" ng-click="collapsePanel.applicantType = !collapsePanel.applicantType"> <span> <i class="fa fa-file"></i> Applicant <span
-                    ng-show="affiliateform.applicantType"
-                  > - {{affiliateform.applicantType}} </span>
+                <a ng-disabled="collapsePanel.applicantType" ng-click="collapsePanel.applicantType = !collapsePanel.applicantType"> <span> <i class="fa fa-file"></i> Applicant 
                 </span> <span class="pull-right" ng-show="collapsePanel.applicantType">Edit</span>
                 </a>
               </h4>
@@ -241,6 +239,48 @@
               </div>
             </div>
           </div>
+             <div class="panel panel-info">
+          <div class="panel-body">
+          <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.type">
+            <span>
+                <h4>License Type:</h4> 
+                <p>{{affiliateform.type}}</p>
+            </span> 
+         </div>
+          <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.applicantType">
+              <h4>Applicant:</h4>
+              <p>{{affiliateform.applicantType}}</p>
+          </div>     
+         <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.contact.name">
+            <h4>Contact Information:</h4>
+              <address>
+                {{affiliateform.contact.name}}<br>
+                {{affiliateform.contact.email}}<br>
+                {{affiliateform.contact.phone}}
+              </address>
+         
+          </div>
+            <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.Organisation">
+                <h4>Organisation:</h4>
+                <address>
+                 
+                  {{affiliateform.Organisation.name}}<br>
+                  {{affiliateform.Organisation.address}}<br>
+                  {{affiliateform.Organisation.city}}<br>
+                  {{affiliateform.Organisation.country}}<br>
+                  {{affiliateform.Organisation.phonenumber}} {{affiliateform.Organisation.extension}}<br>
+                 {{affiliateform.Organisation.position}}<br>
+                  {{affiliateform.Organisation.website}}
+                </address>
+          </div>
+
+          
+           </div>
+        </div>
+      </div>  
+          
+          
+          
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">SNOMED CT Agreement</h3>
