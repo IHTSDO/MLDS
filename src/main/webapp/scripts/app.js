@@ -17,7 +17,7 @@ mldsApp
                     }
                 })
                 .when('/emailVerification', {
-                    templateUrl: 'views/emailVerification.html',
+                    templateUrl: 'views/registration/emailVerification.html',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
                     }

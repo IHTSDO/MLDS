@@ -5,6 +5,7 @@ import com.codahale.metrics.annotation.Timed;
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
 import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
 import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
@@ -68,6 +69,9 @@ public class AccountResource {
     @Inject
     private UserInfoCalculator userInfoCalculator;
 
+    @Inject
+	private DomainBlacklistService domainBlacklistService;
+    
     /**
      * POST  /rest/register -> register the user.
      */
@@ -82,6 +86,10 @@ public class AccountResource {
         if (user != null) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         } else {
+        	if (domainBlacklistService.isDomainBlacklisted(userDTO.getEmail())) {
+        		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        	}
+        	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
                     userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey());
