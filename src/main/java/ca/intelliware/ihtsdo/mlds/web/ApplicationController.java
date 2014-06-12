@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.codehaus.jackson.JsonNode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -45,9 +46,9 @@ public class ApplicationController {
 	}
 	
 	@RequestMapping(value="/api/applications/create",method=RequestMethod.POST)
-	public Object createApplication(@RequestBody Map request) {
-		Map<String, String> organization = (Map<String, String>) request.get("organization");
-		Map<String, String> contact = (Map<String, String>) request.get("contact");
+	public Object createApplication(@RequestBody JsonNode request) {
+		JsonNode organization = request.get("organization");
+		JsonNode contact =  request.get("contact");
 		
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		Application application = new Application();
@@ -57,24 +58,24 @@ public class ApplicationController {
 		}
 		
 		application.setUsername(sessionService.getUsernameOrNull());
-		application.setType((String) request.get("type"));
-		application.setApplicantType((String) request.get("applicantType"));
+		application.setType(request.get("type").asText());
+		application.setApplicantType(request.get("applicantType").asText());
 		
-		application.setName(contact.get("name"));
-		application.setPhoneNumber(contact.get("phone"));
+		application.setName(contact.get("name").asText());
+		application.setPhoneNumber(contact.get("phone").asText());
 
-		if ((String) request.get("applicantType") == "Organisation") {
-			application.setName(organization.get("name"));
-			application.setAddress(organization.get("address"));
-			application.setCity(organization.get("city"));
-			application.setCountry(organization.get("country"));
-			application.setPhoneNumber(organization.get("phonenumber"));
-			application.setExtension(organization.get("extension"));
-			application.setPosition(organization.get("position"));
-			application.setWebsite(organization.get("website"));
+		if (request.get("applicantType").asText() == "Organisation") {
+			application.setName(organization.get("name").asText());
+			application.setAddress(organization.get("address").asText());
+			application.setCity(organization.get("city").asText());
+			application.setCountry(organization.get("country").asText());
+			application.setPhoneNumber(organization.get("phonenumber").asText());
+			application.setExtension(organization.get("extension").asText());
+			application.setPosition(organization.get("position").asText());
+			application.setWebsite(organization.get("website").asText());
 		}
 			
-		application.setSnoMedLicence((boolean) request.get("snoMedTC"));
+		application.setSnoMedLicence(request.get("snoMedTC").asBoolean());
 		
 		application.setApproved(false);
 		applicationRepository.save(application);
