@@ -52,8 +52,7 @@ public class ApplicationController {
 	}
 	
 	@RequestMapping(value="/api/applications/create",method=RequestMethod.POST)
-	public Object createApplication(@RequestBody String rawRequest) throws JsonParseException, JsonMappingException, IOException {
-		JsonNode request = new ObjectMapper().readTree(rawRequest);
+	public Object createApplication(@RequestBody JsonNode request) {
 		System.out.println("in call " + request);
 		JsonNode organization = request.get("organization");
 		JsonNode contact =  request.get("contact");
