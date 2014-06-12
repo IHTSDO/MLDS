@@ -13,7 +13,7 @@
                 "metrics": "Metrics",
                 "logs": "Logs",
                 "audits": "Audits",
-                "login": "Authenticate",
+                "login": "Login",
                 "logout": "Log out",
                 "apidocs": "API",
                 "register": "Register",
