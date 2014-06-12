@@ -2,8 +2,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ca.intelliware.ihtsdo.mlds</groupId>
 	<artifactId>mlds</artifactId>
-	<version>0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+	<version>0.0.1</version>
 	<name>ihtsdo-mlds Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
