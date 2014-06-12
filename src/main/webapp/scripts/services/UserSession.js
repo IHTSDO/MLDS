@@ -14,6 +14,10 @@ angular.module('MLDS')
 			service.applicationApproved = applicationApproved;
 		};
 		
+		service.hasVerifiedEmail = function() {
+			return service.emailVerified;
+		};
+		
 		service.hasApplied = function hasApplied() {
 			return service.applicationMade;
 		};
