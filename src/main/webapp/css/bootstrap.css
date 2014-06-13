@@ -543,30 +543,35 @@ a.text-danger:hover {
 .bg-primary {
   color: #fff;
   background-color: #960d3c;
+  padding: 15px;
 }
 a.bg-primary:hover {
   background-color: #670929;
 }
 .bg-success {
   background-color: #dff0d8;
+  padding: 15px;
 }
 a.bg-success:hover {
   background-color: #c1e2b3;
 }
 .bg-info {
   background-color: #d9edf7;
+  padding: 15px;
 }
 a.bg-info:hover {
   background-color: #afd9ee;
 }
 .bg-warning {
   background-color: #fbeed5;
+  padding: 15px;
 }
 a.bg-warning:hover {
   background-color: #f7dba6;
 }
 .bg-danger {
   background-color: #f2dede;
+  padding: 15px;
 }
 a.bg-danger:hover {
   background-color: #e4b9b9;
@@ -3648,7 +3653,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar {
   position: relative;
-  min-height: 50px;
+  min-height: 80px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
@@ -3746,10 +3751,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-brand {
   float: left;
   color: #ffffff;
-  padding: 15px 15px;
+  padding: 30px 15px;
   font-size: 18px;
   line-height: 20px;
-  height: 50px;
+  height: 80px;
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
@@ -3766,8 +3771,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   float: right;
   margin-right: 15px;
   padding: 9px 10px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 23px;
+  margin-bottom: 23px;
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
@@ -3791,7 +3796,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-nav {
-  margin: 7.5px -15px;
+  margin: 15px -15px;
 }
 .navbar-nav > li > a {
   padding-top: 10px;
@@ -3829,8 +3834,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
   .navbar-nav.navbar-right:last-child {
     margin-right: -15px;
@@ -3852,8 +3857,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 23px;
+  margin-bottom: 23px;
 }
 @media (min-width: 768px) {
   .navbar-form .form-group {
@@ -3920,20 +3925,20 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom-left-radius: 0;
 }
 .navbar-btn {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 23px;
+  margin-bottom: 23px;
 }
 .navbar-btn.btn-sm {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 .navbar-btn.btn-xs {
-  margin-top: 14px;
-  margin-bottom: 14px;
+  margin-top: 29px;
+  margin-bottom: 29px;
 }
 .navbar-text {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 @media (min-width: 768px) {
   .navbar-text {
@@ -4300,6 +4305,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .label-primary {
   background-color: #960d3c;
+  letter-spacing: 0.0683em;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 .label-primary[href]:hover,
 .label-primary[href]:focus {
@@ -4377,6 +4384,8 @@ a.list-group-item.active > .badge,
   margin-bottom: 30px;
   color: inherit;
   background-color: #ffffff;
+  margin-top: -20px;
+  border-top: 3px solid #04add8;
 }
 .jumbotron h1,
 .jumbotron .h1 {
@@ -4807,6 +4816,7 @@ a.list-group-item-danger.active:focus {
 .panel-title > a {
   color: inherit;
   display: block;
+  text-decoration: none;
 }
 .panel-footer {
   padding: 10px 15px;
@@ -4966,6 +4976,12 @@ a.list-group-item-danger.active:focus {
 }
 .panel-group .panel-heading {
   border-bottom: 0;
+}
+.panel-group .panel-heading:hover,
+.panel-group .panel-heading:focus {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #025d74;
 }
 .panel-group .panel-heading + .panel-collapse .panel-body {
   border-top: 1px solid #dddddd;
@@ -5825,10 +5841,6 @@ button.close {
 #main-content {
   border-top: 2px solid #960d3c;
   background-color: #f5f5f5;
-}
-.masthead {
-  background-color: white;
-  border-bottom: 1px solid #04add8;
 }
 .form-welcome {
   width: 400px;
