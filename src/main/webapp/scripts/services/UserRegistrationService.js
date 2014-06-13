@@ -3,7 +3,7 @@
 mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Events', function($http, $rootScope, $log, Events){
 		return {
 			getUsers: function() {
-				return $http.get('/registrations');
+				return $http.get('/app/rest/users');
 			},
 		
 			createUser : function(user) {
