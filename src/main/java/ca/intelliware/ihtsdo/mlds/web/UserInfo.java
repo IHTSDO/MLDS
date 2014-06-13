@@ -1,9 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.web;
 
-import ca.intelliware.ihtsdo.mlds.registration.UserRegistration;
+import ca.intelliware.ihtsdo.mlds.domain.User;
 
 public class UserInfo {
-	UserRegistration userRegistration;
+	User user;
 	boolean hasApplied = false;
 	boolean isApproved = false;
 
@@ -15,8 +15,8 @@ public class UserInfo {
 		this.hasApplied = hasApplied;
 	}
 	
-	public void setUserRegistration(UserRegistration currentRegistration) {
-		this.userRegistration = currentRegistration;
+	public void setUser(User currentUser) {
+		this.user = currentUser;
 	}
 
 	public boolean isApproved() {
@@ -27,8 +27,8 @@ public class UserInfo {
 		this.isApproved = isApproved;
 	}
 
-	public UserRegistration getUserRegistration() {
-		return userRegistration;
+	public User getUser() {
+		return user;
 	}
 
 }
