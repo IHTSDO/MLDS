@@ -17,7 +17,8 @@
                 "logout": "Log out",
                 "apidocs": "API",
                 "register": "Register",
-                "affiliates": "Affiliates"
+                "affiliates": "Affiliates",
+                "dashboard": "Dashboard"
             },
             "admin": "Administration",
             "language": "Language"

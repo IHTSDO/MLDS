@@ -30,6 +30,7 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                     if (!Session.login) {
                         Account.get(function(data) {
                             Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                            UserSession.create(data.emailVerified, data.applicationMade, data.applicationApproved);
                             $rootScope.account = Session;
 
                             if (!$rootScope.isAuthorized(authorizedRoles)) {

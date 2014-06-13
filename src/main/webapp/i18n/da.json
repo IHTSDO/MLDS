@@ -17,7 +17,8 @@
                 "logout": "Log ud",
                 "apidocs": "API",
                 "register": "Register",
-                "affiliates": "Affiliates-Da"
+                "affiliates": "Affiliates-Da",
+                "dashboard": "Dashboard-Da"
             },
             "admin": "Administration",
             "language": "Sprog"
