@@ -72,8 +72,6 @@
 	<script src="js/app/controllers/AdminDashboardController.js"></script>
 	<script src="js/app/directives/bsValidation.js"></script>
 	<script type="text/javascript" src="https://jira.ihtsdotools.org/s/d41d8cd98f00b204e9800998ecf8427e/en_US-v99clk-1988229788/6262/3/1.4.7/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=89d47347"></script>
-
-Cheers,
 </body>
 </html>
 
