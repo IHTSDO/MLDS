@@ -1,22 +1,23 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import ca.intelliware.ihtsdo.mlds.Application;
-import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
-import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
-import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import javax.inject.Inject;
-
-import static org.assertj.core.api.Assertions.*;
+import ca.intelliware.ihtsdo.mlds.Application;
+import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
+import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
+import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 
 /**
  * Test class for the UserResource REST controller.
@@ -26,8 +27,8 @@ import static org.assertj.core.api.Assertions.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@DirtiesContext(classMode= DirtiesContext.ClassMode.AFTER_CLASS)
 @ActiveProfiles("dev")
+@Transactional
 public class UserServiceTest {
 
     @Inject
@@ -41,14 +42,14 @@ public class UserServiceTest {
 
     @Test
     public void testRemoveOldPersistentTokens() {
-        assertThat(persistentTokenRepository.findAll()).isEmpty();
-        User admin = userRepository.findOne("admin");
+    	User admin = userRepository.findOne("admin");
+        assertThat(persistentTokenRepository.findByUser(admin)).isEmpty();
         generateUserToken(admin, "1111-1111", new LocalDate());
         LocalDate now = new LocalDate();
         generateUserToken(admin, "2222-2222", now.minusDays(32));
-        assertThat(persistentTokenRepository.findAll()).hasSize(2);
+        assertThat(persistentTokenRepository.findByUser(admin)).hasSize(2);
         userService.removeOldPersistentTokens();
-        assertThat(persistentTokenRepository.findAll()).hasSize(1);
+        assertThat(persistentTokenRepository.findByUser(admin)).hasSize(1);
     }
 
     private void generateUserToken(User user, String tokenSeries, LocalDate localDate) {

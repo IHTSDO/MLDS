@@ -14,9 +14,9 @@ import java.util.List;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
+// FIXME MLDS-23 MB this is dead.  Do we delete, or add it back somehow?
 public class TemplateCollector {
 
 	private ServletContext context;
