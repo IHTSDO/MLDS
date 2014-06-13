@@ -1,19 +1,24 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
+import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
+import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+
+import com.codahale.metrics.annotation.Timed;
 
 /**
  * REST controller for managing users.
@@ -26,7 +31,16 @@ public class UserResource {
 
     @Inject
     private UserRepository userRepository;
-
+    
+    @RequestMapping(value = "/rest/users",
+    		method = RequestMethod.GET,
+    		produces = "application/json")
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public @ResponseBody Iterable<User> getUsers() {
+    	log.debug("Rest request to get all Users");
+    	return userRepository.findAll();
+    }
+    
     /**
      * GET  /rest/users/:login -> get the "login" user.
      */
