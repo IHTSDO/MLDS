@@ -3471,7 +3471,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 3px 15px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -3799,8 +3799,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin: 15px -15px;
 }
 .navbar-nav > li > a {
-  padding-top: 10px;
-  padding-bottom: 10px;
   line-height: 20px;
 }
 @media (max-width: 767px) {
@@ -3834,8 +3832,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    margin-top: 20px;
   }
   .navbar-nav.navbar-right:last-child {
     margin-right: -15px;
@@ -4983,12 +4980,6 @@ a.list-group-item-danger.active:focus {
   text-decoration: none;
   background-color: #025d74;
 }
-.panel-group .panel-heading:hover,
-.panel-group .panel-heading:focus {
-  color: #ffffff;
-  text-decoration: none;
-  background-color: #025d74;
-}
 .panel-group .panel-heading + .panel-collapse .panel-body {
   border-top: 1px solid #dddddd;
 }
@@ -5840,6 +5831,10 @@ button.close {
   border: 1px solid #ededed;
   min-height: 300px;
   margin-top: 30px;
+}
+.login {
+  background-color: #ffffff;
+  margin-bottom: 30px;
 }
 .intro {
   background-color: #ffffff;
