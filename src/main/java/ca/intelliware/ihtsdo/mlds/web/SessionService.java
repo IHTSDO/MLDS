@@ -15,6 +15,9 @@ public class SessionService {
 		Authentication authentication = SecurityContextHolder
 				.getContext()
 				.getAuthentication();
+		if (authentication == null) {
+			return null;
+		}
 		Object principal = authentication.getPrincipal();
 		String username = null;
 		if (principal instanceof UserDetails) {
