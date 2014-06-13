@@ -43,8 +43,15 @@ mldsApp
                     }
                 })
                 .when('/dashboard', {
-                    templateUrl: 'views/Dashboard.html',
+                    templateUrl: 'views/user/Dashboard.html',
                     controller: 'UserDashboardController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.user]
+                    }
+                })
+                 .when('/usage-log', {
+                    templateUrl: 'views/user/usageLog.html',
+                    controller: 'UsageLogController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
                     }
