@@ -152,7 +152,7 @@ angular.module('MLDS').config(
     ).run(
       ['$translate','langCode', function($translate, langCode) {
 
-        $translate.use('fr');
+        $translate.use('en');
 
       }]
     );
