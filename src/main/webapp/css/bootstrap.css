@@ -5857,6 +5857,9 @@ button.close {
   position: relative;
   left: 30px;
 }
+.masthead {
+  background-color: #ffffff;
+}
 .tos-bg {
   background-color: #EEEEEE;
   margin: 10px 0;
