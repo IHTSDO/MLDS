@@ -4,23 +4,24 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', funct
 	$log.log('UsageLogController');
 	
 	$scope.usageLogForm = {};
+	$scope.usageLogForm.countries = [];
 	
-	$scope.availableCountries = ["Canada", "Denmark", "France", "United Arab Emirates", "United States", "Germany", "China"];
+	$scope.availableCountries = ["Canada", "Denmark", "France", "United Arab Emirates", "United States"];
 	
 	$scope.addCountries = function() {
-		$scope.usageLogForm.countries = $scope.addSelectedCountries;
+		$scope.addSelectedCountries.forEach(function(country){
+			if ($scope.usageLogForm.countries.indexOf(country) == -1){
+				$scope.usageLogForm.countries.push(country);
+			}
+		});
 	};
 	
 	$scope.removeCountries = function() {
 		$scope.removeSelectedCountries.forEach(function(country) {
-			$log.log('checking to remove:', country);
 			var index = $scope.usageLogForm.countries.indexOf(country);
 			
 			if (index != -1) {
-				$log.log('removing', country);
 				$scope.usageLogForm.countries.splice(index, 1);
-				
-				
 			}
 		});
 	};
