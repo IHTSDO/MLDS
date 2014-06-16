@@ -31,7 +31,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                  <a href="#"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
+                  <img src="images/logo.jpg" alt="ihtsdo-logo">
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
                     <ul class="nav navbar-nav nav-pills navbar-right">
@@ -50,8 +50,8 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu" ng-controller="MenuController">
-                            		 <li><a href="#/affiliateRegistration">
-                                    <span translate="global.menu.account.affiliates">Affiliates</span></a></li>
+                            		 <li><a href="#/dashboard">
+                                    <span translate="global.menu.account.dashboard">Dashboard</span></a></li>
                                 <li><a href="#/settings">
                                     <span translate="global.menu.account.settings">Settings</span></a></li>
                                 <li><a href="#/password">
@@ -178,6 +178,7 @@
         <script src="scripts/controllers/RegisterController.js"></script>
         <script src="scripts/controllers/UserListController.js"></script>
         <script src="scripts/controllers/UserDashboardController.js"></script>
+        <script src="scripts/controllers/UsageLogController.js"></script>
         <script src="scripts/services.js"></script>
         <script src="scripts/services/Events.js"></script>
         <script src="scripts/services/DomainBlacklistService.js"></script>
