@@ -1,48 +1,71 @@
-<div class="container">
-	<h1>Usage Log</h1>
-	<a class="pull-right" href="#/dashboard">Back to Dashboard</a>
-	
-	<form ng-submit="submitUsageLog()">
-	
-		<div class="col-md-12">
-			<input type="date" ng-model="usageLogForm.date"/>
-		</div>
-	
-		
-		<div class="col-md-5">
-			<h3>List of Countries</h3>
-			<input class="col-md-12" type="search" ng-model="q" placeholder="Search Countries"/>
-			<select class="col-md-12"  name="countries" multiple ng-model="addSelectedCountries">
-		  	<option ng-repeat="country in availableCountries | filter:q" value="{{country}}">{{country}}</option>
-			</select>
-		</div>
-		
-		<div class="col-md-1">
-			<button class="btn btn-success" ng-click="addCountries()">add</button>
-			<button class="btn btn-danger" ng-click="removeCountries()">remove</button>		
-		
-		</div>
-		
-		<div class="col-md-5">
-			<h3>Selected Countries</h3>
-			<select class="col-md-12" name="countries" multiple ng-model="removeSelectedCountries">
-		  	<option ng-repeat="country in usageLogForm.countries" value="{{country}}">{{country}}</option>
-			</select>
-		</div>
-		
-		<div class="col-md-12">
-			<h3>Sublicensed Institutions</h3>
-			<div ng-repeat="country in usageLogForm.countries">
-				<span>{{country}}</span>
-				<div>
-				</div>
-			</div>
-		</div>
-	
-		<div class="col-md-12">
-			<input type="submit" value="Save Usage"/>
-		</div>
-	</form>
-	
-	
-</div>
+<div class="row">
+  <div class="container">
+   <h1>Usage Log</h1>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a ng-click="collapsePanel.geographic = !collapsePanel.geographic"> Geographic Scope </a>
+        </h4>
+      </div>
+      <div id="collapseIndividual" ng-show="!collapsePanel.geographic" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <p>
+            <strong>Select the countries in which SNOMED CT will be used</strong>
+          </p>
+          <form ng-submit="submitUsageLog()">
+            <div class="col-sx-4 col-md-4 col-lg-5">
+              <div class="panel panel-default">
+                <div class="panel-heading">List of Countries</div>
+                <div class="panel-body">
+                  <div class="bg-info">
+                    <div class="input-group">
+                      <input class="form-control" type="search" ng-model="q" placeholder="Search Countries" /> <span class="input-group-addon"><span class="fa fa-search"></span> </span>
+                    </div>
+                  </div>
+                  <div class="form-group selectpicker">
+                    <select name="countries" multiple ng-model="addSelectedCountries" class="form-control">
+                      <option ng-repeat="country in availableCountries | filter:q" value="{{country}}">{{country}}</option>
+                    </select>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-success" ng-click="addCountries()">add</button>
+              <button class="btn btn-danger" ng-click="removeCountries()">remove</button>
+            </div>
+            <div class="col-sx-4 col-md-4 col-lg-4">
+              <h4 class="list-group-item-heading">Selected Countries</h4>
+              <div class="panel-body">
+                <ul class="form-group selectpicker">
+                  <select class="form-control" name="countries" multiple ng-model="removeSelectedCountries">
+                    <option ng-repeat="country in usageLogForm.countries" value="{{country}}">{{country}}</option>
+                  </select>
+                </ul>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="container">
+            <h3>Sublicensed Institutions</h3>
+            <div ng-repeat="country in usageLogForm.countries">
+              <span>{{country}}</span>
+              <div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="container">
+            <div class="pull-right">
+              <input class="btn btn-default" disabled="disabled" type="submit" value="Save Usage" /> <input class="btn btn-default" type="submit" value="Cancel" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </form>
+    </div>
+  </div>
