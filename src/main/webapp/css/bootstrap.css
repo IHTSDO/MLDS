@@ -5884,6 +5884,21 @@ button.close {
   margin-bottom: 10px;
   max-width: 97%;
 }
+.selectpicker .form-control {
+  padding: 0;
+}
+.selectpicker option {
+  padding: 11px 5px;
+  min-height: 30px;
+  font-weight: normal;
+  line-height: 1.42857;
+  border-bottom: 1px solid #eeeeee;
+}
+.selectpicker option:hover,
+.selectpicker option:focus {
+  color: #222222;
+  background-color: #eeeeee;
+}
 footer {
   background-color: #18283c;
   color: #ffffff;
