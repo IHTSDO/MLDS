@@ -1,15 +1,25 @@
+<div class="masthead">
+	<div class="container">
+		<div class="pull-left">
+			<img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo">
+		</div>
+		<form class="navbar-form navbar-right navbar-login">
+			<p>
+				<strong></strong><a href="/logout">{{'SIGN_OUT' | translate}}</a>
+			</p>
+		</form>
+	</div>
+</div>
+
 
 <div class="jumbotron">
-		<div class="container" id="welcome">
-				<img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo">
-				<hr>
-				<div class="col-lg-12">
-						<h1>Application Pending Approval</h1>
-						<p>Your application is being processed.</p>
-						<a href="#/">Go to Dashboard</a> 
-						<!-- 	<a href="#/affiliateRegistration">Go to Affiliate Registration</a> -->
-				</div>
+	<div class="container" id="welcome">
+		<div class="col-lg-12">
+			<h1>Application Pending Approval</h1>
+			<p>Your application is being processed.</p>
+			<!-- 	<a href="#/affiliateRegistration">Go to Affiliate Registration</a> -->
 		</div>
+	</div>
 </div>
 
 <footer ng-include="'templates/common/footer.html'"> </footer>
