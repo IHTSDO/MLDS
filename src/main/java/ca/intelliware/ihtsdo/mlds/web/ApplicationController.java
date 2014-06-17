@@ -1,8 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -15,14 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 @Controller
 public class ApplicationController {
@@ -82,6 +76,7 @@ public class ApplicationController {
 			application.setWebsite(organization.get("website").asText());
 		}
 			
+		// FIXME MB map unset to false?
 		application.setSnoMedLicence(request.get("snoMedTC").asBoolean());
 		
 		application.setApproved(false);

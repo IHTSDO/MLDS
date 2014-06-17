@@ -16,7 +16,7 @@ angular.module('MLDS')
             }
 
             function showValidation(formGroupEl) {
-                var input = formGroupEl.find('input[ng-model],textarea[ng-model]');
+                var input = formGroupEl.find('input[ng-model],textarea[ng-model],select[ng-model]');
                 if (input.length > 0) {
                     scope.$watch(function() {
                         return input.hasClass('ng-invalid');
