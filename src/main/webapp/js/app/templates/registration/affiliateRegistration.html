@@ -227,9 +227,24 @@
                 </div>
               </div>
               <div class="row">
+<<<<<<< HEAD
                 <div class="col-lg-4">
                   <div class="form-group">
                     <input class="form-control" placeholder="Phone Number" ng-required="affliateform.applicantType=='Organisation'" autofocus ng-model="affiliateform.Organisation.phonenumber">
+=======
+              	<div class="col-md-6">
+              		<label>Phone Number </label>
+              	</div> 
+              </div>             
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <input class="form-control" ng-pattern="/^(\(?\+?[0-9]*\)?)?[0-9_\- .\(\)]*$/" name="organizationPhone" placeholder="+55 123 456 7895" ng-required="affiliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.phonenumber">
+                    <div ng-show="affiliateApplicationForm.attempted">
+	                    <p ng-show="affiliateApplicationForm.organizationPhone.$error.required" class="help-block">Required field.</p>
+	                    <p ng-show="!affiliateApplicationForm.organizationPhone.$error.required && affiliateApplicationForm.organizationPhone.$invalid" class="help-block">Invalid Phone Number.</p>
+                    </div>
+>>>>>>> updated directive to include select elements and added in pattern checking for phone number fields
                   </div>
                 </div>
                 <div class="col-lg-2">
