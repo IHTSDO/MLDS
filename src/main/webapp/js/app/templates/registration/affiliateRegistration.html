@@ -145,25 +145,45 @@
                       <strong>Email</strong>
                     </p>
                     <input class="form-control" type="email" placeholder="JohnSmith@OrganisationABC.com" required name="contactEmail" ng-model="affiliateform.contact.email">
- 				<p ng-show="affiliateApplicationForm.contactEmail.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
- 				<p ng-show="affiliateApplicationForm.contactEmail.$error.email && affiliateApplicationForm.attempted" class="help-block">Invalid Email Address.</p>
+                    <div ng-show="affiliateApplicationForm.attempted">
+							 				<p ng-show="affiliateApplicationForm.contactEmail.$error.required" class="help-block">Required field.</p>
+							 				<p ng-show="!affiliateApplicationForm.contactEmail.$error.required && affiliateApplicationForm.contactEmail.$error.email" class="help-block">Invalid Email Address.</p>
+						 				</div>
                   </div>
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <p>
-                      <strong>Phone Number</strong>
-                    </p>
-                    <input class="form-control" placeholder="tel." required name="contactPhone" ng-model="affiliateform.contact.phone">
- 				<p ng-show="affiliateApplicationForm.contactPhone.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
- 				
-                  </div>
-                </div>
-              </div>
-            </div>
+							<div class="row">
+								<div class="col-md-6">
+									<p>
+										<strong>Phone Number</strong>
+									</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<input class="form-control col-md-4" type="text"
+											ng-pattern="/^(\(?\+?[0-9]*\)?)?[0-9_\- .\(\)]*$/" placeholder="+55 123 456 7895 " required
+											name="contactPhone" ng-model="affiliateform.contact.phone">
+										<div ng-show="affiliateApplicationForm.attempted">
+											<p
+												ng-show="affiliateApplicationForm.contactPhone.$error.required"
+												class="help-block">Required field.</p>
+											<p
+												ng-show="!affiliateApplicationForm.contactPhone.$error.required && affiliateApplicationForm.contactPhone.$invalid"
+												class="help-block">Invalid Phone Number.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<input class="form-control col-md-2" placeholder="Extenstion"
+											ng-model="affiliateform.contact.extension">
+									</div>
+								</div>
+							</div>
+						</div>
           </div>
         </div>
         <div class="panel panel-default" ng-show="affiliateform.applicantType=='Organisation'">
@@ -228,10 +248,18 @@
                 </div>
               </div>
               <div class="row">
+              	<div class="col-md-6">
+              		<label>Phone Number </label>
+              	</div> 
+              </div>             
+              <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <input class="form-control" name="organizationPhone" placeholder="Phone Number" ng-required="affiliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.phonenumber">
-                    <p ng-show="affiliateApplicationForm.organizationPhone.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+                    <input class="form-control" ng-pattern="/^(\(?\+?[0-9]*\)?)?[0-9_\- .\(\)]*$/" name="organizationPhone" placeholder="+55 123 456 7895" ng-required="affiliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.phonenumber">
+                    <div ng-show="affiliateApplicationForm.attempted">
+	                    <p ng-show="affiliateApplicationForm.organizationPhone.$error.required" class="help-block">Required field.</p>
+	                    <p ng-show="!affiliateApplicationForm.organizationPhone.$error.required && affiliateApplicationForm.organizationPhone.$invalid" class="help-block">Invalid Phone Number.</p>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-2">
