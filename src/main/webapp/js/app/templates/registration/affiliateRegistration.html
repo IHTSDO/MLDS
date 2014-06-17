@@ -217,12 +217,13 @@
                 </div>
                 <div class="col-lg-3">
                   <div class="form-group">
-                    <select class="form-control input-md" ng-model="affiliateform.Organisation.country">
+                    <select class="form-control input-md" name="organizationCountry" ng-model="affiliateform.Organisation.country" ng-required="affiliateform.applicantType=='Organisation'">
                       <option value="">Country</option>
                       <option value="Canada">Canada</option>
                       <option value="Denmark">Denmark</option>
                       <option value="Spain">Spain</option>
                     </select>
+                    <p ng-show="affiliateApplicationForm.organizationCountry.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
                   </div>
                 </div>
               </div>
