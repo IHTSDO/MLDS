@@ -22,7 +22,7 @@
 
 <form ng-submit="affiliateform.submit()" bs-validation>
   <div class="container">
-    <div class="col-sx-12 col-lg-12">
+    <div class="col-sx-12 col-md-12">
       <div class="panel-group" id="accordion">
         <div class="panel panel-default applicant">
           <div class="panel-heading">
@@ -35,7 +35,7 @@
           <div id="collapseIndividual" ng-show="!collapsePanel.type" class="panel-collapse collapse in">
             <div class="panel-body">
               <h4>How will you be using the standard? FIXME COPY</h4>
-              <div class="col-lg-6">
+              <div class="col-md-6">
                 <div class="thumbnail">
                   <div class="caption">
                     <h3>Software application</h3>
@@ -52,7 +52,7 @@
                 </div>
               </div>
 
-              <div class="col-lg-6">
+              <div class="col-md-6">
                 <div class="thumbnail">
                   <div class="caption">
                     <h3>Research or Public Good</h3>
@@ -83,7 +83,7 @@
           <div id="collapseOne" ng-show="!collapsePanel.applicantType" class="panel-collapse collapse in">
             <div class="panel-body">
               <h4>Will you be using SNOMED CT as an individual, or do you represent an Organisation? FIXME COPY</h4>
-              <div class="col-lg-6">
+              <div class="col-md-6">
                 <div class="thumbnail">
                   <div class="caption">
                     <h3>Individual</h3>
@@ -98,7 +98,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-md-6">
                 <div class="thumbnail">
                   <div class="caption">
                     <h3>Organisation</h3>
@@ -125,34 +125,34 @@
           <div id="collapseIndividual" ng-show="!collapsePanel.contact" class="panel-collapse collapse in">
             <div class="panel-body">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <p>
                       <strong>Name</strong>
                     </p>
-                    <input class="form-control" placeholder="John Smith" required autofocus ng-model="affiliateform.contact.name">
+                    <input class="form-control" placeholder="John Smith" required ng-model="affiliateform.contact.name">
                   </div>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <p>
                       <strong>Email</strong>
                     </p>
-                    <input class="form-control" placeholder="JohnSmith@OrganisationABC.com" required autofocus ng-model="affiliateform.contact.email">
+                    <input class="form-control" placeholder="JohnSmith@OrganisationABC.com" required ng-model="affiliateform.contact.email">
                   </div>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <p>
                       <strong>Phone Number</strong>
                     </p>
-                    <input class="form-control" placeholder="tel." required autofocus ng-model="affiliateform.contact.phone">
+                    <input class="form-control" placeholder="tel." required ng-model="affiliateform.contact.phone">
                   </div>
                 </div>
               </div>
@@ -168,7 +168,7 @@
           <div id="collapseOrganisation" class="panel-collapse collapse in" ng-show="!collapsePanel.Organisation">
             <div class="panel-body">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <p>Are you authorized by your Organisation to enter into legal agreements? FIXME - copy FIXME - tooltip</p>
                     <label><input type="checkbox" ng-model="affiliateform.Organisation.isAgent" ng-required="affliateform.applicantType=='Organisation'"> Yes, I am an agent for my
@@ -177,31 +177,31 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <p>
                       <strong>Name</strong>
                     </p>
-                    <input class="form-control" placeholder="Organisation Name" ng-required="affliateform.applicantType=='Organisation'" autofocus ng-model="affiliateform.Organisation.name">
+                    <input class="form-control" placeholder="Organisation Name" ng-required="affliateform.applicantType=='Organisation'" ng-model="affiliateform.Organisation.name">
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label>Address </label> <input class="form-control" placeholder="123 Somewhere Avenue" ng-required="affliateform.applicantType=='Organisation'" autofocus
+                    <label>Address </label> <input class="form-control" placeholder="123 Somewhere Avenue" ng-required="affliateform.applicantType=='Organisation'"
                       ng-model="affiliateform.Organisation.address"
                     >
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-3">
+                <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" placeholder="City" ng-required="affliateform.applicantType=='Organisation'" autofocus ng-model="affiliateform.Organisation.city">
+                    <input class="form-control" placeholder="City" ng-required="affliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.city">
                   </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-3">
                   <div class="form-group">
                     <select class="form-control input-md" ng-model="affiliateform.Organisation.country">
                       <option value="">Country</option>
@@ -213,30 +213,30 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-4">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <input class="form-control" placeholder="Phone Number" ng-required="affliateform.applicantType=='Organisation'" autofocus ng-model="affiliateform.Organisation.phonenumber">
+                    <input class="form-control" placeholder="Phone Number" ng-required="affliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.phonenumber">
                   </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-md-2">
                   <div class="form-group">
-                    <input class="form-control" placeholder="Extenstion" autofocus ng-model="affiliateform.Organisation.extension">
+                    <input class="form-control" placeholder="Extenstion"  ng-model="affiliateform.Organisation.extension">
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label> Department/Sub Division </label> <input class="form-control" placeholder="Position" ng-required="affliateform.applicantType=='Organisation'" autofocus
+                    <label> Department/Sub Division </label> <input class="form-control" placeholder="Position" ng-required="affliateform.applicantType=='Organisation'" 
                       ng-model="affiliateform.Organisation.position"
                     >
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label> Website </label> <input class="form-control" placeholder="www.Organisation.com" ng-required="affliateform.applicantType=='Organisation'" autofocus
+                    <label> Website </label> <input class="form-control" placeholder="www.Organisation.com" ng-required="affliateform.applicantType=='Organisation'" 
                       ng-model="affiliateform.Organisation.website"
                     >
                   </div>
