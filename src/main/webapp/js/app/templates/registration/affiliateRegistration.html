@@ -22,7 +22,7 @@
 
 <form novalidate name="affiliateApplicationForm" ng-controller="AffiliateRegistrationController" ng-submit="affiliateform.submit()" bs-validation>
   <div class="container">
-    <div class="col-sx-12 col-lg-12">
+    <div class="col-sx-12 col-md-12">
       <div class="panel-group" id="accordion">
         <div class="panel panel-default applicant">
           <div class="panel-heading">
@@ -53,7 +53,7 @@
                 </div>
               </div>
 
-              <div class="col-lg-6">
+              <div class="col-md-6">
                 <div class="thumbnail">
                   <div class="caption">
                     <h3>Research or Public Good</h3>
@@ -100,7 +100,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-md-6">
                 <div class="thumbnail">
                   <div class="caption">
                     <h3>Organisation</h3>
@@ -127,7 +127,7 @@
           <div id="collapseIndividual" ng-show="!collapsePanel.contact" class="panel-collapse collapse in">
             <div class="panel-body">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>Name</label>
                     <input class="form-control" placeholder="John Smith" required name="contactName" ng-model="affiliateform.contact.name">
@@ -137,7 +137,7 @@
               </div>
 
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>Email</label>
                     <input class="form-control" type="email" placeholder="JohnSmith@OrganisationABC.com" required name="contactEmail" ng-model="affiliateform.contact.email">
@@ -189,7 +189,7 @@
           <div id="collapseOrganisation" class="panel-collapse collapse in" ng-show="!collapsePanel.Organisation">
             <div class="panel-body">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <p>Are you authorized by your Organisation to enter into legal agreements? FIXME - copy FIXME - tooltip</p>
                     <label>
@@ -201,7 +201,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <p>
                       <strong>Name</strong>
@@ -212,7 +212,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>Address </label> 
                     <input class="form-control" name="organizationAddress" placeholder="123 Somewhere Avenue" ng-required="affiliateform.applicantType=='Organisation'"
@@ -223,13 +223,13 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-3">
+                <div class="col-md-3">
                   <div class="form-group">
                     <input class="form-control" name="organizationCity" placeholder="City" ng-required="affiliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.city">
                     <p ng-show="affiliateApplicationForm.organizationCity.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
                   </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-3">
                   <div class="form-group">
                     <select class="form-control input-md" name="organizationCountry" ng-model="affiliateform.Organisation.country" ng-required="affiliateform.applicantType=='Organisation'">
                       <option value="">Country</option>
@@ -256,14 +256,14 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-md-2">
                   <div class="form-group">
-                    <input class="form-control" placeholder="Extenstion" autofocus ng-model="affiliateform.Organisation.extension">
+                    <input class="form-control" placeholder="Extenstion"  ng-model="affiliateform.Organisation.extension">
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label> Department/Sub Division </label> 
                     <input class="form-control" name="organizationPosition" placeholder="Position" ng-required="affiliateform.applicantType=='Organisation'" ng-model="affiliateform.Organisation.position">
@@ -272,7 +272,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label> Website </label>
                     <input class="form-control" name="organizationWebsite" placeholder="www.Organisation.com" ng-required="affiliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.website">
