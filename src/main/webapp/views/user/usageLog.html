@@ -36,7 +36,7 @@
                 <h4>Selected Countries</h4>
                 <div class="selectpicker">
                   <ul class="form-group">
-                    <select class="form-control" name="countries" multiple ng-model="removeSelectedCountries">
+                    <select class="form-control" id="countries" name="countries" multiple ng-model="removeSelectedCountries">
                       <option ng-repeat="country in usageLogForm.countries" value="{{country}}">{{country}}</option>
                     </select>
                   </ul>
