@@ -1,6 +1,7 @@
 <div class="row">
   <div class="container">
     <h1>Usage Log</h1>
+    <p>Page Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat. </p>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
@@ -13,7 +14,7 @@
             <strong>Select the countries in which SNOMED CT will be used</strong>
           </p>
           <div class="well">
-            <form ng-submit="submitUsageLog()">
+            <form ng-submit="submitUsageLog()" action="">
 
               <div class="col-sx-4 col-md-4 col-lg-5">
                 <h4>List of Countries</h4>
@@ -43,28 +44,43 @@
                 </div>
 
               </div>
+            </form>
           </div>
-    </div>
+          <div class="pull-right">
+            <input class="btn btn-default" disabled="disabled" type="submit" value="Save Progress" /> <input class="btn btn-link" type="submit" value="Cancel" />
+          </div>
+        </div>
       </div>
-              </div>
-          </div>
-          <div class="row">
-            <div class="container">
-              <h3>Sublicensed Institutions</h3>
-              <div ng-repeat="country in usageLogForm.countries">
-                <span>{{country}}</span>
-                <div></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a ng-click="collapsePanel.sublicensed = !collapsePanel.sublicensed"> Sublicensed Institutions</a>
+          </h4>
+        </div>
+        <div id="collapseIndividual" ng-show="!collapsePanel.sublicensed" class="panel-collapse collapse in">
+          <div class="panel-body">
+
+            <div ng-repeat="country in usageLogForm.countries">
+
+              <div class="well">
+                <h3>{{country}}</h3>
               </div>
             </div>
           </div>
-
           <div class="row">
             <div class="container">
               <div class="pull-right">
-                <input class="btn btn-default" disabled="disabled" type="submit" value="Save Usage" /> <input class="btn btn-default" type="submit" value="Cancel" />
+                <input class="btn btn-default" disabled="disabled" type="submit" value="Submit Usage" /> <input class="btn btn-link" type="submit" value="Cancel" />
               </div>
-    
-    
-        </form>
+            </div>
+          </div>
+        </div>
       </div>
-  
+    </div>
+    <form action=""></form>
+  </div>
+</div>
