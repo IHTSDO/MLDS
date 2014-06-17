@@ -58,7 +58,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a ng-click="collapsePanel.sublicensed = !collapsePanel.sublicensed"> Sublicensed Institutions</a>
+            <a ng-click="collapsePanel.sublicensed = !collapsePanel.sublicensed"> Sublicensed Institutions in s Non-Member Territory Country</a>
           </h4>
         </div>
         <div id="collapseIndividual" ng-show="!collapsePanel.sublicensed" class="panel-collapse collapse in">
@@ -68,13 +68,31 @@
 
               <div class="well">
                 <h3>{{country}}</h3>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="container">
-              <div class="pull-right">
+                <h4>Add New Institution</h4>
+                <div class="row">
+                <div class="form-group">
+                   <div class="col-md-6">
+                    <label>Institution Name</label>
+                    <input class="form-control" placeholder="Enter Institution Name">
+                </div>
+               </div>
+               </div>
+               <div class="row">
+               <div class="form-group">
+                  <h4>Purpose</h4>
+                  <button type="submit" class="btn btn-default">Hospital</button>
+                  <button type="submit" class="btn btn-default">Practice</button>
+               </div>
+               
+                <div class="form-group">
+                  <button type="submit" class="btn btn-sucess">Add Institution</button>
+               </div>
+               </div>
+               </div>
+                <div class="row">
+                <div class="pull-right">
                 <input class="btn btn-default" disabled="disabled" type="submit" value="Submit Usage" /> <input class="btn btn-link" type="submit" value="Cancel" />
+              </div>
               </div>
             </div>
           </div>
