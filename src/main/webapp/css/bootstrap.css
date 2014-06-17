@@ -3472,7 +3472,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 3px 15px;
+  padding: 12px 15px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -3953,23 +3953,23 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-color: #eeeeee;
 }
 .navbar-default .navbar-brand {
-  color: #aab8d1;
+  color: #3a6292;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #899cc0;
+  color: #2b4a6e;
   background-color: transparent;
 }
 .navbar-default .navbar-text {
-  color: #c0cadd;
+  color: #960d3c;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #aab8d1;
+  color: #3a6292;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #ffffff;
-  background-color: #c0cadd;
+  background-color: #960d3c;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
@@ -4005,12 +4005,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #aab8d1;
+    color: #3a6292;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
     color: #ffffff;
-    background-color: #c0cadd;
+    background-color: #960d3c;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
@@ -4026,7 +4026,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default .navbar-link {
-  color: #aab8d1;
+  color: #3a6292;
 }
 .navbar-default .navbar-link:hover {
   color: #ffffff;
@@ -5081,6 +5081,7 @@ a.list-group-item-danger.active:focus {
   background-color: #f2f4f8;
   border: 1px solid #dbe0ec;
   border-radius: 4px;
+  overflow: hidden;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
@@ -5884,8 +5885,25 @@ button.close {
   margin-bottom: 10px;
   max-width: 97%;
 }
+.selectpicker {
+  border: 1px solid #e0e0e0;
+  background-color: #f9fafc;
+  padding: 16px 12px 4px;
+  min-height: 250px;
+}
+.selectpicker .input-group {
+  margin-bottom: 8px;
+}
 .selectpicker .form-control {
   padding: 0;
+}
+.selectpicker .form-control:focus {
+  border: none;
+  box-shadow: none;
+  border: 1px solid #e0e0e0;
+}
+.selectpicker input[type=search] {
+  padding-left: 3px;
 }
 .selectpicker option {
   padding: 11px 5px;
@@ -5898,6 +5916,11 @@ button.close {
 .selectpicker option:focus {
   color: #222222;
   background-color: #eeeeee;
+}
+#select-btns {
+  min-height: 100px;
+  padding-top: 40px;
+  margin-top: 120px;
 }
 footer {
   background-color: #18283c;
