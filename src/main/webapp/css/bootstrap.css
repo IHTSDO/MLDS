@@ -5931,6 +5931,6 @@ button.close {
 footer {
   background-color: #18283c;
   color: #ffffff;
-  padding: 10px 0 0;
-  height: 60px;
+  padding: 20px 0 0;
+  min-height: 60px;
 }
