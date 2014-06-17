@@ -185,23 +185,11 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <p>Are you authorized by your Organisation to enter into legal agreements? FIXME - copy FIXME - tooltip</p>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    <label><input type="checkbox" ng-model="affiliateform.Organisation.isAgent" ng-required="affliateform.applicantType=='Organisation'"> Yes, I am an agent for my
-                      Organisation. </label>
-=======
                     <label>
                     	<input type="checkbox" name="isAgent" ng-model="affiliateform.Organisation.isAgent" ng-required="affiliateform.applicantType=='Organisation'"> 
                     	Yes, I am an agent for my Organisation.
                     	<p ng-show="affiliateApplicationForm.isAgent.$error.required && affiliateApplicationForm.attempted" class="help-block">You need to be an agent to be able to apply for SNOMED CT for your organization</p>
                    	</label>
->>>>>>> adding in required messages for required fields for organization info
-=======
-                    <label>
-                    	<input type="checkbox" ng-model="affiliateform.Organisation.isAgent" ng-required="affiliateform.applicantType=='Organisation'"> 
-                    	Yes, I am an agent for my Organisation.
-                   	</label>
->>>>>>> fixing required flag on organization fields
                   </div>
                 </div>
               </div>
