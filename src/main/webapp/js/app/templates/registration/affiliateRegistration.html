@@ -122,10 +122,9 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <p>
-                      <strong>Name</strong>
-                    </p>
-                    <input class="form-control" placeholder="John Smith" required autofocus ng-model="affiliateform.contact.name">
+                    <label>Name</label>
+                    <input class="form-control" placeholder="John Smith" required name="contactName" ng-model="affiliateform.contact.name">
+ 										<p ng-show="affiliateApplicationForm.contactName.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
                   </div>
                 </div>
               </div>
@@ -133,25 +132,45 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <p>
-                      <strong>Email</strong>
-                    </p>
-                    <input class="form-control" placeholder="JohnSmith@OrganisationABC.com" required autofocus ng-model="affiliateform.contact.email">
+                    <label>Email</label>
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganisationABC.com" required name="contactEmail" ng-model="affiliateform.contact.email">
+                    <div ng-show="affiliateApplicationForm.attempted">
+							 				<p ng-show="affiliateApplicationForm.contactEmail.$error.required" class="help-block">Required field.</p>
+							 				<p ng-show="!affiliateApplicationForm.contactEmail.$error.required && affiliateApplicationForm.contactEmail.$error.email" class="help-block">Invalid Email Address.</p>
+						 				</div>
                   </div>
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <p>
-                      <strong>Phone Number</strong>
-                    </p>
-                    <input class="form-control" placeholder="tel." required autofocus ng-model="affiliateform.contact.phone">
-                  </div>
-                </div>
-              </div>
-            </div>
+							<div class="row">
+								<div class="col-md-6">
+									<label>Phone Number</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<input class="form-control" type="text"
+											ng-pattern="/^(\(?\+?[0-9]*\)?)?[0-9_\- .\(\)]*$/" placeholder="+55 123 456 7895 " required
+											name="contactPhone" ng-model="affiliateform.contact.phone">
+										<div ng-show="affiliateApplicationForm.attempted">
+											<p
+												ng-show="affiliateApplicationForm.contactPhone.$error.required"
+												class="help-block">Required field.</p>
+											<p
+												ng-show="!affiliateApplicationForm.contactPhone.$error.required && affiliateApplicationForm.contactPhone.$invalid"
+												class="help-block">Invalid Phone Number.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<input class="form-control col-md-2" placeholder="Extenstion"
+											ng-model="affiliateform.contact.extension">
+									</div>
+								</div>
+							</div>
+						</div>
           </div>
         </div>
         <div class="panel panel-default" ng-show="affiliateform.applicantType=='Organisation'">
