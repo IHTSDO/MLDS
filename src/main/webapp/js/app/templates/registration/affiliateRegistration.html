@@ -144,8 +144,9 @@
                     <p>
                       <strong>Email</strong>
                     </p>
-                    <input class="form-control" placeholder="JohnSmith@OrganisationABC.com" required name="contactEmail" ng-model="affiliateform.contact.email">
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganisationABC.com" required name="contactEmail" ng-model="affiliateform.contact.email">
  				<p ng-show="affiliateApplicationForm.contactEmail.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+ 				<p ng-show="affiliateApplicationForm.contactEmail.$error.email && affiliateApplicationForm.attempted" class="help-block">Invalid Email Address.</p>
                   </div>
                 </div>
               </div>
@@ -158,6 +159,7 @@
                     </p>
                     <input class="form-control" placeholder="tel." required name="contactPhone" ng-model="affiliateform.contact.phone">
  				<p ng-show="affiliateApplicationForm.contactPhone.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+ 				
                   </div>
                 </div>
               </div>
