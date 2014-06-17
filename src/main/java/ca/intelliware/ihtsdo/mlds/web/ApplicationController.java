@@ -74,6 +74,7 @@ public class ApplicationController {
 			application.setWebsite(organization.get("website"));
 		}
 			
+		// FIXME MB map unset to false?
 		application.setSnoMedLicence((boolean) request.get("snoMedTC"));
 		
 		application.setApproved(false);
