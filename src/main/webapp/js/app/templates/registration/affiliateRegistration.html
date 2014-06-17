@@ -178,8 +178,10 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <p>Are you authorized by your Organisation to enter into legal agreements? FIXME - copy FIXME - tooltip</p>
-                    <label><input type="checkbox" ng-model="affiliateform.Organisation.isAgent" ng-required="affliateform.applicantType=='Organisation'"> Yes, I am an agent for my
-                      Organisation. </label>
+                    <label>
+                    	<input type="checkbox" ng-model="affiliateform.Organisation.isAgent" ng-required="affiliateform.applicantType=='Organisation'"> 
+                    	Yes, I am an agent for my Organisation.
+                   	</label>
                   </div>
                 </div>
               </div>
@@ -189,14 +191,15 @@
                     <p>
                       <strong>Name</strong>
                     </p>
-                    <input class="form-control" placeholder="Organisation Name" ng-required="affliateform.applicantType=='Organisation'" ng-model="affiliateform.Organisation.name">
+                    <input class="form-control" placeholder="Organisation Name" ng-required="affiliateform.applicantType=='Organisation'" ng-model="affiliateform.Organisation.name">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Address </label> <input class="form-control" placeholder="123 Somewhere Avenue" ng-required="affliateform.applicantType=='Organisation'"
+                    <label>Address </label> 
+                    <input class="form-control" placeholder="123 Somewhere Avenue" ng-required="affiliateform.applicantType=='Organisation'"
                       ng-model="affiliateform.Organisation.address"
                     >
                   </div>
@@ -205,7 +208,7 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" placeholder="City" ng-required="affliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.city">
+                    <input class="form-control" placeholder="City" ng-required="affiliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.city">
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -222,7 +225,7 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <input class="form-control" placeholder="Phone Number" ng-required="affliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.phonenumber">
+                    <input class="form-control" placeholder="Phone Number" ng-required="affiliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.phonenumber">
                   </div>
                 </div>
                 <div class="col-md-2">
@@ -234,7 +237,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label> Department/Sub Division </label> <input class="form-control" placeholder="Position" ng-required="affliateform.applicantType=='Organisation'" 
+                    <label> Department/Sub Division </label> <input class="form-control" placeholder="Position" ng-required="affiliateform.applicantType=='Organisation'" 
                       ng-model="affiliateform.Organisation.position"
                     >
                   </div>
@@ -243,7 +246,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label> Website </label> <input class="form-control" placeholder="www.Organisation.com" ng-required="affliateform.applicantType=='Organisation'" 
+                    <label> Website </label> <input class="form-control" placeholder="www.Organisation.com" ng-required="affiliateform.applicantType=='Organisation'" 
                       ng-model="affiliateform.Organisation.website"
                     >
                   </div>
