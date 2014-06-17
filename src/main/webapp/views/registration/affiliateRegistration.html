@@ -1,59 +1,46 @@
-<div class="row">
+<form novalidate name="affiliateApplicationForm" ng-submit="affiliateform.submit()" bs-validation>
   <div class="container">
-    <div class="col-sx-12 col-md-12 col-lg-12">
-      <div class="page-header">
-        <h1>Affiliate Registration</h1>
-        <p class="lead">Please complete the application.</p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <form ng-submit="affiliateform.submit()" bs-validation>
-    <div class="container">
-      <div class="col-sx-12 col-md-12 col-lg-12">
-        <div class="panel-group" id="accordion">
+    <div class="col-sx-12 col-md-12">
+      <div class="panel-group" id="accordion">
         <div class="panel panel-default applicant">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a ng-click="collapsePanel.type = !collapsePanel.type"> <span> <i class="fa fa-cog"></i> License Type 
-              </span> <span class="pull-right" ng-show="collapsePanel.type">Edit</span>
+              <a ng-click="collapsePanel.type = !collapsePanel.type"> <span> <i class="fa fa-cog"></i> License Type
+              </span><span class="pull-right" ng-show="collapsePanel.type">Edit</span>
               </a>
             </h4>
           </div>
           <div id="collapseIndividual" ng-show="!collapsePanel.type" class="panel-collapse collapse in">
-            <div class="panel-body">
+            <div class="panel-body form-group">
               <h4>How will you be using the standard? FIXME COPY</h4>
-              <div class="col-sx-6 col-md-4 col-lg-6">
+				 				<p ng-show="affiliateApplicationForm.usageType.$invalid && affiliateApplicationForm.attempted" class="help-block">You must describe how you plan to use the standard.  Please select one.</p>
+               <div class="col-md-6">
                 <div class="thumbnail">
                   <div class="caption">
                     <h3>Software application</h3>
                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME copy</p>
                     <div class="center-block">
                       <p class="block-centre">
-                        <label class="btn btn-lg btn-default"><i class="fa fa-cube"></i> Vendor or Developer 
-                        	<input class="hide" type="radio" name="typeVendor"
-                        		ng-click="collapsePanel.type = !collapsePanel.type" 
-                        		ng-model="affiliateform.type" value="Software Vendor"> 
-                        </label>
+                       <span> 
+                          <label class="btn btn-lg btn-default"><i class="fa fa-cube"></i> Vendor or Developer <input required class="hide" type="radio" name="typeVendor"
+                          ng-click="collapsePanel.type = !collapsePanel.type" ng-model="affiliateform.type" value="Software Vendor"> </label>
+                       </span>
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-sx-6 col-md-6 col-lg-6">
+              <div class="col-md-6">
                 <div class="thumbnail">
                   <div class="caption">
                     <h3>Research or Public Good</h3>
                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME copy</p>
                     <div class="center-block">
                       <p class="block-centre">
-                        <label class="btn btn-lg btn-default"><i class="fa fa-user-md"></i> Research Organisation
-                        	<input class="hide" type="radio" id="typeResearch"
-                        		ng-click="collapsePanel.type = !collapsePanel.type" 
-                        		ng-model="affiliateform.type" value="Research"> 
-                        </label>
+                        </span> <label class="btn btn-lg btn-default"><i class="fa fa-user-md"></i> Research Organisation <input required class="hide" type="radio" id="typeResearch"
+                          ng-click="collapsePanel.type = !collapsePanel.type" ng-model="affiliateform.type" name="usageType" value="Research"
+                        > </label>
                       </p>
                     </div>
                   </div>
@@ -63,189 +50,219 @@
             </div>
           </div>
         </div>
-      
-          <div class="panel panel-default applicant">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                <a ng-disabled="collapsePanel.applicantType" ng-click="collapsePanel.applicantType = !collapsePanel.applicantType"> <span> <i class="fa fa-file"></i> Applicant 
-                </span> <span class="pull-right" ng-show="collapsePanel.applicantType">Edit</span>
-                </a>
-              </h4>
-            </div>
-            <div id="collapseOne" ng-show="!collapsePanel.applicantType" class="panel-collapse collapse in">
-              <div class="panel-body">
-                <h4>Will you be using SNOMED CT as an individual, or do you represent an organization? FIXME COPY</h4>
-                <div class="col-sx-6 col-md-6 col-lg-6">
-                  <div class="thumbnail">
-                    <div class="caption">
-                      <h3>Individual</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME COPY</p>
-                      <div class="center-block">
-                        <p class="block-centre">
-                          <label class="btn btn-lg btn-default"><i class="fa fa-user"></i> Individual 
-                          	<input class="hide" type="radio"
-                          		ng-click="collapsePanel.applicantType = !collapsePanel.applicantType" 
-                          		ng-model="affiliateform.applicantType" value="Individual" >
-                          </label>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sx-6 col-md-6 col-lg-6">
-                  <div class="thumbnail">
-                    <div class="caption">
-                      <h3>Organisation</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME COPY</p>
-                      <p>
-                        <label class="btn btn-lg btn-default"><i class="fa fa-building"></i> Organisation 
-                        	<input class="hide" type="radio" 
-                        		ng-click="collapsePanel.applicantType = !collapsePanel.applicantType"
-                        		ng-model="affiliateform.applicantType" value="Organisation" >
-                        </label>
+
+        <div class="panel panel-default applicant">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a ng-disabled="collapsePanel.applicantType" ng-click="collapsePanel.applicantType = !collapsePanel.applicantType"> <span> <i class="fa fa-file"></i> Applicant
+              </span> <span class="pull-right" ng-show="collapsePanel.applicantType">Edit</span>
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne" ng-show="!collapsePanel.applicantType" class="panel-collapse collapse in">
+            <div class="panel-body form-group">
+              <h4>Will you be using SNOMED CT as an individual, or do you represent an Organisation? FIXME COPY</h4>
+ 				<p ng-show="affiliateApplicationForm.applicantType.$invalid && affiliateApplicationForm.attempted" class="help-block">Required selection.</p>
+              <div class="col-md-6">
+                <div class="thumbnail">
+                  <div class="caption">
+                    <h3>Individual</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME COPY</p>
+                    <div class="center-block">
+                      <p class="block-centre">
+                        <label class="btn btn-lg btn-default"><i class="fa fa-user"></i> Individual <input required class="hide" type="radio"
+                          ng-click="collapsePanel.applicantType = !collapsePanel.applicantType" ng-model="affiliateform.applicantType" name="applicantType" value="Individual"
+                        > </label>
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                <a ng-click="collapsePanel.contact = !collapsePanel.contact" >
-                	<i class="fa fa-user"></i> Contact Information 
-                </a>
-              </h4>
-            </div>
-            <div id="collapseIndividual" ng-show="!collapsePanel.contact" class="panel-collapse collapse in">
-              <div class="panel-body">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <p>
-                        <strong>Name</strong>
-                      </p>
-                      <input class="form-control" placeholder="John Smith" 
-                      	required autofocus ng-model="affiliateform.contact.name">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <p>
-                        <strong>Email</strong>
-                      </p>
-                      <input class="form-control" placeholder="JohnSmith@OrganisationABC.com" 
-                      	required autofocus ng-model="affiliateform.contact.email">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <p>
-                        <strong>Phone Number</strong>
-                      </p>
-                      <input class="form-control" placeholder="tel." 
-                      	required autofocus ng-model="affiliateform.contact.phone">
-                    </div>
+              <div class="col-md-6">
+                <div class="thumbnail">
+                  <div class="caption">
+                    <h3>Organisation</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME COPY</p>
+                    <p>
+                      <label class="btn btn-lg btn-default"><i class="fa fa-building"></i> Organisation <input required class="hide" type="radio"
+                        ng-click="collapsePanel.applicantType = !collapsePanel.applicantType" ng-model="affiliateform.applicantType" name="applicantType" value="Organisation"
+                      > </label>
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="panel panel-default" ng-show="affiliateform.applicantType=='Organisation'">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                <a ng-click="collapsePanel.Organisation = !collapsePanel.Organisation"><i class="fa fa-building"></i> Organisation </a>
-              </h4>
-            </div>
-            <div id="collapseOrganisation" class="panel-collapse collapse in" ng-show="!collapsePanel.Organisation">
-              <div class="panel-body">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <p>Are you authorized by your organization to enter into legal agreements? FIXME - copy FIXME - tooltip</p>
-                      <label><input type="checkbox" ng-model="affiliateform.Organisation.isAgent" ng-required="affliateform.applicantType=='Organisation'"> Yes, I am an agent for my
-                        organization. </label>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a ng-click="collapsePanel.contact = !collapsePanel.contact"> <i class="fa fa-user"></i> Contact Information
+              </a>
+            </h4>
+          </div>
+          <div id="collapseIndividual" ng-show="!collapsePanel.contact" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" placeholder="John Smith" required name="contactName" ng-model="affiliateform.contact.name">
+ 										<p ng-show="affiliateApplicationForm.contactName.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganisationABC.com" required name="contactEmail" ng-model="affiliateform.contact.email">
+                    <div ng-show="affiliateApplicationForm.attempted">
+							 				<p ng-show="affiliateApplicationForm.contactEmail.$error.required" class="help-block">Required field.</p>
+							 				<p ng-show="!affiliateApplicationForm.contactEmail.$error.required && affiliateApplicationForm.contactEmail.$error.email" class="help-block">Invalid Email Address.</p>
+						 				</div>
+                  </div>
+                </div>
+              </div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<label>Phone Number</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<input class="form-control" type="text"
+											ng-pattern="/^(\(?\+?[0-9]*\)?)?[0-9_\- .\(\)]*$/" placeholder="+55 123 456 7895 " required
+											name="contactPhone" ng-model="affiliateform.contact.phone">
+										<div ng-show="affiliateApplicationForm.attempted">
+											<p
+												ng-show="affiliateApplicationForm.contactPhone.$error.required"
+												class="help-block">Required field.</p>
+											<p
+												ng-show="!affiliateApplicationForm.contactPhone.$error.required && affiliateApplicationForm.contactPhone.$invalid"
+												class="help-block">Invalid Phone Number.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<input class="form-control col-md-2" placeholder="Extenstion"
+											ng-model="affiliateform.contact.extension">
+									</div>
+								</div>
+							</div>
+						</div>
+          </div>
+        </div>
+        <div class="panel panel-default" ng-show="affiliateform.applicantType=='Organisation'">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a ng-click="collapsePanel.Organisation = !collapsePanel.Organisation"><i class="fa fa-building"></i> Organisation </a>
+            </h4>
+          </div>
+          <div id="collapseOrganisation" class="panel-collapse collapse in" ng-show="!collapsePanel.Organisation">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <p>Are you authorized by your Organisation to enter into legal agreements? FIXME - copy FIXME - tooltip</p>
+                    <label>
+                    	<input type="checkbox" name="isAgent" ng-model="affiliateform.Organisation.isAgent" ng-required="affiliateform.applicantType=='Organisation'"> 
+                    	Yes, I am an agent for my Organisation.
+                    	<p ng-show="affiliateApplicationForm.isAgent.$error.required && affiliateApplicationForm.attempted" class="help-block">You need to be an agent to be able to apply for SNOMED CT for your organization</p>
+                   	</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <p>
+                      <strong>Name</strong>
+                    </p>
+                    <input class="form-control" name="organizationName" placeholder="Organisation Name" ng-required="affiliateform.applicantType=='Organisation'" ng-model="affiliateform.Organisation.name">
+                    <p ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Address </label> 
+                    <input class="form-control" name="organizationAddress" placeholder="123 Somewhere Avenue" ng-required="affiliateform.applicantType=='Organisation'"
+                      ng-model="affiliateform.Organisation.address"
+                    >
+                    <p ng-show="affiliateApplicationForm.organizationAddress.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <input class="form-control" name="organizationCity" placeholder="City" ng-required="affiliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.city">
+                    <p ng-show="affiliateApplicationForm.organizationCity.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <select class="form-control input-md" name="organizationCountry" ng-model="affiliateform.Organisation.country" ng-required="affiliateform.applicantType=='Organisation'">
+                      <option value="">Country</option>
+                      <option value="Canada">Canada</option>
+                      <option value="Denmark">Denmark</option>
+                      <option value="Spain">Spain</option>
+                    </select>
+                    <p ng-show="affiliateApplicationForm.organizationCountry.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+              	<div class="col-md-6">
+              		<label>Phone Number </label>
+              	</div> 
+              </div>             
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <input class="form-control" ng-pattern="/^(\(?\+?[0-9]*\)?)?[0-9_\- .\(\)]*$/" name="organizationPhone" placeholder="+55 123 456 7895" ng-required="affiliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.phonenumber">
+                    <div ng-show="affiliateApplicationForm.attempted">
+	                    <p ng-show="affiliateApplicationForm.organizationPhone.$error.required" class="help-block">Required field.</p>
+	                    <p ng-show="!affiliateApplicationForm.organizationPhone.$error.required && affiliateApplicationForm.organizationPhone.$invalid" class="help-block">Invalid Phone Number.</p>
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <p>
-                        <strong>Name</strong>
-                      </p>
-                      <input class="form-control" placeholder="Organisation Name" ng-required="affliateform.applicantType=='Organisation'" autofocus ng-model="affiliateform.Organisation.name">
-                    </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="Extenstion"  ng-model="affiliateform.Organisation.extension">
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Address </label> <input class="form-control" placeholder="123 Somewhere Avenue" ng-required="affliateform.applicantType=='Organisation'" autofocus
-                        ng-model="affiliateform.Organisation.address"
-                      >
-                    </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label> Department/Sub Division </label> 
+                    <input class="form-control" name="organizationPosition" placeholder="Position" ng-required="affiliateform.applicantType=='Organisation'" ng-model="affiliateform.Organisation.position">
+                    <p ng-show="affiliateApplicationForm.organizationPosition.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-lg-3">
-                    <div class="form-group">
-                      <input class="form-control" placeholder="City" ng-required="affliateform.applicantType=='Organisation'" autofocus ng-model="affiliateform.Organisation.city">
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <div class="form-group">
-                      <select class="form-control input-md" ng-model="affiliateform.Organisation.country">
-                        <option value="">Country</option>
-                        <option value="Canada">Canada</option>
-                        <option value="Denmark">Denmark</option>
-                        <option value="Spain">Spain</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-4">
-                    <div class="form-group">
-                      <input class="form-control" placeholder="Phone Number" ng-required="affliateform.applicantType=='Organisation'" autofocus ng-model="affiliateform.Organisation.phonenumber">
-                    </div>
-                  </div>
-                  <div class="col-lg-2">
-                    <div class="form-group">
-                      <input class="form-control" placeholder="Extenstion" autofocus ng-model="affiliateform.Organisation.extension">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label> Department/Sub Division </label> <input class="form-control" placeholder="Position" ng-required="affliateform.applicantType=='Organisation'" autofocus
-                        ng-model="affiliateform.Organisation.position"
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label> Website </label> <input class="form-control" placeholder="www.Organisation.com" ng-required="affliateform.applicantType=='Organisation'" autofocus
-                        ng-model="affiliateform.Organisation.website"
-                      >
-                    </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label> Website </label>
+                    <input class="form-control" name="organizationWebsite" placeholder="www.Organisation.com" ng-required="affiliateform.applicantType=='Organisation'"  ng-model="affiliateform.Organisation.website">
+                    <p ng-show="affiliateApplicationForm.organizationWebsite.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-             <div class="panel panel-info">
+        </div>
+
+        <div class="panel panel-info">
           <div class="panel-body">
           <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.type">
             <span>
@@ -253,20 +270,20 @@
                 <p>{{affiliateform.type}}</p>
             </span> 
          </div>
-          <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.applicantType">
+          <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.type">
               <h4>Applicant:</h4>
               <p>{{affiliateform.applicantType}}</p>
           </div>     
-         <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.contact.name">
+         <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.type">
             <h4>Contact Information:</h4>
               <address>
                 {{affiliateform.contact.name}}<br>
-                {{affiliateform.contact.email}}<br>
+             	{{affiliateform.contact.email}}<br>
                 {{affiliateform.contact.phone}}
               </address>
          
           </div>
-            <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.Organisation">
+            <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.type">
                 <h4>Organisation:</h4>
                 <address>
                  
@@ -284,36 +301,34 @@
            </div>
         </div>
       </div>  
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">SNOMED CT Agreement</h3>
-            </div>
-            <div class="panel-body">
-              <p>License abstract -- explain importance of terms. Describe reporting and possible $$$ obligations! FIXME - copy</p>
-              <p>
-                <a href="http://ihtsdo.org/fileadmin/user_upload/Docs_01/License/Ihtsdo_AffiliateLicenceAgreement_v11.pdf" target="_blank" class="btn btn-default btn-block"><i
-                  class="fa fa-file-pdf-o fa-lg"
-                ></i> SNOMED License</span></a>
-              </p>
-              <p>
-                <label class="cen"> <input type="checkbox" name="snomed" ng-model="affiliateform.snoMedTC" /> I agree to the license
-                </label>
-              </p>
 
-              <div class="panel-footer">
-                <input type="submit" class="btn btn-primary" value="Register" />
-                <button type="button" class="btn btn-link">Cancel</button>
-              </div>
-            </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">SNOMED CT Agreement</h3>
+        </div>
+        <div class="panel-body">
+          <p class="bg-warning text-warning">License abstract -- explain importance of terms. Describe reporting and possible $$$ obligations! FIXME - copy</p>
+          <p>
+            <a href="http://ihtsdo.org/fileadmin/user_upload/Docs_01/License/Ihtsdo_AffiliateLicenceAgreement_v11.pdf" target="_blank" 
+            	class="btn btn-default btn-block"><i class="fa fa-file-pdf-o fa-lg" ></i> SNOMED License</span></a>
+          </p>
+          <p class="form-group">
+            <label class="cen"> <input required type="checkbox" name="snoMedTC" required ng-model="affiliateform.snoMedTC" /> I agree to the license
+ 				<span ng-show="affiliateApplicationForm.snoMedTC.$error.required && affiliateApplicationForm.attempted" class="help-block">The license is required to access SNOMED CT.</span>
+            </label>
+          </p>
+
+          <div class="panel-footer">
+            <input type="submit" class="btn btn-muted btn-default" value="Register" />
+            <button type="button" class="btn btn-link">Cancel</button>
           </div>
         </div>
-        <!-- panel group -->
-
       </div>
-      <!-- column -->
-
     </div>
-  </form>
-  <!-- main END -->
-</div>
+
+
+  </div>
+  </div>
+</form>
+
 <!-- /container -->
