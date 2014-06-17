@@ -5905,6 +5905,11 @@ button.close {
 .selectpicker input[type=search] {
   padding-left: 3px;
 }
+.selectpicker #countries {
+  min-width: 395px;
+  position: relative;
+  right: 42px;
+}
 .selectpicker option {
   padding: 11px 5px;
   min-height: 30px;
