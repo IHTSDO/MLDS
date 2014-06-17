@@ -277,6 +277,7 @@ th {
 html {
   font-size: 62.5%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  overflow-y: scroll;
 }
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
