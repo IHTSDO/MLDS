@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet id="MLDS-23-1" author="MB/DGJ">
+		<comment>Downloaded from http://datahub.io/dataset/iso-3166-1-alpha-2-country-codes/resource/9c3b30dd-f5f3-4bbe-a3cb-d7b2c21d66ce.</comment>
+		<!-- removed unused columns, and deleted rows with duplicate iso_code_2 values (e.g. South Ossetia) -->
+		<createTable tableName="country">
+			<column name="iso_code_2" type="varchar(2)">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="iso_code_3" type="varchar(3)" />
+			<column name="common_name" type="varchar(255)" />
+		</createTable>
+
+		<loadData encoding="UTF-8" file="config/liquibase/iso_3166_1_countries.csv" separator="," tableName="country">
+			<column header="ISO 3166-1 2 Letter Code" name="iso_code_2"/>
+			<column header="ISO 3166-1 3 Letter Code" name="iso_code_3"/>
+			<column header="Common Name" name="common_name"/>
+		</loadData>
+	</changeSet>
+
+</databaseChangeLog>
