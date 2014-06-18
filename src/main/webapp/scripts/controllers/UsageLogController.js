@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', function($scope, $log){
+angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', function($scope, $log, $modal){
 	$log.log('UsageLogController');
 	
 	$scope.usageLogForm = {};
@@ -26,8 +26,19 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', funct
 		});
 	};
 	
-	$scope.submitUsageLog = function submitUsageLog() {
-		$log.log('usageFormSubmit', $scope.usageLogForm);
+	
+	$scope.openAddInstitutionModal = function(country) {
+		var modalInstance = $modal.open({
+			templateUrl: 'views/user/addInstitutionModal.html',
+			controller: 'AddInstitutionController',
+			size:'lg',
+			resolve: {
+				country: function() {
+					return country;
+				}
+			}
+		});
+		
 	};
 	
 }]);
