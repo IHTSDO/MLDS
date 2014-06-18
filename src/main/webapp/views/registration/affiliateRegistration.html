@@ -281,7 +281,7 @@
               <address>
                 {{affiliateform.contact.name}}<br>
              	{{affiliateform.contact.email}}<br>
-                {{affiliateform.contact.phone}}
+                {{affiliateform.contact.phone}} <span ng-show="affiliateform.contact.extension">ext: {{affiliateform.contact.extension}}</span>
               </address>
          
           </div>
@@ -293,7 +293,7 @@
                   {{affiliateform.Organisation.address}}<br>
                   {{affiliateform.Organisation.city}}<br>
                   {{affiliateform.Organisation.country}}<br>
-                  {{affiliateform.Organisation.phonenumber}} {{affiliateform.Organisation.extension}}<br>
+                  {{affiliateform.Organisation.phonenumber}} <span ng-show="affiliateform.Organisation.extension">ext: {{affiliateform.Organisation.extension}}</span><br>
                  {{affiliateform.Organisation.position}}<br>
                   {{affiliateform.Organisation.website}}
                 </address>
