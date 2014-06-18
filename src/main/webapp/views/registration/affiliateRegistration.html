@@ -13,7 +13,9 @@
           <div id="collapseIndividual" ng-show="!collapsePanel.type" class="panel-collapse collapse in">
             <div class="panel-body form-group">
               <h4>How will you be using the standard? FIXME COPY</h4>
-				 				<p ng-show="affiliateApplicationForm.usageType.$invalid && affiliateApplicationForm.attempted" class="help-block">You must describe how you plan to use the standard.  Please select one.</p>
+				 <div class="alert alert-danger" ng-show="affiliateApplicationForm.usageType.$invalid && affiliateApplicationForm.attempted">
+                    <p>You must describe how you plan to use the standard.  Please select one.</p>
+               </div>
                <div class="col-md-6">
                 <div class="thumbnail">
                   <div class="caption">
@@ -62,7 +64,9 @@
           <div id="collapseOne" ng-show="!collapsePanel.applicantType" class="panel-collapse collapse in">
             <div class="panel-body form-group">
               <h4>Will you be using SNOMED CT as an individual, or do you represent an Organisation? FIXME COPY</h4>
- 				<p ng-show="affiliateApplicationForm.applicantType.$invalid && affiliateApplicationForm.attempted" class="help-block">Required selection.</p>
+ 		<div class="alert alert-danger" ng-show="affiliateApplicationForm.applicantType.$invalid && affiliateApplicationForm.attempted">
+                    <p>Required selection.</p>
+               </div>		
               <div class="col-md-6">
                 <div class="thumbnail">
                   <div class="caption">
@@ -180,12 +184,10 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group">
-                    <p>
-                      <strong>Name</strong>
-                    </p>
-                    <input class="form-control" name="organizationName" placeholder="Organisation Name" ng-required="affiliateform.applicantType=='Organisation'" ng-model="affiliateform.Organisation.name">
-                    <p ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+                  <div class="form-group has-error has-feedback">
+                        <label>Name</label>
+                    <input class="form-control help-block" name="organizationName" placeholder="Organisation Name" ng-required="affiliateform.applicantType=='Organisation'" ng-model="affiliateform.Organisation.name">
+                    <p ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted">Required field.</p>
                   </div>
                 </div>
               </div>

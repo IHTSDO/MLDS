@@ -16,7 +16,7 @@
           <div class="well">
             <form ng-submit="submitUsageLog()" action="">
 
-              <div class="col-sx-4 col-md-4 col-lg-5">
+              <div class="col-sx-4 col-md-4 col-lg-6">
                 <h4>List of Countries</h4>
                 <div class="selectpicker">
                   <div class="input-group">
@@ -24,21 +24,17 @@
                   </div>
                   <div class="form-group">
                     <select name="countries" multiple ng-model="addSelectedCountries" class="form-control">
-                      <option ng-repeat="country in availableCountries | filter:q" value="{{country}}">{{country}}</option>
+                      <option ng-repeat="country in availableCountries | filter:q" value="{{country}}"  ng-click="addCountries()">{{country}}</option>
                     </select>
                   </div>
                 </div>
               </div>
-              <div class="col-md-2" id="select-btns">
-                <button class="btn btn-success" ng-click="addCountries()">add</button>
-                <button class="btn btn-danger" ng-click="removeCountries()">remove</button>
-              </div>
-              <div class="col-sx-4 col-md-4 col-lg-5">
+              <div class="col-sx-4 col-md-4 col-lg-6">
                 <h4>Selected Countries</h4>
                 <div class="selectpicker">
                   <ul class="form-group">
-                    <select class="form-control" id="countries" name="countries" multiple ng-model="removeSelectedCountries">
-                      <option ng-repeat="country in usageLogForm.countries" value="{{country}}">{{country}}</option>
+                    <select class="form-control input-lg" id="countries" name="countries" multiple ng-model="removeSelectedCountries">
+                      <option ng-repeat="country in usageLogForm.countries" value="{{country}}" ng-click="removeCountries()">{{country}}</option>
                     </select>
                   </ul>
                 </div>
