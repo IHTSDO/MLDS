@@ -3,6 +3,8 @@
 angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', function($scope, $log, $modal){
 	$log.log('UsageLogController');
 	
+	$scope.collapsePanel = {};
+	
 	$scope.usageLogForm = {};
 	$scope.usageLogForm.countries = [];
 	
