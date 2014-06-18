@@ -3,7 +3,7 @@
 /* App Module */
 
 var mldsApp = angular.module('MLDS', ['http-auth-interceptor', 'tmh.dynamicLocale',
-    'ngResource', 'ngRoute', 'ngCookies', 'mldsAppUtils', 'pascalprecht.translate', 'truncate']);
+    'ngResource', 'ngRoute', 'ngCookies', 'mldsAppUtils', 'pascalprecht.translate', 'truncate', 'ui.bootstrap']);
 
 mldsApp
     .config(['$routeProvider', '$httpProvider', '$translateProvider',  'tmhDynamicLocaleProvider', 'USER_ROLES',
