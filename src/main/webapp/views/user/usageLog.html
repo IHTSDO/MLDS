@@ -33,7 +33,7 @@
               <div class="selectpicker">
                 <ul class="form-group">
                   <select class="form-control input-lg" id="countries" name="countries" multiple ng-model="removeSelectedCountries">
-                    <option ng-repeat="countryCode in usageLogForm.countries" value="{{countryCode}}" ng-click="removeCountries()">{{countryFromCode(countryCode).commonName}}</option>
+                    <option ng-repeat="countryCode in usageLogForm.selectedCountryCodes" value="{{countryCode}}" ng-click="removeCountries()">{{countryFromCode(countryCode).commonName}}</option>
                   </select>
                 </ul>
               </div>
