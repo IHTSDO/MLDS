@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', function($scope, $log, $modal){
+angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', 'CountryService', function($scope, $log, $modal, CountryService){
 	$log.log('UsageLogController');
 	
 	$scope.collapsePanel = {};
@@ -8,19 +8,33 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.usageLogForm = {};
 	$scope.usageLogForm.countries = [];
 	
-	$scope.availableCountries = ["Canada", "Denmark", "France", "United Arab Emirates", "United States"];
+	$scope.availableCountries = [];
+	
+	CountryService.getCountries().then(function(results) {
+		$scope.availableCountries = results;
+	});
+	
+	$scope.countryFromCode = function(countryCode) {
+		var matchedCountry = null;
+		$scope.availableCountries.forEach(function(country) {
+			if (country.isoCode2 === countryCode) {
+				matchedCountry = country;
+			}
+		});
+		return matchedCountry;
+	};
 	
 	$scope.addCountries = function() {
-		$scope.addSelectedCountries.forEach(function(country){
-			if ($scope.usageLogForm.countries.indexOf(country) == -1){
-				$scope.usageLogForm.countries.push(country);
+		$scope.addSelectedCountries.forEach(function(countryCode){
+			if ($scope.usageLogForm.countries.indexOf(countryCode) == -1){
+				$scope.usageLogForm.countries.push(countryCode);
 			}
 		});
 	};
 	
 	$scope.removeCountries = function() {
-		$scope.removeSelectedCountries.forEach(function(country) {
-			var index = $scope.usageLogForm.countries.indexOf(country);
+		$scope.removeSelectedCountries.forEach(function(countryCode) {
+			var index = $scope.usageLogForm.countries.indexOf(countryCode);
 			
 			if (index != -1) {
 				$scope.usageLogForm.countries.splice(index, 1);

@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group">
                   <select name="countries" multiple ng-model="addSelectedCountries" class="form-control">
-                    <option ng-repeat="country in availableCountries | filter:q" value="{{country}}"  ng-click="addCountries()">{{country}}</option>
+                    <option ng-repeat="country in availableCountries | filter:q" value="{{country.isoCode2}}"  ng-click="addCountries()">{{country.commonName}}</option>
                   </select>
                 </div>
               </div>
@@ -33,7 +33,7 @@
               <div class="selectpicker">
                 <ul class="form-group">
                   <select class="form-control input-lg" id="countries" name="countries" multiple ng-model="removeSelectedCountries">
-                    <option ng-repeat="country in usageLogForm.countries" value="{{country}}" ng-click="removeCountries()">{{country}}</option>
+                    <option ng-repeat="countryCode in usageLogForm.countries" value="{{countryCode}}" ng-click="removeCountries()">{{countryFromCode(countryCode).commonName}}</option>
                   </select>
                 </ul>
               </div>
