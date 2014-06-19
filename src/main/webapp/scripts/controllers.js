@@ -89,6 +89,8 @@ mldsApp.controller('SessionsController', ['$scope', 'resolvedSessions', 'Session
         $scope.success = null;
         $scope.error = null;
         $scope.sessions = resolvedSessions;
+        
+        //FIXME: AC error here breaks IE8
         $scope.invalidate = function (series) {
             Sessions.delete({series: encodeURIComponent(series)},
                 function (value, responseHeaders) {
