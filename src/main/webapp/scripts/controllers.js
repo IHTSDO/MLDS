@@ -91,18 +91,18 @@ mldsApp.controller('SessionsController', ['$scope', 'resolvedSessions', 'Session
         $scope.sessions = resolvedSessions;
         
         //FIXME: AC error here breaks IE8
-        $scope.invalidate = function (series) {
-            Sessions.delete({series: encodeURIComponent(series)},
-                function (value, responseHeaders) {
-                    $scope.error = null;
-                    $scope.success = "OK";
-                    $scope.sessions = Sessions.get();
-                },
-                function (httpResponse) {
-                    $scope.success = null;
-                    $scope.error = "ERROR";
-                });
-        };
+//        $scope.invalidate = function (series) {
+//            Sessions.delete({series: encodeURIComponent(series)},
+//                function (value, responseHeaders) {
+//                    $scope.error = null;
+//                    $scope.success = "OK";
+//                    $scope.sessions = Sessions.get();
+//                },
+//                function (httpResponse) {
+//                    $scope.success = null;
+//                    $scope.error = "ERROR";
+//                });
+//        };
     }]);
 
  mldsApp.controller('MetricsController', ['$scope', 'MetricsService', 'HealthCheckService', 'ThreadDumpService',
