@@ -41,9 +41,26 @@
         </div>
       </div>
     </div>
-
 </div>
 <div class="modal-footer">
   <button class="btn btn-link" ng-click="cancel()">Cancel</button>
   <button class="btn btn-primary">OK</button>
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-primary" ng-click="add()" ng-disabled="submitting">
+		<span ng-show="!submitting">Add</span>
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
+	<button class="btn btn-danger" ng-click="addFail()" ng-disabled="submitting">
+		<span ng-show="!submitting">Add Fail</span>
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-primary" ng-click="add()" ng-disabled="submitting">
+		<span ng-show="!submitting">Add</span>
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
+	<button class="btn btn-danger" ng-click="addFail()" ng-disabled="submitting">
+		<span ng-show="!submitting">Add Fail</span>
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
 </div>
