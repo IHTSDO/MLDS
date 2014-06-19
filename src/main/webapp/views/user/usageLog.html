@@ -23,22 +23,13 @@
                 </div>
                 <div class="form-group">
                   <select name="countries" multiple ng-model="addSelectedCountries" class="form-control">
-                    <option ng-repeat="country in availableCountries | filter:q" value="{{country.isoCode2}}"  ng-click="addCountries()">{{country.commonName}}</option>
+                    <option ng-repeat="country in availableCountries | filter:q" value="{{country.isoCode2}}">{{country.commonName}}</option>
                   </select>
                 </div>
+                <div class="form-group">
+                	<button class="btn" ng-disabled="!canAddCountries()" ng-click="addCountries()">Add Country</button>
+                </div>
               </div>
-            </div>
-            <div class="col-sx-4 col-md-4 col-lg-6">
-              <h4>Selected Countries</h4>
-              <div class="selectpicker">
-                <ul class="form-group">
-
-                  <select class="form-control input-lg" id="countries" name="countries" multiple ng-model="removeSelectedCountries">
-                    <option ng-repeat="countryCode in usageLogForm.selectedCountryCodes" value="{{countryCode}}" ng-click="removeCountries()">{{countryFromCode(countryCode).commonName}}</option>
-                  </select>
-                </ul>
-              </div>
-
             </div>
           </form>
         </div>
@@ -54,11 +45,11 @@
 					</h4>
 				</div>
 				<div class="panel-body" collapse="collapsePanel.sublicensed">
-					<div ng-repeat="country in usageLogForm.countries">
+					<div ng-repeat="country in countries">
 						
                   <div class="well">
                         <div class="form-group">
-                             <h3>{{country}}</h3>
+                             <h3>{{country.commonName}}</h3>
                              <p>FIXME copy Instructions...Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 							<a class="btn btn-success" ng-click="openAddInstitutionModal(country)">Add Institution</a>
 						</div>
