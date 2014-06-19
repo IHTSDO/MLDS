@@ -8,149 +8,110 @@
           <a ng-click="collapsePanel.geographic = !collapsePanel.geographic"> Geographic Scope </a>
         </h4>
       </div>
-      <div id="collapseIndividual" ng-show="!collapsePanel.geographic" class="panel-collapse collapse in">
-        <div class="panel-body">
-          <p>
-            <strong>Select the countries in which SNOMED CT will be used</strong>
-          </p>
-          <div class="well">
-            <form ng-submit="submitUsageLog()" action="">
+      <div class="panel-body" collaspse="collapsePanel.geographic" class="panel-collapse collapse in">
+        <p>
+          <strong>Select the countries in which SNOMED CT will be used</strong>
+        </p>
+        <div class="well">
+          <form action="">
 
-              <div class="col-sx-4 col-md-4 col-lg-6">
-                <h4>List of Countries</h4>
-                <div class="selectpicker">
-                  <div class="input-group">
-                    <input class="form-control" type="search" ng-model="q" placeholder="Search Countries" /> <span class="input-group-addon"><span class="fa fa-search"></span> </span>
-                  </div>
-                  <div class="form-group">
-                    <select name="countries" multiple ng-model="addSelectedCountries" class="form-control">
-                      <option ng-repeat="country in availableCountries | filter:q" value="{{country}}"  ng-click="addCountries()">{{country}}</option>
-                    </select>
-                  </div>
+            <div class="col-sx-4 col-md-4 col-lg-6">
+              <h4>List of Countries</h4>
+              <div class="selectpicker">
+                <div class="input-group">
+                  <input class="form-control" type="search" ng-model="q" placeholder="Search Countries" /> <span class="input-group-addon"><span class="fa fa-search"></span> </span>
                 </div>
-              </div>
-              <div class="col-sx-4 col-md-4 col-lg-6">
-                <h4>Selected Countries</h4>
-                <div class="selectpicker">
-                  <ul class="form-group">
-                    <select class="form-control input-lg" id="countries" name="countries" multiple ng-model="removeSelectedCountries">
-                      <option ng-repeat="country in usageLogForm.countries" value="{{country}}" ng-click="removeCountries()">{{country}}</option>
-                    </select>
-                  </ul>
-                </div>
-
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="container">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a ng-click="collapsePanel.sublicensed = !collapsePanel.sublicensed"> Sublicensed Institutions</a>
-           
-          </h4>
-        </div>
-         <div class="panel-body">
-          <div class="form-group">
-              <a href="#" class="btn btn-success">Add Institution</a>
-              </div>
-         <table class="table table-striped">
-          <tr>
-            <th>Institution Name</th>
-            <th>Type</th>
-            <th>License Start</th>
-            <th></th>
-          </tr>
-          
-          <tr>
-            <td>Health ABC</td>
-            <td>Institution</td>
-            <td>Jan 2014</td>
-            <td>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                 Edit <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Add</a></li>
-                  <li><a href="#">Edit</a></li>
-                  <li><a href="#">Change Institution Name</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Delete</a></li>
-                </ul>
-              </div>
-              </td>
-          </tr>
-          
-          <tr>
-            <td>Practice XYZ</td>
-            <td>Practice</td>
-            <td>Jan 2014</td>
-            <td>  <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                 Edit <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Add</a></li>
-                  <li><a href="#">Edit</a></li>
-                  <li><a href="#">Change Institution Name</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Delete</a></li>
-                </ul>
-              </div></td>
-          </tr>
-         </table>
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-       <!--  <div id="collapseIndividual" ng-show="!collapsePanel.sublicensed" class="panel-collapse collapse in">
-          <div class="panel-body">
-
-            <div ng-repeat="country in usageLogForm.countries">
-
-              <div class="well">
-                <h3>{{country}}</h3>
-                <h4>Add New Institution</h4>
-                <div class="row">
                 <div class="form-group">
-                   <div class="col-md-6">
-                    <label>Institution Name</label>
-                    <input class="form-control" placeholder="Enter Institution Name">
+                  <select name="countries" multiple ng-model="addSelectedCountries" class="form-control">
+                    <option ng-repeat="country in availableCountries | filter:q" value="{{country}}"  ng-click="addCountries()">{{country}}</option>
+                  </select>
                 </div>
-               </div>
-               </div>
-               <div class="row">
-               <div class="container">
-               <div class="form-group">
-                  <h4>Purpose</h4>
-                  <button type="submit" class="btn btn-default">Hospital</button>
-                  <button type="submit" class="btn btn-default">Practice</button>
-               </div>
-               </div>
-               </div>
-               </div> 
-                <div class="row">
-                <div class="pull-right">
-                <input class="btn btn-default" disabled="disabled" type="submit" value="Submit Usage" /> <input class="btn btn-link" type="submit" value="Cancel" />
               </div>
-              </div>-->
             </div>
-          </div>
+            <div class="col-sx-4 col-md-4 col-lg-6">
+              <h4>Selected Countries</h4>
+              <div class="selectpicker">
+                <ul class="form-group">
+                  <select class="form-control input-lg" id="countries" name="countries" multiple ng-model="removeSelectedCountries">
+                    <option ng-repeat="country in usageLogForm.countries" value="{{country}}" ng-click="removeCountries()">{{country}}</option>
+                  </select>
+                </ul>
+              </div>
+
+            </div>
+          </form>
         </div>
       </div>
     </div>
-    <form action=""></form>
   </div>
+	<div class="row">
+		<div class="container">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a ng-click="collapsePanel.sublicensed = !collapsePanel.sublicensed">Sublicensed Institutions</a>
+					</h4>
+				</div>
+				<div class="panel-body" collapse="collapsePanel.sublicensed">
+					<div ng-repeat="country in usageLogForm.countries">
+						<div class="form-group">
+							<a class="btn btn-success" ng-click="openAddInstitutionModal(country)">Add Institution</a>
+						</div>
+						<table class="table table-striped">
+							<tr>
+								<th>Institution Name</th>
+								<th>Type</th>
+								<th>License Start</th>
+								<th></th>
+							</tr>
+
+							<tr>
+								<td>Health ABC</td>
+								<td>Institution</td>
+								<td>Jan 2014</td>
+								<td>
+									<div class="btn-group">
+										<button type="button" class="btn btn-default dropdown-toggle"
+											data-toggle="dropdown">
+											Edit <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="#">Add</a></li>
+											<li><a href="#">Edit</a></li>
+											<li><a href="#">Change Institution Name</a></li>
+											<li class="divider"></li>
+											<li><a href="#">Delete</a></li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>Practice XYZ</td>
+								<td>Practice</td>
+								<td>Jan 2014</td>
+								<td>
+									<div class="btn-group">
+										<button type="button" class="btn btn-default dropdown-toggle"
+											data-toggle="dropdown">
+											Edit <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="#">Add</a></li>
+											<li><a href="#">Edit</a></li>
+											<li><a href="#">Change Institution Name</a></li>
+											<li class="divider"></li>
+											<li><a href="#">Delete</a></li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
