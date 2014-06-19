@@ -2,9 +2,8 @@
   <h3 class="modal-title">Add Institution</h3>
 </div>
 <div class="modal-body">
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   <h3>{{country.commonName}}</h3>
-  <div class="well">
-
     <div class="row">
       <div class="form-group">
         <div class="col-md-6">
@@ -12,26 +11,45 @@
         </div>
       </div>
     </div>
-
-    <form name="datepickerForm" class="form-inline" role="form">
-      <div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
-        <label class="control-label"><i class="fa fa-calendar"></i> Start Date</label> <input type="text" class="form-control" ng-model="selectedDate" name="date" bs-datepicker>
-      </div>
-    </form>
+   <hr> 
     <div class="row">
-      <div class="container">
-        <div class="form-group">
-          <h4>Purpose</h4>
+      <div class="form-group">
+        <div class="col-md-6">
+          <h4>Type</h4>
           <button type="submit" class="btn btn-default">Hospital</button>
           <button type="submit" class="btn btn-default">Practice</button>
         </div>
       </div>
     </div>
-  </div>
-
+    <hr>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-4">
+        <h4>Started to Use</h4>
+       <div class="input-group">
+          <input type="text" class="form-control">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+        </div>
+        
+         <div class="col-md-4">
+        <h4>Ceased Use</h4>
+       <div class="input-group">
+          <input type="text" class="form-control">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+        </div>
+      </div>
+    </div>
 </div>
 <div class="modal-footer">
-  <button class="btn btn-link" ng-click="cancel()">Cancel</button>
-  <button class="btn btn-primary">OK</button>
-
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-primary" ng-click="add()" ng-disabled="submitting">
+		<span ng-show="!submitting">Add</span>
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
+	<button class="btn btn-danger" ng-click="addFail()" ng-disabled="submitting">
+		<span ng-show="!submitting">Add Fail</span>
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
 </div>
