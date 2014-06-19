@@ -1,17 +1,16 @@
 'use strict';
 
-mldsApp.factory('CountryService', ['$http', '$log', '$q', function($http, $log, $q){
+angular.module('MLDS')
+.factory('CountryService', ['$http', '$log', '$q', function($http, $log, $q){
 	
-		var countriesListQ = $http.get('/app/rest/countries')
-			.then(function(d){return d.data;});
+		var countriesListQ = 
+			$http.get('/app/rest/countries')
+				.then(function(d){return d.data;});
 		var service = {};
 		
 		service.countries = [];
-		service.countriesByCode = {};
-		
-		service.getCountries = function getCountries() {
-			return countriesListQ;
-		};
+		service.countriesByIsoCode2 = {};
+		service.ready = countriesListQ;
 		
 		countriesListQ.then(function(countries){
 			// append to countries list
@@ -19,7 +18,7 @@ mldsApp.factory('CountryService', ['$http', '$log', '$q', function($http, $log, 
 			
 			// fill countriesByCode map
 			service.countries.map(function(c){
-				service.countriesByCode[c.isoCode2] = c;
+				service.countriesByIsoCode2[c.isoCode2] = c;
 			});
 			
 			$log.log('CountryService', service);

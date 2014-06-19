@@ -8,23 +8,13 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.usageLogForm = {};
 	$scope.addSelectedCountries = [];
 	
-	$scope.availableCountries = [];
+	$scope.availableCountries = CountryService.countries;
 	
 	// Usage Model
 	$scope.countries = [];
 	
-	CountryService.getCountries().then(function(results) {
-		$scope.availableCountries = results;
-	});
-	
 	$scope.countryFromCode = function(countryCode) {
-		var matchedCountry = null;
-		$scope.availableCountries.forEach(function(country) {
-			if (country.isoCode2 === countryCode) {
-				matchedCountry = country;
-			}
-		});
-		return matchedCountry;
+		return CountryService.countriesByIsoCode2[countryCode];
 	};
 	
 	$scope.canAddCountries = function() {
