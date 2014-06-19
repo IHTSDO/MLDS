@@ -46,9 +46,6 @@ import ca.intelliware.ihtsdo.mlds.service.UserService;
 @ActiveProfiles("dev")
 public class AccountResourceTest {
 
-    @Inject
-    private UserRepository userRepository;
-
     @Mock
     private UserService userService;
 
@@ -62,7 +59,6 @@ public class AccountResourceTest {
         MockitoAnnotations.initMocks(this);
         AccountResource accountResource = new AccountResource();
         context.getAutowireCapableBeanFactory().autowireBean(accountResource);
-        //ReflectionTestUtils.setField(accountResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(accountResource, "userService", userService);
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(accountResource).build();
     }
