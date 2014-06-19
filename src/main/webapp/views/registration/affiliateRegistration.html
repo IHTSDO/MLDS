@@ -24,8 +24,8 @@
                     <div class="center-block">
                       <p class="block-centre">
                        <span> 
-                          <label class="btn btn-lg btn-default"><i class="fa fa-cube"></i> Vendor or Developer <input required class="hide" type="radio" name="typeVendor"
-                          ng-click="collapsePanel.type = !collapsePanel.type" ng-model="affiliateform.type" value="Software Vendor"> </label>
+                          <label class="btn btn-lg btn-default" ng-model="affiliateform.type" ng-click="collapsePanel.type = !collapsePanel.type" 
+														name="typeVendor" required btn-radio="'Software Vendor'"><i class="fa fa-cube"></i> Vendor or Developer</label>
                        </span>
                       </p>
                     </div>
@@ -40,10 +40,9 @@
                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME copy</p>
                     <div class="center-block">
                       <p class="block-centre">
-                      <label class="btn btn-lg btn-default"><i class="fa fa-user-md"></i> Research Organisation <input required class="hide" type="radio" id="typeResearch"
-                          ng-click="collapsePanel.type = !collapsePanel.type" ng-model="affiliateform.type" name="usageType" value="Research"
-                        > </label>
-                      </p>
+												<label class="btn btn-lg btn-default" ng-model="affiliateform.type" ng-click="collapsePanel.type = !collapsePanel.type" 
+														name="usageType" required btn-radio="'Research Vendor'"><i class="fa fa-user-md"></i> Research Organisation</label>
+											</p>
                     </div>
                   </div>
                 </div>
@@ -74,9 +73,11 @@
                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME COPY</p>
                     <div class="center-block">
                       <p class="block-centre">
-                        <label class="btn btn-lg btn-default"><i class="fa fa-user"></i> Individual <input required class="hide" type="radio"
-                          ng-click="collapsePanel.applicantType = !collapsePanel.applicantType" ng-model="affiliateform.applicantType" name="applicantType" value="Individual"
-                        > </label>
+												<label class="btn btn-lg btn-default" ng-model="affiliateform.applicantType" 
+													ng-click="collapsePanel.applicantType = !collapsePanel.applicantType" 
+													name="applicantType" required btn-radio="'Research Vendor'">
+													<i class="fa fa-user"></i> Individual
+												</label>
                       </p>
                     </div>
                   </div>
@@ -88,9 +89,11 @@
                     <h3>Organisation</h3>
                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. FIXME COPY</p>
                     <p>
-                      <label class="btn btn-lg btn-default"><i class="fa fa-building"></i> Organisation <input required class="hide" type="radio"
-                        ng-click="collapsePanel.applicantType = !collapsePanel.applicantType" ng-model="affiliateform.applicantType" name="applicantType" value="Organisation"
-                      > </label>
+                    	<label class="btn btn-lg btn-default" ng-model="affiliateform.applicantType" 
+												ng-click="collapsePanel.applicantType = !collapsePanel.applicantType" 
+												name="applicantType" required btn-radio="'Organisation'">
+												<i class="fa fa-building"></i> Organisation
+											</label>
                     </p>
                   </div>
                 </div>
