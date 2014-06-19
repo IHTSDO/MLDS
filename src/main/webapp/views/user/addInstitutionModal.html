@@ -3,7 +3,6 @@
 </div>
 <div class="modal-body">
   <h3>{{country}}</h3>
-  <div class="well">
 
     <div class="row">
       <div class="form-group">
@@ -12,26 +11,39 @@
         </div>
       </div>
     </div>
-
-    <form name="datepickerForm" class="form-inline" role="form">
-      <div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
-        <label class="control-label"><i class="fa fa-calendar"></i> Start Date</label> <input type="text" class="form-control" ng-model="selectedDate" name="date" bs-datepicker>
-      </div>
-    </form>
+   <hr> 
     <div class="row">
-      <div class="container">
-        <div class="form-group">
-          <h4>Purpose</h4>
+      <div class="form-group">
+        <div class="col-md-6">
+          <h4>Type</h4>
           <button type="submit" class="btn btn-default">Hospital</button>
           <button type="submit" class="btn btn-default">Practice</button>
         </div>
       </div>
     </div>
-  </div>
+    <hr>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-4">
+        <h4>Started to Use</h4>
+       <div class="input-group">
+          <input type="text" class="form-control">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+        </div>
+        
+         <div class="col-md-4">
+        <h4>Ceased Use</h4>
+       <div class="input-group">
+          <input type="text" class="form-control">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+        </div>
+      </div>
+    </div>
 
 </div>
 <div class="modal-footer">
   <button class="btn btn-link" ng-click="cancel()">Cancel</button>
   <button class="btn btn-primary">OK</button>
-
 </div>
