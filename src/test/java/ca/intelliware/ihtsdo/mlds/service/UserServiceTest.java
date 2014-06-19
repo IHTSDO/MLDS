@@ -43,13 +43,13 @@ public class UserServiceTest {
     @Test
     public void testRemoveOldPersistentTokens() {
     	User admin = userRepository.findOne("admin");
-        assertThat(persistentTokenRepository.findByUser(admin)).isEmpty();
+    	int existingCount = persistentTokenRepository.findByUser(admin).size();
         generateUserToken(admin, "1111-1111", new LocalDate());
         LocalDate now = new LocalDate();
         generateUserToken(admin, "2222-2222", now.minusDays(32));
-        assertThat(persistentTokenRepository.findByUser(admin)).hasSize(2);
+        assertThat(persistentTokenRepository.findByUser(admin)).hasSize(existingCount + 2);
         userService.removeOldPersistentTokens();
-        assertThat(persistentTokenRepository.findByUser(admin)).hasSize(1);
+        assertThat(persistentTokenRepository.findByUser(admin)).hasSize(existingCount + 1);
     }
 
     private void generateUserToken(User user, String tokenSeries, LocalDate localDate) {
