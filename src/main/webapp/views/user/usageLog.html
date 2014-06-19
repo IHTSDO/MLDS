@@ -8,7 +8,7 @@
           <a ng-click="collapsePanel.geographic = !collapsePanel.geographic"> Geographic Scope </a>
         </h4>
       </div>
-      <div class="panel-body" collaspse="collapsePanel.geographic" class="panel-collapse collapse in">
+      <div class="panel-body" collapse="collapsePanel.geographic" class="panel-collapse collapse in">
         <p>
           <strong>Select the countries in which SNOMED CT will be used</strong>
         </p>
@@ -32,7 +32,7 @@
               <h4>Selected Countries</h4>
               <div class="selectpicker">
                 <ul class="form-group">
-                  <select class="form-control input-lg" id="countries" name="countries" multiple ng-model="removeSelectedCountries">
+                  <select class="form-control" id="countries" name="countries" multiple ng-model="removeSelectedCountries">
                     <option ng-repeat="country in usageLogForm.countries" value="{{country}}" ng-click="removeCountries()">{{country}}</option>
                   </select>
                 </ul>
@@ -54,9 +54,14 @@
 				</div>
 				<div class="panel-body" collapse="collapsePanel.sublicensed">
 					<div ng-repeat="country in usageLogForm.countries">
-						<div class="form-group">
+						
+                  <div class="well">
+                        <div class="form-group">
+                             <h3>{{country}}</h3>
+                             <p>FIXME copy Instructions...Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 							<a class="btn btn-success" ng-click="openAddInstitutionModal(country)">Add Institution</a>
 						</div>
+      
 						<table class="table table-striped">
 							<tr>
 								<th>Institution Name</th>
@@ -107,7 +112,7 @@
 								</td>
 							</tr>
 						</table>
-
+        </div>
 					</div>
 
 				</div>
