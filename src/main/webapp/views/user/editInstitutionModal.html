@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h3 class="modal-title">Edit Institution
+  </h3>
+</div>
+<div class="modal-body">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	<form name="editInstitution" bs-validation>
+		<div class="form-group">
+			<label>Update Name</label>
+			<input class="form-control" type="text" required name="name" ng-model="institution.name"/>
+			<span ng-show="attemptedSubmit && editInstitution.name.$error.required" class="help-block">Institution Name cannot be empty</span>			
+		</div>
+		<div class="form-group">
+			<label>
+				<span ng-show="!institution.ceaseDate">Add</span><span ng-show="institution.ceaseDate">Edit</span> Cease Date
+			</label>
+			<div class="input-group">
+				<input type="text" class="form-control" name="ceaseDate" ng-model="institution.ceaseDate" ng-required="false"
+					datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
+					is-open="$parent.opened" close-text="Close"/> 
+				<span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-primary" ng-show="editInstitution.$invalid" ng-click="attemptedSubmit = true">Add</button>
+	<button class="btn btn-primary" ng-show="!editInstitution.$invalid" ng-click="updateInstitution()">Update Institution</button>
+</div>

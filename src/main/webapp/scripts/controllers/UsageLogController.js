@@ -10,6 +10,10 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	
 	$scope.availableCountries = CountryService.countries;
 	
+	//TODO: AC-replace with real institutions
+	$scope.institutions = [{name: 'Hospital ABC', type: 'Hospital', startDate: '2010/01/02'}, 
+	                       {name: 'Practice A', type: 'Practice', startDate: '2011/02/03'}];
+	
 	// Usage Model
 	$scope.countries = [];
 	
@@ -58,7 +62,26 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 				}
 			}
 		});
+	};
+	
+	$scope.editInstitution = function(institution, country) {
+		var modalInstance = $modal.open({
+			templateUrl: 'views/user/editInstitutionModal.html',
+			controller: 'EditInstitutionController',
+			size:'sm',
+			backdrop: 'static',
+			resolve: {
+				institution: function() {
+					return institution;
+				},
+				country: function() {
+					return country;
+				}
+			}
+		});
 		
 	};
+	
+		
 	
 }]);
