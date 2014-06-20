@@ -5,6 +5,7 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 	$scope.country = country;
 	$scope.alerts = [];
 	$scope.institution = {};
+	$scope.institution.startDate = new Date();
 	
 	//TODO: AC rename(if needed) and fill in guts to submit new institution
 	$scope.add = function(){
@@ -19,9 +20,6 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 	$scope.addFail = function(){
 		$scope.submitting = true;
 		
-		$scope.institution.submitAttempted = true;
-		$log.log('form', $scope.newInstiution);
-		
 		$timeout(function() {
 			$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
 			$scope.submitting = false;
@@ -34,15 +32,6 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 	
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
-	};
-	
-	$scope.today = function() {
-	    $scope.institution.startDate = new Date();
-	};
-	$scope.today();
-
-	$scope.clear = function () {
-		$scope.institution.startDate = null;
 	};
 
 	$scope.open = function($event) {
