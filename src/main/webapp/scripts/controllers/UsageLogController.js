@@ -52,7 +52,6 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			controller: 'AddInstitutionController',
 			size:'lg',
 			backdrop: 'static',
-			scope: $scope,
 			resolve: {
 				country: function() {
 					return country;

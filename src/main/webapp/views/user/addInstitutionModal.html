@@ -34,7 +34,7 @@
 				<div class="input-group">
 					<input type="text" class="form-control" name="startDate" ng-model="institution.startDate" ng-required="true"
 						datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
-						is-open="opened" close-text="Close"/> 
+						is-open="$parent.opened" close-text="Close"/> 
 					<span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
 				</div>
 				<span ng-show="newInstitution.startDate.$error.required && institution.submitAttempted" class="help-block">Required Field</span>
