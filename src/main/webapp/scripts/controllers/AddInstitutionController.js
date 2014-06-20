@@ -34,10 +34,15 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 		$modalInstance.dismiss('cancel');
 	};
 
-	$scope.open = function($event) {
+	$scope.datepickers = {
+	    startDate: false,
+	    ceaseDate: false
+	};
+	
+	$scope.open = function($event, datepickerName) {
 		$event.preventDefault();
 		$event.stopPropagation();
-		$scope.opened = !$scope.opened;
+		$scope.datepickers[datepickerName] = true;
 	};
 
 	$scope.dateOptions = {
