@@ -2391,8 +2391,8 @@ input[type="button"].btn-block {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('fonts/glyphicons-halflings-regular.eot');
+  src: url('fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('fonts/glyphicons-halflings-regular.woff') format('woff'), url('fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -5122,6 +5122,43 @@ button.close {
   background: transparent;
   border: 0;
   -webkit-appearance: none;
+}
+.datepicker th strong {
+  color: #555555;
+}
+.datepicker .btn-default {
+  background-color: #ffffff;
+  color: #40acd6;
+}
+.datepicker .btn:active,
+.datepicker .btn.active {
+  background-color: #960d3c;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+.datepicker .btn:active .text-info,
+.datepicker .btn.active .text-info {
+  color: #ffffff;
+}
+.datepicker tr .btn-sm,
+.datepicker tr .btn-group-sm > .btn {
+  border-radius: 0;
+}
+.datepicker tr .btn-sm:hover,
+.datepicker tr .btn-group-sm > .btn:hover {
+  background: #eeeeee;
+}
+.datepicker em {
+  color: #555555;
+}
+.datepicker .btn-danger,
+.datepicker .btn-success {
+  color: #40acd6;
+  font-weight: normal;
+  cursor: pointer;
+  border-radius: 0;
+  background-color: #ffffff;
+  border-color: #eeeeee;
 }
 .modal-open {
   overflow: hidden;
