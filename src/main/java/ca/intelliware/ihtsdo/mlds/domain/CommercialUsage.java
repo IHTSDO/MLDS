@@ -27,6 +27,7 @@ public class CommercialUsage {
 	
 	// FIXME MLDS-32 add a createdBy?  Or generate an entry in the log?
 	
+	// FIXME MLDS-32 change to one-to-many, drop join table, add parent key to CommercialUsageEntry
 	@ManyToMany(cascade=CascadeType.PERSIST)
 	@JoinTable(
 			joinColumns=@JoinColumn(name="commercial_usage_id"),
