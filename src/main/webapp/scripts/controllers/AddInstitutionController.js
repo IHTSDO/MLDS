@@ -4,6 +4,7 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
                                                        	function($scope, $modalInstance, country, $timeout, $log) {
 	$scope.country = country;
 	$scope.alerts = [];
+	$scope.institution = {};
 	
 	//TODO: AC rename(if needed) and fill in guts to submit new institution
 	$scope.add = function(){
@@ -17,6 +18,9 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 	//TODO: example of adding alerts/errors to modal to be moved into 'add' function
 	$scope.addFail = function(){
 		$scope.submitting = true;
+		
+		$scope.institution.submitAttempted = true;
+		$log.log('form', $scope.newInstiution);
 		
 		$timeout(function() {
 			$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
@@ -32,42 +36,25 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 		$modalInstance.dismiss('cancel');
 	};
 	
-	
-	
-	
-	
 	$scope.today = function() {
-	    $scope.dt = new Date();
-	  };
-	  $scope.today();
+	    $scope.institution.startDate = new Date();
+	};
+	$scope.today();
 
-	  $scope.clear = function () {
-	    $scope.dt = null;
-	  };
+	$scope.clear = function () {
+		$scope.institution.startDate = null;
+	};
 
-	  // Disable weekend selection
-	  $scope.disabled = function(date, mode) {
-	    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-	  };
+	$scope.open = function($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.opened = !$scope.opened;
+	};
 
-	  $scope.toggleMin = function() {
-	    $scope.minDate = $scope.minDate ? null : new Date();
-	  };
-	  $scope.toggleMin();
+	$scope.dateOptions = {
+		formatYear: 'yy',
+		startingDay: 1,
+		format: 'yyyy/MM/dd'
+	};
 
-	  $scope.open = function($event) {
-	    $event.preventDefault();
-	    $event.stopPropagation();
-
-	    $scope.opened = true;
-	  };
-
-	  $scope.dateOptions = {
-	    formatYear: 'yy',
-	    startingDay: 1
-	  };
-
-	  $scope.initDate = new Date('2016-15-20');
-	  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-	  $scope.format = $scope.formats[0];
 }]);
