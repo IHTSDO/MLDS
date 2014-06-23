@@ -45,13 +45,13 @@
 					</h4>
 				</div>
 				<div class="panel-body" collapse="collapsePanel.sublicensed">
-					<div ng-repeat="country in countries">
+					<div ng-repeat="countryUsage in usageByCountry">
 						
                   <div class="well">
                         <div class="form-group">
-                             <h3>{{country.commonName}}</h3>
+                             <h3>{{countryUsage.country.commonName}}</h3>
                              <p>FIXME copy Instructions...Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-							<a class="btn btn-success" ng-click="openAddInstitutionModal(country)">Add Institution</a>
+							<a class="btn btn-success" ng-click="openAddInstitutionModal(countryUsage.country)">Add Institution</a>
 						</div>
       
 						<table class="table table-striped">
@@ -62,7 +62,7 @@
 								<th></th>
 							</tr>
 
-							<tr ng-repeat="institution in institutions">
+							<tr ng-repeat="institution in countryUsage.usage">
 								<td>{{institution.name}}</td>
 								<td>{{institution.type}}</td>
 								<td>{{institution.startDate}}</td>
@@ -73,9 +73,9 @@
 											<i class="fa fa-pencil"></i> </i></span>
 										</button>
 										<ul class="dropdown-menu" role="menu">
-											<li><a ng-click="editInstitution(institution, country)">Edit</a></li>
+											<li><a ng-click="editInstitution(institution, countryUsage.country)">Edit</a></li>
 											<li class="divider"></li>
-											<li><a ng-click="deleteInstitution(institutions, country, $index)">Delete</a></li>
+											<li><a ng-click="deleteInstitution(institutions, countryUsage.country, $index)">Delete</a></li>
 										</ul>
 									</div>
 								</td>

@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', 'CountryService', 'CommercialUsageService', function($scope, $log, $modal, CountryService, CommercialUsageService){
+angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', 'CountryService', 'CommercialUsageService', 'Events', 
+                                                 		function($scope, $log, $modal, CountryService, CommercialUsageService, Events){
 	$log.log('UsageLogController');
 	
 	$scope.collapsePanel = {};
@@ -11,20 +12,39 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.availableCountries = CountryService.countries;
 	
 	$scope.commercialUsageReport = {};
-	
-	//TODO: AC-replace with real institutions
-	$scope.institutions = [{name: 'Hospital ABC', type: 'Hospital', startDate: '2010/01/02'},
-	                       {name: 'Hospital DEF', type: 'Hospital', startDate: '1999/01/02'},
-	                       {name: 'Practice A', type: 'Practice', startDate: '2011/02/03'},
-	                       {name: 'Practice B', type: 'Practice', startDate: '2012/02/03'}
-	                       ];
-	
+		
 	// Usage Model
-	$scope.countries = [];
+	$scope.usageByCountry = {};
+	
+	
+	$scope.$on(Events.commercialUsageUpdated, function() {
+		CommercialUsageService.getUsageReport($scope.commercialUsageReport.commercialUsageId)
+			.then(function(replacementUsageReport) {
+				$log.log(replacementUsageReport);
+				updateFromUsageReport(replacementUsageReport);
+			});
+	});
+	
+	function updateFromUsageReport(usageReport) {
+		$scope.commercialUsageReport = usageReport;
+		$scope.usageByCountry = {};
+		usageReport.usage.forEach(function(usageEntry) {
+			var countrySection = $scope.usageByCountry[usageEntry.countryCode];
+			if (!countrySection) {
+				countrySection = {
+						country: countryFromCode(usageEntry.countryCode),
+						usage: []
+				};
+				$scope.usageByCountry[usageEntry.countryCode] = countrySection;
+			}
+			countrySection.usage.push(usageEntry);
+		});
+		$log.log($scope.usageByCountry);
+	}
 	
 	CommercialUsageService.createUsageReport().then(function(usageReport) {
-		$scope.commercialUsageReport = usageReport;	
-		$log.log(usageReport);
+		updateFromUsageReport(usageReport);	
+		
 	});
 	
 	function countryFromCode(countryCode) {
@@ -35,7 +55,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		var canAdd = false;
 		$scope.selectedCountryCodesToAdd.forEach(function(countryCode) {
 			var addCountry = countryFromCode(countryCode);
-			if (addCountry && $scope.countries.indexOf(addCountry) == -1) {
+			if (addCountry && !$scope.usageByCountry[countryCode]) {
 				canAdd = true;
 			}
 		});
@@ -45,21 +65,15 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.addSelectedCountries = function() {
 		$scope.selectedCountryCodesToAdd.forEach(function(countryCode){
 			var country = countryFromCode(countryCode);
-			if ($scope.countries.indexOf(country) == -1){
-				$scope.countries.push(country);
+			if (!$scope.usageByCountry[countryCode]){
+				$scope.usageByCountry[countryCode] = {
+						country: country,
+						usage: []
+				};
 			}
 		});
 	};
-	
-	$scope.removeCountry = function(country) {
-		var index = $scope.countries.indexOf(country);
-			
-		if (index != -1) {
-			$scope.countries.splice(index, 1);
-		}
-	};
-	
-	
+		
 	$scope.openAddInstitutionModal = function(country) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/addInstitutionModal.html',
@@ -69,6 +83,9 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			resolve: {
 				country: function() {
 					return country;
+				},
+				usageReport: function() {
+					return $scope.commercialUsageReport;
 				}
 			}
 		});

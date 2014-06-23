@@ -4,5 +4,6 @@
  */
 mldsApp.value('Events', {
         newUser: 'ihtsdo.mlds.newUser',
-        registrationError: 'ihtsdo.mlds.registrationError'
+        registrationError: 'ihtsdo.mlds.registrationError',
+        commercialUsageUpdated: 'ihtsdo.mlds.commercialUsageUpdated'
     });
