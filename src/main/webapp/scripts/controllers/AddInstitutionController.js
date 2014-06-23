@@ -23,16 +23,6 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 			});
 	};
 	
-	//TODO: example of adding alerts/errors to modal to be moved into 'add' function
-	$scope.addFail = function(){
-		$scope.submitting = true;
-		
-		$timeout(function() {
-			$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
-			$scope.submitting = false;
-		}, 2000);
-	};
-	
 	$scope.closeAlert = function(index) {
 	    $scope.alerts.splice(index, 1);
 	  };
