@@ -4,7 +4,7 @@
 </div>
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<p>Are you sure you want to remove {{institutions[index].name}} from {{country.commonName}}?</p>
+	<p>Are you sure you want to remove {{institution.name}} from {{country.commonName}}?</p>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link pull-left" ng-click="cancel()" ng-disabled="submitting">No</button>
