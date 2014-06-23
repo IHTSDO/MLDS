@@ -14,7 +14,7 @@
 			<label>
 				<span ng-show="!institution.ceaseDate">Add</span><span ng-show="institution.ceaseDate">Edit</span> Cease Date
 			</label>
-			<div class="input-group">
+			<div class="input-group datepicker">
 				<input type="text" class="form-control" name="ceaseDate" ng-model="institution.ceaseDate" ng-required="false"
 					datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
 					is-open="$parent.opened" close-text="Close"/> 
