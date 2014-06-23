@@ -12,7 +12,8 @@ angular.module('MLDS')
 		var fakeReports = [
 			{
 				commercialUsageId: fakeId(),
-				key: '2013',
+				startDate: new Date('2013-01-01'),
+				endDate: Date('2013-06-30'),
 				created: new Date(),
 				usage: [
 				        {
@@ -25,7 +26,8 @@ angular.module('MLDS')
 				
 			}, {
 				commercialUsageId: fakeId(),
-				key: '2014',
+				startDate: new Date('2013-07-01'),
+				endDate: Date('2013-12-31'),
 				created: new Date(),
 				usage: [
 				        {
@@ -74,7 +76,8 @@ angular.module('MLDS')
 			//FIXME does not duplicate last report
 			var newReport = {
 					commercialUsageId: fakeId(),
-					key: 'New',
+					startDate: new Date('2014-01-02'),
+					endDate: new Date('2014-06-30'),
 					created: new Date(),
 					usage: [
 					]
