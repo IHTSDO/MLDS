@@ -40,10 +40,21 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		});
 	}
 	
-	CommercialUsageService.createUsageReport().then(function(usageReport) {
-		updateFromUsageReport(usageReport);	
-		
-	});
+	CommercialUsageService.getUsageReports()
+		.then(function(usageReports) {
+			/*
+			CommercialUsageService.createUsageReport().then(function(usageReport) {
+				updateFromUsageReport(usageReport);	
+				
+			});
+			*/
+			updateFromUsageReport(usageReports[0]);
+		})
+		.catch(function(message) {
+			//FIXME
+			$log.log('Failed to get initial usage log');
+		});
+	
 	
 	function countryFromCode(countryCode) {
 		return CountryService.countriesByIsoCode2[countryCode];
@@ -101,6 +112,9 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 				},
 				country: function() {
 					return country;
+				},
+				usageReport: function() {
+					return $scope.commercialUsageReport;
 				}
 			}
 		});
@@ -119,6 +133,9 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 				},
 				country: function() {
 					return country;
+				},
+				usageReport: function() {
+					return $scope.commercialUsageReport;
 				}
 			}
 		});
