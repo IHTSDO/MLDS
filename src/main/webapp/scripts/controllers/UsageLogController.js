@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', 'CountryService', 'CommercialUsageService', 'Events', 
-                                                 		function($scope, $log, $modal, CountryService, CommercialUsageService, Events){
+angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', 'CountryService', 'CommercialUsageService', 'Events', 'Session', 
+                                                 		function($scope, $log, $modal, CountryService, CommercialUsageService, Events, Session){
 	$log.log('UsageLogController');
 	
 	$scope.collapsePanel = {};
@@ -11,9 +11,11 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	
 	$scope.availableCountries = CountryService.countries;
 	
-	$scope.commercialUsageReport = {};
-		
+	//FIXME probably should not be retrieving licenseeId from Session
+	$scope.licenseeId = Session.login;
+	
 	// Usage Model
+	$scope.commercialUsageReport = {};
 	$scope.usageByCountry = {};
 	
 	
@@ -40,9 +42,9 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		});
 	}
 	
-	CommercialUsageService.getUsageReports()
+	CommercialUsageService.getUsageReports($scope.licenseeId)
 		.then(function(usageReports) {
-			CommercialUsageService.createUsageReport().then(function(usageReport) {
+			CommercialUsageService.createUsageReport($scope.licenseeId).then(function(usageReport) {
 				updateFromUsageReport(usageReport);	
 				
 			});
