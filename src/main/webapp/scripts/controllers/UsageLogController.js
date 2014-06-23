@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', 'CountryService', function($scope, $log, $modal, CountryService){
+angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', 'CountryService', 'CommercialUsageService', function($scope, $log, $modal, CountryService, CommercialUsageService){
 	$log.log('UsageLogController');
 	
 	$scope.collapsePanel = {};
@@ -9,6 +9,8 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.selectedCountryCodesToAdd = [];
 	
 	$scope.availableCountries = CountryService.countries;
+	
+	$scope.commercialUsageReport = {};
 	
 	//TODO: AC-replace with real institutions
 	$scope.institutions = [{name: 'Hospital ABC', type: 'Hospital', startDate: '2010/01/02'},
@@ -19,6 +21,11 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	
 	// Usage Model
 	$scope.countries = [];
+	
+	CommercialUsageService.createUsageReport().then(function(usageReport) {
+		$scope.commercialUsageReport = usageReport;	
+		$log.log(usageReport);
+	});
 	
 	function countryFromCode(countryCode) {
 		return CountryService.countriesByIsoCode2[countryCode];
