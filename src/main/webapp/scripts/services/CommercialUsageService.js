@@ -24,7 +24,7 @@ angular.module('MLDS')
 				]
 				
 			}, {
-				commercialUsageId: '2',
+				commercialUsageId: fakeId(),
 				key: '2014',
 				created: new Date(),
 				usage: [
@@ -88,16 +88,17 @@ angular.module('MLDS')
 			return $q.when(fakeFindUsageReport(reportId));
 		};
 
-		service.addUsageEntry = function(usageReportId, entry) {
+		service.addUsageEntry = function(usageReport, entry) {
 			//return $http.post('/app/rest/licensees/{licenseeId}/commercialUsages');
-			var report = fakeFindUsageReport(reportId);
 			entry.commercialUsageEntryId = fakeId();  
-			report.usage.push(entry);
+			usageReport.usage.push(entry);
+			$rootScope.$broadcast(Events.commercialUsageUpdated);
 			return $q.when(entry);
 		};
 		
 		service.updateUsageEntry = function(entry) {
 			//return $http.put('/app/rest/commercialUsageEntries/{commercialUsageEntryId}');
+			$rootScope.$broadcast(Events.commercialUsageUpdated);
 			return $q.when(entry);
 		};
 
@@ -110,6 +111,7 @@ angular.module('MLDS')
 				    }
 				}
 			});
+			$rootScope.$broadcast(Events.commercialUsageUpdated);
 			return $q.when({});
 		};
 
