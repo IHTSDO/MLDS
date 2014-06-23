@@ -5160,6 +5160,31 @@ button.close {
   background-color: #ffffff;
   border-color: #eeeeee;
 }
+.datepicker select {
+  border: 0 none;
+  color: #555555;
+  background: transparent;
+  font-size: 16px;
+  padding: 2px 10px;
+  *border: 1px solid #dddddd;
+  width: 378px;
+  *width: 350px;
+  *background: #58B14C;
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: url('down-arrow.png') no-repeat right, -moz-linear-gradient(top, #fbfbfb 0%, #e9e9e9 100%);
+  background: url('down-arrow.png') no-repeat right, -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fbfbfb), color-stop(100%, #e9e9e9));
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.datepicker select option {
+  background: #fff;
+  /* style the dropdown bg color */
+}
 .modal-open {
   overflow: hidden;
 }
