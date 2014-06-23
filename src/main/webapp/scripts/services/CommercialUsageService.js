@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('CommercialUsageService', ['$http', '$rootScope', '$log', '$q', 'Events', function($http, $rootScope, $log, $q, Events){
+.factory('CommercialUsageService', ['$http', '$rootScope', '$log', '$q', 'Events', 
+                                    function($http, $rootScope, $log, $q, Events){
 		var lastId = 100;
 		
 		function fakeId() {
@@ -66,16 +67,17 @@ angular.module('MLDS')
 
 		var service = {};
 		
-		service.getUsageReports = function() {
+		service.getUsageReports = function(licenseeId) {
 			//return $http.get('/app/rest/licensees/{licenseeId}/commercialUsages');
 			return $q.when(fakeReports);
 		};
 
-		service.createUsageReport = function() {
+		service.createUsageReport = function(licenseeId) {
 			//return $http.post('/app/rest/licensees/{licenseeId}/commercialUsages');
 			//FIXME does not duplicate last report
 			var newReport = {
 					commercialUsageId: fakeId(),
+					//FIXME hack for 2nd Jan rather than 1st due to local/universal time...
 					startDate: new Date('2014-01-02'),
 					endDate: new Date('2014-06-30'),
 					created: new Date(),
@@ -92,7 +94,7 @@ angular.module('MLDS')
 		};
 
 		service.addUsageEntry = function(usageReport, entry) {
-			//return $http.post('/app/rest/licensees/{licenseeId}/commercialUsages');
+			//return $http.post('app/rest/commercialUsages/{commercialUsageId}');
 			entry.commercialUsageEntryId = fakeId();  
 			usageReport.usage.push(entry);
 			$rootScope.$broadcast(Events.commercialUsageUpdated);
