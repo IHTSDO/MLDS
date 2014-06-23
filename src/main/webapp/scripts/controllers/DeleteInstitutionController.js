@@ -1,17 +1,18 @@
 'use strict';
 
-angular.module('MLDS').controller('DeleteInstitutionController', ['$scope', '$modalInstance', 'institutions', 'country', 'index', '$log', 
-                                                       	function($scope, $modalInstance, institutions, country, index, $log) {
+angular.module('MLDS').controller('DeleteInstitutionController', ['$scope', '$modalInstance', 'institution', 'country', '$log', 'CommercialUsageService', 
+                                                       	function($scope, $modalInstance, institution, country, $log, CommercialUsageService) {
 	$scope.country = country;
-	$scope.institutions = institutions;
-	$scope.index = index;
+	$scope.institution = institution;
 	
 	$scope.cancel = function() {
 		$modalInstance.dismiss();
 	};
 	
 	$scope.removeInstitution = function() {
-		$scope.institutions.splice(index, 1);
-		$modalInstance.dismiss();
+		CommercialUsageService.deleteUsageEntry($scope.institution)
+			.then(function(result) {
+				$modalInstance.dismiss();
+			});
 	};
 }]);

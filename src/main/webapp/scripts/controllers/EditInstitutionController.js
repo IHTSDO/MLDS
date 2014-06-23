@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$modalInstance', 'institution', 'country', '$log', 
-                                                       	function($scope, $modalInstance, institution, country, $log) {
+angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$modalInstance', 'institution', 'country', '$log', 'CommercialUsageService',
+                                                       	function($scope, $modalInstance, institution, country, $log, CommercialUsageService) {
 	$scope.country = country;
 	$scope.institution = institution;
 	$scope.attemptedSubmit = false;
@@ -11,8 +11,11 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 	};
 	
 	$scope.updateInstitution = function() {
-		$log.log('updateInstitution', $scope.institution);
-		$modalInstance.dismiss();
+		$log.log('updateInstitution: ', $scope.institution);
+		CommercialUsageService.updateUsageEntry($scope.institution)
+			.then(function(result) {
+				$modalInstance.dismiss();		
+			});
 	};
 
 	$scope.closeAlert = function(index) {

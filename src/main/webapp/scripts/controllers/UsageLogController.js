@@ -20,7 +20,6 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.$on(Events.commercialUsageUpdated, function() {
 		CommercialUsageService.getUsageReport($scope.commercialUsageReport.commercialUsageId)
 			.then(function(replacementUsageReport) {
-				$log.log(replacementUsageReport);
 				updateFromUsageReport(replacementUsageReport);
 			});
 	});
@@ -39,7 +38,6 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			}
 			countrySection.usage.push(usageEntry);
 		});
-		$log.log($scope.usageByCountry);
 	}
 	
 	CommercialUsageService.createUsageReport().then(function(usageReport) {
@@ -109,21 +107,18 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		
 	};
 	
-	$scope.deleteInstitution = function(institutions, country, index) {
+	$scope.deleteInstitution = function(institution, country) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/deleteInstitutionModal.html',
 			controller: 'DeleteInstitutionController',
 			size:'sm',
 			backdrop: 'static',
 			resolve: {
-				institutions: function() {
-					return institutions;
+				institution: function() {
+					return institution;
 				},
 				country: function() {
 					return country;
-				},
-				index: function() {
-					return index;
 				}
 			}
 		});
