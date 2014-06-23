@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.joda.time.Instant;
+import org.joda.time.LocalDate;
 
 @Entity
 @Table(name="commercial_usage")
@@ -20,10 +21,13 @@ public class CommercialUsage {
 	@Column(name="commercial_usage_id")
 	long commercialUsageId;
 
-	// FIXME MLDS-23 some kind of token for submission year, or "current"
-	String key; // current, or declaration label
-	
 	Instant created;
+	
+	@Column(name="start_date")
+	LocalDate startDate;
+	
+	@Column(name="end_date")
+	LocalDate endDate;
 	
 	// FIXME MLDS-32 add a createdBy?  Or generate an entry in the log?
 	
