@@ -96,13 +96,13 @@ angular.module('MLDS')
 			return $q.when(entry);
 		};
 		
-		service.updateUsageEntry = function(entry) {
+		service.updateUsageEntry = function(usageReport, entry) {
 			//return $http.put('/app/rest/commercialUsageEntries/{commercialUsageEntryId}');
 			$rootScope.$broadcast(Events.commercialUsageUpdated);
 			return $q.when(entry);
 		};
 
-		service.deleteUsageEntry = function(entry) {
+		service.deleteUsageEntry = function(usageReport, entry) {
 			//return $http.delete('/app+/rest/commercialUsageEntries/{commercialUsageEntryId}');
 			fakeReports.forEach(function(usageReport) {
 				for (var i = 0; i < usageReport.usage.length; i++) {
