@@ -42,13 +42,13 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	
 	CommercialUsageService.getUsageReports()
 		.then(function(usageReports) {
-			/*
 			CommercialUsageService.createUsageReport().then(function(usageReport) {
 				updateFromUsageReport(usageReport);	
 				
 			});
-			*/
+			/*
 			updateFromUsageReport(usageReports[0]);
+			 */
 		})
 		.catch(function(message) {
 			//FIXME
