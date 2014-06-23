@@ -90,7 +90,7 @@ angular.module('MLDS')
 
 		service.getUsageReport = function(reportId) {
 			//return $http.get('/app/rest/commercialUsages/{commercialUsageId}');
-			return $q.when(fakeFindUsageReport(reportId));
+			return $q.when(fakeFindUsageReport(parseInt(reportId, 10)));
 		};
 
 		service.addUsageEntry = function(usageReport, entry) {

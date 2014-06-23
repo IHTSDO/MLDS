@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', 'CountryService', 'CommercialUsageService', 'Events', 'Session', 
-                                                 		function($scope, $log, $modal, CountryService, CommercialUsageService, Events, Session){
+angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', 
+                                                 		function($scope, $log, $modal, CountryService, CommercialUsageService, Events, Session, $routeParams){
 	$log.log('UsageLogController');
+	$log.log($routeParams);
 	
 	$scope.collapsePanel = {};
 	
@@ -42,21 +43,25 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		});
 	}
 	
-	CommercialUsageService.getUsageReports($scope.licenseeId)
-		.then(function(usageReports) {
-			CommercialUsageService.createUsageReport($scope.licenseeId).then(function(usageReport) {
-				updateFromUsageReport(usageReport);	
-				
+	if ($routeParams && $routeParams.usageReportId) {
+		CommercialUsageService.getUsageReport($routeParams.usageReportId)
+			.then(function(result) {
+				updateFromUsageReport(result);	
+			})
+			.catch(function(message) {
+				//FIXME
+				$log.log('Failed to get initial usage log by param');
 			});
-			/*
-			updateFromUsageReport(usageReports[0]);
-			 */
-		})
-		.catch(function(message) {
-			//FIXME
-			$log.log('Failed to get initial usage log');
-		});
-	
+	} else {
+		CommercialUsageService.createUsageReport($scope.licenseeId)
+			.then(function(usageReport) {
+				updateFromUsageReport(usageReport);	
+			})
+			.catch(function(message) {
+				//FIXME
+				$log.log('Failed to get initial usage log');
+			});
+	}
 	
 	function countryFromCode(countryCode) {
 		return CountryService.countriesByIsoCode2[countryCode];

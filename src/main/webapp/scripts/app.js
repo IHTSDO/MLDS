@@ -56,6 +56,14 @@ mldsApp
                         authorizedRoles: [USER_ROLES.user]
                     }
                 })
+                //FIXME can this be an alias rather than a duplicate?
+                 .when('/usage-log/:usageReportId', {
+                    templateUrl: 'views/user/usageLog.html',
+                    controller: 'UsageLogController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.user]
+                    }
+                })
                 .when('/login', {
                     templateUrl: 'views/login.html',
                     controller: 'LoginController',
