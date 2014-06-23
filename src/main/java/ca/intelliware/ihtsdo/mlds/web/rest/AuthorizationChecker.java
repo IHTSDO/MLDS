@@ -19,7 +19,7 @@ public class AuthorizationChecker {
 		// TODO Auto-generated method stub
 	}
 
-	public void checkCanAccessCommercialUsageEntry(long commercialUsageEntryId) {
+	public void checkCanAccessCommercialUsageEntry(long commercialUsageEntryId, long commercialUsageEntryUrlId) {
 		// TODO Auto-generated method stub
 	}
 
