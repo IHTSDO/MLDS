@@ -3,18 +3,20 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import java.util.Collection;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.joda.time.LocalDate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
@@ -87,25 +89,34 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORT,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody CommercialUsage getCommercialUsageReport(@PathVariable("usageReportId") long usageReportId) {
-    	authorizationChecker.checkCanAccessLicensee(usageReportId);
+    public @ResponseBody CommercialUsage getCommercialUsageReport(@PathVariable("commercialUsageId") long commercialUsageId) {
+    	authorizationChecker.checkCanAccessLicensee(commercialUsageId);
     	
     	// map missing to 404
-    	return commercialUsageRepository.findOne(usageReportId);
+    	return commercialUsageRepository.findOne(commercialUsageId);
     }
     
+    @Transactional
     @RequestMapping(value = Routes.USAGE_REPORT,
     		method = RequestMethod.POST,
     		produces = "application/json")
-    public @ResponseBody ResponseEntity<CommercialUsageEntry> addCommercialUsageEntry(@PathVariable("usageReportId") long usageReportId, @RequestBody CommercialUsageEntry newEntryValue) {
-    	authorizationChecker.checkCanAccessUsageReport(usageReportId);
+    public @ResponseBody ResponseEntity<CommercialUsageEntry> addCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageEntry newEntryValue) {
+    	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
+    	
+    	commercialUsageEntryRepository.save(newEntryValue);
+    	
+    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+    	if (commercialUsage == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
 
-        CommercialUsageEntry newEntry = commercialUsageEntryRepository.save(newEntryValue);
+    	commercialUsage.addEntry(newEntryValue);
         
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ServletUriComponentsBuilder.fromPath(Routes.USAGE_REPORT_ENTRY).build().expand(newEntry.getCommercialUsageEntryId()).toUri());
+        // FIXME flush and get ids back
+        //headers.setLocation(ServletUriComponentsBuilder.fromPath(Routes.USAGE_REPORT_ENTRY).build().expand(newEntry.getCommercialUsageEntryId()).toUri());
         
-		ResponseEntity<CommercialUsageEntry> responseEntity = new ResponseEntity<CommercialUsageEntry>(newEntry, headers, HttpStatus.CREATED);
+		ResponseEntity<CommercialUsageEntry> responseEntity = new ResponseEntity<CommercialUsageEntry>(newEntryValue, headers, HttpStatus.CREATED);
 		return responseEntity;
     }
     
