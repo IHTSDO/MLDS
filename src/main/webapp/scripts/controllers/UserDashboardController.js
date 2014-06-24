@@ -16,7 +16,7 @@ angular.module('MLDS')
         	
     		CommercialUsageService.getUsageReports($scope.licenseeId)
 			.then(function(result) {
-				$scope.commercialUsageReports = [].concat(result);
+				$scope.commercialUsageReports = [].concat(result.data);
 				$scope.commercialUsageReports.sort(function(a, b) {
 					return b.startDate.getTime() - a.endDate.getTime();
 				});
