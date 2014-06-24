@@ -9,6 +9,8 @@ angular.module('MLDS')
         	
         	//FIXME probably should not be retrieving licenseeId from Session
         	$scope.licenseeId = Session.login;
+        	$scope.firstName = Session.firstName;
+        	$scope.lastName = Session.lastName;
 
         	$scope.commercialUsageReports = [];
         	
