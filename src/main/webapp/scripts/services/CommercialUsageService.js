@@ -38,21 +38,24 @@ angular.module('MLDS')
 			        	name: 'Hospital 1',
 			        	startDate: new Date(),
 			        	endDate: new Date(),
-			        	countryCode: 'CA'
+			        	countryCode: 'CA',
+			        	created: new Date()
 				        },
 				        {
 				        	commercialUsageEntryId: fakeId(),
 				        	name: 'Hospital 2',
 				        	startDate: new Date(),
 				        	endDate: new Date(),
-				        	countryCode: 'CA'
+				        	countryCode: 'CA',
+				        	created: new Date()
 				        },
 				        {
 				        	commercialUsageEntryId: fakeId(),
 				        	name: 'Hospital 3',
 				        	startDate: new Date(),
 				        	endDate: new Date(),
-				        	countryCode: 'US'
+				        	countryCode: 'US',
+				        	created: new Date()
 					        }
 
 				]
@@ -78,6 +81,19 @@ angular.module('MLDS')
 				return $filter('date')(date, 'yyyy-MM-dd');
 			} else {
 				return null;
+			}
+		}
+		
+		function serializeCommercialEntry(entry) {
+			return {
+				commercialUsageEntryId: entry.commercialUsageEntryId,
+				name: entry.name,
+				startDate: serializeDate(entry.startDate),
+				endDate: serializeDate(entry.endDate),
+				country: {
+					isoCode2: entry.countryCode
+				},
+				created: entry.created
 			}
 		}
 		
@@ -140,11 +156,12 @@ angular.module('MLDS')
 		};
 
 		service.addUsageEntry = function(usageReport, entry) {
-			http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId,
-					entry)
+			$http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId,
+					serializeCommercialEntry(entry))
 				.then(function(result) {
-					$log.log('addUsageEntry');
+					$log.log('addUsageEntry '+result.data.commercialUsageEntryId);
 					$log.log(result);
+					entry.commercialUsageEntryId = result.data.commercialUsageEntryId;
 				})
 				.catch(function(message) {
 					$log.log('addUsageEntry FAILED')
@@ -158,8 +175,8 @@ angular.module('MLDS')
 		};
 		
 		service.updateUsageEntry = function(usageReport, entry) {
-			http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId,
-					entry)
+			$http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId,
+					serializeCommercialEntry(entry))
 				.then(function(result) {
 					$log.log('updateUsageEntry');
 					$log.log(result);
@@ -174,7 +191,7 @@ angular.module('MLDS')
 		};
 
 		service.deleteUsageEntry = function(usageReport, entry) {
-			http.delete('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId)
+			$http.delete('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId)
 				.then(function(result) {
 					$log.log('deleteUsageEntry');
 					$log.log(result);
