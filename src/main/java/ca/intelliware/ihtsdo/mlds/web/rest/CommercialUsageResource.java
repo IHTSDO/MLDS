@@ -38,11 +38,6 @@ public class CommercialUsageResource {
 	@Resource
 	AuthorizationChecker authorizationChecker;
 	
-	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public ResponseEntity<String> handleBadJSONException(HttpMessageNotReadableException ex) {
-		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-	}
-	
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.GET,
             produces = "application/json")
