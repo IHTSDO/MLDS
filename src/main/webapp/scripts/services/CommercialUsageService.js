@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('CommercialUsageService', ['$http', '$rootScope', '$log', '$q', 'Events', 
-                                    function($http, $rootScope, $log, $q, Events){
+.factory('CommercialUsageService', ['$http', '$rootScope', '$log', '$q', 'Events', '$filter',
+                                    function($http, $rootScope, $log, $q, Events, $filter){
 		var lastId = 100;
 		
 		function fakeId() {
@@ -73,15 +73,43 @@ angular.module('MLDS')
 			};
 		}
 		
+		function serializeDate(date) {
+			if (date) {
+				return $filter('date')(date, 'yyyy-MM-dd');
+			} else {
+				return null;
+			}
+		}
+		
 		var service = {};
 		
 		service.getUsageReports = function(licenseeId) {
-			//return $http.get('/app/rest/licensees/{licenseeId}/commercialUsages');
+			$http.get('/app/rest/licensees/'+8/*licenseeId*/+'/commercialUsages')
+				.then(function(result) {
+					$log.log('getUsageReports');
+					$log.log(result);
+				})
+				.catch(function(message) {
+					$log.log('getUsageReports FAILED')
+					$log.log(message);
+				});
 			return $q.when(wrapData(fakeReports));
 		};
 
 		service.createUsageReport = function(licenseeId, startDate, endDate) {
-			//return $http.post('/app/rest/licensees/{licenseeId}/commercialUsages');
+			$http.post('/app/rest/licensees/'+8/*licenseeId*/+'/commercialUsages',
+					{
+						startDate: serializeDate(startDate),
+						endDate: serializeDate(endDate)
+					})
+				.then(function(result) {
+					$log.log('createUsageReport');
+					$log.log(result);
+				})
+				.catch(function(message) {
+					$log.log('createUsageReport FAILED')
+					$log.log(message);
+				});
 			//FIXME does not duplicate last report
 			var newReport = {
 					commercialUsageId: fakeId(),
