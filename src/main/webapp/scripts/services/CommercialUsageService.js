@@ -15,11 +15,12 @@ angular.module('MLDS')
 			return {
 				commercialUsageEntryId: entry.commercialUsageEntryId,
 				name: entry.name,
+				type: entry.type,
 				startDate: serializeDate(entry.startDate),
 				endDate: serializeDate(entry.endDate),
 				country: entry.country,
 				created: entry.created
-			}
+			};
 		}
 		
 		var service = {};
