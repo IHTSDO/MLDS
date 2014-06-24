@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,14 +19,16 @@ import org.joda.time.LocalDate;
 @Table(name="commercial_usage")
 public class CommercialUsage {
 	@Id
+	@GeneratedValue
 	@Column(name="commercial_usage_id")
-	long commercialUsageId;
+	Long commercialUsageId;
 
-	Instant created;
+	//@Type(type="jodatimeInstant")
+	Instant created = Instant.now();
 	
 	@Column(name="start_date")
 	LocalDate startDate;
-	
+
 	@Column(name="end_date")
 	LocalDate endDate;
 	
@@ -38,4 +41,29 @@ public class CommercialUsage {
 			inverseJoinColumns=@JoinColumn(name="commercial_usage_entry_id")
 	)
 	Set<CommercialUsageEntry> usage;
+	
+	public Long getCommercialUsageId() {
+		return commercialUsageId;
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+
+	public Instant getCreated() {
+		return created;
+	}
+
 }
