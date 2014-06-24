@@ -5,12 +5,11 @@ import java.util.Collection;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.Validate;
 import org.joda.time.LocalDate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,6 +65,7 @@ public class CommercialUsageResource {
 			this.endDate = endDate;
 		}
     }
+    
     /**
      * Start a new submission
      * @param userIdInPlaceOfImaginaryLicenceeId
@@ -75,7 +75,7 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.POST,
     		produces = "application/json")
-    public @ResponseBody CommercialUsage createNewSubmission(@PathVariable("licenseeId") long licenseeId, @RequestBody CommercialUsageNewSubmissionMessage submissionPeriod) {
+    public @ResponseBody CommercialUsage createNewSubmission(@PathVariable long licenseeId, @RequestBody CommercialUsageNewSubmissionMessage submissionPeriod) {
     	CommercialUsage commercialUsage = new CommercialUsage();
     	commercialUsage.setStartDate(submissionPeriod.getStartDate());
     	commercialUsage.setEndDate(submissionPeriod.getEndDate());
@@ -89,7 +89,7 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORT,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody CommercialUsage getCommercialUsageReport(@PathVariable("commercialUsageId") long commercialUsageId) {
+    public @ResponseBody CommercialUsage getCommercialUsageReport(@PathVariable long commercialUsageId) {
     	authorizationChecker.checkCanAccessLicensee(commercialUsageId);
     	
     	// map missing to 404
@@ -123,18 +123,19 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORT_ENTRY,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody CommercialUsageEntry getCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryUrlId") long commercialUsageEntryUrlId) {
-    	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryUrlId);
+    public @ResponseBody CommercialUsageEntry getCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId) {
+    	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
     	
     	// FIXME MLDS-23 throw 404 on not-found
-    	return commercialUsageEntryRepository.findOne(commercialUsageEntryUrlId);
+    	return commercialUsageEntryRepository.findOne(commercialUsageEntryId);
     }
     
     @RequestMapping(value = Routes.USAGE_REPORT_ENTRY,
     		method = RequestMethod.PUT,
     		produces = "application/json")
-    public @ResponseBody CommercialUsageEntry updateCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryUrlId") long commercialUsageEntryUrlId, @RequestBody CommercialUsageEntry newEntryValue) {
-    	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryUrlId);
+    public @ResponseBody CommercialUsageEntry updateCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId, @RequestBody CommercialUsageEntry newEntryValue) {
+    	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
+    	Validate.isTrue(newEntryValue.getCommercialUsageEntryId() != null && newEntryValue.getCommercialUsageEntryId() == commercialUsageEntryId,"Must include commercialUsageEntryId in message");
 
     	// validate id not null?
     	
@@ -146,10 +147,10 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORT_ENTRY,
     		method = RequestMethod.DELETE,
     		produces = "application/json")
-    public @ResponseBody ResponseEntity<?> deleteCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryUrlId") long commercialUsageEntryUrlId) {
-    	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryUrlId);
+    public @ResponseBody ResponseEntity<?> deleteCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId) {
+    	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
 
-    	commercialUsageEntryRepository.delete(commercialUsageEntryUrlId);
+    	commercialUsageEntryRepository.delete(commercialUsageEntryId);
     	
     	return new ResponseEntity<>(HttpStatus.OK);
     }
