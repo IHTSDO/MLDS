@@ -2,6 +2,7 @@ package ca.intelliware.ihtsdo.mlds.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -13,12 +14,9 @@ import org.joda.time.LocalDate;
 @Table(name="commercial_usage_entry")
 public class CommercialUsageEntry {
 	@Id
+	@GeneratedValue
 	@Column(name="commercial_usage_entry_id")
-	long commercialUsageEntryId;
-
-	// FIXME MLDS-23 delete this and migrate
-	@Column(name="public_id", nullable=false)
-	long publicId; // long?  uuid?
+	Long commercialUsageEntryId;
 
 	String name;
 	
@@ -35,10 +33,6 @@ public class CommercialUsageEntry {
 
 	public long getCommercialUsageEntryId() {
 		return commercialUsageEntryId;
-	}
-
-	public long getPublicId() {
-		return publicId;
 	}
 
 	public String getName() {
