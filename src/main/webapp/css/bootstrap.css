@@ -5132,7 +5132,7 @@ button.close {
 }
 .datepicker .btn:active,
 .datepicker .btn.active {
-  background-color: #960d3c;
+  background-color: #77c548;
   color: #ffffff;
   border-color: #ffffff;
 }
@@ -5146,13 +5146,13 @@ button.close {
 }
 .datepicker tr .btn-sm:hover,
 .datepicker tr .btn-group-sm > .btn:hover {
-  background: #eeeeee;
-  color: #40acd6;
+  background-color: #5fa634;
+  color: #ffffff;
+  border-color: #54922e;
 }
 .datepicker em {
   color: #555555;
 }
-.datepicker .btn-danger,
 .datepicker .btn-success {
   color: #40acd6;
   font-weight: normal;
