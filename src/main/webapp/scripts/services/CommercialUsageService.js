@@ -14,7 +14,8 @@ angular.module('MLDS')
 			{
 				commercialUsageId: fakeId(),
 				startDate: new Date('2013-01-01'),
-				endDate: Date('2013-06-30'),
+				endDate: new Date('2013-06-30'),
+				submitted: new Date('2013-08-01'),
 				created: new Date(),
 				usage: [
 				        {
@@ -28,7 +29,8 @@ angular.module('MLDS')
 			}, {
 				commercialUsageId: fakeId(),
 				startDate: new Date('2013-07-01'),
-				endDate: Date('2013-12-31'),
+				endDate: new Date('2013-12-31'),
+				submitted: new Date('2014-01-04'),
 				created: new Date(),
 				usage: [
 				        {
@@ -72,14 +74,14 @@ angular.module('MLDS')
 			return $q.when(fakeReports);
 		};
 
-		service.createUsageReport = function(licenseeId) {
+		service.createUsageReport = function(licenseeId, startDate, endDate) {
 			//return $http.post('/app/rest/licensees/{licenseeId}/commercialUsages');
 			//FIXME does not duplicate last report
 			var newReport = {
 					commercialUsageId: fakeId(),
 					//FIXME hack for 2nd Jan rather than 1st due to local/universal time...
-					startDate: new Date('2014-01-02'),
-					endDate: new Date('2014-06-30'),
+					startDate: startDate,
+					endDate: endDate,
 					created: new Date(),
 					usage: [
 					]
