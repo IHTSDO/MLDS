@@ -35,7 +35,7 @@ public class CommercialUsageEntry {
 	@ManyToOne
 	Country country;
 	
-	Instant created;
+	Instant created = Instant.now();
 
 	public Long getCommercialUsageEntryId() {
 		return commercialUsageEntryId;
