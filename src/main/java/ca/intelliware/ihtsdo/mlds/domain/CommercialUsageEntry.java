@@ -26,6 +26,8 @@ public class CommercialUsageEntry {
 	
 	String name;
 	
+	String type;
+	
 	@Column(name="start_date", nullable=false)
 	LocalDate startDate;
 	
@@ -59,5 +61,13 @@ public class CommercialUsageEntry {
 
 	public Instant getCreated() {
 		return created;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }
