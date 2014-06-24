@@ -38,9 +38,9 @@ angular.module('MLDS')
         	}
         	
         	$scope.usageReportCountries = function(usageReport) {
-        		var result = usageReport.usage.reduce(function(uniqueCountryCodes, usageReport) {
-        			if (uniqueCountryCodes.indexOf(usageReport.countryCode) === -1) {
-        				uniqueCountryCodes.push(usageReport.countryCode);
+        		var result = usageReport.entries.reduce(function(uniqueCountryCodes, usageReport) {
+        			if (uniqueCountryCodes.indexOf(usageReport.country.isoCode2) === -1) {
+        				uniqueCountryCodes.push(usageReport.country.isoCode2);
         			}
         			return uniqueCountryCodes;
         		}, []);

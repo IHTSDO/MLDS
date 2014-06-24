@@ -30,16 +30,17 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	function updateFromUsageReport(usageReport) {
 		$scope.commercialUsageReport = usageReport;
 		$scope.usageByCountry = {};
-		usageReport.usage.forEach(function(usageEntry) {
-			var countrySection = $scope.usageByCountry[usageEntry.countryCode];
+		usageReport.entries.forEach(function(usageEntry) {
+			var countryCode = usageEntry.country.isoCode2;
+			var countrySection = $scope.usageByCountry[countryCode];
 			if (!countrySection) {
 				countrySection = {
-						country: countryFromCode(usageEntry.countryCode),
-						usage: []
+						country: usageEntry.country,
+						entries: []
 				};
-				$scope.usageByCountry[usageEntry.countryCode] = countrySection;
+				$scope.usageByCountry[countryCode] = countrySection;
 			}
-			countrySection.usage.push(usageEntry);
+			countrySection.entries.push(usageEntry);
 		});
 	}
 	

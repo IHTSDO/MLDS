@@ -7,7 +7,7 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 	$scope.alerts = [];
 	$scope.institution = {};
 	$scope.institution.startDate = new Date();
-	$scope.institution.countryCode = country.isoCode2;
+	$scope.institution.country = country;
 	
 	//TODO: AC rename(if needed) and fill in guts to submit new institution
 	$scope.add = function(){
