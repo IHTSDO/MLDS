@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
+import javax.servlet.FilterRegistration.Dynamic;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -19,10 +20,12 @@ import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 
 import ca.intelliware.ihtsdo.mlds.web.filter.CachingHttpHeadersFilter;
 import ca.intelliware.ihtsdo.mlds.web.filter.StaticResourcesProductionFilter;
 import ca.intelliware.ihtsdo.mlds.web.filter.gzip.GZipServletFilter;
+import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.servlet.InstrumentedFilter;
@@ -66,11 +69,12 @@ public class WebConfigurer implements ServletContextInitializer {
             initCachingHttpHeadersFilter(servletContext, disps);
         }
         initGzipFilter(servletContext, disps);
+        initOpenSessionInViewFilter(servletContext, disps);
 
         log.info("Web application fully configured");
     }
 
-    /**
+	/**
      * Initializes the GZip filter.
      */
     private void initGzipFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
@@ -154,6 +158,14 @@ public class WebConfigurer implements ServletContextInitializer {
         metricsAdminServlet.setAsyncSupported(true);
         metricsAdminServlet.setLoadOnStartup(2);
     }
+
+    private void initOpenSessionInViewFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
+        log.debug("Initializing Open JPA in view filter");
+        Dynamic filter = servletContext.addFilter("openEntityManagerInViewFilter", new OpenEntityManagerInViewFilter());
+        
+        filter.addMappingForUrlPatterns(disps, true, Routes.API_BASE_URL+"/*");
+		
+	}
 
 
 }
