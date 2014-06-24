@@ -43,25 +43,27 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		});
 	}
 	
-	if ($routeParams && $routeParams.usageReportId) {
-		CommercialUsageService.getUsageReport($routeParams.usageReportId)
-			.then(function(result) {
-				updateFromUsageReport(result.data);	
-			})
-			.catch(function(message) {
-				//FIXME
-				$log.log('Failed to get initial usage log by param');
-			});
-	} else {
-		CommercialUsageService.createUsageReport($scope.licenseeId, new Date('2014-01-02'), new Date('2014-06-30'))
-			.then(function(result) {
-				updateFromUsageReport(result.data);	
-			})
-			.catch(function(message) {
-				//FIXME
-				$log.log('Failed to get initial usage log');
-			});
-	}
+	CountryService.ready.then(function() {
+		if ($routeParams && $routeParams.usageReportId) {
+			CommercialUsageService.getUsageReport($routeParams.usageReportId)
+				.then(function(result) {
+					updateFromUsageReport(result.data);	
+				})
+				.catch(function(message) {
+					//FIXME
+					$log.log('Failed to get initial usage log by param');
+				});
+		} else {
+			CommercialUsageService.createUsageReport($scope.licenseeId, new Date('2014-01-02'), new Date('2014-06-30'))
+				.then(function(result) {
+					updateFromUsageReport(result.data);	
+				})
+				.catch(function(message) {
+					//FIXME
+					$log.log('Failed to get initial usage log');
+				});
+		}
+	});
 	
 	function countryFromCode(countryCode) {
 		return CountryService.countriesByIsoCode2[countryCode];
