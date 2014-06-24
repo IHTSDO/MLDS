@@ -266,4 +266,9 @@
     		</column>
    		</addColumn>
     </changeSet>
+    
+    <changeSet id="MB" author="MLDS-23-8">
+    	<comment>Delete obsolete jhipster table</comment>
+    	<dropTable tableName="hibernate_sequences"/>
+    </changeSet>
 </databaseChangeLog>
