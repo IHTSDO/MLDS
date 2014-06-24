@@ -53,7 +53,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 				$log.log('Failed to get initial usage log by param');
 			});
 	} else {
-		CommercialUsageService.createUsageReport($scope.licenseeId)
+		CommercialUsageService.createUsageReport($scope.licenseeId, new Date('2014-01-02'), new Date('2014-06-30'))
 			.then(function(usageReport) {
 				updateFromUsageReport(usageReport);	
 			})
