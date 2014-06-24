@@ -5175,8 +5175,6 @@ button.close {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  background: url('down-arrow.png') no-repeat right, -moz-linear-gradient(top, #fbfbfb 0%, #e9e9e9 100%);
-  background: url('down-arrow.png') no-repeat right, -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fbfbfb), color-stop(100%, #e9e9e9));
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -5885,6 +5883,9 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+.space {
+  margin-top: 10px;
 }
 .navbar-login {
   margin-top: 20px;
