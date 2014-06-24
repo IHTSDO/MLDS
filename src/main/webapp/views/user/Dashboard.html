@@ -7,4 +7,55 @@
 	<a href="#/usage-log">Usage Log</a>
 	<br>
 	<br>
+	    <div class="space"> 
+      <a ng-click="openAddUsageReportModal()" class="btn btn-default btn-block">Add New Usage Information</a>
+  <div>
+      <div class="space">
+        <table class="table table-striped table-hover">
+          <tr>
+            <th>Reporting Year</th>
+            <th>Reporting Period</th>
+            <th>Submitted Date</th>
+            <th>Countries</th>
+            <th>Institutions</th>
+          </tr>
+          <tr class="info">
+            <td><i class="fa fa-exclamation-circle"></i> 2013</td>
+            <td>Jun-Dec</td>
+            <td>Jan</td>
+            <td>2</td>
+            <td>50</td>
+          </tr>
+          <tr>
+            <td>2013</td>
+            <td>Jul-Dec</td>
+            <td>Jan 12 2013</td>
+            <td>1</td>
+            <td>20</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+      <div class="space">
+        <table class="table table-striped table-hover">
+          <tr>
+            <th>Reporting Year</th>
+            <th>Reporting Period</th>
+            <th>Submitted Date</th>
+            <th>Countries</th>
+            <th>Institutions</th>
+          </tr>
+          <tr class="info" ng-repeat="usageReport in commercialUsageReports">
+            <td><i class="fa fa-exclamation-circle"></i> {{usageReport.startDate | date : 'yyyy'}}</td>
+            <td>{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}</td>
+            <td>{{usageReport.submitted | date : 'MMM dd yyyy'}}</td>
+            <td>{{usageReportCountries(usageReport) | number}}</td>
+            <td>{{usageReport.usage.length | number}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+	
 </div>
