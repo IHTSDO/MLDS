@@ -45,11 +45,16 @@ public class WebConfigurer implements ServletContextInitializer {
     @Inject
     private MetricRegistry metricRegistry;
     
+    
+    /**
+     * Wire up the Jackson serialization for Jodatime 
+     * @return
+     */
     @Bean
     public Module jodaModule() {
       return new JodaModule();
     }
-    
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
