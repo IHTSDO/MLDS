@@ -254,5 +254,16 @@
     	<addColumn tableName="commercial_usage">
     		<column name="end_date" type="DATE"/>
     	</addColumn>
-    </changeSet>    
+    </changeSet>
+    
+    <changeSet id="MB" author="MLDS-23-7">
+    	<comment>Change entry mapping</comment>
+    	<dropTable tableName="commercial_usage_commercial_usage_entry"/>
+    	<dropColumn tableName="commercial_usage_entry" columnName="public_id"/>
+    	<addColumn tableName="commercial_usage_entry">
+    		<column name="commercial_usage_id" type="bigint">
+    			<constraints foreignKeyName="FK_commercial_usage_entry_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
+    		</column>
+   		</addColumn>
+    </changeSet>
 </databaseChangeLog>
