@@ -13,7 +13,6 @@
         <p>
           <strong>Select the countries in which SNOMED CT will be used</strong>
         </p>
-        <div class="well">
           <form action="">
 
             <div class="col-sx-4 col-md-4 col-lg-6">
@@ -28,12 +27,11 @@
                   </select>
                 </div>
                 <div class="form-group">
-                	<button class="btn btn-success" ng-disabled="!canAddSelectedCountries()" ng-click="addSelectedCountries()">Add Country</button>
+                	<button class="btn btn-primary" ng-disabled="!canAddSelectedCountries()" ng-click="addSelectedCountries()">Add Country</button>
                 </div>
               </div>
             </div>
           </form>
-        </div>
       </div>
     </div>
   </div>
@@ -47,12 +45,11 @@
 				</div>
 				<div class="panel-body" collapse="collapsePanel.sublicensed">
 					<div ng-repeat="countryUsage in usageByCountry">
-						
-                  <div class="well">
+
                         <div class="form-group">
                              <h3>{{countryUsage.country.commonName}}</h3>
                              <p>FIXME copy Instructions...Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-							<a class="btn btn-success" ng-click="openAddInstitutionModal(countryUsage.country)">Add Institution</a>
+							<a class="btn btn-primary" ng-click="openAddInstitutionModal(countryUsage.country)">Add Institution</a>
 						</div>
       
 						<table class="table table-striped">
@@ -82,7 +79,6 @@
 								</td>
 							</tr>
 						</table>
-        </div>
 					</div>
 
 				</div>
