@@ -1,6 +1,8 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 public class Routes {
+	public static final String API_BASE_URL = "/app/rest";
+	
 	static final String COUNTRIES = "/app/rest/countries";
 	
 	/**
