@@ -572,11 +572,11 @@ a.bg-warning:hover {
   background-color: #f8b236;
 }
 .bg-danger {
-  background-color: #f2dede;
+  background-color: #f74e4d;
   padding: 15px;
 }
 a.bg-danger:hover {
-  background-color: #e4b9b9;
+  background-color: #f51d1c;
 }
 .page-header {
   padding-bottom: 9px;
@@ -1590,13 +1590,13 @@ table th[class*="col-"] {
 .table > thead > tr.danger > th,
 .table > tbody > tr.danger > th,
 .table > tfoot > tr.danger > th {
-  background-color: #f2dede;
+  background-color: #f74e4d;
 }
 .table-hover > tbody > tr > td.danger:hover,
 .table-hover > tbody > tr > th.danger:hover,
 .table-hover > tbody > tr.danger:hover > td,
 .table-hover > tbody > tr.danger:hover > th {
-  background-color: #ebcccc;
+  background-color: #f63635;
 }
 @media (max-width: 767px) {
   .table-responsive {
@@ -1928,7 +1928,7 @@ select[multiple].input-lg {
 .has-error .input-group-addon {
   color: #f74e4d;
   border-color: #f74e4d;
-  background-color: #f2dede;
+  background-color: #f74e4d;
 }
 .has-error .form-control-feedback {
   color: #f74e4d;
@@ -4504,11 +4504,11 @@ a.thumbnail.active {
 }
 .alert-danger {
   background-color: #f74e4d;
-  border-color: #ebccd1;
+  border-color: #f63554;
   color: #ffffff;
 }
 .alert-danger hr {
-  border-top-color: #e4b9c0;
+  border-top-color: #f51c3f;
 }
 .alert-danger .alert-link {
   color: #e6e6e6;
@@ -4760,7 +4760,7 @@ a.list-group-item-warning.active:focus {
 }
 .list-group-item-danger {
   color: #f74e4d;
-  background-color: #f2dede;
+  background-color: #f74e4d;
 }
 a.list-group-item-danger {
   color: #f74e4d;
@@ -4771,7 +4771,7 @@ a.list-group-item-danger .list-group-item-heading {
 a.list-group-item-danger:hover,
 a.list-group-item-danger:focus {
   color: #f74e4d;
-  background-color: #ebcccc;
+  background-color: #f63635;
 }
 a.list-group-item-danger.active,
 a.list-group-item-danger.active:hover,
@@ -5062,18 +5062,18 @@ a.list-group-item-danger.active:focus {
   border-bottom-color: #f99f4e;
 }
 .panel-danger {
-  border-color: #ebccd1;
+  border-color: #f63554;
 }
 .panel-danger > .panel-heading {
   color: #f74e4d;
-  background-color: #f2dede;
-  border-color: #ebccd1;
+  background-color: #f74e4d;
+  border-color: #f63554;
 }
 .panel-danger > .panel-heading + .panel-collapse .panel-body {
-  border-top-color: #ebccd1;
+  border-top-color: #f63554;
 }
 .panel-danger > .panel-footer + .panel-collapse .panel-body {
-  border-bottom-color: #ebccd1;
+  border-bottom-color: #f63554;
 }
 .well {
   min-height: 20px;
@@ -5147,6 +5147,7 @@ button.close {
 .datepicker tr .btn-sm:hover,
 .datepicker tr .btn-group-sm > .btn:hover {
   background: #eeeeee;
+  color: #40acd6;
 }
 .datepicker em {
   color: #555555;
