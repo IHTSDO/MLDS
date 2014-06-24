@@ -245,4 +245,14 @@
         <addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="commercial_usage_entry" baseTableSchemaName="public" constraintName="FK_commercial_usage_entry_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
         <addForeignKeyConstraint baseColumnNames="commercial_usage_entry_id" baseTableName="commercial_usage_commercial_usage_entry" baseTableSchemaName="public" constraintName="FK_og8u9xh3tsghu0metiigxaa6d" deferrable="false" initiallyDeferred="false" referencedColumnNames="commercial_usage_entry_id" referencedTableName="commercial_usage_entry" referencedTableSchemaName="public"/>
     </changeSet>    
+
+    <changeSet author="MB/DGL" id="MLDS-23-6" logicalFilePath="none">
+    	<comment>Add date range to usage report</comment>
+    	<addColumn tableName="commercial_usage">
+    		<column name="start_date" type="DATE"/>
+    	</addColumn>
+    	<addColumn tableName="commercial_usage">
+    		<column name="end_date" type="DATE"/>
+    	</addColumn>
+    </changeSet>    
 </databaseChangeLog>

@@ -1,24 +1,34 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
-import com.codahale.metrics.MetricRegistry;
-import com.codahale.metrics.servlet.InstrumentedFilter;
-import com.codahale.metrics.servlets.MetricsServlet;
-import ca.intelliware.ihtsdo.mlds.web.filter.CachingHttpHeadersFilter;
-import ca.intelliware.ihtsdo.mlds.web.filter.StaticResourcesProductionFilter;
-import ca.intelliware.ihtsdo.mlds.web.filter.gzip.GZipServletFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.context.embedded.ServletContextInitializer;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-
-import javax.inject.Inject;
-import javax.servlet.*;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.inject.Inject;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.context.embedded.ServletContextInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+
+import ca.intelliware.ihtsdo.mlds.web.filter.CachingHttpHeadersFilter;
+import ca.intelliware.ihtsdo.mlds.web.filter.StaticResourcesProductionFilter;
+import ca.intelliware.ihtsdo.mlds.web.filter.gzip.GZipServletFilter;
+
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.servlet.InstrumentedFilter;
+import com.codahale.metrics.servlets.MetricsServlet;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.
@@ -34,7 +44,12 @@ public class WebConfigurer implements ServletContextInitializer {
 
     @Inject
     private MetricRegistry metricRegistry;
-
+    
+    @Bean
+    public Module jodaModule() {
+      return new JodaModule();
+    }
+    
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
