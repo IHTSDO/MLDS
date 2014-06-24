@@ -67,11 +67,17 @@ angular.module('MLDS')
 			return found ? found[0] : null;
 		}
 
+		function wrapData(data) {
+			return {
+				data: data
+			};
+		}
+		
 		var service = {};
 		
 		service.getUsageReports = function(licenseeId) {
 			//return $http.get('/app/rest/licensees/{licenseeId}/commercialUsages');
-			return $q.when(fakeReports);
+			return $q.when(wrapData(fakeReports));
 		};
 
 		service.createUsageReport = function(licenseeId, startDate, endDate) {
@@ -87,12 +93,12 @@ angular.module('MLDS')
 					]
 			};
 			fakeReports.push(newReport);
-			return $q.when(newReport);
+			return $q.when(wrapData(newReport));
 		};
 
 		service.getUsageReport = function(reportId) {
 			//return $http.get('/app/rest/commercialUsages/{commercialUsageId}');
-			return $q.when(fakeFindUsageReport(parseInt(reportId, 10)));
+			return $q.when(wrapData(fakeFindUsageReport(parseInt(reportId, 10))));
 		};
 
 		service.addUsageEntry = function(usageReport, entry) {
@@ -100,13 +106,13 @@ angular.module('MLDS')
 			entry.commercialUsageEntryId = fakeId();  
 			usageReport.usage.push(entry);
 			$rootScope.$broadcast(Events.commercialUsageUpdated);
-			return $q.when(entry);
+			return $q.when(wrapData(entry));
 		};
 		
 		service.updateUsageEntry = function(usageReport, entry) {
 			//return $http.put('/app/rest/commercialUsageEntries/{commercialUsageEntryId}');
 			$rootScope.$broadcast(Events.commercialUsageUpdated);
-			return $q.when(entry);
+			return $q.when(wrapData(entry));
 		};
 
 		service.deleteUsageEntry = function(usageReport, entry) {
@@ -119,7 +125,7 @@ angular.module('MLDS')
 				}
 			});
 			$rootScope.$broadcast(Events.commercialUsageUpdated);
-			return $q.when({});
+			return $q.when(wrapData({}));
 		};
 
 		return service;

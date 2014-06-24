@@ -22,8 +22,8 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	
 	$scope.$on(Events.commercialUsageUpdated, function() {
 		CommercialUsageService.getUsageReport($scope.commercialUsageReport.commercialUsageId)
-			.then(function(replacementUsageReport) {
-				updateFromUsageReport(replacementUsageReport);
+			.then(function(result) {
+				updateFromUsageReport(result.data);
 			});
 	});
 	
@@ -46,7 +46,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	if ($routeParams && $routeParams.usageReportId) {
 		CommercialUsageService.getUsageReport($routeParams.usageReportId)
 			.then(function(result) {
-				updateFromUsageReport(result);	
+				updateFromUsageReport(result.data);	
 			})
 			.catch(function(message) {
 				//FIXME
@@ -54,8 +54,8 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			});
 	} else {
 		CommercialUsageService.createUsageReport($scope.licenseeId, new Date('2014-01-02'), new Date('2014-06-30'))
-			.then(function(usageReport) {
-				updateFromUsageReport(usageReport);	
+			.then(function(result) {
+				updateFromUsageReport(result.data);	
 			})
 			.catch(function(message) {
 				//FIXME
