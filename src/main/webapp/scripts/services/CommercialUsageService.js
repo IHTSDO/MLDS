@@ -27,7 +27,7 @@ angular.module('MLDS')
 				]
 				
 			}, {
-				commercialUsageId: fakeId(),
+				commercialUsageId: 21/*FIXMEfakeId()*/,
 				startDate: new Date('2013-07-01'),
 				endDate: new Date('2013-12-31'),
 				submitted: new Date('2014-01-04'),
@@ -93,6 +93,7 @@ angular.module('MLDS')
 					$log.log('getUsageReports FAILED')
 					$log.log(message);
 				});
+			//FIXME FAKE
 			return $q.when(wrapData(fakeReports));
 		};
 
@@ -125,12 +126,31 @@ angular.module('MLDS')
 		};
 
 		service.getUsageReport = function(reportId) {
-			//return $http.get('/app/rest/commercialUsages/{commercialUsageId}');
+			$http.get('/app/rest/commercialUsages/'+reportId)
+				.then(function(result) {
+					$log.log('getUsageReport');
+					$log.log(result);
+				})
+				.catch(function(message) {
+					$log.log('getUsageReport FAILED')
+					$log.log(message);
+				});
+			//FIXME FAKE
 			return $q.when(wrapData(fakeFindUsageReport(parseInt(reportId, 10))));
 		};
 
 		service.addUsageEntry = function(usageReport, entry) {
-			//return $http.post('app/rest/commercialUsages/{commercialUsageId}');
+			http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId,
+					entry)
+				.then(function(result) {
+					$log.log('addUsageEntry');
+					$log.log(result);
+				})
+				.catch(function(message) {
+					$log.log('addUsageEntry FAILED')
+					$log.log(message);
+				});
+			//FIXME FAKE
 			entry.commercialUsageEntryId = fakeId();  
 			usageReport.usage.push(entry);
 			$rootScope.$broadcast(Events.commercialUsageUpdated);
@@ -138,13 +158,32 @@ angular.module('MLDS')
 		};
 		
 		service.updateUsageEntry = function(usageReport, entry) {
-			//return $http.put('/app/rest/commercialUsageEntries/{commercialUsageEntryId}');
+			http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId,
+					entry)
+				.then(function(result) {
+					$log.log('updateUsageEntry');
+					$log.log(result);
+				})
+				.catch(function(message) {
+					$log.log('updateUsageEntry FAILED')
+					$log.log(message);
+				});
+			//FIXME FAKE
 			$rootScope.$broadcast(Events.commercialUsageUpdated);
 			return $q.when(wrapData(entry));
 		};
 
 		service.deleteUsageEntry = function(usageReport, entry) {
-			//return $http.delete('/app+/rest/commercialUsageEntries/{commercialUsageEntryId}');
+			http.delete('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId)
+				.then(function(result) {
+					$log.log('deleteUsageEntry');
+					$log.log(result);
+				})
+				.catch(function(message) {
+					$log.log('deleteUsageEntry FAILED')
+					$log.log(message);
+				});
+			//FIXME FAKE
 			fakeReports.forEach(function(usageReport) {
 				for (var i = 0; i < usageReport.usage.length; i++) {
 				    if (usageReport.usage[i].commercialUsageEntryId === entry.commercialUsageEntryId) {
