@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -18,6 +19,11 @@ public class CommercialUsageEntry {
 	@Column(name="commercial_usage_entry_id")
 	Long commercialUsageEntryId;
 
+	// the parent
+	@ManyToOne
+	@JoinColumn(name="commercial_usage_id")
+	CommercialUsage commercialUsage;
+	
 	String name;
 	
 	@Column(name="start_date", nullable=false)
@@ -29,9 +35,9 @@ public class CommercialUsageEntry {
 	@ManyToOne
 	Country country;
 	
-	Instant created;
+	Instant created = Instant.now();
 
-	public long getCommercialUsageEntryId() {
+	public Long getCommercialUsageEntryId() {
 		return commercialUsageEntryId;
 	}
 
