@@ -30,7 +30,7 @@
             <td>{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}</td>
             <td>{{usageReport.submitted | date : 'MMM dd yyyy'}}</td>
             <td>{{usageReportCountries(usageReport) | number}}</td>
-            <td>{{usageReport.usage.length | number}}</td>
+            <td>{{usageReport.entries.length | number}}</td>
           </tr>
         </table>
       </div>
