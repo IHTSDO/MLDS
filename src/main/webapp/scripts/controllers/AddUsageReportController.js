@@ -5,28 +5,8 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
 	$scope.alerts = [];
 	
 	//FIXME generate ranges...
-	$scope.ranges = [
-	     {
-	    	 description: 'Jul - Dec 2014',
-	    	 startDate: new Date('2014-07-01'),
-	    	 endDate: new Date('2014-12-31')
-	     },
-	     {
-	    	 description: 'Jan - Jun 2014',
-	    	 startDate: new Date('2014-01-01'),
-	    	 endDate: new Date('2014-06-30')
-	     },
-	     {
-	    	 description: 'Jul - Dec 2013',
-	    	 startDate: new Date('2013-07-01'),
-	    	 endDate: new Date('2013-12-31')
-	     },
-	     {
-	    	 description: 'Jan - Jun 2013',
-	    	 startDate: new Date('2013-01-01'),
-	    	 endDate: new Date('2013-07-30')
-	     }
-	];
+	$scope.ranges = generateRanges();
+	
 	$scope.selectedRange = $scope.ranges[0];
 	
 	$scope.add = function(range){
@@ -58,4 +38,30 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
 		$event.stopPropagation();
 	};
 
+	function generateRangeEntry(start, end) {
+		return {
+			description: ''+start.format('MMM')+' - '+end.format('MMM YYYY'),
+			startDate: start.toDate(),
+			endDate: end.toDate()
+		};
+	}
+	
+	function generateRanges() {
+		var ranges = [];
+		var date = moment().utc();
+		for (var i = 0; i < 6; i++) {
+			var isFirstHalfOfYear = date.isBefore(date.clone().month(6).startOf('month'));
+			if (isFirstHalfOfYear) {
+				date = date.startOf('year');
+				var end = date.clone().month(5).endOf('month');
+				ranges.push(generateRangeEntry(date, end));
+			} else {
+				date = date.month(6).startOf('month');
+				var end = date.clone().endOf('year');
+				ranges.push(generateRangeEntry(date, end));
+			}
+			date = date.clone().subtract(2, 'months');
+		}
+		return ranges;
+	}
 }]);
