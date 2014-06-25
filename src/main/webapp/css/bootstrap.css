@@ -5954,7 +5954,6 @@ button.close {
   border: 1px solid #e0e0e0;
   background-color: #f9fafc;
   padding: 16px 12px 4px;
-  min-height: 250px;
 }
 .selectpicker .input-group {
   margin-bottom: 8px;
