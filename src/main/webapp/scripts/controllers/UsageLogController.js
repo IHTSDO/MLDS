@@ -27,19 +27,34 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			});
 	});
 	
-	function updateFromUsageReport(usageReport) {
-		$scope.commercialUsageReport = usageReport;
-		$scope.usageByCountry = {};
-		usageReport.entries.forEach(function(usageEntry) {
-			var countryCode = usageEntry.country.isoCode2;
-			var countrySection = $scope.usageByCountry[countryCode];
-			if (!countrySection) {
-				countrySection = {
-						country: usageEntry.country,
-						entries: []
-				};
-				$scope.usageByCountry[countryCode] = countrySection;
+	function clearEntriesFromUsageByCountry() {
+		// want to preserve the list of countries when updating model even if no entries present
+		angular.forEach($scope.usageByCountry, function(countrySection, countryKey) {
+			var entries = countrySection.entries; 
+			if (entries) {
+				entries.splice(0, entries.length);
 			}
+		});
+	}
+	
+	function lookupUsageByCountryOrCreate(country) {
+		var countryCode = country.isoCode2;
+		var countrySection = $scope.usageByCountry[countryCode];
+		if (!countrySection) {
+			countrySection = {
+					country: country,
+					entries: []
+			};
+			$scope.usageByCountry[countryCode] = countrySection;
+		}
+		return countrySection;
+	}
+	
+	function updateFromUsageReport(usageReport) {
+		clearEntriesFromUsageByCountry();
+		$scope.commercialUsageReport = usageReport;
+		usageReport.entries.forEach(function(usageEntry) {
+			var countrySection = lookupUsageByCountryOrCreate(usageEntry.country);
 			countrySection.entries.push(usageEntry);
 		});
 	}
@@ -84,12 +99,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.addSelectedCountries = function() {
 		$scope.selectedCountryCodesToAdd.forEach(function(countryCode){
 			var country = countryFromCode(countryCode);
-			if (!$scope.usageByCountry[countryCode]){
-				$scope.usageByCountry[countryCode] = {
-						country: country,
-						usage: []
-				};
-			}
+			lookupUsageByCountryOrCreate(country);
 		});
 	};
 		
