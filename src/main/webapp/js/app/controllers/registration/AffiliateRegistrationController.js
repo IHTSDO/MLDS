@@ -8,6 +8,10 @@ angular.module('MLDS')
         	$scope.affiliateform = {};
         	
         	$scope.affiliateform.submit = function affiliateRegistrationSubmit() {
+        		if ($scope.affiliateApplicationForm.$invalid) {
+        			$scope.affiliateApplicationForm.attempted = true;
+        			return;
+        		}
 				$log.log('AffiliateRegistrationController submit()', $scope.affiliateform);
 
         		var httpPromise = UserRegistrationService.createApplication($scope.affiliateform);
