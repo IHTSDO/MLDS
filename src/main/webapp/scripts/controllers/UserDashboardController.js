@@ -18,9 +18,14 @@ angular.module('MLDS')
 			.then(function(result) {
 				$scope.commercialUsageReports = [].concat(result.data);
 				$scope.commercialUsageReports.sort(function(a, b) {
-					return b.startDate.getTime() - a.endDate.getTime();
+					if (a.startDate && b.startDate) {
+						return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+					} else if (a.startDate) {
+						return 1;
+					} else {
+						return -1;
+					}
 				});
-				$log.log(result);
 			})
 			.catch(function(message) {
 				//FIXME
