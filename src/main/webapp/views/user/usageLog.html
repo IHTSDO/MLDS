@@ -1,8 +1,8 @@
 <div class="row">
   <div class="container">
-    <h1>Usage Log</h1>
+    <h1>Usage Log <small class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</small></h1>
     <p>Page Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat. </p>
-    <p>{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</p>
+
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
@@ -47,9 +47,12 @@
 					<div ng-repeat="countryUsage in usageByCountry">
 
                         <div class="form-group">
+                          <div class="col-lg-8">
                              <h3>{{countryUsage.country.commonName}}</h3>
-                             <p>FIXME copy Instructions...Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                           <div class="col-lg-4">
 							<a class="btn btn-success" ng-click="openAddInstitutionModal(countryUsage.country)">Add Institution</a>
+                           </div>
 						</div>
       
 						<table class="table table-striped">
