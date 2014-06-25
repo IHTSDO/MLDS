@@ -69,6 +69,15 @@ angular.module('MLDS')
 			return httpPromise;
 		};
 
+		service.submitUsageReport = function(usageReport) {
+			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/submit'
+				);
+			httpPromise.then(function() {
+				$rootScope.$broadcast(Events.commercialUsageUpdated);	
+			});
+			return httpPromise;
+		};
+
 		
 		return service;
 	}]);
