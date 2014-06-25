@@ -1,26 +1,21 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('CommercialUsageService', ['$http', '$rootScope', '$log', '$q', 'Events', '$filter',
-                                    function($http, $rootScope, $log, $q, Events, $filter){
+.factory('CommercialUsageService', ['$http', '$rootScope', '$log', '$q', 'Events', 
+                                    function($http, $rootScope, $log, $q, Events){
 		function serializeDate(date) {
 			if (date) {
-				return $filter('date')(date, 'yyyy-MM-dd');
+				return moment(date).format('YYYY-MM-DD');
 			} else {
 				return null;
 			}
 		}
 		
 		function serializeCommercialEntry(entry) {
-			return {
-				commercialUsageEntryId: entry.commercialUsageEntryId,
-				name: entry.name,
-				type: entry.type,
-				startDate: serializeDate(entry.startDate),
-				endDate: serializeDate(entry.endDate),
-				country: entry.country,
-				created: entry.created
-			};
+			var serializable = angular.copy(entry);
+			serializable.startDate = serializeDate(serializable.startDate);
+			serializable.endDate = serializeDate(serializable.endDate);
+			return serializable;
 		}
 		
 		var service = {};
