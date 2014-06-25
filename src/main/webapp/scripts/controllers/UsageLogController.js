@@ -153,5 +153,19 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	};
 	
 		
+	$scope.submitUsageReport = function() {
+		var modalInstance = $modal.open({
+			templateUrl: 'views/user/submitUsageReportModal.html',
+			controller: 'SubmitUsageReportController',
+			size:'sm',
+			backdrop: 'static',
+			resolve: {
+				commercialUsageReport: function() {
+					return $scope.commercialUsageReport;
+				}
+			}
+		});
+		
+	};
 	
 }]);
