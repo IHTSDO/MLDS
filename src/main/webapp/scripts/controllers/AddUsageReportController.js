@@ -4,9 +4,7 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
                                                        	function($scope, $modalInstance, $log, $location, CommercialUsageService, licenseeId) {
 	$scope.alerts = [];
 	
-	//FIXME generate ranges...
 	$scope.ranges = generateRanges();
-	
 	$scope.selectedRange = $scope.ranges[0];
 	
 	$scope.add = function(range){
@@ -48,8 +46,9 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
 	
 	function generateRanges() {
 		var ranges = [];
-		var date = moment().utc();
-		for (var i = 0; i < 6; i++) {
+		var date = moment().local();
+		var periods = 6;
+		for (var i = 0; i < periods; i++) {
 			var isFirstHalfOfYear = date.isBefore(date.clone().month(6).startOf('month'));
 			if (isFirstHalfOfYear) {
 				date = date.startOf('year');
