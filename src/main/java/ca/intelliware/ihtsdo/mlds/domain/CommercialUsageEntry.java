@@ -28,6 +28,8 @@ public class CommercialUsageEntry {
 	
 	String type;
 	
+	String note;
+	
 	@Column(name="start_date", nullable=false)
 	LocalDate startDate;
 	
@@ -38,7 +40,7 @@ public class CommercialUsageEntry {
 	Country country;
 	
 	Instant created = Instant.now();
-
+	
 	public Long getCommercialUsageEntryId() {
 		return commercialUsageEntryId;
 	}
@@ -69,5 +71,9 @@ public class CommercialUsageEntry {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getNote() {
+		return note;
 	}
 }

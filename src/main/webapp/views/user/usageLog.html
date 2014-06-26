@@ -60,6 +60,8 @@
 								<th>Institution Name</th>
 								<th>Type</th>
 								<th>License Start</th>
+								<th>License End</th>
+								<th>Note</th>
 								<th></th>
 							</tr>
 
@@ -67,11 +69,13 @@
 								<td>{{institution.name}}</td>
 								<td>{{institution.type}}</td>
 								<td>{{institution.startDate | date}}</td>
+								<td>{{institution.endDate | date}}</td>
+								<td>{{institution.note}}</td>
 								<td>
 									<div class="btn-group">
 										<button type="button" class="btn btn-default dropdown-toggle"
 											data-toggle="dropdown">
-											<i class="fa fa-pencil"></i> </i></span>
+											<i class="fa fa-pencil"></i>
 										</button>
 										<ul class="dropdown-menu" role="menu">
 											<li><a ng-click="editInstitution(institution, countryUsage.country)">Edit</a></li>
