@@ -80,7 +80,7 @@ public class CommercialUsageResource {
     	commercialUsage.setStartDate(submissionPeriod.getStartDate());
     	commercialUsage.setEndDate(submissionPeriod.getEndDate());
     	
-    	// find existing report with most recent end date 
+    	// FIXME find existing report with most recent end date 
     	// deep copy and save ?? 200? 201? redirect?
     	
     	return commercialUsageRepository.save(commercialUsage);
@@ -92,7 +92,7 @@ public class CommercialUsageResource {
     public @ResponseBody CommercialUsage getCommercialUsageReport(@PathVariable long commercialUsageId) {
     	authorizationChecker.checkCanAccessLicensee(commercialUsageId);
     	
-    	// map missing to 404
+    	// FIXME map missing to 404
     	return commercialUsageRepository.findOne(commercialUsageId);
     }
     
@@ -130,10 +130,11 @@ public class CommercialUsageResource {
     	return commercialUsageEntryRepository.findOne(commercialUsageEntryId);
     }
     
+    @Transactional
     @RequestMapping(value = Routes.USAGE_REPORT_ENTRY,
     		method = RequestMethod.PUT,
     		produces = "application/json")
-    public @ResponseBody CommercialUsageEntry updateCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId, @RequestBody CommercialUsageEntry newEntryValue) {
+    public @ResponseBody ResponseEntity<CommercialUsageEntry> updateCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId, @RequestBody CommercialUsageEntry newEntryValue) {
     	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
     	Validate.isTrue(newEntryValue.getCommercialUsageEntryId() != null && newEntryValue.getCommercialUsageEntryId() == commercialUsageEntryId,"Must include commercialUsageEntryId in message");
 
@@ -141,7 +142,16 @@ public class CommercialUsageResource {
     	
     	CommercialUsageEntry entry = commercialUsageEntryRepository.save(newEntryValue);
     	
-    	return entry;
+    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+    	if (commercialUsage == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+
+    	commercialUsage.addEntry(entry);
+
+    	
+		ResponseEntity<CommercialUsageEntry> responseEntity = new ResponseEntity<CommercialUsageEntry>(entry, HttpStatus.OK);
+		return responseEntity;
     }
     
     @RequestMapping(value = Routes.USAGE_REPORT_ENTRY,
