@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
+import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
+import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
 
 import com.wordnik.swagger.annotations.Api;
 
@@ -35,20 +37,26 @@ public class CommercialUsageResource {
 	
 	@Resource
 	CommercialUsageEntryRepository commercialUsageEntryRepository;
-	
+
+	@Resource
+	LicenseeRepository licenseeRepository;
+
 	@Resource
 	AuthorizationChecker authorizationChecker;
 	
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody Collection<CommercialUsage> getUsageReports(@PathVariable long licenseeId) {
-    	long userIdInPlaceOfImaginaryLicenceeId = licenseeId;
+    public @ResponseBody ResponseEntity<Collection<CommercialUsage>> getUsageReports(@PathVariable long licenseeId) {
+    	authorizationChecker.checkCanAccessLicensee(licenseeId);
+
+    	//FIXME 404 if not found
+    	Licensee licensee = licenseeRepository.findOne(licenseeId);
+    	if (licensee == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
     	
-    	authorizationChecker.checkCanAccessLicensee(userIdInPlaceOfImaginaryLicenceeId);
-    	
-    	// FIXME MLDS-23 need to segregate by user/licensee
-    	return commercialUsageRepository.findAll();
+    	return new ResponseEntity<Collection<CommercialUsage>>(licensee.getCommercialUsages(), HttpStatus.OK);
     }
     
     public static class CommercialUsageNewSubmissionMessage {
@@ -88,19 +96,29 @@ public class CommercialUsageResource {
      * @param submissionPeriod
      * @return the new CommercialUsage 
      */
+    @Transactional
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.POST,
     		produces = "application/json")
     public @ResponseBody CommercialUsage createNewSubmission(@PathVariable long licenseeId, @RequestBody CommercialUsageNewSubmissionMessage submissionPeriod) {
+    	authorizationChecker.checkCanAccessLicensee(licenseeId);
+    	
     	CommercialUsage commercialUsage = new CommercialUsage();
     	commercialUsage.setStartDate(submissionPeriod.getStartDate());
     	commercialUsage.setEndDate(submissionPeriod.getEndDate());
     	commercialUsage.setApprovalState(ApprovalState.NOT_SUBMITTED);
     	
+    	commercialUsage = commercialUsageRepository.save(commercialUsage);
+    	
+    	//FIXME 404 if not found
+    	Licensee licensee = licenseeRepository.findOne(licenseeId);
+    	
+    	licensee.addCommercialUsage(commercialUsage);
+    	
     	// FIXME find existing report with most recent end date 
     	// deep copy and save ?? 200? 201? redirect?
     	
-    	return commercialUsageRepository.save(commercialUsage);
+    	return commercialUsage;
     }
 
     @RequestMapping(value = Routes.USAGE_REPORT,

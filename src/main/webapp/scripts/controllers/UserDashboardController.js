@@ -4,33 +4,33 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', '$modal', 'UserSession', 'CommercialUsageService', 'Session',
-          function ($scope, $log, $location, $modal, UserSession, CommercialUsageService, Session) {
+        [ '$scope', '$log', '$location', '$modal', 'UserSession', 'CommercialUsageService', 'LicenseeService', 'Session',
+          function ($scope, $log, $location, $modal, UserSession, CommercialUsageService, LicenseeService, Session) {
         	
-        	//FIXME probably should not be retrieving licenseeId from Session
-        	$scope.licenseeId = Session.login;
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
-        	$scope.commercialUsageReports = [];
+        	$scope.licensees = [];
+
+        	LicenseeService.myLicensees()
+        		.then(function(licenseesResult) {
+        			$log.log(licenseesResult);
+        			$scope.licensees = licenseesResult.data;
+        			
+        			licenseesResult.data.forEach(function(licensee) {
+        				licensee.commercialUsages.sort(function(a, b) {
+        					if (a.startDate && b.startDate) {
+        						return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+        					} else if (a.startDate) {
+        						return 1;
+        					} else {
+        						return -1;
+        					}
+        				});
+        			});
+
+        		});
         	
-    		CommercialUsageService.getUsageReports($scope.licenseeId)
-			.then(function(result) {
-				$scope.commercialUsageReports = [].concat(result.data);
-				$scope.commercialUsageReports.sort(function(a, b) {
-					if (a.startDate && b.startDate) {
-						return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
-					} else if (a.startDate) {
-						return 1;
-					} else {
-						return -1;
-					}
-				});
-			})
-			.catch(function(message) {
-				//FIXME
-				$log.log('Failed to get list of past commercial usage reports');
-			});
 
         	
         	//FIXME: AC Seems to break when user refreshes page
@@ -52,7 +52,7 @@ angular.module('MLDS')
         		return result.length;
         	};
         	
-        	$scope.openAddUsageReportModal = function() {
+        	$scope.openAddUsageReportModal = function(licensee) {
         		var modalInstance = $modal.open({
         			templateUrl: 'views/user/addUsageReportModal.html',
         			controller: 'AddUsageReportController',
@@ -60,7 +60,7 @@ angular.module('MLDS')
         			backdrop: 'static',
         			resolve: {
         				licenseeId: function() {
-        					return $scope.licenseeId;
+        					return licensee.licenseeId;
         				}
         			}
         		});

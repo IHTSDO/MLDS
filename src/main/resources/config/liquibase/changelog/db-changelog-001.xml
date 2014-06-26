@@ -300,4 +300,31 @@
 			<column name="submitted" type="timestamp"/>
    		</addColumn>
     </changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-13">
+    	<comment>Introduce Licensee as owner of commercialUsageReports</comment>
+        <createTable schemaName="public" tableName="licensee">
+            <column name="licensee_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamp"/>
+        </createTable>
+        <addPrimaryKey columnNames="licensee_id" constraintName="licensee_PK" schemaName="public" tableName="licensee"/>
+
+    	<addColumn tableName="commercial_usage">
+    		<column name="licensee_id" type="INT8">
+    		</column>
+    	</addColumn>
+        <addForeignKeyConstraint baseColumnNames="licensee_id" baseTableName="commercial_usage" baseTableSchemaName="public" constraintName="FK_commercial_usage_licensee" deferrable="false" initiallyDeferred="false" referencedColumnNames="licensee_id" referencedTableName="licensee" referencedTableSchemaName="public"/>
+	</changeSet>
+	
+   <changeSet id="DGJ" author="MLDS-23-14">
+    	<comment>Add basic link from licensee to creator</comment>
+    	<addColumn tableName="licensee">
+    		<column name="creator" type="VARCHAR(255)">
+    			<constraints nullable="false"/>
+    		</column>
+   		</addColumn>
+    </changeSet>
+	
 </databaseChangeLog>

@@ -11,9 +11,13 @@
         <li><a href="#/usage-log">Usage Log</a></li>
       </ul>
     </div> 
+    <div ng-repeat="licensee in licensees">
+    <div>
+    	<div>Licensee: {{licensee.licenseeId}}</div>
+    </div>
     <div class="space">
       <ul class="nav nav-pills">
-         <li class=" pull-right"><a ng-click="openAddUsageReportModal()" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add New Usage Information</a></li>
+         <li class=" pull-right"><a ng-click="openAddUsageReportModal(licensee)" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add New Usage Information</a></li>
       </ul>
     </div> 
       <div class="space">
@@ -24,7 +28,7 @@
             <th>Countries</th>
             <th>Institutions</th>
           </tr>
-          <tr class="info" ng-repeat="usageReport in commercialUsageReports">
+          <tr class="info" ng-repeat="usageReport in licensee.commercialUsages">
             <td><i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i> <a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'yyyy'}} {{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}</a></td>
             <td>{{usageReport.submitted | date : 'MMM dd yyyy'}}</td>
             <td>{{usageReportCountries(usageReport) | number}}</td>
@@ -33,6 +37,7 @@
         </table>
       </div>
     </div>
+	</div>
   </div>
 
 </div>

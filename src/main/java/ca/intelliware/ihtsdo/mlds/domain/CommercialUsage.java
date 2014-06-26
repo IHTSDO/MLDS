@@ -10,6 +10,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,6 +29,11 @@ public class CommercialUsage {
 	@GeneratedValue
 	@Column(name="commercial_usage_id")
 	Long commercialUsageId;
+
+	// the parent
+	@ManyToOne
+	@JoinColumn(name="licensee_id")
+	Licensee licensee;
 
 	//@Type(type="jodatimeInstant")
 	Instant created = Instant.now();

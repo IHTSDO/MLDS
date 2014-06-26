@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
+import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -24,6 +26,8 @@ public class ApplicationController {
 	ApplicationRepository applicationRepository;
 	@Resource
 	SessionService sessionService;
+	@Resource
+	LicenseeRepository licenseeRepository;
 
 	@RequestMapping(value="api/applications")
 	public @ResponseBody Iterable<Application> getApplications() {
@@ -41,6 +45,11 @@ public class ApplicationController {
 		
 		application.setApproved(true);
 		applicationRepository.save(application);
+		
+		//FIXME should be a different trigger and way to connect applications with licensee
+		Licensee licensee = new Licensee();
+		licensee.setCreator(application.getUsername());
+		licenseeRepository.save(licensee);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
