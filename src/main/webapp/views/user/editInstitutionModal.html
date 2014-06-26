@@ -1,27 +1,59 @@
 <div class="modal-header">
-  <h3 class="modal-title">Edit Institution
-  </h3>
+  <h3 class="modal-title">Edit Institution</h3>
 </div>
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<form name="editInstitution" bs-validation>
-		<div class="form-group">
-			<label>Update Name</label>
-			<input class="form-control" type="text" required name="name" ng-model="institution.name"/>
-			<span ng-show="attemptedSubmit && editInstitution.name.$error.required" class="help-block">Institution Name cannot be empty</span>			
+	  <h3>{{institution.country.commonName}}</h3>
+	
+	<form name="formInstitution" bs-validation>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-6">
+          <label>Institution Name</label> 
+          <input class="form-control" placeholder="Enter Institution Name" name="name" ng-model="institution.name" ng-required="true">
+          <span ng-show="newInstitution.name.$error.required && submitAttempted" class="help-block">Required Field</span>
+        </div>
+      </div>
+    </div>
+   <hr> 
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-6">
+          <h4>Type</h4>
+          <div class="form-group">
+	          <label class="btn btn-default" ng-model="institution.type" btn-radio="'Hospital'" name="type" ng-required="true">Hospital</label>
+	        	<label class="btn btn-default" ng-model="institution.type" btn-radio="'Practice'" name="type" ng-required="true">Practice</label>
+	        	<span ng-show="newInstitution.type.$error.required && submitAttempted" class="help-block">Required Field</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+		<div class="col-md-4 form-group">
+			<h4>Started to Use</h4>
+			<div class="input-group datepicker">
+				<input type="text" class="form-control" name="startDate" ng-model="institution.startDate" ng-required="true"
+					datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
+					is-open="datepickers.startDate" close-text="Close"/> 
+				<span class="input-group-addon" ng-click="open($event, 'startDate')"><i class="fa fa-calendar"></i></span>
+			</div>
+			<span ng-show="newInstitution.startDate.$error.required && submitAttempted" class="help-block">Required Field</span>
 		</div>
-		<div class="form-group">
-			<label>
-				<span ng-show="!institution.endDate">Add</span><span ng-show="institution.endDate">Edit</span> Cease Date
-			</label>
+
+		<div class="col-md-4 form-group">
+			<h4>Ceased Use</h4>
 			<div class="input-group datepicker">
 				<input type="text" class="form-control" name="endDate" ng-model="institution.endDate" ng-required="false"
 					datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
-					is-open="$parent.opened" close-text="Close"/> 
-				<span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+					is-open="datepickers.endDate" close-text="Close"/> 
+				<span class="input-group-addon" ng-click="open($event, 'endDate')"><i class="fa fa-calendar"></i></span>
 			</div>
 		</div>
-		<div class="form-group">
+	</div>
+    <hr>
+    <div class="row">
+		<div class="col-md-8 form-group">
 			<label>Note</label>
 			<textarea class="form-control" rows="4" name="note" ng-model="institution.note"></textarea>
 		</div>
@@ -30,6 +62,6 @@
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
-	<button class="btn btn-success" ng-show="editInstitution.$invalid" ng-click="attemptedSubmit = true">Add</button>
-	<button class="btn btn-success" ng-show="!editInstitution.$invalid" ng-click="updateInstitution()">Update Institution</button>
+	<button class="btn btn-success" ng-show="formInstitution.$invalid" ng-click="attemptedSubmit = true">Add</button>
+	<button class="btn btn-success" ng-show="!formInstitution.$invalid" ng-click="updateInstitution()">Update Institution</button>
 </div>

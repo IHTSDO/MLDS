@@ -5,7 +5,9 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 	$scope.country = country;
 	$scope.institution = institution;
 	$scope.usageReport = usageReport;
+	
 	$scope.attemptedSubmit = false;
+	$scope.submitting = false;
 	
 	$scope.cancel = function() {
 		$modalInstance.dismiss();
@@ -25,15 +27,21 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 	
 	
 	// DatePicker Configs
-	$scope.open = function($event) {
-		$event.preventDefault();
-		$event.stopPropagation();
-		$scope.opened = true;
+	$scope.datepickers = {
+	    startDate: false,
+	    endDate: false
 	};
 	
+	$scope.open = function($event, datepickerName) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.datepickers[datepickerName] = true;
+	};
+
 	$scope.dateOptions = {
 		formatYear: 'yy',
 		startingDay: 1,
 		format: 'yyyy/MM/dd'
 	};
+
 }]);
