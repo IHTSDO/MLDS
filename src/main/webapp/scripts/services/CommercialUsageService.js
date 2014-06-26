@@ -22,12 +22,12 @@ angular.module('MLDS')
 		
 		
 		service.getUsageReports = function(licenseeId) {
-			return $http.get('/app/rest/licensees/'+8/*licenseeId*/+'/commercialUsages');
+			return $http.get('/app/rest/licensees/'+licenseeId+'/commercialUsages');
 		};
 
 		
 		service.createUsageReport = function(licenseeId, startDate, endDate) {
-			return $http.post('/app/rest/licensees/'+8/*licenseeId*/+'/commercialUsages',
+			return $http.post('/app/rest/licensees/'+licenseeId+'/commercialUsages',
 					{
 						startDate: serializeDate(startDate),
 						endDate: serializeDate(endDate)

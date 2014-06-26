@@ -26,4 +26,10 @@ public class Routes {
 	 * control endpoint for single entry: put to edit, or delete
 	 */
 	static final String USAGE_REPORT_ENTRY = "/app/rest/commercialUsages/{commercialUsageId}/entries/{commercialUsageEntryId}"; 
+
+
+	/**
+	 * - get list of all licensees that user has access to
+	 */
+	static final String LICENSEES_USERNAME = "/app/rest/licensees";
 }
