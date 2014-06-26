@@ -35,7 +35,7 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 
 	$scope.datepickers = {
 	    startDate: false,
-	    ceaseDate: false
+	    endDate: false
 	};
 	
 	$scope.open = function($event, datepickerName) {
