@@ -285,4 +285,19 @@
     		<column name="note" type="TEXT"/>
    		</addColumn>
     </changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-11">
+    	<comment>Add note to commercial usage</comment>
+    	<addColumn tableName="commercial_usage">
+    		<column name="note" type="TEXT"/>
+   		</addColumn>
+    </changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-12">
+    	<comment>Add approval state to commercial usage</comment>
+    	<addColumn tableName="commercial_usage">
+    		<column name="approval_state" type="VARCHAR(255)" defaultValue="NOT_SUBMITTED"/>
+			<column name="submitted" type="timestamp"/>
+   		</addColumn>
+    </changeSet>
 </databaseChangeLog>
