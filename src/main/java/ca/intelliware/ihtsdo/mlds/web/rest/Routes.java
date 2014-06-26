@@ -13,10 +13,14 @@ public class Routes {
 	
 	
 	/** 
-	 * post { submissionState: 'SUBMITTED'}
-	 * post { entry : { entry json} }
+	 * post { entry json}
 	 */ 
 	static final String USAGE_REPORT = "/app/rest/commercialUsages/{commercialUsageId}";
+	
+	/** 
+	 * post { transition: 'SUBMIT'}
+	 */ 
+	static final String USAGE_REPORT_APPROVAL = "/app/rest/commercialUsages/{commercialUsageId}/approval";
 	
 	/**
 	 * control endpoint for single entry: put to edit, or delete

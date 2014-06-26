@@ -70,7 +70,10 @@ angular.module('MLDS')
 		};
 
 		service.submitUsageReport = function(usageReport) {
-			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/submit'
+			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
+					{
+						transition: 'SUBMIT'
+					}
 				);
 			httpPromise.then(function() {
 				$rootScope.$broadcast(Events.commercialUsageUpdated);	

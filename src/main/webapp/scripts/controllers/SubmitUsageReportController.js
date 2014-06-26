@@ -11,7 +11,6 @@ angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$mo
 		
 		CommercialUsageService.submitUsageReport($scope.commercialUsageReport)
 			.then(function(result) {
-				//FIXME who should do this?
 				$modalInstance.dismiss('cancel');
 			})
 			.catch(function(message) {

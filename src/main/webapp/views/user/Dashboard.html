@@ -25,7 +25,7 @@
             <th>Institutions</th>
           </tr>
           <tr class="info" ng-repeat="usageReport in commercialUsageReports">
-            <td><i class="fa fa-exclamation-circle"></i> <a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'yyyy'}} {{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}</a></td>
+            <td><i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i> <a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'yyyy'}} {{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}</a></td>
             <td>{{usageReport.submitted | date : 'MMM dd yyyy'}}</td>
             <td>{{usageReportCountries(usageReport) | number}}</td>
             <td>{{usageReport.entries.length | number}}</td>

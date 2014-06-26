@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -34,8 +36,16 @@ public class CommercialUsage {
 
 	@Column(name="end_date")
 	LocalDate endDate;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name="approval_state")
+	private ApprovalState approvalState;
 	
-	// FIXME MLDS-23 add submitted-state enum
+	private String note;
+	
+	//@Type(type="jodatimeInstant")
+	private Instant submitted = null;
+
 	
 	// FIXME MLDS-32 add a createdBy?  Or generate an entry in the log?
 	
@@ -78,5 +88,29 @@ public class CommercialUsage {
 
 	public Set<CommercialUsageEntry> getEntries() {
 		return Collections.unmodifiableSet(usage);
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public Instant getSubmitted() {
+		return submitted;
+	}
+
+	public void setSubmitted(Instant submitted) {
+		this.submitted = submitted;
+	}
+
+	public ApprovalState getApprovalState() {
+		return approvalState;
+	}
+
+	public void setApprovalState(ApprovalState approvalState) {
+		this.approvalState = approvalState;
 	}
 }
