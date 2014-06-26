@@ -8,10 +8,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
+
+import ca.intelliware.ihtsdo.mlds.registration.Application;
 
 import com.google.common.collect.Sets;
 
@@ -33,6 +37,11 @@ public class Licensee {
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="licensee")
 	Set<CommercialUsage> commercialUsages = Sets.newHashSet();
 
+	@OneToOne()
+	@JoinColumn(name="application_id")
+	private
+	Application application;
+	
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.commercialUsageId);
 		
@@ -57,5 +66,13 @@ public class Licensee {
 
 	public Long getLicenseeId() {
 		return licenseeId;
+	}
+
+	public Application getApplication() {
+		return application;
+	}
+
+	public void setApplication(Application application) {
+		this.application = application;
 	}
 }
