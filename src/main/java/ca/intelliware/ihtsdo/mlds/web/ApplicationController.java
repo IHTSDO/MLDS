@@ -49,6 +49,7 @@ public class ApplicationController {
 		//FIXME should be a different trigger and way to connect applications with licensee
 		Licensee licensee = new Licensee();
 		licensee.setCreator(application.getUsername());
+		licensee.setApplication(application);
 		licenseeRepository.save(licensee);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
