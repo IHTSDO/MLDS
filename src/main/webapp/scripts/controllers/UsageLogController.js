@@ -128,7 +128,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			backdrop: 'static',
 			resolve: {
 				institution: function() {
-					return institution;
+					return angular.copy(institution);
 				},
 				country: function() {
 					return country;
