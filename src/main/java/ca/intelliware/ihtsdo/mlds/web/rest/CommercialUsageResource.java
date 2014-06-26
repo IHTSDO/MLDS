@@ -87,7 +87,8 @@ public class CommercialUsageResource {
     }
     
     public static enum ApprovalTransition {
-    	SUBMIT
+    	SUBMIT,
+    	RETRACT
     }
     
     /**
@@ -148,6 +149,10 @@ public class CommercialUsageResource {
     		commercialUsage.setApprovalState(ApprovalState.SUBMITTED);
     		commercialUsage.setSubmitted(Instant.now());
     		commercialUsage = commercialUsageRepository.save(commercialUsage);
+    	} else if (ApprovalState.SUBMITTED.equals(commercialUsage.getApprovalState()) && ApprovalTransition.RETRACT.equals(applyTransition.getTransition())) {
+        	commercialUsage.setApprovalState(ApprovalState.NOT_SUBMITTED);
+        	commercialUsage.setSubmitted(null);
+        	commercialUsage = commercialUsageRepository.save(commercialUsage);
     	} else {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
     	}

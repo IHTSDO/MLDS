@@ -19,6 +19,8 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.commercialUsageReport = {};
 	$scope.usageByCountry = {};
 	
+	$scope.readOnly = false;
+	
 	
 	$scope.$on(Events.commercialUsageUpdated, function() {
 		CommercialUsageService.getUsageReport($scope.commercialUsageReport.commercialUsageId)
@@ -53,6 +55,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	function updateFromUsageReport(usageReport) {
 		clearEntriesFromUsageByCountry();
 		$scope.commercialUsageReport = usageReport;
+		$scope.readOnly = usageReport.approvalState !== 'NOT_SUBMITTED';
 		usageReport.entries.forEach(function(usageEntry) {
 			var countrySection = lookupUsageByCountryOrCreate(usageEntry.country);
 			countrySection.entries.push(usageEntry);
@@ -177,5 +180,21 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		});
 		
 	};
+
+	$scope.retractUsageReport = function() {
+		var modalInstance = $modal.open({
+			templateUrl: 'views/user/retractUsageReportModal.html',
+			controller: 'RetractUsageReportController',
+			size:'sm',
+			backdrop: 'static',
+			resolve: {
+				commercialUsageReport: function() {
+					return $scope.commercialUsageReport;
+				}
+			}
+		});
+		
+	};
 	
+
 }]);

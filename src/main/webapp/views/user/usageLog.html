@@ -3,7 +3,18 @@
     <h1>Usage Log <small class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</small></h1>
     <p>Page Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat. </p>
 
-    <div class="panel panel-default">
+	<div class="panel panel-default" ng-show="readOnly">
+      <div class="panel-heading">
+        <h4 class="panel-title">Submitted Commercial Usage Report
+        </h4>
+      </div>
+      <div class="panel-body" collapse="collapsePanel.submitted" class="panel-collapse collapse in">
+		<div>Commercial Usage for: {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }}</div>
+		<button ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button>
+		</div>
+	</div>
+	
+    <div class="panel panel-default"  ng-hide="readOnly">
       <div class="panel-heading">
         <h4 class="panel-title">
           <a ng-click="collapsePanel.geographic = !collapsePanel.geographic"> Geographic Scope </a>
@@ -50,7 +61,7 @@
                           <div class="col-lg-8">
                              <h3>{{countryUsage.country.commonName}}</h3>
                           </div>
-                           <div class="col-lg-4">
+                           <div class="col-lg-4"  ng-hide="readOnly">
 							<a class="btn btn-success" ng-click="openAddInstitutionModal(countryUsage.country)">Add Institution</a>
                            </div>
 						</div>
@@ -72,7 +83,7 @@
 								<td>{{institution.endDate | date}}</td>
 								<td>{{institution.note}}</td>
 								<td>
-									<div class="btn-group">
+									<div class="btn-group" ng-hide="readOnly">
 										<button type="button" class="btn btn-default dropdown-toggle"
 											data-toggle="dropdown">
 											<i class="fa fa-pencil"></i>
@@ -94,7 +105,7 @@
 	</div>
   </div>
 	<div class="row">
-		<div class="container">
+		<div class="container" ng-hide="readOnly">
 		<button ng-click="submitUsageReport()" type="button" class="btn btn-default">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button>
 		</div>
 	</div>
