@@ -1,0 +1,61 @@
+package ca.intelliware.ihtsdo.mlds.domain;
+
+import java.util.Collections;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.apache.commons.lang.Validate;
+import org.joda.time.Instant;
+
+import com.google.common.collect.Sets;
+
+@Entity
+public class Licensee {
+	@Id
+	@GeneratedValue
+	@Column(name="licensee_id")
+	private
+	Long licenseeId;
+
+	//@Type(type="jodatimeInstant")
+	Instant created = Instant.now();
+	
+	//FIXME username of user
+	private String creator;
+	
+
+	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="licensee")
+	Set<CommercialUsage> commercialUsages = Sets.newHashSet();
+
+	public void addCommercialUsage(CommercialUsage newEntryValue) {
+		Validate.notNull(newEntryValue.commercialUsageId);
+		
+		if (newEntryValue.licensee != null) {
+			newEntryValue.licensee.commercialUsages.remove(newEntryValue);
+		}
+		newEntryValue.licensee = this;
+		commercialUsages.add(newEntryValue);
+	}
+
+	public Set<CommercialUsage> getCommercialUsages() {
+		return Collections.unmodifiableSet(commercialUsages);
+	}
+
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+	public Long getLicenseeId() {
+		return licenseeId;
+	}
+}
