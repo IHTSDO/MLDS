@@ -278,4 +278,11 @@
     		<column name="type" type="VARCHAR(255)"/>
    		</addColumn>
     </changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-10">
+    	<comment>Add note to usage entry</comment>
+    	<addColumn tableName="commercial_usage_entry">
+    		<column name="note" type="TEXT"/>
+   		</addColumn>
+    </changeSet>
 </databaseChangeLog>

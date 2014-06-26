@@ -29,27 +29,34 @@
     </div>
     <hr>
     <div class="row">
-			<div class="col-md-4 form-group">
-				<h4>Started to Use</h4>
-				<div class="input-group datepicker">
-					<input type="text" class="form-control" name="startDate" ng-model="institution.startDate" ng-required="true"
-						datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
-						is-open="datepickers.startDate" close-text="Close"/> 
-					<span class="input-group-addon" ng-click="open($event, 'startDate')"><i class="fa fa-calendar"></i></span>
-				</div>
-				<span ng-show="newInstitution.startDate.$error.required && submitAttempted" class="help-block">Required Field</span>
+		<div class="col-md-4 form-group">
+			<h4>Started to Use</h4>
+			<div class="input-group datepicker">
+				<input type="text" class="form-control" name="startDate" ng-model="institution.startDate" ng-required="true"
+					datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
+					is-open="datepickers.startDate" close-text="Close"/> 
+				<span class="input-group-addon" ng-click="open($event, 'startDate')"><i class="fa fa-calendar"></i></span>
 			</div>
+			<span ng-show="newInstitution.startDate.$error.required && submitAttempted" class="help-block">Required Field</span>
+		</div>
 
-			<div class="col-md-4 form-group">
-				<h4>Ceased Use</h4>
-				<div class="input-group datepicker">
-					<input type="text" class="form-control" name="ceaseDate" ng-model="institution.ceaseDate" ng-required="false"
-						datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
-						is-open="datepickers.ceaseDate" close-text="Close"/> 
-					<span class="input-group-addon" ng-click="open($event, 'ceaseDate')"><i class="fa fa-calendar"></i></span>
-				</div>
+		<div class="col-md-4 form-group">
+			<h4>Ceased Use</h4>
+			<div class="input-group datepicker">
+				<input type="text" class="form-control" name="endDate" ng-model="institution.endDate" ng-required="false"
+					datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
+					is-open="datepickers.endDate" close-text="Close"/> 
+				<span class="input-group-addon" ng-click="open($event, 'endDate')"><i class="fa fa-calendar"></i></span>
 			</div>
 		</div>
+	</div>
+    <hr>
+    <div class="row">
+		<div class="col-md-8 form-group">
+			<label>Note</label>
+			<textarea class="form-control" rows="4" name="note" ng-model="institution.note"></textarea>
+		</div>
+	</div>
    </form>
 </div>
 <div class="modal-footer">
