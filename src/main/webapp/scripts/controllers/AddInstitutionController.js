@@ -5,6 +5,8 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 	$scope.country = country;
 	$scope.usageReport = usageReport;
 	$scope.alerts = [];
+	$scope.submitAttempted = false;
+	$scope.submitting = false;
 	$scope.institution = {};
 	$scope.institution.startDate = new Date();
 	$scope.institution.country = country;
