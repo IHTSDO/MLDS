@@ -81,6 +81,18 @@ angular.module('MLDS')
 			return httpPromise;
 		};
 
+		service.retractUsageReport = function(usageReport) {
+			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
+					{
+						transition: 'RETRACT'
+					}
+				);
+			httpPromise.then(function() {
+				$rootScope.$broadcast(Events.commercialUsageUpdated);	
+			});
+			return httpPromise;
+		};
+
 		
 		return service;
 	}]);
