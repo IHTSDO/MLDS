@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang.Validate;
+import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
@@ -66,6 +68,20 @@ public class CommercialUsageResource {
 		}
     }
     
+    public static class CommercialUsageApprovalTransitionMessage {
+    	ApprovalTransition transition;
+    	public ApprovalTransition getTransition() {
+    		return transition;
+    	}
+    	public void setTransition(ApprovalTransition transition) {
+    		this.transition = transition;
+    	}
+    }
+    
+    public static enum ApprovalTransition {
+    	SUBMIT
+    }
+    
     /**
      * Start a new submission
      * @param userIdInPlaceOfImaginaryLicenceeId
@@ -79,6 +95,7 @@ public class CommercialUsageResource {
     	CommercialUsage commercialUsage = new CommercialUsage();
     	commercialUsage.setStartDate(submissionPeriod.getStartDate());
     	commercialUsage.setEndDate(submissionPeriod.getEndDate());
+    	commercialUsage.setApprovalState(ApprovalState.NOT_SUBMITTED);
     	
     	// FIXME find existing report with most recent end date 
     	// deep copy and save ?? 200? 201? redirect?
@@ -95,7 +112,32 @@ public class CommercialUsageResource {
     	// FIXME map missing to 404
     	return commercialUsageRepository.findOne(commercialUsageId);
     }
-    
+
+    @Transactional
+    @RequestMapping(value = Routes.USAGE_REPORT_APPROVAL,
+    		method = RequestMethod.POST,
+    		produces = "application/json")
+    public @ResponseBody ResponseEntity<CommercialUsage> transitionCommercialUsageApproval(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageApprovalTransitionMessage applyTransition) {
+    	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
+    	
+    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+    	if (commercialUsage == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	
+    	// FIXME Extract out to "workflow" handler
+    	if (ApprovalState.NOT_SUBMITTED.equals(commercialUsage.getApprovalState()) && ApprovalTransition.SUBMIT.equals(applyTransition.getTransition())) {
+    		commercialUsage.setApprovalState(ApprovalState.SUBMITTED);
+    		commercialUsage.setSubmitted(Instant.now());
+    		commercialUsage = commercialUsageRepository.save(commercialUsage);
+    	} else {
+    		return new ResponseEntity<>(HttpStatus.CONFLICT);
+    	}
+        
+		ResponseEntity<CommercialUsage> responseEntity = new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
+		return responseEntity;
+    }
+
     @Transactional
     @RequestMapping(value = Routes.USAGE_REPORT,
     		method = RequestMethod.POST,
