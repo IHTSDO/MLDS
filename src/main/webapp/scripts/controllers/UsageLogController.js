@@ -124,7 +124,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/editInstitutionModal.html',
 			controller: 'EditInstitutionController',
-			size:'sm',
+			size:'lg',
 			backdrop: 'static',
 			resolve: {
 				institution: function() {
