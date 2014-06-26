@@ -326,5 +326,14 @@
     		</column>
    		</addColumn>
     </changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-15">
+    	<comment>Add basic link from licensee to current application</comment>
+    	<addColumn tableName="licensee">
+    		<column name="application_id" type="INT8">
+    		</column>
+    	</addColumn>
+        <addForeignKeyConstraint baseColumnNames="application_id" baseTableName="licensee" baseTableSchemaName="public" constraintName="FK_licensee_application" deferrable="false" initiallyDeferred="false" referencedColumnNames="application_id" referencedTableName="application" referencedTableSchemaName="public"/>
+	</changeSet>
 	
 </databaseChangeLog>

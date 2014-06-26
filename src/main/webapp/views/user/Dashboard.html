@@ -13,7 +13,8 @@
     </div> 
     <div ng-repeat="licensee in licensees">
     <div>
-    	<div>Licensee: {{licensee.licenseeId}}</div>
+    	<h3>Licensee</h3>
+    	<div>Type: {{licensee.application.type}} - {{licensee.application.applicantType}}</div>
     </div>
     <div class="space">
       <ul class="nav nav-pills">
