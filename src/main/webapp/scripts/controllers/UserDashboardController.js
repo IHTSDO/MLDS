@@ -66,5 +66,8 @@ angular.module('MLDS')
         		});
         	};
 
+        	$scope.goToUsageReport = function(usageReport) {
+        		$location.path('/usage-log/'+usageReport.commercialUsageId);
+        	};
         }
     ]);
