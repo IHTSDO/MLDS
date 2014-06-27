@@ -120,4 +120,8 @@ public class CommercialUsage {
 	public void setApprovalState(ApprovalState approvalState) {
 		this.approvalState = approvalState;
 	}
+
+	public void setCommercialUsageId(Long commercialUsageId) {
+		this.commercialUsageId = commercialUsageId;
+	}
 }

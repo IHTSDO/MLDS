@@ -24,7 +24,6 @@ public class Licensee {
 	@Id
 	@GeneratedValue
 	@Column(name="licensee_id")
-	private
 	Long licenseeId;
 
 	//@Type(type="jodatimeInstant")
@@ -43,7 +42,7 @@ public class Licensee {
 	Application application;
 	
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
-		Validate.notNull(newEntryValue.commercialUsageId);
+		Validate.notNull(newEntryValue.getCommercialUsageId());
 		
 		if (newEntryValue.licensee != null) {
 			newEntryValue.licensee.commercialUsages.remove(newEntryValue);

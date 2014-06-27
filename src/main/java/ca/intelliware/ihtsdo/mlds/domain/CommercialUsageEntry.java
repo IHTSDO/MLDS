@@ -76,4 +76,8 @@ public class CommercialUsageEntry {
 	public String getNote() {
 		return note;
 	}
+
+	public void setCommercialUsageEntryId(Long commercialUsageEntryId) {
+		this.commercialUsageEntryId = commercialUsageEntryId;
+	}
 }
