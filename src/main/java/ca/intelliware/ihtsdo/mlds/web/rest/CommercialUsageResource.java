@@ -60,7 +60,6 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<Collection<CommercialUsage>> getUsageReports(@PathVariable long licenseeId) {
     	authorizationChecker.checkCanAccessLicensee(licenseeId);
 
-    	//FIXME 404 if not found
     	Licensee licensee = licenseeRepository.findOne(licenseeId);
     	if (licensee == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -111,24 +110,27 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.POST,
     		produces = "application/json")
-    public @ResponseBody CommercialUsage createNewSubmission(@PathVariable long licenseeId, @RequestBody CommercialUsageNewSubmissionMessage submissionPeriod) {
+    public @ResponseBody ResponseEntity<CommercialUsage> createNewSubmission(@PathVariable long licenseeId, @RequestBody CommercialUsageNewSubmissionMessage submissionPeriod) {
     	authorizationChecker.checkCanAccessLicensee(licenseeId);
     	
     	Licensee licensee = licenseeRepository.findOne(licenseeId);
     	
-    	CommercialUsage commercialUsage = null;
-    	if (licensee.getCommercialUsages().size() > 0) {
-    		List<CommercialUsage> commercialUsages = commercialUsageRepository.findBySamePeriod(licensee, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
-    		if (commercialUsages.size() > 0) {
-    			// Return the existing commercial usage unmodified
-    			return commercialUsages.get(0);
-    		} else {
-    			commercialUsages = commercialUsageRepository.findByMostRecentPeriod(licensee);
-    			if (commercialUsages.size() > 0) {
-    				commercialUsage = commercialUsages.get(0);
-    			}
-    		}
+    	if (licensee == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+    	
+    	CommercialUsage commercialUsage = null;
+		List<CommercialUsage> commercialUsages = commercialUsageRepository.findBySamePeriod(licensee, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
+		if (commercialUsages.size() > 0) {
+			// Return the existing commercial usage unmodified
+			commercialUsage = commercialUsages.get(0);
+			return new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
+		} else {
+			commercialUsages = commercialUsageRepository.findByMostRecentPeriod(licensee);
+			if (commercialUsages.size() > 0) {
+				commercialUsage = commercialUsages.get(0);
+			}
+		}
     	if (commercialUsage == null) {
 	    	commercialUsage = new CommercialUsage();
     	}
@@ -137,22 +139,24 @@ public class CommercialUsageResource {
     	
     	commercialUsage = commercialUsageRepository.save(commercialUsage);
     	
-    	//FIXME 404 if not found
-    	
     	licensee.addCommercialUsage(commercialUsage);
     	
-    	
-    	return commercialUsage;
+		ResponseEntity<CommercialUsage> responseEntity = new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
+		return responseEntity;
     }
 
 	@RequestMapping(value = Routes.USAGE_REPORT,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody CommercialUsage getCommercialUsageReport(@PathVariable long commercialUsageId) {
+    public @ResponseBody ResponseEntity<CommercialUsage> getCommercialUsageReport(@PathVariable long commercialUsageId) {
     	authorizationChecker.checkCanAccessLicensee(commercialUsageId);
     	
-    	// FIXME map missing to 404
-    	return commercialUsageRepository.findOne(commercialUsageId);
+    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+    	if (commercialUsage == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	} 
+    	
+    	return new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
     }
 
     @Transactional
@@ -211,11 +215,17 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORT_ENTRY,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody CommercialUsageEntry getCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId) {
+    public @ResponseBody ResponseEntity<CommercialUsageEntry> getCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId) {
     	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
     	
-    	// FIXME MLDS-23 throw 404 on not-found
-    	return commercialUsageEntryRepository.findOne(commercialUsageEntryId);
+    	CommercialUsageEntry commercialUserEntity = commercialUsageEntryRepository.findOne(commercialUsageEntryId);
+    	if (commercialUserEntity == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	
+    	//FIXME should validate entry is part of usage report 
+    	
+		return new ResponseEntity<CommercialUsageEntry>(commercialUserEntity, HttpStatus.OK);
     }
     
     @Transactional
@@ -226,8 +236,6 @@ public class CommercialUsageResource {
     	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
     	Validate.isTrue(newEntryValue.getCommercialUsageEntryId() != null && newEntryValue.getCommercialUsageEntryId() == commercialUsageEntryId,"Must include commercialUsageEntryId in message");
 
-    	// validate id not null?
-    	
     	CommercialUsageEntry entry = commercialUsageEntryRepository.save(newEntryValue);
     	
     	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
@@ -236,7 +244,6 @@ public class CommercialUsageResource {
     	}
 
     	commercialUsage.addEntry(entry);
-
     	
 		ResponseEntity<CommercialUsageEntry> responseEntity = new ResponseEntity<CommercialUsageEntry>(entry, HttpStatus.OK);
 		return responseEntity;
@@ -291,11 +298,16 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORT_COUNT,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody CommercialUsageCount getCommercialUsageCount(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
+    public @ResponseBody ResponseEntity<CommercialUsageCount> getCommercialUsageCount(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
     	
     	// FIXME MLDS-23 throw 404 on not-found
-    	return commercialUsageCountRepository.findOne(commercialUsageCountId);
+    	CommercialUsageCount commercialUsageCount = commercialUsageCountRepository.findOne(commercialUsageCountId);
+    	if (commercialUsageCount == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+
+    	return new ResponseEntity<CommercialUsageCount>(commercialUsageCount, HttpStatus.OK);
     }
     
     @Transactional
@@ -316,7 +328,6 @@ public class CommercialUsageResource {
     	}
 
     	commercialUsage.addCount(count);
-
     	
 		ResponseEntity<CommercialUsageCount> responseEntity = new ResponseEntity<CommercialUsageCount>(count, HttpStatus.OK);
 		return responseEntity;
