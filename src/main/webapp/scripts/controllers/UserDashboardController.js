@@ -43,15 +43,34 @@ angular.module('MLDS')
         	}
         	
         	$scope.usageReportCountries = function(usageReport) {
-        		var result = usageReport.entries.reduce(function(uniqueCountryCodes, usageReport) {
-        			if (uniqueCountryCodes.indexOf(usageReport.country.isoCode2) === -1) {
-        				uniqueCountryCodes.push(usageReport.country.isoCode2);
+        		var uniqueCountryCodes = [];
+        		
+        		usageReport.entries.forEach(function(entry) {
+        			if (uniqueCountryCodes.indexOf(entry.country.isoCode2) === -1) {
+        				uniqueCountryCodes.push(entry.country.isoCode2);
         			}
-        			return uniqueCountryCodes;
-        		}, []);
-        		return result.length;
+        		});
+        		usageReport.counts.forEach(function(count) {
+        			//FIXME better way to detect that there is some use within a country
+        			if (count.practices > 0
+        					&& uniqueCountryCodes.indexOf(count.country.isoCode2) === -1) {
+        				uniqueCountryCodes.push(count.country.isoCode2);
+        			}
+        		});
+
+        		return uniqueCountryCodes.length;
         	};
-        	
+
+        	$scope.usageReportHospitals = function(usageReport) {
+        		return usageReport.entries.length;
+        	};
+
+        	$scope.usageReportPractices = function(usageReport) {
+        		return usageReport.counts.reduce(function(total, count) {
+        			return total + (count.practices || 0);
+        		}, 0);
+        	};
+
         	$scope.openAddUsageReportModal = function(licensee) {
         		var modalInstance = $modal.open({
         			templateUrl: 'views/user/addUsageReportModal.html',

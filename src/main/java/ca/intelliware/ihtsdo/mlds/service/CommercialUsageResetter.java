@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCount;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 
 /**
@@ -37,7 +38,12 @@ public class CommercialUsageResetter {
 			em.detach(entry);
 			entry.setCommercialUsageEntryId(null);
 		}
-		
+
+		for (CommercialUsageCount count : commercialUsage.getCounts()) {
+			em.detach(count);
+			count.setCommercialUsageCountId(null);
+		}
+
 		em.detach(commercialUsage);
 		commercialUsage.setCommercialUsageId(null);
 	}

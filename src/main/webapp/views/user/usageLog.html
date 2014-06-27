@@ -56,7 +56,6 @@
 				</div>
 				<div class="panel-body" collapse="collapsePanel.sublicensed">
 					<div ng-repeat="countryUsage in usageByCountry">
-
                         <div class="form-group">
                           <div class="col-lg-8">
                              <h3>{{countryUsage.country.commonName}}</h3>
@@ -65,11 +64,10 @@
 							<a class="btn btn-success" ng-click="openAddInstitutionModal(countryUsage.country)">Add Institution</a>
                            </div>
 						</div>
-      
+						
 						<table class="table table-striped">
 							<tr>
-								<th>Institution Name</th>
-								<th>Type</th>
+								<th>Hospital Name</th>
 								<th>License Start</th>
 								<th>License End</th>
 								<th>Note</th>
@@ -78,7 +76,6 @@
 
 							<tr ng-repeat="institution in countryUsage.entries">
 								<td>{{institution.name}}</td>
-								<td>{{institution.type}}</td>
 								<td>{{institution.startDate | date}}</td>
 								<td>{{institution.endDate | date}}</td>
 								<td>{{institution.note}}</td>
@@ -97,6 +94,16 @@
 								</td>
 							</tr>
 						</table>
+						
+						<div class="form-group space">
+							<div class="col-md-8">
+								Practices: {{countryUsage.count.practices | number}}
+							</div>
+							<div class="col-md-4">
+								<button ng-hide="readOnly" type="button" class="btn btn-default" ng-click="editCount(countryUsage.count)">Edit Counts</button>
+							</div>
+						</div>
+						
 					</div>
 
 				</div>
