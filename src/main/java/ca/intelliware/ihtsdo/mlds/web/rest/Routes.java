@@ -27,6 +27,16 @@ public class Routes {
 	 */
 	static final String USAGE_REPORT_ENTRY = "/app/rest/commercialUsages/{commercialUsageId}/entries/{commercialUsageEntryId}"; 
 
+	/** 
+	 * post { count json}
+	 */ 
+	static final String USAGE_REPORT_COUNTS = "/app/rest/commercialUsages/{commercialUsageId}/counts";
+	
+	/**
+	 * control endpoint for single count: put to edit, or delete
+	 */
+	static final String USAGE_REPORT_COUNT = "/app/rest/commercialUsages/{commercialUsageId}/counts/{commercialUsageCountId}"; 
+
 
 	/**
 	 * - get list of all licensees that user has access to

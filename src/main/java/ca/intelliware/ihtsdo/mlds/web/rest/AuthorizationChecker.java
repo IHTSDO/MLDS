@@ -23,4 +23,9 @@ public class AuthorizationChecker {
 		// TODO Auto-generated method stub
 	}
 
+	public void checkCanAccessCommercialUsageCount(long commercialUsageId, long commercialUsageCountId) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

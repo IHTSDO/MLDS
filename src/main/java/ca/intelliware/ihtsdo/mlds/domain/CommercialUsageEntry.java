@@ -26,8 +26,6 @@ public class CommercialUsageEntry {
 	
 	String name;
 	
-	String type;
-	
 	String note;
 	
 	@Column(name="start_date", nullable=false)
@@ -63,14 +61,6 @@ public class CommercialUsageEntry {
 
 	public Instant getCreated() {
 		return created;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public String getNote() {
