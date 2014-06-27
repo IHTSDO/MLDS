@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
@@ -25,6 +26,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
+import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 
 import com.wordnik.swagger.annotations.Api;
 
@@ -43,6 +45,9 @@ public class CommercialUsageResource {
 
 	@Resource
 	AuthorizationChecker authorizationChecker;
+	
+	@Resource
+	CommercialUsageResetter commercialUsageResetter;  
 	
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.GET,
@@ -93,9 +98,9 @@ public class CommercialUsageResource {
     
     /**
      * Start a new submission
-     * @param userIdInPlaceOfImaginaryLicenceeId
+     * @param licenseeId
      * @param submissionPeriod
-     * @return the new CommercialUsage 
+     * @return the new CommercialUsage or an existing CommercialUsage with matching date period
      */
     @Transactional
     @RequestMapping(value = Routes.USAGE_REPORTS,
@@ -104,25 +109,38 @@ public class CommercialUsageResource {
     public @ResponseBody CommercialUsage createNewSubmission(@PathVariable long licenseeId, @RequestBody CommercialUsageNewSubmissionMessage submissionPeriod) {
     	authorizationChecker.checkCanAccessLicensee(licenseeId);
     	
-    	CommercialUsage commercialUsage = new CommercialUsage();
-    	commercialUsage.setStartDate(submissionPeriod.getStartDate());
-    	commercialUsage.setEndDate(submissionPeriod.getEndDate());
-    	commercialUsage.setApprovalState(ApprovalState.NOT_SUBMITTED);
+    	Licensee licensee = licenseeRepository.findOne(licenseeId);
+    	
+    	CommercialUsage commercialUsage = null;
+    	if (licensee.getCommercialUsages().size() > 0) {
+    		List<CommercialUsage> commercialUsages = commercialUsageRepository.findBySamePeriod(licensee, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
+    		if (commercialUsages.size() > 0) {
+    			// Return the existing commercial usage unmodified
+    			return commercialUsages.get(0);
+    		} else {
+    			commercialUsages = commercialUsageRepository.findByMostRecentPeriod(licensee);
+    			if (commercialUsages.size() > 0) {
+    				commercialUsage = commercialUsages.get(0);
+    			}
+    		}
+    	}
+    	if (commercialUsage == null) {
+	    	commercialUsage = new CommercialUsage();
+    	}
+    	
+    	commercialUsageResetter.detachAndReset(commercialUsage, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
     	
     	commercialUsage = commercialUsageRepository.save(commercialUsage);
     	
     	//FIXME 404 if not found
-    	Licensee licensee = licenseeRepository.findOne(licenseeId);
     	
     	licensee.addCommercialUsage(commercialUsage);
     	
-    	// FIXME find existing report with most recent end date 
-    	// deep copy and save ?? 200? 201? redirect?
     	
     	return commercialUsage;
     }
 
-    @RequestMapping(value = Routes.USAGE_REPORT,
+	@RequestMapping(value = Routes.USAGE_REPORT,
     		method = RequestMethod.GET,
             produces = "application/json")
     public @ResponseBody CommercialUsage getCommercialUsageReport(@PathVariable long commercialUsageId) {
