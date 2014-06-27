@@ -17,7 +17,11 @@ angular.module('MLDS')
 			serializable.endDate = serializeDate(serializable.endDate);
 			return serializable;
 		}
-		
+
+		function serializeCommercialCount(count) {
+			return count;
+		}
+
 		var service = {};
 		
 		
@@ -69,6 +73,37 @@ angular.module('MLDS')
 			return httpPromise;
 		};
 
+		
+		service.addUsageCount = function(usageReport, count) {
+			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/counts',
+					serializeCommercialCount(count));
+			httpPromise.then(function() {
+				$rootScope.$broadcast(Events.commercialUsageUpdated);	
+			});
+			return httpPromise;
+		};
+		
+		
+		service.updateUsageCount = function(usageReport, count) {
+			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/counts/'+count.commercialUsageCountId,
+					serializeCommercialCount(count)
+				);
+			httpPromise.then(function() {
+				$rootScope.$broadcast(Events.commercialUsageUpdated);	
+			});
+			return httpPromise;
+		};
+
+		
+		service.deleteUsageCount = function(usageReport, count) {
+			var httpPromise = $http.delete('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/counts/'+entry.commercialUsageCountId);
+			httpPromise.then(function() {
+				$rootScope.$broadcast(Events.commercialUsageUpdated);	
+			});
+			return httpPromise;
+		};
+
+		
 		service.submitUsageReport = function(usageReport) {
 			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
 					{

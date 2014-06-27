@@ -335,5 +335,33 @@
     	</addColumn>
         <addForeignKeyConstraint baseColumnNames="application_id" baseTableName="licensee" baseTableSchemaName="public" constraintName="FK_licensee_application" deferrable="false" initiallyDeferred="false" referencedColumnNames="application_id" referencedTableName="application" referencedTableSchemaName="public"/>
 	</changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-16">
+    	<comment>Add Country Counts for Commercial Usage Report</comment>
+    	<createTable schemaName="public" tableName="commercial_usage_count">
+            <column name="commercial_usage_count_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+    		<column name="commercial_usage_id" type="bigint">
+    			<constraints foreignKeyName="FK_commercial_usage_count_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
+    		</column>
+            <column name="created" type="timestamp"/>
+            <column name="practices" type="integer" defaultValue="0"/>
+        </createTable>
+        <addPrimaryKey columnNames="commercial_usage_count_id" constraintName="commercial_usage_count_PK" schemaName="public" tableName="commercial_usage_count"/>
+	</changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-17">
+    	<comment>Add Country Counts should be related to the country list</comment>
+    	<addColumn tableName="commercial_usage_count">
+    		<column name="country_iso_code_2" type="VARCHAR(255)"/>
+    	</addColumn>
+        <addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="commercial_usage_count" baseTableSchemaName="public" constraintName="FK_commercial_usage_count_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
+	</changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-18">
+    	<comment>Practices are now just counts rather than type of commercial usage entry</comment>
+		<dropColumn tableName="commercial_usage_entry" columnName="type"/>
+	</changeSet>
 	
 </databaseChangeLog>

@@ -36,6 +36,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			if (entries) {
 				entries.splice(0, entries.length);
 			}
+			countrySection.count = {};
 		});
 	}
 	
@@ -45,7 +46,11 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		if (!countrySection) {
 			countrySection = {
 					country: country,
-					entries: []
+					entries: [],
+					count: {
+						practices: 0,
+						country: country
+					}
 			};
 			$scope.usageByCountry[countryCode] = countrySection;
 		}
@@ -59,6 +64,10 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		usageReport.entries.forEach(function(usageEntry) {
 			var countrySection = lookupUsageByCountryOrCreate(usageEntry.country);
 			countrySection.entries.push(usageEntry);
+		});
+		usageReport.counts.forEach(function(usageCount) {
+			var countrySection = lookupUsageByCountryOrCreate(usageCount.country);
+			countrySection.count = usageCount;
 		});
 	}
 	
@@ -162,9 +171,29 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 				}
 			}
 		});
+	};
+
+	$scope.editCount = function(count, country) {
+		var modalInstance = $modal.open({
+			templateUrl: 'views/user/editCountModal.html',
+			controller: 'EditCountController',
+			size:'lg',
+			backdrop: 'static',
+			resolve: {
+				count: function() {
+					return angular.copy(count);
+				},
+				country: function() {
+					return country;
+				},
+				usageReport: function() {
+					return $scope.commercialUsageReport;
+				}
+			}
+		});
 		
 	};
-	
+
 		
 	$scope.submitUsageReport = function() {
 		var modalInstance = $modal.open({
