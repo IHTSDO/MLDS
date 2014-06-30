@@ -5,7 +5,7 @@ import java.util.Locale;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-import ca.intelliware.ihtsdo.commons.event.model.Event;
+import ca.intelliware.ihtsdo.mlds.domain.Event;
 
 import com.google.common.base.Strings;
 

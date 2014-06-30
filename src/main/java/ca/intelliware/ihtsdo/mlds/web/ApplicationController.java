@@ -1,7 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -14,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
+import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 @Controller
 public class ApplicationController {
@@ -23,6 +26,8 @@ public class ApplicationController {
 	ApplicationRepository applicationRepository;
 	@Resource
 	SessionService sessionService;
+	@Resource
+	LicenseeRepository licenseeRepository;
 
 	@RequestMapping(value="api/applications")
 	public @ResponseBody Iterable<Application> getApplications() {
@@ -41,13 +46,20 @@ public class ApplicationController {
 		application.setApproved(true);
 		applicationRepository.save(application);
 		
+		//FIXME should be a different trigger and way to connect applications with licensee
+		Licensee licensee = new Licensee();
+		licensee.setCreator(application.getUsername());
+		licensee.setApplication(application);
+		licenseeRepository.save(licensee);
+		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/api/applications/create",method=RequestMethod.POST)
-	public Object createApplication(@RequestBody Map request) {
-		Map<String, String> organization = (Map<String, String>) request.get("organization");
-		Map<String, String> contact = (Map<String, String>) request.get("contact");
+	public Object createApplication(@RequestBody JsonNode request) {
+		System.out.println("in call " + request);
+		JsonNode organization = request.get("organization");
+		JsonNode contact =  request.get("contact");
 		
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		Application application = new Application();
@@ -57,25 +69,25 @@ public class ApplicationController {
 		}
 		
 		application.setUsername(sessionService.getUsernameOrNull());
-		application.setType((String) request.get("type"));
-		application.setApplicantType((String) request.get("applicantType"));
+		application.setType(request.get("type").asText());
+		application.setApplicantType(request.get("applicantType").asText());
 		
-		application.setName(contact.get("name"));
-		application.setPhoneNumber(contact.get("phone"));
-		
-		if ((String) request.get("applicantType") == "Organisation") {
-			application.setName(organization.get("name"));
-			application.setAddress(organization.get("address"));
-			application.setCity(organization.get("city"));
-			application.setCountry(organization.get("country"));
-			application.setPhoneNumber(organization.get("phonenumber"));
-			application.setExtension(organization.get("extension"));
-			application.setPosition(organization.get("position"));
-			application.setWebsite(organization.get("website"));
+		application.setName(contact.get("name").asText());
+		application.setPhoneNumber(contact.get("phone").asText());
+
+		if (request.get("applicantType").asText() == "Organisation") {
+			application.setName(organization.get("name").asText());
+			application.setAddress(organization.get("address").asText());
+			application.setCity(organization.get("city").asText());
+			application.setCountry(organization.get("country").asText());
+			application.setPhoneNumber(organization.get("phonenumber").asText());
+			application.setExtension(organization.get("extension").asText());
+			application.setPosition(organization.get("position").asText());
+			application.setWebsite(organization.get("website").asText());
 		}
 			
 		// FIXME MB map unset to false?
-		application.setSnoMedLicence((boolean) request.get("snoMedTC"));
+		application.setSnoMedLicence(request.get("snoMedTC").asBoolean());
 		
 		application.setApproved(false);
 		applicationRepository.save(application);
