@@ -36,7 +36,6 @@ public class LicenseeResource {
             produces = "application/json")
     public @ResponseBody ResponseEntity<Collection<Licensee>> getLicensees() {
     	String username = sessionService.getUsernameOrNull();
-    	System.out.println("username="+username);
     	return new ResponseEntity<Collection<Licensee>>(licenseeRepository.findByCreator(username), HttpStatus.OK);
     }
 

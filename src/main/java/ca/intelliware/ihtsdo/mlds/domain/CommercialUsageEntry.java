@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="commercial_usage_entry")
 public class CommercialUsageEntry {
@@ -20,6 +22,7 @@ public class CommercialUsageEntry {
 	Long commercialUsageEntryId;
 
 	// the parent
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="commercial_usage_id")
 	CommercialUsage commercialUsage;
@@ -69,5 +72,9 @@ public class CommercialUsageEntry {
 
 	public void setCommercialUsageEntryId(Long commercialUsageEntryId) {
 		this.commercialUsageEntryId = commercialUsageEntryId;
+	}
+
+	public CommercialUsage getCommercialUsage() {
+		return commercialUsage;
 	}
 }

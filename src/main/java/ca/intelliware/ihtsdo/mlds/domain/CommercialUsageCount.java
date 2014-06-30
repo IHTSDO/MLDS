@@ -10,6 +10,8 @@ import javax.persistence.Table;
 
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="commercial_usage_count")
 public class CommercialUsageCount {
@@ -19,6 +21,7 @@ public class CommercialUsageCount {
 	Long commercialUsageCountId;
 
 	// the parent
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="commercial_usage_id")
 	CommercialUsage commercialUsage;
@@ -44,6 +47,10 @@ public class CommercialUsageCount {
 
 	public Integer getPractices() {
 		return practices;
+	}
+
+	public CommercialUsage getCommercialUsage() {
+		return commercialUsage;
 	}
 
 }

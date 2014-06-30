@@ -149,7 +149,7 @@ public class CommercialUsageResource {
     		method = RequestMethod.GET,
             produces = "application/json")
     public @ResponseBody ResponseEntity<CommercialUsage> getCommercialUsageReport(@PathVariable long commercialUsageId) {
-    	authorizationChecker.checkCanAccessLicensee(commercialUsageId);
+    	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
     	
     	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
     	if (commercialUsage == null) {
