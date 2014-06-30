@@ -1,0 +1,24 @@
+{
+  "name": "css3-mediaqueries-js",
+  "homepage": "https://github.com/livingston/css3-mediaqueries-js",
+  "authors": [
+    "Wouter van der Graaf"
+  ],
+  "description": "CSS Helper and CSS3 Media Queries Enabler",
+  "main": "css3-mediaqueries.js",
+  "keywords": [
+    "CSS3",
+    "mediaqueries",
+    "js"
+  ],
+  "license": "MIT",
+  "_release": "f104c68c15",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "f104c68c15ea9fc4ded540f9d3260d489329a8a8"
+  },
+  "_source": "git://github.com/livingston/css3-mediaqueries-js.git",
+  "_target": "*",
+  "_originalSource": "css3-mediaqueries-js"
+}

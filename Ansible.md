@@ -8,6 +8,9 @@ Assuming:
 
 - -K or ansible_sudo_password or ansible hangs on sudo password prompt!!!
 
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8443
+Update server.xml to identify redirect ports
 
 repositories
 Nexus as deb
@@ -26,4 +29,4 @@ uat-release.ihtsdotools.org snomed_release_service_web_version=latest ihtsdo_rep
 [snomed_release_service_builder]
 uat-release.ihtsdotools.org snomed_release_service_builder_version=latest ihtsdo_repository=snapshot[14-05-29 10:44:17 AM] Matt Willsher: group_vars/snomed_release_service_web[14-05-29 10:44:18 AM] Matt Willsher: ---
 snomed_release_service_web_nginx_servername: "{{ inventory_hostname }}"[14-05-29 10:45:56 AM] Matt Willsher: hosts_vars/uat-release.ihtsdotool.org[14-05-29 10:46:10 AM] Matt Willsher: ---
-snomed_release_service_api_aws_privateKey: poiewfjowiefjwe[14-05-29 10:46:15 AM] Matt Willsher: snomed_release_service_api_aws_key: foiwjefjwef[14-05-29 10:51:50 AM] Matt Willsher: https://galaxy.ansible.com/[14-05-29 10:56:06 AM] Matt Willsher: https://github.com/IHTSDO/snomed-release-service/tree/master/api[14-05-29 10:59:28 AM] Michael Buckley: Call ended, 37 minutes 16 seconds[14-05-29 10:59:29 AM] Matt Willsher:       Matt Willsher    2236        Michael Buckley    2236  
+snomed_release_service_api_aws_privateKey: poiewfjowiefjwe[14-05-29 10:46:15 AM] Matt Willsher: snomed_release_service_api_aws_key: foiwjefjwef[14-05-29 10:51:50 AM] Matt Willsher: https://galaxy.ansible.com/[14-05-29 10:56:06 AM] Matt Willsher: https://github.com/IHTSDO/snomed-release-service/tree/master/api[14-05-29 10:59:28 AM] Michael Buckley: Call ended, 37 minutes 16 seconds[14-05-29 10:59:29 AM] Matt Willsher:  �� �� ��Matt Willsher �� ��2236 �� �� �� ��Michael Buckley �� ��2236 ��
