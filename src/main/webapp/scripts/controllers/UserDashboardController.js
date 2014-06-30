@@ -88,5 +88,9 @@ angular.module('MLDS')
         	$scope.goToUsageReport = function(usageReport) {
         		$location.path('/usage-log/'+usageReport.commercialUsageId);
         	};
+        	
+        	$scope.licenseeIsCommercial = function(licensee) {
+        		return LicenseeService.licenseeIsCommercial(licensee);
+        	};
         }
     ]);
