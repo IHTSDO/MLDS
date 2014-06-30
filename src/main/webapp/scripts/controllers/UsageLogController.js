@@ -38,7 +38,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			}
 			countrySection.count = {};
 		});
-	}
+	};
 	
 	function lookupUsageByCountryOrCreate(country) {
 		var countryCode = country.isoCode2;
@@ -55,7 +55,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			$scope.usageByCountry[countryCode] = countrySection;
 		}
 		return countrySection;
-	}
+	};
 	
 	function updateFromUsageReport(usageReport) {
 		clearEntriesFromUsageByCountry();
@@ -69,7 +69,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			var countrySection = lookupUsageByCountryOrCreate(usageCount.country);
 			countrySection.count = usageCount;
 		});
-	}
+	};
 	
 	CountryService.ready.then(function() {
 		if ($routeParams && $routeParams.usageReportId) {
@@ -77,7 +77,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 				.then(function(result) {
 					updateFromUsageReport(result.data);	
 				})
-				.catch(function(message) {
+				["catch"](function(message) {
 					//FIXME
 					$log.log('Failed to get initial usage log by param');
 				});
@@ -86,7 +86,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 				.then(function(result) {
 					updateFromUsageReport(result.data);	
 				})
-				.catch(function(message) {
+				["catch"](function(message) {
 					//FIXME
 					$log.log('Failed to get initial usage log');
 				});
@@ -95,7 +95,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	
 	function countryFromCode(countryCode) {
 		return CountryService.countriesByIsoCode2[countryCode];
-	}
+	};
 	
 	$scope.canAddSelectedCountries = function() {
 		var canAdd = false;

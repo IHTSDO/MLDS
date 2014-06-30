@@ -13,7 +13,7 @@ angular.module('MLDS').controller('RetractUsageReportController', ['$scope', '$m
 			.then(function(result) {
 				$modalInstance.dismiss('cancel');
 			})
-			.catch(function(message) {
+			["catch"](function(message) {
 				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
 				$scope.submitting = false;
 			});
