@@ -9,18 +9,18 @@ angular.module('MLDS')
 			} else {
 				return null;
 			}
-		}
+		};
 		
 		function serializeCommercialEntry(entry) {
 			var serializable = angular.copy(entry);
 			serializable.startDate = serializeDate(serializable.startDate);
 			serializable.endDate = serializeDate(serializable.endDate);
 			return serializable;
-		}
+		};
 
 		function serializeCommercialCount(count) {
 			return count;
-		}
+		};
 
 		var service = {};
 		
@@ -66,7 +66,7 @@ angular.module('MLDS')
 
 		
 		service.deleteUsageEntry = function(usageReport, entry) {
-			var httpPromise = $http.delete('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId);
+			var httpPromise = $http['delete']('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId);
 			httpPromise.then(function() {
 				$rootScope.$broadcast(Events.commercialUsageUpdated);	
 			});
@@ -96,7 +96,7 @@ angular.module('MLDS')
 
 		
 		service.deleteUsageCount = function(usageReport, count) {
-			var httpPromise = $http.delete('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/counts/'+entry.commercialUsageCountId);
+			var httpPromise = $http['delete']('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/counts/'+entry.commercialUsageCountId);
 			httpPromise.then(function() {
 				$rootScope.$broadcast(Events.commercialUsageUpdated);	
 			});

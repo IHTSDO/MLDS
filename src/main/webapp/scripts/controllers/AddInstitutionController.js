@@ -19,7 +19,7 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 			.then(function(result) {
 				$modalInstance.dismiss('cancel');
 			})
-			.catch(function(message) {
+			["catch"](function(message) {
 				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
 				$scope.submitting = false;
 			});
