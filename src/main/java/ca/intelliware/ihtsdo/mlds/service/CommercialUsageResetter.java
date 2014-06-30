@@ -31,6 +31,7 @@ public class CommercialUsageResetter {
     	commercialUsage.setStartDate(startDate);
     	commercialUsage.setEndDate(endDate);
     	commercialUsage.setApprovalState(ApprovalState.NOT_SUBMITTED);
+    	commercialUsage.setSubmitted(null);
 	}
 	
 	public void detach(CommercialUsage commercialUsage) {
