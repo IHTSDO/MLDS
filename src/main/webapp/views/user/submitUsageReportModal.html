@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h3 class="modal-title">Submit Usage Declaration</h3>
+</div>
+<div class="modal-body">
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  
+  <p>Submit Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat.</p>
+  
+  <p>Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}
+</div>
+<div class="modal-footer">
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	
+	<button class="btn btn-success" ng-click="submit()"ng-disabled="submitting">
+		<span ng-show="!submitting">Submit</span>
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
+</div>

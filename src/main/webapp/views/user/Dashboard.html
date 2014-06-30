@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="container masthead">
+    <div class="col-lg-8">
+      <h1>
+        Dashboard <span class="pull-right"><small>Welcome {{firstName}} {{lastName}}</small></span>
+      </h1>
+      <hr>
+     <div class="space">
+      <ul class="nav nav-pills">
+        <li><a href="#/affiliateRegistration">Resubmit Affilate Registration</a></li>
+        <li><a href="#/usage-log">Usage Log</a></li>
+      </ul>
+    </div> 
+    <div ng-repeat="licensee in licensees">
+    <div>
+    	<h3>Licensee: {{licensee.application.name}}</h3>
+    	<div>Type: {{licensee.application.type}} - {{licensee.application.applicantType}}</div>
+    </div>
+    <div class="space">
+      <ul class="nav nav-pills">
+         <li class=" pull-right"><a ng-click="openAddUsageReportModal(licensee)" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add New Usage Information</a></li>
+      </ul>
+    </div> 
+      <div class="space">
+        <table class="table table-striped table-hover">
+          <tr>
+            <th>Declaration Period</th>
+            <th>Submitted Date</th>
+            <th>Countries</th>
+            <th>Hospitals</th>
+            <th>Practices</th>
+          </tr>
+          <tr class="info" ng-repeat="usageReport in licensee.commercialUsages">
+            <td><i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i> <a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'yyyy'}} {{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}</a></td>
+            <td>{{usageReport.submitted | date : 'MMM dd yyyy'}}</td>
+            <td>{{usageReportCountries(usageReport) | number}}</td>
+            <td>{{usageReportHospitals(usageReport) | number}}</td>
+            <td>{{usageReportPractices(usageReport) | number}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+	</div>
+  </div>
+
+</div>

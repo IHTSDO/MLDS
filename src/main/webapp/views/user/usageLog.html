@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="container">
+    <h1>Usage Log <small class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</small></h1>
+    <p>Page Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat. </p>
+
+	<div class="panel panel-default" ng-show="readOnly">
+      <div class="panel-heading">
+        <h4 class="panel-title">Submitted Commercial Usage Report
+        </h4>
+      </div>
+      <div class="panel-body" collapse="collapsePanel.submitted" class="panel-collapse collapse in">
+		<div>Commercial Usage for: {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }}</div>
+		<button ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button>
+		</div>
+	</div>
+	
+    <div class="panel panel-default"  ng-hide="readOnly">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a ng-click="collapsePanel.geographic = !collapsePanel.geographic"> Geographic Scope </a>
+        </h4>
+      </div>
+      <div class="panel-body" collapse="collapsePanel.geographic" class="panel-collapse collapse in">
+        <p>
+          <strong>Select the countries in which SNOMED CT will be used</strong>
+        </p>
+          <form action="">
+
+            <div class="col-sx-4 col-md-4 col-lg-6">
+              <h4>List of Countries</h4>
+              <div class="selectpicker">
+                <div class="input-group">
+                  <input class="form-control" type="search" ng-model="q" placeholder="Search Countries" /> <span class="input-group-addon"><span class="fa fa-search"></span> </span>
+                </div>
+                <div class="form-group">
+                  <select name="countries" multiple ng-model="selectedCountryCodesToAdd" class="form-control">
+                    <option ng-repeat="country in availableCountries | filter:q" value="{{country.isoCode2}}">{{country.commonName}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                	<button class="btn btn-success" ng-disabled="!canAddSelectedCountries()" ng-click="addSelectedCountries()">Add Country</button>
+                </div>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+	<div class="row">
+		<div class="container">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a ng-click="collapsePanel.sublicensed = !collapsePanel.sublicensed">Sublicensed Institutions</a>
+					</h4>
+				</div>
+				<div class="panel-body" collapse="collapsePanel.sublicensed">
+					<div ng-repeat="countryUsage in usageByCountry">
+                        <div class="form-group">
+                          <div class="col-lg-8">
+                             <h3>{{countryUsage.country.commonName}}</h3>
+                          </div>
+                           <div class="col-lg-4"  ng-hide="readOnly">
+							<a class="btn btn-success" ng-click="openAddInstitutionModal(countryUsage.country)">Add Institution</a>
+                           </div>
+						</div>
+						
+						<table class="table table-striped">
+							<tr>
+								<th>Hospital Name</th>
+								<th>License Start</th>
+								<th>License End</th>
+								<th>Note</th>
+								<th></th>
+							</tr>
+
+							<tr ng-repeat="institution in countryUsage.entries">
+								<td>{{institution.name}}</td>
+								<td>{{institution.startDate | date}}</td>
+								<td>{{institution.endDate | date}}</td>
+								<td>{{institution.note}}</td>
+								<td>
+									<div class="btn-group" ng-hide="readOnly">
+										<button type="button" class="btn btn-default dropdown-toggle"
+											data-toggle="dropdown">
+											<i class="fa fa-pencil"></i>
+										</button>
+										<ul class="dropdown-menu" role="menu">
+											<li><a ng-click="editInstitution(institution, countryUsage.country)">Edit</a></li>
+											<li class="divider"></li>
+											<li><a ng-click="deleteInstitution(institution, countryUsage.country)">Delete</a></li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</table>
+						
+						<div class="form-group space">
+							<div class="col-md-8">
+								Practices: {{countryUsage.count.practices | number}}
+							</div>
+							<div class="col-md-4">
+								<button ng-hide="readOnly" type="button" class="btn btn-default" ng-click="editCount(countryUsage.count)">Edit Counts</button>
+							</div>
+						</div>
+						
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
+	<div class="row">
+		<div class="container" ng-hide="readOnly">
+		<button ng-click="submitUsageReport()" type="button" class="btn btn-default">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button>
+		</div>
+	</div>
+</div>
