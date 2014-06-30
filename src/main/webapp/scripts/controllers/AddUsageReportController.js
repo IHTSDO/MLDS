@@ -16,7 +16,7 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
 				$location.path('/usage-log/'+result.data.commercialUsageId);
 				$modalInstance.dismiss('cancel');
 			})
-			.catch(function(message) {
+			["catch"](function(message) {
 				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
 				$scope.submitting = false;
 			});
@@ -42,7 +42,7 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
 			startDate: start.toDate(),
 			endDate: end.toDate()
 		};
-	}
+	};
 	
 	function generateRanges() {
 		var ranges = [];
@@ -62,5 +62,5 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
 			date = date.clone().subtract(2, 'months');
 		}
 		return ranges;
-	}
+	};
 }]);
