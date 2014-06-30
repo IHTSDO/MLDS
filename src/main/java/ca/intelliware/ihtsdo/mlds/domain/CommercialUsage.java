@@ -19,6 +19,7 @@ import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
 
 // FIXME MB we need an equals.  Can we put that in a base?
@@ -31,6 +32,8 @@ public class CommercialUsage {
 	Long commercialUsageId;
 
 	// the parent
+	//FIXME review dependency graph!
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="licensee_id")
 	Licensee licensee;
@@ -141,5 +144,9 @@ public class CommercialUsage {
 
 	public void setCommercialUsageId(Long commercialUsageId) {
 		this.commercialUsageId = commercialUsageId;
+	}
+
+	public Licensee getLicensee() {
+		return licensee;
 	}
 }
