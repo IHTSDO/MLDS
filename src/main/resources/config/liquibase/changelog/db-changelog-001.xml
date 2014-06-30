@@ -363,5 +363,15 @@
     	<comment>Practices are now just counts rather than type of commercial usage entry</comment>
 		<dropColumn tableName="commercial_usage_entry" columnName="type"/>
 	</changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-19">
+    	<comment>Mark type of licensee</comment>
+    	<addColumn tableName="licensee">
+    		<column name="type" type="VARCHAR(255)"/>
+   		</addColumn>
+   		<update tableName="licensee">
+   			<column name="type" value="COMMERCIAL"/>
+   		</update>
+	</changeSet>
 	
 </databaseChangeLog>
