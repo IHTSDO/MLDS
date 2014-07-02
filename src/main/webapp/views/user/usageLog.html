@@ -5,12 +5,52 @@
 
 	<div class="panel panel-default" ng-show="readOnly">
       <div class="panel-heading">
-        <h4 class="panel-title">Submitted Commercial Usage Report
-        </h4>
+        <h4 class="panel-title">Submitted Commercial Usage Report</h4>
       </div>
       <div class="panel-body" collapse="collapsePanel.submitted" class="panel-collapse collapse in">
 		<div>Commercial Usage for: {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }}</div>
 		<button ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button>
+		</div>
+	</div>
+
+	<div class="panel panel-default" >
+      <div class="panel-heading">
+        <h4 class="panel-title">Licence Usage</h4>
+      </div>
+      <div class="panel-body" collapse="collapsePanel.submitted" class="panel-collapse collapse in">
+       <form novalidate name="usageForm" action="">
+                  <div class="form-group">
+                    <label>Current Usage</label>
+                    <textarea class="form-control" rows="3" required ng-disabled="readOnly" name="currentUsage" ng-model="commercialUsageReport.context.currentUsage"></textarea>
+                    <div ng-show="usageForm.attempted">
+						<p ng-show="usageForm.currentUsage.$error.required" class="help-block">Required field.</p>
+					</div>
+                  </div>
+                  <div class="form-group">
+                    <label>Planned Usage</label>
+                    <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="plannedUsage" ng-model="commercialUsageReport.context.plannedUsage"></textarea>
+                    <div ng-show="usageForm.attempted">
+						<p ng-show="usageForm.plannedUsage.$error.required" class="help-block">Required field.</p>
+					</div>
+                  </div>
+                  <div class="form-group">
+                    <label>Purpose</label>
+                    <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="purpose" ng-model="commercialUsageReport.context.purpose"></textarea>
+                    <div ng-show="usageForm.attempted">
+						<p ng-show="usageForm.purpose.$error.required" class="help-block">Required field.</p>
+					</div>
+                  </div>
+                  <div class="form-group">
+                    <label>Type of Agreement</label>
+                    <select name="agreementType" ngRequired  ng-disabled="readOnly"  ng-model="commercialUsageReport.context.agreementType" ng-options="o.id as o.name for o in [{name: 'Affiliate - Normal', id: 'AFFILIATE_NORMAL'}, {name: 'Affiliate - Research', id: 'AFFILIATE_RESEARCH'}, {name: 'Affiliate - Public Good', id: 'AFFILIATE_PUBLIC_GOOD'}]"></select> 
+                    <div ng-show="usageForm.attempted">
+						<p ng-show="usageForm.agreementType.$error.required" class="help-block">Required field.</p>
+					</div>
+                  </div>
+		          <div class="form-group" ng-hide="readOnly">
+					<button ng-click="saveUsage()" class="btn btn-success">Save (FIXME AutoSave Instead)</button>
+				</div>
+       </form>
 		</div>
 	</div>
 	

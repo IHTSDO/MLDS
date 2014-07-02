@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -52,6 +53,9 @@ public class CommercialUsage {
 	private ApprovalState approvalState;
 	
 	private String note;
+
+	@Embedded
+	UsageContext context;
 	
 	//@Type(type="jodatimeInstant")
 	private Instant submitted = null;
@@ -149,4 +153,13 @@ public class CommercialUsage {
 	public Licensee getLicensee() {
 		return licensee;
 	}
+
+	public UsageContext getContext() {
+		return context;
+	}
+
+	public void setContext(UsageContext context) {
+		this.context = context;
+	}
+
 }
