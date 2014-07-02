@@ -264,6 +264,11 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 
 		
 	$scope.submitUsageReport = function() {
+		if ($scope.usageForm.$invalid) {
+			$scope.usageForm.attempted = true;
+			return;
+		}
+
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/submitUsageReportModal.html',
 			controller: 'SubmitUsageReportController',
