@@ -13,10 +13,16 @@ public class Routes {
 	
 	
 	/** 
+	 * get
 	 * post { entry json}
 	 */ 
 	static final String USAGE_REPORT = "/app/rest/commercialUsages/{commercialUsageId}";
-	
+
+	/** 
+	 * put { context json}
+	 */ 
+	static final String USAGE_REPORT_CONTEXT = "/app/rest/commercialUsages/{commercialUsageId}/context";
+
 	/** 
 	 * post { transition: 'SUBMIT'}
 	 */ 

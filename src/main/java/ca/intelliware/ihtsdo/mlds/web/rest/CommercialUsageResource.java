@@ -24,6 +24,7 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCount;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
+import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
@@ -157,6 +158,24 @@ public class CommercialUsageResource {
     	} 
     	
     	return new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
+    }
+
+	@RequestMapping(value = Routes.USAGE_REPORT_CONTEXT,
+    		method = RequestMethod.PUT,
+            produces = "application/json")
+    public @ResponseBody ResponseEntity<UsageContext> updateCommercialUsageContext(@PathVariable long commercialUsageId, @RequestBody UsageContext context) {
+    	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
+    	
+    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+    	if (commercialUsage == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	} 
+
+    	commercialUsage.setContext(context);
+    	
+    	commercialUsage = commercialUsageRepository.save(commercialUsage);
+    	
+    	return new ResponseEntity<UsageContext>(commercialUsage.getContext(), HttpStatus.OK);
     }
 
     @Transactional
