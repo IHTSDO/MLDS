@@ -213,7 +213,6 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/editCountModal.html',
 			controller: 'EditCountController',
-			size:'lg',
 			backdrop: 'static',
 			resolve: {
 				count: function() {
@@ -234,7 +233,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/removeCountryModal.html',
 			controller: 'RemoveCountryController',
-			size:'sm',
+			size:'lg',
 			backdrop: 'static',
 			resolve: {
 				country: function() {
