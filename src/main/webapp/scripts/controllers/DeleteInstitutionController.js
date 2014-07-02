@@ -13,7 +13,7 @@ angular.module('MLDS').controller('DeleteInstitutionController', ['$scope', '$mo
 	$scope.removeInstitution = function() {
 		CommercialUsageService.deleteUsageEntry($scope.usageReport, $scope.institution)
 			.then(function(result) {
-				$modalInstance.dismiss();
+				$modalInstance.close(result);
 			});
 	};
 }]);

@@ -19,12 +19,12 @@ angular.module('MLDS').controller('EditCountController', ['$scope', '$modalInsta
 		if (count.commercialUsageCountId) {
 			CommercialUsageService.updateUsageCount($scope.usageReport, $scope.count)
 				.then(function(result) {
-					$modalInstance.dismiss();		
+					$modalInstance.close(result);		
 				});
 		} else {
 			CommercialUsageService.addUsageCount($scope.usageReport, $scope.count)
 			.then(function(result) {
-				$modalInstance.dismiss();		
+				$modalInstance.close(result);		
 			});
 		}
 	};

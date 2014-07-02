@@ -14,7 +14,7 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
 			.then(function(result) {
 				//FIXME who should do this?
 				$location.path('/usage-log/'+result.data.commercialUsageId);
-				$modalInstance.dismiss('cancel');
+				$modalInstance.close(result);
 			})
 			["catch"](function(message) {
 				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
