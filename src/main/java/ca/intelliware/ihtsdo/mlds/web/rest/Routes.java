@@ -48,4 +48,7 @@ public class Routes {
 	 * - get list of all licensees that user has access to
 	 */
 	static final String LICENSEES_USERNAME = "/app/rest/licensees";
+
+	public static final String REQUEST_PASSWORD_RESET = "/app/rest/requestPasswordReset";
+
 }
