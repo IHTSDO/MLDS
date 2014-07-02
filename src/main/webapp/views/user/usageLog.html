@@ -46,7 +46,8 @@
                   </div>
                   <div class="form-group">
                     <label>Type of Agreement</label>
-                    <select name="agreementType" ngRequired  ng-disabled="readOnly"  ng-model="commercialUsageReport.context.agreementType" ng-options="'licensee.agreementType.'+type | translate for type in ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD']"  auto-submit></select> 
+                    <select name="agreementType"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.agreementType" ng-options="'licensee.agreementType.'+type | translate for type in agreementTypeOptions"  auto-submit>
+                    </select> 
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.agreementType.$error.required" class="help-block">Required field.</p>
 					</div>
