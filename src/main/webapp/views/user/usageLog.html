@@ -18,42 +18,39 @@
         <h4 class="panel-title">Licence Usage</h4>
       </div>
       <div class="panel-body" collapse="collapsePanel.submitted" class="panel-collapse collapse in">
-       <form novalidate name="usageForm" action="">
+       <form novalidate name="usageForm" >
                  <div class="form-group">
                     <label>Licence Type: {{'licensee.type.'+commercialUsageReport.type | translate}}</label>
                   </div>
        
                   <div class="form-group">
                     <label>Current Usage</label>
-                    <textarea class="form-control" rows="3" required ng-disabled="readOnly" name="currentUsage" ng-model="commercialUsageReport.context.currentUsage"></textarea>
+                    <textarea class="form-control" rows="3" required ng-disabled="readOnly" name="currentUsage" ng-model="commercialUsageReport.context.currentUsage" auto-submit></textarea>
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.currentUsage.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
                   <div class="form-group">
                     <label>Planned Usage</label>
-                    <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="plannedUsage" ng-model="commercialUsageReport.context.plannedUsage"></textarea>
+                    <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="plannedUsage" ng-model="commercialUsageReport.context.plannedUsage" auto-submit></textarea>
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.plannedUsage.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
                   <div class="form-group">
                     <label>Purpose</label>
-                    <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="purpose" ng-model="commercialUsageReport.context.purpose"></textarea>
+                    <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="purpose" ng-model="commercialUsageReport.context.purpose" auto-submit></textarea>
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.purpose.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
                   <div class="form-group">
                     <label>Type of Agreement</label>
-                    <select name="agreementType" ngRequired  ng-disabled="readOnly"  ng-model="commercialUsageReport.context.agreementType" ng-options="'licensee.agreementType.'+type | translate for type in ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD']"></select> 
+                    <select name="agreementType" ngRequired  ng-disabled="readOnly"  ng-model="commercialUsageReport.context.agreementType" ng-options="'licensee.agreementType.'+type | translate for type in ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD']"  auto-submit></select> 
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.agreementType.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
-		          <div class="form-group" ng-hide="readOnly">
-					<button ng-click="saveUsage()" class="btn btn-success">Save (FIXME AutoSave Instead)</button>
-				</div>
        </form>
 		</div>
 	</div>
