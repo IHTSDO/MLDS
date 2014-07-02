@@ -17,7 +17,7 @@
 							
 							<div class="form-group">
 								<label>Type</label>
-								<select class="form-control input-md" name="usageType" ng-model="affiliateform.usageType" required>
+								<select class="form-control input-md" name="usageType" ng-model="affiliateform.usageType" ng-change="affiliateform.usageSubType = ''" required>
 									<option value="Commercial">Commercial</option>
 									<option value="Academic">Academic</option>
 									<option value="Other">Other</option>
@@ -163,8 +163,21 @@
                 <div class="col-md-6">
                   <div class="form-group has-error has-feedback">
                         <label>Name</label>
-                    <input class="form-control help-block" name="organizationName" placeholder="Organisation Name" ng-required="affiliateform.usageType!='Individual'" ng-model="affiliateform.Organisation.name">
-                    <p ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted">Required field.</p>
+                    <input class="form-control help-block" name="organizationName" placeholder="Organisation Name" ng-required="affiliateform.usageType!='Individual'" ng-model="affiliateform.organizationName">
+                    <p class="help-block" ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted">Required field.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group has-error has-feedback">
+                    <label>Organization Type</label>
+                    <select class="form-control" name="organizationType" ng-required="affiliateform.usageType!='Individual'" ng-model="affiliateform.organizationType"">
+											<option value="type A">Type A</option>
+											<option value="type B">Type B</option>
+											<option value="type C">Type C</option>
+                    </select>
+                    <p class="help-block" ng-show="affiliateApplicationForm.organizationType.$error.required && affiliateApplicationForm.attempted">Required field.</p>
                   </div>
                 </div>
               </div>
@@ -218,6 +231,15 @@
                 </div>
               </div>
               
+              <div class="row" ng-show="affiliateform.usageType=='Other'">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Other</label>
+                    <textarea class="form-control" rows="4" name="otherText" ng-model="affiliateform.otherText">
+                    </textarea>
+                  </div>
+                </div>
+              </div>
               
               
             </div>
