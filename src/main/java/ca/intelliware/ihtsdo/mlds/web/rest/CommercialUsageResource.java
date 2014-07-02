@@ -24,6 +24,7 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCount;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
+import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
@@ -134,6 +135,7 @@ public class CommercialUsageResource {
 		}
     	if (commercialUsage == null) {
 	    	commercialUsage = new CommercialUsage();
+	    	commercialUsage.setType(licensee.getType());
     	}
     	
     	commercialUsageResetter.detachAndReset(commercialUsage, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());

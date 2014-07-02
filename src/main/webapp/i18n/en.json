@@ -310,5 +310,19 @@
         "title": "Error page!",
         "403": "You are not authorized to access the page."
     },
-    "footer": "This is your footer"
+    "footer": "This is your footer",
+    
+    "licensee": {
+    	"type": {
+    		"COMMERCIAL": "Commercial",
+			"ACADEMIC": "Academic",
+			"OTHER": "Other",
+			"INDIVIDUAL": "Individual"
+    	},
+    	"agreementType": {
+    		"AFFILIATE_NORMAL": "Affiliate - Normal",
+			"AFFILIATE_RESEARCH": "Affiliate - Research",
+			"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
+		}
+    }
 }

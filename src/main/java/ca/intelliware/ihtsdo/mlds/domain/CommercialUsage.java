@@ -39,6 +39,9 @@ public class CommercialUsage {
 	@JoinColumn(name="licensee_id")
 	Licensee licensee;
 
+	@Enumerated(EnumType.STRING)
+	LicenseeType type;
+
 	//@Type(type="jodatimeInstant")
 	Instant created = Instant.now();
 	
@@ -160,6 +163,14 @@ public class CommercialUsage {
 
 	public void setContext(UsageContext context) {
 		this.context = context;
+	}
+
+	public LicenseeType getType() {
+		return type;
+	}
+
+	public void setType(LicenseeType type) {
+		this.type = type;
 	}
 
 }
