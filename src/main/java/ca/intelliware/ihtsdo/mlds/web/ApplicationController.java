@@ -67,7 +67,7 @@ public class ApplicationController {
 		}
 		
 		application.setUsername(sessionService.getUsernameOrNull());
-		application.setType(request.get("usageType").asText());
+		application.setType(request.get("type").asText());
 		application.setApplicantType(request.get("usageSubType").asText());
 		
 		application.setName(request.get("name").asText());

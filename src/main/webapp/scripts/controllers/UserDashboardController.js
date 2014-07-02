@@ -37,7 +37,7 @@ angular.module('MLDS')
         	if (!UserSession.hasApplied()) {
         		$location.path('/affiliateRegistration');
         	} else if (!UserSession.isApproved()) {
-        		$location.path('/pendingRegistration');
+        		//$location.path('/pendingRegistration');
         	} else {
         		// setup dashboard?
         	}
