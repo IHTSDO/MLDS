@@ -29,6 +29,14 @@ spring:
 
     mail:
         baseUrl: http://localhost:8080
+        from: mlds@mailinator.com
+        host: mail.intware.com
+        port: 25
+        user:
+        password:
+        protocol: smtp
+        tls: false
+        auth: false
 
     thymeleaf:
         mode: XHTML
