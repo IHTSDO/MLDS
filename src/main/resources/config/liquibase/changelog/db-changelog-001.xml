@@ -388,5 +388,15 @@
     	<comment>Generalize usage with context fields</comment>
     	<renameColumn tableName="commercial_usage" oldColumnName="future_usage" newColumnName="planned_usage"/>
 	</changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-22">
+    	<comment>Include licensee type on usage report</comment>
+    	<addColumn tableName="commercial_usage">
+    		<column name="type" type="VARCHAR(255)"/>
+    	</addColumn>
+   		<update tableName="commercial_usage">
+   			<column name="type" value="COMMERCIAL"/>
+   		</update>
+	</changeSet>
 	
 </databaseChangeLog>
