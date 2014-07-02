@@ -208,6 +208,39 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
+                    <label>Using Organization Address as Billing Address </label> 
+                    <input name="use" type="checkbox" ng-change="copyAddress()" ng-model="isSameAddress">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Billing Address </label> 
+                    <input class="form-control" name="address" placeholder="Address" ng-disabled="isSameAddress" ng-required="affiliateform.usageType=='Commercial'" ng-model="affiliateform.billingAddress">
+                    <p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <input class="form-control" name="city" placeholder="City" ng-disabled="isSameAddress" ng-required="affiliateform.usageType=='Commercial'" ng-model="affiliateform.billingCity">
+                    <p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <input class="form-control" type="text" ng-model="affiliateform.billingCountry" ng-disabled="isSameAddress" name="country" ng-required="affiliateform.usageType=='Commercial'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"/>
+                    <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
                     <label>Alternate Email</label>
                     <input class="form-control" type="email" placeholder="JohnSmith@OrganisationABC.com" ng-required="affiliateform.usageType!='Individual'" name="alternateEmail" ng-model="affiliateform.alternateEmail">
                     <div ng-show="affiliateApplicationForm.attempted">
