@@ -5,8 +5,7 @@ angular.module('MLDS')
 		// MB - just using shell-provided json data for now.  See FirstPageController.java
 		// window.mlds.userRegistration
 		
-		var service = {
-		};
+		var service = {};
 		
 		service.create = function create(emailVerified, applicationMade, applicationApproved) {
 			service.emailVerified = emailVerified;
