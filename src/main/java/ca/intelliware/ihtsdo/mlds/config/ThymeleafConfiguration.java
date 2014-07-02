@@ -71,6 +71,8 @@ public class ThymeleafConfiguration {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:/mails/messages/messages");
         messageSource.setDefaultEncoding(CharEncoding.UTF_8);
+        // FIXME MLDS-20 MB push this into yml config?
+        messageSource.setCacheSeconds(1);
         return messageSource;
     }
 }
