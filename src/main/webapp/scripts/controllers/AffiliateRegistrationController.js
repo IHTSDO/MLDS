@@ -1,27 +1,33 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationController',
-        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', 'CountryService', 
-          function ($scope, $log, UserRegistrationService, $location, UserSession, CountryService) {
+        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', 'CountryService', '$modal',
+          function ($scope, $log, UserRegistrationService, $location, UserSession, CountryService, $modal) {
         	
         	$scope.availableCountries = CountryService.countries;
         	
         	window.regScope = $scope;
         	$scope.affiliateform = {};
         	
-        	$scope.affiliateform.submit = function affiliateRegistrationSubmit() {
+        	
+        	$scope.openReviewModal = function(affiliateForm) {
+        		// Only open review modal when form is valid
         		if ($scope.affiliateApplicationForm.$invalid) {
         			$scope.affiliateApplicationForm.attempted = true;
         			return;
         		}
         		
-				$log.log('AffiliateRegistrationController submit()', $scope.affiliateform);
-
-        		var httpPromise = UserRegistrationService.createApplication($scope.affiliateform);
+        		$log.log('affiliateForm', affiliateForm)
         		
-        		httpPromise.then(function() {
-        			UserSession.updateSession();
-        			$location.path('/dashboard');
+        		var modalInstance = $modal.open({
+        			templateUrl: 'views/registration/affiliateRegistrationReview.html',
+        			controller: 'AffiliateRegistrationReviewController',
+        			size:'lg',
+        			resolve: {
+        				affiliateForm: function() {
+        					return affiliateForm;
+        				}
+        			}
         		});
         	};
         	
