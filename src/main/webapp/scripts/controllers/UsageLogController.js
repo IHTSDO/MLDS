@@ -239,7 +239,18 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			resolve: {
 				country: function() {
 					return country;
+				},
+				hospitalsCount: function() {
+					var countrySection = lookupUsageByCountryOrCreate(country);
+					return countrySection.entries.length;
+					
+				},
+				practicesCount: function() {
+					var countrySection = lookupUsageByCountryOrCreate(country);
+					return countrySection.count.practices;
+					
 				}
+
 			}
 		});
 		modalInstance.result.then(function(result) {
