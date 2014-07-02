@@ -4,11 +4,17 @@
 <div class="modal-body">
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   
-  <p>Remove Country Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat.</p>
+  <p>Are you sure you want to remove <strong>{{country.commonName}}</strong> and its associated entries?</p>
   
-  <p>Country: {{country.commonName}}</p>
-  <p>Hospitals: {{hospitalsCount}}</p>
-  <p>Practices: {{practicesCount}}</p>
+  <dl class="dl-horizontal">
+  	<dt>Country</dt>
+  	<dd>{{country.commonName}}</dd>
+  	<dt>Hospitals</dt>
+  	<dd>{{hospitalsCount}}</dd>
+  	<dt>Practices</dt>
+  	<dd>{{practicesCount}}</dd>
+	</dl>
+  </div>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>

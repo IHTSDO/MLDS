@@ -17,7 +17,7 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 		
 		CommercialUsageService.addUsageEntry(usageReport, $scope.institution)
 			.then(function(result) {
-				$modalInstance.dismiss('cancel');
+				$modalInstance.close(result);
 			})
 			["catch"](function(message) {
 				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});

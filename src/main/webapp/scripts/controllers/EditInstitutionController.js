@@ -17,7 +17,7 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 		$log.log('updateInstitution: ', $scope.institution);
 		CommercialUsageService.updateUsageEntry($scope.usageReport, $scope.institution)
 			.then(function(result) {
-				$modalInstance.dismiss();		
+				$modalInstance.close(result);		
 			});
 	};
 

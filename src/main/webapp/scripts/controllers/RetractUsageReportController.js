@@ -11,7 +11,7 @@ angular.module('MLDS').controller('RetractUsageReportController', ['$scope', '$m
 		
 		CommercialUsageService.retractUsageReport($scope.commercialUsageReport)
 			.then(function(result) {
-				$modalInstance.dismiss('cancel');
+				$modalInstance.close(result);
 			})
 			["catch"](function(message) {
 				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
