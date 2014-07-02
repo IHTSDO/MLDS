@@ -17,8 +17,7 @@ angular.module('MLDS')
                 });
                 element.bind('blur', function() {
                 	if (changed) {
-                		$log.log('submit');
-                		$log.log(formCtrl);
+                		//FIXME assumed name from scope
                 		scope.submit();
                 	}
                 	changed = false;
