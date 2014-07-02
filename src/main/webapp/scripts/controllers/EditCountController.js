@@ -14,24 +14,17 @@ angular.module('MLDS').controller('EditCountController', ['$scope', '$modalInsta
 	};
 	
 	$scope.updateCount = function() {
-		$log.log('updateCount: ', $scope.count);
-		//FIXME should this id knowledge be in the service instead - or already clarified before the modal is called
-		if (count.commercialUsageCountId) {
-			CommercialUsageService.updateUsageCount($scope.usageReport, $scope.count)
-				.then(function(result) {
-					$modalInstance.close(result);		
-				});
-		} else {
-			CommercialUsageService.addUsageCount($scope.usageReport, $scope.count)
+		CommercialUsageService.updateUsageCount($scope.usageReport, $scope.count)
 			.then(function(result) {
 				$modalInstance.close(result);		
+			})
+			["catch"](function(message) {
+				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.submitting = false;
 			});
-		}
 	};
 
 	$scope.closeAlert = function(index) {
 		$scope.alerts.splice(index, 1);
 	};
-	
-	
 }]);
