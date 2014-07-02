@@ -91,6 +91,22 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+                .when('/requestPasswordReset', {
+                	templateUrl: 'views/requestPasswordReset.html',
+                	controller: 'RequestPasswordResetController',
+                	access: {
+                		authorizedRoles: [USER_ROLES.all]
+                	}
+                })
+                /*
+                .when('/passwordReset', {
+                	templateUrl: 'views/passwordReset.html',
+                	controller: 'passwordResetController',
+                	access: {
+                		authorizedRoles: [USER_ROLES.all]
+                	}
+                })
+                */
                 .when('/sessions', {
                     templateUrl: 'views/sessions.html',
                     controller: 'SessionsController',
@@ -191,7 +207,11 @@ mldsApp
                 $rootScope.$on('event:auth-loginRequired', function(rejection) {
                     Session.invalidate();
                     $rootScope.authenticated = false;
-                    if ($location.path() !== "/" && $location.path() !== "" && $location.path() !== "/register" &&
+                    if ($location.path() !== "/" && 
+                    		$location.path() !== "" && 
+                    		$location.path() !== "/register" &&
+                    		// FIXME MB is there a better way to register anonymous pages?
+                    		$location.path() !== "/requestPasswordReset" &&
                             $location.path() !== "/activate") {
                         $location.path('/login').replace();
                     }
