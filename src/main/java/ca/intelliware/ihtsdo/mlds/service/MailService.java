@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
+
 import java.util.Locale;
 
 /**
