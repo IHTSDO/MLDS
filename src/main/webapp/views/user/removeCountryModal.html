@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h3 class="modal-title">Remove Country</h3>
+</div>
+<div class="modal-body">
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  
+  <p>Remove Country Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat.</p>
+  
+  <p>Remove Country: {{country.commonName}}</p>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	
+	<button class="btn btn-success" ng-click="submit()"ng-disabled="submitting">
+		<span ng-show="!submitting">Remove Country</span>
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
+</div>
