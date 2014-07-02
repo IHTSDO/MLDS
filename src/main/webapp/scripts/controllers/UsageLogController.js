@@ -2,9 +2,6 @@
 
 angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', 
                                                  		function($scope, $log, $modal, CountryService, CommercialUsageService, Events, Session, $routeParams){
-	$log.log('UsageLogController');
-	$log.log($routeParams);
-	
 	$scope.collapsePanel = {};
 	
 	$scope.usageLogForm = {};
@@ -16,9 +13,6 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	
 	$scope.availableCountries = CountryService.countries;
 	$scope.currentCountries = [];
-	
-	//FIXME probably should not be retrieving licenseeId from Session
-	$scope.licenseeId = Session.login;
 	
 	// Usage Model
 	$scope.commercialUsageReport = {};
@@ -84,14 +78,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 					$log.log('Failed to get initial usage log by param');
 				});
 		} else {
-			CommercialUsageService.createUsageReport($scope.licenseeId, new Date('2014-01-02'), new Date('2014-06-30'))
-				.then(function(result) {
-					updateFromUsageReport(result.data);	
-				})
-				["catch"](function(message) {
-					//FIXME
-					$log.log('Failed to get initial usage log');
-				});
+			$log.log('Missing usage report id');
 		}
 	});
 	
