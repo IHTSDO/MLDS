@@ -11,6 +11,9 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.selectedCountryCodesToAdd = [];
 	$scope.selectedCountryCodesToRemove = [];
 	
+	//FIXME retrieve from service?
+	$scope.agreementTypeOptions = ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD'];
+	
 	$scope.availableCountries = CountryService.countries;
 	$scope.currentCountries = [];
 	
