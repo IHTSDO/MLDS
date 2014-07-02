@@ -1,7 +1,10 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationController',
-        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', function ($scope, $log, UserRegistrationService, $location, UserSession) {
+        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', 'CountryService', 
+          function ($scope, $log, UserRegistrationService, $location, UserSession, CountryService) {
+        	
+        	$scope.availableCountries = CountryService.countries;
         	
         	window.regScope = $scope;
         	$scope.affiliateform = {};
