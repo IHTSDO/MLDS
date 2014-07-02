@@ -141,7 +141,7 @@
 		               </div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<input class="form-control" type="text" ng-model="q" name="country" required placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"/>
+											<input class="form-control" type="text" ng-model="affiliateform.country" name="country" required placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"/>
 											<p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
 										</div>
 									</div>
@@ -162,7 +162,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group has-error has-feedback">
-                        <label>Name</label>
+                        <label>Organization Name</label>
                     <input class="form-control help-block" name="organizationName" placeholder="Organisation Name" ng-required="affiliateform.usageType!='Individual'" ng-model="affiliateform.organizationName">
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted">Required field.</p>
                   </div>
@@ -199,7 +199,7 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="q" name="country" required placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"/>
+                    <input class="form-control" type="text" ng-model="affiliateform.country" name="country" required placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"/>
                     <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">Required field.</p>
                   </div>
                 </div>
@@ -209,7 +209,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Alternate Email</label>
-                    <input class="form-control" type="email" placeholder="JohnSmith@OrganisationABC.com" required name="alternateEmail" ng-model="affiliateform.alternateEmail">
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganisationABC.com" ng-required="affiliateform.usageType!='Individual'" name="alternateEmail" ng-model="affiliateform.alternateEmail">
                     <div ng-show="affiliateApplicationForm.attempted">
 							 				<p ng-show="affiliateApplicationForm.alternateEmail.$error.required" class="help-block">Required field.</p>
 							 				<p ng-show="!affiliateApplicationForm.alternateEmail.$error.required && affiliateApplicationForm.alternateEmail.$error.email" class="help-block">Invalid Email Address.</p>
@@ -246,40 +246,6 @@
           </div>
         </div>
 
-        <div class="panel panel-info">
-          <div class="panel-body">
-          <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.type">
-            <span>
-                <h4>Usage Type:</h4> 
-                <p>{{affiliateform.type}}</p>
-            </span> 
-         </div>
-         <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.type">
-            <h4>Contact Information:</h4>
-              <address>
-                {{affiliateform.contact.name}}<br>
-             	{{affiliateform.contact.email}}<br>
-                {{affiliateform.contact.phone}} <span ng-show="affiliateform.contact.extension">ext: {{affiliateform.contact.extension}}</span>
-              </address>
-         
-          </div>
-            <div class="col-sm-6 col-md-3 col-lg-3" ng-show="affiliateform.type">
-                <h4>Organisation:</h4>
-                <address>
-                 
-                  {{affiliateform.Organisation.name}}<br>
-                  {{affiliateform.Organisation.address}}<br>
-                  {{affiliateform.Organisation.city}}<br>
-                  {{affiliateform.Organisation.country}}<br>
-                  {{affiliateform.Organisation.phonenumber}} <span ng-show="affiliateform.Organisation.extension">ext: {{affiliateform.Organisation.extension}}</span><br>
-                 {{affiliateform.Organisation.position}}<br>
-                  {{affiliateform.Organisation.website}}
-                </address>
-          </div>
-
-          
-           </div>
-        </div>
       </div>  
 
       <div class="panel panel-default">
@@ -299,8 +265,8 @@
           </p>
 
           <div class="panel-footer">
-            <input type="submit" class="btn btn-muted btn-default" value="Register" />
-            <button type="button" class="btn btn-link">Cancel</button>
+            <button type="button" class="btn btn-muted btn-default" ng-click="openReviewModal(affiliateform)">Register</button>
+            <button type="button" class="btn btn-link" ng-click="cancel()">Cancel</button>
           </div>
         </div>
       </div>
