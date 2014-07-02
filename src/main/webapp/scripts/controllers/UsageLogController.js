@@ -230,6 +230,23 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		
 	};
 
+	$scope.openRemoveCountryModal = function(country) {
+		var modalInstance = $modal.open({
+			templateUrl: 'views/user/removeCountryModal.html',
+			controller: 'RemoveCountryController',
+			size:'sm',
+			backdrop: 'static',
+			resolve: {
+				country: function() {
+					return country;
+				}
+			}
+		});
+		modalInstance.result.then(function(result) {
+			removeCountry(country);
+		});
+	};
+
 		
 	$scope.submitUsageReport = function() {
 		var modalInstance = $modal.open({
