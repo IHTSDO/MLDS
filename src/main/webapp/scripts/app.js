@@ -29,12 +29,6 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
-                 .when('/pendingRegistration', {
-                    templateUrl: 'views/registration/pendingRegistration.html',
-                    access: {
-                        authorizedRoles: [USER_ROLES.all]
-                    }
-                })
                 .when('/activate', {
                     templateUrl: 'views/activate.html',
                     controller: 'ActivationController',
