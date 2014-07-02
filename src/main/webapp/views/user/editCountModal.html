@@ -10,7 +10,7 @@
       <div class="form-group">
         <div class="col-md-6">
           <label>Practices</label> 
-          <input type="number" class="form-control" name="practices" ng-model="count.practices" ng-required="true">
+          <input type="number" min="0" class="form-control" name="practices" ng-model="count.practices" ng-required="true">
           <span ng-show="formCount.practices.$error.required && submitAttempted" class="help-block">Required Field</span>
         </div>
       </div>
