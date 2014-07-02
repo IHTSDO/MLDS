@@ -96,6 +96,8 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		return CountryService.countriesByIsoCode2[countryCode];
 	}
 	
+	
+	
 	$scope.saveUsage = function() {
 		CommercialUsageService.updateUsageReportContext($scope.commercialUsageReport)
 		["catch"](function(message) {
@@ -103,6 +105,9 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			$log.log('Failed to put usage context');
 		});
 	};
+	
+	//FIXME required simply for preliminary auto-submit directive
+	$scope.submit = $scope.saveUsage;
 	
 	$scope.canAddSelectedCountries = function() {
 		var canAdd = false;
