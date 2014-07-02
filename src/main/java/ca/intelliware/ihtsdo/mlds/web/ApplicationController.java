@@ -58,8 +58,6 @@ public class ApplicationController {
 	@RequestMapping(value="/api/applications/create",method=RequestMethod.POST)
 	public Object createApplication(@RequestBody JsonNode request) {
 		System.out.println("in call " + request);
-		JsonNode organization = request.get("organization");
-		JsonNode contact =  request.get("contact");
 		
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		Application application = new Application();
@@ -69,27 +67,19 @@ public class ApplicationController {
 		}
 		
 		application.setUsername(sessionService.getUsernameOrNull());
-		application.setType(request.get("type").asText());
-		application.setApplicantType(request.get("applicantType").asText());
+		application.setType(request.get("usageType").asText());
+		application.setApplicantType(request.get("usageSubType").asText());
 		
-		application.setName(contact.get("name").asText());
-		application.setPhoneNumber(contact.get("phone").asText());
+		application.setName(request.get("name").asText());
+		application.setPhoneNumber(request.get("phone").asText());
+		application.setAddress(request.get("address").asText());
+		application.setCity(request.get("city").asText());
+		application.setCountry(request.get("country").asText());
 
-		if (request.get("applicantType").asText() == "Organisation") {
-			application.setName(organization.get("name").asText());
-			application.setAddress(organization.get("address").asText());
-			application.setCity(organization.get("city").asText());
-			application.setCountry(organization.get("country").asText());
-			application.setPhoneNumber(organization.get("phonenumber").asText());
-			application.setExtension(organization.get("extension").asText());
-			application.setPosition(organization.get("position").asText());
-			application.setWebsite(organization.get("website").asText());
-		}
-			
 		// FIXME MB map unset to false?
 		application.setSnoMedLicence(request.get("snoMedTC").asBoolean());
 		
-		application.setApproved(false);
+		application.setApproved(true);
 		applicationRepository.save(application);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
