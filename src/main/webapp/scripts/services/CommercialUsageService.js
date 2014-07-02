@@ -43,6 +43,13 @@ angular.module('MLDS')
 			return $http.get('/app/rest/commercialUsages/'+reportId);
 		};
 
+		service.updateUsageReportContext = function(usageReport) {
+			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/context', usageReport.context);
+			httpPromise.then(function() {
+				$rootScope.$broadcast(Events.commercialUsageUpdated);	
+			});
+			return httpPromise;
+		};
 		
 		service.addUsageEntry = function(usageReport, entry) {
 			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId,

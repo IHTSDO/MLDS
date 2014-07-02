@@ -373,5 +373,20 @@
    			<column name="type" value="COMMERCIAL"/>
    		</update>
 	</changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-20">
+    	<comment>Generalize usage with context fields</comment>
+    	<addColumn tableName="commercial_usage">
+    		<column name="current_usage" type="TEXT"/>
+    		<column name="future_usage" type="TEXT"/>
+    		<column name="purpose" type="TEXT"/>
+    		<column name="agreement_type" type="VARCHAR(255)"/>
+   		</addColumn>
+	</changeSet>
+	
+    <changeSet id="DGJ" author="MLDS-23-21">
+    	<comment>Generalize usage with context fields</comment>
+    	<renameColumn tableName="commercial_usage" oldColumnName="future_usage" newColumnName="planned_usage"/>
+	</changeSet>
 	
 </databaseChangeLog>

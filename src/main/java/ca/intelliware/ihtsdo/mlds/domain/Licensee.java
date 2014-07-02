@@ -37,7 +37,6 @@ public class Licensee {
 	//FIXME username of user
 	String creator;
 	
-
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="licensee")
 	Set<CommercialUsage> commercialUsages = Sets.newHashSet();
 

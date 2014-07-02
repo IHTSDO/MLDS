@@ -95,6 +95,14 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	
 	function countryFromCode(countryCode) {
 		return CountryService.countriesByIsoCode2[countryCode];
+	}
+	
+	$scope.saveUsage = function() {
+		CommercialUsageService.updateUsageReportContext($scope.commercialUsageReport)
+		["catch"](function(message) {
+			//FIXME
+			$log.log('Failed to put usage context');
+		});
 	};
 	
 	$scope.canAddSelectedCountries = function() {
