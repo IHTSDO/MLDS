@@ -9,8 +9,10 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	
 	$scope.usageLogForm = {};
 	$scope.selectedCountryCodesToAdd = [];
+	$scope.selectedCountryCodesToRemove = [];
 	
 	$scope.availableCountries = CountryService.countries;
+	$scope.currentCountries = [];
 	
 	//FIXME probably should not be retrieving licenseeId from Session
 	$scope.licenseeId = Session.login;
@@ -20,6 +22,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.usageByCountry = {};
 	
 	$scope.readOnly = false;
+	$scope.commercialType = false;
 	
 	
 	$scope.$on(Events.commercialUsageUpdated, function() {
@@ -29,16 +32,9 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			});
 	});
 	
-	function clearEntriesFromUsageByCountry() {
-		// want to preserve the list of countries when updating model even if no entries present
-		angular.forEach($scope.usageByCountry, function(countrySection, countryKey) {
-			var entries = countrySection.entries; 
-			if (entries) {
-				entries.splice(0, entries.length);
-			}
-			countrySection.count = {};
-		});
-	};
+	function isCountryAlreadyPresent(country) {
+		return ($scope.usageByCountry[country.isoCode2]);
+	} 
 	
 	function lookupUsageByCountryOrCreate(country) {
 		var countryCode = country.isoCode2;
@@ -53,14 +49,17 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 					}
 			};
 			$scope.usageByCountry[countryCode] = countrySection;
+			$scope.currentCountries.push(country);
 		}
 		return countrySection;
 	};
 	
 	function updateFromUsageReport(usageReport) {
-		clearEntriesFromUsageByCountry();
+		$scope.usageByCountry = {};
+		$scope.currentCountries = [];
 		$scope.commercialUsageReport = usageReport;
 		$scope.readOnly = usageReport.approvalState !== 'NOT_SUBMITTED';
+		$scope.commercialType = usageReport.type === 'COMMERCIAL';
 		usageReport.entries.forEach(function(usageEntry) {
 			var countrySection = lookupUsageByCountryOrCreate(usageEntry.country);
 			countrySection.entries.push(usageEntry);
@@ -109,7 +108,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		var canAdd = false;
 		$scope.selectedCountryCodesToAdd.forEach(function(countryCode) {
 			var addCountry = countryFromCode(countryCode);
-			if (addCountry && !$scope.usageByCountry[countryCode]) {
+			if (addCountry && !isCountryAlreadyPresent(addCountry)) {
 				canAdd = true;
 			}
 		});
@@ -119,10 +118,39 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.addSelectedCountries = function() {
 		$scope.selectedCountryCodesToAdd.forEach(function(countryCode){
 			var country = countryFromCode(countryCode);
-			lookupUsageByCountryOrCreate(country);
+			if (country && !isCountryAlreadyPresent(country)) {
+				CommercialUsageService.addUsageCount($scope.commercialUsageReport, 
+						{
+						practices: 0,
+						country: country
+				});
+			}
 		});
 	};
-		
+
+	$scope.canRemoveSelectedCountries = function() {
+		return $scope.selectedCountryCodesToRemove.length > 0;
+	};
+
+	$scope.removeSelectedCountries = function() {
+		$scope.selectedCountryCodesToRemove.forEach(function(countryCode){
+			var country = countryFromCode(countryCode);
+			removeCountry(country);
+		});
+		$scope.selectedCountryCodesToRemove.splice(0, $scope.selectedCountryCodesToRemove.length);
+	};
+
+	function removeCountry(country) {
+		if (country && isCountryAlreadyPresent(country)) {
+			var countrySection = lookupUsageByCountryOrCreate(country);
+			//FIXME this will possible trigger multiple reloads...
+			countrySection.entries.forEach(function(entry) {
+				CommercialUsageService.deleteUsageEntry($scope.commercialUsageReport, entry);
+			});
+			CommercialUsageService.deleteUsageCount($scope.commercialUsageReport, countrySection.count); 
+		}
+	}
+
 	$scope.openAddInstitutionModal = function(country) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/addInstitutionModal.html',

@@ -103,7 +103,7 @@ angular.module('MLDS')
 
 		
 		service.deleteUsageCount = function(usageReport, count) {
-			var httpPromise = $http['delete']('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/counts/'+entry.commercialUsageCountId);
+			var httpPromise = $http['delete']('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/counts/'+count.commercialUsageCountId);
 			httpPromise.then(function() {
 				$rootScope.$broadcast(Events.commercialUsageUpdated);	
 			});
