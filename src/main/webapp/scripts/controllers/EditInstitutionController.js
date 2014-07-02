@@ -18,6 +18,10 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 		CommercialUsageService.updateUsageEntry($scope.usageReport, $scope.institution)
 			.then(function(result) {
 				$modalInstance.close(result);		
+			})
+			["catch"](function(message) {
+				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.submitting = false;
 			});
 	};
 
