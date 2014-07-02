@@ -1,0 +1,46 @@
+ <div class="modal-header">
+    <h3 class="modal-title">Review Application</h3>
+</div>
+<div class="modal-body">
+  <div class="col-sx-12 col-md-12">
+		<div class="col-sm-6 col-md-3 col-lg-3">
+			<h4>Usage Type:</h4>
+			<p>{{affiliateform.usageType}}</p>
+			<p>{{affiliateform.usageSubType}}</p>
+		</div>
+		<div class="col-sm-6 col-md-3 col-lg-3">
+			<h4>Contact Information:</h4>
+			<div>
+				{{affiliateform.name}}<br>
+				{{affiliateform.email}}<br>
+				{{affiliateform.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.extension}}</span> <br>
+				{{affiliateform.mobilePhone}}<br>
+			</div>
+			<div ng-show="affiliateform.usageType=='Individual'">
+				{{affiliateform.address}}<br>
+				{{affiliateform.city}}<br>
+				{{affiliateform.country}}<br>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-3 col-lg-3">
+			<div ng-show="affiliateform.usageType!='Individual'">
+				<h4>Organisation:</h4>
+				<div>
+					{{affiliateform.organizationName}}<br>
+					{{affiliateform.address}}<br>
+					{{affiliateform.city}}<br>
+					{{affiliateform.country}}<br>
+					{{affiliateform.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.extension}}</span><br>
+					{{affiliateform.alternateEmail}}<br>
+					{{affiliateform.thirdEmail}}<br>
+					{{otherText}}
+				</div>
+			</div>
+	  </div>
+	</div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>
