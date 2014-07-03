@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h3 class="modal-title">Edit Country</h3>
+  <h3 class="modal-title">Edit Country Counts</h3>
 </div>
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
@@ -19,6 +19,9 @@
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
-	<button class="btn btn-success" ng-show="formCount.$invalid" ng-click="attemptedSubmit = true">Add</button>
-	<button class="btn btn-success" ng-show="!formCount.$invalid" ng-click="updateCount()">Update Count</button>
+	<button class="btn btn-success" ng-show="formCount.$invalid" ng-click="attemptedSubmit = true">Update Count</button>
+	<button class="btn btn-success" ng-show="!formCount.$invalid" ng-click="updateCount()">
+		<span ng-show="!submitting">Update Count</span>
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
 </div>
