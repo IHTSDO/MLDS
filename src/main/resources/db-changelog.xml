@@ -147,4 +147,12 @@
     	<dropColumn tableName="application" columnName="position"/>
     	<dropColumn tableName="application" columnName="website"/>
     </changeSet>
+    
+     <changeSet author="AC" id="MLDS-04-5">
+        <addColumn tableName="application">
+            <column name="is_submitted" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+    	</addColumn>
+    </changeSet>
 </databaseChangeLog>
