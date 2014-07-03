@@ -60,6 +60,11 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		usageReport.entries.forEach(function(usageEntry) {
 			var countrySection = lookupUsageByCountryOrCreate(usageEntry.country);
 			countrySection.entries.push(usageEntry);
+			countrySection.entries.sort(function(a, b) {
+				var x = a.name.toLowerCase();
+			    var y = b.name.toLowerCase();
+			    return x < y ? -1 : x > y ? 1 : 0;
+			});
 		});
 		usageReport.countries.forEach(function(usageCount) {
 			var countrySection = lookupUsageByCountryOrCreate(usageCount.country);
