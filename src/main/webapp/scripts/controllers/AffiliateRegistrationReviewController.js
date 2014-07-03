@@ -9,7 +9,7 @@ mldsApp.controller('AffiliateRegistrationReviewController',
     		$scope.ok = function() {
     			$log.log('AffiliateRegistrationController submit()', $scope.affiliateform);
     			
-    			var httpPromise = UserRegistrationService.createApplication($scope.affiliateform);
+    			var httpPromise = UserRegistrationService.submitApplication($scope.affiliateform);
     			
     			httpPromise.then(function() {
     				UserSession.updateSession();

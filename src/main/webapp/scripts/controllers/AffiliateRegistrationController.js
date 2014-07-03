@@ -9,7 +9,6 @@ mldsApp.controller('AffiliateRegistrationController',
         	window.regScope = $scope;
         	$scope.affiliateform = {};
         	
-        	
         	$scope.affiliateform.contact = {};
     		$scope.affiliateform.contact.name = Session.firstName;
         	$scope.affiliateform.contact.email = Session.email;
