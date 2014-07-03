@@ -3,60 +3,45 @@
 </div>
 <div class="modal-body">
   <div class="row">
-		<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="col-sm-6 col-md-12 col-lg-12">
 			<h4>Usage Type:</h4>
-			<p><strong>Type</strong><br>{{affiliateform.type}}</p>
-			<p><strong>Sub-Type</strong><br>{{affiliateform.usageSubType}}</p>
+			<p>{{affiliateform.type}}</p>
+			<p>{{affiliateform.usageSubType}}</p>
 		</div>
-			<hr>
-		<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="col-sm-6 col-md-12 col-lg-12">
 			<h4>Contact Information:</h4>
 			<div>
-				<p><strong>Name</strong><br>{{affiliateform.contact.name}}</p>
-				<p><strong>Email</strong><br>{{affiliateform.contact.email}}</p>
-				<p><strong>Land-line Phone Number</strong><br>{{affiliateform.contact.phone}}
-				<span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></p>
-				<strong>Mobile Phone Number</strong><br>{{affiliateform.contact.mobilePhone}}</p>
+				{{affiliateform.contact.name}}<br>
+				{{affiliateform.contact.email}}<br>
+				{{affiliateform.contact.phone}}
+				<span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span> <br>
+				{{affiliateform.contact.mobilePhone}}<br>
 			</div>
 			<div ng-show="affiliateform.type=='Individual'">
-			<address>
-				<strong>Addresss</strong><br>
 				{{affiliateform.address.street}}<br>
 				{{affiliateform.address.city}}<br>
-				{{affiliateform.address.country}}
-			</address>
+				{{affiliateform.address.country}}<br>
 			</div>
 		</div>
-		<hr>
-		<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="col-sm-6 col-md-12 col-lg-12">
 			<div ng-show="affiliateform.type!='Individual'">
 				<h4>Organisation:</h4>
 				<div>
-					<address>
-						<strong>Organization Name</strong><br>
-						{{affiliateform.organization.name}}
-					</address>
-					<address>
-						<strong>Address</strong><br>
-						{{affiliateform.address.street}}<br>
-						{{affiliateform.address.city}}<br>
-						{{affiliateform.address.country}}<br>
-						{{affiliateform.contact.phone}}<br>
-						<hr>
-						<strong>Phone Number</strong><br>
-						<span ng-show="affiliateform.contactextension">ext: {{affiliateform.contact.extension}}</span><br>
-						{{affiliateform.contact.alternateEmail}}<br>
-						{{affiliateform.contactthirdEmail}}<br>
-						{{otherText}}</p>
-					</address>
+					{{affiliateform.organization.name}}<br>
+					{{affiliateform.address.street}}<br>
+					{{affiliateform.address.city}}<br>
+					{{affiliateform.address.country}}<br>
+					{{affiliateform.contact.phone}}
+					<span ng-show="affiliateform.contactextension">ext: {{affiliateform.contact.extension}}</span><br>
+					{{affiliateform.contact.alternateEmail}}<br>
+					{{affiliateform.contactthirdEmail}}<br>
+					{{otherText}}
 				</div>
 				<div ng-show="affiliateform.type=='Commercial'">
-					<h4>Billing Address</h4>
-				<address>
+					<h5>Billing Address</h5>
 					{{affiliateform.billing.street}}<br>
 					{{affiliateform.billing.city}}<br>
 					{{affiliateform.billing.country}}<br>
-				</address>
 				</div>
 				
 			</div>
@@ -64,8 +49,7 @@
 	</div>
 </div>
 
-<div class="modal-footer"> 
-	<button class="btn btn-primary" ng-click="ok()">OK</button>  
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
     <button class="btn btn-link" ng-click="cancel()">Cancel</button>
-   
 </div>
