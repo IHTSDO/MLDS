@@ -43,22 +43,7 @@ angular.module('MLDS')
         	}
         	
         	$scope.usageReportCountries = function(usageReport) {
-        		var uniqueCountryCodes = [];
-        		
-        		usageReport.entries.forEach(function(entry) {
-        			if (uniqueCountryCodes.indexOf(entry.country.isoCode2) === -1) {
-        				uniqueCountryCodes.push(entry.country.isoCode2);
-        			}
-        		});
-        		usageReport.countries.forEach(function(count) {
-        			//FIXME better way to detect that there is some use within a country
-        			if (count.practices > 0
-        					&& uniqueCountryCodes.indexOf(count.country.isoCode2) === -1) {
-        				uniqueCountryCodes.push(count.country.isoCode2);
-        			}
-        		});
-
-        		return uniqueCountryCodes.length;
+        		return usageReport.countries.length;
         	};
 
         	$scope.usageReportHospitals = function(usageReport) {
