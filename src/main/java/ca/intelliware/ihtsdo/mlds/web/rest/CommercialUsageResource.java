@@ -24,7 +24,6 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCount;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
-import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
@@ -281,22 +280,31 @@ public class CommercialUsageResource {
     	return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = Routes.USAGE_REPORT_COUNT,
+    /**
+     * Delete a country record and in addition all entries associated with the same country
+     * 
+     * @param commercialUsageId
+     * @param commercialUsageCountId
+     * @return
+     */
+    @RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
     		method = RequestMethod.DELETE,
     		produces = "application/json")
-    public @ResponseBody ResponseEntity<?> deleteCommercialUsageCount(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
+    public @ResponseBody ResponseEntity<?> deleteCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
 
     	commercialUsageCountRepository.delete(commercialUsageCountId);
+    	
+    	//FIXME delete related entries
     	
     	return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Transactional
-    @RequestMapping(value = Routes.USAGE_REPORT_COUNTS,
+    @RequestMapping(value = Routes.USAGE_REPORT_COUNTRIES,
     		method = RequestMethod.POST,
     		produces = "application/json")
-    public @ResponseBody ResponseEntity<CommercialUsageCount> addCommercialUsageCount(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageCount newCountValue) {
+    public @ResponseBody ResponseEntity<CommercialUsageCount> addCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageCount newCountValue) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
     	
     	commercialUsageCountRepository.save(newCountValue);
@@ -316,10 +324,10 @@ public class CommercialUsageResource {
 		return responseEntity;
     }
     
-    @RequestMapping(value = Routes.USAGE_REPORT_COUNT,
+    @RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<CommercialUsageCount> getCommercialUsageCount(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
+    public @ResponseBody ResponseEntity<CommercialUsageCount> getCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
     	
     	// FIXME MLDS-23 throw 404 on not-found
@@ -332,10 +340,10 @@ public class CommercialUsageResource {
     }
     
     @Transactional
-    @RequestMapping(value = Routes.USAGE_REPORT_COUNT,
+    @RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
     		method = RequestMethod.PUT,
     		produces = "application/json")
-    public @ResponseBody ResponseEntity<CommercialUsageCount> updateCommercialUsageCount(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId, @RequestBody CommercialUsageCount newCountValue) {
+    public @ResponseBody ResponseEntity<CommercialUsageCount> updateCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId, @RequestBody CommercialUsageCount newCountValue) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
     	Validate.isTrue(newCountValue.getCommercialUsageCountId() != null && newCountValue.getCommercialUsageCountId() == commercialUsageCountId, "Must include commercialUsageCountId in message");
 
