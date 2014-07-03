@@ -14,6 +14,7 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 	};
 	
 	$scope.updateInstitution = function() {
+		$scope.submitting = true;
 		CommercialUsageService.updateUsageEntry($scope.usageReport, $scope.institution)
 			.then(function(result) {
 				$modalInstance.close(result);		

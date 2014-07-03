@@ -14,6 +14,8 @@ angular.module('MLDS').controller('EditCountController', ['$scope', '$modalInsta
 	};
 	
 	$scope.updateCount = function() {
+		$scope.submitting = true;
+		
 		CommercialUsageService.updateUsageCount($scope.usageReport, $scope.count)
 			.then(function(result) {
 				$modalInstance.close(result);		
