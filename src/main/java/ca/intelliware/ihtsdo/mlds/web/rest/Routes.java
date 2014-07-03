@@ -49,7 +49,7 @@ public class Routes {
 	 */
 	static final String LICENSEES_USERNAME = "/app/rest/licensees";
 
-	public static final String REQUEST_PASSWORD_RESET = "/app/rest/requestPasswordReset";
-	public static final String RESET_PASSWORD = "/app/rest/resetPassword/{token}";
+	public static final String PASSWORD_RESET = "/app/rest/passwordReset";
+	public static final String PASSWORD_RESET_ITEM = "/app/rest/passwordReset/{token}";
 
 }
