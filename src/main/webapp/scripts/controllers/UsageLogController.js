@@ -138,15 +138,11 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	function removeCountry(country) {
 		if (country && isCountryAlreadyPresent(country)) {
 			var countrySection = lookupUsageByCountryOrCreate(country);
-			//FIXME this will possible trigger multiple reloads...
-			countrySection.entries.forEach(function(entry) {
-				CommercialUsageService.deleteUsageEntry($scope.commercialUsageReport, entry);
-			});
 			CommercialUsageService.deleteUsageCount($scope.commercialUsageReport, countrySection.count); 
 		}
 	}
 
-	$scope.openAddInstitutionModal = function(country) {
+	$scope.addInstitutionModal = function(country) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/addInstitutionModal.html',
 			controller: 'AddInstitutionController',
@@ -163,7 +159,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		});
 	};
 	
-	$scope.editInstitution = function(institution, country) {
+	$scope.editInstitutionModal = function(institution, country) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/editInstitutionModal.html',
 			controller: 'EditInstitutionController',
@@ -184,7 +180,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		
 	};
 	
-	$scope.deleteInstitution = function(institution, country) {
+	$scope.deleteInstitutionModal = function(institution, country) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/deleteInstitutionModal.html',
 			controller: 'DeleteInstitutionController',
@@ -204,7 +200,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		});
 	};
 
-	$scope.editCount = function(count, country) {
+	$scope.editCountModal = function(count, country) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/editCountModal.html',
 			controller: 'EditCountController',
@@ -224,31 +220,30 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		
 	};
 
-	$scope.openRemoveCountryModal = function(country) {
+	$scope.removeCountryModal = function(count) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/removeCountryModal.html',
 			controller: 'RemoveCountryController',
 			size:'lg',
 			backdrop: 'static',
 			resolve: {
-				country: function() {
-					return country;
+				count: function() {
+					return count;
+				},
+				usageReport: function() {
+					return $scope.commercialUsageReport;
 				},
 				hospitalsCount: function() {
-					var countrySection = lookupUsageByCountryOrCreate(country);
+					var countrySection = lookupUsageByCountryOrCreate(count.country);
 					return countrySection.entries.length;
 					
 				},
 				practicesCount: function() {
-					var countrySection = lookupUsageByCountryOrCreate(country);
-					return countrySection.count.practices;
+					return count.practices;
 					
 				}
 
 			}
-		});
-		modalInstance.result.then(function(result) {
-			removeCountry(country);
 		});
 	};
 

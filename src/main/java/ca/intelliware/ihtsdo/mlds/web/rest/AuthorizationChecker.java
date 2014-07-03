@@ -12,7 +12,7 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
-import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountRepository;
+import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
@@ -34,7 +34,7 @@ public class AuthorizationChecker {
 	CommercialUsageEntryRepository commercialUsageEntryRepository; 
 
 	@Resource
-	CommercialUsageCountRepository commercialUsageCountRepository; 
+	CommercialUsageCountryRepository commercialUsageCountRepository; 
 
 	private boolean isStaffOrAdmin() {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
