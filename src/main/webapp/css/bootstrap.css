@@ -4384,7 +4384,6 @@ a.list-group-item.active > .badge,
   color: inherit;
   background-color: #ffffff;
   margin-top: -20px;
-  border-top: 3px solid #04add8;
 }
 .jumbotron h1,
 .jumbotron .h1 {
@@ -5884,6 +5883,10 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+.navbar[role=navigation] {
+  margin-bottom: 30px;
+  border-bottom: 3px solid #04add8;
 }
 .space {
   margin-top: 10px;
