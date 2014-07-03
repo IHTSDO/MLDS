@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.service.MailService;
+import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 
 @RestController
@@ -29,8 +31,10 @@ public class PasswordResetResource {
 	@Resource TemplateEvaluator templateEvaluator;
 	
 	@Resource UserRepository userRepository;
+	
+	@Resource PasswordResetService passwordResetService;
 
-	@RequestMapping(value=Routes.REQUEST_PASSWORD_RESET,
+	@RequestMapping(value=Routes.PASSWORD_RESET,
 			method = RequestMethod.POST,
     		produces = "application/json")
 	public ResponseEntity<String> requestPasswordReset(@RequestBody Map<String,Object> params) {
@@ -40,14 +44,13 @@ public class PasswordResetResource {
 		String emailAddress = (String) params.get("email");
 		Validate.notEmpty(emailAddress);
 		
-		// create and persist a reset token
-		String token = "abc123";
+		User user = userRepository.getUserByEmail(emailAddress);
+		String tokenKey = passwordResetService.createTokenForUser(user);
 		
 		// send email with token
 		Map<String, Object> variables = Maps.newHashMap();
-		User user = userRepository.getUserByEmail(emailAddress);
 		variables.put("user", user);
-		variables.put("passwordResetUrl", templateEvaluator.getUrlBase() + "#/resetPassword?token="+token);
+		variables.put("passwordResetUrl", templateEvaluator.getUrlBase() + "#/resetPassword?token="+tokenKey);
 		String content = templateEvaluator.evaluateTemplate("passwordResetEmail", Locale.ENGLISH, variables);
 		
 		mailService.sendEmail(emailAddress, "subject", content, false, true);
@@ -57,18 +60,21 @@ public class PasswordResetResource {
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 	
-	@RequestMapping(value=Routes.RESET_PASSWORD,
+	@RequestMapping(value=Routes.PASSWORD_RESET_ITEM,
 			method = RequestMethod.POST,
     		produces = "application/json")
 	public ResponseEntity<String> resetPassword(@PathVariable String token, @RequestBody Map<String,Object>params) {
-		System.out.println("token " + token);
-		System.out.println(params);
 		
-		if (!"abc123".equals(token)) {
-			return new ResponseEntity<>("Token not found in our records", HttpStatus.NOT_FOUND);
+		String newPassword = (String) params.get("password");
+		if (Strings.isNullOrEmpty(newPassword)) {
+			return new ResponseEntity<>("no password provided", HttpStatus.BAD_REQUEST);
 		}
 		
-		// FIXME MLDS-20 suppress logging of password params?
+		try {
+			passwordResetService.resetPassword(token, newPassword);
+		} catch (IllegalArgumentException e) {
+			return new ResponseEntity<>("Password reset token not found in our records", HttpStatus.NOT_FOUND);
+		}
 		
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}

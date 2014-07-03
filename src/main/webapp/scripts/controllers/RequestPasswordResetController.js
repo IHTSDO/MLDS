@@ -12,7 +12,7 @@ angular.module('MLDS').controller('RequestPasswordResetController',
         			return;
         		}
         		
-        		$http.post('/app/rest/requestPasswordReset', {email:$scope.passwordResetData.email});
+        		$http.post('/app/rest/passwordReset', {email:$scope.passwordResetData.email});
 			};
 			
 		}]);
