@@ -60,10 +60,37 @@ public class ApplicationController {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
-	@RequestMapping(value="/api/application/create",method=RequestMethod.POST)
-	public Object createApplication(@RequestBody JsonNode request) {
-		System.out.println("in call " + request);
-        JsonNode organization = request.get("organization");
+	@RequestMapping(value="/api/application/submit",method=RequestMethod.POST)
+	public Object submitApplication(@RequestBody JsonNode request) {
+		Application application = saveApplicationFields(request);
+		// Mark application as submitted
+		application.isSubmitted();
+		applicationRepository.save(application);
+		
+		//FIXME should be a different trigger and way to connect applications with licensee
+		Licensee licensee = new Licensee();
+		licensee.setCreator(application.getUsername());
+		licensee.setApplication(application);
+		licensee.setType(application.getType());
+		licenseeRepository.save(licensee);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/api/application/save",method=RequestMethod.POST)
+	public Object saveApplication(@RequestBody JsonNode request) {
+		
+        Application application = saveApplicationFields(request);
+		// Mark application as not submitted
+		application.resetStatus();
+		
+		applicationRepository.save(application);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	private Application saveApplicationFields(JsonNode request) {
+		JsonNode organization = request.get("organization");
         JsonNode contact = request.get("contact");
         JsonNode address = request.get("address");
         JsonNode billing = request.get("billing");
@@ -106,19 +133,9 @@ public class ApplicationController {
 		// FIXME MB map unset to false?
 		application.setSnoMedLicence(request.get("snoMedTC").asBoolean());
 		
-		// TODO: add flag to indicate that application is not submitted yet
-		
+		// FIXME AC application approval status needs to set by Staff Users
 		application.setApproved(true);
-		applicationRepository.save(application);
-		
-		//FIXME should be a different trigger and way to connect applications with licensee
-		Licensee licensee = new Licensee();
-		licensee.setCreator(application.getUsername());
-		licensee.setApplication(application);
-		licensee.setType(application.getType());
-		licenseeRepository.save(licensee);
-		
-		return new ResponseEntity<>(HttpStatus.OK);
+		return application;
 	}
 	
 	private String setField(JsonNode jsonNode, String attribute) {
