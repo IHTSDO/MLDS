@@ -217,13 +217,15 @@
                   </div>
                 </div>
               </div>
+                   <hr>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Using Organization Address as Billing Address</label> <input name="use" type="checkbox" ng-change="copyAddress()" ng-model="isSameAddress">
+                    <label>Use Organization Address as Billing Address</label> <input name="use" type="checkbox" ng-change="copyAddress()" ng-model="isSameAddress">
                   </div>
                 </div>
               </div>
+         
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -308,7 +310,8 @@
             <a href="http://ihtsdo.org/fileadmin/user_upload/Docs_01/License/Ihtsdo_AffiliateLicenceAgreement_v11.pdf" target="_blank" class="btn btn-default btn-block">SNOMED License</a>
           </p>
           <p class="form-group">
-            <label class="cen"><input required="" type="checkbox" name="snoMedTC" required="" ng-model="affiliateform.snoMedTC"> I agree to the license <span ng-show="affiliateApplicationForm.snoMedTC.$error.required && affiliateApplicationForm.attempted" class="help-block">The license is required to access SNOMED CT.</span></label>
+            <label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="affiliateform.snoMedTC"> I agree to the license 
+            <span ng-show="affiliateApplicationForm.snoMedTC.$error.required && affiliateApplicationForm.attempted" class="help-block">The license is required to access SNOMED CT.</span></label>
           </p>
           <div class="panel-footer">
             <button type="button" class="btn btn-muted btn-default" ng-click="openReviewModal(affiliateform)">Register</button> <button type="button" class="btn btn-link" ng-click="cancel()">Cancel</button>
