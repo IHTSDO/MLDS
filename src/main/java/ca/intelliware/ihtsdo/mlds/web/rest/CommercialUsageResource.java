@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCount;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
@@ -304,7 +304,7 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORT_COUNTRIES,
     		method = RequestMethod.POST,
     		produces = "application/json")
-    public @ResponseBody ResponseEntity<CommercialUsageCount> addCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageCount newCountValue) {
+    public @ResponseBody ResponseEntity<CommercialUsageCountry> addCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageCountry newCountValue) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
     	
     	commercialUsageCountRepository.save(newCountValue);
@@ -320,36 +320,36 @@ public class CommercialUsageResource {
         // FIXME flush and get ids back
         //headers.setLocation(ServletUriComponentsBuilder.fromPath(Routes.USAGE_REPORT_ENTRY).build().expand(newEntry.getCommercialUsageEntryId()).toUri());
         
-		ResponseEntity<CommercialUsageCount> responseEntity = new ResponseEntity<CommercialUsageCount>(newCountValue, headers, HttpStatus.CREATED);
+		ResponseEntity<CommercialUsageCountry> responseEntity = new ResponseEntity<CommercialUsageCountry>(newCountValue, headers, HttpStatus.CREATED);
 		return responseEntity;
     }
     
     @RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<CommercialUsageCount> getCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
+    public @ResponseBody ResponseEntity<CommercialUsageCountry> getCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
     	
     	// FIXME MLDS-23 throw 404 on not-found
-    	CommercialUsageCount commercialUsageCount = commercialUsageCountRepository.findOne(commercialUsageCountId);
+    	CommercialUsageCountry commercialUsageCount = commercialUsageCountRepository.findOne(commercialUsageCountId);
     	if (commercialUsageCount == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
 
-    	return new ResponseEntity<CommercialUsageCount>(commercialUsageCount, HttpStatus.OK);
+    	return new ResponseEntity<CommercialUsageCountry>(commercialUsageCount, HttpStatus.OK);
     }
     
     @Transactional
     @RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
     		method = RequestMethod.PUT,
     		produces = "application/json")
-    public @ResponseBody ResponseEntity<CommercialUsageCount> updateCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId, @RequestBody CommercialUsageCount newCountValue) {
+    public @ResponseBody ResponseEntity<CommercialUsageCountry> updateCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId, @RequestBody CommercialUsageCountry newCountValue) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
     	Validate.isTrue(newCountValue.getCommercialUsageCountId() != null && newCountValue.getCommercialUsageCountId() == commercialUsageCountId, "Must include commercialUsageCountId in message");
 
     	// validate id not null?
     	
-    	CommercialUsageCount count = commercialUsageCountRepository.save(newCountValue);
+    	CommercialUsageCountry count = commercialUsageCountRepository.save(newCountValue);
     	
     	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
     	if (commercialUsage == null) {
@@ -358,7 +358,7 @@ public class CommercialUsageResource {
 
     	commercialUsage.addCount(count);
     	
-		ResponseEntity<CommercialUsageCount> responseEntity = new ResponseEntity<CommercialUsageCount>(count, HttpStatus.OK);
+		ResponseEntity<CommercialUsageCountry> responseEntity = new ResponseEntity<CommercialUsageCountry>(count, HttpStatus.OK);
 		return responseEntity;
     }
 }

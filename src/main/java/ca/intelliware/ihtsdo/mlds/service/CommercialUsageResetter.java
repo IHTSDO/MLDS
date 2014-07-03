@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCount;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 
 /**
@@ -40,9 +40,9 @@ public class CommercialUsageResetter {
 			entry.setCommercialUsageEntryId(null);
 		}
 
-		for (CommercialUsageCount count : commercialUsage.getCounts()) {
-			em.detach(count);
-			count.setCommercialUsageCountId(null);
+		for (CommercialUsageCountry country : commercialUsage.getCountries()) {
+			em.detach(country);
+			country.setCommercialUsageCountId(null);
 		}
 
 		em.detach(commercialUsage);

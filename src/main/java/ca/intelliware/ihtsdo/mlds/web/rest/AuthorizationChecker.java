@@ -9,7 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCount;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountRepository;
@@ -109,7 +109,7 @@ public class AuthorizationChecker {
 		if (isStaffOrAdmin()) {
 			return;
 		}
-		CommercialUsageCount commercialUsageCount = commercialUsageCountRepository.findOne(commercialUsageCountId);
+		CommercialUsageCountry commercialUsageCount = commercialUsageCountRepository.findOne(commercialUsageCountId);
 		if (commercialUsageCount != null) {
 			CommercialUsage commercialUsage = commercialUsageCount.getCommercialUsage();
 			checkCommercialUsageMatches(commercialUsageId, commercialUsage);
