@@ -43,10 +43,12 @@ angular.module('MLDS')
 			return $http.get('/app/rest/commercialUsages/'+reportId);
 		};
 
-		service.updateUsageReportContext = function(usageReport) {
+		service.updateUsageReportContext = function(usageReport, options) {
 			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/context', usageReport.context);
 			httpPromise.then(function() {
-				$rootScope.$broadcast(Events.commercialUsageUpdated);	
+				if (!options || !options.skipBroadcast) {
+					$rootScope.$broadcast(Events.commercialUsageUpdated);
+				}
 			});
 			return httpPromise;
 		};

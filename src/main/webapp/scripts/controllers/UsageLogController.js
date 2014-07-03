@@ -99,7 +99,9 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	
 	
 	$scope.saveUsage = function() {
-		CommercialUsageService.updateUsageReportContext($scope.commercialUsageReport)
+		//Skip Broadcast for direct edit of context fields to reduce the chance of input value changing under user as they are typing
+		//FIXME is there a better way of handling this scenario? 
+		CommercialUsageService.updateUsageReportContext($scope.commercialUsageReport, {skipBroadcast: true});
 		["catch"](function(message) {
 			//FIXME
 			$log.log('Failed to put usage context');
