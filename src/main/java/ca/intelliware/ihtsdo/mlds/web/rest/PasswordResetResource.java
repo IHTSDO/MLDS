@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.Validate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,5 +56,22 @@ public class PasswordResetResource {
 		
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
+	
+	@RequestMapping(value=Routes.RESET_PASSWORD,
+			method = RequestMethod.POST,
+    		produces = "application/json")
+	public ResponseEntity<String> resetPassword(@PathVariable String token, @RequestBody Map<String,Object>params) {
+		System.out.println("token " + token);
+		System.out.println(params);
+		
+		if (!"abc123".equals(token)) {
+			return new ResponseEntity<>("Token not found in our records", HttpStatus.NOT_FOUND);
+		}
+		
+		// FIXME MLDS-20 suppress logging of password params?
+		
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+	}
+
 	
 }
