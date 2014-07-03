@@ -1,0 +1,158 @@
+//
+// IHTSDO Theme
+// --------------------------------------------------
+
+.navbar[role=navigation]{
+	margin-bottom: 30px;
+	border-bottom:3px solid @light-blue;
+}
+.space{
+	margin-top: 10px;
+}
+
+// Landing Page
+//--------------------
+
+.navbar-login{
+	margin-top: 20px;
+}
+.signin{
+	padding: 16px 20px 20px;
+	background-color: lighten(@cloud, 3%);
+	border-radius: 6px;
+	border: 1px solid @cloud;
+	min-height: 300px;
+	margin-top: 30px;
+}
+
+.login{
+	background-color: @white;
+	margin-bottom: 30px;
+	border: 1px solid @gray-lighter;
+}
+
+.intro{
+	background-color: @white;
+}
+
+#main-content{
+	border-top:2px solid @brand-primary;
+	background-color: lighten(@cloud, 3%);
+}
+
+// Register
+//--------------------
+
+.form-welcome{
+	width: 400px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;  
+	float: right;
+	color: @gray;
+	background-color: @white;
+	padding: 15px;
+	position: relative;
+	left: 30px;
+}
+
+// Terms of Service
+//--------------------
+.masthead{
+	background-color: @white;
+}
+.tos-bg{
+    background-color: #EEEEEE;
+    margin: 10px 0;
+    overflow: hidden;
+    padding: 20px 20px 20px 0;
+}
+
+//
+// Registration Flow
+// --------------------------------------------------
+
+.applicant{
+	position: relative;
+	.thumbnail{
+		height: 240px;
+		background-color: @white;
+		
+		.btn{
+			position: absolute;
+			bottom: 28px;
+		}
+	}
+}
+
+.terms{
+    height:400px;
+    overflow:scroll;
+    padding:0 40px;
+    margin-bottom:10px;
+    max-width: 97%;
+    }
+    
+    
+//
+// Usage-Log
+// --------------------------------------------------  
+.selectpicker{	
+	border:1px solid darken(@cloud, 5%);
+	background-color:lighten( @well-bg, 2%);
+	padding: 16px 12px 4px;
+	
+	.input-group{
+	    margin-bottom: 8px;
+	}
+	.form-control{
+		padding: 0;
+		
+	&:focus{
+		border: none;
+		box-shadow:none;
+		border:1px solid darken(@cloud, 5%);
+	} 
+	}
+	
+	input[type=search]{
+		padding-left: 3px;
+	}
+	
+	#countries{
+	    position: relative;
+		right: 36px;
+	    width: 470px;
+	}
+	
+	option{
+		padding: 11px 5px;
+		min-height: 30px;
+		font-weight: normal;
+		line-height: 1.42857;
+		border-bottom:1px solid @gray-lighter;
+		
+	 &:hover,&:focus {
+	  	content:"\f044";
+	    color: @gray-darker;
+	    background-color: @gray-lighter;
+	  }
+	}
+}
+
+#select-btns{
+	min-height: 100px;
+	padding-top: 40px;
+	margin-top: 120px;
+}
+
+    
+//
+// Footer
+// --------------------------------------------------
+footer{
+	background-color: darken(@blue, 30%);	
+	color: @white;
+	padding: 20px 0 0;
+	min-height: 60px;
+}
