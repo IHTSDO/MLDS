@@ -91,11 +91,14 @@ public class UserService {
 
     public void changePassword(String password) {
         User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
-        String encryptedPassword = passwordEncoder.encode(password);
-        currentUser.setPassword(encryptedPassword);
-        userRepository.save(currentUser);
-        log.debug("Changed password for User: {}", currentUser);
+        changePassword(currentUser, password);
     }
+
+	protected void changePassword(User user, String password) {
+		String encryptedPassword = passwordEncoder.encode(password);
+        user.setPassword(encryptedPassword);
+        log.debug("Changed password for User: {}", user);
+	}
 
     @Transactional(readOnly = true)
     public User getUserWithAuthorities() {
