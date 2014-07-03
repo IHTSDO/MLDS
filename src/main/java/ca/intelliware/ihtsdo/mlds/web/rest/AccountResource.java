@@ -102,6 +102,7 @@ public class AccountResource {
                                              HttpServletResponse response) {
         User user = userRepository.findOne(userDTO.getLogin());
         if (user != null) {
+        	mailService.sendDuplicateRegistrationEmail(user);
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         } else {
         	if (domainBlacklistService.isDomainBlacklisted(userDTO.getEmail())) {
