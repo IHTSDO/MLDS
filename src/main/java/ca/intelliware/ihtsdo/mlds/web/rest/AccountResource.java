@@ -3,9 +3,11 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import com.codahale.metrics.annotation.Timed;
 
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
+import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
+import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
 import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
@@ -27,6 +29,7 @@ import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringWebContext;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -72,6 +75,9 @@ public class AccountResource {
     @Inject
 	private DomainBlacklistService domainBlacklistService;
     
+    @Resource
+	LicenseeRepository licenseeRepository;
+    
     /**
      * POST  /rest/register -> register the user.
      */
@@ -89,6 +95,11 @@ public class AccountResource {
         	if (domainBlacklistService.isDomainBlacklisted(userDTO.getEmail())) {
         		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         	}
+        	
+        	Licensee licensee = new Licensee();
+        	licensee.setCreator(userDTO.getLogin());
+        	
+        	licenseeRepository.save(licensee);
         	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
