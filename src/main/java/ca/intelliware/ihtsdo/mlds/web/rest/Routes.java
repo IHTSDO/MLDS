@@ -36,12 +36,12 @@ public class Routes {
 	/** 
 	 * post { count json}
 	 */ 
-	static final String USAGE_REPORT_COUNTS = "/app/rest/commercialUsages/{commercialUsageId}/counts";
+	static final String USAGE_REPORT_COUNTRIES = "/app/rest/commercialUsages/{commercialUsageId}/countries";
 	
 	/**
 	 * control endpoint for single count: put to edit, or delete
 	 */
-	static final String USAGE_REPORT_COUNT = "/app/rest/commercialUsages/{commercialUsageId}/counts/{commercialUsageCountId}"; 
+	static final String USAGE_REPORT_COUNTRY = "/app/rest/commercialUsages/{commercialUsageId}/countries/{commercialUsageCountId}"; 
 
 
 	/**
