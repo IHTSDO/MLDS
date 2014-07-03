@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="commercial_usage_count")
-public class CommercialUsageCount {
+public class CommercialUsageCountry {
 	@Id
 	@GeneratedValue
 	@Column(name="commercial_usage_count_id")
