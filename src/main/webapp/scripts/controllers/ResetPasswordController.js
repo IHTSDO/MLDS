@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('ResetPasswordController', 
-		['$scope', '$log', '$resource', '$routeParams',
-        function($scope, $log, $resource, $routeParams) {
+		['$scope', '$log', '$resource', '$routeParams', '$timeout', '$location', 
+        function($scope, $log, $resource, $routeParams, $timeout, $location) {
 			$scope.resetPassword = {};
 			
 	        $scope.success = null;
@@ -19,12 +19,13 @@ angular.module('MLDS').controller('ResetPasswordController',
 	            } else {
 	                $scope.doNotMatch = null;
 	                $log.log('success', $scope.resetPassword.password);
-	                $resource('/app/rest/resetPassword/:token', {token:$routeParams.token})
+	                $resource('/app/rest/passwordReset/:id', {id:$routeParams.token})
 	                	.save({ password : $scope.resetPassword.password })
 	        			.$promise.then(function(data){
 	                        $scope.error = null;
 	                        $scope.success = 'OK';
-	                        // redirect to login
+	                        
+	                        $timeout(function() { $location.path('/login'); }, 2000);
 	        			},function(response){
 	                        $scope.success = null;
 	                        $scope.error={};
