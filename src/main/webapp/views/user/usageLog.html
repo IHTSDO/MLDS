@@ -167,6 +167,10 @@
 	
 		<div ng-hide="readOnly">
 			<button ng-click="submitUsageReport()" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button>
+			<div ng-show="usageForm.attempted" class="has-error">
+				<p ng-show="usageForm.$invalid" class="help-block">Please fix the errors listed above.</p>
+			</div>
+			
 		</div>
 	    
 	  </div>
