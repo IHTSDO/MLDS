@@ -25,7 +25,7 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
-import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountRepository;
+import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
@@ -44,7 +44,7 @@ public class CommercialUsageResource {
 	CommercialUsageEntryRepository commercialUsageEntryRepository;
 
 	@Resource
-	CommercialUsageCountRepository commercialUsageCountRepository;
+	CommercialUsageCountryRepository commercialUsageCountryRepository;
 
 	@Resource
 	LicenseeRepository licenseeRepository;
@@ -287,15 +287,24 @@ public class CommercialUsageResource {
      * @param commercialUsageCountId
      * @return
      */
+    @Transactional
     @RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
     		method = RequestMethod.DELETE,
     		produces = "application/json")
     public @ResponseBody ResponseEntity<?> deleteCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
 
-    	commercialUsageCountRepository.delete(commercialUsageCountId);
+    	CommercialUsageCountry commercialUsageCountry = commercialUsageCountryRepository.findOne(commercialUsageCountId);
+    	if (commercialUsageCountry == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
     	
-    	//FIXME delete related entries
+    	commercialUsageCountryRepository.delete(commercialUsageCountId);
+    	
+    	List<CommercialUsageEntry> entries = commercialUsageEntryRepository.findByCountry(commercialUsageCountry.getCountry());
+    	for (CommercialUsageEntry commercialUsageEntry : entries) {
+			commercialUsageEntryRepository.delete(commercialUsageEntry);
+		}
     	
     	return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -307,7 +316,7 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<CommercialUsageCountry> addCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageCountry newCountValue) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
     	
-    	commercialUsageCountRepository.save(newCountValue);
+    	commercialUsageCountryRepository.save(newCountValue);
     	
     	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
     	if (commercialUsage == null) {
@@ -330,8 +339,7 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<CommercialUsageCountry> getCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
     	
-    	// FIXME MLDS-23 throw 404 on not-found
-    	CommercialUsageCountry commercialUsageCount = commercialUsageCountRepository.findOne(commercialUsageCountId);
+    	CommercialUsageCountry commercialUsageCount = commercialUsageCountryRepository.findOne(commercialUsageCountId);
     	if (commercialUsageCount == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -349,7 +357,7 @@ public class CommercialUsageResource {
 
     	// validate id not null?
     	
-    	CommercialUsageCountry count = commercialUsageCountRepository.save(newCountValue);
+    	CommercialUsageCountry count = commercialUsageCountryRepository.save(newCountValue);
     	
     	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
     	if (commercialUsage == null) {
