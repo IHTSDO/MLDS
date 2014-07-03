@@ -1,6 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -20,15 +19,12 @@ import ca.intelliware.ihtsdo.mlds.service.MailService;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
 
 import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
 
 @RestController
 public class PasswordResetResource {
 	
 	@Resource
 	MailService mailService;
-	
-	@Resource TemplateEvaluator templateEvaluator;
 	
 	@Resource UserRepository userRepository;
 	
@@ -48,18 +44,13 @@ public class PasswordResetResource {
 		String tokenKey = passwordResetService.createTokenForUser(user);
 		
 		// send email with token
-		Map<String, Object> variables = Maps.newHashMap();
-		variables.put("user", user);
-		variables.put("passwordResetUrl", templateEvaluator.getUrlBase() + "#/resetPassword?token="+tokenKey);
-		String content = templateEvaluator.evaluateTemplate("passwordResetEmail", Locale.ENGLISH, variables);
-		
-		mailService.sendEmail(emailAddress, "subject", content, false, true);
+		mailService.sendPasswordResetEmail(user, tokenKey);
 		
 		System.out.println("hello " + emailAddress);
 		
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value=Routes.PASSWORD_RESET_ITEM,
 			method = RequestMethod.POST,
     		produces = "application/json")
