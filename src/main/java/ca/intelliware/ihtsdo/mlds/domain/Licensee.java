@@ -81,4 +81,8 @@ public class Licensee {
 	public LicenseeType getType() {
 		return type;
 	}
+	
+	public void setType(LicenseeType type) {
+		this.type = type;
+	}
 }
