@@ -1,17 +1,24 @@
 'use strict';
 
-angular.module('MLDS').controller('RemoveCountryController', ['$scope', '$modalInstance',  '$log', '$location', 'country', 'hospitalsCount', 'practicesCount', 
-                                                       	function($scope, $modalInstance, $log, $location, country, hospitalsCount, practicesCount) {
+angular.module('MLDS').controller('RemoveCountryController', ['$scope', '$modalInstance',  '$log', '$location', 'count', 'usageReport', 'hospitalsCount', 'practicesCount', 'CommercialUsageService', 
+                                                       	function($scope, $modalInstance, $log, $location, count, usageReport, hospitalsCount, practicesCount, CommercialUsageService) {
 	$scope.alerts = [];
 	
-	$scope.country = country;
+	$scope.count = count;
 	$scope.hospitalsCount = hospitalsCount;
 	$scope.practicesCount = practicesCount;
 	
 	$scope.submit = function(){
 		$scope.submitting = true;
 		
-		$modalInstance.close($scope.country);
+		CommercialUsageService.deleteUsageCount(usageReport, count)
+		.then(function(result) {
+			$modalInstance.close(result);
+		})
+		["catch"](function(message) {
+			$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+			$scope.submitting = false;
+		});
 	};
 	
 	$scope.closeAlert = function(index) {

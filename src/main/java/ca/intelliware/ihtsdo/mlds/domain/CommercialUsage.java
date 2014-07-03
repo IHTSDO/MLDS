@@ -70,7 +70,7 @@ public class CommercialUsage {
 	Set<CommercialUsageEntry> usage = Sets.newHashSet();
 	
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
-	Set<CommercialUsageCount> counts = Sets.newHashSet();
+	Set<CommercialUsageCountry> countries = Sets.newHashSet();
 	
 	public Long getCommercialUsageId() {
 		return commercialUsageId;
@@ -111,18 +111,18 @@ public class CommercialUsage {
 	}
 
 
-	public void addCount(CommercialUsageCount newCountValue) {
-		Validate.notNull(newCountValue.commercialUsageCountId);
+	public void addCount(CommercialUsageCountry newCountryValue) {
+		Validate.notNull(newCountryValue.commercialUsageCountId);
 		
-		if (newCountValue.commercialUsage != null) {
-			newCountValue.commercialUsage.counts.remove(newCountValue);
+		if (newCountryValue.commercialUsage != null) {
+			newCountryValue.commercialUsage.countries.remove(newCountryValue);
 		}
-		newCountValue.commercialUsage = this;
-		counts.add(newCountValue);
+		newCountryValue.commercialUsage = this;
+		countries.add(newCountryValue);
 	}
 
-	public Set<CommercialUsageCount> getCounts() {
-		return Collections.unmodifiableSet(counts);
+	public Set<CommercialUsageCountry> getCountries() {
+		return Collections.unmodifiableSet(countries);
 	}
 
 	public String getNote() {
