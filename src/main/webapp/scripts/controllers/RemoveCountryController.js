@@ -12,13 +12,13 @@ angular.module('MLDS').controller('RemoveCountryController', ['$scope', '$modalI
 		$scope.submitting = true;
 		
 		CommercialUsageService.deleteUsageCount(usageReport, count)
-		.then(function(result) {
-			$modalInstance.close(result);
-		})
-		["catch"](function(message) {
-			$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
-			$scope.submitting = false;
-		});
+			.then(function(result) {
+				$modalInstance.close(result);
+			})
+			["catch"](function(message) {
+				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.submitting = false;
+			});
 	};
 	
 	$scope.closeAlert = function(index) {

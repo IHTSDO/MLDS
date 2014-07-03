@@ -8,5 +8,8 @@
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link pull-left" ng-click="cancel()" ng-disabled="submitting">No</button>
-	<button class="btn btn-success pull-right" ng-click="removeInstitution()">Yes</button>
+	<button class="btn btn-success pull-right" ng-click="removeInstitution()">
+		<span ng-show="!submitting">Yes</span>
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
 </div>

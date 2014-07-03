@@ -11,9 +11,15 @@ angular.module('MLDS').controller('DeleteInstitutionController', ['$scope', '$mo
 	};
 	
 	$scope.removeInstitution = function() {
+		$scope.submitting = true;
+		
 		CommercialUsageService.deleteUsageEntry($scope.usageReport, $scope.institution)
 			.then(function(result) {
 				$modalInstance.close(result);
+			})
+			["catch"](function(message) {
+				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.submitting = false;
 			});
 	};
 }]);
