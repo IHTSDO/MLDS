@@ -36,9 +36,10 @@ mldsApp.controller('AffiliateRegistrationController',
         	
         	$scope.copyAddress = function() {
         		if($scope.isSameAddress) {
-        			$scope.affiliateform.billingAddress = $scope.affiliateform.address;
-        			$scope.affiliateform.billingCity = $scope.affiliateform.city;
-        			$scope.affiliateform.billingCountry = $scope.affiliateform.country;
+        			$scope.affiliateform.billing = {};
+        			$scope.affiliateform.billing.street = $scope.affiliateform.address.street;
+        			$scope.affiliateform.billing.city = $scope.affiliateform.address.city;
+        			$scope.affiliateform.billing.country = $scope.affiliateform.address.country;
         		};
         	};
         	
