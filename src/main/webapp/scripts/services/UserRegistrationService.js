@@ -28,16 +28,20 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				return $http.get('/api/applications');
 			},
 			
+			getApplication: function() {
+				return $http.get('/api/application');
+			},
+			
 			createApplication: function createApplication(applicationForm) {
 				$log.log('createApplication', applicationForm);
-				return $http.post('/api/applications/create', applicationForm);
+				return $http.post('/api/application/create', applicationForm);
 			},
 			
 			approveApplication: function approveApplication(username) {
 				$log.log('approveApplication', username);
 				return $http({
 					method: 'POST',
-					url: 'api/applications/approve',
+					url: 'api/application/approve',
 					params: {email: username}
 				});
 			}
