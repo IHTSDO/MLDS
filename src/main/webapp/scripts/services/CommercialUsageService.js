@@ -82,7 +82,7 @@ angular.module('MLDS')
 
 		
 		service.addUsageCount = function(usageReport, count) {
-			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/counts',
+			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/countries',
 					serializeCommercialCount(count));
 			httpPromise.then(function() {
 				$rootScope.$broadcast(Events.commercialUsageUpdated);	
@@ -92,7 +92,7 @@ angular.module('MLDS')
 		
 		
 		service.updateUsageCount = function(usageReport, count) {
-			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/counts/'+count.commercialUsageCountId,
+			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/countries/'+count.commercialUsageCountId,
 					serializeCommercialCount(count)
 				);
 			httpPromise.then(function() {
@@ -103,7 +103,7 @@ angular.module('MLDS')
 
 		
 		service.deleteUsageCount = function(usageReport, count) {
-			var httpPromise = $http['delete']('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/counts/'+count.commercialUsageCountId);
+			var httpPromise = $http['delete']('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/countries/'+count.commercialUsageCountId);
 			httpPromise.then(function() {
 				$rootScope.$broadcast(Events.commercialUsageUpdated);	
 			});
