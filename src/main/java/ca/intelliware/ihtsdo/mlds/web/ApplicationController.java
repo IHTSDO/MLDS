@@ -58,6 +58,11 @@ public class ApplicationController {
 	@RequestMapping(value="/api/applications/create",method=RequestMethod.POST)
 	public Object createApplication(@RequestBody JsonNode request) {
 		System.out.println("in call " + request);
+        JsonNode organization = request.get("organization");
+        JsonNode contact = request.get("contact");
+        JsonNode address = request.get("address");
+        JsonNode billing = request.get("billing");
+
 		
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		Application application = new Application();
@@ -70,11 +75,12 @@ public class ApplicationController {
 		application.setType(request.get("type").asText());
 		application.setApplicantType(request.get("usageSubType").asText());
 		
-		application.setName(request.get("name").asText());
-		application.setPhoneNumber(request.get("phone").asText());
-		application.setAddress(request.get("address").asText());
-		application.setCity(request.get("city").asText());
-		application.setCountry(request.get("country").asText());
+		application.setName(contact.get("name").asText());
+		application.setPhoneNumber(contact.get("phone").asText());
+		
+		application.setAddress(address.get("street").asText());
+		application.setCity(address.get("city").asText());
+		application.setCountry(address.get("country").asText());
 
 		// FIXME MB map unset to false?
 		application.setSnoMedLicence(request.get("snoMedTC").asBoolean());

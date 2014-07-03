@@ -9,9 +9,10 @@ mldsApp.controller('AffiliateRegistrationController',
         	window.regScope = $scope;
         	$scope.affiliateform = {};
         	
-    		$scope.affiliateform.name = Session.firstName + (Session.lastName ? ' '+ Session.lastName : '');
-    		
-        	$scope.affiliateform.email = Session.email;
+        	
+        	$scope.affiliateform.contact = {};
+    		$scope.affiliateform.contact.name = Session.firstName;
+        	$scope.affiliateform.contact.email = Session.email;
         	
         	$scope.openReviewModal = function(affiliateForm) {
         		// Only open review modal when form is valid
