@@ -5995,6 +5995,24 @@ button.close {
   padding-top: 40px;
   margin-top: 120px;
 }
+.user-info {
+  background-color: #ffffff;
+  padding: 10px;
+  border-top: 2px solid #04add8;
+}
+.user-info .btn {
+  margin-top: 5px;
+}
+.usage-log {
+  border-top: 2px solid #04add8;
+  background-color: #ffffff;
+  padding: 10px;
+  margin: 10px 0;
+}
+#retractBtn {
+  position: relative;
+  bottom: 5px;
+}
 footer {
   background-color: #18283c;
   color: #ffffff;
