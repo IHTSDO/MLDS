@@ -50,7 +50,7 @@ angular.module('MLDS')
         				uniqueCountryCodes.push(entry.country.isoCode2);
         			}
         		});
-        		usageReport.counts.forEach(function(count) {
+        		usageReport.countries.forEach(function(count) {
         			//FIXME better way to detect that there is some use within a country
         			if (count.practices > 0
         					&& uniqueCountryCodes.indexOf(count.country.isoCode2) === -1) {
@@ -66,7 +66,7 @@ angular.module('MLDS')
         	};
 
         	$scope.usageReportPractices = function(usageReport) {
-        		return usageReport.counts.reduce(function(total, count) {
+        		return usageReport.countries.reduce(function(total, count) {
         			return total + (count.practices || 0);
         		}, 0);
         	};
