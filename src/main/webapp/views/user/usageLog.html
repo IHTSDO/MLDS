@@ -117,11 +117,11 @@
 			<div class="panel-body" collapse="collapsePanel.sublicensed">
 				<div class="country-listing" ng-repeat="countryUsage in usageByCountryList">
             <div class="row space country-heading">
-                    <div class="form-group ">
-                          <div class="col-xs-3 col-md-6 col-lg-6" ng-hide="readOnly">
+                    <div class="form-group" ng-hide="readOnly">
+                          <div class="col-xs-6 col-md-6 col-lg-6">
                              <h3 class="country-title">{{countryUsage.country.commonName}}</h3>
                           </div>
-                         <div class="col-xs-3 col-md-6 col-lg-6">
+                         <div class="col-xs-6 col-md-6 col-lg-6">
                             <div class="pull-right">
                             <a class="btn btn-success" ng-click="addInstitutionModal(countryUsage.country)">Add Institution</a>
                              <a class="btn btn-danger" ng-click="removeCountryModal(countryUsage.count)">Remove Country</a>
@@ -163,7 +163,7 @@
 							<p><strong>Practices: </strong> <span class="label label-default">{{countryUsage.count.practices | number}}</span></p>
 						</div>
 						<div class="col-md-4">
-							<button ng-hide="readOnly" type="button" class="btn btn-default pull-right" ng-click="editCountModal(countryUsage.count)"><i class="fa fa-pencil-square-o"></i>  Edit Country</button>
+							<button ng-hide="readOnly" type="button" class="btn btn-default pull-right" ng-click="editCountModal(countryUsage.count)"> <i class="fa fa-pencil"></i> Edit Country</button>
 						</div>
 					</div>
 					
