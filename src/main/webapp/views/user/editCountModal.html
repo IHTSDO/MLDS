@@ -1,17 +1,18 @@
 <div class="modal-header">
-  <h3 class="modal-title">Edit Country Counts</h3>
+  <h3 class="modal-title">Edit Country</h3>
 </div>
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	  <h3>{{count.country.commonName}}</h3>
 	
-	<form name="formCount" bs-validation>
+	<form name="formCount" bs-validation novalidate>
     <div class="row">
       <div class="form-group">
         <div class="col-md-6">
           <label>Practices</label> 
           <input type="number" min="0" class="form-control" name="practices" ng-model="count.practices" ng-required="true">
           <span ng-show="formCount.practices.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formCount.practices.$error.number && submitAttempted" class="help-block">Not a valid number</span>
         </div>
       </div>
     </div>
@@ -19,9 +20,9 @@
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
-	<button class="btn btn-success" ng-show="formCount.$invalid" ng-click="attemptedSubmit = true">Update Count</button>
+	<button class="btn btn-success" ng-show="formCount.$invalid" ng-click="submitAttempted = true">Update</button>
 	<button class="btn btn-success" ng-show="!formCount.$invalid" ng-click="updateCount()">
-		Update Count
+		Update
 		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
 	</button>
 </div>

@@ -6,7 +6,7 @@ angular.module('MLDS').controller('EditCountController', ['$scope', '$modalInsta
 	$scope.count = count;
 	$scope.usageReport = usageReport;
 	
-	$scope.attemptedSubmit = false;
+	$scope.submitAttempted = false;
 	$scope.submitting = false;
 	$scope.alerts = [];
 	
@@ -15,6 +15,7 @@ angular.module('MLDS').controller('EditCountController', ['$scope', '$modalInsta
 	};
 	
 	$scope.updateCount = function() {
+		$scope.submitAttempted = true;
 		$scope.submitting = true;
 		$scope.alerts.splice(0, $scope.alerts.length);
 		
