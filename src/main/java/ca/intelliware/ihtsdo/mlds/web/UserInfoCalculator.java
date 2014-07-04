@@ -4,9 +4,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 
+@Service
 public class UserInfoCalculator {
 	@Resource
 	SessionService sessionService;
@@ -14,7 +17,7 @@ public class UserInfoCalculator {
 	@Resource
 	ApplicationRepository applicationRepository;
 	
-	UserInfo createUserInfo() {
+	public UserInfo createUserInfo() {
 		UserInfo userInfo = new UserInfo();
 		
 		String usernameOrNull = sessionService.getUsernameOrNull();
@@ -23,7 +26,7 @@ public class UserInfoCalculator {
 			userInfo.setApproved(false);
 		} else {
 			List<Application> applications = applicationRepository.findByUsername(usernameOrNull);
-			boolean hasApplied = !applications.isEmpty();
+			boolean hasApplied = !applications.isEmpty() && applications.get(0).isSubmitted();
 			userInfo.setHasApplied(hasApplied);
 			userInfo.setApproved(hasApplied && applications.get(0).isApproved());
 		}
