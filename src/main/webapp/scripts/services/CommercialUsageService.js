@@ -137,6 +137,25 @@ angular.module('MLDS')
 			return httpPromise;
 		};
 
+		service.generateRanges = function generateRanges() {
+			var ranges = [];
+			var date = moment().local();
+			var periods = 6;
+			for (var i = 0; i < periods; i++) {
+				var isFirstHalfOfYear = date.isBefore(date.clone().month(6).startOf('month'));
+				if (isFirstHalfOfYear) {
+					date = date.startOf('year');
+					var end = date.clone().month(5).endOf('month');
+					ranges.push(generateRangeEntry(date, end));
+				} else {
+					date = date.month(6).startOf('month');
+					var end = date.clone().endOf('year');
+					ranges.push(generateRangeEntry(date, end));
+				}
+				date = date.clone().subtract(2, 'months');
+			}
+			return ranges;
+		};
 		
 		return service;
 	}]);
