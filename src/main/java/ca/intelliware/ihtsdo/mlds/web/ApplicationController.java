@@ -120,6 +120,7 @@ public class ApplicationController {
 		
 		application.setAddress(setField(address, "street"));
 		application.setCity(setField(address, "city"));
+		application.setPostCode(setField(address, "postCode"));
 		application.setCountry(setField(address, "country"));
 		
 		application.setExtension(setField(contact, "extension"));
@@ -131,6 +132,7 @@ public class ApplicationController {
 		
 		application.setBillingStreet(setField(billing, "street"));
 		application.setBillingCity(setField(billing, "city"));
+		application.setBillingPostCode(setField(billing, "postCode"));
 		application.setBillingCountry(setField(billing, "country"));
 		
 		application.setOtherText(setField(request, "otherText"));
