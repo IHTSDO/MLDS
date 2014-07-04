@@ -59,6 +59,9 @@ public class Application {
 	
 	boolean snomedlicense;
 	
+	@Column(name="is_submitted")
+	boolean isSubmitted;
+	
 	public String getSubType() {
 		return subType;
 	}
@@ -226,6 +229,18 @@ public class Application {
 
 	public void setOtherText(String otherText) {
 		this.otherText = otherText;
+	}
+
+	public void resetStatus() {
+		this.isSubmitted = false;
+	}
+
+	public void setStatus() {
+		this.isSubmitted = true;
+	}
+	
+	public boolean isSubmitted() {
+		return this.isSubmitted;
 	}
 
 }

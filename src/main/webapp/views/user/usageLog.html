@@ -2,16 +2,14 @@
     <h1>Usage Log <small class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</small></h1>
     <p>Page Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat. </p>
 
-	<div class="panel panel-default" ng-show="readOnly">
-      <div class="panel-heading">
-        <h4 class="panel-title">Submitted Commercial Usage Report</h4>
-      </div>
-      <div class="panel-body" collapse="collapsePanel.submitted" class="panel-collapse collapse in">
-		<div>Commercial Usage for: {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }}</div>
-		<button ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button>
-		</div>
+	<div class="usage-log">
+	 
+		 <h4>Submitted Commercial Usage Report</h4>
+		 <hr>
+		 <span class="pull-right" id="retractBtn"><button ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
+		 <p class="text-success"><strong>Commercial Usage for:</strong> {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }} </p>
 	</div>
-
+	
 	<div class="panel panel-default" >
       <div class="panel-heading">
         <h4 class="panel-title">Licence Usage</h4>
@@ -165,13 +163,12 @@
 			</div>
 		</div>
 	
-		<div ng-hide="readOnly">
+		<div class="space" ng-hide="readOnly">
 			<button ng-click="submitUsageReport()" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button>
 			<div ng-show="usageForm.attempted" class="has-error">
 				<p ng-show="usageForm.$invalid" class="help-block">Please fix the errors listed above.</p>
 			</div>
-			
 		</div>
-	    
+	    <div class="space"></div>
 	  </div>
 </div>

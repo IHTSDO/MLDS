@@ -4,15 +4,54 @@ mldsApp.controller('AffiliateRegistrationController',
         [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', 'CountryService', '$modal', 'Session',
           function ($scope, $log, UserRegistrationService, $location, UserSession, CountryService, $modal, Session) {
         	
+        	
+        	var loadApplication = function() {
+        		var queryPromise =  UserRegistrationService.getApplications();
+        		
+        		queryPromise.success(function(data) {
+        			$log.log("loadApplication", data[0]);
+        			$scope.affiliateform.type = data[0].type;
+        			$scope.affiliateform.usageSubType = data[0].subType;
+        			$scope.affiliateform.contact.name = data[0].name ? data[0].name : Session.firstName;
+        			$scope.affiliateform.contact.email = data[0].email ? data[0].email : Session.email;
+        			$scope.affiliateform.contact.alternateEmail = data[0].alternateEmail ? data[0].alternateEmail : '';
+        			$scope.affiliateform.contact.thirdEmail = data[0].thirdEmail ? data[0].thirdEmail : '';
+        			$scope.affiliateform.contact.phone = data[0].phoneNumber ? data[0].phoneNumber : '';
+        			$scope.affiliateform.contact.extension = data[0].extension ? data[0].extension : '';
+        			$scope.affiliateform.contact.mobilePhone = data[0].mobileNumber ? data[0].mobileNumber : '';
+        			$scope.affiliateform.address.street = data[0].address ? data[0].address : '';
+        			$scope.affiliateform.address.city = data[0].city ? data[0].city : '';
+        			$scope.affiliateform.address.country = data[0].country ? data[0].country : '';
+        			$scope.affiliateform.billing.street = data[0].billingStreet ? data[0].billingStreet : '';
+        			$scope.affiliateform.billing.city = data[0].billingCity ? data[0].billingCity : '';
+        			$scope.affiliateform.billing.country = data[0].billingCountry ? data[0].billingCountry : '';
+        			$scope.isSameAddress = checkAddresses($scope.affiliateform.address, $scope.affiliateform.billing);
+        			$scope.affiliateform.organization.name = data[0].organizationName ? data[0].organizationName : '';
+        			$scope.affiliateform.organization.type = data[0].organizationType;
+        			$scope.affiliateform.otherText = data[0].otherText ? data[0].otherText : '';
+        		});
+        	};
+        	
+        	loadApplication();
+        	
         	$scope.availableCountries = CountryService.countries;
         	
         	window.regScope = $scope;
         	$scope.affiliateform = {};
         	
-        	
         	$scope.affiliateform.contact = {};
+        	$scope.affiliateform.address = {};
+        	$scope.affiliateform.billing = {};
+        	$scope.affiliateform.organization = {};
+        	
     		$scope.affiliateform.contact.name = Session.firstName;
         	$scope.affiliateform.contact.email = Session.email;
+        	
+        	$scope.saveApplication = function() {
+    			UserRegistrationService.saveApplication($scope.affiliateform);
+        	};
+        	
+        	$scope.submit = $scope.saveApplication;
         	
         	$scope.openReviewModal = function(affiliateForm) {
         		// Only open review modal when form is valid
@@ -33,6 +72,16 @@ mldsApp.controller('AffiliateRegistrationController',
         				}
         			}
         		});
+        	};
+        	
+        	var checkAddresses = function(a, b) {
+        		if( (a.street === b.street) 
+        				&& (a.city === b.city)
+        				&& (a.country === b.country)
+        				) {
+        			return true;
+        		}
+        		return false;
         	};
         	
         	$scope.copyAddress = function() {
