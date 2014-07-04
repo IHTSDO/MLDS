@@ -12,8 +12,8 @@ mldsApp.controller('AffiliateRegistrationController',
         			$log.log("loadApplication", data[0]);
         			$scope.affiliateform.type = data[0].type;
         			$scope.affiliateform.usageSubType = data[0].subType;
-        			$scope.affiliateform.contact.name = data[0].name ? data[0].name : '';
-        			$scope.affiliateform.contact.email = data[0].email ? data[0].email : '';
+        			$scope.affiliateform.contact.name = data[0].name ? data[0].name : Session.firstName;
+        			$scope.affiliateform.contact.email = data[0].email ? data[0].email : Session.email;
         			$scope.affiliateform.contact.alternateEmail = data[0].alternateEmail ? data[0].alternateEmail : '';
         			$scope.affiliateform.contact.thirdEmail = data[0].thirdEmail ? data[0].thirdEmail : '';
         			$scope.affiliateform.contact.phone = data[0].phoneNumber ? data[0].phoneNumber : '';
@@ -25,6 +25,7 @@ mldsApp.controller('AffiliateRegistrationController',
         			$scope.affiliateform.billing.street = data[0].billingStreet ? data[0].billingStreet : '';
         			$scope.affiliateform.billing.city = data[0].billingCity ? data[0].billingCity : '';
         			$scope.affiliateform.billing.country = data[0].billingCountry ? data[0].billingCountry : '';
+        			$scope.isSameAddress = checkAddresses($scope.affiliateform.address, $scope.affiliateform.billing);
         			$scope.affiliateform.organization.name = data[0].organizationName ? data[0].organizationName : '';
         			$scope.affiliateform.organization.type = data[0].organizationType;
         			$scope.affiliateform.otherText = data[0].otherText ? data[0].otherText : '';
@@ -71,6 +72,16 @@ mldsApp.controller('AffiliateRegistrationController',
         				}
         			}
         		});
+        	};
+        	
+        	var checkAddresses = function(a, b) {
+        		if( (a.street === b.street) 
+        				&& (a.city === b.city)
+        				&& (a.country === b.country)
+        				) {
+        			return true;
+        		}
+        		return false;
         	};
         	
         	$scope.copyAddress = function() {

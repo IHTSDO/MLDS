@@ -7,6 +7,9 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.usageLogForm = {};
 	$scope.selectedCountryCodesToAdd = [];
 	$scope.selectedCountryCodesToRemove = [];
+	$scope.geographicAdding = 0;
+	$scope.geographicRemoving = 0;
+	$scope.geographicAlerts = [];
 	
 	//FIXME retrieve from service?
 	$scope.agreementTypeOptions = ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD'];
@@ -101,7 +104,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.saveUsage = function() {
 		//Skip Broadcast for direct edit of context fields to reduce the chance of input value changing under user as they are typing
 		//FIXME is there a better way of handling this scenario? 
-		CommercialUsageService.updateUsageReportContext($scope.commercialUsageReport, {skipBroadcast: true});
+		CommercialUsageService.updateUsageReportContext($scope.commercialUsageReport, {skipBroadcast: true})
 		["catch"](function(message) {
 			//FIXME
 			$log.log('Failed to put usage context');
@@ -123,13 +126,24 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	};
 	
 	$scope.addSelectedCountries = function() {
+		$scope.geographicAdding = 0;
+		$scope.geographicAlerts.splice(0, $scope.geographicAlerts.length);
+		
 		$scope.selectedCountryCodesToAdd.forEach(function(countryCode){
 			var country = countryFromCode(countryCode);
 			if (country && !isCountryAlreadyPresent(country)) {
+				$scope.geographicAdding += 1;
 				CommercialUsageService.addUsageCount($scope.commercialUsageReport, 
 						{
 						practices: 0,
 						country: country
+				})
+				.then(function() {
+					$scope.geographicAdding = Math.max($scope.geographicAdding - 1, 0);
+				})
+				['catch'](function() {
+					$scope.geographicAlerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+					$scope.geographicAdding = Math.max($scope.geographicAdding - 1, 0);
 				});
 			}
 		});
@@ -148,9 +162,21 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	};
 
 	function removeCountry(country) {
+		$scope.geographicRemoving = 0;
+		$scope.geographicAlerts.splice(0, $scope.geographicAlerts.length);
+		
 		if (country && isCountryAlreadyPresent(country)) {
 			var countrySection = lookupUsageByCountryOrCreate(country);
-			CommercialUsageService.deleteUsageCount($scope.commercialUsageReport, countrySection.count); 
+			$scope.geographicRemoving += 1;
+			CommercialUsageService.deleteUsageCount($scope.commercialUsageReport, countrySection.count)
+			.then(function() {
+				$scope.geographicRemoving = Math.max($scope.geographicRemoving - 1, 0);
+			})
+			['catch'](function() {
+				$scope.geographicAlerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.geographicRemoving = Math.max($scope.geographicRemoving - 1, 0);
+			});
+
 		}
 	}
 
