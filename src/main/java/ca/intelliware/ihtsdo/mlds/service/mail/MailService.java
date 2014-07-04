@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.service;
+package ca.intelliware.ihtsdo.mlds.service.mail;
 
 import org.apache.commons.lang.CharEncoding;
 import org.slf4j.Logger;
@@ -10,18 +10,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.web.rest.TemplateEvaluator;
-
-import com.google.common.collect.Maps;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * Service for sending e-mails.
@@ -85,19 +79,6 @@ public class MailService {
         final String subject = messageSource.getMessage(EMAIL_ACTIVATION_PREFIX + ".title", null, locale);
         sendEmail(email, subject, content, false, true);
     }
+    
 
-	public void sendPasswordResetEmail(User user, String tokenKey) {
-		final Locale locale = Locale.forLanguageTag(user.getLangKey());
-		Map<String, Object> variables = Maps.newHashMap();
-		variables.put("user", user);
-		variables.put("passwordResetUrl", templateEvaluator.getUrlBase() + "#/resetPassword?token="+tokenKey);
-		String content = templateEvaluator.evaluateTemplate("passwordResetEmail", locale, variables);
-		
-		sendEmail(user.getEmail(), "subject", content, false, true);
-	}
-
-	public void sendDuplicateRegistrationEmail(User user) {
-		// TODO Auto-generated method stub
-		
-	}
 }

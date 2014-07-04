@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title th:text="#{passwordReset.title}">IHTSDO-MLDS activation</title>
+        <title th:text="#{duplicateRegistration.title}">IHTSDO-MLDS Duplicate Registration</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
         <p th:text="#{email.greeting(${user.login})}">
-            Dear
+            Dear user,
         </p>
-        <p th:text="#{passwordReset.text1}">
-            We have received a request to reset the password for this account on the IHTSDO-MLDS system.
-            If this was you, please follow the link below to reset your password:
+        <p th:text="#{duplicateRegistration.text1}">
+            We have received a registration request using this email address.
+            If you meant to login, please follow the Login link below.  
+            If you have forgotten your password, please follow the "Password Reset" link.
+        </p>
+        <p>
+            <a th:href="@{${loginUrl}}"
+               th:text="#{duplicateRegistration.loginLinkLabel}">Login</a>
         </p>
         <p>
             <a th:href="@{${passwordResetUrl}}"
