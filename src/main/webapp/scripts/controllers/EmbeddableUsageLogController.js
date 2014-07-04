@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', 
+angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', 
                                                  		function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams){
 	$scope.collapsePanel = {};
 	
@@ -25,13 +25,39 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	$scope.readOnly = false;
 	$scope.commercialType = false;
 	
+	//FIXME apparently not recommended to share controller state through scope
+	$scope.canSubmit = $scope.$parent.usageLogCanSubmit;
+
+	loadParentsUsageReport();
 	
+	// Notifications for when to reload usage report
 	$scope.$on(Events.commercialUsageUpdated, function() {
 		CommercialUsageService.getUsageReport($scope.commercialUsageReport.commercialUsageId)
 			.then(function(result) {
 				updateFromUsageReport(result.data);
+			})
+			["catch"](function(message) {
+				//FIXME
+				$log.log('Failed commercialUsageUpdated');
 			});
+
 	});
+	
+	function loadParentsUsageReport() {
+		//FIXME apparently not recommended to share controller state through scope
+		$scope.$parent.usageReportReady
+			.then(function(usageReport) {
+				$scope.commercialUsageReport = usageReport;
+				$log.log('ready');
+				$log.log(usageReport);
+				
+				updateFromUsageReport(usageReport);
+			})
+			["catch"](function(message) {
+				//FIXME
+				$log.log('Failed to get initial usage log by param');
+			});
+	}
 	
 	function isCountryAlreadyPresent(country) {
 		return ($scope.usageByCountry[country.isoCode2]);
@@ -98,26 +124,10 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		sortByNameProperty($scope.currentCountries, 'commonName');
 	};
 	
-	CountryService.ready.then(function() {
-		if ($routeParams && $routeParams.usageReportId) {
-			CommercialUsageService.getUsageReport($routeParams.usageReportId)
-				.then(function(result) {
-					updateFromUsageReport(result.data);	
-				})
-				["catch"](function(message) {
-					//FIXME
-					$log.log('Failed to get initial usage log by param');
-				});
-		} else {
-			$log.log('Missing usage report id');
-		}
-	});
 	
 	function countryFromCode(countryCode) {
 		return CountryService.countriesByIsoCode2[countryCode];
 	}
-	
-	
 	
 	$scope.saveUsage = function() {
 		//Skip Broadcast for direct edit of context fields to reduce the chance of input value changing under user as they are typing
@@ -132,12 +142,12 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	//FIXME required simply for preliminary auto-submit directive
 	$scope.submit = $scope.saveUsage;
 	
-	$scope.canAddSelectedCountries = function() {
+	$scope.canAddSelectedCountries = function(countryCodes) {
 		if ($scope.geographicAdding) {
 			return false;
 		}
 		var canAdd = false;
-		$scope.selectedCountryCodesToAdd.forEach(function(countryCode) {
+		countryCodes.forEach(function(countryCode) {
 			var addCountry = countryFromCode(countryCode);
 			if (addCountry && !isCountryAlreadyPresent(addCountry)) {
 				canAdd = true;
@@ -146,11 +156,11 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		return canAdd;
 	};
 	
-	$scope.addSelectedCountries = function() {
+	$scope.addSelectedCountries = function(countryCodes) {
 		$scope.geographicAdding = 0;
 		$scope.geographicAlerts.splice(0, $scope.geographicAlerts.length);
 		
-		$scope.selectedCountryCodesToAdd.forEach(function(countryCode){
+		countryCodes.forEach(function(countryCode){
 			var country = countryFromCode(countryCode);
 			if (country && !isCountryAlreadyPresent(country)) {
 				$scope.geographicAdding += 1;
@@ -168,22 +178,22 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 				});
 			}
 		});
-		$scope.selectedCountryCodesToAdd = [];
+		countryCodes.splice(0, countryCodes.length);
 	};
 
-	$scope.canRemoveSelectedCountries = function() {
+	$scope.canRemoveSelectedCountries = function(countryCodes) {
 		if ($scope.geographicRemoving) {
 			return false;
 		}
-		return $scope.selectedCountryCodesToRemove.length > 0;
+		return countryCodes.length > 0;
 	};
 
-	$scope.removeSelectedCountries = function() {
-		$scope.selectedCountryCodesToRemove.forEach(function(countryCode){
+	$scope.removeSelectedCountries = function(countryCodes) {
+		countryCodes.forEach(function(countryCode){
 			var country = countryFromCode(countryCode);
 			removeCountry(country);
 		});
-		$scope.selectedCountryCodesToRemove = [];
+		countryCodes.splice(0, countryCodes.length);
 	};
 
 	function removeCountry(country) {
@@ -311,9 +321,9 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	};
 
 		
-	$scope.submitUsageReport = function() {
-		if ($scope.usageForm.$invalid) {
-			$scope.usageForm.attempted = true;
+	$scope.submitUsageReport = function(form) {
+		if (form.$invalid) {
+			form.attempted = true;
 			return;
 		}
 
