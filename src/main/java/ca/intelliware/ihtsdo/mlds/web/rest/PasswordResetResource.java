@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.service.MailService;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
+import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
+import ca.intelliware.ihtsdo.mlds.service.mail.PasswordResetEmailSender;
 
 import com.google.common.base.Strings;
 
@@ -29,24 +30,23 @@ public class PasswordResetResource {
 	@Resource UserRepository userRepository;
 	
 	@Resource PasswordResetService passwordResetService;
+	
+	@Resource PasswordResetEmailSender passwordResetEmailSender;
 
 	@RequestMapping(value=Routes.PASSWORD_RESET,
 			method = RequestMethod.POST,
     		produces = "application/json")
 	public ResponseEntity<String> requestPasswordReset(@RequestBody Map<String,Object> params) {
-		// validate email - bad request
+		// FIXME MLDS-20 validate email - bad request
 		// look up user - not found?
-		// send email
 		String emailAddress = (String) params.get("email");
 		Validate.notEmpty(emailAddress);
 		
-		User user = userRepository.getUserByEmail(emailAddress);
-		String tokenKey = passwordResetService.createTokenForUser(user);
+		final User user = userRepository.getUserByEmail(emailAddress);
 		
-		// send email with token
-		mailService.sendPasswordResetEmail(user, tokenKey);
+		final String tokenKey = passwordResetService.createTokenForUser(user);
 		
-		System.out.println("hello " + emailAddress);
+		passwordResetEmailSender.sendPasswordResetEmail(user, tokenKey);
 		
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}

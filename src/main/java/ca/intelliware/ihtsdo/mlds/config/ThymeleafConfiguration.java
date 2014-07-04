@@ -40,6 +40,8 @@ public class ThymeleafConfiguration {
         emailTemplateResolver.setTemplateMode("HTML5");
         emailTemplateResolver.setCharacterEncoding(CharEncoding.UTF_8);
         emailTemplateResolver.setOrder(1);
+        // FIXME MLDS-20 MB push this into yml config?
+        emailTemplateResolver.setCacheTTLMs(2000L);
         return emailTemplateResolver;
     }
 
