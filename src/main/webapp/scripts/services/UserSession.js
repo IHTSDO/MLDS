@@ -28,5 +28,9 @@ angular.module('MLDS')
 			service.applicationMade = true;
 		};
 		
+		service.reapplied = function reapplied() {
+			service.applicationMade = false;
+		};
+		
 		return service;
 	}]);
