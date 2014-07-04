@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
+import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 
 @Entity
 public class Application {
@@ -40,8 +41,11 @@ public class Application {
 	
 	@Column(name="organization_name")
 	String organizationName;
+	@Enumerated(EnumType.STRING)
 	@Column(name="organization_type")
-	String organizationType;
+	OrganizationType organizationType;
+	@Column(name="organization_type_other")
+	String organizationTypeOther;
 	
 	String street;
 	String city;
@@ -221,11 +225,11 @@ public class Application {
 		this.organizationName = organizationName;
 	}
 
-	public String getOrganizationType() {
+	public OrganizationType getOrganizationType() {
 		return organizationType;
 	}
 
-	public void setOrganizationType(String organizationType) {
+	public void setOrganizationType(OrganizationType organizationType) {
 		this.organizationType = organizationType;
 	}
 
@@ -264,5 +268,13 @@ public class Application {
 	public void setBillingPostCode(String billingPostCode) {
 		this.billingPostCode = billingPostCode;
 	}
-	
+
+	public String getOrganizationTypeOther() {
+		return organizationTypeOther;
+	}
+
+	public void setOrganizationTypeOther(String organizationTypeOther) {
+		this.organizationTypeOther = organizationTypeOther;
+	}
+
 }
