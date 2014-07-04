@@ -104,20 +104,19 @@ public class ApplicationController {
 		
 		application.setUsername(sessionService.getUsernameOrNull());
 		
-		application.setType(LicenseeType.valueOf(request.get("type").asText().toUpperCase()));
-		application.setSubType(request.get("usageSubType").asText());
+		application.setType(LicenseeType.valueOf(setField(request, "type").toUpperCase()));
+		application.setSubType(setField(request, "usageSubType"));
 		
-		application.setName(contact.get("name").asText());
-		application.setPhoneNumber(contact.get("phone").asText());
-		application.setMobileNumber(contact.get("mobilePhone").asText());
-		application.setEmail(contact.get("email").asText());
+		application.setName(setField(contact, "name"));
+		application.setPhoneNumber(setField(contact, "phone"));
+		application.setMobileNumber(setField(contact, "mobilePhone"));
+		application.setEmail(setField(contact, "email"));
 		
-		application.setAddress(address.get("street").asText());
-		application.setCity(address.get("city").asText());
-		application.setCountry(address.get("country").asText());
+		application.setAddress(setField(address, "street"));
+		application.setCity(setField(address, "city"));
+		application.setCountry(setField(address, "country"));
 		
-		// Optional Fields
-		application.setExtension(setField(contact, "extenstion"));
+		application.setExtension(setField(contact, "extension"));
 		application.setAlternateEmail(setField(contact, "alternateEmail"));
 		application.setThirdEmail(setField(contact, "thirdEmail"));
 		
@@ -142,6 +141,6 @@ public class ApplicationController {
 		if (jsonNode.get(attribute) != null) {
 			return jsonNode.get(attribute).asText();
 		}
-		return null;
+		return new String();
 	}
 }
