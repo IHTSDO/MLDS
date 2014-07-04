@@ -71,12 +71,13 @@ public class WebConfigurer implements ServletContextInitializer {
  // you can run this with SSL/TLS. For example, build the application (`mvn clean install`) in the `oauth` directory, then run:
     //   java -Dspring.profiles.active=production -Dserver.keystore.file=file:///`pwd`/src/main/resources/keystore.p12 -jar target/oauth-1.0.0.BUILD-SNAPSHOT.jar
     @Bean
-    @Profile("production")
+    @Profile("ssl")
     EmbeddedServletContainerCustomizer containerCustomizer(
-            @Value("${server.keystore.file}") Resource keystoreFile,
-            @Value("${server.keystore.pass}") final String keystorePass) throws Exception {
-
+            @Value("${keystore.file}") Resource keystoreFile,
+            @Value("${keystore.pass}") final String keystorePass) throws Exception {
         final String absoluteKeystoreFile = keystoreFile.getFile().getAbsolutePath();
+        
+        log.info("Web application configuration, SSL keystore: {}", absoluteKeystoreFile);
 
         return new EmbeddedServletContainerCustomizer() {
 			
@@ -96,7 +97,7 @@ public class WebConfigurer implements ServletContextInitializer {
 	                    proto.setKeystoreFile(absoluteKeystoreFile);
 	                    proto.setKeystorePass(keystorePass);
 	                    //proto.setKeystoreType("jks");
-	                    proto.setKeyAlias("tomcat");
+	                    //proto.setKeyAlias("tomcat");
 					}
                 });
 			}
