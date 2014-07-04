@@ -1,7 +1,7 @@
 'use strict';
 
-mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$location',
-    function ($scope, $translate, Register, $location) {
+mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$location', '$log',
+    function ($scope, $translate, Register, $location, $log) {
         $scope.success = null;
         $scope.error = null;
         $scope.doNotMatch = null;
@@ -24,8 +24,7 @@ mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$
                     },
                     function (httpResponse) {
                         $scope.success = null;
-                        if (httpResponse.status === 304 &&
-                                httpResponse.data.error && httpResponse.data.error === "Not Modified") {
+                        if (httpResponse.status === 304) {
                             $scope.error = null;
                             $scope.errorUserExists = "ERROR";
                         } else {

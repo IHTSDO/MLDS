@@ -7,7 +7,12 @@
 				<div class="col-sx-4 col-md-4 col-lg-4">
 						<div class="signin">
 								<form class="form" bs-validation name="createUserForm" ng-controller="RegisterController" ng-submit="register()">
-										<div ng-show="error.developerMessage" class="alert alert-danger">{{error.code}}-{{error.developerMessage}}</div>
+										<div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
+											<strong>Registration failed!</strong> Please check your input and try again.
+										</div>
+							            <div class="alert alert-danger" ng-show="errorUserExists" translate="register.messages.error.userexists">
+							                <strong>A user has already registered with that email address.</strong> Did you mean to login?
+							            </div>
 										<h4 class="form-signin-heading">Register</h4>
 										<div class="form-group">
 												<input ng-model="registerAccount.firstName" name="name" type="text" class="form-control" placeholder="Your name" required autofocus>
