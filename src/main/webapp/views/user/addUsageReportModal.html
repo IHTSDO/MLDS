@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h3 class="modal-title">Create Usage Declaration</h3>
+</div>
+<div class="modal-body">
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  
+  <p>Page Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat.</p>
+  
+  <form name="addRange" bs-validation>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-6">
+          <label>Declaration Period</label>
+          <select ng-model="selectedRange" ngRequired  ng-options="range.description for range in ranges"></select> 
+        </div>
+      </div>
+    </div>
+   </form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	
+	<button class="btn btn-success" ng-show="addRange.$invalid" ng-click="addRange.submitAttempted = true"><i class="fa fa-plus"></i> Add</button>
+	<button class="btn btn-success" ng-click="add(selectedRange)" ng-show="!addRange.$invalid" ng-disabled="submitting">
+		Add
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
+</div>

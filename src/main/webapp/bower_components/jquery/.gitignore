@@ -12,5 +12,3 @@ dist/.destination.json
 dist/.sizecache.json
 build/.sizecache.json
 node_modules
-/test
-/speed
