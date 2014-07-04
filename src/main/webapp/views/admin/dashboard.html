@@ -3,7 +3,7 @@
 	
 	<h3>Registered Users</h3>
 	<ul ng-controller="UserListController">
-	<li ng-repeat="user in users">{{user.email}}</li>
+	<li ng-repeat="user in users">{{user.login}}</li>
 	</ul>
 	
 	<h3>Blacklisted Domains</h3>
@@ -32,16 +32,12 @@
 			<th>user</th>
 			<th>approved</th>
 			<th>type</th>
-			<th>applicantType</th>
-			<th>snomed license</th>
 			<th>actions</th>
 		</tr>
 		<tr ng-repeat="application in applications">
 			<td>{{application.username}}</td>
 			<td>{{application.approved}}</td>
 			<td>{{application.type}}</td>
-			<td>{{application.applicantType}}</td>
-			<td>{{application.snoMedLicence}}</td>
 			<td><button class="btn btn-default" ng-disabled="application.approved" ng-click="approveApplication(application.username)">Approve Application</button></td>
 		</tr>
 	</table>
