@@ -131,7 +131,7 @@ public class ApplicationController {
 		application.setOtherText(setField(request, "otherText"));
 
 		// FIXME MB map unset to false?
-		application.setSnoMedLicence(request.get("snoMedTC").asBoolean());
+		application.setSnoMedLicence(Boolean.parseBoolean(setField(request, "snoMedTC")));
 		
 		// FIXME AC application approval status needs to set by Staff Users
 		application.setApproved(true);
