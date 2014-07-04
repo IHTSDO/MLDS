@@ -107,7 +107,7 @@
             "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
             "error": {
                 "fail": "<strong>Registration failed!</strong> Please try again later.",
-                "userexists": "<strong>Login name already registered!</strong> Please choose another one."
+                "userexists": "<strong>A user has already registered with that email address.</strong> Did you mean to login?"
             }
         }
     },
