@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h3 class="modal-title">Add Institution</h3>
+  <h3 class="modal-title">Add Hospital</h3>
 </div>
 <div class="modal-body">
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
@@ -8,7 +8,7 @@
     <div class="row">
       <div class="form-group">
         <div class="col-md-6">
-          <label>Institution Name</label> 
+          <label>Hospital Name</label> 
           <input class="form-control" placeholder="Enter Institution Name" name="name" ng-model="institution.name" ng-required="true">
           <span ng-show="formInstitution.name.$error.required && submitAttempted" class="help-block">Required Field</span>
         </div>
