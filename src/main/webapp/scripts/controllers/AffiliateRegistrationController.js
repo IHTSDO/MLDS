@@ -29,6 +29,7 @@ mldsApp.controller('AffiliateRegistrationController',
     				$scope.isSameAddress = checkAddresses($scope.affiliateform.address, $scope.affiliateform.billing);
     				$scope.affiliateform.organization.name = data.organizationName ? data.organizationName : '';
     				$scope.affiliateform.organization.type = data.organizationType;
+    				$scope.affiliateform.organization.typeOther = data.organizationTypeOther ? data.organizationTypeOther : '';
     				$scope.affiliateform.otherText = data.otherText ? data.otherText : '';
         		});
         	};
