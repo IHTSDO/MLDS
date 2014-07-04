@@ -64,7 +64,7 @@ public class ApplicationController {
 	public Object submitApplication(@RequestBody JsonNode request) {
 		Application application = saveApplicationFields(request);
 		// Mark application as submitted
-		application.isSubmitted();
+		application.setStatus();
 		applicationRepository.save(application);
 		
 		//FIXME should be a different trigger and way to connect applications with licensee

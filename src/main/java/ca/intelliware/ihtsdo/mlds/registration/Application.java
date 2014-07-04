@@ -235,8 +235,12 @@ public class Application {
 		this.isSubmitted = false;
 	}
 
-	public void isSubmitted() {
+	public void setStatus() {
 		this.isSubmitted = true;
+	}
+	
+	public boolean isSubmitted() {
+		return this.isSubmitted;
 	}
 
 }
