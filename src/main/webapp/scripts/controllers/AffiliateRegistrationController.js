@@ -20,9 +20,11 @@ mldsApp.controller('AffiliateRegistrationController',
     				$scope.affiliateform.contact.mobilePhone = data.mobileNumber ? data.mobileNumber : '';
     				$scope.affiliateform.address.street = data.address ? data.address : '';
     				$scope.affiliateform.address.city = data.city ? data.city : '';
+    				$scope.affiliateform.address.postCode = data.postCode ? data.postCode : '';
     				$scope.affiliateform.address.country = data.country ? data.country : '';
     				$scope.affiliateform.billing.street = data.billingStreet ? data.billingStreet : '';
     				$scope.affiliateform.billing.city = data.billingCity ? data.billingCity : '';
+    				$scope.affiliateform.billing.postCode = data.billingPostCode ? data.billingPostCode : '';
     				$scope.affiliateform.billing.country = data.billingCountry ? data.billingCountry : '';
     				$scope.isSameAddress = checkAddresses($scope.affiliateform.address, $scope.affiliateform.billing);
     				$scope.affiliateform.organization.name = data.organizationName ? data.organizationName : '';
@@ -91,6 +93,7 @@ mldsApp.controller('AffiliateRegistrationController',
         			$scope.affiliateform.billing = {};
         			$scope.affiliateform.billing.street = $scope.affiliateform.address.street;
         			$scope.affiliateform.billing.city = $scope.affiliateform.address.city;
+        			$scope.affiliateform.billing.postCode = $scope.affiliateform.address.postCode;
         			$scope.affiliateform.billing.country = $scope.affiliateform.address.country;
         		};
         	};
