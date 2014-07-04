@@ -1,0 +1,70 @@
+server:
+    port: 8080
+
+spring:
+    profiles: dev
+    
+    datasource:
+        dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
+        url: jdbc:postgresql:mlds
+        databaseName: mlds
+        serverName: localhost
+        username: mlds
+        password: password
+
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        database: POSTGRESQL
+        openInView: false
+        show_sql: true
+        generate-ddl: false
+        hibernate:
+            ddl-auto: none
+            naming-strategy: org.springframework.boot.orm.jpa.SpringNamingStrategy
+        properties:
+            hibernate.cache.use_second_level_cache: true
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+            hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+
+    mail:
+        baseUrl: http://localhost:8080
+        from: mlds@mailinator.com
+        host: mail.intware.com
+        port: 25
+        user:
+        password:
+        protocol: smtp
+        tls: false
+        auth: false
+
+    thymeleaf:
+        mode: XHTML
+        cache: false
+
+metrics:
+    jmx.enabled: true
+    graphite:
+        enabled: false
+        host: localhost
+        port: 2003
+
+cache:
+    timeToLiveSeconds: 3600
+    ehcache:
+        maxBytesLocalHeap: 16M
+
+# You can add as many as folders to watch
+# You just need to add a dash + the directory to watch
+hotReload:
+    enabled: true
+    package:
+      project: ca.intelliware.ihtsdo.mlds
+      domain: ca.intelliware.ihtsdo.mlds.domain
+      restdto: ca.intelliware.ihtsdo.mlds.web.rest.dto
+    liquibase:
+      defaultCatalogName: 
+      defaultSchema: public
+      excludeTables: 
+    watchdir:
+      - target/classes

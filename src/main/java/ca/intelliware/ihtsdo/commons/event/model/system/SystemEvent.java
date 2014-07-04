@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 
 import org.hibernate.annotations.AccessType;
 
-import ca.intelliware.ihtsdo.commons.event.model.Event;
+import ca.intelliware.ihtsdo.mlds.domain.Event;
 
 /**
  * <p>An event type that represents system events.  System events could include
