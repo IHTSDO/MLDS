@@ -84,15 +84,13 @@ mldsApp
                 		authorizedRoles: [USER_ROLES.all]
                 	}
                 })
-                /*
-                .when('/passwordReset', {
-                	templateUrl: 'views/passwordReset.html',
-                	controller: 'passwordResetController',
+                .when('/resetPassword', {
+                	templateUrl: 'views/resetPassword.html',
+                	controller: 'ResetPasswordController',
                 	access: {
                 		authorizedRoles: [USER_ROLES.all]
                 	}
                 })
-                */
                 .when('/sessions', {
                     templateUrl: 'views/sessions.html',
                     controller: 'SessionsController',
@@ -218,6 +216,7 @@ mldsApp
                     		$location.path() !== "/register" &&
                     		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
+                    		$location.path() !== "/resetPassword" &&
                             $location.path() !== "/activate") {
                         $location.path('/login').replace();
                     }

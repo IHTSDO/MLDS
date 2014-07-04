@@ -35,7 +35,7 @@ public class ApplicationController {
 		return applicationRepository.findAll();
 	}
 	
-	@RequestMapping(value="api/applications/approve")
+	@RequestMapping(value="api/application/approve")
 	public Object approveApplication(@RequestParam String email) {
 		List<Application> applications = applicationRepository.findByUsername(email);
 		if (applications.size() == 0) {
@@ -50,38 +50,21 @@ public class ApplicationController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/api/applications/create",method=RequestMethod.POST)
-	public Object createApplication(@RequestBody JsonNode request) {
-		System.out.println("in call " + request);
-        JsonNode organization = request.get("organization");
-        JsonNode contact = request.get("contact");
-        JsonNode address = request.get("address");
-        JsonNode billing = request.get("billing");
-
-		
+	@RequestMapping(value="/api/application", method=RequestMethod.GET)
+	public Object getUserApplication(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
-		Application application = new Application();
-		
 		if (applications.size() > 0) {
-			application = applications.get(0);
+			return new ResponseEntity<Application>(applications.get(0), HttpStatus.OK);
 		}
 		
-		application.setUsername(sessionService.getUsernameOrNull());
-		
-		application.setType(LicenseeType.valueOf(request.get("type").asText().toUpperCase()));
-		application.setSubType(request.get("usageSubType").asText());
-		
-		application.setName(contact.get("name").asText());
-		application.setPhoneNumber(contact.get("phone").asText());
-		
-		application.setAddress(address.get("street").asText());
-		application.setCity(address.get("city").asText());
-		application.setCountry(address.get("country").asText());
-
-		// FIXME MB map unset to false?
-		application.setSnoMedLicence(request.get("snoMedTC").asBoolean());
-		
-		application.setApproved(true);
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value="/api/application/submit",method=RequestMethod.POST)
+	public Object submitApplication(@RequestBody JsonNode request) {
+		Application application = saveApplicationFields(request);
+		// Mark application as submitted
+		application.setStatus();
 		applicationRepository.save(application);
 		
 		//FIXME should be a different trigger and way to connect applications with licensee
@@ -92,5 +75,72 @@ public class ApplicationController {
 		licenseeRepository.save(licensee);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/api/application/save",method=RequestMethod.POST)
+	public Object saveApplication(@RequestBody JsonNode request) {
+		
+        Application application = saveApplicationFields(request);
+		// Mark application as not submitted
+		application.resetStatus();
+		
+		applicationRepository.save(application);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	private Application saveApplicationFields(JsonNode request) {
+		JsonNode organization = request.get("organization");
+        JsonNode contact = request.get("contact");
+        JsonNode address = request.get("address");
+        JsonNode billing = request.get("billing");
+
+		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
+		Application application = new Application();
+		
+		if (applications.size() > 0) {
+			application = applications.get(0);
+		}
+		
+		application.setUsername(sessionService.getUsernameOrNull());
+		
+		application.setType(LicenseeType.valueOf(setField(request, "type").toUpperCase()));
+		application.setSubType(setField(request, "usageSubType"));
+		
+		application.setName(setField(contact, "name"));
+		application.setPhoneNumber(setField(contact, "phone"));
+		application.setMobileNumber(setField(contact, "mobilePhone"));
+		application.setEmail(setField(contact, "email"));
+		
+		application.setAddress(setField(address, "street"));
+		application.setCity(setField(address, "city"));
+		application.setCountry(setField(address, "country"));
+		
+		application.setExtension(setField(contact, "extension"));
+		application.setAlternateEmail(setField(contact, "alternateEmail"));
+		application.setThirdEmail(setField(contact, "thirdEmail"));
+		
+		application.setOrganizationName(setField(organization, "name"));
+		application.setOrganizationType(setField(organization, "type"));
+		
+		application.setBillingStreet(setField(billing, "street"));
+		application.setBillingCity(setField(billing, "city"));
+		application.setBillingCountry(setField(billing, "country"));
+		
+		application.setOtherText(setField(request, "otherText"));
+
+		// FIXME MB map unset to false?
+		application.setSnoMedLicence(Boolean.parseBoolean(setField(request, "snoMedTC")));
+		
+		// FIXME AC application approval status needs to set by Staff Users
+		application.setApproved(true);
+		return application;
+	}
+	
+	private String setField(JsonNode jsonNode, String attribute) {
+		if (jsonNode.get(attribute) != null) {
+			return jsonNode.get(attribute).asText();
+		}
+		return new String();
 	}
 }

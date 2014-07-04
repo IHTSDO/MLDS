@@ -89,7 +89,7 @@
     "activate": {
         "title": "Aktivierung",
         "messages": {
-            "success": "<strong>Ihr Benutzer wurde aktiviert.</strong> Bitte <a href=\"#/login\">anmelden</a>.",
+            "success": "<strong>Ihr Benutzer wurde aktiviert.</strong> ",
             "error": "<strong>Ihr Benutzer konnte nicht aktiviert werden.</strong> Bitte benutzen Sie die Registrierungsmaske, um sich zu einzutragen."
         }
     },
