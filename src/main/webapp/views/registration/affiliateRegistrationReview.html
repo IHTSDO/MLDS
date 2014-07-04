@@ -28,7 +28,10 @@
   			<ul class="list-group" ng-show="affiliateform.type!='INDIVIDUAL'">
   				<h4>Organisation:</h4>
   				<li class="list-group-item"><strong>Organization Name:</strong> {{affiliateform.organization.name}}</li>
-  				<li class="list-group-item"><strong>Organization Type:</strong> {{affiliateform.organization.type}}</li>
+  				<li class="list-group-item"><strong>Organization Type:</strong>
+  					<span ng-show="affiliateform.organization.type=='OTHER'">{{affiliateform.organization.typeOther}}</span>
+  					<span ng-show="affiliateform.organization.type!='OTHER'">{{affiliateform.organization.type}}</span> 
+ 					</li>
   				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.address.street}}</li>
   				<li class="list-group-item"><strong>City:</strong> {{affiliateform.address.city}}</li>
   				<li class="list-group-item"><strong>Post Code:</strong> {{affiliateform.address.postCode}}</li>
