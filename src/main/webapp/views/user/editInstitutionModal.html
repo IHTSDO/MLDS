@@ -11,7 +11,7 @@
         <div class="col-md-6">
           <label>Hospital Name</label> 
           <input class="form-control" placeholder="Enter Institution Name" name="name" ng-model="institution.name" ng-required="true">
-          <span ng-show="newInstitution.name.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formInstitution.name.$error.required && attemptedSubmit" class="help-block">Required Field</span>
         </div>
       </div>
     </div>
@@ -25,7 +25,7 @@
 					is-open="datepickers.startDate" close-text="Close"/> 
 				<span class="input-group-addon" ng-click="open($event, 'startDate')"><i class="fa fa-calendar"></i></span>
 			</div>
-			<span ng-show="newInstitution.startDate.$error.required && submitAttempted" class="help-block">Required Field</span>
+			<span ng-show="formInstitution.startDate.$error.required && attemptedSubmit" class="help-block">Required Field</span>
 		</div>
 
 		<div class="col-md-4 form-group">
