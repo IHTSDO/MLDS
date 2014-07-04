@@ -40,8 +40,10 @@ import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
 import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
-import ca.intelliware.ihtsdo.mlds.service.MailService;
+import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
+import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
+import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
 import ca.intelliware.ihtsdo.mlds.web.UserInfo;
 import ca.intelliware.ihtsdo.mlds.web.UserInfoCalculator;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
@@ -78,6 +80,8 @@ public class AccountResource {
     @Inject
     private MailService mailService;
     
+    @Resource DuplicateRegistrationEmailSender duplicateRegistrationEmailSender;
+    
     @Inject
     private UserInfoCalculator userInfoCalculator;
 
@@ -90,6 +94,8 @@ public class AccountResource {
     @Resource
     ApplicationRepository applicationRepository;
     
+	@Resource PasswordResetService passwordResetService;
+
     /**
      * POST  /rest/register -> register the user.
      */
@@ -102,7 +108,8 @@ public class AccountResource {
                                              HttpServletResponse response) {
         User user = userRepository.findOne(userDTO.getLogin());
         if (user != null) {
-        	mailService.sendDuplicateRegistrationEmail(user);
+        	String passwordResetToken = passwordResetService.createTokenForUser(user);
+			duplicateRegistrationEmailSender.sendDuplicateRegistrationEmail(user,passwordResetToken );
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         } else {
         	if (domainBlacklistService.isDomainBlacklisted(userDTO.getEmail())) {
