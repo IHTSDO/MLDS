@@ -3,49 +3,47 @@
 </div>
 <div class="modal-body">
   <div class="row">
-		<div class="col-sm-6 col-md-12 col-lg-12">
-			<h4>Usage Type:</h4>
-			<p>{{affiliateform.type}}</p>
-			<p>{{affiliateform.usageSubType}}</p>
-		</div>
-		<div class="col-sm-6 col-md-12 col-lg-12">
-			<h4>Contact Information:</h4>
-			<div>
-				{{affiliateform.contact.name}}<br>
-				{{affiliateform.contact.email}}<br>
-				{{affiliateform.contact.phone}}
-				<span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span> <br>
-				{{affiliateform.contact.mobilePhone}}<br>
-			</div>
-			<div ng-show="affiliateform.type=='Individual'">
-				{{affiliateform.address.street}}<br>
-				{{affiliateform.address.city}}<br>
-				{{affiliateform.address.country}}<br>
-			</div>
-		</div>
-		<div class="col-sm-6 col-md-12 col-lg-12">
-			<div ng-show="affiliateform.type!='Individual'">
-				<h4>Organisation:</h4>
-				<div>
-					{{affiliateform.organization.name}}<br>
-					{{affiliateform.address.street}}<br>
-					{{affiliateform.address.city}}<br>
-					{{affiliateform.address.country}}<br>
-					{{affiliateform.contact.phone}}
-					<span ng-show="affiliateform.contactextension">ext: {{affiliateform.contact.extension}}</span><br>
-					{{affiliateform.contact.alternateEmail}}<br>
-					{{affiliateform.contactthirdEmail}}<br>
-					{{otherText}}
-				</div>
-				<div ng-show="affiliateform.type=='Commercial'">
-					<h5>Billing Address</h5>
-					{{affiliateform.billing.street}}<br>
-					{{affiliateform.billing.city}}<br>
-					{{affiliateform.billing.country}}<br>
-				</div>
-				
-			</div>
-	  </div>
+  		<div class="col-sm-6 col-md-6 col-lg-6">
+  			<h4>Usage Type:</h4>
+  			<ul class="list-group">
+  				<li class="list-group-item"><strong>Type:</strong> {{affiliateform.type}}</li>
+  				<li class="list-group-item"><strong>Sub-Type:</strong> {{affiliateform.usageSubType}}</li>
+  			</ul>
+
+  			<h4>Contact Information:</h4>
+  			<ul class="list-group">
+  				<li class="list-group-item"><strong>Name:</strong> {{affiliateform.contact.name}}</li>
+  				<li class="list-group-item"><strong>Email:</strong> {{affiliateform.contact.email}}</li>
+  				<li class="list-group-item"><strong>Land-line Phone:</strong> {{affiliateform.contact.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></li>
+  				<li class="list-group-item"><strong>Mobile Phone Number:</strong> {{affiliateform.contact.mobilePhone}}</li>
+  			</ul>
+
+  			<ul class="list-group" ng-show="affiliateform.type=='Individual'">
+  				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.address.street}}</li>
+  				<li class="list-group-item"><strong>City:</strong> {{affiliateform.address.city}}</li>
+  				<li class="list-group-item"><strong>Country:</strong> {{affiliateform.address.country}}</li>
+  			</ul>
+
+  			<ul class="list-group" ng-show="affiliateform.type!='Individual'">
+  				<h4>Organisation:</h4>
+  				<li class="list-group-item"><strong>Organization Name:</strong> {{affiliateform.organization.name}}</li>
+  				<li class="list-group-item"><strong>Organization Type:</strong> {{affiliateform.address.street}}</li>
+  				<li class="list-group-item"><strong>Address</strong> {{affiliateform.address.country}}</li>
+  				<li class="list-group-item"><strong>Address</strong> {{affiliateform.contact.phone}} <span ng-show="affiliateform.contactextension">ext: {{affiliateform.contact.extension}}</span></li>
+  				<li class="list-group-item"><strong>Alternate Email</strong> {{affiliateform.contact.alternateEmail}}</li>
+  				<li class="list-group-item"><strong>Third Email</strong> {{affiliateform.contactthirdEmail}}</li>
+  				<li class="list-group-item"><strong>Other</strong>{{otherText}}</li>
+  			</ul>
+
+
+  			<ul class="list-group" ng-show="affiliateform.type=='Commercial'">
+  				<h4>Billing Address</h4>
+  				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.billing.street}}</li>
+  				<li class="list-group-item"><strong>City:</strong> {{affiliateform.billing.city}}</li>
+				<li class="list-group-item"><strong>Country:</strong> {{affiliateform.billing.country}}</li>
+  			</ul>
+
+  		</div>
 	</div>
 </div>
 
