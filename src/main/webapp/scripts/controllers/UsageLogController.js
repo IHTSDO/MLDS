@@ -57,8 +57,6 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			$scope.usageByCountry[countryCode] = countrySection;
 			$scope.currentCountries.push(country);
 			$scope.usageByCountryList.push(countrySection);
-			sortByNameProperty($scope.usageByCountryList, 'country.commonName');
-			sortByNameProperty($scope.currentCountries, 'commonName');
 		}
 		return countrySection;
 	};
@@ -96,6 +94,8 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			}
 		});
 		sortByNameProperty($scope.availableCountries, 'commonName');
+		sortByNameProperty($scope.usageByCountryList, 'country.commonName');
+		sortByNameProperty($scope.currentCountries, 'commonName');
 	};
 	
 	CountryService.ready.then(function() {
