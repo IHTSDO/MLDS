@@ -47,7 +47,8 @@
                 "register": "You don't have an account yet? <a href=\"#/register\">Register a new account</a>"
             },
             "error": {
-                "dontmatch" : "The password and its confirmation do not match!"
+                "dontmatch" : "The password and its confirmation do not match!",
+                "server" : "An error occurred.  Repeating the action may succeed."
             },
             "validate": {
                 "newpassword": {
@@ -89,7 +90,7 @@
     "activate": {
         "title": "Activation",
         "messages": {
-            "success": "<strong>Your user has been activated.</strong> Please <a href=\"#/login\">authenticate</a>.",
+            "success": "<strong>Your user has been activated.</strong> Please continue your registration.",
             "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up."
         }
     },
@@ -160,7 +161,8 @@
         },
         "messages": {
             "error":  "<strong>An error has occured!</strong> The password could not be changed.",
-            "success": "<strong>Password changed!</strong>"
+            "success": "<strong>Password changed!</strong>",
+            "expired": "<strong>The reset link has expired or was invalid.</strong> <a href='#/requestPasswordReset'>Request another reset</a>"
         }
     },
     "sessions": {

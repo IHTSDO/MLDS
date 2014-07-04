@@ -48,19 +48,6 @@ mldsApp.controller('SettingsController', ['$scope', 'Account',
     }]);
 
 
-mldsApp.controller('ActivationController', ['$scope', '$routeParams', 'Activate',
-    function ($scope, $routeParams, Activate) {
-        Activate.get({key: $routeParams.key},
-            function (value, responseHeaders) {
-                $scope.error = null;
-                $scope.success = 'OK';
-            },
-            function (httpResponse) {
-                $scope.success = null;
-                $scope.error = "ERROR";
-            });
-    }]);
-
 mldsApp.controller('PasswordController', ['$scope', 'Password',
     function ($scope, Password) {
         $scope.success = null;
