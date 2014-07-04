@@ -9,6 +9,7 @@ mldsApp.controller('AffiliateRegistrationController',
         		var queryPromise =  UserRegistrationService.getApplications();
         		
         		queryPromise.success(function(data) {
+        			$log.log("loadApplication", data[0]);
         			$scope.affiliateform.type = data[0].type;
         			$scope.affiliateform.usageSubType = data[0].subType;
         			$scope.affiliateform.contact.name = data[0].name;
@@ -44,6 +45,12 @@ mldsApp.controller('AffiliateRegistrationController',
         	
     		$scope.affiliateform.contact.name = Session.firstName;
         	$scope.affiliateform.contact.email = Session.email;
+        	
+        	$scope.saveApplication = function() {
+    			UserRegistrationService.saveApplication($scope.affiliateform);
+        	};
+        	
+        	$scope.submit = $scope.saveApplication;
         	
         	$scope.openReviewModal = function(affiliateForm) {
         		// Only open review modal when form is valid
