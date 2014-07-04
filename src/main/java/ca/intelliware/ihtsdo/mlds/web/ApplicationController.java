@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
+import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
@@ -76,7 +77,7 @@ public class ApplicationController {
 		}
 		licensee.setCreator(application.getUsername());
 		licensee.setApplication(application);
-		licensee.setType(application.getType());
+		licensee.setType(LicenseeType.valueOf(application.getType()));
 		licenseeRepository.save(licensee);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
