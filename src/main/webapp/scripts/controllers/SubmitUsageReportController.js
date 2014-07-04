@@ -2,12 +2,15 @@
 
 angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 
                                                        	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport) {
+	$scope.attemptedSubmit = false;
+	$scope.submitting = false;
 	$scope.alerts = [];
 	
 	$scope.commercialUsageReport = commercialUsageReport;
 	
 	$scope.submit = function(){
 		$scope.submitting = true;
+		$scope.alerts.splice(0, $scope.alerts.length);
 		
 		CommercialUsageService.submitUsageReport($scope.commercialUsageReport)
 			.then(function(result) {

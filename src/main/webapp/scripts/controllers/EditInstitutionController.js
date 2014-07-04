@@ -8,6 +8,7 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 	
 	$scope.attemptedSubmit = false;
 	$scope.submitting = false;
+	$scope.alerts = [];
 	
 	$scope.cancel = function() {
 		$modalInstance.dismiss();
@@ -15,6 +16,8 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 	
 	$scope.updateInstitution = function() {
 		$scope.submitting = true;
+		$scope.alerts.splice(0, $scope.alerts.length);
+		
 		CommercialUsageService.updateUsageEntry($scope.usageReport, $scope.institution)
 			.then(function(result) {
 				$modalInstance.close(result);		

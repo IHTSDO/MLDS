@@ -9,6 +9,7 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
 	
 	$scope.add = function(range){
 		$scope.submitting = true;
+		$scope.alerts.splice(0, $scope.alerts.length);
 		
 		CommercialUsageService.createUsageReport(licenseeId, range.startDate, range.endDate)
 			.then(function(result) {
