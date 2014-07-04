@@ -49,6 +49,18 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 					url: 'api/application/approve',
 					params: {email: username}
 				});
+			},
+			
+			getOrganizationTypes: function getOrganizationTypes() {
+				return [
+					{name:'Public Health Organization'},
+					{name:'Private Health Organization'},
+					{name:'Research and Development Organization'},
+					{name:'Healthcare Application Developer'},
+					{name:'Healthcare Application Provider'},
+					{name:'General Practitioner Practice'},
+					{name:'Educational Institute'}
+				];
 			}
 		};
 		
