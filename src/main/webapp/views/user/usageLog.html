@@ -115,21 +115,19 @@
 				</h4>
 			</div>
 			<div class="panel-body" collapse="collapsePanel.sublicensed">
-				<div ng-repeat="countryUsage in usageByCountryList">
-            <div class="row space">
-                       <div class="form-group">
-                         <div class="col-xs-12  col-md-12 ">
-                            <div class="pull-right">
-                              <a class="btn btn-success" ng-click="addInstitutionModal(countryUsage.country)">Add Institution</a>
-                             <a class="btn btn-danger" ng-click="removeCountryModal(countryUsage.count)">Remove Country</a>
-                           </div>
-                            <h3 class="country-title">{{countryUsage.country.commonName}}</h3>
-                            
-                         </div>
-                        <div>
-                          <div class="col-xs-6  col-md-4 col-lg-4" ng-hide="readOnly">
-						                
+				<div class="country-listing" ng-repeat="countryUsage in usageByCountryList">
+            <div class="row space country-heading">
+                    <div class="form-group ">
+                          <div class="col-xs-3 col-md-6 col-lg-6" ng-hide="readOnly">
+                             <h3 class="country-title">{{countryUsage.country.commonName}}</h3>
                           </div>
+                         <div class="col-xs-3 col-md-6 col-lg-6">
+                            <div class="pull-right">
+                            <a class="btn btn-success" ng-click="addInstitutionModal(countryUsage.country)">Add Institution</a>
+                             <a class="btn btn-danger" ng-click="removeCountryModal(countryUsage.count)">Remove Country</a>
+                         </div>
+                        </div>
+                        
                   </div>
 					</div>
 					<div class="col-lg-12">
