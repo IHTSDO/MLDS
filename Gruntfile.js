@@ -20,10 +20,10 @@ module.exports = function (grunt) {
       dist: 'src/main/webapp/dist'
     },
     watch: {
-      compass: {
-        files: ['src/main/scss/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
-      },
+      //compass: {
+      //  files: ['src/main/scss/{,*/}*.{scss,sass}'],
+      //  tasks: ['compass:server', 'autoprefixer']
+      //},
     styles: {
         files: ['src/main/webapp/styles/{,*/}*.css'],
         tasks: ['copy:styles', 'autoprefixer']
@@ -167,7 +167,7 @@ module.exports = function (grunt) {
     },
     compass: {
       options: {
-        sassDir: 'src/main/scss',
+        //sassDir: 'src/main/scss',
         cssDir: 'src/main/webapp/styles',
         generatedImagesDir: '.tmp/images/generated',
         imagesDir: 'src/main/webapp/images',
