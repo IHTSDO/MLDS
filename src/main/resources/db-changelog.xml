@@ -155,4 +155,18 @@
             </column>
     	</addColumn>
     </changeSet>
+    
+     <changeSet author="AC" id="MLDS-04-6">
+      <addColumn tableName="application">
+            <column name="billing_post_code" type="VARCHAR(255)"/>
+    	</addColumn>
+    	<addColumn tableName="application">
+            <column name="post_code" type="VARCHAR(255)"/>
+    	</addColumn>
+    </changeSet>
+     <changeSet author="AC" id="MLDS-04-7">
+      <addColumn tableName="application">
+            <column name="organization_type_other" type="VARCHAR(255)"/>
+    	</addColumn>
+    </changeSet>
 </databaseChangeLog>

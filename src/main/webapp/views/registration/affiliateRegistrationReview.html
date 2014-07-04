@@ -18,29 +18,37 @@
   				<li class="list-group-item"><strong>Mobile Phone Number:</strong> {{affiliateform.contact.mobilePhone}}</li>
   			</ul>
 
-  			<ul class="list-group" ng-show="affiliateform.type=='Individual'">
+  			<ul class="list-group" ng-show="affiliateform.type=='INDIVIDUAL'">
   				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.address.street}}</li>
   				<li class="list-group-item"><strong>City:</strong> {{affiliateform.address.city}}</li>
+  				<li class="list-group-item"><strong>Post Code:</strong> {{affiliateform.address.postCode}}</li>
   				<li class="list-group-item"><strong>Country:</strong> {{affiliateform.address.country}}</li>
   			</ul>
 
-  			<ul class="list-group" ng-show="affiliateform.type!='Individual'">
+  			<ul class="list-group" ng-show="affiliateform.type!='INDIVIDUAL'">
   				<h4>Organisation:</h4>
   				<li class="list-group-item"><strong>Organization Name:</strong> {{affiliateform.organization.name}}</li>
-  				<li class="list-group-item"><strong>Organization Type:</strong> {{affiliateform.address.street}}</li>
-  				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.address.country}}</li>
-  				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.contact.phone}} <span ng-show="affiliateform.contactextension">ext: {{affiliateform.contact.extension}}</span></li>
+  				<li class="list-group-item"><strong>Organization Type:</strong>
+  					<span ng-show="affiliateform.organization.type=='OTHER'">{{affiliateform.organization.typeOther}}</span>
+  					<span ng-show="affiliateform.organization.type!='OTHER'">{{affiliateform.organization.type}}</span> 
+ 					</li>
+  				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.address.street}}</li>
+  				<li class="list-group-item"><strong>City:</strong> {{affiliateform.address.city}}</li>
+  				<li class="list-group-item"><strong>Post Code:</strong> {{affiliateform.address.postCode}}</li>
+  				<li class="list-group-item"><strong>Country:</strong> {{affiliateform.address.country}}</li>
+  				<li class="list-group-item"><strong>Phone:</strong> {{affiliateform.contact.phone}} <span ng-show="affiliateform.contactextension">ext: {{affiliateform.contact.extension}}</span></li>
   				<li class="list-group-item"><strong>Alternate Email:</strong> {{affiliateform.contact.alternateEmail}}</li>
-  				<li class="list-group-item"><strong>Third Email:</strong> {{affiliateform.contactthirdEmail}}</li>
-  				<li class="list-group-item"><strong>Other:</strong>{{otherText}}</li>
+  				<li class="list-group-item" ng-show="affiliateform.type=='COMMERCIAL'"><strong>Third Email:</strong> {{affiliateform.contactthirdEmail}}</li>
+  				<li class="list-group-item" ng-show="affiliateform.type=='OTHER'"><strong>Other:</strong>{{otherText}}</li>
   			</ul>
 
 
-  			<ul class="list-group" ng-show="affiliateform.type=='Commercial'">
+  			<ul class="list-group" ng-show="affiliateform.type=='COMMERCIAL'">
   				<h4>Billing Address</h4>
   				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.billing.street}}</li>
   				<li class="list-group-item"><strong>City:</strong> {{affiliateform.billing.city}}</li>
-				<li class="list-group-item"><strong>Country:</strong> {{affiliateform.billing.country}}</li>
+					<li class="list-group-item"><strong>Post Code:</strong> {{affiliateform.billing.postCode}}</li>
+					<li class="list-group-item"><strong>Country:</strong> {{affiliateform.billing.country}}</li>
   			</ul>
 
   		</div>
@@ -48,6 +56,6 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-success" ng-click="ok()">OK</button>
     <button class="btn btn-link" ng-click="cancel()">Cancel</button>
 </div>
