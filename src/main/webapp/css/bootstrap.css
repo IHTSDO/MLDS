@@ -5997,7 +5997,7 @@ button.close {
   padding-top: 40px;
   margin-top: 120px;
 }
-#submit-usage {
+.submit-usage {
   border-top: 2px solid #e0e0e0;
   padding: 10px 0;
 }
