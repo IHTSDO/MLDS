@@ -172,13 +172,19 @@ mldsApp
             tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js')
             tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
             
-//            var networkDelay = 3000;
+//            var apiDelay = 3000;
+//            var otherDelay = 0;
+//            var errorMethodMatches = /PUT|DELETE|POST/;
 //            var delayHandlerFactory = function($q, $timeout) {
 //                return function(promise) {
 //                    return promise.then(function(response) {
 //                        return $timeout(function() {
-//                            return response;
-//                        }, networkDelay);
+//                        	if (errorMethodMatches.test(response.config.method)) {
+//                        		return $q.reject(response);		
+//                        	} else {
+//                        		return response;
+//                        	}
+//                        }, (response.config.url.indexOf('/rest') !== -1 ? apiDelay : otherDelay));
 //                    }, function(response) {
 //                        return $q.reject(response);
 //                    });

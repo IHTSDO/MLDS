@@ -8,6 +8,7 @@ angular.module('MLDS').controller('EditCountController', ['$scope', '$modalInsta
 	
 	$scope.attemptedSubmit = false;
 	$scope.submitting = false;
+	$scope.alerts = [];
 	
 	$scope.cancel = function() {
 		$modalInstance.dismiss();
@@ -15,6 +16,7 @@ angular.module('MLDS').controller('EditCountController', ['$scope', '$modalInsta
 	
 	$scope.updateCount = function() {
 		$scope.submitting = true;
+		$scope.alerts.splice(0, $scope.alerts.length);
 		
 		CommercialUsageService.updateUsageCount($scope.usageReport, $scope.count)
 			.then(function(result) {

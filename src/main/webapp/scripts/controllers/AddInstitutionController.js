@@ -14,6 +14,7 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 	//TODO: AC rename(if needed) and fill in guts to submit new institution
 	$scope.add = function(){
 		$scope.submitting = true;
+		$scope.alerts.splice(0, $scope.alerts.length);
 		
 		CommercialUsageService.addUsageEntry(usageReport, $scope.institution)
 			.then(function(result) {
