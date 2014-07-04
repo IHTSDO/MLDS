@@ -26,7 +26,7 @@ public class UserInfoCalculator {
 			userInfo.setApproved(false);
 		} else {
 			List<Application> applications = applicationRepository.findByUsername(usernameOrNull);
-			boolean hasApplied = !applications.isEmpty();
+			boolean hasApplied = !applications.isEmpty() && applications.get(0).isSubmitted();
 			userInfo.setHasApplied(hasApplied);
 			userInfo.setApproved(hasApplied && applications.get(0).isApproved());
 		}
