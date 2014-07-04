@@ -6019,6 +6019,10 @@ button.close {
   position: relative;
   bottom: 5px;
 }
+#country-title {
+  position: relative;
+  bottom: 10px;
+}
 footer {
   background-color: #18283c;
   color: #ffffff;
