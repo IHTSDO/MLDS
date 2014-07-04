@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h3 class="modal-title">Edit Institution</h3>
+  <h3 class="modal-title">Edit Hospital</h3>
 </div>
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
@@ -9,9 +9,9 @@
     <div class="row">
       <div class="form-group">
         <div class="col-md-6">
-          <label>Institution Name</label> 
+          <label>Hospital Name</label> 
           <input class="form-control" placeholder="Enter Institution Name" name="name" ng-model="institution.name" ng-required="true">
-          <span ng-show="newInstitution.name.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formInstitution.name.$error.required && attemptedSubmit" class="help-block">Required Field</span>
         </div>
       </div>
     </div>
@@ -25,7 +25,7 @@
 					is-open="datepickers.startDate" close-text="Close"/> 
 				<span class="input-group-addon" ng-click="open($event, 'startDate')"><i class="fa fa-calendar"></i></span>
 			</div>
-			<span ng-show="newInstitution.startDate.$error.required && submitAttempted" class="help-block">Required Field</span>
+			<span ng-show="formInstitution.startDate.$error.required && attemptedSubmit" class="help-block">Required Field</span>
 		</div>
 
 		<div class="col-md-4 form-group">
@@ -49,9 +49,9 @@
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
-	<button class="btn btn-success" ng-show="formInstitution.$invalid" ng-click="attemptedSubmit = true">Update Institution</button>
+	<button class="btn btn-success" ng-show="formInstitution.$invalid" ng-click="attemptedSubmit = true">Update</button>
 	<button class="btn btn-success" ng-show="!formInstitution.$invalid" ng-click="updateInstitution()">
-		Update Institution
+		Update
 		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
 	</button>
 </div>

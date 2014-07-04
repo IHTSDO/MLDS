@@ -179,9 +179,7 @@
                 <div class="col-md-6">
                   <div class="form-group has-error has-feedback">
                     <label>Organization Type</label> <select class="form-control" name="organizationType" ng-required="affiliateform.type!='Individual'" ng-model="affiliateform.organization.type" auto-submit>
-                      <option value="type A">Type A</option>
-                      <option value="type B">Type B</option>
-                      <option value="type C">Type C</option>
+                    	<option ng-repeat="organizationType in organizationTypes" value="organizationType.name">{{organizationType.name}}</option>
                     </select>
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationType.$error.required && affiliateApplicationForm.attempted">
                       Required field.

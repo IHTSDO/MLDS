@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.service;
+package ca.intelliware.ihtsdo.mlds.service.mail;
 
 import org.apache.commons.lang.CharEncoding;
 import org.slf4j.Logger;
@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 
@@ -40,6 +41,9 @@ public class MailService {
     @Inject
     private MessageSource messageSource;
 
+	@Resource
+	TemplateEvaluator templateEvaluator;
+	
     /**
      * System default email address that sends the e-mails.
      */
@@ -75,4 +79,6 @@ public class MailService {
         final String subject = messageSource.getMessage(EMAIL_ACTIVATION_PREFIX + ".title", null, locale);
         sendEmail(email, subject, content, false, true);
     }
+    
+
 }

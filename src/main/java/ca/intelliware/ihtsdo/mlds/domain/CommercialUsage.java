@@ -64,8 +64,6 @@ public class CommercialUsage {
 	private Instant submitted = null;
 
 	
-	// FIXME MLDS-32 add a createdBy?  Or generate an entry in the log?
-	
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	Set<CommercialUsageEntry> usage = Sets.newHashSet();
 	

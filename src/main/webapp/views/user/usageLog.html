@@ -1,181 +1,191 @@
 <div class="row">
-  <h1>Usage Log <small class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</small></h1>
-  <p>Page Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat. </p>
+    <h1>Usage Log <small class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</small></h1>
+    <p>Page Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat. </p>
 
-  <div class="usage-log" ng-show="readOnly">
+	<div class="usage-log" ng-show="readOnly">
+	 
+		 <h4>Submitted Commercial Usage Report</h4>
+		 <hr>
+		 <span class="pull-right" id="retractBtn"><button ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
+		 <p class="text-success"><strong>Commercial Usage for:</strong> {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }} </p>
+	</div>
+	
+	<div class="panel panel-default" >
+      <div class="panel-heading">
+        <h4 class="panel-title">Licence Usage</h4>
+      </div>
+      <div class="panel-body" collapse="collapsePanel.submitted" class="panel-collapse collapse in">
+       <form novalidate name="usageForm" bs-validation>
+                 <div class="form-group">
+                    <label>Licence Type: {{'licensee.type.'+commercialUsageReport.type | translate}}</label>
+                  </div>
+       
+                  <div class="form-group">
+                    <label>Current Usage</label>
+                    <textarea class="form-control" rows="3" required ng-disabled="readOnly" name="currentUsage" ng-model="commercialUsageReport.context.currentUsage" auto-submit></textarea>
+                    <div ng-show="usageForm.attempted">
+						<p ng-show="usageForm.currentUsage.$error.required" class="help-block">Required field.</p>
+					</div>
+                  </div>
+                  <div class="form-group">
+                    <label>Planned Usage</label>
+                    <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="plannedUsage" ng-model="commercialUsageReport.context.plannedUsage" auto-submit></textarea>
+                    <div ng-show="usageForm.attempted">
+						<p ng-show="usageForm.plannedUsage.$error.required" class="help-block">Required field.</p>
+					</div>
+                  </div>
+                  <div class="form-group">
+                    <label>Purpose</label>
+                    <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="purpose" ng-model="commercialUsageReport.context.purpose" auto-submit></textarea>
+                    <div ng-show="usageForm.attempted">
+						<p ng-show="usageForm.purpose.$error.required" class="help-block">Required field.</p>
+					</div>
+                  </div>
+                  <div class="form-group">
+                    <label>Type of Agreement</label>
+                    <select name="agreementType"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.agreementType" ng-options="'licensee.agreementType.'+type | translate for type in agreementTypeOptions"  auto-submit>
+                    </select> 
+                    <div ng-show="usageForm.attempted">
+						<p ng-show="usageForm.agreementType.$error.required" class="help-block">Required field.</p>
+					</div>
+                  </div>
+       </form>
+		</div>
+	</div>
+	
+    <div class="panel panel-default"  ng-hide="readOnly && commercialType">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a ng-click="collapsePanel.geographic = !collapsePanel.geographic"> Geographic Scope </a>
+        </h4>
+      </div>
+      <div class="panel-body" collapse="collapsePanel.geographic" class="panel-collapse collapse in">
+      	  <alert ng-repeat="alert in geographicAlerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        <p>
+          <strong>Select the countries in which SNOMED CT will be used</strong>
+        </p>
+          <form action="">
+
+            <div class="col-sx-4 col-md-4 col-lg-6" ng-hide="readOnly">
+              <h4>List of Countries</h4>
+              <div class="selectpicker">
+                <div class="input-group">
+                  <input class="form-control" type="search" ng-model="q" placeholder="Search Countries" /> <span class="input-group-addon"><span class="fa fa-search"></span> </span>
+                </div>
+                <div class="form-group">
+                  <select name="countries" multiple ng-model="selectedCountryCodesToAdd" class="form-control">
+                    <option ng-repeat="country in availableCountries | filter:q" value="{{country.isoCode2}}">{{country.commonName}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                	<button class="btn btn-success" ng-disabled="!canAddSelectedCountries()" ng-click="addSelectedCountries()">
+                		Add Country
+                		<span ng-show="geographicAdding"><i class="fa fa-spinner"></i></span>
+                	</button>
+                </div>
+              </div>
+            </div>
+            
+			<div class="col-sx-4 col-md-4 col-lg-6" ng-hide="commercialType">
+              <h4>Selected Countries</h4>
+              <div class="selectpicker">
+                <div class="form-group" ng-hide="readOnly">
+                  <select name="selectedCountries" multiple ng-disabled="readOnly" ng-model="selectedCountryCodesToRemove" class="form-control">
+                    <option ng-repeat="country in currentCountries " value="{{country.isoCode2}}">{{country.commonName}}</option>
+                  </select>
+                </div>
+                <div class ng-show="readOnly">
+	                <ul class="list-unstyled">
+	                	<li ng-repeat="country in currentCountries">{{country.commonName}}</li>
+	                </ul>
+                </div>
+                
+                <div class="form-group" ng-hide="readOnly">
+                	<button class="btn btn-success" ng-disabled="!canRemoveSelectedCountries()" ng-click="removeSelectedCountries()">
+                		Remove Country
+                		<span ng-show="geographicRemoving"><i class="fa fa-spinner"></i></span>
+                	</button>
+                </div>
+                
+              </div>
+            </div>
+            
+		</form>
+      </div>
+    </div>
     
-   <h4>Submitted Commercial Usage Report</h4>
-   <hr>
-   <span class="pull-right" id="retractBtn"><button ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
-   <p class="text-success"><strong>Commercial Usage for:</strong> {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }} </p>
- </div>
- 
- <div class="panel panel-default" >
-  <div class="panel-heading">
-    <h4 class="panel-title">Licence Usage</h4>
-  </div>
-  <div class="panel-body" collapse="collapsePanel.submitted" class="panel-collapse collapse in">
-   <form novalidate name="usageForm" bs-validation>
-     <div class="form-group">
-      <label>Licence Type: {{'licensee.type.'+commercialUsageReport.type | translate}}</label>
-    </div>
-    
-    <div class="form-group">
-      <label>Current Usage</label>
-      <textarea class="form-control" rows="3" required ng-disabled="readOnly" name="currentUsage" ng-model="commercialUsageReport.context.currentUsage" auto-submit></textarea>
-      <div ng-show="usageForm.attempted">
-        <p ng-show="usageForm.currentUsage.$error.required" class="help-block">Required field.</p>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Planned Usage</label>
-      <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="plannedUsage" ng-model="commercialUsageReport.context.plannedUsage" auto-submit></textarea>
-      <div ng-show="usageForm.attempted">
-        <p ng-show="usageForm.plannedUsage.$error.required" class="help-block">Required field.</p>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Purpose</label>
-      <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="purpose" ng-model="commercialUsageReport.context.purpose" auto-submit></textarea>
-      <div ng-show="usageForm.attempted">
-        <p ng-show="usageForm.purpose.$error.required" class="help-block">Required field.</p>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Type of Agreement</label>
-      <select name="agreementType"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.agreementType" ng-options="'licensee.agreementType.'+type | translate for type in agreementTypeOptions"  auto-submit>
-      </select> 
-      <div ng-show="usageForm.attempted">
-        <p ng-show="usageForm.agreementType.$error.required" class="help-block">Required field.</p>
-      </div>
-    </div>
-  </form>
-</div>
-</div>
+		<div class="panel panel-default" ng-show="commercialType">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a ng-click="collapsePanel.sublicensed = !collapsePanel.sublicensed">Sublicensed Institutions</a>
+				</h4>
+			</div>
+			<div class="panel-body" collapse="collapsePanel.sublicensed">
+				<div class="space" ng-repeat="countryUsage in usageByCountryList">
+					<div class="row">
+                         <div class="col-sm-8">
+                            <h3>{{countryUsage.country.commonName}}</h3>
+                         </div>
+                         <div class="col-sm-4"  ng-hide="readOnly">
+							<a class="btn btn-success" ng-click="addInstitutionModal(countryUsage.country)">Add Hospital</a>
+							<a class="btn btn-success" ng-click="removeCountryModal(countryUsage.count)">Delete Country</a>
+                          </div>
+					</div>
 
-<div class="panel panel-default"  ng-hide="readOnly && commercialType">
-  <div class="panel-heading">
-    <h4 class="panel-title">
-      <a ng-click="collapsePanel.geographic = !collapsePanel.geographic"> Geographic Scope </a>
-    </h4>
-  </div>
-  <div class="panel-body" collapse="collapsePanel.geographic" class="panel-collapse collapse in">
-   <alert ng-repeat="alert in geographicAlerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-   <p>
-    <strong>Select the countries in which SNOMED CT will be used</strong>
-  </p>
-  <form action="">
+					<div class="row">
+					<div class="col-sm-12">					
+					<table class="table table-striped">
+						<tr>
+							<th>Hospital Name</th>
+							<th>License Start</th>
+							<th>License End</th>
+							<th>Note</th>
+							<th></th>
+						</tr>
 
-    <div class="col-sx-4 col-md-4 col-lg-6" ng-hide="readOnly">
-      <h4>List of Countries</h4>
-      <div class="selectpicker">
-        <div class="input-group">
-          <input class="form-control" type="search" ng-model="q" placeholder="Search Countries" /> <span class="input-group-addon"><span class="fa fa-search"></span> </span>
-        </div>
-        <div class="form-group">
-          <select name="countries" multiple ng-model="selectedCountryCodesToAdd" class="form-control">
-            <option ng-repeat="country in availableCountries | filter:q" value="{{country.isoCode2}}">{{country.commonName}}</option>
-          </select>
-        </div>
-        <div class="form-group">
-         <button class="btn btn-success" ng-disabled="!canAddSelectedCountries()" ng-click="addSelectedCountries()">
-          <i class="fa fa-plus"></i> Add Country
-          <span ng-show="geographicAdding"><i class="fa fa-spinner"></i></span>
-        </button>
-      </div>
-    </div>
-  </div>
-  
-  <div class="col-sx-4 col-md-4 col-lg-6" ng-hide="commercialType">
-    <h4>Selected Countries</h4>
-    <div class="selectpicker">
-      <div class="form-group">
-        <select name="selectedCountries" multiple ng-disabled="readOnly" ng-model="selectedCountryCodesToRemove" class="form-control">
-          <option ng-repeat="country in currentCountries " value="{{country.isoCode2}}">{{country.commonName}}</option>
-        </select>
-      </div>
-      <div class="form-group" ng-hide="readOnly">
-       <button class="btn btn-danger" ng-disabled="!canRemoveSelectedCountries()" ng-click="removeSelectedCountries()">
-        <i class="fa fa-times"></i> Remove Country
-        <span ng-show="geographicRemoving"><i class="fa fa-spinner"></i></span>
-      </button>
-    </div>
-    
-  </div>
-</div>
+						<tr ng-repeat="institution in countryUsage.entries">
+							<td>{{institution.name}}</td>
+							<td>{{institution.startDate | date}}</td>
+							<td>{{institution.endDate | date}}</td>
+							<td>{{institution.note}}</td>
+							<td>
+								<div class="btn-group" ng-hide="readOnly">
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown">
+										<i class="fa fa-pencil"></i>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li><a ng-click="editInstitutionModal(institution, countryUsage.country)">Edit</a></li>
+										<li class="divider"></li>
+										<li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)">Delete</a></li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</table>
+					</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-8">
+							Practices: {{countryUsage.count.practices | number}}
+						</div>
+						<div class="col-sm-4">
+							<button ng-hide="readOnly" type="button" class="btn btn-default" ng-click="editCountModal(countryUsage.count)">Edit Country</button>
+						</div>
+					</div>
+					
+				</div>
 
-</form>
-</div>
-</div>
-
-<div class="panel panel-default" ng-show="commercialType">
- <div class="panel-heading">
-  <h4 class="panel-title">
-   <a ng-click="collapsePanel.sublicensed = !collapsePanel.sublicensed">Sublicensed Institutions</a>
- </h4>
-</div>
-<div class="panel-body" collapse="collapsePanel.sublicensed">
-  <div ng-repeat="countryUsage in usageByCountryList">
-   <div class="form-group">
-     <div class="col-lg-8">
-      <h3>{{countryUsage.country.commonName}}</h3>
-    </div>
-    <div class="col-lg-4"  ng-hide="readOnly">
-      <a class="btn btn-success" ng-click="addInstitutionModal(countryUsage.country)">Add Institution</a>
-      <a class="btn btn-success" ng-click="removeCountryModal(countryUsage.count)">Remove Country</a>
-    </div>
-  </div>
-  
-  <table class="table table-striped">
-    <tr>
-     <th>Hospital Name</th>
-     <th>License Start</th>
-     <th>License End</th>
-     <th>Note</th>
-     <th></th>
-   </tr>
-
-   <tr ng-repeat="institution in countryUsage.entries">
-     <td>{{institution.name}}</td>
-     <td>{{institution.startDate | date}}</td>
-     <td>{{institution.endDate | date}}</td>
-     <td>{{institution.note}}</td>
-     <td>
-      <div class="btn-group" ng-hide="readOnly">
-       <button type="button" class="btn btn-default dropdown-toggle"
-       data-toggle="dropdown">
-       <i class="fa fa-pencil"></i>
-     </button>
-     <ul class="dropdown-menu" role="menu">
-      <li><a ng-click="editInstitutionModal(institution, countryUsage.country)">Edit</a></li>
-      <li class="divider"></li>
-      <li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)">Delete</a></li>
-    </ul>
-  </div>
-</td>
-</tr>
-</table>
-
-<div class="form-group space">
-  <div class="col-md-8">
-   Practices: {{countryUsage.count.practices | number}}
- </div>
- <div class="col-md-4">
-   <button ng-hide="readOnly" type="button" class="btn btn-default" ng-click="editCountModal(countryUsage.count)">Edit Country</button>
- </div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-<div class="space" id="submit-usage" ng-hide="readOnly">
- <button ng-click="submitUsageReport()" type="button" class="btn btn-success btn-large"><i class="fa fa-share"></i> Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button>
- <div ng-show="usageForm.attempted" class="has-error">
-  <p ng-show="usageForm.$invalid" class="help-block">Please fix the errors listed above.</p>
-</div>
-</div>
-<div class="space"></div>
-</div>
+			</div>
+		</div>
+	
+		<div class="space" ng-hide="readOnly">
+			<button ng-click="submitUsageReport()" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button>
+			<div ng-show="usageForm.attempted" class="has-error">
+				<p ng-show="usageForm.$invalid" class="help-block">Please fix the errors listed above.</p>
+			</div>
+		</div>
+	    <div class="space"></div>
+	  </div>
 </div>

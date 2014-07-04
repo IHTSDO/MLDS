@@ -1,6 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.service.MailService;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
+import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
+import ca.intelliware.ihtsdo.mlds.service.mail.PasswordResetEmailSender;
 
 import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
 
 @RestController
 public class PasswordResetResource {
@@ -28,38 +27,30 @@ public class PasswordResetResource {
 	@Resource
 	MailService mailService;
 	
-	@Resource TemplateEvaluator templateEvaluator;
-	
 	@Resource UserRepository userRepository;
 	
 	@Resource PasswordResetService passwordResetService;
+	
+	@Resource PasswordResetEmailSender passwordResetEmailSender;
 
 	@RequestMapping(value=Routes.PASSWORD_RESET,
 			method = RequestMethod.POST,
     		produces = "application/json")
 	public ResponseEntity<String> requestPasswordReset(@RequestBody Map<String,Object> params) {
-		// validate email - bad request
+		// FIXME MLDS-20 validate email - bad request
 		// look up user - not found?
-		// send email
 		String emailAddress = (String) params.get("email");
 		Validate.notEmpty(emailAddress);
 		
-		User user = userRepository.getUserByEmail(emailAddress);
-		String tokenKey = passwordResetService.createTokenForUser(user);
+		final User user = userRepository.getUserByEmail(emailAddress);
 		
-		// send email with token
-		Map<String, Object> variables = Maps.newHashMap();
-		variables.put("user", user);
-		variables.put("passwordResetUrl", templateEvaluator.getUrlBase() + "#/resetPassword?token="+tokenKey);
-		String content = templateEvaluator.evaluateTemplate("passwordResetEmail", Locale.ENGLISH, variables);
+		final String tokenKey = passwordResetService.createTokenForUser(user);
 		
-		mailService.sendEmail(emailAddress, "subject", content, false, true);
-		
-		System.out.println("hello " + emailAddress);
+		passwordResetEmailSender.sendPasswordResetEmail(user, tokenKey);
 		
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value=Routes.PASSWORD_RESET_ITEM,
 			method = RequestMethod.POST,
     		produces = "application/json")
