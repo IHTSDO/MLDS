@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
+import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
@@ -120,6 +121,7 @@ public class ApplicationController {
 		
 		application.setAddress(setField(address, "street"));
 		application.setCity(setField(address, "city"));
+		application.setPostCode(setField(address, "postCode"));
 		application.setCountry(setField(address, "country"));
 		
 		application.setExtension(setField(contact, "extension"));
@@ -127,10 +129,12 @@ public class ApplicationController {
 		application.setThirdEmail(setField(contact, "thirdEmail"));
 		
 		application.setOrganizationName(setField(organization, "name"));
-		application.setOrganizationType(setField(organization, "type"));
+		application.setOrganizationType(OrganizationType.valueOf(setField(organization, "type")));
+		application.setOrganizationTypeOther(setField(organization, "typeOther"));
 		
 		application.setBillingStreet(setField(billing, "street"));
 		application.setBillingCity(setField(billing, "city"));
+		application.setBillingPostCode(setField(billing, "postCode"));
 		application.setBillingCountry(setField(billing, "country"));
 		
 		application.setOtherText(setField(request, "otherText"));

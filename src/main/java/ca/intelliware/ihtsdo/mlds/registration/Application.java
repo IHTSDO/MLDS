@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
+import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 
 @Entity
 public class Application {
@@ -40,17 +41,25 @@ public class Application {
 	
 	@Column(name="organization_name")
 	String organizationName;
+	@Enumerated(EnumType.STRING)
 	@Column(name="organization_type")
-	String organizationType;
+	OrganizationType organizationType;
+	@Column(name="organization_type_other")
+	String organizationTypeOther;
 	
 	String street;
 	String city;
+	@Column(name="post_code")
+	String postCode;
 	String country;
 	
 	@Column(name="billing_street")
 	String billingStreet;
 	@Column(name="billing_city")
 	String billingCity;
+	@Column(name="billing_post_code")
+	String billingPostCode;
+
 	@Column(name="billing_country")
 	String billingCountry;
 	
@@ -61,6 +70,7 @@ public class Application {
 	
 	@Column(name="is_submitted")
 	boolean isSubmitted;
+
 	
 	public String getSubType() {
 		return subType;
@@ -215,11 +225,11 @@ public class Application {
 		this.organizationName = organizationName;
 	}
 
-	public String getOrganizationType() {
+	public OrganizationType getOrganizationType() {
 		return organizationType;
 	}
 
-	public void setOrganizationType(String organizationType) {
+	public void setOrganizationType(OrganizationType organizationType) {
 		this.organizationType = organizationType;
 	}
 
@@ -241,6 +251,30 @@ public class Application {
 	
 	public boolean isSubmitted() {
 		return this.isSubmitted;
+	}
+
+	public String getPostCode() {
+		return this.postCode;
+	}
+	
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
+
+	public String getBillingPostCode() {
+		return billingPostCode;
+	}
+
+	public void setBillingPostCode(String billingPostCode) {
+		this.billingPostCode = billingPostCode;
+	}
+
+	public String getOrganizationTypeOther() {
+		return organizationTypeOther;
+	}
+
+	public void setOrganizationTypeOther(String organizationTypeOther) {
+		this.organizationTypeOther = organizationTypeOther;
 	}
 
 }
