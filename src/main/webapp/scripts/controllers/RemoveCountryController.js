@@ -2,6 +2,8 @@
 
 angular.module('MLDS').controller('RemoveCountryController', ['$scope', '$modalInstance',  '$log', '$location', 'count', 'usageReport', 'hospitalsCount', 'practicesCount', 'CommercialUsageService', 
                                                        	function($scope, $modalInstance, $log, $location, count, usageReport, hospitalsCount, practicesCount, CommercialUsageService) {
+	$scope.attemptedSubmit = false;
+	$scope.submitting = false;
 	$scope.alerts = [];
 	
 	$scope.count = count;
@@ -10,6 +12,7 @@ angular.module('MLDS').controller('RemoveCountryController', ['$scope', '$modalI
 	
 	$scope.submit = function(){
 		$scope.submitting = true;
+		$scope.alerts.splice(0, $scope.alerts.length);
 		
 		CommercialUsageService.deleteUsageCount(usageReport, count)
 			.then(function(result) {
