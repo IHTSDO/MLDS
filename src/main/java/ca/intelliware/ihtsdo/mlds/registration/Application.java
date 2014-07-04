@@ -45,12 +45,17 @@ public class Application {
 	
 	String street;
 	String city;
+	@Column(name="post_code")
+	String postCode;
 	String country;
 	
 	@Column(name="billing_street")
 	String billingStreet;
 	@Column(name="billing_city")
 	String billingCity;
+	@Column(name="billing_post_code")
+	String billingPostCode;
+
 	@Column(name="billing_country")
 	String billingCountry;
 	
@@ -61,6 +66,7 @@ public class Application {
 	
 	@Column(name="is_submitted")
 	boolean isSubmitted;
+
 	
 	public String getSubType() {
 		return subType;
@@ -243,4 +249,20 @@ public class Application {
 		return this.isSubmitted;
 	}
 
+	public String getPostCode() {
+		return this.postCode;
+	}
+	
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
+
+	public String getBillingPostCode() {
+		return billingPostCode;
+	}
+
+	public void setBillingPostCode(String billingPostCode) {
+		this.billingPostCode = billingPostCode;
+	}
+	
 }
