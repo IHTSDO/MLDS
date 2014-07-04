@@ -68,7 +68,13 @@ public class ApplicationController {
 		applicationRepository.save(application);
 		
 		//FIXME should be a different trigger and way to connect applications with licensee
+		List<Licensee> licensees = licenseeRepository.findByCreator(application.getUsername());
 		Licensee licensee = new Licensee();
+		
+		//FIXME only supporting 1 licensee for now
+		if (licensees.size() > 0) {
+			licensee = licensees.get(0);
+		}
 		licensee.setCreator(application.getUsername());
 		licensee.setApplication(application);
 		licensee.setType(application.getType());
@@ -132,8 +138,7 @@ public class ApplicationController {
 		// FIXME MB map unset to false?
 		application.setSnoMedLicence(Boolean.parseBoolean(setField(request, "snoMedTC")));
 		
-		// FIXME AC application approval status needs to set by Staff Users
-		application.setApproved(true);
+		application.setApproved(false);
 		return application;
 	}
 	
