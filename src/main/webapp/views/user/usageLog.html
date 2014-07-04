@@ -121,17 +121,19 @@
 				</h4>
 			</div>
 			<div class="panel-body" collapse="collapsePanel.sublicensed">
-				<div ng-repeat="countryUsage in usageByCountryList">
-                       <div class="form-group">
-                         <div class="col-lg-8">
+				<div class="space" ng-repeat="countryUsage in usageByCountryList">
+					<div class="row">
+                         <div class="col-sm-8">
                             <h3>{{countryUsage.country.commonName}}</h3>
                          </div>
-                          <div class="col-lg-4"  ng-hide="readOnly">
-						<a class="btn btn-success" ng-click="addInstitutionModal(countryUsage.country)">Add Hospital</a>
-						<a class="btn btn-success" ng-click="removeCountryModal(countryUsage.count)">Delete Country</a>
+                         <div class="col-sm-4"  ng-hide="readOnly">
+							<a class="btn btn-success" ng-click="addInstitutionModal(countryUsage.country)">Add Hospital</a>
+							<a class="btn btn-success" ng-click="removeCountryModal(countryUsage.count)">Delete Country</a>
                           </div>
 					</div>
-					
+
+					<div class="row">
+					<div class="col-sm-12">					
 					<table class="table table-striped">
 						<tr>
 							<th>Hospital Name</th>
@@ -161,12 +163,14 @@
 							</td>
 						</tr>
 					</table>
+					</div>
+					</div>
 					
-					<div class="form-group space">
-						<div class="col-md-8">
+					<div class="row">
+						<div class="col-sm-8">
 							Practices: {{countryUsage.count.practices | number}}
 						</div>
-						<div class="col-md-4">
+						<div class="col-sm-4">
 							<button ng-hide="readOnly" type="button" class="btn btn-default" ng-click="editCountModal(countryUsage.count)">Edit Country</button>
 						</div>
 					</div>
