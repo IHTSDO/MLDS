@@ -44,8 +44,8 @@ mldsApp
                     }
                 })
                  .when('/usage-log/:usageReportId', {
-                    templateUrl: 'views/user/usageLog.html',
-                    controller: 'UsageLogController',
+                    templateUrl: 'views/user/fullPageUsageLog.html',
+                    controller: 'FullPageUsageLogController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
                     }
