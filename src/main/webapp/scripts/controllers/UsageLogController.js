@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', 
-                                                 		function($scope, $log, $modal, CountryService, CommercialUsageService, Events, Session, $routeParams){
+angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', 
+                                                 		function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams){
 	$scope.collapsePanel = {};
 	
 	$scope.usageLogForm = {};
@@ -14,12 +14,13 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 	//FIXME retrieve from service?
 	$scope.agreementTypeOptions = ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD'];
 	
-	$scope.availableCountries = CountryService.countries;
+	$scope.availableCountries = [];
 	$scope.currentCountries = [];
 	
 	// Usage Model
 	$scope.commercialUsageReport = {};
 	$scope.usageByCountry = {};
+	$scope.usageByCountryList = [];
 	
 	$scope.readOnly = false;
 	$scope.commercialType = false;
@@ -36,9 +37,14 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		return ($scope.usageByCountry[country.isoCode2]);
 	} 
 	
+	function lookupUsageByCountryOrNull(country) {
+		var countryCode = country.isoCode2;
+		return $scope.usageByCountry[countryCode];
+	}
+	
 	function lookupUsageByCountryOrCreate(country) {
 		var countryCode = country.isoCode2;
-		var countrySection = $scope.usageByCountry[countryCode];
+		var countrySection = lookupUsageByCountryOrNull(country);
 		if (!countrySection) {
 			countrySection = {
 					country: country,
@@ -50,34 +56,46 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			};
 			$scope.usageByCountry[countryCode] = countrySection;
 			$scope.currentCountries.push(country);
+			$scope.usageByCountryList.push(countrySection);
+			sortByNameProperty($scope.usageByCountryList, 'country.commonName');
 			sortByNameProperty($scope.currentCountries, 'commonName');
 		}
 		return countrySection;
 	};
 	
-	function sortByNameProperty(array, propertyName) {
+	function sortByNameProperty(array, expression) {
+		var accessor = $parse(expression);
 		array.sort(function(a, b) {
-			var x = (a[propertyName] || '').toLowerCase();
-		    var y = (b[propertyName] || '').toLowerCase();
+			var x = (accessor(a) || '').toLowerCase();
+		    var y = (accessor(b) || '').toLowerCase();
 		    return x < y ? -1 : x > y ? 1 : 0;
 		});
 	}
 	
 	function updateFromUsageReport(usageReport) {
 		$scope.usageByCountry = {};
+		$scope.usageByCountryList = [];
+		$scope.availableCountries = [];
 		$scope.currentCountries = [];
 		$scope.commercialUsageReport = usageReport;
 		$scope.readOnly = usageReport.approvalState !== 'NOT_SUBMITTED';
 		$scope.commercialType = usageReport.type === 'COMMERCIAL';
+		
+		usageReport.countries.forEach(function(usageCount) {
+			var countrySection = lookupUsageByCountryOrCreate(usageCount.country);
+			countrySection.count = usageCount;
+		});
 		usageReport.entries.forEach(function(usageEntry) {
 			var countrySection = lookupUsageByCountryOrCreate(usageEntry.country);
 			countrySection.entries.push(usageEntry);
 			sortByNameProperty(countrySection.entries, 'name');
 		});
-		usageReport.countries.forEach(function(usageCount) {
-			var countrySection = lookupUsageByCountryOrCreate(usageCount.country);
-			countrySection.count = usageCount;
+		CountryService.countries.forEach(function(country) {
+			if (! lookupUsageByCountryOrNull(country)) {
+				$scope.availableCountries.push(country);
+			}
 		});
+		sortByNameProperty($scope.availableCountries, 'commonName');
 	};
 	
 	CountryService.ready.then(function() {
@@ -105,16 +123,19 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 		//Skip Broadcast for direct edit of context fields to reduce the chance of input value changing under user as they are typing
 		//FIXME is there a better way of handling this scenario? 
 		CommercialUsageService.updateUsageReportContext($scope.commercialUsageReport, {skipBroadcast: true})
-		["catch"](function(message) {
-			//FIXME
-			$log.log('Failed to put usage context');
-		});
+			["catch"](function(message) {
+				//FIXME
+				$log.log('Failed to put usage context');
+			});
 	};
 	
 	//FIXME required simply for preliminary auto-submit directive
 	$scope.submit = $scope.saveUsage;
 	
 	$scope.canAddSelectedCountries = function() {
+		if ($scope.geographicAdding) {
+			return false;
+		}
 		var canAdd = false;
 		$scope.selectedCountryCodesToAdd.forEach(function(countryCode) {
 			var addCountry = countryFromCode(countryCode);
@@ -147,9 +168,13 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 				});
 			}
 		});
+		$scope.selectedCountryCodesToAdd = [];
 	};
 
 	$scope.canRemoveSelectedCountries = function() {
+		if ($scope.geographicRemoving) {
+			return false;
+		}
 		return $scope.selectedCountryCodesToRemove.length > 0;
 	};
 
@@ -158,7 +183,7 @@ angular.module('MLDS').controller('UsageLogController', ['$scope', '$log', '$mod
 			var country = countryFromCode(countryCode);
 			removeCountry(country);
 		});
-		$scope.selectedCountryCodesToRemove.splice(0, $scope.selectedCountryCodesToRemove.length);
+		$scope.selectedCountryCodesToRemove = [];
 	};
 
 	function removeCountry(country) {

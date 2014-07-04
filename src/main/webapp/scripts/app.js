@@ -170,9 +170,9 @@ mldsApp
             tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js')
             tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
             
-//            var apiDelay = 3000;
+//            var apiDelay = 300;
 //            var otherDelay = 0;
-//            var errorMethodMatches = /PUT|DELETE|POST/;
+//            var errorMethodMatches = /xPUT|xDELETE|xPOST/;
 //            var delayHandlerFactory = function($q, $timeout) {
 //                return function(promise) {
 //                    return promise.then(function(response) {
