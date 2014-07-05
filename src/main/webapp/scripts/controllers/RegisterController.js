@@ -1,12 +1,25 @@
 'use strict';
 
-mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$location', '$log', 'CommercialUsageService',
-    function ($scope, $translate, Register, $location, $log, CommercialUsageService) {
+mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$location', '$log', 'CommercialUsageService','CountryService',
+    function ($scope, $translate, Register, $location, $log, CommercialUsageService,CountryService) {
+		$scope.availableCountries = CountryService.countries;
+		
         $scope.success = null;
         $scope.error = null;
         $scope.doNotMatch = null;
         $scope.errorUserExists = null;
+        $scope.registerAccount = {};
+        
+        // bind the display name to our country object.
+        $scope.$watch('registerAccount.countryCommonName', function(newValue){
+        	var country = _.findWhere(CountryService.countries, {'commonName':newValue});
+        	$scope.registerAccount.country = country;
+        	$scope.excludedCountry = _.contains(['US','UK'],(country || {}).isoCode2);
+        });
+        
         $scope.register = function () {
+        	$log.log('register', $scope.registerAccount);
+        	return;
         	/*
             if ($scope.registerAccount.password != $scope.confirmPassword) {
                 $scope.doNotMatch = "ERROR";
