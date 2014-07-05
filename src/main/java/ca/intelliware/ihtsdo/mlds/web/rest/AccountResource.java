@@ -32,14 +32,20 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringWebContext;
 
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
+import ca.intelliware.ihtsdo.mlds.domain.Licensee;
+import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
 import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
+import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
 import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
+import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
 import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
@@ -94,7 +100,14 @@ public class AccountResource {
     @Resource
     ApplicationRepository applicationRepository;
     
-	@Resource PasswordResetService passwordResetService;
+	@Resource 
+	PasswordResetService passwordResetService;
+	
+	@Resource
+	CommercialUsageRepository commercialUsageRepository;
+	
+	@Resource
+	CommercialUsageResetter commercialUsageResetter; 
 
     /**
      * POST  /rest/register -> register the user.
@@ -115,6 +128,42 @@ public class AccountResource {
         	if (domainBlacklistService.isDomainBlacklisted(userDTO.getEmail())) {
         		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         	}
+        	
+        	List<Application> applications = applicationRepository.findByUsername(userDTO.getLogin());
+        	List<Licensee> licensees = licenseeRepository.findByCreator(userDTO.getLogin());
+        	Application application = new Application();
+        	Licensee licensee = new Licensee();
+        	
+        	if (applications.size() > 0) {
+        		application = applications.get(0);
+        	}
+        	
+        	if (licensees.size() > 0) {
+        		licensee = licensees.get(0);
+        	}
+        	
+        	application.setUsername(userDTO.getLogin());
+        	application.setName(userDTO.getFirstName());
+        	application.setEmail(userDTO.getEmail());
+        	//set a default type for application to create licensee and usagelog
+        	application.setType(LicenseeType.COMMERCIAL.toString());
+        	licensee.setCreator(userDTO.getLogin());
+        	licensee.setType(LicenseeType.COMMERCIAL);
+        	licensee.setApplication(application);
+        	
+        	applicationRepository.save(application);
+        	licenseeRepository.save(licensee);
+        	
+        	CommercialUsage commercialUsage = new CommercialUsage();
+	    	commercialUsage.setType(licensee.getType());
+        	
+        	commercialUsageResetter.detachAndReset(commercialUsage, userDTO.getInitialUsagePeriod().getStartDate(), userDTO.getInitialUsagePeriod().getEndDate());
+        	
+        	commercialUsage = commercialUsageRepository.save(commercialUsage);
+        	
+        	licensee.addCommercialUsage(commercialUsage);
+        	
+        	
         	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
@@ -186,7 +235,8 @@ public class AccountResource {
                 roles,
                 emailVerified,
                 userInfo.getHasApplied(),
-                userInfo.isApproved()
+                userInfo.isApproved(),
+                null
                 ),
             HttpStatus.OK);
     }
