@@ -8,7 +8,7 @@
 		</p>
 	</div>
 	<div class="col-sx-4 col-md-4 col-lg-4 signin">
-		<form class="form" bs-validation="" name="createUserForm" ng-controller="RegisterController" ng-submit="register()" id="createUserForm">
+		<form class="form" bs-validation="" novalidate="" name="createUserForm" ng-controller="RegisterController" ng-submit="register()" id="createUserForm">
 			<div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
 				<strong>Registration failed!</strong> Please check your input and try again.
 			</div>
@@ -21,8 +21,20 @@
 				Register
 			</h4>
 			<div class="form-group">
+				<input class="form-control" type="text" name="country" autofocus=""
+					placeholder="Country"
+					ng-model="registerAccount.countryCommonName" 
+					required=""
+					typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
+					typeahead-editable="false"><!--  createUserForm.attempted -->
+				<p ng-show="createUserForm.country.$error.required" class="help-block">Required field.</p>
+				<p ng-show="createUserForm.country.$error.editable" class="help-block">Unrecognized country</p>
+				<p ng-show="excludedCountry" class="help-block">Your country has their own registry for SNOMED.  Please go to {{registerAccount.country.commonName}}</p>
+				</p>
+			</div>
+			<div class="form-group">
 				<input ng-model="registerAccount.firstName" name="name" type="text" class=
-				"form-control" placeholder="{{'global.form.name.placeholder' | translate}}" required="" autofocus="" />
+				"form-control" placeholder="{{'global.form.name.placeholder' | translate}}" required="" />
 			</div>
 			<div class="form-group">
 				<input ng-model="registerAccount.email" name="email" type="email" class="form-control"
