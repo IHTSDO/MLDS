@@ -48,9 +48,6 @@ mldsApp.controller('AffiliateRegistrationController',
         	$scope.affiliateform.billing = {};
         	$scope.affiliateform.organization = {};
         	
-    		$scope.affiliateform.contact.name = Session.firstName;
-        	$scope.affiliateform.contact.email = Session.email;
-        	
         	$scope.saveApplication = function() {
     			UserRegistrationService.saveApplication($scope.affiliateform);
     			UserSession.reapplied();
