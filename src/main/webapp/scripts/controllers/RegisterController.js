@@ -11,7 +11,7 @@ mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$
         $scope.registerAccount = {};
         
         // bind the display name to our country object.
-        $scope.$watch('registerAccount.countryCommonName', function(newValue){
+        $scope.$watch('countryCommonName', function(newValue){
         	var country = _.findWhere(CountryService.countries, {'commonName':newValue});
         	$scope.registerAccount.country = country;
         	var excludedCountry = country && country.excludeRegistration;

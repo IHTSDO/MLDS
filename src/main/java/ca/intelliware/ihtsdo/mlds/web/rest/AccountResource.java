@@ -147,6 +147,8 @@ public class AccountResource {
         	application.setEmail(userDTO.getEmail());
         	//set a default type for application to create licensee and usagelog
         	application.setType(LicenseeType.COMMERCIAL.toString());
+        	// FIXME MLDS-234 MB how are we storing country here?
+        	application.setCountry(userDTO.getCountry().getCommonName());
         	licensee.setCreator(userDTO.getLogin());
         	licensee.setType(LicenseeType.COMMERCIAL);
         	licensee.setApplication(application);

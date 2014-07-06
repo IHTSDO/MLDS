@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 import java.util.List;
 
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
+import ca.intelliware.ihtsdo.mlds.domain.Country;
 
 public class UserDTO {
 
@@ -27,6 +28,8 @@ public class UserDTO {
 	private boolean applicationMade;
 
 	private CommercialUsagePeriod initialUsagePeriod;
+	
+	private Country country;
     
 
 	public UserDTO() {
@@ -110,5 +113,15 @@ public class UserDTO {
 
 	public void setInitialUsagePeriod(CommercialUsagePeriod initialUsagePeriod) {
 		this.initialUsagePeriod = initialUsagePeriod;
+	}
+
+
+	public Country getCountry() {
+		return country;
+	}
+
+
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 }
