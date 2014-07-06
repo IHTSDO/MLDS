@@ -17,6 +17,9 @@ public class Country {
     @Column(name="common_name")
     private String commonName;
     
+    private boolean excludeRegistration;
+    
+    private String alternateRegistrationUrl;
 
     /* for hibernate */
 	protected Country() {
@@ -39,5 +42,21 @@ public class Country {
 
 	public String getCommonName() {
 		return commonName;
+	}
+
+	public boolean isExcludeRegistration() {
+		return excludeRegistration;
+	}
+
+	public void setExcludeRegistration(boolean excludeRegistration) {
+		this.excludeRegistration = excludeRegistration;
+	}
+
+	public String getAlternateRegistrationUrl() {
+		return alternateRegistrationUrl;
+	}
+
+	public void setAlternateRegistrationUrl(String alternateRegistrationUrl) {
+		this.alternateRegistrationUrl = alternateRegistrationUrl;
 	}
 }
