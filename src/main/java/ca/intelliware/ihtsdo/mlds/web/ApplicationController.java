@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
-import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
@@ -78,7 +77,7 @@ public class ApplicationController {
 		}
 		licensee.setCreator(application.getUsername());
 		licensee.setApplication(application);
-		licensee.setType(application.getType());
+		licensee.setType(LicenseeType.valueOf(application.getType()));
 		licenseeRepository.save(licensee);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -110,8 +109,7 @@ public class ApplicationController {
 		}
 		
 		application.setUsername(sessionService.getUsernameOrNull());
-		
-		application.setType(LicenseeType.valueOf(setField(request, "type").toUpperCase()));
+		application.setType(setField(request, "type"));
 		application.setSubType(setField(request, "usageSubType"));
 		
 		application.setName(setField(contact, "name"));
@@ -129,7 +127,7 @@ public class ApplicationController {
 		application.setThirdEmail(setField(contact, "thirdEmail"));
 		
 		application.setOrganizationName(setField(organization, "name"));
-		application.setOrganizationType(OrganizationType.valueOf(setField(organization, "type")));
+		application.setOrganizationType(setField(organization, "type"));
 		application.setOrganizationTypeOther(setField(organization, "typeOther"));
 		
 		application.setBillingStreet(setField(billing, "street"));
@@ -148,7 +146,9 @@ public class ApplicationController {
 	
 	private String setField(JsonNode jsonNode, String attribute) {
 		if (jsonNode.get(attribute) != null) {
-			return jsonNode.get(attribute).asText();
+			if(jsonNode.get(attribute).asText() != "") {
+				return jsonNode.get(attribute).asText();
+			}
 		}
 		return new String();
 	}

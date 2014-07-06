@@ -1,70 +1,107 @@
-<div class="jumbotron">
+<div class="jumbotron row">
+	<div class="col-sx-8 col-md-8 col-lg-8">
+		<h1>
+			<span translate="register.welcome">Welcome the IHTSDO-MLDS</span> - FIXME copy
+		</h1>
+		<p>
+			<span translate="register.subwelcome">The gateway to access SNOMED CT - Orientation</span> - FIXME copy
+		</p>
+	</div>
+	<div class="col-sx-4 col-md-4 col-lg-4 signin">
+		<form class="form" bs-validation="" novalidate="" name="createUserForm" ng-controller="RegisterController" ng-submit="register()" id="createUserForm">
+			<div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
+				<strong>Registration failed!</strong> Please check your input and try again.
+			</div>
+			<div class="alert alert-danger" ng-show="errorUserExists" translate=
+			"register.messages.error.userexists">
+				<strong>A user has already registered with that email address.</strong> Did you mean to
+				login?
+			</div>
+			<h4 class="form-signin-heading" translate="register.title">
+				Register
+			</h4>
+			<div class="form-group">
+				<input class="form-control" type="text" name="country" autofocus=""
+					placeholder="Country"
+					ng-model="countryCommonName" 
+					required=""
+					typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
+					typeahead-editable="false"><!--   -->
+				<p ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
+				<p ng-show="createUserForm.country.$error.editable && createUserForm.attempted" class="help-block">Unrecognized country</p>
+				<p ng-show="createUserForm.country.$error.excluded" class="help-block">This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{registerAccount.country.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY</p>
+				</p>
+			</div>
+			<div class="form-group">
+				<input ng-model="registerAccount.firstName" name="name" type="text" class=
+				"form-control" placeholder="{{'global.form.name.placeholder' | translate}}" required="" />
+				<p ng-show="createUserForm.name.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
+			</div>
+			<div class="form-group">
+				<input ng-model="registerAccount.email" name="email" type="email" class="form-control"
+				placeholder="{{'global.form.email.placeholder' | translate}}" required="" />
+				<p ng-show="createUserForm.email.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
+			</div>
+			<div class="form-group">
+				<input ng-model="registerAccount.password" name="password" type="password" class=
+				"form-control" placeholder="{{'login.form.password.placeholder' | translate}}" required="" />
+				<p ng-show="createUserForm.password.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
+			</div>
+			<div class="checkbox form-group">
+				<label><input ng-model="user.tos" name="tos" type="checkbox" required="" />
+				<small class="muted" translate="register.form.tos">Agree to our <a href="/tos.html" target="_blank">terms of
+				service</a>.</small></label>
+				<p ng-show="createUserForm.tos.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
+			</div><!--  ng-disabled="!user.name || !user.email || !user.password" -->
+			<button type="submit" class="btn btn-lg btn-primary btn-block" translate="register.form.button">Start
+			Registration</button>
+		</form>
+	</div>
+</div>
 <div class="row">
-				<div class="col-sx-8 col-md-8 col-lg-8">
-						<h1>Welcome the IHTSDO-MLDS - FIXME</h1>
-						<p>The gateway to access SNOMED CT - Orientation copy FIXME</p>
-				</div>
-				<div class="col-sx-4 col-md-4 col-lg-4">
-						<div class="signin">
-								<form class="form" bs-validation name="createUserForm" ng-controller="RegisterController" ng-submit="register()">
-										<div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
-											<strong>Registration failed!</strong> Please check your input and try again.
-										</div>
-							            <div class="alert alert-danger" ng-show="errorUserExists" translate="register.messages.error.userexists">
-							                <strong>A user has already registered with that email address.</strong> Did you mean to login?
-							            </div>
-										<h4 class="form-signin-heading">Register</h4>
-										<div class="form-group">
-												<input ng-model="registerAccount.firstName" name="name" type="text" class="form-control" placeholder="Your name" required autofocus>
-										</div>
-										<div class="form-group">
-												<input ng-model="registerAccount.email" name="email" type="email" class="form-control" placeholder="Email address" required>
-										</div>
-										<div class="form-group">
-												<input ng-model="registerAccount.password" name="password" type="password" class="form-control" placeholder="Password" required>
-										</div>
-                                       <div class="checkbox">
-                                            <label> <input ng-model="user.tos" name="tos" type="checkbox" required> <small class="muted">Agree to our <a href="/tos.html" target="_blank">terms of service</a>.
-                                            </small>
-                                            </label>
-                                        </div>
-                                        <!--  ng-disabled="!user.name || !user.email || !user.password" -->
-										<button type="submit" class="btn btn-lg btn-primary btn-block" >Start Registration</button>
-								</form>
-								
-						</div>
-</div>
-				</div>
-</div>
-  <div class="row">
-	
-				<div class="col-sx-4 col-md-4 col-lg-4">
-						<img class="img-responsive" src="http://placehold.it/350x150">
-						<h2>What is SNOMED CT?  FIXME copy</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-								malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-								<a class="btn btn-default" href="#" role="button">View details &raquo; FIXME link destination</a>
-						</p>
-				</div>
-				<div class="col-sx-4 col-md-4 col-lg-4">
-						<img class="img-responsive" src="http://placehold.it/350x150">
-						<h2>How do I gain access to SNOMED CT?  FIXME copy</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-								malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-								<a class="btn btn-default" href="#" role="button">View details &raquo;FIXME link destination</a>
-						</p>
-				</div>
-				<div class="col-sx-4 col-md-4 col-lg-4">
-						<img class="img-responsive" src="http://placehold.it/350x150">
-						<h2>What are the license alteratives and terms?  FIXME copy</h2>
-						<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-								condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-						<p>
-								<a class="btn btn-default" href="#" role="button">View details &raquo;FIXME link destination</a>
-						</p>
-		</div>
-</div>
-<!-- /container -->
-
+	<div class="col-sx-4 col-md-4 col-lg-4">
+		<img class="img-responsive" src="http://placehold.it/350x150" alt="Image" />
+		<h2>
+			What is SNOMED CT? FIXME copy
+		</h2>
+		<p>
+			Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
+			commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam
+			porta sem malesuada magna mollis euismod. Donec sed odio dui.
+		</p>
+		<p>
+			<a class="btn btn-default" href="#" role="button">View details - FIXME link
+			destination</a>
+		</p>
+	</div>
+	<div class="col-sx-4 col-md-4 col-lg-4">
+		<img class="img-responsive" src="http://placehold.it/350x150" alt="Image" />
+		<h2>
+			How do I gain access to SNOMED CT? FIXME copy
+		</h2>
+		<p>
+			Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
+			commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam
+			porta sem malesuada magna mollis euismod. Donec sed odio dui.
+		</p>
+		<p>
+			<a class="btn btn-default" href="#" role="button">View details - FIXME link
+			destination</a>
+		</p>
+	</div>
+	<div class="col-sx-4 col-md-4 col-lg-4">
+		<img class="img-responsive" src="http://placehold.it/350x150" alt="Image" />
+		<h2>
+			What are the license alteratives and terms? FIXME copy
+		</h2>
+		<p>
+			Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+			Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo,
+			tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+		</p>
+		<p>
+			<a class="btn btn-default" href="#" role="button">View details - FIXME link
+			destination</a>
+		</p>
+	</div>
+</div><!-- /container -->

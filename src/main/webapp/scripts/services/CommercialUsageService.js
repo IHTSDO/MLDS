@@ -137,6 +137,14 @@ angular.module('MLDS')
 			return httpPromise;
 		};
 
+		function generateRangeEntry(start, end) {
+			return {
+				description: ''+start.format('MMM')+' - '+end.format('MMM YYYY'),
+				startDate: start.toDate(),
+				endDate: end.toDate()
+			};
+		};
+		
 		service.generateRanges = function generateRanges() {
 			var ranges = [];
 			var date = moment().local();
@@ -156,6 +164,8 @@ angular.module('MLDS')
 			}
 			return ranges;
 		};
+		
+		
 		
 		return service;
 	}]);

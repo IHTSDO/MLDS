@@ -2,6 +2,9 @@ package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 
 import java.util.List;
 
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
+import ca.intelliware.ihtsdo.mlds.domain.Country;
+
 public class UserDTO {
 
     private String login;
@@ -23,6 +26,10 @@ public class UserDTO {
 	private boolean applicationApproved;
 	
 	private boolean applicationMade;
+
+	private CommercialUsagePeriod initialUsagePeriod;
+	
+	private Country country;
     
 
 	public UserDTO() {
@@ -30,7 +37,7 @@ public class UserDTO {
 
     
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   List<String> roles, boolean emailVerified, boolean applicationMade, boolean applicationApproved) {
+                   List<String> roles, boolean emailVerified, boolean applicationMade, boolean applicationApproved, CommercialUsagePeriod submissionPeriod) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -41,6 +48,7 @@ public class UserDTO {
         this.emailVerified = emailVerified;
         this.applicationMade = applicationMade;
         this.applicationApproved = applicationApproved;
+        this.setInitialUsagePeriod(submissionPeriod);
     }
 
     public boolean isApplicationMade() {
@@ -96,4 +104,24 @@ public class UserDTO {
         sb.append('}');
         return sb.toString();
     }
+
+
+	public CommercialUsagePeriod getInitialUsagePeriod() {
+		return initialUsagePeriod;
+	}
+
+
+	public void setInitialUsagePeriod(CommercialUsagePeriod initialUsagePeriod) {
+		this.initialUsagePeriod = initialUsagePeriod;
+	}
+
+
+	public Country getCountry() {
+		return country;
+	}
+
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
 }

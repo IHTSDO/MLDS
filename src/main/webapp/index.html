@@ -65,6 +65,7 @@
             <ul class="dropdown-menu">
               <li><a href="#/adminDashboard"> <span translate="global.menu.account.dashboard">Dashboard</span></a></li>
               <li><a href="#/metrics"> <span translate="global.menu.account.metrics">Metrics</span></a></li>
+              <li><a href="#/countries"> <span  >Countries</span></a></li>
               <li><a href="#/audits"> <span translate="global.menu.account.audits">Audits</span></a></li>
               <li><a href="#/logs"> <span translate="global.menu.account.logs">Logs</span></a></li>
               <li><a href="#/docs"> <span translate="global.menu.account.apidocs">API Docs</span></a></li>
@@ -75,12 +76,12 @@
             </span>
           </a>
             <ul class="dropdown-menu">
-              <li active-menu="da"><a href="#" ng-click="changeLanguage('da')"><span class="famfamfam-flag-dk"></span> &nbsp;<span translate="global.language.da">Danish</span></a></li>
+<!--               <li active-menu="da"><a href="#" ng-click="changeLanguage('da')"><span class="famfamfam-flag-dk"></span> &nbsp;<span translate="global.language.da">Danish</span></a></li> -->
               <li active-menu="en"><a href="#" ng-click="changeLanguage('en')"><span class="famfamfam-flag-gb"></span> &nbsp;<span translate="global.language.en">English</span></a></li>
               <li active-menu="fr"><a href="#" ng-click="changeLanguage('fr')"><span class="famfamfam-flag-fr"></span> &nbsp;<span translate="global.language.fr">French</span></a></li>
-              <li active-menu="de"><a href="#" ng-click="changeLanguage('de')"><span class="famfamfam-flag-de"></span> &nbsp;<span translate="global.language.de">German</span></a></li>
-              <li active-menu="pl"><a href="#" ng-click="changeLanguage('pl')"><span class="famfamfam-flag-pl"></span> &nbsp;<span translate="global.language.pl">Polish</span></a></li>
-              <li active-menu="ru"><a href="#" ng-click="changeLanguage('ru')"><span class="famfamfam-flag-ru"></span> &nbsp;<span translate="global.language.ru">Russian</span></a></li>
+<!--               <li active-menu="de"><a href="#" ng-click="changeLanguage('de')"><span class="famfamfam-flag-de"></span> &nbsp;<span translate="global.language.de">German</span></a></li> -->
+<!--               <li active-menu="pl"><a href="#" ng-click="changeLanguage('pl')"><span class="famfamfam-flag-pl"></span> &nbsp;<span translate="global.language.pl">Polish</span></a></li> -->
+<!--               <li active-menu="ru"><a href="#" ng-click="changeLanguage('ru')"><span class="famfamfam-flag-ru"></span> &nbsp;<span translate="global.language.ru">Russian</span></a></li> -->
             </ul></li>
         </ul>
       </div>
@@ -128,6 +129,7 @@
   <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
   <script src="bower_components/angular-dynamic-locale/src/tmhDinamicLocale.js"></script>
   <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
   <script src="scripts/http-auth-interceptor.js"></script>
   <script src="scripts/truncate.js"></script>
   <script src="scripts/utils.js"></script>
@@ -151,7 +153,9 @@
   <script src="scripts/controllers/ResetPasswordController.js"></script>
   <script src="scripts/controllers/UserListController.js"></script>
   <script src="scripts/controllers/UserDashboardController.js"></script>
-  <script src="scripts/controllers/UsageLogController.js"></script>
+  <script src="scripts/controllers/AffiliateRegistrationUsageLogController.js"></script>
+  <script src="scripts/controllers/FullPageUsageLogController.js"></script>
+  <script src="scripts/controllers/EmbeddableUsageLogController.js"></script>
   <script src="scripts/services.js"></script>
   <script src="scripts/services/Events.js"></script>
   <script src="scripts/services/DomainBlacklistService.js"></script>
@@ -168,18 +172,9 @@
   <script src="scripts/directives/autoSubmit.js"></script>
   <script src="scripts/directives/bsValidation.js"></script>
   <script src="scripts/directives/passwordStrengthBar.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/affix.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/alert.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/dropdown.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/tooltip.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/modal.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/transition.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/button.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/popover.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/carousel.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/collapse.js"></script>
-  <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js"></script>
+  <script src="scripts/country/router_country.js"></script>
+  <script src="scripts/country/controller_country.js"></script>
+  <script src="scripts/country/service_country.js"></script>
   <!-- endbuild -->
 
   <!-- Jira feedback widget -->

@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
-import org.joda.time.LocalDate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +22,7 @@ import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
@@ -68,24 +68,7 @@ public class CommercialUsageResource {
     	
     	return new ResponseEntity<Collection<CommercialUsage>>(licensee.getCommercialUsages(), HttpStatus.OK);
     }
-    
-    public static class CommercialUsageNewSubmissionMessage {
-    	LocalDate startDate;
-    	LocalDate endDate;
-		public LocalDate getStartDate() {
-			return startDate;
-		}
-		public void setStartDate(LocalDate startDate) {
-			this.startDate = startDate;
-		}
-		public LocalDate getEndDate() {
-			return endDate;
-		}
-		public void setEndDate(LocalDate endDate) {
-			this.endDate = endDate;
-		}
-    }
-    
+       
     public static class CommercialUsageApprovalTransitionMessage {
     	ApprovalTransition transition;
     	public ApprovalTransition getTransition() {
@@ -111,7 +94,7 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.POST,
     		produces = "application/json")
-    public @ResponseBody ResponseEntity<CommercialUsage> createNewSubmission(@PathVariable long licenseeId, @RequestBody CommercialUsageNewSubmissionMessage submissionPeriod) {
+    public @ResponseBody ResponseEntity<CommercialUsage> createNewSubmission(@PathVariable long licenseeId, @RequestBody CommercialUsagePeriod submissionPeriod) {
     	authorizationChecker.checkCanAccessLicensee(licenseeId);
     	
     	Licensee licensee = licenseeRepository.findOne(licenseeId);

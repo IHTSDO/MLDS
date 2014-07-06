@@ -37,12 +37,4 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
 		$event.stopPropagation();
 	};
 
-	function generateRangeEntry(start, end) {
-		return {
-			description: ''+start.format('MMM')+' - '+end.format('MMM YYYY'),
-			startDate: start.toDate(),
-			endDate: end.toDate()
-		};
-	};
-	
 }]);

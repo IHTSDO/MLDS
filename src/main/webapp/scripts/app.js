@@ -44,8 +44,8 @@ mldsApp
                     }
                 })
                  .when('/usage-log/:usageReportId', {
-                    templateUrl: 'views/user/usageLog.html',
-                    controller: 'UsageLogController',
+                    templateUrl: 'views/user/fullPageUsageLog.html',
+                    controller: 'FullPageUsageLogController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
                     }
@@ -217,6 +217,7 @@ mldsApp
                     		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
                     		$location.path() !== "/resetPassword" &&
+                    		$location.path() !== "/emailVerification" &&
                             $location.path() !== "/activate") {
                         $location.path('/login').replace();
                     }

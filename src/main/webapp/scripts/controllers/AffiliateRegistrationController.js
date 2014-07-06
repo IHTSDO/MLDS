@@ -9,7 +9,7 @@ mldsApp.controller('AffiliateRegistrationController',
         		
         		queryPromise.success(function(data) {
     				$log.log("loadApplication", data);
-    				$scope.affiliateform.type = data.type;
+    				$scope.affiliateform.type = data.type ? data.type : '';
     				$scope.affiliateform.usageSubType = data.subType;
     				$scope.affiliateform.contact.name = data.name ? data.name : Session.firstName;
     				$scope.affiliateform.contact.email = data.email ? data.email : Session.email;
@@ -28,7 +28,7 @@ mldsApp.controller('AffiliateRegistrationController',
     				$scope.affiliateform.billing.country = data.billingCountry ? data.billingCountry : '';
     				$scope.isSameAddress = checkAddresses($scope.affiliateform.address, $scope.affiliateform.billing);
     				$scope.affiliateform.organization.name = data.organizationName ? data.organizationName : '';
-    				$scope.affiliateform.organization.type = data.organizationType;
+    				$scope.affiliateform.organization.type = data.organizationType ? data.organizationType : '';
     				$scope.affiliateform.organization.typeOther = data.organizationTypeOther ? data.organizationTypeOther : '';
     				$scope.affiliateform.otherText = data.otherText ? data.otherText : '';
         		});
@@ -47,9 +47,6 @@ mldsApp.controller('AffiliateRegistrationController',
         	$scope.affiliateform.address = {};
         	$scope.affiliateform.billing = {};
         	$scope.affiliateform.organization = {};
-        	
-    		$scope.affiliateform.contact.name = Session.firstName;
-        	$scope.affiliateform.contact.email = Session.email;
         	
         	$scope.saveApplication = function() {
     			UserRegistrationService.saveApplication($scope.affiliateform);
