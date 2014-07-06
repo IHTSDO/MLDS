@@ -2,13 +2,8 @@ package ca.intelliware.ihtsdo.mlds.registration;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
-import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 
 @Entity
 public class Application {
@@ -20,8 +15,7 @@ public class Application {
 	String username;
 	boolean approved;
 	
-	@Enumerated(EnumType.STRING)
-	LicenseeType type;
+	String type;
 	@Column(name="subtype")
 	String subType;
 	
@@ -41,9 +35,8 @@ public class Application {
 	
 	@Column(name="organization_name")
 	String organizationName;
-	@Enumerated(EnumType.STRING)
 	@Column(name="organization_type")
-	OrganizationType organizationType;
+	String organizationType;
 	@Column(name="organization_type_other")
 	String organizationTypeOther;
 	
@@ -97,11 +90,11 @@ public class Application {
 		return approved;
 	}
 
-	public LicenseeType getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(LicenseeType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -225,11 +218,11 @@ public class Application {
 		this.organizationName = organizationName;
 	}
 
-	public OrganizationType getOrganizationType() {
+	public String getOrganizationType() {
 		return organizationType;
 	}
 
-	public void setOrganizationType(OrganizationType organizationType) {
+	public void setOrganizationType(String organizationType) {
 		this.organizationType = organizationType;
 	}
 

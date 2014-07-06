@@ -34,12 +34,13 @@
         "form": {
             "username": "Login",
             "username.placeholder": "Your login",
+            "name.placeholder": "Your name",
             "newpassword": "New password",
             "newpassword.placeholder": "New password",
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
             "email": "E-mail",
-            "email.placeholder": "Your e-mail"
+            "email.placeholder": "Email address"
         },
         "messages": {
             "info": {
@@ -95,9 +96,12 @@
         }
     },
     "register": {
-        "title": "Registration",
+        "title": "Register",
+        "welcome": "Welcome to IHTSDO-MLDS",
+        "subwelcome": "The gateway to access SNOMED CT Orientation",
         "form": {
-            "button": "Register"
+        	"tos": "Agree to our <a href=\"/tos.html\" target=\"_blank\">terms of service</a>.",
+            "button": "Start Regististration"
         },
         "messages": {
             "validate": {
