@@ -26,28 +26,32 @@
 					ng-model="registerAccount.countryCommonName" 
 					required=""
 					typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
-					typeahead-editable="false"><!--  createUserForm.attempted -->
-				<p ng-show="createUserForm.country.$error.required" class="help-block">Required field.</p>
-				<p ng-show="createUserForm.country.$error.editable" class="help-block">Unrecognized country</p>
-				<p ng-show="excludedCountry" class="help-block">Your country has their own registry for SNOMED.  Please go to {{registerAccount.country.commonName}}</p>
+					typeahead-editable="false"><!--   -->
+				<p ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
+				<p ng-show="createUserForm.country.$error.editable && createUserForm.attempted" class="help-block">Unrecognized country</p>
+				<p ng-show="createUserForm.country.$error.excluded" class="help-block">This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{registerAccount.country.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY</p>
 				</p>
 			</div>
 			<div class="form-group">
 				<input ng-model="registerAccount.firstName" name="name" type="text" class=
 				"form-control" placeholder="{{'global.form.name.placeholder' | translate}}" required="" />
+				<p ng-show="createUserForm.name.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
 			</div>
 			<div class="form-group">
 				<input ng-model="registerAccount.email" name="email" type="email" class="form-control"
 				placeholder="{{'global.form.email.placeholder' | translate}}" required="" />
+				<p ng-show="createUserForm.email.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
 			</div>
 			<div class="form-group">
 				<input ng-model="registerAccount.password" name="password" type="password" class=
 				"form-control" placeholder="{{'login.form.password.placeholder' | translate}}" required="" />
+				<p ng-show="createUserForm.password.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
 			</div>
-			<div class="checkbox">
+			<div class="checkbox form-group">
 				<label><input ng-model="user.tos" name="tos" type="checkbox" required="" />
 				<small class="muted" translate="register.form.tos">Agree to our <a href="/tos.html" target="_blank">terms of
 				service</a>.</small></label>
+				<p ng-show="createUserForm.tos.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
 			</div><!--  ng-disabled="!user.name || !user.email || !user.password" -->
 			<button type="submit" class="btn btn-lg btn-primary btn-block" translate="register.form.button">Start
 			Registration</button>

@@ -14,12 +14,16 @@ mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$
         $scope.$watch('registerAccount.countryCommonName', function(newValue){
         	var country = _.findWhere(CountryService.countries, {'commonName':newValue});
         	$scope.registerAccount.country = country;
-        	$scope.excludedCountry = _.contains(['US','UK'],(country || {}).isoCode2);
+        	var excludedCountry = country && country.excludeRegistration;
+        	$scope.createUserForm.country.$setValidity('excluded',!excludedCountry);
         });
         
         $scope.register = function () {
         	$log.log('register', $scope.registerAccount);
-        	return;
+    		if ($scope.createUserForm.$invalid) {
+    			$scope.createUserForm.attempted = true;
+    			return;
+    		}
         	/*
             if ($scope.registerAccount.password != $scope.confirmPassword) {
                 $scope.doNotMatch = "ERROR";
