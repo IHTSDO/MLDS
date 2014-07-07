@@ -750,6 +750,7 @@ pre code {
   overflow-y: scroll;
 }
 .container {
+  margin-bottom: 6em;
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
