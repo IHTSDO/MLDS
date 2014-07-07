@@ -12,7 +12,7 @@
             <div class="panel-body">
               <h4>How will you be using the standard? FIXME COPY</h4>
               <div class="form-group">
-                <label>Type</label> <select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.usageSubType = ''" required="">
+                <label>Type</label> <select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.usageSubType = ''; licenseeTypeChanged()" required="">
                   <option value="COMMERCIAL">Commercial</option>
                   <option value="ACADEMIC">Academic</option>
                   <option value="OTHER">Other</option>

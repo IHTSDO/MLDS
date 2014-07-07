@@ -29,9 +29,14 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 	$scope.canSubmit = $scope.$parent.usageLogCanSubmit;
 
 	loadParentsUsageReport();
+	setupNotificions();
 	
-	// Notifications for when to reload usage report
-	$scope.$on(Events.commercialUsageUpdated, function() {
+	function setupNotificions() {
+		$scope.$on(Events.commercialUsageUpdated, onCommercialUsageUpdated);
+		$scope.$on(Events.licenseeTypeUpdated, onLicenseeTypeUpdated);
+	}
+	
+	function onCommercialUsageUpdated() {
 		CommercialUsageService.getUsageReport($scope.commercialUsageReport.commercialUsageId)
 			.then(function(result) {
 				updateFromUsageReport(result.data);
@@ -41,16 +46,26 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 				$log.log('Failed commercialUsageUpdated');
 			});
 
-	});
+	}
+	
+	function onLicenseeTypeUpdated(event, newType) {
+		if (newType !== $scope.commercialUsageReport.type) {
+			$scope.commercialUsageReport.type = newType;
+			//FIXME needs to be persisted as we re-read from server, however, should we be triggering the save?
+			CommercialUsageService.updateUsageReportType($scope.commercialUsageReport)
+			["catch"](function(message) {
+				//FIXME
+				$log.log('Failed to put usage type');
+			});
+			
+		}
+	}
 	
 	function loadParentsUsageReport() {
 		//FIXME apparently not recommended to share controller state through scope
 		$scope.$parent.usageReportReady
 			.then(function(usageReport) {
 				$scope.commercialUsageReport = usageReport;
-				$log.log('ready');
-				$log.log(usageReport);
-				
 				updateFromUsageReport(usageReport);
 			})
 			["catch"](function(message) {

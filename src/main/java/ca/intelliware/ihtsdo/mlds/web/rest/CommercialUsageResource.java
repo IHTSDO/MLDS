@@ -24,6 +24,7 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
+import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
@@ -156,6 +157,26 @@ public class CommercialUsageResource {
     	} 
 
     	commercialUsage.setContext(context);
+    	
+    	commercialUsage = commercialUsageRepository.save(commercialUsage);
+    	
+    	return new ResponseEntity<UsageContext>(commercialUsage.getContext(), HttpStatus.OK);
+    }
+
+	
+	
+	@RequestMapping(value = Routes.USAGE_REPORT_TYPE,
+    		method = RequestMethod.PUT,
+            produces = "application/json")
+    public @ResponseBody ResponseEntity<UsageContext> updateCommercialUsageType(@PathVariable long commercialUsageId, @PathVariable LicenseeType type) {
+    	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
+    	
+    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+    	if (commercialUsage == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	} 
+
+    	commercialUsage.setType(type);
     	
     	commercialUsage = commercialUsageRepository.save(commercialUsage);
     	
