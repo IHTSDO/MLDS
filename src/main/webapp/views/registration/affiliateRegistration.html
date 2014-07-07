@@ -193,7 +193,7 @@
                   <div class="form-group has-error has-feedback">
                     <label>Organization Type</label> 
                      <select class="form-control" name="organizationType" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.organization.type" auto-submit>
-                    	<option ng-repeat="organizationType in organizationTypes" value="{{organizationType.value}}">{{organizationType.name}}</option>
+                    	<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{'licensee.organizationType.' + organizationType | translate}}</option>
                     </select>
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationType.$error.required && affiliateApplicationForm.attempted">
                       Required field.
@@ -364,6 +364,9 @@
           </p>
           <div class="panel-footer">
             <button type="button" class="btn btn-muted btn-success" ng-click="openReviewModal(affiliateform)">Register</button>
+            <div ng-show="affiliateApplicationForm.attempted" class="has-error">
+							<p ng-show="affiliateApplicationForm.$invalid" class="help-block">Please fix the errors listed above.</p>
+						</div>
           </div>
         </div>
       </div>

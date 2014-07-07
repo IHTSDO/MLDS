@@ -315,5 +315,27 @@
         "title": "Page d'erreur!",
         "403": "Vous n'avez pas les droits pour accéder à cette page."
     },
-    "footer": "Ceci est votre pied de page"
+    "footer": "Ceci est votre pied de page",
+    "licensee": {
+    	"type": {
+    		"COMMERCIAL": "Commercial-fr",
+				"ACADEMIC": "Academic-fr",
+				"OTHER": "Other-fr",
+				"INDIVIDUAL": "Individual-fr"
+    	},
+    	"agreementType": {
+    		"AFFILIATE_NORMAL": "Affiliate - Normal-fr",
+				"AFFILIATE_RESEARCH": "Affiliate - Research-fr",
+				"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good-fr"
+			},
+			"organizationType": {
+				"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization-fr", 
+				"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization-fr", 
+				"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization-fr", 
+				"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer-fr",
+				"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice-fr", 
+				"EDUCATIONAL_INSTITUTE": "Educational Institute-fr", 
+				"OTHER": "Other-fr"
+			}
+    }
 }
