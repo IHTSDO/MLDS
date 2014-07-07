@@ -750,7 +750,6 @@ pre code {
   overflow-y: scroll;
 }
 .container {
-  margin-bottom: 6em;
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
@@ -6042,11 +6041,10 @@ button.close {
 footer {
   background-color: #18283c;
   color: #ffffff;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  position: absolute;
   /* Set the fixed height of the footer here */
   height: 6em;
   text-align: center;
   padding-top: 1em;
+  width: 100%;
 }
