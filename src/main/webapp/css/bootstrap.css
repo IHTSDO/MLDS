@@ -6019,14 +6019,25 @@ button.close {
   position: relative;
   bottom: 5px;
 }
+.country-listing {
+  margin: 10px;
+}
+.country-heading {
+  margin-top: 5px;
+  border-top: 2px solid #04add8;
+  padding: 10px 0 15px;
+}
+.country-heading .btn {
+  margin-top: 10px;
+}
 .country-title {
   position: relative;
   bottom: 10px;
 }
-.country-listing {
-  margin: 10px 25px;
-  border-top: 1px solid #eeeeee;
+.country-footer {
+  background-color: #eeeeee;
   overflow: hidden;
+  padding-top: 8px;
 }
 footer {
   background-color: #18283c;
