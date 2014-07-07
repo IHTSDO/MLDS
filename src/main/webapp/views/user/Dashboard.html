@@ -13,7 +13,7 @@
      <div class="user-info">
       <p>
         <a class="btn btn-link pull-right" href="#/affiliateRegistration">Resubmit Affilate Registration</a>
-        <strong>Licensee:</strong> {{licensee.application.name}}<br>
+        <strong>Licensee:</strong> {{licensee.application.organizationName ? licensee.application.organizationName : licensee.application.name}}<br>
         <strong>Type:</strong> {{'licensee.type.'+licensee.type | translate}}
       </p>
     </div>  
@@ -31,7 +31,7 @@
     <div class="report">
       <table class="table table-striped table-hover">
         <tr>
-          <th colspan=2>Declaration Period</th>
+          <th colspan="2">Declaration Period</th>
           <th>Date Submitted</th>
           <th class="text-right">Countries</th>
           <th class="text-right" ng-show="licenseeIsCommercial(licensee)">Hospitals</th>
