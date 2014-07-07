@@ -49,9 +49,11 @@ angular.module('MLDS')
 		service.currentCommercialUsageReport = {};
 		
 		service.getUsageReport = function(reportId) {
-			var usage = $http.get('/app/rest/commercialUsages/'+reportId);
-			service.currentCommercialUsageReport = usage;
-			return usage;
+			var usagePromise = $http.get('/app/rest/commercialUsages/'+reportId);
+			usagePromise.then(function(response){
+				service.currentCommercialUsageReport = response.data;
+			});
+			return usagePromise;
 		};
 
 		service.updateUsageReportContext = function(usageReport, options) {
