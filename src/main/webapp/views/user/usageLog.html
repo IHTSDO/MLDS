@@ -10,9 +10,13 @@
 	
 	<div class="panel panel-default" >
       <div class="panel-heading">
-        <h4 class="panel-title">Licence Usage<span class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</span></h4>
+        <h4 class="panel-title">
+        	<a ng-click="collapsePanel.usage = !collapsePanel.usage">
+        	Licence Usage<span class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</span>
+        	</a>
+        	</h4>
       </div>
-      <div class="panel-body" collapse="collapsePanel.submitted" class="panel-collapse collapse in">
+      <div class="panel-body" collapse="collapsePanel.usage" class="panel-collapse collapse in">
        <form novalidate name="usageForm" bs-validation>
                  <div class="form-group">
                     <label>Licence Type: {{'licensee.type.'+commercialUsageReport.type | translate}}</label>
@@ -131,8 +135,8 @@
 					<table class="table table-striped">
 						<tr>
 							<th>Hospital Name</th>
-							<th>License Start</th>
-							<th>License End</th>
+							<th>Started to Use</th>
+							<th>Ceased Use</th>
 							<th>Note</th>
 							<th></th>
 						</tr>
@@ -148,7 +152,7 @@
 									<ul class="dropdown-menu" role="menu">
 										<li><a ng-click="editInstitutionModal(institution, countryUsage.country)">Edit</a></li>
 										<li class="divider"></li>
-										<li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)">Delete</a></li>
+										<li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)">Remove</a></li>
 									</ul>
 								</div>
 							</td>
@@ -170,17 +174,16 @@
 			</div>
 		</div>
 	    <div class="space"></div>
-	  </div>
 </div>
 </div>
 
 <div class="row">
-<div class="col-xs-offset-1 col-sm-offset-0 col-md-offset-0 col-md-12">
+	<div class="col-xs-offset-1 col-sm-offset-0 col-md-offset-0 col-md-12">
 		<div class="submit-usage" ng-hide="readOnly || !canSubmit">
 			<button ng-click="submitUsageReport(usageForm)" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button>
 			<div ng-show="usageForm.attempted" class="has-error">
 				<p ng-show="usageForm.$invalid" class="help-block">Please fix the errors listed above.</p>
 			</div>
 		</div>
-    </div>
+  </div>
 </div>
