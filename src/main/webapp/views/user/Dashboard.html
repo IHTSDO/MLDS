@@ -41,8 +41,8 @@
          <tbody>
           <tr ng-class="{info: usageReport.approvalState === 'NOT_SUBMITTED'}" ng-repeat="usageReport in licensee.commercialUsages">
           <td class="text-left"><i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i></td>
-          <td class="text-left"><a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'yyyy'}} {{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}</a></td>
-          <td class="text-left">{{usageReport.submitted | date : 'MMM dd yyyy'}}</td>
+          <td class="text-left"><a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}</a></td>
+          <td class="text-left">{{usageReport.submitted | date : 'd MMM yyyy'}}</td>
           <td class="text-right">{{usageReportCountries(usageReport) | number}}</td>
           <td class="text-right" ng-show="licenseeIsCommercial(licensee)">{{usageReportHospitals(usageReport) | number}}</td>
           <td ng-show="licenseeIsCommercial(licensee)"><p class="text-right">{{usageReportPractices(usageReport) | number}}</p></td>
