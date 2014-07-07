@@ -46,9 +46,14 @@ angular.module('MLDS')
 					});
 		};
 
+		service.currentCommercialUsageReport = {};
 		
 		service.getUsageReport = function(reportId) {
-			return $http.get('/app/rest/commercialUsages/'+reportId);
+			var usagePromise = $http.get('/app/rest/commercialUsages/'+reportId);
+			usagePromise.then(function(response){
+				service.currentCommercialUsageReport = response.data;
+			});
+			return usagePromise;
 		};
 
 		service.updateUsageReportContext = function(usageReport, options) {
