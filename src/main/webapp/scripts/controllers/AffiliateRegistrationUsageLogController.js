@@ -1,8 +1,8 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationUsageLogController',
-        [ '$scope', '$log', 'CountryService', 'LicenseeService', 'Events', '$q',
-          function ($scope, $log, CountryService, LicenseeService, Events, $q) {
+        [ '$scope', '$log', 'CountryService', 'LicenseeService', 'Events', '$q', 'CommercialUsageService',
+          function ($scope, $log, CountryService, LicenseeService, Events, $q, CommercialUsageService) {
 
         	var usageReportDefer = $q.defer();
 
@@ -28,6 +28,8 @@ mldsApp.controller('AffiliateRegistrationUsageLogController',
         							}
         						});
 //        						var usageReport = licensees[0].commercialUsages[0];
+        						// FIXME MB hack alert - updating the current pointer from controller load
+        						CommercialUsageService.currentCommercialUsageReport = usageReport;
         						usageReportDefer.resolve(usageReport);
         					} else {
         						$log.log('User does not have any usage reports yet...');

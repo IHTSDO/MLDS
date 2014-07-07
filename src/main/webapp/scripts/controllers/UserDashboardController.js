@@ -34,13 +34,15 @@ angular.module('MLDS')
 
         	
         	//FIXME: AC Seems to break when user refreshes page
-        	if (!UserSession.hasApplied()) {
-        		$location.path('/affiliateRegistration');
-        	} else if (!UserSession.isApproved()) {
-        		//$location.path('/pendingRegistration');
-        	} else {
-        		// setup dashboard?
-        	}
+        	UserSession.readyPromise.then(function(){
+        		if (!UserSession.hasApplied()) {
+        			$location.path('/affiliateRegistration');
+        		} else if (!UserSession.isApproved()) {
+        			//$location.path('/pendingRegistration');
+        		} else {
+        			// setup dashboard?
+        		}
+        	});
         	
         	$scope.usageReportCountries = function(usageReport) {
         		return usageReport.countries.length;

@@ -1,24 +1,26 @@
 <div class="row">
-
-	
+	<div class="col-md-12">
 	<div class="usage-log" ng-show="readOnly">
 	 
 		 <h4>Submitted Commercial Usage Report</h4>
 		 <hr>
-		 <span class="pull-right" id="retractBtn"><button ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
+		 <span class="pull-right" id="retractBtn"><button ng-disable="!readOnly" ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
 		 <p class="text-success"><strong>Commercial Usage for:</strong> {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }} </p>
 	</div>
 	
 	<div class="panel panel-default" >
       <div class="panel-heading">
-        <h4 class="panel-title">Licence Usage<span class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</span></h4>
+        <h4 class="panel-title">
+        	<a ng-click="collapsePanel.usage = !collapsePanel.usage">
+        	Licence Usage<span class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</span>
+        	</a>
+        	</h4>
       </div>
-      <div class="panel-body" collapse="collapsePanel.submitted" class="panel-collapse collapse in">
-       <form novalidate name="usageForm" bs-validation>
-                 <div class="form-group">
+      <div class="panel-body" collapse="collapsePanel.usage" class="panel-collapse collapse in">
+       <ng-form name="usageForm" novalidate bs-validation >
+                 <div class="form-group" ng-init="affilliateControllerSharedBucket.usageForm = usageForm">
                     <label>Licence Type: {{'licensee.type.'+commercialUsageReport.type | translate}}</label>
                   </div>
-       
                   <div class="form-group">
                     <label>Current Usage</label>
                     <textarea class="form-control" rows="3" required ng-disabled="readOnly" name="currentUsage" ng-model="commercialUsageReport.context.currentUsage" auto-submit></textarea>
@@ -48,7 +50,7 @@
 						<p ng-show="usageForm.agreementType.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
-       </form>
+       </ng-form>
 		</div>
 	</div>
 	
@@ -115,26 +117,25 @@
 			</div>
 			<div class="panel-body" collapse="collapsePanel.sublicensed">
 				<div class="country-listing" ng-repeat="countryUsage in usageByCountryList">
-            <div class="row space country-heading">
-                    <div class="form-group" ng-hide="readOnly">
-                          <div class="col-xs-6 col-md-6 col-lg-6">
+            <div class="row">
+                    <div class="country-heading" ng-hide="readOnly">
+                          <div class="col-xs-8 col-sm-6 col-md-4 col-lg-6">
                              <h3 class="country-title">{{countryUsage.country.commonName}}</h3>
                           </div>
-                         <div class="col-xs-6 col-md-6 col-lg-6">
-                            <div class="pull-right">
-                            <a class="btn btn-success" ng-click="addInstitutionModal(countryUsage.country)">Add Institution</a>
-                             <a class="btn btn-danger" ng-click="removeCountryModal(countryUsage.count)">Remove Country</a>
-                         </div>
+                         <div class="col-xs-4 col-sm-6  col-md-8 col-lg-6">
+                          <div class="form-group pull-right">
+                            <a class="btn btn-success btn-xs" ng-click="addInstitutionModal(countryUsage.country)"><i class="fa fa-plus"></i> Add Hospital</a>
+                            <a class="btn btn-danger btn-xs" ng-click="removeCountryModal(countryUsage.count)"><i class="fa fa-times"></i> Remove Country</a>
+                          </div>
                         </div>
-                        
                   </div>
 					</div>
-					<div class="col-lg-12">
+					<div class="row">
 					<table class="table table-striped">
 						<tr>
 							<th>Hospital Name</th>
-							<th>License Start</th>
-							<th>License End</th>
+							<th>Started to Use</th>
+							<th>Ceased Use</th>
 							<th>Note</th>
 							<th></th>
 						</tr>
@@ -145,41 +146,43 @@
 							<td>{{institution.endDate | date}}</td>
 							<td>{{institution.note}}</td>
 							<td>
-								<div class="btn-group" ng-hide="readOnly">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-pencil"></i></button>
+								<div class="btn-group" dropdown ng-hide="readOnly">
+									<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-pencil"></i></button>
 									<ul class="dropdown-menu" role="menu">
-										<li><a ng-click="editInstitutionModal(institution, countryUsage.country)">Edit</a></li>
+										<li><a ng-click="editInstitutionModal(institution, countryUsage.country)">Edit Hospital</a></li>
 										<li class="divider"></li>
-										<li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)">Delete</a></li>
+										<li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)">Remove Hospital</a></li>
 									</ul>
 								</div>
 							</td>
 						</tr>
 					</table>
-					</div>
-					<div class="form-group space">
-						<div class="col-md-8">
-							<p><strong>Practices: </strong> <span class="label label-default">{{countryUsage.count.practices | number}}</span></p>
-						</div>
-						<div class="col-md-4">
-							<button ng-hide="readOnly" type="button" class="btn btn-default pull-right" ng-click="editCountModal(countryUsage.count)"> <i class="fa fa-pencil"></i> Edit Country</button>
-						</div>
-					</div>
-					
 				</div>
+        <div class="row">
+          <div class="country-footer">
+            <div class="col-xs-8 col-sm-8  col-md-8 col-lg-8">
+              <p><strong>Practices: </strong> <span class="label label-default">{{countryUsage.count.practices | number}}</span></p>
+            </div>
+            <div class="col-xs-4 col-sm-4  col-md-4 col-lg-4">
+              <button ng-hide="readOnly" type="button" class="btn btn-default btn-xs pull-right" ng-click="editCountModal(countryUsage.count)"> <i class="fa fa-pencil"></i> Edit Country</button>
+            </div>
+          </div>
+           </div>
+        </div>
 
 			</div>
 		</div>
 	    <div class="space"></div>
-	  </div>
 </div>
+</div>
+
 <div class="row">
-<div class="col-md-12 submit-usage">
-		<div class="space" ng-hide="readOnly || !canSubmit">
+	<div class="col-xs-offset-1 col-sm-offset-0 col-md-offset-0 col-md-12">
+		<div class="submit-usage" ng-hide="readOnly || !canSubmit">
 			<button ng-click="submitUsageReport(usageForm)" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button>
 			<div ng-show="usageForm.attempted" class="has-error">
 				<p ng-show="usageForm.$invalid" class="help-block">Please fix the errors listed above.</p>
 			</div>
 		</div>
-    </div>
+  </div>
 </div>

@@ -6,7 +6,7 @@ angular.module('MLDS')
         restrict: "A",
         link: function(scope, element, attrs, ctrl) {
 
-            if (element.get(0).nodeName.toLowerCase() === 'form') {
+            if (element.get(0).nodeName.toLowerCase() === 'form' || element.get(0).nodeName.toLowerCase() === 'ng-form') {
             	//$log.log('bsValidation - wiring .form-group in form');
                 element.find('.form-group').each(function(i, formGroup) {
                     showValidation(angular.element(formGroup));
