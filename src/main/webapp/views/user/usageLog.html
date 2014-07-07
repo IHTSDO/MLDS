@@ -10,9 +10,13 @@
 	
 	<div class="panel panel-default" >
       <div class="panel-heading">
-        <h4 class="panel-title">Licence Usage<span class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</span></h4>
+        <h4 class="panel-title">
+        	<a ng-click="collapsePanel.usage = !collapsePanel.usage">
+        	Licence Usage<span class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</span>
+        	</a>
+        	</h4>
       </div>
-      <div class="panel-body" collapse="collapsePanel.submitted" class="panel-collapse collapse in">
+      <div class="panel-body" collapse="collapsePanel.usage" class="panel-collapse collapse in">
        <form novalidate name="usageForm" bs-validation>
                  <div class="form-group">
                     <label>Licence Type: {{'licensee.type.'+commercialUsageReport.type | translate}}</label>
