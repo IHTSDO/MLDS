@@ -7,7 +7,7 @@
   			<h4>Usage Type:</h4>
   			<ul class="list-group">
   				<li class="list-group-item"><strong>Type:</strong> {{affiliateform.type}}</li>
-  				<li class="list-group-item"><strong>Sub-Type:</strong> {{affiliateform.usageSubType}}</li>
+  				<li class="list-group-item"><strong>Subtype:</strong> {{affiliateform.usageSubType}}</li>
   			</ul>
 
   			<h4>Contact Information:</h4>
@@ -36,7 +36,7 @@
   				<li class="list-group-item"><strong>City:</strong> {{affiliateform.address.city}}</li>
   				<li class="list-group-item"><strong>Post Code:</strong> {{affiliateform.address.postCode}}</li>
   				<li class="list-group-item"><strong>Country:</strong> {{affiliateform.address.country}}</li>
-  				<li class="list-group-item"><strong>Phone:</strong> {{affiliateform.contact.phone}} <span ng-show="affiliateform.contactextension">ext: {{affiliateform.contact.extension}}</span></li>
+  				<li class="list-group-item"><strong>Phone Number:</strong> {{affiliateform.contact.phone}} <span ng-show="affiliateform.contactextension">ext: {{affiliateform.contact.extension}}</span></li>
   				<li class="list-group-item"><strong>Alternate Email:</strong> {{affiliateform.contact.alternateEmail}}</li>
   				<li class="list-group-item" ng-show="affiliateform.type=='COMMERCIAL'"><strong>Third Email:</strong> {{affiliateform.contact.thirdEmail}}</li>
   				<li class="list-group-item" ng-show="affiliateform.type=='OTHER'"><strong>Other:</strong>{{otherText}}</li>
