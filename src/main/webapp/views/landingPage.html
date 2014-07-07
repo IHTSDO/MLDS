@@ -17,12 +17,13 @@
 				<strong>A user has already registered with that email address.</strong> Did you mean to
 				login?
 			</div>
-			<h4 class="form-signin-heading" translate="register.title">
+			<h3 class="form-signin-heading" translate="register.title">
 				Register
-			</h4>
+			</h3>
 			<div class="form-group">
+				<label translate="global.form.country">Country of residence</label>
 				<input class="form-control" type="text" name="country" autofocus=""
-					placeholder="Country"
+					placeholder="{{'global.form.country' | translate}}"
 					ng-model="countryCommonName" 
 					required=""
 					typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
@@ -33,16 +34,19 @@
 				</p>
 			</div>
 			<div class="form-group">
+				<label translate="global.form.name.placeholder">Your name</label>
 				<input ng-model="registerAccount.firstName" name="name" type="text" class=
 				"form-control" placeholder="{{'global.form.name.placeholder' | translate}}" required="" />
 				<p ng-show="createUserForm.name.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
 			</div>
 			<div class="form-group">
+				<label translate="global.form.email">Email address</label>
 				<input ng-model="registerAccount.email" name="email" type="email" class="form-control"
 				placeholder="{{'global.form.email.placeholder' | translate}}" required="" />
 				<p ng-show="createUserForm.email.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
 			</div>
 			<div class="form-group">
+				<label translate="login.form.password.placeholder">Your password</label>
 				<input ng-model="registerAccount.password" name="password" type="password" class=
 				"form-control" placeholder="{{'login.form.password.placeholder' | translate}}" required="" />
 				<p ng-show="createUserForm.password.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
