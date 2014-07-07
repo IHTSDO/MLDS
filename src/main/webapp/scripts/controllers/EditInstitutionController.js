@@ -46,9 +46,9 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 	};
 
 	$scope.dateOptions = {
-		formatYear: 'yy',
-		startingDay: 1,
-		format: 'yyyy/MM/dd'
-	};
+			formatYear: 'yy',
+			startingDay: 1,
+			format: 'd MMM yyyy'
+		};
 
 }]);
