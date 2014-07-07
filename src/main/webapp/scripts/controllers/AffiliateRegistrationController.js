@@ -68,11 +68,7 @@ mldsApp.controller('AffiliateRegistrationController',
         			templateUrl: 'views/registration/affiliateRegistrationReview.html',
         			controller: 'AffiliateRegistrationReviewController',
         			size:'lg',
-        			resolve: {
-        				affiliateForm: function() {
-        					return affiliateForm;
-        				}
-        			}
+        			scope: $scope
         		});
         	};
         	

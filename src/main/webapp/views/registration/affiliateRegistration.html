@@ -23,7 +23,7 @@
                 </p>
               </div>
               <div class="form-group" ng-show="affiliateform.type && affiliateform.type!='OTHER'">
-                <label>Sub-type</label> 
+                <label>Subtype</label> 
                 <select class="form-control input-md" name="usageSubType" ng-model="affiliateform.usageSubType" ng-required="affiliateform.type!='OTHER'" auto-submit>
                   <option value="Developer" ng-show="affiliateform.type=='COMMERCIAL'">Developer</option>
                   <option value="Development" ng-show="affiliateform.type=='ACADEMIC'">Development</option>
@@ -46,6 +46,7 @@
             </div>
           </div>
         </div>
+        
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -172,10 +173,10 @@
         <div class="panel panel-default" ng-show="affiliateform.type && affiliateform.type!='INDIVIDUAL'">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a ng-click="collapsePanel.Organisation = !collapsePanel.Organisation">Organization</a>
+              <a ng-click="collapsePanel.Organization = !collapsePanel.Organization">Organization</a>
             </h4>
           </div>
-          <div id="collapseOrganisation" class="panel-collapse collapse in" ng-show="!collapsePanel.Organisation">
+          <div id="collapsePanel.Organization" class="panel-collapse collapse in" ng-show="!collapsePanel.Organization">
             <div class="panel-body">
               <div class="row">
                 <div class="col-md-6">
