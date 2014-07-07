@@ -364,6 +364,9 @@
           </p>
           <div class="panel-footer">
             <button type="button" class="btn btn-muted btn-success" ng-click="openReviewModal(affiliateform)">Register</button>
+            <div ng-show="affiliateApplicationForm.attempted" class="has-error">
+							<p ng-show="affiliateApplicationForm.$invalid" class="help-block">Please fix the errors listed above.</p>
+						</div>
           </div>
         </div>
       </div>
