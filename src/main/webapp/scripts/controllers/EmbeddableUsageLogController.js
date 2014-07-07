@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', 
-                                                 		function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams){
+angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 
+                                                 		function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location){
 	$scope.collapsePanel = {};
 	
 	$scope.usageLogForm = {};
@@ -372,4 +372,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 	};
 	
 
+	$scope.goToDashboard = function() {
+		$location.path('/dashboard');	
+	};
 }]);
