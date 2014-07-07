@@ -6,7 +6,7 @@
   		<div class="col-sm-6 col-md-6 col-lg-6">
   			<h4>Usage Type:</h4>
   			<ul class="list-group">
-  				<li class="list-group-item"><strong>Type:</strong> {{affiliateform.type}}</li>
+  				<li class="list-group-item"><strong>Type:</strong> {{'licensee.type.'+affiliateform.type | translate}}</li>
   				<li class="list-group-item"><strong>Subtype:</strong> {{affiliateform.usageSubType}}</li>
   			</ul>
 
@@ -30,7 +30,7 @@
   				<li class="list-group-item"><strong>Organization Name:</strong> {{affiliateform.organization.name}}</li>
   				<li class="list-group-item"><strong>Organization Type:</strong>
   					<span ng-show="affiliateform.organization.type=='OTHER'">{{affiliateform.organization.typeOther}}</span>
-  					<span ng-show="affiliateform.organization.type!='OTHER'">{{affiliateform.organization.type}}</span> 
+  					<span ng-show="affiliateform.organization.type!='OTHER'">{{'licensee.organizationType.'+affiliateform.organization.type | translate}}</span> 
  					</li>
   				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.address.street}}</li>
   				<li class="list-group-item"><strong>City:</strong> {{affiliateform.address.city}}</li>
