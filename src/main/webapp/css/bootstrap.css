@@ -6041,6 +6041,11 @@ button.close {
 footer {
   background-color: #18283c;
   color: #ffffff;
-  padding: 20px 0 0;
-  min-height: 60px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 6em;
+  text-align: center;
+  padding-top: 1em;
 }
