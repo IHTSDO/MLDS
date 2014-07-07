@@ -317,18 +317,26 @@
         "403": "You are not authorized to access the page."
     },
     "footer": "This is your footer",
-    
     "licensee": {
     	"type": {
     		"COMMERCIAL": "Commercial",
-			"ACADEMIC": "Academic",
-			"OTHER": "Other",
-			"INDIVIDUAL": "Individual"
+				"ACADEMIC": "Academic",
+				"OTHER": "Other",
+				"INDIVIDUAL": "Individual"
     	},
     	"agreementType": {
     		"AFFILIATE_NORMAL": "Affiliate - Normal",
-			"AFFILIATE_RESEARCH": "Affiliate - Research",
-			"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
-		}
+				"AFFILIATE_RESEARCH": "Affiliate - Research",
+				"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
+			},
+			"organizationType": {
+				"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization", 
+				"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization", 
+				"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization", 
+				"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer",
+				"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice", 
+				"EDUCATIONAL_INSTITUTE": "Educational Institute", 
+				"OTHER": "Other"
+			}
     }
 }

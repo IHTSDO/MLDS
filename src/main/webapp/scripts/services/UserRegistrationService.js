@@ -52,15 +52,9 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 			},
 			
 			getOrganizationTypes: function getOrganizationTypes() {
-				return [
-					{name:'Public Health Organization', value:'PUBLIC_HEALTH_ORGANIZATION'},
-					{name:'Private Health Organization', value: 'PRIVATE_HEALTH_ORGANIZATION'},
-					{name:'Research and Development Organization', value: 'RESEARCH_AND_DEVELOPMENT_ORGANIZATION'},
-					{name:'Healthcare Application Developer', value: 'HEALTHERCARE_APPLICATION_DEVELOPER'},
-					{name:'Healthcare Application Provider', value: 'HEALTHERCARE_APPLICATION_PROVIDER'},
-					{name:'General Practitioner Practice', value: 'GENERAL_PRACTITIONER_PRACTICE'},
-					{name:'Educational Institute', value: 'EDUCATIONAL_INSTITUTE'},
-					{name:'Other', value: 'OTHER'}
+				return ['PUBLIC_HEALTH_ORGANIZATION', 'PRIVATE_HEALTH_ORGANIZATION', 
+				        'RESEARCH_AND_DEVELOPMENT_ORGANIZATION', 'HEALTHERCARE_APPLICATION_DEVELOPER',
+				        'GENERAL_PRACTITIONER_PRACTICE', 'EDUCATIONAL_INSTITUTE', 'OTHER'
 				];
 			}
 		};
