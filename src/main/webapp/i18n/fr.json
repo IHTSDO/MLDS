@@ -35,7 +35,6 @@
             "username": "Nom d'utilisateur",
             "username.placeholder": "Votre nom d'utilisateur",
             "name.placeholder": "Votre nom",
-            "country.placeholder": "Pays",
             "newpassword": "Nouveau mot de passe",
             "newpassword.placeholder": "Nouveau mot de passe",
             "confirmpassword": "Confirmation du nouveau mot de passe",

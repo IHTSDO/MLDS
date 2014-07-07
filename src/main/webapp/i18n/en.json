@@ -34,7 +34,6 @@
         "form": {
             "username": "Login",
             "username.placeholder": "Your login",
-            "country.placeholder": "Country",
             "name.placeholder": "Your name",
             "newpassword": "New password",
             "newpassword.placeholder": "New password",
