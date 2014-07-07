@@ -67,7 +67,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Email</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganisationABC.com" required="" name="contactEmail" ng-model="affiliateform.contact.email" auto-submit>
+                    <label>Email</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" required="" name="contactEmail" ng-model="affiliateform.contact.email" auto-submit>
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.contactEmail.$error.required" class="help-block">
                         Required field.
@@ -171,7 +171,7 @@
         <div class="panel panel-default" ng-show="affiliateform.type && affiliateform.type!='INDIVIDUAL'">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a ng-click="collapsePanel.Organisation = !collapsePanel.Organisation">Organisation</a>
+              <a ng-click="collapsePanel.Organisation = !collapsePanel.Organisation">Organization</a>
             </h4>
           </div>
           <div id="collapseOrganisation" class="panel-collapse collapse in" ng-show="!collapsePanel.Organisation">
@@ -179,7 +179,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group has-error has-feedback">
-                    <label>Organization Name</label> <input class="form-control help-block" name="organizationName" placeholder="Organisation Name" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.organization.name" auto-submit>
+                    <label>Organization Name</label> <input class="form-control help-block" name="organizationName" placeholder="Organization Name" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.organization.name" auto-submit>
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted">
                       Required field.
                     </p>
@@ -299,7 +299,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Alternate Email</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganisationABC.com" ng-required="affiliateform.type!='INDIVIDUAL'" name="alternateEmail" ng-model="affiliateform.contact.alternateEmail" auto-submit>
+                    <label>Alternate Email</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="affiliateform.type!='INDIVIDUAL'" name="alternateEmail" ng-model="affiliateform.contact.alternateEmail" auto-submit>
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.alternateEmail.$error.required" class="help-block">
                         Required field.
@@ -314,7 +314,7 @@
               <div class="row" ng-show="affiliateform.type=='COMMERCIAL'">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Third Email</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganisationABC.com" ng-required="affiliateform.type=='COMMERCIAL'" name="thirdEmail" ng-model="affiliateform.contact.thirdEmail" auto-submit>
+                    <label>Third Email</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="affiliateform.type=='COMMERCIAL'" name="thirdEmail" ng-model="affiliateform.contact.thirdEmail" auto-submit>
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.thirdEmail.$error.required" class="help-block">
                         Required field.
@@ -350,13 +350,13 @@
         </div>
         <div class="panel-body">
           <p class="bg-warning text-warning">
-            License abstract -- explain importance of terms. Describe reporting and possible $$$ obligations! FIXME - copy
+            Licence abstract -- explain importance of terms. Describe reporting and possible $$$ obligations! FIXME - copy
           </p>
           <p>
-            <a href="http://ihtsdo.org/fileadmin/user_upload/Docs_01/License/Ihtsdo_AffiliateLicenceAgreement_v11.pdf" target="_blank" class="btn btn-default btn-block">SNOMED License</a>
+            <a href="http://ihtsdo.org/fileadmin/user_upload/Docs_01/License/Ihtsdo_AffiliateLicenceAgreement_v11.pdf" target="_blank" class="btn btn-default btn-block">SNOMED Licence</a>
           </p>
           <p class="form-group">
-            <label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="affiliateform.snoMedTC"> I agree to the license 
+            <label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="affiliateform.snoMedTC"> I agree to the licence 
             <span ng-show="affiliateApplicationForm.snoMedTC.$error.required && affiliateApplicationForm.attempted" class="help-block">The license is required to access SNOMED CT.</span></label>
           </p>
           <div class="panel-footer">
