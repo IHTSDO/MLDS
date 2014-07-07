@@ -286,6 +286,7 @@ body {
   color: #333333;
   background-color: #f5f5f5;
   height: 100%;
+  margin-bottom: 60px;
 }
 .body-dark {
   background-color: #18283c;
@@ -3749,6 +3750,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   bottom: 0;
   margin-bottom: 0;
   border-width: 1px 0 0;
+  background-color: #18283c;
+  color: #ffffff;
 }
 .navbar-brand {
   float: left;
@@ -5885,6 +5888,14 @@ button.close {
     display: none !important;
   }
 }
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
 .navbar[role=navigation] {
   margin-bottom: 30px;
   border-bottom: 3px solid #04add8;
@@ -6041,10 +6052,5 @@ button.close {
 footer {
   background-color: #18283c;
   color: #ffffff;
-  position: absolute;
-  /* Set the fixed height of the footer here */
-  height: 6em;
-  text-align: center;
-  padding-top: 1em;
-  width: 100%;
+  height: 60px;
 }
