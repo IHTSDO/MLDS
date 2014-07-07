@@ -17,11 +17,10 @@
         	</h4>
       </div>
       <div class="panel-body" collapse="collapsePanel.usage" class="panel-collapse collapse in">
-       <form novalidate name="usageForm" bs-validation>
-                 <div class="form-group">
+       <ng-form name="usageForm" novalidate bs-validation >
+                 <div class="form-group" ng-init="affilliateControllerSharedBucket.usageForm = usageForm">
                     <label>Licence Type: {{'licensee.type.'+commercialUsageReport.type | translate}}</label>
                   </div>
-       
                   <div class="form-group">
                     <label>Current Usage</label>
                     <textarea class="form-control" rows="3" required ng-disabled="readOnly" name="currentUsage" ng-model="commercialUsageReport.context.currentUsage" auto-submit></textarea>
@@ -51,7 +50,7 @@
 						<p ng-show="usageForm.agreementType.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
-       </form>
+       </ng-form>
 		</div>
 	</div>
 	

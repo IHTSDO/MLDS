@@ -38,6 +38,7 @@ mldsApp.controller('AffiliateRegistrationController',
         	
         	$scope.availableCountries = CountryService.countries;
         	$scope.organizationTypes = UserRegistrationService.getOrganizationTypes();
+        	$scope.affilliateControllerSharedBucket = {};
         	
         	
         	window.regScope = $scope;
@@ -59,6 +60,7 @@ mldsApp.controller('AffiliateRegistrationController',
         		// Only open review modal when form is valid
         		if ($scope.affiliateApplicationForm.$invalid) {
         			$scope.affiliateApplicationForm.attempted = true;
+        			$scope.affilliateControllerSharedBucket.usageForm.attempted =true;
         			return;
         		}
         		
