@@ -40,7 +40,8 @@
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
             "email": "E-mail",
-            "email.placeholder": "Email address"
+            "email.placeholder": "Email address",
+            "country": "Country of residence"
         },
         "messages": {
             "info": {
