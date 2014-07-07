@@ -8,16 +8,16 @@
  </div>
 </div>
 <div ng-repeat="licensee in licensees">
-<div class="row">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-   <div class="user-info">
-    <p>
-      <span class="pull-right"><a class="btn btn-link" href="#/affiliateRegistration">Resubmit Affilate Registration</a></span>
-      <strong>Licensee:</strong> {{licensee.application.name}}<br>
-      <strong>Type:</strong> {{'licensee.type.'+licensee.type | translate}}
-    </p>
-  </div>	
-</div>
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+     <div class="user-info">
+      <p>
+        <a class="btn btn-link pull-right" href="#/affiliateRegistration">Resubmit Affilate Registration</a>
+        <strong>Licensee:</strong> {{licensee.application.name}}<br>
+        <strong>Type:</strong> {{'licensee.type.'+licensee.type | translate}}
+      </p>
+    </div>	
+  </div>
 </div>
 <div class="row space">
 	<div class="col-sm-12 col-md-12 col-lg-12">

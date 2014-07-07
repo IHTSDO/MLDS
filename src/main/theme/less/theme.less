@@ -1,6 +1,14 @@
 //
 // IHTSDO Theme
 // --------------------------------------------------
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
 
 .navbar[role=navigation]{
 	margin-bottom: 30px;
@@ -205,11 +213,5 @@
 footer {
 	background-color: darken(@blue, 30%);	
 	color: @white;
-  	position: absolute;
-  	width: 100%;
-	  /* Set the fixed height of the footer here */
-	  height: 6em;
-	  text-align: center;
-	  padding-top: 1em;
-	  width: 100%;
+	height: 60px;
 }
