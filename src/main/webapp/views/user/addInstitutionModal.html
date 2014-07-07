@@ -49,8 +49,9 @@
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
 	
-	<button class="btn btn-success" ng-show="formInstitution.$invalid" ng-click="submitAttempted = true"><i class="fa fa-plus"> Add</button>
+	<button class="btn btn-success" ng-show="formInstitution.$invalid" ng-click="submitAttempted = true"><i class="fa fa-plus"></i> Add</button>
 	<button class="btn btn-success" ng-click="add()" ng-show="!formInstitution.$invalid" ng-disabled="submitting">
+		<i class="fa fa-plus"></i>
 		Add
 		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
 	</button>
