@@ -286,6 +286,7 @@ body {
   color: #333333;
   background-color: #f5f5f5;
   height: 100%;
+  margin-bottom: 60px;
 }
 .body-dark {
   background-color: #18283c;
@@ -3749,6 +3750,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   bottom: 0;
   margin-bottom: 0;
   border-width: 1px 0 0;
+  background-color: #18283c;
+  color: #ffffff;
 }
 .navbar-brand {
   float: left;
@@ -5885,6 +5888,14 @@ button.close {
     display: none !important;
   }
 }
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
 .navbar[role=navigation] {
   margin-bottom: 30px;
   border-bottom: 3px solid #04add8;
@@ -5997,10 +6008,6 @@ button.close {
   padding-top: 40px;
   margin-top: 120px;
 }
-.submit-usage {
-  border-top: 2px solid #e0e0e0;
-  padding: 10px 0;
-}
 .user-info {
   background-color: #ffffff;
   padding: 10px;
@@ -6019,18 +6026,31 @@ button.close {
   position: relative;
   bottom: 5px;
 }
+.country-listing {
+  margin: 10px;
+}
+.country-heading {
+  margin-top: 5px;
+  border-top: 2px solid #04add8;
+  padding: 10px 0 15px;
+}
+.country-heading .btn {
+  margin-top: 10px;
+}
 .country-title {
   position: relative;
   bottom: 10px;
 }
-.country-listing {
-  margin: 10px 25px;
-  border-top: 1px solid #eeeeee;
+.country-footer {
+  background-color: #eeeeee;
   overflow: hidden;
+  padding-top: 8px;
+}
+.submit-usage {
+  padding: 10px 0;
 }
 footer {
   background-color: #18283c;
   color: #ffffff;
-  padding: 20px 0 0;
-  min-height: 60px;
+  height: 60px;
 }

@@ -1,8 +1,8 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationController',
-        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', 'CountryService', '$modal', 'Session',
-          function ($scope, $log, UserRegistrationService, $location, UserSession, CountryService, $modal, Session) {
+        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', 'CountryService', '$modal', 'Session', 'Events',
+          function ($scope, $log, UserRegistrationService, $location, UserSession, CountryService, $modal, Session, Events) {
         	
         	var loadApplication = function() {
         		var queryPromise =  UserRegistrationService.getApplication();
@@ -38,6 +38,7 @@ mldsApp.controller('AffiliateRegistrationController',
         	
         	$scope.availableCountries = CountryService.countries;
         	$scope.organizationTypes = UserRegistrationService.getOrganizationTypes();
+        	$scope.affilliateControllerSharedBucket = {};
         	
         	
         	window.regScope = $scope;
@@ -59,6 +60,7 @@ mldsApp.controller('AffiliateRegistrationController',
         		// Only open review modal when form is valid
         		if ($scope.affiliateApplicationForm.$invalid) {
         			$scope.affiliateApplicationForm.attempted = true;
+        			$scope.affilliateControllerSharedBucket.usageForm.attempted =true;
         			return;
         		}
         		
@@ -68,11 +70,7 @@ mldsApp.controller('AffiliateRegistrationController',
         			templateUrl: 'views/registration/affiliateRegistrationReview.html',
         			controller: 'AffiliateRegistrationReviewController',
         			size:'lg',
-        			resolve: {
-        				affiliateForm: function() {
-        					return affiliateForm;
-        				}
-        			}
+        			scope: $scope
         		});
         	};
         	
@@ -94,6 +92,11 @@ mldsApp.controller('AffiliateRegistrationController',
         			$scope.affiliateform.billing.postCode = $scope.affiliateform.address.postCode;
         			$scope.affiliateform.billing.country = $scope.affiliateform.address.country;
         		};
+        	};
+        	
+        	$scope.licenseeTypeChanged = function() {
+        		$scope.$broadcast(Events.licenseeTypeUpdated, $scope.affiliateform.type);
+        		$scope.saveApplication();
         	};
         	
         	$scope.collapsePanel = {};

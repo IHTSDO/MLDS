@@ -22,6 +22,14 @@ angular.module('MLDS')
 			return count;
 		};
 
+		function notifyUsageUpdatedIfRequired(httpPromise, options) {
+			httpPromise.then(function() {
+				if (!options || !options.skipBroadcast) {
+					$rootScope.$broadcast(Events.commercialUsageUpdated);
+				}
+			});
+		}
+		
 		var service = {};
 		
 		
@@ -38,21 +46,28 @@ angular.module('MLDS')
 					});
 		};
 
+		service.currentCommercialUsageReport = {};
 		
 		service.getUsageReport = function(reportId) {
-			return $http.get('/app/rest/commercialUsages/'+reportId);
+			var usagePromise = $http.get('/app/rest/commercialUsages/'+reportId);
+			usagePromise.then(function(response){
+				service.currentCommercialUsageReport = response.data;
+			});
+			return usagePromise;
 		};
 
 		service.updateUsageReportContext = function(usageReport, options) {
 			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/context', usageReport.context);
-			httpPromise.then(function() {
-				if (!options || !options.skipBroadcast) {
-					$rootScope.$broadcast(Events.commercialUsageUpdated);
-				}
-			});
+			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
-		
+
+		service.updateUsageReportType = function(usageReport, options) {
+			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/type/'+encodeURIComponent(usageReport.type));
+			notifyUsageUpdatedIfRequired(httpPromise, options);
+			return httpPromise;
+		};
+
 		service.addUsageEntry = function(usageReport, entry) {
 			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId,
 					serializeCommercialEntry(entry));
