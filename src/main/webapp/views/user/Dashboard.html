@@ -1,6 +1,6 @@
 <div class="row">
-	<div class="col-sm-12 col-md-12 col-lg-12">	
-		<div class="page-header">
+  <div class="col-sm-12 col-md-12 col-lg-12"> 
+    <div class="page-header">
      <h1>
        Dashboard <span class="pull-right"><small>Welcome {{firstName}} {{lastName}}</small></span>
      </h1>
@@ -16,34 +16,38 @@
         <strong>Licensee:</strong> {{licensee.application.name}}<br>
         <strong>Type:</strong> {{'licensee.type.'+licensee.type | translate}}
       </p>
-    </div>	
+    </div>  
   </div>
 </div>
 <div class="row space">
-	<div class="col-sm-12 col-md-12 col-lg-12">
-		<div class="form-group">
-			<button ng-click="openAddUsageReportModal(licensee)" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Usage Information </button>
-		</div>
-	</div>
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="form-group">
+      <button ng-click="openAddUsageReportModal(licensee)" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Usage Information </button>
+    </div>
+  </div>
 </div>
 <div class="row space">
   <div class="col-sm-12 col-md-12 col-lg-12">
     <div class="report">
       <table class="table table-striped table-hover">
         <tr>
-          <th>Declaration Period</th>
+          <th colspan=2>Declaration Period</th>
           <th>Submitted Date</th>
-          <th>Countries</th>
-          <th ng-show="licenseeIsCommercial(licensee)">Hospitals</th>
-          <th ng-show="licenseeIsCommercial(licensee)">Practices</th>
+          <th class="text-right">Countries</th>
+          <th class="text-right" ng-show="licenseeIsCommercial(licensee)">Hospitals</th>
+          <th class="text-right" ng-show="licenseeIsCommercial(licensee)">Practices</th>
+          <th></th>
         </tr>
-        <tr ng-class="{info: usageReport.approvalState === 'NOT_SUBMITTED'}" ng-repeat="usageReport in licensee.commercialUsages">
-          <td><i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i> <a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}</a></td>
-          <td>{{usageReport.submitted | date : 'd MMM yyyy'}}</td>
-          <td>{{usageReportCountries(usageReport) | number}}</td>
-          <td ng-show="licenseeIsCommercial(licensee)">{{usageReportHospitals(usageReport) | number}}</td>
-          <td ng-show="licenseeIsCommercial(licensee)">{{usageReportPractices(usageReport) | number}}</td>
-        </tr>
+         <tbody>
+          <tr ng-class="{info: usageReport.approvalState === 'NOT_SUBMITTED'}" ng-repeat="usageReport in licensee.commercialUsages">
+          <td class="text-left"><i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i></td>
+          <td class="text-left"><a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'yyyy'}} {{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}</a></td>
+          <td class="text-left">{{usageReport.submitted | date : 'MMM dd yyyy'}}</td>
+          <td class="text-right">{{usageReportCountries(usageReport) | number}}</td>
+          <td class="text-right" ng-show="licenseeIsCommercial(licensee)">{{usageReportHospitals(usageReport) | number}}</td>
+          <td ng-show="licenseeIsCommercial(licensee)"><p class="text-right">{{usageReportPractices(usageReport) | number}}</p></td>
+          <td> <a class="btn btn-default btn-xs pull-right" ng-click="goToUsageReport(usageReport)"><i class="fa fa-pencil"> Edit</a></td>
+      </tbody>
       </table>
     </div>
   </div>
