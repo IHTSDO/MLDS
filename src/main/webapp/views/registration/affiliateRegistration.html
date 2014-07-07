@@ -161,7 +161,6 @@
                       <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">
                         Required field.
                       </p>
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -246,7 +245,6 @@
                     <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -293,7 +291,6 @@
                     <input class="form-control" type="text" ng-model="affiliateform.billing.country" name="billingCountry" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
                     <p ng-show="affiliateApplicationForm.billingCountry.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
-                    </p>
                     </p>
                   </div>
                 </div>
