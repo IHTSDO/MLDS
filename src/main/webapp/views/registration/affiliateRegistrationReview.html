@@ -14,7 +14,7 @@
   			<ul class="list-group">
   				<li class="list-group-item"><strong>Name:</strong> {{affiliateform.contact.name}}</li>
   				<li class="list-group-item"><strong>Email:</strong> {{affiliateform.contact.email}}</li>
-  				<li class="list-group-item"><strong>Land-line Phone Number:</strong> {{affiliateform.contact.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></li>
+  				<li class="list-group-item"><strong>Landline Phone Number:</strong> {{affiliateform.contact.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></li>
   				<li class="list-group-item"><strong>Mobile Phone Number:</strong> {{affiliateform.contact.mobilePhone}}</li>
   			</ul>
 
@@ -56,7 +56,7 @@
   				<li class="list-group-item"><strong>Current Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.currentUsage}}</li>
   				<li class="list-group-item"><strong>Planned Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.plannedUsage}}</li>
   				<li class="list-group-item"><strong>Purpose:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.purpose}}</li>
-  				<li class="list-group-item"><strong>Agreement Type:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.agreementType}}</li>
+  				<li class="list-group-item"><strong>Agreement Type:</strong> {{'licensee.agreementType.'+CommercialUsageService.currentCommercialUsageReport.context.agreementType | translate}}</li>
   				<li class="list-group-item" ng-show="affiliateform.type=='COMMERCIAL'" ng-repeat="countryRecord in CommercialUsageService.currentCommercialUsageReport.countries">
   					<strong>Country:</strong> {{countryRecord.country.commonName}}<br>
  						<strong>Practices:</strong> {{countryRecord.practices}}<br>

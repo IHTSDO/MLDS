@@ -8,16 +8,16 @@
  </div>
 </div>
 <div ng-repeat="licensee in licensees">
-<div class="row">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-   <div class="user-info">
-    <p>
-      <span class="pull-right"><a class="btn btn-link" href="#/affiliateRegistration">Resubmit Affilate Registration</a></span>
-      <strong>Licensee:</strong> {{licensee.application.name}}<br>
-      <strong>Type:</strong> {{'licensee.type.'+licensee.type | translate}}
-    </p>
-  </div>	
-</div>
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+     <div class="user-info">
+      <p>
+        <a class="btn btn-link pull-right" href="#/affiliateRegistration">Resubmit Affilate Registration</a>
+        <strong>Licensee:</strong> {{licensee.application.name}}<br>
+        <strong>Type:</strong> {{'licensee.type.'+licensee.type | translate}}
+      </p>
+    </div>	
+  </div>
 </div>
 <div class="row space">
 	<div class="col-sm-12 col-md-12 col-lg-12">
@@ -38,8 +38,8 @@
           <th ng-show="licenseeIsCommercial(licensee)">Practices</th>
         </tr>
         <tr ng-class="{info: usageReport.approvalState === 'NOT_SUBMITTED'}" ng-repeat="usageReport in licensee.commercialUsages">
-          <td><i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i> <a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'yyyy'}} {{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}</a></td>
-          <td>{{usageReport.submitted | date : 'MMM dd yyyy'}}</td>
+          <td><i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i> <a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}</a></td>
+          <td>{{usageReport.submitted | date : 'd MMM yyyy'}}</td>
           <td>{{usageReportCountries(usageReport) | number}}</td>
           <td ng-show="licenseeIsCommercial(licensee)">{{usageReportHospitals(usageReport) | number}}</td>
           <td ng-show="licenseeIsCommercial(licensee)">{{usageReportPractices(usageReport) | number}}</td>
