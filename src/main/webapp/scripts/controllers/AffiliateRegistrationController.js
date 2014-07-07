@@ -98,6 +98,7 @@ mldsApp.controller('AffiliateRegistrationController',
         	
         	$scope.licenseeTypeChanged = function() {
         		$scope.$broadcast(Events.licenseeTypeUpdated, $scope.affiliateform.type);
+        		$scope.saveApplication();
         	};
         	
         	$scope.collapsePanel = {};
