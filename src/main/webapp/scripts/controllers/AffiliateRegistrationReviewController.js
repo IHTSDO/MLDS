@@ -1,11 +1,10 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationReviewController',
-        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', 'affiliateForm', '$modalInstance',
-          function ($scope, $log, UserRegistrationService, $location, UserSession, affiliateForm, $modalInstance) {
+        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', '$modalInstance', 'CommercialUsageService',
+          function ($scope, $log, UserRegistrationService, $location, UserSession, $modalInstance, CommercialUsageService) {
+        	$scope.CommercialUsageService = CommercialUsageService;
 
-        	$scope.affiliateform = affiliateForm;
-        	
     		$scope.ok = function() {
     			$log.log('AffiliateRegistrationController submit()', $scope.affiliateform);
     			
@@ -17,10 +16,5 @@ mldsApp.controller('AffiliateRegistrationReviewController',
     				$modalInstance.close();
     			});
 			};
-
-			$scope.cancel = function() {
-				$modalInstance.dismiss();
-			};
-        	
         }
     ]);
