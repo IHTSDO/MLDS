@@ -1,6 +1,15 @@
 //
 // IHTSDO Theme
 // --------------------------------------------------
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
 .navbar[role=navigation]{
 	margin-bottom: 30px;
 	border-bottom:3px solid @light-blue;
@@ -145,10 +154,7 @@
 	padding-top: 40px;
 	margin-top: 120px;
 }
-.submit-usage{
-	border-top:2px solid darken(@cloud, 5%);
-	padding: 10px 0;
-}
+
 //
 // Dashboard
 // --------------------------------------------------
@@ -177,21 +183,35 @@
 		position: relative;
 		bottom: 5px;
 	}
+
+	.country-listing{
+		margin: 10px;
+	}
+	.country-heading{
+		margin-top: 5px;
+		border-top: 2px solid @light-blue;
+		padding: 10px 0 15px;
+		.btn{
+			margin-top: 10px;
+		}
+	}
 	.country-title{
 		position: relative;;
 		bottom: 10px;
 	}
-	.country-listing{
-		margin: 10px 25px;
-		border-top: 1px solid  @gray-lighter;
+	.country-footer{
+		background-color: @gray-lighter;
 		overflow: hidden;
+		padding-top:8px;
 	}
+	.submit-usage{
+	padding: 10px 0;
+}
 //
 // Footer
 // --------------------------------------------------
-footer{
+footer {
 	background-color: darken(@blue, 30%);	
 	color: @white;
-	padding: 20px 0 0;
-	min-height: 60px;
+	height: 60px;
 }
