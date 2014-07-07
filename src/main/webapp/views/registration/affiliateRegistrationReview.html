@@ -14,7 +14,7 @@
   			<ul class="list-group">
   				<li class="list-group-item"><strong>Name:</strong> {{affiliateform.contact.name}}</li>
   				<li class="list-group-item"><strong>Email:</strong> {{affiliateform.contact.email}}</li>
-  				<li class="list-group-item"><strong>Land-line Phone:</strong> {{affiliateform.contact.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></li>
+  				<li class="list-group-item"><strong>Land-line Phone Number:</strong> {{affiliateform.contact.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></li>
   				<li class="list-group-item"><strong>Mobile Phone Number:</strong> {{affiliateform.contact.mobilePhone}}</li>
   			</ul>
 
@@ -26,7 +26,7 @@
   			</ul>
 
   			<ul class="list-group" ng-show="affiliateform.type!='INDIVIDUAL'">
-  				<h4>Organisation:</h4>
+  				<h4>Organization:</h4>
   				<li class="list-group-item"><strong>Organization Name:</strong> {{affiliateform.organization.name}}</li>
   				<li class="list-group-item"><strong>Organization Type:</strong>
   					<span ng-show="affiliateform.organization.type=='OTHER'">{{affiliateform.organization.typeOther}}</span>
@@ -56,6 +56,6 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-success" ng-click="ok()">OK</button>
     <button class="btn btn-link" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-success" ng-click="ok()">OK</button>
 </div>
