@@ -24,6 +24,11 @@ public class Routes {
 	static final String USAGE_REPORT_CONTEXT = "/app/rest/commercialUsages/{commercialUsageId}/context";
 
 	/** 
+	 * put { type json}
+	 */ 
+	static final String USAGE_REPORT_TYPE = "/app/rest/commercialUsages/{commercialUsageId}/type/{type}";
+
+	/** 
 	 * post { transition: 'SUBMIT'}
 	 */ 
 	static final String USAGE_REPORT_APPROVAL = "/app/rest/commercialUsages/{commercialUsageId}/approval";
