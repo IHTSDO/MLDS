@@ -22,17 +22,24 @@ angular.module('MLDS')
 			return count;
 		};
 
+		var service = {};
+		
+		function broadcastCommercialUsageUpdate() {
+			$rootScope.$broadcast(Events.commercialUsageUpdated);
+		}
+
 		function notifyUsageUpdatedIfRequired(httpPromise, options) {
 			httpPromise.then(function() {
 				if (!options || !options.skipBroadcast) {
-					$rootScope.$broadcast(Events.commercialUsageUpdated);
+					broadcastCommercialUsageUpdate();
 				}
 			});
 		}
-		
-		var service = {};
-		
-		
+
+		service.broadcastCommercialUsageUpdate = function() {
+			broadcastCommercialUsageUpdate();
+		};
+
 		service.getUsageReports = function(licenseeId) {
 			return $http.get('/app/rest/licensees/'+licenseeId+'/commercialUsages');
 		};
@@ -49,11 +56,11 @@ angular.module('MLDS')
 		service.currentCommercialUsageReport = {};
 		
 		service.getUsageReport = function(reportId) {
-			var usagePromise = $http.get('/app/rest/commercialUsages/'+reportId);
-			usagePromise.then(function(response){
-				service.currentCommercialUsageReport = response.data;
-			});
-			return usagePromise;
+		   var usagePromise = $http.get('/app/rest/commercialUsages/'+reportId);
+		   usagePromise.then(function(response){
+		           service.currentCommercialUsageReport = response.data;
+		   });
+		   return usagePromise;
 		};
 
 		service.updateUsageReportContext = function(usageReport, options) {
@@ -68,87 +75,69 @@ angular.module('MLDS')
 			return httpPromise;
 		};
 
-		service.addUsageEntry = function(usageReport, entry) {
-			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId,
-					serializeCommercialEntry(entry));
-			httpPromise.then(function() {
-				$rootScope.$broadcast(Events.commercialUsageUpdated);	
-			});
+		service.addUsageEntry = function(usageReport, entry, options) {
+			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId, serializeCommercialEntry(entry));
+			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 		
 		
-		service.updateUsageEntry = function(usageReport, entry) {
+		service.updateUsageEntry = function(usageReport, entry, options) {
 			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId,
 					serializeCommercialEntry(entry)
 				);
-			httpPromise.then(function() {
-				$rootScope.$broadcast(Events.commercialUsageUpdated);	
-			});
+			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 
 		
-		service.deleteUsageEntry = function(usageReport, entry) {
+		service.deleteUsageEntry = function(usageReport, entry, options) {
 			var httpPromise = $http['delete']('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId);
-			httpPromise.then(function() {
-				$rootScope.$broadcast(Events.commercialUsageUpdated);	
-			});
+			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 
 		
-		service.addUsageCount = function(usageReport, count) {
-			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/countries',
-					serializeCommercialCount(count));
-			httpPromise.then(function() {
-				$rootScope.$broadcast(Events.commercialUsageUpdated);	
-			});
+		service.addUsageCount = function(usageReport, count, options) {
+			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/countries', serializeCommercialCount(count));
+			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 		
 		
-		service.updateUsageCount = function(usageReport, count) {
+		service.updateUsageCount = function(usageReport, count, options) {
 			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/countries/'+count.commercialUsageCountId,
 					serializeCommercialCount(count)
 				);
-			httpPromise.then(function() {
-				$rootScope.$broadcast(Events.commercialUsageUpdated);	
-			});
+			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 
 		
-		service.deleteUsageCount = function(usageReport, count) {
+		service.deleteUsageCount = function(usageReport, count, options) {
 			var httpPromise = $http['delete']('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/countries/'+count.commercialUsageCountId);
-			httpPromise.then(function() {
-				$rootScope.$broadcast(Events.commercialUsageUpdated);	
-			});
+			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 
 		
-		service.submitUsageReport = function(usageReport) {
+		service.submitUsageReport = function(usageReport, options) {
 			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
 					{
 						transition: 'SUBMIT'
 					}
 				);
-			httpPromise.then(function() {
-				$rootScope.$broadcast(Events.commercialUsageUpdated);	
-			});
+			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 
-		service.retractUsageReport = function(usageReport) {
+		service.retractUsageReport = function(usageReport, options) {
 			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
 					{
 						transition: 'RETRACT'
 					}
 				);
-			httpPromise.then(function() {
-				$rootScope.$broadcast(Events.commercialUsageUpdated);	
-			});
+			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 

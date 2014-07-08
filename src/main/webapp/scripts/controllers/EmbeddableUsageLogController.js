@@ -183,13 +183,19 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 						{
 						practices: 0,
 						country: country
-				})
+				}, {skipBroadcast: true})
 				.then(function() {
 					$scope.geographicAdding = Math.max($scope.geographicAdding - 1, 0);
+					if ($scope.geographicAdding === 0) {
+						CommercialUsageService.broadcastCommercialUsageUpdate();
+					}
 				})
 				['catch'](function() {
 					$scope.geographicAlerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
 					$scope.geographicAdding = Math.max($scope.geographicAdding - 1, 0);
+					if ($scope.geographicAdding === 0) {
+						CommercialUsageService.broadcastCommercialUsageUpdate();
+					}
 				});
 			}
 		});
@@ -218,15 +224,20 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 		if (country && isCountryAlreadyPresent(country)) {
 			var countrySection = lookupUsageByCountryOrCreate(country);
 			$scope.geographicRemoving += 1;
-			CommercialUsageService.deleteUsageCount($scope.commercialUsageReport, countrySection.count)
+			CommercialUsageService.deleteUsageCount($scope.commercialUsageReport, countrySection.count, {skipBroadcast: true})
 			.then(function() {
 				$scope.geographicRemoving = Math.max($scope.geographicRemoving - 1, 0);
+				if ($scope.geographicRemoving === 0) {
+					CommercialUsageService.broadcastCommercialUsageUpdate();
+				}
 			})
 			['catch'](function() {
 				$scope.geographicAlerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
 				$scope.geographicRemoving = Math.max($scope.geographicRemoving - 1, 0);
+				if ($scope.geographicRemoving === 0) {
+					CommercialUsageService.broadcastCommercialUsageUpdate();
+				}
 			});
-
 		}
 	}
 
