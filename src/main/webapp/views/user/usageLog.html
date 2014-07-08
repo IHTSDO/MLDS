@@ -4,7 +4,7 @@
 	 
 		 <h4>Submitted Commercial Usage Report</h4>
 		 <hr>
-		 <span class="pull-right" id="retractBtn"><button ng-disable="!readOnly" ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
+		 <span class="pull-right" id="retractBtn"><button ng-disabled="!readOnly" ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
 		 <p class="text-success"><strong>Commercial Usage for:</strong> {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }} </p>
 	</div>
 	
