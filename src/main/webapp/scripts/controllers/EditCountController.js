@@ -6,32 +6,30 @@ angular.module('MLDS').controller('EditCountController', ['$scope', '$modalInsta
 	$scope.count = count;
 	$scope.usageReport = usageReport;
 	
-	$scope.attemptedSubmit = false;
+	$scope.submitAttempted = false;
 	$scope.submitting = false;
+	$scope.alerts = [];
 	
 	$scope.cancel = function() {
 		$modalInstance.dismiss();
 	};
 	
 	$scope.updateCount = function() {
-		$log.log('updateCount: ', $scope.count);
-		//FIXME should this id knowledge be in the service instead - or already clarified before the modal is called
-		if (count.commercialUsageCountId) {
-			CommercialUsageService.updateUsageCount($scope.usageReport, $scope.count)
-				.then(function(result) {
-					$modalInstance.dismiss();		
-				});
-		} else {
-			CommercialUsageService.addUsageCount($scope.usageReport, $scope.count)
+		$scope.submitAttempted = true;
+		$scope.submitting = true;
+		$scope.alerts.splice(0, $scope.alerts.length);
+		
+		CommercialUsageService.updateUsageCount($scope.usageReport, $scope.count)
 			.then(function(result) {
-				$modalInstance.dismiss();		
+				$modalInstance.close(result);		
+			})
+			["catch"](function(message) {
+				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.submitting = false;
 			});
-		}
 	};
 
 	$scope.closeAlert = function(index) {
 		$scope.alerts.splice(index, 1);
 	};
-	
-	
 }]);

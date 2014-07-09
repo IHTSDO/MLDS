@@ -6,13 +6,13 @@
   
   <p>Retract Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat.</p>
   
-  <p>Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}
+  <p><strong>Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</strong></p>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
 	
-	<button class="btn btn-success" ng-click="retract()"ng-disabled="submitting">
-		<span ng-show="!submitting">Retract Declaration</span>
+	<button class="btn btn-danger" ng-click="retract()"ng-disabled="submitting">
+		Retract Declaration
 		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
 	</button>
 </div>

@@ -1,19 +1,18 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-import ca.intelliware.ihtsdo.mlds.domain.Authority;
-import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
-import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
-import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
-import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
-import ca.intelliware.ihtsdo.mlds.service.MailService;
-import ca.intelliware.ihtsdo.mlds.service.UserService;
-import ca.intelliware.ihtsdo.mlds.web.UserInfo;
-import ca.intelliware.ihtsdo.mlds.web.UserInfoCalculator;
-import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
+import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -22,19 +21,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringWebContext;
 
-import javax.inject.Inject;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import ca.intelliware.ihtsdo.mlds.domain.Authority;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
+import ca.intelliware.ihtsdo.mlds.domain.Licensee;
+import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
+import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
+import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.registration.Application;
+import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
+import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
+import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
+import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
+import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
+import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
+import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
+import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
+import ca.intelliware.ihtsdo.mlds.service.UserService;
+import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
+import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
+import ca.intelliware.ihtsdo.mlds.web.UserInfo;
+import ca.intelliware.ihtsdo.mlds.web.UserInfoCalculator;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.*;
+import com.codahale.metrics.annotation.Timed;
 
 /**
  * REST controller for managing the current user's account.
@@ -66,12 +86,29 @@ public class AccountResource {
     @Inject
     private MailService mailService;
     
+    @Resource DuplicateRegistrationEmailSender duplicateRegistrationEmailSender;
+    
     @Inject
     private UserInfoCalculator userInfoCalculator;
 
     @Inject
 	private DomainBlacklistService domainBlacklistService;
     
+    @Resource
+	LicenseeRepository licenseeRepository;
+
+    @Resource
+    ApplicationRepository applicationRepository;
+    
+	@Resource 
+	PasswordResetService passwordResetService;
+	
+	@Resource
+	CommercialUsageRepository commercialUsageRepository;
+	
+	@Resource
+	CommercialUsageResetter commercialUsageResetter; 
+
     /**
      * POST  /rest/register -> register the user.
      */
@@ -84,11 +121,51 @@ public class AccountResource {
                                              HttpServletResponse response) {
         User user = userRepository.findOne(userDTO.getLogin());
         if (user != null) {
+        	String passwordResetToken = passwordResetService.createTokenForUser(user);
+			duplicateRegistrationEmailSender.sendDuplicateRegistrationEmail(user,passwordResetToken );
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         } else {
         	if (domainBlacklistService.isDomainBlacklisted(userDTO.getEmail())) {
         		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         	}
+        	
+        	List<Application> applications = applicationRepository.findByUsername(userDTO.getLogin());
+        	List<Licensee> licensees = licenseeRepository.findByCreator(userDTO.getLogin());
+        	Application application = new Application();
+        	Licensee licensee = new Licensee();
+        	
+        	if (applications.size() > 0) {
+        		application = applications.get(0);
+        	}
+        	
+        	if (licensees.size() > 0) {
+        		licensee = licensees.get(0);
+        	}
+        	
+        	application.setUsername(userDTO.getLogin());
+        	application.setName(userDTO.getFirstName());
+        	application.setEmail(userDTO.getEmail());
+        	//set a default type for application to create licensee and usagelog
+        	application.setType(LicenseeType.COMMERCIAL.toString());
+        	// FIXME MLDS-234 MB how are we storing country here?
+        	application.setCountry(userDTO.getCountry().getCommonName());
+        	licensee.setCreator(userDTO.getLogin());
+        	licensee.setType(LicenseeType.COMMERCIAL);
+        	licensee.setApplication(application);
+        	
+        	applicationRepository.save(application);
+        	licenseeRepository.save(licensee);
+        	
+        	CommercialUsage commercialUsage = new CommercialUsage();
+	    	commercialUsage.setType(licensee.getType());
+        	
+        	commercialUsageResetter.detachAndReset(commercialUsage, userDTO.getInitialUsagePeriod().getStartDate(), userDTO.getInitialUsagePeriod().getEndDate());
+        	
+        	commercialUsage = commercialUsageRepository.save(commercialUsage);
+        	
+        	licensee.addCommercialUsage(commercialUsage);
+        	
+        	
         	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
@@ -160,7 +237,8 @@ public class AccountResource {
                 roles,
                 emailVerified,
                 userInfo.getHasApplied(),
-                userInfo.isApproved()
+                userInfo.isApproved(),
+                null
                 ),
             HttpStatus.OK);
     }

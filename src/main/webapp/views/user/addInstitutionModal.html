@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h3 class="modal-title">Add Institution</h3>
+  <h3 class="modal-title">Add Hospital</h3>
 </div>
 <div class="modal-body">
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
@@ -8,7 +8,7 @@
     <div class="row">
       <div class="form-group">
         <div class="col-md-6">
-          <label>Institution Name</label> 
+          <label>Hospital Name</label> 
           <input class="form-control" placeholder="Enter Institution Name" name="name" ng-model="institution.name" ng-required="true">
           <span ng-show="formInstitution.name.$error.required && submitAttempted" class="help-block">Required Field</span>
         </div>
@@ -32,9 +32,11 @@
 			<div class="input-group datepicker">
 				<input type="text" class="form-control" name="endDate" ng-model="institution.endDate" ng-required="false"
 					datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
-					is-open="datepickers.endDate" close-text="Close"/> 
+					is-open="datepickers.endDate" close-text="Close"
+					date-after-validation="{{institution.startDate}}"/> 
 				<span class="input-group-addon" ng-click="open($event, 'endDate')"><i class="fa fa-calendar"></i></span>
 			</div>
+			<span ng-show="formInstitution.endDate.$error.dateAfter && submitAttempted" class="help-block">Date before Started to Use date</span>
 		</div>
 	</div>
     <hr>
@@ -49,9 +51,10 @@
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
 	
-	<button class="btn btn-success" ng-show="formInstitution.$invalid" ng-click="submitAttempted = true">Add</button>
+	<button class="btn btn-success" ng-show="formInstitution.$invalid" ng-click="submitAttempted = true"><i class="fa fa-plus"></i> Add</button>
 	<button class="btn btn-success" ng-click="add()" ng-show="!formInstitution.$invalid" ng-disabled="submitting">
-		<span ng-show="!submitting">Add</span>
+		<i class="fa fa-plus"></i>
+		Add
 		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
 	</button>
 </div>

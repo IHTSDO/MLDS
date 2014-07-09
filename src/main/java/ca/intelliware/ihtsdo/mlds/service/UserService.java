@@ -1,13 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import ca.intelliware.ihtsdo.mlds.domain.Authority;
-import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
-import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.repository.AuthorityRepository;
-import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
-import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
-import ca.intelliware.ihtsdo.mlds.service.util.RandomUtil;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.annotation.Resource;
+import javax.inject.Inject;
+
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +15,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import ca.intelliware.ihtsdo.mlds.domain.Authority;
+import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
+import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.repository.AuthorityRepository;
+import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
+import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
+import ca.intelliware.ihtsdo.mlds.service.util.RandomUtil;
 
 /**
  * Service class for managing users.
@@ -41,6 +44,8 @@ public class UserService {
 
     @Inject
     private AuthorityRepository authorityRepository;
+    
+    @Resource AutologinService autologinService;
 
     public User activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -50,11 +55,14 @@ public class UserService {
         if (user != null) {
             user.setActivated(true);
             user.setActivationKey(null);
-            userRepository.save(user);
+            autologinService.loginUser(user);
+            
             log.debug("Activated user: {}", user);
         }
+        
         return user;
     }
+
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
                                       String langKey) {
@@ -85,17 +93,19 @@ public class UserService {
         currentUser.setFirstName(firstName);
         currentUser.setLastName(lastName);
         currentUser.setEmail(email);
-        userRepository.save(currentUser);
         log.debug("Changed Information for User: {}", currentUser);
     }
 
     public void changePassword(String password) {
         User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
-        String encryptedPassword = passwordEncoder.encode(password);
-        currentUser.setPassword(encryptedPassword);
-        userRepository.save(currentUser);
-        log.debug("Changed password for User: {}", currentUser);
+        changePassword(currentUser, password);
     }
+
+	protected void changePassword(User user, String password) {
+		String encryptedPassword = passwordEncoder.encode(password);
+        user.setPassword(encryptedPassword);
+        log.debug("Changed password for User: {}", user);
+	}
 
     @Transactional(readOnly = true)
     public User getUserWithAuthorities() {

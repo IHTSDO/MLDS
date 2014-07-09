@@ -2,16 +2,19 @@
 
 angular.module('MLDS').controller('RetractUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 
                                                        	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport) {
+	$scope.attemptedSubmit = false;
+	$scope.submitting = false;
 	$scope.alerts = [];
 	
 	$scope.commercialUsageReport = commercialUsageReport;
 	
 	$scope.retract = function(){
 		$scope.submitting = true;
+		$scope.alerts.splice(0, $scope.alerts.length);
 		
 		CommercialUsageService.retractUsageReport($scope.commercialUsageReport)
 			.then(function(result) {
-				$modalInstance.dismiss('cancel');
+				$modalInstance.close(result);
 			})
 			["catch"](function(message) {
 				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});

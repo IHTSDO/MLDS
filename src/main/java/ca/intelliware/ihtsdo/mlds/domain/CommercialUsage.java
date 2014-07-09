@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -38,6 +39,9 @@ public class CommercialUsage {
 	@JoinColumn(name="licensee_id")
 	Licensee licensee;
 
+	@Enumerated(EnumType.STRING)
+	LicenseeType type;
+
 	//@Type(type="jodatimeInstant")
 	Instant created = Instant.now();
 	
@@ -52,18 +56,19 @@ public class CommercialUsage {
 	private ApprovalState approvalState;
 	
 	private String note;
+
+	@Embedded
+	UsageContext context;
 	
 	//@Type(type="jodatimeInstant")
 	private Instant submitted = null;
 
 	
-	// FIXME MLDS-32 add a createdBy?  Or generate an entry in the log?
-	
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	Set<CommercialUsageEntry> usage = Sets.newHashSet();
 	
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
-	Set<CommercialUsageCount> counts = Sets.newHashSet();
+	Set<CommercialUsageCountry> countries = Sets.newHashSet();
 	
 	public Long getCommercialUsageId() {
 		return commercialUsageId;
@@ -104,18 +109,18 @@ public class CommercialUsage {
 	}
 
 
-	public void addCount(CommercialUsageCount newCountValue) {
-		Validate.notNull(newCountValue.commercialUsageCountId);
+	public void addCount(CommercialUsageCountry newCountryValue) {
+		Validate.notNull(newCountryValue.commercialUsageCountId);
 		
-		if (newCountValue.commercialUsage != null) {
-			newCountValue.commercialUsage.counts.remove(newCountValue);
+		if (newCountryValue.commercialUsage != null) {
+			newCountryValue.commercialUsage.countries.remove(newCountryValue);
 		}
-		newCountValue.commercialUsage = this;
-		counts.add(newCountValue);
+		newCountryValue.commercialUsage = this;
+		countries.add(newCountryValue);
 	}
 
-	public Set<CommercialUsageCount> getCounts() {
-		return Collections.unmodifiableSet(counts);
+	public Set<CommercialUsageCountry> getCountries() {
+		return Collections.unmodifiableSet(countries);
 	}
 
 	public String getNote() {
@@ -149,4 +154,21 @@ public class CommercialUsage {
 	public Licensee getLicensee() {
 		return licensee;
 	}
+
+	public UsageContext getContext() {
+		return context;
+	}
+
+	public void setContext(UsageContext context) {
+		this.context = context;
+	}
+
+	public LicenseeType getType() {
+		return type;
+	}
+
+	public void setType(LicenseeType type) {
+		this.type = type;
+	}
+
 }

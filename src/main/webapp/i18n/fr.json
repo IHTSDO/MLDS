@@ -34,12 +34,15 @@
         "form": {
             "username": "Nom d'utilisateur",
             "username.placeholder": "Votre nom d'utilisateur",
+            "name.placeholder": "Votre nom",
             "newpassword": "Nouveau mot de passe",
             "newpassword.placeholder": "Nouveau mot de passe",
             "confirmpassword": "Confirmation du nouveau mot de passe",
             "confirmpassword.placeholder": "Confirmation du nouveau mot de passe",
             "email": "Email",
-            "email.placeholder": "Votre email"
+            "email.placeholder": "Adresse e-mail",
+            "country": "Pays de résidence"
+            
         },
         "messages": {
             "info": {
@@ -89,14 +92,17 @@
     "activate": {
         "title": "Activation",
         "messages": {
-            "success": "<strong>Votre compte utilisateur a été activé.</strong> Merci de vous <a href=\"#/login\">authentifier</a>.",
+            "success": "<strong>Votre compte utilisateur a été activé.</strong>",
             "error": "<strong>Votre compte utilisateur n'a pas pu être activé.</strong> Utilisez le formulaire d'enregistrement pour en créer un nouveau."
         }
     },
     "register": {
-        "title": "Création de compte utilisateur",
+        "title": "Enregistrer",
+        "welcome": "Bienvenue à IHTSDO-MLDS",
+        "subwelcome": "La porte d'accès à l'orientation SNOMED CT",
         "form": {
-            "button": "Enregistrement"
+        	"tos": "Acceptez nos <a href=\"/tos.html\" target=\"_blank\">conditions d'utilisation</a>.",
+            "button": "Commencer l'enregistrement"
         },
         "messages": {
             "validate": {
@@ -109,7 +115,7 @@
             "success": "<strong>Compte enregistré !</strong> Merci de vérifier votre e-mail de confirmation.",
             "error": {
                 "fail": "<strong>Compte non créé!</strong> Merci d'essayer à nouveau plus tard.",
-                "userexists": "<strong>Ce compte utilisateur existe déjà !</strong> Veuillez en choisir un autre."
+                "userexists": "<strong>A user has already registered with that email address.</strong> Did you mean to login?"
             }
         }
     },
@@ -309,5 +315,27 @@
         "title": "Page d'erreur!",
         "403": "Vous n'avez pas les droits pour accéder à cette page."
     },
-    "footer": "Ceci est votre pied de page"
+    "footer": "Ceci est votre pied de page",
+    "licensee": {
+    	"type": {
+    		"COMMERCIAL": "Commercial-fr",
+				"ACADEMIC": "Academic-fr",
+				"OTHER": "Other-fr",
+				"INDIVIDUAL": "Individual-fr"
+    	},
+    	"agreementType": {
+    		"AFFILIATE_NORMAL": "Affiliate - Normal-fr",
+				"AFFILIATE_RESEARCH": "Affiliate - Research-fr",
+				"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good-fr"
+			},
+			"organizationType": {
+				"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization-fr", 
+				"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization-fr", 
+				"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization-fr", 
+				"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer-fr",
+				"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice-fr", 
+				"EDUCATIONAL_INSTITUTE": "Educational Institute-fr", 
+				"OTHER": "Other-fr"
+			}
+    }
 }

@@ -363,5 +363,73 @@
     	<comment>Practices are now just counts rather than type of commercial usage entry</comment>
 		<dropColumn tableName="commercial_usage_entry" columnName="type"/>
 	</changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-19">
+    	<comment>Mark type of licensee</comment>
+    	<addColumn tableName="licensee">
+    		<column name="type" type="VARCHAR(255)"/>
+   		</addColumn>
+   		<update tableName="licensee">
+   			<column name="type" value="COMMERCIAL"/>
+   		</update>
+	</changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-20">
+    	<comment>Generalize usage with context fields</comment>
+    	<addColumn tableName="commercial_usage">
+    		<column name="current_usage" type="TEXT"/>
+    		<column name="future_usage" type="TEXT"/>
+    		<column name="purpose" type="TEXT"/>
+    		<column name="agreement_type" type="VARCHAR(255)"/>
+   		</addColumn>
+	</changeSet>
 	
+    <changeSet id="DGJ" author="MLDS-23-21">
+    	<comment>Generalize usage with context fields</comment>
+    	<renameColumn tableName="commercial_usage" oldColumnName="future_usage" newColumnName="planned_usage"/>
+	</changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-22">
+    	<comment>Include licensee type on usage report</comment>
+    	<addColumn tableName="commercial_usage">
+    		<column name="type" type="VARCHAR(255)"/>
+    	</addColumn>
+   		<update tableName="commercial_usage">
+   			<column name="type" value="COMMERCIAL"/>
+   		</update>
+	</changeSet>
+	
+    <changeSet id="MLDS-20-1" author="MB">
+    	<comment>Storage for password reset tokens</comment>
+    	<createTable tableName="password_reset_token">
+    		<column name="password_reset_token_id" type="VARCHAR(255)">
+    			<constraints primaryKey="true" primaryKeyName="password_reset_tokenPK"/>
+    		</column>
+    		<column name="user_login" type="VARCHAR(255)"/>
+            <column name="created" type="timestamp"/>
+    	</createTable>
+	</changeSet>
+
+	<changeSet id="MLDS-234-1" author="MB">
+		<comment>Add flags to Country to identify Members that aren't signed up to use MLDS</comment>
+		<addColumn tableName="country">
+			<column name="exclude_registration" type="BOOLEAN" defaultValueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+			<column name="alternate_registration_url" type="VARCHAR(255)"/>
+		</addColumn>
+	</changeSet>
+	<changeSet id="MLDS-234-2" author="MB">
+		<comment>Put US and UK entries in for alternative registration locations</comment>
+		<sql>
+			UPDATE country 
+			SET exclude_registration=true, alternate_registration_url='http://www.nlm.nih.gov/'
+			WHERE iso_code_2='US';
+		</sql>
+		<sql>
+			UPDATE country 
+			SET exclude_registration=true, alternate_registration_url='http://systems.hscic.gov.uk/data/uktc'
+			WHERE iso_code_2='GB';
+		</sql>
+	</changeSet>
 </databaseChangeLog>

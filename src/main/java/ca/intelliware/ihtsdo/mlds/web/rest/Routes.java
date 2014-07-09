@@ -3,7 +3,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 public class Routes {
 	public static final String API_BASE_URL = "/app/rest";
 	
-	static final String COUNTRIES = "/app/rest/countries";
+	public static final String COUNTRIES = "/app/rest/countries";
 	
 	/**
 	 *  - get list of all submissions
@@ -13,10 +13,21 @@ public class Routes {
 	
 	
 	/** 
+	 * get
 	 * post { entry json}
 	 */ 
 	static final String USAGE_REPORT = "/app/rest/commercialUsages/{commercialUsageId}";
-	
+
+	/** 
+	 * put { context json}
+	 */ 
+	static final String USAGE_REPORT_CONTEXT = "/app/rest/commercialUsages/{commercialUsageId}/context";
+
+	/** 
+	 * put { type json}
+	 */ 
+	static final String USAGE_REPORT_TYPE = "/app/rest/commercialUsages/{commercialUsageId}/type/{type}";
+
 	/** 
 	 * post { transition: 'SUBMIT'}
 	 */ 
@@ -30,16 +41,20 @@ public class Routes {
 	/** 
 	 * post { count json}
 	 */ 
-	static final String USAGE_REPORT_COUNTS = "/app/rest/commercialUsages/{commercialUsageId}/counts";
+	static final String USAGE_REPORT_COUNTRIES = "/app/rest/commercialUsages/{commercialUsageId}/countries";
 	
 	/**
 	 * control endpoint for single count: put to edit, or delete
 	 */
-	static final String USAGE_REPORT_COUNT = "/app/rest/commercialUsages/{commercialUsageId}/counts/{commercialUsageCountId}"; 
+	static final String USAGE_REPORT_COUNTRY = "/app/rest/commercialUsages/{commercialUsageId}/countries/{commercialUsageCountId}"; 
 
 
 	/**
 	 * - get list of all licensees that user has access to
 	 */
 	static final String LICENSEES_USERNAME = "/app/rest/licensees";
+
+	public static final String PASSWORD_RESET = "/app/rest/passwordReset";
+	public static final String PASSWORD_RESET_ITEM = "/app/rest/passwordReset/{token}";
+
 }

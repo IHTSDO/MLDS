@@ -1,6 +1,8 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
 import ca.intelliware.ihtsdo.mlds.security.*;
+import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -98,7 +100,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/app/rest/register").permitAll()
                 .antMatchers("/app/rest/activate").permitAll()
-                .antMatchers("/app/rest/authenticate").permitAll()
+                .antMatchers(Routes.COUNTRIES).permitAll()
+                .antMatchers(Routes.PASSWORD_RESET).permitAll()
+                .antMatchers(Routes.PASSWORD_RESET_ITEM).permitAll()
                 .antMatchers("/app/rest/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/app/**").authenticated()
                 .antMatchers("/websocket/tracker").hasAuthority(AuthoritiesConstants.ADMIN)

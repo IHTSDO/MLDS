@@ -34,12 +34,14 @@
         "form": {
             "username": "Login",
             "username.placeholder": "Your login",
+            "name.placeholder": "Your name",
             "newpassword": "New password",
             "newpassword.placeholder": "New password",
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
             "email": "E-mail",
-            "email.placeholder": "Your e-mail"
+            "email.placeholder": "Email address",
+            "country": "Country of residence"
         },
         "messages": {
             "info": {
@@ -47,7 +49,8 @@
                 "register": "You don't have an account yet? <a href=\"#/register\">Register a new account</a>"
             },
             "error": {
-                "dontmatch" : "The password and its confirmation do not match!"
+                "dontmatch" : "The password and its confirmation do not match!",
+                "server" : "An error occurred.  Repeating the action may succeed."
             },
             "validate": {
                 "newpassword": {
@@ -89,14 +92,17 @@
     "activate": {
         "title": "Activation",
         "messages": {
-            "success": "<strong>Your user has been activated.</strong> Please <a href=\"#/login\">authenticate</a>.",
+            "success": "<strong>Your user has been activated.</strong> Please continue your registration.",
             "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up."
         }
     },
     "register": {
-        "title": "Registration",
+        "title": "Register",
+        "welcome": "Welcome to IHTSDO-MLDS",
+        "subwelcome": "The gateway to access SNOMED CT Orientation",
         "form": {
-            "button": "Register"
+        	"tos": "Agree to our <a href=\"/tos.html\" target=\"_blank\">terms of service</a>.",
+            "button": "Start Regististration"
         },
         "messages": {
             "validate": {
@@ -109,7 +115,7 @@
             "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
             "error": {
                 "fail": "<strong>Registration failed!</strong> Please try again later.",
-                "userexists": "<strong>Login name already registered!</strong> Please choose another one."
+                "userexists": "<strong>A user has already registered with that email address.</strong> Did you mean to login?"
             }
         }
     },
@@ -160,7 +166,8 @@
         },
         "messages": {
             "error":  "<strong>An error has occured!</strong> The password could not be changed.",
-            "success": "<strong>Password changed!</strong>"
+            "success": "<strong>Password changed!</strong>",
+            "expired": "<strong>The reset link has expired or was invalid.</strong> <a href='#/requestPasswordReset'>Request another reset</a>"
         }
     },
     "sessions": {
@@ -310,5 +317,27 @@
         "title": "Error page!",
         "403": "You are not authorized to access the page."
     },
-    "footer": "This is your footer"
+    "footer": "This is your footer",
+    "licensee": {
+    	"type": {
+    		"COMMERCIAL": "Commercial",
+				"ACADEMIC": "Academic",
+				"OTHER": "Other",
+				"INDIVIDUAL": "Individual"
+    	},
+    	"agreementType": {
+    		"AFFILIATE_NORMAL": "Affiliate - Normal",
+				"AFFILIATE_RESEARCH": "Affiliate - Research",
+				"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
+			},
+			"organizationType": {
+				"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization", 
+				"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization", 
+				"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization", 
+				"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer",
+				"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice", 
+				"EDUCATIONAL_INSTITUTE": "Educational Institute", 
+				"OTHER": "Other"
+			}
+    }
 }

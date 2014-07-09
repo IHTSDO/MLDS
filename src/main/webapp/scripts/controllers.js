@@ -48,19 +48,6 @@ mldsApp.controller('SettingsController', ['$scope', 'Account',
     }]);
 
 
-mldsApp.controller('ActivationController', ['$scope', '$routeParams', 'Activate',
-    function ($scope, $routeParams, Activate) {
-        Activate.get({key: $routeParams.key},
-            function (value, responseHeaders) {
-                $scope.error = null;
-                $scope.success = 'OK';
-            },
-            function (httpResponse) {
-                $scope.success = null;
-                $scope.error = "ERROR";
-            });
-    }]);
-
 mldsApp.controller('PasswordController', ['$scope', 'Password',
     function ($scope, Password) {
         $scope.success = null;
@@ -90,19 +77,18 @@ mldsApp.controller('SessionsController', ['$scope', 'resolvedSessions', 'Session
         $scope.error = null;
         $scope.sessions = resolvedSessions;
         
-        //FIXME: AC error here breaks IE8
-//        $scope.invalidate = function (series) {
-//            Sessions.delete({series: encodeURIComponent(series)},
-//                function (value, responseHeaders) {
-//                    $scope.error = null;
-//                    $scope.success = "OK";
-//                    $scope.sessions = Sessions.get();
-//                },
-//                function (httpResponse) {
-//                    $scope.success = null;
-//                    $scope.error = "ERROR";
-//                });
-//        };
+        $scope.invalidate = function (series) {
+            Sessions["delete"]({series: encodeURIComponent(series)},
+                function (value, responseHeaders) {
+                    $scope.error = null;
+                    $scope.success = "OK";
+                    $scope.sessions = Sessions.get();
+                },
+                function (httpResponse) {
+                    $scope.success = null;
+                    $scope.error = "ERROR";
+                });
+        };
     }]);
 
  mldsApp.controller('MetricsController', ['$scope', 'MetricsService', 'HealthCheckService', 'ThreadDumpService',

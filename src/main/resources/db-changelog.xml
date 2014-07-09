@@ -101,4 +101,72 @@
     	</addColumn>
     </changeSet>
     
+    <changeSet author="AC" id="MLDS-04-4">
+    	<comment>Adding in the rest of fields</comment>
+    	<renameColumn oldColumnName="applicant_type" newColumnName="subtype" tableName="application"/>
+    	<renameColumn oldColumnName="name" newColumnName="full_name" tableName="application"/>
+    	<addColumn tableName="application">
+            <column name="email" type="VARCHAR(255)"/>
+    	</addColumn>
+    	<addColumn tableName="application">
+            <column name="alternate_email" type="VARCHAR(255)"/>
+    	</addColumn>
+    	<addColumn tableName="application">
+            <column name="third_email" type="VARCHAR(255)"/>
+    	</addColumn>
+    	
+    	<renameColumn oldColumnName="phonenumber" newColumnName="landline_number" tableName="application"/>
+    	<renameColumn oldColumnName="extension" newColumnName="landline_extension" tableName="application"/>
+    	
+    	<addColumn tableName="application">
+            <column name="mobile_number" type="VARCHAR(255)"/>
+    	</addColumn>
+    	<addColumn tableName="application">
+            <column name="organization_name" type="VARCHAR(255)"/>
+    	</addColumn>
+    	<addColumn tableName="application">
+            <column name="organization_type" type="VARCHAR(255)"/>
+    	</addColumn>
+    	
+    	<renameColumn oldColumnName="address" newColumnName="street" tableName="application"/>
+    	
+    	<addColumn tableName="application">
+            <column name="billing_street" type="VARCHAR(255)"/>
+    	</addColumn>
+    	<addColumn tableName="application">
+            <column name="billing_city" type="VARCHAR(255)"/>
+    	</addColumn>
+    	<addColumn tableName="application">
+            <column name="billing_country" type="VARCHAR(255)"/>
+    	</addColumn>
+    	
+    	<addColumn tableName="application">
+            <column name="other_text" type="VARCHAR(255)"/>
+    	</addColumn>
+    	
+    	<dropColumn tableName="application" columnName="position"/>
+    	<dropColumn tableName="application" columnName="website"/>
+    </changeSet>
+    
+     <changeSet author="AC" id="MLDS-04-5">
+        <addColumn tableName="application">
+            <column name="is_submitted" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+    	</addColumn>
+    </changeSet>
+    
+     <changeSet author="AC" id="MLDS-04-6">
+      <addColumn tableName="application">
+            <column name="billing_post_code" type="VARCHAR(255)"/>
+    	</addColumn>
+    	<addColumn tableName="application">
+            <column name="post_code" type="VARCHAR(255)"/>
+    	</addColumn>
+    </changeSet>
+     <changeSet author="AC" id="MLDS-04-7">
+      <addColumn tableName="application">
+            <column name="organization_type_other" type="VARCHAR(255)"/>
+    	</addColumn>
+    </changeSet>
 </databaseChangeLog>

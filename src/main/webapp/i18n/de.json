@@ -89,7 +89,7 @@
     "activate": {
         "title": "Aktivierung",
         "messages": {
-            "success": "<strong>Ihr Benutzer wurde aktiviert.</strong> Bitte <a href=\"#/login\">anmelden</a>.",
+            "success": "<strong>Ihr Benutzer wurde aktiviert.</strong> ",
             "error": "<strong>Ihr Benutzer konnte nicht aktiviert werden.</strong> Bitte benutzen Sie die Registrierungsmaske, um sich zu einzutragen."
         }
     },
@@ -109,7 +109,7 @@
             "success": "<strong>Registrierung gespeichert!</strong> Bitte überprüfen Sie ihre E-Mail wegen der Bestätigung.",
             "error": {
                 "fail": "<strong>Registrierung fehlgeschlagen!</strong> Bitte versuchen Sie es später nocheinmal.",
-                "userexists": "<strong>Loginname bereits vergeben!</strong> Bitte wählen Sie einen anderen aus."
+                "userexists": "<strong>A user has already registered with that email address.</strong> Did you mean to login?"
             }
         }
     },

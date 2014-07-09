@@ -16,6 +16,12 @@ angular.module('MLDS')
 			// append to countries list
 			Array.prototype.push.apply(service.countries,countries);
 			
+			service.countries.sort(function(a, b) {
+				var x = a.commonName.toLowerCase();
+			    var y = b.commonName.toLowerCase();
+			    return x < y ? -1 : x > y ? 1 : 0;
+			});
+			
 			// fill countriesByCode map
 			service.countries.map(function(c){
 				service.countriesByIsoCode2[c.isoCode2] = c;

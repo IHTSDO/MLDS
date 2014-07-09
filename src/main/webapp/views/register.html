@@ -20,26 +20,41 @@
                 The password and its confirmation do not match!
             </div>
 
-            <form ng-show="!success" name="form" role="form" novalidate
+            <form ng-show="!success" role="form" novalidate
                   class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                  name="createUserForm"  id="createUserForm"
+                  bs-validate
                   ng-submit="register()">
 
+				<div class="form-group">
+					<label>Country of residence</label>
+					<input class="form-control" type="text" name="country" autofocus=""
+						placeholder="Country of residence"
+						ng-model="countryCommonName" 
+						required=""
+						typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
+						typeahead-editable="false"><!--   -->
+					<p ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
+					<p ng-show="createUserForm.country.$error.editable && createUserForm.attempted" class="help-block">Unrecognized country</p>
+					<p ng-show="createUserForm.country.$error.excluded" class="help-block">This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{registerAccount.country.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY</p>
+				</div>
+
                 <div class="form-group">
-                    <label translate="global.form.username">Login</label>
-                    <input type="text" class="form-control" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
-                           ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 required>
+                    <label translate="global.form.name.placeholder">Login</label>
+                    <input type="text" class="form-control" name="login" placeholder="{{'global.form.name.placeholder' | translate}}"
+                           ng-model="registerAccount.firstName" ng-minlength=1 ng-maxlength=50 required>
                     <div class="error"
-                         ng-show="form.login.$dirty && form.login.$invalid">
+                         ng-show="createUserForm.login.$dirty && createUserForm.login.$invalid">
                         <small class="error"
-                               ng-show="form.login.$error.required" translate="register.messages.validate.login.required">
+                               ng-show="createUserForm.login.$error.required" translate="register.messages.validate.login.required">
                             Your login is required.
                         </small>
                         <small class="error"
-                               ng-show="form.login.$error.minlength" translate="register.messages.validate.login.minlength">
+                               ng-show="createUserForm.login.$error.minlength" translate="register.messages.validate.login.minlength">
                             Your login is required to be at least 1 character
                         </small>
                         <small class="error"
-                               ng-show="form.login.$error.maxlength" translate="register.messages.validate.login.maxlength">
+                               ng-show="createUserForm.login.$error.maxlength" translate="register.messages.validate.login.maxlength">
                             Your login cannot be longer than 50 characters
                         </small>
                     </div>
@@ -49,21 +64,21 @@
                     <input type="email" class="form-control" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
                            ng-model="registerAccount.email" ng-minlength=5 ng-maxlength=100 required>
                     <div class="error"
-                         ng-show="form.email.$dirty && form.email.$invalid">
+                         ng-show="createUserForm.email.$dirty && form.email.$invalid">
                         <small class="error"
-                               ng-show="form.email.$error.required" translate="global.messages.validate.email.required">
+                               ng-show="createUserForm.email.$error.required" translate="global.messages.validate.email.required">
                             Your e-mail is required.
                         </small>
                         <small class="error"
-                               ng-show="form.email.$error.email" translate="global.messages.validate.email.invalid">
+                               ng-show="createUserForm.email.$error.email" translate="global.messages.validate.email.invalid">
                             Your e-mail is invalid.
                         </small>
                         <small class="error"
-                               ng-show="form.email.$error.minlength" translate="global.messages.validate.email.minlength">
+                               ng-show="createUserForm.email.$error.minlength" translate="global.messages.validate.email.minlength">
                             Your e-mail is required to be at least 5 characters
                         </small>
                         <small class="error"
-                               ng-show="form.email.$error.maxlength" translate="global.messages.validate.email.maxlength">
+                               ng-show="createUserForm.email.$error.maxlength" translate="global.messages.validate.email.maxlength">
                             Your e-mail cannot be longer than 100 characters
                         </small>
                     </div>
@@ -73,17 +88,17 @@
                     <input type="password" class="form-control" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
                            ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>
                     <div class="error"
-                         ng-show="form.password.$dirty && form.password.$invalid">
+                         ng-show="createUserForm.password.$dirty && form.password.$invalid">
                         <small class="error"
-                               ng-show="form.password.$error.required" translate="global.messages.validate.newpassword.required">
+                               ng-show="createUserForm.password.$error.required" translate="global.messages.validate.newpassword.required">
                             Your password is required.
                         </small>
                         <small class="error"
-                               ng-show="form.password.$error.minlength" translate="global.messages.validate.newpassword.minlength">
+                               ng-show="createUserForm.password.$error.minlength" translate="global.messages.validate.newpassword.minlength">
                             Your password is required to be at least 5 characters
                         </small>
                         <small class="error"
-                               ng-show="form.password.$error.maxlength" translate="global.messages.validate.newpassword.maxlength">
+                               ng-show="createUserForm.password.$error.maxlength" translate="global.messages.validate.newpassword.maxlength">
                             Your password cannot be longer than 50 characters
                         </small>
                     </div>
@@ -94,23 +109,23 @@
                     <input type="password" class="form-control" name="confirmPassword" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
                            ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 required>
                     <div class="error"
-                         ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
+                         ng-show="createUserForm.confirmPassword.$dirty && form.confirmPassword.$invalid">
                         <small class="error"
-                               ng-show="form.confirmPassword.$error.required" translate="global.messages.validate.confirmpassword.required">
+                               ng-show="createUserForm.confirmPassword.$error.required" translate="global.messages.validate.confirmpassword.required">
                             Your password confirmation is required.
                         </small>
                         <small class="error"
-                               ng-show="form.confirmPassword.$error.minlength" translate="global.messages.validate.confirmpassword.minlength">
+                               ng-show="createUserForm.confirmPassword.$error.minlength" translate="global.messages.validate.confirmpassword.minlength">
                             Your password confirmation is required to be at least 5 characters
                         </small>
                         <small class="error"
-                               ng-show="form.confirmPassword.$error.maxlength" translate="global.messages.validate.confirmpassword.maxlength">
+                               ng-show="createUserForm.confirmPassword.$error.maxlength" translate="global.messages.validate.confirmpassword.maxlength">
                             Your password confirmation cannot be longer than 50 characters
                         </small>
                     </div>
                 </div>
 
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="register.form.button">Register</button>
+                <button type="submit" ng-disabled="createUserForm.$invalid" class="btn btn-primary" translate="register.form.button">Register</button>
             </form>
             <p></p>
             <div class="alert alert-warning" translate="global.messages.info.authenticated">

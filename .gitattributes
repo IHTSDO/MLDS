@@ -13,3 +13,6 @@
 *.jpg binary
 *.jar binary
 *.ico binary
+*.ttf binary
+*.eot binary
+*.woff binary

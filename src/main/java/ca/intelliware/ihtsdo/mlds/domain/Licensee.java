@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -28,17 +30,18 @@ public class Licensee {
 
 	//@Type(type="jodatimeInstant")
 	Instant created = Instant.now();
+
+	@Enumerated(EnumType.STRING)
+	LicenseeType type;
 	
 	//FIXME username of user
-	private String creator;
+	String creator;
 	
-
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="licensee")
 	Set<CommercialUsage> commercialUsages = Sets.newHashSet();
 
 	@OneToOne()
 	@JoinColumn(name="application_id")
-	private
 	Application application;
 	
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
@@ -73,5 +76,13 @@ public class Licensee {
 
 	public void setApplication(Application application) {
 		this.application = application;
+	}
+
+	public LicenseeType getType() {
+		return type;
+	}
+	
+	public void setType(LicenseeType type) {
+		this.type = type;
 	}
 }

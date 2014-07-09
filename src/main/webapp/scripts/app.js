@@ -29,12 +29,6 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
-                 .when('/pendingRegistration', {
-                    templateUrl: 'views/registration/pendingRegistration.html',
-                    access: {
-                        authorizedRoles: [USER_ROLES.all]
-                    }
-                })
                 .when('/activate', {
                     templateUrl: 'views/activate.html',
                     controller: 'ActivationController',
@@ -49,17 +43,9 @@ mldsApp
                         authorizedRoles: [USER_ROLES.user]
                     }
                 })
-                 .when('/usage-log', {
-                    templateUrl: 'views/user/usageLog.html',
-                    controller: 'UsageLogController',
-                    access: {
-                        authorizedRoles: [USER_ROLES.user]
-                    }
-                })
-                //FIXME can this be an alias rather than a duplicate?
                  .when('/usage-log/:usageReportId', {
-                    templateUrl: 'views/user/usageLog.html',
-                    controller: 'UsageLogController',
+                    templateUrl: 'views/user/fullPageUsageLog.html',
+                    controller: 'FullPageUsageLogController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
                     }
@@ -90,6 +76,20 @@ mldsApp
                     access: {
                         authorizedRoles: [USER_ROLES.all]
                     }
+                })
+                .when('/requestPasswordReset', {
+                	templateUrl: 'views/requestPasswordReset.html',
+                	controller: 'RequestPasswordResetController',
+                	access: {
+                		authorizedRoles: [USER_ROLES.all]
+                	}
+                })
+                .when('/resetPassword', {
+                	templateUrl: 'views/resetPassword.html',
+                	controller: 'ResetPasswordController',
+                	access: {
+                		authorizedRoles: [USER_ROLES.all]
+                	}
                 })
                 .when('/sessions', {
                     templateUrl: 'views/sessions.html',
@@ -170,6 +170,26 @@ mldsApp
             tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js')
             tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
             
+//            var apiDelay = 300;
+//            var otherDelay = 0;
+//            var errorMethodMatches = /xPUT|xDELETE|xPOST/;
+//            var delayHandlerFactory = function($q, $timeout) {
+//                return function(promise) {
+//                    return promise.then(function(response) {
+//                        return $timeout(function() {
+//                        	if (errorMethodMatches.test(response.config.method)) {
+//                        		return $q.reject(response);		
+//                        	} else {
+//                        		return response;
+//                        	}
+//                        }, (response.config.url.indexOf('/rest') !== -1 ? apiDelay : otherDelay));
+//                    }, function(response) {
+//                        return $q.reject(response);
+//                    });
+//                };
+//            };
+//            $httpProvider.responseInterceptors.push(delayHandlerFactory);
+            
         }])
         .run(['$rootScope', '$location', '$http', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
             function($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES) {
@@ -191,7 +211,13 @@ mldsApp
                 $rootScope.$on('event:auth-loginRequired', function(rejection) {
                     Session.invalidate();
                     $rootScope.authenticated = false;
-                    if ($location.path() !== "/" && $location.path() !== "" && $location.path() !== "/register" &&
+                    if ($location.path() !== "/" && 
+                    		$location.path() !== "" && 
+                    		$location.path() !== "/register" &&
+                    		// FIXME MB is there a better way to register anonymous pages?
+                    		$location.path() !== "/requestPasswordReset" &&
+                    		$location.path() !== "/resetPassword" &&
+                    		$location.path() !== "/emailVerification" &&
                             $location.path() !== "/activate") {
                         $location.path('/login').replace();
                     }

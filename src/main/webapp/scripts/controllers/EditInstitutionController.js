@@ -8,16 +8,23 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 	
 	$scope.attemptedSubmit = false;
 	$scope.submitting = false;
+	$scope.alerts = [];
 	
 	$scope.cancel = function() {
 		$modalInstance.dismiss();
 	};
 	
 	$scope.updateInstitution = function() {
-		$log.log('updateInstitution: ', $scope.institution);
+		$scope.submitting = true;
+		$scope.alerts.splice(0, $scope.alerts.length);
+		
 		CommercialUsageService.updateUsageEntry($scope.usageReport, $scope.institution)
 			.then(function(result) {
-				$modalInstance.dismiss();		
+				$modalInstance.close(result);		
+			})
+			["catch"](function(message) {
+				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.submitting = false;
 			});
 	};
 
@@ -39,9 +46,9 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 	};
 
 	$scope.dateOptions = {
-		formatYear: 'yy',
-		startingDay: 1,
-		format: 'yyyy/MM/dd'
-	};
+			formatYear: 'yy',
+			startingDay: 1,
+			format: 'd MMM yyyy'
+		};
 
 }]);

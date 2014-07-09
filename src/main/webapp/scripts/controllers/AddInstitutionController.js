@@ -8,16 +8,17 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 	$scope.submitAttempted = false;
 	$scope.submitting = false;
 	$scope.institution = {};
-	$scope.institution.startDate = new Date();
+	$scope.institution.startDate = null;
 	$scope.institution.country = country;
 	
 	//TODO: AC rename(if needed) and fill in guts to submit new institution
 	$scope.add = function(){
 		$scope.submitting = true;
+		$scope.alerts.splice(0, $scope.alerts.length);
 		
 		CommercialUsageService.addUsageEntry(usageReport, $scope.institution)
 			.then(function(result) {
-				$modalInstance.dismiss('cancel');
+				$modalInstance.close(result);
 			})
 			["catch"](function(message) {
 				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
@@ -47,7 +48,7 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 	$scope.dateOptions = {
 		formatYear: 'yy',
 		startingDay: 1,
-		format: 'yyyy/MM/dd'
+		format: 'd MMM yyyy'
 	};
 
 }]);

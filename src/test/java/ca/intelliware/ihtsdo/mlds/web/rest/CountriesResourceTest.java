@@ -11,7 +11,6 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -23,17 +22,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import ca.intelliware.ihtsdo.mlds.Application;
-import ca.intelliware.ihtsdo.mlds.service.UserService;
 
-// FIXME MLDS-23 MB is this worth keeping?
+// FIXME MLDS-234 MB is this worth keeping?  Shall we mock the repo, and validate the resource methods?
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("dev")
 public class CountriesResourceTest {
-
-    @Mock
-    private UserService userService;
 
     private MockMvc restUserMockMvc;
     
