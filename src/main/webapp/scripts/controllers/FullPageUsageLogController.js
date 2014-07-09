@@ -16,8 +16,6 @@ angular.module('MLDS').controller('FullPageUsageLogController', ['$scope', '$log
 			if ($routeParams && $routeParams.usageReportId) {
 				CommercialUsageService.getUsageReport($routeParams.usageReportId)
 					.then(function(result) {
-						$log.log('updating usage report');
-						$log.log(result.data);
 						usageReportDefer.resolve(result.data);
 					})
 					["catch"](function(message) {
