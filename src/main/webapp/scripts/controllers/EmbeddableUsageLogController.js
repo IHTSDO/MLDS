@@ -379,11 +379,17 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 				}
 			}
 		});
-		
 	};
-	
 
 	$scope.goToDashboard = function() {
 		$location.path('/dashboard');	
+	};
+	
+	$scope.institutionDateRangeOutsidePeriod = function(institution) {
+		if (institution.startDate && institution.endDate) {
+			var date = new Date(institution.endDate);
+			return (date < new Date($scope.commercialUsageReport.startDate));
+		}
+		return false;
 	};
 }]);

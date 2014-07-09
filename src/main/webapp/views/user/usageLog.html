@@ -144,7 +144,13 @@
 						<tr ng-repeat="institution in countryUsage.entries">
 							<td>{{institution.name}}</td>
 							<td>{{institution.startDate | date}}</td>
-							<td>{{institution.endDate | date}}</td>
+							<td>{{institution.endDate | date}}
+								<span ng-show="institutionDateRangeOutsidePeriod(institution)">
+									<a href="#" tooltip-placement="top" tooltip="Consider removing this hospital as it ceased use prior to the current declaration period">
+										<span class="label label-warning">Outdated</span>
+									</a>
+								</span>
+							</td>
 							<td>{{institution.note}}</td>
 							<td>
 								<div class="btn-group" dropdown ng-hide="readOnly">
