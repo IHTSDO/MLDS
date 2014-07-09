@@ -19,6 +19,15 @@
     </div>  
   </div>
 </div>
+<div class="row space" ng-hide="anySubmittedUsageReports(licensee)">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+  	<div class="alert alert-warning" role="alert">
+  		<div><strong>Incomplete Affiliate Registration</strong></div>
+  		<p>You have not submitted a usage declaration. To complete your affiliate registration, please submit an existing or new usage declaration.</p>
+  	</div>
+  </div>
+</div>
+
 <div class="row space">
   <div class="col-sm-12 col-md-12 col-lg-12">
     <div class="form-group">
@@ -40,7 +49,11 @@
         </tr>
          <tbody>
           <tr ng-class="{info: usageReport.approvalState === 'NOT_SUBMITTED'}" ng-repeat="usageReport in licensee.commercialUsages">
-          <td class="text-left"><i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i></td>
+          <td class="text-left">
+          	<a href="#" tooltip-placement="top" tooltip="Declaration has not been submitted">
+	          	<i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i>
+	        </a>
+          </td>
           <td class="text-left"><a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}</a></td>
           <td class="text-left">{{usageReport.submitted | date : 'd MMM yyyy'}}</td>
           <td class="text-right">{{usageReportCountries(usageReport) | number}}</td>
