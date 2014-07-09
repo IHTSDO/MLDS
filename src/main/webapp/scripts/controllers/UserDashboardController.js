@@ -79,5 +79,11 @@ angular.module('MLDS')
         	$scope.licenseeIsCommercial = function(licensee) {
         		return LicenseeService.licenseeIsCommercial(licensee);
         	};
+        	
+        	$scope.anySubmittedUsageReports = function(licensee) {
+        		return _.some(licensee.commercialUsages, function(usageReport) {
+        			return usageReport.approvalState !== 'NOT_SUBMITTED';
+        		});
+        	};
         }
     ]);

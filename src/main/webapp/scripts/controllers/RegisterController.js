@@ -59,5 +59,5 @@ mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$
                         }
                     });
            // }
-        }
+        };
     }]);

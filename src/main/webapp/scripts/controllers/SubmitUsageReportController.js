@@ -14,6 +14,7 @@ angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$mo
 		
 		CommercialUsageService.submitUsageReport($scope.commercialUsageReport)
 			.then(function(result) {
+				$location.path('/dashboard');
 				$modalInstance.close(result);
 			})
 			["catch"](function(message) {
