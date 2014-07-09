@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title th:text="#{activation.title}">IHTSDO-MLDS activation</title>
+        <title th:text="#{activation.title}">IHTSDO-MLDS Account Activation Required</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
@@ -13,7 +13,7 @@
         </p>
         <p>
             <a th:href="@{|${baseUrl}/#/activate?key=${user.activationKey}|}"
-               th:text="|${user.login}|">Activation Link</a>
+               th:text="#activation.activateLinkLabel(${user.login})">Activate Account</a>
         </p>
         <p>
             <span th:text="#{activation.text2}">Regards, </span>
