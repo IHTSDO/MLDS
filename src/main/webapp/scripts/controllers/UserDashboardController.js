@@ -34,13 +34,15 @@ angular.module('MLDS')
 
         	
         	//FIXME: AC Seems to break when user refreshes page
-        	if (!UserSession.hasApplied()) {
-        		$location.path('/affiliateRegistration');
-        	} else if (!UserSession.isApproved()) {
-        		//$location.path('/pendingRegistration');
-        	} else {
-        		// setup dashboard?
-        	}
+        	UserSession.readyPromise.then(function(){
+        		if (!UserSession.hasApplied()) {
+        			$location.path('/affiliateRegistration');
+        		} else if (!UserSession.isApproved()) {
+        			//$location.path('/pendingRegistration');
+        		} else {
+        			// setup dashboard?
+        		}
+        	});
         	
         	$scope.usageReportCountries = function(usageReport) {
         		return usageReport.countries.length;
@@ -76,6 +78,12 @@ angular.module('MLDS')
         	
         	$scope.licenseeIsCommercial = function(licensee) {
         		return LicenseeService.licenseeIsCommercial(licensee);
+        	};
+        	
+        	$scope.anySubmittedUsageReports = function(licensee) {
+        		return _.some(licensee.commercialUsages, function(usageReport) {
+        			return usageReport.approvalState !== 'NOT_SUBMITTED';
+        		});
         	};
         }
     ]);
