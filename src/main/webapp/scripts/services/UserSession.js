@@ -1,16 +1,18 @@
 'use strict';
 //FIXME: JH-Rename to 'RegistrationState' or something better
 angular.module('MLDS')
-	.factory('UserSession', ['$http', '$rootScope', 'Events', '$window', function($http, $rootScope, Events, $window){
-		// MB - just using shell-provided json data for now.  See FirstPageController.java
-		// window.mlds.userRegistration
-		
+	.factory('UserSession', ['$http', '$rootScope', 'Events', '$window', '$q', 
+	                         function($http, $rootScope, Events, $window, $q){
 		var service = {};
+		var ready = $q.defer();
+		
+		service.readyPromise = ready.promise;
 		
 		service.create = function create(emailVerified, applicationMade, applicationApproved) {
 			service.emailVerified = emailVerified;
 			service.applicationMade = applicationMade;
 			service.applicationApproved = applicationApproved;
+			ready.resolve(service);
 		};
 		
 		service.hasVerifiedEmail = function() {
