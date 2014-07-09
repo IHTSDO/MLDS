@@ -1,13 +1,45 @@
 <div class="modal-header">
   <h3 class="modal-title">Submit Usage Declaration</h3>
 </div>
+
 <div class="modal-body">
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   
   <p>Submit Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat.</p>
   
-  <p>Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}
+    <div class="row">
+  		<div class="col-sm-6 col-md-6 col-lg-6">
+  			<h4>Declaration:</h4>
+  			<ul class="list-group">
+  				<li class="list-group-item"><strong>Period:</strong> {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</li>
+  				<li class="list-group-item"><strong>Licence Type:</strong> {{'licensee.type.'+commercialUsageReport.type | translate}}</li>
+  			</ul>
+
+  			<h4>Usage:</h4>
+  			<ul class="list-group" >
+  				<li class="list-group-item"><strong>Current Usage:</strong> {{commercialUsageReport.context.currentUsage}}</li>
+  				<li class="list-group-item"><strong>Planned Usage:</strong> {{commercialUsageReport.context.plannedUsage}}</li>
+  				<li class="list-group-item"><strong>Purpose:</strong> {{commercialUsageReport.context.purpose}}</li>
+  				<li class="list-group-item"><strong>Agreement Type:</strong> {{'licensee.agreementType.'+commercialUsageReport.context.agreementType | translate}}</li>
+  				<li class="list-group-item" ng-show="commercialUsageReport.type=='COMMERCIAL'" ng-repeat="countryRecord in commercialUsageReport.countries">
+  					<strong>Country:</strong> {{countryRecord.country.commonName}}<br>
+ 					<strong>Practices:</strong> {{countryRecord.practices}}<br>
+  				  	<strong>Hospitals:</strong>
+  					<span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
+  						{{entry.name}}<span ng-show="!$last">,</span>
+ 					</span><br>
+ 				</li>
+ 				<li class="list-group-item" ng-show="commercialUsageReport.type!='COMMERCIAL'">
+ 					<strong>Countries:</strong>
+					<span ng-repeat="countryRecord in commercialUsageReport.countries">
+  						{{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
+ 						</span><br>
+ 					</li>
+ 				</ul>
+  		</div>
+  	</div>
 </div>
+
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
 	
