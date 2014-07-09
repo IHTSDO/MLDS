@@ -8,7 +8,7 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 	$scope.submitAttempted = false;
 	$scope.submitting = false;
 	$scope.institution = {};
-	$scope.institution.startDate = new Date();
+	$scope.institution.startDate = null;
 	$scope.institution.country = country;
 	
 	//TODO: AC rename(if needed) and fill in guts to submit new institution
