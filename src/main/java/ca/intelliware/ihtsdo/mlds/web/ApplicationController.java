@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
+import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
+import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -29,6 +32,10 @@ public class ApplicationController {
 	SessionService sessionService;
 	@Resource
 	LicenseeRepository licenseeRepository;
+	@Resource
+	ApplicationApprovedEmailSender applicationApprovedEmailSender;
+	@Resource
+	UserRepository userRepository;
 
 	@RequestMapping(value="api/applications")
 	public @ResponseBody Iterable<Application> getApplications() {
@@ -41,11 +48,14 @@ public class ApplicationController {
 		if (applications.size() == 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		User user = userRepository.getUserByEmail(email);
 		
 		Application application = applications.get(0);
 		
 		application.setApproved(true);
 		applicationRepository.save(application);
+		
+		applicationApprovedEmailSender.sendApplicationApprovalEmail(user);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
