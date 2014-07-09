@@ -177,6 +177,7 @@
                          style="width: {{(metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].count * 100 / metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count) | number:0}}%">
                         {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].count}}
                     </div>
+                </div>
             </td>
             <td>
                 {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].mean_rate | number:2}}
@@ -200,6 +201,7 @@
                          style="width:{{(metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.notFound'].count * 100 / metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count) | number:0}}%">
                         {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.notFound'].count}}
                     </div>
+                </div>
             </td>
             <td>
                 {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.notFound'].mean_rate | number:2}}
@@ -225,6 +227,7 @@
                          style="width:{{(metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.serverError'].count * 100 / metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count) | number:0}}%">
                         {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.serverError'].count}}
                     </div>
+                </div>
             </td>
             <td>
                 {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.serverError'].mean_rate | number:2}}
