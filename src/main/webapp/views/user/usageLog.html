@@ -116,6 +116,7 @@
 				</h4>
 			</div>
 			<div class="panel-body" collapse="collapsePanel.sublicensed">
+				<div ng-show="usageByCountryList.length == 0">A country needs to be selected before entering Sublicensed Institutions.</div>
 				<div class="country-listing" ng-repeat="countryUsage in usageByCountryList">
             <div class="row">
                     <div class="country-heading">
