@@ -4,7 +4,7 @@
 	 
 		 <h4>Submitted Commercial Usage Report</h4>
 		 <hr>
-		 <span class="pull-right" id="retractBtn"><button ng-disable="!readOnly" ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
+		 <span class="pull-right" id="retractBtn"><button ng-disabled="!readOnly" ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
 		 <p class="text-success"><strong>Commercial Usage for:</strong> {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }} </p>
 	</div>
 	
@@ -116,13 +116,14 @@
 				</h4>
 			</div>
 			<div class="panel-body" collapse="collapsePanel.sublicensed">
+				<div ng-show="usageByCountryList.length == 0">A country needs to be selected before entering Sublicensed Institutions.</div>
 				<div class="country-listing" ng-repeat="countryUsage in usageByCountryList">
             <div class="row">
-                    <div class="country-heading" ng-hide="readOnly">
+                    <div class="country-heading">
                           <div class="col-xs-8 col-sm-6 col-md-4 col-lg-6">
                              <h3 class="country-title">{{countryUsage.country.commonName}}</h3>
                           </div>
-                         <div class="col-xs-4 col-sm-6  col-md-8 col-lg-6">
+                         <div class="col-xs-4 col-sm-6  col-md-8 col-lg-6" ng-hide="readOnly">
                           <div class="form-group pull-right">
                             <a class="btn btn-success btn-xs" ng-click="addInstitutionModal(countryUsage.country)"><i class="fa fa-plus"></i> Add Hospital</a>
                             <a class="btn btn-danger btn-xs" ng-click="removeCountryModal(countryUsage.count)"><i class="fa fa-times"></i> Remove Country</a>
@@ -143,7 +144,13 @@
 						<tr ng-repeat="institution in countryUsage.entries">
 							<td>{{institution.name}}</td>
 							<td>{{institution.startDate | date}}</td>
-							<td>{{institution.endDate | date}}</td>
+							<td>{{institution.endDate | date}}
+								<span ng-show="institutionDateRangeOutsidePeriod(institution)">
+									<a href="#" tooltip-placement="top" tooltip="Consider removing this hospital as it ceased use prior to the current declaration period">
+										<span class="label label-warning">Outdated</span>
+									</a>
+								</span>
+							</td>
 							<td>{{institution.note}}</td>
 							<td>
 								<div class="btn-group" dropdown ng-hide="readOnly">
@@ -179,7 +186,7 @@
 <div class="row">
 	<div class="col-xs-offset-1 col-sm-offset-0 col-md-offset-0 col-md-12">
 		<div class="submit-usage" ng-hide="readOnly || !canSubmit">
-			<button ng-click="submitUsageReport(usageForm)" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button>
+			<button ng-click="submitUsageReport(usageForm)" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button> <button ng-click="goToDashboard()" type="button" class="btn btn-link">Back to Dashboard</button>
 			<div ng-show="usageForm.attempted" class="has-error">
 				<p ng-show="usageForm.$invalid" class="help-block">Please fix the errors listed above.</p>
 			</div>
