@@ -143,7 +143,7 @@ public class AccountResource {
         	}
         	
         	application.setUsername(userDTO.getLogin());
-        	application.setName(userDTO.getFirstName());
+        	application.setName(userDTO.getFirstName() + " " + userDTO.getLastName());
         	application.setEmail(userDTO.getEmail());
         	//set a default type for application to create licensee and usagelog
         	application.setType(LicenseeType.COMMERCIAL.toString());
