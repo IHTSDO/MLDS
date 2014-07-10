@@ -1,18 +1,14 @@
 'use strict';
 
-angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 
-                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport) {
+angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 'usageByCountryList', 
+                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport, usageByCountryList) {
 	$scope.attemptedSubmit = false;
 	$scope.submitting = false;
 	$scope.alerts = [];
 	
 	$scope.commercialUsageReport = commercialUsageReport;
+	$scope.usageByCountryList = usageByCountryList;
 	
-	// FIXME MB this should be on the CommercialUsageService??
-	$scope.commercialUsageInstitutionsByCountry = 
-		_.groupBy(commercialUsageReport.entries, 
-				function(entry){ return entry.country.isoCode2});
-
 	$scope.submit = function(){
 		$scope.submitting = true;
 		$scope.alerts.splice(0, $scope.alerts.length);
