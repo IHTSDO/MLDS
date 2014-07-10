@@ -33,10 +33,16 @@
 				<span ng-show="createUserForm.country.$error.excluded" class="help-block">This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{registerAccount.country.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY</span>
 			</div>
 			<div class="form-group">
-				<label translate="global.form.name.placeholder">Your name</label>
-				<input ng-model="registerAccount.firstName" name="name" type="text" class=
-				"form-control" placeholder="{{'global.form.name.placeholder' | translate}}" required="" />
-				<span ng-show="createUserForm.name.$error.required && createUserForm.attempted" class="help-block">Required field.</span>
+				<label translate="settings.form.firstname">First Name</label>
+				<input ng-model="registerAccount.firstName" name="firstname" type="text" class=
+				"form-control" placeholder="{{'settings.form.firstname.placeholder' | translate}}" required="" />
+				<span ng-show="createUserForm.firstname.$error.required && createUserForm.attempted" class="help-block">Required field.</span>
+			</div>
+			<div class="form-group">
+				<label translate="settings.form.lastname">Last Name</label>
+				<input ng-model="registerAccount.lastName" name="lastname" type="text" class=
+				"form-control" placeholder="{{'settings.form.lastname.placeholder' | translate}}" required="" />
+				<span ng-show="createUserForm.lastname.$error.required && createUserForm.attempted" class="help-block">Required field.</span>
 			</div>
 			<div class="form-group">
 				<label translate="global.form.email">Email address</label>
