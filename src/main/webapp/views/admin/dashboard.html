@@ -34,12 +34,14 @@
 			<th>type</th>
 			<th>actions</th>
 		</tr>
+		<tbody>
 		<tr ng-repeat="application in applications">
 			<td>{{application.username}}</td>
 			<td>{{application.approved}}</td>
 			<td>{{application.type}}</td>
 			<td><button class="btn btn-default" ng-disabled="application.approved" ng-click="approveApplication(application.username)">Approve Application</button></td>
 		</tr>
+		</tbody>
 	</table>
 	
 </div>
