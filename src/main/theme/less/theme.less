@@ -1,14 +1,6 @@
 //
 // IHTSDO Theme
 // --------------------------------------------------
-#wrap {
-  min-height: 100%;
-  height: auto;
-  /* Negative indent footer by its height */
-  margin: 0 auto -60px;
-  /* Pad bottom by footer height */
-  padding: 0 0 60px;
-}
 
 .navbar[role=navigation]{
 	margin-bottom: 30px;
@@ -160,7 +152,7 @@
 // --------------------------------------------------
 
 .user-info{
-	background-color: @white;
+	background-color: lighten(@gray-lighter, 4%);
 	padding: 10px;
 	border-top: 2px solid @light-blue;
 
@@ -207,6 +199,9 @@
 	.submit-usage{
 	padding: 10px 0;
 }
+.exclaim{
+	width: 40px;
+}
 //
 // Footer
 // --------------------------------------------------
@@ -214,4 +209,7 @@ footer {
 	background-color: darken(@blue, 30%);	
 	color: @white;
 	height: 60px;
+	padding-top: 20px;
+	position: relative;
+	bottom: -60px;
 }
