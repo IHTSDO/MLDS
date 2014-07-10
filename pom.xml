@@ -3,7 +3,7 @@
 	<groupId>ca.intelliware.ihtsdo.mlds</groupId>
 	<artifactId>mlds</artifactId>
 	<packaging>war</packaging>
-	<version>0.1.3-SNAPSHOT</version>
+	<version>0.1.6-SNAPSHOT</version>
 	<name>ihtsdo-mlds Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
@@ -463,7 +463,7 @@
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<enableSshAgent>true</enableSshAgent>
 					<useReleaseProfile>false</useReleaseProfile><!-- no need for source or javadoc -->
-					<noDeploy>true</noDeploy><!--  turn off nexus deploy until we have accounts -->
+					<noDeploy>false</noDeploy><!--  turn off nexus deploy until we have accounts -->
 				</configuration>
 			</plugin>
 			<plugin>
@@ -717,6 +717,7 @@
 	</build>
 	
 	<distributionManagement>
+	<!-- 
 		<repository>
 			<id>ihtsdo-public-nexus</id>
 			<name>IHTSDO Public Nexus Releases</name>
@@ -727,5 +728,11 @@
 			<name>IHTSDO Public Nexus Snapshots</name>
 			<url>https://maven.ihtsdotools.org/content/repositories/snapshots/</url>
 		</snapshotRepository>
+	 -->
+		<repository>
+			<id>ihtsdo</id>
+			<name>IHTSDO Intelliware Releases</name>
+			<url>http://fsnexus.intware.com:8086/nexus/content/repositories/ihtsdo/</url>
+		</repository>
 	</distributionManagement>
 </project>
