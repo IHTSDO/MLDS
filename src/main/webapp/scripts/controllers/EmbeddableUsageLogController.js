@@ -361,6 +361,9 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 			resolve: {
 				commercialUsageReport: function() {
 					return $scope.commercialUsageReport;
+				},
+				usageByCountryList: function() {
+					return $scope.usageByCountryList;
 				}
 			}
 		});
