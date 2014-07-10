@@ -8,6 +8,11 @@ angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$mo
 	
 	$scope.commercialUsageReport = commercialUsageReport;
 	
+	// FIXME MB this should be on the CommercialUsageService??
+	$scope.commercialUsageInstitutionsByCountry = 
+		_.groupBy(commercialUsageReport.entries, 
+				function(entry){ return entry.country.isoCode2});
+
 	$scope.submit = function(){
 		$scope.submitting = true;
 		$scope.alerts.splice(0, $scope.alerts.length);
