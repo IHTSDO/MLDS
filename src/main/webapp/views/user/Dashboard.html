@@ -49,9 +49,9 @@
         </tr>
          <tbody>
           <tr ng-class="{info: usageReport.approvalState === 'NOT_SUBMITTED'}" ng-repeat="usageReport in licensee.commercialUsages">
-          <td class="text-left">
+          <td class="exclaim">
           	<a href="#" tooltip-placement="top" tooltip="Declaration has not been submitted">
-	          	<i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i>
+	          	<i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle fa-2x"></i>
 	        </a>
           </td>
           <td class="text-left"><a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}</a></td>

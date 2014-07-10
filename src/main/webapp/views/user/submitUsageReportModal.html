@@ -21,17 +21,17 @@
   				<li class="list-group-item"><strong>Planned Usage:</strong> {{commercialUsageReport.context.plannedUsage}}</li>
   				<li class="list-group-item"><strong>Purpose:</strong> {{commercialUsageReport.context.purpose}}</li>
   				<li class="list-group-item"><strong>Agreement Type:</strong> {{'licensee.agreementType.'+commercialUsageReport.context.agreementType | translate}}</li>
-  				<li class="list-group-item" ng-show="commercialUsageReport.type=='COMMERCIAL'" ng-repeat="countryRecord in commercialUsageReport.countries">
+  				<li class="list-group-item" ng-show="commercialUsageReport.type=='COMMERCIAL'" ng-repeat="countryRecord in usageByCountryList">
   					<strong>Country:</strong> {{countryRecord.country.commonName}}<br>
- 					<strong>Practices:</strong> {{countryRecord.practices}}<br>
+ 					<strong>Practices:</strong> {{countryRecord.count.practices}}<br>
   				  	<strong>Hospitals:</strong>
-  					<span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
+  					<span ng-repeat="entry in countryRecord.entries">
   						{{entry.name}}<span ng-show="!$last">,</span>
  					</span><br>
  				</li>
  				<li class="list-group-item" ng-show="commercialUsageReport.type!='COMMERCIAL'">
  					<strong>Countries:</strong>
-					<span ng-repeat="countryRecord in commercialUsageReport.countries">
+					<span ng-repeat="countryRecord in usageByCountryList">
   						{{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
  						</span><br>
  					</li>
