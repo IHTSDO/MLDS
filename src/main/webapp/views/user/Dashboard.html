@@ -2,21 +2,24 @@
   <div class="col-sm-12 col-md-12 col-lg-12"> 
     <div class="page-header">
      <h1>
-       Dashboard <span class="pull-right"><small>Welcome {{firstName}} {{lastName}}</small></span>
+       {{'global.menu.account.dashboard' | translate}} <span class="pull-right"><small>Welcome {{firstName}} {{lastName}}</small></span>
      </h1>
    </div>
  </div>
 </div>
 <div ng-repeat="licensee in licensees">
-  <div class="row">
+  <div class="row user-info">
     <div class="col-sm-12 col-md-12 col-lg-12">
-     <div class="user-info">
-      <p>
-        <a class="btn btn-link pull-right" href="#/affiliateRegistration">Resubmit Affilate Registration</a>
-        <strong>Licensee:</strong> {{licensee.application.organizationName ? licensee.application.organizationName : licensee.application.name}}<br>
-        <strong>Type:</strong> {{'licensee.type.'+licensee.type | translate}}
-      </p>
-    </div>  
+			<div class="col-sm-6 col-md-6 col-lg-6">
+        <strong>{{'licensee.title' | translate}}:</strong> {{licensee.application.organizationName ? licensee.application.organizationName : licensee.application.name}}<br>
+        <strong>{{'licensee.type.title' | translate}}:</strong> {{'licensee.type.'+licensee.type | translate}}
+     	</div>
+     	<div class="col-sm-6 col-md-6 col-lg-6 text-right">
+      	<span class="alert alert-warning" ng-show="isApplicationPending">Application Status: Pending Approval</span>
+      	<span class="alert alert-success" ng-show="isApplicationApproved">Application Status: Approved</span>
+        <a class="btn btn-default" href="#/affiliateRegistration">Edit Licensee Application</a>
+     	</div>     	
+
   </div>
 </div>
 <div class="row space" ng-hide="anySubmittedUsageReports(licensee)">
@@ -66,5 +69,3 @@
   </div>
 </div>
 </div>
-
-
