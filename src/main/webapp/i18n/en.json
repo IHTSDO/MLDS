@@ -319,7 +319,9 @@
     },
     "footer": "This is your footer",
     "licensee": {
+    	"title": "Licensee",
     	"type": {
+    		"title": "Type",
     		"COMMERCIAL": "Commercial",
 				"ACADEMIC": "Academic",
 				"OTHER": "Other",
