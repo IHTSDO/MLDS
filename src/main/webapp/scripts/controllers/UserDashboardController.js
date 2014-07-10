@@ -10,6 +10,9 @@ angular.module('MLDS')
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
+        	$scope.isApplicationPending = UserSession.hasApplied() && !UserSession.isApproved();
+        	$scope.isApplicationApproved = UserSession.hasApplied() && UserSession.isApproved();
+        	
         	$scope.licensees = [];
 
         	LicenseeService.myLicensees()
