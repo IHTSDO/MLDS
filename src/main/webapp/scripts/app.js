@@ -43,7 +43,7 @@ mldsApp
                         authorizedRoles: [USER_ROLES.user]
                     }
                 })
-                 .when('/usage-log/:usageReportId', {
+                .when('/usage-log/:usageReportId', {
                     templateUrl: 'views/user/fullPageUsageLog.html',
                     controller: 'FullPageUsageLogController',
                     access: {
@@ -115,6 +115,13 @@ mldsApp
                     controller: 'PackageManagementController',
                     access: {
                         authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
+                .when('/package/:packageId', {
+                    templateUrl: 'views/admin/package.html',
+                    controller: 'PackageController',
+                    access: {
+                    	authorizedRoles: [USER_ROLES.admin]
                     }
                 })
                 .when('/metrics', {

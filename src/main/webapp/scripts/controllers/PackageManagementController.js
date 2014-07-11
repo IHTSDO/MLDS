@@ -39,5 +39,9 @@ angular.module('MLDS').controller('PackageManagementController',
         	return true;
         };
         
+        $scope.goToPackage = function(packageEntity) {
+        	$location.path('/package/'+encodeURIComponent(packageEntity.packageId));
+        };
+        
     }]);
 
