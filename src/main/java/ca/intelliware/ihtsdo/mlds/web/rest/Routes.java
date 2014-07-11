@@ -54,7 +54,40 @@ public class Routes {
 	 */
 	static final String LICENSEES_USERNAME = "/app/rest/licensees";
 
+	
+	/**
+	 * control endpoint for mulitple release packages:
+	 * - GET to get all
+	 * - POST to create
+	 */
+	static final String RELEASE_PACKAGES = "/app/rest/releasePackages"; 
+	
+	/**
+	 * control endpoint for single release package:
+	 * - GET
+	 * - PUT
+	 * - DELETE
+	 */
+	static final String RELEASE_PACKAGE = "/app/rest/releasePackages/{releasePackageId}"; 
+
+	/**
+	 * control endpoint for single release version:
+	 * - GET
+	 * - PUT
+	 */
+	static final String RELEASE_VERSION = "/app/rest/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}"; 
+
+	/**
+	 * control endpoint for single release file:
+	 * - GET
+	 * - PUT
+	 * - DELETE
+	 */
+	static final String RELEASE_FILE = "/app/rest/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/releaseFiles/{releaseFileId}"; 
+	
+	
 	public static final String PASSWORD_RESET = "/app/rest/passwordReset";
 	public static final String PASSWORD_RESET_ITEM = "/app/rest/passwordReset/{token}";
+
 
 }
