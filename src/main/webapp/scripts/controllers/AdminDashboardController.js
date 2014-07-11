@@ -1,7 +1,8 @@
 'use strict';
 
 mldsApp.controller('AdminDashboardController',
-        [ '$scope', '$log', 'UserRegistrationService', 'DomainBlacklistService', function ($scope, $log, UserRegistrationService, DomainBlacklistService) {
+        [ '$scope', '$log', 'UserRegistrationService', 'DomainBlacklistService', 'PackagesService', function ($scope, $log, UserRegistrationService, DomainBlacklistService, PackagesService) {
+        	$log.log('packages', PackagesService.query);
         	
         	$log.log('Dashboard Controller');
         	
