@@ -1,0 +1,3 @@
+#/etc/cron.d/mlds_nightly_update.cron
+# Do a 3am apt update of the app
+0 3 * * * root ( apt-get update && apt-get upgrade mlds )
