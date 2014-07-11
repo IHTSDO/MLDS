@@ -10,33 +10,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.intelliware.ihtsdo.mlds.domain.Package;
-import ca.intelliware.ihtsdo.mlds.repository.PackageRepository;
+import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
+import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 
 import com.wordnik.swagger.annotations.Api;
 
 @RestController
-@Api(value = "package", description = "Package and Version Release API")
-public class PackagesResource {
+@Api(value = "releasePackages", description = "Release Package and Version Release API")
+public class ReleasePackagesResource {
 
 	@Resource
-	PackageRepository packageRepository;
+	ReleasePackageRepository releasePackageRepository;
 
 	@Resource
 	AuthorizationChecker authorizationChecker;
 
-	@RequestMapping(value = Routes.PACKAGE,
+	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<Package> getPackage(@PathVariable long packageId) {
-    	authorizationChecker.checkCanAccessPackage(packageId);
+    public @ResponseBody ResponseEntity<ReleasePackage> getPackage(@PathVariable long releasePackageId) {
+    	authorizationChecker.checkCanAccessReleasePackage(releasePackageId);
     	
-    	Package packageEntity = packageRepository.findOne(packageId);
-    	if (packageEntity == null) {
+    	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
+    	if (releasePackage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	} 
     	
-    	return new ResponseEntity<Package>(packageEntity, HttpStatus.OK);
+    	return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     }
 
 }

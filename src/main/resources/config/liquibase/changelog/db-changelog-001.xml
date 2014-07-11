@@ -447,5 +447,11 @@
         <addPrimaryKey columnNames="package_id" constraintName="package_PK" schemaName="public" tableName="package"/>
         <addForeignKeyConstraint baseColumnNames="created_by" baseTableName="package" baseTableSchemaName="public" constraintName="FK_package_t_user" deferrable="false" initiallyDeferred="false" referencedColumnNames="login" referencedTableName="t_user" referencedTableSchemaName="public"/>
 	</changeSet>
+
+    <changeSet id="MLDS-256-2" author="DGJ">
+    	<comment>Rename Package to ReleasePackage</comment>
+    	<renameTable schemaName="public" oldTableName="package" newTableName="release_package"/>
+    	<renameColumn schemaName="public" tableName="release_package" oldColumnName="package_id" newColumnName="release_package_id"/>
+	</changeSet>
 	
 </databaseChangeLog>
