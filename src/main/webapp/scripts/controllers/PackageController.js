@@ -17,8 +17,15 @@ angular.module('MLDS').controller('PackageController',
 		$location.path('/packageManagement');
 	};
 	
+	$scope.isEditible = false;
+	
 	if ($routeParams && $routeParams.packageId) {
 		$scope.packageEntity = getPackage($routeParams.packageId);
+		
+		if($routeParams.edit == 'edit') {
+			$scope.isEditible = true;
+		}
+		
 	} else {
 		$location.path('/packageManagement');
 	};
