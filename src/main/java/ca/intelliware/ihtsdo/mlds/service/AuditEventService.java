@@ -1,15 +1,17 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import ca.intelliware.ihtsdo.mlds.config.audit.AuditEventConverter;
-import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
-import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
-import org.joda.time.LocalDateTime;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.joda.time.Instant;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import java.util.List;
+import ca.intelliware.ihtsdo.mlds.config.audit.AuditEventConverter;
+import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
 
 /**
  * Service for managing audit events.
@@ -23,19 +25,33 @@ import java.util.List;
 public class AuditEventService {
 
     @Inject
-    private PersistenceAuditEventRepository persistenceAuditEventRepository;
+    PersistenceAuditEventRepository persistenceAuditEventRepository;
 
     @Inject
-    private AuditEventConverter auditEventConverter;
+    AuditEventConverter auditEventConverter;
+
+	@Inject
+	CurrentSecurityContext currentSecurityContext;
 
     public List<AuditEvent> findAll() {
         return auditEventConverter.convertToAuditEvent(persistenceAuditEventRepository.findAll());
     }
 
-    public List<AuditEvent> findByDates(LocalDateTime fromDate, LocalDateTime toDate) {
+    public List<AuditEvent> findByDates(Instant fromDate, Instant toDate) {
         final List<PersistentAuditEvent> persistentAuditEvents =
                 persistenceAuditEventRepository.findByDates(fromDate, toDate);
 
         return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
     }
+
+	public void logAuditableEvent() {
+		persistenceAuditEventRepository.save(createAuditEvent());
+	}
+
+	PersistentAuditEvent createAuditEvent() {
+		PersistentAuditEvent persistentAuditEvent = new PersistentAuditEvent();
+		persistentAuditEvent.setPrincipal(currentSecurityContext.getCurrentUserName());
+		return persistentAuditEvent;
+	}
+    
 }
