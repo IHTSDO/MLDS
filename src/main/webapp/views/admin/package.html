@@ -1,10 +1,23 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h1>Package Details</h1>
-
+		
+		
 		<div class="well">
 			<h2>Package Name</h2>
-			{{packageEntity}}
+			<span class="btn btn-default" ng-class="(isEditible ? 'active' : '')" ng-click="isEditible = !isEditible">Edit Mode</span>
+			<div ng-show="isEditible">
+		    <input type="" ng-model="packageEntity.name" placeholder="packageEntity.name"/><br>
+		    <input type="" ng-model="packageEntity.description" placeholder="packageEntity.description"/><br>
+		  </div>
+		    
+			<div ng-show="!isEditible">
+		    
+		    Name: {{packageEntity.name}} <br>
+		    Description: {{packageEntity.description}} <br>
+		    
+		    {{packageEntity}} 
+		  </div>
 		</div>
 	</div>
 </div>
