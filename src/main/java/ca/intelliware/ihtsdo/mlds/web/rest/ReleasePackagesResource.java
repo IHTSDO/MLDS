@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
+import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 
@@ -26,6 +28,9 @@ public class ReleasePackagesResource {
 
 	@Resource
 	ReleaseVersionRepository releaseVersionRepository;
+
+	@Resource
+	ReleaseFileRepository releaseFileRepository;
 
 	@Resource
 	AuthorizationChecker authorizationChecker;
@@ -62,5 +67,22 @@ public class ReleasePackagesResource {
     	} 
     	
     	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+    }
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Release Files
+	
+	@RequestMapping(value = Routes.RELEASE_FILE,
+    		method = RequestMethod.GET,
+            produces = "application/json")
+    public @ResponseBody ResponseEntity<ReleaseFile> getReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
+    	authorizationChecker.checkCanAccessReleaseFile(releasePackageId, releaseVersionId, releaseFileId);
+    	
+    	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
+    	if (releaseFile == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	} 
+    	
+    	return new ResponseEntity<ReleaseFile>(releaseFile, HttpStatus.OK);
     }
 }
