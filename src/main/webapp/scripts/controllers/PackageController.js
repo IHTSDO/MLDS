@@ -12,6 +12,9 @@ angular.module('MLDS').controller('PackageController',
 				return packages[i];
 			};
 		};
+		
+		$log.log('package not found!');
+		$location.path('/packageManagement');
 	};
 	
 	if ($routeParams && $routeParams.packageId) {
