@@ -71,5 +71,9 @@ public class ReleasePackage {
 	public Set<ReleaseVersion> getReleaseVersions() {
 		return Collections.unmodifiableSet(releaseVersions);
 	}
+
+	public void setCreatedBy(String currentUserName) {
+		this.createdBy = currentUserName;
+	}
 	
 }
