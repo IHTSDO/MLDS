@@ -123,7 +123,7 @@ public class AuthorizationChecker {
 		}
 	}
 
-	public void checkCanAccessPackage(long packageId) {
+	public void checkCanAccessReleasePackage(long packageId) {
 		if (isStaffOrAdmin()) {
 			return;
 		}
