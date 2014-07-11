@@ -2,9 +2,6 @@
 
 angular.module('MLDS').factory('PackagesService',
 		[ '$resource', '$q', function($resource, $q) {
-			/*
-			 * return $resource('app/rest/packages', {}, { });
-			 */
 			var service = {};
 			
 			var datastore = [ {
@@ -104,8 +101,14 @@ angular.module('MLDS').factory('PackagesService',
 				releasePackage.createdBy = 'admin';
 				releasePackage.releaseVersions = [];
 				datastore.push(releasePackage);
-				return $q.when({data: releasePackage});
+				releasePackage.$promise = $q.when(releasePackage);
+				return releasePackage;
 			};
 			
-			return service;
+			var fakeMode = true;
+			if (fakeMode) {
+				return service;
+			} else {
+				return $resource('app/rest/releasePackages', {}, { });
+			}
 		} ]);

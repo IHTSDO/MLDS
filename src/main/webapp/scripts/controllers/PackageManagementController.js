@@ -67,7 +67,7 @@ angular.module('MLDS').controller('PackageManagementController',
         	$location.path('/package/'+encodeURIComponent(packageEntity.releasePackageId));
         };
         $scope.goToEditPackage = function(packageEntity) {
-        	$location.path('/package/'+encodeURIComponent(packageEntity.packageId)+'/edit');
+        	$location.path('/package/'+encodeURIComponent(packageEntity.releasePackageId)+'/edit');
         };
         
     }]);

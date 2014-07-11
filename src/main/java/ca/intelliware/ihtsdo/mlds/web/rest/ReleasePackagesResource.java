@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,6 +53,21 @@ public class ReleasePackagesResource {
     	return new ResponseEntity<Collection<ReleasePackage>>(releasePackages, HttpStatus.OK);
     }
 
+	@RequestMapping(value = Routes.RELEASE_PACKAGES,
+    		method = RequestMethod.POST,
+            produces = "application/json")
+    public @ResponseBody ResponseEntity<ReleasePackage> createReleasePackage(@RequestBody ReleasePackage releasePackage) {
+    	authorizationChecker.checkCanAccessReleasePackages();
+    	
+    	releasePackage.setCreatedBy(authorizationChecker.getCurrentUserName());
+    	
+    	releasePackageRepository.save(releasePackage);
+    	
+    	ResponseEntity<ReleasePackage> result = new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
+    	// FIXME MLDS-256 MB can we build this link? result.getHeaders().setLocation(location);
+		return result;
+    }
+	
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
             produces = "application/json")
