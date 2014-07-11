@@ -9,7 +9,7 @@
 		<div class="col-lg-8">
 			<h3>Public Releases</h3>
 
-			<div class="well well-lg package">
+			<div class="well well-lg package" ng-repeat="package in packages" ng-show="isPackagePublished(package)">
 
 				<header>	
 					<div class="dropdown pull-right">
@@ -21,15 +21,14 @@
 							<li><a ng-click="openModal('TakeOfflineModal')">Take Offline</a></li>
 						</ul>
 					</div>
-					<a href="#"><h4> SNOWMED CT International Edition</h4></a>
+					<a ng-click="goToPackage(package)"><h4> {{package.name}}</h4></a>
 				</header>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in hendrerit felis. Pellentesque egestas ipsum et est mollis adipiscing. Proin venenatis id arcu ut volutpat. Mauris in nisi at dolor tempor ultricies vitae quis mauris. Morbi gravida nisl quis neque venenatis, eu porttitor diam aliquet. Nullam tristique et risus non porta. Praesent aliquet est non laoreet viverra.</p>
+				<p>{{package.description}}</p>
 
-			<div class="footer">
-				<h4><span class="label label-success">Current:</span>  January 2014 Release </h4>
-				<p><a href="#">Full Download - Release Format 1 & Release Format 2</a></p>
-				<p><a href="#">Jan 2013 - Jan 2014 Delta</a></p>
-			</div>
+				<div class="footer" ng-repeat="version in package.releaseVersions" ng-show="isLatestPublishedVersion(version, package.releaseVersions)">
+					<h4><span class="label label-success">Current:</span>  {{version.name}} </h4>
+					<p ng-repeat="file in version.releaseFiles"><a href="{{file.downloadUrl}}">{{file.label}}</a></p>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -38,7 +37,7 @@
 		<div class="col-lg-8">
 			<h3>Offline Releases</h3>
 
-			<div class="well well-lg package">
+			<div class="well well-lg package" ng-repeat="package in packages" ng-show="!isPackagePublished(package)">
 
 				<header>	
 					<div class="dropdown pull-right">
@@ -46,19 +45,18 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a ng-click="openModal()" href="#">Edit</a></li>
-							<li><a ng-click="openModal()">Make Public</a></li>
+							<li><a href="#">Edit</a></li>
+							<li><a ng-click="makePackageOnline()">Make Public</a></li>
 						</ul>
 					</div>
-					<a href="#"><h4> SNOWMED CT International Edition</h4></a>
+					<a ng-click="goToPackage(package)"><h4> {{package.name}}</h4></a>
 				</header>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in hendrerit felis. Pellentesque egestas ipsum et est mollis adipiscing. Proin venenatis id arcu ut volutpat. Mauris in nisi at dolor tempor ultricies vitae quis mauris. Morbi gravida nisl quis neque venenatis, eu porttitor diam aliquet. Nullam tristique et risus non porta. Praesent aliquet est non laoreet viverra.</p>
+				<p>{{package.description}}</p>
 
-			<div class="footer">
-				<h4><span class="label label-danger">Offline</span>  January 2014 Release </h4>
-				<p><a href="#">Full Download</a></p>
-				<p><a href="#">Jan 2013 - Jan 2014 Delta</a></p>
-			</div>
+				<div class="footer" ng-repeat="version in package.releastVersions" ng-show="isLatestPublishedVersion(version, package.releaseVersions)">
+					<h4><span class="label label-danger">Offline:</span>  {{version.name}} </h4>
+					<p ng-repeat="file in version.releaseFiles"><a href="{{file.downloadUrl}}">{{file.label}}</a></p>
+				</div>
 			</div>
 		</div>
 	</div>
