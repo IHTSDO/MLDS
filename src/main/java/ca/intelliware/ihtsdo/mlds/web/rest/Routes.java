@@ -55,6 +55,12 @@ public class Routes {
 	static final String LICENSEES_USERNAME = "/app/rest/licensees";
 
 	
+	/**
+	 * control endpoint for mulitple release packages:
+	 * - GET to get all
+	 * - POST to create
+	 */
+	static final String RELEASE_PACKAGES = "/app/rest/releasePackages"; 
 	
 	/**
 	 * control endpoint for single release package:
@@ -82,5 +88,6 @@ public class Routes {
 	
 	public static final String PASSWORD_RESET = "/app/rest/passwordReset";
 	public static final String PASSWORD_RESET_ITEM = "/app/rest/passwordReset/{token}";
+
 
 }

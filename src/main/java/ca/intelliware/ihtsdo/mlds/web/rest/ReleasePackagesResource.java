@@ -1,5 +1,8 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.http.HttpStatus;
@@ -38,11 +41,23 @@ public class ReleasePackagesResource {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Packages
 
+	@RequestMapping(value = Routes.RELEASE_PACKAGES,
+    		method = RequestMethod.GET,
+            produces = "application/json")
+    public @ResponseBody ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
+    	authorizationChecker.checkCanAccessReleasePackages();
+    	
+    	Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
+    	
+    	return new ResponseEntity<Collection<ReleasePackage>>(releasePackages, HttpStatus.OK);
+    }
+
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
             produces = "application/json")
     public @ResponseBody ResponseEntity<ReleasePackage> getPackage(@PathVariable long releasePackageId) {
-    	authorizationChecker.checkCanAccessReleasePackage(releasePackageId);
+    	//FIXME should we check children being consistent?		
+		authorizationChecker.checkCanAccessReleasePackages();
     	
     	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
     	if (releasePackage == null) {
@@ -59,7 +74,8 @@ public class ReleasePackagesResource {
     		method = RequestMethod.GET,
             produces = "application/json")
     public @ResponseBody ResponseEntity<ReleaseVersion> getReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
-    	authorizationChecker.checkCanAccessReleaseVersion(releasePackageId, releaseVersionId);
+    	//FIXME should we check children being consistent?
+		authorizationChecker.checkCanAccessReleasePackages();
     	
     	ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
     	if (releaseVersion == null) {
@@ -76,7 +92,8 @@ public class ReleasePackagesResource {
     		method = RequestMethod.GET,
             produces = "application/json")
     public @ResponseBody ResponseEntity<ReleaseFile> getReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
-    	authorizationChecker.checkCanAccessReleaseFile(releasePackageId, releaseVersionId, releaseFileId);
+    	//FIXME should we check children being consistent?
+		authorizationChecker.checkCanAccessReleasePackages();
     	
     	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
     	if (releaseFile == null) {
