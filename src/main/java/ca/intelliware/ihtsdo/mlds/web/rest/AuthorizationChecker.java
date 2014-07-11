@@ -51,11 +51,16 @@ public class AuthorizationChecker {
 		return securityContext.getAuthentication().getName();
 	}
 	
+	private void failCheck(String description) {
+		//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
+		throw new IllegalStateException(description);
+	}
+	
 	private void checkCurrentUserIsMemberOfLicensee(Licensee licensee) {
 		if (licensee != null) {
 			if (! ObjectUtils.equals(currentUserName(), licensee.getCreator())) {
 				//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
-				throw new IllegalStateException("User not authorized to access Licensee");
+				failCheck("User not authorized to access Licensee");
 			}
 		}
 	}
@@ -63,8 +68,7 @@ public class AuthorizationChecker {
 	private void checkCommercialUsageMatches(long expectedCommercialUsageEntryId, CommercialUsage commercialUsage) {
 		if (commercialUsage != null) {
 			if (! ObjectUtils.equals(expectedCommercialUsageEntryId, commercialUsage.getCommercialUsageId())) {
-				//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
-				throw new IllegalStateException("Commercial Usage Report and Entry have inconsistent IDs.");
+				failCheck("Commercial Usage Report and Entry have inconsistent IDs.");
 			}
 		}
 	}
@@ -119,4 +123,10 @@ public class AuthorizationChecker {
 		}
 	}
 
+	public void checkCanAccessReleasePackages() {
+		if (isStaffOrAdmin()) {
+			return;
+		}
+		failCheck("User not authorized to access release packages.");
+	}
 }
