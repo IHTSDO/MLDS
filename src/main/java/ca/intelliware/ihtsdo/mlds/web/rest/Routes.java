@@ -54,13 +54,15 @@ public class Routes {
 	 */
 	static final String LICENSEES_USERNAME = "/app/rest/licensees";
 
+	
+	
 	/**
-	 * control endpoint for single package:
+	 * control endpoint for single release package:
 	 * - GET
 	 * - PUT
 	 * - DELETE
 	 */
-	static final String PACKAGE = "/app/rest/packages/{packageId}"; 
+	static final String RELEASE_PACKAGE = "/app/rest/releasePackages/{releasePackageId}"; 
 
 	
 	

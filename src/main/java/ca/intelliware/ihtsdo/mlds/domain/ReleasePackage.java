@@ -9,13 +9,13 @@ import javax.persistence.Table;
 import org.joda.time.Instant;
 
 @Entity
-@Table(name="package")
-public class Package {
+@Table(name="release_package")
+public class ReleasePackage {
 
 	@Id
 	@GeneratedValue
-	@Column(name="package_id")
-	Long packageId;
+	@Column(name="release_package_id")
+	Long releasePackageId;
 
 	@Column(name="created_at")
 	Instant createdAt = Instant.now();
@@ -27,8 +27,8 @@ public class Package {
 	
 	String description;
 
-	public Long getPackageId() {
-		return packageId;
+	public Long getReleasePackageId() {
+		return releasePackageId;
 	}
 
 	public Instant getCreatedAt() {
