@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>ca.intelliware.ihtsdo.mlds</groupId>
+	<groupId>org.ihtsdo.mlds</groupId>
 	<artifactId>mlds</artifactId>
 	<packaging>war</packaging>
 	<version>0.1.6-SNAPSHOT</version>
@@ -717,7 +717,6 @@
 	</build>
 	
 	<distributionManagement>
-	<!-- 
 		<repository>
 			<id>ihtsdo-public-nexus</id>
 			<name>IHTSDO Public Nexus Releases</name>
@@ -728,11 +727,12 @@
 			<name>IHTSDO Public Nexus Snapshots</name>
 			<url>https://maven.ihtsdotools.org/content/repositories/snapshots/</url>
 		</snapshotRepository>
-	 -->
+	<!-- 
 		<repository>
-			<id>ihtsdo</id>
+			<id>ihtsdo-iwd</id>
 			<name>IHTSDO Intelliware Releases</name>
 			<url>http://fsnexus.intware.com:8086/nexus/content/repositories/ihtsdo/</url>
 		</repository>
+	 -->
 	</distributionManagement>
 </project>

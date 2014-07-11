@@ -1,6 +1,64 @@
 <div>
-    <h2>Package Management</h2>
-		{{test}}
-		
-		<button class="btn btn-default"ng-click="openModal()">Take Offline Modal</button>
+	<h2>Release Management</h2>
+	<div class="row">
+		<div class="col-lg-12">
+			<button class="btn btn-default" ng-click="openModal()">Add New Packages</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-8">
+			<h3>Public Releases</h3>
+
+			<div class="well well-lg package" ng-repeat="package in packages" ng-show="isPackagePublished(package)">
+
+				<header>	
+					<div class="dropdown pull-right">
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a ng-click="openModal('EditCurrentPackageModal')">Edit</a></li>
+							<li><a ng-click="openModal('TakeOfflineModal')">Take Offline</a></li>
+						</ul>
+					</div>
+					<a ng-click="goToPackage(package)"><h4> {{package.name}}</h4></a>
+				</header>
+				<p>{{package.description}}</p>
+
+				<div class="footer" ng-repeat="version in package.releaseVersions" ng-show="isLatestPublishedVersion(version, package.releaseVersions)">
+					<h4><span class="label label-success">Current:</span>  {{version.name}} </h4>
+					<p ng-repeat="file in version.releaseFiles"><a href="{{file.downloadUrl}}">{{file.label}}</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-8">
+			<h3>Offline Releases</h3>
+
+			<div class="well well-lg package" ng-repeat="package in packages" ng-show="!isPackagePublished(package)">
+
+				<header>	
+					<div class="dropdown pull-right">
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="#">Edit</a></li>
+							<li><a ng-click="makePackageOnline()">Make Public</a></li>
+						</ul>
+					</div>
+					<a ng-click="goToPackage(package)"><h4> {{package.name}}</h4></a>
+				</header>
+				<p>{{package.description}}</p>
+
+				<div class="footer" ng-repeat="version in package.releastVersions" ng-show="isLatestPublishedVersion(version, package.releaseVersions)">
+					<h4><span class="label label-danger">Offline:</span>  {{version.name}} </h4>
+					<p ng-repeat="file in version.releaseFiles"><a href="{{file.downloadUrl}}">{{file.label}}</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </div>
