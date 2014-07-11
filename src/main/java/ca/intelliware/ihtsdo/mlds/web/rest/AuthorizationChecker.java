@@ -46,7 +46,7 @@ public class AuthorizationChecker {
 		return false;
 	}
 	
-	private String currentUserName() {
+	public String getCurrentUserName() {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		return securityContext.getAuthentication().getName();
 	}
@@ -58,7 +58,7 @@ public class AuthorizationChecker {
 	
 	private void checkCurrentUserIsMemberOfLicensee(Licensee licensee) {
 		if (licensee != null) {
-			if (! ObjectUtils.equals(currentUserName(), licensee.getCreator())) {
+			if (! ObjectUtils.equals(getCurrentUserName(), licensee.getCreator())) {
 				//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
 				failCheck("User not authorized to access Licensee");
 			}
