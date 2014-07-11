@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('ReleaseManagementController', 
+angular.module('MLDS').controller('PackageManagementController', 
 		['$scope', '$log', '$modal',
     function ($scope, $log, $modal) {
         $scope.test =  "test variable";
