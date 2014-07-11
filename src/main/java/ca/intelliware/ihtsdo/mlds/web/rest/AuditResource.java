@@ -1,16 +1,21 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
-import ca.intelliware.ihtsdo.mlds.web.propertyeditors.LocaleDateTimeEditor;
-import org.joda.time.LocalDateTime;
-import org.springframework.boot.actuate.audit.AuditEvent;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import java.util.List;
+
+import org.joda.time.Instant;
+import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
 /**
  * REST controller for getting the audit events.
@@ -21,11 +26,6 @@ public class AuditResource {
 
     @Inject
     private AuditEventService auditEventService;
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(LocalDateTime.class, new LocaleDateTimeEditor("yyyy-MM-dd", false));
-    }
 
     @RequestMapping(value = "/rest/audits/all",
             method = RequestMethod.GET,
@@ -39,8 +39,8 @@ public class AuditResource {
             method = RequestMethod.GET,
             produces = "application/json")
     @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public List<AuditEvent> findByDates(@RequestParam(value = "fromDate") LocalDateTime fromDate,
-                                    @RequestParam(value = "toDate") LocalDateTime toDate) {
+    public List<AuditEvent> findByDates(@RequestParam(value = "fromDate") @DateTimeFormat(iso=ISO.DATE) Instant fromDate,
+                                    @RequestParam(value = "toDate") @DateTimeFormat(iso=ISO.DATE) Instant toDate) {
         return auditEventService.findByDates(fromDate, toDate);
     }
 }

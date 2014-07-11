@@ -1,7 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -20,6 +19,7 @@ import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
+import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 import com.wordnik.swagger.annotations.Api;
 
@@ -38,6 +38,9 @@ public class ReleasePackagesResource {
 
 	@Resource
 	AuthorizationChecker authorizationChecker;
+	
+	@Resource
+	CurrentSecurityContext currentSecurityContext;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Packages
@@ -59,7 +62,7 @@ public class ReleasePackagesResource {
     public @ResponseBody ResponseEntity<ReleasePackage> createReleasePackage(@RequestBody ReleasePackage releasePackage) {
     	authorizationChecker.checkCanAccessReleasePackages();
     	
-    	releasePackage.setCreatedBy(authorizationChecker.getCurrentUserName());
+    	releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
     	
     	releasePackageRepository.save(releasePackage);
     	

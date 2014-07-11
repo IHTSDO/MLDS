@@ -1,13 +1,22 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDateTime;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.joda.time.Instant;
 
 /**
  * Persist AuditEvent managed by the Spring Boot actuator
@@ -27,9 +36,9 @@ public class PersistentAuditEvent  {
     @NotNull
     private String principal;
 
+    // FIXME MLDS-256 change column definition to timestamp
     @Column(name = "event_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-    private LocalDateTime auditEventDate;
+    private Instant auditEventDate = Instant.now();
     
     @Column(name = "event_type")
     private String auditEventType;
@@ -56,11 +65,11 @@ public class PersistentAuditEvent  {
         this.principal = principal;
     }
 
-    public LocalDateTime getAuditEventDate() {
+    public Instant getAuditEventDate() {
         return auditEventDate;
     }
 
-    public void setAuditEventDate(LocalDateTime auditEventDate) {
+    public void setAuditEventDate(Instant auditEventDate) {
         this.auditEventDate = auditEventDate;
     }
 

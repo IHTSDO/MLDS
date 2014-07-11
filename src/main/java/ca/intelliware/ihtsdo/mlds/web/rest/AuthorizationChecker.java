@@ -16,6 +16,7 @@ import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
+import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 /**
  * Provide access check helpers for our rest controllers.
@@ -36,7 +37,11 @@ public class AuthorizationChecker {
 	@Resource
 	CommercialUsageCountryRepository commercialUsageCountRepository; 
 
+	@Resource
+	CurrentSecurityContext currentSecurityContext;
+	
 	private boolean isStaffOrAdmin() {
+		// FIXME MLDS-256 MB consider moving this to CurrentSecurityContext
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		for (GrantedAuthority authority : securityContext.getAuthentication().getAuthorities()) {
 			if ("ROLE_ADMIN".equals(authority.getAuthority())) {
@@ -46,9 +51,9 @@ public class AuthorizationChecker {
 		return false;
 	}
 	
+	// FIXME MLDS-256 MB inline this?
 	public String getCurrentUserName() {
-		SecurityContext securityContext = SecurityContextHolder.getContext();
-		return securityContext.getAuthentication().getName();
+		return currentSecurityContext.getCurrentUserName();
 	}
 	
 	private void failCheck(String description) {
@@ -58,7 +63,7 @@ public class AuthorizationChecker {
 	
 	private void checkCurrentUserIsMemberOfLicensee(Licensee licensee) {
 		if (licensee != null) {
-			if (! ObjectUtils.equals(getCurrentUserName(), licensee.getCreator())) {
+			if (! ObjectUtils.equals(currentSecurityContext.getCurrentUserName(), licensee.getCreator())) {
 				//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
 				failCheck("User not authorized to access Licensee");
 			}
