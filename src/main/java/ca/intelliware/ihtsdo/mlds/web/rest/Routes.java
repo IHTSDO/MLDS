@@ -64,6 +64,13 @@ public class Routes {
 	 */
 	static final String RELEASE_PACKAGE = "/app/rest/releasePackages/{releasePackageId}"; 
 
+	/**
+	 * control endpoint for single release version:
+	 * - GET
+	 * - PUT
+	 */
+	static final String RELEASE_VERSION = "/app/rest/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}"; 
+
 	
 	
 	public static final String PASSWORD_RESET = "/app/rest/passwordReset";

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
+import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
+import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 
 import com.wordnik.swagger.annotations.Api;
 
@@ -23,7 +25,13 @@ public class ReleasePackagesResource {
 	ReleasePackageRepository releasePackageRepository;
 
 	@Resource
+	ReleaseVersionRepository releaseVersionRepository;
+
+	@Resource
 	AuthorizationChecker authorizationChecker;
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Release Packages
 
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
@@ -39,4 +47,20 @@ public class ReleasePackagesResource {
     	return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     }
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Release Versions
+	
+	@RequestMapping(value = Routes.RELEASE_VERSION,
+    		method = RequestMethod.GET,
+            produces = "application/json")
+    public @ResponseBody ResponseEntity<ReleaseVersion> getReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
+    	authorizationChecker.checkCanAccessReleaseVersion(releasePackageId, releaseVersionId);
+    	
+    	ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
+    	if (releaseVersion == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	} 
+    	
+    	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+    }
 }

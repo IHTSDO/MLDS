@@ -130,4 +130,8 @@ public class AuthorizationChecker {
 		failCheck("User not authorized to access release package.");
 	}
 
+	public void checkCanAccessReleaseVersion(long releasePackageId, long releaseVersionId) {
+		checkCanAccessReleasePackage(releasePackageId);		
+	}
+
 }
