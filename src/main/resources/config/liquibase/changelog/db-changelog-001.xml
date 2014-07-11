@@ -489,4 +489,9 @@
         <addPrimaryKey columnNames="release_file_id" constraintName="release_file_PK" schemaName="public" tableName="release_file"/>
 	</changeSet>
 	
+	<changeSet id="MLDS-256-5" author="MB">
+		<comment>Fix JH type definition of timestamp column</comment>
+		<modifyDataType tableName="t_persistent_audit_event" columnName="event_date" newDataType="timestamp"/>
+	</changeSet>
+	
 </databaseChangeLog>
