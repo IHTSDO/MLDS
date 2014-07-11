@@ -110,6 +110,13 @@ mldsApp
                         authorizedRoles: [USER_ROLES.admin]
                     }
                 })
+                .when('/releaseManagement', {
+                    templateUrl: 'views/admin/releaseManagement.html',
+                    controller: 'ReleaseManagementController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
                 .when('/metrics', {
                     templateUrl: 'views/admin/metrics.html',
                     controller: 'MetricsController',
