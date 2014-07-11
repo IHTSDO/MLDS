@@ -472,5 +472,21 @@
         <addPrimaryKey columnNames="release_version_id" constraintName="release_version_PK" schemaName="public" tableName="release_version"/>
         <addForeignKeyConstraint baseColumnNames="created_by" baseTableName="release_version" baseTableSchemaName="public" constraintName="FK_release_version_t_user" deferrable="false" initiallyDeferred="false" referencedColumnNames="login" referencedTableName="t_user" referencedTableSchemaName="public"/>
 	</changeSet>
+
+    <changeSet id="MLDS-256-4" author="DGJ">
+    	<comment>Add ReleaseFile as child of ReleaseVersion</comment>
+    	<createTable schemaName="public" tableName="release_file">
+            <column name="release_file_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="release_version_id" type="INT8">
+       			<constraints foreignKeyName="FK_release_file_release_version" references="release_version(release_version_id)"/>
+            </column>
+            <column name="created_at" type="timestamp"/>
+            <column name="label" type="VARCHAR(255)"/>
+            <column name="download_url" type="TEXT"/>
+        </createTable>
+        <addPrimaryKey columnNames="release_file_id" constraintName="release_file_PK" schemaName="public" tableName="release_file"/>
+	</changeSet>
 	
 </databaseChangeLog>

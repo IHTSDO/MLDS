@@ -131,6 +131,12 @@ public class AuthorizationChecker {
 	}
 
 	public void checkCanAccessReleaseVersion(long releasePackageId, long releaseVersionId) {
+		//FIXME should we check children being consistent?
+		checkCanAccessReleasePackage(releasePackageId);		
+	}
+
+	public void checkCanAccessReleaseFile(long releasePackageId, long releaseVersionId, long releaseFileId) {
+		//FIXME should we check children being consistent?
 		checkCanAccessReleasePackage(releasePackageId);		
 	}
 
