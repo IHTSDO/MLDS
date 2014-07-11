@@ -124,6 +124,13 @@ mldsApp
                     	authorizedRoles: [USER_ROLES.admin]
                     }
                 })
+                .when('/package/:packageId/:edit', {
+                    templateUrl: 'views/admin/package.html',
+                    controller: 'PackageController',
+                    access: {
+                    	authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
                 .when('/metrics', {
                     templateUrl: 'views/admin/metrics.html',
                     controller: 'MetricsController',
