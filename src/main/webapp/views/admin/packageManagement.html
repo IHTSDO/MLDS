@@ -14,12 +14,11 @@
 				<header>	
 					<div class="dropdown pull-right">
 						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-							Dropdown
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a href="#">Edit</a></li>
-							<li><a ng-click="openModal()">Take Offline</a></li>
+							<li><a ng-click="openModal('EditCurrentPackageModal')">Edit</a></li>
+							<li><a ng-click="openModal('TakeOfflineModal')">Take Offline</a></li>
 						</ul>
 					</div>
 					<a href="#"><h4> SNOWMED CT International Edition</h4></a>
@@ -44,11 +43,10 @@
 				<header>	
 					<div class="dropdown pull-right">
 						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-							Dropdown
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a href="#">Edit</a></li>
+							<li><a ng-click="openModal()" href="#">Edit</a></li>
 							<li><a ng-click="openModal()">Make Public</a></li>
 						</ul>
 					</div>
