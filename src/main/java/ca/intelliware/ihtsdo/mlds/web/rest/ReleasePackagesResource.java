@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -19,8 +20,10 @@ import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
+import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
+import com.google.common.collect.Maps;
 import com.wordnik.swagger.annotations.Api;
 
 @RestController
@@ -41,6 +44,9 @@ public class ReleasePackagesResource {
 	
 	@Resource
 	CurrentSecurityContext currentSecurityContext;
+
+	@Resource
+	AuditEventService auditEventService;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Packages
@@ -65,6 +71,12 @@ public class ReleasePackagesResource {
     	releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
     	
     	releasePackageRepository.save(releasePackage);
+
+    	// FIXME MLDS-256 MB extract to ReleasePackageAuditEvents
+    	Map<String,String> auditData = Maps.newHashMap();
+    	auditData.put("releasePackage.name", releasePackage.getName());
+    	auditData.put("releasePackage.releasePackageId", ""+releasePackage.getReleasePackageId());
+    	auditEventService.logAuditableEvent("RELEASE_PACKAGE_CREATED", auditData);
     	
     	ResponseEntity<ReleasePackage> result = new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     	// FIXME MLDS-256 MB can we build this link? result.getHeaders().setLocation(location);

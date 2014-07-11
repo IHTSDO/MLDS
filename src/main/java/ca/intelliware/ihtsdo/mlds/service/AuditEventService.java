@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -44,13 +45,15 @@ public class AuditEventService {
         return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
     }
 
-	public void logAuditableEvent() {
-		persistenceAuditEventRepository.save(createAuditEvent());
+	public void logAuditableEvent(String eventType, Map<String,String> auditData) {
+		persistenceAuditEventRepository.save(createAuditEvent(eventType, auditData));
 	}
 
-	PersistentAuditEvent createAuditEvent() {
+	PersistentAuditEvent createAuditEvent(String eventType, Map<String, String> auditData) {
 		PersistentAuditEvent persistentAuditEvent = new PersistentAuditEvent();
 		persistentAuditEvent.setPrincipal(currentSecurityContext.getCurrentUserName());
+		persistentAuditEvent.setAuditEventType(eventType);
+		persistentAuditEvent.setData(auditData);
 		return persistentAuditEvent;
 	}
     
