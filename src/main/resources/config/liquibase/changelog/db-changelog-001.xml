@@ -432,4 +432,20 @@
 			WHERE iso_code_2='GB';
 		</sql>
 	</changeSet>
+	
+    <changeSet id="MLDS-256-1" author="DGJ">
+    	<comment>Add Package</comment>
+    	<createTable schemaName="public" tableName="package">
+            <column name="package_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_at" type="timestamp"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+        </createTable>
+        <addPrimaryKey columnNames="package_id" constraintName="package_PK" schemaName="public" tableName="package"/>
+        <addForeignKeyConstraint baseColumnNames="created_by" baseTableName="package" baseTableSchemaName="public" constraintName="FK_package_t_user" deferrable="false" initiallyDeferred="false" referencedColumnNames="login" referencedTableName="t_user" referencedTableSchemaName="public"/>
+	</changeSet>
+	
 </databaseChangeLog>
