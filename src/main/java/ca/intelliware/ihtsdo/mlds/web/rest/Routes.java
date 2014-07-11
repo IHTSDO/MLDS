@@ -54,6 +54,16 @@ public class Routes {
 	 */
 	static final String LICENSEES_USERNAME = "/app/rest/licensees";
 
+	/**
+	 * control endpoint for single package:
+	 * - GET
+	 * - PUT
+	 * - DELETE
+	 */
+	static final String PACKAGE = "/app/rest/packages/{packageId}"; 
+
+	
+	
 	public static final String PASSWORD_RESET = "/app/rest/passwordReset";
 	public static final String PASSWORD_RESET_ITEM = "/app/rest/passwordReset/{token}";
 
