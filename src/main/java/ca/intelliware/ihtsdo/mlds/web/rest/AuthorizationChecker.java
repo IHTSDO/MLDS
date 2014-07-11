@@ -123,21 +123,10 @@ public class AuthorizationChecker {
 		}
 	}
 
-	public void checkCanAccessReleasePackage(long packageId) {
+	public void checkCanAccessReleasePackages() {
 		if (isStaffOrAdmin()) {
 			return;
 		}
-		failCheck("User not authorized to access release package.");
+		failCheck("User not authorized to access release packages.");
 	}
-
-	public void checkCanAccessReleaseVersion(long releasePackageId, long releaseVersionId) {
-		//FIXME should we check children being consistent?
-		checkCanAccessReleasePackage(releasePackageId);		
-	}
-
-	public void checkCanAccessReleaseFile(long releasePackageId, long releaseVersionId, long releaseFileId) {
-		//FIXME should we check children being consistent?
-		checkCanAccessReleasePackage(releasePackageId);		
-	}
-
 }
