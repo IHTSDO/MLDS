@@ -14,12 +14,10 @@ angular.module('MLDS').controller('AddPackageModalController', ['$scope', '$log'
 			$scope.alerts.splice(0, $scope.alerts.length);
 			
 			PackagesService.save($scope.releasePackage)
-				.then(function(result) {
-					//FIXME who should do this?
-					$location.path('/package/'+encodeURIComponent(result.data.releasePackageId));
+				.$promise.then(function(result) {
+					$location.path('/package/'+encodeURIComponent(result.releasePackageId));
 
 					$modalInstance.close(result);
-					
 				})
 				["catch"](function(message) {
 					$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
