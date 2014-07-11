@@ -51,7 +51,7 @@
 							<li><a ng-click="makePackageOnline()">Make Public</a></li>
 						</ul>
 					</div>
-					<a href="#"><h4> {{package.name}}</h4></a>
+					<a ng-click="goToPackage(package)"><h4> {{package.name}}</h4></a>
 				</header>
 				<p>{{package.description}}</p>
 
