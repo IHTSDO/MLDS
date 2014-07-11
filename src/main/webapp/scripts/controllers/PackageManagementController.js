@@ -6,6 +6,19 @@ angular.module('MLDS').controller('PackageManagementController',
 			
 		$scope.packages = PackagesService.query();
         
+        $scope.editReleasePackage = function editReleasePackage(releasePackage) {
+            var modalInstance = $modal.open({
+                  templateUrl: 'views/admin/editCurrentPackageModal.html',
+                  controller: 'EditCurrentPackageModalController',
+                  scope: $scope,
+                  size: 'sm',
+                  windowClass: 'debugTest',
+                  resolve: {
+                    releasePackage: function() {return releasePackage;}
+                  }
+                });
+        };
+
 		// FIXME: AC Using Example to show both modals
         $scope.takePackageOffline =  $scope.makePackageOnline = function() {
         	$log.log('button clicked');
