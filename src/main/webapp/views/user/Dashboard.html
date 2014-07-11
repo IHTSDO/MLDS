@@ -58,7 +58,10 @@
 	        </a>
           </td>
           <td class="text-left"><a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}</a></td>
-          <td class="text-left">{{usageReport.submitted | date : 'd MMM yyyy'}}</td>
+          <td class="text-left">
+          	<span ng-show="usageReport.submitted">{{usageReport.submitted | date : 'd MMM yyyy'}}</span>
+          	<span ng-hide="usageReport.submitted">Not Submitted</span>
+          </td>
           <td class="text-right">{{usageReportCountries(usageReport) | number}}</td>
           <td class="text-right" ng-show="licenseeIsCommercial(licensee)">{{usageReportHospitals(usageReport) | number}}</td>
           <td ng-show="licenseeIsCommercial(licensee)"><p class="text-right">{{usageReportPractices(usageReport) | number}}</p></td>
