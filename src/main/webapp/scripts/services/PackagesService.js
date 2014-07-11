@@ -69,8 +69,29 @@ angular.module('MLDS').factory('PackagesService',
 							downloadUrl : "http://example.com/smallerFile.zip"
 						} ]
 					} ]
+				}, {
+					packageId : 3,
+					name : "Package 3 title",
+					description : "Package 3 description not published",
+					createdBy : "michael.buckley@intelliware.com",
+					createdAt : "2014-01-01T12:55Z",
+					versions : [ {
+						versionId : 15,
+						name : "Package 3 Version 1 name",
+						description : "Package 1 Version 1 description",
+						createdBy : "michael.buckley@intelliware.com",
+						createdAt : "2014-01-01T13:55Z",
+						files : [ {
+							fileId : 313,
+							label : "Complete File",
+							downloadUrl : "http://example.com/bigFile.zip"
+						}, {
+							fileId : 314,
+							label : "Delta File",
+							downloadUrl : "http://example.com/smallerFile.zip"
+						} ]
+					} ]
 				} ];
-
 			};
 			return service;
 		} ]);
