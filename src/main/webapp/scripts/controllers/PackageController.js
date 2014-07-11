@@ -7,7 +7,7 @@ angular.module('MLDS').controller('PackageController',
 	var getPackage = function(packageId) {
 		var packages = PackagesService.query();
 		for(var i = 0; i < packages.length; i++) {
-			if (packages[i].packageId == packageId) {
+			if (packages[i].releasePackageId == packageId) {
 				$log.log('package found!');
 				return packages[i];
 			};

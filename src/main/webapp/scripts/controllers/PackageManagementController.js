@@ -6,6 +6,17 @@ angular.module('MLDS').controller('PackageManagementController',
 			
 		$scope.packages = PackagesService.query();
         
+		$scope.addReleasePackage = function() {
+			var modalInstance = $modal.open({
+				templateUrl: 'views/admin/addPackageModal.html',
+				controller: 'AddPackageModalController',
+				size:'lg',
+				backdrop: 'static',
+				resolve: {
+				}
+			});
+		};
+
         $scope.editReleasePackage = function editReleasePackage(releasePackage) {
             var modalInstance = $modal.open({
                   templateUrl: 'views/admin/editCurrentPackageModal.html',
@@ -53,7 +64,7 @@ angular.module('MLDS').controller('PackageManagementController',
         };
         
         $scope.goToPackage = function(packageEntity) {
-        	$location.path('/package/'+encodeURIComponent(packageEntity.packageId));
+        	$location.path('/package/'+encodeURIComponent(packageEntity.releasePackageId));
         };
         
     }]);
