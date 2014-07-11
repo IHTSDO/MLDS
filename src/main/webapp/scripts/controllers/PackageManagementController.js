@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('MLDS').controller('PackageManagementController', 
-		['$scope', '$log', '$modal', 'PackagesService',
-    function ($scope, $log, $modal, PackagesService) {
+		['$scope', '$log', '$modal', 'PackagesService', '$location',
+    function ($scope, $log, $modal, PackagesService, $location) {
 			
 		$scope.packages = PackagesService.query();
         
-        $scope.openModal = function() {
+		// FIXME: AC Using Example to show both modals
+        $scope.takePackageOffline =  $scope.makePackageOnline = function() {
         	$log.log('button clicked');
         	
         	var modalInstance = $modal.open({
@@ -19,7 +20,7 @@ angular.module('MLDS').controller('PackageManagementController',
         };
         
         
-        $scope.isPackagePublished = function(packageEntity){
+        $scope.isPackagePublished = function(packageEntity) {
         	for(var i = 0; i < packageEntity.versions.length; i++) {
         		if (packageEntity.versions[i].publishedAt) {
         			return true;
@@ -28,7 +29,7 @@ angular.module('MLDS').controller('PackageManagementController',
         	return false;
         };
         
-        $scope.isLatestPublishedVersion = function(version, versions){
+        $scope.isLatestPublishedVersion = function(version, versions) {
         	for(var i = 0; i < versions.length; i++) {
         		if (versions[i].publishedAt && version.publishedAt &&
         				(versions[i].publishedAt > version.publishedAt)) {
