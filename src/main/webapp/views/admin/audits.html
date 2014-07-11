@@ -31,6 +31,7 @@
             <td>
                 <span ng-show="audit.data.message">{{audit.data.message}}</span>
                 <span ng-show="audit.data.remoteAddress">{{'audits.table.data.remoteAddress' | translate}} {{audit.data.remoteAddress}}</span>
+                <span ng-show="audit.data['releasePackage.name']">Release Package Name:  {{audit.data['releasePackage.name']}}</span>
             </td>
         </tr>
     </table>
