@@ -43,13 +43,14 @@ public class ReleaseVersion {
 	String name;
 	
 	String description;
+	
+	boolean online;
 
 	@Column(name="published_at")
 	Instant publishedAt;
 	
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="releaseVersion")
 	Set<ReleaseFile> releaseFiles = Sets.newHashSet();
-
 
 	public Long getReleaseVersionId() {
 		return releaseVersionId;
@@ -91,6 +92,14 @@ public class ReleaseVersion {
 
 	public Set<ReleaseFile> getReleaseFiles() {
 		return Collections.unmodifiableSet(releaseFiles);
+	}
+
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(boolean online) {
+		this.online = online;
 	}
 
 }
