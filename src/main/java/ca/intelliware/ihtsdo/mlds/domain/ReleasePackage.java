@@ -75,5 +75,13 @@ public class ReleasePackage {
 	public void setCreatedBy(String currentUserName) {
 		this.createdBy = currentUserName;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
 }
