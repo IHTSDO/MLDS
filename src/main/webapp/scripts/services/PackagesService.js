@@ -16,6 +16,7 @@ angular.module('MLDS').factory('PackagesService',
 					description : "Package 1 Version 1 description",
 					createdBy : "michael.buckley@intelliware.com",
 					createdAt : "2014-01-01T13:55Z",
+					online: true,
 					publishedAt : "2014-01-01T14:55Z",
 					releaseFiles : [ {
 						releaseFileId : 13,
@@ -39,6 +40,7 @@ angular.module('MLDS').factory('PackagesService',
 					description : "Package 1 Version 1 description",
 					createdBy : "michael.buckley@intelliware.com",
 					createdAt : "2014-01-01T13:55Z",
+					online: false,
 					publishedAt : "2014-01-01T14:55Z",
 					releaseFiles : [ {
 						releaseFileId : 23,
@@ -55,7 +57,25 @@ angular.module('MLDS').factory('PackagesService',
 					description : "Package 1 Version 2 description",
 					createdBy : "michael.buckley@intelliware.com",
 					createdAt : "2014-05-01T13:55Z",
+					online: true,
 					publishedAt : "2014-05-01T14:55Z",
+					releaseFiles : [ {
+						releaseFileId : 231,
+						label : "Complete File",
+						downloadUrl : "http://example.com/bigFile.zip"
+					}, {
+						releaseFileId : 241,
+						label : "Delta File",
+						downloadUrl : "http://example.com/smallerFile.zip"
+					} ]
+				}, {
+					releaseVersionId : 23,
+					name : "Package 2 Version 3 name",
+					description : "Package 1 Version 3 description",
+					createdBy : "michael.buckley@intelliware.com",
+					createdAt : "2014-11-01T13:55Z",
+					online: true,
+					publishedAt : "2014-11-01T14:55Z",
 					releaseFiles : [ {
 						releaseFileId : 231,
 						label : "Complete File",
