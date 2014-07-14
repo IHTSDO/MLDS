@@ -4,29 +4,20 @@
 		
 		
 		<div class="well">
-			<h2>Package Name <a class="btn btn-default pull-right" ng-class="(isEditible ? 'active' : '')" ng-click="isEditible = !isEditible">Edit Mode</a></h2>
+			<h2>Package Name <a class="btn btn-default pull-right"  ng-click="editReleasePackage()">Edit</a></h2>
 			
-			<div ng-show="isEditible">
-				<form>	
-					<div class="form-group">
-						<h4>Package Title</h4>
-		    			<input class="form-control" ng-model="packageEntity.name" placeholder="packageEntity.name"/>
-		    		</div>
-		    		<div class="form-group">
-		    			<h4>Package Description</h4>
-		   				<textarea class="form-control" rows="3" type="" ng-model="packageEntity.description" placeholder="packageEntity.description"></textarea>
-		   			</div>
-		    </form>
-		  </div>
-		    
-			<div ng-show="!isEditible">
 		    
 		   <h4>Name:</h4>
 		   <p>{{packageEntity.name}} </p>
 		    <h4>Description:</h4> 
 		    <p>{{packageEntity.description}}</p>
 		    <p>{{packageEntity}} </p>
-		  </div>
 		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-10">
+	<button ng-click="goToReleaseManagement()" type="button" class="btn btn-link">Back to Release Management</button>
 	</div>
 </div>
