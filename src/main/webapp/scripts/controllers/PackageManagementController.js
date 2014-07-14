@@ -66,7 +66,7 @@ angular.module('MLDS').controller('PackageManagementController',
         
         $scope.isPackagePublished = function(packageEntity) {
         	for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-        		if (packageEntity.releaseVersions[i].publishedAt) {
+        		if (packageEntity.releaseVersions[i].online) {
         			return true;
         		};
         	};
