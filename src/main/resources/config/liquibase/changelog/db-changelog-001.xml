@@ -494,4 +494,13 @@
 		<modifyDataType tableName="t_persistent_audit_event" columnName="event_date" newDataType="timestamp"/>
 	</changeSet>
 	
+	<changeSet id="MLDS-256-6" author="MB">
+		<comment>Add online flag to ReleaseVersion</comment>
+		<addColumn tableName="release_version">
+			<column name="online" type="BOOLEAN" defaultValueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+	</changeSet>
+	
 </databaseChangeLog>

@@ -16,6 +16,60 @@
 	</div>
 </div>
 
+	<div class="row">
+		<div class="col-lg-8">
+			<h3>Online Versions</h3>
+
+			<div class="well well-lg package" ng-repeat="releaseVersion in packageEntity.releaseVersions" ng-show="releaseVersion.online">
+
+				<header>	
+					<div class="dropdown pull-right">
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a ng-click="">Edit</a></li>
+							<li><a ng-click="">Take Offline</a></li>
+						</ul>
+					</div>
+					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
+				</header>
+				<p>{{releaseVersion.description}}</p>
+
+				<div class="footer">
+					<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-8">
+			<h3>Offline Versions</h3>
+
+			<div class="well well-lg package" ng-repeat="releaseVersion in packageEntity.releaseVersions" ng-show="!releaseVersion.online">
+
+				<header>	
+					<div class="dropdown pull-right">
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a ng-click="">Edit</a></li>
+							<li><a ng-click="">Take Online</a></li>
+						</ul>
+					</div>
+					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
+				</header>
+				<p>{{releaseVersion.description}}</p>
+
+				<div class="footer">
+					<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 <div class="row">
 	<div class="col-lg-10">
 	<button ng-click="goToReleaseManagement()" type="button" class="btn btn-link">Back to Release Management</button>
