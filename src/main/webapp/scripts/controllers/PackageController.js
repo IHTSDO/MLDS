@@ -4,21 +4,16 @@ angular.module('MLDS').controller('PackageController',
 		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService',
 		 function($scope, $log, $routeParams, $location, $modal, PackagesService) {
 	
-	var getPackage = function(packageId) {
-		var packages = PackagesService.query();
-		for(var i = 0; i < packages.length; i++) {
-			if (packages[i].releasePackageId == packageId) {
-				$log.log('package found!');
-				return packages[i];
-			};
-		};
-		
-		$log.log('package not found!');
-		$location.path('/packageManagement');
-	};
-	
 	if ($routeParams && $routeParams.packageId) {
-		$scope.packageEntity = getPackage($routeParams.packageId);
+		PackagesService.get({releasePackageId: parseInt($routeParams.packageId, 10)})
+		.$promise.then(function(result) {
+			$scope.packageEntity = result;
+			})
+				["catch"](function(message) {
+					//FIXME how to handle errors + not present
+					$log.log('ReleasePackage not found');
+					$location.path('/packageManagement');
+				});
 	} else {
 		$location.path('/packageManagement');
 	};

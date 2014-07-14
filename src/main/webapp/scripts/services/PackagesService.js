@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS').factory('PackagesService',
-		[ '$resource', '$q', function($resource, $q) {
+		[ '$resource', '$q', '$log', function($resource, $q, $log) {
 			var service = {};
 			
 			var datastore = [ {
@@ -109,13 +109,29 @@ angular.module('MLDS').factory('PackagesService',
 				return releasePackage;
 			};
 			
+			service.get = function(match) {
+				for(var i = 0; i < datastore.length; i++) {
+					var releasePackage = datastore[i]; 
+					if (releasePackage.releasePackageId === match.releasePackageId) {
+						$log.log('found match');
+						releasePackage.$promise = $q.when(releasePackage);
+						return releasePackage;
+					};
+				};
+				var releasePackage = {};
+				var deferred = $q.defer();
+				releasePackage.$promise = deferred.promise;
+				deferred.reject('not found');
+				return releasePackage;
+			};
+			
 
 			var fakeMode = true;
 			if (fakeMode) {
 				return service;
 			} else {
 				return $resource('app/rest/releasePackages/:releasePackageId', {releasePackageId: '@releasePackageId'}, {
-					UPDATE: {method: 'PUT'}
+					update: {method: 'PUT'}
 				});
 			}
 		} ]);
