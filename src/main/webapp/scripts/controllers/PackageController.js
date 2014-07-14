@@ -26,9 +26,15 @@ angular.module('MLDS').controller('PackageController',
               size: 'lg',
               backdrop: 'static',
               resolve: {
-                releasePackage: function() {return $scope.packageEntity;}
+                releasePackage: function() {
+                	// FIXME not sure about copy - needed to support modal cancel or network failure
+                	return angular.copy($scope.packageEntity);
+                }
               }
             });
+        modalInstance.result.then(function(updatedReleasePackage) {
+        	$scope.packageEntity = updatedReleasePackage;
+        });
     };
 
     $scope.goToReleaseManagement = function() {
