@@ -19,11 +19,11 @@ angular.module('MLDS').controller('PackageManagementController',
 
         $scope.editReleasePackage = function editReleasePackage(releasePackage) {
             var modalInstance = $modal.open({
-                  templateUrl: 'views/admin/editCurrentPackageModal.html',
-                  controller: 'EditCurrentPackageModalController',
+                  templateUrl: 'views/admin/editPackageModal.html',
+                  controller: 'EditPackageModalController',
                   scope: $scope,
-                  size: 'sm',
-                  windowClass: 'debugTest',
+                  size: 'lg',
+                  backdrop: 'static',
                   resolve: {
                     releasePackage: function() {return releasePackage;}
                   }

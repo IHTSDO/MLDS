@@ -95,7 +95,6 @@ angular.module('MLDS').factory('PackagesService',
 			};
 			
 			service.save = function(releasePackage) {
-				//FIXME implement using call to server
 				releasePackage.releasePackageId = new Date().getTime();
 				releasePackage.createdAt = new Date().toUTCString();
 				releasePackage.createdBy = 'admin';
@@ -104,11 +103,19 @@ angular.module('MLDS').factory('PackagesService',
 				releasePackage.$promise = $q.when(releasePackage);
 				return releasePackage;
 			};
+
+			service.update = function(releasePackage) {
+				releasePackage.$promise = $q.when(releasePackage);
+				return releasePackage;
+			};
 			
+
 			var fakeMode = true;
 			if (fakeMode) {
 				return service;
 			} else {
-				return $resource('app/rest/releasePackages', {}, { });
+				return $resource('app/rest/releasePackages/:releasePackageId', {releasePackageId: '@releasePackageId'}, {
+					UPDATE: {method: 'PUT'}
+				});
 			}
 		} ]);
