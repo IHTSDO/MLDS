@@ -112,6 +112,7 @@ public class ReleasePackagesResource {
     	
     	releasePackage.setName(body.getName());
     	releasePackage.setDescription(body.getDescription());
+    	
     	releasePackageRepository.save(releasePackage);
     	
     	return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
