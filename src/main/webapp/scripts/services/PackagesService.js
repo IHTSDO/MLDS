@@ -104,25 +104,39 @@ angular.module('MLDS').factory('PackagesService',
 				return releasePackage;
 			};
 
-			service.update = function(releasePackage) {
-				releasePackage.$promise = $q.when(releasePackage);
-				return releasePackage;
+			service.update = function(releasePackageCopy) {
+				var index = -1;
+				for (var i = 0; i < datastore.length; i++) {
+					if (datastore[i].releasePackageId === releasePackageCopy.releasePackageId) {
+						index = i;
+						break;
+					}
+				}
+				if (index !== -1) {
+					datastore[index] = releasePackageCopy;
+				} else {
+					$log.log('Update release package that doesnt exist!');
+					datastore.push(releasePackageCopy);
+				}
+				releasePackageCopy.$promise = $q.when(releasePackageCopy);
+				return releasePackageCopy;
 			};
 			
 			service.get = function(match) {
-				for(var i = 0; i < datastore.length; i++) {
-					var releasePackage = datastore[i]; 
-					if (releasePackage.releasePackageId === match.releasePackageId) {
-						$log.log('found match');
-						releasePackage.$promise = $q.when(releasePackage);
-						return releasePackage;
-					};
-				};
-				var releasePackage = {};
-				var deferred = $q.defer();
-				releasePackage.$promise = deferred.promise;
-				deferred.reject('not found');
-				return releasePackage;
+				var found = _.find(datastore, function(releasePackage) {
+					return releasePackage.releasePackageId === match.releasePackageId;
+				});
+				if (found) {
+					$log.log('found match');
+					found.$promise = $q.when(found);
+					return found;
+				} else {
+					var missing = {};
+					var deferred = $q.defer();
+					missing.$promise = deferred.promise;
+					deferred.reject('not found');
+					return missing;
+				}
 			};
 			
 
