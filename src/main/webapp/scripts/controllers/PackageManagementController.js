@@ -25,11 +25,31 @@ angular.module('MLDS').controller('PackageManagementController',
                   size: 'lg',
                   backdrop: 'static',
                   resolve: {
-                    releasePackage: function() {return releasePackage;}
+                    releasePackage: function() {
+                    	//FIXME not sure about copy - needed to support modal cancel or network failure
+                    	return angular.copy(releasePackage);
+                    }
                   }
                 });
+            modalInstance.result.then(function(savedReleasePackageCopy) {
+            	mergeReleasePackageCopyBack(savedReleasePackageCopy);
+            	$log.log('edit complete', savedReleasePackageCopy);
+            	$log.log('list', $scope.packages);
+            });
         };
 
+        function mergeReleasePackageCopyBack(releasePackageCopy) {
+			for (var i = 0; i < $scope.packages.length; i++) {
+				var releasePackage = $scope.packages[i];
+				if (releasePackage.releasePackageId === releasePackageCopy.releasePackageId) {
+					$scope.packages[i] = releasePackageCopy;
+					return;
+				}
+			}
+			//FIXME what should we do here?
+			$log.log('Failed to merge ReleasePackageCopy back into the current releasePackages...')
+        }
+        
 		// FIXME: AC Using Example to show both modals
         $scope.takePackageOffline =  $scope.makePackageOnline = function() {
         	$log.log('button clicked');
