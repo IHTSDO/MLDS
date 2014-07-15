@@ -516,5 +516,13 @@
 			<column name="inactive_at" type="timestamp"/>
 		</addColumn>
 	</changeSet>
+
+	<changeSet id="MLDS-274-1" author="DGJ">
+		<comment>Add mgmt fields to application to support pending applications</comment>
+		<addColumn tableName="application">
+			<column name="submitted_at" type="timestamp"/>
+			<column name="notes_internal" type="TEXT"/>
+		</addColumn>
+	</changeSet>
 	
 </databaseChangeLog>

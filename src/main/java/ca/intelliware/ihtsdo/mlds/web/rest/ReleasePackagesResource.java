@@ -1,9 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.util.Collection;
-import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +20,8 @@ import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
-import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
-import com.google.common.collect.Maps;
 import com.wordnik.swagger.annotations.Api;
 
 @RestController
@@ -144,6 +142,28 @@ public class ReleasePackagesResource {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Versions
 	
+	@RequestMapping(value = Routes.RELEASE_VERSIONS,
+    		method = RequestMethod.POST,
+            produces = "application/json")
+	@Transactional
+    public @ResponseBody ResponseEntity<ReleaseVersion> createReleaseVersion(@PathVariable long releasePackageId, @RequestBody ReleaseVersion releaseVersion) {
+    	authorizationChecker.checkCanAccessReleasePackages();
+    	
+    	releaseVersion.setCreatedBy(currentSecurityContext.getCurrentUserName());
+
+    	releaseVersionRepository.save(releaseVersion);
+    	
+    	ReleasePackage releasePackage = releasePackageRepository.getOne(releasePackageId);
+    	releasePackage.addReleaseVersion(releaseVersion);
+    	
+
+    	releasePackageAuditEvents.logCreationOf(releaseVersion);
+    	
+    	ResponseEntity<ReleaseVersion> result = new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+    	// FIXME MLDS-256 MB can we build this link? result.getHeaders().setLocation(location);
+		return result;
+    }
+
 	@RequestMapping(value = Routes.RELEASE_VERSION,
     		method = RequestMethod.GET,
             produces = "application/json")

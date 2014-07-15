@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.joda.time.Instant;
+import org.joda.time.LocalDate;
+
 @Entity
 public class Application {
 	@Id
@@ -64,6 +67,11 @@ public class Application {
 	@Column(name="is_submitted")
 	boolean isSubmitted;
 
+	@Column(name="notes_internal")
+	String notesInternal;
+	
+	@Column(name="submitted_at")
+	Instant submittedAt;
 	
 	public String getSubType() {
 		return subType;
@@ -268,6 +276,22 @@ public class Application {
 
 	public void setOrganizationTypeOther(String organizationTypeOther) {
 		this.organizationTypeOther = organizationTypeOther;
+	}
+
+	public String getNotesInternal() {
+		return notesInternal;
+	}
+
+	public void setNotesInternal(String notesInternal) {
+		this.notesInternal = notesInternal;
+	}
+
+	public Instant getSubmittedAt() {
+		return submittedAt;
+	}
+
+	public void setSubmittedAt(Instant submittedAt) {
+		this.submittedAt = submittedAt;
 	}
 
 }

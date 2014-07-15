@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Objects;
+
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
@@ -63,19 +65,30 @@ public class AuthorizationChecker {
 	
 	private void checkCurrentUserIsMemberOfLicensee(Licensee licensee) {
 		if (licensee != null) {
-			if (! ObjectUtils.equals(currentSecurityContext.getCurrentUserName(), licensee.getCreator())) {
-				//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
-				failCheck("User not authorized to access Licensee");
-			}
+			checkCurrentUserIsUser(licensee.getCreator());
 		}
 	}
-	
+
+	private void checkCurrentUserIsUser(String username) {
+		if (! ObjectUtils.equals(currentSecurityContext.getCurrentUserName(), username)) {
+			//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
+			failCheck("User not authorized to access Licensee");
+		}
+	}
+
 	private void checkCommercialUsageMatches(long expectedCommercialUsageEntryId, CommercialUsage commercialUsage) {
 		if (commercialUsage != null) {
 			if (! ObjectUtils.equals(expectedCommercialUsageEntryId, commercialUsage.getCommercialUsageId())) {
 				failCheck("Commercial Usage Report and Entry have inconsistent IDs.");
 			}
 		}
+	}
+
+	public void checkCanAccessLicensee(String username) {
+		if (isStaffOrAdmin()) {
+			return;
+		}
+		checkCurrentUserIsUser(username);
 	}
 
 

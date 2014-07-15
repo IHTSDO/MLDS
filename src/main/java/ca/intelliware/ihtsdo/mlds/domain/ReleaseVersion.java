@@ -78,6 +78,10 @@ public class ReleaseVersion {
 		return createdBy;
 	}
 
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	public String getName() {
 		return name;
 	}

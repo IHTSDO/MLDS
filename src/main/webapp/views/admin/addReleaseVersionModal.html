@@ -1,0 +1,34 @@
+<div class="modal-header">
+     <h3 class="modal-title">Add Package Version</h3>
+ </div>
+ <div class="modal-body">
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+ 	  <form name="formPackageVersion" bs-validation>
+ 	  <div class="row">
+      <div class="form-group">
+        <div class="col-md-12">
+          <label>Name</label> 
+          <input class="form-control" placeholder="Enter Version Name" name="name" ng-model="releaseVersion.name" ng-required="true">
+          <span ng-show="formPackageVersion.name.$error.required && submitAttempted" class="help-block">Required Field</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-12">
+          <label>Description</label> 
+          <textarea class="form-control" rows="3" placeholder="Enter Version Description" name="description" ng-model="releaseVersion.description" ng-required="true"></textarea>
+          <span ng-show="formPackageVersion.description.$error.required && submitAttempted" class="help-block">Required Field</span>
+        </div>
+      </div>
+      </div>
+	</form>
+ 	
+ </div>
+ <div class="modal-footer">
+     <button class="btn btn-secondary btn-link" ng-click="$dismiss()">Cancel</button>
+     <button class="btn btn-success" ng-show="formPackageVersion.$invalid" ng-click="submitAttempted = true"><i class="fa fa-plus"></i> Add</button>
+     <button class="btn btn-success" ng-hide="formPackageVersion.$invalid" ng-click="ok(formPackageVersion)" ng-disabled="submitting">
+     	<i class="fa fa-plus"></i>
+     	Add
+     	<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+     </button>
+ </div>
