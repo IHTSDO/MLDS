@@ -16,9 +16,9 @@
 			</tr>
 			<tbody>
 				<tr ng-repeat="pending in pendingApplications">
-					<td>??</td>
+					<td>{{pending.usage.created | date}} <span class="label label-danger">FIXME</span></td>
 					<td>{{pending.application.approved?"Approved":(pending.application.submitted?"Submitted":"Not Submitted")}}</td>
-					<td>??</td>
+					<td>New <span class="label label-danger">FIXME</span></td>
 					<td>{{totalSublicences(pending.usage)}}</td>
 					<td>{{pending.application.organizationName ? pending.application.organizationName : pending.application.name}}</td>
 					<td>{{pending.application.country}}</td>
