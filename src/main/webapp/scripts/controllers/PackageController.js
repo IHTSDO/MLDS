@@ -37,9 +37,7 @@ angular.module('MLDS').controller('PackageController',
               }
             }
           });
-      modalInstance.result.then(function(updatedReleaseVersion) {
-		loadReleasePackage();
-      });
+      modalInstance.result.then(loadReleasePackage);
 	}
 	
     $scope.editReleasePackage = function() {
