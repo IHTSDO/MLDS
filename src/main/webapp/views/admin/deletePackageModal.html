@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <h3 class="modal-title">Remove Package</h3>
+</div>
+<div class="modal-body">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	<p>Are you sure you want to remove the <strong>{{releasePackage.name}}</strong> package and all its versions?</p>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-danger" ng-click="ok()">
+		Remove
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
+</div>
