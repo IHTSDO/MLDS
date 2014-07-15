@@ -9,22 +9,19 @@
 </div>
 <div ng-repeat="licensee in licensees">
   <div class="row user-info">
-    <div class="col-sm-12 col-md-12 col-lg-12">
 			<div class="col-sm-6 col-md-6 col-lg-6">
         <strong>{{'licensee.title' | translate}}:</strong> {{licensee.application.organizationName ? licensee.application.organizationName : licensee.application.name}}<br>
         <strong>{{'licensee.type.title' | translate}}:</strong> {{'licensee.type.'+licensee.type | translate}}
      	</div>
      	<div class="col-sm-6 col-md-6 col-lg-6 text-right">
-      	<span class="alert alert-warning" ng-show="isApplicationPending">Application Status: Pending Approval</span>
+      	<span class="alert alert-warning" ng-show="isApplicationPending"><strong>Application Status:</strong> Pending Approval</span>
       	<span class="alert alert-success" ng-show="isApplicationApproved">Application Status: Approved</span>
         <a class="btn btn-default" href="#/affiliateRegistration">Edit Licensee Application</a>
      	</div>     	
-
-  </div>
 </div>
 <div class="row space" ng-hide="anySubmittedUsageReports(licensee)">
   <div class="col-sm-12 col-md-12 col-lg-12">
-  	<div class="alert alert-warning" role="alert">
+  	<div class="alert alert-danger" role="alert">
   		<div><strong>Incomplete Affiliate Registration</strong></div>
   		<p>You have not submitted a usage declaration. To complete your affiliate registration, please submit an existing or new usage declaration.</p>
   	</div>
