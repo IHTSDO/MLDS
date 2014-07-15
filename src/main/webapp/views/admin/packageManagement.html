@@ -9,7 +9,7 @@
 		<div class="col-lg-8">
 			<h3>Public Releases</h3>
 
-			<div class="well well-lg package" ng-repeat="package in packages" ng-show="isPackagePublished(package)">
+			<div class="well well-lg package" ng-repeat="package in packages | orderBy:getLatestPublishedDate:true" ng-show="isPackagePublished(package)">
 
 				<header>	
 					<div class="dropdown pull-right">
@@ -27,6 +27,7 @@
 
 				<div class="footer" ng-repeat="version in package.releaseVersions" ng-show="isLatestPublishedVersion(version, package.releaseVersions)">
 					<h4><span class="label label-success">Current:</span>  {{version.name}} </h4>
+					<p>{{version.publishedAt}}</p>
 					<p ng-repeat="file in version.releaseFiles"><a href="{{file.downloadUrl}}">{{file.label}}</a></p>
 				</div>
 			</div>
@@ -37,7 +38,7 @@
 		<div class="col-lg-8">
 			<h3>Offline Releases</h3>
 
-			<div class="well well-lg package" ng-repeat="package in packages" ng-show="!isPackagePublished(package)">
+			<div class="well well-lg package" ng-repeat="package in packages | orderBy:'createdAt':true" ng-show="!isPackagePublished(package)">
 
 				<header>	
 					<div class="dropdown pull-right">
