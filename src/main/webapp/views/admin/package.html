@@ -21,7 +21,7 @@
 		<div class="col-lg-8">
 			<h3>Online Versions</h3>
 
-			<div class="well well-lg package" ng-repeat="releaseVersion in packageEntity.releaseVersions" ng-show="releaseVersion.online">
+			<div class="well well-lg package" ng-repeat="releaseVersion in versions.online">
 
 				<header>	
 					<div class="dropdown pull-right">
@@ -36,7 +36,7 @@
 					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
 				</header>
 				<p>{{releaseVersion.description}}</p>
-
+				<p>{{releaseVersion.publishedAt}}</p>
 				<div class="footer">
 					<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
 				</div>
@@ -48,7 +48,7 @@
 		<div class="col-lg-8">
 			<h3>Offline Versions</h3>
 
-			<div class="well well-lg package" ng-repeat="releaseVersion in packageEntity.releaseVersions" ng-show="!releaseVersion.online">
+			<div class="well well-lg package" ng-repeat="releaseVersion in versions.offline">
 
 				<header>	
 					<div class="dropdown pull-right">
@@ -63,7 +63,8 @@
 					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
 				</header>
 				<p>{{releaseVersion.description}}</p>
-
+				<p>Published Date: {{releaseVersion.publishedAt}}</p>
+				<p>Created Date: {{releaseVersion.createdAt}}</p>
 				<div class="footer">
 					<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
 				</div>
