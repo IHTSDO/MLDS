@@ -71,6 +71,12 @@ public class Routes {
 	static final String RELEASE_PACKAGE = "/app/rest/releasePackages/{releasePackageId}"; 
 
 	/**
+	 * control endpoint for release version within package:
+	 * - POST to create new
+	 */
+	static final String RELEASE_VERSIONS = "/app/rest/releasePackages/{releasePackageId}/releaseVersions";
+	
+	/**
 	 * control endpoint for single release version:
 	 * - GET
 	 * - PUT
