@@ -46,8 +46,8 @@ public class ReleasePackagesResource {
 	CurrentSecurityContext currentSecurityContext;
 
 	@Resource
-	AuditEventService auditEventService;
-
+	ReleasePackageAuditEvents releasePackageAuditEvents;
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Packages
 
@@ -72,11 +72,7 @@ public class ReleasePackagesResource {
     	
     	releasePackageRepository.save(releasePackage);
 
-    	// FIXME MLDS-256 MB extract to ReleasePackageAuditEvents
-    	Map<String,String> auditData = Maps.newHashMap();
-    	auditData.put("releasePackage.name", releasePackage.getName());
-    	auditData.put("releasePackage.releasePackageId", ""+releasePackage.getReleasePackageId());
-    	auditEventService.logAuditableEvent("RELEASE_PACKAGE_CREATED", auditData);
+    	releasePackageAuditEvents.logReleasePackageCreated(releasePackage);
     	
     	ResponseEntity<ReleasePackage> result = new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     	// FIXME MLDS-256 MB can we build this link? result.getHeaders().setLocation(location);
@@ -136,6 +132,8 @@ public class ReleasePackagesResource {
 			}
 		}
     	
+    	releasePackageAuditEvents.logReleasePackageDeleted(releasePackage);
+
     	// Actually mark releasePackage as being inactive and then hide from subsequent calls rather than sql delete from the db
     	releasePackageRepository.delete(releasePackage);
     	
