@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
+import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
@@ -131,5 +132,41 @@ public class ReleasePackagesResourceTest {
 		Assert.assertEquals("newDescription", savedReleasePackage.getValue().getDescription());
 		
 		Assert.assertEquals("originalCreatedBy", savedReleasePackage.getValue().getCreatedBy());
+	}
+
+	@Test
+	public void testReleasePackageDeleteShouldFailForActiveVersion() throws Exception {
+		ReleasePackage releasePackage = new ReleasePackage();
+		ReleaseVersion activeVersion = new ReleaseVersion(2L);
+		activeVersion.setOnline(true);
+		releasePackage.addReleaseVersion(activeVersion);
+		
+		Mockito.when(releasePackageRepository.findOne(1L)).thenReturn(releasePackage);
+		
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"releasePackageId\": 1, \"name\": \"newName\", \"description\": \"newDescription\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict());
+		
+		Mockito.verify(releasePackageRepository, Mockito.never()).delete(Mockito.any(ReleasePackage.class));
+	}
+
+	@Test
+	public void testReleasePackageDeleteShouldSucceedForActiveVersion() throws Exception {
+		ReleasePackage releasePackage = new ReleasePackage();
+		ReleaseVersion inactiveVersion = new ReleaseVersion(2L);
+		inactiveVersion.setOnline(false);
+		releasePackage.addReleaseVersion(inactiveVersion);
+		
+		Mockito.when(releasePackageRepository.findOne(1L)).thenReturn(releasePackage);
+		
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"releasePackageId\": 1, \"name\": \"newName\", \"description\": \"newDescription\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+		
+		Mockito.verify(releasePackageRepository).delete(Mockito.any(ReleasePackage.class));
 	}
 }
