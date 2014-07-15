@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('AddReleaseVersionModalController', 
-		['$scope', '$log', '$modalInstance', 'PackagesService', 'releasePackage', '$resource',
-		 function($scope, $log,  $modalInstance, PackagesService, releasePackage, $resource) {
+		['$scope', '$log', '$modalInstance', 'PackagesService', 'releasePackage', 'ReleaseVersionsService',
+		 function($scope, $log,  $modalInstance, PackagesService, releasePackage, ReleaseVersionsService) {
 	
 			
 	$scope.releasePackage = releasePackage;
@@ -17,13 +17,7 @@ angular.module('MLDS').controller('AddReleaseVersionModalController',
 		$scope.submitting = true;
 		$scope.alerts.splice(0, $scope.alerts.length);
 		
-		
-		var versions = $resource('app/rest/releasePackages/:releasePackageId/releaseVersions', {releasePackageId: '@releasePackageId', releaseVersionId: '@releaseVersionId'}, {
-			update: {method: 'PUT'}
-		});
-		
-		// FIXME create new version
-		versions.save({releasePackageId : releasePackage.releasePackageId}, $scope.releaseVersion)
+		ReleaseVersionsService.save({releasePackageId : releasePackage.releasePackageId}, $scope.releaseVersion)
 			.$promise.then(function(result) {
 				$modalInstance.close(result);
 			})
