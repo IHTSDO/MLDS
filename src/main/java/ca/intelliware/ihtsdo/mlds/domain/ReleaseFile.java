@@ -55,10 +55,16 @@ public class ReleaseFile {
 		return label;
 	}
 
+	public void setLabel(String label) {
+		this.label = label;
+	}
 
 	public String getDownloadUrl() {
 		return downloadUrl;
 	}
 
+	public void setDownloadUrl(String downloadUrl) {
+		this.downloadUrl = downloadUrl;
+	}
 
 }

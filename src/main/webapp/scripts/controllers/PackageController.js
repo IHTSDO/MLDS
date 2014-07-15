@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('MLDS').controller('PackageController', 
-		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService',
-		 function($scope, $log, $routeParams, $location, $modal, PackagesService) {
+		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService', 'ReleaseFilesService',
+		 function($scope, $log, $routeParams, $location, $modal, PackagesService, ReleaseFilesService) {
 
 	$scope.versions = {
 			online: [],
 			offline: []
 		};
-	$scope.packageEntity = {};
+	$scope.packageEntity = { releaseVersions:[]};
 	
 	$scope.$watch('packageEntity', function(newValue, oldValue) {
 		$scope.versions = $scope.updateVersionsLists(newValue);
@@ -61,8 +61,8 @@ angular.module('MLDS').controller('PackageController',
 	
 	$scope.addReleaseVersion = function addReleaseVersion() {
         var modalInstance = $modal.open({
-            templateUrl: 'views/admin/addEditReleaseVersionModal.html', // FM
-            controller: 'AddEditReleaseVersionModalController', // FM
+            templateUrl: 'views/admin/addEditReleaseVersionModal.html',
+            controller: 'AddEditReleaseVersionModalController',
             scope: $scope,
             size: 'lg',
             backdrop: 'static',
@@ -112,6 +112,30 @@ angular.module('MLDS').controller('PackageController',
         modalInstance.result.then(function(updatedReleasePackage) {
         	$scope.packageEntity = updatedReleasePackage;
         });
+    };
+    
+    $scope.addReleaseFile = function addReleaseFile(selectedReleaseVersion) {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/admin/addReleaseFileModal.html', // FM
+            controller: 'AddReleaseFileModalController', // FM
+            scope: $scope,
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+              releasePackage: function() { return angular.copy($scope.packageEntity); },
+              releaseVersion: function() { return angular.copy(selectedReleaseVersion); }
+            }
+          });
+      modalInstance.result.then(loadReleasePackage);
+    };
+    
+    $scope.deleteReleaseFile = function deletePackageFile(releaseVersion, releaseFile) {
+    	ReleaseFilesService['delete'](
+    			{
+    				releasePackageId: $scope.packageEntity.releasePackageId,
+    				releaseVersionId: releaseVersion.releaseVersionId,
+    				releaseFileId: releaseFile.releaseFileId})
+			.$promise.then(loadReleasePackage);
     };
 
     $scope.goToReleaseManagement = function() {

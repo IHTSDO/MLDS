@@ -66,7 +66,8 @@
 				<p>Published Date: {{releaseVersion.publishedAt}}</p>
 				<p>Created Date: {{releaseVersion.createdAt}}</p>
 				<div class="footer">
-					<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
+					<p ng-repeat="releaseFile in releaseVersion.releaseFiles"><a href="{{releaseFile.downloadUrl}}">{{releaseFile.label}}</a> <button ng-click="deleteReleaseFile(releaseVersion,releaseFile)"><i class="fa fa-trash-o"></i>Delete</button></p>
+					<p><button ng-click="addReleaseFile(releaseVersion)" ><i class="fa fa-plus"></i>Add File</button>
 				</div>
 			</div>
 		</div>
