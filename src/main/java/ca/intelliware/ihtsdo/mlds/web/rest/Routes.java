@@ -52,7 +52,12 @@ public class Routes {
 	/**
 	 * - get list of all licensees that user has access to
 	 */
-	static final String LICENSEES_USERNAME = "/app/rest/licensees";
+	static final String LICENSEES = "/app/rest/licensees";
+
+	/**
+	 * - get list of all licensees for a username
+	 */
+	static final String LICENSEES_CREATOR = "/app/rest/licensees/creator/{username:.+}";
 
 	
 	/**
@@ -70,6 +75,12 @@ public class Routes {
 	 */
 	static final String RELEASE_PACKAGE = "/app/rest/releasePackages/{releasePackageId}"; 
 
+	/**
+	 * control endpoint for release version within package:
+	 * - POST to create new
+	 */
+	static final String RELEASE_VERSIONS = "/app/rest/releasePackages/{releasePackageId}/releaseVersions";
+	
 	/**
 	 * control endpoint for single release version:
 	 * - GET
