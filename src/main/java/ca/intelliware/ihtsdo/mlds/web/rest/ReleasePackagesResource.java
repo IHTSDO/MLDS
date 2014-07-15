@@ -117,6 +117,27 @@ public class ReleasePackagesResource {
     	
     	return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     }
+	
+	@RequestMapping(value = Routes.RELEASE_PACKAGE,
+    		method = RequestMethod.DELETE,
+            produces = "application/json")
+    public @ResponseBody ResponseEntity<?> deactivatePackage(@PathVariable long releasePackageId) {
+    	//FIXME should we check children being consistent?		
+		authorizationChecker.checkCanAccessReleasePackages();
+    	
+    	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
+    	if (releasePackage == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	} 
+    	
+    	//FIXME must check that release is offline
+    	
+    	// Should mark releasePackage as being inactive and then hide from subsquent calls rather than delete from the db
+    	releasePackageRepository.delete(releasePackage);
+    	
+    	return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Versions
