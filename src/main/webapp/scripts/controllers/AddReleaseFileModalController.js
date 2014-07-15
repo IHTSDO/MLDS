@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('MLDS').controller('AddReleaseFileModalController', 
-		['$scope', '$log', '$modalInstance', 'PackagesService', 'releasePackage', 'ReleaseVersionsService', 'releaseVersion',
-		 function($scope, $log,  $modalInstance, PackagesService, releasePackage, ReleaseVersionsService, releaseVersion) {
+		['$scope', '$log', '$modalInstance', 'releasePackage', 'releaseVersion', 'ReleaseFilesService', 
+		 function($scope, $log,  $modalInstance, releasePackage, releaseVersion, ReleaseFilesService) {
 	
 	var isNewObject = !(releaseVersion.releaseVersionId);
 			
 	$scope.isNewObject = isNewObject;
 	$scope.releasePackage = releasePackage;
 	$scope.releaseVersion = releaseVersion;
+	$scope.releaseFile = {};
 	
 	$scope.submitAttempted = false;
 	$scope.submitting = false;
@@ -19,7 +20,11 @@ angular.module('MLDS').controller('AddReleaseFileModalController',
 		$scope.submitting = true;
 		$scope.alerts.splice(0, $scope.alerts.length);
 		
-		ReleaseVersionsService[isNewObject?'save':'update']({releasePackageId : releasePackage.releasePackageId}, $scope.releaseVersion)
+		ReleaseFilesService.save(
+				{
+					releasePackageId : releasePackage.releasePackageId,
+					releaseVersionId : releaseVersion.releaseVersionId
+				}, $scope.releaseFile)
 			.$promise.then(function(result) {
 				$modalInstance.close(result);
 			})

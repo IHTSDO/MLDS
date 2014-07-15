@@ -281,7 +281,7 @@ angular.module('MLDS').factory('PackagesService',
 			};
 			
 
-			var fakeMode = true;
+			var fakeMode = false;
 			if (fakeMode) {
 				return service;
 			} else {
