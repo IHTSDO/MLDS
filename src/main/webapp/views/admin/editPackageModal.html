@@ -5,17 +5,18 @@
  	  <form name="formPackage" bs-validation>
  	  <div class="row">
       <div class="form-group">
+        <div class="col-md-12">
           <label>Name</label> 
           <input class="form-control" placeholder="Enter Package Name" name="name" ng-model="releasePackage.name" ng-required="true">
           <span ng-show="formPackage.name.$error.required && submitAttempted" class="help-block">Required Field</span>
+        </div>
       </div>
-    </div>
-    <div class=""row>
       <div class="form-group">
+        <div class="col-md-12">
           <label>Description</label> 
           <textarea class="form-control" rows="3" placeholder="Enter Package Description" name="description" ng-model="releasePackage.description" ng-required="true"></textarea>
           <span ng-show="formPackage.description.$error.required && submitAttempted" class="help-block">Required Field</span>
-     
+        </div>
       </div>
       </div>
 	</form>
