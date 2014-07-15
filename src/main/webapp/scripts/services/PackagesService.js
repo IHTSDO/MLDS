@@ -108,6 +108,28 @@ angular.module('MLDS').factory('PackagesService',
 						downloadUrl : "http://example.com/smallerFile.zip"
 					} ]
 				} ]
+			}, {
+				releasePackageId : 4,
+				name : "Package 4 title",
+				description : "Package 4 description not published",
+				createdBy : "michael.buckley@intelliware.com",
+				createdAt : "2014-02-01T12:55Z",
+				releaseVersions : [ {
+					releaseVersionId : 15,
+					name : "Package 4 Version 1 name",
+					description : "Package 4 Version 1 description",
+					createdBy : "michael.buckley@intelliware.com",
+					createdAt : "2014-01-01T13:55Z",
+					releaseFiles : [ {
+						releaseFileId : 313,
+						label : "Complete File",
+						downloadUrl : "http://example.com/bigFile.zip"
+					}, {
+						releaseFileId : 314,
+						label : "Delta File",
+						downloadUrl : "http://example.com/smallerFile.zip"
+					} ]
+				} ]
 			} ];
 			
 			service.query = function query() {

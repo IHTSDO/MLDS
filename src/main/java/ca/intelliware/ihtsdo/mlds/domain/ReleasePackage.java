@@ -47,6 +47,15 @@ public class ReleasePackage {
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="releasePackage")
 	Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
 
+	public ReleasePackage() {
+		
+	}
+	
+	//For tests
+	public ReleasePackage(Long releasePackageId) {
+		this.releasePackageId = releasePackageId;
+	}
+	
 	public Long getReleasePackageId() {
 		return releasePackageId;
 	}
