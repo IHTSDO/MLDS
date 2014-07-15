@@ -15,21 +15,18 @@
 				<th></th>
 			</tr>
 			<tbody>
-				<tr ng-repeat="application in applications">
-					<td>{{application.username}}</td>
-					<td>{{application.approved?"Approved":(application.submitted?"Submitted":"Not Submitted")}}</td>
+				<tr ng-repeat="pending in pendingApplications">
 					<td>??</td>
+					<td>{{pending.application.approved?"Approved":(pending.application.submitted?"Submitted":"Not Submitted")}}</td>
 					<td>??</td>
-					<td>{{application.organizationName ? application.organizationName : application.name}}</td>
-					<td>??</td>
-					<td>{{'licensee.type.'+application.type | translate}} - {{application.subType}}</td>
-					<td>??</td>
+					<td>{{totalSublicences(pending.usage)}}</td>
+					<td>{{pending.application.organizationName ? pending.application.organizationName : pending.application.name}}</td>
+					<td>{{pending.application.country}}</td>
+					<td>{{'licensee.type.'+pending.application.type | translate}} - {{pending.application.subType}}</td>
+					<td>{{'licensee.agreementType.'+pending.usage.context.agreementType | translate}}</td>
 					<td> <a class="btn btn-default btn-xs pull-right" ng-click="goToApplication(application)"><i class="fa fa-pencil"></i> Edit</a></td>
 				</tr>
 			</tbody>
 		</table>
-		
-		<div>
-		{{applications}}</div>
 	</div>
 </div>

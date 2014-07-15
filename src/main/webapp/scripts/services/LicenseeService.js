@@ -11,6 +11,10 @@ angular.module('MLDS')
 		return $http.get('/app/rest/licensees');
 	};
 	
+	service.licensees = function(username) {
+		return $http.get('/app/rest/licensees/creator/'+encodeURIComponent(username));
+	};
+	
 	service.licenseeIsCommercial = function(licensee) {
 		return licensee.type === 'COMMERCIAL';
 	};

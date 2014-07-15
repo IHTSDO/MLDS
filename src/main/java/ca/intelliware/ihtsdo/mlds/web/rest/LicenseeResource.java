@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,11 +31,19 @@ public class LicenseeResource {
 	@Resource
 	SessionService sessionService;
 	
-    @RequestMapping(value = Routes.LICENSEES_USERNAME,
+    @RequestMapping(value = Routes.LICENSEES,
     		method = RequestMethod.GET,
             produces = "application/json")
     public @ResponseBody ResponseEntity<Collection<Licensee>> getLicensees() {
     	String username = sessionService.getUsernameOrNull();
+    	return new ResponseEntity<Collection<Licensee>>(licenseeRepository.findByCreator(username), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = Routes.LICENSEES_CREATOR,
+    		method = RequestMethod.GET,
+            produces = "application/json")
+    public @ResponseBody ResponseEntity<Collection<Licensee>> getLicenseesForUser(@PathVariable String username) {
+    	authorizationChecker.checkCanAccessLicensee(username);
     	return new ResponseEntity<Collection<Licensee>>(licenseeRepository.findByCreator(username), HttpStatus.OK);
     }
 
