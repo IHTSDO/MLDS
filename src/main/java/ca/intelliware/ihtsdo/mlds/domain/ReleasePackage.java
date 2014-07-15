@@ -12,11 +12,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.Validate;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
 
 @Entity
+@Where(clause = "inactive_at IS NULL")
+@SQLDelete(sql="UPDATE release_package SET inactive_at = now() WHERE release_package_id = ?")
 @Table(name="release_package")
 public class ReleasePackage {
 
@@ -30,6 +35,10 @@ public class ReleasePackage {
 	
 	@Column(name="created_by")
 	String createdBy;
+
+	@JsonIgnore
+	@Column(name="inactive_at")
+	Instant inactiveAt;
 
 	String name;
 	
