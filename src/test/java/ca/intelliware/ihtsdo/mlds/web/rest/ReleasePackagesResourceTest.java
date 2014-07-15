@@ -42,7 +42,7 @@ public class ReleasePackagesResourceTest {
 	CurrentSecurityContext currentSecurityContext;
 
 	@Mock
-	AuditEventService auditEventService;
+	ReleasePackageAuditEvents releasePackageAuditEvents;
 
 	ReleasePackagesResource releasePackagesResource;
 
@@ -55,7 +55,7 @@ public class ReleasePackagesResourceTest {
         releasePackagesResource.releasePackageRepository = releasePackageRepository;
         releasePackagesResource.authorizationChecker = authorizationChecker;
         releasePackagesResource.currentSecurityContext = currentSecurityContext;
-        releasePackagesResource.auditEventService = auditEventService;
+        releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
 
         this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releasePackagesResource).build();
     }
@@ -79,7 +79,7 @@ public class ReleasePackagesResourceTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 		
-		Mockito.verify(auditEventService).logAuditableEvent(Mockito.eq("RELEASE_PACKAGE_CREATED"),Mockito.anyMap());
+		Mockito.verify(releasePackageAuditEvents).logReleasePackageCreated(Mockito.any(ReleasePackage.class));
 	}
 
 	@Test
@@ -145,7 +145,6 @@ public class ReleasePackagesResourceTest {
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{ \"releasePackageId\": 1, \"name\": \"newName\", \"description\": \"newDescription\" }")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict());
 		
@@ -163,10 +162,23 @@ public class ReleasePackagesResourceTest {
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{ \"releasePackageId\": 1, \"name\": \"newName\", \"description\": \"newDescription\" }")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 		
 		Mockito.verify(releasePackageRepository).delete(Mockito.any(ReleasePackage.class));
+	}
+
+	@Test
+	public void testReleasePackageDeleteLogsAuditEvent() throws Exception {
+		ReleasePackage releasePackage = new ReleasePackage();
+		
+		Mockito.when(releasePackageRepository.findOne(1L)).thenReturn(releasePackage);
+		
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
+				.contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+		Mockito.verify(releasePackageAuditEvents).logReleasePackageDeleted(Mockito.any(ReleasePackage.class));
 	}
 }
