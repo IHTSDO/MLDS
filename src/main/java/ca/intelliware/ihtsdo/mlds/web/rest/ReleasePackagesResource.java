@@ -178,6 +178,25 @@ public class ReleasePackagesResource {
     	
     	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
     }
+	
+	@RequestMapping(value = Routes.RELEASE_VERSION,
+    		method = RequestMethod.PUT,
+            produces = "application/json")
+	@Transactional
+    public @ResponseBody ResponseEntity<ReleaseVersion> updateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseVersion body) {
+    	//FIXME should we check children being consistent?		
+		authorizationChecker.checkCanAccessReleasePackages();
+    	
+		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(body.getReleaseVersionId());
+    	if (releaseVersion == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	} 
+    	
+    	releaseVersion.setName(body.getName());
+    	releaseVersion.setDescription(body.getDescription());
+    	
+    	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+    }
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Files

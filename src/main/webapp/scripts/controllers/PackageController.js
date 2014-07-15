@@ -63,8 +63,8 @@ angular.module('MLDS').controller('PackageController',
 	
 	$scope.addReleaseVersion = function addReleaseVersion() {
         var modalInstance = $modal.open({
-            templateUrl: 'views/admin/addReleaseVersionModal.html', // FM
-            controller: 'AddReleaseVersionModalController', // FM
+            templateUrl: 'views/admin/addEditReleaseVersionModal.html', // FM
+            controller: 'AddEditReleaseVersionModalController', // FM
             scope: $scope,
             size: 'lg',
             backdrop: 'static',
@@ -72,7 +72,26 @@ angular.module('MLDS').controller('PackageController',
               releasePackage: function() {
               	// FIXME not sure about copy - needed to support modal cancel or network failure
               	return angular.copy($scope.packageEntity);
-              }
+              },
+              releaseVersion: function() { return {}; }
+            }
+          });
+      modalInstance.result.then(loadReleasePackage);
+	}
+	
+	$scope.editReleaseVersion = function addReleaseVersion(selectedReleaseVersion) {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/admin/addEditReleaseVersionModal.html', // FM
+            controller: 'AddEditReleaseVersionModalController', // FM
+            scope: $scope,
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+              releasePackage: function() {
+              	// FIXME not sure about copy - needed to support modal cancel or network failure
+              	return angular.copy($scope.packageEntity);
+              },
+              releaseVersion: function() { return angular.copy(selectedReleaseVersion); }
             }
           });
       modalInstance.result.then(loadReleasePackage);
