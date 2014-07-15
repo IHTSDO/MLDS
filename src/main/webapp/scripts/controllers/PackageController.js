@@ -10,28 +10,36 @@ angular.module('MLDS').controller('PackageController',
 		};
 	$scope.packageEntity = {};
 	
-	$scope.$watch('packageEntity', function() {
+	$scope.$watch('packageEntity', function(newValue, oldValue) {
+		$log.log('watch updated!');
+		$scope.versions = updateVersionsLists(newValue);
+		
+	});
+	
+	var updateVersionsLists = function updateVersionsLists(packgeEntity) {
+		var results = { online: [], offline: [] };
 		var publishedOfflineVersions = [];
 		var nonPublishedOfflineVersions = [];
 		
-		for(var i = 0; i < $scope.packageEntity.releaseVersions.length; i++) {
-			if ($scope.packageEntity.releaseVersions[i].online) {
-				$scope.versions.online.push($scope.packageEntity.releaseVersions[i]);
+		for(var i = 0; i < packgeEntity.releaseVersions.length; i++) {
+			if (packgeEntity.releaseVersions[i].online) {
+				results.online.push(packgeEntity.releaseVersions[i]);
 			} else {
-				if ($scope.packageEntity.releaseVersions[i].publishedAt) {
-					publishedOfflineVersions.push($scope.packageEntity.releaseVersions[i]);
+				if (packgeEntity.releaseVersions[i].publishedAt) {
+					publishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
 				} else {
-					nonPublishedOfflineVersions.push($scope.packageEntity.releaseVersions[i]);
+					nonPublishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
 				}
 			}
 		};
 		
-		$scope.versions.online.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
+		results.online.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
 		publishedOfflineVersions.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
 		nonPublishedOfflineVersions.sort(function(a,b){return new Date(b.createdAt) - new Date(a.createdAt);});
-		$scope.versions.offline = publishedOfflineVersions.concat(nonPublishedOfflineVersions);
+		results.offline = publishedOfflineVersions.concat(nonPublishedOfflineVersions);
 		
-	});
+		return results;
+	};
 	
 			
 	var releasePackageId = $routeParams.packageId && parseInt($routeParams.packageId, 10);
