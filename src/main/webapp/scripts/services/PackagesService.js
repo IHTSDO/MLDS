@@ -41,7 +41,6 @@ angular.module('MLDS').factory('PackagesService',
 					createdBy : "michael.buckley@intelliware.com",
 					createdAt : "2014-01-01T13:55Z",
 					online: false,
-					publishedAt : "2014-01-01T14:55Z",
 					releaseFiles : [ {
 						releaseFileId : 23,
 						label : "Complete File",
@@ -82,6 +81,56 @@ angular.module('MLDS').factory('PackagesService',
 						downloadUrl : "http://example.com/bigFile.zip"
 					}, {
 						releaseFileId : 241,
+						label : "Delta File",
+						downloadUrl : "http://example.com/smallerFile.zip"
+					} ]
+				}, {
+					releaseVersionId : 22,
+					name : "Package 2 Version 4 name",
+					description : "Package 2 Version 4 description",
+					createdBy : "michael.buckley@intelliware.com",
+					createdAt : "2014-05-01T13:55Z",
+					online: false,
+					publishedAt : "2014-01-01T14:55Z",
+					releaseFiles : [ {
+						releaseFileId : 23,
+						label : "Complete File",
+						downloadUrl : "http://example.com/bigFile.zip"
+					}, {
+						releaseFileId : 24,
+						label : "Delta File",
+						downloadUrl : "http://example.com/smallerFile.zip"
+					} ]
+				}, {
+					releaseVersionId : 24,
+					name : "Package 2 Version 5 name",
+					description : "Package 2 Version 5 description",
+					createdBy : "michael.buckley@intelliware.com",
+					createdAt : "2014-06-01T13:55Z",
+					online: false,
+					publishedAt : "2014-08-01T14:55Z",
+					releaseFiles : [ {
+						releaseFileId : 23,
+						label : "Complete File",
+						downloadUrl : "http://example.com/bigFile.zip"
+					}, {
+						releaseFileId : 24,
+						label : "Delta File",
+						downloadUrl : "http://example.com/smallerFile.zip"
+					} ]
+				}, {
+					releaseVersionId : 24,
+					name : "Package 2 Version 6 name",
+					description : "Package 2 Version 6 description",
+					createdBy : "michael.buckley@intelliware.com",
+					createdAt : "2014-08-01T13:55Z",
+					online: false,
+					releaseFiles : [ {
+						releaseFileId : 23,
+						label : "Complete File",
+						downloadUrl : "http://example.com/bigFile.zip"
+					}, {
+						releaseFileId : 24,
 						label : "Delta File",
 						downloadUrl : "http://example.com/smallerFile.zip"
 					} ]
