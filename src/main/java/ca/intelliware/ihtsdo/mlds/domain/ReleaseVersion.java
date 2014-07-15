@@ -52,6 +52,16 @@ public class ReleaseVersion {
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="releaseVersion")
 	Set<ReleaseFile> releaseFiles = Sets.newHashSet();
 
+	public ReleaseVersion() {
+		
+	}
+
+	//For tests
+	public ReleaseVersion(Long releaseVersionId) {
+		this();
+		this.releaseVersionId = releaseVersionId;
+	}
+	
 	public Long getReleaseVersionId() {
 		return releaseVersionId;
 	}
@@ -59,7 +69,7 @@ public class ReleaseVersion {
 	public ReleasePackage getReleasePackage() {
 		return releasePackage;
 	}
-
+	
 	public Instant getCreatedAt() {
 		return createdAt;
 	}
