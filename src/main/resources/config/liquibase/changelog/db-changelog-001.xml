@@ -502,5 +502,19 @@
 			</column>
 		</addColumn>
 	</changeSet>
+
+	<changeSet id="MLDS-256-7" author="DGJ">
+		<comment>Add inactive_at flag/timestamp to release</comment>
+		<addColumn tableName="release_version">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-256-8" author="DGJ">
+		<comment>Add inactive_at flag/timestamp to release</comment>
+		<addColumn tableName="release_package">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+	</changeSet>
 	
 </databaseChangeLog>

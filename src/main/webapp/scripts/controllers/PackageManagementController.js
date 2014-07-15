@@ -6,6 +6,11 @@ angular.module('MLDS').controller('PackageManagementController',
 			
 		$scope.packages = PackagesService.query();
         
+		//FIXME replace with a different mechanism
+		function reloadPackages() {
+			$scope.packages = PackagesService.query();	
+		}
+		
 		$scope.addReleasePackage = function() {
 			var modalInstance = $modal.open({
 				templateUrl: 'views/admin/addPackageModal.html',
@@ -31,24 +36,10 @@ angular.module('MLDS').controller('PackageManagementController',
                     }
                   }
                 });
-            modalInstance.result.then(function(savedReleasePackageCopy) {
-            	mergeReleasePackageCopyBack(savedReleasePackageCopy);
-            	$log.log('edit complete', savedReleasePackageCopy);
-            	$log.log('list', $scope.packages);
+            modalInstance.result.then(function(result) {
+            	reloadPackages();
             });
         };
-
-        function mergeReleasePackageCopyBack(releasePackageCopy) {
-			for (var i = 0; i < $scope.packages.length; i++) {
-				var releasePackage = $scope.packages[i];
-				if (releasePackage.releasePackageId === releasePackageCopy.releasePackageId) {
-					$scope.packages[i] = releasePackageCopy;
-					return;
-				}
-			}
-			//FIXME what should we do here?
-			$log.log('Failed to merge ReleasePackageCopy back into the current releasePackages...')
-        }
         
 		// FIXME: AC Using Example to show both modals
         $scope.takePackageOffline =  $scope.makePackageOnline = function() {
@@ -61,6 +52,9 @@ angular.module('MLDS').controller('PackageManagementController',
         	      size: 'sm',
         	      windowClass: 'debugTest'
         	    });
+        	 modalInstance.result.then(function(result) {
+             	reloadPackages();
+             });
         };
         
         
@@ -68,8 +62,8 @@ angular.module('MLDS').controller('PackageManagementController',
         	for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
         		if (packageEntity.releaseVersions[i].online) {
         			return true;
-        		};
-        	};
+        		}
+        	}
         	return false;
         };
         
@@ -85,6 +79,24 @@ angular.module('MLDS').controller('PackageManagementController',
         
         $scope.goToPackage = function(packageEntity) {
         	$location.path('/package/'+encodeURIComponent(packageEntity.releasePackageId));
-        };        
+        };
+        
+        $scope.deleteReleasePackage = function(releasePackage) {
+            var modalInstance = $modal.open({
+                templateUrl: 'views/admin/deletePackageModal.html',
+                controller: 'DeletePackageModalController',
+                scope: $scope,
+                size: 'sm',
+                backdrop: 'static',
+                resolve: {
+                  releasePackage: function() {
+                  	return releasePackage;
+                  }
+                }
+              });
+            modalInstance.result.then(function(result) {
+            	reloadPackages();
+            });
+        };
     }]);
 
