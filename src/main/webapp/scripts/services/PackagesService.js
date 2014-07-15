@@ -124,14 +124,31 @@ angular.module('MLDS').factory('PackagesService',
 				return releasePackage;
 			};
 
-			service.update = function(releasePackageCopy) {
-				var index = -1;
+			service['delete'] = function(releasePackage) {
+				var response = {};
+				var index = findReleasePackageIndex(releasePackage);
+				if (index !== -1) {
+					datastore.splice(index, 1);
+					response.$promise = $q.when({});
+				} else {
+					var deferred = $q.defer();
+					response.$promise = deferred.promise;
+					deferred.reject('not found');
+				}
+				return response;
+			};
+			
+			function findReleasePackageIndex(releasePackage) {
 				for (var i = 0; i < datastore.length; i++) {
-					if (datastore[i].releasePackageId === releasePackageCopy.releasePackageId) {
-						index = i;
-						break;
+					if (datastore[i].releasePackageId === releasePackage.releasePackageId) {
+						return i;
 					}
 				}
+				return -1;
+			}
+			
+			service.update = function(releasePackageCopy) {
+				var index = findReleasePackageIndex(releasePackageCopy);
 				if (index !== -1) {
 					datastore[index] = releasePackageCopy;
 				} else {

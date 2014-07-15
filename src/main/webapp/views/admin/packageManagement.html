@@ -47,6 +47,8 @@
 						<ul class="dropdown-menu">
 							<li><a ng-click="editReleasePackage(package)">Edit</a></li>
 							<li><a ng-click="makePackageOnline()">Make Public</a></li>
+							<li class="divider"></li>
+							<li><a ng-click="deleteReleasePackage(package)">Remove</a></li>
 						</ul>
 					</div>
 					<a ng-click="goToPackage(package)"><h4> {{package.name}}</h4></a>
