@@ -11,12 +11,10 @@ angular.module('MLDS').controller('PackageController',
 	$scope.packageEntity = {};
 	
 	$scope.$watch('packageEntity', function(newValue, oldValue) {
-		$log.log('watch updated!');
-		$scope.versions = updateVersionsLists(newValue);
-		
+		$scope.versions = $scope.updateVersionsLists(newValue);
 	});
 	
-	var updateVersionsLists = function updateVersionsLists(packgeEntity) {
+	$scope.updateVersionsLists = function updateVersionsLists(packgeEntity) {
 		var results = { online: [], offline: [] };
 		var publishedOfflineVersions = [];
 		var nonPublishedOfflineVersions = [];
