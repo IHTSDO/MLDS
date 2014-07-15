@@ -146,12 +146,16 @@ public class ReleasePackagesResource {
     		method = RequestMethod.POST,
             produces = "application/json")
 	@Transactional
-    public @ResponseBody ResponseEntity<ReleaseVersion> createReleaseVersion(@RequestBody ReleaseVersion releaseVersion) {
+    public @ResponseBody ResponseEntity<ReleaseVersion> createReleaseVersion(@PathVariable long releasePackageId, @RequestBody ReleaseVersion releaseVersion) {
     	authorizationChecker.checkCanAccessReleasePackages();
     	
     	releaseVersion.setCreatedBy(currentSecurityContext.getCurrentUserName());
 
     	releaseVersionRepository.save(releaseVersion);
+    	
+    	ReleasePackage releasePackage = releasePackageRepository.getOne(releasePackageId);
+    	releasePackage.addReleaseVersion(releaseVersion);
+    	
 
     	releasePackageAuditEvents.logCreationOf(releaseVersion);
     	
