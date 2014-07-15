@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.joda.time.Instant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -75,6 +76,7 @@ public class ApplicationController {
 		Application application = saveApplicationFields(request);
 		// Mark application as submitted
 		application.setStatus();
+		application.setSubmittedAt(Instant.now());
 		applicationRepository.save(application);
 		
 		//FIXME should be a different trigger and way to connect applications with licensee
