@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Maps;
 
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
+import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
 @Service
@@ -35,5 +36,20 @@ public class ReleasePackageAuditEvents {
     	auditData.put("releasePackage.name", releasePackage.getName());
     	auditData.put("releasePackage.releasePackageId", ""+releasePackage.getReleasePackageId());
 		return auditData;
+	}
+
+
+	public void logCreationOf(ReleasePackage releasePackage) {
+		Map<String,String> auditData = Maps.newHashMap();
+		auditData.put("releasePackage.name", releasePackage.getName());
+		auditData.put("releasePackage.releasePackageId", ""+releasePackage.getReleasePackageId());
+		auditEventService.logAuditableEvent("RELEASE_PACKAGE_CREATED", auditData);
+	}
+
+	public void logCreationOf(ReleaseVersion releaseVersion) {
+		Map<String,String> auditData = Maps.newHashMap();
+		auditData.put("releaseVersion.name", releaseVersion.getName());
+		auditData.put("releaseVersion.releaseVersionId", ""+releaseVersion.getReleaseVersionId());
+		auditEventService.logAuditableEvent("RELEASE_VERSION_CREATED", auditData);
 	}
 }

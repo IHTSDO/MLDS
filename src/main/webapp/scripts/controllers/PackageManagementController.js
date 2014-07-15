@@ -57,39 +57,9 @@ angular.module('MLDS').controller('PackageManagementController',
              });
         };
         
-        
-        $scope.isPackagePublished = function(packageEntity) {
-        	for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-        		if (packageEntity.releaseVersions[i].online) {
-        			return true;
-        		}
-        	}
-        	return false;
-        };
-        
-        $scope.isLatestPublishedVersion = function(version, versions) {
-        	for(var i = 0; i < versions.length; i++) {
-        		if (versions[i].publishedAt && version.publishedAt &&
-        				(versions[i].publishedAt > version.publishedAt)) {
-        			return false;
-        		};
-        	};
-        	return true;
-        };
-        
-        $scope.getLatestPublishedDate = function(packageEntity) { 
-    		var latestPublishDate = 0; 
-    		for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-    			if (i == 0) {
-    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
-    			} else if (packageEntity.releaseVersions[i].publishedAt > latestPublishDate ) {
-    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
-    			};
-    		};
-    		return latestPublishDate;
-        	
-        };
-        
+        $scope.isPackagePublished = PackagesService.isPackagePublished;
+        $scope.isLatestPublishedVersion = PackagesService.isLatestPublishedVersion;
+        $scope.getLatestPublishedDate = PackagesService.getLatestPublishedDate;
         
         $scope.goToPackage = function(packageEntity) {
         	$location.path('/package/'+encodeURIComponent(packageEntity.releasePackageId));
