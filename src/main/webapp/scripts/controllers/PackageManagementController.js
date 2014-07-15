@@ -77,6 +77,20 @@ angular.module('MLDS').controller('PackageManagementController',
         	return true;
         };
         
+        $scope.getLatestPublishedDate = function(packageEntity) { 
+    		var latestPublishDate = 0; 
+    		for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
+    			if (i == 0) {
+    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
+    			} else if (packageEntity.releaseVersions[i].publishedAt > latestPublishDate ) {
+    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
+    			};
+    		};
+    		return latestPublishDate;
+        	
+        };
+        
+        
         $scope.goToPackage = function(packageEntity) {
         	$location.path('/package/'+encodeURIComponent(packageEntity.releasePackageId));
         };
