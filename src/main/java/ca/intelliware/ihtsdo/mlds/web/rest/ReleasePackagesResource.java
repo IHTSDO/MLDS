@@ -130,9 +130,13 @@ public class ReleasePackagesResource {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	} 
     	
-    	//FIXME must check that release is offline
+    	for (ReleaseVersion releaseVersion : releasePackage.getReleaseVersions()) {
+			if (releaseVersion.isOnline()) {
+				return new ResponseEntity<>(HttpStatus.CONFLICT);	
+			}
+		}
     	
-    	// Should mark releasePackage as being inactive and then hide from subsquent calls rather than delete from the db
+    	// Actually mark releasePackage as being inactive and then hide from subsequent calls rather than sql delete from the db
     	releasePackageRepository.delete(releasePackage);
     	
     	return new ResponseEntity<>(HttpStatus.OK);
