@@ -73,20 +73,6 @@ angular.module('MLDS').controller('PackageManagementController',
             });
         };
         
-		// FIXME: AC Using Example to show both modals
-        $scope.takePackageOffline =  $scope.makePackageOnline = function() {
-        	
-        	var modalInstance = $modal.open({
-        	      templateUrl: 'views/admin/takeOfflineModal.html',
-        	      controller: 'TakeOfflineModalController',
-        	      scope: $scope,
-        	      size: 'sm',
-        	    });
-        	 modalInstance.result.then(function(result) {
-             	reloadPackages();
-             });
-        };
-        
         $scope.goToPackage = function(packageEntity) {
         	$location.path('/package/'+encodeURIComponent(packageEntity.releasePackageId));
         };
