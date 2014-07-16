@@ -23,7 +23,7 @@
   			<ul class="list-group" ng-show="pending.application.type!='INDIVIDUAL'">
   				<h4>Affiliate Information:</h4>
   				<li class="list-group-item"><strong>Organization Name:</strong> {{pending.application.organizationName}}</li>
-  				<li class="list-group-item"><strong>Address:</strong> {{pending.application.address}}</li>
+  				<li class="list-group-item"><strong>Address:</strong> {{pending.application.}}</li>
   				<li class="list-group-item"><strong>City:</strong> {{pending.application.city}}</li>
   				<li class="list-group-item"><strong>Post Code:</strong> {{pending.application.postCode}}</li>
   				<li class="list-group-item"><strong>Country:</strong> {{pending.application.country}}</li>
@@ -51,7 +51,7 @@
 
 
   			<ul class="list-group" ng-show="pending.application.type=='COMMERCIAL'">
-  				<h4>Billing Address</h4>
+  				<h4>Affiliate Billing Information</h4>
   				<li class="list-group-item"><strong>Address:</strong> {{pending.application.billingStreet}}</li>
   				<li class="list-group-item"><strong>City:</strong> {{pending.application.billingCity}}</li>
 					<li class="list-group-item"><strong>Post Code:</strong> {{pending.application.billingPostCode}}</li>
@@ -59,19 +59,19 @@
   			</ul>
 
   			<ul class="list-group" >
-  				<h4>Usage:</h4>
-  				<li class="list-group-item"><strong>Current Usage:</strong> {{pending.usage.context.currentUsage}}</li>
-  				<li class="list-group-item"><strong>Planned Usage:</strong> {{pending.usage.context.plannedUsage}}</li>
+  				<h4>Usage Context Information</h4>
+  				<li class="list-group-item"><strong>Licence Usage:</strong> {{pending.usage.context.currentUsage}}</li>
+  				<li class="list-group-item"><strong>Planned Future Use:</strong> {{pending.usage.context.plannedUsage}}</li>
   				<li class="list-group-item"><strong>Purpose:</strong> {{pending.usage.context.purpose}}</li>
-  				<li class="list-group-item" ng-show="apending.application.type=='COMMERCIAL'" ng-repeat="countryRecord in pending.usage.countries">
+  				<li class="list-group-item" ng-show="pending.application.type=='COMMERCIAL'" ng-repeat="countryRecord in pending.usage.countries">
   					<strong>Country:</strong> {{countryRecord.country.commonName}}<br>
- 						<strong>Practices:</strong> {{countryRecord.practices}}<br>
-  				  <strong>Institutions:</strong>
+ 					<strong>Practices:</strong> {{countryRecord.practices}}<br>
+  				  	<strong>Institutions:</strong>
   					<span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
   						{{entry.name}}<span ng-show="!$last">,</span>
  						</span><br>
  					</li>
- 					<li class="list-group-item" ng-show="affiliateform.type!='COMMERCIAL'"><strong>Countries:</strong>
+ 					<li class="list-group-item" ng-show="pending.application.type!='COMMERCIAL'"><strong>Countries:</strong>
  						<span ng-repeat="countryRecord in CommercialUsageService.currentCommercialUsageReport.countries">
   						{{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
  						</span><br>
