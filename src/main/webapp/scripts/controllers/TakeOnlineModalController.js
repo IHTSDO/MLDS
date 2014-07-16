@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('TakeOfflineModalController', ['$scope', '$log', '$modalInstance', 'releasePackage', 'releaseVersion', 'ReleaseVersionsService', 
+angular.module('MLDS').controller('TakeOnlineModalController', ['$scope', '$log', '$modalInstance', 'releasePackage', 'releaseVersion', 'ReleaseVersionsService', 
     function ($scope, $log, $modalInstance, releasePackage, releaseVersion, ReleaseVersionsService) {
 		$scope.releasePackage = releasePackage;
 		$scope.releaseVersion = releaseVersion;
@@ -10,7 +10,7 @@ angular.module('MLDS').controller('TakeOfflineModalController', ['$scope', '$log
 			$scope.submitting = true;
 			$scope.alerts.splice(0, $scope.alerts.length);
 			
-			$scope.releaseVersion.online = false;
+			$scope.releaseVersion.online = true;
 			
 			ReleaseVersionsService['update']({releasePackageId : releasePackage.releasePackageId}, $scope.releaseVersion)
 				.$promise.then(function(result) {

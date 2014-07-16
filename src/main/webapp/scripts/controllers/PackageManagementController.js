@@ -16,14 +16,14 @@ angular.module('MLDS').controller('PackageManagementController',
         };
         
         
-        $scope.isLatestPublishedVersion = function isLatestPublishedVersion(version, versions) {
+        $scope.isLatestOnlinePublishedVersion = function isLatestPublishedVersion(version, versions) {
         	for(var i = 0; i < versions.length; i++) {
-        		if (versions[i].publishedAt && version.publishedAt &&
-        				(versions[i].publishedAt > version.publishedAt)) {
-        			return false;
-        		};
+        		if (versions[i].publishedAt && version.publishedAt && version.online === true &&
+    				(versions[i].publishedAt < version.publishedAt)) {
+    				return true;
+    			};
         	};
-        	return true;
+        	return false;
         };
         
         $scope.getLatestPublishedDate = function getLatestPublishedDate(packageEntity) { 
@@ -71,20 +71,6 @@ angular.module('MLDS').controller('PackageManagementController',
             modalInstance.result.then(function(result) {
             	reloadPackages();
             });
-        };
-        
-		// FIXME: AC Using Example to show both modals
-        $scope.takePackageOffline =  $scope.makePackageOnline = function() {
-        	
-        	var modalInstance = $modal.open({
-        	      templateUrl: 'views/admin/takeOfflineModal.html',
-        	      controller: 'TakeOfflineModalController',
-        	      scope: $scope,
-        	      size: 'sm',
-        	    });
-        	 modalInstance.result.then(function(result) {
-             	reloadPackages();
-             });
         };
         
         $scope.goToPackage = function(packageEntity) {

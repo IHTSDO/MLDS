@@ -70,7 +70,7 @@ public class ReleasePackagesResource {
     	
     	releasePackageRepository.save(releasePackage);
 
-    	releasePackageAuditEvents.logReleasePackageCreated(releasePackage);
+    	releasePackageAuditEvents.logCreationOf(releasePackage);
     	
     	ResponseEntity<ReleasePackage> result = new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     	// FIXME MLDS-256 MB can we build this link? result.getHeaders().setLocation(location);
@@ -80,7 +80,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<ReleasePackage> getPackage(@PathVariable long releasePackageId) {
+    public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
     	//FIXME should we check children being consistent?		
 		authorizationChecker.checkCanAccessReleasePackages();
     	
@@ -95,7 +95,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.PUT,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<ReleasePackage> getPackage(@PathVariable long releasePackageId, @RequestBody ReleasePackage body) {
+    public @ResponseBody ResponseEntity<ReleasePackage> updateReleasePackage(@PathVariable long releasePackageId, @RequestBody ReleasePackage body) {
     	//FIXME should we check children being consistent?		
 		authorizationChecker.checkCanAccessReleasePackages();
     	
@@ -115,7 +115,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.DELETE,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<?> deactivatePackage(@PathVariable long releasePackageId) {
+    public @ResponseBody ResponseEntity<?> deactivateReleasePackage(@PathVariable long releasePackageId) {
     	//FIXME should we check children being consistent?		
 		authorizationChecker.checkCanAccessReleasePackages();
     	
@@ -130,7 +130,7 @@ public class ReleasePackagesResource {
 			}
 		}
     	
-    	releasePackageAuditEvents.logReleasePackageDeleted(releasePackage);
+    	releasePackageAuditEvents.logDeletionOf(releasePackage);
 
     	// Actually mark releasePackage as being inactive and then hide from subsequent calls rather than sql delete from the db
     	releasePackageRepository.delete(releasePackage);
@@ -154,8 +154,10 @@ public class ReleasePackagesResource {
     	releaseVersionRepository.save(releaseVersion);
     	
     	ReleasePackage releasePackage = releasePackageRepository.getOne(releasePackageId);
+    	if (releasePackage == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
     	releasePackage.addReleaseVersion(releaseVersion);
-    	
 
     	releasePackageAuditEvents.logCreationOf(releaseVersion);
     	
@@ -198,6 +200,32 @@ public class ReleasePackagesResource {
     	
     	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
     }
+	
+	@RequestMapping(value = Routes.RELEASE_VERSION,
+    		method = RequestMethod.DELETE,
+            produces = "application/json")
+	@Transactional
+	public @ResponseBody
+	ResponseEntity<?> deactivateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
+		authorizationChecker.checkCanAccessReleasePackages();
+
+		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
+		if (releaseVersion == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		if (releaseVersion.isOnline()) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+
+		releasePackageAuditEvents.logReleaseVersionDeleted(releaseVersion);
+
+		// Actually mark releasePackage as being inactive and then hide from
+		// subsequent calls rather than sql delete from the db
+		releaseVersionRepository.delete(releaseVersionId);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Files
@@ -233,6 +261,8 @@ public class ReleasePackagesResource {
     	}
     	releaseVersion.addReleaseFile(body);
     	
+    	releasePackageAuditEvents.logCreationOf(body);
+
     	return new ResponseEntity<ReleaseFile>(body, HttpStatus.OK);
     }
 
@@ -243,11 +273,14 @@ public class ReleasePackagesResource {
 		//FIXME should we check children being consistent?
 		authorizationChecker.checkCanAccessReleasePackages();
 		
-		if (!releaseFileRepository.exists(releaseFileId)) {
+		ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
+		if (releaseFile == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		releaseFileRepository.delete(releaseFileId);
+		releaseFileRepository.delete(releaseFile);
+		
+		releasePackageAuditEvents.logDeletionOf(releaseFile);
 		
 		return new ResponseEntity<ReleaseFile>(HttpStatus.OK);
 	}
