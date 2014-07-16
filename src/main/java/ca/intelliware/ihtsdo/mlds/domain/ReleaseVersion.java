@@ -121,6 +121,10 @@ public class ReleaseVersion {
 	}
 
 	public void setOnline(boolean online) {
+		if (online) {
+			this.publishedAt = new Instant();
+		}
+		
 		this.online = online;
 	}
 
