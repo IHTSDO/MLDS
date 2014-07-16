@@ -1,12 +1,8 @@
 <div class="row">
 	<div class="col-lg-10">
 		<h1>Package Details</h1>
-		
-		
 		<div class="well">
 			<h2>Package Name <a class="btn btn-default pull-right"  ng-click="editReleasePackage()">Edit</a></h2>
-			
-		    
 		   <h4>Name:</h4>
 		   <p>{{packageEntity.name}} </p>
 		    <h4>Description:</h4> 
@@ -25,7 +21,7 @@
 		<div class="col-lg-8">
 			<h3>Online Versions</h3>
 
-			<div class="well well-lg package" ng-repeat="releaseVersion in packageEntity.releaseVersions" ng-show="releaseVersion.online">
+			<div class="well well-lg package" ng-repeat="releaseVersion in versions.online">
 
 				<header>	
 					<div class="dropdown pull-right">
@@ -33,14 +29,14 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a ng-click="">Edit</a></li>
+							<li><a ng-click="editReleaseVersion(releaseVersion)">Edit</a></li>
 							<li><a ng-click="">Take Offline</a></li>
 						</ul>
 					</div>
 					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
 				</header>
 				<p>{{releaseVersion.description}}</p>
-
+				<p>{{releaseVersion.publishedAt}}</p>
 				<div class="footer">
 					<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
 				</div>
@@ -52,7 +48,7 @@
 		<div class="col-lg-8">
 			<h3>Offline Versions</h3>
 
-			<div class="well well-lg package" ng-repeat="releaseVersion in packageEntity.releaseVersions" ng-show="!releaseVersion.online">
+			<div class="well well-lg package" ng-repeat="releaseVersion in versions.offline">
 
 				<header>	
 					<div class="dropdown pull-right">
@@ -60,16 +56,18 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a ng-click="">Edit</a></li>
+							<li><a ng-click="editReleaseVersion(releaseVersion)">Edit</a></li>
 							<li><a ng-click="">Take Online</a></li>
 						</ul>
 					</div>
 					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
 				</header>
 				<p>{{releaseVersion.description}}</p>
-
+				<p>Published Date: {{releaseVersion.publishedAt}}</p>
+				<p>Created Date: {{releaseVersion.createdAt}}</p>
 				<div class="footer">
-					<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
+					<p ng-repeat="releaseFile in releaseVersion.releaseFiles"><a href="{{releaseFile.downloadUrl}}">{{releaseFile.label}}</a> <button ng-click="deleteReleaseFile(releaseVersion,releaseFile)"><i class="fa fa-trash-o"></i>Delete</button></p>
+					<p><button ng-click="addReleaseFile(releaseVersion)" ><i class="fa fa-plus"></i>Add File</button>
 				</div>
 			</div>
 		</div>
