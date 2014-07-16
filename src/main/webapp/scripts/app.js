@@ -140,7 +140,7 @@ mldsApp
                         authorizedRoles: [USER_ROLES.user]
                     }
                 })
-                .when('/viewPackage/:packageId', {
+                .when('/viewPackage/:releasePackageId', {
                     templateUrl: 'views/user/viewPackage.html',
                     controller: 'ViewPackageController',
                     access: {

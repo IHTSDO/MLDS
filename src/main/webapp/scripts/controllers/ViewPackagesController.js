@@ -1,6 +1,8 @@
 'use strict';
 
 angular.module('MLDS')
-    .controller('ViewPackagesController', ['$scope', function($scope){
-    	
+    .controller('ViewPackagesController', ['$scope', '$log', 'PackagesService', function ($scope, $log, PackagesService) {
+			
+    		$scope.releasePackages = PackagesService.query();
+
     }]);
