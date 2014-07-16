@@ -80,7 +80,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<ReleasePackage> getPackage(@PathVariable long releasePackageId) {
+    public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
     	//FIXME should we check children being consistent?		
 		authorizationChecker.checkCanAccessReleasePackages();
     	
@@ -95,7 +95,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.PUT,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<ReleasePackage> getPackage(@PathVariable long releasePackageId, @RequestBody ReleasePackage body) {
+    public @ResponseBody ResponseEntity<ReleasePackage> updateReleasePackage(@PathVariable long releasePackageId, @RequestBody ReleasePackage body) {
     	//FIXME should we check children being consistent?		
 		authorizationChecker.checkCanAccessReleasePackages();
     	
@@ -115,7 +115,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.DELETE,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<?> deactivatePackage(@PathVariable long releasePackageId) {
+    public @ResponseBody ResponseEntity<?> deactivateReleasePackage(@PathVariable long releasePackageId) {
     	//FIXME should we check children being consistent?		
 		authorizationChecker.checkCanAccessReleasePackages();
     	
