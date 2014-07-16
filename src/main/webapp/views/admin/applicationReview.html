@@ -1,13 +1,18 @@
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-12">
 		<div class="page-header">
-			<div>Issue No: {{pending.application.applicationId}}</div>
+			<div>Issue No: {{pending.application.applicationId}}<span class="pull-right"><a href="#/pendingApplications">Back to Pending Applications</a></span></div>
 			<h1>
 				<span ng-show="pending.application.organizationName">{{pending.application.organizationName}} - </span>
 				{{pending.application.name}}
 			</h1>
 			<div>Application Date: {{pending.application.submittedAt | date}}</div>
 		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-8">
 		<div>
 			<h4>Affiliate Info</h4>
   			<ul class="list-group">
@@ -80,7 +85,11 @@
 		</div>
 	</div>
 	<div class="col-md-4">
-		<div>Notes</div>
-		
+		<form name="notesForm" novalidate bs-validation >
+		       <div class="form-group">
+                   <label>Notes</label>
+                   <textarea class="form-control" rows="10" required name="notesInternal" ng-model="pending.application.notesInternal" auto-submit></textarea>
+                 </div>
+		</form>
 	</div>
 </div>
