@@ -16,7 +16,7 @@ public class Application {
 	@Id
 	@GeneratedValue
 	@Column(name="application_id")
-    private Long applicationId;
+    Long applicationId;
 	
 	String username;
 	
@@ -295,6 +295,10 @@ public class Application {
 
 	public void setApprovalState(ApprovalState approvalState) {
 		this.approvalState = approvalState;
+	}
+
+	public Long getApplicationId() {
+		return applicationId;
 	}
 
 }
