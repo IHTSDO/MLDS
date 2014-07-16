@@ -79,7 +79,7 @@ public class ReleasePackagesResourceTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 		
-		Mockito.verify(releasePackageAuditEvents).logReleasePackageCreated(Mockito.any(ReleasePackage.class));
+		Mockito.verify(releasePackageAuditEvents).logCreationOf(Mockito.any(ReleasePackage.class));
 	}
 
 	@Test
@@ -152,7 +152,7 @@ public class ReleasePackagesResourceTest {
 	}
 
 	@Test
-	public void testReleasePackageDeleteShouldSucceedForActiveVersion() throws Exception {
+	public void testReleasePackageDeleteShouldSucceedForInactiveVersion() throws Exception {
 		ReleasePackage releasePackage = new ReleasePackage();
 		ReleaseVersion inactiveVersion = new ReleaseVersion(2L);
 		inactiveVersion.setOnline(false);
@@ -179,6 +179,7 @@ public class ReleasePackagesResourceTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-		Mockito.verify(releasePackageAuditEvents).logReleasePackageDeleted(Mockito.any(ReleasePackage.class));
+		Mockito.verify(releasePackageAuditEvents).logDeletionOf(Mockito.any(ReleasePackage.class));
 	}
+
 }
