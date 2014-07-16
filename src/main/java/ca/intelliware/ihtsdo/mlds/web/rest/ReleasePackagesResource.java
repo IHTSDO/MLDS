@@ -222,7 +222,7 @@ public class ReleasePackagesResource {
 
 		// Actually mark releasePackage as being inactive and then hide from
 		// subsequent calls rather than sql delete from the db
-		releaseVersionRepository.delete(releaseVersionId);
+		releaseVersionRepository.delete(releaseVersion);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
