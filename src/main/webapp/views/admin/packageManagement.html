@@ -24,7 +24,7 @@
 					<a ng-click="goToPackage(package)"><h3> {{package.name}}</h3></a>
 					<p>{{package.description}}</p>
 				</header>
-				<div class="footer" ng-repeat="version in package.releaseVersions" ng-show="isLatestPublishedVersion(version, package.releaseVersions)">
+				<div class="footer" ng-repeat="version in package.releaseVersions" ng-show="isLatestOnlinePublishedVersion(version, package.releaseVersions)">
 					<h4><span class="label label-success">Current:</span>  {{version.name}} </h4>
 					<p>{{version.publishedAt}}</p>
 					<p ng-repeat="file in version.releaseFiles"><a href="{{file.downloadUrl}}">{{file.label}}</a></p>
