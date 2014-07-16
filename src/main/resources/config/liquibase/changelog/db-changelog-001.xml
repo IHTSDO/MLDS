@@ -524,5 +524,30 @@
 			<column name="notes_internal" type="TEXT"/>
 		</addColumn>
 	</changeSet>
+
+	<changeSet id="MLDS-274-2" author="DGJ">
+		<comment>Migrate to application approval state</comment>
+		<addColumn tableName="application">
+			<column name="completed_at" type="timestamp"/>
+			<column name="approval_state" type="VARCHAR(255)" defaultValue="NOT_SUBMITTED"/>
+		</addColumn>
+		<sql>
+			UPDATE application 
+			SET approval_state='NOT_SUBMITTED',submitted_at=now()
+			WHERE is_submitted=FALSE;
+		</sql>
+		<sql>
+			UPDATE application 
+			SET approval_state='SUBMITTED',submitted_at=now()
+			WHERE is_submitted=TRUE;
+		</sql>
+		<sql>
+			UPDATE application 
+			SET approval_state='APPROVED',completed_at=now()
+			WHERE approved=TRUE;
+		</sql>
+		<dropColumn tableName="application" columnName="is_submitted"/>
+		<dropColumn tableName="application" columnName="approved"/>
+	</changeSet>
 	
 </databaseChangeLog>

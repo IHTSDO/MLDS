@@ -19,6 +19,10 @@ mldsApp.controller('AdminDashboardController',
         	
         	getApplications();
         	
+        	$scope.isApplicationReadyToProcess = function(application) {
+        		return UserRegistrationService.isApplicationReadyToProcess(application);
+        	};
+        	
         	$scope.approveApplication = function(username){
         		var queryPromise = UserRegistrationService.approveApplication(username);
         		
