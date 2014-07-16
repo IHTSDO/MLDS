@@ -1,61 +1,60 @@
-<div>
-	
-	<div class="row">
 
-		<div class="col-lg-8">
+<div class="row">
+
+	<div class="col-lg-12">
+		<div class="page-header">
+			<button class="btn btn-success pull-right" ng-click="addReleasePackage()"><i class="fa fa-plus"></i> Add New Package</button>
 			<h2>Release Management</h2>
-			<button class="btn btn-success" ng-click="addReleasePackage()"><i class="fa fa-plus"></i> Add New Package</button>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-lg-8">
-			<h3>Public Releases</h3>
+</div>
+<div class="row">
+	<div class="col-lg-8">
+		<h3>Public Releases</h3>
 
-			<div class="well well-lg package" ng-repeat="package in packages | orderBy:getLatestPublishedDate:true" ng-show="isPackagePublished(package)">
-				<header>	
-					<div class="dropdown pull-right">
-						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<li><a ng-click="editReleasePackage(package)">Edit</a></li>
-						</ul>
-					</div>
-					<a ng-click="goToPackage(package)"><h3> {{package.name}}</h3></a>
-					<p>{{package.description}}</p>
-				</header>
-				<div class="footer" ng-repeat="version in package.releaseVersions" ng-show="isLatestOnlinePublishedVersion(version, package.releaseVersions)">
-					<h4><span class="label label-success">Current:</span>  {{version.name}} </h4>
-					<p>{{version.publishedAt}}</p>
-					<p ng-repeat="file in version.releaseFiles"><a href="{{file.downloadUrl}}">{{file.label}}</a></p>
+		<div class="well well-lg package" ng-repeat="package in packages | orderBy:getLatestPublishedDate:true" ng-show="isPackagePublished(package)">
+			<header>	
+				<div class="dropdown pull-right">
+					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a ng-click="editReleasePackage(package)">Edit</a></li>
+					</ul>
 				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-lg-8">
-			<hr>
-			<h3 class="text-muted">Offline Releases</h3>
-
-			<div class="well well-lg package" ng-repeat="package in packages | orderBy:'createdAt':true" ng-show="!isPackagePublished(package)">
-
-				<header>	
-					<div class="dropdown pull-right">
-						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<li><a ng-click="editReleasePackage(package)">Edit</a></li>
-							<li class="divider"></li>
-							<li><a ng-click="deleteReleasePackage(package)">Remove</a></li>
-						</ul>
-					</div>
-					<a ng-click="goToPackage(package)"><h4> {{package.name}}</h4></a>
-				</header>
+				<a ng-click="goToPackage(package)"><h3> {{package.name}}</h3></a>
 				<p>{{package.description}}</p>
+			</header>
+			<div class="footer" ng-repeat="version in package.releaseVersions" ng-show="isLatestOnlinePublishedVersion(version, package.releaseVersions)">
+				<h4><span class="label label-success">Current:</span>  {{version.name}} </h4>
+				<p>{{version.publishedAt}}</p>
+				<p ng-repeat="file in version.releaseFiles"><a href="{{file.downloadUrl}}">{{file.label}}</a></p>
 			</div>
 		</div>
 	</div>
-	
+</div>
+
+<div class="row">
+	<div class="col-lg-8">
+		<hr>
+		<h3 class="text-muted">Offline Releases</h3>
+
+		<div class="well well-lg package" ng-repeat="package in packages | orderBy:'createdAt':true" ng-show="!isPackagePublished(package)">
+
+			<header>	
+				<div class="dropdown pull-right">
+					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a ng-click="editReleasePackage(package)">Edit</a></li>
+						<li class="divider"></li>
+						<li><a ng-click="deleteReleasePackage(package)">Remove</a></li>
+					</ul>
+				</div>
+				<a ng-click="goToPackage(package)"><h4> {{package.name}}</h4></a>
+			</header>
+			<p>{{package.description}}</p>
+		</div>
+	</div>
 </div>
