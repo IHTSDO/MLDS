@@ -9,6 +9,8 @@ mldsApp.controller('AffiliateRegistrationController',
         		
         		queryPromise.success(function(data) {
     				$log.log("loadApplication", data);
+    				$scope.approvalState = data.approvalState;
+    				
     				$scope.affiliateform.type = data.type ? data.type : '';
     				$scope.affiliateform.usageSubType = data.subType;
     				$scope.affiliateform.contact.name = data.name ? data.name : Session.firstName;
@@ -36,6 +38,7 @@ mldsApp.controller('AffiliateRegistrationController',
         	
         	loadApplication();
         	
+        	$scope.approvalState = {};
         	$scope.availableCountries = CountryService.countries;
         	$scope.organizationTypes = UserRegistrationService.getOrganizationTypes();
         	$scope.affilliateControllerSharedBucket = {};

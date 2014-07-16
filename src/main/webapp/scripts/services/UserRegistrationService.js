@@ -60,7 +60,14 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 					|| application.approvalState === 'RESUBMITTED');
 			},
 
-			getOrganizationTypes: function getOrganizationTypes() {
+			isApplicationPending: function isApplicationPending(application) {
+				return (application.approvalState === 'SUBMITTED'
+					|| application.approvalState === 'RESUBMITTED'
+					|| application.approvalState === 'REVIEW_REQUESTED');
+			},
+
+
+		getOrganizationTypes: function getOrganizationTypes() {
 				return ['PUBLIC_HEALTH_ORGANIZATION', 'PRIVATE_HEALTH_ORGANIZATION', 
 				        'RESEARCH_AND_DEVELOPMENT_ORGANIZATION', 'HEALTHERCARE_APPLICATION_DEVELOPER',
 				        'GENERAL_PRACTITIONER_PRACTICE', 'EDUCATIONAL_INSTITUTE', 'OTHER'
