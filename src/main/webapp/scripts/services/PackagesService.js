@@ -181,39 +181,6 @@ angular.module('MLDS').factory('PackagesService',
 				} ]
 			} ];
 			
-			
-			service.isPackagePublished = function isPackagePublished(packageEntity) {
-	        	for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-	        		if (packageEntity.releaseVersions[i].online) {
-	        			return true;
-	        		}
-	        	}
-	        	return false;
-	        };
-	        
-	        
-	        service.isLatestPublishedVersion = function isLatestPublishedVersion(version, versions) {
-	        	for(var i = 0; i < versions.length; i++) {
-	        		if (versions[i].publishedAt && version.publishedAt &&
-	        				(versions[i].publishedAt > version.publishedAt)) {
-	        			return false;
-	        		};
-	        	};
-	        	return true;
-	        };
-	        
-	        service.getLatestPublishedDate = function getLatestPublishedDate(packageEntity) { 
-	    		var latestPublishDate = 0; 
-	    		for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-	    			if (i == 0) {
-	    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
-	    			} else if (packageEntity.releaseVersions[i].publishedAt > latestPublishDate ) {
-	    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
-	    			};
-	    		};
-	    		return latestPublishDate;
-	        };
-			
 			service.query = function query() {
 				return datastore;
 			};
