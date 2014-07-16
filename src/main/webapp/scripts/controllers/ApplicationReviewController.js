@@ -56,5 +56,10 @@ mldsApp.controller('ApplicationReviewController', [
 			}
 
 			loadApplication();
+			
+			$scope.submit = function() {
+				$log.log("FIXME AutoSave here...");
+				
+			};
 
 		} ]);
