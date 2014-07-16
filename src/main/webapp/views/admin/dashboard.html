@@ -1,33 +1,62 @@
-<div class="container">
-	<h1>Dashboard</h1>
-	
-	<h3>Registered Users</h3>
-	<ul ng-controller="UserListController">
-	<li ng-repeat="user in users">{{user.login}}</li>
-	</ul>
-	
-	<h3>Blacklisted Domains</h3>
-	<table class="table table-bordered">
-		<tr>
-			<th>domain</th>
-			<th>action</th>
-		</tr>
-		<tr ng-repeat="domain in domainBlacklist">
-			<td>{{domain.domainname}}</td>
-			<td><button class="btn btn-default" ng-click="removeDomain(domain.domainname)">Remove Domain</button></td>
-		</tr>
-	</table>
-	
-	<h5>Add to Blacklist</h5>
-	<form ng-submit="domainform.submit()">
-		<input type="text" ng-model="domainform.name"/>
-		
-		<input type="submit" class="btn btn-muted btn-default" value="Add"/>
-	</form>
-	
-	
-	<h3>Affilate Applications <small><a class="btn btn-default" href="#/pendingApplications">Pending Applications</a></small></h3>
-	<table class="table table-bordered">
+<div class="row">
+	<div class="col-sm-12 col-md-8 col-lg-8">
+		<div class="page-header">
+			<h1>Dashboard</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-6">
+			<h2>Registered Users</h2>
+			<ul class="list-group" ng-controller="UserListController">
+				<li  class="list-group-item" ng-repeat="user in users">{{user.login}}</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">	
+		<div class="page-header">
+			<h2>Blacklisted Domains</h2>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-8">
+			<form ng-submit="domainform.submit()">
+				 <label for="exampleInputEmail1">Add to Blacklist</label>
+				<div class="input-group">
+					<input type="text" class="form-control" ng-model="domainform.name">
+					<span class="input-group-addon">Add</span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row space">	
+		<div class="col-md-8">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Domain</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="domain in domainBlacklist">
+						<td>{{domain.domainname}}</td>
+						<td><button class="btn btn-default" ng-click="removeDomain(domain.domainname)">Remove Domain</button></td>
+					</tr>
+				</tbody>
+			</table>
+
+			
+		</div>
+	</div>
+<div class="row">
+	<div class="page-header">
+		<a class="btn btn-primary pull-right" href="#/pendingApplications">Pending Applications</a>
+		<h2>Affilate Applications</h2>
+	</div>
+
+
+	<table class="table table-bordered table-striped">
 		<tr>
 			<th>user</th>
 			<th>approved</th>
@@ -35,13 +64,13 @@
 			<th>actions</th>
 		</tr>
 		<tbody>
-		<tr ng-repeat="application in applications">
-			<td>{{application.username}}</td>
-			<td>{{application.approved}}</td>
-			<td>{{application.type}}</td>
-			<td><button class="btn btn-default" ng-disabled="application.approved" ng-click="approveApplication(application.username)">Approve Application</button></td>
-		</tr>
+			<tr ng-repeat="application in applications">
+				<td>{{application.username}}</td>
+				<td>{{application.approved}}</td>
+				<td>{{application.type}}</td>
+				<td><button class="btn btn-default" ng-disabled="application.approved" ng-click="approveApplication(application.username)">Approve Application</button></td>
+			</tr>
 		</tbody>
 	</table>
-	
+</div>
 </div>
