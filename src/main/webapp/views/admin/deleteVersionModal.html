@@ -16,6 +16,9 @@
  </div>
  <div class="modal-footer">
      <button class="btn btn-link" ng-click="$dismiss()">No</button>
-     <button class="btn btn-success" ng-click="ok()">Yes</button>
+     <button class="btn btn-success" ng-click="ok()" ng-disabled="submitting">
+     	Yes 
+     	<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+     </button>
  </div>
  
