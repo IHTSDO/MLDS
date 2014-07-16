@@ -8,15 +8,16 @@
       <div class="form-group">
         <div class="col-md-12">
           <label>Label</label> 
-          <input class="form-control" placeholder="Enter Display Label For File" name="label" ng-model="releaseFile.label" ng-required="true">
+          <input class="form-control" placeholder="Enter Display Label For File" name="label" ng-model="releaseFile.label" ng-required="true"/>
           <span ng-show="formReleaseFile.label.$error.required && submitAttempted" class="help-block">Required Field</span>
         </div>
       </div>
       <div class="form-group">
         <div class="col-md-12">
           <label>Download URL</label> 
-          <input class="form-control" rows="3" placeholder="Enter File Download URL" name="downloadUrl" ng-model="releaseFile.downloadUrl" ng-required="true"></textarea>
+          <input class="form-control" rows="3" placeholder="Enter File Download URL" name="downloadUrl" ng-model="releaseFile.downloadUrl" ng-required="true" type="url"/>
           <span ng-show="formReleaseFile.downloadUrl.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formReleaseFile.downloadUrl.$error.url && submitAttempted" class="help-block">Invalid URL</span>
         </div>
       </div>
       </div>
