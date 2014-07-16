@@ -51,6 +51,10 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				});
 			},
 			
+			updateApplicationNoteInternal: function(application) {
+				return $http.put('/api/application/'+encodeURIComponent(application.applicationId)+'/notesInternal', application.notesInternal);
+			},
+			
 			isApplicationReadyToProcess: function isApplicationReadyToProcess(application) {
 				return (application.approvalState === 'SUBMITTED'
 					|| application.approvalState === 'RESUBMITTED');

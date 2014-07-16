@@ -138,6 +138,21 @@ angular.module('MLDS').controller('PackageController',
 			.$promise.then(loadReleasePackage);
     };
 
+    $scope.deleteVersionModal = function takeOnlineModal(selectedReleaseVersion) {
+    	var modalInstance = $modal.open({
+  	      	templateUrl: 'views/admin/deleteVersionModal.html',
+  	      	controller: 'DeleteVersionModalController',
+  	      	scope: $scope,
+  	      	size: 'sm',
+  	      	backdrop: 'static',
+  	      	resolve: {
+              releasePackage: function() { return angular.copy($scope.packageEntity); },
+              releaseVersion: function() { return angular.copy(selectedReleaseVersion); }
+            }
+  	    });
+    	modalInstance.result.then(loadReleasePackage);
+    };
+    
     
     $scope.takeOnlineModal = function takeOnlineModal(selectedReleaseVersion) {
     	var modalInstance = $modal.open({
