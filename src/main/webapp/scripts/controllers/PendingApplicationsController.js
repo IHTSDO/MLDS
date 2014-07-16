@@ -48,6 +48,9 @@ mldsApp.controller('PendingApplicationsController', [
 								$log.log('failed to retrieve licensee', message);
 							});
 					});
+					_.sortBy($scope.pendingApplications, function(record) {
+						return record.application.submittedAt;
+					});
 				});
 			}
 
