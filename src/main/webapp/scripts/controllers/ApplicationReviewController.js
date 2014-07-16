@@ -4,11 +4,13 @@ mldsApp.controller('ApplicationReviewController', [
 		'$scope',
 		'$log',
 		'$routeParams',
+		'$modal',
+		'$location',
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
 		'LicenseeService',
-		function($scope, $log, $routeParams, UserRegistrationService, DomainBlacklistService,
+		function($scope, $log, $routeParams, $modal, $location, UserRegistrationService, DomainBlacklistService,
 				PackagesService, LicenseeService) {
 
 			var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
@@ -87,6 +89,74 @@ mldsApp.controller('ApplicationReviewController', [
 						$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
 						$scope.submitting = false;
 					});
+			};
+
+			$scope.approveApplication = function() {
+				var modalInstance = $modal.open({
+					templateUrl: 'views/admin/approveApplicationModal.html',
+					controller: 'ApproveApplicationModalController',
+					backdrop: 'static',
+					resolve: {
+						application: function() {
+							return $scope.pending.application;
+						}
+					}
+				});
+				modalInstance.result
+				.then(function(result) {
+					$location.path('/pendingApplications');
+				});
+			};
+
+			$scope.rejectApplication = function() {
+				var modalInstance = $modal.open({
+					templateUrl: 'views/admin/rejectApplicationModal.html',
+					controller: 'RejectApplicationModalController',
+					backdrop: 'static',
+					resolve: {
+						application: function() {
+							return $scope.pending.application;
+						}
+					}
+				});
+				modalInstance.result
+				.then(function(result) {
+					$location.path('/pendingApplications');
+				});
+			};
+
+			$scope.reviewRequested = function() {
+				var modalInstance = $modal.open({
+					templateUrl: 'views/admin/reviewRequestedModal.html',
+					controller: 'ReviewRequestedModalController',
+					backdrop: 'static',
+					resolve: {
+						application: function() {
+							return $scope.pending.application;
+						}
+					}
+				});
+				modalInstance.result
+				.then(function(result) {
+					$location.path('/pendingApplications');
+				});
+			};
+
+			$scope.changeRequested = function() {
+				var modalInstance = $modal.open({
+					templateUrl: 'views/admin/changeRequestedModal.html',
+					controller: 'ChangeRequestedModalController',
+					backdrop: 'static',
+					resolve: {
+						application: function() {
+							return $scope.pending.application;
+						}
+					}
+				});
+				modalInstance.result
+				.then(function(result) {
+					$location.path('/pendingApplications');
+				});
 			};
 
 		} ]);
