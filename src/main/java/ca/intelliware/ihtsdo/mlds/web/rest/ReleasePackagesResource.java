@@ -194,6 +194,7 @@ public class ReleasePackagesResource {
     	
     	releaseVersion.setName(body.getName());
     	releaseVersion.setDescription(body.getDescription());
+    	releaseVersion.setOnline(body.isOnline());
     	
     	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
     }
