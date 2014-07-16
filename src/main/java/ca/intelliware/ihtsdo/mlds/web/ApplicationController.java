@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
-import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
@@ -49,23 +47,32 @@ public class ApplicationController {
 		return applicationRepository.findAll();
 	}
 	
-	@RequestMapping(value="api/application/approve")
-	public Object approveApplication(@RequestParam String email) {
-		List<Application> applications = applicationRepository.findByUsername(email);
-		if (applications.size() == 0) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	@RequestMapping(value="/api/application/{applicationId}/approve",
+			method=RequestMethod.POST,
+			produces = "application/json")
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public @ResponseBody ResponseEntity<Application> approveApplication(@PathVariable long applicationId, @RequestBody String approvalStateString) {
+		//FIXME why cant this be the body type?
+		ApprovalState approvalState = ApprovalState.valueOf(approvalStateString);
+		Application application = applicationRepository.findOne(applicationId);
+		if (application == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		User user = userRepository.getUserByEmail(email);
+		//FIXME should there be state transition validation?
+		application.setApprovalState(approvalState);
 		
-		Application application = applications.get(0);
-		
-		application.setApprovalState(ApprovalState.APPROVED);
-		application.setCompletedAt(Instant.now());
+		//FIXME add flags to approval state?
+		if (Objects.equal(approvalState, ApprovalState.APPROVED) || Objects.equal(approvalState, ApprovalState.REJECTED)) {
+			application.setCompletedAt(Instant.now());
+		}
 		applicationRepository.save(application);
 		
-		applicationApprovedEmailSender.sendApplicationApprovalEmail(user);
+		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
+			User user = userRepository.getUserByEmail(application.getEmail());
+			applicationApprovedEmailSender.sendApplicationApprovalEmail(user);
+		}
 		
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/api/application", method=RequestMethod.GET)

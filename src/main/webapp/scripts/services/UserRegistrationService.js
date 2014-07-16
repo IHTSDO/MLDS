@@ -42,13 +42,9 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				return $http.post('/api/application/save', applicationForm);
 			},
 			
-			approveApplication: function approveApplication(username) {
-				$log.log('approveApplication', username);
-				return $http({
-					method: 'POST',
-					url: 'api/application/approve',
-					params: {email: username}
-				});
+			approveApplication: function approveApplication(application, approvalStatus) {
+				$log.log('approveApplication', approvalStatus);
+				return $http.post('/api/application/'+encodeURIComponent(application.applicationId)+'/approve', approvalStatus);
 			},
 			
 			updateApplicationNoteInternal: function(application) {
