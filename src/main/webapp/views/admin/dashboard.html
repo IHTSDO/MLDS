@@ -39,7 +39,7 @@
 			<td>{{application.username}}</td>
 			<td>{{application.approved}}</td>
 			<td>{{application.type}}</td>
-			<td><button class="btn btn-default" ng-disabled="application.approved" ng-click="approveApplication(application.username)">Approve Application</button></td>
+			<td><button class="btn btn-default" ng-disabled="!isApplicationReadyToProcess(application)" ng-click="approveApplication(application.username)">Approve Application</button></td>
 		</tr>
 		</tbody>
 	</table>
