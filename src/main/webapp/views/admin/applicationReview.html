@@ -3,20 +3,19 @@
 		<div class="page-header">
 		 <span class="pull-right"><a href="#/pendingApplications">Back to Pending Applications</a></span>
       	<h1> Application Review</h1>
-      <div class="user-info">      
-        <span class="pull-right label label-success">Application Date: {{pending.application.submittedAt | date}}</span>
-        <strong><span ng-show="pending.application.organizationName">{{pending.application.organizationName}} - </span>
-        {{pending.application.name}} </strong></br> <strong>Issue No:</strong> {{pending.application.applicationId}}
- 
-      </div>
-    </div>
+      	      </div>
+    
   </div>
 </div>
 
- <div class="row">
-
+ <div class="well"> 
+ <div class="col-md-12">
+ <p class="user-info"><strong>Application Date: {{pending.application.submittedAt | date}}</strong>  <span class="pull-right">  <strong>Issue No:</strong> {{pending.application.applicationId}} </span>   </p> 
+      <h2><span ng-show="pending.application.organizationName">{{pending.application.organizationName}} - </span>
+       <small> {{pending.application.name}}</small></h2>
+     </div>
+ 
     <div class="col-md-8">
-
        <ul class="list-group">
          <li class="list-group-item list-group-item-info"><h4>Affiliate Info</h4></li>
          <li class="list-group-item" ng-show="pending.application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
