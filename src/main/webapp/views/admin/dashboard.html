@@ -20,11 +20,12 @@
 
 	<div class="row">
 		<div class="col-sm-12 col-md-8 col-lg-8">
-			<form ng-submit="domainform.submit()">
-				 <label for="exampleInputEmail1">Add to Blacklist</label>
-				<div class="input-group">
+			<form class="form-inline" ng-submit="domainform.submit()"> 
+				<div class="form-group">
+					<label>Add to Blacklist</label>
 					<input type="text" class="form-control" ng-model="domainform.name">
-					<span class="input-group-addon">Add</span>
+					<input type="submit" class="btn btn-default" value="Add"/>
+			
 				</div>
 			</form>
 		</div>
@@ -64,12 +65,14 @@
 			<th>actions</th>
 		</tr>
 		<tbody>
-			<tr ng-repeat="application in applications">
-				<td>{{application.username}}</td>
-				<td>{{application.approved}}</td>
-				<td>{{application.type}}</td>
-				<td><button class="btn btn-default" ng-disabled="application.approved" ng-click="approveApplication(application.username)">Approve Application</button></td>
-			</tr>
+
+		<tr ng-repeat="application in applications">
+			<td>{{application.username}}</td>
+			<td>{{application.approved}}</td>
+			<td>{{application.type}}</td>
+			<td><button class="btn btn-default" ng-disabled="!isApplicationReadyToProcess(application)" ng-click="approveApplication(application.username)">Approve Application</button></td>
+		</tr>
+
 		</tbody>
 	</table>
 </div>
