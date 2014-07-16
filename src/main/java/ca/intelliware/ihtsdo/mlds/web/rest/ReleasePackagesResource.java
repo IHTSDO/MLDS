@@ -189,7 +189,7 @@ public class ReleasePackagesResource {
     	//FIXME should we check children being consistent?		
 		authorizationChecker.checkCanAccessReleasePackages();
     	
-		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(body.getReleaseVersionId());
+		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
     	if (releaseVersion == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	} 
@@ -222,7 +222,7 @@ public class ReleasePackagesResource {
 
 		// Actually mark releasePackage as being inactive and then hide from
 		// subsequent calls rather than sql delete from the db
-		releaseVersionRepository.delete(releaseVersionId);
+		releaseVersionRepository.delete(releaseVersion);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
