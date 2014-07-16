@@ -32,7 +32,7 @@ public class ReleasePackageAuditEventsTest {
 		ReleasePackage releasePackage = new ReleasePackage(123L);
 		releasePackage.setName("Test Name");
 		
-		releasePackageAuditEvents.logReleasePackageCreated(releasePackage);
+		releasePackageAuditEvents.logCreationOf(releasePackage);
 		
 		Mockito.verify(auditEventService).logAuditableEvent(Mockito.eq("RELEASE_PACKAGE_CREATED"),Mockito.anyMap());
 	}
@@ -42,7 +42,7 @@ public class ReleasePackageAuditEventsTest {
 		ReleasePackage releasePackage = new ReleasePackage(123L);
 		releasePackage.setName("Test Name");
 		
-		releasePackageAuditEvents.logReleasePackageCreated(releasePackage);
+		releasePackageAuditEvents.logCreationOf(releasePackage);
 		
 		HashMap<String, String> expected = new HashMap<String,String>();
 		expected.put("releasePackage.name", "Test Name");
@@ -57,7 +57,7 @@ public class ReleasePackageAuditEventsTest {
 		ReleasePackage releasePackage = new ReleasePackage(123L);
 		releasePackage.setName("Test Name");
 		
-		releasePackageAuditEvents.logReleasePackageDeleted(releasePackage);
+		releasePackageAuditEvents.logDeletionOf(releasePackage);
 		
 		Mockito.verify(auditEventService).logAuditableEvent(Mockito.eq("RELEASE_PACKAGE_DELETED"),Mockito.anyMap());
 	}
