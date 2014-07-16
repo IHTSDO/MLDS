@@ -1,13 +1,14 @@
-<div>
+<div class="page-header">
 
-    <h2>Countries</h2>
+    <h2>Countries <button class="btn btn-success pull-right" ng-click="openCreate()">
+        <i class="fa fa-plus"></i> Create a new Country
+    </button> </h2>
 
-    <button class="btn btn-primary btn-lg" ng-click="openCreate()">
-        <span class="glyphicon glyphicon-flash"></span> Create a new Country
-    </button>
+    
+</div>
 
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th>ISO Code-2</th>
@@ -26,15 +27,11 @@
                     <td>{{country.excludeRegistration}}</td>
                     <td>{{country.alternateRegistrationUrl}}</td>
                     <td>
-                        <button type="submit"
-                                ng-click="update(country.isoCode2)"
-                                class="btn">
-                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        <button type="submit" ng-click="update(country.isoCode2)" class="btn btn-default btn-sm">
+                            <i class="fa fa-pencil"></i> Edit
                         </button>
-                        <button type="submit"
-                                ng-click="delete(country.isoCode2)"
-                                class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                        <button type="submit" ng-click="delete(country.isoCode2)" class="btn btn-danger btn-sm">
+                            <i class="fa fa-times"></i> Delete
                         </button>
                     </td>
                 </tr>

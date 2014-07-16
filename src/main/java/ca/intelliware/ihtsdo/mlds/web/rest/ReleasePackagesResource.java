@@ -178,6 +178,25 @@ public class ReleasePackagesResource {
     	
     	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
     }
+	
+	@RequestMapping(value = Routes.RELEASE_VERSION,
+    		method = RequestMethod.PUT,
+            produces = "application/json")
+	@Transactional
+    public @ResponseBody ResponseEntity<ReleaseVersion> updateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseVersion body) {
+    	//FIXME should we check children being consistent?		
+		authorizationChecker.checkCanAccessReleasePackages();
+    	
+		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(body.getReleaseVersionId());
+    	if (releaseVersion == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	} 
+    	
+    	releaseVersion.setName(body.getName());
+    	releaseVersion.setDescription(body.getDescription());
+    	
+    	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+    }
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Files
@@ -196,4 +215,39 @@ public class ReleasePackagesResource {
     	
     	return new ResponseEntity<ReleaseFile>(releaseFile, HttpStatus.OK);
     }
+	
+	@RequestMapping(value = Routes.RELEASE_FILES,
+    		method = RequestMethod.POST,
+            produces = "application/json")
+	@Transactional
+    public @ResponseBody ResponseEntity<ReleaseFile> createReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseFile body) {
+    	//FIXME should we check children being consistent?
+		authorizationChecker.checkCanAccessReleasePackages();
+    	
+		releaseFileRepository.save(body);
+		
+		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
+    	if (releaseVersion == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	releaseVersion.addReleaseFile(body);
+    	
+    	return new ResponseEntity<ReleaseFile>(body, HttpStatus.OK);
+    }
+
+	@RequestMapping(value = Routes.RELEASE_FILE,
+			method = RequestMethod.DELETE,
+			produces = "application/json")
+	public @ResponseBody ResponseEntity<ReleaseFile> deleteReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
+		//FIXME should we check children being consistent?
+		authorizationChecker.checkCanAccessReleasePackages();
+		
+		if (!releaseFileRepository.exists(releaseFileId)) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		releaseFileRepository.delete(releaseFileId);
+		
+		return new ResponseEntity<ReleaseFile>(HttpStatus.OK);
+	}
 }
