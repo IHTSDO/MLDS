@@ -3,11 +3,12 @@
 mldsApp.controller('PendingApplicationsController', [
 		'$scope',
 		'$log',
+		'$location',
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
 		'LicenseeService',
-		function($scope, $log, UserRegistrationService, DomainBlacklistService,
+		function($scope, $log, $location, UserRegistrationService, DomainBlacklistService,
 				PackagesService, LicenseeService) {
 
 			$scope.pendingApplications = [];
@@ -57,7 +58,8 @@ mldsApp.controller('PendingApplicationsController', [
 			getApplications();
 
 			$scope.goToApplication = function(application) {
-				// FIXME set location
+				$log.log('application', application);
+				$location.path('/applicationReview/'+encodeURIComponent(application.applicationId));
 			};
 			
 			$scope.totalSublicences = function(usage) {
