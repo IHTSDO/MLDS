@@ -43,14 +43,12 @@ angular.module('MLDS').controller('PackageManagementController',
         
 		// FIXME: AC Using Example to show both modals
         $scope.takePackageOffline =  $scope.makePackageOnline = function() {
-        	$log.log('button clicked');
         	
         	var modalInstance = $modal.open({
         	      templateUrl: 'views/admin/takeOfflineModal.html',
         	      controller: 'TakeOfflineModalController',
         	      scope: $scope,
         	      size: 'sm',
-        	      windowClass: 'debugTest'
         	    });
         	 modalInstance.result.then(function(result) {
              	reloadPackages();
