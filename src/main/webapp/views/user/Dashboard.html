@@ -9,17 +9,17 @@
 </div>
 <div ng-repeat="licensee in licensees">
   <div class="row user-info">
-			<div class="col-sm-6 col-md-6 col-lg-6">
+	<div class="col-sm-6 col-md-6 col-lg-6">
         <strong>{{'licensee.title' | translate}}:</strong> {{licensee.application.organizationName ? licensee.application.organizationName : licensee.application.name}}<br>
         <strong>{{'licensee.type.title' | translate}}:</strong> {{'licensee.type.'+licensee.type | translate}}
-     	</div>
-     	<div class="col-sm-6 col-md-6 col-lg-6 text-right">
-      	<span class="alert alert-warning" ng-show="isApplicationPending"><strong>Application Status:</strong> Pending Approval</span>
-      	<span class="alert alert-success" ng-show="isApplicationApproved">Application Status: Approved</span>
+   	</div>
+   	<div class="col-sm-6 col-md-6 col-lg-6 text-right">
+      	<span class="alert alert-warning" ng-show="isApplicationPending(licensee.application)"><strong>Application Status:</strong> Pending Approval</span>
+      	<span class="alert alert-success" ng-show="licensee.application.approvalState === 'APPROVED'"><strong>Application Status:</strong> Approved</span>
         <a class="btn btn-default" href="#/affiliateRegistration">Edit Licensee Application</a>
-     	</div>     	
+   	</div>     	
 </div>
-<div class="row space" ng-hide="anySubmittedUsageReports(licensee)">
+<div class="row space" ng-hide="anySubmittedUsageReports(licensee) || licensee.application.approvalState === 'REJECTED'">
   <div class="col-sm-12 col-md-12 col-lg-12">
   	<div class="alert alert-danger" role="alert">
   		<div><strong>Incomplete Affiliate Registration</strong></div>
@@ -27,6 +27,25 @@
   	</div>
   </div>
 </div>
+
+<div class="row space" ng-show="licensee.application.approvalState === 'CHANGE_REQUESTED'">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+  	<div class="alert alert-warning" role="alert">
+  		<div><strong>Affiliate Registration Needs Change</strong></div>
+  		<p>Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
+  	</div>
+  </div>
+</div>
+
+<div class="row space" ng-show="licensee.application.approvalState === 'REJECTED'">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+  	<div class="alert alert-danger" role="alert">
+  		<div><strong>Affiliate Registration Rejected</strong></div>
+  		<p>Your affiliate registration has been rejected. Please see email regarding the details of the decision.</p>
+  	</div>
+  </div>
+</div>
+
 
 <div class="row space">
   <div class="col-sm-12 col-md-12 col-lg-12">

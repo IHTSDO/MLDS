@@ -4,8 +4,8 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', '$modal', 'UserSession', 'CommercialUsageService', 'LicenseeService', 'Session',
-          function ($scope, $log, $location, $modal, UserSession, CommercialUsageService, LicenseeService, Session) {
+        [ '$scope', '$log', '$location', '$modal', 'UserSession', 'CommercialUsageService', 'LicenseeService', 'Session', 'UserRegistrationService',
+          function ($scope, $log, $location, $modal, UserSession, CommercialUsageService, LicenseeService, Session, UserRegistrationService) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
@@ -87,6 +87,10 @@ angular.module('MLDS')
         		return _.some(licensee.commercialUsages, function(usageReport) {
         			return usageReport.approvalState !== 'NOT_SUBMITTED';
         		});
+        	};
+        	
+        	$scope.isApplicationPending = function(application) {
+        		return UserRegistrationService.isApplicationPending(application);
         	};
         }
     ]);
