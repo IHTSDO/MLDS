@@ -38,11 +38,11 @@ angular.module('MLDS').controller('PackageManagementController',
         };
         
         $scope.getLatestPublishedDate = function getLatestPublishedDate(packageEntity) { 
-    		var latestPublishDate = 0; 
+    		var latestPublishDate; 
     		for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
     			if (i == 0) {
     				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
-    			} else if (packageEntity.releaseVersions[i].publishedAt > latestPublishDate ) {
+    			} else if (new Date(packageEntity.releaseVersions[i].publishedAt) > new Date(latestPublishDate) ) {
     				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
     			};
     		};
