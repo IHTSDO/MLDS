@@ -66,9 +66,18 @@
 
      <ul class="list-group" >
       <li class="list-group-item list-group-item-info"><h4>Usage Context Information</h4></li>
-      <li class="list-group-item"><strong>Licence Usage:</strong> {{pending.usage.context.currentUsage}}</li>
-      <li class="list-group-item"><strong>Planned Future Use:</strong> {{pending.usage.context.plannedUsage}}</li>
-      <li class="list-group-item"><strong>Purpose:</strong> {{pending.usage.context.purpose}}</li>
+      <li class="list-group-item">
+        <strong>Licence Usage:</strong>
+        <p class="list-group-item-text">{{pending.usage.context.currentUsage}}</p>
+      </li>
+      <li class="list-group-item">
+        <strong>Planned Future Use:</strong> 
+        <p class="list-group-item-text">{{pending.usage.context.plannedUsage}}</p>
+      </li>
+      <li class="list-group-item">
+        <strong>Purpose:</strong> 
+        <p class="list-group-item-text">{{pending.usage.context.purpose}}</p>
+      </li>
       <li class="list-group-item" ng-show="pending.application.type=='COMMERCIAL'" ng-repeat="countryRecord in pending.usage.countries">
        <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
        <p><strong>Practices:</strong> {{countryRecord.practices}} </p>
