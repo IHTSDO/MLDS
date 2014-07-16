@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,6 +27,7 @@ public class ReleaseVersion {
 	@Id
 	@GeneratedValue
 	@Column(name="release_version_id")
+	private
 	Long releaseVersionId;
 
 	// the parent
@@ -64,6 +66,11 @@ public class ReleaseVersion {
 	
 	public Long getReleaseVersionId() {
 		return releaseVersionId;
+	}
+
+	// for tests
+	public void setReleaseVersionId(Long releaseVersionId) {
+		this.releaseVersionId = releaseVersionId;
 	}
 
 	public ReleasePackage getReleasePackage() {
@@ -126,6 +133,35 @@ public class ReleaseVersion {
 		}
 		
 		this.online = online;
+	}
+
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 31 + ((releaseVersionId == null) ? 0 : releaseVersionId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ReleaseVersion other = (ReleaseVersion) obj;
+		if (releaseVersionId == null) {
+			if (other.releaseVersionId != null)
+				return false;
+		} else if (!releaseVersionId.equals(other.releaseVersionId))
+			return false;
+		return true;
 	}
 
 }

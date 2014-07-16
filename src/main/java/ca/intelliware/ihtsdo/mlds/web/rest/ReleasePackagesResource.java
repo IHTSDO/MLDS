@@ -189,7 +189,7 @@ public class ReleasePackagesResource {
     	//FIXME should we check children being consistent?		
 		authorizationChecker.checkCanAccessReleasePackages();
     	
-		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(body.getReleaseVersionId());
+		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
     	if (releaseVersion == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	} 
