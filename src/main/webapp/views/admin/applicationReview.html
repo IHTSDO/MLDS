@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="page-header">
-			<div>Issue No: {{pending.application.applicationId}}<span class="pull-right"><a href="#/pendingApplications">Back to Pending Applications</a></span></div>
+			<div><span class="bg-warning">Issue No: {{pending.application.applicationId}}</span><span class="pull-right"><a href="#/pendingApplications">Back to Pending Applications</a></span></div>
 			<h1>
 				<span ng-show="pending.application.organizationName">{{pending.application.organizationName}} - </span>
 				{{pending.application.name}}
@@ -14,8 +14,9 @@
 <div class="row">
 	<div class="col-md-8">
 		<div>
-			<h4>Affiliate Info</h4>
+			
   			<ul class="list-group">
+           <li class="list-group-item list-group-item-info"><h4>Affiliate Info</h4></li>
   				<li class="list-group-item" ng-show="pending.application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
   					<span ng-show="affiliateform.organization.type=='OTHER'">{{pending.application.organizatioTypeOther}}</span>
   					<span ng-show="affiliateform.organization.type!='OTHER'">{{'licensee.organizationType.'+pending.application.organizationType | translate}}</span> 
@@ -26,7 +27,7 @@
   			</ul>
 
   			<ul class="list-group" ng-show="pending.application.type!='INDIVIDUAL'">
-  				<h4>Affiliate Information:</h4>
+          <li class="list-group-item list-group-item-info"><h4>Affiliate Information:</h4></li>
   				<li class="list-group-item"><strong>Organization Name:</strong> {{pending.application.organizationName}}</li>
   				<li class="list-group-item"><strong>Address:</strong> {{pending.application.}}</li>
   				<li class="list-group-item"><strong>City:</strong> {{pending.application.city}}</li>
@@ -38,8 +39,9 @@
   				<li class="list-group-item" ng-show="pending.application.type=='OTHER'"><strong>Other:</strong>{{pending.application.otherText}}</li>
   			</ul>
 
-  			<h4>Affiliate User Information</h4>
+  			
   			<ul class="list-group">
+          <li class="list-group-item list-group-item-info"><h4>Affiliate User Information</h4></li>
   				<li class="list-group-item"><strong>Name:</strong> {{pending.application.name}}</li>
   				<li class="list-group-item"><strong>Email:</strong> {{pending.application.email}}</li>
   				<li class="list-group-item"><strong>Landline Phone Number:</strong> {{pending.application.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></li>
@@ -56,7 +58,7 @@
 
 
   			<ul class="list-group" ng-show="pending.application.type=='COMMERCIAL'">
-  				<h4>Affiliate Billing Information</h4>
+  				 <li class="list-group-item list-group-item-info"><h4>Affiliate Billing Information</h4></li>
   				<li class="list-group-item"><strong>Address:</strong> {{pending.application.billingStreet}}</li>
   				<li class="list-group-item"><strong>City:</strong> {{pending.application.billingCity}}</li>
 					<li class="list-group-item"><strong>Post Code:</strong> {{pending.application.billingPostCode}}</li>
@@ -64,8 +66,8 @@
   			</ul>
 
   			<ul class="list-group" >
-  				<h4>Usage Context Information</h4>
-  				<li class="list-group-item"><strong>Licence Usage:</strong> {{pending.usage.context.currentUsage}}</li>
+  				<li class="list-group-item list-group-item-info"><h4>Usage Context Information</h4></li>
+          <li class="list-group-item"><strong>Licence Usage:</strong> {{pending.usage.context.currentUsage}}</li>
   				<li class="list-group-item"><strong>Planned Future Use:</strong> {{pending.usage.context.plannedUsage}}</li>
   				<li class="list-group-item"><strong>Purpose:</strong> {{pending.usage.context.purpose}}</li>
   				<li class="list-group-item" ng-show="pending.application.type=='COMMERCIAL'" ng-repeat="countryRecord in pending.usage.countries">
