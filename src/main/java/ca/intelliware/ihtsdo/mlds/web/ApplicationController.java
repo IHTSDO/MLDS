@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
 import ca.intelliware.ihtsdo.mlds.domain.User;
@@ -24,6 +25,7 @@ import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.base.Objects;
 
 @Controller
 public class ApplicationController {
@@ -53,7 +55,8 @@ public class ApplicationController {
 		
 		Application application = applications.get(0);
 		
-		application.setApproved(true);
+		application.setApprovalState(ApprovalState.APPROVED);
+		application.setCompletedAt(Instant.now());
 		applicationRepository.save(application);
 		
 		applicationApprovedEmailSender.sendApplicationApprovalEmail(user);
@@ -75,7 +78,12 @@ public class ApplicationController {
 	public Object submitApplication(@RequestBody JsonNode request) {
 		Application application = saveApplicationFields(request);
 		// Mark application as submitted
-		application.setStatus();
+		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)
+				|| Objects.equal(application.getApprovalState(), ApprovalState.RESUBMITTED)) {
+			application.setApprovalState(ApprovalState.RESUBMITTED);
+		} else {
+			application.setApprovalState(ApprovalState.SUBMITTED);
+		}
 		application.setSubmittedAt(Instant.now());
 		applicationRepository.save(application);
 		
@@ -101,7 +109,12 @@ public class ApplicationController {
 		
         Application application = saveApplicationFields(request);
 		// Mark application as not submitted
-		application.resetStatus();
+		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)
+				|| Objects.equal(application.getApprovalState(), ApprovalState.RESUBMITTED)) {
+			application.setApprovalState(ApprovalState.CHANGE_REQUESTED);
+		} else {
+			application.setApprovalState(ApprovalState.NOT_SUBMITTED);
+		}
 		
 		applicationRepository.save(application);
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -152,7 +165,9 @@ public class ApplicationController {
 		// FIXME MB map unset to false?
 		application.setSnoMedLicence(Boolean.parseBoolean(setField(request, "snoMedTC")));
 		
-		application.setApproved(false);
+		if (application.getApprovalState() == null) {
+			application.setApprovalState(ApprovalState.NOT_SUBMITTED);
+		}
 		return application;
 	}
 	
