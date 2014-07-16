@@ -17,13 +17,24 @@ angular.module('MLDS').controller('PackageManagementController',
         
         
         $scope.isLatestOnlinePublishedVersion = function isLatestPublishedVersion(version, versions) {
+        	if (!version.online) {
+        		return false;
+        	}
+        	
+        	var onlineVersions = [];
         	for(var i = 0; i < versions.length; i++) {
-        		if (versions[i].publishedAt && version.publishedAt && version.online === true &&
-    				(versions[i].publishedAt < version.publishedAt)) {
-    				return true;
+        		if (versions[i].online) {
+        			onlineVersions.push(versions[i]);
+        		}
+        	};
+        	
+        	for(var i = 0; i < onlineVersions.length; i++) {
+        		if (onlineVersions[i].publishedAt && version.publishedAt && 
+    				(new Date(version.publishedAt) < new Date(onlineVersions[i].publishedAt) )) {
+    				return false;
     			};
         	};
-        	return false;
+        	return true;
         };
         
         $scope.getLatestPublishedDate = function getLatestPublishedDate(packageEntity) { 
