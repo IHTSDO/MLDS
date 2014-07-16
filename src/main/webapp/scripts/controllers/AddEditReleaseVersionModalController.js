@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('AddReleaseFileModalController', 
+angular.module('MLDS').controller('AddEditReleaseVersionModalController', 
 		['$scope', '$log', '$modalInstance', 'PackagesService', 'releasePackage', 'ReleaseVersionsService', 'releaseVersion',
 		 function($scope, $log,  $modalInstance, PackagesService, releasePackage, ReleaseVersionsService, releaseVersion) {
 	
