@@ -1,9 +1,9 @@
-<div class="modal-header">
-     <h3 class="modal-title">Confirm Version</h3>
+ <div class="modal-header">
+     <h3 class="modal-title">Confirm Publishing Version</h3>
  </div>
  <div class="modal-body">
  	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
- 	<p>Please verify that you have selected the correct version before taking offline:</p>
+ 	<p>Please verify that you have selected the correct version before publishing:</p>
  	<div>
 		<label>Package Name: </label>
 		<span>{{releasePackage.name}}</span>
