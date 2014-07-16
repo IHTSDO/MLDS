@@ -2,11 +2,14 @@ package ca.intelliware.ihtsdo.mlds.registration;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.joda.time.Instant;
-import org.joda.time.LocalDate;
+
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 
 @Entity
 public class Application {
@@ -16,7 +19,6 @@ public class Application {
     private Long applicationId;
 	
 	String username;
-	boolean approved;
 	
 	String type;
 	@Column(name="subtype")
@@ -64,14 +66,20 @@ public class Application {
 	
 	boolean snomedlicense;
 	
-	@Column(name="is_submitted")
-	boolean isSubmitted;
-
 	@Column(name="notes_internal")
 	String notesInternal;
 	
+	// Timestamp last submitted by the applicant
 	@Column(name="submitted_at")
 	Instant submittedAt;
+
+	// Timestamp when application was completed by staff, into either the  ACCEPTED or REJECTED state
+	@Column(name="completed_at")
+	Instant completedAt;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name="approval_state")
+	private ApprovalState approvalState;
 	
 	public String getSubType() {
 		return subType;
@@ -87,15 +95,6 @@ public class Application {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public void setApproved(boolean approved) {
-		this.approved = approved;
-	}
-
-
-	public boolean isApproved() {
-		return approved;
 	}
 
 	public String getType() {
@@ -242,18 +241,6 @@ public class Application {
 		this.otherText = otherText;
 	}
 
-	public void resetStatus() {
-		this.isSubmitted = false;
-	}
-
-	public void setStatus() {
-		this.isSubmitted = true;
-	}
-	
-	public boolean isSubmitted() {
-		return this.isSubmitted;
-	}
-
 	public String getPostCode() {
 		return this.postCode;
 	}
@@ -292,6 +279,22 @@ public class Application {
 
 	public void setSubmittedAt(Instant submittedAt) {
 		this.submittedAt = submittedAt;
+	}
+
+	public Instant getCompletedAt() {
+		return completedAt;
+	}
+
+	public void setCompletedAt(Instant completedAt) {
+		this.completedAt = completedAt;
+	}
+
+	public ApprovalState getApprovalState() {
+		return approvalState;
+	}
+
+	public void setApprovalState(ApprovalState approvalState) {
+		this.approvalState = approvalState;
 	}
 
 }
