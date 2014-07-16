@@ -27,7 +27,6 @@ public class ReleaseVersion {
 	@Id
 	@GeneratedValue
 	@Column(name="release_version_id")
-	private
 	Long releaseVersionId;
 
 	// the parent

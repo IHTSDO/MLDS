@@ -135,21 +135,19 @@ public class ReleasePackagesResource_ReleaseVersions_Test {
 		releaseVersion.setDescription("originalDescription");
 		releaseVersion.setCreatedBy("originalCreatedBy");
 		
-		Mockito.when(releaseVersionRepository.findOne(1L)).thenReturn(releaseVersion);
+		Mockito.when(releaseVersionRepository.findOne(2L)).thenReturn(releaseVersion);
 		
-		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_VERSION, 1L)
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_VERSION, 1L, 2L)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("{ \"releaseVersionId\": 1, \"name\": \"newName\", \"description\": \"newDescription\", \"createdBy\": \"newCreatedBy\" }")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 		
-		ArgumentCaptor<ReleaseVersion> savedReleaseVersion = ArgumentCaptor.forClass(ReleaseVersion.class);
-		Mockito.verify(releaseVersionRepository).save(savedReleaseVersion.capture());
 		
-		Assert.assertEquals("newName", savedReleaseVersion.getValue().getName());
-		Assert.assertEquals("newDescription", savedReleaseVersion.getValue().getDescription());
+		Assert.assertEquals("newName", releaseVersion.getName());
+		Assert.assertEquals("newDescription", releaseVersion.getDescription());
 		
-		Assert.assertEquals("originalCreatedBy", savedReleaseVersion.getValue().getCreatedBy());
+		Assert.assertEquals("originalCreatedBy", releaseVersion.getCreatedBy());
 	}
 
 	@Test
