@@ -18,6 +18,9 @@ mldsApp.controller('ApplicationReviewController', [
 					licensee : {},
 					usage : {}
 			};
+			
+			$scope.commercialUsageInstitutionsByCountry = {};
+			$scope.usageCountryCountslist = [];
 
 			function loadApplication() {
 				// FIXME should be replaced by API call
@@ -44,6 +47,18 @@ mldsApp.controller('ApplicationReviewController', [
 											}
 										});
 										$scope.pending.usage = usageReport;
+										if (usageReport) {
+											$scope.commercialUsageInstitutionsByCountry = _.groupBy(usageReport.entries, 
+							        				function(entry){ return entry.country.isoCode2});
+											_.each($scope.commercialUsageInstitutionsByCountry, function(list, key) {
+												$scope.commercialUsageInstitutionsByCountry[key] = _.sortBy(list, function(entry) {
+													return entry.name.toLowerCase();
+													});
+											});
+											$scope.usageCountryCountslist = _.sortBy(usageReport.countries, function(count) {
+												return count.country.commonName.toLowerCase();
+											});
+										}
 									}
 								}
 								$log.log($scope.pending);
@@ -56,7 +71,7 @@ mldsApp.controller('ApplicationReviewController', [
 			}
 
 			loadApplication();
-			
+        	
 			$scope.submit = function() {
 				$log.log("FIXME AutoSave here...");
 				
