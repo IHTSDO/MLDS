@@ -139,8 +139,22 @@ angular.module('MLDS').controller('PackageController',
     };
 
     
-    $scope.publishReleaseVersion = function publishReleaseVersion(selectedReleaseVersion) {
-    	
+    $scope.takeOnlineModal = function takeOnlineModal(selectedReleaseVersion) {
+    	var modalInstance = $modal.open({
+  	      	templateUrl: 'views/admin/takeOnlineModal.html',
+  	      	controller: 'TakeOnlineModalController',
+  	      	scope: $scope,
+  	      	size: 'sm',
+  	      	backdrop: 'static',
+  	      	resolve: {
+              releasePackage: function() { return angular.copy($scope.packageEntity); },
+              releaseVersion: function() { return angular.copy(selectedReleaseVersion); }
+            }
+  	    });
+    	modalInstance.result.then(loadReleasePackage);
+    };
+    
+    $scope.takeOfflineModal = function takeOfflineModal(selectedReleaseVersion) {
     	var modalInstance = $modal.open({
   	      	templateUrl: 'views/admin/takeOfflineModal.html',
   	      	controller: 'TakeOfflineModalController',
@@ -152,7 +166,6 @@ angular.module('MLDS').controller('PackageController',
               releaseVersion: function() { return angular.copy(selectedReleaseVersion); }
             }
   	    });
-    	
     	modalInstance.result.then(loadReleasePackage);
     };
     
