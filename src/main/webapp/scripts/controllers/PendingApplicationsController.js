@@ -18,14 +18,14 @@ mldsApp.controller('PendingApplicationsController', [
 
 				queryPromise.success(function(data) {
 					data.forEach(function(application, index) {
-						if (application.approved) {
+						if (!UserRegistrationService.isApplicationReadyToProcess(application)) {
 							return
-						};
+						}
 						var record = {
-								application : application,
-								licensee : {},
-								usage : {}
-							};
+							application : application,
+							licensee : {},
+							usage : {}
+						};
 						$scope.pendingApplications.push(record);
 						LicenseeService.licensees(application.username)
 							.then(function(result) {
@@ -47,6 +47,9 @@ mldsApp.controller('PendingApplicationsController', [
 							["catch"](function(message) {
 								$log.log('failed to retrieve licensee', message);
 							});
+					});
+					_.sortBy($scope.pendingApplications, function(record) {
+						return record.application.submittedAt;
 					});
 				});
 			}
