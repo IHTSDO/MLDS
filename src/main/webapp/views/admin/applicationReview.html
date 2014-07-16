@@ -78,7 +78,7 @@
         <strong>Purpose:</strong> 
         <p class="list-group-item-text">{{pending.usage.context.purpose}}</p>
       </li>
-      <li class="list-group-item" ng-show="pending.application.type=='COMMERCIAL'" ng-repeat="countryRecord in pending.usage.countries">
+      <li class="list-group-item" ng-show="pending.application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
        <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
        <p><strong>Practices:</strong> {{countryRecord.practices}} </p>
        <p><strong>Institutions:</strong> 
@@ -88,7 +88,7 @@
     </li>
     
     <li class="list-group-item" ng-show="pending.application.type!='COMMERCIAL'"><strong>Countries:</strong>
-     <span ng-repeat="countryRecord in CommercialUsageService.currentCommercialUsageReport.countries">
+     <span ng-repeat="countryRecord in usageCountryCountslist">
       {{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
     </span><br>
   </li>
