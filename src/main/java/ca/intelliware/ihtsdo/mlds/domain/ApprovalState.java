@@ -1,13 +1,18 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
 public enum ApprovalState {
+	//Client state
 	NOT_SUBMITTED,
-	SUBMITTED;
-
-	/*
-	 * Extend to approval
-	PENDING_APPROVAL,
 	CHANGE_REQUESTED,
-	APPROVED;
-	*/
+	
+	//Staff state
+	SUBMITTED,
+	RESUBMITTED,
+	
+	// Extended
+	REVIEW_REQUESTED,
+
+	// Completed
+	APPROVED,
+	REJECTED;
 }

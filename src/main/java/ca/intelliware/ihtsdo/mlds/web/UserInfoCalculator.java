@@ -6,6 +6,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Objects;
+
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 
@@ -26,9 +29,13 @@ public class UserInfoCalculator {
 			userInfo.setApproved(false);
 		} else {
 			List<Application> applications = applicationRepository.findByUsername(usernameOrNull);
-			boolean hasApplied = !applications.isEmpty() && applications.get(0).isSubmitted();
+			boolean hasApplied = !applications.isEmpty() 
+					&& !Objects.equal(applications.get(0).getApprovalState(), ApprovalState.NOT_SUBMITTED)
+					&& !Objects.equal(applications.get(0).getApprovalState(), ApprovalState.CHANGE_REQUESTED);
 			userInfo.setHasApplied(hasApplied);
-			userInfo.setApproved(hasApplied && applications.get(0).isApproved());
+			userInfo.setApproved(hasApplied 
+					&& Objects.equal(applications.get(0).getApprovalState(), ApprovalState.APPROVED));
+			//FIXME rejected?
 		}
 		return userInfo;
 	}
