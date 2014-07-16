@@ -29,7 +29,7 @@
 						</button>
 						<ul class="dropdown-menu">
 							<li><a ng-click="editReleaseVersion(releaseVersion)">Edit</a></li>
-							<li><a ng-click="">Take Offline</a></li>
+							<li><a ng-click="takeOfflineModal(releaseVersion)">Take Offline</a></li>
 						</ul>
 					</div>
 					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
@@ -56,7 +56,7 @@
 						</button>
 						<ul class="dropdown-menu">
 							<li><a ng-click="editReleaseVersion(releaseVersion)">Edit</a></li>
-							<li><a ng-click="publishReleaseVersion(releaseVersion)">Take Online</a></li>
+							<li><a ng-click="takeOnlineModal(releaseVersion)">Take Online</a></li>
 						</ul>
 					</div>
 					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
