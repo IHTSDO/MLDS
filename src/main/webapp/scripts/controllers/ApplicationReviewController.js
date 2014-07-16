@@ -21,6 +21,9 @@ mldsApp.controller('ApplicationReviewController', [
 			
 			$scope.commercialUsageInstitutionsByCountry = {};
 			$scope.usageCountryCountslist = [];
+			
+			$scope.alerts = [];
+			$scope.submitting = false;
 
 			function loadApplication() {
 				// FIXME should be replaced by API call
@@ -49,7 +52,7 @@ mldsApp.controller('ApplicationReviewController', [
 										$scope.pending.usage = usageReport;
 										if (usageReport) {
 											$scope.commercialUsageInstitutionsByCountry = _.groupBy(usageReport.entries, 
-							        				function(entry){ return entry.country.isoCode2});
+							        				function(entry){ return entry.country.isoCode2;});
 											_.each($scope.commercialUsageInstitutionsByCountry, function(list, key) {
 												$scope.commercialUsageInstitutionsByCountry[key] = _.sortBy(list, function(entry) {
 													return entry.name.toLowerCase();
@@ -73,8 +76,17 @@ mldsApp.controller('ApplicationReviewController', [
 			loadApplication();
         	
 			$scope.submit = function() {
-				$log.log("FIXME AutoSave here...");
+				$scope.alerts.splice(0, $scope.alerts.length);
+				$scope.submitting = true;
 				
+				UserRegistrationService.updateApplicationNoteInternal($scope.pending.application)
+					.then(function(result) {
+						$scope.submitting = false;
+					})
+					["catch"](function(message) {
+						$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+						$scope.submitting = false;
+					});
 			};
 
 		} ]);

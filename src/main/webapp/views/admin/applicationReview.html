@@ -96,8 +96,11 @@
 </div>
 
 <div class="col-md-4">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	
   <form name="notesForm" novalidate bs-validation >
    <div class="form-group">
+   		<div class="pull-right" ng-show="submitting"><i class="fa fa-spinner"></i></div>
      <label>Notes</label>
      <textarea class="form-control" rows="10" required name="notesInternal" ng-model="pending.application.notesInternal" auto-submit></textarea>
    </div>
