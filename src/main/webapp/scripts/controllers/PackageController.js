@@ -93,7 +93,7 @@ angular.module('MLDS').controller('PackageController',
             }
           });
       modalInstance.result.then(loadReleasePackage);
-	}
+	};
 	
     $scope.editReleasePackage = function() {
         var modalInstance = $modal.open({
@@ -138,6 +138,25 @@ angular.module('MLDS').controller('PackageController',
 			.$promise.then(loadReleasePackage);
     };
 
+    
+    $scope.publishReleaseVersion = function publishReleaseVersion(selectedReleaseVersion) {
+    	
+    	var modalInstance = $modal.open({
+  	      	templateUrl: 'views/admin/takeOfflineModal.html',
+  	      	controller: 'TakeOfflineModalController',
+  	      	scope: $scope,
+  	      	size: 'sm',
+  	      	backdrop: 'static',
+  	      	resolve: {
+              releasePackage: function() { return angular.copy($scope.packageEntity); },
+              releaseVersion: function() { return angular.copy(selectedReleaseVersion); }
+            }
+  	    });
+    	
+    	modalInstance.result.then(loadReleasePackage);
+    };
+    
+    
     $scope.goToReleaseManagement = function() {
     	$location.path('/packageManagement');
     };
