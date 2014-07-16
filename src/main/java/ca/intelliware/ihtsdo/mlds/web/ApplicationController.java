@@ -3,11 +3,13 @@ package ca.intelliware.ihtsdo.mlds.web;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 
 import org.joda.time.Instant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,11 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
+import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -102,7 +106,23 @@ public class ApplicationController {
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
+	//FIXME mismatch of API styles with rest of this class...
+	@RequestMapping(value="/api/application/{applicationId}/notesInternal",
+			method=RequestMethod.PUT,
+			produces = "application/json")
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody String notesInternal) {
+		Application application = applicationRepository.findOne(applicationId);
+		if (application == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		application.setNotesInternal(notesInternal);
+		applicationRepository.save(application);
+		return new ResponseEntity<Application>(application, HttpStatus.OK);
+	}
+
 	
 	@RequestMapping(value="/api/application/save",method=RequestMethod.POST)
 	public Object saveApplication(@RequestBody JsonNode request) {
