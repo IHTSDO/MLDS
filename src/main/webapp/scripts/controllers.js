@@ -2,8 +2,14 @@
 
 /* Controllers */
 
-mldsApp.controller('MainController', ['$scope',
-    function ($scope) {
+mldsApp.controller('MainController', ['$scope', '$rootScope',
+    function ($scope, $rootScope) {
+		// Used to reverse the result of a function in filters
+		$rootScope.not = function(func) {
+		    return function (item) { 
+		        return !func(item); 
+		    };
+		};
     }]);
 
 mldsApp.controller('AdminController', ['$scope',
