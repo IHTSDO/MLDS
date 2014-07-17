@@ -13,8 +13,7 @@ angular.module('MLDS').factory('PackageUtilsService',
 	        	return false;
 	        };
 	        
-	        
-	        service.isLatestOnlinePublishedVersion = function isLatestPublishedVersion(version, versions) {
+	        service.isLatestOnlinePublishedVersion = function isLatestOnlinePublishedVersion(version, versions) {
 	        	if (!version.online) {
 	        		return false;
 	        	}
@@ -36,7 +35,7 @@ angular.module('MLDS').factory('PackageUtilsService',
 	        };
 	        
 	        service.getLatestPublishedDate = function getLatestPublishedDate(packageEntity) { 
-	    		var latestPublishDate; 
+	    		var latestPublishDate = new Date(); 
 	    		for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
 	    			if (i == 0) {
 	    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
@@ -47,6 +46,9 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		return latestPublishDate;
 	        };
 			
+	        service.isVersionOnline = function isVersionOnline(releaseVersion) {
+	        	return releaseVersion.online ? true : false;
+	        };
 			
 			return service;
 		} ]);
