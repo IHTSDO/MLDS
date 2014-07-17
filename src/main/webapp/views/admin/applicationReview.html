@@ -13,7 +13,8 @@
       <h4><span ng-show="pending.application.organizationName">{{pending.application.organizationName}} - </span>
        {{pending.application.name}}</h4>
        <p> <strong>Application Date: {{pending.application.submittedAt | date}}</strong> </p>
-       <p><strong>Issue No:</strong> {{pending.application.applicationId}} </p>
+       <p><strong>Status:</strong> {{'approval.state.'+pending.application.approvalState | translate}}</p>
+       <p><strong>Issue No:</strong> {{pending.application.applicationId}}</p>
        <ul class="list-group">
          <li class="list-group-item list-group-item-info"><h4>Affiliate Info</h4></li>
          <li class="list-group-item" ng-show="pending.application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
