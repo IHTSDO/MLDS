@@ -5101,6 +5101,9 @@ a.list-group-item-danger.active:focus {
   padding: 9px;
   border-radius: 3px;
 }
+.well-inactive {
+  background-color: #eeeeee;
+}
 .close {
   float: right;
   font-size: 21px;
