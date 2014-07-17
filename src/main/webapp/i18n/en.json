@@ -350,7 +350,7 @@
 			"RESUBMITTED": "Resubmitted",
 			"REVIEW_REQUESTED": "Review Requested",
 			"APPROVED": "Approved",
-			"REJECTED": "Rejected"
+			"REJECTED": "Declined"
     	}	
     }
 }
