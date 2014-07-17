@@ -37,6 +37,12 @@ mldsApp.controller('ApplicationReviewController', [
 						if (application.applicationId !== applicationId) {
 							return;
 						} 
+						if (!UserRegistrationService.isApplicationPending(application)) {
+							$log.log('Application not in pending state');
+							goToPendingApplications();
+							return;
+						}
+						
 						$scope.pending.application = application;
 						LicenseeService.licensees(application.username)
 							.then(function(result) {
@@ -104,7 +110,7 @@ mldsApp.controller('ApplicationReviewController', [
 				});
 				modalInstance.result
 				.then(function(result) {
-					$location.path('/pendingApplications');
+					goToPendingApplications();
 				});
 			};
 
@@ -121,7 +127,7 @@ mldsApp.controller('ApplicationReviewController', [
 				});
 				modalInstance.result
 				.then(function(result) {
-					$location.path('/pendingApplications');
+					goToPendingApplications();
 				});
 			};
 
@@ -138,7 +144,7 @@ mldsApp.controller('ApplicationReviewController', [
 				});
 				modalInstance.result
 				.then(function(result) {
-					$location.path('/pendingApplications');
+					goToPendingApplications();
 				});
 			};
 
@@ -155,8 +161,11 @@ mldsApp.controller('ApplicationReviewController', [
 				});
 				modalInstance.result
 				.then(function(result) {
-					$location.path('/pendingApplications');
+					goToPendingApplications();
 				});
 			};
 
+			function goToPendingApplications() {
+				$location.path('/pendingApplications');
+			}
 		} ]);
