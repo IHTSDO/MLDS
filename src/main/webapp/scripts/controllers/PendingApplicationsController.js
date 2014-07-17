@@ -15,11 +15,12 @@ mldsApp.controller('PendingApplicationsController', [
 
 			function getApplications() {
 				// FIXME should be replaced by API call
-				var queryPromise = UserRegistrationService.getApplications();
+				var queryPromise = UserRegistrationService.getApplicationsPending();
 
 				queryPromise.success(function(data) {
 					data.forEach(function(application, index) {
 						if (!UserRegistrationService.isApplicationPending(application)) {
+							$log.log('failed pending...', application)
 							return
 						}
 						var record = {
