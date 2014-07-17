@@ -106,5 +106,10 @@ public class Routes {
 	public static final String PASSWORD_RESET = "/app/rest/passwordReset";
 	public static final String PASSWORD_RESET_ITEM = "/app/rest/passwordReset/{token}";
 
+	/**
+	 * control endpoint for multiple applications:
+	 * - GET
+	 */
+	public static final String APPLICATIONS = "/app/rest/applications"; 
 
 }

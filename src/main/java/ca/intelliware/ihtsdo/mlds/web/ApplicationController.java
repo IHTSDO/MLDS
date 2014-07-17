@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
@@ -25,9 +27,11 @@ import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
+import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 
 @Controller
 public class ApplicationController {
@@ -79,6 +83,25 @@ public class ApplicationController {
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = Routes.APPLICATIONS, 
+			method=RequestMethod.GET,
+			produces = "application/json")
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public @ResponseBody ResponseEntity<Collection<Application>> getApplications(@RequestParam(value="$filter") String filter){
+		Iterable<Application> applications;
+		if (filter == null) {
+			applications = applicationRepository.findAll();
+		} else {
+			// Limited OData implementation - expand or use real OData library in the future
+			if (Objects.equal(filter, "approvalState/pending eq true")) {
+				applications = applicationRepository.findByApprovalStateIn(Lists.newArrayList(ApprovalState.SUBMITTED, ApprovalState.RESUBMITTED, ApprovalState.REVIEW_REQUESTED));
+			} else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		}
+		return new ResponseEntity<Collection<Application>>(Lists.newArrayList(applications), HttpStatus.OK);
+	}
+
 	@RequestMapping(value="/api/application", method=RequestMethod.GET)
 	public Object getUserApplication(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());

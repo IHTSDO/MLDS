@@ -23,11 +23,15 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				
 				return httpPromise;
 			},
-			
+						
 			getApplications: function() {
 				return $http.get('/api/applications');
 			},
 			
+			getApplicationsPending: function() {
+				return $http.get('/app/rest/applications?$filter='+encodeURIComponent('approvalState/pending eq true'));
+			},
+
 			getApplication: function() {
 				return $http.get('/api/application');
 			},
