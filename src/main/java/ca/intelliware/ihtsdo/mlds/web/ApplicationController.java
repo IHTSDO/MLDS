@@ -41,6 +41,8 @@ public class ApplicationController {
 	ApplicationApprovedEmailSender applicationApprovedEmailSender;
 	@Resource
 	UserRepository userRepository;
+	@Resource
+	ApplicationAuditEvents applicationAuditEvents;
 
 	@RequestMapping(value="api/applications")
 	public @ResponseBody Iterable<Application> getApplications() {
@@ -72,6 +74,8 @@ public class ApplicationController {
 			applicationApprovedEmailSender.sendApplicationApprovalEmail(user);
 		}
 		
+		applicationAuditEvents.logApprovalStateChange(application);
+		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}
 	
@@ -88,6 +92,7 @@ public class ApplicationController {
 	@RequestMapping(value="/api/application/submit",method=RequestMethod.POST)
 	public Object submitApplication(@RequestBody JsonNode request) {
 		Application application = saveApplicationFields(request);
+		ApprovalState preApprovalState = application.getApprovalState();
 		// Mark application as submitted
 		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)
 				|| Objects.equal(application.getApprovalState(), ApprovalState.RESUBMITTED)) {
@@ -97,6 +102,10 @@ public class ApplicationController {
 		}
 		application.setSubmittedAt(Instant.now());
 		applicationRepository.save(application);
+		
+		if (!Objects.equal(application.getApprovalState(), preApprovalState)) {
+			applicationAuditEvents.logApprovalStateChange(application);
+		}
 		
 		//FIXME should be a different trigger and way to connect applications with licensee
 		List<Licensee> licensees = licenseeRepository.findByCreator(application.getUsername());
@@ -135,6 +144,7 @@ public class ApplicationController {
 	public Object saveApplication(@RequestBody JsonNode request) {
 		
         Application application = saveApplicationFields(request);
+        ApprovalState preApprovalState = application.getApprovalState();
 		// Mark application as not submitted
 		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)
 				|| Objects.equal(application.getApprovalState(), ApprovalState.RESUBMITTED)) {
@@ -143,7 +153,10 @@ public class ApplicationController {
 			application.setApprovalState(ApprovalState.NOT_SUBMITTED);
 		}
 		
-		applicationRepository.save(application);
+		if (!Objects.equal(application.getApprovalState(), preApprovalState)) {
+			applicationRepository.save(application);
+		}
+		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
