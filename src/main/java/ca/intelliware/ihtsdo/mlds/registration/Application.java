@@ -81,6 +81,15 @@ public class Application {
 	@Column(name="approval_state")
 	private ApprovalState approvalState;
 	
+	public Application() {
+		
+	}
+	
+	// For tests
+	public Application(Long applicationId) {
+		this.applicationId = applicationId;
+	}
+	
 	public String getSubType() {
 		return subType;
 	}
