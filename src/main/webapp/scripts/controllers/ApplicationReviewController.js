@@ -110,7 +110,21 @@ mldsApp.controller('ApplicationReviewController', [
 				});
 				modalInstance.result
 				.then(function(result) {
-					goToPendingApplications();
+					$modal.open({
+						templateUrl: 'views/admin/approveApplicationConfirmationModal.html',
+						controller: 'ApproveApplicationConfirmationModalController',
+						backdrop: 'static',
+						resolve: {
+							application: function() {
+								return $scope.pending.application;
+							}
+						}
+					}).result.then(function(result) {
+						goToPendingApplications();						
+					})
+					["catch"](function(message) {
+						goToPendingApplications();	
+					});
 				});
 			};
 

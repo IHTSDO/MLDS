@@ -1,0 +1,13 @@
+<div class="modal-header">
+   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+  <h3 class="modal-title">Application Accepted</h3>
+</div>
+<div class="modal-body">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	<p>A confirmation email was sent to the applicant.</p>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success" ng-disabled="submitting" ng-click="$close()">
+		Close
+	</button>
+</div>
