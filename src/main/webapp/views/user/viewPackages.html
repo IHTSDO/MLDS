@@ -1,4 +1,3 @@
-<div ng-repeat="releasePackage in releasePackages"><a href="#/viewPackage/{{releasePackage.releasePackageId}}">{{releasePackage.name}}</a></div>
 <div class="row">
 	<div class="page-header" ng-repeat="releasePackage in releasePackages">
 		<h1>SNOMED CT International Edition Releases</h1>
@@ -7,7 +6,7 @@
 		</p>
 	</div>
 
-	<table class="table table-striped table-bordered table-hover">
+	<table class="table table-striped table-bordered table-hover"  ng-repeat="releasePackage in releasePackages">
 		<thead>
 			<tr>
 				<th>Version</th>
@@ -20,7 +19,7 @@
 		<tbody>
 			<tr>
 				<td></td>
-				<td></td>
+				<td><a href="#/viewPackage/{{releasePackage.releasePackageId}}">{{releasePackage.name}}</a></td>
 				<td></td>
 				<td></td>
 				<td></td>
