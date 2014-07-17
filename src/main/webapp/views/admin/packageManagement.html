@@ -12,7 +12,7 @@
 	<div class="col-lg-8">
 		<h3>Public Releases</h3>
 
-		<div class="well well-lg package" ng-repeat="package in packages | orderBy:getLatestPublishedDate:true | filter: isPackagePublished">
+		<div class="well well-lg package" ng-repeat="package in packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished">
 			<header>	
 				<div class="dropdown pull-right">
 					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
@@ -25,13 +25,13 @@
 				<a ng-click="goToPackage(package)"><h3> {{package.name}}</h3></a>
 				<p>{{package.description}}</p>
 			</header>
-			<div class="footer" ng-repeat="version in package.releaseVersions" ng-show="isLatestOnlinePublishedVersion(version, package.releaseVersions)">
+			<div class="footer" ng-repeat="version in package.releaseVersions" ng-show="utils.isLatestOnlinePublishedVersion(version, package.releaseVersions)">
 				<h4><span class="label label-success">Current:</span>  {{version.name}} </h4>
 				<span>Published On: {{version.publishedAt | date: 'medium'}}</span>
 				<p ng-repeat="file in version.releaseFiles"><a href="{{file.downloadUrl}}">{{file.label}}</a></p>
 			</div>
 		</div>
-		<div class="alert alert-info" ng-show="(packages | orderBy:getLatestPublishedDate:true | filter: isPackagePublished).length == 0">There are currently no public releases available </div>
+		<div class="alert alert-info" ng-show="(packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished).length == 0">There are currently no public releases available </div>
 	</div>
 </div>
 
@@ -40,7 +40,7 @@
 		<hr>
 		<h3 class="text-muted">Offline Releases</h3>
 
-		<div class="well well-lg package" ng-repeat="package in packages | orderBy:'createdAt':true | filter: not(isPackagePublished)">
+		<div class="well well-lg package" ng-repeat="package in packages | orderBy:'createdAt':true | filter: not(utils.isPackagePublished)">
 
 			<header>	
 				<div class="dropdown pull-right">
@@ -57,6 +57,6 @@
 			</header>
 			<p>{{package.description}}</p>
 		</div>
-		<div class="alert alert-info" ng-show="(packages | orderBy:getLatestPublishedDate:true | filter: not(isPackagePublished)).length == 0">There are currently no offline releases available </div>
+		<div class="alert alert-info" ng-show="(packages | orderBy:utils.getLatestPublishedDate:true | filter: not(utils.isPackagePublished)).length == 0">There are currently no offline releases available </div>
 	</div>
 </div>

@@ -36,19 +36,19 @@ describe('PackageManagementController Tests ', function () {
         }));
 
         it('isPackagePublished should be true when any version is "online"', function () {
-            expect($scope.isPackagePublished({releaseVersions:[{online:false}, {online:true}]})).toBeTruthy();
+            expect($scope.utils.isPackagePublished({releaseVersions:[{online:false}, {online:true}]})).toBeTruthy();
         });
         it('isPackagePublished should be false when no version is "online"', function () {
-            expect($scope.isPackagePublished({releaseVersions:[{online:false}, {}]})).not.toBeTruthy();
+            expect($scope.utils.isPackagePublished({releaseVersions:[{online:false}, {}]})).not.toBeTruthy();
         });
         it('isLatestOnlinePublishedVersion should be true when version is the latest published version', function () {
-            expect($scope.isLatestOnlinePublishedVersion(datastore[1].releaseVersions[2], datastore[1].releaseVersions)).toBeTruthy();
+            expect($scope.utils.isLatestOnlinePublishedVersion(datastore[1].releaseVersions[2], datastore[1].releaseVersions)).toBeTruthy();
         });
         it('isLatestOnlinePublishedVersion should be false when version is not the latest published version', function () {
-            expect($scope.isLatestOnlinePublishedVersion(datastore[1].releaseVersions[0], datastore[1].releaseVersions)).not.toBeTruthy();
+            expect($scope.utils.isLatestOnlinePublishedVersion(datastore[1].releaseVersions[0], datastore[1].releaseVersions)).not.toBeTruthy();
         });
         it('getLatestPublishedDate should return the latest published date', function () {
-            expect($scope.getLatestPublishedDate(datastore[1])).toBe(datastore[1].releaseVersions[2].publishedAt);
+            expect($scope.utils.getLatestPublishedDate(datastore[1])).toBe(datastore[1].releaseVersions[2].publishedAt);
         });
         
     });
