@@ -1,44 +1,20 @@
 'use strict';
 
 angular.module('MLDS').controller('PackageController', 
-		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService', 'ReleaseFilesService',
-		 function($scope, $log, $routeParams, $location, $modal, PackagesService, ReleaseFilesService) {
+		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService', 'ReleaseFilesService', 'PackageUtilsService',
+		 function($scope, $log, $routeParams, $location, $modal, PackagesService, ReleaseFilesService, PackageUtilsService) {
 
 	$scope.versions = {
 			online: [],
 			offline: []
 		};
-	$scope.packageEntity = { releaseVersions:[]};
+	$scope.packageEntity = {releaseVersions:[]};
+	
+	$scope.updateVersionsLists = PackageUtilsService.updateVersionsLists;
 	
 	$scope.$watch('packageEntity', function(newValue, oldValue) {
 		$scope.versions = $scope.updateVersionsLists(newValue);
 	});
-	
-	$scope.updateVersionsLists = function updateVersionsLists(packgeEntity) {
-		var results = { online: [], offline: [] };
-		var publishedOfflineVersions = [];
-		var nonPublishedOfflineVersions = [];
-		
-		for(var i = 0; i < packgeEntity.releaseVersions.length; i++) {
-			if (packgeEntity.releaseVersions[i].online) {
-				results.online.push(packgeEntity.releaseVersions[i]);
-			} else {
-				if (packgeEntity.releaseVersions[i].publishedAt) {
-					publishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
-				} else {
-					nonPublishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
-				}
-			}
-		};
-		
-		results.online.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
-		publishedOfflineVersions.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
-		nonPublishedOfflineVersions.sort(function(a,b){return new Date(b.createdAt) - new Date(a.createdAt);});
-		results.offline = publishedOfflineVersions.concat(nonPublishedOfflineVersions);
-		
-		return results;
-	};
-	
 			
 	var releasePackageId = $routeParams.packageId && parseInt($routeParams.packageId, 10);
 	var loadReleasePackage = function loadReleasePackage() {
