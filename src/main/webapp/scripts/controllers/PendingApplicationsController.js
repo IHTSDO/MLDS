@@ -19,7 +19,7 @@ mldsApp.controller('PendingApplicationsController', [
 
 				queryPromise.success(function(data) {
 					data.forEach(function(application, index) {
-						if (!UserRegistrationService.isApplicationReadyToProcess(application)) {
+						if (!UserRegistrationService.isApplicationPending(application)) {
 							return
 						}
 						var record = {

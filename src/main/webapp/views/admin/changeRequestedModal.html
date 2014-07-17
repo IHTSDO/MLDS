@@ -1,6 +1,6 @@
 <div class="modal-header">
    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-  <h3 class="modal-title">Decline, waiting response</h3>
+  <h3 class="modal-title">Change Requested</h3>
 </div>
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
@@ -9,7 +9,7 @@
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="$dismiss()" ng-disabled="submitting">Cancel</button>
 	<button class="btn btn-warning" ng-disabled="submitting" ng-click="ok()">
-		Mark as waiting for response
+		Mark as change requested
 		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
 	</button>
 </div>
