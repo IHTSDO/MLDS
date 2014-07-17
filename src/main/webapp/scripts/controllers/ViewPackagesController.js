@@ -1,8 +1,15 @@
 'use strict';
 
 angular.module('MLDS')
-    .controller('ViewPackagesController', ['$scope', '$log', 'PackagesService', function ($scope, $log, PackagesService) {
+    .controller('ViewPackagesController', 
+    		['$scope', '$log', 'PackagesService', 'PackageUtilsService', '$location',
+           function ($scope, $log, PackagesService, PackageUtilsService, $location) {
 			
-    		$scope.releasePackages = PackagesService.query();
+	$scope.utils = PackageUtilsService;
+	$scope.releasePackages = PackagesService.query();
+	
+	$scope.goToViewPackagePage = function goToViewPackagePage(releasePackageId) {
+		$location.path('/viewPackage/'+ releasePackageId);
+	};
 
-    }]);
+}]);

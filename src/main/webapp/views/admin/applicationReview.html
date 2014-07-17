@@ -8,14 +8,12 @@
   </div>
 </div>
 
- <div class="well"> 
- <div class="col-md-12">
- <p class="user-info"><strong>Application Date: {{pending.application.submittedAt | date}}</strong>  <span class="pull-right">  <strong>Issue No:</strong> {{pending.application.applicationId}} </span>   </p> 
-      <h2><span ng-show="pending.application.organizationName">{{pending.application.organizationName}} - </span>
-       <small> {{pending.application.name}}</small></h2>
-     </div>
- 
     <div class="col-md-8">
+      <div class="well">
+      <h4><span ng-show="pending.application.organizationName">{{pending.application.organizationName}} - </span>
+       {{pending.application.name}}</h4>
+       <p> <strong>Application Date: {{pending.application.submittedAt | date}}</strong> </p>
+       <p><strong>Issue No:</strong> {{pending.application.applicationId}} </p>
        <ul class="list-group">
          <li class="list-group-item list-group-item-info"><h4>Affiliate Info</h4></li>
          <li class="list-group-item" ng-show="pending.application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
@@ -94,8 +92,9 @@
   </li>
 </ul>
 </div>
-
+</div>
 <div class="col-md-4">
+   <div class="well">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	
   <form name="notesForm" novalidate bs-validation >
@@ -106,16 +105,13 @@
    </div>
  </form>
  <div>
- 	<a class="btn btn-success btn-xs" ng-click="approveApplication()">Approve Application</a>
+ 	<a class="btn btn-success btn-block" ng-click="approveApplication()">Approve Application</a>
+  <a class="btn btn-warning btn-block" ng-click="changeRequested()">Change Requested from Applicant</a>
+  <a class="btn btn-warning btn-block" ng-click="reviewRequested()">Review Requested from Staff</a>
+  <a class="btn btn-danger btn-block" ng-click="rejectApplication()">Decline Application</a>
  </div>
- <div>
- 	<a class="btn btn-warning btn-xs" ng-click="changeRequested()">Change Requested from Applicant</a>
- </div>
- <div>
- 	<a class="btn btn-warning btn-xs" ng-click="reviewRequested()">Review Requested from Staff</a>
- </div>
- <div>
- 	<a class="btn btn-danger btn-xs" ng-click="rejectApplication()">Decline Application</a>
- </div>
+
+ 	
+
 </div>
 </div>
