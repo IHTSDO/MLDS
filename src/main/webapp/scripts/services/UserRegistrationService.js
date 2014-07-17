@@ -51,11 +51,12 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				return $http.put('/api/application/'+encodeURIComponent(application.applicationId)+'/notesInternal', application.notesInternal);
 			},
 			
-			isApplicationReadyToProcess: function isApplicationReadyToProcess(application) {
-				return (application.approvalState === 'SUBMITTED'
-					|| application.approvalState === 'RESUBMITTED');
+			isApplicationWaitingForApplicant: function isApplicationWaitingForApplicant(application) {
+				return (!application.approvalState
+					|| application.approvalState === 'NOT_SUBMITTED'
+					|| application.approvalState === 'CHANGE_REQUESTED');
 			},
-
+			
 			isApplicationPending: function isApplicationPending(application) {
 				return (application.approvalState === 'SUBMITTED'
 					|| application.approvalState === 'RESUBMITTED'
@@ -63,7 +64,7 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 			},
 
 
-		getOrganizationTypes: function getOrganizationTypes() {
+			getOrganizationTypes: function getOrganizationTypes() {
 				return ['PUBLIC_HEALTH_ORGANIZATION', 'PRIVATE_HEALTH_ORGANIZATION', 
 				        'RESEARCH_AND_DEVELOPMENT_ORGANIZATION', 'HEALTHERCARE_APPLICATION_DEVELOPER',
 				        'GENERAL_PRACTITIONER_PRACTICE', 'EDUCATIONAL_INSTITUTE', 'OTHER'

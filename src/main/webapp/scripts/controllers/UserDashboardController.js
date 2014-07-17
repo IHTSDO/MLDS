@@ -92,5 +92,10 @@ angular.module('MLDS')
         	$scope.isApplicationPending = function(application) {
         		return UserRegistrationService.isApplicationPending(application);
         	};
+        	
+        	$scope.isApplicationWaitingForApplicant = function(application) {
+        		return UserRegistrationService.isApplicationWaitingForApplicant(application);
+        	};
+        	
         }
     ]);
