@@ -35,7 +35,7 @@
 					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
 				</header>
 				<p>{{releaseVersion.description}}</p>
-				<p>{{releaseVersion.publishedAt}}</p>
+				<p>Published On: {{releaseVersion.publishedAt | date:'medium'}}</p>
 				<div class="footer">
 					<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
 				</div>
@@ -64,8 +64,8 @@
 					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
 				</header>
 				<p>{{releaseVersion.description}}</p>
-				<p>Published Date: {{releaseVersion.publishedAt}}</p>
-				<p>Created Date: {{releaseVersion.createdAt}}</p>
+				<p ng-show="releaseVersion.publishedAt">Published Date: {{releaseVersion.publishedAt | date:'medium'}}</p>
+				<p>Created Date: {{releaseVersion.createdAt | date:'medium'}}</p>
 				<div class="footer">
 					<p ng-repeat="releaseFile in releaseVersion.releaseFiles"><a href="{{releaseFile.downloadUrl}}">{{releaseFile.label}}</a> <button ng-click="deleteReleaseFile(releaseVersion,releaseFile)"><i class="fa fa-trash-o"></i>Delete</button></p>
 					<p><button ng-click="addReleaseFile(releaseVersion)" ><i class="fa fa-plus"></i>Add File</button>
