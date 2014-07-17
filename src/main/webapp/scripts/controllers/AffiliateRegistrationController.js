@@ -10,7 +10,7 @@ mldsApp.controller('AffiliateRegistrationController',
         		queryPromise.success(function(data) {
     				$log.log("loadApplication", data);
     				$scope.approvalState = data.approvalState;
-    				
+    				    				
     				$scope.affiliateform.type = data.type ? data.type : '';
     				$scope.affiliateform.usageSubType = data.subType;
     				$scope.affiliateform.contact.name = data.name ? data.name : Session.firstName;
@@ -33,6 +33,12 @@ mldsApp.controller('AffiliateRegistrationController',
     				$scope.affiliateform.organization.type = data.organizationType ? data.organizationType : '';
     				$scope.affiliateform.organization.typeOther = data.organizationTypeOther ? data.organizationTypeOther : '';
     				$scope.affiliateform.otherText = data.otherText ? data.otherText : '';
+    				
+    				if (!UserRegistrationService.isApplicationWaitingForApplicant(data)) {
+    					$log.log('Application does not require input from applicant');
+    					$location.path('/dashboard');
+    					return;
+    				}
         		});
         	};
         	
