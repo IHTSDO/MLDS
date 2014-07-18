@@ -67,6 +67,7 @@ mldsApp.controller('ApplicationReviewController', [
 			};
 
 			$scope.approveApplication = function() {
+				$scope.submit();
 				var modalInstance = $modal.open({
 					templateUrl: 'views/admin/approveApplicationModal.html',
 					controller: 'ApproveApplicationModalController',
@@ -98,6 +99,7 @@ mldsApp.controller('ApplicationReviewController', [
 			};
 
 			$scope.rejectApplication = function() {
+				$scope.submit();
 				var modalInstance = $modal.open({
 					templateUrl: 'views/admin/rejectApplicationModal.html',
 					controller: 'RejectApplicationModalController',
@@ -115,6 +117,7 @@ mldsApp.controller('ApplicationReviewController', [
 			};
 
 			$scope.reviewRequested = function() {
+				$scope.submit();
 				var modalInstance = $modal.open({
 					templateUrl: 'views/admin/reviewRequestedModal.html',
 					controller: 'ReviewRequestedModalController',
@@ -132,6 +135,7 @@ mldsApp.controller('ApplicationReviewController', [
 			};
 
 			$scope.changeRequested = function() {
+				$scope.submit();
 				var modalInstance = $modal.open({
 					templateUrl: 'views/admin/changeRequestedModal.html',
 					controller: 'ChangeRequestedModalController',
