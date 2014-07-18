@@ -10,42 +10,34 @@ angular.module('MLDS')
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
-        	$scope.isApplicationPending = UserSession.hasApplied() && !UserSession.isApproved();
-        	$scope.isApplicationApproved = UserSession.hasApplied() && UserSession.isApproved();
-        	
         	$scope.licensees = [];
 
-        	LicenseeService.myLicensees()
-        		.then(function(licenseesResult) {
-        			$log.log(licenseesResult);
-        			$scope.licensees = licenseesResult.data;
-        			
-        			licenseesResult.data.forEach(function(licensee) {
-        				licensee.commercialUsages.sort(function(a, b) {
-        					if (a.startDate && b.startDate) {
-        						return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
-        					} else if (a.startDate) {
-        						return 1;
-        					} else {
-        						return -1;
-        					}
-        				});
-        			});
+        	function loadLicensees() {
+	        	LicenseeService.myLicensees()
+	        		.then(function(licenseesResult) {
+	        			$log.log(licenseesResult);
+	        			$scope.licensees = licenseesResult.data;
+	        			
+	        			licenseesResult.data.forEach(function(licensee) {
+	        				if (UserRegistrationService.isApplicationWaitingForApplicant(licensee.application)) {
+	        					$location.path('/affiliateRegistration');
+	        				}
+	        				
+	        				licensee.commercialUsages.sort(function(a, b) {
+	        					if (a.startDate && b.startDate) {
+	        						return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+	        					} else if (a.startDate) {
+	        						return 1;
+	        					} else {
+	        						return -1;
+	        					}
+	        				});
+	        			});
+	
+	        		});
+        	}
 
-        		});
-        	
-
-        	
-        	//FIXME: AC Seems to break when user refreshes page
-        	UserSession.readyPromise.then(function(){
-        		if (!UserSession.hasApplied()) {
-        			$location.path('/affiliateRegistration');
-        		} else if (!UserSession.isApproved()) {
-        			//$location.path('/pendingRegistration');
-        		} else {
-        			// setup dashboard?
-        		}
-        	});
+        	loadLicensees();
         	
         	$scope.usageReportCountries = function(usageReport) {
         		return usageReport.countries.length;
