@@ -11765,17 +11765,6 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/webapp\/scripts\/controllers\/PackageController.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/webapp\/scripts\/controllers\/PackageController.js",
-		"outputAbbreviatedPath": "\/webapp\/scripts\/controllers\/min\/PackageController-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
 	"\/webapp\/scripts\/controllers\/PackageManagementController.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -11925,17 +11914,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/webapp\/scripts\/controllers\/UserListController.js",
 		"outputAbbreviatedPath": "\/webapp\/scripts\/controllers\/min\/UserListController-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/webapp\/scripts\/controllers\/ViewPackageController.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/webapp\/scripts\/controllers\/ViewPackageController.js",
-		"outputAbbreviatedPath": "\/webapp\/scripts\/controllers\/min\/ViewPackageController-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -12156,17 +12134,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/webapp\/scripts\/services\/PackagesService.js",
 		"outputAbbreviatedPath": "\/webapp\/scripts\/services\/min\/PackagesService-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/webapp\/scripts\/services\/PackageUtilsService.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/webapp\/scripts\/services\/PackageUtilsService.js",
-		"outputAbbreviatedPath": "\/webapp\/scripts\/services\/min\/PackageUtilsService-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -12454,15 +12421,6 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/webapp\/views\/admin\/package.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/webapp\/views\/admin\/packageManagement.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/webapp\/views\/admin\/packageManagement.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -12760,24 +12718,6 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/webapp\/views\/user\/usageLog.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/webapp\/views\/user\/viewPackage.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/webapp\/views\/user\/viewPackage.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/webapp\/views\/user\/viewPackages.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/webapp\/views\/user\/viewPackages.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
