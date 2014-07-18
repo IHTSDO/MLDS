@@ -20,8 +20,8 @@
 		</thead>
 		<tbody>
 		
-			<tr ng-repeat="version in releasePackage.releaseVersions" 
-				ng-show="utils.isLatestOnlinePublishedVersion(version, releasePackage.releaseVersions)"
+			<tr ng-repeat="version in releasePackage.releaseVersions | filter: utils.isVersionOnline""
+				ng-show="utils.isLatestVersion(version, (releasePackage.releaseVersions | filter: utils.isVersionOnline))" 
 				ng-click="goToViewPackagePage(releasePackage.releasePackageId)">
 				<td>{{version.releaseVersionId}}</td>
 				<td>{{version.name}}</td>
@@ -39,6 +39,6 @@
 </div>
 
 <div class="alert alert-info" 
-	ng-show="(releasePackages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished).length == 0">
+	ng-show="(releasePackages | filter: utils.isPackagePublished).length == 0">
 	There are currently no releases available
 </div>
