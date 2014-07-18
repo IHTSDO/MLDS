@@ -96,6 +96,26 @@
 </div>
 </div>
 <div class="col-md-4">
+	<div >
+	<!-- Search block -->
+	<script type="text/ng-template" id="views/admin/applicationReviewLicenseeSearchTemplate.html">
+		<div class="well">
+		<div><strong>{{match.model.application.organizationName}} {{match.model.application.fullName}}</strong></div>
+		<div>{{match.model.application.address}}</div>
+		<div>{{match.model.application.city}}, {{match.model.application.country}} </div>
+		<div><strong>Usage Type:</strong> {{'licensee.type.'+match.model.application.type | translate}} - {{match.model.application.subType}}</div>
+		<div><strong>Type of Agreement:</strong> {{'licensee.agreementType.'+match.model.application.commercialUsage.context.agreementType | translate}}</div>
+		</div>
+	</script>
+	 <input type="text" ng-model="asyncSelected" placeholder="Search for existing Licensees" 
+	 	typeahead="licensee as licensee.application.organizationName for licensee in getLicenseesMatching($viewValue)" 
+	 	typeahead-loading="searchingLicensees"
+	 	typeahead-template-url="views/admin/applicationReviewLicenseeSearchTemplate.html" 
+	 	class="form-control">
+    <i ng-show="searchingLicensees" class="glyphicon glyphicon-refresh"></i>
+    Selected: {{asyncSelected.licenseeId}}
+	</div>
+
    <div class="well">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	
