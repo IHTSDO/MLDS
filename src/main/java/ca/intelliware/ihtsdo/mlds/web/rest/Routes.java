@@ -49,10 +49,12 @@ public class Routes {
 	static final String USAGE_REPORT_COUNTRY = "/app/rest/commercialUsages/{commercialUsageId}/countries/{commercialUsageCountId}"; 
 
 
+	static final String LICENSEES = "/app/rest/licensees";
+	
 	/**
 	 * - get list of all licensees that user has access to
 	 */
-	static final String LICENSEES = "/app/rest/licensees";
+	static final String LICENSEES_ME = "/app/rest/licensees/me";
 
 	/**
 	 * - get list of all licensees for a username
