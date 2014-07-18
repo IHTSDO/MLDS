@@ -9,9 +9,8 @@ mldsApp.controller('ApplicationReviewController', [
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
-		'LicenseeService',
 		function($scope, $log, $routeParams, $modal, $location, UserRegistrationService, DomainBlacklistService,
-				PackagesService, LicenseeService) {
+				PackagesService) {
 
 			var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
 			
@@ -154,9 +153,5 @@ mldsApp.controller('ApplicationReviewController', [
 
 			function goToPendingApplications() {
 				$location.path('/pendingApplications');
-			}
-			
-			$scope.getLicenseesMatching = function getLicenseesMatching(text) {
-				return LicenseeService.licenseesResource.query({q:text}).$promise;
 			}
 		} ]);
