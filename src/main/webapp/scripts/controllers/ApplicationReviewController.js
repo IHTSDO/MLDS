@@ -155,4 +155,8 @@ mldsApp.controller('ApplicationReviewController', [
 			function goToPendingApplications() {
 				$location.path('/pendingApplications');
 			}
+			
+			$scope.getLicenseesMatching = function getLicenseesMatching(text) {
+				return LicenseeService.licenseesResource.query({q:text}).$promise;
+			}
 		} ]);
