@@ -549,5 +549,14 @@
 		<dropColumn tableName="application" columnName="is_submitted"/>
 		<dropColumn tableName="application" columnName="approved"/>
 	</changeSet>
+
+	<changeSet id="MLDS-274-3" author="DGJ">
+		<comment>Associate application with the usage at time of submission</comment>
+		<addColumn tableName="application">
+    		<column name="commercial_usage_id" type="bigint">
+    			<constraints foreignKeyName="FK_application_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
+    		</column>
+		</addColumn>
+	</changeSet>
 	
 </databaseChangeLog>

@@ -165,6 +165,8 @@ public class AccountResource {
         	
         	licensee.addCommercialUsage(commercialUsage);
         	
+        	application.setCommercialUsage(commercialUsage);
+        	
         	
         	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular

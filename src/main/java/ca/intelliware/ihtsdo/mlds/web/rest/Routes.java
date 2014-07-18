@@ -112,4 +112,28 @@ public class Routes {
 	 */
 	public static final String APPLICATIONS = "/app/rest/applications"; 
 
+	/**
+	 * control endpoint for single applications:
+	 * - GET
+	 */
+	public static final String APPLICATION = "/app/rest/applications/{applicationId}"; 
+
+	/**
+	 * control endpoint for single applications:
+	 * - GET
+	 */
+	public static final String APPLICATION_ME = "/app/rest/applications/me"; 
+
+	/**
+	 * control endpoint for single applications:
+	 * - PUT update the internal notes field
+	 */
+	public static final String APPLICATION_NOTES_INTERNAL = "/app/rest/applications/{applicationId}/notesInternal"; 
+
+	/**
+	 * control endpoint for single applications:
+	 * - POST admin changing approve status
+	 */
+	public static final String APPLICATION_APPROVE = "/app/rest/applications/{applicationId}/approve"; 
+
 }

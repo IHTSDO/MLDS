@@ -14,6 +14,7 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
+import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
@@ -146,5 +147,12 @@ public class AuthorizationChecker {
 			return;
 		}
 		failCheck("User not authorized to access release packages.");
+	}
+
+	public void checkCanAccessApplication(Application application) {
+		if (isStaffOrAdmin()) {
+			return;
+		}
+		checkCurrentUserIsUser(application.getUsername());
 	}
 }

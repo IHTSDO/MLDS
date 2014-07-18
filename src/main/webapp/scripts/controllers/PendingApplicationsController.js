@@ -20,35 +20,15 @@ mldsApp.controller('PendingApplicationsController', [
 				queryPromise.success(function(data) {
 					data.forEach(function(application, index) {
 						if (!UserRegistrationService.isApplicationPending(application)) {
-							$log.log('failed pending...', application)
+							$log.log('failed pending...', application);
 							return
 						}
 						var record = {
 							application : application,
 							licensee : {},
-							usage : {}
+							usage : application.commercialUsage
 						};
 						$scope.pendingApplications.push(record);
-						LicenseeService.licensees(application.username)
-							.then(function(result) {
-								if (result.data.length > 0) {
-									var licensee = result.data[0];
-									record.licensee = licensee;
-									//FIXME choose most recent
-									if (licensee.commercialUsages.length > 0) {
-										var usageReport = null;
-										licensee.commercialUsages.forEach(function(current) {
-											if (!usageReport || (new Date(current.startDate).getTime() > new Date(usageReport.startDate).getTime())) {
-												usageReport = current;
-											}
-										});
-										record.usage = usageReport;
-									}
-								}
-							})
-							["catch"](function(message) {
-								$log.log('failed to retrieve licensee', message);
-							});
 					});
 					_.sortBy($scope.pendingApplications, function(record) {
 						return record.application.submittedAt;
