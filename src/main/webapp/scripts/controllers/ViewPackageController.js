@@ -1,9 +1,23 @@
 'use strict';
 
 angular.module('MLDS')
-    .controller('ViewPackageController', ['$scope', '$routeParams', 'PackagesService', function($scope, $routeParams, PackagesService){
+    .controller('ViewPackageController', 
+    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location',
+          function($scope, $routeParams, PackagesService, PackageUtilsService, $location){
     	
 	var releasePackageId = $routeParams.releasePackageId && parseInt($routeParams.releasePackageId, 10);
+	
+	$scope.releaseVersions = {
+			online: [],
+			offline: []
+		};
+	$scope.releasePackage = {releaseVersions:[]};
+	
+	$scope.utils = PackageUtilsService;
+	
+	$scope.$watch('releasePackage', function(newValue, oldValue) {
+		$scope.releaseVersions = $scope.utils.updateVersionsLists(newValue);
+	});
 	
 	var loadReleasePackage = function loadReleasePackage() {
 		if (releasePackageId) {
@@ -19,8 +33,13 @@ angular.module('MLDS')
 		} else {
 			$location.path('/viewPackages');
 		};
-	}
+	};
 
 	loadReleasePackage();
 
-    }]);
+	$scope.goToViewPackages = function goToViewPackages() {
+		$location.path('/viewPackages');
+	};
+}]);
+
+
