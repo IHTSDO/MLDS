@@ -7,15 +7,15 @@
    </div>
  </div>
 </div>
-<div ng-repeat="licensee in licensees">
-  <div class="row user-info">
+<div class="well" ng-repeat="licensee in licensees">
+  <div class="user-info">
 	<div class="col-sm-6 col-md-6 col-lg-6">
         <strong>{{'licensee.title' | translate}}:</strong> {{licensee.application.organizationName ? licensee.application.organizationName : licensee.application.name}}<br>
         <strong>{{'licensee.type.title' | translate}}:</strong> {{'licensee.type.'+licensee.type | translate}}
    	</div>
-   	<div class="col-sm-6 col-md-6 col-lg-6 text-right">
-      	<span class="alert alert-warning" ng-show="isApplicationPending(licensee.application)"><strong>Application Status:</strong> Pending Approval</span>
-      	<span class="alert alert-success" ng-show="licensee.application.approvalState === 'APPROVED'"><strong>Application Status:</strong> Approved</span>
+   	<div class="col-sm-6 col-md-6 col-lg-6">
+      	<span class="alert alert-warning pull-right" ng-show="isApplicationPending(licensee.application)"><strong>Application Status:</strong> Pending Approval</span>
+      	<span class="alert alert-success pull-right" ng-show="licensee.application.approvalState === 'APPROVED'"><strong>Application Status:</strong> Approved</span>
         <a ng-show="isApplicationWaitingForApplicant(licensee.application)" class="btn btn-default" href="#/affiliateRegistration">Edit Licensee Application</a>
    	</div>     	
 </div>
@@ -46,15 +46,12 @@
   </div>
 </div>
 
-
-<div class="row space">
   <div class="col-sm-12 col-md-12 col-lg-12">
-    <div class="form-group">
-      <button ng-click="openAddUsageReportModal(licensee)" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Usage Declaration </button>
+    <div class="form-group  pull-right">
+      <button ng-click="openAddUsageReportModal(licensee)" class="btn btn-success"><i class="fa fa-plus"></i> Add New Usage Declaration </button>
     </div>
   </div>
-</div>
-<div class="row space">
+
   <div class="col-sm-12 col-md-12 col-lg-12">
     <div class="report">
       <table class="table table-striped table-hover">
@@ -84,7 +81,5 @@
           <td> <a class="btn btn-default btn-xs pull-right" ng-click="goToUsageReport(usageReport)"><i class="fa fa-pencil"></i> Edit</a></td>
       </tbody>
       </table>
-    </div>
-  </div>
-</div>
+
 </div>

@@ -6052,8 +6052,10 @@ button.close {
 }
 .user-info {
   background-color: #f9f9f9;
-  padding: 10px;
+  padding: 10px 0;
   border-top: 2px solid #04add8;
+  overflow: hidden;
+  margin-bottom: 10px;
 }
 .user-info .btn {
   margin-top: 5px;
