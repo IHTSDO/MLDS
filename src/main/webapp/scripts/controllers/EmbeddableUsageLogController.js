@@ -13,6 +13,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 	
 	//FIXME retrieve from service?
 	$scope.agreementTypeOptions = ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD'];
+	$scope.implementationStatusOptions = ['IMPLEMENTED', 'DEVELOPMENT', 'PLANNING'];
 	
 	$scope.availableCountries = [];
 	$scope.currentCountries = [];

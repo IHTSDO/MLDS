@@ -77,6 +77,7 @@
         <strong>Purpose:</strong> 
         <p class="list-group-item-text">{{application.commercialUsage.context.purpose}}</p>
       </li>
+      <li class="list-group-item"><strong>Implementation Status:</strong> {{'licensee.implementationStatus.'+application.commercialUsage.context.implementationStatus | translate}}</li>
       <li class="list-group-item" ng-show="application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
        <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
        <p><strong>Practices:</strong> {{countryRecord.practices}} </p>
