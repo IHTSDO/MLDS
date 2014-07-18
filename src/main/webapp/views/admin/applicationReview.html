@@ -10,74 +10,74 @@
 
     <div class="col-md-8">
       <div class="well">
-      <h4><span ng-show="pending.application.organizationName">{{pending.application.organizationName}} - </span>
-       {{pending.application.name}}</h4>
-       <p> <strong>Application Date: {{pending.application.submittedAt | date}}</strong> </p>
-       <p><strong>Status:</strong> {{'approval.state.'+pending.application.approvalState | translate}}</p>
-       <p><strong>Issue No:</strong> {{pending.application.applicationId}}</p>
+      <h4><span ng-show="application.organizationName">{{application.organizationName}} - </span>
+       {{application.name}}</h4>
+       <p> <strong>Application Date: {{application.submittedAt | date}}</strong> </p>
+       <p><strong>Status:</strong> {{'approval.state.'+application.approvalState | translate}}</p>
+       <p><strong>Issue No:</strong> {{application.applicationId}}</p>
        <ul class="list-group">
          <li class="list-group-item list-group-item-info"><h4>Affiliate Info</h4></li>
-         <li class="list-group-item" ng-show="pending.application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
-           <span ng-show="affiliateform.organization.type=='OTHER'">{{pending.application.organizatioTypeOther}}</span>
-           <span ng-show="affiliateform.organization.type!='OTHER'">{{'licensee.organizationType.'+pending.application.organizationType | translate}}</span> 
+         <li class="list-group-item" ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
+           <span ng-show="affiliateform.organization.type=='OTHER'">{{application.organizatioTypeOther}}</span>
+           <span ng-show="affiliateform.organization.type!='OTHER'">{{'licensee.organizationType.'+application.organizationType | translate}}</span> 
          </li>
-         <li class="list-group-item"><strong>Use Type:</strong> {{'licensee.type.'+pending.application.type | translate}}</li>
-         <li class="list-group-item"><strong>Use Subtype:</strong> {{apending.application.subType}}</li>
-         <li class="list-group-item"><strong>Type of Agreement:</strong> {{'licensee.agreementType.'+pending.usage.context.agreementType | translate}}</li>
+         <li class="list-group-item"><strong>Use Type:</strong> {{'licensee.type.'+application.type | translate}}</li>
+         <li class="list-group-item"><strong>Use Subtype:</strong> {{aapplication.subType}}</li>
+         <li class="list-group-item"><strong>Type of Agreement:</strong> {{'licensee.agreementType.'+application.commercialUsage.context.agreementType | translate}}</li>
        </ul>
 
-       <ul class="list-group" ng-show="pending.application.type!='INDIVIDUAL'">
+       <ul class="list-group" ng-show="application.type!='INDIVIDUAL'">
         <li class="list-group-item list-group-item-info"><h4>Affiliate Information:</h4></li>
-        <li class="list-group-item"><strong>Organization Name:</strong> {{pending.application.organizationName}}</li>
-        <li class="list-group-item"><strong>Address:</strong> {{pending.application.address}}</li>
-        <li class="list-group-item"><strong>City:</strong> {{pending.application.city}}</li>
-        <li class="list-group-item"><strong>Post Code:</strong> {{pending.application.postCode}}</li>
-        <li class="list-group-item"><strong>Country:</strong> {{pending.application.country}}</li>
-        <li class="list-group-item"><strong>Phone Number:</strong> {{pending.application.phone}} <span ng-show="affiliateform.contactextension">ext: {{pending.application.extension}}</span></li>
-        <li class="list-group-item"><strong>Alternate Email:</strong> {{pending.application.alternateEmail}}</li>
-        <li class="list-group-item" ng-show="pending.application.type=='COMMERCIAL'"><strong>Third Email:</strong> {{pending.application.thirdEmail}}</li>
-        <li class="list-group-item" ng-show="pending.application.type=='OTHER'"><strong>Other:</strong>{{pending.application.otherText}}</li>
+        <li class="list-group-item"><strong>Organization Name:</strong> {{application.organizationName}}</li>
+        <li class="list-group-item"><strong>Address:</strong> {{application.address}}</li>
+        <li class="list-group-item"><strong>City:</strong> {{application.city}}</li>
+        <li class="list-group-item"><strong>Post Code:</strong> {{application.postCode}}</li>
+        <li class="list-group-item"><strong>Country:</strong> {{application.country}}</li>
+        <li class="list-group-item"><strong>Phone Number:</strong> {{application.phone}} <span ng-show="affiliateform.contactextension">ext: {{application.extension}}</span></li>
+        <li class="list-group-item"><strong>Alternate Email:</strong> {{application.alternateEmail}}</li>
+        <li class="list-group-item" ng-show="application.type=='COMMERCIAL'"><strong>Third Email:</strong> {{application.thirdEmail}}</li>
+        <li class="list-group-item" ng-show="application.type=='OTHER'"><strong>Other:</strong>{{application.otherText}}</li>
       </ul>
 
 
       <ul class="list-group">
         <li class="list-group-item list-group-item-info"><h4>Affiliate User Information</h4></li>
-        <li class="list-group-item"><strong>Name:</strong> {{pending.application.name}}</li>
-        <li class="list-group-item"><strong>Email:</strong> {{pending.application.email}}</li>
-        <li class="list-group-item"><strong>Landline Phone Number:</strong> {{pending.application.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></li>
-        <li class="list-group-item"><strong>Mobile Phone Number:</strong> {{pending.application.mobilePhone}}</li>
+        <li class="list-group-item"><strong>Name:</strong> {{application.name}}</li>
+        <li class="list-group-item"><strong>Email:</strong> {{application.email}}</li>
+        <li class="list-group-item"><strong>Landline Phone Number:</strong> {{application.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></li>
+        <li class="list-group-item"><strong>Mobile Phone Number:</strong> {{application.mobilePhone}}</li>
       </ul>
 
-      <ul class="list-group" ng-show="pending.application.type=='INDIVIDUAL'">
-        <li class="list-group-item"><strong>Address:</strong> {{pending.application.address}}</li>
-        <li class="list-group-item"><strong>City:</strong> {{pending.application.city}}</li>
-        <li class="list-group-item"><strong>Post Code:</strong> {{pending.application.postCode}}</li>
-        <li class="list-group-item"><strong>Country:</strong> {{pending.application.country}}</li>
+      <ul class="list-group" ng-show="application.type=='INDIVIDUAL'">
+        <li class="list-group-item"><strong>Address:</strong> {{application.address}}</li>
+        <li class="list-group-item"><strong>City:</strong> {{application.city}}</li>
+        <li class="list-group-item"><strong>Post Code:</strong> {{application.postCode}}</li>
+        <li class="list-group-item"><strong>Country:</strong> {{application.country}}</li>
       </ul>
 
-      <ul class="list-group" ng-show="pending.application.type=='COMMERCIAL'">
+      <ul class="list-group" ng-show="application.type=='COMMERCIAL'">
        <li class="list-group-item list-group-item-info"><h4>Affiliate Billing Information</h4></li>
-       <li class="list-group-item"><strong>Address:</strong> {{pending.application.billingStreet}}</li>
-       <li class="list-group-item"><strong>City:</strong> {{pending.application.billingCity}}</li>
-       <li class="list-group-item"><strong>Post Code:</strong> {{pending.application.billingPostCode}}</li>
-       <li class="list-group-item"><strong>Country:</strong> {{pending.application.billingCountry}}</li>
+       <li class="list-group-item"><strong>Address:</strong> {{application.billingStreet}}</li>
+       <li class="list-group-item"><strong>City:</strong> {{application.billingCity}}</li>
+       <li class="list-group-item"><strong>Post Code:</strong> {{application.billingPostCode}}</li>
+       <li class="list-group-item"><strong>Country:</strong> {{application.billingCountry}}</li>
      </ul>
 
      <ul class="list-group" >
       <li class="list-group-item list-group-item-info"><h4>Usage Context Information</h4></li>
       <li class="list-group-item">
         <strong>Licence Usage:</strong>
-        <p class="list-group-item-text">{{pending.usage.context.currentUsage}}</p>
+        <p class="list-group-item-text">{{application.commercialUsage.context.currentUsage}}</p>
       </li>
       <li class="list-group-item">
         <strong>Planned Future Use:</strong> 
-        <p class="list-group-item-text">{{pending.usage.context.plannedUsage}}</p>
+        <p class="list-group-item-text">{{application.commercialUsage.context.plannedUsage}}</p>
       </li>
       <li class="list-group-item">
         <strong>Purpose:</strong> 
-        <p class="list-group-item-text">{{pending.usage.context.purpose}}</p>
+        <p class="list-group-item-text">{{application.commercialUsage.context.purpose}}</p>
       </li>
-      <li class="list-group-item" ng-show="pending.application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
+      <li class="list-group-item" ng-show="application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
        <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
        <p><strong>Practices:</strong> {{countryRecord.practices}} </p>
        <p><strong>Institutions:</strong> 
@@ -86,7 +86,7 @@
       </span></p>
     </li>
     
-    <li class="list-group-item" ng-show="pending.application.type!='COMMERCIAL'"><strong>Countries:</strong>
+    <li class="list-group-item" ng-show="application.type!='COMMERCIAL'"><strong>Countries:</strong>
      <span ng-repeat="countryRecord in usageCountryCountslist">
       {{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
     </span><br>
@@ -102,7 +102,7 @@
    <div class="form-group">
    		<div class="pull-right" ng-show="submitting"><i class="fa fa-spinner"></i></div>
      <label>Staff Notes</label>
-     <textarea class="form-control" rows="10" required name="notesInternal" ng-model="pending.application.notesInternal" auto-submit></textarea>
+     <textarea class="form-control" rows="10" required name="notesInternal" ng-model="application.notesInternal" auto-submit></textarea>
    </div>
  </form>
  <div>

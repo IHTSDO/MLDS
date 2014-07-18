@@ -10,7 +10,7 @@
 						<th>Date Submitted</th>
 						<th>Status</th>
 						<th>Type</th>
-						<th>No. of Sublicences</th>
+						<th class="text-right">No. of Sublicences</th>
 						<th>Affiliate Name</th>
 						<th>Home Country</th>
 						<th>Use Type</th>
@@ -19,16 +19,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="pending in pendingApplications">
-					<td>{{pending.application.submittedAt | date}}</td>
-					<td>{{'approval.state.'+pending.application.approvalState | translate}}</td>
+					<tr ng-repeat="application in applications">
+					<td>{{application.submittedAt | date}}</td>
+					<td>{{'approval.state.'+application.approvalState | translate}}</td>
 					<td>New</td>
-					<td>{{totalSublicences(pending.usage)}}</td>
-					<td>{{pending.application.organizationName ? pending.application.organizationName : pending.application.name}}</td>
-					<td>{{pending.application.country}}</td>
-					<td>{{'licensee.type.'+pending.application.type | translate}} - {{pending.application.subType}}</td>
-					<td>{{'licensee.agreementType.'+pending.usage.context.agreementType | translate}}</td>
-					<td> <a class="btn btn-default btn-xs" ng-click="goToApplication(pending.application)"><i class="fa fa-pencil"></i> Edit</a></td>
+					<td class="text-right">{{totalSublicences(application.commercialUsage) | number}}</td>
+					<td>{{application.organizationName ? application.organizationName : application.name}}</td>
+					<td>{{application.country}}</td>
+					<td>{{'licensee.type.'+application.type | translate}} - {{application.subType}}</td>
+					<td>{{'licensee.agreementType.'+application.commercialUsage.context.agreementType | translate}}</td>
+					<td> <a class="btn btn-default btn-xs" ng-click="goToApplication(application)"><i class="fa fa-pencil"></i> Edit</a></td>
 				</tr>
 				</tbody>
 			</table>
