@@ -15,11 +15,7 @@ mldsApp.controller('ApplicationReviewController', [
 
 			var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
 			
-			$scope.pending = {
-					application : {},
-					licensee : {},
-					usage : {}
-			};
+			$scope.application = {};
 			
 			$scope.commercialUsageInstitutionsByCountry = {};
 			$scope.usageCountryCountslist = [];
@@ -37,8 +33,7 @@ mldsApp.controller('ApplicationReviewController', [
 							return;
 						}
 						
-						$scope.pending.application = application;
-						$scope.pending.usage = application.commercialUsage;
+						$scope.application = application;
 						
 						if (application.commercialUsage) {
 							$scope.commercialUsageInstitutionsByCountry = _.groupBy(application.commercialUsage.entries, 
@@ -61,7 +56,7 @@ mldsApp.controller('ApplicationReviewController', [
 				$scope.alerts.splice(0, $scope.alerts.length);
 				$scope.submitting = true;
 				
-				UserRegistrationService.updateApplicationNoteInternal($scope.pending.application)
+				UserRegistrationService.updateApplicationNoteInternal($scope.application)
 					.then(function(result) {
 						$scope.submitting = false;
 					})
@@ -78,7 +73,7 @@ mldsApp.controller('ApplicationReviewController', [
 					backdrop: 'static',
 					resolve: {
 						application: function() {
-							return $scope.pending.application;
+							return $scope.application;
 						}
 					}
 				});
@@ -90,7 +85,7 @@ mldsApp.controller('ApplicationReviewController', [
 						backdrop: 'static',
 						resolve: {
 							application: function() {
-								return $scope.pending.application;
+								return $scope.application;
 							}
 						}
 					}).result.then(function(result) {
@@ -109,7 +104,7 @@ mldsApp.controller('ApplicationReviewController', [
 					backdrop: 'static',
 					resolve: {
 						application: function() {
-							return $scope.pending.application;
+							return $scope.application;
 						}
 					}
 				});
@@ -126,7 +121,7 @@ mldsApp.controller('ApplicationReviewController', [
 					backdrop: 'static',
 					resolve: {
 						application: function() {
-							return $scope.pending.application;
+							return $scope.application;
 						}
 					}
 				});
@@ -143,7 +138,7 @@ mldsApp.controller('ApplicationReviewController', [
 					backdrop: 'static',
 					resolve: {
 						application: function() {
-							return $scope.pending.application;
+							return $scope.application;
 						}
 					}
 				});
