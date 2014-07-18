@@ -11,32 +11,21 @@ mldsApp.controller('PendingApplicationsController', [
 		function($scope, $log, $location, UserRegistrationService, DomainBlacklistService,
 				PackagesService, LicenseeService) {
 
-			$scope.pendingApplications = [];
+			$scope.applications = [];
 
-			function getApplications() {
+			function loadApplications() {
 				// FIXME should be replaced by API call
 				var queryPromise = UserRegistrationService.getApplicationsPending();
 
 				queryPromise.success(function(data) {
-					data.forEach(function(application, index) {
-						if (!UserRegistrationService.isApplicationPending(application)) {
-							$log.log('failed pending...', application);
-							return
-						}
-						var record = {
-							application : application,
-							licensee : {},
-							usage : application.commercialUsage
-						};
-						$scope.pendingApplications.push(record);
-					});
-					_.sortBy($scope.pendingApplications, function(record) {
-						return record.application.submittedAt;
+					$scope.applications = data;
+					_.sortBy($scope.pplications, function(record) {
+						return record.submittedAt;
 					});
 				});
 			}
 
-			getApplications();
+			loadApplications();
 
 			$scope.goToApplication = function(application) {
 				$log.log('application', application);
