@@ -340,6 +340,11 @@
 			"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice", 
 			"EDUCATIONAL_INSTITUTE": "Educational Institute", 
 			"OTHER": "Other"
+		},
+		"implementationStatus": {
+			"IMPLEMENTED": "Live/Implemented",
+			"DEVELOPMENT": "In Progress/Development",
+			"PLANNING": "In Planning Stage"
 		}
     },
     "approval": {

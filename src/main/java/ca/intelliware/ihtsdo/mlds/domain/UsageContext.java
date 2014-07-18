@@ -20,6 +20,9 @@ public class UsageContext {
 	@Column(name="agreement_type")
 	AgreementType agreementType;
 
+	@Column(name="implementation_status")
+	String implementationStatus;
+	
 	public String getCurrentUsage() {
 		return currentUsage;
 	}
@@ -50,6 +53,10 @@ public class UsageContext {
 
 	public void setAgreementType(AgreementType agreementType) {
 		this.agreementType = agreementType;
+	}
+
+	public String getImplementationStatus() {
+		return implementationStatus;
 	}
 
 }
