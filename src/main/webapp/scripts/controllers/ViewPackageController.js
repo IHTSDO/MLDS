@@ -2,8 +2,8 @@
 
 angular.module('MLDS')
     .controller('ViewPackageController', 
-    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location',
-          function($scope, $routeParams, PackagesService, PackageUtilsService, $location){
+    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location', '$log',
+          function($scope, $routeParams, PackagesService, PackageUtilsService, $location, $log){
     	
 	var releasePackageId = $routeParams.releasePackageId && parseInt($routeParams.releasePackageId, 10);
 	
@@ -26,9 +26,9 @@ angular.module('MLDS')
 				$scope.releasePackage = result;
 				})
 					["catch"](function(message) {
-						//FIXME how to handle errors + not present
+						//FIXME how to handle errors + not present 
 						$log.log('ReleasePackage not found');
-						$location.path('/packageManagement');
+						$location.path('/viewPackages');
 					});
 		} else {
 			$location.path('/viewPackages');

@@ -1,6 +1,9 @@
 <div class="row">
+	<div class="page-header">
+			<button ng-click="goToReleaseManagement()" type="button" class="btn btn-link pull-right">Back to Release Management</button>
+			<h1>Package Details</h1>
+	</div>
 	<div class="col-lg-10">
-		<h1>Package Details</h1>
 		<div class="well">
 			<h2>Package Name <a class="btn btn-default pull-right"  ng-click="editReleasePackage()">Edit</a></h2>
 		   <h4>Name:</h4>
@@ -12,7 +15,7 @@
 </div>
 	<div class="row">
 		<div class="col-lg-12">
-			<button class="btn btn-default" ng-click="addReleaseVersion()">Add New Version</button>
+			<button class="btn btn-primary" ng-click="addReleaseVersion()">Add New Version</button>
 		</div>
 	</div>
 
