@@ -2,8 +2,8 @@
 
 angular.module('MLDS')
     .controller('ViewPackageController', 
-    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService',
-          function($scope, $routeParams, PackagesService, PackageUtilsService){
+    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location',
+          function($scope, $routeParams, PackagesService, PackageUtilsService, $location){
     	
 	var releasePackageId = $routeParams.releasePackageId && parseInt($routeParams.releasePackageId, 10);
 	
@@ -37,4 +37,9 @@ angular.module('MLDS')
 
 	loadReleasePackage();
 
-    }]);
+	$scope.goToViewPackages = function goToViewPackages() {
+		$location.path('/viewPackages');
+	};
+}]);
+
+
