@@ -6,10 +6,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.joda.time.Instant;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 
 @Entity
 public class Application {
@@ -79,7 +82,11 @@ public class Application {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="approval_state")
-	private ApprovalState approvalState;
+	ApprovalState approvalState;
+	
+	@ManyToOne
+	@JoinColumn(name="commercial_usage_id")
+	CommercialUsage commercialUsage;
 	
 	public Application() {
 		
@@ -310,4 +317,11 @@ public class Application {
 		return applicationId;
 	}
 
+	public CommercialUsage getCommercialUsage() {
+		return commercialUsage;
+	}
+
+	public void setCommercialUsage(CommercialUsage commercialUsage) {
+		this.commercialUsage = commercialUsage;
+	}
 }

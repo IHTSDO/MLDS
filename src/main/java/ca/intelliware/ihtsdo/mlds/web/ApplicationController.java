@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
+import javax.transaction.Transactional;
 
 import org.joda.time.Instant;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
+import ca.intelliware.ihtsdo.mlds.web.rest.AuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -47,13 +49,15 @@ public class ApplicationController {
 	UserRepository userRepository;
 	@Resource
 	ApplicationAuditEvents applicationAuditEvents;
+	@Resource
+	AuthorizationChecker authorizationChecker;
 
 	@RequestMapping(value="api/applications")
 	public @ResponseBody Iterable<Application> getApplications() {
 		return applicationRepository.findAll();
 	}
 	
-	@RequestMapping(value="/api/application/{applicationId}/approve",
+	@RequestMapping(value = Routes.APPLICATION_APPROVE,
 			method=RequestMethod.POST,
 			produces = "application/json")
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
@@ -102,8 +106,34 @@ public class ApplicationController {
 		return new ResponseEntity<Collection<Application>>(Lists.newArrayList(applications), HttpStatus.OK);
 	}
 
-	@RequestMapping(value="/api/application", method=RequestMethod.GET)
-	public Object getUserApplication(){
+	@RequestMapping(value = Routes.APPLICATION, 
+			method=RequestMethod.GET,
+			produces = "application/json")
+	public  @ResponseBody ResponseEntity<Application> getApplication(@PathVariable long applicationId){
+		Application application = applicationRepository.findOne(applicationId);
+		if (application == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		authorizationChecker.checkCanAccessApplication(application);
+		return new ResponseEntity<Application>(application, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = Routes.APPLICATION_ME, 
+			method=RequestMethod.GET,
+			produces = "application/json")
+	public  @ResponseBody ResponseEntity<Application> getApplicationForMe(){
+		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
+		if (applications.size() > 0) {
+			return new ResponseEntity<Application>(applications.get(0), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+	@Transactional
+	@RequestMapping(value="/api/application", 
+			method=RequestMethod.GET,
+			produces = "application/json")
+	public @ResponseBody ResponseEntity<Application> getUserApplication(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		if (applications.size() > 0) {
 			return new ResponseEntity<Application>(applications.get(0), HttpStatus.OK);
@@ -147,7 +177,8 @@ public class ApplicationController {
 	}
 
 	//FIXME mismatch of API styles with rest of this class...
-	@RequestMapping(value="/api/application/{applicationId}/notesInternal",
+	@Transactional
+	@RequestMapping(value = Routes.APPLICATION_NOTES_INTERNAL,
 			method=RequestMethod.PUT,
 			produces = "application/json")
 	@RolesAllowed(AuthoritiesConstants.ADMIN)

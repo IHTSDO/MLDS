@@ -28,15 +28,9 @@ mldsApp.controller('ApplicationReviewController', [
 			$scope.submitting = false;
 
 			function loadApplication() {
-				// FIXME should be replaced by API call
-				var queryPromise = UserRegistrationService.getApplications();
+				var queryPromise = UserRegistrationService.getApplicationById(applicationId);
 
-				queryPromise.success(function(data) {
-					//FIXME temporary loop
-					data.forEach(function(application, index) {
-						if (application.applicationId !== applicationId) {
-							return;
-						} 
+				queryPromise.success(function(application) {
 						if (!UserRegistrationService.isApplicationPending(application)) {
 							$log.log('Application not in pending state');
 							goToPendingApplications();
@@ -44,40 +38,20 @@ mldsApp.controller('ApplicationReviewController', [
 						}
 						
 						$scope.pending.application = application;
-						LicenseeService.licensees(application.username)
-							.then(function(result) {
-								if (result.data.length > 0) {
-									var licensee = result.data[0];
-									$scope.pending.licensee = licensee;
-									//FIXME choose most recent
-									if (licensee.commercialUsages.length > 0) {
-										var usageReport = null;
-										licensee.commercialUsages.forEach(function(current) {
-											if (!usageReport || (new Date(current.startDate).getTime() > new Date(usageReport.startDate).getTime())) {
-												usageReport = current;
-											}
-										});
-										$scope.pending.usage = usageReport;
-										if (usageReport) {
-											$scope.commercialUsageInstitutionsByCountry = _.groupBy(usageReport.entries, 
-							        				function(entry){ return entry.country.isoCode2;});
-											_.each($scope.commercialUsageInstitutionsByCountry, function(list, key) {
-												$scope.commercialUsageInstitutionsByCountry[key] = _.sortBy(list, function(entry) {
-													return entry.name.toLowerCase();
-													});
-											});
-											$scope.usageCountryCountslist = _.sortBy(usageReport.countries, function(count) {
-												return count.country.commonName.toLowerCase();
-											});
-										}
-									}
-								}
-								$log.log($scope.pending);
-							})
-							["catch"](function(message) {
-								$log.log('failed to retrieve licensee', message);
+						$scope.pending.usage = application.commercialUsage;
+						
+						if (application.commercialUsage) {
+							$scope.commercialUsageInstitutionsByCountry = _.groupBy(application.commercialUsage.entries, 
+			        				function(entry){ return entry.country.isoCode2;});
+							_.each($scope.commercialUsageInstitutionsByCountry, function(list, key) {
+								$scope.commercialUsageInstitutionsByCountry[key] = _.sortBy(list, function(entry) {
+									return entry.name.toLowerCase();
+									});
 							});
-					});
+							$scope.usageCountryCountslist = _.sortBy(application.commercialUsage.countries, function(count) {
+								return count.country.commonName.toLowerCase();
+							});
+						}
 				});
 			}
 
