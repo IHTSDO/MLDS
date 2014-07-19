@@ -24,6 +24,7 @@ angular.module('MLDS')
 			PackagesService.get({releasePackageId: releasePackageId})
 			.$promise.then(function(result) {
 				$scope.releasePackage = result;
+				$log.log(result);
 				})
 					["catch"](function(message) {
 						//FIXME how to handle errors + not present 

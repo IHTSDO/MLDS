@@ -101,5 +101,9 @@ public class ReleasePackage {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public void setReleaseVersions(Set<ReleaseVersion> releaseVersions) {
+		this.releaseVersions = releaseVersions;
+	}
 	
 }
