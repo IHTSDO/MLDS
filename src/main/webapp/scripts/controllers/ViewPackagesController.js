@@ -7,6 +7,7 @@ angular.module('MLDS')
 			
 	$scope.utils = PackageUtilsService;
 	$scope.releasePackages = PackagesService.query();
+	$log.log(PackagesService.query());
 	
 	$scope.goToViewPackagePage = function goToViewPackagePage(releasePackageId) {
 		$location.path('/viewPackage/'+ releasePackageId);
