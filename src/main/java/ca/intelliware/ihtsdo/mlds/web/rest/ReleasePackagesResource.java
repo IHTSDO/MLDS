@@ -1,14 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.io.IOException;
-import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 
-import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,10 +26,7 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Sets;
 import com.wordnik.swagger.annotations.Api;
 
 @RestController
@@ -66,8 +62,35 @@ public class ReleasePackagesResource {
 		
     	Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
     	
+		releasePackages = filterReleasePackagesByOnline(releasePackages);
+    	
     	return new ResponseEntity<Collection<ReleasePackage>>(releasePackages, HttpStatus.OK);
     }
+
+	private Collection<ReleasePackage> filterReleasePackagesByOnline(
+			Collection<ReleasePackage> releasePackages) {
+		
+		Collection<ReleasePackage> result = new ArrayList<>();
+		
+		if (!currentSecurityContext.isAdmin()) {
+			for(ReleasePackage releasePackage : releasePackages){
+				if(isPackagePublished(releasePackage)) {
+					result.add(filterReleasePackageByAuthority(releasePackage));
+				}
+			}
+		}
+		
+		return result;
+	}
+
+	private boolean isPackagePublished(ReleasePackage releasePackage) {
+		for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
+			if (version.isOnline()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@RequestMapping(value = Routes.RELEASE_PACKAGES,
     		method = RequestMethod.POST,
@@ -92,14 +115,33 @@ public class ReleasePackagesResource {
             produces = "application/json")
     public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
     	//FIXME should we check children being consistent?		
-    	
     	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
     	if (releasePackage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	} 
     	
+    	releasePackage = filterReleasePackageByAuthority(releasePackage);
+    	
     	return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     }
+
+	private ReleasePackage filterReleasePackageByAuthority(
+			ReleasePackage releasePackage) {
+		
+		ReleasePackage result = releasePackage;
+		Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
+		
+		if (!currentSecurityContext.isAdmin() && currentSecurityContext.isUser()) {
+			for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
+				if (version.isOnline()) {
+					releaseVersions.add(version);
+				}
+			}
+			result.setReleaseVersions(releaseVersions);
+		}
+		
+		return result;
+	}
 
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.PUT,
