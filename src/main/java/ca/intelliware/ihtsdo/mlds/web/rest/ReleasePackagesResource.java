@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,6 @@ import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 import com.google.common.collect.Sets;
@@ -54,7 +52,6 @@ public class ReleasePackagesResource {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Packages
 
-	@RolesAllowed({AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER})
 	@RequestMapping(value = Routes.RELEASE_PACKAGES,
     		method = RequestMethod.GET,
             produces = "application/json")
@@ -70,9 +67,10 @@ public class ReleasePackagesResource {
 	private Collection<ReleasePackage> filterReleasePackagesByOnline(
 			Collection<ReleasePackage> releasePackages) {
 		
-		Collection<ReleasePackage> result = new ArrayList<>();
+		Collection<ReleasePackage> result = releasePackages;
 		
 		if (!currentSecurityContext.isAdmin()) {
+			result = new ArrayList<>();
 			for(ReleasePackage releasePackage : releasePackages){
 				if(isPackagePublished(releasePackage)) {
 					result.add(filterReleasePackageByAuthority(releasePackage));
@@ -109,7 +107,6 @@ public class ReleasePackagesResource {
 		return result;
     }
 	
-	@RolesAllowed({AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER})
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
             produces = "application/json")
