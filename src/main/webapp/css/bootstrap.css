@@ -5274,6 +5274,7 @@ button.close {
   padding: 19px 20px 20px;
   text-align: right;
   border-top: 1px solid #e5e5e5;
+  background-color: #fbfbfb;
 }
 .modal-footer .btn + .btn {
   margin-left: 5px;
@@ -6074,8 +6075,14 @@ button.close {
 .package .footer .label {
   font-weight: normal;
 }
+#application-search {
+  margin-bottom: 10px;
+}
+#searchbox {
+  padding: 5px 10px;
+}
 footer {
-  background-color: #18283c;
+  background-color: #4372aa;
   color: #ffffff;
   height: 60px;
   padding-top: 20px;
