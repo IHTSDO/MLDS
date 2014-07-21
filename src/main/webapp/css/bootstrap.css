@@ -6075,6 +6075,10 @@ button.close {
 .package .footer .label {
   font-weight: normal;
 }
+.application-status {
+  position: relative;
+  top: 8px;
+}
 #application-search {
   margin-bottom: 10px;
 }
