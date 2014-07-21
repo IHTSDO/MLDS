@@ -15,15 +15,12 @@ spring:
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
         database: POSTGRESQL
-        openInView: false
         show_sql: false
-        generate-ddl: false
         properties:
             hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: false
             hibernate.search.default.indexBase: /var/opt/mlds/lucene
-            
 
     mail:
         baseUrl: http://localhost:8080
