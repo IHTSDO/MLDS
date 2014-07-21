@@ -43,6 +43,7 @@
       <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
         <ul class="nav navbar-nav nav-pills navbar-right">
           <li><a href="#"> <span translate="global.menu.home">Home</span>
+          <li ng-switch-when="false"><a href="#/viewPackages"> <span>SNOWMED CT</span>
           </a></li>
           <li class="dropdown pointer" ng-switch-when="true"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;"> <span> <span class="hidden-tablet"
                 translate="global.menu.account.main"

@@ -137,14 +137,14 @@ mldsApp
                     templateUrl: 'views/user/viewPackages.html',
                     controller: 'ViewPackagesController',
                     access: {
-                        authorizedRoles: [USER_ROLES.user]
+                        authorizedRoles: [USER_ROLES.all]
                     }
                 })
                 .when('/viewPackage/:releasePackageId', {
                     templateUrl: 'views/user/viewPackage.html',
                     controller: 'ViewPackageController',
                     access: {
-                    	authorizedRoles: [USER_ROLES.user]
+                    	authorizedRoles: [USER_ROLES.all]
                     }
                 })
                 .when('/pendingApplications', {
@@ -268,6 +268,8 @@ mldsApp
                     		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
                     		$location.path() !== "/resetPassword" &&
+                    		$location.path() !== "/viewPackage" &&
+                    		$location.path() !== "/viewPackages" &&
                     		$location.path() !== "/emailVerification" &&
                             $location.path() !== "/activate") {
                         $location.path('/login').replace();
