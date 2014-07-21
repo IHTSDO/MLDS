@@ -122,19 +122,33 @@ public class ReleasePackagesResource {
     	return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     }
 
-	private ReleasePackage filterReleasePackageByAuthority(
-			ReleasePackage releasePackage) {
+	private ReleasePackage filterReleasePackageByAuthority(ReleasePackage releasePackage) {
 		
 		ReleasePackage result = releasePackage;
 		Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
 		
-		if (!currentSecurityContext.isAdmin() && currentSecurityContext.isUser()) {
+		if (!currentSecurityContext.isAdmin()) {
 			for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
 				if (version.isOnline()) {
-					releaseVersions.add(version);
+					releaseVersions.add(filterReleaseVersionByAuthority(version));
 				}
 			}
 			result.setReleaseVersions(releaseVersions);
+		}
+		
+		return result;
+	}
+
+	private ReleaseVersion filterReleaseVersionByAuthority(ReleaseVersion version) {
+		ReleaseVersion result = version;
+		
+		if(!currentSecurityContext.isUser()) {
+			Set<ReleaseFile> filteredReleaseFiles = Sets.newHashSet();
+			for(ReleaseFile releaseFile : version.getReleaseFiles()) {
+				releaseFile.setDownloadUrl(null);
+				filteredReleaseFiles.add(releaseFile);
+			}
+			result.setReleaseFiles(filteredReleaseFiles);
 		}
 		
 		return result;
