@@ -49,6 +49,14 @@ mldsApp.controller('AffiliateRegistrationController',
         	$scope.organizationTypes = UserRegistrationService.getOrganizationTypes();
         	$scope.affilliateControllerSharedBucket = {};
         	
+            // bind the display name to our country object.
+            $scope.$watch('affiliateform.address.country', function(newValue){
+            	var country = _.findWhere(CountryService.countries, {'commonName':newValue});
+            	$scope.selectedCountry = country;
+            	var excludedCountry = country && country.excludeRegistration;
+            	$scope.affiliateApplicationForm.country.$setValidity('excluded',!excludedCountry);
+            	$scope.affiliateApplicationForm.countryIndividual.$setValidity('excluded',!excludedCountry);
+            });
         	
         	window.regScope = $scope;
         	$scope.affiliateform = {};
