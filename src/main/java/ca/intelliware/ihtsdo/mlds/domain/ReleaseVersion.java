@@ -163,4 +163,8 @@ public class ReleaseVersion {
 		return true;
 	}
 
+	public void setReleaseFiles(Set<ReleaseFile> releaseFiles) {
+		this.releaseFiles = releaseFiles;
+	}
+
 }
