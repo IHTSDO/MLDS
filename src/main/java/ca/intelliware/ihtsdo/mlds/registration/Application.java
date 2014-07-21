@@ -9,11 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import org.joda.time.Instant;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 
+@Indexed
 @Entity
 public class Application {
 	@Id
@@ -27,6 +30,7 @@ public class Application {
 	@Column(name="subtype")
 	String subType;
 	
+	@Field
 	@Column(name="full_name")
 	String name;
 	
@@ -42,6 +46,7 @@ public class Application {
 	@Column(name="mobile_number")
 	String mobileNumber;
 	
+	@Field
 	@Column(name="organization_name")
 	String organizationName;
 	@Column(name="organization_type")
@@ -49,8 +54,12 @@ public class Application {
 	@Column(name="organization_type_other")
 	String organizationTypeOther;
 	
+	@Field
 	String street;
+	
+	@Field
 	String city;
+	
 	@Column(name="post_code")
 	String postCode;
 	String country;

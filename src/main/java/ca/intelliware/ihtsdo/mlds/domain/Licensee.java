@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.Validate;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
 
 import ca.intelliware.ihtsdo.mlds.registration.Application;
@@ -22,6 +24,7 @@ import ca.intelliware.ihtsdo.mlds.registration.Application;
 import com.google.common.collect.Sets;
 
 @Entity
+@Indexed
 public class Licensee {
 	@Id
 	@GeneratedValue
@@ -40,6 +43,7 @@ public class Licensee {
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="licensee")
 	Set<CommercialUsage> commercialUsages = Sets.newHashSet();
 
+	@IndexedEmbedded
 	@OneToOne()
 	@JoinColumn(name="application_id")
 	Application application;
