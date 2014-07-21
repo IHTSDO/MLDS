@@ -40,7 +40,7 @@
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
             "email": "E-mail",
-            "email.placeholder": "Email address",
+            "email.placeholder": "Your e-mail address",
             "country": "Country of residence"
         },
         "messages": {
@@ -120,12 +120,12 @@
         }
     },
     "login": {
-        "title": "Authentication",
+        "title": "Login",
         "form": {
             "password": "Password",
             "password.placeholder": "Your password",
-            "rememberme": "Automatic Login",
-            "button": "Authenticate"
+            "rememberme": "Remember Me",
+            "button": "Login"
         },
         "messages": {
             "error": {
