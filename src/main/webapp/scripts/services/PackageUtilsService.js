@@ -65,5 +65,14 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		return results;
 	    	};
 	        
+	    	service.isAllowedToDownload = function isNotAllowedToDownload(releaseVersion) {
+	    		for(var i = 0; i < releaseVersion.releaseFiles.length; i++) {
+	    			if (releaseVersion.releaseFiles[i].downloadUrl)
+	    				return true;
+	    		};
+	    		
+	    		return false;
+	    	};
+	    	
 			return service;
 		} ]);

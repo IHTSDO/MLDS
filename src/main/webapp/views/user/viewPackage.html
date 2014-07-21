@@ -11,7 +11,12 @@
 			</header>
 			<div class="footer">
 				<h4><span class="label label-success">Current:</span> </h4>
-				<p ng-repeat="releaseFile in releaseVersion.releaseFiles"><a href="{{releaseFile.downloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl">{{releaseFile.label}}</a></p>
+				<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
+					<a href="{{releaseFile.downloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl">{{releaseFile.label}}</a>
+				</p>
+				<a class="btn btn-success pull-right" ng-show="!utils.isAllowedToDownload(releaseVersion)" href="#/register">
+					Register now to gain access
+				</a>				
 			</div>
 		</div>
 	</div>
