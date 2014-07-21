@@ -6081,6 +6081,10 @@ button.close {
 #searchbox {
   padding: 5px 10px;
 }
+.btn-close {
+  position: relative;
+  z-index: 999;
+}
 footer {
   background-color: #4372aa;
   color: #ffffff;
