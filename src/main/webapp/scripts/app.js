@@ -242,8 +242,8 @@ mldsApp
 //            $httpProvider.responseInterceptors.push(delayHandlerFactory);
             
         }])
-        .run(['$rootScope', '$location', '$http', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
-            function($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES) {
+        .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
+            function($rootScope, $location, $http, $log, AuthenticationSharedService, Session, USER_ROLES) {
                 $rootScope.$on('$routeChangeStart', function (event, next) {
                     $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
                     $rootScope.userRoles = USER_ROLES;
@@ -254,7 +254,11 @@ mldsApp
                 $rootScope.$on('event:auth-loginConfirmed', function(data) {
                     $rootScope.authenticated = true;
                     if ($location.path() === "/login") {
-                        $location.path('/dashboard').replace();
+                    	if (AuthenticationSharedService.isAuthorized(USER_ROLES.admin)) {
+                    		$location.path('/adminDashboard').replace();                    		
+                    	} else {
+                    		$location.path('/dashboard').replace();
+                    	}
                     }
                 });
 
