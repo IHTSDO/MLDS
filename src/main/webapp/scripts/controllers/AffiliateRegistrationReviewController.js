@@ -8,12 +8,12 @@ mldsApp.controller('AffiliateRegistrationReviewController',
         	// FIXME MB this should be on the CommercialUsageService??
         	$scope.commercialUsageInstitutionsByCountry = 
         		_.groupBy(CommercialUsageService.currentCommercialUsageReport.entries, 
-        				function(entry){ return entry.country.isoCode2});
+        				function(entry){ return entry.country.isoCode2;});
         	
     		$scope.ok = function() {
     			$log.log('AffiliateRegistrationController submit()', $scope.affiliateform);
     			
-    			var httpPromise = UserRegistrationService.submitApplication($scope.affiliateform);
+    			var httpPromise = UserRegistrationService.submitApplication($scope.affiliateform, $scope.applicationId);
     			
     			httpPromise.then(function() {
     				UserSession.updateSession();
