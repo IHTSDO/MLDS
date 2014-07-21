@@ -28,8 +28,8 @@
 				<td>{{version.releaseVersionId}}</td>
 				<td>{{version.name}}</td>
 				<td>
-					<span ng-repeat="files in version.releaseFiles">
-						<span>{{file.name}}</span>
+					<span ng-repeat="file in version.releaseFiles">
+						<span>{{file.label}}</span><span ng-show="!$last">, </span>
 					</span>
 				</td>
 				<td>{{version.description}}</td>
