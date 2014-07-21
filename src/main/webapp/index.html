@@ -32,19 +32,22 @@
 </head>
 <body ng-app="MLDS" ng-controller="MainController">
   <div class="development"></div>
-  <nav class="navbar navbar-default" role="navigation">
+  <nav class="navbar navbar-default" role="navigation" ng-switch="authenticated">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
           <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
         </button>
-        <a href="#"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
+        <a href="#" ng-switch-when="false"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
+        <a href="#/dashboard" ng-switch-when="true"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
       </div>
-      <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
+      <div class="collapse navbar-collapse" id="navbar-collapse" >
         <ul class="nav navbar-nav nav-pills navbar-right">
-          <li><a href="#"> <span translate="global.menu.home">Home</span>
-          <li ng-switch-when="false"><a href="#/viewPackages"> <span>SNOWMED CT</span>
-          </a></li>
+          <li>
+          	<a href="#" ng-switch-when="false"> <span translate="global.menu.home">Home</span></a>
+          	<a href="#/dashboard" ng-switch-when="true"> <span translate="global.menu.home">Home</span></a>
+          </li>
+          <li ng-switch-when="false"><a href="#/viewPackages"> <span>SNOWMED CT</span></a></li>
           <li class="dropdown pointer" ng-switch-when="true"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;"> <span> <span class="hidden-tablet"
                 translate="global.menu.account.main"
               > Account </span> <b class="caret"></b>
