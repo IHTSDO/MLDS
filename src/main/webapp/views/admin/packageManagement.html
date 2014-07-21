@@ -31,7 +31,7 @@
 				<p ng-repeat="file in version.releaseFiles"><a href="{{file.downloadUrl}}">{{file.label}}</a></p>
 			</div>
 		</div>
-		<div class="alert alert-info" ng-show="(packages | filter: utils.isPackagePublished).length == 0">There are currently no public releases available </div>
+		<div class="alert alert-info" ng-show="(packages | filter: utils.isPackagePublished).length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no public releases available </div>
 	</div>
 </div>
 
@@ -57,6 +57,6 @@
 			</header>
 			<p>{{package.description}}</p>
 		</div>
-		<div class="alert alert-info" ng-show="(packages | filter: not(utils.isPackagePublished)).length == 0">There are currently no offline releases available </div>
+		<div class="alert alert-info" ng-show="(packages | filter: not(utils.isPackagePublished)).length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline releases available </div>
 	</div>
 </div>
