@@ -171,11 +171,14 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateform.address.country" name="country" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
-                      <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">
+                      <input class="form-control" type="text" ng-model="affiliateform.address.country" name="countryIndividual" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
+                      <p ng-show="affiliateApplicationForm.countryIndividual.$error.required && affiliateApplicationForm.attempted" class="help-block">
                         Required field.
                       </p>
-                    </div>
+						<p ng-show="affiliateApplicationForm.countryIndividual.$error.excluded" class="help-block">
+							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
+						</p>
+                     </div>
                   </div>
                 </div>
               </div>
@@ -259,6 +262,9 @@
                     <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
+						<p ng-show="affiliateApplicationForm.country.$error.excluded" class="help-block">
+							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
+						</p>
                   </div>
                 </div>
               </div>
