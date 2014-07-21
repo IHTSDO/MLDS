@@ -13,6 +13,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 	
 	//FIXME retrieve from service?
 	$scope.agreementTypeOptions = ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD'];
+	$scope.implementationStatusOptions = ['IMPLEMENTED', 'DEVELOPMENT', 'PLANNING'];
 	
 	$scope.availableCountries = [];
 	$scope.currentCountries = [];
@@ -356,11 +357,14 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/submitUsageReportModal.html',
 			controller: 'SubmitUsageReportController',
-			size:'sm',
+			size:'lg',
 			backdrop: 'static',
 			resolve: {
 				commercialUsageReport: function() {
 					return $scope.commercialUsageReport;
+				},
+				usageByCountryList: function() {
+					return $scope.usageByCountryList;
 				}
 			}
 		});

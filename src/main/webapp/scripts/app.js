@@ -43,7 +43,7 @@ mldsApp
                         authorizedRoles: [USER_ROLES.user]
                     }
                 })
-                 .when('/usage-log/:usageReportId', {
+                .when('/usage-log/:usageReportId', {
                     templateUrl: 'views/user/fullPageUsageLog.html',
                     controller: 'FullPageUsageLogController',
                     access: {
@@ -110,6 +110,57 @@ mldsApp
                         authorizedRoles: [USER_ROLES.admin]
                     }
                 })
+                .when('/packageManagement', {
+                    templateUrl: 'views/admin/packageManagement.html',
+                    controller: 'PackageManagementController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
+                // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
+                .when('/package/:packageId', {
+                    templateUrl: 'views/admin/package.html',
+                    controller: 'PackageController',
+                    access: {
+                    	authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
+                .when('/package/:packageId/:edit', {
+                    templateUrl: 'views/admin/package.html',
+                    controller: 'PackageController',
+                    access: {
+                    	authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
+                // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
+                .when('/viewPackages', {
+                    templateUrl: 'views/user/viewPackages.html',
+                    controller: 'ViewPackagesController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    }
+                })
+                .when('/viewPackage/:releasePackageId', {
+                    templateUrl: 'views/user/viewPackage.html',
+                    controller: 'ViewPackageController',
+                    access: {
+                    	authorizedRoles: [USER_ROLES.all]
+                    }
+                })
+                .when('/pendingApplications', {
+                    templateUrl: 'views/admin/pendingApplications.html',
+                    controller: 'PendingApplicationsController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
+                .when('/applicationReview/:applicationId', {
+                    templateUrl: 'views/admin/applicationReview.html',
+                    controller: 'ApplicationReviewController',
+                    access: {
+                    	authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
                 .when('/metrics', {
                     templateUrl: 'views/admin/metrics.html',
                     controller: 'MetricsController',
@@ -149,6 +200,13 @@ mldsApp
                         authorizedRoles: [USER_ROLES.admin]
                     }
                 })
+                .when('/styleguide/:template*', {
+                    templateUrl: function(params){
+                    	return 'views/styleguide/'+params.template+'.html';},
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
                 .otherwise({
                     templateUrl: 'views/landingPage.html',
                     controller: 'MainController',
@@ -170,9 +228,9 @@ mldsApp
             tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js')
             tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
             
-//            var apiDelay = 300;
+//            var apiDelay = 1000;
 //            var otherDelay = 0;
-//            var errorMethodMatches = /xPUT|xDELETE|xPOST/;
+//            var errorMethodMatches = /PUT|xDELETE|xPOST/;
 //            var delayHandlerFactory = function($q, $timeout) {
 //                return function(promise) {
 //                    return promise.then(function(response) {
@@ -182,7 +240,7 @@ mldsApp
 //                        	} else {
 //                        		return response;
 //                        	}
-//                        }, (response.config.url.indexOf('/rest') !== -1 ? apiDelay : otherDelay));
+//                        }, (response.config.url.indexOf('/rest') !== -1 || response.config.url.indexOf('/api') !== -1   ? apiDelay : otherDelay));
 //                    }, function(response) {
 //                        return $q.reject(response);
 //                    });
@@ -191,8 +249,8 @@ mldsApp
 //            $httpProvider.responseInterceptors.push(delayHandlerFactory);
             
         }])
-        .run(['$rootScope', '$location', '$http', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
-            function($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES) {
+        .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
+            function($rootScope, $location, $http, $log, AuthenticationSharedService, Session, USER_ROLES) {
                 $rootScope.$on('$routeChangeStart', function (event, next) {
                     $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
                     $rootScope.userRoles = USER_ROLES;
@@ -203,7 +261,11 @@ mldsApp
                 $rootScope.$on('event:auth-loginConfirmed', function(data) {
                     $rootScope.authenticated = true;
                     if ($location.path() === "/login") {
-                        $location.path('/dashboard').replace();
+                    	if (AuthenticationSharedService.isAuthorized(USER_ROLES.admin)) {
+                    		$location.path('/adminDashboard').replace();                    		
+                    	} else {
+                    		$location.path('/dashboard').replace();
+                    	}
                     }
                 });
 
@@ -217,6 +279,8 @@ mldsApp
                     		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
                     		$location.path() !== "/resetPassword" &&
+                    		$location.path() !== "/viewPackage" &&
+                    		$location.path() !== "/viewPackages" &&
                     		$location.path() !== "/emailVerification" &&
                             $location.path() !== "/activate") {
                         $location.path('/login').replace();

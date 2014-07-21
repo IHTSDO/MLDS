@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 
-                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport) {
+angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 'usageByCountryList', 
+                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport, usageByCountryList) {
 	$scope.attemptedSubmit = false;
 	$scope.submitting = false;
 	$scope.alerts = [];
 	
 	$scope.commercialUsageReport = commercialUsageReport;
+	$scope.usageByCountryList = usageByCountryList;
 	
 	$scope.submit = function(){
 		$scope.submitting = true;

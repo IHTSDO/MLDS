@@ -9,6 +9,8 @@ mldsApp.controller('AffiliateRegistrationController',
         		
         		queryPromise.success(function(data) {
     				$log.log("loadApplication", data);
+    				$scope.approvalState = data.approvalState;
+    				    				
     				$scope.affiliateform.type = data.type ? data.type : '';
     				$scope.affiliateform.usageSubType = data.subType;
     				$scope.affiliateform.contact.name = data.name ? data.name : Session.firstName;
@@ -31,15 +33,30 @@ mldsApp.controller('AffiliateRegistrationController',
     				$scope.affiliateform.organization.type = data.organizationType ? data.organizationType : '';
     				$scope.affiliateform.organization.typeOther = data.organizationTypeOther ? data.organizationTypeOther : '';
     				$scope.affiliateform.otherText = data.otherText ? data.otherText : '';
+    				
+    				if (!UserRegistrationService.isApplicationWaitingForApplicant(data)) {
+    					$log.log('Application does not require input from applicant');
+    					$location.path('/dashboard');
+    					return;
+    				}
         		});
         	};
         	
         	loadApplication();
         	
+        	$scope.approvalState = {};
         	$scope.availableCountries = CountryService.countries;
         	$scope.organizationTypes = UserRegistrationService.getOrganizationTypes();
         	$scope.affilliateControllerSharedBucket = {};
         	
+            // bind the display name to our country object.
+            $scope.$watch('affiliateform.address.country', function(newValue){
+            	var country = _.findWhere(CountryService.countries, {'commonName':newValue});
+            	$scope.selectedCountry = country;
+            	var excludedCountry = country && country.excludeRegistration;
+            	$scope.affiliateApplicationForm.country.$setValidity('excluded',!excludedCountry);
+            	$scope.affiliateApplicationForm.countryIndividual.$setValidity('excluded',!excludedCountry);
+            });
         	
         	window.regScope = $scope;
         	$scope.affiliateform = {};

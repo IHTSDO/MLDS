@@ -1,16 +1,18 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
-import ca.intelliware.ihtsdo.mlds.config.audit.AuditEventConverter;
-import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
-import org.joda.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.joda.time.Instant;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-import java.util.Date;
-import java.util.List;
+import ca.intelliware.ihtsdo.mlds.config.audit.AuditEventConverter;
+import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 
 /**
  * Wraps an implementation of Spring Boot's AuditEventRepository.
@@ -37,7 +39,7 @@ public class CustomAuditEventRepository {
                     persistentAuditEvents = persistenceAuditEventRepository.findByPrincipal(principal);
                 } else {
                     persistentAuditEvents =
-                            persistenceAuditEventRepository.findByPrincipalAndAuditEventDateGreaterThan(principal, new LocalDateTime(after));
+                            persistenceAuditEventRepository.findByPrincipalAndAuditEventDateGreaterThan(principal, new Instant(after));
                 }
 
                 return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
@@ -48,7 +50,7 @@ public class CustomAuditEventRepository {
                 PersistentAuditEvent persistentAuditEvent = new PersistentAuditEvent();
                 persistentAuditEvent.setPrincipal(event.getPrincipal());
                 persistentAuditEvent.setAuditEventType(event.getType());
-                persistentAuditEvent.setAuditEventDate(new LocalDateTime(event.getTimestamp()));
+                persistentAuditEvent.setAuditEventDate(new Instant(event.getTimestamp()));
                 persistentAuditEvent.setData(auditEventConverter.convertDataToStrings(event.getData()));
 
                 persistenceAuditEventRepository.save(persistentAuditEvent);

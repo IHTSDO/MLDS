@@ -432,4 +432,148 @@
 			WHERE iso_code_2='GB';
 		</sql>
 	</changeSet>
+	
+    <changeSet id="MLDS-256-1" author="DGJ">
+    	<comment>Add Package</comment>
+    	<createTable schemaName="public" tableName="package">
+            <column name="package_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_at" type="timestamp"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+        </createTable>
+        <addPrimaryKey columnNames="package_id" constraintName="package_PK" schemaName="public" tableName="package"/>
+        <addForeignKeyConstraint baseColumnNames="created_by" baseTableName="package" baseTableSchemaName="public" constraintName="FK_package_t_user" deferrable="false" initiallyDeferred="false" referencedColumnNames="login" referencedTableName="t_user" referencedTableSchemaName="public"/>
+	</changeSet>
+
+    <changeSet id="MLDS-256-2" author="DGJ">
+    	<comment>Rename Package to ReleasePackage</comment>
+    	<renameTable schemaName="public" oldTableName="package" newTableName="release_package"/>
+    	<renameColumn schemaName="public" tableName="release_package" oldColumnName="package_id" newColumnName="release_package_id"/>
+	</changeSet>
+
+    <changeSet id="MLDS-256-3" author="DGJ">
+    	<comment>Add ReleaseVersion as child of ReleasePackage</comment>
+    	<createTable schemaName="public" tableName="release_version">
+            <column name="release_version_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="release_package_id" type="INT8">
+       			<constraints foreignKeyName="FK_release_version_release_package" references="release_package(release_package_id)"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_at" type="timestamp"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="published_at" type="timestamp"/>
+        </createTable>
+        <addPrimaryKey columnNames="release_version_id" constraintName="release_version_PK" schemaName="public" tableName="release_version"/>
+        <addForeignKeyConstraint baseColumnNames="created_by" baseTableName="release_version" baseTableSchemaName="public" constraintName="FK_release_version_t_user" deferrable="false" initiallyDeferred="false" referencedColumnNames="login" referencedTableName="t_user" referencedTableSchemaName="public"/>
+	</changeSet>
+
+    <changeSet id="MLDS-256-4" author="DGJ">
+    	<comment>Add ReleaseFile as child of ReleaseVersion</comment>
+    	<createTable schemaName="public" tableName="release_file">
+            <column name="release_file_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="release_version_id" type="INT8">
+       			<constraints foreignKeyName="FK_release_file_release_version" references="release_version(release_version_id)"/>
+            </column>
+            <column name="created_at" type="timestamp"/>
+            <column name="label" type="VARCHAR(255)"/>
+            <column name="download_url" type="TEXT"/>
+        </createTable>
+        <addPrimaryKey columnNames="release_file_id" constraintName="release_file_PK" schemaName="public" tableName="release_file"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-256-5" author="MB">
+		<comment>Fix JH type definition of timestamp column</comment>
+		<modifyDataType tableName="t_persistent_audit_event" columnName="event_date" newDataType="timestamp"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-256-6" author="MB">
+		<comment>Add online flag to ReleaseVersion</comment>
+		<addColumn tableName="release_version">
+			<column name="online" type="BOOLEAN" defaultValueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-256-7" author="DGJ">
+		<comment>Add inactive_at flag/timestamp to release</comment>
+		<addColumn tableName="release_version">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-256-8" author="DGJ">
+		<comment>Add inactive_at flag/timestamp to release</comment>
+		<addColumn tableName="release_package">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-274-1" author="DGJ">
+		<comment>Add mgmt fields to application to support pending applications</comment>
+		<addColumn tableName="application">
+			<column name="submitted_at" type="timestamp"/>
+			<column name="notes_internal" type="TEXT"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-274-2" author="DGJ">
+		<comment>Migrate to application approval state</comment>
+		<addColumn tableName="application">
+			<column name="completed_at" type="timestamp"/>
+			<column name="approval_state" type="VARCHAR(255)" defaultValue="NOT_SUBMITTED"/>
+		</addColumn>
+		<sql>
+			UPDATE application 
+			SET approval_state='NOT_SUBMITTED',submitted_at=now()
+			WHERE is_submitted=FALSE;
+		</sql>
+		<sql>
+			UPDATE application 
+			SET approval_state='SUBMITTED',submitted_at=now()
+			WHERE is_submitted=TRUE;
+		</sql>
+		<sql>
+			UPDATE application 
+			SET approval_state='APPROVED',completed_at=now()
+			WHERE approved=TRUE;
+		</sql>
+		<dropColumn tableName="application" columnName="is_submitted"/>
+		<dropColumn tableName="application" columnName="approved"/>
+	</changeSet>
+
+	<changeSet id="MLDS-274-3" author="DGJ">
+		<comment>Associate application with the usage at time of submission</comment>
+		<addColumn tableName="application">
+    		<column name="commercial_usage_id" type="bigint">
+    			<constraints foreignKeyName="FK_application_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
+    		</column>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="MLDS-304-1" author="DGJ">
+		<comment>Add implementation status</comment>
+		<addColumn tableName="commercial_usage">
+    		<column name="implementation_status" type="VARCHAR(255)"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-274-4" author="DGJ">
+		<comment>Stricter application approval state</comment>
+		<addNotNullConstraint 
+            columnDataType="VARCHAR(255)"
+            columnName="approval_state"
+            defaultNullValue="NOT_SUBMITTED"
+            schemaName="public"
+            tableName="application"/>
+	</changeSet>
+	
 </databaseChangeLog>

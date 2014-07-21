@@ -54,7 +54,8 @@ public class UserService {
         // activate given user for the registration key.
         if (user != null) {
             user.setActivated(true);
-            user.setActivationKey(null);
+            // MLDS-234 Rory requested that activation keys not expire
+            // user.setActivationKey(null);
             autologinService.loginUser(user);
             
             log.debug("Activated user: {}", user);
