@@ -57,6 +57,7 @@
   				<li class="list-group-item"><strong>Planned Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.plannedUsage}}</li>
   				<li class="list-group-item"><strong>Purpose:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.purpose}}</li>
   				<li class="list-group-item"><strong>Agreement Type:</strong> {{'licensee.agreementType.'+CommercialUsageService.currentCommercialUsageReport.context.agreementType | translate}}</li>
+  				<li class="list-group-item"><strong>Implementation Status:</strong> {{'licensee.implementationStatus.'+CommercialUsageService.currentCommercialUsageReport.context.implementationStatus | translate}}</li>
   				<li class="list-group-item" ng-show="affiliateform.type=='COMMERCIAL'" ng-repeat="countryRecord in CommercialUsageService.currentCommercialUsageReport.countries">
   					<strong>Country:</strong> {{countryRecord.country.commonName}}<br>
  						<strong>Practices:</strong> {{countryRecord.practices}}<br>

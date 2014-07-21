@@ -1,0 +1,15 @@
+<div class="modal-header">
+   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+  <h3 class="modal-title">Review Requested from Staff</h3>
+</div>
+<div class="modal-body">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	<p>Are you sure you want to mark this application as waiting for a review to be completed?</p>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-link" ng-click="$dismiss()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-warning" ng-disabled="submitting" ng-click="ok()">
+		Mark as review requested
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
+</div>

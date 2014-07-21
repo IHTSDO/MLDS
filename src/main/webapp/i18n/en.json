@@ -40,7 +40,7 @@
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
             "email": "E-mail",
-            "email.placeholder": "Email address",
+            "email.placeholder": "Your e-mail address",
             "country": "Country of residence"
         },
         "messages": {
@@ -120,12 +120,12 @@
         }
     },
     "login": {
-        "title": "Authentication",
+        "title": "Login",
         "form": {
             "password": "Password",
             "password.placeholder": "Your password",
-            "rememberme": "Automatic Login",
-            "button": "Authenticate"
+            "rememberme": "Remember Me",
+            "button": "Login"
         },
         "messages": {
             "error": {
@@ -319,7 +319,9 @@
     },
     "footer": "This is your footer",
     "licensee": {
+    	"title": "Licensee",
     	"type": {
+    		"title": "Type",
     		"COMMERCIAL": "Commercial",
 				"ACADEMIC": "Academic",
 				"OTHER": "Other",
@@ -327,17 +329,33 @@
     	},
     	"agreementType": {
     		"AFFILIATE_NORMAL": "Affiliate - Normal",
-				"AFFILIATE_RESEARCH": "Affiliate - Research",
-				"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
-			},
-			"organizationType": {
-				"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization", 
-				"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization", 
-				"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization", 
-				"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer",
-				"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice", 
-				"EDUCATIONAL_INSTITUTE": "Educational Institute", 
-				"OTHER": "Other"
-			}
+			"AFFILIATE_RESEARCH": "Affiliate - Research",
+			"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
+		},
+		"organizationType": {
+			"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization", 
+			"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization", 
+			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization", 
+			"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer",
+			"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice", 
+			"EDUCATIONAL_INSTITUTE": "Educational Institute", 
+			"OTHER": "Other"
+		},
+		"implementationStatus": {
+			"IMPLEMENTED": "Live/Implemented",
+			"DEVELOPMENT": "In Progress/Development",
+			"PLANNING": "In Planning Stage"
+		}
+    },
+    "approval": {
+    	"state": {
+			"NOT_SUBMITTED": "Not Submitted",
+			"CHANGE_REQUESTED": "Change Requested",
+			"SUBMITTED": "Submitted",
+			"RESUBMITTED": "Resubmitted",
+			"REVIEW_REQUESTED": "Review Requested",
+			"APPROVED": "Approved",
+			"REJECTED": "Declined"
+    	}	
     }
 }

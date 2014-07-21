@@ -1,0 +1,90 @@
+<div class="row">
+	<div class="page-header">
+			<button ng-click="goToReleaseManagement()" type="button" class="btn btn-link pull-right">Back to Release Management</button>
+			<h1>Package Details</h1>
+	</div>
+	<div class="col-lg-10">
+		<div class="well">
+			<h2>{{packageEntity.name}} <a class="btn btn-default pull-right"  ng-click="editReleasePackage()"><i class="fa fa-pencil"></i> Edit</a></h2>
+		    <p>{{packageEntity.description}}</p>
+		</div>
+	</div>
+</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<button class="btn btn-primary" ng-click="addReleaseVersion()">Add New Version</button>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-8">
+			<h3>Online Versions</h3>
+
+			<div class="well well-lg package" ng-repeat="releaseVersion in versions.online">
+
+				<header>	
+					<div class="dropdown pull-right">
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
+							<li><a ng-click="takeOfflineModal(releaseVersion)"><i class="fa fa-times-circle-o"></i> Take Offline</a></li>
+						</ul>
+					</div>
+					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
+				</header>
+				<p>{{releaseVersion.description}}</p>
+				<p>Published On: {{releaseVersion.publishedAt | date:'medium'}}</p>
+				<div class="footer">
+					<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
+				</div>
+			</div>
+			<div class="alert alert-info" ng-show="versions.online.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no online version of this package.</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-8">
+			<h3>Offline Versions</h3>
+
+			<div class="well well-lg package" ng-repeat="releaseVersion in versions.offline">
+
+				<header>	
+					<div class="dropdown pull-right">
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
+							<li><a ng-click="takeOnlineModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Take Online</a></li>
+							<li><a ng-click="deleteVersionModal(releaseVersion)"><i class="fa fa-times"></i> Remove</a></li>
+						</ul>
+					</div>
+					<button class="btn btn-success pull-right" ng-click="addReleaseFile(releaseVersion)" ng-hide="releaseVersion.publishedAt">
+						<i class="fa fa-plus"></i> Add File
+					</button>
+					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
+				</header>
+				<p>{{releaseVersion.description}}</p>
+				<p ng-show="releaseVersion.publishedAt">Published Date: {{releaseVersion.publishedAt | date:'medium'}}</p>
+				<p>Created Date: {{releaseVersion.createdAt | date:'medium'}}</p>
+				<div class="footer">
+					<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
+						<a href="{{releaseFile.downloadUrl}}">{{releaseFile.label}}</a> 
+						<button class="btn btn-danger btn-xs" ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="releaseVersion.publishedAt">
+							<i class="fa fa-times"></i> Remove
+						</button>
+					</p>
+				</div>
+			</div>
+			
+			<div class="alert alert-info" ng-show="versions.offline.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline versions of this package.</div>
+		</div>
+	</div>
+	
+<div class="row">
+	<div class="col-lg-10">
+	<button ng-click="goToReleaseManagement()" type="button" class="btn btn-link">Back to Release Management</button>
+	</div>
+</div>

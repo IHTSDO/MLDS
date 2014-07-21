@@ -23,13 +23,21 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				
 				return httpPromise;
 			},
-			
+						
 			getApplications: function() {
 				return $http.get('/api/applications');
 			},
 			
+			getApplicationsPending: function() {
+				return $http.get('/app/rest/applications?$filter='+encodeURIComponent('approvalState/pending eq true'));
+			},
+
+			getApplicationById: function(applicationId) {
+				return $http.get('/app/rest/applications/'+encodeURIComponent(applicationId));
+			},
+
 			getApplication: function() {
-				return $http.get('/api/application');
+				return $http.get('/app/rest/applications/me');
 			},
 			
 			submitApplication: function submitApplication(applicationForm) {
@@ -42,15 +50,28 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				return $http.post('/api/application/save', applicationForm);
 			},
 			
-			approveApplication: function approveApplication(username) {
-				$log.log('approveApplication', username);
-				return $http({
-					method: 'POST',
-					url: 'api/application/approve',
-					params: {email: username}
-				});
+			approveApplication: function approveApplication(application, approvalStatus) {
+				$log.log('approveApplication', approvalStatus);
+				return $http.post('/app/rest/applications/'+encodeURIComponent(application.applicationId)+'/approve', approvalStatus);
 			},
 			
+			updateApplicationNoteInternal: function(application) {
+				return $http.put('/app/rest/applications/'+encodeURIComponent(application.applicationId)+'/notesInternal', application.notesInternal);
+			},
+			
+			isApplicationWaitingForApplicant: function isApplicationWaitingForApplicant(application) {
+				return (!application.approvalState
+					|| application.approvalState === 'NOT_SUBMITTED'
+					|| application.approvalState === 'CHANGE_REQUESTED');
+			},
+			
+			isApplicationPending: function isApplicationPending(application) {
+				return (application.approvalState === 'SUBMITTED'
+					|| application.approvalState === 'RESUBMITTED'
+					|| application.approvalState === 'REVIEW_REQUESTED');
+			},
+
+
 			getOrganizationTypes: function getOrganizationTypes() {
 				return ['PUBLIC_HEALTH_ORGANIZATION', 'PRIVATE_HEALTH_ORGANIZATION', 
 				        'RESEARCH_AND_DEVELOPMENT_ORGANIZATION', 'HEALTHERCARE_APPLICATION_DEVELOPER',

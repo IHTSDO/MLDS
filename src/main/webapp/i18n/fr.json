@@ -317,7 +317,9 @@
     },
     "footer": "Ceci est votre pied de page",
     "licensee": {
+    	"title": "Licensee-fr",
     	"type": {
+    		"title": "Type-fr",
     		"COMMERCIAL": "Commercial-fr",
 				"ACADEMIC": "Academic-fr",
 				"OTHER": "Other-fr",

@@ -1,18 +1,24 @@
 package ca.intelliware.ihtsdo.mlds.web;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
+import javax.transaction.Transactional;
 
+import org.joda.time.Instant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Licensee;
 import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
 import ca.intelliware.ihtsdo.mlds.domain.User;
@@ -20,9 +26,14 @@ import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
+import ca.intelliware.ihtsdo.mlds.web.rest.AuthorizationChecker;
+import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 
 @Controller
 public class ApplicationController {
@@ -36,32 +47,93 @@ public class ApplicationController {
 	ApplicationApprovedEmailSender applicationApprovedEmailSender;
 	@Resource
 	UserRepository userRepository;
+	@Resource
+	ApplicationAuditEvents applicationAuditEvents;
+	@Resource
+	AuthorizationChecker authorizationChecker;
 
 	@RequestMapping(value="api/applications")
 	public @ResponseBody Iterable<Application> getApplications() {
 		return applicationRepository.findAll();
 	}
 	
-	@RequestMapping(value="api/application/approve")
-	public Object approveApplication(@RequestParam String email) {
-		List<Application> applications = applicationRepository.findByUsername(email);
-		if (applications.size() == 0) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	@RequestMapping(value = Routes.APPLICATION_APPROVE,
+			method=RequestMethod.POST,
+			produces = "application/json")
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public @ResponseBody ResponseEntity<Application> approveApplication(@PathVariable long applicationId, @RequestBody String approvalStateString) {
+		//FIXME why cant this be the body type?
+		ApprovalState approvalState = ApprovalState.valueOf(approvalStateString);
+		Application application = applicationRepository.findOne(applicationId);
+		if (application == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		User user = userRepository.getUserByEmail(email);
+		//FIXME should there be state transition validation?
+		application.setApprovalState(approvalState);
 		
-		Application application = applications.get(0);
-		
-		application.setApproved(true);
+		//FIXME add flags to approval state?
+		if (Objects.equal(approvalState, ApprovalState.APPROVED) || Objects.equal(approvalState, ApprovalState.REJECTED)) {
+			application.setCompletedAt(Instant.now());
+		}
 		applicationRepository.save(application);
 		
-		applicationApprovedEmailSender.sendApplicationApprovalEmail(user);
+		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
+			User user = userRepository.getUserByEmail(application.getEmail());
+			applicationApprovedEmailSender.sendApplicationApprovalEmail(user);
+		}
 		
-		return new ResponseEntity<>(HttpStatus.OK);
+		applicationAuditEvents.logApprovalStateChange(application);
+		
+		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/api/application", method=RequestMethod.GET)
-	public Object getUserApplication(){
+	@RequestMapping(value = Routes.APPLICATIONS, 
+			method=RequestMethod.GET,
+			produces = "application/json")
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public @ResponseBody ResponseEntity<Collection<Application>> getApplications(@RequestParam(value="$filter") String filter){
+		Iterable<Application> applications;
+		if (filter == null) {
+			applications = applicationRepository.findAll();
+		} else {
+			// Limited OData implementation - expand or use real OData library in the future
+			if (Objects.equal(filter, "approvalState/pending eq true")) {
+				applications = applicationRepository.findByApprovalStateIn(Lists.newArrayList(ApprovalState.SUBMITTED, ApprovalState.RESUBMITTED, ApprovalState.REVIEW_REQUESTED));
+			} else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		}
+		return new ResponseEntity<Collection<Application>>(Lists.newArrayList(applications), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = Routes.APPLICATION, 
+			method=RequestMethod.GET,
+			produces = "application/json")
+	public  @ResponseBody ResponseEntity<Application> getApplication(@PathVariable long applicationId){
+		Application application = applicationRepository.findOne(applicationId);
+		if (application == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		authorizationChecker.checkCanAccessApplication(application);
+		return new ResponseEntity<Application>(application, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = Routes.APPLICATION_ME, 
+			method=RequestMethod.GET,
+			produces = "application/json")
+	public  @ResponseBody ResponseEntity<Application> getApplicationForMe(){
+		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
+		if (applications.size() > 0) {
+			return new ResponseEntity<Application>(applications.get(0), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+	@Transactional
+	@RequestMapping(value="/api/application", 
+			method=RequestMethod.GET,
+			produces = "application/json")
+	public @ResponseBody ResponseEntity<Application> getUserApplication(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		if (applications.size() > 0) {
 			return new ResponseEntity<Application>(applications.get(0), HttpStatus.OK);
@@ -73,9 +145,20 @@ public class ApplicationController {
 	@RequestMapping(value="/api/application/submit",method=RequestMethod.POST)
 	public Object submitApplication(@RequestBody JsonNode request) {
 		Application application = saveApplicationFields(request);
+		ApprovalState preApprovalState = application.getApprovalState();
 		// Mark application as submitted
-		application.setStatus();
+		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)
+				|| Objects.equal(application.getApprovalState(), ApprovalState.RESUBMITTED)) {
+			application.setApprovalState(ApprovalState.RESUBMITTED);
+		} else {
+			application.setApprovalState(ApprovalState.SUBMITTED);
+		}
+		application.setSubmittedAt(Instant.now());
 		applicationRepository.save(application);
+		
+		if (!Objects.equal(application.getApprovalState(), preApprovalState)) {
+			applicationAuditEvents.logApprovalStateChange(application);
+		}
 		
 		//FIXME should be a different trigger and way to connect applications with licensee
 		List<Licensee> licensees = licenseeRepository.findByCreator(application.getUsername());
@@ -92,16 +175,42 @@ public class ApplicationController {
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
+	//FIXME mismatch of API styles with rest of this class...
+	@Transactional
+	@RequestMapping(value = Routes.APPLICATION_NOTES_INTERNAL,
+			method=RequestMethod.PUT,
+			produces = "application/json")
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody String notesInternal) {
+		Application application = applicationRepository.findOne(applicationId);
+		if (application == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		application.setNotesInternal(notesInternal);
+		applicationRepository.save(application);
+		return new ResponseEntity<Application>(application, HttpStatus.OK);
+	}
+
 	
 	@RequestMapping(value="/api/application/save",method=RequestMethod.POST)
 	public Object saveApplication(@RequestBody JsonNode request) {
 		
         Application application = saveApplicationFields(request);
+        ApprovalState preApprovalState = application.getApprovalState();
 		// Mark application as not submitted
-		application.resetStatus();
+		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)
+				|| Objects.equal(application.getApprovalState(), ApprovalState.RESUBMITTED)) {
+			application.setApprovalState(ApprovalState.CHANGE_REQUESTED);
+		} else {
+			application.setApprovalState(ApprovalState.NOT_SUBMITTED);
+		}
 		
-		applicationRepository.save(application);
+		if (!Objects.equal(application.getApprovalState(), preApprovalState)) {
+			applicationRepository.save(application);
+		}
+		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
@@ -150,7 +259,9 @@ public class ApplicationController {
 		// FIXME MB map unset to false?
 		application.setSnoMedLicence(Boolean.parseBoolean(setField(request, "snoMedTC")));
 		
-		application.setApproved(false);
+		if (application.getApprovalState() == null) {
+			application.setApprovalState(ApprovalState.NOT_SUBMITTED);
+		}
 		return application;
 	}
 	
