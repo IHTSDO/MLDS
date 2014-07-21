@@ -14,8 +14,8 @@
 				<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
 					<a href="{{releaseFile.downloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl">{{releaseFile.label}}</a>
 				</p>
-				<a class="btn btn-success pull-right" ng-show="!utils.isAllowedToDownload(releaseVersion)" href="#/register">
-					Register now to gain access
+				<a class="btn btn-success pull-right" ng-show="!utils.isAllowedToDownload(releaseVersion)" href="#/login">
+					Login to download
 				</a>				
 			</div>
 		</div>

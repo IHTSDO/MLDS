@@ -16,6 +16,13 @@
             <a th:href="@{${loginUrl}}"
                th:text="#{duplicateRegistration.loginLinkLabel}">Login</a>
         </p>
+        <p th:text="#{applicationApproved.text2}">
+        		You now have access to download SNOWMED CT, to view available packages follow the link below.
+        </p>
+        <p>
+        	<a th:href="@{${viewPackagesUrl}}"
+               th:text="#{applicationApproved.viewPackagesLabel}">View Packages</a>
+        </p>
         <p>
             <span th:text="#{email.close}">Regards, </span>
             <br/>
