@@ -49,12 +49,93 @@ public class Routes {
 	static final String USAGE_REPORT_COUNTRY = "/app/rest/commercialUsages/{commercialUsageId}/countries/{commercialUsageCountId}"; 
 
 
+	static final String LICENSEES = "/app/rest/licensees";
+	
 	/**
 	 * - get list of all licensees that user has access to
 	 */
-	static final String LICENSEES_USERNAME = "/app/rest/licensees";
+	static final String LICENSEES_ME = "/app/rest/licensees/me";
 
+	/**
+	 * - get list of all licensees for a username
+	 */
+	static final String LICENSEES_CREATOR = "/app/rest/licensees/creator/{username:.+}";
+
+	
+	/**
+	 * control endpoint for mulitple release packages:
+	 * - GET to get all
+	 * - POST to create
+	 */
+	public static final String RELEASE_PACKAGES = "/app/rest/releasePackages"; 
+	
+	/**
+	 * control endpoint for single release package:
+	 * - GET
+	 * - PUT
+	 * - DELETE
+	 */
+	public static final String RELEASE_PACKAGE = "/app/rest/releasePackages/{releasePackageId}"; 
+
+	/**
+	 * control endpoint for release version within package:
+	 * - POST to create new
+	 */
+	static final String RELEASE_VERSIONS = "/app/rest/releasePackages/{releasePackageId}/releaseVersions";
+	
+	/**
+	 * control endpoint for single release version:
+	 * - GET
+	 * - PUT
+	 */
+	static final String RELEASE_VERSION = "/app/rest/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}"; 
+
+	/**
+	 * control endpoint for release files in version:
+	 * - POST
+	 */
+	static final String RELEASE_FILES = "/app/rest/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/releaseFiles";
+	
+	/**
+	 * control endpoint for single release file:
+	 * - GET
+	 * - PUT
+	 * - DELETE
+	 */
+	static final String RELEASE_FILE = "/app/rest/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/releaseFiles/{releaseFileId}"; 
+	
+	
 	public static final String PASSWORD_RESET = "/app/rest/passwordReset";
 	public static final String PASSWORD_RESET_ITEM = "/app/rest/passwordReset/{token}";
+
+	/**
+	 * control endpoint for multiple applications:
+	 * - GET
+	 */
+	public static final String APPLICATIONS = "/app/rest/applications"; 
+
+	/**
+	 * control endpoint for single applications:
+	 * - GET
+	 */
+	public static final String APPLICATION = "/app/rest/applications/{applicationId}"; 
+
+	/**
+	 * control endpoint for single applications:
+	 * - GET
+	 */
+	public static final String APPLICATION_ME = "/app/rest/applications/me"; 
+
+	/**
+	 * control endpoint for single applications:
+	 * - PUT update the internal notes field
+	 */
+	public static final String APPLICATION_NOTES_INTERNAL = "/app/rest/applications/{applicationId}/notesInternal"; 
+
+	/**
+	 * control endpoint for single applications:
+	 * - POST admin changing approve status
+	 */
+	public static final String APPLICATION_APPROVE = "/app/rest/applications/{applicationId}/approve"; 
 
 }

@@ -14,6 +14,7 @@
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<!-- build:css(.tmp) styles/main.css -->
 	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css">
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="styles/famfamfam-flags.css">
 	<link rel="stylesheet" href="styles/main.css">
@@ -32,18 +33,22 @@
 </head>
 <body ng-app="MLDS" ng-controller="MainController">
   <div class="development"></div>
-  <nav class="navbar navbar-default" role="navigation">
+  <nav class="navbar navbar-default" role="navigation" ng-switch="authenticated">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
           <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
         </button>
-        <a href="#"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
+        <a href="#" ng-switch-when="false"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
+        <a href="#/dashboard" ng-switch-when="true"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
       </div>
-      <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
+      <div class="collapse navbar-collapse" id="navbar-collapse" >
         <ul class="nav navbar-nav nav-pills navbar-right">
-          <li><a href="#"> <span translate="global.menu.home">Home</span>
-          </a></li>
+          <li>
+          	<a href="#" ng-switch-when="false"> <span translate="global.menu.home">Home</span></a>
+          	<a href="#/dashboard" ng-switch-when="true"> <span translate="global.menu.home">Home</span></a>
+          </li>
+          <li ng-switch-when="false"><a href="#/viewPackages"> <span>SNOWMED CT</span></a></li>
           <li class="dropdown pointer" ng-switch-when="true"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;"> <span> <span class="hidden-tablet"
                 translate="global.menu.account.main"
               > Account </span> <b class="caret"></b>
@@ -53,7 +58,8 @@
               <li><a href="#/dashboard"> <span translate="global.menu.account.dashboard">Dashboard</span></a></li>
               <li><a href="#/settings"> <span translate="global.menu.account.settings">Settings</span></a></li>
               <li><a href="#/password"> <span translate="global.menu.account.password">Password</span></a></li>
-              <li><a href="#/sessions"> <span translate="global.menu.account.sessions">Sessions</span></a></li>
+<!--               <li><a href="#/sessions"> <span translate="global.menu.account.sessions">Sessions</span></a></li> -->
+              <li><a href="#/viewPackages"> <span >SNOMED Packages</span></a></li>
             </ul></li>
           <li ng-switch-when="false"><a href="#/login"> <span translate="global.menu.account.login">Login</span></a></li>
           <li ng-switch-when="true"><a href="#/logout"> <span translate="global.menu.account.logout">Log out</span></a></li>
@@ -64,8 +70,11 @@
           </a>
             <ul class="dropdown-menu">
               <li><a href="#/adminDashboard"> <span translate="global.menu.account.dashboard">Dashboard</span></a></li>
-              <li><a href="#/metrics"> <span translate="global.menu.account.metrics">Metrics</span></a></li>
+              <li><a href="#/packageManagement"> <span>Package Management</span></a></li>
+              <li><a href="#/pendingApplications"> <span>Pending Applications</span></a></li>
               <li><a href="#/countries"> <span  >Countries</span></a></li>
+              <li class="divider"></li>
+              <li><a href="#/metrics"> <span translate="global.menu.account.metrics">Metrics</span></a></li>
               <li><a href="#/audits"> <span translate="global.menu.account.audits">Audits</span></a></li>
               <li><a href="#/logs"> <span translate="global.menu.account.logs">Logs</span></a></li>
               <li><a href="#/docs"> <span translate="global.menu.account.apidocs">API Docs</span></a></li>
@@ -126,6 +135,7 @@
   <script src="bower_components/angular-dynamic-locale/src/tmhDinamicLocale.js"></script>
   <script src="bower_components/moment/moment.js"></script>
   <script src="bower_components/underscore/underscore.js"></script>
+  <script src="bower_components/intl-tel-input/build/js/intlTelInput.js" charset="UTF-8"></script>
   <script src="scripts/http-auth-interceptor.js"></script>
   <script src="scripts/truncate.js"></script>
   <script src="scripts/utils.js"></script>
@@ -134,17 +144,35 @@
   <script src="scripts/controllers/ActivationController.js"></script>
   <script src="scripts/controllers/AdminDashboardController.js"></script>
   <script src="scripts/controllers/AddInstitutionController.js"></script>
+  <script src="scripts/controllers/AddPackageModalController.js"></script>
+  <script src="scripts/controllers/AddEditReleaseVersionModalController.js"></script>
+  <script src="scripts/controllers/AddReleaseFileModalController.js"></script>
   <script src="scripts/controllers/AddUsageReportController.js"></script>
+  <script src="scripts/controllers/ApplicationReviewController.js"></script>
+  <script src="scripts/controllers/ApplicationReviewComparisonSearchController.js"></script>
+  <script src="scripts/controllers/ApproveApplicationConfirmationModalController.js"></script>
+  <script src="scripts/controllers/ApproveApplicationModalController.js"></script>
+  <script src="scripts/controllers/ChangeRequestedModalController.js"></script>
   <script src="scripts/controllers/EditInstitutionController.js"></script>
   <script src="scripts/controllers/DeleteInstitutionController.js"></script>
+  <script src="scripts/controllers/DeletePackageModalController.js"></script>
+  <script src="scripts/controllers/DeleteVersionModalController.js"></script>
   <script src="scripts/controllers/EditCountController.js"></script>
+  <script src="scripts/controllers/EditPackageModalController.js"></script>
+  <script src="scripts/controllers/PendingApplicationsController.js"></script>
   <script src="scripts/controllers/RemoveCountryController.js"></script>
+  <script src="scripts/controllers/PackageManagementController.js"></script>
+  <script src="scripts/controllers/PackageController.js"></script>
   <script src="scripts/controllers/RetractUsageReportController.js"></script>
+  <script src="scripts/controllers/ReviewRequestedModalController.js"></script>
   <script src="scripts/controllers/SubmitUsageReportController.js"></script>
   <script src="scripts/controllers/AffiliateRegistrationController.js"></script>
   <script src="scripts/controllers/AffiliateRegistrationReviewController.js"></script>
+  <script src="scripts/controllers/TakeOfflineModalController.js"></script>
+  <script src="scripts/controllers/TakeOnlineModalController.js"></script>
   <script src="scripts/controllers/LoginController.js"></script>
   <script src="scripts/controllers/RegisterController.js"></script>
+  <script src="scripts/controllers/RejectApplicationModalController.js"></script>
   <script src="scripts/controllers/RequestPasswordResetController.js"></script>
   <script src="scripts/controllers/ResetPasswordController.js"></script>
   <script src="scripts/controllers/UserListController.js"></script>
@@ -152,6 +180,8 @@
   <script src="scripts/controllers/AffiliateRegistrationUsageLogController.js"></script>
   <script src="scripts/controllers/FullPageUsageLogController.js"></script>
   <script src="scripts/controllers/EmbeddableUsageLogController.js"></script>
+  <script src="scripts/controllers/ViewPackagesController.js"></script>
+  <script src="scripts/controllers/ViewPackageController.js"></script>
   <script src="scripts/services.js"></script>
   <script src="scripts/services/Events.js"></script>
   <script src="scripts/services/DomainBlacklistService.js"></script>
@@ -161,6 +191,10 @@
   <script src="scripts/services/CommercialUsageService.js"></script>
   <script src="scripts/services/LicenseeService.js"></script>
   <script src="scripts/services/Register.js"></script>
+  <script src="scripts/services/ReleaseFilesService.js"></script>
+  <script src="scripts/services/ReleaseVersionsService.js"></script>
+  <script src="scripts/services/PackagesService.js"></script>
+  <script src="scripts/services/PackageUtilsService.js"></script>
   <script src="scripts/services/USER_ROLES.js"></script>
   <script src="scripts/services/UserSession.js"></script>
   <script src="scripts/directives/activeLink.js"></script>
@@ -168,7 +202,9 @@
   <script src="scripts/directives/autoSubmit.js"></script>
   <script src="scripts/directives/bsValidation.js"></script>
   <script src="scripts/directives/dateAfterValidation.js"></script>
+  <script src="scripts/directives/inputTel.js"></script>
   <script src="scripts/directives/passwordStrengthBar.js"></script>
+  <script src="scripts/directives/unique.js"></script>
   <script src="scripts/country/router_country.js"></script>
   <script src="scripts/country/controller_country.js"></script>
   <script src="scripts/country/service_country.js"></script>

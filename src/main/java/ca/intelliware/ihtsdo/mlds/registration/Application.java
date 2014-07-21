@@ -2,25 +2,34 @@ package ca.intelliware.ihtsdo.mlds.registration;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.joda.time.Instant;
+
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 
 @Entity
 public class Application {
 	@Id
 	@GeneratedValue
 	@Column(name="application_id")
-    private Long applicationId;
+    Long applicationId;
 	
 	String username;
-	boolean approved;
 	
 	String type;
 	@Column(name="subtype")
 	String subType;
 	
 	@Column(name="full_name")
-	String fullName;
+	String name;
+	
 	String email;
 	@Column(name="alternate_email")
 	String alternateEmail;
@@ -61,9 +70,33 @@ public class Application {
 	
 	boolean snomedlicense;
 	
-	@Column(name="is_submitted")
-	boolean isSubmitted;
+	@Column(name="notes_internal")
+	String notesInternal;
+	
+	// Timestamp last submitted by the applicant
+	@Column(name="submitted_at")
+	Instant submittedAt;
 
+	// Timestamp when application was completed by staff, into either the  ACCEPTED or REJECTED state
+	@Column(name="completed_at")
+	Instant completedAt;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name="approval_state")
+	ApprovalState approvalState = ApprovalState.NOT_SUBMITTED;
+	
+	@ManyToOne
+	@JoinColumn(name="commercial_usage_id")
+	CommercialUsage commercialUsage;
+	
+	public Application() {
+		
+	}
+	
+	// For tests
+	public Application(Long applicationId) {
+		this.applicationId = applicationId;
+	}
 	
 	public String getSubType() {
 		return subType;
@@ -81,15 +114,6 @@ public class Application {
 		this.username = username;
 	}
 
-	public void setApproved(boolean approved) {
-		this.approved = approved;
-	}
-
-
-	public boolean isApproved() {
-		return approved;
-	}
-
 	public String getType() {
 		return type;
 	}
@@ -99,11 +123,11 @@ public class Application {
 	}
 
 	public String getName() {
-		return fullName;
+		return name;
 	}
 
 	public void setName(String name) {
-		this.fullName = name;
+		this.name = name;
 	}
 
 	public String getAddress() {
@@ -234,18 +258,6 @@ public class Application {
 		this.otherText = otherText;
 	}
 
-	public void resetStatus() {
-		this.isSubmitted = false;
-	}
-
-	public void setStatus() {
-		this.isSubmitted = true;
-	}
-	
-	public boolean isSubmitted() {
-		return this.isSubmitted;
-	}
-
 	public String getPostCode() {
 		return this.postCode;
 	}
@@ -270,4 +282,47 @@ public class Application {
 		this.organizationTypeOther = organizationTypeOther;
 	}
 
+	public String getNotesInternal() {
+		return notesInternal;
+	}
+
+	public void setNotesInternal(String notesInternal) {
+		this.notesInternal = notesInternal;
+	}
+
+	public Instant getSubmittedAt() {
+		return submittedAt;
+	}
+
+	public void setSubmittedAt(Instant submittedAt) {
+		this.submittedAt = submittedAt;
+	}
+
+	public Instant getCompletedAt() {
+		return completedAt;
+	}
+
+	public void setCompletedAt(Instant completedAt) {
+		this.completedAt = completedAt;
+	}
+
+	public ApprovalState getApprovalState() {
+		return approvalState;
+	}
+
+	public void setApprovalState(ApprovalState approvalState) {
+		this.approvalState = approvalState;
+	}
+
+	public Long getApplicationId() {
+		return applicationId;
+	}
+
+	public CommercialUsage getCommercialUsage() {
+		return commercialUsage;
+	}
+
+	public void setCommercialUsage(CommercialUsage commercialUsage) {
+		this.commercialUsage = commercialUsage;
+	}
 }

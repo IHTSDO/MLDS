@@ -100,6 +100,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/app/rest/register").permitAll()
                 .antMatchers("/app/rest/activate").permitAll()
+                .antMatchers(Routes.RELEASE_PACKAGES).permitAll()
+                .antMatchers(Routes.RELEASE_PACKAGE).permitAll()
                 .antMatchers(Routes.COUNTRIES).permitAll()
                 .antMatchers(Routes.PASSWORD_RESET).permitAll()
                 .antMatchers(Routes.PASSWORD_RESET_ITEM).permitAll()

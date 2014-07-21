@@ -1,0 +1,19 @@
+document release process
+
+To finish, you will need credentials for the ihtsdo-public-nexus server in your settings.xml.
+The only account we have right now is for buckleym.
+                <server>
+                        <id>ihtsdo-public-nexus</id>
+                        <username>buckleym</username>
+                        <password>******</password>
+                </server>
+                
+git pull master and develop
+
+mvn jgitflow:release-start
+mvn jgitflow:release-finish
+-- wait to upload - takes a while
+
+ssh administrator@ihtsdo-dev
+sudo apt-get update
+sudo apt-get upgrade mlds

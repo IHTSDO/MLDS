@@ -4,45 +4,42 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', '$modal', 'UserSession', 'CommercialUsageService', 'LicenseeService', 'Session',
-          function ($scope, $log, $location, $modal, UserSession, CommercialUsageService, LicenseeService, Session) {
+        [ '$scope', '$log', '$location', '$modal', 'UserSession', 'CommercialUsageService', 'LicenseeService', 'Session', 'UserRegistrationService',
+          function ($scope, $log, $location, $modal, UserSession, CommercialUsageService, LicenseeService, Session, UserRegistrationService) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
         	$scope.licensees = [];
 
-        	LicenseeService.myLicensees()
-        		.then(function(licenseesResult) {
-        			$log.log(licenseesResult);
-        			$scope.licensees = licenseesResult.data;
-        			
-        			licenseesResult.data.forEach(function(licensee) {
-        				licensee.commercialUsages.sort(function(a, b) {
-        					if (a.startDate && b.startDate) {
-        						return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
-        					} else if (a.startDate) {
-        						return 1;
-        					} else {
-        						return -1;
-        					}
-        				});
-        			});
+        	function loadLicensees() {
+	        	LicenseeService.myLicensees()
+	        		.then(function(licenseesResult) {
+	        			var someApplicationsWaitingForApplicant = _.some(licenseesResult.data, function(licensee) {
+	        				return UserRegistrationService.isApplicationWaitingForApplicant(licensee.application);
+	        			});
+	        			if (someApplicationsWaitingForApplicant) {
+	        				$location.path('/affiliateRegistration');
+	        				return;
+	        			}
+	        			$scope.licensees = licenseesResult.data;
+	        			
+	        			licenseesResult.data.forEach(function(licensee) {
+	        				licensee.commercialUsages.sort(function(a, b) {
+	        					if (a.startDate && b.startDate) {
+	        						return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+	        					} else if (a.startDate) {
+	        						return 1;
+	        					} else {
+	        						return -1;
+	        					}
+	        				});
+	        			});
+	
+	        		});
+        	}
 
-        		});
-        	
-
-        	
-        	//FIXME: AC Seems to break when user refreshes page
-        	UserSession.readyPromise.then(function(){
-        		if (!UserSession.hasApplied()) {
-        			$location.path('/affiliateRegistration');
-        		} else if (!UserSession.isApproved()) {
-        			//$location.path('/pendingRegistration');
-        		} else {
-        			// setup dashboard?
-        		}
-        	});
+        	loadLicensees();
         	
         	$scope.usageReportCountries = function(usageReport) {
         		return usageReport.countries.length;
@@ -85,5 +82,14 @@ angular.module('MLDS')
         			return usageReport.approvalState !== 'NOT_SUBMITTED';
         		});
         	};
+        	
+        	$scope.isApplicationPending = function(application) {
+        		return UserRegistrationService.isApplicationPending(application);
+        	};
+        	
+        	$scope.isApplicationWaitingForApplicant = function(application) {
+        		return UserRegistrationService.isApplicationWaitingForApplicant(application);
+        	};
+        	
         }
     ]);

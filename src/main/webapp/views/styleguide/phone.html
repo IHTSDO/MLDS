@@ -1,0 +1,8 @@
+<form novalidate bs-validation="" name="phoneForm" id="phoneForm">
+	<div class="form-group">
+		<label>Phone control</label>
+		<input type="tel" name="phoneControl" ng-model="phoneNumber" required="" placeholder="Phone number" class="form-control">
+		<p ng-show="phoneForm.phoneControl.$error" class="help-block"> Error. {{phoneForm.phoneControl.$error}}</p>
+		Input: {{phoneNumber}}
+	</div>
+</form>
