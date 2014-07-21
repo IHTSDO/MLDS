@@ -115,7 +115,6 @@ public class WebConfigurer implements ServletContextInitializer {
             initCachingHttpHeadersFilter(servletContext, disps);
         }
         initGzipFilter(servletContext, disps);
-        initOpenSessionInViewFilter(servletContext, disps);
 
         log.info("Web application fully configured");
     }
@@ -204,14 +203,5 @@ public class WebConfigurer implements ServletContextInitializer {
         metricsAdminServlet.setAsyncSupported(true);
         metricsAdminServlet.setLoadOnStartup(2);
     }
-
-    private void initOpenSessionInViewFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
-        log.debug("Initializing Open JPA in view filter");
-        Dynamic filter = servletContext.addFilter("openEntityManagerInViewFilter", new OpenEntityManagerInViewFilter());
-        
-        filter.addMappingForUrlPatterns(disps, true, Routes.API_BASE_URL+"/*");
-		
-	}
-
 
 }
