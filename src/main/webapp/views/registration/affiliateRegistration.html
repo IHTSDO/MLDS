@@ -102,7 +102,7 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-pattern="/^(\(?\+?[0-9]*\)?)?[0-9_\- .\(\)]*$/" placeholder="+55 123 456 7895" required="" name="contactPhone" ng-model="affiliateform.contact.phone" auto-submit>
+                    <input class="form-control" type="tel" required="" name="contactPhone" ng-model="affiliateform.contact.phone" auto-submit>
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.contactPhone.$error.required" class="help-block">
                         Required field.
@@ -127,7 +127,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" ng-pattern="/^(\(?\+?[0-9]*\)?)?[0-9_\- .\(\)]*$/" name="mobilePhone" placeholder="+55 123 456 7895" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.contact.mobilePhone" auto-submit>
+                    <input class="form-control" type="tel" name="mobilePhone" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.contact.mobilePhone" auto-submit>
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.mobilePhone.$error.required" class="help-block">
                         Required field.
