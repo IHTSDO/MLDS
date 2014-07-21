@@ -28,7 +28,8 @@ public class Application {
 	String subType;
 	
 	@Column(name="full_name")
-	String fullName;
+	String name;
+	
 	String email;
 	@Column(name="alternate_email")
 	String alternateEmail;
@@ -122,11 +123,11 @@ public class Application {
 	}
 
 	public String getName() {
-		return fullName;
+		return name;
 	}
 
 	public void setName(String name) {
-		this.fullName = name;
+		this.name = name;
 	}
 
 	public String getAddress() {
