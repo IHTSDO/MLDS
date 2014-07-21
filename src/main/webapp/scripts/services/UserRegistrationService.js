@@ -40,14 +40,14 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				return $http.get('/app/rest/applications/me');
 			},
 			
-			submitApplication: function submitApplication(applicationForm) {
+			submitApplication: function submitApplication(applicationForm, applicationId) {
 				$log.log('submitApplication', applicationForm);
-				return $http.post('/api/application/submit', applicationForm);
+				return $http.post('/app/rest/applications/'+encodeURIComponent(applicationId)+'/registration', applicationForm);
 			},
 			
-			saveApplication: function saveApplication(applicationForm) {
+			saveApplication: function saveApplication(applicationForm, applicationId) {
 				$log.log('saveApplication', applicationForm);
-				return $http.post('/api/application/save', applicationForm);
+				return $http.put('/app/rest/applications/'+encodeURIComponent(applicationId)+'/registration', applicationForm);
 			},
 			
 			approveApplication: function approveApplication(application, approvalStatus) {

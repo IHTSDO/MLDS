@@ -7,9 +7,12 @@ mldsApp.controller('AffiliateRegistrationController',
         	var loadApplication = function() {
         		var queryPromise =  UserRegistrationService.getApplication();
         		
+        		//FIXME entire page should fail if no existing application...
+        		
         		queryPromise.success(function(data) {
     				$log.log("loadApplication", data);
     				$scope.approvalState = data.approvalState;
+    				$scope.applicationId = data.applicationId;
     				    				
     				$scope.affiliateform.type = data.type ? data.type : '';
     				$scope.affiliateform.usageSubType = data.subType;
@@ -48,6 +51,7 @@ mldsApp.controller('AffiliateRegistrationController',
         	$scope.availableCountries = CountryService.countries;
         	$scope.organizationTypes = UserRegistrationService.getOrganizationTypes();
         	$scope.affilliateControllerSharedBucket = {};
+        	$scope.applicationId = null;
         	
             // bind the display name to our country object.
             $scope.$watch('affiliateform.address.country', function(newValue){
@@ -67,7 +71,7 @@ mldsApp.controller('AffiliateRegistrationController',
         	$scope.affiliateform.organization = {};
         	
         	$scope.saveApplication = function() {
-    			UserRegistrationService.saveApplication($scope.affiliateform);
+    			UserRegistrationService.saveApplication($scope.affiliateform, $scope.applicationId);
     			UserSession.reapplied();
         	};
         	
