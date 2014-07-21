@@ -40,7 +40,7 @@
 					<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
 				</div>
 			</div>
-			<div class="alert alert-info" ng-show="versions.online.length == 0">There are currently no online version of this package.</div>
+			<div class="alert alert-info" ng-show="versions.online.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no online version of this package.</div>
 		</div>
 	</div>
 
@@ -79,7 +79,7 @@
 				</div>
 			</div>
 			
-			<div class="alert alert-info" ng-show="versions.offline.length == 0">There are currently no offline versions of this package.</div>
+			<div class="alert alert-info" ng-show="versions.offline.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline versions of this package.</div>
 		</div>
 	</div>
 	
