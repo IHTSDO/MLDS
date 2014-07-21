@@ -565,5 +565,15 @@
     		<column name="implementation_status" type="VARCHAR(255)"/>
 		</addColumn>
 	</changeSet>
+
+	<changeSet id="MLDS-274-4" author="DGJ">
+		<comment>Stricter application approval state</comment>
+		<addNotNullConstraint 
+            columnDataType="VARCHAR(255)"
+            columnName="approval_state"
+            defaultNullValue="NOT_SUBMITTED"
+            schemaName="public"
+            tableName="application"/>
+	</changeSet>
 	
 </databaseChangeLog>

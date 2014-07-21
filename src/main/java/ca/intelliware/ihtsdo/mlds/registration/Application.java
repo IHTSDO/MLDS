@@ -83,7 +83,7 @@ public class Application {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="approval_state")
-	ApprovalState approvalState;
+	ApprovalState approvalState = ApprovalState.NOT_SUBMITTED;
 	
 	@ManyToOne
 	@JoinColumn(name="commercial_usage_id")
