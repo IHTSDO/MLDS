@@ -200,6 +200,13 @@ mldsApp
                         authorizedRoles: [USER_ROLES.admin]
                     }
                 })
+                .when('/styleguide/:template*', {
+                    templateUrl: function(params){
+                    	return 'views/styleguide/'+params.template+'.html';},
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
                 .otherwise({
                     templateUrl: 'views/landingPage.html',
                     controller: 'MainController',
