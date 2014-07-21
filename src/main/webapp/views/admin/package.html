@@ -5,7 +5,7 @@
 	</div>
 	<div class="col-lg-10">
 		<div class="well">
-			<h2>Package Name <a class="btn btn-default pull-right"  ng-click="editReleasePackage()">Edit</a></h2>
+			<h2>Package Name <a class="btn btn-default pull-right"  ng-click="editReleasePackage()"><i class="fa fa-pencil"></i> Edit</a></h2>
 		   <h4>Name:</h4>
 		   <p>{{packageEntity.name}} </p>
 		    <h4>Description:</h4> 
@@ -31,8 +31,8 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a ng-click="editReleaseVersion(releaseVersion)">Edit</a></li>
-							<li><a ng-click="takeOfflineModal(releaseVersion)">Take Offline</a></li>
+							<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
+							<li><a ng-click="takeOfflineModal(releaseVersion)"><i class="fa fa-times-circle-o"></i> Take Offline</a></li>
 						</ul>
 					</div>
 					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
@@ -59,19 +59,26 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a ng-click="editReleaseVersion(releaseVersion)">Edit</a></li>
-							<li><a ng-click="takeOnlineModal(releaseVersion)">Take Online</a></li>
-							<li><a ng-click="deleteVersionModal(releaseVersion)">Delete</a></li>
+							<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
+							<li><a ng-click="takeOnlineModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Take Online</a></li>
+							<li><a ng-click="deleteVersionModal(releaseVersion)"><i class="fa fa-times"></i> Remove</a></li>
 						</ul>
 					</div>
+					<button class="btn btn-success pull-right" ng-click="addReleaseFile(releaseVersion)" ng-hide="releaseVersion.publishedAt">
+						<i class="fa fa-plus"></i> Add File
+					</button>
 					<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
 				</header>
 				<p>{{releaseVersion.description}}</p>
 				<p ng-show="releaseVersion.publishedAt">Published Date: {{releaseVersion.publishedAt | date:'medium'}}</p>
 				<p>Created Date: {{releaseVersion.createdAt | date:'medium'}}</p>
 				<div class="footer">
-					<p ng-repeat="releaseFile in releaseVersion.releaseFiles"><a href="{{releaseFile.downloadUrl}}">{{releaseFile.label}}</a> <button ng-click="deleteReleaseFile(releaseVersion,releaseFile)"><i class="fa fa-trash-o"></i>Delete</button></p>
-					<p><button ng-click="addReleaseFile(releaseVersion)" ><i class="fa fa-plus"></i>Add File</button>
+					<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
+						<a href="{{releaseFile.downloadUrl}}">{{releaseFile.label}}</a> 
+						<button class="btn btn-danger btn-xs" ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="releaseVersion.publishedAt">
+							<i class="fa fa-times"></i> Remove
+						</button>
+					</p>
 				</div>
 			</div>
 			
