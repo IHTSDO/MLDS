@@ -15,14 +15,16 @@ angular.module('MLDS')
         	function loadLicensees() {
 	        	LicenseeService.myLicensees()
 	        		.then(function(licenseesResult) {
-	        			$log.log(licenseesResult);
+	        			var someApplicationsWaitingForApplicant = _.some(licenseesResult.data, function(licensee) {
+	        				return UserRegistrationService.isApplicationWaitingForApplicant(licensee.application);
+	        			});
+	        			if (someApplicationsWaitingForApplicant) {
+	        				$location.path('/affiliateRegistration');
+	        				return;
+	        			}
 	        			$scope.licensees = licenseesResult.data;
 	        			
 	        			licenseesResult.data.forEach(function(licensee) {
-	        				if (UserRegistrationService.isApplicationWaitingForApplicant(licensee.application)) {
-	        					$location.path('/affiliateRegistration');
-	        				}
-	        				
 	        				licensee.commercialUsages.sort(function(a, b) {
 	        					if (a.startDate && b.startDate) {
 	        						return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
