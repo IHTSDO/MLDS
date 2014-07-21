@@ -26,25 +26,28 @@
                   bs-validate
                   ng-submit="register()">
 
-				<div class="form-group">
-					<label>Country of residence</label>
-					<input class="form-control" type="text" name="country" autofocus=""  autocomplete="off" 
-						placeholder="Country of residence"
-						ng-model="countryCommonName" 
-						required=""
-						typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
-						typeahead-editable="false"><!--   -->
-					<p ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="help-block">Required field.</p>
-					<p ng-show="createUserForm.country.$error.editable && createUserForm.attempted" class="help-block">Unrecognized country</p>
-					<p ng-show="createUserForm.country.$error.excluded" class="help-block">This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{registerAccount.country.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY</p>
-				</div>
+								<div class="form-group">
+									<label>Country of residence</label>
+									<input class="form-control" type="text" name="country" autofocus=""  autocomplete="off" 
+										placeholder="Country of residence"
+										ng-model="countryCommonName" 
+										required=""
+										typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
+										typeahead-editable="false"><!--   -->
+									
+									<div class="error" ng-show="createUserForm.attempted">
+										<small ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="error">Required field.</small>
+										<small ng-show="createUserForm.country.$error.editable && createUserForm.attempted" class="error">Unrecognized country</small>
+										<small ng-show="createUserForm.country.$error.excluded" class="error">This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{registerAccount.country.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY</small>
+									</div>
+								</div>
 
                 <div class="form-group">
                     <label translate="settings.form.firstname">First Name</label>
                     <input type="text" class="form-control" name="firstname" placeholder="{{'settings.form.firstname.placeholder' | translate}}"
                            ng-model="registerAccount.firstName" ng-minlength=1 ng-maxlength=50 required>
                     <div class="error"
-                         ng-show="createUserForm.firstname.$dirty && createUserForm.firstname.$invalid">
+                         ng-show="createUserForm.attempted && createUserForm.firstname.$invalid">
                         <small class="error"
                                ng-show="createUserForm.firstname.$error.required" translate="settings.messages.validate.firstname.required">
                             Your first name is required.
@@ -64,7 +67,7 @@
                     <input type="text" class="form-control" name="lastName" placeholder="{{'settings.form.lastname.placeholder' | translate}}"
                            ng-model="registerAccount.lastName" ng-minlength=1 ng-maxlength=50 required/>
                     <div class="error"
-                         ng-show="createUserForm.lastName.$dirty && createUserForm.lastName.$invalid">
+                         ng-show="createUserForm.attempted && createUserForm.lastName.$invalid">
                         <small class="error"
                                ng-show="createUserForm.lastName.$error.required" translate="settings.messages.validate.lastname.required">
                             Your last name is required.
@@ -84,7 +87,7 @@
                     <input type="email" class="form-control" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
                            ng-model="registerAccount.email" ng-minlength=5 ng-maxlength=100 required>
                     <div class="error"
-                         ng-show="createUserForm.email.$dirty && form.email.$invalid">
+                         ng-show="createUserForm.attempted && createUserForm.email.$invalid">
                         <small class="error"
                                ng-show="createUserForm.email.$error.required" translate="global.messages.validate.email.required">
                             Your e-mail is required.
@@ -108,7 +111,7 @@
                     <input type="password" class="form-control" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
                            ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>
                     <div class="error"
-                         ng-show="createUserForm.password.$dirty && form.password.$invalid">
+                         ng-show="createUserForm.attempted && form.password.$invalid">
                         <small class="error"
                                ng-show="createUserForm.password.$error.required" translate="global.messages.validate.newpassword.required">
                             Your password is required.
@@ -129,7 +132,7 @@
                     <input type="password" class="form-control" name="confirmPassword" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
                            ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 required>
                     <div class="error"
-                         ng-show="createUserForm.confirmPassword.$dirty && form.confirmPassword.$invalid">
+                         ng-show="createUserForm.attempted && form.confirmPassword.$invalid">
                         <small class="error"
                                ng-show="createUserForm.confirmPassword.$error.required" translate="global.messages.validate.confirmpassword.required">
                             Your password confirmation is required.
@@ -144,8 +147,16 @@
                         </small>
                     </div>
                 </div>
-
-                <button type="submit" ng-disabled="createUserForm.$invalid" class="btn btn-primary" translate="register.form.button">Register</button>
+								<div class="checkbox form-group">
+									<label><input ng-model="user.tos" name="tos" type="checkbox" required="" />
+									<small class="muted" translate="register.form.tos">Agree to our <a href="/tos.html" target="_blank">terms of
+									service</a>.</small></label>
+									<div class="error" ng-show="createUserForm.tos.$error.required && createUserForm.attempted">
+										<small class="error">Required field.</small>
+									</div>
+									
+								</div>
+                <button type="submit" class="btn btn-primary" translate="register.form.button">Register</button>
             </form>
         </div>
         <div class="col-md-2"></div>
