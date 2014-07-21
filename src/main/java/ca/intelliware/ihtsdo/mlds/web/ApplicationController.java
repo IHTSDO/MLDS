@@ -142,23 +142,25 @@ public class ApplicationController {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
-	@RequestMapping(value="/api/application/submit",method=RequestMethod.POST)
-	public Object submitApplication(@RequestBody JsonNode request) {
+	@RequestMapping(value=Routes.APPLICATION_REGISTRATION,
+			method=RequestMethod.POST,
+			produces = "application/json")
+	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
+		//FIXME use applicationId
 		Application application = saveApplicationFields(request);
-		ApprovalState preApprovalState = application.getApprovalState();
 		// Mark application as submitted
-		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)
-				|| Objects.equal(application.getApprovalState(), ApprovalState.RESUBMITTED)) {
+		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)) {
 			application.setApprovalState(ApprovalState.RESUBMITTED);
-		} else {
+		} else if (Objects.equal(application.getApprovalState(), ApprovalState.NOT_SUBMITTED)){
 			application.setApprovalState(ApprovalState.SUBMITTED);
+		} else {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
+		
 		application.setSubmittedAt(Instant.now());
 		applicationRepository.save(application);
 		
-		if (!Objects.equal(application.getApprovalState(), preApprovalState)) {
-			applicationAuditEvents.logApprovalStateChange(application);
-		}
+		applicationAuditEvents.logApprovalStateChange(application);
 		
 		//FIXME should be a different trigger and way to connect applications with licensee
 		List<Licensee> licensees = licenseeRepository.findByCreator(application.getUsername());
@@ -173,10 +175,33 @@ public class ApplicationController {
 		licensee.setType(LicenseeType.valueOf(application.getType()));
 		licenseeRepository.save(licensee);
 		
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}
 
-	//FIXME mismatch of API styles with rest of this class...
+	
+	@RequestMapping(value=Routes.APPLICATION_REGISTRATION,
+			method=RequestMethod.PUT,
+			produces = "application/json")
+	public @ResponseBody ResponseEntity<Application> saveApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
+		//FIXME use applicationId
+        Application application = saveApplicationFields(request);
+        ApprovalState preApprovalState = application.getApprovalState();
+		// Mark application as not submitted
+		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)) {
+			application.setApprovalState(ApprovalState.CHANGE_REQUESTED);
+		} else {
+			application.setApprovalState(ApprovalState.NOT_SUBMITTED);
+		}
+		
+		if (!Objects.equal(application.getApprovalState(), preApprovalState)) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		
+		applicationRepository.save(application);
+		
+		return new ResponseEntity<Application>(application, HttpStatus.OK);
+	}
+
 	@Transactional
 	@RequestMapping(value = Routes.APPLICATION_NOTES_INTERNAL,
 			method=RequestMethod.PUT,
@@ -193,26 +218,6 @@ public class ApplicationController {
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}
 
-	
-	@RequestMapping(value="/api/application/save",method=RequestMethod.POST)
-	public Object saveApplication(@RequestBody JsonNode request) {
-		
-        Application application = saveApplicationFields(request);
-        ApprovalState preApprovalState = application.getApprovalState();
-		// Mark application as not submitted
-		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)
-				|| Objects.equal(application.getApprovalState(), ApprovalState.RESUBMITTED)) {
-			application.setApprovalState(ApprovalState.CHANGE_REQUESTED);
-		} else {
-			application.setApprovalState(ApprovalState.NOT_SUBMITTED);
-		}
-		
-		if (!Objects.equal(application.getApprovalState(), preApprovalState)) {
-			applicationRepository.save(application);
-		}
-		
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
 
 	private Application saveApplicationFields(JsonNode request) {
 		JsonNode organization = request.get("organization");

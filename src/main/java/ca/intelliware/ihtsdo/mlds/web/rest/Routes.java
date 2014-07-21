@@ -138,4 +138,10 @@ public class Routes {
 	 */
 	public static final String APPLICATION_APPROVE = "/app/rest/applications/{applicationId}/approve"; 
 
+	/**
+	 * FIXME control endpoint for single application in registration form:
+	 * - PUT affiliate user updating application registration
+	 * - POST affiliate user submitting for admin processing
+	 */
+	public static final String APPLICATION_REGISTRATION = "/app/rest/applications/{applicationId}/registration"; 
 }
