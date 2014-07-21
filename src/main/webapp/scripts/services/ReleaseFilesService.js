@@ -8,7 +8,7 @@ angular.module('MLDS').factory('ReleaseFilesService',
 				{
 					releasePackageId : '@releasePackageId',
 					releaseVersionId : '@releaseVersionId',
-					releaseFileId : '@releaseFileId',
+					releaseFileId : '@releaseFileId'
 				}, {
 					update : {
 						method : 'PUT'
