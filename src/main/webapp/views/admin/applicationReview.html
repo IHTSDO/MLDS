@@ -7,7 +7,10 @@
 	</div>
 	<div class="col-md-12 user-info">
 		<p><strong>Issue No:</strong> {{application.applicationId}}</p>
-		<h4><span ng-show="application.organizationName">{{application.organizationName}} - </span> {{application.name}} <small class="label label-default">{{'approval.state.'+application.approvalState | translate}}</small></h4>
+		<ul class="nav nav-pills">
+			<li><span ng-show="application.organizationName"><h4>{{application.organizationName}} - </span> {{application.name}}</h4></li>
+			<li class="application-status"><p class="label label-default">{{'approval.state.'+application.approvalState | translate}}</li>
+		</ul>
 		<p> <strong>Application Date: {{application.submittedAt | date}}</strong> </p>
 	</div>
 
