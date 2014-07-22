@@ -40,6 +40,9 @@
     display: block;
     text-decoration: none;
   }
+  a:hover{
+    color: @gray-light;
+  }
 }
 
 // Optional footer (stays gray in every modifier class)
@@ -233,6 +236,7 @@
 // Contextual variations
 .panel-default {
   .panel-variant(@panel-default-border; @panel-default-text; @panel-default-heading-bg; @panel-default-border);
+
 }
 .panel-primary {
   .panel-variant(@panel-primary-border; @panel-primary-text; @panel-primary-heading-bg; @panel-primary-border);

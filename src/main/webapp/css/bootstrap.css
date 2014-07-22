@@ -4821,6 +4821,9 @@ a.list-group-item-danger.active:focus {
   display: block;
   text-decoration: none;
 }
+.panel-title a:hover {
+  color: #999999;
+}
 .panel-footer {
   padding: 10px 15px;
   background-color: #f5f5f5;
