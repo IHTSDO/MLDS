@@ -230,7 +230,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Address</label> <input class="form-control" name="address" placeholder="123 Somewhere Avenue" required="" ng-model="affiliateform.address.street" auto-submit>
+                    <label>Address</label> <input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-change="copyAddress()" required="" ng-model="affiliateform.address.street" auto-submit>
                     <p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -240,7 +240,7 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" name="city" placeholder="City" required="" ng-model="affiliateform.address.city" auto-submit>
+                    <input class="form-control" name="city" placeholder="City" required="" ng-model="affiliateform.address.city" ng-change="copyAddress()" auto-submit>
                     <p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -248,7 +248,7 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.address.postCode" name="postCode" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.address.postCode" ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
                     <p ng-show="affiliateApplicationForm.postCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -258,7 +258,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.address.country" name="country" required="" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.address.country" ng-change="copyAddress()" name="country" required="" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
                     <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
