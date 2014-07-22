@@ -6066,6 +6066,9 @@ button.close {
 .version {
   margin-bottom: 0;
 }
+.download-files {
+  margin: 0;
+}
 .application-status {
   position: relative;
   top: 8px;
