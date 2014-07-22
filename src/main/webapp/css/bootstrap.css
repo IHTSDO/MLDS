@@ -6067,6 +6067,7 @@ button.close {
 .package .footer {
   margin-top: 10px;
   border-top: 1px solid #04add8;
+  padding: 10px 0 0;
 }
 .package .footer p {
   margin: 0;

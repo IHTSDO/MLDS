@@ -3,7 +3,7 @@
  </div>
  <div class="modal-body">
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
- 	  <form name="formReleaseFile" bs-validation>
+ 	  <form name="formReleaseFile" bs-validation role="form">
  	  <div class="row">
       <div class="form-group">
         <div class="col-md-12">
@@ -13,12 +13,11 @@
         </div>
       </div>
       <div class="form-group">
-        <div class="col-md-12">
+   
           <label>Download URL</label> 
           <input class="form-control" rows="3" placeholder="Enter File Download URL" name="downloadUrl" ng-model="releaseFile.downloadUrl" ng-required="true" type="url"/>
           <span ng-show="formReleaseFile.downloadUrl.$error.required && submitAttempted" class="help-block">Required Field</span>
           <span ng-show="formReleaseFile.downloadUrl.$error.url && submitAttempted" class="help-block">Invalid URL</span>
-        </div>
       </div>
       </div>
 	</form>
