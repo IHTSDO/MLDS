@@ -35,9 +35,10 @@
 				<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
 			</header>
 			<p>{{releaseVersion.description}}</p>
-			
+			<hr>
+			<p><strong>Published On:</strong> {{releaseVersion.publishedAt | date:'medium'}}</p>
 			<div class="footer">
-				<p><strong>Published On:</strong> {{releaseVersion.publishedAt | date:'medium'}}</p>
+				
 				<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
 			</div>
 		</div>

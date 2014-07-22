@@ -6060,23 +6060,8 @@ button.close {
 .user-info .btn {
   margin-top: 5px;
 }
-.package header {
-  padding: 10px 0;
-  margin-bottom: 15px;
-}
-.package .footer {
-  margin-top: 10px;
-  border-top: 1px solid #04add8;
-  padding: 10px 0 0;
-}
-.package .footer p {
-  margin: 0;
-}
-.package .footer .label {
-  font-weight: normal;
-}
-.release {
-  margin-bottom: 5px;
+.version {
+  margin-bottom: 0;
 }
 .application-status {
   position: relative;

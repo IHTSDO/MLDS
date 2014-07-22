@@ -9,45 +9,44 @@
 </div>
 
 <div class="row" ng-repeat="releasePackage in releasePackages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished">
-	<div class="page-header">
-		<h1>
-
-			<a ng-click="goToViewPackagePage(releasePackage.releasePackageId)">
-				{{releasePackage.name}}
-			</a>
-		</h1>
-		<p class="lead">{{releasePackage.description}}</p>
-	</div>
 	<div class="well">
-		<table class="table table-striped table-bordered table-hover">
-			<thead>
-				<tr>
-					<th>Version</th>
-					<th>Description</th>
-					<th>Files</th>
-					<th>Date Released</th>
-				</tr>
-			</thead>
-			<tbody>
+		<div class="page-header">
+			<a ng-click="goToViewPackagePage(releasePackage.releasePackageId)"><h3>
+				{{releasePackage.name}}
+			</h3>	
+		</a>
+		<p>{{releasePackage.description}}</p>
+	</div>
 
-				<tr ng-repeat="version in releasePackage.releaseVersions | filter: utils.isVersionOnline"
-				ng-show="utils.isLatestVersion(version, (releasePackage.releaseVersions | filter: utils.isVersionOnline))" 
-				ng-click="goToViewPackagePage(releasePackage.releasePackageId)">
-				<td>{{version.name}}</td>
-				<td>{{version.description}}</td>
-				<td>
-					<span ng-repeat="file in version.releaseFiles">
-						<span>{{file.label}}</span><span ng-show="!$last">, </span>
-					</span>
-				</td>
-				<td>{{version.publishedAt | date:'medium'}}</td>
-				</tr>
-			</tbody>
-		</table>
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>Version</th>
+				<th>Description</th>
+				<th>Files</th>
+				<th>Date Released</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr ng-repeat="version in releasePackage.releaseVersions | filter: utils.isVersionOnline"
+			ng-show="utils.isLatestVersion(version, (releasePackage.releaseVersions | filter: utils.isVersionOnline))" 
+			ng-click="goToViewPackagePage(releasePackage.releasePackageId)">
+			<td>{{version.name}}</td>
+			<td>{{version.description}}</td>
+			<td>
+				<span ng-repeat="file in version.releaseFiles">
+					<span>{{file.label}}</span><span ng-show="!$last">, </span>
+				</span>
+			</td>
+			<td>{{version.publishedAt | date:'medium'}}</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<div class="well" ng-show="(releasePackages | filter: utils.isPackagePublished).length == 0">
+	<div class="alert alert-info">
+		<i class="fa fa-exclamation-circle"></i> There are currently no release packages available.
 	</div>
-	<div class="well" ng-show="(releasePackages | filter: utils.isPackagePublished).length == 0">
-		<div class="alert alert-info">
-			<i class="fa fa-exclamation-circle"></i> There are currently no release packages available.
-		</div>
-	</div>
+</div>
 </div>
