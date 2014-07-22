@@ -65,15 +65,15 @@
 			</header>
 			<p>{{releaseVersion.description}}</p>
 			<p ng-show="releaseVersion.publishedAt">Published Date: {{releaseVersion.publishedAt | date:'medium'}}</p>
-
-			<div class="footer">
+			<hr>
 				<p><strong>Created Date:</strong> {{releaseVersion.createdAt | date:'medium'}}</p>
-				<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
+			<div class="footer">
+				<div class="release" ng-repeat="releaseFile in releaseVersion.releaseFiles">
 					<a href="{{releaseFile.downloadUrl}}">{{releaseFile.label}}</a> 
 					<button class="btn btn-danger btn-xs" ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="releaseVersion.publishedAt">
 						<i class="fa fa-times"></i> Remove
 					</button>
-				</p>
+				</div>
 			</div>
 		</div>
 

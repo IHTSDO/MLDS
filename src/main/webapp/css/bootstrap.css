@@ -6075,6 +6075,9 @@ button.close {
 .package .footer .label {
   font-weight: normal;
 }
+.release {
+  margin-bottom: 5px;
+}
 .application-status {
   position: relative;
   top: 8px;
