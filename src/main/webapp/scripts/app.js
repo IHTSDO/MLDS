@@ -273,13 +273,14 @@ mldsApp
                 $rootScope.$on('event:auth-loginRequired', function(rejection) {
                     Session.invalidate();
                     $rootScope.authenticated = false;
+                    
                     if ($location.path() !== "/" && 
                     		$location.path() !== "" && 
                     		$location.path() !== "/register" &&
                     		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
                     		$location.path() !== "/resetPassword" &&
-                    		$location.path() !== "/viewPackage" &&
+                    		$location.path().indexOf("/viewPackage") == -1 &&
                     		$location.path() !== "/viewPackages" &&
                     		$location.path() !== "/emailVerification" &&
                             $location.path() !== "/activate") {
