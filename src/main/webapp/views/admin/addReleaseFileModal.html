@@ -5,12 +5,11 @@
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
  	  <form name="formReleaseFile" bs-validation role="form">
  	  <div class="row">
+       <div class="col-md-12">
       <div class="form-group">
-        <div class="col-md-12">
           <label>Label</label> 
           <input class="form-control" placeholder="Enter Display Label For File" name="label" ng-model="releaseFile.label" ng-required="true"/>
           <span ng-show="formReleaseFile.label.$error.required && submitAttempted" class="help-block">Required Field</span>
-        </div>
       </div>
       <div class="form-group">
    
@@ -21,7 +20,7 @@
       </div>
       </div>
 	</form>
- 	
+</div>
  </div>
  <div class="modal-footer">
      <button class="btn btn-secondary btn-link" ng-click="$dismiss()">Cancel</button>
