@@ -12,7 +12,7 @@
 </div>
 <div class="row">
 	<div class="col-lg-12">
-		<button class="btn btn-primary" ng-click="addReleaseVersion()">Add New Version</button>
+		<button class="btn btn-primary" ng-click="addReleaseVersion()"><i class="fa fa-plus"></i> Add New Version</button>
 	</div>
 </div>
 
@@ -35,8 +35,9 @@
 				<a ng-click="goToPackage(package)"><h4> {{releaseVersion.name}}</h4></a>
 			</header>
 			<p>{{releaseVersion.description}}</p>
-			<p>Published On: {{releaseVersion.publishedAt | date:'medium'}}</p>
+			
 			<div class="footer">
+				<p><strong>Published On:</strong> {{releaseVersion.publishedAt | date:'medium'}}</p>
 				<p ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
 			</div>
 		</div>
@@ -78,6 +79,7 @@
 
 		<div class="alert alert-info" ng-show="versions.offline.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline versions of this package.</div>
 
-		<button ng-click="goToReleaseManagement()" type="button" class="btn btn-link  pull-right">Back to Release Management</button>
+		
 	</div>
+		<button ng-click="goToReleaseManagement()" type="button" class="btn btn-link  pull-right">Back to Release Management</button>
 </div>
