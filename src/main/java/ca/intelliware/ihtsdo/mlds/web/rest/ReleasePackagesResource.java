@@ -142,6 +142,7 @@ public class ReleasePackagesResource {
 	private ReleaseVersion filterReleaseVersionByAuthority(ReleaseVersion version) {
 		ReleaseVersion result = version;
 		
+		// FIX ME AC:Check to see if user's application is approved otherwise hide download links
 		if(!currentSecurityContext.isUser()) {
 			Set<ReleaseFile> filteredReleaseFiles = Sets.newHashSet();
 			for(ReleaseFile releaseFile : version.getReleaseFiles()) {
