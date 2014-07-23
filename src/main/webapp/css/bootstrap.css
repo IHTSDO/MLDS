@@ -3016,6 +3016,7 @@ input[type="button"].btn-block {
   border-top: 4px solid;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
+  color: #000000;
 }
 .dropdown {
   position: relative;
@@ -6068,6 +6069,17 @@ button.close {
 }
 .download-files {
   margin: 0;
+}
+.current {
+  background-color: #77c548;
+  width: 100px;
+  height: 30px;
+  color: #ffffff;
+  padding: 4px 20px;
+  margin-top: 10px;
+  border-radius: 3px;
+  text-align: center;
+  font-weight: normal;
 }
 .application-status {
   position: relative;
