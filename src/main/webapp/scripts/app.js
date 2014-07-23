@@ -63,9 +63,9 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
-                .when('/settings', {
-                    templateUrl: 'views/settings.html',
-                    controller: 'SettingsController',
+                .when('/contactInfo', {
+                    templateUrl: 'views/contactInfo.html',
+                    controller: 'ContactInfoController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
                     }

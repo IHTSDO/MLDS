@@ -6,7 +6,7 @@
             "home": "Home",
             "account": {
                 "main": "Account",
-                "settings": "Settings",
+                "contactInfo": "Contact Info",
                 "password": "Password",
                 "sessions": "Sessions",
                 "tracker": "User tracker",
@@ -134,7 +134,7 @@
         }
     },
     "settings": {
-        "title": "User settings for [<b>{{username}}</b>]",
+        "title": "Contact Info for [<b>{{username}}</b>]",
         "form": {
             "firstname": "First Name",
             "firstname.placeholder": "Your first name",
