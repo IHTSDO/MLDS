@@ -1,78 +1,105 @@
-       <ul class="list-group">
-         <li class="list-group-item list-group-item-info"><h4>Affiliate Info</h4></li>
-         <li class="list-group-item" ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
-           <span ng-show="affiliateform.organization.type=='OTHER'">{{application.organizatioTypeOther}}</span>
-           <span ng-show="affiliateform.organization.type!='OTHER'">{{'licensee.organizationType.'+application.organizationType | translate}}</span> 
-         </li>
-         <li class="list-group-item"><strong>Use Type:</strong> {{'licensee.type.'+application.type | translate}}</li>
-         <li class="list-group-item"><strong>Use Subtype:</strong> {{aapplication.subType}}</li>
-         <li class="list-group-item"><strong>Type of Agreement:</strong> {{'licensee.agreementType.'+application.commercialUsage.context.agreementType | translate}}</li>
-       </ul>
 
-       <ul class="list-group" ng-show="application.type!='INDIVIDUAL'">
-        <li class="list-group-item list-group-item-info"><h4>Affiliate Information:</h4></li>
-        <li class="list-group-item"><strong>Organization Name:</strong> {{application.organizationName}}</li>
-        <li class="list-group-item"><strong>Address:</strong> {{application.address}}</li>
-        <li class="list-group-item"><strong>City:</strong> {{application.city}}</li>
-        <li class="list-group-item"><strong>Post Code:</strong> {{application.postCode}}</li>
-        <li class="list-group-item"><strong>Country:</strong> {{application.country}}</li>
-        <li class="list-group-item"><strong>Phone Number:</strong> {{application.phone}} <span ng-show="affiliateform.contactextension">ext: {{application.extension}}</span></li>
-        <li class="list-group-item"><strong>Alternate Email:</strong> {{application.alternateEmail}}</li>
-        <li class="list-group-item" ng-show="application.type=='COMMERCIAL'"><strong>Third Email:</strong> {{application.thirdEmail}}</li>
-        <li class="list-group-item" ng-show="application.type=='OTHER'"><strong>Other:</strong>{{application.otherText}}</li>
-      </ul>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Affiliate Info</h3>
+  </div>
+  <div class="panel-body">
+   <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
+    <span ng-show="affiliateform.organization.type=='OTHER'">{{application.organizatioTypeOther}}</span>
+    <span ng-show="affiliateform.organization.type!='OTHER'">{{'licensee.organizationType.'+application.organizationType | translate}}</span> 
+  </p>
+  <p><strong>Use Type:</strong> {{'licensee.type.'+application.type | translate}}</p>
+  <p><strong>Use Subtype:</strong> {{aapplication.subType}}</p>
+  <p><strong>Type of Agreement:</strong> {{'licensee.agreementType.'+application.commercialUsage.context.agreementType | translate}}</p>
+</div>
+</div>
 
+<div class="panel panel-default" ng-show="application.type!='INDIVIDUAL'">
+  <div class="panel-heading">
+    <h3 class="panel-title">Affiliate Information:</h3>
+  </div>
+  <div class="panel-body application-review">
+    <p><strong>Organization Name:</strong> {{application.organizationName}}</p>
+    <p><strong>Address:</strong> {{application.address}}</p>
+    <p><strong>City:</strong> {{application.city}}</p>
+    <p><strong>Post Code:</strong> {{application.postCode}}</p>
+    <p><strong>Country:</strong> {{application.country}}</p>
+    <p><strong>Phone Number:</strong> {{application.phone}} <span ng-show="affiliateform.contactextension">ext: {{application.extension}}</span></p>
+    <p><strong>Alternate Email:</strong> {{application.alternateEmail}}</p>
+    <p ng-show="application.type=='COMMERCIAL'"><strong>Third Email:</strong> {{application.thirdEmail}}</p>
+    <p ng-show="application.type=='OTHER'"><strong>Other:</strong>{{application.otherText}}</p>
+  </div>
+</div>
 
-      <ul class="list-group">
-        <li class="list-group-item list-group-item-info"><h4>Affiliate User Information</h4></li>
-        <li class="list-group-item"><strong>Name:</strong> {{application.name}}</li>
-        <li class="list-group-item"><strong>Email:</strong> {{application.email}}</li>
-        <li class="list-group-item"><strong>Landline Phone Number:</strong> {{application.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></li>
-        <li class="list-group-item"><strong>Mobile Phone Number:</strong> {{application.mobilePhone}}</li>
-      </ul>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Affiliate User Information</h3>
+  </div>
+  <div class="panel-body application-review">
+    <p><strong>Name:</strong> {{application.name}}</p>
+    <p><strong>Email:</strong> {{application.email}}</p>
+    <p><strong>Landline Phone Number:</strong> {{application.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></p>
+    <p><strong>Mobile Phone Number:</strong> {{application.mobilePhone}}</p>
+  </div>
+</div>
 
-      <ul class="list-group" ng-show="application.type=='INDIVIDUAL'">
-        <li class="list-group-item"><strong>Address:</strong> {{application.address}}</li>
-        <li class="list-group-item"><strong>City:</strong> {{application.city}}</li>
-        <li class="list-group-item"><strong>Post Code:</strong> {{application.postCode}}</li>
-        <li class="list-group-item"><strong>Country:</strong> {{application.country}}</li>
-      </ul>
+<div class="panel panel-default"  ng-show="application.type=='INDIVIDUAL'">
+  <div class="panel-heading">
+    <h3 class="panel-title">Panel title</h3>
+  </div>
+  <div class="panel-body application-review">
+    <p><strong>Address:</strong> {{application.address}}</p>
+    <p><strong>City:</strong> {{application.city}}</p>
+    <p><strong>Post Code:</strong> {{application.postCode}}</p>
+    <p><strong>Country:</strong> {{application.country}}</p>
+  </div>
+</div>
 
-      <ul class="list-group" ng-show="application.type=='COMMERCIAL'">
-       <li class="list-group-item list-group-item-info"><h4>Affiliate Billing Information</h4></li>
-       <li class="list-group-item"><strong>Address:</strong> {{application.billingStreet}}</li>
-       <li class="list-group-item"><strong>City:</strong> {{application.billingCity}}</li>
-       <li class="list-group-item"><strong>Post Code:</strong> {{application.billingPostCode}}</li>
-       <li class="list-group-item"><strong>Country:</strong> {{application.billingCountry}}</li>
-     </ul>
+<div class="panel panel-default" ng-show="application.type=='COMMERCIAL'">
+  <div class="panel-heading">
+    <h3 class="panel-title">Affiliate Billing Information</h3>
+  </div>
+  <div class="panel-body application-review">
+   <p><strong>Address:</strong> {{application.billingStreet}}</p>
+   <p><strong>City:</strong> {{application.billingCity}}</p>
+   <p><strong>Post Code:</strong> {{application.billingPostCode}}</p>
+   <p><strong>Country:</strong> {{application.billingCountry}}</p>
+ </div>
+</div>
 
-     <ul class="list-group" >
-      <li class="list-group-item list-group-item-info"><h4>Usage Context Information</h4></li>
-      <li class="list-group-item">
-        <strong>Licence Usage:</strong>
-        <p class="list-group-item-text">{{application.commercialUsage.context.currentUsage}}</p>
-      </li>
-      <li class="list-group-item">
-        <strong>Planned Future Use:</strong> 
-        <p class="list-group-item-text">{{application.commercialUsage.context.plannedUsage}}</p>
-      </li>
-      <li class="list-group-item">
-        <strong>Purpose:</strong> 
-        <p class="list-group-item-text">{{application.commercialUsage.context.purpose}}</p>
-      </li>
-      <li class="list-group-item"><strong>Implementation Status:</strong> {{'licensee.implementationStatus.'+application.commercialUsage.context.implementationStatus | translate}}</li>
-      <li class="list-group-item" ng-show="application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Usage Context Information</h3>
+  </div>
+  <div class="panel-body application-review">
+    <div>
+      <strong>Licence Usage:</strong>
+      <p class="list-group-item-text">{{application.commercialUsage.context.currentUsage}}</p>
+    </div>
+    <div>
+      <strong>Planned Future Use:</strong> 
+      <p>{{application.commercialUsage.context.plannedUsage}}</p>
+    </div>
+    <div>
+      <strong>Purpose:</strong> 
+      <p>{{application.commercialUsage.context.purpose}}</p>
+    </div>
+    <div>
+      <strong>Implementation Status:</strong>
+     <p> {{'licensee.implementationStatus.'+application.commercialUsage.context.implementationStatus | translate}}</p>
+      <div ng-show="application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
        <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
        <p><strong>Practices:</strong> {{countryRecord.practices}} </p>
        <p><strong>Institutions:</strong> 
-       <span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
-        {{entry.name}}<span ng-show="!$last">,</span>
-      </span></p>
-    </li>
+         <span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
+          {{entry.name}}<span ng-show="!$last">,</span>
+        </span>
+      </div>
+    </div>
     
-    <li class="list-group-item" ng-show="application.type!='COMMERCIAL'"><strong>Countries:</strong>
-     <span ng-repeat="countryRecord in usageCountryCountslist">
-      {{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
-  	  </span><br>
-  	</li>
-	</ul>
+    <p ng-show="application.type!='COMMERCIAL'"><strong>Countries:</strong>
+     <span ng-repeat="countryRecord in usageCountryCountslist">{{countryRecord.country.commonName}}<span ng-show="!$last">,</span></span><br>
+   </p>
+ </div>
+</div>
+
