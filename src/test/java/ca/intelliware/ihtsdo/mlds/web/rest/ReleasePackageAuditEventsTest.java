@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
@@ -25,6 +26,8 @@ public class ReleasePackageAuditEventsTest {
         releasePackageAuditEvents = new ReleasePackageAuditEvents();
         
         releasePackageAuditEvents.auditEventService = auditEventService;
+        
+        Mockito.when(auditEventService.createAuditEvent(Mockito.anyString(), Mockito.anyMap())).thenReturn(new PersistentAuditEvent());
 	}
 	
 	@Test
@@ -34,7 +37,8 @@ public class ReleasePackageAuditEventsTest {
 		
 		releasePackageAuditEvents.logCreationOf(releasePackage);
 		
-		Mockito.verify(auditEventService).logAuditableEvent(Mockito.eq("RELEASE_PACKAGE_CREATED"),Mockito.anyMap());
+		Mockito.verify(auditEventService).createAuditEvent(Mockito.eq("RELEASE_PACKAGE_CREATED"),Mockito.anyMap());
+		Mockito.verify(auditEventService).logAuditableEvent(Mockito.any(PersistentAuditEvent.class));
 	}
 
 	@Test
@@ -46,9 +50,8 @@ public class ReleasePackageAuditEventsTest {
 		
 		HashMap<String, String> expected = new HashMap<String,String>();
 		expected.put("releasePackage.name", "Test Name");
-		expected.put("releasePackage.releasePackageId", "123");
 		
-		Mockito.verify(auditEventService).logAuditableEvent(Mockito.eq("RELEASE_PACKAGE_CREATED"), Mockito.eq(expected));		
+		Mockito.verify(auditEventService).createAuditEvent(Mockito.eq("RELEASE_PACKAGE_CREATED"), Mockito.eq(expected));
 	}
 
 
@@ -59,6 +62,7 @@ public class ReleasePackageAuditEventsTest {
 		
 		releasePackageAuditEvents.logDeletionOf(releasePackage);
 		
-		Mockito.verify(auditEventService).logAuditableEvent(Mockito.eq("RELEASE_PACKAGE_DELETED"),Mockito.anyMap());
+		Mockito.verify(auditEventService).createAuditEvent(Mockito.eq("RELEASE_PACKAGE_DELETED"),Mockito.anyMap());
+		Mockito.verify(auditEventService).logAuditableEvent(Mockito.any(PersistentAuditEvent.class));
 	}
 }
