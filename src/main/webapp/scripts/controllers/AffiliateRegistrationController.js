@@ -115,8 +115,8 @@ mldsApp.controller('AffiliateRegistrationController',
         		};
         	};
         	
-        	$scope.licenseeTypeChanged = function() {
-        		$scope.$broadcast(Events.licenseeTypeUpdated, $scope.affiliateform.type);
+        	$scope.affiliateTypeChanged = function() {
+        		$scope.$broadcast(Events.affiliateTypeUpdated, $scope.affiliateform.type);
         		$scope.saveApplication();
         	};
         	

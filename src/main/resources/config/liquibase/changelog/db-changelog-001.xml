@@ -302,7 +302,7 @@
     </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-13">
-    	<comment>Introduce Licensee as owner of commercialUsageReports</comment>
+    	<comment>Introduce Affiliate as owner of commercialUsageReports</comment>
         <createTable schemaName="public" tableName="licensee">
             <column name="licensee_id" type="INT8">
                 <constraints nullable="false"/>
@@ -574,6 +574,29 @@
             defaultNullValue="NOT_SUBMITTED"
             schemaName="public"
             tableName="application"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-1" author="AC">
+		<comment>Renaming Licensee table to Affiliate</comment>
+		<renameTable newTableName="affiliate"
+           oldTableName="licensee"
+           schemaName="public"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-2" author="AC">
+		<comment>Renaming Licensee columns to Affiliate</comment>
+		<renameColumn             
+            newColumnName="affiliate_id"
+            oldColumnName="licensee_id"
+            remarks="A String"
+            schemaName="public"
+            tableName="affiliate"/>
+    <renameColumn             
+            newColumnName="affiliate_id"
+            oldColumnName="licensee_id"
+            remarks="A String"
+            schemaName="public"
+            tableName="commercial_usage"/>
 	</changeSet>
 	
 </databaseChangeLog>
