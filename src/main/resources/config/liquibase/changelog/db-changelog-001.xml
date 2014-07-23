@@ -627,5 +627,14 @@
     		</column>
 		</addColumn>
 	</changeSet>
+
+	<changeSet id="MLDS-259-4" author="DGJ">
+		<comment>Remove entity foreign key constraints from audit log</comment>
+		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_application"/>
+		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_affiliate"/>
+		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_package"/>
+		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_version"/>
+		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_file"/>
+	</changeSet>
 	
 </databaseChangeLog>
