@@ -2,11 +2,11 @@
          <li class="list-group-item list-group-item-info"><h4>Affiliate Info</h4></li>
          <li class="list-group-item" ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
            <span ng-show="affiliateform.organization.type=='OTHER'">{{application.organizatioTypeOther}}</span>
-           <span ng-show="affiliateform.organization.type!='OTHER'">{{'licensee.organizationType.'+application.organizationType | translate}}</span> 
+           <span ng-show="affiliateform.organization.type!='OTHER'">{{'affiliate.organizationType.'+application.organizationType | translate}}</span> 
          </li>
-         <li class="list-group-item"><strong>Use Type:</strong> {{'licensee.type.'+application.type | translate}}</li>
+         <li class="list-group-item"><strong>Use Type:</strong> {{'affiliate.type.'+application.type | translate}}</li>
          <li class="list-group-item"><strong>Use Subtype:</strong> {{aapplication.subType}}</li>
-         <li class="list-group-item"><strong>Type of Agreement:</strong> {{'licensee.agreementType.'+application.commercialUsage.context.agreementType | translate}}</li>
+         <li class="list-group-item"><strong>Type of Agreement:</strong> {{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</li>
        </ul>
 
        <ul class="list-group" ng-show="application.type!='INDIVIDUAL'">
@@ -60,7 +60,7 @@
         <strong>Purpose:</strong> 
         <p class="list-group-item-text">{{application.commercialUsage.context.purpose}}</p>
       </li>
-      <li class="list-group-item"><strong>Implementation Status:</strong> {{'licensee.implementationStatus.'+application.commercialUsage.context.implementationStatus | translate}}</li>
+      <li class="list-group-item"><strong>Implementation Status:</strong> {{'affiliate.implementationStatus.'+application.commercialUsage.context.implementationStatus | translate}}</li>
       <li class="list-group-item" ng-show="application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
        <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
        <p><strong>Practices:</strong> {{countryRecord.practices}} </p>
