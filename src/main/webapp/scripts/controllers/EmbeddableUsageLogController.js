@@ -34,7 +34,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 	
 	function setupNotificions() {
 		$scope.$on(Events.commercialUsageUpdated, onCommercialUsageUpdated);
-		$scope.$on(Events.licenseeTypeUpdated, onLicenseeTypeUpdated);
+		$scope.$on(Events.affiliateTypeUpdated, onAffiliateTypeUpdated);
 	}
 	
 	function onCommercialUsageUpdated() {
@@ -49,7 +49,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 
 	}
 	
-	function onLicenseeTypeUpdated(event, newType) {
+	function onAffiliateTypeUpdated(event, newType) {
 		if (newType !== $scope.commercialUsageReport.type) {
 			$scope.commercialUsageReport.type = newType;
 			//FIXME needs to be persisted as we re-read from server, however, should we be triggering the save?

@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
-import ca.intelliware.ihtsdo.mlds.domain.Licensee;
-import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
-import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
@@ -42,7 +42,7 @@ public class ApplicationController {
 	@Resource
 	SessionService sessionService;
 	@Resource
-	LicenseeRepository licenseeRepository;
+	AffiliateRepository affiliateRepository;
 	@Resource
 	ApplicationApprovedEmailSender applicationApprovedEmailSender;
 	@Resource
@@ -162,18 +162,18 @@ public class ApplicationController {
 		
 		applicationAuditEvents.logApprovalStateChange(application);
 		
-		//FIXME should be a different trigger and way to connect applications with licensee
-		List<Licensee> licensees = licenseeRepository.findByCreator(application.getUsername());
-		Licensee licensee = new Licensee();
+		//FIXME should be a different trigger and way to connect applications with affiliate
+		List<Affiliate> affiliates = affiliateRepository.findByCreator(application.getUsername());
+		Affiliate affiliate = new Affiliate();
 		
-		//FIXME only supporting 1 licensee for now
-		if (licensees.size() > 0) {
-			licensee = licensees.get(0);
+		//FIXME only supporting 1 affiliate for now
+		if (affiliates.size() > 0) {
+			affiliate = affiliates.get(0);
 		}
-		licensee.setCreator(application.getUsername());
-		licensee.setApplication(application);
-		licensee.setType(LicenseeType.valueOf(application.getType()));
-		licenseeRepository.save(licensee);
+		affiliate.setCreator(application.getUsername());
+		affiliate.setApplication(application);
+		affiliate.setType(AffiliateType.valueOf(application.getType()));
+		affiliateRepository.save(affiliate);
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}

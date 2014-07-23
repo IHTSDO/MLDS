@@ -40,13 +40,13 @@ angular.module('MLDS')
 			broadcastCommercialUsageUpdate();
 		};
 
-		service.getUsageReports = function(licenseeId) {
-			return $http.get('/app/rest/licensees/'+licenseeId+'/commercialUsages');
+		service.getUsageReports = function(affiliateId) {
+			return $http.get('/app/rest/affiliates/'+affiliateId+'/commercialUsages');
 		};
 
 		
-		service.createUsageReport = function(licenseeId, startDate, endDate) {
-			return $http.post('/app/rest/licensees/'+licenseeId+'/commercialUsages',
+		service.createUsageReport = function(affiliateId, startDate, endDate) {
+			return $http.post('/app/rest/affiliates/'+affiliateId+'/commercialUsages',
 					{
 						startDate: serializeDate(startDate),
 						endDate: serializeDate(endDate)

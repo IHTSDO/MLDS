@@ -22,7 +22,7 @@
             <div class="panel-body">
               <h4>How will you be using the standard? FIXME COPY</h4>
               <div class="form-group">
-                <label>Type</label> <select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.usageSubType = ''; licenseeTypeChanged()" required="">
+                <label>Type</label> <select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.usageSubType = ''; affiliateTypeChanged()" required="">
                   <option value="COMMERCIAL">Commercial</option>
                   <option value="ACADEMIC">Academic</option>
                   <option value="OTHER">Other</option>
@@ -209,7 +209,7 @@
                   <div class="form-group has-error has-feedback">
                     <label>Organization Type</label> 
                      <select class="form-control" name="organizationType" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.organization.type" auto-submit>
-                    	<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{'licensee.organizationType.' + organizationType | translate}}</option>
+                    	<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{'affiliate.organizationType.' + organizationType | translate}}</option>
                     </select>
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationType.$error.required && affiliateApplicationForm.attempted">
                       Required field.
