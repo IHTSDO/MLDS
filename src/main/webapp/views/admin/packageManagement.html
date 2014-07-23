@@ -3,14 +3,18 @@
 
 	<div class="col-lg-12">
 		<div class="page-header">
-			<button class="btn btn-success pull-right" ng-click="addReleasePackage()"><i class="fa fa-plus"></i> Add New Package</button>
+			
 			<h2>Release Management</h2>
 		</div>
+			<div class="col-lg-8">
+		<button class="btn btn-success pull-right" ng-click="addReleasePackage()"><i class="fa fa-plus"></i> Add New Package</button>
+	</div>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-lg-8">
+
 		<h3>Public Releases</h3>
 		<div class="panel panel-default" ng-repeat="package in packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished">
 			<div class="panel-heading">

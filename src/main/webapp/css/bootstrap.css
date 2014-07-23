@@ -3016,7 +3016,6 @@ input[type="button"].btn-block {
   border-top: 4px solid;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
-  color: #000000;
 }
 .dropdown {
   position: relative;
@@ -6080,6 +6079,9 @@ button.close {
   border-radius: 3px;
   text-align: center;
   font-weight: normal;
+}
+.panel-heading .caret {
+  color: #000000;
 }
 .application-status {
   position: relative;
