@@ -3,13 +3,15 @@
 		<button ng-click="goToReleaseManagement()" type="button" class="btn btn-link pull-right">Back to Release Management</button>
 		<h1>Package Details</h1>
 	</div>
+<div class="well">
 	<div class="col-lg-12">
-		<div class="well">
+		
 			<h2>{{packageEntity.name}} <a class="btn btn-default pull-right"  ng-click="editReleasePackage()"><i class="fa fa-pencil"></i> Edit</a></h2>
 			<p>{{packageEntity.description}}</p>
-		</div>
+	
 	</div>
 </div>
+
 <div class="row">
 	<div class="col-lg-12">
 		<button class="btn btn-success" ng-click="addReleaseVersion()"><i class="fa fa-plus"></i> Add New Version</button>

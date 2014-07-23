@@ -11,7 +11,7 @@
 <div class="row" ng-repeat="releasePackage in releasePackages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">Panel title</h3>
+			<h3 class="panel-title">{{releasePackage.name}}</h3>
 		</div>
 		<div class="panel-body">
 			<p>{{releasePackage.description}}</p>
@@ -29,14 +29,14 @@
 					<tr ng-repeat="version in releasePackage.releaseVersions | filter: utils.isVersionOnline"
 					ng-show="utils.isLatestVersion(version, (releasePackage.releaseVersions | filter: utils.isVersionOnline))" 
 					ng-click="goToViewPackagePage(releasePackage.releasePackageId)">
-					<td>{{version.name}}</td>
-					<td>{{version.description}}</td>
-					<td>
+					<td class="col-sm-2">{{version.name}}</td>
+					<td class="col-sm-6">{{version.description}}</td>
+					<td class="col-sm-2">
 						<span ng-repeat="file in version.releaseFiles">
 							<span>{{file.label}}</span><span ng-show="!$last">, </span>
 						</span>
 					</td>
-					<td>{{version.publishedAt | date:'medium'}}</td>
+					<td class="col-sm-2">{{version.publishedAt | date:'medium'}}</td>
 				</tr>
 			</tbody>
 		</table>
