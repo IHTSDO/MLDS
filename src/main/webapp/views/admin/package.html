@@ -23,7 +23,7 @@
 		<div class="panel panel-default" ng-repeat="releaseVersion in versions.online">
 			<div class="panel-heading">
 				<div class="dropdown pull-right">
-					<button class="btn btn-info btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+					<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
@@ -44,15 +44,19 @@
 	</div>
 
 </div>
-<div class="alert alert-info" ng-show="versions.online.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no online version of this package.</div>
+<div class="row">
+	<div class="col-lg-10">
+		<div class="alert alert-warning" ng-show="versions.online.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no online version of this package.</div>
+	</div>
+</div>
 
 <div class="row">
 	<div class="col-lg-10">
 		<h3>Offline Versions</h3>
-		<div class="panel panel-default" ng-repeat="releaseVersion in versions.offline">
+		<div class="panel panel-info" ng-repeat="releaseVersion in versions.offline">
 			<div class="panel-heading">
 				<div class="dropdown pull-right">
-					<button class="btn btn-info btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+					<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
@@ -66,7 +70,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="clearfix">
-				<button class="btn btn-success pull-right" ng-click="addReleaseFile(releaseVersion)" ng-hide="releaseVersion.publishedAt">
+					<button class="btn btn-success pull-right" ng-click="addReleaseFile(releaseVersion)" ng-hide="releaseVersion.publishedAt">
 						<i class="fa fa-plus"></i> Add File
 					</button>
 				</div>
@@ -87,7 +91,7 @@
 </div>
 <div class="row">
 	<div class="col-lg-10">
-		<div class="alert alert-info" ng-show="versions.offline.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline versions of this package.</div>
+		<div class="alert alert-warning" ng-show="versions.offline.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline versions of this package.</div>
 	</div>
 </div>
 
