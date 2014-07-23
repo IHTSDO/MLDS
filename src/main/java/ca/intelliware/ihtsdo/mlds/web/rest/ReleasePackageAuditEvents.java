@@ -34,7 +34,7 @@ public class ReleasePackageAuditEvents {
 	private void logReleasePackageEvent(String eventType, ReleasePackage releasePackage) {
 		Map<String, String> auditData = createReleasePackageData(releasePackage);
 		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
-		auditEvent.setReleasePackage(releasePackage);
+		auditEvent.setReleasePackageId(releasePackage.getReleasePackageId());
 		auditEventService.logAuditableEvent(auditEvent);
 	}
 	
@@ -54,11 +54,20 @@ public class ReleasePackageAuditEvents {
 	public void logDeletionOf(ReleaseVersion releaseVersion) {
 		logReleaseVersionEvent("RELEASE_VERSION_DELETED", releaseVersion);
 	}
-	
+
+	public void logTakenOnline(ReleaseVersion releaseVersion) {
+		logReleaseVersionEvent("RELEASE_VERSION_TAKEN_ONLINE", releaseVersion);
+	}
+
+	public void logTakenOffline(ReleaseVersion releaseVersion) {
+		logReleaseVersionEvent("RELEASE_VERSION_TAKEN_OFFLINE", releaseVersion);
+	}
+
 	private void logReleaseVersionEvent(String eventType, ReleaseVersion releaseVersion) {
 		Map<String, String> auditData = createReleaseVersionData(releaseVersion);
 		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
-		auditEvent.setReleaseVersion(releaseVersion);
+		auditEvent.setReleaseVersionId(releaseVersion.getReleaseVersionId());
+		auditEvent.setReleasePackageId(releaseVersion.getReleasePackage().getReleasePackageId());
 		auditEventService.logAuditableEvent(auditEvent);
 	}
 
@@ -82,7 +91,9 @@ public class ReleasePackageAuditEvents {
 	private void logReleaseFileEvent(String eventType, ReleaseFile releaseFile) {
 		Map<String, String> auditData = createReleaseFileData(releaseFile);
 		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
-		auditEvent.setReleaseFile(releaseFile);
+		auditEvent.setReleaseFileId(releaseFile.getReleaseFileId());
+		auditEvent.setReleaseVersionId(releaseFile.getReleaseVersion().getReleaseVersionId());
+		auditEvent.setReleasePackageId(releaseFile.getReleaseVersion().getReleasePackage().getReleasePackageId());
 		auditEventService.logAuditableEvent(auditEvent);
 	}
 

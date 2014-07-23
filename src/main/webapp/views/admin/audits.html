@@ -32,6 +32,8 @@
                 <span ng-show="audit.data.message">{{audit.data.message}}</span>
                 <span ng-show="audit.data.remoteAddress">{{'audits.table.data.remoteAddress' | translate}} {{audit.data.remoteAddress}}</span>
                 <span ng-show="audit.data['releasePackage.name']">Release Package Name:  {{audit.data['releasePackage.name']}}</span>
+                <span ng-show="audit.data['releaseVersion.name']">Release Version Name:  {{audit.data['releaseVersion.name']}}</span>
+                <span ng-show="audit.data['releaseFile.label']">Release File Label:  {{audit.data['releaseFile.label']}}</span>
                 <span ng-show="audit.data['application.name']">Application:  {{audit.data['application.name']}}</span>
                 <span ng-show="audit.data['application.approvalState']">Application State:  {{'approval.state.'+audit.data['application.approvalState'] | translate}}</span>
                 <span ng-show="audit.data['affiliate.creator']">Affiliate:  {{audit.data['affiliate.creator']}}</span>

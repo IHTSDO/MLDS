@@ -32,7 +32,7 @@ public class ApplicationAuditEvents {
     	Map<String, String> auditData = createAuditData(application);
     	auditData.put("application.approvalState", ""+application.getApprovalState());
     	PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(APPLICATION_APPROVAL_STATE_CHANGED, auditData);
-    	auditEvent.setApplication(application);
+    	auditEvent.setApplicationId(application.getApplicationId());
     	auditEventService.logAuditableEvent(auditEvent);
 	}
 }
