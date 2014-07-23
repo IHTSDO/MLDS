@@ -108,6 +108,9 @@ public class AccountResource {
 	
 	@Resource
 	CommercialUsageResetter commercialUsageResetter; 
+	
+	@Resource
+	AffiliateAuditEvents affiliateAuditEvents;
 
     /**
      * POST  /rest/register -> register the user.
@@ -167,6 +170,7 @@ public class AccountResource {
         	
         	application.setCommercialUsage(commercialUsage);
         	
+        	affiliateAuditEvents.logCreationOf(affiliate);
         	
         	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular

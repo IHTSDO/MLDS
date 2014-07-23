@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.intelliware.ihtsdo.mlds.config.audit.AuditEventConverter;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
+import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
 
 /**
@@ -49,7 +51,11 @@ public class AuditEventService {
 		persistenceAuditEventRepository.save(createAuditEvent(eventType, auditData));
 	}
 
-	PersistentAuditEvent createAuditEvent(String eventType, Map<String, String> auditData) {
+	public void logAuditableEvent(PersistentAuditEvent auditEvent) {
+		persistenceAuditEventRepository.save(auditEvent);
+	}
+
+	public PersistentAuditEvent createAuditEvent(String eventType, Map<String, String> auditData) {
 		PersistentAuditEvent persistentAuditEvent = new PersistentAuditEvent();
 		persistentAuditEvent.setPrincipal(currentSecurityContext.getCurrentUserName());
 		persistentAuditEvent.setAuditEventType(eventType);

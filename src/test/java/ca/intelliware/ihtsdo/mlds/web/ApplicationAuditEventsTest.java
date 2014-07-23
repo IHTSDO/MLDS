@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
@@ -28,6 +29,8 @@ public class ApplicationAuditEventsTest {
         applicationAuditEvents = new ApplicationAuditEvents();
         
         applicationAuditEvents.auditEventService = auditEventService;
+        
+        Mockito.when(auditEventService.createAuditEvent(Mockito.anyString(), Mockito.anyMap())).thenReturn(new PersistentAuditEvent());
 	}
 	
 	@Test
@@ -36,7 +39,8 @@ public class ApplicationAuditEventsTest {
 		
 		applicationAuditEvents.logApprovalStateChange(application);
 		
-		Mockito.verify(auditEventService).logAuditableEvent(Mockito.eq("APPLICATION_APPROVAL_STATE_CHANGED"),Mockito.anyMap());
+		Mockito.verify(auditEventService).createAuditEvent(Mockito.eq("APPLICATION_APPROVAL_STATE_CHANGED"),Mockito.anyMap());
+		Mockito.verify(auditEventService).logAuditableEvent(Mockito.any(PersistentAuditEvent.class));
 	}
 
 	@Test
@@ -52,6 +56,6 @@ public class ApplicationAuditEventsTest {
 		expected.put("application.applicationId", "123");
 		expected.put("application.approvalState", "APPROVED");
 		
-		Mockito.verify(auditEventService).logAuditableEvent(Mockito.anyString(), Mockito.eq(expected));		
+		Mockito.verify(auditEventService).createAuditEvent(Mockito.anyString(), Mockito.eq(expected));
 	}
 }

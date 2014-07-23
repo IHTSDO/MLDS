@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
@@ -30,6 +31,8 @@ public class ApplicationAuditEvents {
 	public void logApprovalStateChange(Application application) {
     	Map<String, String> auditData = createAuditData(application);
     	auditData.put("application.approvalState", ""+application.getApprovalState());
-    	auditEventService.logAuditableEvent(APPLICATION_APPROVAL_STATE_CHANGED, auditData);
+    	PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(APPLICATION_APPROVAL_STATE_CHANGED, auditData);
+    	auditEvent.setApplication(application);
+    	auditEventService.logAuditableEvent(auditEvent);
 	}
 }

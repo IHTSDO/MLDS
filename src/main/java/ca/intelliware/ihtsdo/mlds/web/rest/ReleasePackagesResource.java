@@ -281,7 +281,7 @@ public class ReleasePackagesResource {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 
-		releasePackageAuditEvents.logReleaseVersionDeleted(releaseVersion);
+		releasePackageAuditEvents.logDeletionOf(releaseVersion);
 
 		// Actually mark releasePackage as being inactive and then hide from
 		// subsequent calls rather than sql delete from the db
