@@ -6063,6 +6063,9 @@ button.close {
 .user-info .btn {
   margin-top: 5px;
 }
+.package-wrap {
+  background-color: #ffffff;
+}
 .version {
   margin-bottom: 0;
 }
