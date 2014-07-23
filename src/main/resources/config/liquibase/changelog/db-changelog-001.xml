@@ -598,5 +598,34 @@
             schemaName="public"
             tableName="commercial_usage"/>
 	</changeSet>
+
+	<changeSet id="MLDS-259-3" author="DGJ">
+		<comment>Add entity references audit log</comment>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="application_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_application" references="application(application_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="affiliate_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_affiliate" references="affiliate(affiliate_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="release_package_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_package" references="release_package(release_package_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="release_version_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_version" references="release_version(release_version_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="release_file_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_file" references="release_file(release_file_id)"/>
+    		</column>
+		</addColumn>
+	</changeSet>
 	
 </databaseChangeLog>
