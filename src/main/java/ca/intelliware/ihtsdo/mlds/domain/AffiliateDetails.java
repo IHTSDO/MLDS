@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -15,7 +17,7 @@ public class AffiliateDetails {
 	@GeneratedValue
 	@Column(name="affiliate_details_id")
     Long affiliateDetailsId;
-	
+		
 	@Column(name="first_name")
 	String firstName;
 	
@@ -30,6 +32,21 @@ public class AffiliateDetails {
 	@Column(name="third_email")
 	String thirdEmail;
 	
+	@OneToOne
+	@JoinColumn(name="address_id")
+	MailingAddress address;
+	
+	@Column(name="organization_name")
+	String organizationName;
+	
+	@OneToOne()
+	@JoinColumn(name="organization_address_id")
+	MailingAddress organizationAddress;
+	
+	@OneToOne()
+	@JoinColumn(name="organization_billing_address_id")
+	MailingAddress organizationBillingAddress;
+
 	public Long getAffiliateDetailsId() {
 		return affiliateDetailsId;
 	}
@@ -77,5 +94,39 @@ public class AffiliateDetails {
 	public void setThirdEmail(String thirdEmail) {
 		this.thirdEmail = thirdEmail;
 	}
+
+	public MailingAddress getAddress() {
+		return address;
+	}
+
+	public void setAddress(MailingAddress address) {
+		this.address = address;
+	}
+
+	public String getOrganizationName() {
+		return organizationName;
+	}
+
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
+	}
+
+	public MailingAddress getOrganizationAddress() {
+		return organizationAddress;
+	}
+
+	public void setOrganizationAddress(MailingAddress organizationAddress) {
+		this.organizationAddress = organizationAddress;
+	}
+
+	public MailingAddress getOrganizationBillingAddress() {
+		return organizationBillingAddress;
+	}
+
+	public void setOrganizationBillingAddress(
+			MailingAddress organizationBillingAddress) {
+		this.organizationBillingAddress = organizationBillingAddress;
+	}
+	
 	
 }
