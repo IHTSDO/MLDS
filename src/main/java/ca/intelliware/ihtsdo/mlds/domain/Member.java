@@ -16,7 +16,8 @@ public class Member {
 
     String key;
 
-    Instant created = Instant.now();
+    @Column(name="created_at")
+    Instant createdAt = Instant.now();
     
 	public Long getMemberId() {
 		return memberId;
@@ -26,8 +27,8 @@ public class Member {
 		return key;
 	}
 
-	public Instant getCreated() {
-		return created;
+	public Instant getCreatedAt() {
+		return createdAt;
 	}
 
     
