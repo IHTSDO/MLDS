@@ -36,11 +36,11 @@ public class CommercialUsage {
 	//FIXME review dependency graph!
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="licensee_id")
-	Licensee licensee;
+	@JoinColumn(name="affiliate_id")
+	Affiliate affiliate;
 
 	@Enumerated(EnumType.STRING)
-	LicenseeType type;
+	AffiliateType type;
 
 	//@Type(type="jodatimeInstant")
 	Instant created = Instant.now();
@@ -151,8 +151,8 @@ public class CommercialUsage {
 		this.commercialUsageId = commercialUsageId;
 	}
 
-	public Licensee getLicensee() {
-		return licensee;
+	public Affiliate getAffiliate() {
+		return affiliate;
 	}
 
 	public UsageContext getContext() {
@@ -163,11 +163,11 @@ public class CommercialUsage {
 		this.context = context;
 	}
 
-	public LicenseeType getType() {
+	public AffiliateType getType() {
 		return type;
 	}
 
-	public void setType(LicenseeType type) {
+	public void setType(AffiliateType type) {
 		this.type = type;
 	}
 

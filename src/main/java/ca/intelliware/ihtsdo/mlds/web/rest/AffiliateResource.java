@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.intelliware.ihtsdo.mlds.domain.Licensee;
-import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
@@ -24,11 +24,11 @@ import com.google.common.base.Strings;
 import com.wordnik.swagger.annotations.Api;
 
 @RestController
-@Api(value = "licensee", description = "Licensee API")
-public class LicenseeResource {
+@Api(value = "affiliate", description = "Affiliate API")
+public class AffiliateResource {
 
 	@Resource
-	LicenseeRepository licenseeRepository;
+	AffiliateRepository affiliateRepository;
 
 	@Resource
 	AuthorizationChecker authorizationChecker;
@@ -37,36 +37,36 @@ public class LicenseeResource {
 	SessionService sessionService;
 
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
-    @RequestMapping(value = Routes.LICENSEES,
+    @RequestMapping(value = Routes.AFFILIATES,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<Collection<Licensee>> getLicensees(@RequestParam String q) {
-		List<Licensee> licensees;
+    public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliates(@RequestParam String q) {
+		List<Affiliate> affiliates;
 		if (!Strings.isNullOrEmpty(q)) {
-			licensees = licenseeRepository.findByTextQuery("%" + q.toLowerCase() + "%");
+			affiliates = affiliateRepository.findByTextQuery("%" + q.toLowerCase() + "%");
 		} else {
-			licensees = licenseeRepository.findAll();
+			affiliates = affiliateRepository.findAll();
 		}
-		return new ResponseEntity<Collection<Licensee>>(licensees, HttpStatus.OK);
+		return new ResponseEntity<Collection<Affiliate>>(affiliates, HttpStatus.OK);
     }
 
 	
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN})
-    @RequestMapping(value = Routes.LICENSEES_ME,
+    @RequestMapping(value = Routes.AFFILIATES_ME,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<Collection<Licensee>> getLicenseesMe() {
+    public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesMe() {
     	String username = sessionService.getUsernameOrNull();
-    	return new ResponseEntity<Collection<Licensee>>(licenseeRepository.findByCreator(username), HttpStatus.OK);
+    	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
     }
 
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN})
-    @RequestMapping(value = Routes.LICENSEES_CREATOR,
+    @RequestMapping(value = Routes.AFFILIATES_CREATOR,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<Collection<Licensee>> getLicenseesForUser(@PathVariable String username) {
-    	authorizationChecker.checkCanAccessLicensee(username);
-    	return new ResponseEntity<Collection<Licensee>>(licenseeRepository.findByCreator(username), HttpStatus.OK);
+    public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesForUser(@PathVariable String username) {
+    	authorizationChecker.checkCanAccessAffiliate(username);
+    	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
     }
 
 }

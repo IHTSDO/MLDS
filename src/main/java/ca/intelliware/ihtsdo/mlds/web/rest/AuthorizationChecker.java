@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
-import ca.intelliware.ihtsdo.mlds.domain.Licensee;
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 /**
@@ -27,7 +27,7 @@ import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 public class AuthorizationChecker {
 
 	@Resource
-	LicenseeRepository licenseeRepository;
+	AffiliateRepository affiliateRepository;
 	
 	@Resource
 	CommercialUsageRepository commercialUsageRepository;
@@ -62,16 +62,16 @@ public class AuthorizationChecker {
 		throw new IllegalStateException(description);
 	}
 	
-	private void checkCurrentUserIsMemberOfLicensee(Licensee licensee) {
-		if (licensee != null) {
-			checkCurrentUserIsUser(licensee.getCreator());
+	private void checkCurrentUserIsMemberOfAffiliate(Affiliate affiliate) {
+		if (affiliate != null) {
+			checkCurrentUserIsUser(affiliate.getCreator());
 		}
 	}
 
 	private void checkCurrentUserIsUser(String username) {
 		if (! ObjectUtils.equals(currentSecurityContext.getCurrentUserName(), username)) {
 			//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
-			failCheck("User not authorized to access Licensee");
+			failCheck("User not authorized to access Affiliate");
 		}
 	}
 
@@ -83,7 +83,7 @@ public class AuthorizationChecker {
 		}
 	}
 
-	public void checkCanAccessLicensee(String username) {
+	public void checkCanAccessAffiliate(String username) {
 		if (isStaffOrAdmin()) {
 			return;
 		}
@@ -91,12 +91,12 @@ public class AuthorizationChecker {
 	}
 
 
-	public void checkCanAccessLicensee(long licenseeId) {
+	public void checkCanAccessAffiliate(long affiliateId) {
 		if (isStaffOrAdmin()) {
 			return;
 		}
-		Licensee licensee = licenseeRepository.findOne(licenseeId);
-		checkCurrentUserIsMemberOfLicensee(licensee);
+		Affiliate Affiliate = affiliateRepository.findOne(affiliateId);
+		checkCurrentUserIsMemberOfAffiliate(Affiliate);
 	}
 
 	public void checkCanAccessUsageReport(long usageReportId) {
@@ -105,8 +105,8 @@ public class AuthorizationChecker {
 		}
 		CommercialUsage commercialUsage = commercialUsageRepository.findOne(usageReportId);
 		if (commercialUsage != null) {
-			Licensee licensee = commercialUsage.getLicensee();
-			checkCurrentUserIsMemberOfLicensee(licensee);
+			Affiliate affiliate = commercialUsage.getAffiliate();
+			checkCurrentUserIsMemberOfAffiliate(affiliate);
 		}
 		
 	}
@@ -120,7 +120,7 @@ public class AuthorizationChecker {
 			CommercialUsage commercialUsage = commercialUsageEntry.getCommercialUsage();
 			checkCommercialUsageMatches(commercialUsageId, commercialUsage);
 			if (commercialUsage != null) {
-				checkCurrentUserIsMemberOfLicensee(commercialUsage.getLicensee());
+				checkCurrentUserIsMemberOfAffiliate(commercialUsage.getAffiliate());
 			}
 		}
 
@@ -135,7 +135,7 @@ public class AuthorizationChecker {
 			CommercialUsage commercialUsage = commercialUsageCount.getCommercialUsage();
 			checkCommercialUsageMatches(commercialUsageId, commercialUsage);
 			if (commercialUsage != null) {
-				checkCurrentUserIsMemberOfLicensee(commercialUsage.getLicensee());
+				checkCurrentUserIsMemberOfAffiliate(commercialUsage.getAffiliate());
 			}
 		}
 	}
