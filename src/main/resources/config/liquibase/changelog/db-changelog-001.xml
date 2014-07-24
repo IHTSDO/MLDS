@@ -664,4 +664,20 @@
 		</sql>
     </changeSet>
 	
+	
+	<changeSet id="MLDS-259-3" author="AC">
+		<comment>Extract details object from Application and share with Affiliate</comment>
+		<createTable tableName="affiliate_details">
+			<column name="affiliate_details_id" type="INT8">
+				<constraints nullable="false"/>
+			</column>
+			<column name="first_name" type="varchar(50)"/>
+      <column name="last_name" type="varchar(50)"/>
+      <column name="email" type="varchar(100)"/>
+      <column name="alternate_email" type="varchar(100)"/>
+      <column name="third_email" type="varchar(100)"/>
+	  </createTable>
+    <addPrimaryKey columnNames="affiliate_details_id" constraintName="affiliate_details_PK" schemaName="public" tableName="affiliate_details"/>
+	</changeSet>
+	
 </databaseChangeLog>
