@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="affiliate_details")
-public class AffiliateDetails {
+public class AffiliateDetails extends BaseEntity {
 	
 	@Id
 	@GeneratedValue
@@ -128,6 +128,11 @@ public class AffiliateDetails {
 	public void setBillingAddress(
 			MailingAddress organizationBillingAddress) {
 		this.billingAddress = organizationBillingAddress;
+	}
+
+	@Override
+	protected Object getPK() {
+		return affiliateDetailsId;
 	}
 	
 	

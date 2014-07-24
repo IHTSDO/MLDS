@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Country {
+public class Country extends BaseEntity {
 
     @Id
     @Column(name="iso_code_2")
@@ -58,5 +58,10 @@ public class Country {
 
 	public void setAlternateRegistrationUrl(String alternateRegistrationUrl) {
 		this.alternateRegistrationUrl = alternateRegistrationUrl;
+	}
+
+	@Override
+	protected Object getPK() {
+		return isoCode2;
 	}
 }
