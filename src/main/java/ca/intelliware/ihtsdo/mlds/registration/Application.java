@@ -12,10 +12,11 @@ import javax.persistence.ManyToOne;
 import org.joda.time.Instant;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.BaseEntity;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 
 @Entity
-public class Application {
+public class Application extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="application_id")
@@ -324,5 +325,10 @@ public class Application {
 
 	public void setCommercialUsage(CommercialUsage commercialUsage) {
 		this.commercialUsage = commercialUsage;
+	}
+
+	@Override
+	protected Object getPK() {
+		return applicationId;
 	}
 }

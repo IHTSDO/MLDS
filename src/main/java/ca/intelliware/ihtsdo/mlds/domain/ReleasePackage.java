@@ -23,7 +23,7 @@ import com.google.common.collect.Sets;
 @Where(clause = "inactive_at IS NULL")
 @SQLDelete(sql="UPDATE release_package SET inactive_at = now() WHERE release_package_id = ?")
 @Table(name="release_package")
-public class ReleasePackage {
+public class ReleasePackage extends BaseEntity {
 
 	@Id
 	@GeneratedValue
@@ -104,6 +104,11 @@ public class ReleasePackage {
 
 	public void setReleaseVersions(Set<ReleaseVersion> releaseVersions) {
 		this.releaseVersions = releaseVersions;
+	}
+
+	@Override
+	protected Object getPK() {
+		return releasePackageId;
 	}
 	
 }

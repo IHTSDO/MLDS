@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="commercial_usage_count")
-public class CommercialUsageCountry {
+public class CommercialUsageCountry extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="commercial_usage_count_id")
@@ -51,6 +51,11 @@ public class CommercialUsageCountry {
 
 	public CommercialUsage getCommercialUsage() {
 		return commercialUsage;
+	}
+
+	@Override
+	protected Object getPK() {
+		return commercialUsageCountId;
 	}
 
 }

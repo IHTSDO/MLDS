@@ -26,7 +26,7 @@ import com.google.common.collect.Sets;
 // FIXME MB we need an equals.  Can we put that in a base?
 @Entity
 @Table(name="commercial_usage")
-public class CommercialUsage {
+public class CommercialUsage extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="commercial_usage_id")
@@ -169,6 +169,11 @@ public class CommercialUsage {
 
 	public void setType(AffiliateType type) {
 		this.type = type;
+	}
+
+	@Override
+	protected Object getPK() {
+		return commercialUsageId;
 	}
 
 }

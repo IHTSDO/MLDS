@@ -727,4 +727,37 @@
 		</addColumn>
 	</changeSet>
 	
+	<changeSet id="MLDS-259-7" author="AC">
+		<comment>adding in affiliate_details_id column</comment>
+		<addColumn tableName="affiliate">
+			<column name="affiliate_details_id" type="INT8"></column>
+		</addColumn>
+		<addForeignKeyConstraint baseColumnNames="affiliate_details_id" baseTableName="affiliate" baseTableSchemaName="public" constraintName="FK_affiliate_affiliate_details" deferrable="false" initiallyDeferred="false" referencedColumnNames="affiliate_details_id" referencedTableName="affiliate_details" referencedTableSchemaName="public"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-8" author="AC">
+		<comment>adding foreign keys to countries in addresses</comment>
+		<addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="affiliate_details" baseTableSchemaName="public" constraintName="FK_affiliate_details_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
+		<addForeignKeyConstraint baseColumnNames="billing_country_iso_code_2" baseTableName="affiliate_details" baseTableSchemaName="public" constraintName="FK_affiliate_details_billing_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-9" author="AC">
+		<comment>adding missed column and updating affiliate address column types</comment>
+		<addColumn tableName="affiliate">
+			<column name="organization_name" type="VARCHAR(255)"></column>
+		</addColumn>
+		<modifyDataType tableName="affiliate_details" columnName="street" newDataType="VARCHAR(255)"/>
+		<modifyDataType tableName="affiliate_details" columnName="city" newDataType="VARCHAR(255)"/>
+		<modifyDataType tableName="affiliate_details" columnName="billing_street" newDataType="VARCHAR(255)"/>
+		<modifyDataType tableName="affiliate_details" columnName="billing_city" newDataType="VARCHAR(255)"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-10" author="AC">
+		<comment>dropping affiliate organization column and adding it to affiliate details</comment>
+		<dropColumn tableName="affiliate" columnName="organization_name"/>
+		<addColumn tableName="affiliate_details">
+			<column name="organization_name" type="VARCHAR(255)"></column>
+		</addColumn>
+	</changeSet>
+	
 </databaseChangeLog>
