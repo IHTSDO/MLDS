@@ -187,8 +187,8 @@
 @btn-info-bg:                    @brand-info;
 @btn-info-border:                darken(@btn-info-bg, 5%);
 
-@btn-warning-color:              darken(@orange, 35%);
-@btn-warning-bg:                 darken(@brand-warning, 5%);
+@btn-warning-color:              darken(@orange, 33%);
+@btn-warning-bg:                 @brand-warning;
 @btn-warning-border:             darken(@btn-warning-bg, 5%);
 
 @btn-danger-color:               #fff;
@@ -508,8 +508,8 @@
 @state-info-bg:                  #d9edf7;
 @state-info-border:              darken(spin(@state-info-bg, -10), 7%);
 
-@state-warning-text:             darken(@orange, 28%);
-@state-warning-bg:               lighten(@orange, 18%);;
+@state-warning-text:             darken(@orange, 33%);
+@state-warning-bg:               lighten(@orange, 18%);
 @state-warning-border:           darken(spin(@state-warning-bg, -10), 5%);
 
 @state-danger-text:              @brand-danger;
@@ -640,9 +640,9 @@
 @alert-warning-text:          @state-warning-text;
 @alert-warning-border:        @state-warning-border;
 
-@alert-danger-bg:             @brand-danger;
-@alert-danger-text:           @white;
-@alert-danger-border:         @state-danger-border;
+@alert-danger-bg:             @white;
+@alert-danger-text:           darken(@brand-danger, 18%);
+@alert-danger-border:         @brand-danger;
 
 @alert-welcome-bg:             @cloud;
 @alert-welcome-text:           darken(#6A6A6A, 5%);
