@@ -24,6 +24,7 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Sets;
 import com.wordnik.swagger.annotations.Api;
 
@@ -255,11 +256,21 @@ public class ReleasePackagesResource {
 		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
     	if (releaseVersion == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	} 
+    	}
+    	
+    	boolean preOnline = releaseVersion.isOnline();
     	
     	releaseVersion.setName(body.getName());
     	releaseVersion.setDescription(body.getDescription());
     	releaseVersion.setOnline(body.isOnline());
+    	
+    	if (!Objects.equal(preOnline, releaseVersion.isOnline())) {
+    		if (releaseVersion.isOnline()) {
+    			releasePackageAuditEvents.logTakenOnline(releaseVersion);
+    		} else {
+    			releasePackageAuditEvents.logTakenOffline(releaseVersion);
+    		}
+    	}
     	
     	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
     }
