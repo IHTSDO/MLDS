@@ -26,7 +26,7 @@ public class AffiliateAuditEvents {
 	private void logEvent(String eventType, Affiliate affiliate) {
 		Map<String, String> auditData = createReleasePackageData(affiliate);
 		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
-		auditEvent.setAffiliate(affiliate);
+		auditEvent.setAffiliateId(affiliate.getAffiliateId());
 		auditEventService.logAuditableEvent(auditEvent);
 	}
 	

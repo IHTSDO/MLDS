@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -18,8 +17,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.joda.time.Instant;
-
-import ca.intelliware.ihtsdo.mlds.registration.Application;
 
 /**
  * Persist AuditEvent managed by the Spring Boot actuator
@@ -52,25 +49,20 @@ public class PersistentAuditEvent  {
     @CollectionTable(name="T_PERSISTENT_AUDIT_EVENT_DATA", joinColumns=@JoinColumn(name="event_id"))
     private Map<String, String> data = new HashMap<>();
     
-    @ManyToOne
-	@JoinColumn(name="affiliate_id")
-    private Affiliate affiliate;
+	@Column(name="affiliate_id")
+    private Long affiliateId;
 
-    @ManyToOne
-	@JoinColumn(name="application_id")
-    private Application application;
+	@Column(name="application_id")
+    private Long applicationId;
     
-    @ManyToOne
-	@JoinColumn(name="release_package_id")
-    private ReleasePackage releasePackage;
+	@Column(name="release_package_id")
+    private Long releasePackageId;
     
-    @ManyToOne
-	@JoinColumn(name="release_version_id")
-    private ReleaseVersion releaseVersion;
+	@Column(name="release_version_id")
+    private Long releaseVersionId;
 
-    @ManyToOne
-	@JoinColumn(name="release_file_id")
-    private ReleaseFile releaseFile;
+	@Column(name="release_file_id")
+    private Long releaseFileId;
 
     public long getId() {
         return id;
@@ -112,43 +104,43 @@ public class PersistentAuditEvent  {
         this.data = data;
     }
 
-	public Affiliate getAffiliate() {
-		return affiliate;
+	public Long getAffiliateId() {
+		return affiliateId;
 	}
 
-	public void setAffiliate(Affiliate affiliate) {
-		this.affiliate = affiliate;
+	public void setAffiliateId(Long affiliateId) {
+		this.affiliateId = affiliateId;
 	}
 
-	public Application getApplication() {
-		return application;
+	public Long getApplicationId() {
+		return applicationId;
 	}
 
-	public void setApplication(Application application) {
-		this.application = application;
+	public void setApplicationId(Long applicationId) {
+		this.applicationId = applicationId;
 	}
 
-	public ReleasePackage getReleasePackage() {
-		return releasePackage;
+	public Long getReleasePackageId() {
+		return releasePackageId;
 	}
 
-	public void setReleasePackage(ReleasePackage releasePackage) {
-		this.releasePackage = releasePackage;
+	public void setReleasePackageId(Long releasePackageId) {
+		this.releasePackageId = releasePackageId;
 	}
 
-	public ReleaseVersion getReleaseVersion() {
-		return releaseVersion;
+	public Long getReleaseVersionId() {
+		return releaseVersionId;
 	}
 
-	public void setReleaseVersion(ReleaseVersion releaseVersion) {
-		this.releaseVersion = releaseVersion;
+	public void setReleaseVersionId(Long releaseVersionId) {
+		this.releaseVersionId = releaseVersionId;
 	}
 
-	public ReleaseFile getReleaseFile() {
-		return releaseFile;
+	public Long getReleaseFileId() {
+		return releaseFileId;
 	}
 
-	public void setReleaseFile(ReleaseFile releaseFile) {
-		this.releaseFile = releaseFile;
+	public void setReleaseFileId(Long releaseFileId) {
+		this.releaseFileId = releaseFileId;
 	}
 }
