@@ -6,11 +6,11 @@
   <div class="panel-body">
    <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
     <span ng-show="affiliateform.organization.type=='OTHER'">{{application.organizatioTypeOther}}</span>
-    <span ng-show="affiliateform.organization.type!='OTHER'">{{'licensee.organizationType.'+application.organizationType | translate}}</span> 
+    <span ng-show="affiliateform.organization.type!='OTHER'">{{'affiliate.organizationType.'+application.organizationType | translate}}</span> 
   </p>
-  <p><strong>Use Type:</strong> {{'licensee.type.'+application.type | translate}}</p>
+  <p><strong>Use Type:</strong> {{'affiliate.type.'+application.type | translate}}</p>
   <p><strong>Use Subtype:</strong> {{aapplication.subType}}</p>
-  <p><strong>Type of Agreement:</strong> {{'licensee.agreementType.'+application.commercialUsage.context.agreementType | translate}}</p>
+  <p><strong>Type of Agreement:</strong> {{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</p>
 </div>
 </div>
 
@@ -86,7 +86,7 @@
     </div>
     <div>
       <strong>Implementation Status:</strong>
-     <p> {{'licensee.implementationStatus.'+application.commercialUsage.context.implementationStatus | translate}}</p>
+     <p> {{'affiliate.implementationStatus.'+application.commercialUsage.context.implementationStatus | translate}}</p>
       <div ng-show="application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
        <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
        <p><strong>Practices:</strong> {{countryRecord.practices}} </p>
