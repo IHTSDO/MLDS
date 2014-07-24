@@ -1,20 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="mailing_address")
+@Embeddable
 public class MailingAddress {
-	@Id
-	@GeneratedValue
-	@Column(name="address_id")
-    Long addressId;
-	
+
 	String street;
 	String city;
 	@ManyToOne
@@ -35,9 +26,6 @@ public class MailingAddress {
 	}
 	public Country getCountry() {
 		return country;
-	}
-	public void Country(Country country) {
-		this.country = country;
 	}
 	public String getPost() {
 		return post;
