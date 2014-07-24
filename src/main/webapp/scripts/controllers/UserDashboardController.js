@@ -4,28 +4,28 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', '$modal', 'UserSession', 'CommercialUsageService', 'LicenseeService', 'Session', 'UserRegistrationService',
-          function ($scope, $log, $location, $modal, UserSession, CommercialUsageService, LicenseeService, Session, UserRegistrationService) {
+        [ '$scope', '$log', '$location', '$modal', 'UserSession', 'CommercialUsageService', 'AffiliateService', 'Session', 'UserRegistrationService',
+          function ($scope, $log, $location, $modal, UserSession, CommercialUsageService, AffiliateService, Session, UserRegistrationService) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
-        	$scope.licensees = [];
+        	$scope.affiliates = [];
 
-        	function loadLicensees() {
-	        	LicenseeService.myLicensees()
-	        		.then(function(licenseesResult) {
-	        			var someApplicationsWaitingForApplicant = _.some(licenseesResult.data, function(licensee) {
-	        				return UserRegistrationService.isApplicationWaitingForApplicant(licensee.application);
+        	function loadAffiliates() {
+        		AffiliateService.myAffiliates()
+	        		.then(function(affiliatesResult) {
+	        			var someApplicationsWaitingForApplicant = _.some(affiliatesResult.data, function(affiliate) {
+	        				return UserRegistrationService.isApplicationWaitingForApplicant(affiliate.application);
 	        			});
 	        			if (someApplicationsWaitingForApplicant) {
 	        				$location.path('/affiliateRegistration');
 	        				return;
 	        			}
-	        			$scope.licensees = licenseesResult.data;
+	        			$scope.affiliates = affiliatesResult.data;
 	        			
-	        			licenseesResult.data.forEach(function(licensee) {
-	        				licensee.commercialUsages.sort(function(a, b) {
+	        			affiliatesResult.data.forEach(function(affiliate) {
+	        				affiliate.commercialUsages.sort(function(a, b) {
 	        					if (a.startDate && b.startDate) {
 	        						return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
 	        					} else if (a.startDate) {
@@ -39,7 +39,7 @@ angular.module('MLDS')
 	        		});
         	}
 
-        	loadLicensees();
+        	loadAffiliates();
         	
         	$scope.usageReportCountries = function(usageReport) {
         		return usageReport.countries.length;
@@ -55,15 +55,15 @@ angular.module('MLDS')
         		}, 0);
         	};
 
-        	$scope.openAddUsageReportModal = function(licensee) {
+        	$scope.openAddUsageReportModal = function(affiliate) {
         		var modalInstance = $modal.open({
         			templateUrl: 'views/user/addUsageReportModal.html',
         			controller: 'AddUsageReportController',
         			size:'lg',
         			backdrop: 'static',
         			resolve: {
-        				licenseeId: function() {
-        					return licensee.licenseeId;
+        				affiliateId: function() {
+        					return affiliate.affiliateId;
         				}
         			}
         		});
@@ -73,12 +73,12 @@ angular.module('MLDS')
         		$location.path('/usage-log/'+encodeURIComponent(usageReport.commercialUsageId));
         	};
         	
-        	$scope.licenseeIsCommercial = function(licensee) {
-        		return LicenseeService.licenseeIsCommercial(licensee);
+        	$scope.affiliateIsCommercial = function(affiliate) {
+        		return AffiliateService.affiliateIsCommercial(affiliate);
         	};
         	
-        	$scope.anySubmittedUsageReports = function(licensee) {
-        		return _.some(licensee.commercialUsages, function(usageReport) {
+        	$scope.anySubmittedUsageReports = function(affiliate) {
+        		return _.some(affiliate.commercialUsages, function(usageReport) {
         			return usageReport.approvalState !== 'NOT_SUBMITTED';
         		});
         	};

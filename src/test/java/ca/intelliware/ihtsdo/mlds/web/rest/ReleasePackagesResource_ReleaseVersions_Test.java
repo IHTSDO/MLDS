@@ -194,6 +194,6 @@ public class ReleasePackagesResource_ReleaseVersions_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-		Mockito.verify(releasePackageAuditEvents).logReleaseVersionDeleted(Mockito.any(ReleaseVersion.class));
+		Mockito.verify(releasePackageAuditEvents).logDeletionOf(Mockito.any(ReleaseVersion.class));
 	}
 }

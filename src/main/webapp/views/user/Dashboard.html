@@ -7,19 +7,19 @@
    </div>
  </div>
 </div>
-<div class="well" ng-repeat="licensee in licensees">
+<div class="well" ng-repeat="affiliate in affiliates">
   <div class="user-info">
 	<div class="col-sm-6 col-md-6 col-lg-6">
-        <strong>{{'licensee.title' | translate}}:</strong> {{licensee.application.organizationName ? licensee.application.organizationName : licensee.application.name}}<br>
-        <strong>{{'licensee.type.title' | translate}}:</strong> {{'licensee.type.'+licensee.type | translate}}
+        <strong>{{'affiliate.title' | translate}}:</strong> {{affiliate.application.organizationName ? affiliate.application.organizationName : affiliate.application.name}}<br>
+        <strong>{{'affiliate.type.title' | translate}}:</strong> {{'affiliate.type.'+affiliate.type | translate}}
    	</div>
    	<div class="col-sm-6 col-md-6 col-lg-6">
-      	<span class="alert alert-warning pull-right" ng-show="isApplicationPending(licensee.application)"><strong>Application Status:</strong> Pending Approval</span>
-      	<span class="alert alert-success pull-right" ng-show="licensee.application.approvalState === 'APPROVED'"><strong>Application Status:</strong> Approved</span>
-        <a ng-show="isApplicationWaitingForApplicant(licensee.application)" class="btn btn-default" href="#/affiliateRegistration">Edit Licensee Application</a>
+      	<span class="alert alert-warning pull-right" ng-show="isApplicationPending(affiliate.application)"><strong>Application Status:</strong> Pending Approval</span>
+      	<span class="alert alert-success pull-right" ng-show="affiliate.application.approvalState === 'APPROVED'"><strong>Application Status:</strong> Approved</span>
+        <a ng-show="isApplicationWaitingForApplicant(affiliate.application)" class="btn btn-default" href="#/affiliateRegistration">Edit Affiliate Application</a>
    	</div>     	
 </div>
-<div class="row space" ng-hide="anySubmittedUsageReports(licensee) || licensee.application.approvalState === 'REJECTED'">
+<div class="row space" ng-hide="anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED'">
   <div class="col-sm-12 col-md-12 col-lg-12">
   	<div class="alert alert-danger" role="alert">
   		<div><strong>Usage Declaration Required</strong></div>
@@ -28,7 +28,7 @@
   </div>
 </div>
 
-<div class="row space" ng-show="licensee.application.approvalState === 'CHANGE_REQUESTED'">
+<div class="row space" ng-show="affiliate.application.approvalState === 'CHANGE_REQUESTED'">
   <div class="col-sm-12 col-md-12 col-lg-12">
   	<div class="alert alert-warning" role="alert">
   		<div><strong>Affiliate Registration Requires Change</strong></div>
@@ -37,7 +37,7 @@
   </div>
 </div>
 
-<div class="row space" ng-show="licensee.application.approvalState === 'REJECTED'">
+<div class="row space" ng-show="affiliate.application.approvalState === 'REJECTED'">
   <div class="col-sm-12 col-md-12 col-lg-12">
   	<div class="alert alert-danger" role="alert">
   		<div><strong>Affiliate Registration Declined</strong></div>
@@ -48,7 +48,7 @@
 
   <div class="col-sm-12 col-md-12 col-lg-12">
     <div class="form-group  pull-right">
-      <button ng-click="openAddUsageReportModal(licensee)" class="btn btn-success"><i class="fa fa-plus"></i> Add New Usage Declaration </button>
+      <button ng-click="openAddUsageReportModal(affiliate)" class="btn btn-success"><i class="fa fa-plus"></i> Add New Usage Declaration </button>
     </div>
   </div>
 
@@ -59,12 +59,12 @@
           <th colspan="2">Declaration Period</th>
           <th>Date Submitted</th>
           <th class="text-right">Countries</th>
-          <th class="text-right" ng-show="licenseeIsCommercial(licensee)">Hospitals</th>
-          <th class="text-right" ng-show="licenseeIsCommercial(licensee)">Practices</th>
+          <th class="text-right" ng-show="affiliateIsCommercial(affiliate)">Hospitals</th>
+          <th class="text-right" ng-show="affiliateIsCommercial(affiliate)">Practices</th>
           <th></th>
         </tr>
          <tbody>
-          <tr ng-class="{info: usageReport.approvalState === 'NOT_SUBMITTED'}" ng-repeat="usageReport in licensee.commercialUsages">
+          <tr ng-class="{info: usageReport.approvalState === 'NOT_SUBMITTED'}" ng-repeat="usageReport in affiliate.commercialUsages">
           <td class="exclaim">
           	<a href="#" tooltip-placement="top" tooltip="Declaration has not been submitted">
 	          	<i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle fa-2x"></i>
@@ -76,8 +76,8 @@
           	<span ng-hide="usageReport.submitted">Not Submitted</span>
           </td>
           <td class="text-right">{{usageReportCountries(usageReport) | number}}</td>
-          <td class="text-right" ng-show="licenseeIsCommercial(licensee)">{{usageReportHospitals(usageReport) | number}}</td>
-          <td ng-show="licenseeIsCommercial(licensee)"><p class="text-right">{{usageReportPractices(usageReport) | number}}</p></td>
+          <td class="text-right" ng-show="affiliateIsCommercial(affiliate)">{{usageReportHospitals(usageReport) | number}}</td>
+          <td ng-show="affiliateIsCommercial(affiliate)"><p class="text-right">{{usageReportPractices(usageReport) | number}}</p></td>
           <td> <a class="btn btn-default btn-xs pull-right" ng-click="goToUsageReport(usageReport)"><i class="fa fa-pencil"></i> Edit</a></td>
       </tbody>
       </table>

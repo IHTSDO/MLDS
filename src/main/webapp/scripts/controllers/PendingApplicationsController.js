@@ -7,9 +7,9 @@ mldsApp.controller('PendingApplicationsController', [
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
-		'LicenseeService',
+		'AffiliateService',
 		function($scope, $log, $location, UserRegistrationService, DomainBlacklistService,
-				PackagesService, LicenseeService) {
+				PackagesService, AffiliateService) {
 
 			$scope.applications = [];
 

@@ -26,8 +26,8 @@
 					<td class="text-right">{{totalSublicences(application.commercialUsage) | number}}</td>
 					<td>{{application.organizationName ? application.organizationName : application.name}}</td>
 					<td>{{application.country}}</td>
-					<td>{{'licensee.type.'+application.type | translate}} - {{application.subType}}</td>
-					<td>{{'licensee.agreementType.'+application.commercialUsage.context.agreementType | translate}}</td>
+					<td>{{'affiliate.type.'+application.type | translate}} - {{application.subType}}</td>
+					<td>{{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</td>
 					<td> <a class="btn btn-primary btn-sm" ng-click="goToApplication(application)"><i class="fa fa-pencil"></i> Review</a></td>
 				</tr>
 				</tbody>
