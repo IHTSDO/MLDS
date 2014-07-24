@@ -694,4 +694,37 @@
     <addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="mailing_address" baseTableSchemaName="public" constraintName="FK_mailing_address_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
 	</changeSet>
 	
+	<changeSet id="MLDS-259-5" author="AC">
+		<comment>removing table address table</comment>
+		<dropTable tableName="mailing_address"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-6" author="AC">
+		<comment>removing table address table</comment>
+		<addColumn tableName="affiliate_details">
+			<column name="street" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="city" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="post" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="billing_street" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="billing_city" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="billing_post" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="country_iso_code_2" type="VARCHAR(255)"/>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="billing_country_iso_code_2" type="VARCHAR(255)"/>
+		</addColumn>
+	</changeSet>
+	
 </databaseChangeLog>
