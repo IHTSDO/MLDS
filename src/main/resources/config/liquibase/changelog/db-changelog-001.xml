@@ -651,5 +651,17 @@
         <addPrimaryKey columnNames="member_id" constraintName="member_PK" schemaName="public" tableName="member"/>
         <addUniqueConstraint schemaName="public" tableName="member" columnNames="key" constraintName="member_name_unique"/>
 	</changeSet>
+
+    <changeSet id="MLDS-372-2" author="DGJ">
+    	<comment>Load Member users</comment>
+    	<sql>
+			INSERT INTO member (member_id, key, created_at)
+			VALUES (nextval('hibernate_sequence'), 'IHTSDO', now()); 
+		</sql>
+    	<sql>
+			INSERT INTO member (member_id, key, created_at)
+			VALUES (nextval('hibernate_sequence'), 'SE', now()); 
+		</sql>
+    </changeSet>
 	
 </databaseChangeLog>
