@@ -41,6 +41,10 @@ public class Affiliate {
 	Set<CommercialUsage> commercialUsages = Sets.newHashSet();
 
 	@OneToOne()
+	@JoinColumn(name="affiliate_details_id")
+	AffiliateDetails affiliateDetails;
+	
+	@OneToOne()
 	@JoinColumn(name="application_id")
 	Application application;
 	
