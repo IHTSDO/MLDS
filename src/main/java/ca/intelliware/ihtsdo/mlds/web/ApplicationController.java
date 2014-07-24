@@ -53,6 +53,7 @@ public class ApplicationController {
 	AuthorizationChecker authorizationChecker;
 
 	@RequestMapping(value="api/applications")
+	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public @ResponseBody Iterable<Application> getApplications() {
 		return applicationRepository.findAll();
 	}
@@ -109,6 +110,7 @@ public class ApplicationController {
 	@RequestMapping(value = Routes.APPLICATION, 
 			method=RequestMethod.GET,
 			produces = "application/json")
+	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public  @ResponseBody ResponseEntity<Application> getApplication(@PathVariable long applicationId){
 		Application application = applicationRepository.findOne(applicationId);
 		if (application == null) {
@@ -121,6 +123,7 @@ public class ApplicationController {
 	@RequestMapping(value = Routes.APPLICATION_ME, 
 			method=RequestMethod.GET,
 			produces = "application/json")
+	@RolesAllowed({AuthoritiesConstants.USER})
 	public  @ResponseBody ResponseEntity<Application> getApplicationForMe(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		if (applications.size() > 0) {
@@ -133,6 +136,7 @@ public class ApplicationController {
 	@RequestMapping(value="/api/application", 
 			method=RequestMethod.GET,
 			produces = "application/json")
+	@RolesAllowed({AuthoritiesConstants.USER})
 	public @ResponseBody ResponseEntity<Application> getUserApplication(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		if (applications.size() > 0) {
@@ -145,6 +149,7 @@ public class ApplicationController {
 	@RequestMapping(value=Routes.APPLICATION_REGISTRATION,
 			method=RequestMethod.POST,
 			produces = "application/json")
+	@RolesAllowed({AuthoritiesConstants.USER})
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
 		//FIXME use applicationId
 		Application application = saveApplicationFields(request);
@@ -182,6 +187,7 @@ public class ApplicationController {
 	@RequestMapping(value=Routes.APPLICATION_REGISTRATION,
 			method=RequestMethod.PUT,
 			produces = "application/json")
+	@RolesAllowed({AuthoritiesConstants.USER})
 	public @ResponseBody ResponseEntity<Application> saveApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
 		//FIXME use applicationId
         Application application = saveApplicationFields(request);

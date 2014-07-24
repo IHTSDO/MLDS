@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 import com.google.common.base.Objects;
@@ -56,6 +59,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGES,
     		method = RequestMethod.GET,
             produces = "application/json")
+	@PermitAll
     public @ResponseBody ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
 		
     	Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
@@ -94,6 +98,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGES,
     		method = RequestMethod.POST,
             produces = "application/json")
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleasePackage> createReleasePackage(@RequestBody ReleasePackage releasePackage) {
     	authorizationChecker.checkCanAccessReleasePackages();
     	
@@ -111,6 +116,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
             produces = "application/json")
+	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
     	//FIXME should we check children being consistent?		
     	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
@@ -159,6 +165,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.PUT,
             produces = "application/json")
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleasePackage> updateReleasePackage(@PathVariable long releasePackageId, @RequestBody ReleasePackage body) {
     	//FIXME should we check children being consistent?		
 		authorizationChecker.checkCanAccessReleasePackages();
@@ -179,6 +186,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.DELETE,
             produces = "application/json")
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<?> deactivateReleasePackage(@PathVariable long releasePackageId) {
     	//FIXME should we check children being consistent?		
 		authorizationChecker.checkCanAccessReleasePackages();
@@ -210,6 +218,7 @@ public class ReleasePackagesResource {
     		method = RequestMethod.POST,
             produces = "application/json")
 	@Transactional
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseVersion> createReleaseVersion(@PathVariable long releasePackageId, @RequestBody ReleaseVersion releaseVersion) {
     	authorizationChecker.checkCanAccessReleasePackages();
     	
@@ -233,6 +242,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_VERSION,
     		method = RequestMethod.GET,
             produces = "application/json")
+	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseVersion> getReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
     	//FIXME should we check children being consistent?
 		authorizationChecker.checkCanAccessReleasePackages();
@@ -249,6 +259,7 @@ public class ReleasePackagesResource {
     		method = RequestMethod.PUT,
             produces = "application/json")
 	@Transactional
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseVersion> updateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseVersion body) {
     	//FIXME should we check children being consistent?		
 		authorizationChecker.checkCanAccessReleasePackages();
@@ -279,6 +290,7 @@ public class ReleasePackagesResource {
     		method = RequestMethod.DELETE,
             produces = "application/json")
 	@Transactional
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	public @ResponseBody
 	ResponseEntity<?> deactivateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
 		authorizationChecker.checkCanAccessReleasePackages();
@@ -307,6 +319,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_FILE,
     		method = RequestMethod.GET,
             produces = "application/json")
+	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseFile> getReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
     	//FIXME should we check children being consistent?
 		authorizationChecker.checkCanAccessReleasePackages();
@@ -323,6 +336,7 @@ public class ReleasePackagesResource {
     		method = RequestMethod.POST,
             produces = "application/json")
 	@Transactional
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseFile> createReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseFile body) {
     	//FIXME should we check children being consistent?
 		authorizationChecker.checkCanAccessReleasePackages();
@@ -340,6 +354,7 @@ public class ReleasePackagesResource {
     	return new ResponseEntity<ReleaseFile>(body, HttpStatus.OK);
     }
 
+	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@RequestMapping(value = Routes.RELEASE_FILE,
 			method = RequestMethod.DELETE,
 			produces = "application/json")
