@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,7 @@ import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
@@ -120,6 +122,7 @@ public class AccountResource {
             produces = "application/json")
     @Timed
     //FIXME: JH-add account to stormpath wrapper
+    @RolesAllowed({ AuthoritiesConstants.ANONYMOUS })
     public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO, HttpServletRequest request,
                                              HttpServletResponse response) {
         User user = userRepository.findOne(userDTO.getLogin());
@@ -189,6 +192,7 @@ public class AccountResource {
             method = RequestMethod.GET,
             produces = "application/json")
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
         User user = userService.activateRegistration(key);
         if (user == null) {
@@ -203,6 +207,7 @@ public class AccountResource {
     @RequestMapping(value = "/rest/authenticate",
             method = RequestMethod.GET,
             produces = "application/json")
+    @RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @Timed
     public String isAuthenticated(HttpServletRequest request) {
         log.debug("REST request to check if the current user is authenticated");
@@ -216,6 +221,7 @@ public class AccountResource {
             method = RequestMethod.GET,
             produces = "application/json")
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<UserDTO> getAccount() {
         User user = userService.getUserWithAuthorities();
         if (user == null) {
@@ -256,6 +262,7 @@ public class AccountResource {
             method = RequestMethod.POST,
             produces = "application/json")
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public void saveAccount(@RequestBody UserDTO userDTO) {
         userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail());
     }
@@ -267,6 +274,7 @@ public class AccountResource {
             method = RequestMethod.POST,
             produces = "application/json")
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<?> changePassword(@RequestBody String password) {
         if (StringUtils.isEmpty(password)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -282,6 +290,7 @@ public class AccountResource {
             method = RequestMethod.GET,
             produces = "application/json")
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<List<PersistentToken>> getCurrentSessions() {
         User user = userRepository.findOne(SecurityUtils.getCurrentLogin());
         if (user == null) {
@@ -308,6 +317,7 @@ public class AccountResource {
     @RequestMapping(value = "/rest/account/sessions/{series}",
             method = RequestMethod.DELETE)
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
         String decodedSeries = URLDecoder.decode(series, "UTF-8");
         User user = userRepository.findOne(SecurityUtils.getCurrentLogin());

@@ -51,7 +51,7 @@ public class AffiliateResource {
     }
 
 	
-	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN})
+	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATES_ME,
     		method = RequestMethod.GET,
             produces = "application/json")
@@ -60,7 +60,7 @@ public class AffiliateResource {
     	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
     }
 
-	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN})
+	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATES_CREATOR,
     		method = RequestMethod.GET,
             produces = "application/json")
