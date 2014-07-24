@@ -9,53 +9,53 @@
 		<p><strong>Issue No:</strong> {{application.applicationId}}</p>
 		<ul class="nav nav-pills">
 			<li><span ng-show="application.organizationName"><h4>{{application.organizationName}} - </span> {{application.name}}</h4></li>
-			<li class="application-status"><p class="label label-default">{{'approval.state.'+application.approvalState | translate}}</li>
+			<li class="application-status"><p class="label label-success">{{'approval.state.'+application.approvalState | translate}}</li>
 		</ul>
 		<p> <strong>Application Date: {{application.submittedAt | date}}</strong> </p>
 	</div>
 
 	<div class="row">
 		<div class="col-md-8">
-
-			<div class="well">
 				<div ng-include="'views/admin/applicationSummaryBlock.html'"></div>
-			</div>
 		</div>
 		<div class="col-md-4 well">
 			<div ng-controller="ApplicationReviewComparisonSearchController">
-				<div ng-hide="showComparisonAffiliate">
+				<div ng-hide="showComparisonLicensee">
 					<!-- Search block -->
-					<script type="text/ng-template" id="views/admin/applicationReviewAffiliateSearchTemplate.html">
-					<div id="searchbox">
-					<address>
-					<h5>{{match.model.application.organizationName}} {{match.model.application.fullName}}</strong></h5>
-					{{match.model.application.address}}<br>
-					{{match.model.application.city}}, {{match.model.application.country}} <br>
-					<strong>Usage Type:</strong> {{'affiliate.type.'+match.model.application.type | translate}} - {{match.model.application.subType}}<br>
-					<strong>Type of Agreement:</strong> {{'affiliate.agreementType.'+match.model.application.commercialUsage.context.agreementType | translate}}
-					</address>
+					<script type="text/ng-template" id="views/admin/applicationReviewLicenseeSearchTemplate.html">
+						<div id="searchbox">
+							<address>
+								<h5>{{match.model.application.organizationName}} {{match.model.application.fullName}}</strong></h5>
+								{{match.model.application.address}}<br>
+								{{match.model.application.city}}, {{match.model.application.country}} <br>
+								<strong>Usage Type:</strong> {{'licensee.type.'+match.model.application.type | translate}} - {{match.model.application.subType}}<br>
+								<strong>Type of Agreement:</strong> {{'licensee.agreementType.'+match.model.application.commercialUsage.context.agreementType | translate}}
+							</address>
+						 </div>
 					</script>
 
 
 					<div class="input-group" id="application-search">
 
-						<input type="text" ng-model="comparisonAffiliate" placeholder="Search for existing Affiliates" 
-						typeahead="affiliate as affiliate.application.organizationName for affiliate in getAffiliatesMatching($viewValue)" 
-						typeahead-loading="searchingAffiliates"
-						typeahead-template-url="views/admin/applicationReviewAffiliateSearchTemplate.html"
-						typeahead-on-select="selectComparisonAffiliate(affiliate)" 
+						<input type="text" ng-model="comparisonLicensee" placeholder="Search for existing Licensees" 
+						typeahead="licensee as licensee.application.organizationName for licensee in getLicenseesMatching($viewValue)" 
+						typeahead-loading="searchingLicensees"
+						typeahead-template-url="views/admin/applicationReviewLicenseeSearchTemplate.html"
+						typeahead-on-select="selectComparisonLicensee(licensee)" 
 						class="form-control">
 						<span class="input-group-addon"><i class="fa fa-search"></i></span>
 					</div>
 
 				</div>
-				<div ng-show="showComparisonAffiliate">
-					<button class="close btn-close" ng-click="showComparisonAffiliate = false"><i class="fa fa-times"></i></button>
-					<div ng-include="'views/admin/applicationSummaryBlock.html'"></div>
+				<div class="search-results" ng-show="showComparisonLicensee">
+					<h3 >Search Results<button class="close btn-close" ng-click="showComparisonLicensee = false"><i class="fa fa-times"></i></button>
+					</h3>
+						<div ng-include="'views/admin/applicationSummaryBlock.html'"></div>
+			
 				</div>
 			</div>
 
-			<div class="well">
+			<div>
 				<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 
 				<form name="notesForm" novalidate bs-validation >
