@@ -71,10 +71,9 @@
 			<div class="panel-footer">
 				<p><strong>Created Date:</strong> {{releaseVersion.createdAt | date:'medium'}}</p>
 				<div class="release" ng-repeat="releaseFile in releaseVersion.releaseFiles">
-					<a href="{{releaseFile.downloadUrl}}" target="_blank">{{releaseFile.label}}</a> 
+					<p><a href="{{releaseFile.downloadUrl}}" target="_blank">{{releaseFile.label}}</a> 
 					<button class="btn btn-danger btn-xs" ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="releaseVersion.publishedAt">
-						<i class="fa fa-times"></i> Remove
-					</button>
+						<i class="fa fa-times"></i> Remove</button></p>
 				</div>
 			</div>
 		</div>
