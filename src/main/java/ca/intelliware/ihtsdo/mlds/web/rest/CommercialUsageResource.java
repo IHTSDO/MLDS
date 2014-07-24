@@ -23,13 +23,13 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
-import ca.intelliware.ihtsdo.mlds.domain.Licensee;
-import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 
 import com.wordnik.swagger.annotations.Api;
@@ -48,7 +48,7 @@ public class CommercialUsageResource {
 	CommercialUsageCountryRepository commercialUsageCountryRepository;
 
 	@Resource
-	LicenseeRepository licenseeRepository;
+	AffiliateRepository affiliateRepository;
 
 	@Resource
 	AuthorizationChecker authorizationChecker;
@@ -59,15 +59,15 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<Collection<CommercialUsage>> getUsageReports(@PathVariable long licenseeId) {
-    	authorizationChecker.checkCanAccessLicensee(licenseeId);
+    public @ResponseBody ResponseEntity<Collection<CommercialUsage>> getUsageReports(@PathVariable long affiliateId) {
+    	authorizationChecker.checkCanAccessAffiliate(affiliateId);
 
-    	Licensee licensee = licenseeRepository.findOne(licenseeId);
-    	if (licensee == null) {
+    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+    	if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
     	
-    	return new ResponseEntity<Collection<CommercialUsage>>(licensee.getCommercialUsages(), HttpStatus.OK);
+    	return new ResponseEntity<Collection<CommercialUsage>>(affiliate.getCommercialUsages(), HttpStatus.OK);
     }
        
     public static class CommercialUsageApprovalTransitionMessage {
@@ -87,7 +87,7 @@ public class CommercialUsageResource {
     
     /**
      * Start a new submission
-     * @param licenseeId
+     * @param affiliateId
      * @param submissionPeriod
      * @return the new CommercialUsage or an existing CommercialUsage with matching date period
      */
@@ -95,37 +95,37 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.POST,
     		produces = "application/json")
-    public @ResponseBody ResponseEntity<CommercialUsage> createNewSubmission(@PathVariable long licenseeId, @RequestBody CommercialUsagePeriod submissionPeriod) {
-    	authorizationChecker.checkCanAccessLicensee(licenseeId);
+    public @ResponseBody ResponseEntity<CommercialUsage> createNewSubmission(@PathVariable long affiliateId, @RequestBody CommercialUsagePeriod submissionPeriod) {
+    	authorizationChecker.checkCanAccessAffiliate(affiliateId);
     	
-    	Licensee licensee = licenseeRepository.findOne(licenseeId);
+    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
     	
-    	if (licensee == null) {
+    	if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
     	
     	CommercialUsage commercialUsage = null;
-		List<CommercialUsage> commercialUsages = commercialUsageRepository.findBySamePeriod(licensee, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
+		List<CommercialUsage> commercialUsages = commercialUsageRepository.findBySamePeriod(affiliate, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
 		if (commercialUsages.size() > 0) {
 			// Return the existing commercial usage unmodified
 			commercialUsage = commercialUsages.get(0);
 			return new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
 		} else {
-			commercialUsages = commercialUsageRepository.findByMostRecentPeriod(licensee);
+			commercialUsages = commercialUsageRepository.findByMostRecentPeriod(affiliate);
 			if (commercialUsages.size() > 0) {
 				commercialUsage = commercialUsages.get(0);
 			}
 		}
     	if (commercialUsage == null) {
 	    	commercialUsage = new CommercialUsage();
-	    	commercialUsage.setType(licensee.getType());
+	    	commercialUsage.setType(affiliate.getType());
     	}
     	
     	commercialUsageResetter.detachAndReset(commercialUsage, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
     	
     	commercialUsage = commercialUsageRepository.save(commercialUsage);
     	
-    	licensee.addCommercialUsage(commercialUsage);
+    	affiliate.addCommercialUsage(commercialUsage);
     	
 		ResponseEntity<CommercialUsage> responseEntity = new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
 		return responseEntity;
@@ -168,7 +168,7 @@ public class CommercialUsageResource {
 	@RequestMapping(value = Routes.USAGE_REPORT_TYPE,
     		method = RequestMethod.PUT,
             produces = "application/json")
-    public @ResponseBody ResponseEntity<UsageContext> updateCommercialUsageType(@PathVariable long commercialUsageId, @PathVariable LicenseeType type) {
+    public @ResponseBody ResponseEntity<UsageContext> updateCommercialUsageType(@PathVariable long commercialUsageId, @PathVariable AffiliateType type) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
     	
     	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);

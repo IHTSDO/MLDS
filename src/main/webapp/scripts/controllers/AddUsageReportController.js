@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'licenseeId',
-                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, licenseeId) {
+angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'affiliateId',
+                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, affiliateId) {
 	$scope.alerts = [];
 	
 	$scope.ranges = CommercialUsageService.generateRanges();
@@ -11,7 +11,7 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
 		$scope.submitting = true;
 		$scope.alerts.splice(0, $scope.alerts.length);
 		
-		CommercialUsageService.createUsageReport(licenseeId, range.startDate, range.endDate)
+		CommercialUsageService.createUsageReport(affiliateId, range.startDate, range.endDate)
 			.then(function(result) {
 				//FIXME who should do this?
 				$location.path('/usage-log/'+result.data.commercialUsageId);

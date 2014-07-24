@@ -19,7 +19,7 @@
       <div class="panel-body" collapse="collapsePanel.usage" class="panel-collapse collapse in">
        <ng-form name="usageForm" novalidate bs-validation >
                  <div class="form-group" ng-init="affilliateControllerSharedBucket.usageForm = usageForm">
-                    <label>Licence Type: {{'licensee.type.'+commercialUsageReport.type | translate}}</label>
+                    <label>Licence Type: {{'affiliate.type.'+commercialUsageReport.type | translate}}</label>
                   </div>
                   <div class="form-group">
                     <label>Current Usage</label>
@@ -44,7 +44,7 @@
                   </div>
                   <div class="form-group">
                     <label>Type of Agreement</label>
-                    <select name="agreementType"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.agreementType" ng-options="'licensee.agreementType.'+type | translate for type in agreementTypeOptions"  auto-submit>
+                    <select name="agreementType"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.agreementType" ng-options="'affiliate.agreementType.'+type | translate for type in agreementTypeOptions"  auto-submit>
                     </select> 
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.agreementType.$error.required" class="help-block">Required field.</p>
@@ -52,7 +52,7 @@
                   </div>
                   <div class="form-group">
                     <label>Implementation Status</label>
-                    <select name="implementationStatus"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.implementationStatus" ng-options="'licensee.implementationStatus.'+status | translate for status in implementationStatusOptions"  auto-submit>
+                    <select name="implementationStatus"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.implementationStatus" ng-options="'affiliate.implementationStatus.'+status | translate for status in implementationStatusOptions"  auto-submit>
                     </select> 
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.implementationStatus.$error.required" class="help-block">Required field.</p>

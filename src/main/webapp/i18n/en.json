@@ -318,8 +318,8 @@
         "403": "You are not authorized to access the page."
     },
     "footer": "This is your footer",
-    "licensee": {
-    	"title": "Licensee",
+    "affiliate": {
+    	"title": "Affiliate",
     	"type": {
     		"title": "Type",
     		"COMMERCIAL": "Commercial",

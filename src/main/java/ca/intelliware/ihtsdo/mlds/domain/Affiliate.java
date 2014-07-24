@@ -22,22 +22,22 @@ import ca.intelliware.ihtsdo.mlds.registration.Application;
 import com.google.common.collect.Sets;
 
 @Entity
-public class Licensee {
+public class Affiliate {
 	@Id
 	@GeneratedValue
-	@Column(name="licensee_id")
-	Long licenseeId;
+	@Column(name="affiliate_id")
+	Long affiliateId;
 
 	//@Type(type="jodatimeInstant")
 	Instant created = Instant.now();
 
 	@Enumerated(EnumType.STRING)
-	LicenseeType type;
+	AffiliateType type;
 	
 	//FIXME username of user
 	String creator;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="licensee")
+	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="affiliate")
 	Set<CommercialUsage> commercialUsages = Sets.newHashSet();
 
 	@OneToOne()
@@ -47,10 +47,10 @@ public class Licensee {
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
 		
-		if (newEntryValue.licensee != null) {
-			newEntryValue.licensee.commercialUsages.remove(newEntryValue);
+		if (newEntryValue.affiliate != null) {
+			newEntryValue.affiliate.commercialUsages.remove(newEntryValue);
 		}
-		newEntryValue.licensee = this;
+		newEntryValue.affiliate = this;
 		commercialUsages.add(newEntryValue);
 	}
 
@@ -66,8 +66,8 @@ public class Licensee {
 		this.creator = creator;
 	}
 
-	public Long getLicenseeId() {
-		return licenseeId;
+	public Long getAffiliateId() {
+		return affiliateId;
 	}
 
 	public Application getApplication() {
@@ -78,11 +78,11 @@ public class Licensee {
 		this.application = application;
 	}
 
-	public LicenseeType getType() {
+	public AffiliateType getType() {
 		return type;
 	}
 	
-	public void setType(LicenseeType type) {
+	public void setType(AffiliateType type) {
 		this.type = type;
 	}
 }

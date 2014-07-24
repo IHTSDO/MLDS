@@ -33,15 +33,15 @@ import org.thymeleaf.spring4.context.SpringWebContext;
 
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.Licensee;
-import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
@@ -95,7 +95,7 @@ public class AccountResource {
 	private DomainBlacklistService domainBlacklistService;
     
     @Resource
-	LicenseeRepository licenseeRepository;
+	AffiliateRepository affiliateRepository;
 
     @Resource
     ApplicationRepository applicationRepository;
@@ -108,6 +108,9 @@ public class AccountResource {
 	
 	@Resource
 	CommercialUsageResetter commercialUsageResetter; 
+	
+	@Resource
+	AffiliateAuditEvents affiliateAuditEvents;
 
     /**
      * POST  /rest/register -> register the user.
@@ -130,43 +133,44 @@ public class AccountResource {
         	}
         	
         	List<Application> applications = applicationRepository.findByUsername(userDTO.getLogin());
-        	List<Licensee> licensees = licenseeRepository.findByCreator(userDTO.getLogin());
+        	List<Affiliate> affiliates = affiliateRepository.findByCreator(userDTO.getLogin());
         	Application application = new Application();
-        	Licensee licensee = new Licensee();
+        	Affiliate affiliate = new Affiliate();
         	
         	if (applications.size() > 0) {
         		application = applications.get(0);
         	}
         	
-        	if (licensees.size() > 0) {
-        		licensee = licensees.get(0);
+        	if (affiliates.size() > 0) {
+        		affiliate = affiliates.get(0);
         	}
         	
         	application.setUsername(userDTO.getLogin());
         	application.setName(userDTO.getFirstName() + " " + userDTO.getLastName());
         	application.setEmail(userDTO.getEmail());
-        	//set a default type for application to create licensee and usagelog
-        	application.setType(LicenseeType.COMMERCIAL.toString());
+        	//set a default type for application to create affiliate and usagelog
+        	application.setType(AffiliateType.COMMERCIAL.toString());
         	// FIXME MLDS-234 MB how are we storing country here?
         	application.setCountry(userDTO.getCountry().getCommonName());
-        	licensee.setCreator(userDTO.getLogin());
-        	licensee.setType(LicenseeType.COMMERCIAL);
-        	licensee.setApplication(application);
+        	affiliate.setCreator(userDTO.getLogin());
+        	affiliate.setType(AffiliateType.COMMERCIAL);
+        	affiliate.setApplication(application);
         	
         	applicationRepository.save(application);
-        	licenseeRepository.save(licensee);
+        	affiliateRepository.save(affiliate);
         	
         	CommercialUsage commercialUsage = new CommercialUsage();
-	    	commercialUsage.setType(licensee.getType());
+	    	commercialUsage.setType(affiliate.getType());
         	
         	commercialUsageResetter.detachAndReset(commercialUsage, userDTO.getInitialUsagePeriod().getStartDate(), userDTO.getInitialUsagePeriod().getEndDate());
         	
         	commercialUsage = commercialUsageRepository.save(commercialUsage);
         	
-        	licensee.addCommercialUsage(commercialUsage);
+        	affiliate.addCommercialUsage(commercialUsage);
         	
         	application.setCommercialUsage(commercialUsage);
         	
+        	affiliateAuditEvents.logCreationOf(affiliate);
         	
         	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular

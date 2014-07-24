@@ -302,7 +302,7 @@
     </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-13">
-    	<comment>Introduce Licensee as owner of commercialUsageReports</comment>
+    	<comment>Introduce Affiliate as owner of commercialUsageReports</comment>
         <createTable schemaName="public" tableName="licensee">
             <column name="licensee_id" type="INT8">
                 <constraints nullable="false"/>
@@ -574,6 +574,58 @@
             defaultNullValue="NOT_SUBMITTED"
             schemaName="public"
             tableName="application"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-1" author="AC">
+		<comment>Renaming Licensee table to Affiliate</comment>
+		<renameTable newTableName="affiliate"
+           oldTableName="licensee"
+           schemaName="public"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-2" author="AC">
+		<comment>Renaming Licensee columns to Affiliate</comment>
+		<renameColumn             
+            newColumnName="affiliate_id"
+            oldColumnName="licensee_id"
+            remarks="A String"
+            schemaName="public"
+            tableName="affiliate"/>
+    <renameColumn             
+            newColumnName="affiliate_id"
+            oldColumnName="licensee_id"
+            remarks="A String"
+            schemaName="public"
+            tableName="commercial_usage"/>
+	</changeSet>
+
+	<changeSet id="MLDS-259-3" author="DGJ">
+		<comment>Add entity references audit log</comment>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="application_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_application" references="application(application_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="affiliate_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_affiliate" references="affiliate(affiliate_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="release_package_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_package" references="release_package(release_package_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="release_version_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_version" references="release_version(release_version_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="release_file_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_file" references="release_file(release_file_id)"/>
+    		</column>
+		</addColumn>
 	</changeSet>
 	
 </databaseChangeLog>

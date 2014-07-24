@@ -9,7 +9,7 @@ public class Routes {
 	 *  - get list of all submissions
 	 *  - post period { startDate, endDate } to do start new submission (auto-copy from most recent)
 	 */
-	static final String USAGE_REPORTS = "/app/rest/licensees/{licenseeId}/commercialUsages"; 
+	static final String USAGE_REPORTS = "/app/rest/affiliates/{affiliateId}/commercialUsages"; 
 	
 	
 	/** 
@@ -49,17 +49,17 @@ public class Routes {
 	static final String USAGE_REPORT_COUNTRY = "/app/rest/commercialUsages/{commercialUsageId}/countries/{commercialUsageCountId}"; 
 
 
-	static final String LICENSEES = "/app/rest/licensees";
+	static final String AFFILIATES = "/app/rest/affiliates";
 	
 	/**
-	 * - get list of all licensees that user has access to
+	 * - get list of all affiliates that user has access to
 	 */
-	static final String LICENSEES_ME = "/app/rest/licensees/me";
+	static final String AFFILIATES_ME = "/app/rest/affiliates/me";
 
 	/**
-	 * - get list of all licensees for a username
+	 * - get list of all affiliates for a username
 	 */
-	static final String LICENSEES_CREATOR = "/app/rest/licensees/creator/{username:.+}";
+	static final String AFFILIATES_CREATOR = "/app/rest/affiliates/creator/{username:.+}";
 
 	
 	/**

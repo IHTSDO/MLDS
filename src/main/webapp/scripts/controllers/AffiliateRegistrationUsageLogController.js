@@ -1,8 +1,8 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationUsageLogController',
-        [ '$scope', '$log', 'CountryService', 'LicenseeService', 'Events', '$q', 'CommercialUsageService', 'UserRegistrationService',
-          function ($scope, $log, CountryService, LicenseeService, Events, $q, CommercialUsageService, UserRegistrationService) {
+        [ '$scope', '$log', 'CountryService', 'AffiliateService', 'Events', '$q', 'CommercialUsageService', 'UserRegistrationService',
+          function ($scope, $log, CountryService, AffiliateService, Events, $q, CommercialUsageService, UserRegistrationService) {
 
         	var usageReportDefer = $q.defer();
 
