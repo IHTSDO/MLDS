@@ -663,6 +663,23 @@
 			VALUES (nextval('hibernate_sequence'), 'SE', now()); 
 		</sql>
     </changeSet>
+    <changeSet id="MLDS-372-3" author="MB">
+    	<comment>Create login users for the IHTSDO and demo SWEDEN members</comment>
+		<sql>INSERT INTO t_authority (name) values ('ROLE_STAFF'), ('ROLE_STAFF_SE'), ('ROLE_STAFF_IHTSDO')</sql>
+    	<sql>
+			INSERT INTO t_user (login, password, created_date)
+			VALUES ('staff', 'edca6651ee089a1e0b9320988f72e62dc5339f90dcc6dbbfd82a3127d2727610b52d2b0743d9b7ff', now()),
+			('sweden', 'e6b4dc6acaa889021ab202e417245c0880c66b254ad5758a298d310d15d38f1385bc0d82fc6f5e62', now()); 
+		</sql>
+		<sql>
+			INSERT INTO t_user_authority (login, name)
+			VALUES 
+				('staff', 'ROLE_STAFF'),
+				('staff', 'ROLE_STAFF_IHTSDO'),
+				('sweden', 'ROLE_STAFF'),
+				('sweden', 'ROLE_STAFF_SE')
+		</sql>
+    </changeSet>
 	
 	
 	<changeSet id="MLDS-259-3" author="AC">
