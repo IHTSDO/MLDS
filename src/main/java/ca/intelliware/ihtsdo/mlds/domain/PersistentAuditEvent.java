@@ -26,7 +26,7 @@ import org.joda.time.Instant;
 @Entity
 @Table(name = "T_PERSISTENT_AUDIT_EVENT")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class PersistentAuditEvent  {
+public class PersistentAuditEvent extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -142,5 +142,10 @@ public class PersistentAuditEvent  {
 
 	public void setReleaseFileId(Long releaseFileId) {
 		this.releaseFileId = releaseFileId;
+	}
+	
+	@Override
+	protected Object getPK() {
+		return id;
 	}
 }
