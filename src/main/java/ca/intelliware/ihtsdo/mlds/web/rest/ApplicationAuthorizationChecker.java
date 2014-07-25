@@ -13,4 +13,12 @@ public class ApplicationAuthorizationChecker extends AuthorizationChecker {
 		checkCurrentUserIsUser(application.getUsername());
 	}
 
+	public void checkCanApproveApplication(Application application) {
+		// FIXME MLDS-372 check member of application.
+		if (currentSecurityContext.isAdmin() || currentSecurityContext.isStaff()) {
+			return;
+		}
+		failCheck("Not authorized to approve application");
+	}
+
 }
