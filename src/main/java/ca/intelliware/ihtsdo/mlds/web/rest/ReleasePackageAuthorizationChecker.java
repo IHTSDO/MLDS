@@ -16,8 +16,7 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 	}
 
 	public void checkCanEditReleasePackage(ReleasePackage releasePackage) {
-		if (currentSecurityContext.isStaffOrAdmin()
-				// FIXME MLDS-273 add back in once we have member || currentSecurityContext.isStaffFor((Member)null)
+		if (currentSecurityContext.isAdmin() || currentSecurityContext.isStaffFor(releasePackage.getMember())
 				) {
 			return;
 		}
