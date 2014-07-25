@@ -9,6 +9,8 @@ import org.joda.time.Instant;
 
 @Entity
 public class Member {
+	public static final String KEY_IHTSDO = "IHTSDO";
+	
 	@Id
 	@GeneratedValue
 	@Column(name="member_id")
