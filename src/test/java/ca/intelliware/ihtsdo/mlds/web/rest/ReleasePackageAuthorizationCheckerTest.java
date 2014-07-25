@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
@@ -13,17 +14,24 @@ import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 public class ReleasePackageAuthorizationCheckerTest {
 	ReleasePackageAuthorizationChecker authorizationChecker;
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
-	private ReleasePackage ihtsdoReleasePackage;
-	private ReleasePackage swedenReleasePackage;
-	private ReleaseVersion offlineReleaseVersion;
-	private ReleaseVersion onlineReleaseVersion;
+	ReleasePackage ihtsdoReleasePackage;
+	ReleasePackage swedenReleasePackage;
+	ReleaseVersion offlineReleaseVersion;
+	ReleaseVersion onlineReleaseVersion;
+	Member ihtsdo;
+	Member sweden;
 	
 	@Before
 	public void setUp() {
 		authorizationChecker = new ReleasePackageAuthorizationChecker();
 		authorizationChecker.currentSecurityContext = new CurrentSecurityContext();
+		sweden = new Member("SE");
+		ihtsdo = new Member("IHTSDO");
+		
 		ihtsdoReleasePackage = new ReleasePackage();
+		ihtsdoReleasePackage.setMember(ihtsdo);
 		swedenReleasePackage = new ReleasePackage();
+		swedenReleasePackage.setMember(sweden);
 		offlineReleaseVersion = new ReleaseVersion();
 		offlineReleaseVersion.setOnline(false);
 		onlineReleaseVersion = new ReleaseVersion();
@@ -88,8 +96,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 		authorizationChecker.checkCanEditReleasePackage(ihtsdoReleasePackage);
 	}
 	
-	// FIXME MLDS-372 ReleasePackage needs member to test this
-	//@Test(expected=IllegalStateException.class)
+	@Test(expected=IllegalStateException.class)
 	public void staffCanNotEditOtherMemberPackages() {
 		securityContextSetup.asIHTSDOStaff();
 		
