@@ -61,7 +61,7 @@ public class ApplicationController {
 	@RequestMapping(value = Routes.APPLICATION_APPROVE,
 			method=RequestMethod.POST,
 			produces = "application/json")
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public @ResponseBody ResponseEntity<Application> approveApplication(@PathVariable long applicationId, @RequestBody String approvalStateString) {
 		//FIXME why cant this be the body type?
 		ApprovalState approvalState = ApprovalState.valueOf(approvalStateString);
@@ -91,7 +91,7 @@ public class ApplicationController {
 	@RequestMapping(value = Routes.APPLICATIONS, 
 			method=RequestMethod.GET,
 			produces = "application/json")
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public @ResponseBody ResponseEntity<Collection<Application>> getApplications(@RequestParam(value="$filter") String filter){
 		Iterable<Application> applications;
 		if (filter == null) {
@@ -212,7 +212,7 @@ public class ApplicationController {
 	@RequestMapping(value = Routes.APPLICATION_NOTES_INTERNAL,
 			method=RequestMethod.PUT,
 			produces = "application/json")
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody String notesInternal) {
 		Application application = applicationRepository.findOne(applicationId);
 		if (application == null) {
