@@ -1,17 +1,19 @@
 package ca.intelliware.ihtsdo.mlds.design;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
+import ca.intelliware.ihtsdo.mlds.Application;
+import ca.intelliware.ihtsdo.mlds.web.rest.CountriesResource;
 
-import ca.intelliware.commons.j5goodies.jar.ClassFinder;
-import ca.intelliware.commons.j5goodies.jar.ClassPredicate;
-import ca.intelliware.ihtsdo.mlds.web.rest.ReleasePackagesResource;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.reflect.ClassPath;
+import com.google.common.reflect.ClassPath.ClassInfo;
 
 public class ControllerMethodTraversal {
-	private List<Class<?>> classes;
+	private List<Class<?>> classes = new ArrayList<>();
 	
 	public interface MethodVisitor {
 		void visit(Class<?> controllerClass, Method method);
@@ -34,17 +36,16 @@ public class ControllerMethodTraversal {
 	}
 
 	void findClasses() {
-		classes = new ClassFinder().findClasses(ReleasePackagesResource.class, new ClassPredicate() {
-			@Override
-			public boolean isSelected(Class<?> c) {
-				return c != null && (c.isAnnotationPresent(Controller.class) || c.isAnnotationPresent(RestController.class));
-			}
-
-			@Override
-			public boolean isSelected(String packageName, String className) {
-				return true;
-			}
-		});
+		ClassPath classPath;
+		try {
+			classPath = ClassPath.from(CountriesResource.class.getClassLoader());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		ImmutableSet<ClassInfo> classInfos = classPath.getTopLevelClassesRecursive(Application.class.getPackage().getName());
+		for (ClassInfo classInfo : classInfos) {
+			classes.add(classInfo.load());
+		}
 	}
 
 	public void addException(Class<?> controllerClass) {
