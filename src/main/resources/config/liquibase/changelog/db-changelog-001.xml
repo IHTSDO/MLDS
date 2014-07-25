@@ -790,4 +790,29 @@
 		</sql>
 		<addNotNullConstraint tableName="release_package" columnName="member_id"/>
 	</changeSet>
- </databaseChangeLog>
+ 
+	<changeSet id="MLDS-259-11" author="AC">
+		<comment>adding missing columns to affiliate details and adding affiliate details to application</comment>
+		<addColumn tableName="affiliate_details">
+			<column name="landline_number" type="VARCHAR(255)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="landline_extension" type="VARCHAR(255)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="mobile_number" type="VARCHAR(255)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="organization_type" type="VARCHAR(255)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="organization_type_other" type="VARCHAR(255)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="affiliate_details_id" type="INT8">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+	</changeSet>
+	
+</databaseChangeLog>
