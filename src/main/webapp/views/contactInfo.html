@@ -43,7 +43,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Email</label> 
-                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" required="" name="email" ng-model="affiliateDetails.email"  unique="{{[form.alternateEmail, form.thirdEmail]}}">
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" required="" name="email" ng-model="affiliateDetails.email"  unique="{{[affiliateDetails.alternateEmail, affiliateDetails.thirdEmail]}}">
                     <div ng-show="form.attempted">
                       <p ng-show="form.email.$error.required" class="help-block">
                         Required field.
@@ -108,8 +108,8 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Address</label> <input class="form-control" name="addressStreet" placeholder="123 Somewhere Avenue" ng-required="type=='INDIVIDUAL'" ng-model="affiliateDetails.address.street" >
-                      <p ng-show="form.addressStreet.$error.required && form.attempted" class="help-block">
+                      <label>Address</label> <input class="form-control" name="addressStreetIndividual" placeholder="123 Somewhere Avenue" ng-required="type=='INDIVIDUAL'" ng-model="affiliateDetails.address.street" >
+                      <p ng-show="form.addressStreetIndividual.$error.required && form.attempted" class="help-block">
                         Required field.
                       </p>
                     </div>
@@ -118,16 +118,16 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input class="form-control" name="addressCity" placeholder="City" ng-required="type=='INDIVIDUAL'" ng-model="affiliateDetails.address.city" >
-                      <p ng-show="form.addressCity.$error.required && form.attempted" class="help-block">
+                      <input class="form-control" name="addressCityIndividual" placeholder="City" ng-required="type=='INDIVIDUAL'" ng-model="affiliateDetails.address.city" >
+                      <p ng-show="form.addressCityIndividual.$error.required && form.attempted" class="help-block">
                         Required field.
                       </p>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateDetails.address.post" name="addressPost" ng-required="type=='INDIVIDUAL'" placeholder="Post Code" >
-                      <p ng-show="form.addresPost.$error.required && form.attempted" class="help-block">
+                      <input class="form-control" type="text" ng-model="affiliateDetails.address.post" name="addressPostIndividual" ng-required="type=='INDIVIDUAL'" placeholder="Post Code" >
+                      <p ng-show="form.addresPostIndividual.$error.required && form.attempted" class="help-block">
                         Required field.
                       </p>
                     </div>
@@ -136,11 +136,11 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateDetails.address.country" name="countryIndividual" ng-required="type=='INDIVIDUAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
-                      <p ng-show="form.countryIndividual.$error.required && form.attempted" class="help-block">
+                      <input class="form-control" type="text" ng-model="affiliateDetails.address.country" name="addressCountryIndividual" ng-required="type=='INDIVIDUAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
+                      <p ng-show="form.addressCountryIndividual.$error.required && form.attempted" class="help-block">
                         Required field.
                       </p>
-						<p ng-show="form.countryIndividual.$error.excluded" class="help-block">
+						<p ng-show="form.addressCountryIndividual.$error.excluded" class="help-block">
 							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
 						</p>
                      </div>
@@ -164,10 +164,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Organization Name</label> <input class="form-control" name="organizationName" placeholder="Organization Name" ng-required="type!='INDIVIDUAL'" ng-model="affiliateDetails.organizationName" >
-                    <p class="help-block" ng-show="form.organizationName.$error.required && form.attempted">
-                      Required field.
-                    </p>
+                    <label>Organization Name</label> <span>{{affiliateDetails.organizationName}}</span>
                   </div>
                 </div>
               </div>
@@ -175,7 +172,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Address</label> <input class="form-control" name="addressStreet" placeholder="123 Somewhere Avenue" ng-change="copyAddress()" required="" ng-model="affiliateDetails.address.street" >
+                    <label>Address</label> <input class="form-control" name="addressStreet" placeholder="123 Somewhere Avenue" required="" ng-model="affiliateDetails.address.street" >
                     <p ng-show="form.addressStreet.$error.required && form.attempted" class="help-block">
                       Required field.
                     </p>
@@ -185,7 +182,7 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" name="addressCity" placeholder="City" required="" ng-model="affiliateDetails.address.city" ng-change="copyAddress()" >
+                    <input class="form-control" name="addressCity" placeholder="City" required="" ng-model="affiliateDetails.address.city" >
                     <p ng-show="form.addressCity.$error.required && form.attempted" class="help-block">
                       Required field.
                     </p>
@@ -193,7 +190,7 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateDetails.address.post" ng-change="copyAddress()" name="addressPost" ng-required="type=='COMMERCIAL'" placeholder="Post Code" >
+                    <input class="form-control" type="text" ng-model="affiliateDetails.address.post" name="addressPost" ng-required="type=='COMMERCIAL'" placeholder="Post Code" >
                     <p ng-show="form.addressPost.$error.required && form.attempted" class="help-block">
                       Required field.
                     </p>
@@ -203,7 +200,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateDetails.address.country" ng-change="copyAddress()" name="addressCountry" required="" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
+                    <input class="form-control" type="text" ng-model="affiliateDetails.address.country" name="addressCountry" required="" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
                     <p ng-show="form.addressCountry.$error.required && form.attempted" class="help-block">
                       Required field.
                     </p>
@@ -213,20 +210,12 @@
                   </div>
                 </div>
               </div>
-                <hr>
-					<div ng-show="type=='COMMERCIAL'">
+            <hr>
+			<div ng-show="type=='COMMERCIAL'">         
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Use Organization Address as Billing Address</label> <input name="use" type="checkbox" ng-change="copyAddress()" ng-model="isSameAddress">
-                  </div>
-                </div>
-              </div>
-         
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Billing Address</label> <input class="form-control" name="billingAddressStreet" placeholder="Address" ng-disabled="isSameAddress" ng-required="type=='COMMERCIAL'" ng-model="affiliateDetails.billingAddress.street" >
+                    <label>Billing Address</label> <input class="form-control" name="billingAddressStreet" placeholder="Address" ng-required="type=='COMMERCIAL'" ng-model="affiliateDetails.billingAddress.street" >
                     <p ng-show="form.billingAddressStreet.$error.required && form.attempted" class="help-block">
                       Required field.
                     </p>
@@ -236,7 +225,7 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" name="billingAddressCity" placeholder="City" ng-disabled="isSameAddress" ng-required="type=='COMMERCIAL'" ng-model="affiliateDetails.billingAddress.city" >
+                    <input class="form-control" name="billingAddressCity" placeholder="City" ng-required="type=='COMMERCIAL'" ng-model="affiliateDetails.billingAddress.city" >
                     <p ng-show="form.billingAddressCity.$error.required && form.attempted" class="help-block">
                       Required field.
                     </p>
@@ -244,7 +233,7 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateDetails.billingAddress.post" name="billingAddressPost" ng-disabled="isSameAddress" ng-required="type=='COMMERCIAL'" placeholder="Post Code" >
+                    <input class="form-control" type="text" ng-model="affiliateDetails.billingAddress.post" name="billingAddressPost" ng-required="type=='COMMERCIAL'" placeholder="Post Code" >
                     <p ng-show="form.billingAddressPost.$error.required && form.attempted" class="help-block">
                       Required field.
                     </p>
@@ -254,7 +243,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateDetails.billingAddress.country" name="billingAddressCountry" ng-disabled="isSameAddress" ng-required="type=='COMMERCIAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
+                    <input class="form-control" type="text" ng-model="affiliateDetails.billingAddress.country" name="billingAddressCountry" ng-required="type=='COMMERCIAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
                     <p ng-show="form.billingAddressCountry.$error.required && form.attempted" class="help-block">
                       Required field.
                     </p>
@@ -266,7 +255,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Alternate Email</label> 
-                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="type!='INDIVIDUAL'" name="alternateEmail" ng-model="affiliateDetails.alternateEmail"  unique="{{[form.email, form.thirdEmail]}}">
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="type!='INDIVIDUAL'" name="alternateEmail" ng-model="affiliateDetails.alternateEmail"  unique="{{[affiliateDetails.email, affiliateDetails.thirdEmail]}}">
                     <div ng-show="form.attempted">
                       <p ng-show="form.alternateEmail.$error.required" class="help-block">
                         Required field.
@@ -284,7 +273,7 @@
               <div class="row" ng-show="type=='COMMERCIAL'">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Third Email</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="type=='COMMERCIAL'" name="thirdEmail" ng-model="affiliateDetails.thirdEmail"  unique="{{[form.email, form.alternateEmail]}}">
+                    <label>Third Email</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="type=='COMMERCIAL'" name="thirdEmail" ng-model="affiliateDetails.thirdEmail"  unique="{{[affiliateDetails.email, affiliateDetails.alternateEmail]}}">
                     <div ng-show="form.attempted">
                       <p ng-show="form.thirdEmail.$error.required" class="help-block">
                         Required field.

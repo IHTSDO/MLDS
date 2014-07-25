@@ -14,44 +14,16 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         $scope.affiliate = null;
         $scope.affiliateDetails = null;
         $scope.type = null;
-
-        function insertFakeDetails(affiliate) {
-        	affiliate.affiliateDetails = {
-        			firstName: 'John',
-        			lastName: 'Smith',
-        			email: 'email@com',
-        			alternateEmail: 'alternative@com',
-        			thirdEmail: 'third@com',
-        			address: {
-	        			street: 'street',
-	        			city: 'city',
-	        			post: 'post',
-	        			country: 'Canada'
-        			},
-        			organizationName: 'Organization Name',
-        			billingAddress: {
-	        			street: 'b street',
-	        			city: 'b city',
-	        			post: 'b post',
-	        			country: 'Botswana'
-        			},
-        			landlineNumber: '+1 4156 762 0032',
-        			landlineExtension: '123',
-        			mobileNumber: '+1 416 999 99999'
-        			
-        	};
-        }
         
         function loadAffiliate() {
-        	//FIXME use single affiliate service call...
-        	AffiliateService.myAffiliates()
+        	AffiliateService.myAffiliate()
         		.then(function(result) {
-        			var affiliates = result.data;
-        			if (affiliates && affiliates.length > 0) {
-        				$scope.affiliate = affiliates[0];
-        				$scope.type = /*'INDIVIDUAL'*/$scope.affiliate.type;
-        				insertFakeDetails($scope.affiliate);
-        				$scope.affiliateDetails = $scope.affiliate.affiliateDetails;
+        			var affiliate = result.data;
+        			$log.log(affiliate);
+        			if (affiliate) {
+        				$scope.affiliate = affiliate;
+        				$scope.type = /*'INDIVIDUAL'*/affiliate.type;
+        				$scope.affiliateDetails = affiliate.affiliateDetails;
         			} else {
         				$log.log('No affiliates found...');
         			}
@@ -64,6 +36,16 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         }
         
         loadAffiliate();
+        
+        // bind the display name to our country object.
+        $scope.$watch('affiliateDetails.address.country', function(newValue){
+        	var country = _.findWhere(CountryService.countries, {'commonName':newValue});
+        	$scope.selectedCountry = country;
+        	var excludedCountry = country && country.excludeRegistration;
+        	$scope.form.addressCountry.$setValidity('excluded',!excludedCountry);
+        	$scope.form.addressCountryIndividual.$setValidity('excluded',!excludedCountry);
+        });
+
         
         $scope.save = function () {
     		if ($scope.form.$invalid) {
