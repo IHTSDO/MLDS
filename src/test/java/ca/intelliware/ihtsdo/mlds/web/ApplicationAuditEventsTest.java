@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
@@ -46,7 +47,9 @@ public class ApplicationAuditEventsTest {
 	@Test
 	public void logApprovalStateChangeShouldIncludeApplicationDetails() {
 		Application application = new Application(123L);
-		application.setOrganizationName("Test Organization");
+		AffiliateDetails affiliateDetails = new AffiliateDetails();
+		application.setAffiliateDetails(affiliateDetails);;
+		affiliateDetails.setOrganizationName("Test Organization");
 		application.setApprovalState(ApprovalState.APPROVED);
 		
 		applicationAuditEvents.logApprovalStateChange(application);

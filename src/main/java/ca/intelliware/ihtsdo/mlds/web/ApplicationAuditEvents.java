@@ -10,7 +10,6 @@ import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 
 @Service
@@ -23,7 +22,8 @@ public class ApplicationAuditEvents {
 
 	private Map<String, String> createAuditData(Application application) {
 		Map<String,String> auditData = Maps.newHashMap();
-		auditData.put("application.name", ""+Objects.firstNonNull(application.getAffiliateDetails().getOrganizationName(), Objects.firstNonNull(application.getUsername(), "")));
+		String name = (application != null && application.getAffiliateDetails() != null && application.getAffiliateDetails().getOrganizationName() != null) ? application.getAffiliateDetails().getOrganizationName() : application.getUsername(); 
+		auditData.put("application.name", ""+name);
     	auditData.put("application.applicationId", ""+application.getApplicationId());
 		return auditData;
 	}
