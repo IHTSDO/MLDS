@@ -7,7 +7,12 @@ angular.module('MLDS')
 	var service = {};
 	
 	service.affiliatesResource = $resource('/app/rest/affiliates');
-	
+
+	service.myAffiliates = function() {
+		var promise = $http.get('/app/rest/affiliates/me');
+		return promise;
+	};
+
 	service.myAffiliates = function() {
 		return $http.get('/app/rest/affiliates/me');
 	};
