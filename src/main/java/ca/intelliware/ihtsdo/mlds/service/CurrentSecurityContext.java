@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
+import org.apache.commons.lang.Validate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,6 +44,7 @@ public class CurrentSecurityContext {
 	}
 
 	public boolean isStaffFor(Member member) {
+		Validate.notNull(member);
 		return hasRole(AuthoritiesConstants.staffRoleForMember(member.getKey()));
 	}
 	
