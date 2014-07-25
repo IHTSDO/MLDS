@@ -69,6 +69,9 @@ public class ApplicationController {
 		if (application == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		
+		authorizationChecker.checkCanApproveApplication(application);
+		
 		//FIXME should there be state transition validation?
 		application.setApprovalState(approvalState);
 		
@@ -151,8 +154,10 @@ public class ApplicationController {
 			produces = "application/json")
 	@RolesAllowed({AuthoritiesConstants.USER})
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
-		//FIXME use applicationId
-		Application application = saveApplicationFields(request);
+		Application application = applicationRepository.findOne(applicationId);
+		
+		authorizationChecker.checkCanAccessApplication(application);
+		
 		// Mark application as submitted
 		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)) {
 			application.setApprovalState(ApprovalState.RESUBMITTED);
@@ -189,8 +194,8 @@ public class ApplicationController {
 			produces = "application/json")
 	@RolesAllowed({AuthoritiesConstants.USER})
 	public @ResponseBody ResponseEntity<Application> saveApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
-		//FIXME use applicationId
-        Application application = saveApplicationFields(request);
+        Application application = findOrStartInitialApplication();
+        application = saveApplicationFields(request,application);
         ApprovalState preApprovalState = application.getApprovalState();
 		// Mark application as not submitted
 		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)) {
@@ -225,18 +230,12 @@ public class ApplicationController {
 	}
 
 
-	private Application saveApplicationFields(JsonNode request) {
+	private Application saveApplicationFields(JsonNode request,Application application) {
 		JsonNode organization = request.get("organization");
         JsonNode contact = request.get("contact");
         JsonNode address = request.get("address");
         JsonNode billing = request.get("billing");
 
-		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
-		Application application = new Application();
-		
-		if (applications.size() > 0) {
-			application = applications.get(0);
-		}
 		
 		application.setUsername(sessionService.getUsernameOrNull());
 		application.setType(setField(request, "type"));
@@ -271,6 +270,16 @@ public class ApplicationController {
 		
 		if (application.getApprovalState() == null) {
 			application.setApprovalState(ApprovalState.NOT_SUBMITTED);
+		}
+		return application;
+	}
+
+	private Application findOrStartInitialApplication() {
+		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
+		Application application = new Application();
+		
+		if (applications.size() > 0) {
+			application = applications.get(0);
 		}
 		return application;
 	}
