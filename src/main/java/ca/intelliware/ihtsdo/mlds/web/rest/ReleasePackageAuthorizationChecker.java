@@ -16,8 +16,8 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 	}
 
 	public void checkCanEditReleasePackage(ReleasePackage releasePackage) {
-		if (currentSecurityContext.isAdmin() || currentSecurityContext.isStaffFor(releasePackage.getMember())
-				) {
+		if (currentSecurityContext.isAdmin() 
+				|| currentSecurityContext.isStaffFor(releasePackage.getMember())) {
 			return;
 		}
 		failCheck("User not authorized to access release packages.");
