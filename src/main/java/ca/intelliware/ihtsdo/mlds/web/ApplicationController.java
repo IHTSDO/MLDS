@@ -241,10 +241,9 @@ public class ApplicationController {
 
 
 	private Application saveApplicationFields(JsonNode request,Application application) {
-		JsonNode organization = request.get("organization");
-        JsonNode contact = request.get("contact");
-        JsonNode address = request.get("address");
-        JsonNode billing = request.get("billing");
+        JsonNode affiliateDetailsJsonNode = request.get("affiliateDetails");
+        JsonNode address = affiliateDetailsJsonNode.get("address");
+        JsonNode billing = affiliateDetailsJsonNode.get("billingAddress");
 
 		application.setUsername(sessionService.getUsernameOrNull());
 		
@@ -256,7 +255,7 @@ public class ApplicationController {
 		}
 		
 		AffiliateDetails affiliateDetails = application.getAffiliateDetails();
-		createAffiliateDetails(organization, contact, address, billing, affiliateDetails);
+		createAffiliateDetails(affiliateDetailsJsonNode, address, billing, affiliateDetails);
 		affiliateDetailsRepository.save(affiliateDetails);
 		application.setAffiliateDetails(affiliateDetails);
 		
@@ -280,32 +279,32 @@ public class ApplicationController {
 		return application;
 	}
 	
-	private void createAffiliateDetails(JsonNode organization,JsonNode contact, JsonNode address, JsonNode billing, AffiliateDetails affiliateDetails) {
+	private void createAffiliateDetails(JsonNode affiliateDetailsJsonNode, JsonNode address, JsonNode billing, AffiliateDetails affiliateDetails) {
 		if (affiliateDetails == null) {
 			affiliateDetails = new AffiliateDetails();
 		}
 		
-		affiliateDetails.setFirstName(getStringField(contact, "firstName"));
-		affiliateDetails.setLastName(getStringField(contact, "lastName"));
-		affiliateDetails.setLandlineNumber(getStringField(contact, "phone"));
-		affiliateDetails.setLandlineExtension(getStringField(contact, "extension"));
-		affiliateDetails.setMobileNumber(getStringField(contact, "mobilePhone"));
-		affiliateDetails.setEmail(getStringField(contact, "email"));
-		affiliateDetails.setAlternateEmail(getStringField(contact, "alternateEmail"));
-		affiliateDetails.setThirdEmail(getStringField(contact, "thirdEmail"));
-		affiliateDetails.setOrganizationName(getStringField(organization, "name"));
-		affiliateDetails.setOrganizationTypeOther(getStringField(organization, "typeOther"));
+		affiliateDetails.setFirstName(getStringField(affiliateDetailsJsonNode, "firstName"));
+		affiliateDetails.setLastName(getStringField(affiliateDetailsJsonNode, "lastName"));
+		affiliateDetails.setLandlineNumber(getStringField(affiliateDetailsJsonNode, "phone"));
+		affiliateDetails.setLandlineExtension(getStringField(affiliateDetailsJsonNode, "extension"));
+		affiliateDetails.setMobileNumber(getStringField(affiliateDetailsJsonNode, "mobilePhone"));
+		affiliateDetails.setEmail(getStringField(affiliateDetailsJsonNode, "email"));
+		affiliateDetails.setAlternateEmail(getStringField(affiliateDetailsJsonNode, "alternateEmail"));
+		affiliateDetails.setThirdEmail(getStringField(affiliateDetailsJsonNode, "thirdEmail"));
+		affiliateDetails.setOrganizationName(getStringField(affiliateDetailsJsonNode, "organizationName"));
+		affiliateDetails.setOrganizationTypeOther(getStringField(affiliateDetailsJsonNode, "organizationTypeOther"));
 		
-		if (checkIfValidField(organization, "type")) {
-			affiliateDetails.setOrganizationType(OrganizationType.valueOf(getStringField(organization, "type")));
+		if (checkIfValidField(affiliateDetailsJsonNode, "organizationType")) {
+			affiliateDetails.setOrganizationType(OrganizationType.valueOf(getStringField(affiliateDetailsJsonNode, "organizationType")));
 		}
 		
 		MailingAddress mailingAddress = new MailingAddress();
 		
 		mailingAddress.setStreet(getStringField(address, "street"));
 		mailingAddress.setCity(getStringField(address, "city"));
-		mailingAddress.setPost(getStringField(address, "postCode"));
-		mailingAddress.setCountry(countryRepository.findByCommonName(getStringField(address, "country")));
+		mailingAddress.setPost(getStringField(address, "post"));
+		mailingAddress.setCountry(countryRepository.findByCommonName(getStringField(address, "country")).get(0));
 		
 		affiliateDetails.setAddress(mailingAddress);
 		
@@ -313,8 +312,8 @@ public class ApplicationController {
 		
 		billingAddress.setStreet(getStringField(billing, "street"));
 		billingAddress.setCity(getStringField(billing, "city"));
-		billingAddress.setPost(getStringField(billing, "postCode"));
-		billingAddress.setCountry(countryRepository.findOne(getStringField(billing, "country")));
+		billingAddress.setPost(getStringField(billing, "post"));
+		billingAddress.setCountry(countryRepository.findByCommonName(getStringField(billing, "country")).get(0));
 		
 		affiliateDetails.setBillingAddress(billingAddress);
 	}
