@@ -1,14 +1,15 @@
 'use strict';
 
-angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$timeout', 'Account', 'AffiliateService', 'CountryService',
-    function ($scope, $log, $timeout, Account, AffiliateService, CountryService) {
-        $scope.success = null;
-        $scope.error = null;
-    	$scope.submitting = false;
-    	$scope.alerts = [];
+angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$timeout', '$route', 'Account', 'AffiliateService', 'CountryService',
+    function ($scope, $log, $timeout, $route, Account, AffiliateService, CountryService) {
         $scope.settingsAccount = Account.get();
         $scope.availableCountries = CountryService.countries;
-        
+
+    	$scope.submitting = false;
+    	$scope.alerts = [];
+    	$scope.form = {};
+    	$scope.form.attempted = false;
+
         //FIXME review fields
         $scope.affiliate = null;
         $scope.affiliateDetails = null;
@@ -51,7 +52,6 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         				$scope.type = /*'INDIVIDUAL'*/$scope.affiliate.type;
         				insertFakeDetails($scope.affiliate);
         				$scope.affiliateDetails = $scope.affiliate.affiliateDetails;
-        				$log.log($scope.affiliate);
         			} else {
         				$log.log('No affiliates found...');
         			}
@@ -66,6 +66,11 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         loadAffiliate();
         
         $scope.save = function () {
+    		if ($scope.form.$invalid) {
+    			$scope.form.attempted = true;
+    			return;
+    		}
+
     		$scope.submitting = true;
     		$scope.alerts.splice(0, $scope.alerts.length);
 
@@ -90,5 +95,8 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
                 */
         };
         
-        
+        $scope.cancel = function() {
+        	//FIXME $route.reload wasnt clearing out scope state - is there a better way?
+        	window.location.reload();
+        };
     }]);
