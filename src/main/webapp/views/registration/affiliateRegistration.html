@@ -22,7 +22,7 @@
             <div class="panel-body">
               <h4>How will you be using the standard? FIXME COPY</h4>
               <div class="form-group">
-                <label>Type</label> <select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.usageSubType = ''; affiliateTypeChanged()" required="">
+                <label>Type</label> <select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.subType = ''; affiliateTypeChanged()" required="">
                   <option value="COMMERCIAL">Commercial</option>
                   <option value="ACADEMIC">Academic</option>
                   <option value="OTHER">Other</option>
@@ -34,21 +34,21 @@
               </div>
               <div class="form-group" ng-show="affiliateform.type && affiliateform.type!='OTHER'">
                 <label>Subtype</label> 
-                <select class="form-control input-md" name="usageSubType" ng-model="affiliateform.usageSubType" ng-required="affiliateform.type!='OTHER'" auto-submit>
-                  <option value="Developer" ng-show="affiliateform.type=='COMMERCIAL'">Developer</option>
-                  <option value="Development" ng-show="affiliateform.type=='ACADEMIC'">Development</option>
-                  <option value="Educational" ng-show="affiliateform.type!='COMMERCIAL'">Educational</option>
-                  <option value="Healthcare Provider" ng-show="affiliateform.type=='ACADEMIC'">Healthcare Provider</option>
-                  <option value="Personal" ng-show="affiliateform.type=='INDIVIDUAL'">Personal</option>
-                  <option value="Research" ng-show="affiliateform.type!='COMMERCIAL'">Research</option>
-                  <option value="Vendor" ng-show="affiliateform.type=='COMMERCIAL'">Vendor</option>
+                <select class="form-control input-md" name="usageSubType" ng-model="affiliateform.subType" ng-required="affiliateform.type!='OTHER'" auto-submit>
+                  <option value="DEVELOPER" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.DEVELOPER">Developer</option>
+                  <option value="DEVELOPMENT" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.DEVELOPMENT">Development</option>
+                  <option value="EDUCATIONAL" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.EDUCATIONAL">Educational</option>
+                  <option value="HEALTHCAREPROVIDER" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.HEALTHCAREPROVIDER">Healthcare Provider</option>
+                  <option value="PERSONAL" ng-show="affiliateform.type=='INDIVIDUAL'" translate="affiliate.subType.PERSONAL">Personal</option>
+                  <option value="RESEARCH" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.RESEARCH">Research</option>
+                  <option value="VENDOR" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.VENDOR">Vendor</option>
                 </select>
                 <p ng-show="affiliateApplicationForm.usageSubType.$error.required && affiliateApplicationForm.attempted" class="help-block">
                   Subtype field is required.
                 </p>
               </div>
               <div class="form-group" ng-show="affiliateform.type=='OTHER'">
-                <label>Other</label> <input type="text" class="form-control" placeholder="Other" name="usageSubType" ng-required="affiliateform.type=='OTHER'" ng-model="affiliateform.usageSubType" auto-submit>
+                <label>Other</label> <input type="text" class="form-control" placeholder="Other" name="usageSubType" ng-required="affiliateform.type=='OTHER'" ng-model="affiliateform.subType" auto-submit>
                 <p ng-show="affiliateApplicationForm.usageSubType.$error.required && affiliateApplicationForm.attempted" class="help-block">
                   Other field is required.
                 </p>
@@ -66,10 +66,18 @@
           <div id="collapseIndividual" collapse="collapsePanel.contact" class="panel-collapse collapse in">
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                   <div class="form-group">
-                    <label>Full Name</label> <input class="form-control" placeholder="John Smith" required="" name="contactName" ng-model="affiliateform.contact.name" auto-submit>
-                    <p ng-show="affiliateApplicationForm.contactName.$error.required && affiliateApplicationForm.attempted" class="help-block">
+                    <label>First Name</label> <input class="form-control" placeholder="John" required="" name="contactFirstName" ng-model="affiliateform.affiliateDetails.firstName" auto-submit>
+                    <p ng-show="affiliateApplicationForm.contactFirstName.$error.required && affiliateApplicationForm.attempted" class="help-block">
+                      Required field.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Last Name</label> <input class="form-control" placeholder="Smith" required="" name="contactLastName" ng-model="affiliateform.affiliateDetails.lastName" auto-submit>
+                    <p ng-show="affiliateApplicationForm.contactLastName.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
                   </div>
@@ -79,7 +87,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Email</label> 
-                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" required="" name="contactEmail" ng-model="affiliateform.contact.email" auto-submit unique="{{[affiliateform.contact.alternateEmail, affiliateform.contact.thirdEmail]}}">
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" required="" name="contactEmail" ng-model="affiliateform.affiliateDetails.email" auto-submit unique="{{[affiliateform.affiliateDetails.alternateEmail, affiliateform.affiliateDetails.thirdEmail]}}">
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.contactEmail.$error.required" class="help-block">
                         Required field.
@@ -102,7 +110,7 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <input class="form-control" type="tel" required="" name="contactPhone" ng-model="affiliateform.contact.phone" auto-submit>
+                    <input class="form-control" type="tel" required="" name="contactPhone" ng-model="affiliateform.affiliateDetails.landlineNumber" auto-submit>
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.contactPhone.$error.required" class="help-block">
                         Required field.
@@ -115,7 +123,7 @@
                 </div>
                 <div class="col-md-2">
                   <div class="form-group">
-                    <input class="form-control col-md-2" placeholder="Extension" ng-model="affiliateform.contact.extension" auto-submit>
+                    <input class="form-control col-md-2" placeholder="Extension" ng-model="affiliateform.affiliateDetails.landlineExtension" auto-submit>
                   </div>
                 </div>
               </div>
@@ -127,7 +135,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="tel" name="mobilePhone" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.contact.mobilePhone" auto-submit>
+                    <input class="form-control" type="tel" name="mobilePhone" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.mobileNumber" auto-submit>
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.mobilePhone.$error.required" class="help-block">
                         Required field.
@@ -143,7 +151,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Address</label> <input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.address.street" auto-submit>
+                      <label>Address</label> <input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.street" auto-submit>
                       <p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block">
                         Required field.
                       </p>
@@ -153,7 +161,7 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input class="form-control" name="city" placeholder="City" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.address.city" auto-submit>
+                      <input class="form-control" name="city" placeholder="City" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.city" auto-submit>
                       <p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block">
                         Required field.
                       </p>
@@ -161,7 +169,7 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateform.address.postCode" name="postCode" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Post Code" auto-submit>
+                      <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" name="postCode" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Post Code" auto-submit>
                       <p ng-show="affiliateApplicationForm.postCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
                         Required field.
                       </p>
@@ -171,7 +179,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateform.address.country" name="countryIndividual" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
+                      <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.country" name="countryIndividual" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
                       <p ng-show="affiliateApplicationForm.countryIndividual.$error.required && affiliateApplicationForm.attempted" class="help-block">
                         Required field.
                       </p>
@@ -197,7 +205,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group has-error has-feedback">
-                    <label>Organization Name</label> <input class="form-control help-block" name="organizationName" placeholder="Organization Name" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.organization.name" auto-submit>
+                    <label>Organization Name</label> <input class="form-control help-block" name="organizationName" placeholder="Organization Name" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationName" auto-submit>
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted">
                       Required field.
                     </p>
@@ -208,7 +216,7 @@
                 <div class="col-md-6">
                   <div class="form-group has-error has-feedback">
                     <label>Organization Type</label> 
-                     <select class="form-control" name="organizationType" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.organization.type" auto-submit>
+                     <select class="form-control" name="organizationType" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationType" auto-submit>
                     	<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{'affiliate.organizationType.' + organizationType | translate}}</option>
                     </select>
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationType.$error.required && affiliateApplicationForm.attempted">
@@ -217,10 +225,10 @@
                   </div>
                 </div>
               </div>
-              <div class="row" ng-show="affiliateform.organization.type=='OTHER'">
+              <div class="row" ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">
                 <div class="col-md-6">
                   <div class="form-group has-error has-feedback">
-                    <input class="form-control help-block" name="organizationTypeOther" placeholder="Other Organization Type" ng-required="affiliateApplicationForm.organizationType.type=='Other'" ng-model="affiliateform.organization.typeOther" auto-submit>
+                    <input class="form-control help-block" name="organizationTypeOther" placeholder="Other Organization Type" ng-required="affiliateApplicationForm.organizationType.type=='Other'" ng-model="affiliateform.affiliateDetails.organizationTypeOther" auto-submit>
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationTypeOther.$error.required && affiliateApplicationForm.attempted">
                       An Organization type is required.
                     </p>
@@ -230,7 +238,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Address</label> <input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-change="copyAddress()" required="" ng-model="affiliateform.address.street" auto-submit>
+                    <label>Address</label> <input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-change="copyAddress()" required="" ng-model="affiliateform.affiliateDetails.address.street" auto-submit>
                     <p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -240,7 +248,7 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" name="city" placeholder="City" required="" ng-model="affiliateform.address.city" ng-change="copyAddress()" auto-submit>
+                    <input class="form-control" name="city" placeholder="City" required="" ng-model="affiliateform.affiliateDetails.address.city" ng-change="copyAddress()" auto-submit>
                     <p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -248,7 +256,7 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.address.postCode" ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
                     <p ng-show="affiliateApplicationForm.postCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -258,7 +266,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.address.country" ng-change="copyAddress()" name="country" required="" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.country" ng-change="copyAddress()" name="country" required="" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
                     <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -281,7 +289,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Billing Address</label> <input class="form-control" name="billingAddress" placeholder="Address" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" ng-model="affiliateform.billing.street" auto-submit>
+                    <label>Billing Address</label> <input class="form-control" name="billingAddress" placeholder="Address" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" ng-model="affiliateform.affiliateDetails.billingAddress.street" auto-submit>
                     <p ng-show="affiliateApplicationForm.billingAddress.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -291,7 +299,7 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" name="billingCity" placeholder="City" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" ng-model="affiliateform.billing.city" auto-submit>
+                    <input class="form-control" name="billingCity" placeholder="City" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" ng-model="affiliateform.affiliateDetails.billingAddress.city" auto-submit>
                     <p ng-show="affiliateApplicationForm.billingCity.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -299,7 +307,7 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.billing.postCode" name="billingPostCode" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.post" name="billingPostCode" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
                     <p ng-show="affiliateApplicationForm.billingPostCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -309,7 +317,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.billing.country" name="billingCountry" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
                     <p ng-show="affiliateApplicationForm.billingCountry.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -321,7 +329,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Alternate Email</label> 
-                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="affiliateform.type!='INDIVIDUAL'" name="alternateEmail" ng-model="affiliateform.contact.alternateEmail" auto-submit unique="{{[affiliateform.contact.email, affiliateform.contact.thirdEmail]}}">
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="affiliateform.type!='INDIVIDUAL'" name="alternateEmail" ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.thirdEmail]}}">
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.alternateEmail.$error.required" class="help-block">
                         Required field.
@@ -339,7 +347,7 @@
               <div class="row" ng-show="affiliateform.type=='COMMERCIAL'">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Third Email</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="affiliateform.type=='COMMERCIAL'" name="thirdEmail" ng-model="affiliateform.contact.thirdEmail" auto-submit unique="{{[affiliateform.contact.email, affiliateform.contact.alternateEmail]}}">
+                    <label>Third Email</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="affiliateform.type=='COMMERCIAL'" name="thirdEmail" ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.thirdEmail.$error.required" class="help-block">
                         Required field.
