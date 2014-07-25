@@ -6092,6 +6092,16 @@ button.close {
 .panel-heading .caret {
   color: #000000;
 }
+.applicant-info {
+  border-top: 2px solid #04add8;
+  padding: 20px 10px 0;
+  overflow: hidden;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+}
+.application-title .label {
+  font-weight: normal;
+}
 .application-review p {
   padding: 10px;
   border: 0;
