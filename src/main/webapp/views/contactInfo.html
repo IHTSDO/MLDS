@@ -108,8 +108,8 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Address</label> <input class="form-control" name="addressStreet" placeholder="123 Somewhere Avenue" ng-required="type=='INDIVIDUAL'" ng-model="affiliateDetails.address.street" >
-                      <p ng-show="form.addressStreet.$error.required && form.attempted" class="help-block">
+                      <label>Address</label> <input class="form-control" name="addressStreetIndividual" placeholder="123 Somewhere Avenue" ng-required="type=='INDIVIDUAL'" ng-model="affiliateDetails.address.street" >
+                      <p ng-show="form.addressStreetIndividual.$error.required && form.attempted" class="help-block">
                         Required field.
                       </p>
                     </div>
@@ -118,16 +118,16 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input class="form-control" name="addressCity" placeholder="City" ng-required="type=='INDIVIDUAL'" ng-model="affiliateDetails.address.city" >
-                      <p ng-show="form.addressCity.$error.required && form.attempted" class="help-block">
+                      <input class="form-control" name="addressCityIndividual" placeholder="City" ng-required="type=='INDIVIDUAL'" ng-model="affiliateDetails.address.city" >
+                      <p ng-show="form.addressCityIndividual.$error.required && form.attempted" class="help-block">
                         Required field.
                       </p>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateDetails.address.post" name="addressPost" ng-required="type=='INDIVIDUAL'" placeholder="Post Code" >
-                      <p ng-show="form.addresPost.$error.required && form.attempted" class="help-block">
+                      <input class="form-control" type="text" ng-model="affiliateDetails.address.post" name="addressPostIndividual" ng-required="type=='INDIVIDUAL'" placeholder="Post Code" >
+                      <p ng-show="form.addresPostIndividual.$error.required && form.attempted" class="help-block">
                         Required field.
                       </p>
                     </div>
@@ -136,11 +136,11 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateDetails.address.country" name="countryIndividual" ng-required="type=='INDIVIDUAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
-                      <p ng-show="form.countryIndividual.$error.required && form.attempted" class="help-block">
+                      <input class="form-control" type="text" ng-model="affiliateDetails.address.country" name="addressCountryIndividual" ng-required="type=='INDIVIDUAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
+                      <p ng-show="form.addressCountryIndividual.$error.required && form.attempted" class="help-block">
                         Required field.
                       </p>
-						<p ng-show="form.countryIndividual.$error.excluded" class="help-block">
+						<p ng-show="form.addressCountryIndividual.$error.excluded" class="help-block">
 							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
 						</p>
                      </div>
