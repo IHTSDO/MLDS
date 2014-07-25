@@ -2,7 +2,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.registration.Application;
+import ca.intelliware.ihtsdo.mlds.domain.Application;
 
 @Service
 public class ApplicationAuthorizationChecker extends AuthorizationChecker {

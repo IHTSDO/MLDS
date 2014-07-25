@@ -33,5 +33,8 @@ public class MailingAddress {
 	public void setPost(String post) {
 		this.post = post;
 	}
+	public void setCountry(Country country) {
+		this.country = country;
+	}
 	
 }
