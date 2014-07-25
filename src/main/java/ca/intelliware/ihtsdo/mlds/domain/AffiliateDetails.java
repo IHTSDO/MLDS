@@ -150,6 +150,46 @@ public class AffiliateDetails extends BaseEntity {
 	protected Object getPK() {
 		return affiliateDetailsId;
 	}
+
+	public String getLandlineNumber() {
+		return landlineNumber;
+	}
+
+	public void setLandlineNumber(String landlineNumber) {
+		this.landlineNumber = landlineNumber;
+	}
+
+	public String getLandlineExtension() {
+		return landlineExtension;
+	}
+
+	public void setLandlineExtension(String landlineExtension) {
+		this.landlineExtension = landlineExtension;
+	}
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public OrganizationType getOrganizationType() {
+		return organizationType;
+	}
+
+	public void setOrganizationType(OrganizationType organizationType) {
+		this.organizationType = organizationType;
+	}
+
+	public String getOrganizationTypeOther() {
+		return organizationTypeOther;
+	}
+
+	public void setOrganizationTypeOther(String organizationTypeOther) {
+		this.organizationTypeOther = organizationTypeOther;
+	}
 	
 	
 }

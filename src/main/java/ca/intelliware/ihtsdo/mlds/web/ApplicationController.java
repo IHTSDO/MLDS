@@ -19,13 +19,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateSubType;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
+import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
+import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
@@ -52,6 +57,10 @@ public class ApplicationController {
 	ApplicationAuditEvents applicationAuditEvents;
 	@Resource
 	ApplicationAuthorizationChecker authorizationChecker;
+	@Resource
+	CountryRepository countryRepository;
+	@Resource
+	AffiliateDetailsRepository affiliateDetailsRepository;
 
 	@RequestMapping(value="api/applications")
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
@@ -83,7 +92,7 @@ public class ApplicationController {
 		applicationRepository.save(application);
 		
 		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
-			User user = userRepository.getUserByEmail(application.getEmail());
+			User user = userRepository.getUserByEmail(application.getAffiliateDetails().getEmail());
 			applicationApprovedEmailSender.sendApplicationApprovalEmail(user);
 		}
 		
@@ -155,8 +164,8 @@ public class ApplicationController {
 			produces = "application/json")
 	@RolesAllowed({AuthoritiesConstants.USER})
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
-		Application application = applicationRepository.findOne(applicationId);
-		
+		Application application = findOrStartInitialApplication();
+        application = saveApplicationFields(request,application);
 		authorizationChecker.checkCanAccessApplication(application);
 		
 		// Mark application as submitted
@@ -237,37 +246,23 @@ public class ApplicationController {
         JsonNode address = request.get("address");
         JsonNode billing = request.get("billing");
 
-		
 		application.setUsername(sessionService.getUsernameOrNull());
-		application.setType(AffiliateType.valueOf(request.get("type").asText()));
-		application.setSubType(AffiliateSubType.valueOf(request.get("usageSubType").asText()));
 		
-		application.setName(setField(contact, "name"));
-		application.setPhoneNumber(setField(contact, "phone"));
-		application.setMobileNumber(setField(contact, "mobilePhone"));
-		application.setEmail(setField(contact, "email"));
+		if (checkIfValidField(request, "type")){
+			application.setType(AffiliateType.valueOf(getStringField(request, "type")));
+		}
+		if (checkIfValidField(request, "usageSubType")) {
+			application.setSubType(AffiliateSubType.valueOf(getStringField(request, "usageSubType")));
+		}
 		
-		application.setAddress(setField(address, "street"));
-		application.setCity(setField(address, "city"));
-		application.setPostCode(setField(address, "postCode"));
-		application.setCountry(setField(address, "country"));
+		AffiliateDetails affiliateDetails = application.getAffiliateDetails();
+		createAffiliateDetails(organization, contact, address, billing, affiliateDetails);
+		affiliateDetailsRepository.save(affiliateDetails);
+		application.setAffiliateDetails(affiliateDetails);
 		
-		application.setExtension(setField(contact, "extension"));
-		application.setAlternateEmail(setField(contact, "alternateEmail"));
-		application.setThirdEmail(setField(contact, "thirdEmail"));
-		
-		application.setOrganizationName(setField(organization, "name"));
-		application.setOrganizationType(setField(organization, "type"));
-		application.setOrganizationTypeOther(setField(organization, "typeOther"));
-		
-		application.setBillingStreet(setField(billing, "street"));
-		application.setBillingCity(setField(billing, "city"));
-		application.setBillingPostCode(setField(billing, "postCode"));
-		application.setBillingCountry(setField(billing, "country"));
-		
-		application.setOtherText(setField(request, "otherText"));
+		application.setOtherText(getStringField(request, "otherText"));
 
-		application.setSnoMedLicence(Boolean.parseBoolean(setField(request, "snoMedTC")));
+		application.setSnoMedLicence(Boolean.parseBoolean(getStringField(request, "snoMedTC")));
 		
 		if (application.getApprovalState() == null) {
 			application.setApprovalState(ApprovalState.NOT_SUBMITTED);
@@ -285,12 +280,58 @@ public class ApplicationController {
 		return application;
 	}
 	
-	private String setField(JsonNode jsonNode, String attribute) {
-		if (jsonNode.get(attribute) != null) {
-			if(jsonNode.get(attribute).asText() != "") {
-				return jsonNode.get(attribute).asText();
-			}
+	private void createAffiliateDetails(JsonNode organization,JsonNode contact, JsonNode address, JsonNode billing, AffiliateDetails affiliateDetails) {
+		if (affiliateDetails == null) {
+			affiliateDetails = new AffiliateDetails();
+		}
+		
+		affiliateDetails.setFirstName(getStringField(contact, "firstName"));
+		affiliateDetails.setLastName(getStringField(contact, "lastName"));
+		affiliateDetails.setLandlineNumber(getStringField(contact, "phone"));
+		affiliateDetails.setLandlineExtension(getStringField(contact, "extension"));
+		affiliateDetails.setMobileNumber(getStringField(contact, "mobilePhone"));
+		affiliateDetails.setEmail(getStringField(contact, "email"));
+		affiliateDetails.setAlternateEmail(getStringField(contact, "alternateEmail"));
+		affiliateDetails.setThirdEmail(getStringField(contact, "thirdEmail"));
+		affiliateDetails.setOrganizationName(getStringField(organization, "name"));
+		affiliateDetails.setOrganizationTypeOther(getStringField(organization, "typeOther"));
+		
+		if (checkIfValidField(organization, "type")) {
+			affiliateDetails.setOrganizationType(OrganizationType.valueOf(getStringField(organization, "type")));
+		}
+		
+		MailingAddress mailingAddress = new MailingAddress();
+		
+		mailingAddress.setStreet(getStringField(address, "street"));
+		mailingAddress.setCity(getStringField(address, "city"));
+		mailingAddress.setPost(getStringField(address, "postCode"));
+		mailingAddress.setCountry(countryRepository.findOne(getStringField(address, "country")));
+		
+		affiliateDetails.setAddress(mailingAddress);
+		
+		MailingAddress billingAddress = new MailingAddress();
+		
+		billingAddress.setStreet(getStringField(billing, "street"));
+		billingAddress.setCity(getStringField(billing, "city"));
+		billingAddress.setPost(getStringField(billing, "postCode"));
+		billingAddress.setCountry(countryRepository.findOne(getStringField(billing, "country")));
+		
+		affiliateDetails.setBillingAddress(billingAddress);
+	}
+	
+	private String getStringField(JsonNode jsonNode, String attribute) {
+		if (checkIfValidField(jsonNode, attribute)) {
+			return jsonNode.get(attribute).asText();
 		}
 		return new String();
+	}
+	
+	private Boolean checkIfValidField(JsonNode jsonNode, String attribute) {
+		if (jsonNode.get(attribute) != null) {
+			if(jsonNode.get(attribute).asText() != "" && jsonNode.get(attribute).asText() != "null") {
+				return true;
+			}
+		}
+		return false;
 	}
 }
