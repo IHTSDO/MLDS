@@ -305,7 +305,7 @@ public class ApplicationController {
 		mailingAddress.setStreet(getStringField(address, "street"));
 		mailingAddress.setCity(getStringField(address, "city"));
 		mailingAddress.setPost(getStringField(address, "postCode"));
-		mailingAddress.setCountry(countryRepository.findOne(getStringField(address, "country")));
+		mailingAddress.setCountry(countryRepository.findByCommonName(getStringField(address, "country")));
 		
 		affiliateDetails.setAddress(mailingAddress);
 		
