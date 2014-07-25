@@ -286,9 +286,9 @@ public class ApplicationController {
 		
 		affiliateDetails.setFirstName(getStringField(affiliateDetailsJsonNode, "firstName"));
 		affiliateDetails.setLastName(getStringField(affiliateDetailsJsonNode, "lastName"));
-		affiliateDetails.setLandlineNumber(getStringField(affiliateDetailsJsonNode, "phone"));
-		affiliateDetails.setLandlineExtension(getStringField(affiliateDetailsJsonNode, "extension"));
-		affiliateDetails.setMobileNumber(getStringField(affiliateDetailsJsonNode, "mobilePhone"));
+		affiliateDetails.setLandlineNumber(getStringField(affiliateDetailsJsonNode, "landlineNumber"));
+		affiliateDetails.setLandlineExtension(getStringField(affiliateDetailsJsonNode, "landlineExtension"));
+		affiliateDetails.setMobileNumber(getStringField(affiliateDetailsJsonNode, "mobileNumber"));
 		affiliateDetails.setEmail(getStringField(affiliateDetailsJsonNode, "email"));
 		affiliateDetails.setAlternateEmail(getStringField(affiliateDetailsJsonNode, "alternateEmail"));
 		affiliateDetails.setThirdEmail(getStringField(affiliateDetailsJsonNode, "thirdEmail"));
@@ -304,7 +304,11 @@ public class ApplicationController {
 		mailingAddress.setStreet(getStringField(address, "street"));
 		mailingAddress.setCity(getStringField(address, "city"));
 		mailingAddress.setPost(getStringField(address, "post"));
-		mailingAddress.setCountry(countryRepository.findByCommonName(getStringField(address, "country")).get(0));
+		JsonNode country = address.get("country");
+		if (checkIfValidField(country, "isoCode2")) {
+			mailingAddress.setCountry(countryRepository.findOne(getStringField(country, "isoCode2")));
+		}
+		
 		
 		affiliateDetails.setAddress(mailingAddress);
 		
@@ -313,7 +317,10 @@ public class ApplicationController {
 		billingAddress.setStreet(getStringField(billing, "street"));
 		billingAddress.setCity(getStringField(billing, "city"));
 		billingAddress.setPost(getStringField(billing, "post"));
-		billingAddress.setCountry(countryRepository.findByCommonName(getStringField(billing, "country")).get(0));
+		country = billing.get("country");
+		if (checkIfValidField(country, "isoCode2")) {
+			billingAddress.setCountry(countryRepository.findOne(getStringField(country, "isoCode2")));
+		}
 		
 		affiliateDetails.setBillingAddress(billingAddress);
 	}
