@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
@@ -28,7 +28,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
-import ca.intelliware.ihtsdo.mlds.web.rest.AuthorizationChecker;
+import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationAuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -50,7 +50,7 @@ public class ApplicationController {
 	@Resource
 	ApplicationAuditEvents applicationAuditEvents;
 	@Resource
-	AuthorizationChecker authorizationChecker;
+	ApplicationAuthorizationChecker authorizationChecker;
 
 	@RequestMapping(value="api/applications")
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
