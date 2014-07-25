@@ -32,15 +32,15 @@ import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringWebContext;
 
+import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
 import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.registration.Application;
-import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
+import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
@@ -152,7 +152,7 @@ public class AccountResource {
         	application.setName(userDTO.getFirstName() + " " + userDTO.getLastName());
         	application.setEmail(userDTO.getEmail());
         	//set a default type for application to create affiliate and usagelog
-        	application.setType(AffiliateType.COMMERCIAL.toString());
+        	application.setType(AffiliateType.COMMERCIAL);
         	// FIXME MLDS-234 MB how are we storing country here?
         	application.setCountry(userDTO.getCountry().getCommonName());
         	affiliate.setCreator(userDTO.getLogin());

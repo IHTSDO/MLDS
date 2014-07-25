@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.registration;
+package ca.intelliware.ihtsdo.mlds.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,12 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.joda.time.Instant;
-
-import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
-import ca.intelliware.ihtsdo.mlds.domain.BaseEntity;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 
 @Entity
 public class Application extends BaseEntity {
@@ -24,13 +21,21 @@ public class Application extends BaseEntity {
 	
 	String username;
 	
-	String type;
+	@Enumerated(EnumType.STRING)
+	AffiliateType type;
+	
+	@Enumerated(EnumType.STRING)
 	@Column(name="subtype")
-	String subType;
+	AffiliateSubType subType;
 	
 	@Column(name="full_name")
 	String name;
 	
+	@OneToOne()
+	@JoinColumn(name="affiliate_details_id")
+	AffiliateDetails affiliateDetails;
+	
+	//TODO: removing these
 	String email;
 	@Column(name="alternate_email")
 	String alternateEmail;
@@ -42,27 +47,23 @@ public class Application extends BaseEntity {
 	String landlineExtension;
 	@Column(name="mobile_number")
 	String mobileNumber;
-	
 	@Column(name="organization_name")
 	String organizationName;
 	@Column(name="organization_type")
 	String organizationType;
 	@Column(name="organization_type_other")
 	String organizationTypeOther;
-	
 	String street;
 	String city;
 	@Column(name="post_code")
 	String postCode;
 	String country;
-	
 	@Column(name="billing_street")
 	String billingStreet;
-	@Column(name="billing_city")
+	@Column(name="billing_city")	
 	String billingCity;
 	@Column(name="billing_post_code")
 	String billingPostCode;
-
 	@Column(name="billing_country")
 	String billingCountry;
 	
@@ -99,11 +100,11 @@ public class Application extends BaseEntity {
 		this.applicationId = applicationId;
 	}
 	
-	public String getSubType() {
+	public AffiliateSubType getSubType() {
 		return subType;
 	}
 
-	public void setSubType(String subType) {
+	public void setSubType(AffiliateSubType subType) {
 		this.subType = subType;
 	}
 
@@ -115,11 +116,11 @@ public class Application extends BaseEntity {
 		this.username = username;
 	}
 
-	public String getType() {
+	public AffiliateType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(AffiliateType type) {
 		this.type = type;
 	}
 

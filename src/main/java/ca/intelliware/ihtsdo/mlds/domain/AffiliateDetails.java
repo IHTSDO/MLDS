@@ -7,6 +7,8 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -35,6 +37,20 @@ public class AffiliateDetails extends BaseEntity {
 	
 	@Column(name="third_email")
 	String thirdEmail;
+	
+	@Column(name="landline_number")
+	String landlineNumber;
+	@Column(name="landline_extension")
+	String landlineExtension;
+	@Column(name="mobile_number")
+	String mobileNumber;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="organization_type")
+	OrganizationType organizationType;
+	
+	@Column(name="organization_type_other")
+	String organizationTypeOther;
 	
 	@AttributeOverrides({
 		@AttributeOverride(name="street", column=@Column(name="street")),

@@ -19,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateSubType;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
+import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.registration.Application;
-import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
+import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
@@ -182,7 +183,7 @@ public class ApplicationController {
 		}
 		affiliate.setCreator(application.getUsername());
 		affiliate.setApplication(application);
-		affiliate.setType(AffiliateType.valueOf(application.getType()));
+		affiliate.setType(application.getType());
 		affiliateRepository.save(affiliate);
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
@@ -238,8 +239,8 @@ public class ApplicationController {
 
 		
 		application.setUsername(sessionService.getUsernameOrNull());
-		application.setType(setField(request, "type"));
-		application.setSubType(setField(request, "usageSubType"));
+		application.setType(AffiliateType.valueOf(request.get("type").asText()));
+		application.setSubType(AffiliateSubType.valueOf(request.get("usageSubType").asText()));
 		
 		application.setName(setField(contact, "name"));
 		application.setPhoneNumber(setField(contact, "phone"));
