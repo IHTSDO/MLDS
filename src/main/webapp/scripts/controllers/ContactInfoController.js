@@ -1,9 +1,11 @@
 'use strict';
 
-angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', 'Account', 'AffiliateService', 'CountryService',
-    function ($scope, $log, Account, AffiliateService, CountryService) {
+angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$timeout', 'Account', 'AffiliateService', 'CountryService',
+    function ($scope, $log, $timeout, Account, AffiliateService, CountryService) {
         $scope.success = null;
         $scope.error = null;
+    	$scope.submitting = false;
+    	$scope.alerts = [];
         $scope.settingsAccount = Account.get();
         $scope.availableCountries = CountryService.countries;
         
@@ -64,6 +66,17 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', 'A
         loadAffiliate();
         
         $scope.save = function () {
+    		$scope.submitting = true;
+    		$scope.alerts.splice(0, $scope.alerts.length);
+
+    		//FIXME implemented
+    		$timeout(function() {
+    			$scope.alerts.push({type: 'danger', msg: 'FIXME NOT YET IMPLEMENTED, please try again later.'});
+    			$scope.submitting = false;
+    			
+    		}, 300);
+
+			/*
             Account.save($scope.settingsAccount,
                 function (value, responseHeaders) {
                     $scope.error = null;
@@ -74,6 +87,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', 'A
                     $scope.success = null;
                     $scope.error = "ERROR";
                 });
+                */
         };
         
         
