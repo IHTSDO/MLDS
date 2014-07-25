@@ -266,7 +266,10 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.country" ng-change="copyAddress()" name="country" required="" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.country" 
+                    ng-change="copyAddress()" name="country" required="" placeholder="Country" 
+                    typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
+                    auto-submit>
                     <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -317,7 +320,9 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry" 
+                    ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Country"
+                    typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
                     <p ng-show="affiliateApplicationForm.billingCountry.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
