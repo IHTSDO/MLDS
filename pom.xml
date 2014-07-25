@@ -441,12 +441,6 @@
 			<artifactId>liquibase-slf4j</artifactId>
 			<version>${liquibase-slf4j.version}</version>
 		</dependency>
-	    <dependency>
-	    	<groupId>ca.intelliware.commons</groupId>
-	    	<artifactId>j5goodies</artifactId>
-	    	<version>1.17</version>
-	    </dependency>
-
 	</dependencies>
 	<build>
 		<finalName>ihtsdo-mlds</finalName>
