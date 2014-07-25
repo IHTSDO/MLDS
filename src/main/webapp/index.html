@@ -63,7 +63,7 @@
             </ul></li>
           <li ng-switch-when="false"><a href="#/login"> <span translate="global.menu.account.login">Login</span></a></li>
           <li ng-switch-when="true"><a href="#/logout"> <span translate="global.menu.account.logout">Log out</span></a></li>
-          <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer" ng-controller="AdminController"><a class="dropdown-toggle" data-toggle="dropdown"
+          <li ng-switch-when="true" ng-show="isAuthorized(userRoles.staffOrAdmin)" class="dropdown pointer" ng-controller="AdminController"><a class="dropdown-toggle" data-toggle="dropdown"
             href="javascript:;"
           > <span> <span class="hidden-tablet" translate="global.menu.admin">Admin</span> <b class="caret"></b>
             </span>

@@ -19,6 +19,12 @@ public class Member {
     @Column(name="created_at")
     Instant createdAt = Instant.now();
     
+	public Member() {}
+	
+	public Member(String key) {
+		this.key = key;
+	}
+
 	public Long getMemberId() {
 		return memberId;
 	}

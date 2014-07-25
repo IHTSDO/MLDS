@@ -1,90 +1,325 @@
-<div class="row">
-    <div class="container">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 login">
-            <h2 translate="settings.title" translate-values="{username: '{{account.login}}'}">Contact Info for <b>{{settingsAccount.login}}</b>]</h2>
+<form id="form" name="form" role="form" novalidate ng-submit="save()" bs-validation="">
 
+	  <div class="row space">
+	  <div class="col-sm-12 col-md-12 col-lg-12">
+            
             <div class="alert alert-success" ng-show="success" translate="settings.messages.success">
                 <strong>Settings saved!</strong>
             </div>
-            <div class="alert alert-danger" ng-show="error" translate="settings.messages.error">
-                <strong>An error has occured!</strong> Settings could not be saved.
+              <alert ng-repeat="alert in alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+		</div>
+	  </div>
+            
+	<div class="row">
+    <div class="col-sx-12 col-md-12">
+    
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a ng-click="collapsePanel.contact = !collapsePanel.contact">Contact Information</a>
+            </h4>
+          </div>
+          <div id="collapseIndividual" collapse="collapsePanel.contact" class="panel-collapse collapse in">
+            <div class="panel-body">
+                          <div class="row">
+                <div class="col-md-6">
+            
+                <div class="form-group">
+                    <label>First Name</label> <input class="form-control" placeholder="John" required="" name="firstName" ng-model="affiliateDetails.firstName" >
+                    <p ng-show="form.firstName.$error.required && form.attempted" class="help-block">
+                      Required field.
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label> <input class="form-control" placeholder="Last" required="" name="lastName" ng-model="affiliateDetails.lastName" >
+                    <p ng-show="form.lastName.$error.required && form.attempted" class="help-block">
+                      Required field.
+                    </p>
+                </div>
+                </div>
+                </div>
+                
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Email</label> 
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" required="" name="email" ng-model="affiliateDetails.email"  unique="{{[form.alternateEmail, form.thirdEmail]}}">
+                    <div ng-show="form.attempted">
+                      <p ng-show="form.email.$error.required" class="help-block">
+                        Required field.
+                      </p>
+                      <p ng-show="!form.email.$error.required && form.email.$error.notUnique" class="help-block">
+                        Email Addresses need to be unique.
+                      </p>
+                      <p ng-show="!form.email.$error.required && form.email.$error.email" class="help-block">
+                        Invalid Email Address.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Landline Phone Number</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <input class="form-control" type="tel" required="" name="contactPhone" ng-model="affiliateDetails.landlineNumber" >
+                    <div ng-show="form.attempted">
+                      <p ng-show="form.landlineNumber.$error.required" class="help-block">
+                        Required field.
+                      </p>
+                      <p ng-show="!form.landlineNumber.$error.required && form.landlineNumber.$invalid" class="help-block">
+                        Invalid Phone Number.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <input class="form-control col-md-2" placeholder="Extension" ng-model="affiliateDetails.landlineExtension" >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Mobile Phone Number</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input class="form-control" type="tel" name="mobileNumber" ng-required="type!='INDIVIDUAL'" ng-model="affiliateDetails.mobileNumber" >
+                    <div ng-show="form.attempted">
+                      <p ng-show="form.mobileNumber.$error.required" class="help-block">
+                        Required field.
+                      </p>
+                      <p ng-show="!form.mobileNumber.$error.required && form.mobileNumber.$invalid" class="help-block">
+                        Invalid Phone Number.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div ng-show="type=='INDIVIDUAL'">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Address</label> <input class="form-control" name="addressStreet" placeholder="123 Somewhere Avenue" ng-required="type=='INDIVIDUAL'" ng-model="affiliateDetails.address.street" >
+                      <p ng-show="form.addressStreet.$error.required && form.attempted" class="help-block">
+                        Required field.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input class="form-control" name="addressCity" placeholder="City" ng-required="type=='INDIVIDUAL'" ng-model="affiliateDetails.address.city" >
+                      <p ng-show="form.addressCity.$error.required && form.attempted" class="help-block">
+                        Required field.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input class="form-control" type="text" ng-model="affiliateDetails.address.post" name="addressPost" ng-required="type=='INDIVIDUAL'" placeholder="Post Code" >
+                      <p ng-show="form.addresPost.$error.required && form.attempted" class="help-block">
+                        Required field.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input class="form-control" type="text" ng-model="affiliateDetails.address.country" name="countryIndividual" ng-required="type=='INDIVIDUAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
+                      <p ng-show="form.countryIndividual.$error.required && form.attempted" class="help-block">
+                        Required field.
+                      </p>
+						<p ng-show="form.countryIndividual.$error.excluded" class="help-block">
+							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
+						</p>
+                     </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <form name="form" role="form" novalidate
-                  class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
-                  ng-submit="save()" bs-validate>
-
-                <div class="form-group">
-                    <label translate="settings.form.firstname">First Name</label>
-                    <input type="text" class="form-control" name="firstName" placeholder="{{'settings.form.firstname.placeholder' | translate}}"
-                           ng-model="settingsAccount.firstName" ng-minlength=1 ng-maxlength=50 required>
-                    <div class="error"
-                         ng-show="form.firstName.$dirty && form.firstName.$invalid">
-                        <small class="error"
-                               ng-show="form.firstName.$error.required" translate="settings.messages.validate.firstname.required">
-                            Your first name is required.
-                        </small>
-                        <small class="error"
-                               ng-show="form.firstName.$error.minlength" translate="settings.messages.validate.firstname.minlength">
-                            Your first name is required to be at least 1 character
-                        </small>
-                        <small class="error"
-                               ng-show="form.firstName.$error.maxlength" translate="settings.messages.validate.firstname.maxlength">
-                            Your first name cannot be longer than 50 characters
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label translate="settings.form.lastname">Last Name</label>
-                    <input type="text" class="form-control" name="lastName" placeholder="{{'settings.form.lastname.placeholder' | translate}}"
-                           ng-model="settingsAccount.lastName" ng-minlength=1 ng-maxlength=50 required>
-                    <div class="error"
-                         ng-show="form.lastName.$dirty && form.lastName.$invalid">
-                        <small class="error"
-                               ng-show="form.lastName.$error.required" translate="settings.messages.validate.lastname.required">
-                            Your last name is required.
-                        </small>
-                        <small class="error"
-                               ng-show="form.lastName.$error.minlength" translate="settings.messages.validate.lastname.minlength">
-                            Your last name is required to be at least 1 character
-                        </small>
-                        <small class="error"
-                               ng-show="form.lastName.$error.maxlength" translate="settings.messages.validate.lastname.maxlength">
-                            Your last name cannot be longer than 50 characters
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label translate="global.form.email">E-mail</label>
-                    <input type="email" class="form-control" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
-                           ng-model="settingsAccount.email" ng-minlength=5 ng-maxlength=100 required>
-                    <div class="error"
-                         ng-show="form.email.$dirty && form.email.$invalid">
-                        <small class="error"
-                               ng-show="form.email.$error.required" translate="global.messages.validate.email.required">
-                            Your e-mail is required.
-                        </small>
-                        <small class="error"
-                               ng-show="form.email.$error.email" translate="global.messages.validate.email.invalid">
-                            Your e-mail is invalid.
-                        </small>
-                        <small class="error"
-                               ng-show="form.email.$error.minlength" translate="global.messages.validate.email.minlength">
-                            Your e-mail is required to be at least 5 characters
-                        </small>
-                        <small class="error"
-                               ng-show="form.email.$error.maxlength" translate="global.messages.validate.email.maxlength">
-                            Your e-mail cannot be longer than 100 characters
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="settings.form.button">Save</button>
-                </div>
-            </form>
+          </div>
         </div>
-        <div class="col-md-2"></div>
-    </div>
 
-</div>
+
+
+		<div class="panel panel-default" ng-show="type && type!='INDIVIDUAL'">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a ng-click="collapsePanel.Organization = !collapsePanel.Organization">Organization</a>
+            </h4>
+          </div>
+          <div id="collapsePanel.Organization" class="panel-collapse collapse in" ng-show="!collapsePanel.Organization">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Organization Name</label> <input class="form-control" name="organizationName" placeholder="Organization Name" ng-required="type!='INDIVIDUAL'" ng-model="affiliateDetails.organizationName" >
+                    <p class="help-block" ng-show="form.organizationName.$error.required && form.attempted">
+                      Required field.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Exclude organization type  -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Address</label> <input class="form-control" name="addressStreet" placeholder="123 Somewhere Avenue" ng-change="copyAddress()" required="" ng-model="affiliateDetails.address.street" >
+                    <p ng-show="form.addressStreet.$error.required && form.attempted" class="help-block">
+                      Required field.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <input class="form-control" name="addressCity" placeholder="City" required="" ng-model="affiliateDetails.address.city" ng-change="copyAddress()" >
+                    <p ng-show="form.addressCity.$error.required && form.attempted" class="help-block">
+                      Required field.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <input class="form-control" type="text" ng-model="affiliateDetails.address.post" ng-change="copyAddress()" name="addressPost" ng-required="type=='COMMERCIAL'" placeholder="Post Code" >
+                    <p ng-show="form.addressPost.$error.required && form.attempted" class="help-block">
+                      Required field.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input class="form-control" type="text" ng-model="affiliateDetails.address.country" ng-change="copyAddress()" name="addressCountry" required="" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
+                    <p ng-show="form.addressCountry.$error.required && form.attempted" class="help-block">
+                      Required field.
+                    </p>
+						<p ng-show="form.addressCountry.$error.excluded" class="help-block">
+							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
+						</p>
+                  </div>
+                </div>
+              </div>
+                <hr>
+					<div ng-show="type=='COMMERCIAL'">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Use Organization Address as Billing Address</label> <input name="use" type="checkbox" ng-change="copyAddress()" ng-model="isSameAddress">
+                  </div>
+                </div>
+              </div>
+         
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Billing Address</label> <input class="form-control" name="billingAddressStreet" placeholder="Address" ng-disabled="isSameAddress" ng-required="type=='COMMERCIAL'" ng-model="affiliateDetails.billingAddress.street" >
+                    <p ng-show="form.billingAddressStreet.$error.required && form.attempted" class="help-block">
+                      Required field.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <input class="form-control" name="billingAddressCity" placeholder="City" ng-disabled="isSameAddress" ng-required="type=='COMMERCIAL'" ng-model="affiliateDetails.billingAddress.city" >
+                    <p ng-show="form.billingAddressCity.$error.required && form.attempted" class="help-block">
+                      Required field.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <input class="form-control" type="text" ng-model="affiliateDetails.billingAddress.post" name="billingAddressPost" ng-disabled="isSameAddress" ng-required="type=='COMMERCIAL'" placeholder="Post Code" >
+                    <p ng-show="form.billingAddressPost.$error.required && form.attempted" class="help-block">
+                      Required field.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input class="form-control" type="text" ng-model="affiliateDetails.billingAddress.country" name="billingAddressCountry" ng-disabled="isSameAddress" ng-required="type=='COMMERCIAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
+                    <p ng-show="form.billingAddressCountry.$error.required && form.attempted" class="help-block">
+                      Required field.
+                    </p>
+                  </div>
+                </div>
+              </div>
+					</div> <!-- End Billing Fields -->              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Alternate Email</label> 
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="type!='INDIVIDUAL'" name="alternateEmail" ng-model="affiliateDetails.alternateEmail"  unique="{{[form.email, form.thirdEmail]}}">
+                    <div ng-show="form.attempted">
+                      <p ng-show="form.alternateEmail.$error.required" class="help-block">
+                        Required field.
+                      </p>
+                      <p ng-show="!form.alternateEmail.$error.required && form.alternateEmail.$error.notUnique" class="help-block">
+                        Email Addresses need to be unique.
+                      </p>
+                      <p ng-show="!form.alternateEmail.$error.required && form.alternateEmail.$error.email" class="help-block">
+                        Invalid Email Address.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" ng-show="type=='COMMERCIAL'">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Third Email</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="type=='COMMERCIAL'" name="thirdEmail" ng-model="affiliateDetails.thirdEmail"  unique="{{[form.email, form.alternateEmail]}}">
+                    <div ng-show="form.attempted">
+                      <p ng-show="form.thirdEmail.$error.required" class="help-block">
+                        Required field.
+                      </p>
+                       <p ng-show="!form.thirdEmail.$error.required && form.thirdEmail.$error.notUnique" class="help-block">
+                        Email Addresses need to be unique.
+                      </p>
+                      <p ng-show="!form.thirdEmail.$error.required && form.thirdEmail.$error.email" class="help-block">
+                        Invalid Email Address.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Ignore Other -->
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+        
+               <div class="form-group">
+               <div>
+                <button type="submit" class="btn btn-primary">
+                	Save
+                	<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+                </button>
+                <button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+                </div>
+                
+                      <div ng-show="form.attempted" class="has-error">
+							<p ng-show="form.$invalid" class="help-block">Please fix the errors listed above.</p>
+						</div>
+                
+               </div>
+
+</form>

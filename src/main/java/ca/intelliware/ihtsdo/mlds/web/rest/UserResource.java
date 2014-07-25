@@ -33,7 +33,7 @@ public class UserResource {
     @RequestMapping(value = "/rest/users",
     		method = RequestMethod.GET,
     		produces = "application/json")
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody Iterable<User> getUsers() {
     	log.debug("Rest request to get all Users");
     	return userRepository.findAll();
@@ -46,7 +46,7 @@ public class UserResource {
             method = RequestMethod.GET,
             produces = "application/json")
     @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public User getUser(@PathVariable String login, HttpServletResponse response) {
         log.debug("REST request to get User : {}", login);
         User user = userRepository.findOne(login);
