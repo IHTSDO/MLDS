@@ -6128,6 +6128,31 @@ button.close {
   position: relative;
   z-index: 999;
 }
+.navbar[role=admin] {
+  background-color: #eeeeee;
+  border-bottom: 3px solid #04add8;
+}
+.navbar[role=admin] .navbar-brand {
+  color: #384042;
+}
+.sidebar {
+  position: fixed;
+  top: 70px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 1000;
+  display: block;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #384042;
+  border-right: 1px solid #EEE;
+}
+.nav-sidebar {
+  margin-bottom: 20px;
+  margin-left: -20px;
+  margin-right: -21px;
+}
 footer {
   background-color: #4372aa;
   color: #ffffff;

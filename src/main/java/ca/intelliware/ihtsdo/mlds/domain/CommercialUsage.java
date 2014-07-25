@@ -23,7 +23,6 @@ import org.joda.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
 
-// FIXME MB we need an equals.  Can we put that in a base?
 @Entity
 @Table(name="commercial_usage")
 public class CommercialUsage extends BaseEntity {
