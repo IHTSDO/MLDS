@@ -14,35 +14,36 @@
 	<div class="col-lg-12">
 		<button class="btn btn-success" ng-click="addReleaseVersion()"><i class="fa fa-plus"></i> Add New Version</button>
 	</div>
-	<div class="col-lg-10">
-		<h3>Online Versions</h3>
-		<div class="panel panel-default" ng-repeat="releaseVersion in versions.online">
-			<div class="panel-heading">
-				<div class="dropdown pull-right">
-					<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
-						<li><a ng-click="takeOfflineModal(releaseVersion)"><i class="fa fa-times-circle-o"></i> Take Offline</a></li>
-					</ul>
-				</div>
-				<h3 class="panel-title">{{releaseVersion.name}}</h3>
-			</div>
-			<div class="panel-body">
-				<p>{{releaseVersion.description}}</p>
-			</div>
-			<div class="panel-footer">
-				<p><strong>Published On:</strong> {{releaseVersion.publishedAt | date:'medium'}}</p>
-				<p class="download-files" ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
-			</div>
-		</div>
 
-	<div class="clearfix">
+		<div class="col-lg-10">
+			<h3>Online Versions</h3>
+			<div class="panel panel-default" ng-repeat="releaseVersion in versions.online">
+				<div class="panel-heading">
+					<div class="dropdown pull-right">
+						<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
+							<li><a ng-click="takeOfflineModal(releaseVersion)"><i class="fa fa-times-circle-o"></i> Take Offline</a></li>
+						</ul>
+					</div>
+					<h3 class="panel-title">{{releaseVersion.name}}</h3>
+				</div>
+				<div class="panel-body">
+					<p>{{releaseVersion.description}}</p>
+				</div>
+				<div class="panel-footer">
+					<p><strong>Published On:</strong> {{releaseVersion.publishedAt | date:'medium'}}</p>
+					<p class="download-files" ng-repeat="packageFile in releaseVersion.releaseFiles"><a href="{{packageFile.downloadUrl}}">{{packageFile.label}}</a></p>
+				</div>
+			</div>
+
+	<div class="col-lg-10">
 		<div class="alert alert-warning" ng-show="versions.online.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no online version of this package.</div>
 	</div>
 
-	<div class="clearfix">
+	<div class="col-lg-10">
 		<h3>Offline Versions</h3>
 		<div class="panel panel-info" ng-repeat="releaseVersion in versions.offline">
 			<div class="panel-heading">
