@@ -327,6 +327,15 @@
 				"OTHER": "Other",
 				"INDIVIDUAL": "Individual"
     	},
+    	"subType": {
+    		"DEVELOPER": "Developer",
+        "DEVELOPMENT": "Development",
+        "EDUCATIONAL": "Educational",
+        "HEALTHCAREPROVIDER": "Healthcare Provider",
+        "PERSONAL": "Personal",
+       	"RESEARCH": "Research",
+        "VENDOR": "Vendor"
+    	},
     	"agreementType": {
     		"AFFILIATE_NORMAL": "Affiliate - Normal",
 			"AFFILIATE_RESEARCH": "Affiliate - Research",

@@ -808,10 +808,8 @@
 		<addColumn tableName="affiliate_details">
 			<column name="organization_type_other" type="VARCHAR(255)"></column>
 		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="affiliate_details_id" type="INT8">
-				<constraints nullable="false"/>
-			</column>
+		<addColumn tableName="application">
+			<column name="affiliate_details_id" type="INT8"></column>
 		</addColumn>
 	</changeSet>
 	
