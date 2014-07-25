@@ -66,10 +66,18 @@
           <div id="collapseIndividual" collapse="collapsePanel.contact" class="panel-collapse collapse in">
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                   <div class="form-group">
-                    <label>Full Name</label> <input class="form-control" placeholder="John Smith" required="" name="contactName" ng-model="affiliateform.contact.name" auto-submit>
-                    <p ng-show="affiliateApplicationForm.contactName.$error.required && affiliateApplicationForm.attempted" class="help-block">
+                    <label>First Name</label> <input class="form-control" placeholder="John" required="" name="contactFirstName" ng-model="affiliateform.contact.firstName" auto-submit>
+                    <p ng-show="affiliateApplicationForm.contactFirstName.$error.required && affiliateApplicationForm.attempted" class="help-block">
+                      Required field.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Last Name</label> <input class="form-control" placeholder="Smith" required="" name="contactLastName" ng-model="affiliateform.contact.lastName" auto-submit>
+                    <p ng-show="affiliateApplicationForm.contactLastName.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
                   </div>
@@ -102,7 +110,7 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <input class="form-control" type="tel" required="" name="contactPhone" ng-model="affiliateform.contact.phone" auto-submit>
+                    <input class="form-control" type="tel" required="" name="contactPhone" ng-model="affiliateform.contact.landlineNumber" auto-submit>
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.contactPhone.$error.required" class="help-block">
                         Required field.
@@ -115,7 +123,7 @@
                 </div>
                 <div class="col-md-2">
                   <div class="form-group">
-                    <input class="form-control col-md-2" placeholder="Extension" ng-model="affiliateform.contact.extension" auto-submit>
+                    <input class="form-control col-md-2" placeholder="Extension" ng-model="affiliateform.contact.landlineExtension" auto-submit>
                   </div>
                 </div>
               </div>
@@ -127,7 +135,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="tel" name="mobilePhone" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.contact.mobilePhone" auto-submit>
+                    <input class="form-control" type="tel" name="mobilePhone" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.contact.mobileNumber" auto-submit>
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.mobilePhone.$error.required" class="help-block">
                         Required field.
@@ -161,7 +169,7 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateform.address.postCode" name="postCode" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Post Code" auto-submit>
+                      <input class="form-control" type="text" ng-model="affiliateform.address.post" name="postCode" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Post Code" auto-submit>
                       <p ng-show="affiliateApplicationForm.postCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
                         Required field.
                       </p>
@@ -248,7 +256,7 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.address.postCode" ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.address.post" ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
                     <p ng-show="affiliateApplicationForm.postCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
@@ -299,7 +307,7 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.billing.postCode" name="billingPostCode" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.billing.post" name="billingPostCode" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
                     <p ng-show="affiliateApplicationForm.billingPostCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
                     </p>
