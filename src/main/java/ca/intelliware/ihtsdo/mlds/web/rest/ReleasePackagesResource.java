@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
@@ -45,13 +46,16 @@ public class ReleasePackagesResource {
 	ReleaseFileRepository releaseFileRepository;
 
 	@Resource
-	AuthorizationChecker authorizationChecker;
+	ReleasePackageAuthorizationChecker authorizationChecker;
 	
 	@Resource
 	CurrentSecurityContext currentSecurityContext;
 
 	@Resource
 	ReleasePackageAuditEvents releasePackageAuditEvents;
+	
+	@Resource
+	EntityManager entityManager;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Packages
@@ -74,7 +78,7 @@ public class ReleasePackagesResource {
 		
 		Collection<ReleasePackage> result = releasePackages;
 		
-		if (!currentSecurityContext.isAdmin()) {
+		if (!authorizationChecker.shouldSeeOfflinePackages()) {
 			result = new ArrayList<>();
 			for(ReleasePackage releasePackage : releasePackages){
 				if(isPackagePublished(releasePackage)) {
@@ -100,7 +104,7 @@ public class ReleasePackagesResource {
             produces = "application/json")
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleasePackage> createReleasePackage(@RequestBody ReleasePackage releasePackage) {
-    	authorizationChecker.checkCanAccessReleasePackages();
+    	authorizationChecker.checkCanCreateReleasePackages();
     	
     	releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
     	
@@ -134,7 +138,7 @@ public class ReleasePackagesResource {
 		ReleasePackage result = releasePackage;
 		Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
 		
-		if (!currentSecurityContext.isAdmin()) {
+		if (!authorizationChecker.shouldSeeOfflinePackages()) {
 			for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
 				if (version.isOnline()) {
 					releaseVersions.add(filterReleaseVersionByAuthority(version));
@@ -147,6 +151,9 @@ public class ReleasePackagesResource {
 	}
 
 	private ReleaseVersion filterReleaseVersionByAuthority(ReleaseVersion version) {
+		// don't accidentaly push these changes back to the db.
+    	entityManager.detach(version);
+
 		ReleaseVersion result = version;
 		
 		// FIX ME AC:Check to see if user's application is approved otherwise hide download links
@@ -167,13 +174,13 @@ public class ReleasePackagesResource {
             produces = "application/json")
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleasePackage> updateReleasePackage(@PathVariable long releasePackageId, @RequestBody ReleasePackage body) {
-    	//FIXME should we check children being consistent?		
-		authorizationChecker.checkCanAccessReleasePackages();
     	
     	ReleasePackage releasePackage = releasePackageRepository.findOne(body.getReleasePackageId());
     	if (releasePackage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	} 
+    	//FIXME should we check children being consistent?		
+    	authorizationChecker.checkCanEditReleasePackage(releasePackage);
     	
     	releasePackage.setName(body.getName());
     	releasePackage.setDescription(body.getDescription());
@@ -188,13 +195,13 @@ public class ReleasePackagesResource {
             produces = "application/json")
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<?> deactivateReleasePackage(@PathVariable long releasePackageId) {
-    	//FIXME should we check children being consistent?		
-		authorizationChecker.checkCanAccessReleasePackages();
     	
     	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
     	if (releasePackage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	} 
+    	}
+    	
+    	authorizationChecker.checkCanEditReleasePackage(releasePackage);
     	
     	for (ReleaseVersion releaseVersion : releasePackage.getReleaseVersions()) {
 			if (releaseVersion.isOnline()) {
@@ -220,16 +227,17 @@ public class ReleasePackagesResource {
 	@Transactional
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseVersion> createReleaseVersion(@PathVariable long releasePackageId, @RequestBody ReleaseVersion releaseVersion) {
-    	authorizationChecker.checkCanAccessReleasePackages();
+		
+		ReleasePackage releasePackage = releasePackageRepository.getOne(releasePackageId);
+		if (releasePackage == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		authorizationChecker.checkCanEditReleasePackage(releasePackage);
     	
     	releaseVersion.setCreatedBy(currentSecurityContext.getCurrentUserName());
 
     	releaseVersionRepository.save(releaseVersion);
     	
-    	ReleasePackage releasePackage = releasePackageRepository.getOne(releasePackageId);
-    	if (releasePackage == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
     	releasePackage.addReleaseVersion(releaseVersion);
 
     	releasePackageAuditEvents.logCreationOf(releaseVersion);
@@ -245,12 +253,14 @@ public class ReleasePackagesResource {
 	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseVersion> getReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
     	//FIXME should we check children being consistent?
-		authorizationChecker.checkCanAccessReleasePackages();
     	
     	ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
     	if (releaseVersion == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	} 
+    	}
+    	
+    	authorizationChecker.checkCanAccessReleaseVersion(releaseVersion);
+    	releaseVersion = filterReleaseVersionByAuthority(releaseVersion);
     	
     	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
     }
@@ -261,13 +271,13 @@ public class ReleasePackagesResource {
 	@Transactional
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseVersion> updateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseVersion body) {
-    	//FIXME should we check children being consistent?		
-		authorizationChecker.checkCanAccessReleasePackages();
     	
 		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
     	if (releaseVersion == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+    	
+    	authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
     	
     	boolean preOnline = releaseVersion.isOnline();
     	
@@ -293,12 +303,13 @@ public class ReleasePackagesResource {
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	public @ResponseBody
 	ResponseEntity<?> deactivateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
-		authorizationChecker.checkCanAccessReleasePackages();
 
 		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
 		if (releaseVersion == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		
+		authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
 
 		if (releaseVersion.isOnline()) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -321,13 +332,14 @@ public class ReleasePackagesResource {
             produces = "application/json")
 	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseFile> getReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
-    	//FIXME should we check children being consistent?
-		authorizationChecker.checkCanAccessReleasePackages();
     	
     	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
     	if (releaseFile == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	} 
+    	}
+    	
+    	//FIXME should we check children being consistent?
+    	authorizationChecker.checkCanEditReleasePackage(releaseFile.getReleaseVersion().getReleasePackage());
     	
     	return new ResponseEntity<ReleaseFile>(releaseFile, HttpStatus.OK);
     }
@@ -338,15 +350,15 @@ public class ReleasePackagesResource {
 	@Transactional
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseFile> createReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseFile body) {
-    	//FIXME should we check children being consistent?
-		authorizationChecker.checkCanAccessReleasePackages();
-    	
-		releaseFileRepository.save(body);
 		
 		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
     	if (releaseVersion == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+    	
+    	authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
+    	
+    	releaseFileRepository.save(body);
     	releaseVersion.addReleaseFile(body);
     	
     	releasePackageAuditEvents.logCreationOf(body);
@@ -359,13 +371,13 @@ public class ReleasePackagesResource {
 			method = RequestMethod.DELETE,
 			produces = "application/json")
 	public @ResponseBody ResponseEntity<ReleaseFile> deleteReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
-		//FIXME should we check children being consistent?
-		authorizationChecker.checkCanAccessReleasePackages();
 		
 		ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
 		if (releaseFile == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		
+		authorizationChecker.checkCanEditReleasePackage(releaseFile.getReleaseVersion().getReleasePackage());
 		
 		releaseFileRepository.delete(releaseFile);
 		

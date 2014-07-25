@@ -31,7 +31,7 @@ public class AffiliateResource {
 	AffiliateRepository affiliateRepository;
 
 	@Resource
-	AuthorizationChecker authorizationChecker;
+	ApplicationAuthorizationChecker authorizationChecker;
 
 	@Resource
 	SessionService sessionService;

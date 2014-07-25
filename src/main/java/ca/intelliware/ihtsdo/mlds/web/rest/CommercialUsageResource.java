@@ -53,7 +53,7 @@ public class CommercialUsageResource {
 	AffiliateRepository affiliateRepository;
 
 	@Resource
-	AuthorizationChecker authorizationChecker;
+	CommercialUsageAuthorizationChecker authorizationChecker;
 	
 	@Resource
 	CommercialUsageResetter commercialUsageResetter;  
