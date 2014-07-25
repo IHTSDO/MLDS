@@ -107,14 +107,14 @@ mldsApp
                     templateUrl: 'views/admin/dashboard.html',
                     controller: 'AdminDashboardController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 .when('/packageManagement', {
                     templateUrl: 'views/admin/packageManagement.html',
                     controller: 'PackageManagementController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
@@ -122,14 +122,14 @@ mldsApp
                     templateUrl: 'views/admin/package.html',
                     controller: 'PackageController',
                     access: {
-                    	authorizedRoles: [USER_ROLES.admin]
+                    	authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 .when('/package/:packageId/:edit', {
                     templateUrl: 'views/admin/package.html',
                     controller: 'PackageController',
                     access: {
-                    	authorizedRoles: [USER_ROLES.admin]
+                    	authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
@@ -151,21 +151,21 @@ mldsApp
                     templateUrl: 'views/admin/pendingApplications.html',
                     controller: 'PendingApplicationsController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 .when('/applicationReview/:applicationId', {
                     templateUrl: 'views/admin/applicationReview.html',
                     controller: 'ApplicationReviewController',
                     access: {
-                    	authorizedRoles: [USER_ROLES.admin]
+                    	authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 .when('/metrics', {
                     templateUrl: 'views/admin/metrics.html',
                     controller: 'MetricsController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 .when('/logs', {
@@ -177,14 +177,14 @@ mldsApp
                         }]
                     },
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 .when('/audits', {
                     templateUrl: 'views/admin/audits.html',
                     controller: 'AuditsController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 .when('/logout', {
@@ -197,14 +197,14 @@ mldsApp
                 .when('/docs', {
                     templateUrl: 'views/admin/docs.html',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 .when('/styleguide/:template*', {
                     templateUrl: function(params){
                     	return 'views/styleguide/'+params.template+'.html';},
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 .otherwise({
@@ -261,7 +261,7 @@ mldsApp
                 $rootScope.$on('event:auth-loginConfirmed', function(data) {
                     $rootScope.authenticated = true;
                     if ($location.path() === "/login") {
-                    	if (AuthenticationSharedService.isAuthorized(USER_ROLES.admin)) {
+                    	if (AuthenticationSharedService.isAuthorized(USER_ROLES.staffOrAdmin)) {
                     		$location.path('/adminDashboard').replace();                    		
                     	} else {
                     		$location.path('/dashboard').replace();

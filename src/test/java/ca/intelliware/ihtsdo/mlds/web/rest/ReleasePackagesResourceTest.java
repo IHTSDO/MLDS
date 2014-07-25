@@ -36,7 +36,7 @@ public class ReleasePackagesResourceTest {
 	ReleaseFileRepository releaseFileRepository;
 
 	@Mock
-	AuthorizationChecker authorizationChecker;
+	ReleasePackageAuthorizationChecker authorizationChecker;
 	
 	@Mock
 	CurrentSecurityContext currentSecurityContext;

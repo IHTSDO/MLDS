@@ -31,12 +31,12 @@ public class AffiliateResource {
 	AffiliateRepository affiliateRepository;
 
 	@Resource
-	AuthorizationChecker authorizationChecker;
+	ApplicationAuthorizationChecker authorizationChecker;
 
 	@Resource
 	SessionService sessionService;
 
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.AFFILIATES,
     		method = RequestMethod.GET,
             produces = "application/json")
