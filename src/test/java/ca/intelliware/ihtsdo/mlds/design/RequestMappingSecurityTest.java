@@ -26,7 +26,6 @@ public class RequestMappingSecurityTest {
 		controllerMethodTraversal.visitClasses(new MethodVisitor() {
 			@Override
 			public void visit(Class<?> controllerClass, Method method) {
-				System.out.println("considering " + controllerClass.getName());
 				if(method.isAnnotationPresent(RequestMapping.class)){
 					boolean hasSecurityAnnotation = method.isAnnotationPresent(RolesAllowed.class) || method.isAnnotationPresent(PermitAll.class);
 					Assert.assertTrue(ClassUtils.getShortClassName(controllerClass) + "." + method.getName() + " has no permissions set", hasSecurityAnnotation);
@@ -59,13 +58,5 @@ public class RequestMappingSecurityTest {
 				}
 			}
 		});
-	}
-	protected boolean targetEntityIsMethodParameter(Set<String> result, String target) {
-		for (String parameterName : result) {
-			if (parameterName.equalsIgnoreCase(target)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }
