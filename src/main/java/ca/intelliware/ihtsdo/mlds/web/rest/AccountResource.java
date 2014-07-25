@@ -32,17 +32,20 @@ import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringWebContext;
 
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
+import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
@@ -98,21 +101,18 @@ public class AccountResource {
     
     @Resource
 	AffiliateRepository affiliateRepository;
-
     @Resource
     ApplicationRepository applicationRepository;
-    
 	@Resource 
 	PasswordResetService passwordResetService;
-	
 	@Resource
 	CommercialUsageRepository commercialUsageRepository;
-	
 	@Resource
-	CommercialUsageResetter commercialUsageResetter; 
-	
+	CommercialUsageResetter commercialUsageResetter;
 	@Resource
 	AffiliateAuditEvents affiliateAuditEvents;
+	@Resource
+	AffiliateDetailsRepository affiliateDetailsRepository;
 
     /**
      * POST  /rest/register -> register the user.
@@ -139,6 +139,8 @@ public class AccountResource {
         	List<Affiliate> affiliates = affiliateRepository.findByCreator(userDTO.getLogin());
         	Application application = new Application();
         	Affiliate affiliate = new Affiliate();
+        	AffiliateDetails affiliateDetails = new AffiliateDetails();
+        	MailingAddress mailingAddress = new MailingAddress();
         	
         	if (applications.size() > 0) {
         		application = applications.get(0);
@@ -149,16 +151,21 @@ public class AccountResource {
         	}
         	
         	application.setUsername(userDTO.getLogin());
-        	application.setName(userDTO.getFirstName() + " " + userDTO.getLastName());
-        	application.setEmail(userDTO.getEmail());
+        	affiliateDetails.setFirstName(userDTO.getFirstName());
+        	affiliateDetails.setLastName(userDTO.getLastName());
+        	affiliateDetails.setEmail(userDTO.getEmail());
+        	mailingAddress.setCountry(userDTO.getCountry());
+        	affiliateDetails.setAddress(mailingAddress);
+        	application.setAffiliateDetails(affiliateDetails);
+        	
         	//set a default type for application to create affiliate and usagelog
         	application.setType(AffiliateType.COMMERCIAL);
         	// FIXME MLDS-234 MB how are we storing country here?
-        	application.setCountry(userDTO.getCountry().getCommonName());
         	affiliate.setCreator(userDTO.getLogin());
         	affiliate.setType(AffiliateType.COMMERCIAL);
         	affiliate.setApplication(application);
         	
+        	affiliateDetailsRepository.save(affiliateDetails);
         	applicationRepository.save(application);
         	affiliateRepository.save(affiliate);
         	
