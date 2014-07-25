@@ -9,7 +9,6 @@ angular.module('MLDS')
 	service.affiliatesResource = $resource('/app/rest/affiliates');
 	
 	service.myAffiliates = function() {
-		//FIXME chose which userid to send...
 		return $http.get('/app/rest/affiliates/me');
 	};
 	
