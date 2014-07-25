@@ -14,6 +14,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         $scope.affiliate = null;
         $scope.affiliateDetails = null;
         $scope.type = null;
+        $scope.approved = true;
         
         function loadAffiliate() {
         	AffiliateService.myAffiliate()
@@ -24,6 +25,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         				$scope.affiliate = affiliate;
         				$scope.type = /*'INDIVIDUAL'*/affiliate.type;
         				$scope.affiliateDetails = affiliate.affiliateDetails;
+        				$scope.approved = affiliate && affiliate.application && affiliate.application.approvalState === 'APPROVED';
         			} else {
         				$log.log('No affiliates found...');
         			}
