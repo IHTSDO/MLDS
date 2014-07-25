@@ -56,7 +56,7 @@
           </a>
             <ul class="dropdown-menu" ng-controller="MenuController">
               <li><a href="#/dashboard"> <span translate="global.menu.account.dashboard">Dashboard</span></a></li>
-              <li><a href="#/contactInfo"> <span translate="global.menu.account.contactInfo">Contact Info</span></a></li>
+              <li ng-show="!isAuthorized(userRoles.staffOrAdmin)"><a href="#/contactInfo"> <span translate="global.menu.account.contactInfo">Contact Info</span></a></li>
               <li><a href="#/password"> <span translate="global.menu.account.password">Password</span></a></li>
 <!--               <li><a href="#/sessions"> <span translate="global.menu.account.sessions">Sessions</span></a></li> -->
               <li><a href="#/viewPackages"> <span >SNOMED Packages</span></a></li>
