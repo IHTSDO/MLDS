@@ -40,7 +40,7 @@ public class ReleasePackagesResource_ReleaseVersions_Test {
 	ReleaseFileRepository releaseFileRepository;
 
 	@Mock
-	AuthorizationChecker authorizationChecker;
+	ReleasePackageAuthorizationChecker authorizationChecker;
 	
 	@Mock
 	CurrentSecurityContext currentSecurityContext;
