@@ -48,7 +48,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         			var affiliates = result.data;
         			if (affiliates && affiliates.length > 0) {
         				$scope.affiliate = affiliates[0];
-        				$scope.type = 'INDIVIDUAL'/*$scope.affiliate.type*/;
+        				$scope.type = /*'INDIVIDUAL'*/$scope.affiliate.type;
         				insertFakeDetails($scope.affiliate);
         				$scope.affiliateDetails = $scope.affiliate.affiliateDetails;
         				$log.log($scope.affiliate);
