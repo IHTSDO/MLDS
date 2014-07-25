@@ -267,7 +267,6 @@ public class ApplicationController {
 		
 		application.setOtherText(setField(request, "otherText"));
 
-		// FIXME MB map unset to false?
 		application.setSnoMedLicence(Boolean.parseBoolean(setField(request, "snoMedTC")));
 		
 		if (application.getApprovalState() == null) {

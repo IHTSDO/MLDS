@@ -777,4 +777,17 @@
 		</addColumn>
 	</changeSet>
 	
-</databaseChangeLog>
+	<changeSet id="MLDS-372-4" author="MB">
+		<comment>Add member to ReleasePackage</comment>
+		<addColumn tableName="release_package">
+			<column name="member_id" type="INT8">
+				<constraints foreignKeyName="release_package_member" referencedTableName="member" referencedColumnNames="member_id"/>
+			</column>
+		</addColumn>
+		<sql>
+			update release_package
+			set member_id = (select member_id from member where key = 'IHTSDO')
+		</sql>
+		<addNotNullConstraint tableName="release_package" columnName="member_id"/>
+	</changeSet>
+ </databaseChangeLog>
