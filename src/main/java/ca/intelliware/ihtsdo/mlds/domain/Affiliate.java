@@ -17,8 +17,6 @@ import javax.persistence.OneToOne;
 import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
 
-import ca.intelliware.ihtsdo.mlds.registration.Application;
-
 import com.google.common.collect.Sets;
 
 @Entity

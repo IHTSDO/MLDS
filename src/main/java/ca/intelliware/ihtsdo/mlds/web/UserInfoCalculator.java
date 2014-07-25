@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Objects;
 
+import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
-import ca.intelliware.ihtsdo.mlds.registration.Application;
-import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
+import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 
 @Service
 public class UserInfoCalculator {
