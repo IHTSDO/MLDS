@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -40,6 +41,9 @@ public class ReleasePackage extends BaseEntity {
 	@Column(name="inactive_at")
 	Instant inactiveAt;
 
+	@ManyToOne(optional=false)
+	Member member;
+	
 	String name;
 	
 	String description;
@@ -109,6 +113,14 @@ public class ReleasePackage extends BaseEntity {
 	@Override
 	protected Object getPK() {
 		return releasePackageId;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+	
+	public void setMember(Member member) {
+		this.member = member;
 	}
 	
 }
