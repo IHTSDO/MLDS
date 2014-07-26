@@ -31,7 +31,7 @@ mldsApp.controller('ApplicationReviewController', [
 							goToPendingApplications();
 							return;
 						}
-						
+						$log.log('loadApplication', application);
 						$scope.application = application;
 						
 						if (application.commercialUsage) {
