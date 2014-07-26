@@ -329,12 +329,12 @@
     	},
     	"subType": {
     		"DEVELOPER": "Developer",
-        "DEVELOPMENT": "Development",
-        "EDUCATIONAL": "Educational",
-        "HEALTHCAREPROVIDER": "Healthcare Provider",
-        "PERSONAL": "Personal",
-       	"RESEARCH": "Research",
-        "VENDOR": "Vendor"
+	        "DEVELOPMENT": "Development",
+	        "EDUCATIONAL": "Educational",
+	        "HEALTHCAREPROVIDER": "Healthcare Provider",
+	        "PERSONAL": "Personal",
+	       	"RESEARCH": "Research",
+	        "VENDOR": "Vendor"
     	},
     	"agreementType": {
     		"AFFILIATE_NORMAL": "Affiliate - Normal",

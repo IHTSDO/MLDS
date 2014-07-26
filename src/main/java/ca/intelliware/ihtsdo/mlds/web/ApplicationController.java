@@ -250,8 +250,8 @@ public class ApplicationController {
 		if (checkIfValidField(request, "type")){
 			application.setType(AffiliateType.valueOf(getStringField(request, "type")));
 		}
-		if (checkIfValidField(request, "usageSubType")) {
-			application.setSubType(AffiliateSubType.valueOf(getStringField(request, "usageSubType")));
+		if (checkIfValidField(request, "subType")) {
+			application.setSubType(AffiliateSubType.valueOf(getStringField(request, "subType")));
 		}
 		
 		AffiliateDetails affiliateDetails = application.getAffiliateDetails();

@@ -5,11 +5,11 @@
   </div>
   <div class="panel-body">
    <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
-    <span ng-show="affiliateform.organization.type=='OTHER'">{{application.organizatioTypeOther}}</span>
-    <span ng-show="affiliateform.organization.type!='OTHER'">{{'affiliate.organizationType.'+application.organizationType | translate}}</span> 
+    <span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{application.affiliateDetails.organizationTypeOther}}</span>
+    <span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{'affiliate.organizationType.'+application.affiliateDetails.organizationType | translate}}</span> 
   </p>
   <p><strong>Use Type:</strong> {{'affiliate.type.'+application.type | translate}}</p>
-  <p><strong>Use Subtype:</strong> {{aapplication.subType}}</p>
+  <p><strong>Use Subtype:</strong> {{'affiliate.subType.'+application.subType | translate}}</p>
   <p><strong>Type of Agreement:</strong> {{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</p>
 </div>
 </div>
@@ -19,14 +19,14 @@
     <h3 class="panel-title">Affiliate Information:</h3>
   </div>
   <div class="panel-body application-review">
-    <p><strong>Organization Name:</strong> {{application.organizationName}}</p>
-    <p><strong>Address:</strong> {{application.address}}</p>
-    <p><strong>City:</strong> {{application.city}}</p>
-    <p><strong>Post Code:</strong> {{application.postCode}}</p>
-    <p><strong>Country:</strong> {{application.country}}</p>
-    <p><strong>Phone Number:</strong> {{application.phone}} <span ng-show="affiliateform.contactextension">ext: {{application.extension}}</span></p>
-    <p><strong>Alternate Email:</strong> {{application.alternateEmail}}</p>
-    <p ng-show="application.type=='COMMERCIAL'"><strong>Third Email:</strong> {{application.thirdEmail}}</p>
+    <p><strong>Organization Name:</strong> {{application.affiliateDetails.organizationName}}</p>
+    <p><strong>Address:</strong> {{application.affiliateDetails.address.street}}</p>
+    <p><strong>City:</strong> {{application.affiliateDetails.address.city}}</p>
+    <p><strong>Post Code:</strong> {{application.affiliateDetails.address.post}}</p>
+    <p><strong>Country:</strong> {{application.affiliateDetails.address.country.commonName}}</p>
+    <p><strong>Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.contactextension">ext: {{application.affiliateDetails.landlineExtension}}</span></p>
+    <p><strong>Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
+    <p ng-show="application.type=='COMMERCIAL'"><strong>Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
     <p ng-show="application.type=='OTHER'"><strong>Other:</strong>{{application.otherText}}</p>
   </div>
 </div>
@@ -36,10 +36,10 @@
     <h3 class="panel-title">Affiliate User Information</h3>
   </div>
   <div class="panel-body application-review">
-    <p><strong>Name:</strong> {{application.name}}</p>
-    <p><strong>Email:</strong> {{application.email}}</p>
-    <p><strong>Landline Phone Number:</strong> {{application.phone}} <span ng-show="affiliateform.extension">ext: {{affiliateform.contact.extension}}</span></p>
-    <p><strong>Mobile Phone Number:</strong> {{application.mobilePhone}}</p>
+    <p><strong>Name:</strong> {{application.affiliateDetails.firstName}} {{application.affiliateDetails.lastName}}</p>
+    <p><strong>Email:</strong> {{application.affiliateDetails.email}}</p>
+    <p><strong>Landline Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.extension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></p>
+    <p><strong>Mobile Phone Number:</strong> {{application.affiliateDetails.mobileNumber}}</p>
   </div>
 </div>
 
@@ -48,10 +48,10 @@
     <h3 class="panel-title">Panel title</h3>
   </div>
   <div class="panel-body application-review">
-    <p><strong>Address:</strong> {{application.address}}</p>
-    <p><strong>City:</strong> {{application.city}}</p>
-    <p><strong>Post Code:</strong> {{application.postCode}}</p>
-    <p><strong>Country:</strong> {{application.country}}</p>
+    <p><strong>Address:</strong> {{application.affiliateDetails.address.street}}</p>
+    <p><strong>City:</strong> {{application.affiliateDetails.address.city}}</p>
+    <p><strong>Post Code:</strong> {{application.affiliateDetails.address.post}}</p>
+    <p><strong>Country:</strong> {{application.affiliateDetails.address.country.commonName}}</p>
   </div>
 </div>
 
@@ -60,10 +60,10 @@
     <h3 class="panel-title">Affiliate Billing Information</h3>
   </div>
   <div class="panel-body application-review">
-   <p><strong>Address:</strong> {{application.billingStreet}}</p>
-   <p><strong>City:</strong> {{application.billingCity}}</p>
-   <p><strong>Post Code:</strong> {{application.billingPostCode}}</p>
-   <p><strong>Country:</strong> {{application.billingCountry}}</p>
+   <p><strong>Address:</strong> {{application.affiliateDetails.billingAddress.street}}</p>
+   <p><strong>City:</strong> {{application.affiliateDetails.billingAddress.city}}</p>
+   <p><strong>Post Code:</strong> {{application.affiliateDetails.billingAddress.post}}</p>
+   <p><strong>Country:</strong> {{application.affiliateDetails.billingAddress.country.commonName}}</p>
  </div>
 </div>
 
