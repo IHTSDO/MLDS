@@ -63,9 +63,9 @@ public class CommercialUsageResource {
             produces = "application/json")
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<Collection<CommercialUsage>> getUsageReports(@PathVariable long affiliateId) {
-    	authorizationChecker.checkCanAccessAffiliate(affiliateId);
 
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+    	authorizationChecker.checkCanAccessAffiliate(affiliate);
     	if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -100,9 +100,9 @@ public class CommercialUsageResource {
     		produces = "application/json")
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<CommercialUsage> createNewSubmission(@PathVariable long affiliateId, @RequestBody CommercialUsagePeriod submissionPeriod) {
-    	authorizationChecker.checkCanAccessAffiliate(affiliateId);
     	
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+    	authorizationChecker.checkCanAccessAffiliate(affiliate);
     	
     	if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
