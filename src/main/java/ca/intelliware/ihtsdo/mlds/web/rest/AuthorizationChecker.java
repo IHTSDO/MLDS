@@ -56,12 +56,11 @@ abstract class AuthorizationChecker {
 	}
 
 
-	public void checkCanAccessAffiliate(long affiliateId) {
+	public void checkCanAccessAffiliate(Affiliate affiliate) {
 		if (isStaffOrAdmin()) {
 			return;
 		}
-		Affiliate Affiliate = affiliateRepository.findOne(affiliateId);
-		checkCurrentUserIsMemberOfAffiliate(Affiliate);
+		checkCurrentUserIsMemberOfAffiliate(affiliate);
 	}
 
 }
