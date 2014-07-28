@@ -56,7 +56,7 @@ describe('PackageUtilsService Tests ', function () {
             expect(PackageUtilsService.isLatestVersion(datastore.releaseVersions[0], datastore.releaseVersions)).not.toBeTruthy();
         });
         it('getLatestPublishedDate should return the latest published date', function () {
-            expect(PackageUtilsService.getLatestPublishedDate(datastore[1])).toBe(datastore[1].releaseVersions[2].publishedAt);
+            expect(PackageUtilsService.getLatestPublishedDate(datastore)).toBe(datastore.releaseVersions[2].publishedAt);
         });
 
         it('updateVersionsLists should sort online version by publishedAt dates in descending order', function(){
@@ -77,4 +77,49 @@ describe('PackageUtilsService Tests ', function () {
             expect(results.offline[3]).toBe(datastore.releaseVersions[0]);    
         });
     });
+    
+    describe('package authorization utilities', function () {
+        var PackageUtilsService, Session, USER_ROLES, isAdmin,ihtsdoPackageEntity,swedenPackageEntity,
+        	ihtsdoMember = { key:'IHTSDO' },
+        	swedenMember = { key:'SE' };
+        
+        Session = {
+        	isAdmin: function() {return isAdmin;}
+        };
+        
+        ihtsdoPackageEntity = {
+        	name: "Package name",
+        	versions:[],
+        	member:ihtsdoMember
+        };
+        swedenPackageEntity = {
+        		name: "SE Package name",
+        		versions:[],
+        		member:swedenMember
+        };
+        
+        beforeEach(module(function($provide) {
+        	  $provide.value("Session", Session);
+        	}));
+        
+        beforeEach(inject(function (_PackageUtilsService_, _USER_ROLES_) {
+            PackageUtilsService = _PackageUtilsService_;
+            USER_ROLES = _USER_ROLES_;
+        }));
+
+        it('Admin can edit all packages', function(){
+        	isAdmin = true;
+        	expect(PackageUtilsService.isEditableReleasePackage(ihtsdoPackageEntity)).toBeTruthy();
+        	expect(PackageUtilsService.isEditableReleasePackage(swedenPackageEntity)).toBeTruthy();
+        });
+        it('Staff can only edit package with matching member', function(){
+        	isAdmin = false;
+        	Session.member = swedenMember;
+        	
+        	expect(PackageUtilsService.isEditableReleasePackage(ihtsdoPackageEntity)).not.toBeTruthy();
+        	expect(PackageUtilsService.isEditableReleasePackage(swedenPackageEntity)).toBeTruthy();
+        });
+
+    });
+
 });

@@ -64,5 +64,7 @@ angular.module('MLDS').controller('PackageManagementController',
             	reloadPackages();
             });
         };
+        
+        $scope.isEditableReleasePackage = PackageUtilsService.isEditableReleasePackage;
     }]);
 

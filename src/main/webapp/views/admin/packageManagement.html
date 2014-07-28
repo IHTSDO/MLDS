@@ -13,7 +13,8 @@
 
 				<div class="panel panel-default" ng-repeat="package in packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished">
 					<div class="panel-heading">
-						<div class="dropdown pull-right">
+						<div class="dropdown pull-right" 
+							ng-show="isEditableReleasePackage(package)">
 							<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 								<span class="caret"></span>
 							</button>
@@ -52,7 +53,8 @@
 
 				<div class="panel panel-info" ng-repeat="package in packages | orderBy:'createdAt':true | filter: not(utils.isPackagePublished)">
 					<div class="panel-heading">
-						<div class="dropdown pull-right">
+						<div class="dropdown pull-right"
+							ng-show="isEditableReleasePackage(package)">
 							<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 								<span class="caret"></span>
 							</button>
