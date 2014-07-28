@@ -20,14 +20,20 @@ angular.module('MLDS')
         			street: 'street',
         			city: 'city',
         			post: 'post',
-        			country: 'Canada'
+        			country: {
+        				isoCode2: 'CA',
+        				commonName: 'Canada'
+        			}
     			},
     			organizationName: 'Organization Name',
     			billingAddress: {
         			street: 'b street',
         			city: 'b city',
         			post: 'b post',
-        			country: 'Botswana'
+        			country: {
+        				isoCode2: 'US',
+        				commonName: 'United States'
+        			}
     			},
     			landlineNumber: '+1 4156 762 0032',
     			landlineExtension: '123',
@@ -50,6 +56,10 @@ angular.module('MLDS')
     				return result; 
     			}
 			});
+	};
+	
+	service.updateAffiliateDetails = function(affiliateId, affiliateDetails) {
+		return $http.put('/app/rest/affiliates/'+encodeURIComponent(affiliateId)+'/detail', affiliateDetails);
 	};
 
 	service.myAffiliates = function() {
