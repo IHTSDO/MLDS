@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$timeout', '$route', 'Account', 'AffiliateService', 'CountryService',
-    function ($scope, $log, $timeout, $route, Account, AffiliateService, CountryService) {
+angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$timeout', '$route', '$location', 'Account', 'AffiliateService', 'CountryService',
+    function ($scope, $log, $timeout, $route, $location, Account, AffiliateService, CountryService) {
         $scope.settingsAccount = Account.get();
         $scope.availableCountries = CountryService.countries;
 
@@ -21,14 +21,15 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         		.then(function(result) {
         			var affiliate = result.data;
         			$log.log(affiliate);
-        			if (affiliate) {
-        				$scope.affiliate = affiliate;
-        				$scope.type = /*'INDIVIDUAL'*/affiliate.type;
-        				$scope.affiliateDetails = affiliate.affiliateDetails;
-        				$scope.approved = affiliate && affiliate.application && affiliate.application.approvalState === 'APPROVED';
-        			} else {
+        			if (!affiliate || !affiliate.affiliateDetails) {
         				$log.log('No affiliates found...');
+        				$location.path('/dashboard');
+        				return;
         			}
+    				$scope.affiliate = affiliate;
+    				$scope.type = /*'INDIVIDUAL'*/affiliate.type;
+    				$scope.affiliateDetails = affiliate.affiliateDetails;
+    				$scope.approved = affiliate && affiliate.application && affiliate.application.approvalState === 'APPROVED';
         		})
     			["catch"](function(message) {
     				//FIXME handle affiliate loading error
