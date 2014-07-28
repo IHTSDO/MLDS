@@ -4,6 +4,7 @@ import java.util.List;
 
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
 
 public class UserDTO {
 
@@ -30,6 +31,9 @@ public class UserDTO {
 	private CommercialUsagePeriod initialUsagePeriod;
 	
 	private Country country;
+
+	/** The member this staff or administrative user represents */
+	private Member member;
     
 
 	public UserDTO() {
@@ -37,7 +41,8 @@ public class UserDTO {
 
     
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   List<String> roles, boolean emailVerified, boolean applicationMade, boolean applicationApproved, CommercialUsagePeriod submissionPeriod) {
+                   List<String> roles, boolean emailVerified, boolean applicationMade, boolean applicationApproved, CommercialUsagePeriod submissionPeriod,
+                   Member staffOrAdminMember) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -49,6 +54,7 @@ public class UserDTO {
         this.applicationMade = applicationMade;
         this.applicationApproved = applicationApproved;
         this.setInitialUsagePeriod(submissionPeriod);
+        this.member = staffOrAdminMember;
     }
 
     public boolean isApplicationMade() {
@@ -123,5 +129,10 @@ public class UserDTO {
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+
+	public Member getMember() {
+		return member;
 	}
 }
