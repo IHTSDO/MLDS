@@ -119,7 +119,6 @@ describe('PackageUtilsService Tests ', function () {
         	expect(PackageUtilsService.isEditableReleasePackage(ihtsdoPackageEntity)).not.toBeTruthy();
         	expect(PackageUtilsService.isEditableReleasePackage(swedenPackageEntity)).toBeTruthy();
         });
-
     });
 
 });
