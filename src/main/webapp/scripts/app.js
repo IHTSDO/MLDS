@@ -67,7 +67,7 @@ mldsApp
                     templateUrl: 'views/contactInfo.html',
                     controller: 'ContactInfoController',
                     access: {
-                        authorizedRoles: [USER_ROLES.all]
+                    	authorizedRoles: [USER_ROLES.user]
                     }
                 })
                 .when('/password', {
