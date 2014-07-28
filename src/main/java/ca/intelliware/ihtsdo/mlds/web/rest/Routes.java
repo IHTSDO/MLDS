@@ -61,7 +61,13 @@ public class Routes {
 	 */
 	static final String AFFILIATES_CREATOR = "/app/rest/affiliates/creator/{username:.+}";
 
-	
+	/**
+	 * control endpoint for application detail:
+	 * - GET
+	 * - PUT affiliate details to update details
+	 */
+	public static final String AFFILIATE_DETAIL = "/app/rest/affiliates/{affiliateId}/detail"; 
+
 	/**
 	 * control endpoint for mulitple release packages:
 	 * - GET to get all
@@ -143,5 +149,6 @@ public class Routes {
 	 * - PUT affiliate user updating application registration
 	 * - POST affiliate user submitting for admin processing
 	 */
-	public static final String APPLICATION_REGISTRATION = "/app/rest/applications/{applicationId}/registration"; 
+	public static final String APPLICATION_REGISTRATION = "/app/rest/applications/{applicationId}/registration";
+
 }
