@@ -28,9 +28,6 @@ public class Application extends BaseEntity {
 	@Column(name="subtype")
 	AffiliateSubType subType;
 	
-	@Column(name="full_name")
-	String name;
-	
 	@OneToOne()
 	@JoinColumn(name="affiliate_details_id")
 	AffiliateDetails affiliateDetails;
@@ -90,14 +87,6 @@ public class Application extends BaseEntity {
 
 	public void setType(AffiliateType type) {
 		this.type = type;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public boolean isSnoMedLicence() {
