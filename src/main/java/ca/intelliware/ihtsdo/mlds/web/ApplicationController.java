@@ -357,7 +357,7 @@ public class ApplicationController {
 	}
 	
 	private Boolean checkIfValidField(JsonNode jsonNode, String attribute) {
-		if (jsonNode.get(attribute) != null) {
+		if (jsonNode != null && jsonNode.get(attribute) != null) {
 			if(jsonNode.get(attribute).asText() != "" && jsonNode.get(attribute).asText() != "null") {
 				return true;
 			}
