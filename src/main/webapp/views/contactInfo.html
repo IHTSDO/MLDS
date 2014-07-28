@@ -145,13 +145,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateDetails.address.country" name="addressCountryIndividual" ng-required="type=='INDIVIDUAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
-                      <p ng-show="form.addressCountryIndividual.$error.required && form.attempted" class="help-block">
-                        Required field.
-                      </p>
-						<p ng-show="form.addressCountryIndividual.$error.excluded" class="help-block">
-							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
-						</p>
+                    	<span>{{affiliateDetails.address.country}}</span>
                      </div>
                   </div>
                 </div>
@@ -209,13 +203,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateDetails.address.country" name="addressCountry" required="" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" >
-                    <p ng-show="form.addressCountry.$error.required && form.attempted" class="help-block">
-                      Required field.
-                    </p>
-						<p ng-show="form.addressCountry.$error.excluded" class="help-block">
-							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
-						</p>
+                  	<span>{{affiliateDetails.address.country}}</span>
                   </div>
                 </div>
               </div>
