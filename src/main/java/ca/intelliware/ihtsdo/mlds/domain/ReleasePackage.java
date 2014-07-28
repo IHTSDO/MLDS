@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -42,6 +43,7 @@ public class ReleasePackage extends BaseEntity {
 	Instant inactiveAt;
 
 	@ManyToOne(optional=false)
+	@JoinColumn(name="member_id")
 	Member member;
 	
 	String name;
