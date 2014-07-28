@@ -86,5 +86,15 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		return Session.isAdmin() || memberMatches;
 	    	};
 	    	
+	    	service.isReleasePackageMatchingMember = function isReleasePackageMatchingMember(releasePackage) {
+	    		var userMember = Session.member;
+	    		var memberMatches = angular.equals(userMember, releasePackage.member);
+	    		return memberMatches;
+	    	};
+	    	
+	    	service.isEditableReleasePackage = function isEditableReleasePackage(releasePackage) {
+	    		return this.isReleasePackageMatchingMember(releasePackage) || Session.isAdmin();
+	    	};
+	    	
 			return service;
 		} ]);
