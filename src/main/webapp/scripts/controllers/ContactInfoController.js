@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$timeout', '$route', 'Account', 'AffiliateService', 'CountryService',
-    function ($scope, $log, $timeout, $route, Account, AffiliateService, CountryService) {
+angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$timeout', '$route', '$location', 'Account', 'AffiliateService', 'CountryService',
+    function ($scope, $log, $timeout, $route, $location, Account, AffiliateService, CountryService) {
         $scope.settingsAccount = Account.get();
         $scope.availableCountries = CountryService.countries;
 
@@ -21,14 +21,16 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         		.then(function(result) {
         			var affiliate = result.data;
         			$log.log(affiliate);
-        			if (affiliate) {
-        				$scope.affiliate = affiliate;
-        				$scope.type = /*'INDIVIDUAL'*/affiliate.type;
-        				$scope.affiliateDetails = affiliate.affiliateDetails;
-        				$scope.approved = affiliate && affiliate.application && affiliate.application.approvalState === 'APPROVED';
-        			} else {
+        			if (!affiliate || !affiliate.affiliateDetails) {
         				$log.log('No affiliates found...');
+        				//FIXME should leave message on dashboard to explain why they got sent back to the dashboard
+        				$location.path('/dashboard');
+        				return;
         			}
+    				$scope.affiliate = affiliate;
+    				$scope.type = /*'INDIVIDUAL'*/affiliate.type;
+    				$scope.affiliateDetails = affiliate.affiliateDetails;
+    				$scope.approved = affiliate && affiliate.application && affiliate.application.approvalState === 'APPROVED';
         		})
     			["catch"](function(message) {
     				//FIXME handle affiliate loading error
@@ -39,6 +41,13 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         
         loadAffiliate();
         
+        // bind the display name to our country object.
+        $scope.$watch('affiliateDetails.billingAddress.country', function(newValue){
+        	var country = _.findWhere(CountryService.countries, {'commonName':newValue});
+        	$scope.selectedCountry = country;
+        });
+
+        
         $scope.save = function () {
     		if ($scope.form.$invalid) {
     			$scope.form.attempted = true;
@@ -48,25 +57,14 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
     		$scope.submitting = true;
     		$scope.alerts.splice(0, $scope.alerts.length);
 
-    		//FIXME implemented
-    		$timeout(function() {
-    			$scope.alerts.push({type: 'danger', msg: 'FIXME NOT YET IMPLEMENTED, please try again later.'});
-    			$scope.submitting = false;
-    			
-    		}, 300);
-
-			/*
-            Account.save($scope.settingsAccount,
-                function (value, responseHeaders) {
-                    $scope.error = null;
-                    $scope.success = 'OK';
-                    $scope.settingsAccount = Account.get();
-                },
-                function (httpResponse) {
-                    $scope.success = null;
-                    $scope.error = "ERROR";
-                });
-                */
+    		AffiliateService.updateAffiliateDetails($scope.affiliate.affiliateId, $scope.affiliateDetails)
+    			.then(function(result) {
+    				//FIXME indicate saved? go to dashboard?
+    			})
+			["catch"](function(message) {
+				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.submitting = false;
+			});
         };
         
         $scope.cancel = function() {
