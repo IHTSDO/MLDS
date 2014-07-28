@@ -47,5 +47,20 @@ public class CurrentSecurityContext {
 		Validate.notNull(member);
 		return hasRole(AuthoritiesConstants.staffRoleForMember(member.getKey()));
 	}
+
+	public String getStaffMemberKey() {
+		if (isAdmin()) {
+			return Member.KEY_IHTSDO;
+		} else if (isStaff()) {
+			for (GrantedAuthority authority : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+				String a = authority.getAuthority();
+				if (a.startsWith(AuthoritiesConstants.STAFF) &&
+					!a.equals(AuthoritiesConstants.STAFF)) {
+					return a.substring(AuthoritiesConstants.STAFF.length()+1); // +1 for underscore
+				}
+			}
+		}
+		throw new IllegalStateException("User does not represent member");
+	}
 	
 }
