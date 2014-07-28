@@ -38,7 +38,7 @@ public class AffiliateResource {
 	AffiliateDetailsRepository affiliateDetailsRepository;
 
 	@Resource
-	ApplicationAuthorizationChecker authorizationChecker;
+	ApplicationAuthorizationChecker applicationAuthorizationChecker;
 
 	@Resource
 	SessionService sessionService;
@@ -72,7 +72,7 @@ public class AffiliateResource {
     		method = RequestMethod.GET,
             produces = "application/json")
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesForUser(@PathVariable String username) {
-    	authorizationChecker.checkCanAccessAffiliate(username);
+    	applicationAuthorizationChecker.checkCanAccessAffiliate(username);
     	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
     }
 
@@ -82,7 +82,7 @@ public class AffiliateResource {
             produces = "application/json")
     public @ResponseBody ResponseEntity<AffiliateDetails> updateAffiliateDetail(@PathVariable Long affiliateId) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
-    	authorizationChecker.checkCanAccessAffiliate(affiliate);
+    	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
     	if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -95,7 +95,7 @@ public class AffiliateResource {
             produces = "application/json")
     public @ResponseBody ResponseEntity<AffiliateDetails> updateAffiliateDetail(@PathVariable Long affiliateId, @RequestBody AffiliateDetails body) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
-    	authorizationChecker.checkCanAccessAffiliate(affiliate);
+    	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
     	if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
