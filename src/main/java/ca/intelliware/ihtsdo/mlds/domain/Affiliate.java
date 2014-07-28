@@ -79,6 +79,14 @@ public class Affiliate {
 	public void setApplication(Application application) {
 		this.application = application;
 	}
+	
+	public AffiliateDetails getAffiliateDetails() {
+		return affiliateDetails;
+	}
+
+	public void setAffiliateDetails(AffiliateDetails affiliateDetails) {
+		this.affiliateDetails = affiliateDetails;
+	}
 
 	public AffiliateType getType() {
 		return type;
