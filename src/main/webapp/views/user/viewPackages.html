@@ -9,7 +9,7 @@
 </div>
 
 <div class="row" ng-repeat="releasePackage in releasePackages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished">
-	<div class="panel panel-default">
+	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h3 class="panel-title">{{releasePackage.name}}</h3>
 		</div>
