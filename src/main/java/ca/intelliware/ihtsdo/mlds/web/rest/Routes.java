@@ -5,6 +5,9 @@ public class Routes {
 	
 	public static final String COUNTRIES = "/app/rest/countries";
 	
+	public static final String MEMBERS = "/app/rest/members";
+
+	
 	/**
 	 *  - get list of all submissions
 	 *  - post period { startDate, endDate } to do start new submission (auto-copy from most recent)
@@ -150,5 +153,6 @@ public class Routes {
 	 * - POST affiliate user submitting for admin processing
 	 */
 	public static final String APPLICATION_REGISTRATION = "/app/rest/applications/{applicationId}/registration";
+
 
 }

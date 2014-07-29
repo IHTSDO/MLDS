@@ -11,9 +11,19 @@ mldsApp.controller('CountryController', ['$scope', 'resolvedCountry', 'Countries
         
         // FIXME MLDS-234 MB merge this with CountriesService?  Notify dirty?
 
-        var editModalController = ['$scope', '$modalInstance',
-            function($scope,$modalInstance) {
+        var editModalController = ['$scope', 'MemberService', '$modalInstance',
+            function($scope, MemberService, $modalInstance) {
         	
+        	$scope.availableMembers = MemberService.members;
+        	
+            // bind the display name to our country object.
+            $scope.$watch('country.member', function(newValue){
+            	var member = _.findWhere(MemberService.members, {'key':newValue});
+            	if (member) {
+            		$scope.country.member = member;
+            	}
+            });
+            
         	$scope.create = function () {
         		Countries.save($scope.country,
         				function () {
@@ -31,7 +41,8 @@ mldsApp.controller('CountryController', ['$scope', 'resolvedCountry', 'Countries
     			controller: editModalController,
     			scope: $scope
     		});
-        }
+        };
+        
         $scope.update = function (isoCode2) {
             $scope.country = Countries.get({isoCode2: isoCode2});
     		$modal.open({
