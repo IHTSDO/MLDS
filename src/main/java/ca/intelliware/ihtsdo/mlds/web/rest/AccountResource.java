@@ -100,7 +100,7 @@ public class AccountResource {
     @Resource DuplicateRegistrationEmailSender duplicateRegistrationEmailSender;
     
     @Inject
-    private UserInfoCalculator userInfoCalculator;
+    UserInfoCalculator userInfoCalculator;
 
     @Inject
 	private DomainBlacklistService domainBlacklistService;
