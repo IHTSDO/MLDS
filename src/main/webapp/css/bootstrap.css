@@ -5941,6 +5941,15 @@ a.tooltip span {
     display: none !important;
   }
 }
+.brand {
+  font-size: 16px;
+  line-height: 20px;
+  color: #999999;
+  padding: 3px 10px;
+  height: 28px;
+  font-weight: bold;
+  border-top: 1px solid #eeeeee;
+}
 .navbar[role=navigation] {
   margin-bottom: 30px;
   border-bottom: 3px solid #04add8;
