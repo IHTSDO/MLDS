@@ -14,7 +14,7 @@ import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
  * Provide access check helpers for our rest controllers.
  * FIXME MLDS-23
  */
-abstract class AuthorizationChecker {
+public class AuthorizationChecker {
 
 	@Resource
 	AffiliateRepository affiliateRepository;
