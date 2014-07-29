@@ -5944,7 +5944,7 @@ a.tooltip span {
 .brand {
   font-size: 16px;
   line-height: 20px;
-  color: #999999;
+  color: #eeeeee;
   padding: 3px 10px;
   height: 28px;
   font-weight: bold;
@@ -6108,6 +6108,9 @@ a.tooltip span {
 }
 .exclaim {
   width: 40px;
+}
+.dashboard {
+  min-height: 250px;
 }
 .user-info {
   background-color: #f9f9f9;
