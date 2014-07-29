@@ -23,14 +23,15 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import ca.intelliware.ihtsdo.mlds.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import ca.intelliware.ihtsdo.mlds.domain.Application;
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
-import ca.intelliware.ihtsdo.mlds.service.UserService;
+import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -47,19 +48,21 @@ public class AffiliateResourceTest {
     @Mock
     private AffiliateDetailsRepository affiliateDetailsRepository;
     
+    @Mock
+    private SessionService sessionService;
+    
     private MockMvc restUserMockMvc;
     
-    @Inject
-    private ApplicationContext context;
-
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        
         AffiliateResource affiliateResource = new AffiliateResource();
-        context.getAutowireCapableBeanFactory().autowireBean(affiliateResource);
-        ReflectionTestUtils.setField(affiliateResource, "applicationAuthorizationChecker", applicationAuthorizationChecker);
-        ReflectionTestUtils.setField(affiliateResource, "affiliateRepository", affiliateRepository);
-        ReflectionTestUtils.setField(affiliateResource, "affiliateDetailsRepository", affiliateDetailsRepository);
+        
+        affiliateResource.affiliateDetailsRepository = affiliateDetailsRepository;
+        affiliateResource.affiliateRepository = affiliateRepository;
+        affiliateResource.applicationAuthorizationChecker = applicationAuthorizationChecker;
+
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(affiliateResource).build();
     }
     
@@ -73,7 +76,33 @@ public class AffiliateResourceTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
-    
+
+    @Test
+    public void updateAffiliateDetailShouldFailWhenNoDetailsSetOnAffiliateYet() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setAffiliateDetails(null);
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+
+        restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"firstName\": \"Updated FirstName\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void updateAffiliateDetailShouldFailWhenApplicationNotApproved() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.getApplication().setApprovalState(ApprovalState.REJECTED);
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+
+        restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"firstName\": \"Updated FirstName\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict());
+    }
+
     @Test
     public void updateAffiliateDetailShouldUpdateSaveWithSafeFields() throws Exception {
     	Affiliate affiliate = createBlankAffiliate();
@@ -132,10 +161,16 @@ public class AffiliateResourceTest {
 
 	private Affiliate createBlankAffiliate() {
     	Affiliate affiliate = new Affiliate();
+    	
     	AffiliateDetails affiliateDetails = new AffiliateDetails();
     	affiliateDetails.setAddress(new MailingAddress());
     	affiliateDetails.setBillingAddress(new MailingAddress());
     	affiliate.setAffiliateDetails(affiliateDetails);
+    	
+    	Application application = new Application(1L);
+    	application.setApprovalState(ApprovalState.APPROVED);
+    	affiliate.setApplication(application);
+    	
     	return affiliate;
     }
 }

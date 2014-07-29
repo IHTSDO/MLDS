@@ -14,11 +14,6 @@
 
 	<div class="row space">
 		<div class="col-sm-12">
-
-			<div class="alert alert-success" ng-show="success"
-				translate="settings.messages.success">
-				<strong>Settings saved!</strong>
-			</div>
 			<alert ng-repeat="alert in alerts" type="{{alert.type}}">{{alert.msg}}</alert>
 		</div>
 	</div>

@@ -28,9 +28,9 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         				return;
         			}
     				$scope.affiliate = affiliate;
-    				$scope.type = /*'INDIVIDUAL'*/affiliate.type;
+    				$scope.type = affiliate.type;
     				$scope.affiliateDetails = affiliate.affiliateDetails;
-    				$scope.approved = affiliate && affiliate.application && affiliate.application.approvalState === 'APPROVED';
+    				$scope.approved = AffiliateService.isApplicationApproved(affiliate);
         		})
     			["catch"](function(message) {
     				//FIXME handle affiliate loading error
@@ -59,6 +59,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
 
     		AffiliateService.updateAffiliateDetails($scope.affiliate.affiliateId, $scope.affiliateDetails)
     			.then(function(result) {
+    				$scope.affiliateDetails = result.data;
     				$scope.submitting = false;
     				$scope.alerts.push({type: 'success', msg: 'Contact information has been successfully saved.'});
     			})
