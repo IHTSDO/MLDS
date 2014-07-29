@@ -8,7 +8,7 @@
 		<strong>Commercial Usage for: {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }} </strong> </p>
 	</div>
 	
-	<div class="panel panel-default" >
+	<div class="panel panel-primary" >
       <div class="panel-heading">
         <h4 class="panel-title">
         	<a ng-click="collapsePanel.usage = !collapsePanel.usage">
@@ -62,7 +62,7 @@
 		</div>
 	</div>
 	
-    <div class="panel panel-default"  ng-hide="readOnly && commercialType">
+    <div class="panel panel-primary"  ng-hide="readOnly && commercialType">
       <div class="panel-heading">
         <h4 class="panel-title">
           <a ng-click="collapsePanel.geographic = !collapsePanel.geographic"> Geographic Scope </a>
@@ -117,7 +117,7 @@
       </div>
     </div>
     
-		<div class="panel panel-default" ng-show="commercialType">
+		<div class="panel panel-primary" ng-show="commercialType">
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a ng-click="collapsePanel.sublicensed = !collapsePanel.sublicensed">Sublicensed Institutions</a>
