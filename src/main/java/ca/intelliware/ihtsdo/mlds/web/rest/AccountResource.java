@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringWebContext;
+import org.thymeleaf.util.Validate;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
@@ -47,6 +48,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
@@ -80,6 +82,9 @@ public class AccountResource {
     @Inject
     private SpringTemplateEngine templateEngine;
 
+    @Inject
+    private MemberRepository memberRepository;
+    
     @Inject
     private UserRepository userRepository;
 
@@ -153,7 +158,7 @@ public class AccountResource {
         	if (affiliates.size() > 0) {
         		affiliate = affiliates.get(0);
         	}
-        	
+        	        	
         	application.setUsername(userDTO.getLogin());
         	affiliateDetails.setFirstName(userDTO.getFirstName());
         	affiliateDetails.setLastName(userDTO.getLastName());
@@ -168,6 +173,12 @@ public class AccountResource {
         	affiliate.setCreator(userDTO.getLogin());
         	affiliate.setType(AffiliateType.COMMERCIAL);
         	affiliate.setApplication(application);
+        	
+        	Validate.notNull(userDTO.getCountry(), "Country is mandatory");
+        	Member member = userDTO.getCountry().getMember();
+        	Validate.notNull(member, "Country must have a responsible member");
+        	application.setMember(member);
+        	affiliate.setHomeMember(member);
         	
         	affiliateDetailsRepository.save(affiliateDetails);
         	applicationRepository.save(application);
