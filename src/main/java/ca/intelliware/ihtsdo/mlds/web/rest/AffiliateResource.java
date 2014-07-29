@@ -117,7 +117,7 @@ public class AffiliateResource {
 		copyAddressFieldsWithoutCountry(affiliateDetails.getAddress(), body.getAddress());
     	affiliateDetails.setAlternateEmail(body.getAlternateEmail());
     	copyAddressFields(affiliateDetails.getBillingAddress(), body.getBillingAddress());
-    	//FIXME can they set email?
+    	// Can not update: email (validation and uniquiness challenges)
     	affiliateDetails.setFirstName(body.getFirstName());
     	affiliateDetails.setLandlineExtension(body.getLandlineExtension());
     	affiliateDetails.setLandlineNumber(body.getLandlineNumber());
