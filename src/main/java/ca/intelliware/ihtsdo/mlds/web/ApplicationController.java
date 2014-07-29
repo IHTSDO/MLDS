@@ -10,13 +10,13 @@ import javax.transaction.Transactional;
 import org.joda.time.Instant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
@@ -33,6 +33,7 @@ import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationAuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
@@ -41,7 +42,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
-@Controller
+@RestController
 public class ApplicationController {
 	@Resource
 	ApplicationRepository applicationRepository;
@@ -61,6 +62,8 @@ public class ApplicationController {
 	CountryRepository countryRepository;
 	@Resource
 	AffiliateDetailsRepository affiliateDetailsRepository;
+	@Resource
+	AffiliateDetailsResetter affiliateDetailsResetter;
 
 	@RequestMapping(value="api/applications")
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
@@ -72,7 +75,7 @@ public class ApplicationController {
 			method=RequestMethod.POST,
 			produces = "application/json")
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
-	public @ResponseBody ResponseEntity<Application> approveApplication(@PathVariable long applicationId, @RequestBody String approvalStateString) {
+	public @ResponseBody ResponseEntity<Application> approveApplication(@PathVariable long applicationId, @RequestBody String approvalStateString) throws CloneNotSupportedException {
 		//FIXME why cant this be the body type?
 		ApprovalState approvalState = ApprovalState.valueOf(approvalStateString);
 		Application application = applicationRepository.findOne(applicationId);
@@ -89,6 +92,27 @@ public class ApplicationController {
 		if (Objects.equal(approvalState, ApprovalState.APPROVED) || Objects.equal(approvalState, ApprovalState.REJECTED)) {
 			application.setCompletedAt(Instant.now());
 		}
+		
+		
+		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
+			List<Affiliate> affiliates = affiliateRepository.findByCreator(application.getUsername());
+			
+			if (affiliates.size() > 0) {
+				Affiliate affiliate = affiliates.get(0);
+				AffiliateDetails affiliateDetails = (AffiliateDetails) application.getAffiliateDetails().clone(); 
+				
+				affiliateDetailsResetter.detach(affiliateDetails);
+				
+				affiliateDetails = affiliateDetailsRepository.save(affiliateDetails);
+				affiliate.setAffiliateDetails(affiliateDetails);
+				affiliateRepository.save(affiliate);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}
+		
+		
+		
 		applicationRepository.save(application);
 		
 		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
@@ -333,7 +357,7 @@ public class ApplicationController {
 	}
 	
 	private Boolean checkIfValidField(JsonNode jsonNode, String attribute) {
-		if (jsonNode.get(attribute) != null) {
+		if (jsonNode != null && jsonNode.get(attribute) != null) {
 			if(jsonNode.get(attribute).asText() != "" && jsonNode.get(attribute).asText() != "null") {
 				return true;
 			}

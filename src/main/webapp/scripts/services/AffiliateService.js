@@ -48,7 +48,7 @@ angular.module('MLDS')
     			var affiliates = result.data;
     			if (affiliates && affiliates.length > 0) {
     				var affiliate = affiliates[0];
-    				insertFakeDetails(affiliate);
+    				//insertFakeDetails(affiliate);
     				result.data = affiliate;
     				return result;
     			} else {

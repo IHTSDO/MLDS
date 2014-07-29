@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="affiliate_details")
-public class AffiliateDetails extends BaseEntity {
+public class AffiliateDetails extends BaseEntity implements Cloneable {
 	
 	@Id
 	@GeneratedValue
@@ -191,5 +191,7 @@ public class AffiliateDetails extends BaseEntity {
 		this.organizationTypeOther = organizationTypeOther;
 	}
 	
-	
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 }

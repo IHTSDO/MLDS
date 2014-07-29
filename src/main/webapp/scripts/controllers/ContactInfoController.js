@@ -59,6 +59,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
 
     		AffiliateService.updateAffiliateDetails($scope.affiliate.affiliateId, $scope.affiliateDetails)
     			.then(function(result) {
+    				$scope.submitting = false;
     				//FIXME indicate saved? go to dashboard?
     			})
 			["catch"](function(message) {
