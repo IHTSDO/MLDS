@@ -242,8 +242,7 @@
                   <div class="form-group">
                     <input class="form-control" type="text" ng-model="affiliateDetails.billingAddress.country" 
 	                    name="billingAddressCountry" required="" placeholder="Country" 
-	                    typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
-	                    auto-submit>
+	                    typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8">
                     <p ng-show="form.billingAddressCountry.$error.required && form.attempted" class="help-block">
                       Required field.
                     </p>

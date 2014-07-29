@@ -59,36 +59,6 @@ describe('Controllers Tests ', function () {
         });
     });
 
-    describe('SettingsController', function () {
-        var $scope, AccountService;
-
-        beforeEach(inject(function ($rootScope, $controller, Account) {
-            $scope = $rootScope.$new();
-
-            AccountService = Account;
-            $controller('SettingsController',{$scope:$scope, resolvedAccount:AccountService, Account:AccountService});
-        }));
-
-        it('should save account', function () {
-            //GIVEN
-            $scope.settingsAccount = {firstName: "John", lastName: "Doe"};
-
-            //SET SPY
-            spyOn(AccountService, 'save');
-
-            //WHEN
-            $scope.save();
-
-            //THEN
-            expect(AccountService.save).toHaveBeenCalled();
-                        expect(AccountService.save).toHaveBeenCalledWith({firstName: "John", lastName: "Doe"}, jasmine.any(Function), jasmine.any(Function));
-
-            //SIMULATE SUCCESS CALLBACK CALL FROM SERVICE
-            AccountService.save.calls.mostRecent().args[1]();
-            expect($scope.error).toBeNull();
-            expect($scope.success).toBe('OK');
-        });
-    });
 
     describe('SessionsController', function () {
         var $scope, SessionsService;

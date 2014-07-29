@@ -39,6 +39,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
@@ -114,6 +115,9 @@ public class AccountResource {
 	@Resource
 	AffiliateDetailsRepository affiliateDetailsRepository;
 
+	@Resource
+	ApplicationAuthorizationChecker authorizationChecker;
+	
     /**
      * POST  /rest/register -> register the user.
      */
@@ -245,6 +249,11 @@ public class AccountResource {
         //FIXME: JH-pick a better name
         UserInfo userInfo = userInfoCalculator.createUserInfo();
         
+        Member member = null;
+        if (authorizationChecker.isStaffOrAdmin()) {
+        	member = authorizationChecker.getMemberRepresentedByUser();
+        }
+        
         return new ResponseEntity<>(
             new UserDTO(
                 user.getLogin(),
@@ -257,7 +266,8 @@ public class AccountResource {
                 emailVerified,
                 userInfo.getHasApplied(),
                 userInfo.isApproved(),
-                null
+                null,
+                member
                 ),
             HttpStatus.OK);
     }
