@@ -55,7 +55,11 @@ public class Application extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name="commercial_usage_id")
 	CommercialUsage commercialUsage;
-	
+
+	@ManyToOne
+	@JoinColumn(name="member_id")
+    Member member;
+
 	public Application() {
 		
 	}
@@ -160,5 +164,13 @@ public class Application extends BaseEntity {
 
 	public void setAffiliateDetails(AffiliateDetails affiliateDetails) {
 		this.affiliateDetails = affiliateDetails;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
 	}
 }
