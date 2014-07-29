@@ -27,24 +27,23 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="col-sm-12 col-md-12 col-lg-12">
      <div class="page-header">
       <h1>Welcome {{firstName}} {{lastName}}</h1> 
     </div>
   </div>
-  <div class="col-sm-6 col-md-6 col-lg-6">
-   <span class="alert alert-warning pull-right" ng-show="isApplicationPending(affiliate.application)"><strong>Application Status:</strong> Pending Approval</span>
-   <span class="alert alert-success pull-right" ng-show="affiliate.application.approvalState === 'APPROVED'"><strong>Application Status:</strong> Approved</span>
-   <a ng-show="isApplicationWaitingForApplicant(affiliate.application)" class="btn btn-default" href="#/affiliateRegistration">Edit Affiliate Application</a>
- </div>       
+
 </div>
 
 <div class="row">
   <div class="col-lg-4"> 
-    <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="openAddUsageReportModal(affiliate)"><i class="fa fa-plus"></i> New Report</button></span>
-
-    <h3>Usage Reports </h3>
-    <table class="table table-striped">
+    <div class="panel panel-default">
+  <div class="panel-heading">
+     <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="openAddUsageReportModal(affiliate)"><i class="fa fa-plus"></i> New Report</button></span>
+    <h3 class="panel-title">Usage Reports</h3>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
       <thead> 
         <tr>
           <th>Usage Report</th>
@@ -64,9 +63,17 @@
         </tr>
       </tbody>
     </table>
+
+  </div>
+</div>
   </div>
   <div class="col-lg-4">
-    <h3>Applications</h3>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Applications</h3>
+  </div>
+  <div class="table-responsive">
     <table class="table table-striped">
       <thead> 
         <tr>
@@ -77,17 +84,30 @@
       </thead>
       <tbody> 
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>John Smith</td>
+          <td>June 02 2014</td>
+          <td><p class="text-warning">Pending</p></td>
         </tr>
       </tbody>
     </table>
   </div>
+</div>
+</div>
   <div class="col-lg-4">
-    <h3>Account Information</h3>
-    <p></p>
+    <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Account Information</h3>
+       <a ng-show="isApplicationWaitingForApplicant(affiliate.application)" class="btn btn-default" href="#/affiliateRegistration">Edit Affiliate Application</a>
   </div>
+  <div class="panel-body">
+    <span class="alert alert-warning" ng-show="isApplicationPending(affiliate.application)">
+      <strong>Application Status:</strong> Pending Approval</span>
+   <span class="alert alert-success" ng-show="affiliate.application.approvalState === 'APPROVED'">
+    <strong>Application Status:</strong> Approved</span>
+
+  </div>
+</div>
+
 </div>
 
 <div class="row">
