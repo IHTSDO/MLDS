@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -45,6 +46,11 @@ public class Affiliate {
 	@OneToOne()
 	@JoinColumn(name="application_id")
 	Application application;
+	
+	@ManyToOne
+	@JoinColumn(name="home_member_id")
+    Member homeMember;
+
 	
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
@@ -94,5 +100,13 @@ public class Affiliate {
 	
 	public void setType(AffiliateType type) {
 		this.type = type;
+	}
+
+	public Member getHomeMember() {
+		return homeMember;
+	}
+
+	public void setHomeMember(Member homeMember) {
+		this.homeMember = homeMember;
 	}
 }
