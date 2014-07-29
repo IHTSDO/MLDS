@@ -9,7 +9,7 @@
         <div ng-show="Session.member" ng-bind="'global.member.'+Session.member.key | translate" class="brand"></div>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse" >
-        <ul class="nav navbar-nav nav-pills navbar-right">
+        <ul location-aware-nav class="nav navbar-nav nav-pills navbar-right">
           <li>
           	<a href="#" ng-switch-when="false"> <span translate="global.menu.home">Home</span></a>
           	<a href="#/dashboard" ng-switch-when="true"> <span translate="global.menu.home">Home</span></a>
