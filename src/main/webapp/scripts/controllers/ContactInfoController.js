@@ -60,7 +60,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
     		AffiliateService.updateAffiliateDetails($scope.affiliate.affiliateId, $scope.affiliateDetails)
     			.then(function(result) {
     				$scope.submitting = false;
-    				//FIXME indicate saved? go to dashboard?
+    				$scope.alerts.push({type: 'success', msg: 'Contact information has been successfully saved.'});
     			})
 			["catch"](function(message) {
 				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
@@ -72,4 +72,5 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         	//FIXME $route.reload wasnt clearing out scope state - is there a better way?
         	window.location.reload();
         };
+        
     }]);
