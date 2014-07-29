@@ -812,5 +812,26 @@
 			<column name="affiliate_details_id" type="INT8"></column>
 		</addColumn>
 	</changeSet>
+
+	<changeSet id="MLDS-300-1" author="DGJ">
+		<comment>Associate Country with Member</comment>
+		<addColumn tableName="country">
+			<column name="member_id" type="INT8">
+				<constraints foreignKeyName="country_member" referencedTableName="member" referencedColumnNames="member_id"/>
+			</column>
+		</addColumn>
+		<sql>
+			<![CDATA[
+			update country
+			set member_id = (select member_id from member where key = 'IHTSDO')
+			where iso_code_2 <> 'SE' AND exclude_registration = FALSE
+			]]>
+		</sql>
+		<sql>
+			update country
+			set member_id = (select member_id from member where key = 'SE')
+			where iso_code_2 = 'SE' AND exclude_registration = FALSE
+		</sql>
+	</changeSet>
 	
 </databaseChangeLog>
