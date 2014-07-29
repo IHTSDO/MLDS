@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import ca.intelliware.ihtsdo.mlds.domain.Application;
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 import com.wordnik.swagger.annotations.Api;
 
@@ -105,6 +108,11 @@ public class AffiliateResource {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
     	}
     	
+    	Application application = affiliate.getApplication();
+    	if (application == null || !Objects.equal(application.getApprovalState(), ApprovalState.APPROVED)) {
+    		return new ResponseEntity<>(HttpStatus.CONFLICT);
+    	}
+    	
     	copyAffiliateDetailsFields(affiliateDetails, body);
     	
     	affiliateDetailsRepository.save(affiliateDetails);
@@ -117,7 +125,7 @@ public class AffiliateResource {
 		copyAddressFieldsWithoutCountry(affiliateDetails.getAddress(), body.getAddress());
     	affiliateDetails.setAlternateEmail(body.getAlternateEmail());
     	copyAddressFields(affiliateDetails.getBillingAddress(), body.getBillingAddress());
-    	// Can not update: email (validation and uniquiness challenges)
+    	// Can not update: email (validation and uniqueness challenges)
     	affiliateDetails.setFirstName(body.getFirstName());
     	affiliateDetails.setLandlineExtension(body.getLandlineExtension());
     	affiliateDetails.setLandlineNumber(body.getLandlineNumber());
