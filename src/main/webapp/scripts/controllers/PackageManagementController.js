@@ -9,7 +9,6 @@ angular.module('MLDS').controller('PackageManagementController',
 		$scope.showAllMembers = false;
 		$scope.packages = [];
 		
-		//FIXME replace with a different mechanism
 		function reloadPackages() {
 			$scope.packages = PackagesService.query();
 			$scope.packages.$promise.then(extractPackages);
@@ -24,7 +23,10 @@ angular.module('MLDS').controller('PackageManagementController',
 				.filter(PackageUtilsService.isPackagePublished)
 				.sortBy(PackageUtilsService.getLatestPublishedDate)
 				.value();
-			$scope.offinePackages = memberFiltered.reject(PackageUtilsService.isPackagePublished).sortBy(PackageUtilsService.getLatestPublishedDate).value();
+			$scope.offinePackages = memberFiltered
+				.reject(PackageUtilsService.isPackagePublished)
+				.sortBy('createAt')
+				.value();
 		}
 		
 		$scope.$watch('showAllMembers', extractPackages);
