@@ -33,71 +33,7 @@
 </head>
 <body ng-app="MLDS" ng-controller="MainController">
   <div class="development"></div>
-  <nav class="navbar navbar-default" role="navigation" ng-switch="authenticated">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-          <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-        </button>
-        <a href="#" ng-switch-when="false"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
-        <a href="#/dashboard" ng-switch-when="true"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
-        <span ng-show="Session.member" ng-bind="'global.member.'+Session.member.key | translate"></span>
-      </div>
-      <div class="collapse navbar-collapse" id="navbar-collapse" >
-        <ul class="nav navbar-nav nav-pills navbar-right">
-          <li>
-          	<a href="#" ng-switch-when="false"> <span translate="global.menu.home">Home</span></a>
-          	<a href="#/dashboard" ng-switch-when="true"> <span translate="global.menu.home">Home</span></a>
-          </li>
-          <li ng-switch-when="false"><a href="#/viewPackages"> <span>SNOMED CT</span></a></li>
-          <li class="dropdown pointer" ng-switch-when="true"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;"> <span> <span class="hidden-tablet"
-                translate="global.menu.account.main"
-              > Account </span> <b class="caret"></b>
-            </span>
-          </a>
-            <ul class="dropdown-menu" ng-controller="MenuController">
-              <li><a href="#/dashboard"> <span translate="global.menu.account.dashboard">Dashboard</span></a></li>
-              <li ng-show="!isAuthorized(userRoles.staffOrAdmin)"><a href="#/contactInfo"> <span translate="global.menu.account.contactInfo">Contact Info</span></a></li>
-              <li><a href="#/password"> <span translate="global.menu.account.password">Password</span></a></li>
-<!--               <li><a href="#/sessions"> <span translate="global.menu.account.sessions">Sessions</span></a></li> -->
-              <li><a href="#/viewPackages"> <span >SNOMED Packages</span></a></li>
-            </ul></li>
-          <li ng-switch-when="false"><a href="#/login"> <span translate="global.menu.account.login">Login</span></a></li>
-          <li ng-switch-when="true"><a href="#/logout"> <span translate="global.menu.account.logout">Log out</span></a></li>
-          <li ng-switch-when="true" ng-show="isAuthorized(userRoles.staffOrAdmin)" class="dropdown pointer" ng-controller="AdminController"><a class="dropdown-toggle" data-toggle="dropdown"
-            href="javascript:;"
-          > <span> <span class="hidden-tablet" translate="global.menu.admin">Admin</span> <b class="caret"></b>
-            </span>
-          </a>
-            <ul class="dropdown-menu">
-              <li><a href="#/adminDashboard"> <span translate="global.menu.account.dashboard">Dashboard</span></a></li>
-              <li><a href="#/packageManagement"> <span>Package Management</span></a></li>
-              <li><a href="#/pendingApplications"> <span>Pending Applications</span></a></li>
-              <li><a href="#/countries"> <span  >Countries</span></a></li>
-              <li class="divider"></li>
-              <li><a href="#/metrics"> <span translate="global.menu.account.metrics">Metrics</span></a></li>
-              <li><a href="#/audits"> <span translate="global.menu.account.audits">Audits</span></a></li>
-              <li><a href="#/logs"> <span translate="global.menu.account.logs">Logs</span></a></li>
-              <li><a href="#/docs"> <span translate="global.menu.account.apidocs">API Docs</span></a></li>
-            </ul></li>
-          <li class="dropdown pointer" ng-controller="LanguageController"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;"> <span> <span class="hidden-tablet"
-                translate="global.menu.language"
-              >Language</span> <b class="caret"></b>
-            </span>
-          </a>
-            <ul class="dropdown-menu">
-<!--               <li active-menu="da"><a href="#" ng-click="changeLanguage('da')"><span class="famfamfam-flag-dk"></span> &nbsp;<span translate="global.language.da">Danish</span></a></li> -->
-              <li active-menu="en"><a href="" ng-click="changeLanguage('en')"><span class="famfamfam-flag-gb"></span> &nbsp;<span translate="global.language.en">English</span></a></li>
-              <li active-menu="fr"><a href="" ng-click="changeLanguage('fr')"><span class="famfamfam-flag-fr"></span> &nbsp;<span translate="global.language.fr">French</span></a></li>
-<!--               <li active-menu="de"><a href="#" ng-click="changeLanguage('de')"><span class="famfamfam-flag-de"></span> &nbsp;<span translate="global.language.de">German</span></a></li> -->
-<!--               <li active-menu="pl"><a href="#" ng-click="changeLanguage('pl')"><span class="famfamfam-flag-pl"></span> &nbsp;<span translate="global.language.pl">Polish</span></a></li> -->
-<!--               <li active-menu="ru"><a href="#" ng-click="changeLanguage('ru')"><span class="famfamfam-flag-ru"></span> &nbsp;<span translate="global.language.ru">Russian</span></a></li> -->
-            </ul></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
+  <div ng-include src="'views/topNav.html'"></div>
   <div class="container" ng-view=""></div>
 
 <footer class="navbar-fixed-bottom">
