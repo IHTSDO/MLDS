@@ -15,7 +15,10 @@ angular.module('MLDS')
                 angular.forEach(links, function(value){
                 	//console.log('looking at', value);
                     var a = angular.element(value);
-                    var isCurrent = a.attr('href') == '#' + newPath;
+                    var navHref = a.attr('href');
+                    var isCurrent = (newPath != "" && navHref.indexOf("#"+newPath) == 0)
+                    	|| (newPath == "" && navHref == "#"); //home page special case
+                    	 
                     if (isCurrent){
                         a.closest('li').addClass(classSelected);
                     }
