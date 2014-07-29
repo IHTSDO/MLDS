@@ -15,6 +15,7 @@ angular.module('MLDS').controller('PackageController',
 	$scope.$watch('packageEntity', function(newValue, oldValue) {
 		$scope.versions = $scope.updateVersionsLists(newValue);
 	});
+	
 			
 	var releasePackageId = $routeParams.packageId && parseInt($routeParams.packageId, 10);
 	var loadReleasePackage = function loadReleasePackage() {
@@ -22,6 +23,7 @@ angular.module('MLDS').controller('PackageController',
 			PackagesService.get({releasePackageId: releasePackageId})
 			.$promise.then(function(result) {
 				$scope.packageEntity = result;
+				$scope.isEditableReleasePackage = PackageUtilsService.isEditableReleasePackage(result);
 				})
 					["catch"](function(message) {
 						//FIXME how to handle errors + not present

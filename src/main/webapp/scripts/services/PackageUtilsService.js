@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS').factory('PackageUtilsService',
-		[ '$resource', '$q', '$log', function($resource, $q, $log) {
+		[ '$resource', '$q', '$log', 'Session', function($resource, $q, $log, Session) {
 			var service = {};
 			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
@@ -14,14 +14,15 @@ angular.module('MLDS').factory('PackageUtilsService',
 	        };
 	        
 	        service.getLatestPublishedDate = function getLatestPublishedDate(packageEntity) { 
-	    		var latestPublishDate = new Date(); 
+	    		var latestPublishDate = null;
 	    		for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-	    			if (i == 0) {
+	    			if (latestPublishDate == null) {
 	    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
 	    			} else if (new Date(packageEntity.releaseVersions[i].publishedAt) > new Date(latestPublishDate) ) {
 	    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
 	    			};
 	    		};
+	    		latestPublishDate = latestPublishDate || new Date();
 	    		return latestPublishDate;
 	        };
 			
@@ -30,9 +31,13 @@ angular.module('MLDS').factory('PackageUtilsService',
 	        };
 	        
 	        service.isLatestVersion = function isLatestVersion(version, versions) {
+	        	if (!version.publishedAt) {
+	        		return false;
+	        	}
+	        	var versionPublishedDate = new Date(version.publishedAt);
 	        	for(var i = 0; i < versions.length; i++) {
-	        		if (versions[i].publishedAt && version.publishedAt && 
-	    				(new Date(version.publishedAt) < new Date(versions[i].publishedAt) )) {
+	        		if (versions[i].publishedAt && 
+	    				(versionPublishedDate < new Date(versions[i].publishedAt) )) {
 	    				return false;
 	    			};
 	        	};
@@ -72,6 +77,23 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		};
 	    		
 	    		return false;
+	    	};
+	    	
+	    	service.isEditableReleasePackage = function isEditableReleasePackage(releasePackage) {
+	    		var userMember = Session.member;
+	    		var memberMatches = angular.equals(userMember, releasePackage.member);
+	    		//$log.log('isEditableReleasePackage', releasePackage, Session, memberMatches);
+	    		return Session.isAdmin() || memberMatches;
+	    	};
+	    	
+	    	service.isReleasePackageMatchingMember = function isReleasePackageMatchingMember(releasePackage) {
+	    		var userMember = Session.member;
+	    		var memberMatches = angular.equals(userMember, releasePackage.member);
+	    		return memberMatches;
+	    	};
+	    	
+	    	service.isEditableReleasePackage = function isEditableReleasePackage(releasePackage) {
+	    		return this.isReleasePackageMatchingMember(releasePackage) || Session.isAdmin();
 	    	};
 	    	
 			return service;

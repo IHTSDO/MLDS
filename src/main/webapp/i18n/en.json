@@ -31,6 +31,10 @@
             "pl": "Polish",
             "ru": "Russian"
         },
+        "member": {
+        	"IHTSDO": "IHTSDO International",
+        	"SE": "IHTSDO Sweden"
+        },
         "form": {
             "username": "Login",
             "username.placeholder": "Your login",
