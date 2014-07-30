@@ -1,14 +1,16 @@
 'use strict';
 
 mldsApp.controller('PendingApplicationsController', [
+        '$rootScope',
 		'$scope',
 		'$log',
 		'$location',
+		'Session',
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
 		'AffiliateService',
-		function($scope, $log, $location, UserRegistrationService, DomainBlacklistService,
+		function($rootScope, $scope, $log, $location, Session, UserRegistrationService, DomainBlacklistService,
 				PackagesService, AffiliateService) {
 
 			$scope.applications = [];
@@ -36,7 +38,9 @@ mldsApp.controller('PendingApplicationsController', [
 				if ($scope.showAllApplications) {
 					$scope.applicationSearch = '';
 				} else {
-					$scope.applicationSearch = {'member': 'SE'};
+					//FIXME why do we need fallback member?
+					var memberKey = Session.member && Session.member.key || 'IHTSDO';
+					$scope.applicationSearch = {'member': memberKey};
 				}
 			};
 
