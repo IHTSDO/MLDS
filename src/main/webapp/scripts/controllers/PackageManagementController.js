@@ -7,31 +7,31 @@ angular.module('MLDS').controller('PackageManagementController',
 		$scope.utils = PackageUtilsService;
 		
 		$scope.showAllMembers = false;
+		$scope.packages = [];
 		
-		//FIXME replace with a different mechanism
 		function reloadPackages() {
 			$scope.packages = PackagesService.query();
+			$scope.packages.$promise.then(extractPackages);
 		}
 		
 		function extractPackages() {
 			var packages = $scope.packages;
 			
 			var memberFiltered = _.chain(packages).filter(function(p){ return $scope.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); })
-			$log.log('loading packages', packages, memberFiltered.value());
 			
 			$scope.onlinePackages = memberFiltered
 				.filter(PackageUtilsService.isPackagePublished)
 				.sortBy(PackageUtilsService.getLatestPublishedDate)
 				.value();
-			$scope.offinePackages = memberFiltered.reject(PackageUtilsService.isPackagePublished).sortBy(PackageUtilsService.getLatestPublishedDate).value();
-			
-			$log.log($scope.onlinePackages);
+			$scope.offinePackages = memberFiltered
+				.reject(PackageUtilsService.isPackagePublished)
+				.sortBy('createAt')
+				.value();
 		}
 		
-		reloadPackages();
-		
 		$scope.$watch('showAllMembers', extractPackages);
-		$scope.$watch('packages', extractPackages);
+		
+		reloadPackages();
 		
 		$scope.addReleasePackage = function() {
 			var modalInstance = $modal.open({
