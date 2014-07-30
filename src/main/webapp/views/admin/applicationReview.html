@@ -58,8 +58,7 @@
 			<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 
 			<div class="alert alert-warning" ng-show="isReadOnly">
-				<strong>Application Read Only FIXME</strong><br>
-				Applications can only be processed by staff of the responsible member organization.
+				You can view applications submitted to other Member Registration Centres, but you cannot process them.
 			</div>
 
 			<form name="notesForm" novalidate bs-validation>
