@@ -6,47 +6,46 @@
 <html class="no-js">
 <!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IHTSDO MLDS</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width">
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<!-- build:css(.tmp) styles/main.css -->
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>IHTSDO MLDS</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css">
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="styles/famfamfam-flags.css">
-	<link rel="stylesheet" href="styles/main.css">
-	<!-- endbuild -->
-	
-	<script type='text/javascript' src="bower_components/css3-mediaqueries-js/css3-mediaqueries.js"></script>  
-	<script type='text/javascript' src="bower_components/es5-shim/es5-shim.js"></script>
-	<script type='text/javascript' src="bower_components/placeholders/build/placeholders.js"></script>
-	
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	  <script type='text/javascript' src="bower_components/html5shiv/dist/html5shiv.min.js"></script>
-	  <script type='text/javascript' src="bower_components/respond/respond.min.js"></script>
-	<![endif]-->
+  <link rel="stylesheet" href="styles/famfamfam-flags.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+  
+  <script type='text/javascript' src="bower_components/css3-mediaqueries-js/css3-mediaqueries.js"></script>  
+  <script type='text/javascript' src="bower_components/es5-shim/es5-shim.js"></script>
+  <script type='text/javascript' src="bower_components/placeholders/build/placeholders.js"></script>
+  
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script type='text/javascript' src="bower_components/html5shiv/dist/html5shiv.min.js"></script>
+    <script type='text/javascript' src="bower_components/respond/respond.min.js"></script>
+  <![endif]-->
 
 </head>
 <body ng-app="MLDS" ng-controller="MainController">
   <div class="development"></div>
   
-	<div ng-hide="$root.Session.isStaffOrAdmin()" ng-include src="'views/topNav.html'"></div>
- 	<div ng-hide="$root.Session.isStaffOrAdmin()" class="container" ng-view=""></div>
- 	
-	<div ng-show="$root.Session.isStaffOrAdmin()" ng-include src="'views/fixedTopNav.html'"></div>
- 	<div ng-show="$root.Session.isStaffOrAdmin()" class="container-fluid nav-space" >
-		<div class="row">
-		 <div ng-include src="'views/sideNav.html'"></div>
-   	</div>
+  <div ng-hide="$root.Session.isStaffOrAdmin()" ng-include src="$root.Session.isStaffOrAdmin()?'views/fixedTopNav.html':'views/topNav.html'"></div>
+  <div ng-hide="$root.Session.isStaffOrAdmin()" class="container" ng-view=""></div>
+  
+  <div ng-show="$root.Session.isStaffOrAdmin()" class="container-fluid nav-space" >
+    <div class="row">
+     <div ng-include src="'views/sideNav.html'"></div>
+    </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" ng-view="">
-		</div>
- 	</div>
+    </div>
+  </div>
 
-	<footer class="navbar-fixed-bottom">
+  <footer class="navbar-fixed-bottom">
       <div class="container">
         <p class="muted pull-left">&copy; IHTSDO 2014</p>
         <a class="btn btn-link pull-right" target="_blank" href="/tos.html">Terms and Conditions FIXME COPY</a>
@@ -139,6 +138,7 @@
   <script src="scripts/services/CountryService.js"></script>
   <script src="scripts/services/CommercialUsageService.js"></script>
   <script src="scripts/services/MemberService.js"></script>
+  <script src="scripts/services/LookupCollector.js"></script>
   <script src="scripts/services/Register.js"></script>
   <script src="scripts/services/ReleaseFilesService.js"></script>
   <script src="scripts/services/ReleaseVersionsService.js"></script>
