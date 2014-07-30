@@ -6,10 +6,11 @@ mldsApp.controller('ApplicationReviewController', [
 		'$routeParams',
 		'$modal',
 		'$location',
+		'Session',
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
-		function($scope, $log, $routeParams, $modal, $location, UserRegistrationService, DomainBlacklistService,
+		function($scope, $log, $routeParams, $modal, $location, Session, UserRegistrationService, DomainBlacklistService,
 				PackagesService) {
 
 			var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
@@ -21,6 +22,7 @@ mldsApp.controller('ApplicationReviewController', [
 			
 			$scope.alerts = [];
 			$scope.submitting = false;
+			$scope.isReadOnly = true;
 
 			function loadApplication() {
 				var queryPromise = UserRegistrationService.getApplicationById(applicationId);
@@ -33,6 +35,8 @@ mldsApp.controller('ApplicationReviewController', [
 						}
 						$log.log('loadApplication', application);
 						$scope.application = application;
+						
+						$scope.isReadOnly = !Session.isAdmin() && (Session.member.key !== application.member.key);
 						
 						if (application.commercialUsage) {
 							$scope.commercialUsageInstitutionsByCountry = _.groupBy(application.commercialUsage.entries, 
