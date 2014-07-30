@@ -5951,7 +5951,7 @@ a.tooltip span {
 }
 .navbar[role=navigation] {
   margin-bottom: 30px;
-  border-bottom: 3px solid #04add8;
+  border-bottom: 3px solid #384042;
 }
 .space {
   margin-top: 10px;
@@ -6188,7 +6188,8 @@ a.tooltip span {
   border-bottom: 3px solid #04add8;
 }
 .navbar[role=admin] .navbar-brand {
-  color: #384042;
+  color: #555555;
+  font-weight: bold;
 }
 .sidebar {
   position: fixed;
@@ -6203,6 +6204,12 @@ a.tooltip span {
   background-color: #384042;
   border-right: 1px solid #EEE;
 }
+.sidebar a {
+  color: #ededed;
+}
+.sidebar :hover {
+  color: #384042;
+}
 .nav-sidebar {
   margin-bottom: 20px;
   margin-left: -20px;
@@ -6210,6 +6217,10 @@ a.tooltip span {
 }
 .nav-sidebar > li {
   border-bottom: 1px solid #343c3e;
+}
+.nav-sidebar .active {
+  color: #ededed;
+  background-color: #212526;
 }
 footer {
   background-color: #4372aa;

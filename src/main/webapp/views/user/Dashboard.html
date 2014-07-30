@@ -87,8 +87,20 @@
         <tr>
           <td>John Smith</td>
           <td>June 02 2014</td>
-          <td><p class="text-warning">Pending</p></td>
+          <td><p class="text-success"><strong>Success</strong></p></td>
         </tr>
+        <tr>
+          <td>John Smith</td>
+          <td>June 02 2014</td>
+          <td><p class="text-warning"><strong>Pending</strong></p></td>
+        </tr>
+
+        <tr>
+          <td>John Smith</td>
+          <td>June 02 2014</td>
+          <td><p class="text-danger"><strong>Rejected</strong></p></td>
+        </tr>
+
       </tbody>
     </table>
   </div>
@@ -103,7 +115,7 @@
   <div class="panel-body">
     <span class="alert alert-warning btn-block" ng-show="isApplicationPending(affiliate.application)">
       <strong>Application Status:</strong> Pending Approval</span>
-      <span class="alert alert-success" ng-show="affiliate.application.approvalState === 'APPROVED'">
+      <span class="alert alert-success btn-block" ng-show="affiliate.application.approvalState === 'APPROVED'">
       <strong>Application Status:</strong> Approved</span>
   </div>
 </div>
