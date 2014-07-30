@@ -4813,7 +4813,7 @@ a.list-group-item-danger.active:focus {
 .panel-title {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 16px;
+  font-size: 19px;
   color: inherit;
 }
 .panel-title > a {
@@ -5001,7 +5001,7 @@ a.list-group-item-danger.active:focus {
   border-color: #d4d4d4;
 }
 .panel-default > .panel-heading {
-  color: #6e6e6e;
+  color: #355985;
   background-color: #fafafa;
   border-color: #d4d4d4;
 }
