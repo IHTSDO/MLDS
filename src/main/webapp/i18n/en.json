@@ -20,7 +20,30 @@
                 "affiliates": "Affiliates",
                 "dashboard": "Dashboard"
             },
-            "admin": "Administration",
+            "dashboard": "Dashboard",
+            "usageReports": "Usage Reports",
+            "releasePackages": "Release Packages",
+            "affiliate": {
+            		"accountInformation": "Account Information",
+            		"changePassword": "Change Password",
+            		"logout": "Logout"
+            },
+            "staff": {
+            		"dashboard": "Dashboard",
+            		"pendingApplications": "Pending Applications",
+            		"usageReports": "Usage Reports",
+            		"affiliteUserManagement": "Affiliate User Management",
+            		"activityLog": "Activity Log",
+            		"packageManagement": "Package Management",
+            		"licenseTC": "License T and C",
+            		"reportsExtracts": "Reports and Extracts",
+            		"logout": "Logout"
+            },
+            "admin": {
+            		"importAffiliateRecords": "Import Affiliate Records",
+            		"manageBlacklist": "Manage Blacklist",
+            		"nationalRegistrationList": "National Registration List"
+            },
             "language": "Language"
         },
         "language": {

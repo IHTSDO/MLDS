@@ -111,6 +111,10 @@ mldsApp.factory('Session', ['USER_ROLES','$q',
         this.isAdmin = function() {
         	return this.userRoles && _.contains(this.userRoles, USER_ROLES.admin);
         };
+        this.isStaffOrAdmin = function() {
+        	return this.userRoles && (_.contains(this.userRoles, USER_ROLES.admin) || _.contains(this.userRoles, USER_ROLES.staff));
+        };
+        
         return this;
     }]);
 
