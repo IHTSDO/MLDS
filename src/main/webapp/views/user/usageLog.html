@@ -22,28 +22,28 @@
                     <label>Licence Type: {{'affiliate.type.'+commercialUsageReport.type | translate}}</label>
                   </div>
                   <div class="form-group">
-                    <label>Current Usage</label>
+                    <label>Current Usage:</label>
                     <textarea class="form-control" rows="3" required ng-disabled="readOnly" name="currentUsage" ng-model="commercialUsageReport.context.currentUsage" auto-submit></textarea>
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.currentUsage.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
                   <div class="form-group">
-                    <label>Planned Usage</label>
+                    <label>Planned Usage:</label>
                     <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="plannedUsage" ng-model="commercialUsageReport.context.plannedUsage" auto-submit></textarea>
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.plannedUsage.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
                   <div class="form-group">
-                    <label>Purpose</label>
+                    <label>Purpose:</label>
                     <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="purpose" ng-model="commercialUsageReport.context.purpose" auto-submit></textarea>
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.purpose.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
                   <div class="form-group">
-                    <label>Type of Agreement</label>
+                    <label>Type of Agreement:</label>
                     <select name="agreementType"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.agreementType" ng-options="'affiliate.agreementType.'+type | translate for type in agreementTypeOptions"  auto-submit>
                     </select> 
                     <div ng-show="usageForm.attempted">
@@ -51,7 +51,7 @@
 					</div>
                   </div>
                   <div class="form-group">
-                    <label>Implementation Status</label>
+                    <label>Implementation Status:</label>
                     <select name="implementationStatus"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.implementationStatus" ng-options="'affiliate.implementationStatus.'+status | translate for status in implementationStatusOptions"  auto-submit>
                     </select> 
                     <div ng-show="usageForm.attempted">
