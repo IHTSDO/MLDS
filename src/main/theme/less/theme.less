@@ -331,14 +331,25 @@
 	overflow-y: auto;
 	background-color: @dark-blue;
 	border-right: 1px solid #EEE;
+
+	a{
+		color: @cloud;
+	}
+
+	:hover{
+		color: @dark-blue;
+	}
 }
 .nav-sidebar {
     margin-bottom: 20px;
     margin-left: -20px;
     margin-right: -21px;
     > li{
-    	border-bottom: 1px solid darken(@dark-blue, 1.5%)
+    	border-bottom: 1px solid darken(@dark-blue, 1.5%);	
     }
+    .active{
+    	background-color: darken(@dark-blue, 10%);
+    	}
 }
 // Footer
 // --------------------------------------------------
