@@ -1,21 +1,14 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.joda.time.Instant;
 
-import com.google.common.collect.Sets;
-
 @Entity
-public class Member {
+public class Member extends BaseEntity {
 	public static final String KEY_IHTSDO = "IHTSDO";
 	
 	@Id
@@ -44,6 +37,11 @@ public class Member {
 
 	public Instant getCreatedAt() {
 		return createdAt;
+	}
+
+	@Override
+	protected Object getPK() {
+		return memberId;
 	}
 
     

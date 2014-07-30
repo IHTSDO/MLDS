@@ -85,8 +85,11 @@ mldsApp.factory('AuditsService', ['$http',
         }
     }]);
 
-mldsApp.factory('Session', ['USER_ROLES',
-    function (USER_ROLES) {
+mldsApp.factory('Session', ['USER_ROLES','$q',
+    function (USER_ROLES, $q) {
+		var loadedDefer = $q.defer();
+		this.promise = loadedDefer.promise;
+		
         this.create = function (login, firstName, lastName, email, userRoles, member) {
             this.login = login;
             this.firstName = firstName;
@@ -94,6 +97,7 @@ mldsApp.factory('Session', ['USER_ROLES',
             this.email = email;
             this.userRoles = userRoles;
             this.member = member;
+            loadedDefer.resolve(this);
         };
         this.invalidate = function () {
             this.login = null;
@@ -102,6 +106,7 @@ mldsApp.factory('Session', ['USER_ROLES',
             this.email = null;
             this.userRoles = null;
             this.member = null;
+            loadedDefer.resolve(this);
         };
         this.isAdmin = function() {
         	return this.userRoles && _.contains(this.userRoles, USER_ROLES.admin);
