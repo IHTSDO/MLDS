@@ -24,9 +24,9 @@
 					<td>{{'approval.state.'+application.approvalState | translate}}</td>
 					<td>New</td>
 					<td class="text-right">{{totalSublicences(application.commercialUsage) | number}}</td>
-					<td>{{application.organizationName ? application.organizationName : application.name}}</td>
-					<td>{{application.country}}</td>
-					<td>{{'affiliate.type.'+application.type | translate}} - {{application.subType}}</td>
+					<td>{{application.affiliateDetails.organizationName ? application.affiliateDetails.organizationName : application.affiliateDetails.firstName + ' '+application.affiliateDetails.lastName}}</td>
+					<td>{{application.affiliateDetails.address.country.commonName}}</td>
+					<td>{{'affiliate.type.'+application.type | translate}} - {{'affiliate.subType.'+application.subType | translate}}</td>
 					<td>{{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</td>
 					<td> <a class="btn btn-primary btn-sm" ng-click="goToApplication(application)"><i class="fa fa-pencil"></i> Review</a></td>
 				</tr>

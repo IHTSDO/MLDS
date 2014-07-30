@@ -833,5 +833,29 @@
 			where iso_code_2 = 'SE' AND exclude_registration = FALSE
 		</sql>
 	</changeSet>
+
+	<changeSet id="MLDS-300-2" author="DGJ">
+		<comment>Associate Member with Affiliate and Application</comment>
+		<addColumn tableName="application">
+			<column name="member_id" type="INT8">
+				<constraints foreignKeyName="application_member" referencedTableName="member" referencedColumnNames="member_id"/>
+			</column>
+		</addColumn>
+		<addColumn tableName="affiliate">
+			<column name="home_member_id" type="INT8">
+				<constraints foreignKeyName="affiliate_home_member" referencedTableName="member" referencedColumnNames="member_id"/>
+			</column>
+		</addColumn>
+		<sql>
+			update application
+			set member_id = (select member_id from member where key = 'IHTSDO')
+		</sql>
+		<sql>
+			update affiliate
+			set home_member_id = (select member_id from member where key = 'IHTSDO')
+		</sql>
+		<addNotNullConstraint tableName="application" columnName="member_id"/>
+		<addNotNullConstraint tableName="affiliate" columnName="home_member_id"/>
+	</changeSet>
 	
 </databaseChangeLog>
