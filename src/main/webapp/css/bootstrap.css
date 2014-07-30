@@ -6181,7 +6181,7 @@ a.tooltip span {
   z-index: 999;
 }
 .nav-space {
-  margin-bottom: 40px;
+  margin-top: 80px;
 }
 .navbar[role=admin] {
   background-color: #eeeeee;
