@@ -41,6 +41,9 @@ mldsApp
                     controller: 'UserDashboardController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/usage-log/:usageReportId', {
@@ -117,10 +120,7 @@ mldsApp
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
                     resolve: {
-                    	memberFetched:['Session', function (Session) {
-                    		console.log('Session promise', Session.promise);
-                    		return Session.promise;
-                    	}]
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
