@@ -38,7 +38,7 @@
  	<div ng-hide="$root.Session.isStaffOrAdmin()" class="container" ng-view=""></div>
  	
 	<div ng-show="$root.Session.isStaffOrAdmin()" ng-include src="'views/fixedTopNav.html'"></div>
- 	<div ng-show="$root.Session.isStaffOrAdmin()" class="container-fluid" >
+ 	<div ng-show="$root.Session.isStaffOrAdmin()" class="container-fluid nav-space">
 		<div class="row">
 		 <div ng-include src="'views/sideNav.html'"></div>
    	</div>
