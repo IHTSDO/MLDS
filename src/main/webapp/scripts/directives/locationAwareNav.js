@@ -14,8 +14,9 @@ angular.module('MLDS')
                 angular.forEach(links, function(value){
                     var a = angular.element(value);
                     var navHref = a.attr('href');
-                    var isCurrent = (currentPath != "" && navHref.indexOf("#"+currentPath) == 0)
-                    	|| (currentPath == "" && navHref == "#"); //home page special case
+                    
+                    var isCurrent = ((currentPath != "" && currentPath != "/") && navHref.indexOf("#"+currentPath) == 0)
+                    	|| ((currentPath == "" || currentPath == "/") && navHref == "#"); //home page special case
                     	 
                     if (isCurrent){
                     	//console.log('nav - chose', value);
