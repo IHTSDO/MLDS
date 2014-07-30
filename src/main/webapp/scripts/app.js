@@ -15,11 +15,17 @@ mldsApp
                     access: {
                         authorizedRoles: [USER_ROLES.all]
                     },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
                 })
                 .when('/emailVerification', {
                     templateUrl: 'views/registration/emailVerification.html',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/affiliateRegistration', {
@@ -27,6 +33,9 @@ mldsApp
                     controller: 'AffiliateRegistrationController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/activate', {
@@ -34,6 +43,9 @@ mldsApp
                     controller: 'ActivationController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/dashboard', {
@@ -41,6 +53,9 @@ mldsApp
                     controller: 'UserDashboardController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/usage-log/:usageReportId', {
@@ -48,6 +63,9 @@ mldsApp
                     controller: 'FullPageUsageLogController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/login', {
@@ -55,12 +73,18 @@ mldsApp
                     controller: 'LoginController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/error', {
                     templateUrl: 'views/error.html',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/contactInfo', {
@@ -68,6 +92,9 @@ mldsApp
                     controller: 'ContactInfoController',
                     access: {
                     	authorizedRoles: [USER_ROLES.user]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/password', {
@@ -75,6 +102,9 @@ mldsApp
                     controller: 'PasswordController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/requestPasswordReset', {
@@ -82,14 +112,20 @@ mldsApp
                 	controller: 'RequestPasswordResetController',
                 	access: {
                 		authorizedRoles: [USER_ROLES.all]
-                	}
+                	},
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
                 })
                 .when('/resetPassword', {
                 	templateUrl: 'views/resetPassword.html',
                 	controller: 'ResetPasswordController',
                 	access: {
                 		authorizedRoles: [USER_ROLES.all]
-                	}
+                	},
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
                 })
                 .when('/sessions', {
                     templateUrl: 'views/sessions.html',
@@ -97,7 +133,8 @@ mldsApp
                     resolve:{
                         resolvedSessions:['Sessions', function (Sessions) {
                             return Sessions.get();
-                        }]
+                        }],
+                        lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     },
                     access: {
                         authorizedRoles: [USER_ROLES.all]
@@ -108,6 +145,9 @@ mldsApp
                     controller: 'AdminDashboardController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/packageManagement', {
@@ -117,10 +157,7 @@ mldsApp
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
                     resolve: {
-                    	memberFetched:['Session', function (Session) {
-                    		console.log('Session promise', Session.promise);
-                    		return Session.promise;
-                    	}]
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
@@ -129,6 +166,9 @@ mldsApp
                     controller: 'PackageController',
                     access: {
                     	authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/package/:packageId/:edit', {
@@ -136,6 +176,9 @@ mldsApp
                     controller: 'PackageController',
                     access: {
                     	authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
@@ -144,6 +187,9 @@ mldsApp
                     controller: 'ViewPackagesController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/viewPackage/:releasePackageId', {
@@ -151,6 +197,9 @@ mldsApp
                     controller: 'ViewPackageController',
                     access: {
                     	authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/pendingApplications', {
@@ -158,6 +207,9 @@ mldsApp
                     controller: 'PendingApplicationsController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/applicationReview/:applicationId', {
@@ -165,6 +217,9 @@ mldsApp
                     controller: 'ApplicationReviewController',
                     access: {
                     	authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/metrics', {
@@ -172,6 +227,9 @@ mldsApp
                     controller: 'MetricsController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/logs', {
@@ -180,7 +238,8 @@ mldsApp
                     resolve:{
                         resolvedLogs:['LogsService', function (LogsService) {
                             return LogsService.findAll();
-                        }]
+                        }],
+                        lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     },
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
@@ -191,6 +250,9 @@ mldsApp
                     controller: 'AuditsController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/logout', {
@@ -198,12 +260,18 @@ mldsApp
                     controller: 'LogoutController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/docs', {
                     templateUrl: 'views/admin/docs.html',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/styleguide/:template*', {
@@ -211,6 +279,9 @@ mldsApp
                     	return 'views/styleguide/'+params.template+'.html';},
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .otherwise({
@@ -218,6 +289,9 @@ mldsApp
                     controller: 'MainController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 });
 

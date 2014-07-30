@@ -1,7 +1,6 @@
 'use strict';
 
 mldsApp.controller('PendingApplicationsController', [
-        '$rootScope',
 		'$scope',
 		'$log',
 		'$location',
@@ -10,7 +9,7 @@ mldsApp.controller('PendingApplicationsController', [
 		'DomainBlacklistService',
 		'PackagesService',
 		'AffiliateService',
-		function($rootScope, $scope, $log, $location, Session, UserRegistrationService, DomainBlacklistService,
+		function($scope, $log, $location, Session, UserRegistrationService, DomainBlacklistService,
 				PackagesService, AffiliateService) {
 
 			$scope.applications = [];
