@@ -17,6 +17,7 @@
 						<th>Status</th>
 						<th>Type</th>
 						<th>Member</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -25,6 +26,7 @@
 					<td>{{'approval.state.'+affiliate.application.approvalState | translate}}</td>
 					<td>{{'affiliate.type.'+affiliate.application.type | translate}} - {{'affiliate.subType.'+affiliate.application.subType | translate}}</td>
 					<td>{{affiliate.homeMember.key}}</td>
+					<td> <a class="btn btn-primary btn-sm" ng-click="viewApplication(affiliate.application)"><i class="fa fa-pencil"></i> Application</a></td>
 				</tr>
 				</tbody>
 			</table>

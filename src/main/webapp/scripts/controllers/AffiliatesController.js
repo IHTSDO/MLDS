@@ -4,12 +4,13 @@ mldsApp.controller('AffiliatesController', [
 		'$scope',
 		'$log',
 		'$location',
+		'$modal',
 		'Session',
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
 		'AffiliateService',
-		function($scope, $log, $location, Session, UserRegistrationService, DomainBlacklistService,
+		function($scope, $log, $location, $modal, Session, UserRegistrationService, DomainBlacklistService,
 				PackagesService, AffiliateService) {
 
 			$scope.affiliates = [];
@@ -45,4 +46,18 @@ mldsApp.controller('AffiliatesController', [
 				}
 			};
 
+			$scope.viewApplication = function(application) {
+        		var modalInstance = $modal.open({
+        			templateUrl: 'views/admin/applicationSummaryModal.html',
+        			controller: 'ApplicationSummaryModalController',
+        			size:'lg',
+        			backdrop: 'static',
+        			resolve: {
+        				application: function() {
+        					return application;
+        				}
+        			}
+        		});
+
+			};
 		} ]);
