@@ -38,8 +38,7 @@ mldsApp.controller('PendingApplicationsController', [
 				if ($scope.showAllApplications) {
 					$scope.applicationSearch = '';
 				} else {
-					//FIXME why do we need fallback member?
-					var memberKey = Session.member && Session.member.key || 'IHTSDO';
+					var memberKey = Session.member && Session.member.key || 'NONE';
 					$scope.applicationSearch = {'member': memberKey};
 				}
 			};
