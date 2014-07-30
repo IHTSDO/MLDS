@@ -6203,6 +6203,12 @@ a.tooltip span {
   background-color: #384042;
   border-right: 1px solid #EEE;
 }
+.sidebar a {
+  color: #ededed;
+}
+.sidebar :hover {
+  color: #384042;
+}
 .nav-sidebar {
   margin-bottom: 20px;
   margin-left: -20px;
@@ -6210,6 +6216,9 @@ a.tooltip span {
 }
 .nav-sidebar > li {
   border-bottom: 1px solid #343c3e;
+}
+.nav-sidebar .active {
+  background-color: #212526;
 }
 footer {
   background-color: #4372aa;
