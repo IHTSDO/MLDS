@@ -4822,7 +4822,7 @@ a.list-group-item-danger.active:focus {
   text-decoration: none;
 }
 .panel-title a:hover {
-  color: #999999;
+  color: #fac567;
 }
 .panel-footer {
   padding: 10px 15px;
@@ -5944,11 +5944,11 @@ a.tooltip span {
 .brand {
   font-size: 16px;
   line-height: 20px;
-  color: #eeeeee;
+  color: #555555;
   padding: 3px 10px;
   height: 28px;
   font-weight: bold;
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid #999999;
 }
 .navbar[role=navigation] {
   margin-bottom: 30px;
