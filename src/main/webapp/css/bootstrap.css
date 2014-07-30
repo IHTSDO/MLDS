@@ -6205,6 +6205,9 @@ a.tooltip span {
   margin-left: -20px;
   margin-right: -21px;
 }
+.nav-sidebar > li {
+  border-bottom: 1px solid #343c3e;
+}
 footer {
   background-color: #4372aa;
   color: #ffffff;
