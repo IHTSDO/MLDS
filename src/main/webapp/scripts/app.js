@@ -14,7 +14,7 @@ mldsApp
                     controller: 'RegisterController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
-                    }
+                    },
                 })
                 .when('/emailVerification', {
                     templateUrl: 'views/registration/emailVerification.html',
@@ -115,6 +115,12 @@ mldsApp
                     controller: 'PackageManagementController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	memberFetched:['Session', function (Session) {
+                    		console.log('Session promise', Session.promise);
+                    		return Session.promise;
+                    	}]
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
@@ -217,6 +219,7 @@ public class ApplicationController {
 		affiliate.setCreator(application.getUsername());
 		affiliate.setApplication(application);
 		affiliate.setType(application.getType());
+		affiliate.setHomeMember(application.getMember());
 		affiliateRepository.save(affiliate);
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
@@ -287,10 +290,19 @@ public class ApplicationController {
 
 		application.setSnoMedLicence(Boolean.parseBoolean(getStringField(request, "snoMedTC")));
 		
+		application.setMember(findMemberFromAddressCountry(affiliateDetails));
+		
 		if (application.getApprovalState() == null) {
 			application.setApprovalState(ApprovalState.NOT_SUBMITTED);
 		}
 		return application;
+	}
+
+	private Member findMemberFromAddressCountry(AffiliateDetails affiliateDetails) {
+		Validate.notNull(affiliateDetails.getAddress(), "Address is mandatory");
+		Validate.notNull(affiliateDetails.getAddress().getCountry(), "Address country is mandatory");
+		Validate.notNull(affiliateDetails.getAddress().getCountry().getMember(), "Address country member is mandatory");
+		return affiliateDetails.getAddress().getCountry().getMember();
 	}
 
 	private Application findOrStartInitialApplication() {
