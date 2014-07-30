@@ -1,17 +1,22 @@
 'use strict';
 
 mldsApp.controller('PendingApplicationsController', [
+        '$rootScope',
 		'$scope',
 		'$log',
 		'$location',
+		'Session',
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
 		'AffiliateService',
-		function($scope, $log, $location, UserRegistrationService, DomainBlacklistService,
+		function($rootScope, $scope, $log, $location, Session, UserRegistrationService, DomainBlacklistService,
 				PackagesService, AffiliateService) {
 
 			$scope.applications = [];
+			$scope.showAllApplications = false;
+			$scope.applicationSearch = '';
+
 
 			function loadApplications() {
 				// FIXME should be replaced by API call
@@ -26,6 +31,18 @@ mldsApp.controller('PendingApplicationsController', [
 			}
 
 			loadApplications();
+			
+			$scope.$watch('showAllApplications', toggleApplications);
+			
+			function toggleApplications() {
+				if ($scope.showAllApplications) {
+					$scope.applicationSearch = '';
+				} else {
+					var memberKey = Session.member && Session.member.key || 'NONE';
+					$scope.applicationSearch = {'member': memberKey};
+				}
+			};
+
 
 			$scope.goToApplication = function(application) {
 				$log.log('application', application);
