@@ -45,6 +45,7 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                     $rootScope.authenticated = !!Session.login;
                 }).error(function (data, status, headers, config) {
                     $rootScope.authenticated = false;
+                    Session.invalidate();
                 });
             },
             isAuthorized: function (authorizedRoles) {
