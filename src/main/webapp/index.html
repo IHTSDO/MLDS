@@ -34,10 +34,10 @@
 <body ng-app="MLDS" ng-controller="MainController">
   <div class="development"></div>
   
-  <div ng-include src="$root.Session.isStaffOrAdmin()?'views/fixedTopNav.html':'views/topNav.html'"></div>
-
+	<div ng-hide="$root.Session.isStaffOrAdmin()" ng-include src="'views/topNav.html'"></div>
  	<div ng-hide="$root.Session.isStaffOrAdmin()" class="container" ng-view=""></div>
  	
+	<div ng-show="$root.Session.isStaffOrAdmin()" ng-include src="'views/fixedTopNav.html'"></div>
  	<div ng-show="$root.Session.isStaffOrAdmin()" class="container-fluid nav-space" >
 		<div class="row">
 		 <div ng-include src="'views/sideNav.html'"></div>
@@ -139,7 +139,6 @@
   <script src="scripts/services/CountryService.js"></script>
   <script src="scripts/services/CommercialUsageService.js"></script>
   <script src="scripts/services/MemberService.js"></script>
-  <script src="scripts/services/LookupCollector.js"></script>
   <script src="scripts/services/Register.js"></script>
   <script src="scripts/services/ReleaseFilesService.js"></script>
   <script src="scripts/services/ReleaseVersionsService.js"></script>
