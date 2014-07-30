@@ -7,6 +7,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 
 public class SecurityContextSetup {
+	public static final String USERNAME = "user";
+	
 	public void asAdmin() {
 		withRoles(AuthoritiesConstants.ADMIN);
 	}
@@ -16,7 +18,7 @@ public class SecurityContextSetup {
 	}
 	
 	private void withRoles(String... role) {
-		Authentication authentication = new TestingAuthenticationToken("user", "password", role);
+		Authentication authentication = new TestingAuthenticationToken(USERNAME, "password", role);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 
