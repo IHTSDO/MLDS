@@ -538,10 +538,10 @@ a.text-warning:hover {
   color: #815404;
 }
 .text-danger {
-  color: #f74e4d;
+  color: #de0b0a;
 }
 a.text-danger:hover {
-  color: #f51d1c;
+  color: #ad0908;
 }
 .bg-primary {
   color: #fff;
@@ -1915,25 +1915,25 @@ select[multiple].input-lg {
 .has-error .checkbox,
 .has-error .radio-inline,
 .has-error .checkbox-inline {
-  color: #f74e4d;
+  color: #de0b0a;
 }
 .has-error .form-control {
-  border-color: #f74e4d;
+  border-color: #de0b0a;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .has-error .form-control:focus {
-  border-color: #f51d1c;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #fbafaf;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #fbafaf;
+  border-color: #ad0908;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #f75857;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #f75857;
 }
 .has-error .input-group-addon {
-  color: #f74e4d;
-  border-color: #f74e4d;
+  color: #de0b0a;
+  border-color: #de0b0a;
   background-color: #f74e4d;
 }
 .has-error .form-control-feedback {
-  color: #f74e4d;
+  color: #de0b0a;
 }
 .form-control-static {
   margin-bottom: 0;
@@ -4763,26 +4763,26 @@ a.list-group-item-warning.active:focus {
   border-color: #b37406;
 }
 .list-group-item-danger {
-  color: #f74e4d;
+  color: #de0b0a;
   background-color: #f74e4d;
 }
 a.list-group-item-danger {
-  color: #f74e4d;
+  color: #de0b0a;
 }
 a.list-group-item-danger .list-group-item-heading {
   color: inherit;
 }
 a.list-group-item-danger:hover,
 a.list-group-item-danger:focus {
-  color: #f74e4d;
+  color: #de0b0a;
   background-color: #f63635;
 }
 a.list-group-item-danger.active,
 a.list-group-item-danger.active:hover,
 a.list-group-item-danger.active:focus {
   color: #fff;
-  background-color: #f74e4d;
-  border-color: #f74e4d;
+  background-color: #de0b0a;
+  border-color: #de0b0a;
 }
 .list-group-item-heading {
   margin-top: 0;
@@ -5071,7 +5071,7 @@ a.list-group-item-danger.active:focus {
   border-color: #f63554;
 }
 .panel-danger > .panel-heading {
-  color: #f74e4d;
+  color: #de0b0a;
   background-color: #f74e4d;
   border-color: #f63554;
 }
@@ -5947,7 +5947,6 @@ a.tooltip span {
   color: #555555;
   padding: 3px 10px;
   height: 28px;
-  font-weight: bold;
   border-top: 1px solid #999999;
 }
 .navbar[role=navigation] {
