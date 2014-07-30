@@ -33,10 +33,20 @@
 </head>
 <body ng-app="MLDS" ng-controller="MainController">
   <div class="development"></div>
-  <div ng-include src="'views/topNav.html'"></div>
-  <div class="container" ng-view=""></div>
+  
+	<div ng-hide="$root.Session.isStaffOrAdmin()" ng-include src="'views/topNav.html'"></div>
+ 	<div ng-hide="$root.Session.isStaffOrAdmin()" class="container" ng-view=""></div>
+ 	
+	<div ng-show="$root.Session.isStaffOrAdmin()" ng-include src="'views/fixedTopNav.html'"></div>
+ 	<div ng-show="$root.Session.isStaffOrAdmin()" class="container-fluid" >
+		<div class="row">
+		 <div ng-include src="'views/sideNav.html'"></div>
+   	</div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" ng-view="">
+		</div>
+ 	</div>
 
-<footer class="navbar-fixed-bottom">
+	<footer class="navbar-fixed-bottom">
       <div class="container">
         <p class="muted pull-left">&copy; IHTSDO 2014</p>
         <a class="btn btn-link pull-right" target="_blank" href="/tos.html">Terms and Conditions FIXME COPY</a>
