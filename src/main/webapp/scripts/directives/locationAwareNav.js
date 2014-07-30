@@ -1,29 +1,33 @@
 'use strict';
 
 angular.module('MLDS')
-    .directive('locationAwareNav', ['$location', function($location) {
+    .directive('locationAwareNav', ['$location', '$rootScope', '$timeout', function($location, $rootScope, $timeout) {
     	function link(scope, element, attrs){
-            scope.$watch(function() {
-                return $location.path();
-            }, function(newPath){
+    		function updateActiveFlag(){
                 var links = element.find('a');
                 var classSelected = "active";
+                var currentPath = $location.path();
                 
-                //console.log('path change', newPath, links.size());
+                //console.log('path change', currentPath, element, links.size(), links);
                 links.closest('li').removeClass(classSelected);
                 
                 angular.forEach(links, function(value){
-                	//console.log('looking at', value);
                     var a = angular.element(value);
                     var navHref = a.attr('href');
-                    var isCurrent = (newPath != "" && navHref.indexOf("#"+newPath) == 0)
-                    	|| (newPath == "" && navHref == "#"); //home page special case
+                    var isCurrent = (currentPath != "" && navHref.indexOf("#"+currentPath) == 0)
+                    	|| (currentPath == "" && navHref == "#"); //home page special case
                     	 
                     if (isCurrent){
+                    	//console.log('nav - chose', value);
                         a.closest('li').addClass(classSelected);
                     }
                 });
-            });
+            }
+    		
+    		scope.$watch(function() {
+                return $location.path();
+            }, updateActiveFlag);
+    		$rootScope.$watch('authenticated', function(){ $timeout(updateActiveFlag);});
         }
         return {link: link};
     }]);
