@@ -278,6 +278,8 @@ html {
   font-size: 62.5%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   overflow-y: scroll;
+  min-height: 100%;
+  position: relative;
 }
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -285,7 +287,6 @@ body {
   line-height: 1.42857143;
   color: #333333;
   background-color: #f5f5f5;
-  height: 100%;
   margin-bottom: 60px;
 }
 .body-dark {
@@ -3483,7 +3484,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #eeeeee;
 }
 .nav > li.disabled > a {
-  color: #999999;
+  color: #6e6e6e;
 }
 .nav > li.disabled > a:hover,
 .nav > li.disabled > a:focus {
@@ -6205,7 +6206,7 @@ a.tooltip span {
   border-right: 1px solid #EEE;
 }
 .sidebar a {
-  color: #ededed;
+  color: #a1a1a1;
 }
 .sidebar :hover {
   color: #384042;
@@ -6223,10 +6224,22 @@ a.tooltip span {
   background-color: #212526;
 }
 footer {
-  background-color: #4372aa;
-  color: #ffffff;
+  background-color: #555555;
+  color: #eeeeee;
   height: 60px;
   padding-top: 20px;
-  position: relative;
+  position: absolute;
   bottom: -60px;
+  width: 100%;
+}
+footer[role=admin] {
+  background-color: #eeeeee;
+  color: #222222;
+  height: 60px;
+  padding-top: 20px;
+  position: absolute;
+  bottom: -60px;
+}
+footer[role=admin] a {
+  color: #222222;
 }
