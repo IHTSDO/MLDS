@@ -50,6 +50,10 @@ mldsApp.controller('AffiliatesController', [
 				}
 			};
 
+			$scope.affiliateActiveDetails = function(affiliate) {
+				return affiliate.affiliateDetails || affiliate.application.affiliateDetails;
+			};
+			
 			$scope.viewApplication = function(application) {
         		var modalInstance = $modal.open({
         			templateUrl: 'views/admin/applicationSummaryModal.html',
