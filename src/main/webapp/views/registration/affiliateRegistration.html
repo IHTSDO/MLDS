@@ -73,8 +73,11 @@
                         Required field.
                       </p>
 						<p ng-show="affiliateApplicationForm.country.$error.excluded" class="help-block">
-							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
+							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{affiliateform.affiliateDetails.address.country.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
 						</p>
+            </div>
+            <div class="form-group">
+            	<label>Member</label> <span ng-show="affiliateform.affiliateDetails.address.country.member">{{'global.member.'+affiliateform.affiliateDetails.address.country.member.key | translate}}</span>
             </div>
           </div>
         </div>
