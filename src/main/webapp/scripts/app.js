@@ -68,7 +68,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/usage-log/:usageReportId', {
+                .when('/usage-reports/usage-log/:usageReportId', {
                     templateUrl: 'views/user/fullPageUsageLog.html',
                     controller: 'FullPageUsageLogController',
                     access: {
@@ -171,7 +171,7 @@ mldsApp
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
-                .when('/package/:packageId', {
+                .when('/packageManagement/package/:packageId', {
                     templateUrl: 'views/admin/package.html',
                     controller: 'PackageController',
                     access: {
@@ -181,7 +181,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/package/:packageId/:edit', {
+                .when('/packageManagement/package/:packageId/:edit', {
                     templateUrl: 'views/admin/package.html',
                     controller: 'PackageController',
                     access: {
@@ -202,7 +202,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/viewPackage/:releasePackageId', {
+                .when('/viewPackages/viewPackage/:releasePackageId', {
                     templateUrl: 'views/user/viewPackage.html',
                     controller: 'ViewPackageController',
                     access: {

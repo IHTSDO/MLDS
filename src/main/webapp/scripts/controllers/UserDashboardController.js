@@ -70,7 +70,7 @@ angular.module('MLDS')
         	};
 
         	$scope.goToUsageReport = function(usageReport) {
-        		$location.path('/usage-log/'+encodeURIComponent(usageReport.commercialUsageId));
+        		$location.path('/usage-reports/usage-log/'+encodeURIComponent(usageReport.commercialUsageId));
         	};
         	
         	$scope.affiliateIsCommercial = function(affiliate) {
