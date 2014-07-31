@@ -11,7 +11,7 @@
 }
 .navbar[role=navigation]{
 	margin-bottom: 30px;
-	border-bottom:3px solid @dark-blue;
+	border-bottom:3px solid @light-blue;
 }
 .space{
 	margin-top: 10px;
@@ -336,10 +336,6 @@
 	a{
 		color: darken(@cloud, 30%);
 	}
-
-	:hover{
-		color: @dark-blue;
-	}
 }
 .nav-sidebar {
     margin-bottom: 20px;
@@ -349,14 +345,20 @@
     	border-bottom: 1px solid darken(@dark-blue, 1.5%);	
     }
     .active{
-    	color: @cloud;
-    	background-color: darken(@dark-blue, 10%);
+    	background-color: @light-blue;
+    	a{
+    	  color: @white;
+    	}
+    	&:hover,
+	  	&:focus {
+	    color: darken(@cloud, 30%);
+	  }
     }
 }
 // Footer
 // --------------------------------------------------
 footer{
-	background-color: @gray;
+	background-color: @dark-blue;
 	color: @gray-lighter;
 	height: 60px;
 	padding-top: 20px;
