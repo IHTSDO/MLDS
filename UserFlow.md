@@ -27,7 +27,7 @@
 - Long form with sub-sections
     - User Infomation
     - Organization Information
-    - *Accept* SNOWMED License
+    - *Accept* SNOMED License
     - **Submit Registration** --> [Pending Registration Page](#pending-registration-page)
 
 ##### Pending Registration Page
