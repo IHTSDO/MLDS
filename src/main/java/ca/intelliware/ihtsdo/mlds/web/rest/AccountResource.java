@@ -260,10 +260,7 @@ public class AccountResource {
         //FIXME: JH-pick a better name
         UserInfo userInfo = userInfoCalculator.createUserInfo();
         
-        Member member = null;
-        if (authorizationChecker.isStaffOrAdmin()) {
-        	member = authorizationChecker.getMemberRepresentedByUser();
-        }
+        Member member = authorizationChecker.getMemberAssociatedWithUser();
         
         return new ResponseEntity<>(
             new UserDTO(
