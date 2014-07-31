@@ -33,6 +33,16 @@ public class CommercialUsageCountry extends BaseEntity {
 	
 	Integer practices = 0;
 
+	public CommercialUsageCountry() {
+		
+	}
+	
+	// For Testing
+	public CommercialUsageCountry(long commercialUsageCountId, CommercialUsage commercialUsage) {
+		this.commercialUsageCountId = commercialUsageCountId;
+		commercialUsage.addCount(this);
+	}
+	
 	public Long getCommercialUsageCountId() {
 		return commercialUsageCountId;
 	}
