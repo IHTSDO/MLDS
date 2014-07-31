@@ -17,9 +17,15 @@
 				<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
 					<a href="{{releaseFile.downloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl">{{releaseFile.label}}</a>
 				</p>
-				<a class="btn btn-success pull-right" ng-show="!utils.isAllowedToDownload(releaseVersion)" href="#/login">
+				<a class="btn btn-success pull-right" ng-show="!$root.authenticated" href="#/login">
 					Login to download
-				</a>				
+				</a>
+				
+				 <!-- FIXME: ng-show="$root.authenticated && !releaseFile.downloadUrl" -->
+				<button class="btn btn-success pull-right" ng-show="$root.authenticated" ng-click="utils.openExtensionApplicationModal(releasePackage)">			
+					Apply for extension
+				</button>
+				
 			</div>
 		</div>
 	</div>
