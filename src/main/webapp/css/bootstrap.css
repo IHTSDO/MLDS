@@ -3483,7 +3483,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #eeeeee;
 }
 .nav > li.disabled > a {
-  color: #999999;
+  color: #6e6e6e;
 }
 .nav > li.disabled > a:hover,
 .nav > li.disabled > a:focus {
@@ -6205,7 +6205,7 @@ a.tooltip span {
   border-right: 1px solid #EEE;
 }
 .sidebar a {
-  color: #ededed;
+  color: #a1a1a1;
 }
 .sidebar :hover {
   color: #384042;
