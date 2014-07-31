@@ -1,15 +1,10 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.ObjectUtils;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
-import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 /**
@@ -19,13 +14,7 @@ import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 public class AuthorizationChecker {
 
 	@Resource
-	AffiliateRepository affiliateRepository;
-	
-	@Resource
 	protected CurrentSecurityContext currentSecurityContext;
-	
-	@Resource
-	MemberRepository memberRepository;
 	
 	protected boolean isStaffOrAdmin() {
 		return currentSecurityContext.isStaffOrAdmin();
@@ -68,26 +57,4 @@ public class AuthorizationChecker {
 		}
 		checkCurrentUserIsMemberOfAffiliate(affiliate);
 	}
-
-	public Member getMemberAssociatedWithUser() {
-		if (isStaffOrAdmin()) {
-			return getStaffOrAdminMember();
-		} else {
-			return getAffiliateHomeMember();
-		}
-	}
-
-	private Member getStaffOrAdminMember() {
-		String memberKey = currentSecurityContext.getStaffMemberKey();
-		return memberRepository.findOneByKey(memberKey);
-	}
-
-	private Member getAffiliateHomeMember() {
-		List<Affiliate> affiliates = affiliateRepository.findByCreator(currentSecurityContext.getCurrentUserName());
-		if (affiliates.size() >= 0) {
-			return affiliates.get(0).getHomeMember();
-		}
-		return null;
-	}
-
 }

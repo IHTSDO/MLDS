@@ -57,6 +57,9 @@ public class ReleasePackagesResource {
 	@Resource
 	EntityManager entityManager;
 	
+	@Resource
+	UserMembershipAccessor userMembershipAccessor;
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Packages
 
@@ -107,7 +110,7 @@ public class ReleasePackagesResource {
     	authorizationChecker.checkCanCreateReleasePackages();
     	
     	releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
-    	releasePackage.setMember(authorizationChecker.getMemberAssociatedWithUser());
+    	releasePackage.setMember(userMembershipAccessor.getMemberAssociatedWithUser());
     	
     	releasePackageRepository.save(releasePackage);
 
