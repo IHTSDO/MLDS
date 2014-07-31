@@ -334,7 +334,7 @@
 	border-right: 1px solid #EEE;
 
 	a{
-		color:@cloud;
+		color: darken(@cloud, 30%);
 	}
 
 	:hover{
@@ -351,15 +351,28 @@
     .active{
     	color: @cloud;
     	background-color: darken(@dark-blue, 10%);
-    	}
+    }
 }
 // Footer
 // --------------------------------------------------
-footer {
-	background-color: @blue;	
-	color: @white;
+footer{
+	background-color: @gray;
+	color: @gray-lighter;
 	height: 60px;
 	padding-top: 20px;
-	position: relative;
+	position: absolute;
 	bottom: -60px;
+	width: 100%;
+}
+footer[role=admin]{
+	background-color: @gray-lighter;
+	color: @gray-darker;
+	height: 60px;
+	padding-top: 20px;
+	position: absolute;
+	bottom: -60px;
+
+	a{
+		color: @gray-darker;
+	}
 }
