@@ -37,7 +37,7 @@
   <div ng-include src="$root.Session.isStaffOrAdmin()?'views/fixedTopNav.html':'views/topNav.html'"></div>
 
  	<div ng-hide="$root.Session.isStaffOrAdmin()">
-    <div ng-view="" class="container"></div>
+    <div ng-view="" class="container" role="main"></div>
    <div ng-include src="'views/footer.html'"></div>
   </div>
 
