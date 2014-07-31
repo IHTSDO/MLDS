@@ -289,8 +289,9 @@ body {
   background-color: #f5f5f5;
   margin-bottom: 60px;
 }
-.body-dark {
-  background-color: #18283c;
+.container[role="main"] {
+  background-color: #ffffff;
+  border: 1px solid #ededed;
 }
 input,
 button,
