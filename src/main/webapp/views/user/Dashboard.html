@@ -1,6 +1,6 @@
 
 
-<div class="well" ng-repeat="affiliate in affiliates">
+<div ng-repeat="affiliate in affiliates">
   <div class="row" ng-hide="usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED'">
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="alert alert-danger" role="alert">
