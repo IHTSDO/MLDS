@@ -20,10 +20,10 @@ mldsApp.controller('AffiliatesController', [
 			$scope.alerts = [];
 
 			function loadAffiliates() {
-				AffiliateService.affiliatesResource.query({q:''}).$promise
+				$scope.affiliates = AffiliateService.affiliatesResource.query({q:''});
+				$scope.affiliates.$promise
 					.then(function(response) {
-						$log.log('response', response, response.length);
-						$scope.affiliates = response;
+						toggleAffiliates();
 						_.sortBy($scope.affiliates, function(record) {
 							return record.creator;
 						});
@@ -35,7 +35,11 @@ mldsApp.controller('AffiliatesController', [
 
 			loadAffiliates();
 			
-			$scope.$watch('showAllAffiliates', toggleAffiliates);
+			$scope.$watch('showAllAffiliates', function() {
+				if ($scope.affiliates.$resolved) {
+					toggleAffiliates();
+				}
+			});
 			
 			function toggleAffiliates() {
 				if ($scope.affiliatesFilter) {
