@@ -7,14 +7,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
@@ -23,10 +18,7 @@ import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 import com.google.common.collect.Lists;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@ActiveProfiles("dev")
+@RunWith(MockitoJUnitRunner.class)
 public class UserMembershipAccessorTest {
     
 	@Mock
@@ -47,8 +39,6 @@ public class UserMembershipAccessorTest {
     
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
-        
         userMembershipAccessor = new UserMembershipAccessor();
         
         userMembershipAccessor.affiliateRepository = affiliateRepository;

@@ -45,7 +45,7 @@ public class Affiliate {
 	
 	@OneToOne()
 	@JoinColumn(name="application_id")
-	Application application;
+	PrimaryApplication application;
 	
 	@ManyToOne
 	@JoinColumn(name="home_member_id")
@@ -78,11 +78,11 @@ public class Affiliate {
 		return affiliateId;
 	}
 
-	public Application getApplication() {
+	public PrimaryApplication getApplication() {
 		return application;
 	}
 
-	public void setApplication(Application application) {
+	public void setApplication(PrimaryApplication application) {
 		this.application = application;
 	}
 	

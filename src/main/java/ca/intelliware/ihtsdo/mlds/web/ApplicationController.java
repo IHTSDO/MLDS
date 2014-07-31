@@ -28,6 +28,7 @@ import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
+import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
@@ -191,7 +192,7 @@ public class ApplicationController {
 			produces = "application/json")
 	@RolesAllowed({AuthoritiesConstants.USER})
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
-		Application application = findOrStartInitialApplication();
+		PrimaryApplication application = findOrStartInitialApplication();
         application = saveApplicationFields(request,application);
 		authorizationChecker.checkCanAccessApplication(application);
 		
@@ -269,28 +270,31 @@ public class ApplicationController {
 	}
 
 
-	private Application saveApplicationFields(JsonNode request,Application application) {
+	private <T extends Application> T saveApplicationFields(JsonNode request,T application) {
         JsonNode affiliateDetailsJsonNode = request.get("affiliateDetails");
         JsonNode address = affiliateDetailsJsonNode.get("address");
         JsonNode billing = affiliateDetailsJsonNode.get("billingAddress");
 
 		application.setUsername(sessionService.getUsernameOrNull());
+
+		if (application instanceof PrimaryApplication) {
+			PrimaryApplication primaryApplication = (PrimaryApplication) application;
+			if (checkIfValidField(request, "type")){
+				primaryApplication.setType(AffiliateType.valueOf(getStringField(request, "type")));
+			}
+			if (checkIfValidField(request, "subType")) {
+				primaryApplication.setSubType(AffiliateSubType.valueOf(getStringField(request, "subType")));
+			}
+			primaryApplication.setOtherText(getStringField(request, "otherText"));
+			
+			primaryApplication.setSnoMedLicence(Boolean.parseBoolean(getStringField(request, "snoMedTC")));
+		}
 		
-		if (checkIfValidField(request, "type")){
-			application.setType(AffiliateType.valueOf(getStringField(request, "type")));
-		}
-		if (checkIfValidField(request, "subType")) {
-			application.setSubType(AffiliateSubType.valueOf(getStringField(request, "subType")));
-		}
 		
 		AffiliateDetails affiliateDetails = application.getAffiliateDetails();
 		createAffiliateDetails(affiliateDetailsJsonNode, address, billing, affiliateDetails);
 		affiliateDetailsRepository.save(affiliateDetails);
 		application.setAffiliateDetails(affiliateDetails);
-		
-		application.setOtherText(getStringField(request, "otherText"));
-
-		application.setSnoMedLicence(Boolean.parseBoolean(getStringField(request, "snoMedTC")));
 		
 		application.setMember(findMemberFromAddressCountry(affiliateDetails));
 		
@@ -307,12 +311,13 @@ public class ApplicationController {
 		return affiliateDetails.getAddress().getCountry().getMember();
 	}
 
-	private Application findOrStartInitialApplication() {
+	private PrimaryApplication findOrStartInitialApplication() {
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
-		Application application = new Application();
+		PrimaryApplication application = new PrimaryApplication();
 		
 		if (applications.size() > 0) {
-			application = applications.get(0);
+			// FIXME MLDS-308 is this OK?
+			application = (PrimaryApplication) applications.get(0);
 		}
 		return application;
 	}
