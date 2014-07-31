@@ -31,25 +31,7 @@ mldsApp.controller('AffiliateRegistrationController',
         	$scope.organizationTypes = UserRegistrationService.getOrganizationTypes();
         	$scope.affilliateControllerSharedBucket = {};
         	$scope.applicationId = null;
-        	
-            // bind the display name to our country object.
-            $scope.$watch('affiliateform.affiliateDetails.address.country', function(newValue){
-            	var country = _.findWhere(CountryService.countries, {'commonName':newValue});
-            	$scope.selectedCountry = country;
-            	var excludedCountry = country && country.excludeRegistration;
-            	$scope.affiliateApplicationForm.country.$setValidity('excluded',!excludedCountry);
-            	$scope.affiliateApplicationForm.billingCountry.$setValidity('excluded',!excludedCountry);
-            	$scope.affiliateApplicationForm.countryIndividual.$setValidity('excluded',!excludedCountry);
-            });
-            $scope.$watch('affiliateform.affiliateDetails.billingAddress.country', function(newValue){
-            	var country = _.findWhere(CountryService.countries, {'commonName':newValue});
-            	$scope.selectedCountry = country;
-            	var excludedCountry = country && country.excludeRegistration;
-            	$scope.affiliateApplicationForm.country.$setValidity('excluded',!excludedCountry);
-            	$scope.affiliateApplicationForm.billingCountry.$setValidity('excluded',!excludedCountry);
-            	$scope.affiliateApplicationForm.countryIndividual.$setValidity('excluded',!excludedCountry);
-            });
-            
+        	                        
         	window.regScope = $scope;
         	$scope.affiliateform = {};
         	
@@ -58,6 +40,18 @@ mldsApp.controller('AffiliateRegistrationController',
         	$scope.affiliateform.affiliateDetails.billingAddress = {};
         	$scope.affiliateform.organization = {};
         	
+            $scope.$watch('affiliateform.affiliateDetails.address.country', validateHomeCountry);
+
+            function validateHomeCountry(newValue){
+            	var country = newValue;
+            	if (newValue && _.isString(newValue)) {
+            		country = _.findWhere(CountryService.countries, {'commonName':newValue});
+            	}
+            	$scope.selectedCountry = country;
+            	var excludedCountry = country && country.excludeRegistration;
+            	$scope.affiliateApplicationForm.country.$setValidity('excluded',!excludedCountry);
+            }
+
         	$scope.saveApplication = function() {
     			UserRegistrationService.saveApplication($scope.affiliateform, $scope.applicationId);
     			UserSession.reapplied();
@@ -82,7 +76,7 @@ mldsApp.controller('AffiliateRegistrationController',
         			scope: $scope
         		});
         	};
-        	
+        	        	
         	var checkAddresses = function(a, b) {
         		
         		if( a && b && (a.street != '' && a.street === b.street) 
