@@ -15,39 +15,36 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         $scope.affiliateDetails = null;
         $scope.type = null;
         $scope.approved = true;
+        $scope.readOnly = false;
         
         function loadAffiliate() {
         	AffiliateService.myAffiliate()
         		.then(function(result) {
         			var affiliate = result.data;
-        			$log.log(affiliate);
-        			if (!affiliate || !affiliate.affiliateDetails) {
+        			$log.log(affiliate, affiliate.affiliateDetails);
+        			if (affiliate && affiliate.affiliateDetails) {
+        				$scope.affiliateDetails = affiliate.affiliateDetails;        				
+        			} else if (affiliate && affiliate.application.affiliateDetails) {
+        				$scope.affiliateDetails = affiliate.application.affiliateDetails;
+        				$scope.readOnly = true;
+        			} else {
         				$log.log('No affiliates found...');
-        				//FIXME should leave message on dashboard to explain why they got sent back to the dashboard
-        				$location.path('/dashboard');
+        				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
         				return;
         			}
     				$scope.affiliate = affiliate;
     				$scope.type = affiliate.type;
-    				$scope.affiliateDetails = affiliate.affiliateDetails;
     				$scope.approved = AffiliateService.isApplicationApproved(affiliate);
         		})
     			["catch"](function(message) {
-    				//FIXME handle affiliate loading error
+    				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
     				$log.log('Error loading my affiliate');
     			});
 
         }
         
         loadAffiliate();
-        
-        // bind the display name to our country object.
-        $scope.$watch('affiliateDetails.billingAddress.country', function(newValue){
-        	var country = _.findWhere(CountryService.countries, {'commonName':newValue});
-        	$scope.selectedCountry = country;
-        });
-
-        
+                
         $scope.save = function () {
     		if ($scope.form.$invalid) {
     			$scope.form.attempted = true;

@@ -18,7 +18,7 @@
 		</div>
 	</div>
 
-	<div class="row" ng-show="approved">
+	<div class="row">
 		<div class="col-sx-12">
 
 			<div class="panel panel-primary">
@@ -37,14 +37,14 @@
 								<div class="form-group">
 									<label>First Name</label> <input class="form-control"
 										placeholder="John" required="" name="firstName"
-										ng-model="affiliateDetails.firstName">
+										ng-model="affiliateDetails.firstName" ng-disabled="readOnly">
 									<p ng-show="form.firstName.$error.required && form.attempted"
 										class="help-block">Required field.</p>
 								</div>
 								<div class="form-group">
 									<label>Last Name</label> <input class="form-control"
 										placeholder="Last" required="" name="lastName"
-										ng-model="affiliateDetails.lastName">
+										ng-model="affiliateDetails.lastName" ng-disabled="readOnly">
 									<p ng-show="form.lastName.$error.required && form.attempted"
 										class="help-block">Required field.</p>
 								</div>
@@ -68,7 +68,7 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<input class="form-control" type="tel" required=""
-										name="contactPhone" ng-model="affiliateDetails.landlineNumber">
+										name="contactPhone" ng-model="affiliateDetails.landlineNumber" ng-disabled="readOnly">
 									<div ng-show="form.attempted">
 										<p ng-show="form.landlineNumber.$error.required"
 											class="help-block">Required field.</p>
@@ -81,7 +81,8 @@
 							<div class="col-md-2">
 								<div class="form-group">
 									<input class="form-control col-md-2" placeholder="Extension"
-										ng-model="affiliateDetails.landlineExtension">
+										ng-model="affiliateDetails.landlineExtension"
+										ng-disabled="readOnly">
 								</div>
 							</div>
 						</div>
@@ -95,7 +96,7 @@
 								<div class="form-group">
 									<input class="form-control" type="tel" name="mobileNumber"
 										ng-required="type!='INDIVIDUAL'"
-										ng-model="affiliateDetails.mobileNumber">
+										ng-model="affiliateDetails.mobileNumber" ng-disabled="readOnly">
 									<div ng-show="form.attempted">
 										<p ng-show="form.mobileNumber.$error.required"
 											class="help-block">Required field.</p>
@@ -114,7 +115,8 @@
 											name="addressStreetIndividual"
 											placeholder="123 Somewhere Avenue"
 											ng-required="type=='INDIVIDUAL'"
-											ng-model="affiliateDetails.address.street">
+											ng-model="affiliateDetails.address.street"
+											ng-disabled="readOnly">
 										<p
 											ng-show="form.addressStreetIndividual.$error.required && form.attempted"
 											class="help-block">Required field.</p>
@@ -126,7 +128,8 @@
 									<div class="form-group">
 										<input class="form-control" name="addressCityIndividual"
 											placeholder="City" ng-required="type=='INDIVIDUAL'"
-											ng-model="affiliateDetails.address.city">
+											ng-model="affiliateDetails.address.city"
+											ng-disabled="readOnly">
 										<p
 											ng-show="form.addressCityIndividual.$error.required && form.attempted"
 											class="help-block">Required field.</p>
@@ -137,7 +140,7 @@
 										<input class="form-control" type="text"
 											ng-model="affiliateDetails.address.post"
 											name="addressPostIndividual" ng-required="type=='INDIVIDUAL'"
-											placeholder="Post Code">
+											placeholder="Post Code" ng-disabled="readOnly">
 										<p
 											ng-show="form.addresPostIndividual.$error.required && form.attempted"
 											class="help-block">Required field.</p>
@@ -147,7 +150,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<span>{{affiliateDetails.address.country}}</span>
+										<span>{{affiliateDetails.address.country.commonName}}</span>
 									</div>
 								</div>
 							</div>
@@ -182,7 +185,8 @@
 								<div class="form-group">
 									<label>Address</label> <input class="form-control"
 										name="addressStreet" placeholder="123 Somewhere Avenue"
-										required="" ng-model="affiliateDetails.address.street">
+										ng-required="type!='INDIVIDUAL'" ng-model="affiliateDetails.address.street"
+										ng-disabled="readOnly">
 									<p
 										ng-show="form.addressStreet.$error.required && form.attempted"
 										class="help-block">Required field.</p>
@@ -193,8 +197,9 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<input class="form-control" name="addressCity"
-										placeholder="City" required=""
-										ng-model="affiliateDetails.address.city">
+										placeholder="City" ng-required="type!='INDIVIDUAL'"
+										ng-model="affiliateDetails.address.city"
+										ng-disabled="readOnly">
 									<p ng-show="form.addressCity.$error.required && form.attempted"
 										class="help-block">Required field.</p>
 								</div>
@@ -203,7 +208,8 @@
 								<div class="form-group">
 									<input class="form-control" type="text"
 										ng-model="affiliateDetails.address.post" name="addressPost"
-										ng-required="type=='COMMERCIAL'" placeholder="Post Code">
+										ng-required="type!='INDIVIDUAL'" placeholder="Post Code"
+										ng-disabled="readOnly">
 									<p ng-show="form.addressPost.$error.required && form.attempted"
 										class="help-block">Required field.</p>
 								</div>
@@ -224,7 +230,8 @@
 										<label>Billing Address</label> <input class="form-control"
 											name="billingAddressStreet" placeholder="Address"
 											ng-required="type=='COMMERCIAL'"
-											ng-model="affiliateDetails.billingAddress.street">
+											ng-model="affiliateDetails.billingAddress.street"
+											ng-disabled="readOnly">
 										<p
 											ng-show="form.billingAddressStreet.$error.required && form.attempted"
 											class="help-block">Required field.</p>
@@ -236,7 +243,8 @@
 									<div class="form-group">
 										<input class="form-control" name="billingAddressCity"
 											placeholder="City" ng-required="type=='COMMERCIAL'"
-											ng-model="affiliateDetails.billingAddress.city">
+											ng-model="affiliateDetails.billingAddress.city"
+											ng-disabled="readOnly">
 										<p
 											ng-show="form.billingAddressCity.$error.required && form.attempted"
 											class="help-block">Required field.</p>
@@ -247,7 +255,7 @@
 										<input class="form-control" type="text"
 											ng-model="affiliateDetails.billingAddress.post"
 											name="billingAddressPost" ng-required="type=='COMMERCIAL'"
-											placeholder="Post Code">
+											placeholder="Post Code" ng-disabled="readOnly">
 										<p
 											ng-show="form.billingAddressPost.$error.required && form.attempted"
 											class="help-block">Required field.</p>
@@ -259,9 +267,10 @@
 									<div class="form-group">
 										<input class="form-control" type="text"
 											ng-model="affiliateDetails.billingAddress.country"
-											name="billingAddressCountry" required=""
+											name="billingAddressCountry" ng-required="type=='COMMERCIAL'"
 											placeholder="Country"
-											typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8">
+											typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
+											ng-disabled="readOnly">
 										<p
 											ng-show="form.billingAddressCountry.$error.required && form.attempted"
 											class="help-block">Required field.</p>
@@ -276,7 +285,7 @@
 									<label>Alternate Email</label> <input class="form-control"
 										type="email" placeholder="JohnSmith@OrganizationABC.com"
 										ng-required="type!='INDIVIDUAL'" name="alternateEmail"
-										ng-model="affiliateDetails.alternateEmail"
+										ng-model="affiliateDetails.alternateEmail" ng-disabled="readOnly"
 										unique="{{[affiliateDetails.email, affiliateDetails.thirdEmail]}}">
 									<div ng-show="form.attempted">
 										<p ng-show="form.alternateEmail.$error.required"
@@ -297,7 +306,7 @@
 									<label>Third Email</label> <input class="form-control"
 										type="email" placeholder="JohnSmith@OrganizationABC.com"
 										ng-required="type=='COMMERCIAL'" name="thirdEmail"
-										ng-model="affiliateDetails.thirdEmail"
+										ng-model="affiliateDetails.thirdEmail" ng-disabled="readOnly"
 										unique="{{[affiliateDetails.email, affiliateDetails.alternateEmail]}}">
 									<div ng-show="form.attempted">
 										<p ng-show="form.thirdEmail.$error.required"
@@ -319,8 +328,9 @@
 
 			<div class="form-group">
 				<div>
-					<button type="submit" class="btn btn-success">
-						Save <span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+					<button type="submit" class="btn btn-success" ng-disabled="readOnly">
+						Save
+						<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
 					</button>
 					<button class="btn btn-link" ng-click="cancel()"
 						ng-disabled="submitting">Cancel</button>
