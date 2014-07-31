@@ -1,5 +1,5 @@
 <div class="well" ng-repeat="affiliate in affiliates">
-  <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="openAddUsageReportModal(affiliate)"><i class="fa fa-plus"></i> New Report</button></span>
+  <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="usageReportsUtils.openAddUsageReportModal(affiliate)"><i class="fa fa-plus"></i> New Report</button></span>
   <h1>Usage Reports</h1>
 	<div class="row">
 	  <div class="col-lg-12"> 
@@ -17,8 +17,8 @@
 			        </tr>
 			      </thead>
 			      <tbody> 
-			        <tr ng-click="goToUsageReport(usageReport)" ng-class="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" ng-repeat="usageReport in affiliate.commercialUsages">
-			          <td ng-click="goToUsageReport(usageReport)"> 
+			        <tr ng-click="usageReportsUtils.goToUsageReport(usageReport)" ng-class="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" ng-repeat="usageReport in affiliate.commercialUsages">
+			          <td> 
 			          		<span class="btn-link" tooltip-placement="top" tooltip="Declaration has not been submitted">
 				              <i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" 
 				              	class="fa fa-exclamation-circle"></i>
@@ -37,17 +37,17 @@
 			          </td>
 			          <td>
 			            <span class="btn-link">
-			            	{{usageReportCountries(usageReport)}}
+			            	{{usageReportsUtils.usageReportCountries(usageReport)}}
 			            </span>
 			          </td>
 			          <td>
 			            <span class="btn-link">
-			            	{{usageReportHospitals(usageReport)}}
+			            	{{usageReportsUtils.usageReportHospitals(usageReport)}}
 			            </span>
 			          </td>
 			          <td>
 			            <span class="btn-link">
-			            	{{usageReportPractices(usageReport)}}
+			            	{{usageReportsUtils.usageReportPractices(usageReport)}}
 			            </span>
 			          </td>
 			        </tr>

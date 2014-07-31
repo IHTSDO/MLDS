@@ -4,8 +4,8 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', '$modal', 'UserSession','AffiliateService', 'Session', 'UserRegistrationService',
-          function ($scope, $log, $location, $modal, UserSession, AffiliateService, Session, UserRegistrationService) {
+        [ '$scope', '$log', '$location', 'AffiliateService', 'Session', 'UserRegistrationService', 'UsageReportsService',
+          function ($scope, $log, $location, AffiliateService, Session, UserRegistrationService, UsageReportsService) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
@@ -41,47 +41,7 @@ angular.module('MLDS')
 
         	loadAffiliates();
         	
-        	$scope.usageReportCountries = function(usageReport) {
-        		return usageReport.countries.length;
-        	};
-
-        	$scope.usageReportHospitals = function(usageReport) {
-        		return usageReport.entries.length;
-        	};
-
-        	$scope.usageReportPractices = function(usageReport) {
-        		return usageReport.countries.reduce(function(total, count) {
-        			return total + (count.practices || 0);
-        		}, 0);
-        	};
-
-        	$scope.openAddUsageReportModal = function(affiliate) {
-        		var modalInstance = $modal.open({
-        			templateUrl: 'views/user/addUsageReportModal.html',
-        			controller: 'AddUsageReportController',
-        			size:'lg',
-        			backdrop: 'static',
-        			resolve: {
-        				affiliateId: function() {
-        					return affiliate.affiliateId;
-        				}
-        			}
-        		});
-        	};
-
-        	$scope.goToUsageReport = function(usageReport) {
-        		$location.path('/usage-reports/usage-log/'+encodeURIComponent(usageReport.commercialUsageId));
-        	};
-        	
-        	$scope.affiliateIsCommercial = function(affiliate) {
-        		return AffiliateService.affiliateIsCommercial(affiliate);
-        	};
-        	
-        	$scope.anySubmittedUsageReports = function(affiliate) {
-        		return _.some(affiliate.commercialUsages, function(usageReport) {
-        			return usageReport.approvalState !== 'NOT_SUBMITTED';
-        		});
-        	};
+        	$scope.usageReportsUtils = UsageReportsService;
         	
         	$scope.isApplicationPending = function(application) {
         		return UserRegistrationService.isApplicationPending(application);
