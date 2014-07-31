@@ -22,7 +22,7 @@ public class ApplicationAuditEvents {
 
 	private Map<String, String> createAuditData(Application application) {
 		Map<String,String> auditData = Maps.newHashMap();
-		String name = (application != null && application.getAffiliateDetails() != null && application.getAffiliateDetails().getOrganizationName() != null) ? application.getAffiliateDetails().getOrganizationName() : application.getUsername(); 
+		String name = (application.getAffiliateDetails() != null && application.getAffiliateDetails().getOrganizationName() != null) ? application.getAffiliateDetails().getOrganizationName() : application.getUsername(); 
 		auditData.put("application.name", ""+name);
     	auditData.put("application.applicationId", ""+application.getApplicationId());
 		return auditData;
