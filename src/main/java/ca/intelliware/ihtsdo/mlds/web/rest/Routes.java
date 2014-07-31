@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import java.net.URI;
+
 public class Routes {
 	public static final String API_BASE_URL = "/app/rest";
 	
@@ -120,6 +122,7 @@ public class Routes {
 	/**
 	 * control endpoint for multiple applications:
 	 * - GET
+	 * - POST application_type to create new application
 	 */
 	public static final String APPLICATIONS = "/app/rest/applications"; 
 
@@ -153,6 +156,5 @@ public class Routes {
 	 * - POST affiliate user submitting for admin processing
 	 */
 	public static final String APPLICATION_REGISTRATION = "/app/rest/applications/{applicationId}/registration";
-
 
 }

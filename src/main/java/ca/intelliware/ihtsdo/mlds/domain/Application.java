@@ -15,10 +15,21 @@ import javax.persistence.OneToOne;
 
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="application_type")
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=As.PROPERTY, property="applicationType")
+@JsonSubTypes(@Type(value=PrimaryApplication.class, name="PRIMARY"))
 public abstract class Application extends BaseEntity {
+	public static enum ApplicationType {
+		PRIMARY, EXTENSION
+	}
+	
 	@Id
 	@GeneratedValue
 	@Column(name="application_id")
@@ -121,5 +132,15 @@ public abstract class Application extends BaseEntity {
 
 	public void setMember(Member member) {
 		this.member = member;
+	}
+
+	public static Application create(ApplicationType applicationType) {
+		switch (applicationType) {
+		case PRIMARY:
+			return new PrimaryApplication();
+
+		default:
+			throw new RuntimeException("Unsupported applicationType " + applicationType);
+		}
 	}
 }
