@@ -57,6 +57,29 @@
           </div>
         </div>
         
+        <div class="panel panel-primary applicant">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a ng-click="collapsePanel.home = !collapsePanel.home"><span> Home Country</span> <span class="pull-right" ng-show="collapsePanel.type">Edit</span></a>
+            </h4>
+          </div>
+          <div id="collapseIndividual" collapse="collapsePanel.home" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <h4>What is your home country? FIXME COPY</h4>
+              <div class="form-group">
+                   <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.country" required="" name="country" placeholder="Country"
+                   		typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit> 
+                      <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">
+                        Required field.
+                      </p>
+						<p ng-show="affiliateApplicationForm.country.$error.excluded" class="help-block">
+							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
+						</p>
+            </div>
+          </div>
+        </div>
+      </div>
+        
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -179,13 +202,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.country" name="countryIndividual" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Country" typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
-                      <p ng-show="affiliateApplicationForm.countryIndividual.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                        Required field.
-                      </p>
-						<p ng-show="affiliateApplicationForm.countryIndividual.$error.excluded" class="help-block">
-							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
-						</p>
+                    	<span>{{affiliateform.affiliateDetails.address.country.commonName}}</span>
                      </div>
                   </div>
                 </div>
@@ -266,16 +283,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.country" 
-                    ng-change="copyAddress()" name="country" required="" placeholder="Country" 
-                    typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
-                    auto-submit>
-                    <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                      Required field.
-                    </p>
-						<p ng-show="affiliateApplicationForm.country.$error.excluded" class="help-block">
-							This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{selectedCountry.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
-						</p>
+                  	<span>{{affiliateform.affiliateDetails.address.country.commonName}}</span>
                   </div>
                 </div>
               </div>
