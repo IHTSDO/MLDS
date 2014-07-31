@@ -185,6 +185,7 @@ public class ApplicationController {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
+	@Transactional
 	@RequestMapping(value=Routes.APPLICATION_REGISTRATION,
 			method=RequestMethod.POST,
 			produces = "application/json")
@@ -226,6 +227,7 @@ public class ApplicationController {
 	}
 
 	
+	@Transactional
 	@RequestMapping(value=Routes.APPLICATION_REGISTRATION,
 			method=RequestMethod.PUT,
 			produces = "application/json")
