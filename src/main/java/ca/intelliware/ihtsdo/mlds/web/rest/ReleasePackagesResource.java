@@ -138,6 +138,9 @@ public class ReleasePackagesResource {
     }
 
 	private ReleasePackage filterReleasePackageByAuthority(ReleasePackage releasePackage) {
+		// don't accidentaly push these changes back to the db.
+		entityManager.detach(releasePackage);
+		
 		
 		ReleasePackage result = releasePackage;
 		Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
@@ -155,9 +158,6 @@ public class ReleasePackagesResource {
 	}
 
 	private ReleaseVersion filterReleaseVersionByAuthority(ReleaseVersion version) {
-		// don't accidentaly push these changes back to the db.
-    	entityManager.detach(version);
-
 		ReleaseVersion result = version;
 		
 		// FIX ME AC:Check to see if user's application is approved otherwise hide download links
