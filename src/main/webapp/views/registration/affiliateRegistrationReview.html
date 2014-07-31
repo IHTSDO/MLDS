@@ -21,7 +21,7 @@
   				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.affiliateDetails.address.street}}</li>
   				<li class="list-group-item"><strong>City:</strong> {{affiliateform.affiliateDetails.address.city}}</li>
   				<li class="list-group-item"><strong>Post Code:</strong> {{affiliateform.affiliateDetails.address.post}}</li>
-  				<li class="list-group-item"><strong>Country:</strong> {{affiliateform.affiliateDetails.address.country}}</li>
+  				<li class="list-group-item"><strong>Country:</strong> {{affiliateform.affiliateDetails.address.country.commonName}}</li>
   			</ul>
 
   			<ul class="list-group" ng-show="affiliateform.type!='INDIVIDUAL'">
@@ -57,7 +57,7 @@
   				<li class="list-group-item"><strong>Purpose:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.purpose}}</li>
   				<li class="list-group-item"><strong>Agreement Type:</strong> {{'affiliate.agreementType.'+CommercialUsageService.currentCommercialUsageReport.context.agreementType | translate}}</li>
   				<li class="list-group-item"><strong>Implementation Status:</strong> {{'affiliate.implementationStatus.'+CommercialUsageService.currentCommercialUsageReport.context.implementationStatus | translate}}</li>
-  				<li class="list-group-item" ng-show="affiliateform.type=='COMMERCIAL'" ng-repeat="countryRecord in CommercialUsageService.currentCommercialUsageReport.countries">
+  				<li class="list-group-item" ng-show="affiliateform.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
   					<strong>Country:</strong> {{countryRecord.country.commonName}}<br>
  						<strong>Practices:</strong> {{countryRecord.practices}}<br>
   				  <strong>Institutions:</strong>
@@ -66,7 +66,7 @@
  						</span><br>
  					</li>
  					<li class="list-group-item" ng-show="affiliateform.type!='COMMERCIAL'"><strong>Countries:</strong>
- 						<span ng-repeat="countryRecord in CommercialUsageService.currentCommercialUsageReport.countries">
+ 						<span ng-repeat="countryRecord in usageCountryCountslist">
   						{{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
  						</span><br>
  					</li>
