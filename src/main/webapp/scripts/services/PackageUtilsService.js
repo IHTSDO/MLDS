@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS').factory('PackageUtilsService',
-		[ '$resource', '$q', '$log', 'Session', function($resource, $q, $log, Session) {
+		[ '$resource', '$q', '$log', '$modal', 'Session', function($resource, $q, $log, $modal, Session) {
 			var service = {};
 			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
@@ -69,15 +69,6 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		
 	    		return results;
 	    	};
-	        
-	    	service.isAllowedToDownload = function isNotAllowedToDownload(releaseVersion) {
-	    		for(var i = 0; i < releaseVersion.releaseFiles.length; i++) {
-	    			if (releaseVersion.releaseFiles[i].downloadUrl)
-	    				return true;
-	    		};
-	    		
-	    		return false;
-	    	};
 	    	
 	    	service.isEditableReleasePackage = function isEditableReleasePackage(releasePackage) {
 	    		var userMember = Session.member;
@@ -94,6 +85,20 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    	
 	    	service.isEditableReleasePackage = function isEditableReleasePackage(releasePackage) {
 	    		return this.isReleasePackageMatchingMember(releasePackage) || Session.isAdmin();
+	    	};
+	    	
+	    	service.openExtensionApplicationModal = function openExtensionApplicationModal(releasePackage) {
+	    		var modalInstance = $modal.open({
+	    			templateUrl: 'views/user/extensionApplicationModal.html',
+	    			controller: 'ExtensionApplicationController',
+	    			size:'lg',
+	    			backdrop: 'static',
+	    			resolve: {
+	    				releasePackage: function() {
+	    					return releasePackage;
+	    				}
+	    			}
+	    		});
 	    	};
 	    	
 			return service;
