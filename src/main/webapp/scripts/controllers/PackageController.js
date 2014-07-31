@@ -18,6 +18,7 @@ angular.module('MLDS').controller('PackageController',
 	
 			
 	var releasePackageId = $routeParams.packageId && parseInt($routeParams.packageId, 10);
+	$log.log('releasePackageId', releasePackageId);
 	var loadReleasePackage = function loadReleasePackage() {
 		if (releasePackageId) {
 			PackagesService.get({releasePackageId: releasePackageId})
@@ -33,7 +34,7 @@ angular.module('MLDS').controller('PackageController',
 		} else {
 			$location.path('/packageManagement');
 		};
-	}
+	};
 
 	loadReleasePackage();
 	
@@ -53,7 +54,7 @@ angular.module('MLDS').controller('PackageController',
             }
           });
       modalInstance.result.then(loadReleasePackage);
-	}
+	};
 	
 	$scope.editReleaseVersion = function addReleaseVersion(selectedReleaseVersion) {
         var modalInstance = $modal.open({
