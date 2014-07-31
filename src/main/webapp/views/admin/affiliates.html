@@ -23,7 +23,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="affiliate in affiliates | filter: affiliatesFilter">
+					<tr ng-repeat="affiliate in affiliates | filter: affiliatesFilter | orderBy: ['affiliateDetails.organizationName', 'application.affiliateDetails.organizationName', 'affiliateDetails.firstName', 'application.affiliateDetails.firstName', 'affiliateDetails.lastName', 'application.affiliateDetails.lastName', 'creator']">
 					<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
 					<td>{{'approval.state.'+affiliate.application.approvalState | translate}}</td>
 					<td>{{'affiliate.type.'+affiliate.application.type | translate}} - {{'affiliate.subType.'+affiliate.application.subType | translate}}</td>

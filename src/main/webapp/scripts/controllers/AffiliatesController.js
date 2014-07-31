@@ -24,9 +24,6 @@ mldsApp.controller('AffiliatesController', [
 				$scope.affiliates.$promise
 					.then(function(response) {
 						toggleAffiliates();
-						_.sortBy($scope.affiliates, function(record) {
-							return record.creator;
-						});
 					})
 					["catch"](function(message) {
 						$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
@@ -51,7 +48,7 @@ mldsApp.controller('AffiliatesController', [
 			};
 
 			$scope.affiliateActiveDetails = function(affiliate) {
-				return affiliate.affiliateDetails || affiliate.application.affiliateDetails;
+				return affiliate.affiliateDetails || (affiliate.application && affiliate.application.affiliateDetails) || {};
 			};
 			
 			$scope.viewApplication = function(application) {
