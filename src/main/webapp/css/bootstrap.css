@@ -6221,8 +6221,7 @@ a.tooltip span {
 .nav-sidebar .active a {
   color: #ffffff;
 }
-.nav-sidebar .active:hover,
-.nav-sidebar .active:focus {
+.nav-sidebar .active a:hover {
   color: #a1a1a1;
 }
 footer {
