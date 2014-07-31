@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -407,9 +408,12 @@ public class ApplicationController {
 			produces = "application/json")
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public ResponseEntity<Application> createApplication(@RequestBody CreateApplicationDTO requestBody) {
+		
 		Application application = applicationService.startNewApplication(requestBody.getApplicationType());
-		ResponseEntity<Application> result = new ResponseEntity<Application>(application, HttpStatus.CREATED);
-		result.getHeaders().setLocation(routeLinkBuilder.toURLWithKeyValues(Routes.APPLICATION, "applicationId", application.getApplicationId()));
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(routeLinkBuilder.toURLWithKeyValues(Routes.APPLICATION, "applicationId", application.getApplicationId()));
+		ResponseEntity<Application> result = new ResponseEntity<Application>(application, headers, HttpStatus.CREATED);
 		return result;
 	}
 }
