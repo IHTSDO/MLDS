@@ -8,9 +8,16 @@ mldsApp.controller('AffiliateRegistrationReviewController',
         	$scope.alerts = [];
         	
         	// FIXME MB this should be on the CommercialUsageService??
-        	$scope.commercialUsageInstitutionsByCountry = 
-        		_.groupBy(CommercialUsageService.currentCommercialUsageReport.entries, 
-        				function(entry){ return entry.country.isoCode2;});
+			$scope.commercialUsageInstitutionsByCountry = _.groupBy(CommercialUsageService.currentCommercialUsageReport.entries, 
+    				function(entry){ return entry.country.isoCode2;});
+			_.each($scope.commercialUsageInstitutionsByCountry, function(list, key) {
+				$scope.commercialUsageInstitutionsByCountry[key] = _.sortBy(list, function(entry) {
+					return entry.name.toLowerCase();
+					});
+			});
+			$scope.usageCountryCountslist = _.sortBy(CommercialUsageService.currentCommercialUsageReport.countries, function(count) {
+				return count.country.commonName.toLowerCase();
+			});
         	
     		$scope.ok = function() {
     			$log.log('AffiliateRegistrationController submit()', $scope.affiliateform);

@@ -47,7 +47,6 @@ mldsApp.controller('AffiliateRegistrationController',
             	if (newValue && _.isString(newValue)) {
             		country = _.findWhere(CountryService.countries, {'commonName':newValue});
             	}
-            	$scope.selectedCountry = country;
             	var excludedCountry = country && country.excludeRegistration;
             	$scope.affiliateApplicationForm.country.$setValidity('excluded',!excludedCountry);
             }
