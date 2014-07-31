@@ -24,12 +24,12 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="affiliate in affiliates | filter: affiliatesFilter">
-					<td>{{affiliate.affiliateDetails.organizationName ? affiliate.affiliateDetails.organizationName : affiliate.affiliateDetails.firstName + ' '+affiliate.affiliateDetails.lastName}}</td>
+					<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
 					<td>{{'approval.state.'+affiliate.application.approvalState | translate}}</td>
 					<td>{{'affiliate.type.'+affiliate.application.type | translate}} - {{'affiliate.subType.'+affiliate.application.subType | translate}}</td>
-					<td>{{affiliate.affiliateDetails.address.country.commonName}}</td>
+					<td>{{affiliateActiveDetails(affiliate).address.country.commonName}}</td>
 					<td>{{affiliate.homeMember.key}}</td>
-					<td><a href="mailto:{{affiliate.affiliateDetails.email}}">{{affiliate.affiliateDetails.email}}</a></td>
+					<td><a href="mailto:{{affiliate.affiliateDetails.email}}">{{affiliateActiveDetails(affiliate).email}}</a></td>
 					<td> <a class="btn btn-primary btn-sm" ng-click="viewApplication(affiliate.application)"><i class="fa fa-eye"></i> Application</a></td>
 				</tr>
 				</tbody>
