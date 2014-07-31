@@ -57,7 +57,7 @@ public class ReleasePackagesResourceTest {
         releasePackagesResource.currentSecurityContext = currentSecurityContext;
         releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
         
-        Mockito.stub(authorizationChecker.getMemberRepresentedByUser()).toReturn(new Member("IHTSDO"));
+        Mockito.stub(authorizationChecker.getMemberAssociatedWithUser()).toReturn(new Member("IHTSDO"));
 
         this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releasePackagesResource).build();
     }
