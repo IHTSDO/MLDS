@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
@@ -24,9 +25,9 @@ public class ApplicationAuthorizationCheckerTest {
 		sweden = new Member("SE");
 		ihtsdo = new Member("IHTSDO");
 		
-		ihtsdoApplication = new Application();
+		ihtsdoApplication = new PrimaryApplication();
 		ihtsdoApplication.setMember(ihtsdo);
-		swedenApplication = new Application();
+		swedenApplication = new PrimaryApplication();
 		swedenApplication.setMember(sweden);
 	}
 	
