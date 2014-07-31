@@ -858,4 +858,12 @@
 		<addNotNullConstraint tableName="affiliate" columnName="home_member_id"/>
 	</changeSet>
 	
+	<changeSet id="MLDS-308-1" author="MB">
+		<comment>Convert application to class heirarchy.  Add discriminator column.</comment>
+		<addColumn tableName="application">
+			<column name="application_type" type="VARCHAR(255)" value="PRIMARY" />
+		</addColumn>
+		<addNotNullConstraint tableName="application" columnName="application_type" />
+	</changeSet>
+	
 </databaseChangeLog>

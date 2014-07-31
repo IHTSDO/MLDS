@@ -1,11 +1,14 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -13,7 +16,9 @@ import javax.persistence.OneToOne;
 import org.joda.time.Instant;
 
 @Entity
-public class Application extends BaseEntity {
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="application_type")
+public abstract class Application extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="application_id")
@@ -21,21 +26,9 @@ public class Application extends BaseEntity {
 	
 	String username;
 	
-	@Enumerated(EnumType.STRING)
-	AffiliateType type;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name="subtype")
-	AffiliateSubType subType;
-	
 	@OneToOne()
 	@JoinColumn(name="affiliate_details_id")
 	AffiliateDetails affiliateDetails;
-	
-	@Column(name="other_text")
-	String otherText;
-	
-	boolean snomedlicense;
 	
 	@Column(name="notes_internal")
 	String notesInternal;
@@ -53,10 +46,6 @@ public class Application extends BaseEntity {
 	ApprovalState approvalState = ApprovalState.NOT_SUBMITTED;
 	
 	@ManyToOne
-	@JoinColumn(name="commercial_usage_id")
-	CommercialUsage commercialUsage;
-
-	@ManyToOne
 	@JoinColumn(name="member_id")
     Member member;
 
@@ -69,44 +58,12 @@ public class Application extends BaseEntity {
 		this.applicationId = applicationId;
 	}
 	
-	public AffiliateSubType getSubType() {
-		return subType;
-	}
-
-	public void setSubType(AffiliateSubType subType) {
-		this.subType = subType;
-	}
-
 	public String getUsername() {
 		return username;
 	}
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public AffiliateType getType() {
-		return type;
-	}
-
-	public void setType(AffiliateType type) {
-		this.type = type;
-	}
-
-	public boolean isSnoMedLicence() {
-		return snomedlicense;
-	}
-
-	public void setSnoMedLicence(boolean snoMedLicence) {
-		this.snomedlicense = snoMedLicence;
-	}
-
-	public String getOtherText() {
-		return otherText;
-	}
-
-	public void setOtherText(String otherText) {
-		this.otherText = otherText;
 	}
 
 	public String getNotesInternal() {
@@ -143,14 +100,6 @@ public class Application extends BaseEntity {
 
 	public Long getApplicationId() {
 		return applicationId;
-	}
-
-	public CommercialUsage getCommercialUsage() {
-		return commercialUsage;
-	}
-
-	public void setCommercialUsage(CommercialUsage commercialUsage) {
-		this.commercialUsage = commercialUsage;
 	}
 
 	@Override
