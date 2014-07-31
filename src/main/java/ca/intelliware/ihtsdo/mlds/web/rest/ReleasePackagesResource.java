@@ -124,7 +124,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
             produces = "application/json")
-	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN, AuthoritiesConstants.ANONYMOUS })
     public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
     	//FIXME should we check children being consistent?		
     	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
@@ -138,10 +138,6 @@ public class ReleasePackagesResource {
     }
 
 	private ReleasePackage filterReleasePackageByAuthority(ReleasePackage releasePackage) {
-		// don't accidentaly push these changes back to the db.
-		entityManager.detach(releasePackage);
-		
-		
 		ReleasePackage result = releasePackage;
 		Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
 		
@@ -164,6 +160,8 @@ public class ReleasePackagesResource {
 		if(!currentSecurityContext.isUser()) {
 			Set<ReleaseFile> filteredReleaseFiles = Sets.newHashSet();
 			for(ReleaseFile releaseFile : version.getReleaseFiles()) {
+				// need to detach to avoid accidentally pushing these changes back to the db.
+				entityManager.detach(releaseFile);
 				releaseFile.setDownloadUrl(null);
 				filteredReleaseFiles.add(releaseFile);
 			}
