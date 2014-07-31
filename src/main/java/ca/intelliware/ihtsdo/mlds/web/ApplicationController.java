@@ -37,8 +37,10 @@ import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
+import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationAuthorizationChecker;
+import ca.intelliware.ihtsdo.mlds.web.rest.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -67,6 +69,11 @@ public class ApplicationController {
 	AffiliateDetailsRepository affiliateDetailsRepository;
 	@Resource
 	AffiliateDetailsResetter affiliateDetailsResetter;
+	@Resource
+	ApplicationService applicationService;
+	@Resource
+	RouteLinkBuilder routeLinkBuilder;
+	
 
 	@RequestMapping(value="api/applications")
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
@@ -150,7 +157,7 @@ public class ApplicationController {
 	@RequestMapping(value = Routes.APPLICATION, 
 			method=RequestMethod.GET,
 			produces = "application/json")
-	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public  @ResponseBody ResponseEntity<Application> getApplication(@PathVariable long applicationId){
 		Application application = applicationRepository.findOne(applicationId);
 		if (application == null) {
@@ -382,5 +389,27 @@ public class ApplicationController {
 			}
 		}
 		return false;
+	}
+	
+	public static class CreateApplicationDTO {
+		Application.ApplicationType applicationType;
+
+		public Application.ApplicationType getApplicationType() {
+			return applicationType;
+		}
+
+		public void setApplicationType(Application.ApplicationType applicationType) {
+			this.applicationType = applicationType;
+		}
+	}
+	@RequestMapping(value = Routes.APPLICATIONS, 
+			method=RequestMethod.POST,
+			produces = "application/json")
+	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	public ResponseEntity<Application> createApplication(@RequestBody CreateApplicationDTO requestBody) {
+		Application application = applicationService.startNewApplication(requestBody.getApplicationType());
+		ResponseEntity<Application> result = new ResponseEntity<Application>(application, HttpStatus.CREATED);
+		result.getHeaders().setLocation(routeLinkBuilder.toURLWithKeyValues(Routes.APPLICATION, "applicationId", application.getApplicationId()));
+		return result;
 	}
 }
