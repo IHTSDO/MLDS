@@ -69,6 +69,16 @@ public class CommercialUsage extends BaseEntity {
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	Set<CommercialUsageCountry> countries = Sets.newHashSet();
 	
+	public CommercialUsage() {
+		
+	}
+	
+	// For Testing
+	public CommercialUsage(Long commercialUsageId, Affiliate affiliate) {
+		this.commercialUsageId = commercialUsageId;
+		this.affiliate = affiliate;
+	}
+	
 	public Long getCommercialUsageId() {
 		return commercialUsageId;
 	}
