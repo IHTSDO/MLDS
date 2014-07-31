@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('UsageReportsController',
-		['$scope', '$location', '$log', '$modal', 'AffiliateService', 'UserRegistrationService',
-    function ($scope, $location, $log, $modal, AffiliateService, UserRegistrationService) {
+		['$scope', '$location', '$log', '$modal', 'AffiliateService', 'UserRegistrationService', 'UsageReportsService',
+    function ($scope, $location, $log, $modal, AffiliateService, UserRegistrationService, UsageReportsService) {
 			$scope.affiliates = [];
 
         	function loadAffiliates() {
@@ -34,54 +34,8 @@ angular.module('MLDS').controller('UsageReportsController',
 
         	loadAffiliates();
         	
-        	$scope.usageReportCountries = function(usageReport) {
-        		return usageReport.countries.length;
-        	};
-
-        	$scope.usageReportHospitals = function(usageReport) {
-        		return usageReport.entries.length;
-        	};
-
-        	$scope.usageReportPractices = function(usageReport) {
-        		return usageReport.countries.reduce(function(total, count) {
-        			return total + (count.practices || 0);
-        		}, 0);
-        	};
-
-        	$scope.openAddUsageReportModal = function(affiliate) {
-        		var modalInstance = $modal.open({
-        			templateUrl: 'views/user/addUsageReportModal.html',
-        			controller: 'AddUsageReportController',
-        			size:'lg',
-        			backdrop: 'static',
-        			resolve: {
-        				affiliateId: function() {
-        					return affiliate.affiliateId;
-        				}
-        			}
-        		});
-        	};
-
-        	$scope.goToUsageReport = function(usageReport) {
-        		$location.path('/usage-reports/usage-log/'+encodeURIComponent(usageReport.commercialUsageId));
-        	};
+        	$scope.usageReportsUtils = UsageReportsService;
         	
-        	$scope.affiliateIsCommercial = function(affiliate) {
-        		return AffiliateService.affiliateIsCommercial(affiliate);
-        	};
-        	
-        	$scope.anySubmittedUsageReports = function(affiliate) {
-        		return _.some(affiliate.commercialUsages, function(usageReport) {
-        			return usageReport.approvalState !== 'NOT_SUBMITTED';
-        		});
-        	};
-        	
-        	$scope.isApplicationPending = function(application) {
-        		return UserRegistrationService.isApplicationPending(application);
-        	};
-        	
-        	$scope.isApplicationWaitingForApplicant = function(application) {
-        		return UserRegistrationService.isApplicationWaitingForApplicant(application);
-        	};
+       
     }]);
 
