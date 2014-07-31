@@ -1,14 +1,23 @@
-<form id="form" name="form" role="form" novalidate ng-submit="save()" bs-validation="">
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12"> 
+		<div class="page-header">
+			<h1>
+				Account Information
+			</h1>
+		</div>
+	</div>
+</div>
 
-	<div class="row space" ng-hide="approved">
-		<div class="col-sm-12">
-			<div class="alert alert-warning">
-				<p>
-					<strong>Registration not approved yet</strong>
-				</p>
-				<p>You can only modify the contact information for an affiliate
-					once the registration request has been approved.</p>
-			</div>
+<form id="form" name="form" role="form" novalidate ng-submit="save()" bs-validation="">
+	<div class="row" ng-hide="approved">
+		<div class="col-sm-12 col-md-12 col-lg-12"> 
+					<div class="alert alert-warning">
+						<p>
+							<strong>Registration not approved yet</strong>
+						</p>
+						<p>You can only modify the contact information for an affiliate
+							once the registration request has been approved.</p>
+					</div>
 		</div>
 	</div>
 
@@ -19,8 +28,7 @@
 	</div>
 
 	<div class="row" ng-show="approved">
-		<div class="col-sx-12">
-
+		<div class="col-sm-12 col-md-12 col-lg-12"> 
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h4 class="panel-title">
