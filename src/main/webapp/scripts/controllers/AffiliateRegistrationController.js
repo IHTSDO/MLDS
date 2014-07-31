@@ -73,7 +73,7 @@ mldsApp.controller('AffiliateRegistrationController',
         			return;
         		}
         		
-        		$log.log('affiliateForm', affiliateForm)
+        		$log.log('affiliateForm', affiliateForm);
         		
         		var modalInstance = $modal.open({
         			templateUrl: 'views/registration/affiliateRegistrationReview.html',
@@ -84,7 +84,8 @@ mldsApp.controller('AffiliateRegistrationController',
         	};
         	
         	var checkAddresses = function(a, b) {
-        		if( (a.street != '' && a.street === b.street) 
+        		
+        		if( a && b && (a.street != '' && a.street === b.street) 
         				&& (a.city != '' && a.city === b.city)
         				&& (a.country != '' && a.country === b.country)
         				) {

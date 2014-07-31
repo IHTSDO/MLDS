@@ -1,3 +1,5 @@
+
+
 <div class="well" ng-repeat="affiliate in affiliates">
   <div class="row" ng-hide="anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED'">
     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -52,14 +54,17 @@
       </thead>
       <tbody> 
         <tr ng-class="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" ng-repeat="usageReport in affiliate.commercialUsages">
-          <td> <a href="#" tooltip-placement="top" tooltip="Declaration has not been submitted">
-              <i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle"></i>
-              Report Name
+          <td ng-click="goToUsageReport(usageReport)"> 
+          		<span class="btn-link" tooltip-placement="top" tooltip="Declaration has not been submitted">
+	              <i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" 
+	              	class="fa fa-exclamation-circle"></i>
+	              Report Name
+          		</span>
           </td>
-          <td>
-           
-            </a>
-            <a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}</a>
+          <td ng-click="goToUsageReport(usageReport)">
+            <span class="btn-link">
+            	{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}
+            </span>
           </td>
         </tr>
       </tbody>
