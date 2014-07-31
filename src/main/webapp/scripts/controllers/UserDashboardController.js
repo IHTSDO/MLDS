@@ -4,8 +4,8 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', '$modal', 'UserSession', 'CommercialUsageService', 'AffiliateService', 'Session', 'UserRegistrationService',
-          function ($scope, $log, $location, $modal, UserSession, CommercialUsageService, AffiliateService, Session, UserRegistrationService) {
+        [ '$scope', '$log', '$location', '$modal', 'UserSession','AffiliateService', 'Session', 'UserRegistrationService',
+          function ($scope, $log, $location, $modal, UserSession, AffiliateService, Session, UserRegistrationService) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
