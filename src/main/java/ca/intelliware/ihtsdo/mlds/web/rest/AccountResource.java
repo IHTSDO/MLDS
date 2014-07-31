@@ -48,7 +48,6 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
@@ -82,9 +81,6 @@ public class AccountResource {
     @Inject
     private SpringTemplateEngine templateEngine;
 
-    @Inject
-    private MemberRepository memberRepository;
-    
     @Inject
     private UserRepository userRepository;
 
@@ -121,7 +117,7 @@ public class AccountResource {
 	AffiliateDetailsRepository affiliateDetailsRepository;
 
 	@Resource
-	ApplicationAuthorizationChecker authorizationChecker;
+	UserMembershipAccessor userMembershipAccessor;
 	
     /**
      * POST  /rest/register -> register the user.
@@ -260,7 +256,7 @@ public class AccountResource {
         //FIXME: JH-pick a better name
         UserInfo userInfo = userInfoCalculator.createUserInfo();
         
-        Member member = authorizationChecker.getMemberAssociatedWithUser();
+        Member member = userMembershipAccessor.getMemberAssociatedWithUser();
         
         return new ResponseEntity<>(
             new UserDTO(
