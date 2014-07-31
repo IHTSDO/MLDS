@@ -304,6 +304,13 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                .when('/blocklist', {
+                    templateUrl: 'views/admin/blocklist.html',
+                    controller: 'BlockListController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
                 .otherwise({
                     templateUrl: 'views/landingPage.html',
                     controller: 'MainController',
