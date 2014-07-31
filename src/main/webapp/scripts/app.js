@@ -58,6 +58,16 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                .when('/usage-reports', {
+                    templateUrl: 'views/user/usageReports.html',
+                    controller: 'UsageReportsController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.user]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
                 .when('/usage-log/:usageReportId', {
                     templateUrl: 'views/user/fullPageUsageLog.html',
                     controller: 'FullPageUsageLogController',
@@ -292,6 +302,13 @@ mldsApp
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/blocklist', {
+                    templateUrl: 'views/admin/blocklist.html',
+                    controller: 'BlockListController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
                     }
                 })
                 .otherwise({

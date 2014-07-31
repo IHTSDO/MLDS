@@ -20,13 +20,10 @@ mldsApp.controller('AffiliatesController', [
 			$scope.alerts = [];
 
 			function loadAffiliates() {
-				AffiliateService.affiliatesResource.query({q:''}).$promise
+				$scope.affiliates = AffiliateService.affiliatesResource.query({q:''});
+				$scope.affiliates.$promise
 					.then(function(response) {
-						$log.log('response', response, response.length);
-						$scope.affiliates = response;
-						_.sortBy($scope.affiliates, function(record) {
-							return record.creator;
-						});
+						toggleAffiliates();
 					})
 					["catch"](function(message) {
 						$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
@@ -35,7 +32,11 @@ mldsApp.controller('AffiliatesController', [
 
 			loadAffiliates();
 			
-			$scope.$watch('showAllAffiliates', toggleAffiliates);
+			$scope.$watch('showAllAffiliates', function() {
+				if ($scope.affiliates.$resolved) {
+					toggleAffiliates();
+				}
+			});
 			
 			function toggleAffiliates() {
 				if ($scope.affiliatesFilter) {
@@ -46,6 +47,10 @@ mldsApp.controller('AffiliatesController', [
 				}
 			};
 
+			$scope.affiliateActiveDetails = function(affiliate) {
+				return affiliate.affiliateDetails || (affiliate.application && affiliate.application.affiliateDetails) || {};
+			};
+			
 			$scope.viewApplication = function(application) {
         		var modalInstance = $modal.open({
         			templateUrl: 'views/admin/applicationSummaryModal.html',
