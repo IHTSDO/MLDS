@@ -865,5 +865,11 @@
 		</addColumn>
 		<addNotNullConstraint tableName="application" columnName="application_type" />
 	</changeSet>
+	<changeSet id="MLDS-308-2" author="MB">
+		<comment>Add reason column for Extension application</comment>
+		<addColumn tableName="application">
+			<column name="reason" type="TEXT" />
+		</addColumn>
+	</changeSet>
 	
 </databaseChangeLog>

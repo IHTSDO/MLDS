@@ -138,6 +138,9 @@ public abstract class Application extends BaseEntity {
 		switch (applicationType) {
 		case PRIMARY:
 			return new PrimaryApplication();
+			
+		case EXTENSION:
+			return new ExtensionApplication();
 
 		default:
 			throw new RuntimeException("Unsupported applicationType " + applicationType);
