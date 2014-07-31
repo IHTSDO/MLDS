@@ -15,5 +15,5 @@ mldsApp
                     access: {
                         authorizedRoles: [USER_ROLES.admin]
                     }
-                })
+                });
         }]);
