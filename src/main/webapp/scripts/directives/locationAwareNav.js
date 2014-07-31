@@ -13,7 +13,7 @@ angular.module('MLDS')
                 
                 angular.forEach(links, function(value){
                     var a = angular.element(value);
-                    var navHref = a.attr('href');
+                    var navHref = a.attr('href') ? a.attr('href') : '';
                     
                     var isCurrent = ((currentPath != "" && currentPath != "/") && navHref.indexOf("#"+currentPath) == 0)
                     	|| ((currentPath == "" || currentPath == "/") && navHref == "#"); //home page special case

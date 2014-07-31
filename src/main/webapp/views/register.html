@@ -34,10 +34,14 @@
 										typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
 										typeahead-editable="false"><!--   -->
 									
-									<div class="error" ng-show="createUserForm.attempted">
+									<div class="error" ng-show="createUserForm.$error">
 										<small ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="error">Required field.</small>
 										<small ng-show="createUserForm.country.$error.editable && createUserForm.attempted" class="error">Unrecognized country</small>
-										<small ng-show="createUserForm.country.$error.excluded" class="error">This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{registerAccount.country.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY</small>
+										<small class="error" 
+											ng-show="createUserForm.country.$error.excluded" 
+											translate="register.messages.validate.country.notMLDS" translate-values="{link:createUserForm.country.alternateRegistrationUrl}">
+											This IHTSDO member country manages an independent registry for SNOMED users.  
+											</small>
 									</div>
 								</div>
 
