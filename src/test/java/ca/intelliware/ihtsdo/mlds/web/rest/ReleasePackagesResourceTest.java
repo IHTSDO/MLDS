@@ -40,6 +40,9 @@ public class ReleasePackagesResourceTest {
 	@Mock
 	ReleasePackageAuthorizationChecker authorizationChecker;
 	
+    @Mock
+    private UserMembershipAccessor userMembershipAccessor;
+	
 	@Mock
 	CurrentSecurityContext currentSecurityContext;
 
@@ -56,8 +59,9 @@ public class ReleasePackagesResourceTest {
         releasePackagesResource.authorizationChecker = authorizationChecker;
         releasePackagesResource.currentSecurityContext = currentSecurityContext;
         releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
+        releasePackagesResource.userMembershipAccessor = userMembershipAccessor;
         
-        Mockito.stub(authorizationChecker.getMemberRepresentedByUser()).toReturn(new Member("IHTSDO"));
+        Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(new Member("IHTSDO"));
 
         this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releasePackagesResource).build();
     }

@@ -46,29 +46,35 @@
   </div>
   <div class="table-responsive">
     <table class="table table-striped">
-      <thead> 
-        <tr>
-          <th>Usage Report</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody> 
-        <tr ng-class="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" ng-repeat="usageReport in affiliate.commercialUsages">
-          <td ng-click="goToUsageReport(usageReport)"> 
-          		<span class="btn-link" tooltip-placement="top" tooltip="Declaration has not been submitted">
-	              <i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" 
-	              	class="fa fa-exclamation-circle"></i>
-	              Report Name
-          		</span>
-          </td>
-          <td ng-click="goToUsageReport(usageReport)">
-            <span class="btn-link">
-            	{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+		      <thead> 
+		        <tr>
+		          <th>Report Date</th>
+		          <th>Hospitals</th>
+		          <th>Practices</th>
+		        </tr>
+		      </thead>
+		      <tbody> 
+		        <tr ng-click="goToUsageReport(usageReport)" ng-class="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" ng-repeat="usageReport in affiliate.commercialUsages">
+		          <td> 
+		          		<span class="btn-link" tooltip-placement="top" tooltip="Declaration has not been submitted">
+			              <i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" 
+			              	class="fa fa-exclamation-circle"></i>
+			            	{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}
+		          		</span>
+		          </td>
+		          <td>
+		            <span class="btn-link">
+		            	{{usageReportHospitals(usageReport)}}
+		            </span>
+		          </td>
+		          <td>
+		            <span class="btn-link">
+		            	{{usageReportPractices(usageReport)}}
+		            </span>
+		          </td>
+		        </tr>
+		      </tbody>
+		    </table>
 
   </div>
 </div>

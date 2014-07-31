@@ -5,9 +5,6 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.ObjectUtils;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
-import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 /**
@@ -17,13 +14,7 @@ import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 public class AuthorizationChecker {
 
 	@Resource
-	AffiliateRepository affiliateRepository;
-	
-	@Resource
 	protected CurrentSecurityContext currentSecurityContext;
-	
-	@Resource
-	MemberRepository memberRepository;
 	
 	protected boolean isStaffOrAdmin() {
 		return currentSecurityContext.isStaffOrAdmin();
@@ -66,10 +57,4 @@ public class AuthorizationChecker {
 		}
 		checkCurrentUserIsMemberOfAffiliate(affiliate);
 	}
-
-	public Member getMemberRepresentedByUser() {
-		String memberKey = currentSecurityContext.getStaffMemberKey();
-		return memberRepository.findOneByKey(memberKey);
-	}
-
 }
