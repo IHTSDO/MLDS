@@ -10,7 +10,7 @@ angular.module('MLDS')
 	$log.log(PackagesService.query());
 	
 	$scope.goToViewPackagePage = function goToViewPackagePage(releasePackageId) {
-		$location.path('/viewPackage/'+ releasePackageId);
+		$location.path('/viewPackages/viewPackage/'+ releasePackageId);
 	};
 
 }]);
