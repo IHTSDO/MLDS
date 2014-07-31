@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('UsageReportsController',
-		['$scope', '$location', '$log', 'AffiliateService', 'UserRegistrationService',
-    function ($scope, $location, $log, AffiliateService, UserRegistrationService) {
+		['$scope', '$location', '$log', '$modal', 'AffiliateService', 'UserRegistrationService',
+    function ($scope, $location, $log, $modal, AffiliateService, UserRegistrationService) {
 			$scope.affiliates = [];
 
         	function loadAffiliates() {
