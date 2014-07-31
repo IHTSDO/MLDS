@@ -15,13 +15,23 @@ angular.module('MLDS')
                     var a = angular.element(value);
                     var navHref = a.attr('href') ? a.attr('href') : '';
                     
-                    var isCurrent = ((currentPath != "" && currentPath != "/") && navHref.indexOf("#"+currentPath) == 0)
-                    	|| ((currentPath == "" || currentPath == "/") && navHref == "#"); //home page special case
-                    	 
-                    if (isCurrent){
-                    	//console.log('nav - chose', value);
-                        a.closest('li').addClass(classSelected);
+                    var pathParts = currentPath.split('/');
+                    
+                    function isCurrent(currentPath) {
+                    	return ((currentPath != "" && currentPath != "/") && navHref.indexOf("#/"+currentPath) == 0); 
                     }
+                
+                    if (pathParts.length > 1) {
+                    	angular.forEach(pathParts, function(pathPart) {
+                    		if (isCurrent(pathPart)){
+                    			//console.log('nav - chose', value);
+                    			a.closest('li').addClass(classSelected);
+                    		}
+                    	});
+                    } else if ((currentPath == "" || currentPath == "/") && navHref == "#") { //home page special case
+                		a.closest('li').addClass(classSelected);
+                    }
+                    	 
                 });
             }
     		
