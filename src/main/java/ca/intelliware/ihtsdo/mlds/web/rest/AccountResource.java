@@ -42,6 +42,7 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
+import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
@@ -142,13 +143,14 @@ public class AccountResource {
         	
         	List<Application> applications = applicationRepository.findByUsername(userDTO.getLogin());
         	List<Affiliate> affiliates = affiliateRepository.findByCreator(userDTO.getLogin());
-        	Application application = new Application();
+        	PrimaryApplication application = new PrimaryApplication();
         	Affiliate affiliate = new Affiliate();
         	AffiliateDetails affiliateDetails = new AffiliateDetails();
         	MailingAddress mailingAddress = new MailingAddress();
         	
         	if (applications.size() > 0) {
-        		application = applications.get(0);
+        		// FIXME MLDS-308 can we assume the first one is the primary?
+        		application = (PrimaryApplication) applications.get(0);
         	}
         	
         	if (affiliates.size() > 0) {

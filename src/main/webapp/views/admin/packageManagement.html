@@ -9,10 +9,10 @@
 </div>
 <div class="row">
 		<div class="col-lg-8">
-			<div class="well">
+			<div class="page-header">
 				<a popover-placement="top" popover="Fix Me - Lorem ipsum dolor sit amet, consectetur adipiscing elit." class="btn btn-link pull-right"><i class="fa fa-question-circle fa-2x"></i></a>
 				<h3>Public Releases</h3>	
-
+			</div>
 				<div class="panel panel-primary" ng-repeat="package in onlinePackages">
 					<div class="panel-heading">
 						<div class="dropdown pull-right" 
@@ -44,14 +44,14 @@
 					</div>
 					<div class="alert alert-warning" ng-show="(packages | filter: utils.isPackagePublished).length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no public releases available </div>
 				</div>
-			</div>
 		</div>	
 	</div>
 	<div class="row">
 		<div class="col-lg-8">
-			<div class="well">
+			<div class="page-header">
 				<a popover-placement="top" popover="Fix Me - Lorem ipsum dolor sit amet, consectetur adipiscing elit." class="btn btn-link pull-right"><i class="fa fa-question-circle fa-2x"></i></a>
 				<h3>Offline Releases</h3>
+			</div>
 				<div class="panel panel-default" ng-repeat="package in offinePackages">
 					<div class="panel-heading">
 						<div class="dropdown pull-right"
@@ -74,6 +74,5 @@
 				</div>
 				<div class="alert alert-warning" ng-show="(packages | filter: not(utils.isPackagePublished)).length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline releases available </div>
 			</div>
-		</div>
 	</div>
 </div>

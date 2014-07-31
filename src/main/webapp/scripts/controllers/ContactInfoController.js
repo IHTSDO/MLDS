@@ -21,7 +21,6 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         	AffiliateService.myAffiliate()
         		.then(function(result) {
         			var affiliate = result.data;
-        			$log.log(affiliate, affiliate.affiliateDetails);
         			if (affiliate && affiliate.affiliateDetails) {
         				$scope.affiliateDetails = affiliate.affiliateDetails;        				
         			} else if (affiliate && affiliate.application.affiliateDetails) {
