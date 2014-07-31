@@ -137,6 +137,9 @@
                     "required": "Your login is required.",
                     "minlength": "Your login is required to be at least 1 character",
                     "maxlength": "Your login cannot be longer than 50 characters"
+                },
+                "country": {
+                	"notMLDS": "The country identified is currently not registered. Please contact the appropriate representative from your country <a href=\"{{link}}\">here</a>. If you are still encountering difficulties please contact the IHTSDO at info@ihtsdo.org"
                 }
             },
             "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
@@ -365,33 +368,33 @@
     	},
     	"agreementType": {
     		"AFFILIATE_NORMAL": "Affiliate - Normal",
-			"AFFILIATE_RESEARCH": "Affiliate - Research",
-			"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
-		},
-		"organizationType": {
-			"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization", 
-			"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization", 
-			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization", 
-			"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer",
-			"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice", 
-			"EDUCATIONAL_INSTITUTE": "Educational Institute", 
-			"OTHER": "Other"
-		},
-		"implementationStatus": {
-			"IMPLEMENTED": "Live/Implemented",
-			"DEVELOPMENT": "In Progress/Development",
-			"PLANNING": "In Planning Stage"
-		}
+				"AFFILIATE_RESEARCH": "Affiliate - Research",
+				"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
+			},
+			"organizationType": {
+				"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization", 
+				"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization", 
+				"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization", 
+				"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer",
+				"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice", 
+				"EDUCATIONAL_INSTITUTE": "Educational Institute", 
+				"OTHER": "Other"
+			},
+			"implementationStatus": {
+				"IMPLEMENTED": "Live/Implemented",
+				"DEVELOPMENT": "In Progress/Development",
+				"PLANNING": "In Planning Stage"
+			}
     },
     "approval": {
     	"state": {
-			"NOT_SUBMITTED": "Not Submitted",
-			"CHANGE_REQUESTED": "Change Requested",
-			"SUBMITTED": "Submitted",
-			"RESUBMITTED": "Resubmitted",
-			"REVIEW_REQUESTED": "Review Requested",
-			"APPROVED": "Approved",
-			"REJECTED": "Declined"
+				"NOT_SUBMITTED": "Not Submitted",
+				"CHANGE_REQUESTED": "Change Requested",
+				"SUBMITTED": "Submitted",
+				"RESUBMITTED": "Resubmitted",
+				"REVIEW_REQUESTED": "Review Requested",
+				"APPROVED": "Approved",
+				"REJECTED": "Declined"
     	}	
     }
 }

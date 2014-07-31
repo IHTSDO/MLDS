@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
@@ -39,7 +40,7 @@ public class AccountResourceTest {
     private UserService userService;
     
     @Mock
-    private ApplicationAuthorizationChecker authorizationChecker;
+    private UserMembershipAccessor userMembershipAccessor;
 
     @Mock
     private UserInfoCalculator userInfoCalculator;
@@ -51,7 +52,7 @@ public class AccountResourceTest {
         MockitoAnnotations.initMocks(this);
         AccountResource accountResource = new AccountResource();
         ReflectionTestUtils.setField(accountResource, "userService", userService);
-        accountResource.authorizationChecker = authorizationChecker;
+        accountResource.userMembershipAccessor = userMembershipAccessor;
         accountResource.userInfoCalculator = userInfoCalculator;
         Mockito.stub(userInfoCalculator.createUserInfo()).toReturn(new UserInfo());
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(accountResource).build();
@@ -94,7 +95,7 @@ public class AccountResourceTest {
         user.setEmail("john.doe@jhipter.com");
         user.setAuthorities(authorities);
         when(userService.getUserWithAuthorities()).thenReturn(user);
-        when(authorizationChecker.isStaffOrAdmin()).thenReturn(false);
+        when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(new Member("IHTSDO"));
 
         restUserMockMvc.perform(get("/app/rest/account")
                 .accept(MediaType.APPLICATION_JSON))
@@ -104,7 +105,9 @@ public class AccountResourceTest {
                 .andExpect(jsonPath("$.firstName").value("john"))
                 .andExpect(jsonPath("$.lastName").value("doe"))
                 .andExpect(jsonPath("$.email").value("john.doe@jhipter.com"))
-                .andExpect(jsonPath("$.roles").value(AuthoritiesConstants.USER));
+                .andExpect(jsonPath("$.roles").value(AuthoritiesConstants.USER))
+                .andExpect(jsonPath("$.member.key").value("IHTSDO"))
+                ;
     }
 
     @Test

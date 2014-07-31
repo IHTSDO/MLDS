@@ -39,8 +39,10 @@
 					typeahead-editable="false"><!--   -->
 				<span ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="help-block">Required field.</span>
 				<span ng-show="createUserForm.country.$error.editable && createUserForm.attempted" class="help-block">Unrecognized country</span>
-				<span ng-show="createUserForm.country.$error.excluded" class="help-block">
-					This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{registerAccount.country.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
+				<span class="help-block"
+				ng-show="createUserForm.country.$error.excluded" 
+				translate="register.messages.validate.country.notMLDS" translate-values="{link:registerAccount.country.alternateRegistrationUrl}">
+				  This IHTSDO member country is excluded. Go <a href="{{registerAccount.country.alternateRegistrationUrl}}">away</a>
 				</span>
 			</div>
 			<div class="form-group">
