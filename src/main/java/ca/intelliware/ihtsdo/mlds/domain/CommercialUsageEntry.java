@@ -42,6 +42,16 @@ public class CommercialUsageEntry extends BaseEntity {
 	
 	Instant created = Instant.now();
 	
+	public CommercialUsageEntry() {
+		
+	}
+	
+	//For testing
+	public CommercialUsageEntry(long commercialUsageEntryId, CommercialUsage commercialUsage) {
+		this.commercialUsageEntryId = commercialUsageEntryId;
+		commercialUsage.addEntry(this);
+	}
+	
 	public Long getCommercialUsageEntryId() {
 		return commercialUsageEntryId;
 	}
