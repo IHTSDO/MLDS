@@ -107,7 +107,7 @@ public class ReleasePackagesResource {
     	authorizationChecker.checkCanCreateReleasePackages();
     	
     	releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
-    	releasePackage.setMember(authorizationChecker.getMemberRepresentedByUser());
+    	releasePackage.setMember(authorizationChecker.getMemberAssociatedWithUser());
     	
     	releasePackageRepository.save(releasePackage);
 
