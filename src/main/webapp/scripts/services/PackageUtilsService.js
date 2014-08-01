@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS').factory('PackageUtilsService',
-		[ '$resource', '$q', '$log', '$modal', 'Session', function($resource, $q, $log, $modal, Session) {
+		[ '$resource', '$q', '$log', '$location', 'Session', function($resource, $q, $log, $location, Session) {
 			var service = {};
 			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
@@ -87,18 +87,8 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		return this.isReleasePackageMatchingMember(releasePackage) || Session.isAdmin();
 	    	};
 	    	
-	    	service.openExtensionApplicationModal = function openExtensionApplicationModal(releasePackage) {
-	    		var modalInstance = $modal.open({
-	    			templateUrl: 'views/user/extensionApplicationModal.html',
-	    			controller: 'ExtensionApplicationController',
-	    			size:'lg',
-	    			backdrop: 'static',
-	    			resolve: {
-	    				releasePackage: function() {
-	    					return releasePackage;
-	    				}
-	    			}
-	    		});
+	    	service.openExtensionApplication = function openExtensionApplication(releasePackageId) {
+	    		$location.path('/extensionApplication/'+ releasePackageId);
 	    	};
 	    	
 			return service;
