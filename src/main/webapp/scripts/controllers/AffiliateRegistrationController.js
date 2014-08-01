@@ -1,8 +1,8 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationController',
-        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', 'CountryService', '$modal', 'Session', 'Events',
-          function ($scope, $log, UserRegistrationService, $location, UserSession, CountryService, $modal, Session, Events) {
+        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', 'CountryService', '$modal', 'Session', 'Events', 'ApplicationUtilsService',
+          function ($scope, $log, UserRegistrationService, $location, UserSession, CountryService, $modal, Session, Events, ApplicationUtilsService) {
         	
         	var loadApplication = function() {
         		var queryPromise =  UserRegistrationService.getApplication();
@@ -16,7 +16,7 @@ mldsApp.controller('AffiliateRegistrationController',
     				$scope.applicationId = data.applicationId;
     				$scope.isSameAddress = checkAddresses($scope.affiliateform.affiliateDetails.address, $scope.affiliateform.affiliateDetails.billingAddress);
     				
-    				if (!UserRegistrationService.isApplicationWaitingForApplicant(data)) {
+    				if (!ApplicationUtilsService.isApplicationWaitingForApplicant(data)) {
     					$log.log('Application does not require input from applicant');
     					$location.path('/dashboard');
     					return;
@@ -28,7 +28,7 @@ mldsApp.controller('AffiliateRegistrationController',
         	
         	$scope.approvalState = {};
         	$scope.availableCountries = CountryService.countries;
-        	$scope.organizationTypes = UserRegistrationService.getOrganizationTypes();
+        	$scope.organizationTypes = ApplicationUtilsService.getOrganizationTypes();
         	$scope.affilliateControllerSharedBucket = {};
         	$scope.applicationId = null;
         	                        

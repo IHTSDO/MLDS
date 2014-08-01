@@ -10,8 +10,9 @@ mldsApp.controller('ApplicationReviewController', [
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
+		'ApplicationUtilsService',
 		function($scope, $log, $routeParams, $modal, $location, Session, UserRegistrationService, DomainBlacklistService,
-				PackagesService) {
+				PackagesService, ApplicationUtilsService) {
 
 			var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
 			
@@ -28,7 +29,7 @@ mldsApp.controller('ApplicationReviewController', [
 				var queryPromise = UserRegistrationService.getApplicationById(applicationId);
 
 				queryPromise.success(function(application) {
-						if (!UserRegistrationService.isApplicationPending(application)) {
+						if (!ApplicationUtilsService.isApplicationPending(application)) {
 							$log.log('Application not in pending state');
 							goToPendingApplications();
 							return;
