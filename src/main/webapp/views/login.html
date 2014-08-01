@@ -1,11 +1,11 @@
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4 login">
+<div class="row">
+  <div class="col-md-3"></div>
+    <div class="col-md-6 login">
         <h1 translate="login.title">Authentication</h1>
-
         <div class="alert alert-danger" ng-show="authenticationError" translate="login.messages.error.authentication">
           <strong>Authentication failed!</strong> Please check your credentials and try again.
         </div>
+
         <form class="form" role="form">
           <div class="form-group">
             <label for="username" translate="global.form.email">E-mail</label>
@@ -16,17 +16,15 @@
             <input type="password" class="form-control" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
             ng-model="password">
           </div>
-
-
           <div class="checkbox">
-           <div class="form-group">
-             <label for="rememberMe">{{"login.form.rememberme" | translate}}
-              <input type="checkbox" class="checkbox inline_class" id="rememberMe" ng-model="rememberMe" checked>
-            </label>
+             <div class="form-group">
+               <label for="rememberMe">{{"login.form.rememberme" | translate}}
+                <input type="checkbox" class="checkbox inline_class" id="rememberMe" ng-model="rememberMe" checked>
+              </label>
+            </div>
           </div>
-        </div>
-        <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" translate="login.form.button">Authenticate</button>
-      </form>
+          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" translate="login.form.button">Authenticate</button>
+        </form>
       <hr>
       <div>
         <p translate="global.messages.info.register">
@@ -37,5 +35,6 @@
        </p>
      </div>
    </div>
+     <div class="col-md-3"></div>
  </div>
 

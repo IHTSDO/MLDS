@@ -1,28 +1,32 @@
-<div class="page-header">
-	<h4>Blacklisted Domains</h4>
-</div>
 
-<form class="form-inline" ng-submit="domainform.submit()"> 
-	<div class="form-group">
-		<label>Add to Blacklist</label>
-		<input type="text" class="form-control" ng-model="domainform.name">
-		<input type="submit" class="btn btn-default" value="Add"/>
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+			<h4>Blacklisted Domains</h4>
+		</div>
+		<form class="form-inline" ng-submit="domainform.submit()"> 
+			<div class="form-group">
+				<label>Add to Blacklist</label>
+				<input type="text" class="form-control" ng-model="domainform.name">
+				<input type="submit" class="btn btn-default" value="Add"/>
+			</div>
+		</form>
+
+		<div class="table-responsive table-striped table-bordered space">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Domain</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="domain in domainBlacklist">
+						<td>{{domain.domainname}}</td>
+						<td><button class="btn btn-danger" ng-click="removeDomain(domain.domainname)"><i class="fa fa-times"></i>Remove Domain</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-</form>
-
-<div class="table-responsive space">
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Domain</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="domain in domainBlacklist">
-				<td>{{domain.domainname}}</td>
-				<td><button class="btn btn-default" ng-click="removeDomain(domain.domainname)">Remove Domain</button></td>
-			</tr>
-		</tbody>
-	</table>
 </div>

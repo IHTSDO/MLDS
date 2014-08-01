@@ -34,18 +34,19 @@
 <body ng-app="MLDS" ng-controller="MainController">
   <div class="development"></div>
   
-  <div ng-include src="$root.Session.isStaffOrAdmin()?'views/fixedTopNav.html':'views/topNav.html'"></div>
+  <div ng-include src="$root.Session.isStaffOrAdmin()?'views/fixedTopNav.html':'views/topNav.html'" class="navigation"></div>
 
  	<div ng-hide="$root.Session.isStaffOrAdmin()">
     <div ng-view="" class="container" role="main"></div>
-   <div ng-include src="'views/footer.html'"></div>
+    <div ng-include src="'views/footer.html'"></div>
   </div>
 
  	<div ng-show="$root.Session.isStaffOrAdmin()" class="container-fluid" >
 		<div class="row">
-		 <div ng-include src="'views/sideNav.html'"></div>
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 nav-space" ng-view=""></div>
-      <div ng-include src="'views/adminFooter.html'"></div>
+		    <div ng-include src="'views/sideNav.html'"></div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 nav-space" ng-view=""></div>
+        <div ng-include src="'views/adminFooter.html'"></div>
+    </div>
   </div>
 
   <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.

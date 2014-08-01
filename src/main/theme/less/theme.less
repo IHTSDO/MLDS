@@ -9,54 +9,43 @@
 	height: 28px;
 	border-top: 1px solid @gray-light;
 }
-.navbar[role=navigation]{
-	margin-bottom: 30px;
+.navigation{
 	border-bottom:3px solid @light-blue;
 }
 .space{
 	margin-top: 10px;
 }
-// Marketing Page
-//--------------------
-
-.marketing{
-	.jumbotron{
-		margin-top:60px;
-	}
-}
-
 // Landing Page
 //--------------------
-#landing-page{
-	background-color: @white;
-	padding: 5px 20px 30px 20px;
-	margin-bottom: 20px;
+
+.landing{
+	background-color: @dark-blue;
+}
+.main-login{
+	margin-top: 20px;
+	padding: 30px 10px 20px;
 
 	h1{
-		margin-top: 60px;
+		font-family: @landing-page;	
+		color: @dark-blue;
 	}
-}
-.navbar-login{
-	margin-top: 20px;
-}
-.signin{
-	padding: 16px 20px 20px;
-	background-color: lighten(@cloud, 3%);
-	border-radius: 6px;
-	border: 1px solid @cloud;
-	min-height: 300px;
-	margin-top: 30px;
-}
-
-.login{
-	background-color: lighten(@cloud, 3%);
-	border: 1px solid @gray-lighter;
-	padding-bottom: 25px;
 }
 
 .intro{
-	background-color: @white;
+	color: @white;
+	h1{
+		margin-top: 40px;
+		color: @white;
+	}
 }
+.login{
+	background-color: lighten(@cloud, 3%);
+	border: 1px solid @gray-lighter;
+	padding: 25px 20px 40px;
+	margin-top: 40px;
+	border-radius: @border-radius-large;
+}
+
 
 #main-content{
 	border-top:2px solid @brand-primary;
@@ -349,7 +338,7 @@
     	  color: @white;
     	}
     	a:hover{
-	    color: darken(@cloud, 30%);
+	    color: darken(@cloud, 80%);
 	    
 	  }
     }
