@@ -9,10 +9,10 @@
 	</div>
 </div>
 
-<div class="row" ng-repeat="releasePackagesPair in releasePackagesByMember">
-<h1>{{'global.member.'+releasePackagesPair[0] | translate}}</h1>
+<div class="row" ng-repeat="memberReleases in releasePackagesByMember | orderBy:[orderIhtsdo, orderApprovedMemberships, orderIncompleteMemberships, orderMemberName]">
+<h1>{{'global.member.'+memberReleases.member.key | translate}}</h1>
 
-<div class="row" ng-repeat="releasePackage in releasePackagesPair[1] | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished">
+<div class="row" ng-repeat="releasePackage in memberReleases.packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished">
 	<div class="col-sm-12 col-md-12 col-lg-12"> 
 		<div class="panel panel-primary">
 			<div class="panel-heading">
