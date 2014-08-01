@@ -4,8 +4,8 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', 'AffiliateService', 'Session', 'UserRegistrationService', 'UsageReportsService',
-          function ($scope, $log, $location, AffiliateService, Session, UserRegistrationService, UsageReportsService) {
+        [ '$scope', '$log', '$location', 'AffiliateService', 'Session', 'UserRegistrationService', 'UsageReportsService', 'UserAffiliateService',
+          function ($scope, $log, $location, AffiliateService, Session, UserRegistrationService, UsageReportsService, UserAffiliateService) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
@@ -40,6 +40,8 @@ angular.module('MLDS')
         	}
 
         	loadAffiliates();
+        	
+        	$scope.affiliate = UserAffiliateService.affiliate;
         	
         	$scope.usageReportsUtils = UsageReportsService;
         	
