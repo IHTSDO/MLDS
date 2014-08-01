@@ -1,8 +1,9 @@
 <div class="row" >
 	<div class="col-sm-12 col-md-12 col-lg-12"> 
-	<div class="page-header">
-		<h2>{{releasePackage.name}}</h2>
-		<p>{{releasePackage.description}}</p>
+		<div class="page-header">
+			<h2>{{releasePackage.name}}</h2>
+			<p>{{releasePackage.description}}</p>
+		</div>
 	</div>
 </div>
 <div class="row">
@@ -21,11 +22,13 @@
 					Login to download
 				</a>
 				
-				 <!-- FIXME: ng-show="$root.authenticated && !releaseFile.downloadUrl" -->
-				<button class="btn btn-success pull-right" ng-show="$root.authenticated" ng-click="utils.openExtensionApplication(releasePackage)">			
-					Apply for extension
-				</button>
-				
+				<div class="pull-right" ng-show="$root.authenticated">
+					 <!-- FIXME: ng-show="$root.authenticated && !releaseFile.downloadUrl" -->
+					<button class="btn btn-success pull-right" ng-show="isMembershipUnstarted" ng-click="utils.openExtensionApplication(releasePackage)">			
+						Apply for extension
+					</button>
+					<span class="alert alert-warning" ng-show="isMembershipIncomplete">Application being processed</span>
+				</div>
 			</div>
 		</div>
 	</div>
