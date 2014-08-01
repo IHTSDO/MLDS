@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -125,7 +126,7 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/register",
             method = RequestMethod.POST,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     //FIXME: JH-add account to stormpath wrapper
     @RolesAllowed({ AuthoritiesConstants.ANONYMOUS })
@@ -210,7 +211,7 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/activate",
             method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
@@ -226,7 +227,7 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/authenticate",
             method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @Timed
     public String isAuthenticated(HttpServletRequest request) {
@@ -239,7 +240,7 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/account",
             method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<UserDTO> getAccount() {
@@ -283,7 +284,7 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/account",
             method = RequestMethod.POST,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public void saveAccount(@RequestBody UserDTO userDTO) {
@@ -295,7 +296,7 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/account/change_password",
             method = RequestMethod.POST,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<?> changePassword(@RequestBody String password) {
@@ -311,7 +312,7 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/account/sessions",
             method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<List<PersistentToken>> getCurrentSessions() {

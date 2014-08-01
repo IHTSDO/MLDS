@@ -11,6 +11,7 @@ import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -84,7 +85,7 @@ public class ApplicationController {
 	
 	@RequestMapping(value = Routes.APPLICATION_APPROVE,
 			method=RequestMethod.POST,
-			produces = "application/json")
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public @ResponseBody ResponseEntity<Application> approveApplication(@PathVariable long applicationId, @RequestBody String approvalStateString) throws CloneNotSupportedException {
 		//FIXME why cant this be the body type?
@@ -138,7 +139,7 @@ public class ApplicationController {
 	
 	@RequestMapping(value = Routes.APPLICATIONS, 
 			method=RequestMethod.GET,
-			produces = "application/json")
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public @ResponseBody ResponseEntity<Collection<Application>> getApplications(@RequestParam(value="$filter") String filter){
 		Iterable<Application> applications;
@@ -157,7 +158,7 @@ public class ApplicationController {
 
 	@RequestMapping(value = Routes.APPLICATION, 
 			method=RequestMethod.GET,
-			produces = "application/json")
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public  @ResponseBody ResponseEntity<Application> getApplication(@PathVariable long applicationId){
 		Application application = applicationRepository.findOne(applicationId);
@@ -170,7 +171,7 @@ public class ApplicationController {
 
 	@RequestMapping(value = Routes.APPLICATION_ME, 
 			method=RequestMethod.GET,
-			produces = "application/json")
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
 	public  @ResponseBody ResponseEntity<Application> getApplicationForMe(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
@@ -183,7 +184,7 @@ public class ApplicationController {
 	@Transactional
 	@RequestMapping(value="/api/application", 
 			method=RequestMethod.GET,
-			produces = "application/json")
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
 	public @ResponseBody ResponseEntity<Application> getUserApplication(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
@@ -197,7 +198,7 @@ public class ApplicationController {
 	@Transactional
 	@RequestMapping(value=Routes.APPLICATION_REGISTRATION,
 			method=RequestMethod.POST,
-			produces = "application/json")
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
 		PrimaryApplication application = findOrStartInitialApplication();
@@ -239,7 +240,7 @@ public class ApplicationController {
 	@Transactional
 	@RequestMapping(value=Routes.APPLICATION_REGISTRATION,
 			method=RequestMethod.PUT,
-			produces = "application/json")
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
 	public @ResponseBody ResponseEntity<Application> saveApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
         Application application = findOrStartInitialApplication();
@@ -264,7 +265,7 @@ public class ApplicationController {
 	@Transactional
 	@RequestMapping(value = Routes.APPLICATION_NOTES_INTERNAL,
 			method=RequestMethod.PUT,
-			produces = "application/json")
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody String notesInternal) {
 		Application application = applicationRepository.findOne(applicationId);
@@ -380,12 +381,13 @@ public class ApplicationController {
 		if (checkIfValidField(jsonNode, attribute)) {
 			return jsonNode.get(attribute).asText();
 		}
-		return new String();
+		return "";
 	}
 	
 	private Boolean checkIfValidField(JsonNode jsonNode, String attribute) {
 		if (jsonNode != null && jsonNode.get(attribute) != null) {
-			if(jsonNode.get(attribute).asText() != "" && jsonNode.get(attribute).asText() != "null") {
+			String text = jsonNode.get(attribute).asText();
+			if(!Objects.equal(text, "") && !Objects.equal(text, "null")) {
 				return true;
 			}
 		}
@@ -405,7 +407,7 @@ public class ApplicationController {
 	}
 	@RequestMapping(value = Routes.APPLICATIONS, 
 			method=RequestMethod.POST,
-			produces = "application/json")
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public ResponseEntity<Application> createApplication(@RequestBody CreateApplicationDTO requestBody) {
 		
