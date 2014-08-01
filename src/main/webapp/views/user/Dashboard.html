@@ -1,9 +1,7 @@
-
-
 <div ng-repeat="affiliate in affiliates">
   <div class="row" ng-hide="usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED'">
     <div class="col-sm-12 col-md-12 col-lg-12">
-      <div class="alert alert-danger" role="alert">
+      <div class="alert alert-danger space" role="alert">
         <div><strong>Usage Declaration Required</strong></div>
         <p>You have not submitted a usage declaration. To complete your affiliate registration, please submit an existing or new usage declaration.</p>
       </div>
@@ -138,7 +136,7 @@
   <div class="col-lg-12">
    <div class="page-header">
     <h1>
-     Release Packages <a class="btn btn-link">View All <i class="fa fa-angle-double-right"></i></a>
+     Release Packages <a href="#/viewPackages"class="btn btn-link">View All <i class="fa fa-angle-double-right"></i></a>
    </h1> 
  </div>
 
