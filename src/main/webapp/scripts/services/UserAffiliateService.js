@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('UserAffiliateService', ['$http', '$rootScope', '$log', '$q', 'Session', 'AffiliateService', 'UserRegistrationService',
-                                    function($http, $rootScope, $log, $q, Session, AffiliateService, UserRegistrationService){
+.factory('UserAffiliateService', ['$http', '$rootScope', '$log', '$q', 'Session', 'AffiliateService', 'ApplicationUtilsService',
+                                    function($http, $rootScope, $log, $q, Session, AffiliateService, ApplicationUtilsService){
 	var service = {
 		affiliate: null,
 		approvedMemberships: [],
@@ -24,11 +24,11 @@ angular.module('MLDS')
 	var setAffiliate = function setAffiliate(affiliate) {
 		service.affiliate = affiliate;
 		service.approvedMemberships = _.chain(service.affiliate.applications)
-			.filter(UserRegistrationService.isApplicationApproved)
+			.filter(ApplicationUtilsService.isApplicationApproved)
 			.pluck('member')
 			.value();
 		service.incompleteMemberships = _.chain(service.affiliate.applications)
-			.filter(UserRegistrationService.isApplicationIncomplete)
+			.filter(ApplicationUtilsService.isApplicationIncomplete)
 			.pluck('member')
 			.value();
 	};

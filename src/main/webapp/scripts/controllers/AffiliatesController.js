@@ -6,11 +6,10 @@ mldsApp.controller('AffiliatesController', [
 		'$location',
 		'$modal',
 		'Session',
-		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
 		'AffiliateService',
-		function($scope, $log, $location, $modal, Session, UserRegistrationService, DomainBlacklistService,
+		function($scope, $log, $location, $modal, Session, DomainBlacklistService,
 				PackagesService, AffiliateService) {
 
 			$scope.affiliates = [];

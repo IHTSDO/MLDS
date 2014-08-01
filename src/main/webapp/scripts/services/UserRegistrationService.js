@@ -62,41 +62,8 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 			
 			updateApplicationNoteInternal: function(application) {
 				return $http.put('/app/rest/applications/'+encodeURIComponent(application.applicationId)+'/notesInternal', application.notesInternal);
-			},
-			
-			isApplicationWaitingForApplicant: function isApplicationWaitingForApplicant(application) {
-				return (!application.approvalState
-					|| application.approvalState === 'NOT_SUBMITTED'
-					|| application.approvalState === 'CHANGE_REQUESTED');
-			},
-
-			isApplicationApproved: function isApplicationApproved(application) {
-				return (application.approvalState === 'APPROVED');
-			},
-
-			isApplicationRejected: function isApplicationRejected(application) {
-				return (application.approvalState === 'REJECTED');
-			},
-
-			isApplicationIncomplete: function isApplicationIncomplete(application) {
-				return (application.approvalState !== 'APPROVED'
-					&& application.approvalState !== 'REJECTED');
-			},
-
-			
-			isApplicationPending: function isApplicationPending(application) {
-				return (application.approvalState === 'SUBMITTED'
-					|| application.approvalState === 'RESUBMITTED'
-					|| application.approvalState === 'REVIEW_REQUESTED');
-			},
-
-
-			getOrganizationTypes: function getOrganizationTypes() {
-				return ['PUBLIC_HEALTH_ORGANIZATION', 'PRIVATE_HEALTH_ORGANIZATION', 
-				        'RESEARCH_AND_DEVELOPMENT_ORGANIZATION', 'HEALTHERCARE_APPLICATION_DEVELOPER',
-				        'GENERAL_PRACTITIONER_PRACTICE', 'EDUCATIONAL_INSTITUTE', 'OTHER'
-				];
 			}
+			
 		};
 		
 	}]);

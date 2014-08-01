@@ -23,7 +23,7 @@ mldsApp.controller('PendingApplicationsController', [
 
 				queryPromise.success(function(data) {
 					$scope.applications = data;
-					_.sortBy($scope.pplications, function(record) {
+					_.sortBy($scope.applications, function(record) {
 						return record.submittedAt;
 					});
 				});
