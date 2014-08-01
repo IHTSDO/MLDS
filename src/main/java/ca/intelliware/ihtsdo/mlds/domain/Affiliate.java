@@ -46,7 +46,10 @@ public class Affiliate {
 	@OneToOne()
 	@JoinColumn(name="application_id")
 	PrimaryApplication application;
-	
+
+	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="affiliate")
+	Set<Application> applications = Sets.newHashSet();
+
 	@ManyToOne
 	@JoinColumn(name="home_member_id")
     Member homeMember;
@@ -64,6 +67,20 @@ public class Affiliate {
 
 	public Set<CommercialUsage> getCommercialUsages() {
 		return Collections.unmodifiableSet(commercialUsages);
+	}
+
+	public void addApplication(Application newEntryValue) {
+		Validate.notNull(newEntryValue.getApplicationId());
+		
+		if (newEntryValue.affiliate != null) {
+			newEntryValue.affiliate.applications.remove(newEntryValue);
+		}
+		newEntryValue.affiliate = this;
+		applications.add(newEntryValue);
+	}
+
+	public Set<Application> getApplications() {
+		return Collections.unmodifiableSet(applications);
 	}
 
 	public String getCreator() {
@@ -84,6 +101,7 @@ public class Affiliate {
 
 	public void setApplication(PrimaryApplication application) {
 		this.application = application;
+		addApplication(application);
 	}
 	
 	public AffiliateDetails getAffiliateDetails() {
