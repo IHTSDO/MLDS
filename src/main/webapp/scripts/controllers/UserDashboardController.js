@@ -10,38 +10,22 @@ angular.module('MLDS')
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
-        	$scope.affiliates = [];
-
-        	function loadAffiliates() {
-        		AffiliateService.myAffiliates()
-	        		.then(function(affiliatesResult) {
-	        			var someApplicationsWaitingForApplicant = _.some(affiliatesResult.data, function(affiliate) {
-	        				return ApplicationUtilsService.isApplicationWaitingForApplicant(affiliate.application);
-	        			});
-	        			if (someApplicationsWaitingForApplicant) {
-	        				$location.path('/affiliateRegistration');
-	        				return;
-	        			}
-	        			$scope.affiliates = affiliatesResult.data;
-	        			
-	        			affiliatesResult.data.forEach(function(affiliate) {
-	        				affiliate.commercialUsages.sort(function(a, b) {
-	        					if (a.startDate && b.startDate) {
-	        						return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
-	        					} else if (a.startDate) {
-	        						return 1;
-	        					} else {
-	        						return -1;
-	        					}
-	        				});
-	        			});
-	
-	        		});
-        	}
-
-        	loadAffiliates();
-        	
         	$scope.affiliate = UserAffiliateService.affiliate;
+
+        	if (ApplicationUtilsService.isApplicationWaitingForApplicant($scope.affiliate.application)) {
+				$location.path('/affiliateRegistration');
+				return;
+			}
+			
+			$scope.affiliate.commercialUsages.sort(function(a, b) {
+				if (a.startDate && b.startDate) {
+					return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+				} else if (a.startDate) {
+					return 1;
+				} else {
+					return -1;
+				}
+			});
         	
         	$scope.usageReportsUtils = UsageReportsService;
         	
@@ -52,6 +36,10 @@ angular.module('MLDS')
         	$scope.isApplicationWaitingForApplicant = function(application) {
         		return ApplicationUtilsService.isApplicationWaitingForApplicant(application);
         	};
+        	
+        	$scope.isApplicationApproved = function(application) {
+        		return application.approvalState === 'APPROVED';
+        	}
         	
         }
     ]);

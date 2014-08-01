@@ -56,7 +56,7 @@ mldsApp
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}],
-                    	AffiliateServiceLoaded:['AffiliateService', function(AffiliateService){ return AffiliateService.promise;}]
+                    	UserAffiliateServiceLoaded:['UserAffiliateService', function(UserAffiliateService){ return UserAffiliateService.promise;}]
                     }
                 })
                 .when('/usage-reports', {

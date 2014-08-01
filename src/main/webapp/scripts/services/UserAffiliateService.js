@@ -10,7 +10,7 @@ angular.module('MLDS')
 	};
 	
 	var loadUserAffiliate = function loadUserAffiliate() {
-		service.affiliate = null;
+		service.affiliate = {};
 		service.promise = AffiliateService.myAffiliate();
 		service.promise.then(function(resp){
 			setAffiliate(resp.data);
