@@ -87,29 +87,17 @@
     <table class="table table-striped">
       <thead> 
         <tr>
-          <th>Application</th>
+          <th>Type</th>
           <th>Date</th>
           <th>Status</th>
         </tr>
       </thead>
       <tbody> 
-        <tr>
-          <td>John Smith</td>
-          <td>June 02 2014</td>
-          <td><p class="text-success"><strong>Success</strong></p></td>
+        <tr ng-repeat="application in affiliate.applications">
+          <td>{{application.applicationType}}</td>
+          <td>{{(application.completedAt || application.submittedAt) | date }}</td>
+          <td><p ><strong>{{application.approvalState}}</strong></p></td>
         </tr>
-        <tr>
-          <td>John Smith</td>
-          <td>June 02 2014</td>
-          <td><p class="text-warning"><strong>Pending</strong></p></td>
-        </tr>
-
-        <tr>
-          <td>John Smith</td>
-          <td>June 02 2014</td>
-          <td><p class="text-danger"><strong>Rejected</strong></p></td>
-        </tr>
-
       </tbody>
     </table>
   </div>

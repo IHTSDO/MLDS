@@ -55,7 +55,8 @@ mldsApp
                         authorizedRoles: [USER_ROLES.user]
                     },
                     resolve: {
-                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}],
+                    	AffiliateServiceLoaded:['AffiliateService', function(AffiliateService){ return AffiliateService.promise;}]
                     }
                 })
                 .when('/usage-reports', {
