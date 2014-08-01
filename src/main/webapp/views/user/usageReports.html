@@ -1,66 +1,63 @@
 <div class="row" ng-repeat="affiliate in affiliates">
    <div class="col-lg-12"> 
-	 <div class="page-header">
-		  <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="usageReportsUtils.openAddUsageReportModal(affiliate)"><i class="fa fa-plus"></i> New Report</button></span>
-		  <h1>Usage Reports</h1>
+		 <div class="page-header">
+			  <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="usageReportsUtils.openAddUsageReportModal(affiliate)"><i class="fa fa-plus"></i> New Report</button></span>
+			  <h1>Usage Reports</h1>
+		</div>
 	</div>
-	</div>
- </div>
-	<div class="row">
-	  <div class="col-lg-12"> 
-	    <div class="panel panel-default dashboard">
-			  <div class="table-responsive">
-			    <table class="table table-striped">
-			      <thead> 
-			        <tr>
-			          <th>Report Date</th>
-			          <th>Usage Type</th>
-			          <th>Approval State</th>
-			          <th>Countries</th>
-			          <th>Hospitals</th>
-			          <th>Practices</th>
-			        </tr>
-			      </thead>
-			      <tbody> 
-			        <tr ng-click="usageReportsUtils.goToUsageReport(usageReport)" ng-class="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" ng-repeat="usageReport in affiliate.commercialUsages">
-			          <td> 
-			          		<span class="btn-link" tooltip-placement="top" tooltip="Declaration has not been submitted">
-				              <i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" 
-				              	class="fa fa-exclamation-circle"></i>
-				            	{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}
-			          		</span>
-			          </td>
-			          <td>
-			            <span class="btn-link">
-			            	{{'affiliate.type.' + usageReport.type | translate}}
-			            </span>
-			          </td>
-			          <td>
-			            <span class="btn-link">
-			            	{{'approval.state.' + usageReport.approvalState | translate}}
-			            </span>
-			          </td>
-			          <td>
-			            <span class="btn-link">
-			            	{{usageReportsUtils.usageReportCountries(usageReport)}}
-			            </span>
-			          </td>
-			          <td>
-			            <span class="btn-link">
-			            	{{usageReportsUtils.usageReportHospitals(usageReport)}}
-			            </span>
-			          </td>
-			          <td>
-			            <span class="btn-link">
-			            	{{usageReportsUtils.usageReportPractices(usageReport)}}
-			            </span>
-			          </td>
-			        </tr>
-			      </tbody>
-			    </table>
-			
-			  </div>
-			</div>
-	  </div>
-	</div>
+  <div class="col-lg-12"> 
+    <div class="panel panel-default dashboard">
+		  <div class="table-responsive">
+		    <table class="table table-striped">
+		      <thead> 
+		        <tr>
+		          <th>Report Date</th>
+		          <th>Usage Type</th>
+		          <th>Approval State</th>
+		          <th>Countries</th>
+		          <th>Hospitals</th>
+		          <th>Practices</th>
+		        </tr>
+		      </thead>
+		      <tbody> 
+		        <tr ng-click="usageReportsUtils.goToUsageReport(usageReport)" ng-class="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" ng-repeat="usageReport in affiliate.commercialUsages">
+		          <td> 
+		          		<span class="btn-link" tooltip-placement="top" tooltip="Declaration has not been submitted">
+			              <i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" 
+			              	class="fa fa-exclamation-circle"></i>
+			            	{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}
+		          		</span>
+		          </td>
+		          <td>
+		            <span class="btn-link">
+		            	{{'affiliate.type.' + usageReport.type | translate}}
+		            </span>
+		          </td>
+		          <td>
+		            <span class="btn-link">
+		            	{{'approval.state.' + usageReport.approvalState | translate}}
+		            </span>
+		          </td>
+		          <td>
+		            <span class="btn-link">
+		            	{{usageReportsUtils.usageReportCountries(usageReport)}}
+		            </span>
+		          </td>
+		          <td>
+		            <span class="btn-link">
+		            	{{usageReportsUtils.usageReportHospitals(usageReport)}}
+		            </span>
+		          </td>
+		          <td>
+		            <span class="btn-link">
+		            	{{usageReportsUtils.usageReportPractices(usageReport)}}
+		            </span>
+		          </td>
+		        </tr>
+		      </tbody>
+		    </table>
+		
+		  </div>
+		</div>
+  </div>
 </div>
