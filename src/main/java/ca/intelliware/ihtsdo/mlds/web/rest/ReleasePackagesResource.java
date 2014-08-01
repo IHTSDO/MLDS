@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -65,7 +66,7 @@ public class ReleasePackagesResource {
 
 	@RequestMapping(value = Routes.RELEASE_PACKAGES,
     		method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
 	@PermitAll
     public @ResponseBody ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
 		
@@ -104,7 +105,7 @@ public class ReleasePackagesResource {
 
 	@RequestMapping(value = Routes.RELEASE_PACKAGES,
     		method = RequestMethod.POST,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleasePackage> createReleasePackage(@RequestBody ReleasePackage releasePackage) {
     	authorizationChecker.checkCanCreateReleasePackages();
@@ -123,8 +124,8 @@ public class ReleasePackagesResource {
 	
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
-            produces = "application/json")
-	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN, AuthoritiesConstants.ANONYMOUS })
+            produces = MediaType.APPLICATION_JSON_VALUE)
+	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
     	//FIXME should we check children being consistent?		
     	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
@@ -173,7 +174,7 @@ public class ReleasePackagesResource {
 
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.PUT,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleasePackage> updateReleasePackage(@PathVariable long releasePackageId, @RequestBody ReleasePackage body) {
     	
@@ -194,7 +195,7 @@ public class ReleasePackagesResource {
 	
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.DELETE,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<?> deactivateReleasePackage(@PathVariable long releasePackageId) {
     	
@@ -225,7 +226,7 @@ public class ReleasePackagesResource {
 	
 	@RequestMapping(value = Routes.RELEASE_VERSIONS,
     		method = RequestMethod.POST,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseVersion> createReleaseVersion(@PathVariable long releasePackageId, @RequestBody ReleaseVersion releaseVersion) {
@@ -251,7 +252,7 @@ public class ReleasePackagesResource {
 
 	@RequestMapping(value = Routes.RELEASE_VERSION,
     		method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseVersion> getReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
     	//FIXME should we check children being consistent?
@@ -269,7 +270,7 @@ public class ReleasePackagesResource {
 	
 	@RequestMapping(value = Routes.RELEASE_VERSION,
     		method = RequestMethod.PUT,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseVersion> updateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseVersion body) {
@@ -300,7 +301,7 @@ public class ReleasePackagesResource {
 	
 	@RequestMapping(value = Routes.RELEASE_VERSION,
     		method = RequestMethod.DELETE,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	public @ResponseBody
@@ -331,7 +332,7 @@ public class ReleasePackagesResource {
 	
 	@RequestMapping(value = Routes.RELEASE_FILE,
     		method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseFile> getReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
     	
@@ -348,7 +349,7 @@ public class ReleasePackagesResource {
 	
 	@RequestMapping(value = Routes.RELEASE_FILES,
     		method = RequestMethod.POST,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<ReleaseFile> createReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseFile body) {
@@ -371,7 +372,7 @@ public class ReleasePackagesResource {
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@RequestMapping(value = Routes.RELEASE_FILE,
 			method = RequestMethod.DELETE,
-			produces = "application/json")
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<ReleaseFile> deleteReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
 		
 		ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
