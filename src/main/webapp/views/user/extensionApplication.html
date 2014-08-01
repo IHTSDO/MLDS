@@ -1,0 +1,56 @@
+<form name="extensionApplicationForm" novalidate bs-validation ng-submit="extensionForm.submit()">
+	<div class="row">
+		<div class="col-sx-12 col-md-12">
+			<div class="panel-group" id="accordion">
+				<div class="panel panel-primary applicant">
+					<div class="panel-heading">
+						<h4 class="panel-title">Extension Application Form</h4>
+					</div>
+					<div id="collapseIndividual" collapse="collapsePanel.type"
+						class="panel-collapse collapse in">
+						<div class="panel-body">
+							<h4>How will you be using the extension? FIXME COPY</h4>
+							<div class="form-group">
+								<label>Purpose of Use:</label>
+								<textarea class="form-control" rows="10" cols="135" required name="purpose" ng-model="extensionForm.purpose"></textarea>
+								<p ng-show="extensionForm.attempted && extensionApplicationForm.purpose.$error.required"
+									class="help-block">Required field.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">SNOMED CT Extension Agreement</h3>
+					</div>
+					<div class="panel-body">
+						<p class="bg-warning text-warning">Extension licence abstract -- explain importance of terms. Describe reporting and possible $$$ obligations! FIXME - copy</p>
+						<p>
+							<a href="http://ihtsdo.org/fileadmin/user_upload/Docs_01/License/Ihtsdo_AffiliateLicenceAgreement_v11.pdf"
+								target="_blank" class="btn btn-default btn-block">SNOMED CT Extension Licence</a>
+						</p>
+						<p class="form-group">
+							<label>
+								<input required="" type="checkbox" name="snoMedTC"
+									ng-model="extensionForm.snoMedTC">
+									 I agree to the licence 
+							 	<span ng-show="extensionApplicationForm.snoMedTC.$error.required && extensionForm.attempted" class="help-block">
+									You must agree to the terms and conditions of the SNOMED CT Licence in order to register, which also indicates potential fees that be required.
+								</span>
+							</label>
+						</p>
+						<div class="panel-footer">
+							<input type="submit" class="btn btn-muted btn-success" value="Apply"/>
+							<div ng-show="extensionForm.attempted"
+								class="has-error">
+								<p ng-show="extensionApplicationForm.$invalid"
+									class="help-block">Please fix the errors listed above.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
