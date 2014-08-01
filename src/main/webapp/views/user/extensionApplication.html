@@ -1,4 +1,4 @@
-<form name="extensionApplicationForm" novalidate bs-validation ng-submit="extensionForm.submit()">
+<form name="extensionApplicationForm" novalidate bs-validation ng-submit="submit()">
 	<div class="row">
 		<div class="col-sx-12 col-md-12">
 			<div class="panel-group" id="accordion">
@@ -12,8 +12,8 @@
 							<h4>How will you be using the extension? FIXME COPY</h4>
 							<div class="form-group">
 								<label>Purpose of Use:</label>
-								<textarea class="form-control" rows="10" cols="135" required name="purpose" ng-model="extensionForm.purpose"></textarea>
-								<p ng-show="extensionForm.attempted && extensionApplicationForm.purpose.$error.required"
+								<textarea class="form-control" rows="10" cols="135" required name="reason" ng-model="extensionForm.reason"></textarea>
+								<p ng-show="extensionForm.attempted && extensionApplicationForm.reason.$error.required"
 									class="help-block">Required field.</p>
 							</div>
 						</div>
@@ -32,8 +32,7 @@
 						</p>
 						<p class="form-group">
 							<label>
-								<input required="" type="checkbox" name="snoMedTC"
-									ng-model="extensionForm.snoMedTC">
+								<input required="" type="checkbox" name="snoMedTC">
 									 I agree to the licence 
 							 	<span ng-show="extensionApplicationForm.snoMedTC.$error.required && extensionForm.attempted" class="help-block">
 									You must agree to the terms and conditions of the SNOMED CT Licence in order to register, which also indicates potential fees that be required.

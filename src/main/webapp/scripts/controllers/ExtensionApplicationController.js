@@ -1,15 +1,40 @@
 'use strict';
 
-angular.module('MLDS').controller('ExtensionApplicationController', ['$scope', '$log',
-                                                       	function($scope, $log) {
+angular.module('MLDS').controller('ExtensionApplicationController', ['$scope', '$location', '$log', '$routeParams', 'UserRegistrationService',
+                                                       	function($scope, $location, $log, $routeParams, UserRegistrationService) {
 	
-	$log.info('ExtensionApplicationController');
+	var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
+	$log.info('ExtensionApplicationController', applicationId);
 	
 	$scope.extensionForm = {};
 	
-	$scope.extensionForm.submit = function(){
-		$log.log('extensionForm.submit', $scope.extensionForm);
-		$scope.extensionForm.attempted = true;
+	var loadApplication = function loadApplication() {
+		if (applicationId) {
+			UserRegistrationService.getApplicationById(applicationId)
+				.then(function(result) {
+					$log.log(result);
+					if(result.data) {
+						$scope.extensionForm = result.data;
+					}
+					
+					})
+					["catch"](function(message) {
+						//FIXME how to handle errors + not present 
+						$log.log('ReleasePackage not found');
+						$location.path('/viewPackages');
+					});
+		} else {
+			$location.path('/viewPackages');
+		};
+	};
+	
+	loadApplication();
+	
+	$scope.submit = function(){
+		UserRegistrationService.saveApplication($scope.extensionForm, applicationId)
+			.then(function(result) {
+				$log.log('extensionForm.submit.result', result);
+			});
 	};
 		
 
