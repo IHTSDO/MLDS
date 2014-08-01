@@ -5965,8 +5965,8 @@ a.tooltip span {
   background-color: #384042;
 }
 .main-login {
-  margin-top: 20px;
   padding: 30px 10px 20px;
+  background-color: rgba(245, 245, 245, 0.6);
 }
 .main-login h1 {
   font-family: "cabinbold";
@@ -6192,7 +6192,7 @@ a.tooltip span {
 }
 .sidebar {
   position: fixed;
-  top: 70px;
+  top: 67px;
   bottom: 0px;
   left: 0px;
   z-index: 1000;
