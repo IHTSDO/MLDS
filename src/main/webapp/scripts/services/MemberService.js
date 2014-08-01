@@ -7,6 +7,9 @@ angular.module('MLDS')
 			$http.get('/app/rest/members')
 				.then(function(d){return d.data;});
 		var service = {};
+
+		//FIXME is there a better way to indicate the IHTSDO/international member?
+		service.ihtsdoMemberKey = 'IHTSDO';
 		
 		service.members = [];
 		service.membersByKey = {};
