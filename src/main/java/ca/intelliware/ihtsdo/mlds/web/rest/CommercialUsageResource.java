@@ -11,6 +11,7 @@ import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,7 +61,7 @@ public class CommercialUsageResource {
 	
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<Collection<CommercialUsage>> getUsageReports(@PathVariable long affiliateId) {
 
@@ -97,7 +98,7 @@ public class CommercialUsageResource {
     @Transactional
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.POST,
-    		produces = "application/json")
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<CommercialUsage> createNewSubmission(@PathVariable long affiliateId, @RequestBody CommercialUsagePeriod submissionPeriod) {
     	
@@ -137,7 +138,7 @@ public class CommercialUsageResource {
 
 	@RequestMapping(value = Routes.USAGE_REPORT,
     		method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<CommercialUsage> getCommercialUsageReport(@PathVariable long commercialUsageId) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
@@ -152,7 +153,7 @@ public class CommercialUsageResource {
 
 	@RequestMapping(value = Routes.USAGE_REPORT_CONTEXT,
     		method = RequestMethod.PUT,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<UsageContext> updateCommercialUsageContext(@PathVariable long commercialUsageId, @RequestBody UsageContext context) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
@@ -173,7 +174,7 @@ public class CommercialUsageResource {
 	
 	@RequestMapping(value = Routes.USAGE_REPORT_TYPE,
     		method = RequestMethod.PUT,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<UsageContext> updateCommercialUsageType(@PathVariable long commercialUsageId, @PathVariable AffiliateType type) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
@@ -193,7 +194,7 @@ public class CommercialUsageResource {
     @Transactional
     @RequestMapping(value = Routes.USAGE_REPORT_APPROVAL,
     		method = RequestMethod.POST,
-    		produces = "application/json")
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<CommercialUsage> transitionCommercialUsageApproval(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageApprovalTransitionMessage applyTransition) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
@@ -223,7 +224,7 @@ public class CommercialUsageResource {
     @Transactional
     @RequestMapping(value = Routes.USAGE_REPORT,
     		method = RequestMethod.POST,
-    		produces = "application/json")
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<CommercialUsageEntry> addCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageEntry newEntryValue) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
@@ -247,7 +248,7 @@ public class CommercialUsageResource {
     
     @RequestMapping(value = Routes.USAGE_REPORT_ENTRY,
     		method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<CommercialUsageEntry> getCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId) {
     	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
@@ -265,7 +266,7 @@ public class CommercialUsageResource {
     @Transactional
     @RequestMapping(value = Routes.USAGE_REPORT_ENTRY,
     		method = RequestMethod.PUT,
-    		produces = "application/json")
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<CommercialUsageEntry> updateCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId, @RequestBody CommercialUsageEntry newEntryValue) {
     	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
@@ -286,7 +287,7 @@ public class CommercialUsageResource {
     
     @RequestMapping(value = Routes.USAGE_REPORT_ENTRY,
     		method = RequestMethod.DELETE,
-    		produces = "application/json")
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<?> deleteCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId) {
     	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
@@ -306,7 +307,7 @@ public class CommercialUsageResource {
     @Transactional
     @RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
     		method = RequestMethod.DELETE,
-    		produces = "application/json")
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<?> deleteCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
@@ -329,7 +330,7 @@ public class CommercialUsageResource {
     @Transactional
     @RequestMapping(value = Routes.USAGE_REPORT_COUNTRIES,
     		method = RequestMethod.POST,
-    		produces = "application/json")
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<CommercialUsageCountry> addCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageCountry newCountValue) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
@@ -353,7 +354,7 @@ public class CommercialUsageResource {
     
     @RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
     		method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<CommercialUsageCountry> getCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
@@ -369,7 +370,7 @@ public class CommercialUsageResource {
     @Transactional
     @RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
     		method = RequestMethod.PUT,
-    		produces = "application/json")
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public @ResponseBody ResponseEntity<CommercialUsageCountry> updateCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId, @RequestBody CommercialUsageCountry newCountValue) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);

@@ -212,6 +212,16 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                .when('/extensionApplication/:applicationId', {
+                    templateUrl: 'views/user/extensionApplication.html',
+                    controller: 'ExtensionApplicationController',
+                    access: {
+                    	authorizedRoles: [USER_ROLES.users]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
                 .when('/pendingApplications', {
                     templateUrl: 'views/admin/pendingApplications.html',
                     controller: 'PendingApplicationsController',
