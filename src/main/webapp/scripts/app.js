@@ -217,10 +217,13 @@ mldsApp
                     templateUrl: 'views/user/extensionApplication.html',
                     controller: 'ExtensionApplicationController',
                     access: {
-                    	authorizedRoles: [USER_ROLES.users]
+                    	authorizedRoles: [USER_ROLES.user]
                     },
                     resolve: {
-                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}],
+                    	application:['$route','UserRegistrationService', function($route, UserRegistrationService) { 
+                    		return UserRegistrationService.getApplicationById($route.current.params.applicationId).then(function(resp){return resp.data});
+                		}]
                     }
                 })
                 .when('/pendingApplications', {
