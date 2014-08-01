@@ -4,8 +4,8 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', 'AffiliateService', 'Session', 'UserRegistrationService', 'UsageReportsService', 'UserAffiliateService',
-          function ($scope, $log, $location, AffiliateService, Session, UserRegistrationService, UsageReportsService, UserAffiliateService) {
+        [ '$scope', '$log', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService',
+          function ($scope, $log, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
@@ -16,7 +16,7 @@ angular.module('MLDS')
         		AffiliateService.myAffiliates()
 	        		.then(function(affiliatesResult) {
 	        			var someApplicationsWaitingForApplicant = _.some(affiliatesResult.data, function(affiliate) {
-	        				return UserRegistrationService.isApplicationWaitingForApplicant(affiliate.application);
+	        				return ApplicationUtilsService.isApplicationWaitingForApplicant(affiliate.application);
 	        			});
 	        			if (someApplicationsWaitingForApplicant) {
 	        				$location.path('/affiliateRegistration');
@@ -46,11 +46,11 @@ angular.module('MLDS')
         	$scope.usageReportsUtils = UsageReportsService;
         	
         	$scope.isApplicationPending = function(application) {
-        		return UserRegistrationService.isApplicationPending(application);
+        		return ApplicationUtilsService.isApplicationPending(application);
         	};
         	
         	$scope.isApplicationWaitingForApplicant = function(application) {
-        		return UserRegistrationService.isApplicationWaitingForApplicant(application);
+        		return ApplicationUtilsService.isApplicationWaitingForApplicant(application);
         	};
         	
         }
