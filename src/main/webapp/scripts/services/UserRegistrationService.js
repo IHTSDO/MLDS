@@ -69,6 +69,20 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 					|| application.approvalState === 'NOT_SUBMITTED'
 					|| application.approvalState === 'CHANGE_REQUESTED');
 			},
+
+			isApplicationApproved: function isApplicationApproved(application) {
+				return (application.approvalState === 'APPROVED');
+			},
+
+			isApplicationRejected: function isApplicationRejected(application) {
+				return (application.approvalState === 'REJECTED');
+			},
+
+			isApplicationIncomplete: function isApplicationIncomplete(application) {
+				return (application.approvalState !== 'APPROVED'
+					&& application.approvalState !== 'REJECTED');
+			},
+
 			
 			isApplicationPending: function isApplicationPending(application) {
 				return (application.approvalState === 'SUBMITTED'
