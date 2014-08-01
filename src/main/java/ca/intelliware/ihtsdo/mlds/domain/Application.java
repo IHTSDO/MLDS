@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -35,6 +36,12 @@ public abstract class Application extends BaseEntity {
 	@Column(name="application_id")
     Long applicationId;
 	
+	// the parent
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="affiliate_id")
+	Affiliate affiliate;
+
 	String username;
 	
 	@OneToOne()
@@ -124,6 +131,10 @@ public abstract class Application extends BaseEntity {
 
 	public void setAffiliateDetails(AffiliateDetails affiliateDetails) {
 		this.affiliateDetails = affiliateDetails;
+	}
+
+	public Affiliate getAffiliate() {
+		return affiliate;
 	}
 
 	public Member getMember() {

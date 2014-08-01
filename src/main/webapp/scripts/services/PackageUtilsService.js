@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('MLDS').factory('PackageUtilsService',
-		[ '$resource', '$q', '$log', '$modal', 'Session', function($resource, $q, $log, $modal, Session) {
+		[ '$resource', '$q', '$log', '$location', '$modal', 'Session', 'UserRegistrationService', 
+		  function($resource, $q, $log, $location, $modal, Session, UserRegistrationService) {
 			var service = {};
 			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
 	        	for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
 	        		if (packageEntity.releaseVersions[i].online) {
 	        			return true;
-	        		}
+	        		};
 	        	}
 	        	return false;
 	        };
@@ -87,18 +88,29 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		return this.isReleasePackageMatchingMember(releasePackage) || Session.isAdmin();
 	    	};
 	    	
-	    	service.openExtensionApplicationModal = function openExtensionApplicationModal(releasePackage) {
+	    	service.openExtensionApplication = function openExtensionApplication(releasePackage) {
+	    		
 	    		var modalInstance = $modal.open({
-	    			templateUrl: 'views/user/extensionApplicationModal.html',
-	    			controller: 'ExtensionApplicationController',
-	    			size:'lg',
-	    			backdrop: 'static',
-	    			resolve: {
-	    				releasePackage: function() {
-	    					return releasePackage;
-	    				}
-	    			}
-	    		});
+	    		      templateUrl: 'views/user/startExtensionApplicationModal.html',
+	    		      size: 'sm'
+	    		    });
+	    		
+	    		modalInstance.result.then(function () {
+	    			UserRegistrationService.createExtensionApplication()
+		    			.then(function(result) {
+		    				if(result.data && result.data.applicationId) {
+		    					$log.log('applicationId created:', result.data.applicationId);
+		    					$location.path('/extensionApplication/'+ result.data.applicationId);
+		    				}
+		    			})
+		    			["catch"](function(message) {
+		    				// FIXME: Should we show a global alert of some kind?
+		    				$log.log(message);
+		    			});
+    		    }, function () {
+    		    	//$log.info('Modal dismissed');
+    		    });
+	    		
 	    	};
 	    	
 			return service;

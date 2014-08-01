@@ -1,22 +1,41 @@
 'use strict';
 
-angular.module('MLDS').controller('ExtensionApplicationController', ['$scope', '$modalInstance', '$log', 'releasePackage',
-                                                       	function($scope, $modalInstance, $log, releasePackage) {
+angular.module('MLDS').controller('ExtensionApplicationController', ['$scope', '$location', '$log', '$routeParams', 'UserRegistrationService',
+                                                       	function($scope, $location, $log, $routeParams, UserRegistrationService) {
 	
-	$scope.releasePackage = releasePackage;
+	var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
+	$log.info('ExtensionApplicationController', applicationId);
 	
-	$scope.submitAttempted = false;
-	$scope.alerts = [];
+	$scope.extensionForm = {};
 	
-	$scope.add = function(){
-		$scope.submitting = true;
-		$scope.alerts.splice(0, $scope.alerts.length);
-
+	var loadApplication = function loadApplication() {
+		if (applicationId) {
+			UserRegistrationService.getApplicationById(applicationId)
+				.then(function(result) {
+					$log.log(result);
+					if(result.data) {
+						$scope.extensionForm = result.data;
+					}
+					
+					})
+					["catch"](function(message) {
+						//FIXME how to handle errors + not present 
+						$log.log('ReleasePackage not found');
+						$location.path('/viewPackages');
+					});
+		} else {
+			$location.path('/viewPackages');
+		};
 	};
 	
-	$scope.closeAlert = function(index) {
-	    $scope.alerts.splice(index, 1);
-	  };
+	loadApplication();
 	
+	$scope.submit = function(){
+		UserRegistrationService.saveApplication($scope.extensionForm, applicationId)
+			.then(function(result) {
+				$log.log('extensionForm.submit.result', result);
+			});
+	};
+		
 
 }]);
