@@ -63,7 +63,17 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'cabinmedium';
+    src: url('fonts/cabin-medium-webfont.eot');
+    src: url('fonts/cabin-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/cabin-medium-webfont.woff') format('woff'),
+         url('fonts/cabin-medium-webfont.ttf') format('truetype'),
+         url('fonts/cabin-medium-webfont.svg#cabinmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
 
+}
 @font-face {
     font-family: 'cabinregular';
     src: url('fonts/cabin-regular-webfont.eot');
@@ -97,11 +107,12 @@
 @line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
 
 //** By default, this inherits from the `<body>`.
-@headings-font-family:   "cabinbold";
+@headings-font-family:   "cabinmedium";
 @headings-font-weight:    500;
 @headings-line-height:    1.1;
 @headings-color:          darken(@blue, 10%);	
 
+@landing-page:   "cabinbold";
 
 //-- Iconography
 //
@@ -174,7 +185,7 @@
 
 @btn-default-color:              @gray;
 @btn-default-bg:                 darken(@cloud, 20%);
-@btn-default-border:             darken(@cloud, 3%);
+@btn-default-border:             transparent;
 
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 @purple;
@@ -361,8 +372,8 @@
 //##
 
 // Basics of a navbar
-@navbar-height:                    80px;
-@navbar-margin-bottom:             @line-height-computed;
+@navbar-height:                    60px;
+@navbar-margin-bottom:             0px;
 @navbar-border-radius:             @border-radius-base;
 @navbar-padding-horizontal:        floor((@grid-gutter-width / 2));
 @navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
@@ -492,9 +503,9 @@
 
 @jumbotron-padding:              30px;
 @jumbotron-color:                inherit;
-@jumbotron-bg:                   @white;
+@jumbotron-bg:                   @cloud;
 @jumbotron-heading-color:        @blue;
-@jumbotron-font-size:            ceil((@font-size-base * 1.5));
+@jumbotron-font-size:            ceil((@font-size-base * 1.2));
 
 
 //== Form states and alerts

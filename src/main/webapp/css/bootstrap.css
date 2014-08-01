@@ -6,6 +6,13 @@
   font-style: normal;
 }
 @font-face {
+  font-family: 'cabinmedium';
+  src: url('fonts/cabin-medium-webfont.eot');
+  src: url('fonts/cabin-medium-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/cabin-medium-webfont.woff') format('woff'), url('fonts/cabin-medium-webfont.ttf') format('truetype'), url('fonts/cabin-medium-webfont.svg#cabinmedium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
   font-family: 'cabinregular';
   src: url('fonts/cabin-regular-webfont.eot');
   src: url('fonts/cabin-regular-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/cabin-regular-webfont.woff') format('woff'), url('fonts/cabin-regular-webfont.ttf') format('truetype'), url('fonts/cabin-regular-webfont.svg#cabinregular') format('svg');
@@ -286,10 +293,9 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
-  background-color: #f5f5f5;
   margin-bottom: 60px;
 }
-.container[role="main"] {
+.div[role="main"] {
   background-color: #ffffff;
   border: 1px solid #ededed;
 }
@@ -376,7 +382,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "cabinbold";
+  font-family: "cabinmedium";
   font-weight: 500;
   line-height: 1.1;
   color: #355985;
@@ -484,7 +490,7 @@ p {
 }
 .lead {
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 200;
   line-height: 1.4;
 }
@@ -2061,7 +2067,7 @@ fieldset[disabled] .btn {
 .btn-default {
   color: #555555;
   background-color: #bababa;
-  border-color: #e5e5e5;
+  border-color: transparent;
 }
 .btn-default:hover,
 .btn-default:focus,
@@ -2070,7 +2076,7 @@ fieldset[disabled] .btn {
 .open .dropdown-toggle.btn-default {
   color: #555555;
   background-color: #a6a6a6;
-  border-color: #c7c7c7;
+  border-color: rgba(0, 0, 0, 0);
 }
 .btn-default:active,
 .btn-default.active,
@@ -2093,7 +2099,7 @@ fieldset[disabled] .btn-default:active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
   background-color: #bababa;
-  border-color: #e5e5e5;
+  border-color: transparent;
 }
 .btn-default .badge {
   color: #bababa;
@@ -3659,8 +3665,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar {
   position: relative;
-  min-height: 80px;
-  margin-bottom: 20px;
+  min-height: 60px;
+  margin-bottom: 0px;
   border: 1px solid transparent;
 }
 @media (min-width: 768px) {
@@ -3759,10 +3765,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-brand {
   float: left;
   color: #ffffff;
-  padding: 30px 15px;
+  padding: 20px 15px;
   font-size: 18px;
   line-height: 20px;
-  height: 80px;
+  height: 60px;
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
@@ -3779,8 +3785,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   float: right;
   margin-right: 15px;
   padding: 9px 10px;
-  margin-top: 23px;
-  margin-bottom: 23px;
+  margin-top: 13px;
+  margin-bottom: 13px;
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
@@ -3804,7 +3810,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-nav {
-  margin: 15px -15px;
+  margin: 10px -15px;
 }
 .navbar-nav > li > a {
   line-height: 20px;
@@ -3863,8 +3869,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin-top: 23px;
-  margin-bottom: 23px;
+  margin-top: 13px;
+  margin-bottom: 13px;
 }
 @media (min-width: 768px) {
   .navbar-form .form-group {
@@ -3931,20 +3937,20 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom-left-radius: 0;
 }
 .navbar-btn {
-  margin-top: 23px;
-  margin-bottom: 23px;
+  margin-top: 13px;
+  margin-bottom: 13px;
 }
 .navbar-btn.btn-sm {
-  margin-top: 25px;
-  margin-bottom: 25px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .navbar-btn.btn-xs {
-  margin-top: 29px;
-  margin-bottom: 29px;
+  margin-top: 19px;
+  margin-bottom: 19px;
 }
 .navbar-text {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 @media (min-width: 768px) {
   .navbar-text {
@@ -4385,11 +4391,11 @@ a.list-group-item.active > .badge,
   margin-left: 3px;
 }
 .jumbotron {
-  padding: 60px 30px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: #ffffff;
-  margin-top: -20px;
+  margin-top: 20px;
+  background-image: url("../images/home-banner.jpg");
+  height: 650px;
 }
 .jumbotron h1,
 .jumbotron .h1 {
@@ -4397,7 +4403,7 @@ a.list-group-item.active > .badge,
 }
 .jumbotron p {
   margin-bottom: 15px;
-  font-size: 21px;
+  font-size: 17px;
   font-weight: 200;
 }
 .container .jumbotron {
@@ -4408,7 +4414,6 @@ a.list-group-item.active > .badge,
 }
 @media screen and (min-width: 768px) {
   .jumbotron {
-    padding-top: 48px;
     padding-bottom: 48px;
   }
   .container .jumbotron {
@@ -5950,42 +5955,36 @@ a.tooltip span {
   height: 28px;
   border-top: 1px solid #999999;
 }
-.navbar[role=navigation] {
-  margin-bottom: 30px;
+.navigation {
   border-bottom: 3px solid #04add8;
 }
 .space {
   margin-top: 10px;
 }
-.marketing .jumbotron {
-  margin-top: 60px;
+.landing {
+  background-color: #384042;
 }
-#landing-page {
-  background-color: #ffffff;
-  padding: 5px 20px 30px 20px;
-  margin-bottom: 20px;
-}
-#landing-page h1 {
-  margin-top: 60px;
-}
-.navbar-login {
+.main-login {
   margin-top: 20px;
+  padding: 30px 10px 20px;
 }
-.signin {
-  padding: 16px 20px 20px;
-  background-color: #f5f5f5;
-  border-radius: 6px;
-  border: 1px solid #ededed;
-  min-height: 300px;
-  margin-top: 30px;
+.main-login h1 {
+  font-family: "cabinbold";
+  color: #384042;
+}
+.intro {
+  color: #ffffff;
+}
+.intro h1 {
+  margin-top: 40px;
+  color: #ffffff;
 }
 .login {
   background-color: #f5f5f5;
   border: 1px solid #eeeeee;
-  padding-bottom: 25px;
-}
-.intro {
-  background-color: #ffffff;
+  padding: 25px 20px 40px;
+  margin-top: 40px;
+  border-radius: 6px;
 }
 #main-content {
   border-top: 2px solid #960d3c;
@@ -6222,7 +6221,7 @@ a.tooltip span {
   color: #ffffff;
 }
 .nav-sidebar .active a:hover {
-  color: #a1a1a1;
+  color: #212121;
 }
 footer {
   background-color: #384042;
