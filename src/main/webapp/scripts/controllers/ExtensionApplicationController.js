@@ -1,22 +1,16 @@
 'use strict';
 
-angular.module('MLDS').controller('ExtensionApplicationController', ['$scope', '$modalInstance', '$log', 'releasePackage',
-                                                       	function($scope, $modalInstance, $log, releasePackage) {
+angular.module('MLDS').controller('ExtensionApplicationController', ['$scope', '$log',
+                                                       	function($scope, $log) {
 	
-	$scope.releasePackage = releasePackage;
+	$log.info('ExtensionApplicationController');
 	
-	$scope.submitAttempted = false;
-	$scope.alerts = [];
+	$scope.extensionForm = {};
 	
-	$scope.add = function(){
-		$scope.submitting = true;
-		$scope.alerts.splice(0, $scope.alerts.length);
-
+	$scope.extensionForm.submit = function(){
+		$log.log('extensionForm.submit', $scope.extensionForm);
+		$scope.extensionForm.attempted = true;
 	};
-	
-	$scope.closeAlert = function(index) {
-	    $scope.alerts.splice(index, 1);
-	  };
-	
+		
 
 }]);
