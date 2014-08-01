@@ -35,8 +35,6 @@ public class DomainBlacklistController {
 	@RequestMapping(value="api/domain-blacklist/create", method=RequestMethod.POST)
 	public Object addDomainToBlacklist(@RequestParam String domain) {
 		
-		System.out.println(domain);
-		
 		DomainBlacklist newDomain = new DomainBlacklist();
 		
 		newDomain.setDomainname(domain);
