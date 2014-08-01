@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS').factory('PackageUtilsService',
-		[ '$resource', '$q', '$log', '$location', 'Session', function($resource, $q, $log, $location, Session) {
+		[ '$resource', '$q', '$log', '$location', 'Session', 'UserRegistrationService', function($resource, $q, $log, $location, Session, UserRegistrationService) {
 			var service = {};
 			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
@@ -88,7 +88,17 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    	};
 	    	
 	    	service.openExtensionApplication = function openExtensionApplication(releasePackageId) {
-	    		$location.path('/extensionApplication/'+ releasePackageId);
+	    		UserRegistrationService.createExtensionApplication()
+		    		.then(function(result) {
+		    			if(result.data && result.data.applicationId) {
+		    				$log.log('applicationId created:', result.data.applicationId);
+		    				$location.path('/extensionApplication/'+ result.data.applicationId);
+		    			}
+					})
+					["catch"](function(message) {
+						// Should we show a global alert of some kind?
+						$log.log(message);
+					});
 	    	};
 	    	
 			return service;
