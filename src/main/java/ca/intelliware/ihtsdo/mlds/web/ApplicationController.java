@@ -357,9 +357,11 @@ public class ApplicationController {
 		mailingAddress.setCity(getStringField(addressJsonNode, "city"));
 		mailingAddress.setPost(getStringField(addressJsonNode, "post"));
 		
-		JsonNode country = addressJsonNode.get("country");
-		if (checkIfValidField(country, "isoCode2")) {
-			mailingAddress.setCountry(countryRepository.findOne(getStringField(country, "isoCode2")));
+		if (addressJsonNode != null) {
+			JsonNode country = addressJsonNode.get("country");
+			if (checkIfValidField(country, "isoCode2")) {
+				mailingAddress.setCountry(countryRepository.findOne(getStringField(country, "isoCode2")));
+			}
 		}
 		
 		affiliateDetails.setAddress(mailingAddress);
@@ -369,9 +371,12 @@ public class ApplicationController {
 		billingAddress.setStreet(getStringField(billingJsonNode, "street"));
 		billingAddress.setCity(getStringField(billingJsonNode, "city"));
 		billingAddress.setPost(getStringField(billingJsonNode, "post"));
-		JsonNode billingCountry = billingJsonNode.get("country");
-		if (checkIfValidField(billingCountry, "isoCode2")) {
-			billingAddress.setCountry(countryRepository.findOne(getStringField(billingCountry, "isoCode2")));
+		
+		if(billingJsonNode != null) {
+			JsonNode billingCountry = billingJsonNode.get("country");
+			if (checkIfValidField(billingCountry, "isoCode2")) {
+				billingAddress.setCountry(countryRepository.findOne(getStringField(billingCountry, "isoCode2")));
+			}
 		}
 		
 		affiliateDetails.setBillingAddress(billingAddress);
