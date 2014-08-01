@@ -865,11 +865,28 @@
 		</addColumn>
 		<addNotNullConstraint tableName="application" columnName="application_type" />
 	</changeSet>
+	
 	<changeSet id="MLDS-308-2" author="MB">
 		<comment>Add reason column for Extension application</comment>
 		<addColumn tableName="application">
 			<column name="reason" type="TEXT" />
 		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-308-3" author="MB/DGJ">
+    	<addColumn tableName="application">
+    		<column name="affiliate_id" type="INT8">
+    		</column>
+    	</addColumn>
+        <addForeignKeyConstraint baseColumnNames="affiliate_id" baseTableName="application" baseTableSchemaName="public" constraintName="FK_application_affiliate" deferrable="false" initiallyDeferred="false" referencedColumnNames="affiliate_id" referencedTableName="affiliate" referencedTableSchemaName="public"/>
+        <sql>
+        	delete from application as ap where not exists (select 1 from affiliate af where af.creator = ap.username)
+        </sql>
+        <sql>
+        	update application
+        	set affiliate_id = (select af.affiliate_id from affiliate af where af.creator = username)
+        </sql>
+        <addNotNullConstraint tableName="application" columnName="affiliate_id" />
 	</changeSet>
 	
 </databaseChangeLog>
