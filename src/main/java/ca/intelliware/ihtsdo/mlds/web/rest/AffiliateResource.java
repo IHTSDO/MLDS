@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,7 +50,7 @@ public class AffiliateResource {
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.AFFILIATES,
     		method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliates(@RequestParam String q) {
 		List<Affiliate> affiliates;
 		if (!Strings.isNullOrEmpty(q)) {
@@ -64,7 +65,7 @@ public class AffiliateResource {
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATES_ME,
     		method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesMe() {
     	String username = sessionService.getUsernameOrNull();
     	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
@@ -73,7 +74,7 @@ public class AffiliateResource {
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATES_CREATOR,
     		method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesForUser(@PathVariable String username) {
     	applicationAuthorizationChecker.checkCanAccessAffiliate(username);
     	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
@@ -82,7 +83,7 @@ public class AffiliateResource {
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATE_DETAIL,
     		method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<AffiliateDetails> updateAffiliateDetail(@PathVariable Long affiliateId) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
     	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
@@ -95,7 +96,7 @@ public class AffiliateResource {
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATE_DETAIL,
     		method = RequestMethod.PUT,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<AffiliateDetails> updateAffiliateDetail(@PathVariable Long affiliateId, @RequestBody AffiliateDetails body) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
     	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
