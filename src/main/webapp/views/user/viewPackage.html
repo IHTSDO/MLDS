@@ -14,14 +14,17 @@
 				<p>{{releaseVersion.description}}</p>
 			</header>
 			<div class="footer">
+				<div class="col-md-2">
 				<h4><span class="label label-success">Current:</span> </h4>
+			</div>
+			<div class="col-md-6">
 				<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
-					<a href="{{releaseFile.downloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl">{{releaseFile.label}}</a>
+					<i class="fa fa-file"></i> <a href="{{releaseFile.downloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl" target="_blank">{{releaseFile.label}}</a>
 				</p>
 				<a class="btn btn-success pull-right" ng-show="!$root.authenticated" href="#/login">
 					Login to download
 				</a>
-				
+			</div>
 				<div class="pull-right" ng-show="$root.authenticated">
 					 <!-- FIXME: ng-show="$root.authenticated && !releaseFile.downloadUrl" -->
 					<button class="btn btn-success pull-right" ng-show="isMembershipUnstarted" ng-click="utils.openExtensionApplication(releasePackage)">			
