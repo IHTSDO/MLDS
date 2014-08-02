@@ -5957,6 +5957,7 @@ a.tooltip span {
 }
 .navigation {
   border-bottom: 3px solid #04add8;
+  margin-bottom: 20px;
 }
 .space {
   margin-top: 10px;
