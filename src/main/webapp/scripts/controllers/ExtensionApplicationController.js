@@ -6,7 +6,7 @@ angular.module('MLDS').controller('ExtensionApplicationController', ['$scope', '
 	$scope.extensionForm = application;
 	
 	$scope.submit = function(){
-		$scope.etensionForm.approvalState = 'SUBMITTED';
+		$scope.extensionForm.approvalState = 'SUBMITTED';
 		
 		UserRegistrationService.updateApplication($scope.extensionForm)
 			.then(function(result) {
