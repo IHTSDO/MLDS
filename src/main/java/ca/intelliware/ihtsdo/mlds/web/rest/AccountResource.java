@@ -171,7 +171,6 @@ public class AccountResource {
         	// FIXME MLDS-234 MB how are we storing country here?
         	affiliate.setCreator(userDTO.getLogin());
         	affiliate.setType(AffiliateType.COMMERCIAL);
-        	affiliate.setApplication(application);
         	
         	Validate.notNull(userDTO.getCountry(), "Country is mandatory");
         	Member member = userDTO.getCountry().getMember();
@@ -179,8 +178,12 @@ public class AccountResource {
         	application.setMember(member);
         	affiliate.setHomeMember(member);
         	
+        	affiliateRepository.save(affiliate);
         	affiliateDetailsRepository.save(affiliateDetails);
+
         	applicationRepository.save(application);
+        	
+        	affiliate.setApplication(application);
         	affiliateRepository.save(affiliate);
         	
         	CommercialUsage commercialUsage = new CommercialUsage();
