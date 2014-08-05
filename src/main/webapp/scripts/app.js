@@ -320,7 +320,7 @@ mldsApp
                 })
                 .when('/blocklist', {
                     templateUrl: 'views/admin/blocklist.html',
-                    controller: 'BlockListController',
+                    controller: 'BlocklistController',
                     access: {
                         authorizedRoles: [USER_ROLES.admin]
                     }
