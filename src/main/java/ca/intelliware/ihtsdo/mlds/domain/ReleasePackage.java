@@ -3,7 +3,6 @@ package ca.intelliware.ihtsdo.mlds.domain;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,7 +49,7 @@ public class ReleasePackage extends BaseEntity {
 	
 	String description;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="releasePackage")
+	@OneToMany(mappedBy="releasePackage")
 	Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
 
 	public ReleasePackage() {

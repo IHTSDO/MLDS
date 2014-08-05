@@ -373,6 +373,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_FILE,
 			method = RequestMethod.DELETE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
 	public @ResponseBody ResponseEntity<ReleaseFile> deleteReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
 		
 		ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
