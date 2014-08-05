@@ -2,8 +2,10 @@
 	<div class="col-md-12">
 		<div class="page-header">
 			<button class="btn btn-success pull-right" ng-click="addReleasePackage()"><i class="fa fa-plus"></i> Add Package</button>
-			<h2>Release Management</h2>
-			<button class="btn btn-primary" ng-model="showAllMembers" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Show all member packages</button>
+			<h2>Release Management <select ng-model="utils.showAllMembers">
+				<option value="" selected="selected">Show packages for {{'global.member.'+Session.member.key | translate}}</option>
+				<option value="1">Show all packages</option>
+			</select></h2>
 		</div>
 	</div>
 </div>
