@@ -89,7 +89,8 @@
                 "confirmpassword": {
                     "required": "Your confirmation password is required.",
                     "minlength": "Your confirmation password is required to be at least 5 characters",
-                    "maxlength": "Your confirmation password cannot be longer than 50 characters"
+                    "maxlength": "Your confirmation password cannot be longer than 50 characters",
+                    "match": "Your password confirmation does not match the password"
                 },
                 "email": {
                     "required": "Your e-mail is required.",

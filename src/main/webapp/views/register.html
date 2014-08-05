@@ -129,7 +129,7 @@
                 <div class="form-group">
                     <label translate="global.form.confirmpassword">New password confirmation</label>
                     <input type="password" class="form-control" name="confirmPassword" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
-                           ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 required>
+                           ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 required match="registerAccount.password">
                     <div ng-show="createUserForm.attempted && createUserForm.confirmPassword.$invalid">
                         <div class="help-block"
                                ng-show="createUserForm.confirmPassword.$error.required" translate="global.messages.validate.confirmpassword.required">
@@ -142,6 +142,10 @@
                         <div class="help-block"
                                ng-show="createUserForm.confirmPassword.$error.maxlength" translate="global.messages.validate.confirmpassword.maxlength">
                             Your password confirmation cannot be longer than 50 characters
+                        </div>
+                        <div class="help-block"
+                               ng-show="createUserForm.confirmPassword.$error.match && !createUserForm.confirmPassword.$error.required  && !createUserForm.confirmPassword.$error.minlength && !createUserForm.confirmPassword.$error.maxlength" translate="global.messages.validate.confirmpassword.match">
+                            Your password confirmation does not match your password
                         </div>
                     </div>
                 </div>
