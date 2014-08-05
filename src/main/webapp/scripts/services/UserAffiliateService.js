@@ -16,6 +16,8 @@ angular.module('MLDS')
 			setAffiliate(resp.data);
 		});
 	};
+	
+	service.refreshAffiliate =  loadUserAffiliate;
 	loadUserAffiliate();
 	
 	$rootScope.$on('event:auth-loginConfirmed', loadUserAffiliate);
