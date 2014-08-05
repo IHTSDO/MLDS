@@ -6,7 +6,6 @@ angular.module('MLDS').controller('PackageManagementController',
 			
 		$scope.utils = PackageUtilsService;
 		
-		$scope.showAllMembers = false;
 		$scope.packages = [];
 		
 		function reloadPackages() {
@@ -17,7 +16,7 @@ angular.module('MLDS').controller('PackageManagementController',
 		function extractPackages() {
 			var packages = $scope.packages;
 			
-			var memberFiltered = _.chain(packages).filter(function(p){ return $scope.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); });
+			var memberFiltered = _.chain(packages).filter(function(p){ return PackageUtilsService.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); });
 			
 			$scope.onlinePackages = memberFiltered
 				.filter(PackageUtilsService.isPackagePublished)
@@ -29,7 +28,7 @@ angular.module('MLDS').controller('PackageManagementController',
 				.value();
 		}
 		
-		$scope.$watch('showAllMembers', extractPackages);
+		$scope.$watch('utils.showAllMembers', extractPackages);
 		
 		reloadPackages();
 		
