@@ -1,0 +1,361 @@
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12"> 
+		<div class="page-header">
+			<h1>
+				Account Information
+			</h1>
+		</div>
+	</div>
+</div>
+
+<form id="form" name="form" role="form" novalidate ng-submit="save()" bs-validation="">
+	<div class="row" ng-hide="approved">
+		<div class="col-sm-12 col-md-12 col-lg-12"> 
+					<div class="alert alert-warning">
+						<p>
+							<strong>Registration not approved yet</strong>
+						</p>
+						<p>You can only modify the contact information for an affiliate
+							once the registration request has been approved.</p>
+					</div>
+		</div>
+	</div>
+
+	<div class="row space">
+		<div class="col-sm-12">
+			<alert ng-repeat="alert in alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12"> 
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a ng-click="collapsePanel.contact = !collapsePanel.contact">Contact
+							Information</a>
+					</h4>
+				</div>
+				<div id="collapseIndividual" collapse="collapsePanel.contact"
+					class="panel-collapse collapse in">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6">
+
+								<div class="form-group">
+									<label>First Name</label> <input class="form-control"
+										placeholder="John" required="" name="firstName"
+										ng-model="affiliateDetails.firstName" ng-disabled="readOnly">
+									<p ng-show="form.firstName.$error.required && form.attempted"
+										class="help-block">Required field.</p>
+								</div>
+								<div class="form-group">
+									<label>Last Name</label> <input class="form-control"
+										placeholder="Last" required="" name="lastName"
+										ng-model="affiliateDetails.lastName" ng-disabled="readOnly">
+									<p ng-show="form.lastName.$error.required && form.attempted"
+										class="help-block">Required field.</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Email</label> <span>{{affiliateDetails.email}}</span> 
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<label>Landline Phone Number</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<input class="form-control" type="tel" required=""
+										name="contactPhone" ng-model="affiliateDetails.landlineNumber" ng-disabled="readOnly">
+									<div ng-show="form.attempted">
+										<p ng-show="form.landlineNumber.$error.required"
+											class="help-block">Required field.</p>
+										<p
+											ng-show="!form.landlineNumber.$error.required && form.landlineNumber.$invalid"
+											class="help-block">Invalid Phone Number.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<input class="form-control col-md-2" placeholder="Extension"
+										ng-model="affiliateDetails.landlineExtension"
+										ng-disabled="readOnly">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Mobile Phone Number</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<input class="form-control" type="tel" name="mobileNumber"
+										ng-required="type!='INDIVIDUAL'"
+										ng-model="affiliateDetails.mobileNumber" ng-disabled="readOnly">
+									<div ng-show="form.attempted">
+										<p ng-show="form.mobileNumber.$error.required"
+											class="help-block">Required field.</p>
+										<p
+											ng-show="!form.mobileNumber.$error.required && form.mobileNumber.$invalid"
+											class="help-block">Invalid Phone Number.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div ng-show="type=='INDIVIDUAL'">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Address</label> <input class="form-control"
+											name="addressStreetIndividual"
+											placeholder="123 Somewhere Avenue"
+											ng-required="type=='INDIVIDUAL'"
+											ng-model="affiliateDetails.address.street"
+											ng-disabled="readOnly">
+										<p
+											ng-show="form.addressStreetIndividual.$error.required && form.attempted"
+											class="help-block">Required field.</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<input class="form-control" name="addressCityIndividual"
+											placeholder="City" ng-required="type=='INDIVIDUAL'"
+											ng-model="affiliateDetails.address.city"
+											ng-disabled="readOnly">
+										<p
+											ng-show="form.addressCityIndividual.$error.required && form.attempted"
+											class="help-block">Required field.</p>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<input class="form-control" type="text"
+											ng-model="affiliateDetails.address.post"
+											name="addressPostIndividual" ng-required="type=='INDIVIDUAL'"
+											placeholder="Post Code" ng-disabled="readOnly">
+										<p
+											ng-show="form.addresPostIndividual.$error.required && form.attempted"
+											class="help-block">Required field.</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<span>{{affiliateDetails.address.country.commonName}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="panel panel-primary" ng-show="type && type!='INDIVIDUAL'">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a
+							ng-click="collapsePanel.Organization = !collapsePanel.Organization">Organization</a>
+					</h4>
+				</div>
+				<div id="collapsePanel.Organization"
+					class="panel-collapse collapse in"
+					ng-show="!collapsePanel.Organization">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Organization Name</label> <span>{{affiliateDetails.organizationName}}</span>
+								</div>
+							</div>
+						</div>
+						<!-- Exclude organization type  -->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Address</label> <input class="form-control"
+										name="addressStreet" placeholder="123 Somewhere Avenue"
+										ng-required="type!='INDIVIDUAL'" ng-model="affiliateDetails.address.street"
+										ng-disabled="readOnly">
+									<p
+										ng-show="form.addressStreet.$error.required && form.attempted"
+										class="help-block">Required field.</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<input class="form-control" name="addressCity"
+										placeholder="City" ng-required="type!='INDIVIDUAL'"
+										ng-model="affiliateDetails.address.city"
+										ng-disabled="readOnly">
+									<p ng-show="form.addressCity.$error.required && form.attempted"
+										class="help-block">Required field.</p>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<input class="form-control" type="text"
+										ng-model="affiliateDetails.address.post" name="addressPost"
+										ng-required="type!='INDIVIDUAL'" placeholder="Post Code"
+										ng-disabled="readOnly">
+									<p ng-show="form.addressPost.$error.required && form.attempted"
+										class="help-block">Required field.</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<span>{{affiliateDetails.address.country.commonName}}</span>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div ng-show="type=='COMMERCIAL'">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Billing Address</label> <input class="form-control"
+											name="billingAddressStreet" placeholder="Address"
+											ng-required="type=='COMMERCIAL'"
+											ng-model="affiliateDetails.billingAddress.street"
+											ng-disabled="readOnly">
+										<p
+											ng-show="form.billingAddressStreet.$error.required && form.attempted"
+											class="help-block">Required field.</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<input class="form-control" name="billingAddressCity"
+											placeholder="City" ng-required="type=='COMMERCIAL'"
+											ng-model="affiliateDetails.billingAddress.city"
+											ng-disabled="readOnly">
+										<p
+											ng-show="form.billingAddressCity.$error.required && form.attempted"
+											class="help-block">Required field.</p>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<input class="form-control" type="text"
+											ng-model="affiliateDetails.billingAddress.post"
+											name="billingAddressPost" ng-required="type=='COMMERCIAL'"
+											placeholder="Post Code" ng-disabled="readOnly">
+										<p
+											ng-show="form.billingAddressPost.$error.required && form.attempted"
+											class="help-block">Required field.</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<input class="form-control" type="text"
+											ng-model="affiliateDetails.billingAddress.country"
+											name="billingAddressCountry" ng-required="type=='COMMERCIAL'"
+											placeholder="Country"
+											typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
+											typeahead-editable="false"
+											ng-disabled="readOnly">
+										<p
+											ng-show="form.billingAddressCountry.$error.required && form.attempted"
+											class="help-block">Required field.</p>
+										<p ng-show="form.billingAddressCountry.$error.editable" class="help-block">Unrecognized country</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Billing Fields -->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Alternate Email</label> <input class="form-control"
+										type="email" placeholder="JohnSmith@OrganizationABC.com"
+										ng-required="type!='INDIVIDUAL'" name="alternateEmail"
+										ng-model="affiliateDetails.alternateEmail" ng-disabled="readOnly"
+										unique="{{[affiliateDetails.email, affiliateDetails.thirdEmail]}}">
+									<div ng-show="form.attempted">
+										<p ng-show="form.alternateEmail.$error.required"
+											class="help-block">Required field.</p>
+										<p
+											ng-show="!form.alternateEmail.$error.required && form.alternateEmail.$error.notUnique"
+											class="help-block">Email Addresses need to be unique.</p>
+										<p
+											ng-show="!form.alternateEmail.$error.required && form.alternateEmail.$error.email"
+											class="help-block">Invalid Email Address.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row" ng-show="type=='COMMERCIAL'">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Third Email</label> <input class="form-control"
+										type="email" placeholder="JohnSmith@OrganizationABC.com"
+										ng-required="type=='COMMERCIAL'" name="thirdEmail"
+										ng-model="affiliateDetails.thirdEmail" ng-disabled="readOnly"
+										unique="{{[affiliateDetails.email, affiliateDetails.alternateEmail]}}">
+									<div ng-show="form.attempted">
+										<p ng-show="form.thirdEmail.$error.required"
+											class="help-block">Required field.</p>
+										<p
+											ng-show="!form.thirdEmail.$error.required && form.thirdEmail.$error.notUnique"
+											class="help-block">Email Addresses need to be unique.</p>
+										<p
+											ng-show="!form.thirdEmail.$error.required && form.thirdEmail.$error.email"
+											class="help-block">Invalid Email Address.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Ignore Other -->
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div>
+					<button type="submit" class="btn btn-success" ng-disabled="readOnly">
+						Save
+						<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+					</button>
+					<button class="btn btn-link" ng-click="cancel()"
+						ng-disabled="submitting">Cancel</button>
+				</div>
+
+				<div ng-show="form.attempted" class="has-error">
+					<p ng-show="form.$invalid" class="help-block">Please fix the
+						errors listed above.</p>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+        
+
+</form>

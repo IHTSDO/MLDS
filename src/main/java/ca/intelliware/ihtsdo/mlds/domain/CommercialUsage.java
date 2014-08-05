@@ -23,10 +23,9 @@ import org.joda.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
 
-// FIXME MB we need an equals.  Can we put that in a base?
 @Entity
 @Table(name="commercial_usage")
-public class CommercialUsage {
+public class CommercialUsage extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="commercial_usage_id")
@@ -36,11 +35,11 @@ public class CommercialUsage {
 	//FIXME review dependency graph!
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="licensee_id")
-	Licensee licensee;
+	@JoinColumn(name="affiliate_id")
+	Affiliate affiliate;
 
 	@Enumerated(EnumType.STRING)
-	LicenseeType type;
+	AffiliateType type;
 
 	//@Type(type="jodatimeInstant")
 	Instant created = Instant.now();
@@ -69,6 +68,16 @@ public class CommercialUsage {
 	
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	Set<CommercialUsageCountry> countries = Sets.newHashSet();
+	
+	public CommercialUsage() {
+		
+	}
+	
+	// For Testing
+	public CommercialUsage(Long commercialUsageId, Affiliate affiliate) {
+		this.commercialUsageId = commercialUsageId;
+		this.affiliate = affiliate;
+	}
 	
 	public Long getCommercialUsageId() {
 		return commercialUsageId;
@@ -151,8 +160,8 @@ public class CommercialUsage {
 		this.commercialUsageId = commercialUsageId;
 	}
 
-	public Licensee getLicensee() {
-		return licensee;
+	public Affiliate getAffiliate() {
+		return affiliate;
 	}
 
 	public UsageContext getContext() {
@@ -163,12 +172,17 @@ public class CommercialUsage {
 		this.context = context;
 	}
 
-	public LicenseeType getType() {
+	public AffiliateType getType() {
 		return type;
 	}
 
-	public void setType(LicenseeType type) {
+	public void setType(AffiliateType type) {
 		this.type = type;
+	}
+
+	@Override
+	protected Object getPK() {
+		return commercialUsageId;
 	}
 
 }

@@ -47,9 +47,9 @@ public class ThymeleafConfiguration {
 
     @Bean
     @Description("Thymeleaf template resolver serving HTML 5")
-    public ServletContextTemplateResolver webTemplateResolver() {
-        ServletContextTemplateResolver webTemplateResolver = new ServletContextTemplateResolver();
-        webTemplateResolver.setPrefix("/WEB-INF/templates/");
+    public ClassLoaderTemplateResolver webTemplateResolver() {
+    	ClassLoaderTemplateResolver webTemplateResolver = new ClassLoaderTemplateResolver();
+        webTemplateResolver.setPrefix("templates/");
         webTemplateResolver.setSuffix(".html");
         webTemplateResolver.setTemplateMode("HTML5");
         webTemplateResolver.setCharacterEncoding(CharEncoding.UTF_8);

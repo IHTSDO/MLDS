@@ -6,7 +6,7 @@
             "home": "Home",
             "account": {
                 "main": "Account",
-                "settings": "Settings",
+                "contactInfo": "Contact Info",
                 "password": "Password",
                 "sessions": "Sessions",
                 "tracker": "User tracker",
@@ -20,7 +20,30 @@
                 "affiliates": "Affiliates",
                 "dashboard": "Dashboard"
             },
-            "admin": "Administration",
+            "dashboard": "Dashboard",
+            "usageReports": "Usage Reports",
+            "releasePackages": "Release Packages",
+            "affiliate": {
+            		"accountInformation": "Account Information",
+            		"changePassword": "Change Password",
+            		"logout": "Logout"
+            },
+            "staff": {
+            		"dashboard": "Dashboard",
+            		"pendingApplications": "Pending Applications",
+            		"usageReports": "Usage Reports",
+            		"affiliteUserManagement": "Affiliate User Management",
+            		"activityLog": "Activity Log",
+            		"packageManagement": "Package Management",
+            		"licenseTC": "License T and C",
+            		"reportsExtracts": "Reports and Extracts",
+            		"logout": "Logout"
+            },
+            "admin": {
+            		"importAffiliateRecords": "Import Affiliate Records",
+            		"manageBlacklist": "Manage Blacklist",
+            		"nationalRegistrationList": "National Registration List"
+            },
             "language": "Language"
         },
         "language": {
@@ -30,6 +53,10 @@
             "de": "German",
             "pl": "Polish",
             "ru": "Russian"
+        },
+        "member": {
+        	"IHTSDO": "IHTSDO International",
+        	"SE": "IHTSDO Sweden"
         },
         "form": {
             "username": "Login",
@@ -62,7 +89,8 @@
                 "confirmpassword": {
                     "required": "Your confirmation password is required.",
                     "minlength": "Your confirmation password is required to be at least 5 characters",
-                    "maxlength": "Your confirmation password cannot be longer than 50 characters"
+                    "maxlength": "Your confirmation password cannot be longer than 50 characters",
+                    "match": "Your password confirmation does not match the password"
                 },
                 "email": {
                     "required": "Your e-mail is required.",
@@ -110,6 +138,9 @@
                     "required": "Your login is required.",
                     "minlength": "Your login is required to be at least 1 character",
                     "maxlength": "Your login cannot be longer than 50 characters"
+                },
+                "country": {
+                	"notMLDS": "The country identified is currently not registered. Please contact the appropriate representative from your country <a href=\"{{link}}\">here</a>. If you are still encountering difficulties please contact the IHTSDO at info@ihtsdo.org"
                 }
             },
             "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
@@ -134,7 +165,7 @@
         }
     },
     "settings": {
-        "title": "User settings for [<b>{{username}}</b>]",
+        "title": "Contact Info for [<b>{{username}}</b>]",
         "form": {
             "firstname": "First Name",
             "firstname.placeholder": "Your first name",
@@ -318,8 +349,8 @@
         "403": "You are not authorized to access the page."
     },
     "footer": "This is your footer",
-    "licensee": {
-    	"title": "Licensee",
+    "affiliate": {
+    	"title": "Affiliate",
     	"type": {
     		"title": "Type",
     		"COMMERCIAL": "Commercial",
@@ -327,35 +358,44 @@
 				"OTHER": "Other",
 				"INDIVIDUAL": "Individual"
     	},
+    	"subType": {
+    		"DEVELOPER": "Developer",
+	        "DEVELOPMENT": "Development",
+	        "EDUCATIONAL": "Educational",
+	        "HEALTHCAREPROVIDER": "Healthcare Provider",
+	        "PERSONAL": "Personal",
+	       	"RESEARCH": "Research",
+	        "VENDOR": "Vendor"
+    	},
     	"agreementType": {
     		"AFFILIATE_NORMAL": "Affiliate - Normal",
-			"AFFILIATE_RESEARCH": "Affiliate - Research",
-			"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
-		},
-		"organizationType": {
-			"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization", 
-			"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization", 
-			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization", 
-			"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer",
-			"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice", 
-			"EDUCATIONAL_INSTITUTE": "Educational Institute", 
-			"OTHER": "Other"
-		},
-		"implementationStatus": {
-			"IMPLEMENTED": "Live/Implemented",
-			"DEVELOPMENT": "In Progress/Development",
-			"PLANNING": "In Planning Stage"
-		}
+				"AFFILIATE_RESEARCH": "Affiliate - Research",
+				"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
+			},
+			"organizationType": {
+				"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization", 
+				"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization", 
+				"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization", 
+				"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer",
+				"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice", 
+				"EDUCATIONAL_INSTITUTE": "Educational Institute", 
+				"OTHER": "Other"
+			},
+			"implementationStatus": {
+				"IMPLEMENTED": "Live/Implemented",
+				"DEVELOPMENT": "In Progress/Development",
+				"PLANNING": "In Planning Stage"
+			}
     },
     "approval": {
     	"state": {
-			"NOT_SUBMITTED": "Not Submitted",
-			"CHANGE_REQUESTED": "Change Requested",
-			"SUBMITTED": "Submitted",
-			"RESUBMITTED": "Resubmitted",
-			"REVIEW_REQUESTED": "Review Requested",
-			"APPROVED": "Approved",
-			"REJECTED": "Declined"
+				"NOT_SUBMITTED": "Not Submitted",
+				"CHANGE_REQUESTED": "Change Requested",
+				"SUBMITTED": "Submitted",
+				"RESUBMITTED": "Resubmitted",
+				"REVIEW_REQUESTED": "Review Requested",
+				"APPROVED": "Approved",
+				"REJECTED": "Declined"
     	}	
     }
 }

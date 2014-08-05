@@ -8,9 +8,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
-import ca.intelliware.ihtsdo.mlds.registration.Application;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 import ca.intelliware.ihtsdo.mlds.web.rest.ReleasePackageAuditEvents;
 
@@ -28,21 +31,26 @@ public class ApplicationAuditEventsTest {
         applicationAuditEvents = new ApplicationAuditEvents();
         
         applicationAuditEvents.auditEventService = auditEventService;
+        
+        Mockito.when(auditEventService.createAuditEvent(Mockito.anyString(), Mockito.anyMap())).thenReturn(new PersistentAuditEvent());
 	}
 	
 	@Test
 	public void logApprovalStateChange() {
-		Application application = new Application();
+		PrimaryApplication application = new PrimaryApplication();
 		
 		applicationAuditEvents.logApprovalStateChange(application);
 		
-		Mockito.verify(auditEventService).logAuditableEvent(Mockito.eq("APPLICATION_APPROVAL_STATE_CHANGED"),Mockito.anyMap());
+		Mockito.verify(auditEventService).createAuditEvent(Mockito.eq("APPLICATION_APPROVAL_STATE_CHANGED"),Mockito.anyMap());
+		Mockito.verify(auditEventService).logAuditableEvent(Mockito.any(PersistentAuditEvent.class));
 	}
 
 	@Test
 	public void logApprovalStateChangeShouldIncludeApplicationDetails() {
-		Application application = new Application(123L);
-		application.setOrganizationName("Test Organization");
+		PrimaryApplication application = new PrimaryApplication(123L);
+		AffiliateDetails affiliateDetails = new AffiliateDetails();
+		application.setAffiliateDetails(affiliateDetails);;
+		affiliateDetails.setOrganizationName("Test Organization");
 		application.setApprovalState(ApprovalState.APPROVED);
 		
 		applicationAuditEvents.logApprovalStateChange(application);
@@ -52,6 +60,6 @@ public class ApplicationAuditEventsTest {
 		expected.put("application.applicationId", "123");
 		expected.put("application.approvalState", "APPROVED");
 		
-		Mockito.verify(auditEventService).logAuditableEvent(Mockito.anyString(), Mockito.eq(expected));		
+		Mockito.verify(auditEventService).createAuditEvent(Mockito.anyString(), Mockito.eq(expected));
 	}
 }

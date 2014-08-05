@@ -40,14 +40,19 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				return $http.get('/app/rest/applications/me');
 			},
 			
-			submitApplication: function submitApplication(applicationForm) {
-				$log.log('submitApplication', applicationForm);
-				return $http.post('/api/application/submit', applicationForm);
+			createExtensionApplication: function createExtensionApplication() {
+				$log.log('createExtensionApplication');
+				return $http.post('/app/rest/applications', {applicationType: 'EXTENSION'});
 			},
 			
-			saveApplication: function saveApplication(applicationForm) {
+			submitApplication: function submitApplication(applicationForm, applicationId) {
+				$log.log('submitApplication', applicationForm);
+				return $http.post('/app/rest/applications/'+encodeURIComponent(applicationId)+'/registration', applicationForm);
+			},
+			
+			saveApplication: function saveApplication(applicationForm, applicationId) {
 				$log.log('saveApplication', applicationForm);
-				return $http.post('/api/application/save', applicationForm);
+				return $http.put('/app/rest/applications/'+encodeURIComponent(applicationId)+'/registration', applicationForm);
 			},
 			
 			approveApplication: function approveApplication(application, approvalStatus) {
@@ -59,25 +64,11 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				return $http.put('/app/rest/applications/'+encodeURIComponent(application.applicationId)+'/notesInternal', application.notesInternal);
 			},
 			
-			isApplicationWaitingForApplicant: function isApplicationWaitingForApplicant(application) {
-				return (!application.approvalState
-					|| application.approvalState === 'NOT_SUBMITTED'
-					|| application.approvalState === 'CHANGE_REQUESTED');
-			},
-			
-			isApplicationPending: function isApplicationPending(application) {
-				return (application.approvalState === 'SUBMITTED'
-					|| application.approvalState === 'RESUBMITTED'
-					|| application.approvalState === 'REVIEW_REQUESTED');
-			},
-
-
-			getOrganizationTypes: function getOrganizationTypes() {
-				return ['PUBLIC_HEALTH_ORGANIZATION', 'PRIVATE_HEALTH_ORGANIZATION', 
-				        'RESEARCH_AND_DEVELOPMENT_ORGANIZATION', 'HEALTHERCARE_APPLICATION_DEVELOPER',
-				        'GENERAL_PRACTITIONER_PRACTICE', 'EDUCATIONAL_INSTITUTE', 'OTHER'
-				];
+			// Let's move to using this one
+			updateApplication: function (application) {
+				return $http.put('/app/rest/applications/'+encodeURIComponent(application.applicationId), application);
 			}
+			
 		};
 		
 	}]);

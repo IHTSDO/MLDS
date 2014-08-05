@@ -1,85 +1,191 @@
-<div class="row">
-  <div class="col-sm-12 col-md-12 col-lg-12"> 
-    <div class="page-header">
-     <h1>
-       {{'global.menu.account.dashboard' | translate}} <span class="pull-right"><small>Welcome {{firstName}} {{lastName}}</small></span>
-     </h1>
-   </div>
- </div>
-</div>
-<div class="well" ng-repeat="licensee in licensees">
-  <div class="user-info">
-	<div class="col-sm-6 col-md-6 col-lg-6">
-        <strong>{{'licensee.title' | translate}}:</strong> {{licensee.application.organizationName ? licensee.application.organizationName : licensee.application.name}}<br>
-        <strong>{{'licensee.type.title' | translate}}:</strong> {{'licensee.type.'+licensee.type | translate}}
-   	</div>
-   	<div class="col-sm-6 col-md-6 col-lg-6">
-      	<span class="alert alert-warning pull-right" ng-show="isApplicationPending(licensee.application)"><strong>Application Status:</strong> Pending Approval</span>
-      	<span class="alert alert-success pull-right" ng-show="licensee.application.approvalState === 'APPROVED'"><strong>Application Status:</strong> Approved</span>
-        <a ng-show="isApplicationWaitingForApplicant(licensee.application)" class="btn btn-default" href="#/affiliateRegistration">Edit Licensee Application</a>
-   	</div>     	
-</div>
-<div class="row space" ng-hide="anySubmittedUsageReports(licensee) || licensee.application.approvalState === 'REJECTED'">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-  	<div class="alert alert-danger" role="alert">
-  		<div><strong>Usage Declaration Required</strong></div>
-  		<p>You have not submitted a usage declaration. To complete your affiliate registration, please submit an existing or new usage declaration.</p>
-  	</div>
-  </div>
-</div>
-
-<div class="row space" ng-show="licensee.application.approvalState === 'CHANGE_REQUESTED'">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-  	<div class="alert alert-warning" role="alert">
-  		<div><strong>Affiliate Registration Requires Change</strong></div>
-  		<p>Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
-  	</div>
-  </div>
-</div>
-
-<div class="row space" ng-show="licensee.application.approvalState === 'REJECTED'">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-  	<div class="alert alert-danger" role="alert">
-  		<div><strong>Affiliate Registration Declined</strong></div>
-  		<p>Your affiliate registration has been declined. Please see email regarding the details of the decision.</p>
-  	</div>
-  </div>
-</div>
-
-  <div class="col-sm-12 col-md-12 col-lg-12">
-    <div class="form-group  pull-right">
-      <button ng-click="openAddUsageReportModal(licensee)" class="btn btn-success"><i class="fa fa-plus"></i> Add New Usage Declaration </button>
+  <div class="row" ng-hide="usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED'">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="alert alert-danger space" role="alert">
+        <div><strong>Usage Declaration Required</strong></div>
+        <p>You have not submitted a usage declaration. To complete your affiliate registration, please submit an existing or new usage declaration.</p>
+      </div>
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-12 col-lg-12">
-    <div class="report">
-      <table class="table table-striped table-hover">
+  <div class="row space" ng-show="affiliate.application.approvalState === 'CHANGE_REQUESTED'">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="alert alert-warning" role="alert">
+        <div><strong>Affiliate Registration Requires Change</strong></div>
+        <p>Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" ng-show="affiliate.application.approvalState === 'REJECTED'">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="alert alert-danger" role="alert">
+        <div><strong>Affiliate Registration Declined</strong></div>
+        <p>Your affiliate registration has been declined. Please see email regarding the details of the decision.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+     <div class="page-header">
+      <h1>Welcome {{firstName}} {{lastName}}</h1> 
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-lg-4"> 
+    <div class="panel panel-default dashboard">
+  <div class="panel-heading">
+     <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="usageReportsUtils.openAddUsageReportModal(affiliate)"><i class="fa fa-plus"></i> New Report</button></span>
+    <h3 class="panel-title">Usage Reports</h3>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+		      <thead> 
+		        <tr>
+		          <th>Report Date</th>
+		          <th>Hospitals</th>
+		          <th>Practices</th>
+		        </tr>
+		      </thead>
+		      <tbody> 
+		        <tr ng-click="usageReportsUtils.goToUsageReport(usageReport)" ng-class="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" ng-repeat="usageReport in affiliate.commercialUsages">
+		          <td> 
+		          		<span class="btn-link" tooltip-placement="top" tooltip="Declaration has not been submitted">
+			              <i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" 
+			              	class="fa fa-exclamation-circle"></i>
+			            	{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}
+		          		</span>
+		          </td>
+		          <td>
+		            <span class="btn-link">
+		            	{{usageReportsUtils.usageReportHospitals(usageReport)}}
+		            </span>
+		          </td>
+		          <td>
+		            <span class="btn-link">
+		            	{{usageReportsUtils.usageReportPractices(usageReport)}}
+		            </span>
+		          </td>
+		        </tr>
+		      </tbody>
+		    </table>
+
+  </div>
+</div>
+  </div>
+  <div class="col-lg-4">
+
+<div class="panel panel-default dashboard">
+  <div class="panel-heading">
+    <h3 class="panel-title">Applications</h3>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead> 
         <tr>
-          <th colspan="2">Declaration Period</th>
-          <th>Date Submitted</th>
-          <th class="text-right">Countries</th>
-          <th class="text-right" ng-show="licenseeIsCommercial(licensee)">Hospitals</th>
-          <th class="text-right" ng-show="licenseeIsCommercial(licensee)">Practices</th>
-          <th></th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Status</th>
         </tr>
-         <tbody>
-          <tr ng-class="{info: usageReport.approvalState === 'NOT_SUBMITTED'}" ng-repeat="usageReport in licensee.commercialUsages">
-          <td class="exclaim">
-          	<a href="#" tooltip-placement="top" tooltip="Declaration has not been submitted">
-	          	<i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" class="fa fa-exclamation-circle fa-2x"></i>
-	        </a>
+      </thead>
+      <tbody> 
+        <tr ng-repeat="application in affiliate.applications">
+          <td>{{application.applicationType}}</td>
+          <td>{{(application.completedAt || application.submittedAt) | date }}</td>
+          <td>
+          	<p ng-class="{'text-warning':isApplicationPending(application), 'text-danger':isApplicationWaitingForApplicant(application)}">
+          		<strong>{{application.approvalState}}</strong>
+          	  <a href="#/extensionApplication/{{application.applicationId}}" ng-show="application.applicationType === 'EXTENSION'">{{isApplicationWaitingForApplicant(application)?'Continue':'View'}}</a>
+         	</p>
           </td>
-          <td class="text-left"><a ng-click="goToUsageReport(usageReport)">{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}</a></td>
-          <td class="text-left">
-          	<span ng-show="usageReport.submitted">{{usageReport.submitted | date : 'd MMM yyyy'}}</span>
-          	<span ng-hide="usageReport.submitted">Not Submitted</span>
-          </td>
-          <td class="text-right">{{usageReportCountries(usageReport) | number}}</td>
-          <td class="text-right" ng-show="licenseeIsCommercial(licensee)">{{usageReportHospitals(usageReport) | number}}</td>
-          <td ng-show="licenseeIsCommercial(licensee)"><p class="text-right">{{usageReportPractices(usageReport) | number}}</p></td>
-          <td> <a class="btn btn-default btn-xs pull-right" ng-click="goToUsageReport(usageReport)"><i class="fa fa-pencil"></i> Edit</a></td>
+        </tr>
       </tbody>
-      </table>
+    </table>
+  </div>
+</div>
+</div>
+  <div class="col-lg-4">
+    <div class="panel panel-default dashboard">
+  <div class="panel-heading">
+    <h3 class="panel-title">Account Information</h3>
+       <a ng-show="isApplicationWaitingForApplicant(affiliate.application)" class="btn btn-default" href="#/affiliateRegistration">Edit Affiliate Application</a>
+  </div>
+  <div class="panel-body">
+    <span class="alert alert-warning btn-block" ng-show="isApplicationPending(affiliate.application)">
+      <strong>Application Status:</strong> Pending Approval</span>
+      <span class="alert alert-success btn-block" ng-show="affiliate.application.approvalState === 'APPROVED'">
+      <strong>Application Status:</strong> Approved</span>
+  </div>
+</div>
+
+</div>
+
+</div>
+<div class="row">
+  <div class="col-lg-12">
+   <div class="page-header">
+    <h1>
+     Release Packages <a href="#/viewPackages"class="btn btn-link">View All <i class="fa fa-angle-double-right"></i></a>
+   </h1> 
+ </div>
+
+</div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+   <h3>International Releases</h3>
+ </div>
+
+ <div class="col-md-4">
+  <div class="well dashboard">
+    <h3>SNOMED CT International Edition</h3>
+    <p>Current: January, 2014</p>
+ <p><i class="fa fa-file"></i>  <a class="btn btn-link">Full Download</a></p>
+  </div>
+</div>
+<div class="col-md-4">
+  <div class="well dashboard">
+    <h3>SNOMED CT Medical Devices</h3>
+    <p>Current: January, 2014</p>
+       <p><i class="fa fa-file"></i>  <a class="btn btn-link">Full Download</a></p>
+  </div>
+</div>
+<div class="col-md-4">
+  <div class="well dashboard">
+    <h3>SNOMED CT International Edition</h3>
+    <p>Current: January, 2014</p>
+   <p><i class="fa fa-file"></i>  <a class="btn btn-link">Full Download</a></p>
+  </div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>SNOMED Canadian Extension</h3>
+  </div>
+  <div class="col-md-4">
+    <div class="well dashboard">
+      <h3>SNOMED CT International Edition</h3>
+      <p>Current: January, 2014</p>
+         <p><i class="fa fa-file"></i>  <a class="btn btn-link">Full Download</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>Other Available Releases</h3>
+  </div>
+  <div class="col-md-4">
+    <div class="well dashboard">
+      <p><a class="btn btn-link">Australia</a><br>
+        <a class="btn btn-link">Hong Kong</a></p>
+      </div>
+    </div>
+  </div>
 
 </div>

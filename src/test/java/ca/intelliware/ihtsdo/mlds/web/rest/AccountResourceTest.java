@@ -9,57 +9,52 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import ca.intelliware.ihtsdo.mlds.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
+import ca.intelliware.ihtsdo.mlds.web.UserInfo;
+import ca.intelliware.ihtsdo.mlds.web.UserInfoCalculator;
 
 /**
  * Test class for the AccountResource REST controller.
  *
  * @see UserService
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@ActiveProfiles("dev")
 public class AccountResourceTest {
 
     @Mock
     private UserService userService;
+    
+    @Mock
+    private UserMembershipAccessor userMembershipAccessor;
 
+    @Mock
+    private UserInfoCalculator userInfoCalculator;
+    
     private MockMvc restUserMockMvc;
     
-    @Inject
-    private ApplicationContext context;
-
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         AccountResource accountResource = new AccountResource();
-        context.getAutowireCapableBeanFactory().autowireBean(accountResource);
         ReflectionTestUtils.setField(accountResource, "userService", userService);
+        accountResource.userMembershipAccessor = userMembershipAccessor;
+        accountResource.userInfoCalculator = userInfoCalculator;
+        Mockito.stub(userInfoCalculator.createUserInfo()).toReturn(new UserInfo());
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(accountResource).build();
     }
 
@@ -90,7 +85,7 @@ public class AccountResourceTest {
     public void testGetExistingAccount() throws Exception {
         Set<Authority> authorities = new HashSet<>();
         Authority authority = new Authority();
-        authority.setName(AuthoritiesConstants.ADMIN);
+        authority.setName(AuthoritiesConstants.USER);
         authorities.add(authority);
 
         User user = new User();
@@ -100,6 +95,7 @@ public class AccountResourceTest {
         user.setEmail("john.doe@jhipter.com");
         user.setAuthorities(authorities);
         when(userService.getUserWithAuthorities()).thenReturn(user);
+        when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(new Member("IHTSDO"));
 
         restUserMockMvc.perform(get("/app/rest/account")
                 .accept(MediaType.APPLICATION_JSON))
@@ -109,7 +105,9 @@ public class AccountResourceTest {
                 .andExpect(jsonPath("$.firstName").value("john"))
                 .andExpect(jsonPath("$.lastName").value("doe"))
                 .andExpect(jsonPath("$.email").value("john.doe@jhipter.com"))
-                .andExpect(jsonPath("$.roles").value(AuthoritiesConstants.ADMIN));
+                .andExpect(jsonPath("$.roles").value(AuthoritiesConstants.USER))
+                .andExpect(jsonPath("$.member.key").value("IHTSDO"))
+                ;
     }
 
     @Test

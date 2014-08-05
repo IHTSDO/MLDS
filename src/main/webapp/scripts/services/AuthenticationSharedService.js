@@ -12,7 +12,7 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                     ignoreAuthModule: 'ignoreAuthModule'
                 }).success(function (data, status, headers, config) {
                     Account.get(function(data) {
-                        Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                        Session.create(data.login, data.firstName, data.lastName, data.email, data.roles, data.member);
                         UserSession.create(data.emailVerified, data.applicationMade, data.applicationApproved);
                         $rootScope.account = Session;
                         authService.loginConfirmed(data);
@@ -29,7 +29,7 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                 }).success(function (data, status, headers, config) {
                     if (!Session.login) {
                         Account.get(function(data) {
-                            Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                            Session.create(data.login, data.firstName, data.lastName, data.email, data.roles, data.member);
                             UserSession.create(data.emailVerified, data.applicationMade, data.applicationApproved);
                             $rootScope.account = Session;
 
@@ -45,6 +45,7 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                     $rootScope.authenticated = !!Session.login;
                 }).error(function (data, status, headers, config) {
                     $rootScope.authenticated = false;
+                    Session.invalidate();
                 });
             },
             isAuthorized: function (authorizedRoles) {
