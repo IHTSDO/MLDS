@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateSubType;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
@@ -45,8 +47,13 @@ import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationAuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.web.rest.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 @RestController
@@ -75,6 +82,8 @@ public class ApplicationController {
 	ApplicationService applicationService;
 	@Resource
 	RouteLinkBuilder routeLinkBuilder;
+	@Resource
+	ObjectMapper objectMapper;
 	
 
 	@RequestMapping(value="api/applications")
@@ -421,6 +430,47 @@ public class ApplicationController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(routeLinkBuilder.toURLWithKeyValues(Routes.APPLICATION, "applicationId", application.getApplicationId()));
 		ResponseEntity<Application> result = new ResponseEntity<Application>(application, headers, HttpStatus.CREATED);
+		return result;
+	}
+	
+	@RequestMapping(value = Routes.APPLICATION, 
+			method=RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Transactional
+	public ResponseEntity<?> updateApplication(@PathVariable long applicationId, @RequestBody ObjectNode requestBody) throws IOException {
+		
+		Application original = applicationRepository.findOne(applicationId);
+		ObjectNode treeCopyOfOriginal = objectMapper.readValue(objectMapper.writeValueAsString(original), ObjectNode.class);
+		String typeTag = requestBody.get("applicationType")!= null?requestBody.get("applicationType").asText():null;
+		String originalTypeTag = treeCopyOfOriginal.get("applicationType").asText();
+		if (!Strings.isNullOrEmpty(typeTag) && !typeTag.equals(originalTypeTag)) {
+			throw new IllegalArgumentException("Can't change type of application via update");
+		} else {
+			requestBody.put("applicationType", originalTypeTag);
+		}
+		Application updatedApplication = objectMapper.treeToValue(requestBody, Application.class);
+		
+		if (original instanceof ExtensionApplication) {
+			ExtensionApplication updatedExtensionApplicatoin = (ExtensionApplication) updatedApplication;
+			ExtensionApplication extensionApplication = (ExtensionApplication) original;
+			extensionApplication.setReason(updatedExtensionApplicatoin.getReason());
+		}
+		if (updatedApplication.getApprovalState() != original.getApprovalState()) {
+			ApprovalState originalState = original.getApprovalState();
+			ApprovalState updatedState = updatedApplication.getApprovalState();
+			if (originalState == ApprovalState.NOT_SUBMITTED && updatedState == ApprovalState.SUBMITTED) {
+				original.setApprovalState(ApprovalState.SUBMITTED);
+			} else if (originalState == ApprovalState.CHANGE_REQUESTED && updatedState == ApprovalState.SUBMITTED) {
+				original.setApprovalState(ApprovalState.RESUBMITTED);
+			} else if (originalState == ApprovalState.CHANGE_REQUESTED && updatedState == ApprovalState.RESUBMITTED) {
+				original.setApprovalState(ApprovalState.RESUBMITTED);
+			} else {
+				return new ResponseEntity<String>("Forbidden change to approvalState",HttpStatus.CONFLICT);
+			}
+		}
+		
+		ResponseEntity<Application> result = new ResponseEntity<Application>(original, HttpStatus.OK);
 		return result;
 	}
 }

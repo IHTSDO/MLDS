@@ -62,6 +62,11 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 			
 			updateApplicationNoteInternal: function(application) {
 				return $http.put('/app/rest/applications/'+encodeURIComponent(application.applicationId)+'/notesInternal', application.notesInternal);
+			},
+			
+			// Let's move to using this one
+			updateApplication: function (application) {
+				return $http.put('/app/rest/applications/'+encodeURIComponent(application.applicationId), application);
 			}
 			
 		};
