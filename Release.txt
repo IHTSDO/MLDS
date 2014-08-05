@@ -17,3 +17,7 @@ mvn jgitflow:release-finish
 ssh administrator@ihtsdo-dev
 sudo apt-get update
 sudo apt-get upgrade mlds
+
+
+back on local dev machine:
+git push

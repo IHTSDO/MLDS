@@ -15,13 +15,16 @@ angular.module('MLDS').controller('PackageController',
 	$scope.$watch('packageEntity', function(newValue, oldValue) {
 		$scope.versions = $scope.updateVersionsLists(newValue);
 	});
+	
 			
 	var releasePackageId = $routeParams.packageId && parseInt($routeParams.packageId, 10);
+	$log.log('releasePackageId', releasePackageId);
 	var loadReleasePackage = function loadReleasePackage() {
 		if (releasePackageId) {
 			PackagesService.get({releasePackageId: releasePackageId})
 			.$promise.then(function(result) {
 				$scope.packageEntity = result;
+				$scope.isEditableReleasePackage = PackageUtilsService.isEditableReleasePackage(result);
 				})
 					["catch"](function(message) {
 						//FIXME how to handle errors + not present
@@ -31,7 +34,7 @@ angular.module('MLDS').controller('PackageController',
 		} else {
 			$location.path('/packageManagement');
 		};
-	}
+	};
 
 	loadReleasePackage();
 	
@@ -51,7 +54,7 @@ angular.module('MLDS').controller('PackageController',
             }
           });
       modalInstance.result.then(loadReleasePackage);
-	}
+	};
 	
 	$scope.editReleaseVersion = function addReleaseVersion(selectedReleaseVersion) {
         var modalInstance = $modal.open({

@@ -302,7 +302,7 @@
     </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-13">
-    	<comment>Introduce Licensee as owner of commercialUsageReports</comment>
+    	<comment>Introduce Affiliate as owner of commercialUsageReports</comment>
         <createTable schemaName="public" tableName="licensee">
             <column name="licensee_id" type="INT8">
                 <constraints nullable="false"/>
@@ -574,6 +574,323 @@
             defaultNullValue="NOT_SUBMITTED"
             schemaName="public"
             tableName="application"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-1" author="AC">
+		<comment>Renaming Licensee table to Affiliate</comment>
+		<renameTable newTableName="affiliate"
+           oldTableName="licensee"
+           schemaName="public"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-2" author="AC">
+		<comment>Renaming Licensee columns to Affiliate</comment>
+		<renameColumn             
+            newColumnName="affiliate_id"
+            oldColumnName="licensee_id"
+            remarks="A String"
+            schemaName="public"
+            tableName="affiliate"/>
+    <renameColumn             
+            newColumnName="affiliate_id"
+            oldColumnName="licensee_id"
+            remarks="A String"
+            schemaName="public"
+            tableName="commercial_usage"/>
+	</changeSet>
+
+	<changeSet id="MLDS-259-3" author="DGJ">
+		<comment>Add entity references audit log</comment>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="application_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_application" references="application(application_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="affiliate_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_affiliate" references="affiliate(affiliate_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="release_package_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_package" references="release_package(release_package_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="release_version_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_version" references="release_version(release_version_id)"/>
+    		</column>
+		</addColumn>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="release_file_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_file" references="release_file(release_file_id)"/>
+    		</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-259-4" author="DGJ">
+		<comment>Remove entity foreign key constraints from audit log</comment>
+		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_application"/>
+		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_affiliate"/>
+		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_package"/>
+		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_version"/>
+		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_file"/>
+	</changeSet>
+
+    <changeSet id="MLDS-372-1" author="DGJ">
+    	<comment>Add Member</comment>
+    	<createTable schemaName="public" tableName="member">
+            <column name="member_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="key" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp"/>
+        </createTable>
+        <addPrimaryKey columnNames="member_id" constraintName="member_PK" schemaName="public" tableName="member"/>
+        <addUniqueConstraint schemaName="public" tableName="member" columnNames="key" constraintName="member_name_unique"/>
+	</changeSet>
+
+    <changeSet id="MLDS-372-2" author="DGJ">
+    	<comment>Load Member users</comment>
+    	<sql>
+			INSERT INTO member (member_id, key, created_at)
+			VALUES (nextval('hibernate_sequence'), 'IHTSDO', now()); 
+		</sql>
+    	<sql>
+			INSERT INTO member (member_id, key, created_at)
+			VALUES (nextval('hibernate_sequence'), 'SE', now()); 
+		</sql>
+    </changeSet>
+    <changeSet id="MLDS-372-3" author="MB">
+    	<comment>Create login users for the IHTSDO and demo SWEDEN members</comment>
+		<sql>INSERT INTO t_authority (name) values ('ROLE_STAFF'), ('ROLE_STAFF_SE'), ('ROLE_STAFF_IHTSDO')</sql>
+    	<sql>
+			INSERT INTO t_user (login, password, created_date)
+			VALUES ('staff', 'edca6651ee089a1e0b9320988f72e62dc5339f90dcc6dbbfd82a3127d2727610b52d2b0743d9b7ff', now()),
+			('sweden', 'e6b4dc6acaa889021ab202e417245c0880c66b254ad5758a298d310d15d38f1385bc0d82fc6f5e62', now()); 
+		</sql>
+		<sql>
+			INSERT INTO t_user_authority (login, name)
+			VALUES 
+				('staff', 'ROLE_STAFF'),
+				('staff', 'ROLE_STAFF_IHTSDO'),
+				('sweden', 'ROLE_STAFF'),
+				('sweden', 'ROLE_STAFF_SE')
+		</sql>
+    </changeSet>
+	
+	
+	<changeSet id="MLDS-259-3" author="AC">
+		<comment>Extract details object from Application and share with Affiliate</comment>
+		<createTable tableName="affiliate_details">
+			<column name="affiliate_details_id" type="INT8">
+				<constraints nullable="false"/>
+			</column>
+			<column name="first_name" type="varchar(50)"/>
+      <column name="last_name" type="varchar(50)"/>
+      <column name="email" type="varchar(100)"/>
+      <column name="alternate_email" type="varchar(100)"/>
+      <column name="third_email" type="varchar(100)"/>
+	  </createTable>
+    <addPrimaryKey columnNames="affiliate_details_id" constraintName="affiliate_details_PK" schemaName="public" tableName="affiliate_details"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-4" author="AC">
+		<comment>Extract details object from Application and share with Affiliate</comment>
+		<createTable tableName="mailing_address">
+	    <column name="address_id" type="INT8">
+				<constraints nullable="false"/>
+			</column>
+			<column name="street" type="varchar(50)"/>
+      <column name="city" type="varchar(50)"/>
+    	<column name="country_iso_code_2" type="VARCHAR(255)"/>
+      <column name="post" type="varchar(100)"/>
+    </createTable>
+    <addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="mailing_address" baseTableSchemaName="public" constraintName="FK_mailing_address_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-5" author="AC">
+		<comment>removing table address table</comment>
+		<dropTable tableName="mailing_address"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-6" author="AC">
+		<comment>removing table address table</comment>
+		<addColumn tableName="affiliate_details">
+			<column name="street" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="city" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="post" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="billing_street" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="billing_city" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="billing_post" type="varchar(50)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="country_iso_code_2" type="VARCHAR(255)"/>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="billing_country_iso_code_2" type="VARCHAR(255)"/>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-7" author="AC">
+		<comment>adding in affiliate_details_id column</comment>
+		<addColumn tableName="affiliate">
+			<column name="affiliate_details_id" type="INT8"></column>
+		</addColumn>
+		<addForeignKeyConstraint baseColumnNames="affiliate_details_id" baseTableName="affiliate" baseTableSchemaName="public" constraintName="FK_affiliate_affiliate_details" deferrable="false" initiallyDeferred="false" referencedColumnNames="affiliate_details_id" referencedTableName="affiliate_details" referencedTableSchemaName="public"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-8" author="AC">
+		<comment>adding foreign keys to countries in addresses</comment>
+		<addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="affiliate_details" baseTableSchemaName="public" constraintName="FK_affiliate_details_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
+		<addForeignKeyConstraint baseColumnNames="billing_country_iso_code_2" baseTableName="affiliate_details" baseTableSchemaName="public" constraintName="FK_affiliate_details_billing_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-9" author="AC">
+		<comment>adding missed column and updating affiliate address column types</comment>
+		<addColumn tableName="affiliate">
+			<column name="organization_name" type="VARCHAR(255)"></column>
+		</addColumn>
+		<modifyDataType tableName="affiliate_details" columnName="street" newDataType="VARCHAR(255)"/>
+		<modifyDataType tableName="affiliate_details" columnName="city" newDataType="VARCHAR(255)"/>
+		<modifyDataType tableName="affiliate_details" columnName="billing_street" newDataType="VARCHAR(255)"/>
+		<modifyDataType tableName="affiliate_details" columnName="billing_city" newDataType="VARCHAR(255)"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-259-10" author="AC">
+		<comment>dropping affiliate organization column and adding it to affiliate details</comment>
+		<dropColumn tableName="affiliate" columnName="organization_name"/>
+		<addColumn tableName="affiliate_details">
+			<column name="organization_name" type="VARCHAR(255)"></column>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="MLDS-372-4" author="MB">
+		<comment>Add member to ReleasePackage</comment>
+		<addColumn tableName="release_package">
+			<column name="member_id" type="INT8">
+				<constraints foreignKeyName="release_package_member" referencedTableName="member" referencedColumnNames="member_id"/>
+			</column>
+		</addColumn>
+		<sql>
+			update release_package
+			set member_id = (select member_id from member where key = 'IHTSDO')
+		</sql>
+		<addNotNullConstraint tableName="release_package" columnName="member_id"/>
+	</changeSet>
+ 
+	<changeSet id="MLDS-259-11" author="AC">
+		<comment>adding missing columns to affiliate details and adding affiliate details to application</comment>
+		<addColumn tableName="affiliate_details">
+			<column name="landline_number" type="VARCHAR(255)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="landline_extension" type="VARCHAR(255)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="mobile_number" type="VARCHAR(255)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="organization_type" type="VARCHAR(255)"></column>
+		</addColumn>
+		<addColumn tableName="affiliate_details">
+			<column name="organization_type_other" type="VARCHAR(255)"></column>
+		</addColumn>
+		<addColumn tableName="application">
+			<column name="affiliate_details_id" type="INT8"></column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-300-1" author="DGJ">
+		<comment>Associate Country with Member</comment>
+		<addColumn tableName="country">
+			<column name="member_id" type="INT8">
+				<constraints foreignKeyName="country_member" referencedTableName="member" referencedColumnNames="member_id"/>
+			</column>
+		</addColumn>
+		<sql>
+			<![CDATA[
+			update country
+			set member_id = (select member_id from member where key = 'IHTSDO')
+			where iso_code_2 <> 'SE' AND exclude_registration = FALSE
+			]]>
+		</sql>
+		<sql>
+			update country
+			set member_id = (select member_id from member where key = 'SE')
+			where iso_code_2 = 'SE' AND exclude_registration = FALSE
+		</sql>
+	</changeSet>
+
+	<changeSet id="MLDS-300-2" author="DGJ">
+		<comment>Associate Member with Affiliate and Application</comment>
+		<addColumn tableName="application">
+			<column name="member_id" type="INT8">
+				<constraints foreignKeyName="application_member" referencedTableName="member" referencedColumnNames="member_id"/>
+			</column>
+		</addColumn>
+		<addColumn tableName="affiliate">
+			<column name="home_member_id" type="INT8">
+				<constraints foreignKeyName="affiliate_home_member" referencedTableName="member" referencedColumnNames="member_id"/>
+			</column>
+		</addColumn>
+		<sql>
+			update application
+			set member_id = (select member_id from member where key = 'IHTSDO')
+		</sql>
+		<sql>
+			update affiliate
+			set home_member_id = (select member_id from member where key = 'IHTSDO')
+		</sql>
+		<addNotNullConstraint tableName="application" columnName="member_id"/>
+		<addNotNullConstraint tableName="affiliate" columnName="home_member_id"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-308-1" author="MB">
+		<comment>Convert application to class heirarchy.  Add discriminator column.</comment>
+		<addColumn tableName="application">
+			<column name="application_type" type="VARCHAR(255)" value="PRIMARY" />
+		</addColumn>
+		<addNotNullConstraint tableName="application" columnName="application_type" />
+	</changeSet>
+	
+	<changeSet id="MLDS-308-2" author="MB">
+		<comment>Add reason column for Extension application</comment>
+		<addColumn tableName="application">
+			<column name="reason" type="TEXT" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-308-3" author="MB/DGJ">
+    	<addColumn tableName="application">
+    		<column name="affiliate_id" type="INT8">
+    		</column>
+    	</addColumn>
+        <addForeignKeyConstraint baseColumnNames="affiliate_id" baseTableName="application" baseTableSchemaName="public" constraintName="FK_application_affiliate" deferrable="false" initiallyDeferred="false" referencedColumnNames="affiliate_id" referencedTableName="affiliate" referencedTableSchemaName="public"/>
+        <sql>
+        	delete from application as ap where not exists (select 1 from affiliate af where af.creator = ap.username)
+        </sql>
+        <sql>
+        	update application
+        	set affiliate_id = (select af.affiliate_id from affiliate af where af.creator = username)
+        </sql>
+        <addNotNullConstraint tableName="application" columnName="affiliate_id" />
+	</changeSet>
+	<changeSet id="MLDS-308-4" author="AC">
+		<comment>Removing not null contraint</comment>
+	  <dropNotNullConstraint tableName="application" columnName="affiliate_id" />
 	</changeSet>
 	
 </databaseChangeLog>

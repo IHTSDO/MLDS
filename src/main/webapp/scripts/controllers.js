@@ -2,14 +2,17 @@
 
 /* Controllers */
 
-mldsApp.controller('MainController', ['$scope', '$rootScope',
-    function ($scope, $rootScope) {
+mldsApp.controller('MainController', ['$scope', '$rootScope', 'Session', '$log',
+    function ($scope, $rootScope, Session, $log) {
 		// Used to reverse the result of a function in filters
 		$rootScope.not = function(func) {
 		    return function (item) { 
 		        return !func(item); 
 		    };
 		};
+		$log.log(Session.promise);
+		$rootScope.Session = Session;
+		
     }]);
 
 mldsApp.controller('AdminController', ['$scope',
@@ -31,26 +34,6 @@ mldsApp.controller('MenuController', ['$scope',
 mldsApp.controller('LogoutController', ['$location', 'AuthenticationSharedService',
     function ($location, AuthenticationSharedService) {
         AuthenticationSharedService.logout();
-    }]);
-
-mldsApp.controller('SettingsController', ['$scope', 'Account',
-    function ($scope, Account) {
-        $scope.success = null;
-        $scope.error = null;
-        $scope.settingsAccount = Account.get();
-
-        $scope.save = function () {
-            Account.save($scope.settingsAccount,
-                function (value, responseHeaders) {
-                    $scope.error = null;
-                    $scope.success = 'OK';
-                    $scope.settingsAccount = Account.get();
-                },
-                function (httpResponse) {
-                    $scope.success = null;
-                    $scope.error = "ERROR";
-                });
-        };
     }]);
 
 

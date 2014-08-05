@@ -14,6 +14,14 @@ async:
     queueCapacity: 10000
 
 spring:
+    jpa:
+        openInView: true
+        generate-ddl: false
+        hibernate:
+            naming-strategy: org.springframework.boot.orm.jpa.SpringNamingStrategy
+        properties:
+            hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+
     mail:
         host: localhost
         port: 25

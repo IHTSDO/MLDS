@@ -1,27 +1,29 @@
 'use strict';
 
 angular.module('MLDS').factory('PackageUtilsService',
-		[ '$resource', '$q', '$log', function($resource, $q, $log) {
+		[ '$resource', '$q', '$log', '$location', '$modal', 'Session', 'UserRegistrationService', 
+		  function($resource, $q, $log, $location, $modal, Session, UserRegistrationService) {
 			var service = {};
 			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
 	        	for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
 	        		if (packageEntity.releaseVersions[i].online) {
 	        			return true;
-	        		}
+	        		};
 	        	}
 	        	return false;
 	        };
 	        
 	        service.getLatestPublishedDate = function getLatestPublishedDate(packageEntity) { 
-	    		var latestPublishDate = new Date(); 
+	    		var latestPublishDate = null;
 	    		for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-	    			if (i == 0) {
+	    			if (latestPublishDate == null) {
 	    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
 	    			} else if (new Date(packageEntity.releaseVersions[i].publishedAt) > new Date(latestPublishDate) ) {
 	    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
 	    			};
 	    		};
+	    		latestPublishDate = latestPublishDate || new Date();
 	    		return latestPublishDate;
 	        };
 			
@@ -30,9 +32,13 @@ angular.module('MLDS').factory('PackageUtilsService',
 	        };
 	        
 	        service.isLatestVersion = function isLatestVersion(version, versions) {
+	        	if (!version.publishedAt) {
+	        		return false;
+	        	}
+	        	var versionPublishedDate = new Date(version.publishedAt);
 	        	for(var i = 0; i < versions.length; i++) {
-	        		if (versions[i].publishedAt && version.publishedAt && 
-	    				(new Date(version.publishedAt) < new Date(versions[i].publishedAt) )) {
+	        		if (versions[i].publishedAt && 
+	    				(versionPublishedDate < new Date(versions[i].publishedAt) )) {
 	    				return false;
 	    			};
 	        	};
@@ -64,14 +70,47 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		
 	    		return results;
 	    	};
-	        
-	    	service.isAllowedToDownload = function isNotAllowedToDownload(releaseVersion) {
-	    		for(var i = 0; i < releaseVersion.releaseFiles.length; i++) {
-	    			if (releaseVersion.releaseFiles[i].downloadUrl)
-	    				return true;
-	    		};
+	    	
+	    	service.isEditableReleasePackage = function isEditableReleasePackage(releasePackage) {
+	    		var userMember = Session.member;
+	    		var memberMatches = angular.equals(userMember, releasePackage.member);
+	    		//$log.log('isEditableReleasePackage', releasePackage, Session, memberMatches);
+	    		return Session.isAdmin() || memberMatches;
+	    	};
+	    	
+	    	service.isReleasePackageMatchingMember = function isReleasePackageMatchingMember(releasePackage) {
+	    		var userMember = Session.member;
+	    		var memberMatches = angular.equals(userMember, releasePackage.member);
+	    		return memberMatches;
+	    	};
+	    	
+	    	service.isEditableReleasePackage = function isEditableReleasePackage(releasePackage) {
+	    		return this.isReleasePackageMatchingMember(releasePackage) || Session.isAdmin();
+	    	};
+	    	
+	    	service.openExtensionApplication = function openExtensionApplication(releasePackage) {
 	    		
-	    		return false;
+	    		var modalInstance = $modal.open({
+	    		      templateUrl: 'views/user/startExtensionApplicationModal.html',
+	    		      size: 'sm'
+	    		    });
+	    		
+	    		modalInstance.result.then(function () {
+	    			UserRegistrationService.createExtensionApplication()
+		    			.then(function(result) {
+		    				if(result.data && result.data.applicationId) {
+		    					$log.log('applicationId created:', result.data.applicationId);
+		    					$location.path('/extensionApplication/'+ result.data.applicationId);
+		    				}
+		    			})
+		    			["catch"](function(message) {
+		    				// FIXME: Should we show a global alert of some kind?
+		    				$log.log(message);
+		    			});
+    		    }, function () {
+    		    	//$log.info('Modal dismissed');
+    		    });
+	    		
 	    	};
 	    	
 			return service;

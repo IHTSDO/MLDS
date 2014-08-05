@@ -5,75 +5,82 @@
 			<h1> Application Review</h1>
 		</div>
 	</div>
-	<div class="col-md-12 user-info">
-		<p><strong>Issue No:</strong> {{application.applicationId}}</p>
-		<ul class="nav nav-pills">
-			<li><span ng-show="application.organizationName"><h4>{{application.organizationName}} - </span> {{application.name}}</h4></li>
-			<li class="application-status"><p class="label label-default">{{'approval.state.'+application.approvalState | translate}}</li>
-		</ul>
-		<p> <strong>Application Date: {{application.submittedAt | date}}</strong> </p>
-	</div>
-
-	<div class="row">
-		<div class="col-md-8">
-
-			<div class="well">
-				<div ng-include="'views/admin/applicationSummaryBlock.html'"></div>
+</div>
+<div class="row">
+	<div class="col-md-8">
+		<div class="applicant-info">
+			<p><strong>Issue No:</strong> {{application.applicationId}}</p>
+			<div ng-show="application.organizationName">
+				<h4 class="application-title">{{application.organizationName}} - {{application.name}} <span class="label label-success">{{'approval.state.'+application.approvalState | translate}}</span></h4>
+				<p> <strong>Application Date: {{application.submittedAt | date}}</strong> </p>
 			</div>
-		</div>
-		<div class="col-md-4 well">
-			<div ng-controller="ApplicationReviewComparisonSearchController">
-				<div ng-hide="showComparisonLicensee">
-					<!-- Search block -->
-					<script type="text/ng-template" id="views/admin/applicationReviewLicenseeSearchTemplate.html">
-					<div id="searchbox">
-					<address>
-					<h5>{{match.model.application.organizationName}} {{match.model.application.fullName}}</strong></h5>
-					{{match.model.application.address}}<br>
-					{{match.model.application.city}}, {{match.model.application.country}} <br>
-					<strong>Usage Type:</strong> {{'licensee.type.'+match.model.application.type | translate}} - {{match.model.application.subType}}<br>
-					<strong>Type of Agreement:</strong> {{'licensee.agreementType.'+match.model.application.commercialUsage.context.agreementType | translate}}
-					</address>
-					</script>
-
-
-					<div class="input-group" id="application-search">
-
-						<input type="text" ng-model="comparisonLicensee" placeholder="Search for existing Licensees" 
-						typeahead="licensee as licensee.application.organizationName for licensee in getLicenseesMatching($viewValue)" 
-						typeahead-loading="searchingLicensees"
-						typeahead-template-url="views/admin/applicationReviewLicenseeSearchTemplate.html"
-						typeahead-on-select="selectComparisonLicensee(licensee)" 
-						class="form-control">
-						<span class="input-group-addon"><i class="fa fa-search"></i></span>
-					</div>
-
-				</div>
-				<div ng-show="showComparisonLicensee">
-					<button class="close btn-close" ng-click="showComparisonLicensee = false"><i class="fa fa-times"></i></button>
-					<div ng-include="'views/admin/applicationSummaryBlock.html'"></div>
-				</div>
-			</div>
-
-			<div class="well">
-				<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-
-				<form name="notesForm" novalidate bs-validation >
-					<div class="form-group">
-						<div class="pull-right" ng-show="submitting"><i class="fa fa-spinner"></i></div>
-						<label>Staff Notes</label>
-						<textarea class="form-control" rows="10" required name="notesInternal" ng-model="application.notesInternal" auto-submit></textarea>
-					</div>
-				</form>
-				<div>
-					<a class="btn btn-success btn-block" ng-click="approveApplication()">Approve Application</a>
-					<a class="btn btn-warning btn-block" ng-click="changeRequested()">Change Requested from Applicant</a>
-					<a class="btn btn-warning btn-block" ng-click="reviewRequested()">Review Requested from Staff</a>
-					<br><br>
-					<a class="btn btn-danger btn-block" ng-click="rejectApplication()">Decline Application</a>
-				</div>
-			</div>
-
-
+		<hr>
+		<div ng-include="'views/admin/applicationSummaryBlock.html'"></div>
 		</div>
 	</div>
+	<div class="col-md-4 well-inactive">
+		<div ng-controller="ApplicationReviewComparisonSearchController">
+			<div ng-hide="showComparisonAffiliate">
+				<!-- Search block -->
+				<script type="text/ng-template" id="views/admin/applicationReviewAffiliateSearchTemplate.html">
+				<div class="searchbox">
+				<address>
+				<h5>{{match.model.application.affiliateDetails.organizationName}} - {{match.model.application.affiliateDetails.firstName}} {{match.model.application.affiliateDetails.lastName}}</strong></h5>
+				{{match.model.application.affiliateDetails.address.street}}<br>
+				{{match.model.application.affiliateDetails.address.city}}, {{match.model.application.affiliateDetails.address.country.commonName}} <br>
+				<strong>Usage Type:</strong> {{'affiliate.type.'+match.model.application.type | translate}} - {{'affiliate.subType.'+match.model.application.subType | translate}}<br>
+				<strong>Type of Agreement:</strong> {{'affiliate.agreementType.'+match.model.application.commercialUsage.context.agreementType | translate}}
+				</address>
+				</div>
+				</script>
+
+
+				<div class="input-group" class="application-search">
+					<input type="text" ng-model="comparisonAffiliate" placeholder="Search for existing Affiliates" 
+					typeahead="affiliate as affiliate.application.affiliateDetails.organizationName for affiliate in getAffiliatesMatching($viewValue)" 
+					typeahead-loading="searchingAffiliates"
+					typeahead-template-url="views/admin/applicationReviewAffiliateSearchTemplate.html"
+					typeahead-on-select="selectComparisonAffiliate(affiliate)" 
+					class="form-control">
+					<span class="input-group-addon"><i class="fa fa-search"></i></span>
+				</div>
+
+			</div>
+			<div class="search-results" ng-show="showComparisonAffiliate">
+				<h4 >Search Results<button class="close btn-close" ng-click="showComparisonAffiliate = false"><i class="fa fa-times"></i></button>
+				</h4>
+				<div class="muted" ng-include="'views/admin/applicationSummaryBlock.html'"></div>
+
+			</div>
+		</div>
+
+		<div>
+			<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
+			<div class="alert alert-warning" ng-show="isReadOnly">
+				You can view applications submitted to other Member Registration Centres, but you cannot process them.
+			</div>
+
+			<form name="notesForm" novalidate bs-validation>
+				<div class="form-group">
+					<div class="pull-right" ng-show="submitting"><i class="fa fa-spinner"></i></div>
+				</div>
+				<div class="form-group">
+					<label>Staff Notes</label>
+					<textarea class="form-control" rows="10" required name="notesInternal" ng-model="application.notesInternal" ng-disabled="isReadOnly" auto-submit></textarea>
+				</div>
+			</form>
+			<div>
+				<a class="btn btn-success btn-block" ng-click="approveApplication()" ng-disabled="isReadOnly">Approve Application</a>
+				<a class="btn btn-warning btn-block" ng-click="changeRequested()" ng-disabled="isReadOnly">Change Requested from Applicant</a>
+				<a class="btn btn-warning btn-block" ng-click="reviewRequested()" ng-disabled="isReadOnly">Review Requested from Staff</a>
+				<br><br>
+				<a class="btn btn-danger btn-block" ng-click="rejectApplication()" ng-disabled="isReadOnly">Decline Application</a>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
