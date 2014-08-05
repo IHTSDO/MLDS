@@ -3,11 +3,12 @@ package ca.intelliware.ihtsdo.mlds.domain;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,7 +24,7 @@ import com.google.common.collect.Sets;
 @Where(clause = "inactive_at IS NULL")
 @SQLDelete(sql="UPDATE release_package SET inactive_at = now() WHERE release_package_id = ?")
 @Table(name="release_package")
-public class ReleasePackage {
+public class ReleasePackage extends BaseEntity {
 
 	@Id
 	@GeneratedValue
@@ -40,11 +41,15 @@ public class ReleasePackage {
 	@Column(name="inactive_at")
 	Instant inactiveAt;
 
+	@ManyToOne(optional=false)
+	@JoinColumn(name="member_id")
+	Member member;
+	
 	String name;
 	
 	String description;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="releasePackage")
+	@OneToMany(mappedBy="releasePackage")
 	Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
 
 	public ReleasePackage() {
@@ -104,6 +109,19 @@ public class ReleasePackage {
 
 	public void setReleaseVersions(Set<ReleaseVersion> releaseVersions) {
 		this.releaseVersions = releaseVersions;
+	}
+
+	@Override
+	protected Object getPK() {
+		return releasePackageId;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+	
+	public void setMember(Member member) {
+		this.member = member;
 	}
 	
 }

@@ -7,8 +7,9 @@
 //
 
 @blue:			 #4372aa;
+@dark-blue:      #384042;
+@light-blue:     #04ADD8;
 @green:			 #77c548;
-@light-blue:	 #04ADD8;
 @orange:		 #fac567;
 @red: 	 		 #f74e4d;
 @cloud:			 #EDEDED;
@@ -62,7 +63,17 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'cabinmedium';
+    src: url('fonts/cabin-medium-webfont.eot');
+    src: url('fonts/cabin-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/cabin-medium-webfont.woff') format('woff'),
+         url('fonts/cabin-medium-webfont.ttf') format('truetype'),
+         url('fonts/cabin-medium-webfont.svg#cabinmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
 
+}
 @font-face {
     font-family: 'cabinregular';
     src: url('fonts/cabin-regular-webfont.eot');
@@ -96,11 +107,12 @@
 @line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
 
 //** By default, this inherits from the `<body>`.
-@headings-font-family:   "cabinbold";
+@headings-font-family:   "cabinmedium";
 @headings-font-weight:    500;
 @headings-line-height:    1.1;
 @headings-color:          darken(@blue, 10%);	
 
+@landing-page:   "cabinbold";
 
 //-- Iconography
 //
@@ -173,7 +185,7 @@
 
 @btn-default-color:              @gray;
 @btn-default-bg:                 darken(@cloud, 20%);
-@btn-default-border:             darken(@cloud, 3%);
+@btn-default-border:             transparent;
 
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 @purple;
@@ -187,8 +199,8 @@
 @btn-info-bg:                    @brand-info;
 @btn-info-border:                darken(@btn-info-bg, 5%);
 
-@btn-warning-color:              #fff;
-@btn-warning-bg:                 @brand-warning;
+@btn-warning-color:              darken(@orange, 33%);
+@btn-warning-bg:                 lighten(@orange, 10%);
 @btn-warning-border:             darken(@btn-warning-bg, 5%);
 
 @btn-danger-color:               #fff;
@@ -360,8 +372,8 @@
 //##
 
 // Basics of a navbar
-@navbar-height:                    80px;
-@navbar-margin-bottom:             @line-height-computed;
+@navbar-height:                    60px;
+@navbar-margin-bottom:             0px;
 @navbar-border-radius:             @border-radius-base;
 @navbar-padding-horizontal:        floor((@grid-gutter-width / 2));
 @navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
@@ -425,7 +437,7 @@
 @nav-link-padding:                          12px 15px;
 @nav-link-hover-bg:                         @gray-lighter;
 
-@nav-disabled-link-color:                   @gray-light;
+@nav-disabled-link-color:                   darken(@cloud, 50%);
 @nav-disabled-link-hover-color:             @gray-light;
 
 @nav-open-link-hover-color:                 #fff;
@@ -491,9 +503,9 @@
 
 @jumbotron-padding:              30px;
 @jumbotron-color:                inherit;
-@jumbotron-bg:                   @white;
+@jumbotron-bg:                   @cloud;
 @jumbotron-heading-color:        @blue;
-@jumbotron-font-size:            ceil((@font-size-base * 1.5));
+@jumbotron-font-size:            ceil((@font-size-base * 1.2));
 
 
 //== Form states and alerts
@@ -508,11 +520,11 @@
 @state-info-bg:                  #d9edf7;
 @state-info-border:              darken(spin(@state-info-bg, -10), 7%);
 
-@state-warning-text:             darken(@orange, 30%);
-@state-warning-bg:               lighten(@orange, 10%);;
+@state-warning-text:             darken(@orange, 33%);
+@state-warning-bg:               lighten(@orange, 18%);
 @state-warning-border:           darken(spin(@state-warning-bg, -10), 5%);
 
-@state-danger-text:              @brand-danger;
+@state-danger-text:              darken(@brand-danger, 18%);
 @state-danger-bg:                @brand-danger;
 @state-danger-border:            darken(spin(@state-danger-bg, -10), 5%);
 
@@ -640,9 +652,9 @@
 @alert-warning-text:          @state-warning-text;
 @alert-warning-border:        @state-warning-border;
 
-@alert-danger-bg:             @brand-danger;
-@alert-danger-text:           @white;
-@alert-danger-border:         @state-danger-border;
+@alert-danger-bg:             @white;
+@alert-danger-text:           darken(@brand-danger, 18%);
+@alert-danger-border:         @brand-danger;
 
 @alert-welcome-bg:             @cloud;
 @alert-welcome-text:           darken(#6A6A6A, 5%);
@@ -706,13 +718,13 @@
 @panel-inner-border:          #ddd;
 @panel-footer-bg:             #f5f5f5;
 
-@panel-default-text:          @white;
+@panel-default-text:          darken(@blue, 10%);
 @panel-default-border:        darken(@cloud, 10%);
-@panel-default-heading-bg:    darken(@light-blue, 10%);
+@panel-default-heading-bg:    lighten(@cloud, 5%);
 
-@panel-primary-text:           @white;
-@panel-primary-border:        @brand-primary;
-@panel-primary-heading-bg:    @brand-primary;
+@panel-primary-text:          @white;
+@panel-primary-border:        darken(@cloud, 10%);
+@panel-primary-heading-bg:    darken(@light-blue, 10%);
 
 @panel-success-text:          @state-success-text;
 @panel-success-border:        @state-success-border;

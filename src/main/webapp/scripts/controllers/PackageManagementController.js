@@ -4,14 +4,33 @@ angular.module('MLDS').controller('PackageManagementController',
 		['$scope', '$log', '$modal', 'PackagesService', '$location', 'PackageUtilsService',
     function ($scope, $log, $modal, PackagesService, $location, PackageUtilsService) {
 			
-		$scope.packages = PackagesService.query();
-        
 		$scope.utils = PackageUtilsService;
 		
-		//FIXME replace with a different mechanism
+		$scope.packages = [];
+		
 		function reloadPackages() {
-			$scope.packages = PackagesService.query();	
+			$scope.packages = PackagesService.query();
+			$scope.packages.$promise.then(extractPackages);
 		}
+		
+		function extractPackages() {
+			var packages = $scope.packages;
+			
+			var memberFiltered = _.chain(packages).filter(function(p){ return PackageUtilsService.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); });
+			
+			$scope.onlinePackages = memberFiltered
+				.filter(PackageUtilsService.isPackagePublished)
+				.sortBy(PackageUtilsService.getLatestPublishedDate)
+				.value();
+			$scope.offinePackages = memberFiltered
+				.reject(PackageUtilsService.isPackagePublished)
+				.sortBy('createAt')
+				.value();
+		}
+		
+		$scope.$watch('utils.showAllMembers', extractPackages);
+		
+		reloadPackages();
 		
 		$scope.addReleasePackage = function() {
 			var modalInstance = $modal.open({
@@ -44,7 +63,7 @@ angular.module('MLDS').controller('PackageManagementController',
         };
         
         $scope.goToPackage = function(packageEntity) {
-        	$location.path('/package/'+encodeURIComponent(packageEntity.releasePackageId));
+        	$location.path('/packageManagement/package/'+encodeURIComponent(packageEntity.releasePackageId));
         };
         
         $scope.deleteReleasePackage = function(releasePackage) {
@@ -63,6 +82,10 @@ angular.module('MLDS').controller('PackageManagementController',
             modalInstance.result.then(function(result) {
             	reloadPackages();
             });
+        };
+        
+        $scope.isEditableReleasePackage = function(p) {
+        	PackageUtilsService.isEditableReleasePackage(p);
         };
     }]);
 

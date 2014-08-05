@@ -3,7 +3,7 @@
 	<groupId>org.ihtsdo.mlds</groupId>
 	<artifactId>mlds</artifactId>
 	<packaging>war</packaging>
-	<version>0.1.6</version>
+	<version>0.1.7</version>
 	<name>ihtsdo-mlds Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
@@ -381,24 +381,6 @@
 			<version>${swagger-springmvc.version}</version>
 		</dependency>
 
-		<!-- Stormpath authentication -->
-		<dependency>
-			<groupId>com.stormpath.sdk</groupId>
-			<artifactId>stormpath-sdk-api</artifactId>
-			<version>1.0.beta</version>
-		</dependency>
-		<dependency>
-			<groupId>com.stormpath.sdk</groupId>
-			<artifactId>stormpath-sdk-httpclient</artifactId>
-			<version>1.0.beta</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-		    <groupId>com.stormpath.spring.security</groupId>
-		    <artifactId>stormpath-spring-security-core</artifactId>
-		    <version>0.2.0</version>
-		</dependency>
-
 		<!-- Database dependencies -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -441,7 +423,6 @@
 			<artifactId>liquibase-slf4j</artifactId>
 			<version>${liquibase-slf4j.version}</version>
 		</dependency>
-
 	</dependencies>
 	<build>
 		<finalName>ihtsdo-mlds</finalName>

@@ -14,12 +14,18 @@ mldsApp
                     controller: 'RegisterController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/emailVerification', {
                     templateUrl: 'views/registration/emailVerification.html',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/affiliateRegistration', {
@@ -27,6 +33,9 @@ mldsApp
                     controller: 'AffiliateRegistrationController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/activate', {
@@ -34,6 +43,9 @@ mldsApp
                     controller: 'ActivationController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/dashboard', {
@@ -41,13 +53,30 @@ mldsApp
                     controller: 'UserDashboardController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}],
+                    	UserAffiliateServiceLoaded:['UserAffiliateService', function(UserAffiliateService){ return UserAffiliateService.promise;}]
                     }
                 })
-                .when('/usage-log/:usageReportId', {
+                .when('/usage-reports', {
+                    templateUrl: 'views/user/usageReports.html',
+                    controller: 'UsageReportsController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.user]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/usage-reports/usage-log/:usageReportId', {
                     templateUrl: 'views/user/fullPageUsageLog.html',
                     controller: 'FullPageUsageLogController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/login', {
@@ -55,19 +84,28 @@ mldsApp
                     controller: 'LoginController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/error', {
                     templateUrl: 'views/error.html',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/settings', {
-                    templateUrl: 'views/settings.html',
-                    controller: 'SettingsController',
+                .when('/contactInfo', {
+                    templateUrl: 'views/contactInfo.html',
+                    controller: 'ContactInfoController',
                     access: {
-                        authorizedRoles: [USER_ROLES.all]
+                    	authorizedRoles: [USER_ROLES.user]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/password', {
@@ -75,6 +113,9 @@ mldsApp
                     controller: 'PasswordController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/requestPasswordReset', {
@@ -82,14 +123,20 @@ mldsApp
                 	controller: 'RequestPasswordResetController',
                 	access: {
                 		authorizedRoles: [USER_ROLES.all]
-                	}
+                	},
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
                 })
                 .when('/resetPassword', {
                 	templateUrl: 'views/resetPassword.html',
                 	controller: 'ResetPasswordController',
                 	access: {
                 		authorizedRoles: [USER_ROLES.all]
-                	}
+                	},
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
                 })
                 .when('/sessions', {
                     templateUrl: 'views/sessions.html',
@@ -97,7 +144,8 @@ mldsApp
                     resolve:{
                         resolvedSessions:['Sessions', function (Sessions) {
                             return Sessions.get();
-                        }]
+                        }],
+                        lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     },
                     access: {
                         authorizedRoles: [USER_ROLES.all]
@@ -107,29 +155,41 @@ mldsApp
                     templateUrl: 'views/admin/dashboard.html',
                     controller: 'AdminDashboardController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/packageManagement', {
                     templateUrl: 'views/admin/packageManagement.html',
                     controller: 'PackageManagementController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
-                .when('/package/:packageId', {
+                .when('/packageManagement/package/:packageId', {
                     templateUrl: 'views/admin/package.html',
                     controller: 'PackageController',
                     access: {
-                    	authorizedRoles: [USER_ROLES.admin]
+                    	authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/package/:packageId/:edit', {
+                .when('/packageManagement/package/:packageId/:edit', {
                     templateUrl: 'views/admin/package.html',
                     controller: 'PackageController',
                     access: {
-                    	authorizedRoles: [USER_ROLES.admin]
+                    	authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
@@ -138,34 +198,72 @@ mldsApp
                     controller: 'ViewPackagesController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/viewPackage/:releasePackageId', {
+                .when('/viewPackages/viewPackage/:releasePackageId', {
                     templateUrl: 'views/user/viewPackage.html',
                     controller: 'ViewPackageController',
                     access: {
                     	authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/extensionApplication/:applicationId', {
+                    templateUrl: 'views/user/extensionApplication.html',
+                    controller: 'ExtensionApplicationController',
+                    access: {
+                    	authorizedRoles: [USER_ROLES.user]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}],
+                    	application:['$route','UserRegistrationService', function($route, UserRegistrationService) { 
+                    		return UserRegistrationService.getApplicationById($route.current.params.applicationId).then(function(resp){return resp.data});
+                		}]
                     }
                 })
                 .when('/pendingApplications', {
                     templateUrl: 'views/admin/pendingApplications.html',
                     controller: 'PendingApplicationsController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/applicationReview/:applicationId', {
                     templateUrl: 'views/admin/applicationReview.html',
                     controller: 'ApplicationReviewController',
                     access: {
-                    	authorizedRoles: [USER_ROLES.admin]
+                    	authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/affiliates', {
+                    templateUrl: 'views/admin/affiliates.html',
+                    controller: 'AffiliatesController',
+                    access: {
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/metrics', {
                     templateUrl: 'views/admin/metrics.html',
                     controller: 'MetricsController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/logs', {
@@ -174,17 +272,21 @@ mldsApp
                     resolve:{
                         resolvedLogs:['LogsService', function (LogsService) {
                             return LogsService.findAll();
-                        }]
+                        }],
+                        lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     },
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
                 .when('/audits', {
                     templateUrl: 'views/admin/audits.html',
                     controller: 'AuditsController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/logout', {
@@ -192,17 +294,33 @@ mldsApp
                     controller: 'LogoutController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/docs', {
                     templateUrl: 'views/admin/docs.html',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/styleguide/:template*', {
                     templateUrl: function(params){
                     	return 'views/styleguide/'+params.template+'.html';},
+                    access: {
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/blocklist', {
+                    templateUrl: 'views/admin/blocklist.html',
+                    controller: 'BlockListController',
                     access: {
                         authorizedRoles: [USER_ROLES.admin]
                     }
@@ -212,6 +330,9 @@ mldsApp
                     controller: 'MainController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 });
 
@@ -261,7 +382,7 @@ mldsApp
                 $rootScope.$on('event:auth-loginConfirmed', function(data) {
                     $rootScope.authenticated = true;
                     if ($location.path() === "/login") {
-                    	if (AuthenticationSharedService.isAuthorized(USER_ROLES.admin)) {
+                    	if (AuthenticationSharedService.isAuthorized(USER_ROLES.staffOrAdmin)) {
                     		$location.path('/adminDashboard').replace();                    		
                     	} else {
                     		$location.path('/dashboard').replace();
@@ -273,13 +394,14 @@ mldsApp
                 $rootScope.$on('event:auth-loginRequired', function(rejection) {
                     Session.invalidate();
                     $rootScope.authenticated = false;
+                    
                     if ($location.path() !== "/" && 
                     		$location.path() !== "" && 
                     		$location.path() !== "/register" &&
                     		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
                     		$location.path() !== "/resetPassword" &&
-                    		$location.path() !== "/viewPackage" &&
+                    		$location.path().indexOf("/viewPackage") == -1 &&
                     		$location.path() !== "/viewPackages" &&
                     		$location.path() !== "/emailVerification" &&
                             $location.path() !== "/activate") {

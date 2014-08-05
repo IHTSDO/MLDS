@@ -24,6 +24,11 @@
     </div>
 
     <div class="form-group">
+        <label>Member</label>
+        <input class="form-control" type="text" ng-model="country.member" name="member" placeholder="Responsible Member" typeahead="member.key for member in availableMembers | filter:$viewValue | limitTo:8">
+    </div>
+
+    <div class="form-group">
         <label>Exclude registrants from MLDS?</label>
         <input type="checkbox" class="form-control" name="excludeRegistration"
         ng-model="country.excludeRegistration">

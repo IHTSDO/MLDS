@@ -23,6 +23,8 @@ html {
   font-size: 62.5%;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   overflow-y:scroll;
+  min-height: 100%;
+  position: relative;
 }
 
 body {
@@ -30,13 +32,12 @@ body {
   font-size: @font-size-base;
   line-height: @line-height-base;
   color: @text-color;
-  background-color: @body-bg;
-  height: 100%;
   margin-bottom: 60px;
   }
 
-.body-dark{
-	background-color: @body-dark-bg;
+.div[role="main"]{
+  background-color: @white;
+  border: 1px solid @cloud;
 }
 
 // Reset fonts for relevant elements

@@ -32,13 +32,16 @@
 .panel-title {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: ceil((@font-size-base * 1.125));
+  font-size: ceil((@font-size-base * 1.325));
   color: inherit;
 
   > a {
     color: inherit;
     display: block;
     text-decoration: none;
+  }
+  a:hover{
+    color: @orange;
   }
 }
 
@@ -233,6 +236,7 @@
 // Contextual variations
 .panel-default {
   .panel-variant(@panel-default-border; @panel-default-text; @panel-default-heading-bg; @panel-default-border);
+
 }
 .panel-primary {
   .panel-variant(@panel-primary-border; @panel-primary-text; @panel-primary-heading-bg; @panel-primary-border);

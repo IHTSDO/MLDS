@@ -4,91 +4,44 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', '$modal', 'UserSession', 'CommercialUsageService', 'LicenseeService', 'Session', 'UserRegistrationService',
-          function ($scope, $log, $location, $modal, UserSession, CommercialUsageService, LicenseeService, Session, UserRegistrationService) {
+        [ '$scope', '$log', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService',
+          function ($scope, $log, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
-        	$scope.licensees = [];
+        	$scope.affiliate = UserAffiliateService.affiliate;
 
-        	function loadLicensees() {
-	        	LicenseeService.myLicensees()
-	        		.then(function(licenseesResult) {
-	        			var someApplicationsWaitingForApplicant = _.some(licenseesResult.data, function(licensee) {
-	        				return UserRegistrationService.isApplicationWaitingForApplicant(licensee.application);
-	        			});
-	        			if (someApplicationsWaitingForApplicant) {
-	        				$location.path('/affiliateRegistration');
-	        				return;
-	        			}
-	        			$scope.licensees = licenseesResult.data;
-	        			
-	        			licenseesResult.data.forEach(function(licensee) {
-	        				licensee.commercialUsages.sort(function(a, b) {
-	        					if (a.startDate && b.startDate) {
-	        						return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
-	        					} else if (a.startDate) {
-	        						return 1;
-	        					} else {
-	        						return -1;
-	        					}
-	        				});
-	        			});
-	
-	        		});
-        	}
-
-        	loadLicensees();
-        	
-        	$scope.usageReportCountries = function(usageReport) {
-        		return usageReport.countries.length;
-        	};
-
-        	$scope.usageReportHospitals = function(usageReport) {
-        		return usageReport.entries.length;
-        	};
-
-        	$scope.usageReportPractices = function(usageReport) {
-        		return usageReport.countries.reduce(function(total, count) {
-        			return total + (count.practices || 0);
-        		}, 0);
-        	};
-
-        	$scope.openAddUsageReportModal = function(licensee) {
-        		var modalInstance = $modal.open({
-        			templateUrl: 'views/user/addUsageReportModal.html',
-        			controller: 'AddUsageReportController',
-        			size:'lg',
-        			backdrop: 'static',
-        			resolve: {
-        				licenseeId: function() {
-        					return licensee.licenseeId;
-        				}
+        	UserAffiliateService.promise.then(function() {
+        		if (ApplicationUtilsService.isApplicationWaitingForApplicant($scope.affiliate.application)) {
+        			$location.path('/affiliateRegistration');
+        			return;
+        		}
+        		
+        		$scope.affiliate.commercialUsages.sort(function(a, b) {
+        			if (a.startDate && b.startDate) {
+        				return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+        			} else if (a.startDate) {
+        				return 1;
+        			} else {
+        				return -1;
         			}
         		});
-        	};
-
-        	$scope.goToUsageReport = function(usageReport) {
-        		$location.path('/usage-log/'+encodeURIComponent(usageReport.commercialUsageId));
-        	};
+        	});
         	
-        	$scope.licenseeIsCommercial = function(licensee) {
-        		return LicenseeService.licenseeIsCommercial(licensee);
-        	};
         	
-        	$scope.anySubmittedUsageReports = function(licensee) {
-        		return _.some(licensee.commercialUsages, function(usageReport) {
-        			return usageReport.approvalState !== 'NOT_SUBMITTED';
-        		});
-        	};
+        	$scope.usageReportsUtils = UsageReportsService;
         	
         	$scope.isApplicationPending = function(application) {
-        		return UserRegistrationService.isApplicationPending(application);
+        		return ApplicationUtilsService.isApplicationPending(application);
         	};
         	
         	$scope.isApplicationWaitingForApplicant = function(application) {
-        		return UserRegistrationService.isApplicationWaitingForApplicant(application);
+        		return ApplicationUtilsService.isApplicationWaitingForApplicant(application);
+        	};
+        	
+        	$scope.isApplicationApproved = function(application) {
+        		return application.approvalState === 'APPROVED';
         	};
         	
         }

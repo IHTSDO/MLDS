@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('RetractUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 
-                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport) {
+angular.module('MLDS').controller('RetractUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 'UserAffiliateService', 
+                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport, UserAffiliateService) {
 	$scope.attemptedSubmit = false;
 	$scope.submitting = false;
 	$scope.alerts = [];
@@ -14,6 +14,7 @@ angular.module('MLDS').controller('RetractUsageReportController', ['$scope', '$m
 		
 		CommercialUsageService.retractUsageReport($scope.commercialUsageReport)
 			.then(function(result) {
+				UserAffiliateService.refreshAffiliate();
 				$modalInstance.close(result);
 			})
 			["catch"](function(message) {

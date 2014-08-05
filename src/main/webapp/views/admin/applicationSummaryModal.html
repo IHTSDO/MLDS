@@ -1,0 +1,12 @@
+<div class="modal-header">
+     <h3 class="modal-title">Application Summary</h3>
+ </div>
+ <div class="modal-body">
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
+	<div ng-include="'views/admin/applicationSummaryBlock.html'"></div> 	
+ </div>
+ <div class="modal-footer">
+     <button class="btn btn-secondary btn-link" ng-click="$dismiss()">Cancel</button>
+     <button class="btn btn-success" ng-click="$close()" ng-disabled="submitting">Ok</button>
+ </div>

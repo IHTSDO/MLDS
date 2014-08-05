@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
 import ca.intelliware.ihtsdo.mlds.service.mail.PasswordResetEmailSender;
@@ -36,6 +38,7 @@ public class PasswordResetResource {
 	@RequestMapping(value=Routes.PASSWORD_RESET,
 			method = RequestMethod.POST,
     		produces = "application/json")
+	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<String> requestPasswordReset(@RequestBody Map<String,Object> params) {
 		// FIXME MLDS-20 validate email - bad request
 		// look up user - not found?
@@ -54,6 +57,7 @@ public class PasswordResetResource {
 	@RequestMapping(value=Routes.PASSWORD_RESET_ITEM,
 			method = RequestMethod.POST,
     		produces = "application/json")
+	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<String> resetPassword(@PathVariable String token, @RequestBody Map<String,Object>params) {
 		
 		String newPassword = (String) params.get("password");

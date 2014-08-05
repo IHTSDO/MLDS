@@ -4,14 +4,18 @@ mldsApp.controller('PendingApplicationsController', [
 		'$scope',
 		'$log',
 		'$location',
+		'Session',
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
-		'LicenseeService',
-		function($scope, $log, $location, UserRegistrationService, DomainBlacklistService,
-				PackagesService, LicenseeService) {
+		'AffiliateService',
+		function($scope, $log, $location, Session, UserRegistrationService, DomainBlacklistService,
+				PackagesService, AffiliateService) {
 
 			$scope.applications = [];
+			$scope.showAllApplications = false;
+			$scope.applicationSearch = '';
+
 
 			function loadApplications() {
 				// FIXME should be replaced by API call
@@ -19,13 +23,25 @@ mldsApp.controller('PendingApplicationsController', [
 
 				queryPromise.success(function(data) {
 					$scope.applications = data;
-					_.sortBy($scope.pplications, function(record) {
+					_.sortBy($scope.applications, function(record) {
 						return record.submittedAt;
 					});
 				});
 			}
 
 			loadApplications();
+			
+			$scope.$watch('showAllApplications', toggleApplications);
+			
+			function toggleApplications() {
+				if ($scope.showAllApplications) {
+					$scope.applicationSearch = '';
+				} else {
+					var memberKey = Session.member && Session.member.key || 'NONE';
+					$scope.applicationSearch = {'member': memberKey};
+				}
+			};
+
 
 			$scope.goToApplication = function(application) {
 				$log.log('application', application);

@@ -316,8 +316,8 @@
         "403": "Vous n'avez pas les droits pour accéder à cette page."
     },
     "footer": "Ceci est votre pied de page",
-    "licensee": {
-    	"title": "Licensee-fr",
+    "affiliate": {
+    	"title": "Affiliate-fr",
     	"type": {
     		"title": "Type-fr",
     		"COMMERCIAL": "Commercial-fr",

@@ -15,17 +15,13 @@ spring:
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
         database: POSTGRESQL
-        openInView: false
         show_sql: false
-        generate-ddl: false
         hibernate:
             ddl-auto: none
-            naming-strategy: org.springframework.boot.orm.jpa.SpringNamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: false
-            hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
             
 
     mail:
