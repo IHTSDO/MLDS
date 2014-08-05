@@ -32,7 +32,7 @@
 										ng-model="countryCommonName" 
 										required=""
 										typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
-										typeahead-editable="false"><!--   -->
+										typeahead-editable="false">
 									
 									<div ng-show="createUserForm.$error">
 										<div ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="help-block">Required field.</div>
