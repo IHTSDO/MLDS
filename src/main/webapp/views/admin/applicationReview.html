@@ -11,7 +11,7 @@
 		<div class="applicant-info">
 			<p><strong>Issue No:</strong> {{application.applicationId}}</p>
 			<div ng-show="application.organizationName">
-				<h4 class="application-title">{{application.organizationName}} - </span> {{application.name}} <span class="label label-success">{{'approval.state.'+application.approvalState | translate}}</span></h4>
+				<h4 class="application-title">{{application.organizationName}} - {{application.name}} <span class="label label-success">{{'approval.state.'+application.approvalState | translate}}</span></h4>
 				<p> <strong>Application Date: {{application.submittedAt | date}}</strong> </p>
 			</div>
 		<hr>
@@ -25,10 +25,10 @@
 				<script type="text/ng-template" id="views/admin/applicationReviewAffiliateSearchTemplate.html">
 				<div class="searchbox">
 				<address>
-				<h5>{{match.model.application.organizationName}} {{match.model.application.fullName}}</strong></h5>
-				{{match.model.application.address}}<br>
-				{{match.model.application.city}}, {{match.model.application.country}} <br>
-				<strong>Usage Type:</strong> {{'affiliate.type.'+match.model.application.type | translate}} - {{match.model.application.subType}}<br>
+				<h5>{{match.model.application.affiliateDetails.organizationName}} - {{match.model.application.affiliateDetails.firstName}} {{match.model.application.affiliateDetails.lastName}}</strong></h5>
+				{{match.model.application.affiliateDetails.address.street}}<br>
+				{{match.model.application.affiliateDetails.address.city}}, {{match.model.application.affiliateDetails.address.country.commonName}} <br>
+				<strong>Usage Type:</strong> {{'affiliate.type.'+match.model.application.type | translate}} - {{'affiliate.subType.'+match.model.application.subType | translate}}<br>
 				<strong>Type of Agreement:</strong> {{'affiliate.agreementType.'+match.model.application.commercialUsage.context.agreementType | translate}}
 				</address>
 				</div>
