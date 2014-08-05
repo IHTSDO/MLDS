@@ -50,7 +50,7 @@ public class ReleasePackage extends BaseEntity {
 	
 	String description;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="releasePackage")
+	@OneToMany(mappedBy="releasePackage")
 	Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
 
 	public ReleasePackage() {
