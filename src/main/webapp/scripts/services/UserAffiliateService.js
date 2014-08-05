@@ -11,6 +11,8 @@ angular.module('MLDS')
 	
 	var loadUserAffiliate = function loadUserAffiliate() {
 		service.affiliate = {};
+		service.approvedMemberships = [];
+		service.incompleteMemberships = [];
 		service.promise = AffiliateService.myAffiliate();
 		service.promise.then(function(resp){
 			setAffiliate(resp.data);
@@ -25,14 +27,16 @@ angular.module('MLDS')
 	
 	var setAffiliate = function setAffiliate(affiliate) {
 		service.affiliate = affiliate;
-		service.approvedMemberships = _.chain(service.affiliate.applications)
-			.filter(ApplicationUtilsService.isApplicationApproved)
-			.pluck('member')
-			.value();
-		service.incompleteMemberships = _.chain(service.affiliate.applications)
-			.filter(ApplicationUtilsService.isApplicationIncomplete)
-			.pluck('member')
-			.value();
+		if (affiliate && affiliate.applications) {
+			service.approvedMemberships = _.chain(service.affiliate.applications)
+				.filter(ApplicationUtilsService.isApplicationApproved)
+				.pluck('member')
+				.value();
+			service.incompleteMemberships = _.chain(service.affiliate.applications)
+				.filter(ApplicationUtilsService.isApplicationIncomplete)
+				.pluck('member')
+				.value();
+		}
 	};
 	
 	return service;
