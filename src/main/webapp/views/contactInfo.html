@@ -278,10 +278,12 @@
 											name="billingAddressCountry" ng-required="type=='COMMERCIAL'"
 											placeholder="Country"
 											typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
+											typeahead-editable="false"
 											ng-disabled="readOnly">
 										<p
 											ng-show="form.billingAddressCountry.$error.required && form.attempted"
 											class="help-block">Required field.</p>
+										<p ng-show="form.billingAddressCountry.$error.editable" class="help-block">Unrecognized country</p>
 									</div>
 								</div>
 							</div>
