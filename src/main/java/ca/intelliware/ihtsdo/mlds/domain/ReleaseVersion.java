@@ -3,7 +3,6 @@ package ca.intelliware.ihtsdo.mlds.domain;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,7 +48,7 @@ public class ReleaseVersion extends BaseEntity {
 	@Column(name="published_at")
 	Instant publishedAt;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="releaseVersion")
+	@OneToMany(mappedBy="releaseVersion")
 	Set<ReleaseFile> releaseFiles = Sets.newHashSet();
 
 	public ReleaseVersion() {
