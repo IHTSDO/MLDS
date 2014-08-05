@@ -92,7 +92,7 @@
         </tr>
       </thead>
       <tbody> 
-        <tr ng-repeat="application in affiliate.applications">
+        <tr ng-repeat="application in []">
           <td>{{application.applicationType}}</td>
           <td>{{(application.completedAt || application.submittedAt) | date }}</td>
           <td>
