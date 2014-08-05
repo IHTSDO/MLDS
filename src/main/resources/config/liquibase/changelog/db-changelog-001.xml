@@ -888,5 +888,9 @@
         </sql>
         <addNotNullConstraint tableName="application" columnName="affiliate_id" />
 	</changeSet>
+	<changeSet id="MLDS-308-4" author="AC">
+		<comment>Removing not null contraint</comment>
+	  <dropNotNullConstraint tableName="application" columnName="affiliate_id" />
+	</changeSet>
 	
 </databaseChangeLog>
