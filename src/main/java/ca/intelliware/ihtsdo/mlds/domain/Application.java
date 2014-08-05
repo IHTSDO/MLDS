@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="application_type")
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=As.PROPERTY, property="applicationType")
-@JsonSubTypes(@Type(value=PrimaryApplication.class, name="PRIMARY"))
+@JsonSubTypes({@Type(value=PrimaryApplication.class, name="PRIMARY"),@Type(value=ExtensionApplication.class, name="EXTENSION")})
 public abstract class Application extends BaseEntity {
 	public static enum ApplicationType {
 		PRIMARY, EXTENSION
