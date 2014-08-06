@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('AffiliateService', ['$http', '$rootScope', '$log', '$q', 'Session', '$resource',
-                                    function($http, $rootScope, $log, $q, Session, $resource){
+.factory('AffiliateService', ['$http', '$rootScope', '$log', '$q', 'Session', '$resource', 'ApplicationUtilsService',
+                                    function($http, $rootScope, $log, $q, Session, $resource, ApplicationUtilsService){
 
 	var service = {};
 	
@@ -41,7 +41,7 @@ angular.module('MLDS')
 	};
 	
 	service.isApplicationApproved = function(affiliate) {
-		return affiliate && affiliate.application && affiliate.application.approvalState === 'APPROVED';
+		return affiliate && ApplicationUtilsService.isApplicationApproved(affiliate.application);
 	};
 
 	
