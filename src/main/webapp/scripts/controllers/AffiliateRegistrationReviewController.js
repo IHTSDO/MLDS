@@ -2,7 +2,8 @@
 
 mldsApp.controller('AffiliateRegistrationReviewController',
         [ '$scope', '$log', 'UserRegistrationService', '$location', '$modalInstance', 'CommercialUsageService', 'UserAffiliateService',
-          function ($scope, $log, UserRegistrationService, $location, $modalInstance, CommercialUsageService, UserAffiliateService) {
+          function ($scope, $log, UserRegistrationService, $location, UserSession, $modalInstance, CommercialUsageService, UserAffiliateService) {
+        	CommercialUsageService.getUsageReport(CommercialUsageService.currentCommercialUsageReport.commercialUsageId);
         	$scope.CommercialUsageService = CommercialUsageService;
         	$scope.submitting = false;
         	$scope.alerts = [];
