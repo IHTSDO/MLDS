@@ -8,9 +8,6 @@ angular.module('MLDS')
 				.then(function(d){return d.data;});
 		var service = {};
 
-		//FIXME is there a better way to indicate the IHTSDO/international member?
-		service.ihtsdoMemberKey = 'IHTSDO';
-		
 		service.members = [];
 		service.membersByKey = {};
 		service.ready = membersListQ;
@@ -32,6 +29,14 @@ angular.module('MLDS')
 			
 			$log.log('MemberService', service);
 		});
+		
+		//FIXME is there a better way to indicate the IHTSDO/international member?
+		service.ihtsdoMemberKey = 'IHTSDO';
+		service.ihtsdoMember = {key: service.ihtsdoMemberKey};
+		
+		service.isIhtsdoMember = function(member) {
+			return member && member.key === service.ihtsdoMemberKey;
+		};
 		
 		return service;
 		
