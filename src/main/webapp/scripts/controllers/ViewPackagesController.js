@@ -33,17 +33,4 @@ angular.module('MLDS')
 			});
 	}
 	
-	$scope.orderIhtsdo = function(memberReleases) {
-		return !(memberReleases.member && MemberService.ihtsdoMemberKey === memberReleases.member.key);
-	};
-	$scope.orderApprovedMemberships = function(memberReleases) {
-		return !(memberReleases.member && _.some(UserAffiliateService.approvedMemberships, memberReleases.member));
-	};
-	$scope.orderIncompleteMemberships = function(memberReleases) {
-		return !(memberReleases.member && _.some(UserAffiliateService.incompleteMemberships, memberReleases.member));
-	};
-	$scope.orderMemberName = function(memberReleases) {
-		//FIXME use translated member name rather than key
-		return  memberReleases.member && memberReleases.member.key || 'NONE';
-	};
 }]);
