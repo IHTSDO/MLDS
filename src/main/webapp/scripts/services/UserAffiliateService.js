@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('UserAffiliateService', ['$http', '$rootScope', '$log', '$q', 'Session', 'AffiliateService', 'ApplicationUtilsService',
-                                    function($http, $rootScope, $log, $q, Session, AffiliateService, ApplicationUtilsService){
+.factory('UserAffiliateService', ['$http', '$rootScope', '$log', '$q', 'Session', 'AffiliateService', 'ApplicationUtilsService', 'MemberService',
+                                    function($http, $rootScope, $log, $q, Session, AffiliateService, ApplicationUtilsService, MemberService){
 	var service = {
 		affiliate: null,
 		approvedMemberships: [],
@@ -24,18 +24,34 @@ angular.module('MLDS')
 	
 	$rootScope.$on('event:auth-loginConfirmed', loadUserAffiliate);
 	$rootScope.$on('event:auth-loginCancelled', loadUserAffiliate);
+
+	var addIhtsdoMemberIfMissing = function addIhtsdoMemberIfMissing(memberships) {
+		if (! _.some(memberships, MemberService.isIhtsdoMember)) {
+			memberships.push(MemberService.ihtsdoMember);
+		}
+	};
+	
+	var initializeMemberships = function initializeMemberships() {
+		service.approvedMemberships = _.chain(service.affiliate.applications)
+			.filter(ApplicationUtilsService.isApplicationApproved)
+			.pluck('member')
+			.value();
+		service.incompleteMemberships = _.chain(service.affiliate.applications)
+			.filter(ApplicationUtilsService.isApplicationIncomplete)
+			.pluck('member')
+			.value();
+		
+		if (service.approvedMemberships.length > 0) {
+			addIhtsdoMemberIfMissing(service.approvedMemberships);
+		} else if (service.incompleteMemberships.length > 0) {
+			addIhtsdoMemberIfMissing(service.incompleteMemberships);
+		}
+	};
 	
 	var setAffiliate = function setAffiliate(affiliate) {
 		service.affiliate = affiliate;
 		if (affiliate && affiliate.applications) {
-			service.approvedMemberships = _.chain(service.affiliate.applications)
-				.filter(ApplicationUtilsService.isApplicationApproved)
-				.pluck('member')
-				.value();
-			service.incompleteMemberships = _.chain(service.affiliate.applications)
-				.filter(ApplicationUtilsService.isApplicationIncomplete)
-				.pluck('member')
-				.value();
+			initializeMemberships();
 		}
 	};
 	
