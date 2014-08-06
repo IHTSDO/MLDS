@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web;
+package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
@@ -17,7 +17,7 @@ import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 
 @Controller
-public class DomainBlacklistController {
+public class DomainBlacklistResource {
 
 	@Resource
 	DomainBlacklistRespository domainBlacklistRespository;

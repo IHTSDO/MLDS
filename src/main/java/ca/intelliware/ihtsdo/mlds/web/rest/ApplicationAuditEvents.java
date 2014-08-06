@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web;
+package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.util.Map;
 
