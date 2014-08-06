@@ -38,6 +38,10 @@ angular.module('MLDS')
 			return member && member.key === service.ihtsdoMemberKey;
 		};
 		
+		service.isMemberEqual = function(a, b) {
+			return a && b && a.key === b.key;
+		};
+		
 		return service;
 		
 	}]);
