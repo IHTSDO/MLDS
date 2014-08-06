@@ -28,6 +28,7 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Sets;

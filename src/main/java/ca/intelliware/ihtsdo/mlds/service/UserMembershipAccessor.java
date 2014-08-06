@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web.rest;
+package ca.intelliware.ihtsdo.mlds.service;
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 /**
  * Get the primary member for the current user.

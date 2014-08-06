@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web.rest;
+package ca.intelliware.ihtsdo.mlds.service;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -15,6 +15,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 import com.google.common.collect.Lists;
 
