@@ -39,11 +39,11 @@ angular.module('MLDS')
 			.$promise.then(function(result) {
 				setReleasePackage(result);
 				})
-					["catch"](function(message) {
-						//FIXME how to handle errors + not present 
-						$log.log('ReleasePackage not found');
-						$location.path('/viewPackages');
-					});
+			["catch"](function(message) {
+				//FIXME how to handle errors + not present 
+				$log.log('ReleasePackage not found');
+				$location.path('/viewPackages');
+			});
 		} else {
 			$location.path('/viewPackages');
 		};
