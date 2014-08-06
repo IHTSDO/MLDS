@@ -59,8 +59,6 @@ import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
 import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
-import ca.intelliware.ihtsdo.mlds.web.UserInfo;
-import ca.intelliware.ihtsdo.mlds.web.UserInfoCalculator;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
 
 import com.codahale.metrics.annotation.Timed;
@@ -97,9 +95,6 @@ public class AccountResource {
     
     @Resource DuplicateRegistrationEmailSender duplicateRegistrationEmailSender;
     
-    @Inject
-    UserInfoCalculator userInfoCalculator;
-
     @Inject
 	private DomainBlacklistService domainBlacklistService;
     
@@ -256,12 +251,6 @@ public class AccountResource {
             roles.add(authority.getName());
         }
         
-        //FIXME: JH-where does this get set?
-        boolean emailVerified = true;
-        
-        //FIXME: JH-pick a better name
-        UserInfo userInfo = userInfoCalculator.createUserInfo();
-        
         Member member = userMembershipAccessor.getMemberAssociatedWithUser();
         
         return new ResponseEntity<>(
@@ -273,9 +262,6 @@ public class AccountResource {
                 user.getEmail(),
                 user.getLangKey(),
                 roles,
-                emailVerified,
-                userInfo.getHasApplied(),
-                userInfo.isApproved(),
                 null,
                 member
                 ),

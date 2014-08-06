@@ -1,7 +1,7 @@
 'use strict';
 
-mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authService', 'Session', 'Account', 'UserSession',
-    function ($rootScope, $http, authService, Session, Account, UserSession) {
+mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authService', 'Session', 'Account',
+    function ($rootScope, $http, authService, Session, Account) {
         return {
             login: function (param) {
                 var data ="j_username=" + param.username +"&j_password=" + param.password +"&_spring_security_remember_me=" + param.rememberMe +"&submit=Login";
@@ -13,7 +13,6 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                 }).success(function (data, status, headers, config) {
                     Account.get(function(data) {
                         Session.create(data.login, data.firstName, data.lastName, data.email, data.roles, data.member);
-                        UserSession.create(data.emailVerified, data.applicationMade, data.applicationApproved);
                         $rootScope.account = Session;
                         authService.loginConfirmed(data);
                     });
@@ -30,7 +29,6 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                     if (!Session.login) {
                         Account.get(function(data) {
                             Session.create(data.login, data.firstName, data.lastName, data.email, data.roles, data.member);
-                            UserSession.create(data.emailVerified, data.applicationMade, data.applicationApproved);
                             $rootScope.account = Session;
 
                             if (!$rootScope.isAuthorized(authorizedRoles)) {
