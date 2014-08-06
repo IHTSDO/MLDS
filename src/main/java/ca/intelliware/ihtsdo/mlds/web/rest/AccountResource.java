@@ -56,6 +56,7 @@ import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
 import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;

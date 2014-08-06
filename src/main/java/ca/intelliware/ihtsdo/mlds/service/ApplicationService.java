@@ -8,7 +8,6 @@ import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
-import ca.intelliware.ihtsdo.mlds.web.rest.UserMembershipAccessor;
 
 @Service
 public class ApplicationService {
