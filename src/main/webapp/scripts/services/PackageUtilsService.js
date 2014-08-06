@@ -114,13 +114,13 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    	};
 	    	
 	    	service.orderIhtsdo = function(memberReleases) {
-	    		return !(memberReleases.member && MemberService.ihtsdoMemberKey === memberReleases.member.key);
+	    		return !(memberReleases.member && MemberService.isIhtsdoMember(memberReleases.member));
 	    	};
 	    	service.orderApprovedMemberships = function(memberReleases) {
-	    		return !(memberReleases.member && _.some(UserAffiliateService.approvedMemberships, memberReleases.member));
+	    		return !(memberReleases.member && _.some(UserAffiliateService.approvedMemberships, _.partial(MemberService.isMemberEqual, memberReleases.member)));
 	    	};
 	    	service.orderIncompleteMemberships = function(memberReleases) {
-	    		return !(memberReleases.member && _.some(UserAffiliateService.incompleteMemberships, memberReleases.member));
+	    		return !(memberReleases.member && _.some(UserAffiliateService.incompleteMemberships, _.partial(MemberService.isMemberEqual, memberReleases.member)));
 	    	};
 	    	service.orderMemberName = function(memberReleases) {
 	    		//FIXME use translated member name rather than key
