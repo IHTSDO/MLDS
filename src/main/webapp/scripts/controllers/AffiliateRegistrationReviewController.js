@@ -1,8 +1,8 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationReviewController',
-        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', '$modalInstance', 'CommercialUsageService', 'UserAffiliateService',
-          function ($scope, $log, UserRegistrationService, $location, UserSession, $modalInstance, CommercialUsageService, UserAffiliateService) {
+        [ '$scope', '$log', 'UserRegistrationService', '$location', '$modalInstance', 'CommercialUsageService', 'UserAffiliateService',
+          function ($scope, $log, UserRegistrationService, $location, $modalInstance, CommercialUsageService, UserAffiliateService) {
         	$scope.CommercialUsageService = CommercialUsageService;
         	$scope.submitting = false;
         	$scope.alerts = [];
@@ -27,7 +27,6 @@ mldsApp.controller('AffiliateRegistrationReviewController',
     			var httpPromise = UserRegistrationService.submitApplication($scope.affiliateform, $scope.applicationId);
     			
     			httpPromise.then(function() {
-    				UserSession.updateSession();
     				UserAffiliateService.refreshAffiliate();
     				$location.path('/dashboard');
     				$modalInstance.close();
