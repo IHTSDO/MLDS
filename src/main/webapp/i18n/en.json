@@ -191,7 +191,7 @@
         }
     },
     "password": {
-        "title": "Password for [<b>{{username}}</b>]",
+        "title": "Password for {{username}}",
         "form": {
             "button": "Save"
         },
