@@ -41,6 +41,7 @@ angular.module('MLDS')
 			.pluck('member')
 			.value();
 		
+		// Include IHTSDO international membership if the application was for a member country
 		if (service.approvedMemberships.length > 0) {
 			addIhtsdoMemberIfMissing(service.approvedMemberships);
 		} else if (service.incompleteMemberships.length > 0) {

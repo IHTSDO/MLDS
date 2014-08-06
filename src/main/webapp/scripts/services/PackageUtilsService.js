@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').factory('PackageUtilsService',
-		[ '$resource', '$q', '$log', '$location', '$modal', 'Session', 'UserRegistrationService', 
-		  function($resource, $q, $log, $location, $modal, Session, UserRegistrationService) {
+		[ '$resource', '$q', '$log', '$location', '$modal', 'Session', 'UserRegistrationService', 'UserAffiliateService', 'MemberService', 
+		  function($resource, $q, $log, $location, $modal, Session, UserRegistrationService, UserAffiliateService, MemberService) {
 			var service = {};
 			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
@@ -112,6 +112,22 @@ angular.module('MLDS').factory('PackageUtilsService',
     		    });
 	    		
 	    	};
+	    	
+	    	service.orderIhtsdo = function(memberReleases) {
+	    		return !(memberReleases.member && MemberService.ihtsdoMemberKey === memberReleases.member.key);
+	    	};
+	    	service.orderApprovedMemberships = function(memberReleases) {
+	    		return !(memberReleases.member && _.some(UserAffiliateService.approvedMemberships, memberReleases.member));
+	    	};
+	    	service.orderIncompleteMemberships = function(memberReleases) {
+	    		return !(memberReleases.member && _.some(UserAffiliateService.incompleteMemberships, memberReleases.member));
+	    	};
+	    	service.orderMemberName = function(memberReleases) {
+	    		//FIXME use translated member name rather than key
+	    		return  memberReleases.member && memberReleases.member.key || 'NONE';
+	    	};
+
+	    	service.releasePackageOrderBy = [service.orderIhtsdo, service.orderApprovedMemberships, service.orderIncompleteMemberships, service.orderMemberName];
 	    	
 			return service;
 		} ]);

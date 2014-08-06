@@ -2,13 +2,17 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService',
-          function ($scope, $log, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService) {
+        [ '$scope', '$log', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService', 'PackageUtilsService', 'MemberService', 'PackagesService',
+          function ($scope, $log, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService, PackageUtilsService, MemberService, PackagesService) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
+        	$scope.packageUtils = PackageUtilsService;
+        	
         	$scope.affiliate = UserAffiliateService.affiliate;
+        	$scope.releasePackagesByMember = [];
+
 
         	UserAffiliateService.promise.then(function() {
         		if (ApplicationUtilsService.isApplicationWaitingForApplicant($scope.affiliate.application)) {
@@ -26,7 +30,8 @@ angular.module('MLDS')
         			}
         		});
         	});
-        	
+
+        	loadReleasePackages();
         	
         	$scope.usageReportsUtils = UsageReportsService;
         	
@@ -39,8 +44,26 @@ angular.module('MLDS')
         	};
         	
         	$scope.isApplicationApproved = function(application) {
-        		return application.approvalState === 'APPROVED';
+        		return ApplicationUtilsService.isApplicationApproved(application);
         	};
-        	
+
+        	function loadReleasePackages() {
+        		PackagesService.query().$promise
+        			.then(function(releasePackages) {
+        				$scope.releasePackagesByMember = _.chain(releasePackages)
+        					.filter(PackageUtilsService.isPackagePublished)
+        					.groupBy(function(value) {return value.member.key;})
+        					.map(function(packages, memberKey) {
+        						return {
+        							member: MemberService.membersByKey[memberKey], 
+        							packages: packages};})
+        					.value();
+        			})
+        			["catch"](function(message) {
+        				//FIXME failed to load release packages
+        				$log.log('Failed to load release packages');
+        			});
+        	}
+
         }
     ]);
