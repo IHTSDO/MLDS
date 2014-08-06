@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web;
+package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -43,9 +43,7 @@ import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
-import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationAuthorizationChecker;
-import ca.intelliware.ihtsdo.mlds.web.rest.RouteLinkBuilder;
-import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
+import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,7 +53,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 @RestController
-public class ApplicationController {
+public class ApplicationResource {
 	@Resource
 	ApplicationRepository applicationRepository;
 	@Resource

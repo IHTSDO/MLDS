@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web;
+package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,6 +20,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
+import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationResource;
 import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 @RunWith(MockitoJUnitRunner.class)
 public class ApplicationUpdateTest {
@@ -32,7 +33,7 @@ public class ApplicationUpdateTest {
 	@Before
 	public void setup() {
 
-		ApplicationController applicationResource = new ApplicationController();
+		ApplicationResource applicationResource = new ApplicationResource();
 		applicationResource.applicationRepository = applicationRepository;
 		applicationResource.objectMapper = new ObjectMapper();
 

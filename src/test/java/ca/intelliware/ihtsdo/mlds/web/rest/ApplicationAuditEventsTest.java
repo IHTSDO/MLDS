@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web;
+package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.util.HashMap;
 
@@ -15,6 +15,7 @@ import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
+import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationAuditEvents;
 import ca.intelliware.ihtsdo.mlds.web.rest.ReleasePackageAuditEvents;
 
 public class ApplicationAuditEventsTest {
