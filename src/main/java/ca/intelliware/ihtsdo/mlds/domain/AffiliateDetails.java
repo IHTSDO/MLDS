@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import com.google.common.base.Throwables;
+
 
 @Entity
 @Table(name="affiliate_details")
@@ -191,7 +193,17 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 		this.organizationTypeOther = organizationTypeOther;
 	}
 	
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public AffiliateDetails copyNoId() {
+		AffiliateDetails detailsCopy = (AffiliateDetails) clone();
+		detailsCopy.setAffiliateDetailsId(null);
+		return detailsCopy;
 	}
 }

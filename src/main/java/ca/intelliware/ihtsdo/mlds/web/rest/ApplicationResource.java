@@ -33,6 +33,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.domain.json.ApplicationCollection;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
@@ -134,11 +135,12 @@ public class ApplicationResource {
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}
 	
+	
 	@RequestMapping(value = Routes.APPLICATIONS, 
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
-	public @ResponseBody ResponseEntity<Collection<Application>> getApplications(@RequestParam(value="$filter") String filter){
+	public @ResponseBody ResponseEntity<ApplicationCollection> getApplications(@RequestParam(value="$filter") String filter){
 		Iterable<Application> applications;
 		if (filter == null) {
 			applications = applicationRepository.findAll();
@@ -150,7 +152,7 @@ public class ApplicationResource {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
-		return new ResponseEntity<Collection<Application>>(Lists.newArrayList(applications), HttpStatus.OK);
+		return new ResponseEntity<ApplicationCollection>(new ApplicationCollection(applications), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = Routes.APPLICATION, 
