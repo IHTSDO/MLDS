@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
@@ -36,12 +37,15 @@ public class ApplicationService {
 		application.setUsername(sessionService.getUsernameOrNull());
 		application.setMember(member);
 		// FIXME MLDS-308 MB fill in more details
+		// FIXME MLDS-310 MB copy affiliate details
 		
 		if (applicationType.equals(ApplicationType.EXTENSION)){
 			// FIXME MLDS-308 MB should the affiliate be passed in?
 			List<Affiliate> affiliates = affiliateRepository.findByCreator(sessionService.getUsernameOrNull());
 			Affiliate affiliate = affiliates.get(0);
 			affiliate.addApplication(application);
+			AffiliateDetails detailsCopy = affiliate.getAffiliateDetails().copyNoId();
+			application.setAffiliateDetails(detailsCopy);
 		}
 		return application;
 	}
