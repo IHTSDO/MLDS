@@ -28,7 +28,6 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateSubType;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
-import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
@@ -47,6 +46,9 @@ import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -421,6 +423,7 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public ResponseEntity<Application> createApplication(@RequestBody CreateApplicationDTO requestBody) {
 		
+		// FIXME MLDS-308 it is an error to try to create an extension application without a target member.
 		Member member = (requestBody.getMemberKey() != null) ?  memberRepository.findOneByKey(requestBody.getMemberKey()) : userMembershipAccessor.getMemberAssociatedWithUser();
 		
 		Application application = applicationService.startNewApplication(requestBody.getApplicationType(), member);
@@ -437,8 +440,26 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Transactional
 	public ResponseEntity<?> updateApplication(@PathVariable long applicationId, @RequestBody ObjectNode requestBody) throws IOException {
-		
 		Application original = applicationRepository.findOne(applicationId);
+		Application updatedApplication = constructUpdatedApplication(requestBody, original);
+		
+		try {
+			applicationService.doUpdate(original, updatedApplication);
+		} catch (IllegalArgumentException e) {
+			return new ResponseEntity<String>("Forbidden change to application:" + e.getMessage(), HttpStatus.CONFLICT);
+		}
+		
+		return new ResponseEntity<Application>(original, HttpStatus.OK);
+	}
+
+	/**
+	 * Verify that the requestBody has the same applicationType, or default it to the original type
+	 * @param requestBody
+	 * @param original
+	 * @return a detached Application instance with all of the changes applied
+	 */
+	private Application constructUpdatedApplication(ObjectNode requestBody, Application original) throws IOException, JsonParseException,
+			JsonMappingException, JsonProcessingException {
 		ObjectNode treeCopyOfOriginal = objectMapper.readValue(objectMapper.writeValueAsString(original), ObjectNode.class);
 		String typeTag = requestBody.get("applicationType")!= null?requestBody.get("applicationType").asText():null;
 		String originalTypeTag = treeCopyOfOriginal.get("applicationType").asText();
@@ -448,30 +469,6 @@ public class ApplicationResource {
 			requestBody.put("applicationType", originalTypeTag);
 		}
 		Application updatedApplication = objectMapper.treeToValue(requestBody, Application.class);
-		
-		if (original instanceof ExtensionApplication) {
-			ExtensionApplication updatedExtensionApplicatoin = (ExtensionApplication) updatedApplication;
-			ExtensionApplication extensionApplication = (ExtensionApplication) original;
-			extensionApplication.setReason(updatedExtensionApplicatoin.getReason());
-		}
-		if (updatedApplication.getApprovalState() != original.getApprovalState()) {
-			ApprovalState originalState = original.getApprovalState();
-			ApprovalState updatedState = updatedApplication.getApprovalState();
-			if (originalState == ApprovalState.NOT_SUBMITTED && updatedState == ApprovalState.SUBMITTED) {
-				original.setApprovalState(ApprovalState.SUBMITTED);
-				original.setSubmittedAt(Instant.now());
-			} else if (originalState == ApprovalState.CHANGE_REQUESTED && updatedState == ApprovalState.SUBMITTED) {
-				original.setApprovalState(ApprovalState.RESUBMITTED);
-				original.setSubmittedAt(Instant.now());
-			} else if (originalState == ApprovalState.CHANGE_REQUESTED && updatedState == ApprovalState.RESUBMITTED) {
-				original.setApprovalState(ApprovalState.RESUBMITTED);
-				original.setSubmittedAt(Instant.now());
-			} else {
-				return new ResponseEntity<String>("Forbidden change to approvalState",HttpStatus.CONFLICT);
-			}
-		}
-		
-		ResponseEntity<Application> result = new ResponseEntity<Application>(original, HttpStatus.OK);
-		return result;
+		return updatedApplication;
 	}
 }
