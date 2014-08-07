@@ -40,9 +40,9 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				return $http.get('/app/rest/applications/me');
 			},
 			
-			createExtensionApplication: function createExtensionApplication(affiliateId) {
+			createExtensionApplication: function createExtensionApplication(memberKey) {
 				$log.log('createExtensionApplication');
-				return $http.post('/app/rest/applications', {affiliateId: affiliateId, applicationType: 'EXTENSION'});
+				return $http.post('/app/rest/applications', {memberKey: memberKey, applicationType: 'EXTENSION'});
 			},
 			
 			submitApplication: function submitApplication(applicationForm, applicationId) {
