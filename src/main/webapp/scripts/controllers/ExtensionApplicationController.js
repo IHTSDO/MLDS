@@ -1,9 +1,22 @@
 'use strict';
 
-angular.module('MLDS').controller('ExtensionApplicationController', ['$scope', '$location', '$log', 'application', 'UserRegistrationService',
-                                                       	function($scope, $location, $log, application, UserRegistrationService) {
+angular.module('MLDS').controller('ExtensionApplicationController', 
+		['$scope', '$location', '$log', 'UserRegistrationService', '$routeParams',
+           	function($scope, $location, $log, UserRegistrationService, $routeParams) {
 	
-	$scope.extensionForm = application;
+	var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
+	
+	$scope.extensionForm = {};
+	
+	UserRegistrationService.getApplicationById(applicationId)
+		.then(function(result) {
+			$scope.extensionForm = result.data;
+		})["catch"](function(message) {
+			//FIXME how to handle errors + not present 
+			$log.log('application not found');
+			$location.path('/viewPackages');
+		});
+	;
 	
 	$scope.submit = function(){
 		$scope.extensionForm.approvalState = 'SUBMITTED';

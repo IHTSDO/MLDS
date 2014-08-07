@@ -99,7 +99,6 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    			UserRegistrationService.createExtensionApplication()
 		    			.then(function(result) {
 		    				if(result.data && result.data.applicationId) {
-		    					$log.log('applicationId created:', result.data.applicationId);
 		    					$location.path('/extensionApplication/'+ result.data.applicationId);
 		    				}
 		    			})
