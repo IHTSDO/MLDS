@@ -31,7 +31,7 @@
 					<tr ng-repeat="application in applications | filter:applicationSearch">
 					<td>{{application.submittedAt | date}}</td>
 					<td>{{'approval.state.'+application.approvalState | translate}}</td>
-					<td>New</td>
+					<td>{{application.applicationType}}</td>
 					<td class="text-right">{{totalSublicences(application.commercialUsage) | number}}</td>
 					<td>{{application.affiliateDetails.organizationName ? application.affiliateDetails.organizationName : application.affiliateDetails.firstName + ' '+application.affiliateDetails.lastName}}</td>
 					<td>{{application.affiliateDetails.address.country.commonName}}</td>
