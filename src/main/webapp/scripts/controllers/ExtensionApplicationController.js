@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('ExtensionApplicationController', 
-		['$scope', '$location', '$log', 'UserRegistrationService', '$routeParams',
-           	function($scope, $location, $log, UserRegistrationService, $routeParams) {
+		['$scope', '$location', '$log', '$routeParams', 'UserRegistrationService', 'UserAffiliateService',
+           	function($scope, $location, $log, $routeParams, UserRegistrationService, UserAffiliateService) {
 	
 	var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
 	
@@ -24,6 +24,7 @@ angular.module('MLDS').controller('ExtensionApplicationController',
 		UserRegistrationService.updateApplication($scope.extensionForm)
 			.then(function(result) {
 				$log.log('extensionForm.submit.result', result);
+				UserAffiliateService.refreshAffiliate();
 			});
 	};
 		
