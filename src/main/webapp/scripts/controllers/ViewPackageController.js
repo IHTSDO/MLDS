@@ -25,7 +25,7 @@ angular.module('MLDS')
 	
 	var setReleasePackage = function setReleasePackage(releasePackage) {
 		$scope.releasePackage = releasePackage;
-		$log.log(releasePackage);
+		//$log.log('setReleasePackage', releasePackage);
 		UserAffiliateService.promise.then(function() {
 			$scope.isMembershipApproved = _.some(UserAffiliateService.approvedMemberships, function(member) { return member.key === releasePackage.member.key;});
 			$scope.isMembershipIncomplete = _.some(UserAffiliateService.incompleteMemberships, function(member) {return member.key === releasePackage.member.key;});

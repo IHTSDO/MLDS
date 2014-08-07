@@ -96,7 +96,7 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		    });
 	    		
 	    		modalInstance.result.then(function () {
-	    			UserRegistrationService.createExtensionApplication()
+	    			UserRegistrationService.createExtensionApplication(UserAffiliateService.affiliate.affiliateId)
 		    			.then(function(result) {
 		    				if(result.data && result.data.applicationId) {
 		    					$location.path('/extensionApplication/'+ result.data.applicationId);
