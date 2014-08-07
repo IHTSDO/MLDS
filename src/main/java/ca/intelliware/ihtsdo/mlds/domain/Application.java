@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -45,7 +46,7 @@ public abstract class Application extends BaseEntity {
 
 	String username;
 	
-	@OneToOne()
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="affiliate_details_id")
 	AffiliateDetails affiliateDetails;
 	
