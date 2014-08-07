@@ -38,10 +38,12 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
@@ -54,33 +56,21 @@ import com.google.common.collect.Lists;
 
 @RestController
 public class ApplicationResource {
-	@Resource
-	ApplicationRepository applicationRepository;
-	@Resource
-	SessionService sessionService;
-	@Resource
-	AffiliateRepository affiliateRepository;
-	@Resource
-	ApplicationApprovedEmailSender applicationApprovedEmailSender;
-	@Resource
-	UserRepository userRepository;
-	@Resource
-	ApplicationAuditEvents applicationAuditEvents;
-	@Resource
-	ApplicationAuthorizationChecker authorizationChecker;
-	@Resource
-	CountryRepository countryRepository;
-	@Resource
-	AffiliateDetailsRepository affiliateDetailsRepository;
-	@Resource
-	AffiliateDetailsResetter affiliateDetailsResetter;
-	@Resource
-	ApplicationService applicationService;
-	@Resource
-	RouteLinkBuilder routeLinkBuilder;
-	@Resource
-	ObjectMapper objectMapper;
-	
+	@Resource ApplicationRepository applicationRepository;
+	@Resource SessionService sessionService;
+	@Resource AffiliateRepository affiliateRepository;
+	@Resource ApplicationApprovedEmailSender applicationApprovedEmailSender;
+	@Resource UserRepository userRepository;
+	@Resource ApplicationAuditEvents applicationAuditEvents;
+	@Resource ApplicationAuthorizationChecker authorizationChecker;
+	@Resource CountryRepository countryRepository;
+	@Resource AffiliateDetailsRepository affiliateDetailsRepository;
+	@Resource AffiliateDetailsResetter affiliateDetailsResetter;
+	@Resource ApplicationService applicationService;
+	@Resource RouteLinkBuilder routeLinkBuilder;
+	@Resource ObjectMapper objectMapper;
+	@Resource UserMembershipAccessor userMembershipAccessor;
+	@Resource MemberRepository memberRepository;
 
 	@RequestMapping(value="api/applications")
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
@@ -406,7 +396,7 @@ public class ApplicationResource {
 	
 	public static class CreateApplicationDTO {
 		Application.ApplicationType applicationType;
-		Long affiliateId;
+		String memberKey;
 
 		public Application.ApplicationType getApplicationType() {
 			return applicationType;
@@ -416,14 +406,13 @@ public class ApplicationResource {
 			this.applicationType = applicationType;
 		}
 
-		public Long getAffiliateId() {
-			return affiliateId;
+		public String getMemberKey() {
+			return memberKey;
 		}
 
-		public void setAffiliateId(Long affiliateId) {
-			this.affiliateId = affiliateId;
+		public void setMemberKey(String memberKey) {
+			this.memberKey = memberKey;
 		}
-		
 
 	}
 	@RequestMapping(value = Routes.APPLICATIONS, 
@@ -432,11 +421,9 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public ResponseEntity<Application> createApplication(@RequestBody CreateApplicationDTO requestBody) {
 		
-		Application application = applicationService.startNewApplication(requestBody.getApplicationType());
+		Member member = (requestBody.getMemberKey() != null) ?  memberRepository.findOneByKey(requestBody.getMemberKey()) : userMembershipAccessor.getMemberAssociatedWithUser();
 		
-		Affiliate affiliate = affiliateRepository.findOne(requestBody.getAffiliateId());
-		affiliate.addApplication(application);
-		affiliateRepository.save(affiliate);
+		Application application = applicationService.startNewApplication(requestBody.getApplicationType(), member);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(routeLinkBuilder.toURLWithKeyValues(Routes.APPLICATION, "applicationId", application.getApplicationId()));
