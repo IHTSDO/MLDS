@@ -472,10 +472,13 @@ public class ApplicationResource {
 			ApprovalState updatedState = updatedApplication.getApprovalState();
 			if (originalState == ApprovalState.NOT_SUBMITTED && updatedState == ApprovalState.SUBMITTED) {
 				original.setApprovalState(ApprovalState.SUBMITTED);
+				original.setSubmittedAt(Instant.now());
 			} else if (originalState == ApprovalState.CHANGE_REQUESTED && updatedState == ApprovalState.SUBMITTED) {
 				original.setApprovalState(ApprovalState.RESUBMITTED);
+				original.setSubmittedAt(Instant.now());
 			} else if (originalState == ApprovalState.CHANGE_REQUESTED && updatedState == ApprovalState.RESUBMITTED) {
 				original.setApprovalState(ApprovalState.RESUBMITTED);
+				original.setSubmittedAt(Instant.now());
 			} else {
 				return new ResponseEntity<String>("Forbidden change to approvalState",HttpStatus.CONFLICT);
 			}
