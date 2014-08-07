@@ -406,6 +406,7 @@ public class ApplicationResource {
 	
 	public static class CreateApplicationDTO {
 		Application.ApplicationType applicationType;
+		Long affiliateId;
 
 		public Application.ApplicationType getApplicationType() {
 			return applicationType;
@@ -414,6 +415,16 @@ public class ApplicationResource {
 		public void setApplicationType(Application.ApplicationType applicationType) {
 			this.applicationType = applicationType;
 		}
+
+		public Long getAffiliateId() {
+			return affiliateId;
+		}
+
+		public void setAffiliateId(Long affiliateId) {
+			this.affiliateId = affiliateId;
+		}
+		
+
 	}
 	@RequestMapping(value = Routes.APPLICATIONS, 
 			method=RequestMethod.POST,
@@ -422,6 +433,10 @@ public class ApplicationResource {
 	public ResponseEntity<Application> createApplication(@RequestBody CreateApplicationDTO requestBody) {
 		
 		Application application = applicationService.startNewApplication(requestBody.getApplicationType());
+		
+		Affiliate affiliate = affiliateRepository.findOne(requestBody.getAffiliateId());
+		affiliate.addApplication(application);
+		affiliateRepository.save(affiliate);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(routeLinkBuilder.toURLWithKeyValues(Routes.APPLICATION, "applicationId", application.getApplicationId()));
