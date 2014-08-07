@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 @DiscriminatorValue("PRIMARY")
 public class PrimaryApplication extends Application{
 
+	// FIXME MLDS-310 MB consider moving these into AffiliateDetails for a consistent approach
 	@Enumerated(EnumType.STRING)
 	AffiliateType type;
 	@Enumerated(EnumType.STRING)
