@@ -1,3 +1,31 @@
+<div class="row space" ng-show="isApplicationWaitingForApplicant">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+  	<div class="alert alert-warning" role="alert">
+  		<div><strong>Extension Registration Needs Change</strong></div>
+  		<p>Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
+  	</div>
+  </div>
+</div>
+
+<div class="row space" ng-show="isApplicationRejected">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+  	<div class="alert alert-danger" role="alert">
+  		<div><strong>Extension Registration Rejected</strong></div>
+  		<p>Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
+  	</div>
+  </div>
+</div>
+
+<div class="row space" ng-show="isApplicationApproved">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+  	<div class="alert alert-success" role="alert">
+  		<div><strong>Extension Registration Approved</strong></div>
+  		<p>Your application has been approved.</p>
+  	</div>
+  </div>
+</div>
+
+
 <form name="extensionApplicationForm" novalidate bs-validation ng-submit="submit()">
 	<div class="row">
 		<div class="col-sx-12 col-md-12">
