@@ -26,10 +26,14 @@
 				</a>
 			</div>
 				<div class="pull-right" ng-show="$root.authenticated">
-					<button class="btn btn-success pull-right" ng-show="isMembershipUnstarted" ng-click="utils.openExtensionApplication(releasePackage)">			
+					<button class="btn btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved" ng-click="utils.openExtensionApplication(releasePackage)">			
 						Apply for extension
 					</button>
-					<span class="alert alert-warning" ng-show="isMembershipIncomplete">Application being processed</span>
+					<span class="alert alert-warning" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant">Application being processed</span>
+					<span class="alert alert-warning" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant">
+						Application being updated, 
+						<span ng-click="goToExtensionApplication()" class="btn btn-link">click to view application.</span>
+					</span>
 				</div>
 			</div>
 		</div>
