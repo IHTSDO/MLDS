@@ -1,11 +1,16 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
@@ -35,6 +41,8 @@ import com.wordnik.swagger.annotations.Api;
 @Api(value = "affiliate", description = "Affiliate API")
 public class AffiliateResource {
 
+    private final Logger log = LoggerFactory.getLogger(AffiliateResource.class);
+    
 	@Resource
 	AffiliateRepository affiliateRepository;
 	
@@ -79,7 +87,24 @@ public class AffiliateResource {
     	applicationAuthorizationChecker.checkCanAccessAffiliate(username);
     	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
     }
+	
+	
+	@RolesAllowed({AuthoritiesConstants.ADMIN})
+    @RequestMapping(value = Routes.AFFILIATES_IMPORT,
+    		method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<Collection<Affiliate>> importAffiliates( @RequestParam("file") MultipartFile file) throws IOException {
+		if (file.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		//FIXME Is this correct that we are assuming UTF8?
+		String content = IOUtils.toString(file.getInputStream(),  Charsets.UTF_8);
+		log.info("Uploaded "+content.length()+"\n"+content);
+		//FIXME implement parsing and return...
+    	return new ResponseEntity<Collection<Affiliate>>((Collection<Affiliate>)null, HttpStatus.OK);
+    }
 
+	
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATE_DETAIL,
     		method = RequestMethod.GET,
