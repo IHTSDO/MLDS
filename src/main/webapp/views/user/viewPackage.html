@@ -29,6 +29,7 @@
 					<button class="btn btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved" ng-click="utils.openExtensionApplication(releasePackage)">			
 						Apply for extension
 					</button>
+					<span class="alert alert-warning" ng-show="!isPrimaryApplicationApproved">Primary application is being processed</span>
 					<span class="alert alert-warning" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant">Application being processed</span>
 					<span class="alert alert-warning" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant">
 						Application being updated, 
