@@ -2,11 +2,11 @@
 	<div class="col-md-12">
 		<div class="page-header">
 			<span class="pull-right"><a href="#/pendingApplications">Back to Pending Applications</a></span>
-			<h1> Application Review</h1>
+			<h1>{{'application.applicationType.'+application.applicationType | translate}} Application Review</h1>
 		</div>
 	</div>
 </div>
-<div class="row">
+<div class="row" ng-switch="application.applicationType">
 	<div class="col-md-8">
 		<div class="applicant-info">
 			<p><strong>Issue No:</strong> {{application.applicationId}}</p>
@@ -14,12 +14,12 @@
 				<h4 class="application-title">{{application.organizationName}} - {{application.name}} <span class="label label-success">{{'approval.state.'+application.approvalState | translate}}</span></h4>
 				<p> <strong>Application Date: {{application.submittedAt | date}}</strong> </p>
 			</div>
-		<hr>
-		<div ng-include="'views/admin/applicationSummaryBlock.html'"></div>
+			<hr>
+			<div ng-include="'views/admin/applicationSummaryBlock.html'"></div>
 		</div>
 	</div>
 	<div class="col-md-4 well-inactive">
-		<div ng-controller="ApplicationReviewComparisonSearchController">
+		<div ng-controller="ApplicationReviewComparisonSearchController" ng-switch-when="PRIMARY">
 			<div ng-hide="showComparisonAffiliate">
 				<!-- Search block -->
 				<script type="text/ng-template" id="views/admin/applicationReviewAffiliateSearchTemplate.html">
