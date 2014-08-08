@@ -56,5 +56,21 @@ angular.module('MLDS')
 		}
 	};
 	
+	var isMemberOf = function isMemberOf(member, memberships) {
+		return _.some(memberships, _.partial(MemberService.isMemberEqual, member));
+	};
+	
+	service.isMembershipApproved = function(member) {
+		return isMemberOf(member, service.approvedMemberships);
+	};
+
+	service.isMembershipIncomplete = function(member) {
+		return isMemberOf(member, service.incompleteMemberships);
+	};
+
+	service.isMembershipNotStarted = function(member) {
+		return !isMembershipApproved(member) && !isMembershipIncomplete(member);
+	};
+
 	return service;
 }]);
