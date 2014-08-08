@@ -32,12 +32,13 @@ public class ApplicationService {
 
 	public Application startNewApplication(ApplicationType applicationType, Member member) {
 		Application application = Application.create(applicationType);
-		applicationRepository.save(application);
 		
 		application.setUsername(sessionService.getUsernameOrNull());
 		application.setMember(member);
 		// FIXME MLDS-308 MB fill in more details
 		// FIXME MLDS-310 MB copy affiliate details
+		
+		applicationRepository.save(application);
 		
 		if (applicationType.equals(ApplicationType.EXTENSION)){
 			// FIXME MLDS-308 MB should the affiliate be passed in?
@@ -46,6 +47,7 @@ public class ApplicationService {
 			affiliate.addApplication(application);
 			AffiliateDetails detailsCopy = affiliate.getAffiliateDetails().copyNoId();
 			application.setAffiliateDetails(detailsCopy);
+//			affiliateRepository.save(affiliate);
 		}
 		return application;
 	}
