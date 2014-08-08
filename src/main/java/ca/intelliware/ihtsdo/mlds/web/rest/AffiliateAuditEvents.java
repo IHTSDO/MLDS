@@ -35,4 +35,9 @@ public class AffiliateAuditEvents {
     	auditData.put("affiliate.creator", affiliate.getCreator());
 		return auditData;
 	}
+	
+	public void logImport() {
+		Map<String,String> auditData = Maps.newHashMap();
+		auditEventService.logAuditableEvent("AFFILIATE_IMPORT", auditData);
+	}
 }

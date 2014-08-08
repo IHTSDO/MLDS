@@ -53,6 +53,9 @@ public class AffiliateResource {
 	ApplicationAuthorizationChecker applicationAuthorizationChecker;
 
 	@Resource
+	AffiliateAuditEvents affiliateAuditEvents;
+	
+	@Resource
 	SessionService sessionService;
 
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
@@ -101,6 +104,7 @@ public class AffiliateResource {
 		String content = IOUtils.toString(file.getInputStream(),  Charsets.UTF_8);
 		log.info("Uploaded "+content.length()+"\n"+content);
 		//FIXME implement parsing and return...
+		affiliateAuditEvents.logImport();
     	return new ResponseEntity<Collection<Affiliate>>((Collection<Affiliate>)null, HttpStatus.OK);
     }
 
