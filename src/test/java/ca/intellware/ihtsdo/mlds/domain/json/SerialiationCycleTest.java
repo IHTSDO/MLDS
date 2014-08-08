@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.domain.json;
+package ca.intellware.ihtsdo.mlds.domain.json;
 
 import java.util.Arrays;
 
@@ -7,6 +7,7 @@ import org.junit.Test;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
+import ca.intelliware.ihtsdo.mlds.domain.json.ApplicationCollection;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
