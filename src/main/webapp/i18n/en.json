@@ -397,5 +397,12 @@
 				"APPROVED": "Approved",
 				"REJECTED": "Declined"
     	}	
+    },
+    "application": {
+    	"applicationType": {
+    		"PRIMARY": "Primary",
+    		"EXTENSION": "Extension"
+    	}
     }
+    
 }
