@@ -19,7 +19,7 @@
 						<th>Date Submitted</th>
 						<th>Status</th>
 						<th>Type</th>
-						<th class="text-right">No. of Sublicences</th>
+						<th class="text-right">Assigned Member</th>
 						<th>Affiliate Name</th>
 						<th>Home Country</th>
 						<th>Use Type</th>
@@ -34,25 +34,16 @@
 					<td>{{'approval.state.'+application.approvalState | translate}}</td>
 					<td>{{application.applicationType}}</td>
 					
-					<td ng-switch-when="PRIMARY" class="text-right">{{totalSublicences(application.commercialUsage) | number}}</td>
-					<td ng-switch-when="EXTENSION" class="text-right"></td>
+					<td class="text-right">{{'global.member.'+application.member.key | translate}}</td>
 					<td>{{application.affiliateDetails.organizationName ? application.affiliateDetails.organizationName : application.affiliateDetails.firstName + ' '+application.affiliateDetails.lastName}}</td>
 					<td>{{application.affiliateDetails.address.country.commonName}}</td>
 					<td ng-switch-when="PRIMARY">{{'affiliate.type.'+application.type | translate}} - {{'affiliate.subType.'+application.subType | translate}}</td>
 					<td ng-switch-when="PRIMARY">{{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</td>
 					
 					<td ng-switch-when="EXTENSION">{{'affiliate.type.'+application.affiliate.type | translate}}</td>
-					<td ng-switch-when="EXTENSION">{{application.affiliate.commercialUsages[application.affiliate.commercialUsages.length-1].context.agreementType}}</td>
-					
-<!-- 					<td ng-switch-when="EXTENSION">{{'affiliate.agreementType.'+application.affiliate.commercialUsages[0].context.agreementType | translate}}</td> -->
-					
-					
-					
+					<td ng-switch-when="EXTENSION">{{'affiliate.agreementType.'+application.affiliate.commercialUsages[0].context.agreementType | translate}}</td>
 					
 					<td> <a class="btn btn-primary btn-sm" ng-click="goToApplication(application)"><i class="fa fa-pencil"></i> Review</a></td>
-					
-					
-					
 				</tr>
 				</tbody>
 			</table>
