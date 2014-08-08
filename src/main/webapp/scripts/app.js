@@ -325,6 +325,13 @@ mldsApp
                         authorizedRoles: [USER_ROLES.admin]
                     }
                 })
+                .when('/importAffiliates', {
+                    templateUrl: 'views/admin/importAffiliates.html',
+                    controller: 'ImportAffiliatesController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
                 .otherwise({
                     templateUrl: 'views/landingPage.html',
                     controller: 'MainController',
