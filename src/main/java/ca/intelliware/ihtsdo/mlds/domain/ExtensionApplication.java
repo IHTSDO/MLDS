@@ -8,6 +8,12 @@ import javax.persistence.Entity;
 public class ExtensionApplication extends Application {
 	String reason;
 
+	public ExtensionApplication() {}
+	public ExtensionApplication(long id) {
+		this();
+		this.applicationId = id;
+	}
+
 	public String getReason() {
 		return reason;
 	}
