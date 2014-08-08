@@ -135,7 +135,7 @@
 	</div>
 </div>
 
-<div class="row" ng-repeat="memberReleases in releasePackagesByMember | orderBy: packageUtils.releasePackageOrderBy">
+<div class="row" ng-repeat="memberReleases in approvedReleasePackagesByMember | orderBy: packageUtils.releasePackageOrderBy">
 	 <div class="col-lg-12">
 	  <h3>{{'global.member.'+memberReleases.packages[0].member.key | translate}}</h3>
 	</div>
@@ -147,5 +147,14 @@
 		 		<i class="fa fa-file"></i>  <a class="btn btn-link" href="{{releaseFile.downloadUrl}}">{{releaseFile.label}}</a>
 		 	</p>
 		</div>
+	</div>
+</div>
+
+<div class="row" ng-show="notApprovedReleasePackagesByMember">
+	 <div class="col-lg-12">
+	 	<h3>Other Available Releases</h3>
+	 </div>
+	<div ng-repeat="memberReleases in notApprovedReleasePackagesByMember | orderBy: packageUtils.releasePackageOrderBy">
+		<a href="#/viewPackages"class="btn btn-link">{{'global.member.'+memberReleases.packages[0].member.key | translate}}</a>
 	</div>
 </div>
