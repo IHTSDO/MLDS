@@ -48,7 +48,7 @@ public class AuditEventService {
     }
 
 	public void logAuditableEvent(String eventType, Map<String,String> auditData) {
-		persistenceAuditEventRepository.save(createAuditEvent(eventType, auditData));
+		logAuditableEvent(createAuditEvent(eventType, auditData));
 	}
 
 	public void logAuditableEvent(PersistentAuditEvent auditEvent) {
