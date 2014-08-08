@@ -31,6 +31,7 @@ import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.AffiliatesImporterService;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 import com.google.common.base.Objects;
@@ -54,6 +55,9 @@ public class AffiliateResource {
 
 	@Resource
 	AffiliateAuditEvents affiliateAuditEvents;
+	
+	@Resource
+	AffiliatesImporterService affiliatesImporterService; 
 	
 	@Resource
 	SessionService sessionService;
@@ -103,7 +107,7 @@ public class AffiliateResource {
 		//FIXME Is this correct that we are assuming UTF8?
 		String content = IOUtils.toString(file.getInputStream(),  Charsets.UTF_8);
 		log.info("Uploaded "+content.length()+"\n"+content);
-		//FIXME implement parsing and return...
+		affiliatesImporterService.importFromCSV(content);
 		affiliateAuditEvents.logImport();
     	return new ResponseEntity<Collection<Affiliate>>((Collection<Affiliate>)null, HttpStatus.OK);
     }
