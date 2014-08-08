@@ -3,12 +3,15 @@
 		<div class="page-header">
 			<h4>Import Affiliate Records</h4>
 		</div>
-		<form class="form-inline" ng-submit="domainform.submit()"> 
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+		
+		<form class="form-inline"> 
 			<div class="form-group">
 				<label>Upload Affiliate CSV File</label>
-				<input type="text" class="form-control" ng-model="domainform.name">
-				<input type="submit" class="btn btn-default" value="Upload"/>
+				<input type="file" class="form-control" file-model="affiliatesFile">
+				<button class="btn btn-default" ng-disabled="submitting" ng-click="uploadFile()">Upload</button>
 			</div>
 		</form>
+		<p ng-show="submitting">Loading....</p>
 	</div>
 </div>

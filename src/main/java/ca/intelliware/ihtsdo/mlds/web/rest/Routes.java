@@ -66,6 +66,11 @@ public class Routes {
 	static final String AFFILIATES_CREATOR = "/app/rest/affiliates/creator/{username:.+}";
 
 	/**
+	 * - import affiliates data from CSV
+	 */
+	static final String AFFILIATES_IMPORT = "/app/rest/affiliates/import";
+	
+	/**
 	 * control endpoint for application detail:
 	 * - GET
 	 * - PUT affiliate details to update details
