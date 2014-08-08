@@ -1,7 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -28,23 +27,28 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateSubType;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
-import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.domain.json.ApplicationCollection;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -54,33 +58,21 @@ import com.google.common.collect.Lists;
 
 @RestController
 public class ApplicationResource {
-	@Resource
-	ApplicationRepository applicationRepository;
-	@Resource
-	SessionService sessionService;
-	@Resource
-	AffiliateRepository affiliateRepository;
-	@Resource
-	ApplicationApprovedEmailSender applicationApprovedEmailSender;
-	@Resource
-	UserRepository userRepository;
-	@Resource
-	ApplicationAuditEvents applicationAuditEvents;
-	@Resource
-	ApplicationAuthorizationChecker authorizationChecker;
-	@Resource
-	CountryRepository countryRepository;
-	@Resource
-	AffiliateDetailsRepository affiliateDetailsRepository;
-	@Resource
-	AffiliateDetailsResetter affiliateDetailsResetter;
-	@Resource
-	ApplicationService applicationService;
-	@Resource
-	RouteLinkBuilder routeLinkBuilder;
-	@Resource
-	ObjectMapper objectMapper;
-	
+	@Resource ApplicationRepository applicationRepository;
+	@Resource SessionService sessionService;
+	@Resource AffiliateRepository affiliateRepository;
+	@Resource ApplicationApprovedEmailSender applicationApprovedEmailSender;
+	@Resource UserRepository userRepository;
+	@Resource ApplicationAuditEvents applicationAuditEvents;
+	@Resource ApplicationAuthorizationChecker authorizationChecker;
+	@Resource CountryRepository countryRepository;
+	@Resource AffiliateDetailsRepository affiliateDetailsRepository;
+	@Resource AffiliateDetailsResetter affiliateDetailsResetter;
+	@Resource ApplicationService applicationService;
+	@Resource RouteLinkBuilder routeLinkBuilder;
+	@Resource ObjectMapper objectMapper;
+	@Resource UserMembershipAccessor userMembershipAccessor;
+	@Resource MemberRepository memberRepository;
 
 	@RequestMapping(value="api/applications")
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
@@ -142,11 +134,12 @@ public class ApplicationResource {
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}
 	
+	
 	@RequestMapping(value = Routes.APPLICATIONS, 
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
-	public @ResponseBody ResponseEntity<Collection<Application>> getApplications(@RequestParam(value="$filter") String filter){
+	public @ResponseBody ResponseEntity<ApplicationCollection> getApplications(@RequestParam(value="$filter") String filter){
 		Iterable<Application> applications;
 		if (filter == null) {
 			applications = applicationRepository.findAll();
@@ -158,7 +151,7 @@ public class ApplicationResource {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
-		return new ResponseEntity<Collection<Application>>(Lists.newArrayList(applications), HttpStatus.OK);
+		return new ResponseEntity<ApplicationCollection>(new ApplicationCollection(applications), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = Routes.APPLICATION, 
@@ -406,6 +399,7 @@ public class ApplicationResource {
 	
 	public static class CreateApplicationDTO {
 		Application.ApplicationType applicationType;
+		String memberKey;
 
 		public Application.ApplicationType getApplicationType() {
 			return applicationType;
@@ -414,6 +408,15 @@ public class ApplicationResource {
 		public void setApplicationType(Application.ApplicationType applicationType) {
 			this.applicationType = applicationType;
 		}
+
+		public String getMemberKey() {
+			return memberKey;
+		}
+
+		public void setMemberKey(String memberKey) {
+			this.memberKey = memberKey;
+		}
+
 	}
 	@RequestMapping(value = Routes.APPLICATIONS, 
 			method=RequestMethod.POST,
@@ -421,7 +424,10 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	public ResponseEntity<Application> createApplication(@RequestBody CreateApplicationDTO requestBody) {
 		
-		Application application = applicationService.startNewApplication(requestBody.getApplicationType());
+		// FIXME MLDS-308 it is an error to try to create an extension application without a target member.
+		Member member = (requestBody.getMemberKey() != null) ?  memberRepository.findOneByKey(requestBody.getMemberKey()) : userMembershipAccessor.getMemberAssociatedWithUser();
+		
+		Application application = applicationService.startNewApplication(requestBody.getApplicationType(), member);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(routeLinkBuilder.toURLWithKeyValues(Routes.APPLICATION, "applicationId", application.getApplicationId()));
@@ -435,8 +441,26 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Transactional
 	public ResponseEntity<?> updateApplication(@PathVariable long applicationId, @RequestBody ObjectNode requestBody) throws IOException {
-		
 		Application original = applicationRepository.findOne(applicationId);
+		Application updatedApplication = constructUpdatedApplication(requestBody, original);
+		
+		try {
+			applicationService.doUpdate(original, updatedApplication);
+		} catch (IllegalArgumentException e) {
+			return new ResponseEntity<String>("Forbidden change to application:" + e.getMessage(), HttpStatus.CONFLICT);
+		}
+		
+		return new ResponseEntity<Application>(original, HttpStatus.OK);
+	}
+
+	/**
+	 * Verify that the requestBody has the same applicationType, or default it to the original type
+	 * @param requestBody
+	 * @param original
+	 * @return a detached Application instance with all of the changes applied
+	 */
+	private Application constructUpdatedApplication(ObjectNode requestBody, Application original) throws IOException, JsonParseException,
+			JsonMappingException, JsonProcessingException {
 		ObjectNode treeCopyOfOriginal = objectMapper.readValue(objectMapper.writeValueAsString(original), ObjectNode.class);
 		String typeTag = requestBody.get("applicationType")!= null?requestBody.get("applicationType").asText():null;
 		String originalTypeTag = treeCopyOfOriginal.get("applicationType").asText();
@@ -446,27 +470,6 @@ public class ApplicationResource {
 			requestBody.put("applicationType", originalTypeTag);
 		}
 		Application updatedApplication = objectMapper.treeToValue(requestBody, Application.class);
-		
-		if (original instanceof ExtensionApplication) {
-			ExtensionApplication updatedExtensionApplicatoin = (ExtensionApplication) updatedApplication;
-			ExtensionApplication extensionApplication = (ExtensionApplication) original;
-			extensionApplication.setReason(updatedExtensionApplicatoin.getReason());
-		}
-		if (updatedApplication.getApprovalState() != original.getApprovalState()) {
-			ApprovalState originalState = original.getApprovalState();
-			ApprovalState updatedState = updatedApplication.getApprovalState();
-			if (originalState == ApprovalState.NOT_SUBMITTED && updatedState == ApprovalState.SUBMITTED) {
-				original.setApprovalState(ApprovalState.SUBMITTED);
-			} else if (originalState == ApprovalState.CHANGE_REQUESTED && updatedState == ApprovalState.SUBMITTED) {
-				original.setApprovalState(ApprovalState.RESUBMITTED);
-			} else if (originalState == ApprovalState.CHANGE_REQUESTED && updatedState == ApprovalState.RESUBMITTED) {
-				original.setApprovalState(ApprovalState.RESUBMITTED);
-			} else {
-				return new ResponseEntity<String>("Forbidden change to approvalState",HttpStatus.CONFLICT);
-			}
-		}
-		
-		ResponseEntity<Application> result = new ResponseEntity<Application>(original, HttpStatus.OK);
-		return result;
+		return updatedApplication;
 	}
 }

@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.OneToOne;
 import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -37,14 +39,14 @@ public abstract class Application extends BaseEntity {
     Long applicationId;
 	
 	// the parent
-	@JsonIgnore
+	@JsonIgnoreProperties({"application", "applications"})
 	@ManyToOne
 	@JoinColumn(name="affiliate_id")
 	Affiliate affiliate;
 
 	String username;
 	
-	@OneToOne()
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="affiliate_details_id")
 	AffiliateDetails affiliateDetails;
 	
@@ -137,6 +139,10 @@ public abstract class Application extends BaseEntity {
 		return affiliate;
 	}
 
+	public void setAffiliate(Affiliate affiliate) {
+		affiliate.addApplication(this);
+	}
+	
 	public Member getMember() {
 		return member;
 	}

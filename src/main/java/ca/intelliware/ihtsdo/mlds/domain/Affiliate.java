@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Sets;
 
 @Entity
@@ -43,10 +44,12 @@ public class Affiliate {
 	@JoinColumn(name="affiliate_details_id")
 	AffiliateDetails affiliateDetails;
 	
+	@JsonIgnoreProperties({"affiliate"})
 	@OneToOne()
 	@JoinColumn(name="application_id")
 	PrimaryApplication application;
 
+	@JsonIgnoreProperties({"affiliate"})
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="affiliate")
 	Set<Application> applications = Sets.newHashSet();
 
