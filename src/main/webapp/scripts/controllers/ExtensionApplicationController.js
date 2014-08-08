@@ -13,7 +13,7 @@ angular.module('MLDS').controller('ExtensionApplicationController',
 	UserRegistrationService.getApplicationById(applicationId)
 		.then(function(result) {
 			$scope.extensionForm = result.data;
-			$scope.readOnly = result.data.approvalState !== 'NOT_SUBMITTED';
+			$scope.readOnly = result.data.approvalState == 'SUBMITTED' || result.data.approvalState == 'RESUBMITTED';
 			//$log.log('result', result.data);
 		})["catch"](function(message) {
 			//FIXME how to handle errors + not present 
@@ -28,10 +28,9 @@ angular.module('MLDS').controller('ExtensionApplicationController',
 		UserRegistrationService.updateApplication($scope.extensionForm)
 			.then(function(result) {
 				$log.log('extensionForm.submit.result', result);
-				UserAffiliateService.refreshAffiliate().then(function() {
-					// FIXME where do we send the user?
-					$location.path('/dashboard');
-				});
+				UserAffiliateService.refreshAffiliate();
+				// FIXME where do we send the user?
+				$location.path('/dashboard');
 			});
 	};
 		
