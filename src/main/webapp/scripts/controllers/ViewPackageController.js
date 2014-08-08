@@ -27,9 +27,9 @@ angular.module('MLDS')
 		$scope.releasePackage = releasePackage;
 		$log.log(releasePackage);
 		UserAffiliateService.promise.then(function() {
-			$scope.isMembershipApproved = _.some(UserAffiliateService.approvedMemberships, function(member) { return member.key === releasePackage.member.key;});
-			$scope.isMembershipIncomplete = _.some(UserAffiliateService.incompleteMemberships, function(member) {return member.key === releasePackage.member.key;});
-			$scope.isMembershipUnstarted = !$scope.isMembershipApproved && !$scope.isMembershipIncomplete;
+			$scope.isMembershipApproved = UserAffiliateService.isMembershipApproved(releasePackage.member);
+			$scope.isMembershipIncomplete = UserAffiliateService.isMembershipIncomplete(releasePackage.member);
+			$scope.isMembershipUnstarted = UserAffiliateService.isMembershipNotStarted(releasePackage.member);
 		});
 	};
 

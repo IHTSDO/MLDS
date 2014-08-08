@@ -11,7 +11,8 @@ angular.module('MLDS')
         	$scope.packageUtils = PackageUtilsService;
         	
         	$scope.affiliate = UserAffiliateService.affiliate;
-        	$scope.releasePackagesByMember = [];
+        	$scope.approvedReleasePackagesByMember = [];
+        	$scope.notApprovedReleasePackagesByMember = [];
 
 
         	UserAffiliateService.promise.then(function() {
@@ -50,7 +51,7 @@ angular.module('MLDS')
         	function loadReleasePackages() {
         		PackagesService.query().$promise
         			.then(function(releasePackages) {
-        				$scope.releasePackagesByMember = _.chain(releasePackages)
+        				var releasePackagesByMember = _.chain(releasePackages)
         					.filter(PackageUtilsService.isPackagePublished)
         					.groupBy(function(value) {return value.member.key;})
         					.map(function(packages, memberKey) {
@@ -58,6 +59,8 @@ angular.module('MLDS')
         							member: MemberService.membersByKey[memberKey], 
         							packages: packages};})
         					.value();
+        				$scope.approvedReleasePackagesByMember = _.filter(releasePackagesByMember, function(memberRelease) {return UserAffiliateService.isMembershipApproved(memberRelease.member);});
+        				$scope.notApprovedReleasePackagesByMember = _.filter(releasePackagesByMember, function(memberRelease) {return ! UserAffiliateService.isMembershipApproved(memberRelease.member);});
         			})
         			["catch"](function(message) {
         				//FIXME failed to load release packages
