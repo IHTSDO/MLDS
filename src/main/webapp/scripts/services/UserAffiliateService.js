@@ -15,7 +15,7 @@ angular.module('MLDS')
 		service.incompleteMemberships = [];
 		service.promise = AffiliateService.myAffiliate();
 		service.promise.then(function(resp){
-			setAffiliate(resp.data);
+			service.setAffiliate(resp.data);
 		});
 	};
 	
@@ -49,7 +49,7 @@ angular.module('MLDS')
 		}
 	};
 	
-	var setAffiliate = function setAffiliate(affiliate) {
+	service.setAffiliate = function setAffiliate(affiliate) {
 		service.affiliate = affiliate;
 		if (affiliate && affiliate.applications) {
 			initializeMemberships();
@@ -60,15 +60,15 @@ angular.module('MLDS')
 		return _.some(memberships, _.partial(MemberService.isMemberEqual, member));
 	};
 	
-	service.isMembershipApproved = function(member) {
+	service.isMembershipApproved = function isMembershipApproved(member) {
 		return isMemberOf(member, service.approvedMemberships);
 	};
 
-	service.isMembershipIncomplete = function(member) {
+	service.isMembershipIncomplete = function isMembershipIncomplete(member) {
 		return isMemberOf(member, service.incompleteMemberships);
 	};
 
-	service.isMembershipNotStarted = function(member) {
+	service.isMembershipNotStarted = function isMembershipNotStarted(member) {
 		return !service.isMembershipApproved(member) && !service.isMembershipIncomplete(member);
 	};
 
