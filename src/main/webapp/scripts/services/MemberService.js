@@ -34,11 +34,11 @@ angular.module('MLDS')
 		service.ihtsdoMemberKey = 'IHTSDO';
 		service.ihtsdoMember = {key: service.ihtsdoMemberKey};
 		
-		service.isIhtsdoMember = function(member) {
+		service.isIhtsdoMember = function isIhtsdoMember(member) {
 			return member && member.key === service.ihtsdoMemberKey;
 		};
 		
-		service.isMemberEqual = function(a, b) {
+		service.isMemberEqual = function isMemberEqual(a, b) {
 			return a && b && a.key === b.key;
 		};
 		
