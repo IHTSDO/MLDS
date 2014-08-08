@@ -1,19 +1,23 @@
 'use strict';
 
 angular.module('MLDS').controller('ExtensionApplicationController', 
-		['$scope', '$location', '$log', '$routeParams', 'UserRegistrationService', 'UserAffiliateService',
-           	function($scope, $location, $log, $routeParams, UserRegistrationService, UserAffiliateService) {
+		['$scope', '$location', '$log', '$routeParams', 'UserRegistrationService', 'UserAffiliateService', 'ApplicationUtilsService',
+           	function($scope, $location, $log, $routeParams, UserRegistrationService, UserAffiliateService, ApplicationUtilsService) {
 	
 	var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
 	
 	$scope.extensionForm = {};
 	$scope.readOnly = false;
-	
+	$scope.isApplicationWaitingForApplicant = false;
+	$scope.isApplicationRejected = false;
 	
 	UserRegistrationService.getApplicationById(applicationId)
 		.then(function(result) {
 			$scope.extensionForm = result.data;
-			$scope.readOnly = result.data.approvalState == 'SUBMITTED' || result.data.approvalState == 'RESUBMITTED';
+			$scope.readOnly = ApplicationUtilsService.isApplicationPending(result.data) || ApplicationUtilsService.isApplicationApproved(result.data);
+			$scope.isApplicationWaitingForApplicant = ApplicationUtilsService.isApplicationWaitingForApplicant(result.data);
+			$scope.isApplicationApproved = ApplicationUtilsService.isApplicationApproved(result.data);
+			$scope.isApplicationRejected = ApplicationUtilsService.isApplicationRejected(result.data);
 			//$log.log('result', result.data);
 		})["catch"](function(message) {
 			//FIXME how to handle errors + not present 
