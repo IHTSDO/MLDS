@@ -16,7 +16,7 @@ angular.module('MLDS')
 
 
         	UserAffiliateService.promise.then(function() {
-        		if (ApplicationUtilsService.isApplicationWaitingForApplicant($scope.affiliate.application)) {
+        		if (ApplicationUtilsService.isApplicationWaitingForApplicant(UserAffiliateService.affiliate.application)) {
         			$location.path('/affiliateRegistration');
         			return;
         		}
