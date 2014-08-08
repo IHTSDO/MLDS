@@ -14,7 +14,7 @@ angular.module('MLDS').controller('ExtensionApplicationController',
 	UserRegistrationService.getApplicationById(applicationId)
 		.then(function(result) {
 			$scope.extensionForm = result.data;
-			$scope.readOnly = ApplicationUtilsService.isApplicationPending(result.data) || ApplicationUtilsService.isApplicationApproved(result.data);
+			$scope.readOnly = !ApplicationUtilsService.isApplicationWaitingForApplicant(result.data);
 			$scope.isApplicationWaitingForApplicant = ApplicationUtilsService.isApplicationWaitingForApplicant(result.data);
 			$scope.isApplicationApproved = ApplicationUtilsService.isApplicationApproved(result.data);
 			$scope.isApplicationRejected = ApplicationUtilsService.isApplicationRejected(result.data);
