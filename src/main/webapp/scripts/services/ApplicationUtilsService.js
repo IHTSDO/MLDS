@@ -4,26 +4,26 @@ mldsApp.factory('ApplicationUtilsService', [function(){
 		
 		var service = {};
 			
-		service.isApplicationWaitingForApplicant = function(application) {
+		service.isApplicationWaitingForApplicant = function isApplicationWaitingForApplicant(application) {
 			return (!application.approvalState
 				|| application.approvalState === 'NOT_SUBMITTED'
 				|| application.approvalState === 'CHANGE_REQUESTED');
 		};
 
-		service.isApplicationApproved = function(application) {
+		service.isApplicationApproved = function isApplicationApproved(application) {
 			return (application.approvalState === 'APPROVED');
 		};
 
-		service.isApplicationRejected = function(application) {
+		service.isApplicationRejected = function isApplicationRejected(application) {
 			return (application.approvalState === 'REJECTED');
 		};
 
-		service.isApplicationIncomplete = function(application) {
+		service.isApplicationIncomplete = function isApplicationIncomplete(application) {
 			return (application.approvalState !== 'APPROVED'
 				&& application.approvalState !== 'REJECTED');
 		};
 			
-		service.isApplicationPending = function(application) {
+		service.isApplicationPending = function isApplicationPending(application) {
 			return (application.approvalState === 'SUBMITTED'
 				|| application.approvalState === 'RESUBMITTED'
 				|| application.approvalState === 'REVIEW_REQUESTED');
