@@ -32,6 +32,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AffiliatesImporterService;
+import ca.intelliware.ihtsdo.mlds.service.AffiliatesImporterService.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 import com.google.common.base.Objects;
@@ -100,16 +101,17 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_IMPORT,
     		method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<Collection<Affiliate>> importAffiliates( @RequestParam("file") MultipartFile file) throws IOException {
+    public @ResponseBody ResponseEntity<AffiliatesImporterService.ImportResult> importAffiliates( @RequestParam("file") MultipartFile file) throws IOException {
 		if (file.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		//FIXME Is this correct that we are assuming UTF8?
 		String content = IOUtils.toString(file.getInputStream(),  Charsets.UTF_8);
 		log.info("Uploaded "+content.length()+"\n"+content);
-		affiliatesImporterService.importFromCSV(content);
+		ImportResult importResult = affiliatesImporterService.importFromCSV(content);
 		affiliateAuditEvents.logImport();
-    	return new ResponseEntity<Collection<Affiliate>>((Collection<Affiliate>)null, HttpStatus.OK);
+    	HttpStatus httpStatus = importResult.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+		return new ResponseEntity<AffiliatesImporterService.ImportResult>(importResult, httpStatus);
     }
 
 	
