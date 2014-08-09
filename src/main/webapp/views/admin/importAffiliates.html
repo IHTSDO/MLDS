@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="page-header">
-			<h4>Import Affiliate Records</h4>
+			<h1>Import Affiliate Records</h1>
 		</div>
 		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 		
@@ -9,9 +9,15 @@
 			<div class="form-group">
 				<label>Upload Affiliate CSV File</label>
 				<input type="file" class="form-control" file-model="affiliatesFile">
-				<button class="btn btn-default" ng-disabled="submitting" ng-click="uploadFile()">Upload</button>
+				<button class="btn btn-success" ng-disabled="submitting" ng-click="uploadFile()">
+					Upload
+					<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+				</button>
 			</div>
 		</form>
-		<p ng-show="submitting">Loading....</p>
+		<div ng-show="importResult">
+			<h4>Last Import Result</h4>
+			<pre>{{importResult}}</pre>
+		</div>
 	</div>
 </div>
