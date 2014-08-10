@@ -2,6 +2,7 @@ package ca.intelliware.ihtsdo.mlds.service;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,11 @@ import javax.transaction.Transactional;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
+import com.google.common.base.Objects;
+
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
@@ -26,6 +31,12 @@ public class AffiliatesImporterService {
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource MemberRepository memberRepository;
 
+	private static final List<FieldMapping> MAPPINGS = new ArrayList<FieldMapping>();
+	static {
+		MAPPINGS.add(new FieldMapping("member", Affiliate.class, "homeMember", true));
+		MAPPINGS.add(new FieldMapping("key", Affiliate.class, "sourceKey", true));
+		MAPPINGS.add(new FieldMapping("type", Affiliate.class, "type", true));
+	}
 	private static final String[] FIELDS = {"affiliate.member", "source.key", "affiliate.affiliateType"};
 	
 	public ImportResult importFromCSV(String contents) throws IOException {
@@ -53,18 +64,79 @@ public class AffiliatesImporterService {
 			if (lineRecord.isBlank) {
 				continue;
 			}
-			if (lineRecord.fields.length != FIELDS.length) {
+			if (lineRecord.fields.length != MAPPINGS.size()) {
 				result.addError(lineRecord, "Incorrect number of fields: found="+ lineRecord.fields.length+" required="+FIELDS.length);
+			} else if (lineRecord.header) {
+				for (int i = 0; i < MAPPINGS.size(); i++) {
+					FieldMapping mapping = MAPPINGS.get(i);
+					String valueString = lineRecord.fields[i];
+					if (!StringUtils.equalsIgnoreCase(mapping.columnName, valueString)) {
+						result.addError(lineRecord, i, "Header value="+valueString+" does not match title="+mapping.columnName);
+					}
+				}
+			} else {
+				for (int i = 0; i < MAPPINGS.size(); i++) {
+					FieldMapping mapping = MAPPINGS.get(i);
+					String valueString = lineRecord.fields[i];
+					if (mapping.required && StringUtils.isBlank(valueString)) {
+						result.addError(lineRecord, i, "Missing required field");
+					} else {
+						validateFieldValue(result, lineRecord, i , mapping, valueString);
+					}
+				}
 			}
 		}
 		
 	}
 
+	private void validateFieldValue(ImportResult result, LineRecord lineRecord, int fieldIndex, FieldMapping mapping, String valueString) {
+		//FIXME remove this initial check once all fields added to entities
+		if (mapping.attributeField == null) {
+			return;
+		}
+		
+		Class fieldClazz = mapping.attributeField.getType();
+		if (fieldClazz.isEnum()) {
+			validateEnumValue(result, lineRecord, fieldIndex, valueString, fieldClazz);
+		}
+	}
+
+	private void validateEnumValue(ImportResult result, LineRecord lineRecord, int fieldIndex, String valueString, Class fieldClazz) {
+		Object[] enumConstants = fieldClazz.getEnumConstants();
+		for (int i = 0; i < enumConstants.length; i++) {
+			if (StringUtils.equals(enumConstants[i].toString(), valueString)) {
+				return;
+			}
+		}
+		String enumOptions = enumConstantsToString(enumConstants);
+		result.addError(lineRecord, fieldIndex, "Field value="+valueString+" not one of options: "+enumOptions);
+	}
+
+	private String enumConstantsToString(Object[] enumConstants) {
+		//FIXME is there not a standard way of printing out enum constants?
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("[");
+		for (int i = 0; i < enumConstants.length; i++) {
+			if (i > 0) {
+				buffer.append(", ");
+			}
+			buffer.append(enumConstants[i].toString());
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
 	private List<LineRecord> split(String contents) throws IOException {
 		List<LineRecord> records = new ArrayList<LineRecord>();
 		List<String> lines = IOUtils.readLines(new StringReader(contents));
+		boolean headerFound = false;
 		for (String line : lines) {
-			records.add(new LineRecord(records.size() + 1, line));
+			LineRecord record = new LineRecord(records.size() + 1, line);
+			if (!headerFound && !record.isBlank) {
+				record.header = true;
+				headerFound = true;
+			}
+			records.add(record);
 		}
 		return records;
 	}
@@ -77,6 +149,9 @@ public class AffiliatesImporterService {
 
 		public boolean isSuccess() {
 			return success;
+		}
+		public void addError(LineRecord lineRecord, int fieldIndex, String error) {
+			addError("Line:"+lineRecord.lineNumber+" Col:"+fieldIndex+":"+MAPPINGS.get(fieldIndex).columnName+" "+error);
 		}
 		public long getReadRecords() {
 			return readRecords;
@@ -100,6 +175,7 @@ public class AffiliatesImporterService {
 	}
 	
 	public static class LineRecord {
+		boolean header;
 		long lineNumber = 0;
 		String[] fields = {};
 		String line = "";
@@ -110,5 +186,24 @@ public class AffiliatesImporterService {
 			isBlank = StringUtils.isBlank(line);
 			fields = line.split("\\^");
 		}
+	}
+	
+	public static class FieldMapping {
+		String columnName;
+		Class clazz;
+		String attribute;
+		Field attributeField;
+		boolean required = false;
+		public FieldMapping(String columnName, Class clazz, String attribute) {
+			this.columnName = columnName;
+			this.clazz = clazz;
+			this.attribute = attribute;
+			attributeField = ReflectionUtils.findField(clazz, attribute);
+		}
+		public FieldMapping(String columnName, Class clazz, String attribute, boolean required) {
+			this(columnName, clazz, attribute);
+			this.required = required;
+		}
+		
 	}
 }
