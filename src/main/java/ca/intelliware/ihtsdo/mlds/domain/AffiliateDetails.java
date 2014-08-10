@@ -14,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import com.google.common.base.Throwables;
-
 
 @Entity
 @Table(name="affiliate_details")
