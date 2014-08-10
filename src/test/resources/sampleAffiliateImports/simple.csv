@@ -1,4 +1,3 @@
-member^key^type
-SE^1^COMMERCIAL
-SE^2^ACADEMIC2
-
+member^key^type^subType^otherText^firstName^lastName^email^alternateEmail^thirdEmail^landlineNumber^landlineExtension^mobileNumber^organizationType^organizationTypeOther^organizationName^addressStreet^addressCity^addressPost^addressCountry^billingStreet^billingCity^billingPost^billingCountry
+SE^1^COMMERCIAL^RESEARCH^Other Text^John^Smith^primary@email.com^alternate@email.com^third@email.com^+1 416 762 0032^123^+1 416 762 0033^PUBLIC_HEALTH_ORGANIZATION^Other^Imported Organization^200 Adelaide Street West, Suite 100^Toronto^M5H 1W7^CA^200 Bloor Street West^Toronto^M5R 2T1^US
+SE^2^ACADEMIC^^^^^^^^^^^^^^^^^^^^^
