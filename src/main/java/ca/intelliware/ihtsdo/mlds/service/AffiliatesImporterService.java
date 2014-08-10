@@ -14,11 +14,16 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
-import com.google.common.base.Objects;
-
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import ca.intelliware.ihtsdo.mlds.domain.Application;
+import ca.intelliware.ihtsdo.mlds.domain.Country;
+import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
+import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
@@ -30,14 +35,35 @@ public class AffiliatesImporterService {
 	@Resource SessionService sessionService;
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource MemberRepository memberRepository;
+	@Resource CountryRepository countryRepository;
 
 	private static final List<FieldMapping> MAPPINGS = new ArrayList<FieldMapping>();
 	static {
-		MAPPINGS.add(new FieldMapping("member", Affiliate.class, "homeMember", true));
+		MAPPINGS.add(new FieldMapping("member", Application.class, "homeMember", true));
 		MAPPINGS.add(new FieldMapping("key", Affiliate.class, "sourceKey", true));
-		MAPPINGS.add(new FieldMapping("type", Affiliate.class, "type", true));
+		MAPPINGS.add(new FieldMapping("type", PrimaryApplication.class, "type", false));
+		MAPPINGS.add(new FieldMapping("subType", PrimaryApplication.class, "subType", false));
+		MAPPINGS.add(new FieldMapping("otherText", PrimaryApplication.class, "otherText", false));
+		MAPPINGS.add(new FieldMapping("firstName", AffiliateDetails.class, "firstName", false));
+		MAPPINGS.add(new FieldMapping("lastName", AffiliateDetails.class, "lastName", false));
+		MAPPINGS.add(new FieldMapping("email", AffiliateDetails.class, "email", false));
+		MAPPINGS.add(new FieldMapping("alternateEmail", AffiliateDetails.class, "alternateEmail", false));
+		MAPPINGS.add(new FieldMapping("thirdEmail", AffiliateDetails.class, "thirdEmail", false));
+		MAPPINGS.add(new FieldMapping("landlineNumber", AffiliateDetails.class, "landlineNumber", false));
+		MAPPINGS.add(new FieldMapping("landlineExtension", AffiliateDetails.class, "landlineExtension", false));
+		MAPPINGS.add(new FieldMapping("mobileNumber", AffiliateDetails.class, "mobileNumber", false));
+		MAPPINGS.add(new FieldMapping("organizationType", AffiliateDetails.class, "organizationType", false));
+		MAPPINGS.add(new FieldMapping("organizationTypeOther", AffiliateDetails.class, "organizationTypeOther", false));
+		MAPPINGS.add(new FieldMapping("organizationName", AffiliateDetails.class, "organizationName", false));
+		MAPPINGS.add(new FieldMapping("addressStreet", MailingAddress.class, "street", false));
+		MAPPINGS.add(new FieldMapping("addressCity", MailingAddress.class, "city", false));
+		MAPPINGS.add(new FieldMapping("addressPost", MailingAddress.class, "post", false));
+		MAPPINGS.add(new FieldMapping("addressCountry", MailingAddress.class, "country", false));
+		MAPPINGS.add(new FieldMapping("billingStreet", MailingAddress.class, "street", false));
+		MAPPINGS.add(new FieldMapping("billingCity", MailingAddress.class, "city", false));
+		MAPPINGS.add(new FieldMapping("billingPost", MailingAddress.class, "post", false));
+		MAPPINGS.add(new FieldMapping("billingCountry", MailingAddress.class, "country", false));
 	}
-	private static final String[] FIELDS = {"affiliate.member", "source.key", "affiliate.affiliateType"};
 	
 	public ImportResult importFromCSV(String contents) throws IOException {
 		ImportResult result = new ImportResult();
@@ -65,7 +91,7 @@ public class AffiliatesImporterService {
 				continue;
 			}
 			if (lineRecord.fields.length != MAPPINGS.size()) {
-				result.addError(lineRecord, "Incorrect number of fields: found="+ lineRecord.fields.length+" required="+FIELDS.length);
+				result.addError(lineRecord, "Incorrect number of fields: found="+ lineRecord.fields.length+" required="+MAPPINGS.size());
 			} else if (lineRecord.header) {
 				for (int i = 0; i < MAPPINGS.size(); i++) {
 					FieldMapping mapping = MAPPINGS.get(i);
@@ -94,10 +120,31 @@ public class AffiliatesImporterService {
 		if (mapping.attributeField == null) {
 			return;
 		}
+		if (StringUtils.isBlank(valueString)) {
+			return;
+		}
 		
 		Class fieldClazz = mapping.attributeField.getType();
 		if (fieldClazz.isEnum()) {
 			validateEnumValue(result, lineRecord, fieldIndex, valueString, fieldClazz);
+		} else if (fieldClazz.equals(Member.class)) {
+			validateMemberValue(result, lineRecord, fieldIndex, valueString);
+		} else if (fieldClazz.equals(Country.class)) {
+			validateCountryValue(result, lineRecord, fieldIndex, valueString);
+		}
+	}
+
+	private void validateMemberValue(ImportResult result, LineRecord lineRecord, int fieldIndex, String valueString) {
+		Member member = memberRepository.findOneByKey(valueString);
+		if (member == null) {
+			result.addError(lineRecord, fieldIndex, "Field value="+valueString+" not one of the recognized ISO 3166-1 alpha-2 country codes");
+		}
+	}
+
+	private void validateCountryValue(ImportResult result, LineRecord lineRecord, int fieldIndex, String valueString) {
+		Country member = countryRepository.findOne(valueString);
+		if (member == null) {
+			result.addError(lineRecord, fieldIndex, "Field value="+valueString+" not one of the recognized ISO 3166-1 alpha-2 country codes");
 		}
 	}
 
@@ -184,7 +231,7 @@ public class AffiliatesImporterService {
 			this.lineNumber = lineNumber;
 			this.line = line;
 			isBlank = StringUtils.isBlank(line);
-			fields = line.split("\\^");
+			fields = line.split("\\^", -1);
 		}
 	}
 	
