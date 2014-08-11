@@ -71,6 +71,10 @@ angular.module('MLDS')
 	service.isMembershipNotStarted = function isMembershipNotStarted(member) {
 		return !service.isMembershipApproved(member) && !service.isMembershipIncomplete(member);
 	};
+	
+	service.getAffiliatesMatching = function getAffiliatesMatching(text) {
+		return AffiliateService.affiliatesResource.query({q:text}).$promise;
+	};
 
 	return service;
 }]);

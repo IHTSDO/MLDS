@@ -4,12 +4,11 @@ mldsApp.controller('ApplicationReviewComparisonSearchController', [
 		'$scope',
 		'$log',
 		'AffiliateService',
-		function($scope, $log, AffiliateService) {
+		'UserAffiliateService',
+		function($scope, $log, AffiliateService, UserAffiliateService) {
 			$scope.showComparisonAffiliate = false; // start with search box showing
 			
-			$scope.getAffiliatesMatching = function getAffiliatesMatching(text) {
-				return AffiliateService.affiliatesResource.query({q:text}).$promise;
-			};
+			$scope.getAffiliatesMatching = UserAffiliateService.getAffiliatesMatching;
 			
 			$scope.selectComparisonAffiliate = function(affiliate) {
 				$scope.showComparisonAffiliate = true;
