@@ -7,6 +7,7 @@ public class ImportResult {
 	boolean success = true;
 	long readRecords = -1;
 	long importedRecords = -1;
+	String sourceMemberKey;
 	List<String> errors = new ArrayList<String>();
 
 	public boolean isSuccess() {
@@ -17,6 +18,9 @@ public class ImportResult {
 	}
 	public long getImportedRecords() {
 		return importedRecords;
+	}
+	public String getSourceMemberKey() {
+		return sourceMemberKey;
 	}
 	public List<String> getErrors() {
 		return errors;

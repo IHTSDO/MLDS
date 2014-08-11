@@ -65,7 +65,7 @@ public class AffiliatesImporterService {
 			LineRecord lineRecord = lines.get(i);
 			if (!lineRecord.header && !lineRecord.isBlank) {
 				try {
-					createApprovedAffiliate(lineRecord);
+					createApprovedAffiliate(lineRecord, result);
 					result.importedRecords += 1;
 				} catch (Exception e) {
 					result.addError(lineRecord, "Failed to populate record: "+e);
@@ -74,9 +74,9 @@ public class AffiliatesImporterService {
 		}
 	}
 
-	private void createApprovedAffiliate(LineRecord record) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
+	private void createApprovedAffiliate(LineRecord record, ImportResult result) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		
-		//FIXME use services for much of this where possible...
+		//FIXME use services for much of this where possible... with a create and approve steps
 		
 		PrimaryApplication application = createApprovedPrimaryApplication(record);
 		application = applicationRepository.save(application);
@@ -92,6 +92,8 @@ public class AffiliatesImporterService {
 		
 		Affiliate affiliate = createAffiliate(record, application, affiliateDetails);
 		affiliate = affiliateRepository.save(affiliate);
+		
+		result.sourceMemberKey = affiliate.getHomeMember().getKey();
 	}
 
 	private Affiliate createAffiliate(LineRecord record, PrimaryApplication application, AffiliateDetails affiliateDetails) throws IllegalAccessException, InstantiationException {

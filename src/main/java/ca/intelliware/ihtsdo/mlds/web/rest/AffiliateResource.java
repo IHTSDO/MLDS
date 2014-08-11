@@ -109,7 +109,7 @@ public class AffiliateResource {
 		String content = IOUtils.toString(file.getInputStream(),  Charsets.UTF_8);
 		log.info("Uploaded "+content.length()+"\n"+content);
 		ImportResult importResult = affiliatesImporterService.importFromCSV(content);
-		affiliateAuditEvents.logImport();
+		affiliateAuditEvents.logImport(importResult);
     	HttpStatus httpStatus = importResult.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
 		return new ResponseEntity<ImportResult>(importResult, httpStatus);
     }
