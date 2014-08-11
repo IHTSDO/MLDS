@@ -10,16 +10,23 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.LocalDate;
 import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
+import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
+import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 
 @Service
 @Transactional
@@ -27,6 +34,8 @@ public class AffiliatesImporterService {
 
 	@Resource ApplicationRepository applicationRepository;
 	@Resource AffiliateRepository affiliateRepository;
+	@Resource AffiliateDetailsRepository affiliateDetailsRepository;
+	@Resource CommercialUsageRepository commercialUsageRepository;
 	
 	@Resource AffiliatesMapper affiliatesMapper;
 	
@@ -69,24 +78,63 @@ public class AffiliatesImporterService {
 		
 		//FIXME use services for much of this where possible...
 		
+		PrimaryApplication application = createApprovedPrimaryApplication(record);
+		application = applicationRepository.save(application);
+		
+		CommercialUsage commercialUsage = createCommercialUsage(record, application.getType());
+		commercialUsage = commercialUsageRepository.save(commercialUsage);
+		
+		application.setCommercialUsage(commercialUsage);
+		application = applicationRepository.save(application);
+
+		AffiliateDetails affiliateDetails = createPopulateAffiliateDetails(record);
+		affiliateDetails = affiliateDetailsRepository.save(affiliateDetails);
+		
+		Affiliate affiliate = createAffiliate(record, application, affiliateDetails);
+		affiliate = affiliateRepository.save(affiliate);
+	}
+
+	private Affiliate createAffiliate(LineRecord record, PrimaryApplication application, AffiliateDetails affiliateDetails) throws IllegalAccessException, InstantiationException {
+		Affiliate affiliate = new Affiliate();
+		
+		affiliate.setAffiliateDetails(affiliateDetails);
+		populateWithAll(affiliate, record, Affiliate.class);
+		
+		affiliate.addApplication(application);
+		affiliate.setApplication(application);
+		
+		affiliate.setHomeMember(application.getMember());
+		affiliate.setType(application.getType());
+		affiliate.addCommercialUsage(application.getCommercialUsage());
+		return affiliate;
+	}
+
+	private CommercialUsage createCommercialUsage(LineRecord record, AffiliateType affiliateType) throws IllegalAccessException, InstantiationException {
+		CommercialUsage commercialUsage = new CommercialUsage();
+		CommercialUsagePeriod usagePeriod = createCurrentCommercialUsagePeriod();
+		commercialUsage.setStartDate(usagePeriod.getStartDate());
+		commercialUsage.setEndDate(usagePeriod.getEndDate());
+		UsageContext usageContext = new UsageContext();
+		populateWithAll(usageContext, record, UsageContext.class);
+		commercialUsage.setContext(usageContext);
+		commercialUsage.setApprovalState(ApprovalState.APPROVED);
+		commercialUsage.setType(affiliateType);
+		return commercialUsage;
+	}
+
+	private AffiliateDetails createPopulateAffiliateDetails(LineRecord record) throws IllegalAccessException, InstantiationException {
+		AffiliateDetails affiliateDetails = new AffiliateDetails();
+		populateWithAll(affiliateDetails, record, AffiliateDetails.class);
+		return affiliateDetails;
+	}
+
+	private PrimaryApplication createApprovedPrimaryApplication(LineRecord record) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		PrimaryApplication application = (PrimaryApplication) Application.create(ApplicationType.PRIMARY);
 		populateWithAll(application, record, Application.class);
 		application.setApprovalState(ApprovalState.APPROVED);
 		populateWithAll(application, record, PrimaryApplication.class);
-		AffiliateDetails affiliateDetails = new AffiliateDetails();
-		application.setAffiliateDetails(affiliateDetails);
-		populateWithAll(affiliateDetails, record, AffiliateDetails.class);
-		applicationRepository.save(application);
-		
-		Affiliate affiliate = new Affiliate();
-		affiliate.setAffiliateDetails(affiliateDetails);
-		affiliate.addApplication(application);
-		affiliate.setApplication(application);
-		populateWithAll(affiliate, record, Affiliate.class);
-		affiliate.setHomeMember(application.getMember());
-		affiliate.setType(application.getType());
-		
-		affiliateRepository.save(affiliate);
+		application.setAffiliateDetails(createPopulateAffiliateDetails(record));
+		return application;
 	}
 
 	private void populateWithAll(Object rootObject, LineRecord record, Class matchingClazz) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
@@ -123,5 +171,17 @@ public class AffiliatesImporterService {
 		return elements;
 	}
 	
-	
+
+	//FIXME move this code to a more appropriate service...
+	private CommercialUsagePeriod createCurrentCommercialUsagePeriod() {
+		CommercialUsagePeriod period = new CommercialUsagePeriod();
+		if (LocalDate.now().getMonthOfYear() <= 6) {
+			period.setStartDate(LocalDate.now().dayOfYear().withMinimumValue());
+			period.setEndDate(LocalDate.now().monthOfYear().setCopy(6).dayOfMonth().withMaximumValue());
+		} else {
+			period.setStartDate(LocalDate.now().monthOfYear().setCopy(7).dayOfMonth().withMinimumValue());
+			period.setEndDate(LocalDate.now().monthOfYear().setCopy(12).dayOfMonth().withMaximumValue());
+		}
+		return period;
+	}
 }
