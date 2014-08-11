@@ -14,9 +14,6 @@ public class FieldMapping {
 	ValueConverter valueConverter;
 	boolean required = false;
 	public FieldMapping(int columnIndex, String columnName, Class<?> rootClazz, Accessor accessor, ValueConverter valueConverter) {
-		Validate.notNull(rootClazz);
-		Validate.notNull(accessor);
-		Validate.notNull(valueConverter);
 		this.columnIndex = columnIndex;
 		this.columnName = columnName;
 		this.rootClazz = rootClazz;
