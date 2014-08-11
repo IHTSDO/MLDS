@@ -49,7 +49,7 @@ public class LineRecord {
 		}
 	}
 	
-	public void setValuesOfMatchingClass(Object rootObject, Class matchingClazz, AffiliatesMapper affiliatesMapper) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
+	public void setValuesOfMatchingClass(Object rootObject, Class<?> matchingClazz, AffiliatesMapper affiliatesMapper) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		for (FieldMapping mapping : affiliatesMapper.getMappings()) {
 			if (matchingClazz.equals(mapping.rootClazz)) {
 				String valueString = fieldValue(mapping.columnIndex);

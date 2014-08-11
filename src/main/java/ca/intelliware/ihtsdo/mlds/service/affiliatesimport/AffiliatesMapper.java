@@ -71,7 +71,7 @@ public class AffiliatesMapper {
 		
 	}
 	
-	ValueConverter createValueConvert(Class attributeClazz) {
+	ValueConverter createValueConvert(Class<?> attributeClazz) {
 		if (attributeClazz.isEnum()) {
 			return new EnumValueConverter(attributeClazz);
 		} else if (attributeClazz.equals(Member.class)) {
@@ -84,11 +84,11 @@ public class AffiliatesMapper {
 
 	}
 	
-	FieldMapping createField(String columnName, Class rootClazz) {
+	FieldMapping createField(String columnName, Class<?> rootClazz) {
 		return createField(columnName, rootClazz, columnName);
 	}
 
-	FieldMapping createField(String columnName, Class rootClazz, String attributePath) {
+	FieldMapping createField(String columnName, Class<?> rootClazz, String attributePath) {
 		Accessor accessor = new Accessor(rootClazz, attributePath);
 		ValueConverter valueConverter = createValueConvert(accessor.getAttributeClass());
 		int columnIndex = mappings.size();
