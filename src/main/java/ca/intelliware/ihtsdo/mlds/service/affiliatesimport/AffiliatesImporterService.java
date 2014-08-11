@@ -139,7 +139,7 @@ public class AffiliatesImporterService {
 		return application;
 	}
 
-	private void populateWithAll(Object rootObject, LineRecord record, Class matchingClazz) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
+	private void populateWithAll(Object rootObject, LineRecord record, Class<?> matchingClazz) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		record.setValuesOfMatchingClass(rootObject, matchingClazz, affiliatesMapper);
 	}
 

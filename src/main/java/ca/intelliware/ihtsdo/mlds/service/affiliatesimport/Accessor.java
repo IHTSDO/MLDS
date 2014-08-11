@@ -10,19 +10,19 @@ import org.springframework.util.ReflectionUtils;
  * Read/Write object values based on a simple expression from a rooted class
  */
 public class Accessor {
-	Class rootClazz;
+	Class<?> rootClazz;
 	String attributePath;
 	List<String> attributes = new ArrayList<String>();
 	List<Field> fields = new ArrayList<Field>();
 	
-	public Accessor(Class rootClazz, String attributePath) {
+	public Accessor(Class<?> rootClazz, String attributePath) {
 		this.rootClazz = rootClazz;
 		this.attributePath = attributePath;
 		populateFields();
 	}
 	
 	private void populateFields() {
-		Class currentClazz = rootClazz;
+		Class<?> currentClazz = rootClazz;
 		String[] split = attributePath.split("\\.");
 		for (int i = 0; i < split.length; i++) {
 			String attribute = split[i];
@@ -34,7 +34,7 @@ public class Accessor {
 		}
 	}
 	
-	public Class getAttributeClass() {
+	public Class<?> getAttributeClass() {
 		return fields.get(fields.size() - 1).getType();
 	}
 	
