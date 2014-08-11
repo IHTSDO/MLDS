@@ -126,7 +126,7 @@ public class ApplicationResource {
 		
 		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
 			User user = userRepository.getUserByEmail(application.getAffiliateDetails().getEmail());
-			applicationApprovedEmailSender.sendApplicationApprovalEmail(user);
+			applicationApprovedEmailSender.sendApplicationApprovalEmail(user, application.getMember().getKey());
 		}
 		
 		applicationAuditEvents.logApprovalStateChange(application);
