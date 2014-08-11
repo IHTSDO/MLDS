@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 
 import com.google.common.collect.Maps;
 
@@ -36,8 +37,12 @@ public class AffiliateAuditEvents {
 		return auditData;
 	}
 	
-	public void logImport() {
+	public void logImport(ImportResult importResult) {
 		Map<String,String> auditData = Maps.newHashMap();
-		auditEventService.logAuditableEvent("AFFILIATE_IMPORT", auditData);
+		auditData.put("import.records", Long.toString(importResult.getReadRecords()));
+		auditData.put("import.affiliates", Long.toString(importResult.getImportedRecords()));
+		auditData.put("import.source", importResult.getSourceMemberKey());
+		String key = "AFFILIATE_IMPORT_"+(importResult.isSuccess()?"SUCCESS":"FAILURE");
+		auditEventService.logAuditableEvent(key, auditData);
 	}
 }
