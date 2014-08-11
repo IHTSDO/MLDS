@@ -2,7 +2,13 @@
 	<div class="col-md-12">
 		<div class="page-header">
 			<h2>Affiliate User Management</h2>
-			<button class="btn btn-primary" ng-model="showAllAffiliates" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-disabled="!affiliates.$resolved">Show all affiliates</button>
+			<div>
+				<span>Show: </span>
+				<select ng-model="showAllAffiliates">
+					<option value="0" selected="selected">My Pending Applications</option>
+					<option value="1">All Applications</option>
+				</select>
+			</div>
 		</div>
 	</div>
 </div>

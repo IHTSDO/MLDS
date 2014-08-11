@@ -13,7 +13,7 @@ mldsApp.controller('AffiliatesController', [
 				PackagesService, AffiliateService) {
 
 			$scope.affiliates = [];
-			$scope.showAllAffiliates = false;
+			$scope.showAllAffiliates = 0;
 			$scope.affiliatesFilter = '';
 
 			$scope.alerts = [];
@@ -31,21 +31,18 @@ mldsApp.controller('AffiliatesController', [
 
 			loadAffiliates();
 			
-			$scope.$watch('showAllAffiliates', function() {
-				if ($scope.affiliates.$resolved) {
-					toggleAffiliates();
-				}
-			});
+			$scope.$watch('showAllAffiliates', toggleAffiliates);
 			
 			function toggleAffiliates() {
-				if ($scope.affiliatesFilter) {
+				$log.log('$scope.showAllAffiliates', $scope.showAllAffiliates);
+				if ($scope.showAllAffiliates == 1) {
 					$scope.affiliatesFilter = '';
 				} else {
 					var memberKey = Session.member && Session.member.key || 'NONE';
 					$scope.affiliatesFilter = {'homeMember': memberKey};
 				}
 			};
-
+			
 			$scope.affiliateActiveDetails = function(affiliate) {
 				return affiliate.affiliateDetails || (affiliate.application && affiliate.application.affiliateDetails) || {};
 			};
