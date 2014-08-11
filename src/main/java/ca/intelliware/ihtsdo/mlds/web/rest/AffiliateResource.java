@@ -31,8 +31,8 @@ import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-import ca.intelliware.ihtsdo.mlds.service.AffiliatesImporterService;
-import ca.intelliware.ihtsdo.mlds.service.AffiliatesImporterService.ImportResult;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImporterService;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 import com.google.common.base.Objects;
@@ -101,7 +101,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_IMPORT,
     		method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<AffiliatesImporterService.ImportResult> importAffiliates( @RequestParam("file") MultipartFile file) throws IOException {
+    public @ResponseBody ResponseEntity<ImportResult> importAffiliates( @RequestParam("file") MultipartFile file) throws IOException {
 		if (file.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -111,7 +111,7 @@ public class AffiliateResource {
 		ImportResult importResult = affiliatesImporterService.importFromCSV(content);
 		affiliateAuditEvents.logImport();
     	HttpStatus httpStatus = importResult.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
-		return new ResponseEntity<AffiliatesImporterService.ImportResult>(importResult, httpStatus);
+		return new ResponseEntity<ImportResult>(importResult, httpStatus);
     }
 
 	
