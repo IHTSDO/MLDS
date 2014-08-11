@@ -14,9 +14,12 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
+import scala.collection.parallel.ParIterableLike.Foreach;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
+import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
@@ -39,7 +42,7 @@ public class AffiliatesImporterService {
 
 	private static final List<FieldMapping> MAPPINGS = new ArrayList<FieldMapping>();
 	static {
-		MAPPINGS.add(new FieldMapping("member", Application.class, "homeMember", true));
+		MAPPINGS.add(new FieldMapping("member", Application.class, "member", true));
 		MAPPINGS.add(new FieldMapping("key", Affiliate.class, "sourceKey", true));
 		MAPPINGS.add(new FieldMapping("type", PrimaryApplication.class, "type", false));
 		MAPPINGS.add(new FieldMapping("subType", PrimaryApplication.class, "subType", false));
@@ -80,9 +83,93 @@ public class AffiliatesImporterService {
 		result.readRecords = lines.size();
 		validateLines(lines, result);
 		if (result.success) {
-			//	TODO Create affiliate records
+			createAffiliateRecords(lines, result);
 		}
 		
+	}
+
+	private void createAffiliateRecords(List<LineRecord> lines, ImportResult result) {
+		for (int i = 0; i < lines.size(); i++) {
+			LineRecord lineRecord = lines.get(i);
+			if (!lineRecord.header && !lineRecord.isBlank) {
+				try {
+					createAffiliateRecords(lineRecord, result);
+				} catch (Exception e) {
+					result.addError(lineRecord, "Failed to populate record: "+e);
+				}
+			}
+		}
+		
+	}
+
+	private void createAffiliateRecords(LineRecord record, ImportResult result) throws IllegalArgumentException, IllegalAccessException {
+		
+		//FIXME use services for much of this where possible...
+		
+		PrimaryApplication application = (PrimaryApplication) Application.create(ApplicationType.PRIMARY);
+		populateWith(application, record, "member");
+		application.setApprovalState(ApprovalState.APPROVED);
+		populateWithAll(application, record, PrimaryApplication.class);
+		//FIXME remove username constraint...
+		application.setUsername(sessionService.getUsernameOrNull());
+		AffiliateDetails affiliateDetails = new AffiliateDetails();
+		application.setAffiliateDetails(affiliateDetails);
+		populateWithAll(affiliateDetails, record, AffiliateDetails.class);
+		applicationRepository.save(application);
+		
+		Affiliate affiliate = new Affiliate();
+		affiliate.setAffiliateDetails(affiliateDetails);
+		affiliate.addApplication(application);
+		affiliate.setApplication(application);
+		affiliate.setHomeMember(application.getMember());
+		//FIXME remove creator constraint...
+		affiliate.setCreator(sessionService.getUsernameOrNull());
+		
+		affiliateRepository.save(affiliate);
+	}
+
+	private void populateWithAll(Object object, LineRecord record, Class clazz) throws IllegalArgumentException, IllegalAccessException {
+		for (FieldMapping mapping : MAPPINGS) {
+			if (clazz.equals(mapping.clazz)) {
+				populateWith(object, record, mapping.columnName);
+			}
+		}
+	}
+
+	private void populateWith(Object object, LineRecord record, String name) throws IllegalArgumentException, IllegalAccessException {
+		FieldMapping mapping = lookupFieldMapping(name);
+		int fieldIndex = MAPPINGS.indexOf(mapping);
+		Object value = convertToValue(mapping, record.fields[fieldIndex]);
+		ReflectionUtils.setField(mapping.attributeField, object, value);
+	}
+
+	private Object convertToValue(FieldMapping mapping, String valueString) {
+		Class fieldClazz = mapping.attributeField.getType();
+		if (fieldClazz.isEnum()) {
+			Object[] enumConstants = fieldClazz.getEnumConstants();
+			for (int i = 0; i < enumConstants.length; i++) {
+				if (StringUtils.equals(enumConstants[i].toString(), valueString)) {
+					return enumConstants[i];
+				}
+			}
+			return null;
+		} else if (fieldClazz.equals(Member.class)) {
+			return memberRepository.findOneByKey(valueString); 
+		} else if (fieldClazz.equals(Country.class)) {
+			return countryRepository.findOne(valueString);
+		} else {
+			return valueString;
+		}
+
+	}
+
+	private FieldMapping lookupFieldMapping(String name) {
+		for (FieldMapping mapping : MAPPINGS) {
+			if (StringUtils.equals(mapping.columnName, name)) {
+				return mapping;
+			}
+		}
+		throw new IllegalStateException("Unknown import field name: "+name);
 	}
 
 	private void validateLines(List<LineRecord> lines, ImportResult result) {
@@ -246,6 +333,9 @@ public class AffiliatesImporterService {
 			this.clazz = clazz;
 			this.attribute = attribute;
 			attributeField = ReflectionUtils.findField(clazz, attribute);
+			if (attributeField != null) {
+				ReflectionUtils.makeAccessible(attributeField);
+			}
 		}
 		public FieldMapping(String columnName, Class clazz, String attribute, boolean required) {
 			this(columnName, clazz, attribute);
