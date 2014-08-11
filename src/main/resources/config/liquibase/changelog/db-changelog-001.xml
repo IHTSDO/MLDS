@@ -892,5 +892,28 @@
 		<comment>Removing not null contraint</comment>
 	  <dropNotNullConstraint tableName="application" columnName="affiliate_id" />
 	</changeSet>
+
+	<changeSet id="MLDS-325-1" author="DGJ">
+		<comment>Imported affiliates may not have related user in this system</comment>
+	  	<dropNotNullConstraint tableName="affiliate" columnName="creator" />
+	  	<dropNotNullConstraint tableName="application" columnName="username" />
+	</changeSet>
+
+	<changeSet id="MLDS-325-2" author="DGJ">
+		<comment>Record import source key</comment>
+    	<addColumn tableName="application">
+    		<column name="import_key" type="VARCHAR(255)">
+    		</column>
+    	</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-325-3" author="DGJ">
+		<comment>Record import source key</comment>
+		<dropColumn tableName="application" columnName="import_key"/>
+    	<addColumn tableName="affiliate">
+    		<column name="import_key" type="VARCHAR(255)">
+    		</column>
+    	</addColumn>
+	</changeSet>
 	
 </databaseChangeLog>
