@@ -14,7 +14,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
-import scala.collection.parallel.ParIterableLike.Foreach;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
@@ -43,7 +42,7 @@ public class AffiliatesImporterService {
 	private static final List<FieldMapping> MAPPINGS = new ArrayList<FieldMapping>();
 	static {
 		MAPPINGS.add(new FieldMapping("member", Application.class, "member", true));
-		MAPPINGS.add(new FieldMapping("key", Affiliate.class, "sourceKey", true));
+		MAPPINGS.add(new FieldMapping("importKey", Affiliate.class, "importKey", true));
 		MAPPINGS.add(new FieldMapping("type", PrimaryApplication.class, "type", false));
 		MAPPINGS.add(new FieldMapping("subType", PrimaryApplication.class, "subType", false));
 		MAPPINGS.add(new FieldMapping("otherText", PrimaryApplication.class, "otherText", false));
@@ -107,11 +106,9 @@ public class AffiliatesImporterService {
 		//FIXME use services for much of this where possible...
 		
 		PrimaryApplication application = (PrimaryApplication) Application.create(ApplicationType.PRIMARY);
-		populateWith(application, record, "member");
+		populateWithAll(application, record, Application.class);
 		application.setApprovalState(ApprovalState.APPROVED);
 		populateWithAll(application, record, PrimaryApplication.class);
-		//FIXME remove username constraint...
-		application.setUsername(sessionService.getUsernameOrNull());
 		AffiliateDetails affiliateDetails = new AffiliateDetails();
 		application.setAffiliateDetails(affiliateDetails);
 		populateWithAll(affiliateDetails, record, AffiliateDetails.class);
@@ -121,9 +118,9 @@ public class AffiliatesImporterService {
 		affiliate.setAffiliateDetails(affiliateDetails);
 		affiliate.addApplication(application);
 		affiliate.setApplication(application);
+		populateWithAll(affiliate, record, Affiliate.class);
 		affiliate.setHomeMember(application.getMember());
-		//FIXME remove creator constraint...
-		affiliate.setCreator(sessionService.getUsernameOrNull());
+		affiliate.setType(application.getType());
 		
 		affiliateRepository.save(affiliate);
 	}

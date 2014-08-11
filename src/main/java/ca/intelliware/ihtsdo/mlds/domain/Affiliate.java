@@ -23,6 +23,7 @@ import com.google.common.collect.Sets;
 
 @Entity
 public class Affiliate {
+
 	@Id
 	@GeneratedValue
 	@Column(name="affiliate_id")
@@ -36,6 +37,9 @@ public class Affiliate {
 	
 	//FIXME username of user
 	String creator;
+	
+	@Column(name="import_key")
+	String importKey;
 	
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="affiliate")
 	Set<CommercialUsage> commercialUsages = Sets.newHashSet();
@@ -130,4 +134,13 @@ public class Affiliate {
 	public void setHomeMember(Member homeMember) {
 		this.homeMember = homeMember;
 	}
+
+	public String getImportKey() {
+		return importKey;
+	}
+
+	public void setImportKey(String importKey) {
+		this.importKey = importKey;
+	}
+
 }

@@ -323,6 +323,9 @@ mldsApp
                     controller: 'BlocklistController',
                     access: {
                         authorizedRoles: [USER_ROLES.admin]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/importAffiliates', {
@@ -330,6 +333,9 @@ mldsApp
                     controller: 'ImportAffiliatesController',
                     access: {
                         authorizedRoles: [USER_ROLES.admin]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .otherwise({

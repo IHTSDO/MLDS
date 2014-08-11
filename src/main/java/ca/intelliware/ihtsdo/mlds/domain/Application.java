@@ -16,7 +16,6 @@ import javax.persistence.OneToOne;
 
 import org.joda.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -45,7 +44,7 @@ public abstract class Application extends BaseEntity {
 	Affiliate affiliate;
 
 	String username;
-	
+		
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="affiliate_details_id")
 	AffiliateDetails affiliateDetails;
