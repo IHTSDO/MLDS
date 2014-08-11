@@ -14,6 +14,9 @@ import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 
+/**
+ * Holds the mappings from the CSV file columns to entity objects
+ */
 @Service
 public class AffiliatesMapper {
 	
