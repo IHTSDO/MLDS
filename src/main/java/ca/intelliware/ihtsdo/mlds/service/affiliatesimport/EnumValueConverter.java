@@ -3,9 +3,9 @@ package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 import org.apache.commons.lang.StringUtils;
 
 public class EnumValueConverter extends ValueConverter {
-	private Class enumClazz;
+	private Class<?> enumClazz;
 
-	public EnumValueConverter(Class enumClazz) {
+	public EnumValueConverter(Class<?> enumClazz) {
 		this.enumClazz = enumClazz;
 	}
 
