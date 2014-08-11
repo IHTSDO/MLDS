@@ -1,13 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccessorTest {
