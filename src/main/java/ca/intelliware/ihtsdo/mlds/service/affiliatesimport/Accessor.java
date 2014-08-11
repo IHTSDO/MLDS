@@ -14,11 +14,13 @@ public class Accessor {
 	String attributePath;
 	List<String> attributes = new ArrayList<String>();
 	List<Field> fields = new ArrayList<Field>();
+	
 	public Accessor(Class rootClazz, String attributePath) {
 		this.rootClazz = rootClazz;
 		this.attributePath = attributePath;
 		populateFields();
 	}
+	
 	private void populateFields() {
 		Class currentClazz = rootClazz;
 		String[] split = attributePath.split("\\.");
@@ -31,9 +33,11 @@ public class Accessor {
 			currentClazz = field.getType();
 		}
 	}
+	
 	public Class getAttributeClass() {
 		return fields.get(fields.size() - 1).getType();
 	}
+	
 	public Object getValue(Object rootObject) {
 		Object value = rootObject;
 		for (int i = 0; i < attributes.size(); i++) {
@@ -44,6 +48,7 @@ public class Accessor {
 		}
 		return value;
 	}
+	
 	public void setValue(Object rootObject, Object setValue) throws InstantiationException, IllegalAccessException {
 		Object target = rootObject;
 		for (int i = 0; i < attributes.size() - 1; i++) {
