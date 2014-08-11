@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.springframework.util.ReflectionUtils;
 
+/**
+ * Read/Write object values based on a simple expression from a rooted class
+ */
 public class Accessor {
 	Class rootClazz;
 	String attributePath;
