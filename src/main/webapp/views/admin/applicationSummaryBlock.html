@@ -1,17 +1,26 @@
+<div class="panel panel-primary" ng-switch-when="EXTENSION">
+  <div class="panel-heading">
+    <h3 class="panel-title">Extension Application Info</h3>
+  </div>
+  <div class="panel-body">
+	  <p><strong>Reason:</strong> {{application.reason}}</p>
+	</div>
+</div>
 
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">Affiliate Info</h3>
   </div>
   <div class="panel-body">
-   <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
-    <span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{application.affiliateDetails.organizationTypeOther}}</span>
-    <span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{'affiliate.organizationType.'+application.affiliateDetails.organizationType | translate}}</span> 
-  </p>
-  <p><strong>Use Type:</strong> {{'affiliate.type.'+application.type | translate}}</p>
-  <p><strong>Use Subtype:</strong> {{'affiliate.subType.'+application.subType | translate}}</p>
-  <p><strong>Type of Agreement:</strong> {{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</p>
-</div>
+    <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
+	    <span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{application.affiliateDetails.organizationTypeOther}}</span>
+	    <span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{'affiliate.organizationType.'+application.affiliateDetails.organizationType | translate}}</span> 
+	  </p>
+	  <p ng-switch-when="PRIMARY"><strong>Use Type:</strong> {{'affiliate.type.'+application.type | translate}}</p>
+	  <p ng-switch-when="EXTENSION"><strong>Use Type:</strong> {{'affiliate.type.'+application.affiliate.type | translate}}</p>
+	  <p ng-switch-when="PRIMARY"><strong>Use Subtype:</strong> {{'affiliate.subType.'+application.subType | translate}}</p>
+	  <p ng-switch-when="PRIMARY"><strong>Type of Agreement:</strong> {{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</p>
+	</div>
 </div>
 
 <div class="panel panel-primary" ng-show="application.type!='INDIVIDUAL'">
@@ -67,7 +76,7 @@
  </div>
 </div>
 
-<div class="panel panel-primary">
+<div class="panel panel-primary" ng-switch-when="PRIMARY">
   <div class="panel-heading">
     <h3 class="panel-title">Usage Context Information</h3>
   </div>
@@ -97,12 +106,12 @@
       </div>
     </div>
     <div ng-show="application.type!='COMMERCIAL'">
-    <p><strong>Countries:</strong>
-     <span ng-repeat="countryRecord in usageCountryCountslist">
-      {{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
-      </span>
-   </p>
- </div>
- </div>
+	    <p><strong>Countries:</strong>
+	     <span ng-repeat="countryRecord in usageCountryCountslist">
+	      {{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
+	      </span>
+	   	</p>
+ 		</div>
+  </div>
 </div>
 
