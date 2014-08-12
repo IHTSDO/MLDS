@@ -34,7 +34,7 @@ mldsApp.controller('ApplicationReviewController', [
 							goToPendingApplications();
 							return;
 						}
-						$log.log('loadApplication', application);
+						//$log.log('loadApplication', application);
 						$scope.application = application;
 						
 						$scope.isReadOnly = !Session.isAdmin() && (Session.member.key !== application.member.key);

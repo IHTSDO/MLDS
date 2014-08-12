@@ -22,7 +22,8 @@
 				{{'application.applicationType.'+application.applicationType | translate}}
 			</div>
 			<div class="col-xs-4">
-				<a class="btn btn-primary btn-sm" ng-click="viewApplication(application)"><i class="fa fa-eye"></i> Application</a>			
+				<a class="btn btn-primary btn-sm" ng-show="isApplicationApproved(application)" ng-click="viewApplication(application)"><i class="fa fa-eye"></i> Application</a>			
+				<a class="btn btn-primary btn-sm" ng-show="!isApplicationApproved(application)" ng-click="approveApplication(application)"><i class="fa fa-eye"></i> Application</a>			
 			</div>
 		</div>
 	</div>
