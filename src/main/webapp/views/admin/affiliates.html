@@ -38,15 +38,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="affiliate in affiliates | filter: search | filter: affiliatesFilter | orderBy: ['affiliateDetails.organizationName', 'application.affiliateDetails.organizationName', 'affiliateDetails.firstName', 'application.affiliateDetails.firstName', 'affiliateDetails.lastName', 'application.affiliateDetails.lastName', 'creator']">
-					<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
-					<td>{{'approval.state.'+affiliate.application.approvalState | translate}}</td>
-					<td>{{'affiliate.type.'+affiliate.application.type | translate}} - {{'affiliate.subType.'+affiliate.application.subType | translate}}</td>
-					<td>{{affiliateActiveDetails(affiliate).address.country.commonName}}</td>
-					<td>{{affiliate.homeMember.key}}</td>
-					<td><a href="mailto:{{affiliate.affiliateDetails.email}}">{{affiliateActiveDetails(affiliate).email}}</a></td>
-					<td> <a class="btn btn-primary btn-sm" ng-click="viewApplication(affiliate.application)"><i class="fa fa-eye"></i> Application</a></td>
-				</tr>
+					<tr ng-click="viewAffiliate(affiliate.affiliateId)" ng-repeat="affiliate in affiliates | filter: search | filter: affiliatesFilter | orderBy: ['affiliateDetails.organizationName', 'application.affiliateDetails.organizationName', 'affiliateDetails.firstName', 'application.affiliateDetails.firstName', 'affiliateDetails.lastName', 'application.affiliateDetails.lastName', 'creator']">
+						<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
+						<td>{{'approval.state.'+affiliate.application.approvalState | translate}}</td>
+						<td>{{'affiliate.type.'+affiliate.application.type | translate}} - {{'affiliate.subType.'+affiliate.application.subType | translate}}</td>
+						<td>{{affiliateActiveDetails(affiliate).address.country.commonName}}</td>
+						<td>{{affiliate.homeMember.key}}</td>
+						<td><a href="mailto:{{affiliate.affiliateDetails.email}}">{{affiliateActiveDetails(affiliate).email}}</a></td>
+						<td> <a class="btn btn-primary btn-sm" ng-click="viewAffiliate(affiliate.affiliateId)"><i class="fa fa-eye"></i> View Affiliate</a></td>
+					</tr>
 				</tbody>
 			</table>
 
