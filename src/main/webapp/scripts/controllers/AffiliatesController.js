@@ -31,6 +31,18 @@ mldsApp.controller('AffiliatesController', [
 
 			loadAffiliates();
 			
+			$scope.search = function (affiliate) {
+				var affiliateDetails = $scope.affiliateActiveDetails(affiliate);
+		        return !!((
+		        		(affiliateDetails.organizationName && affiliateDetails.organizationName.toLowerCase().indexOf($scope.query || '') !== -1)
+		        		|| affiliateDetails.firstName.toLowerCase().indexOf($scope.query || '') !== -1
+		        		|| affiliateDetails.lastName.toLowerCase().indexOf($scope.query || '') !== -1
+		        		|| affiliateDetails.email.toLowerCase().indexOf($scope.query || '') !== -1
+		        		|| affiliateDetails.address.country.commonName.toLowerCase().indexOf($scope.query || '') !== -1
+		        		|| affiliate.homeMember.key.toLowerCase().indexOf($scope.query || '') !== -1
+		        		));
+		    };
+			
 			$scope.$watch('showAllAffiliates', toggleAffiliates);
 			
 			function toggleAffiliates() {
