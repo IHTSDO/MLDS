@@ -915,5 +915,75 @@
     		</column>
     	</addColumn>
 	</changeSet>
+
+	<changeSet id="MLDS-325-4" author="DGJ">
+		<comment>Add remaining members</comment>
+		<sql>
+			UPDATE country SET exclude_registration=true, alternate_registration_url='https://nehta.org.au/aht/' WHERE iso_code_2='AU';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.health.belgium.be/eportal' WHERE iso_code_2='BE';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.moh.gov.bn/' WHERE iso_code_2='BN';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://sl.infoway-inforoute.ca/content/disppage.asp?cw_page=secure_snomedct_standards_e' WHERE iso_code_2='CA';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.ocis.cl/' WHERE iso_code_2='CL';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.ksrzis.cz/' WHERE iso_code_2='CZ';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.ssi.dk/snomedct' WHERE iso_code_2='DK';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.e-tervis.ee/index.php/en/' WHERE iso_code_2='EE';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.ehr.gov.hk/' WHERE iso_code_2='HK';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.landlaeknir.is/' WHERE iso_code_2='IS';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.nic.in/' WHERE iso_code_2='IN';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.health.gov.il/English' WHERE iso_code_2='IL';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.vpc.lt/' WHERE iso_code_2='LT';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.moh.gov.my/' WHERE iso_code_2='MY';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.ehealth.gov.mt/' WHERE iso_code_2='MT';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.nictiz.nl/' WHERE iso_code_2='NL';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.nzhis.govt.nz/moh.nsf/pagesns/497' WHERE iso_code_2='NZ';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.csioz.gov.pl/' WHERE iso_code_2='PL';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.spms.pt/' WHERE iso_code_2='PT';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.mohh.com.sg/' WHERE iso_code_2='SG';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.nczisk.sk/' WHERE iso_code_2='SK';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.mz.gov.si/en/' WHERE iso_code_2='SI';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.msps.es/profesionales/hcdsns/areaRecursosSem/snomed-ct/' WHERE iso_code_2='ES';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.socialstyrelsen.se/facksprak' WHERE iso_code_2='SE';
+			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.agesic.gub.uy/' WHERE iso_code_2='UY';
+		</sql>
+	</changeSet>
+
+	<changeSet id="MLDS-325-5" author="DGJ">
+		<comment>Add matching members</comment>
+		<sql>
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'AU', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'BE', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'BN', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'CA', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'CL', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'CZ', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'DK', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'EE', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'HK', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'IS', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'IN', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'IL', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'LT', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'MY', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'MT', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'NL', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'NZ', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'PL', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'PT', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'SG', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'SK', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'SI', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'ES', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'GB', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'US', now()); 
+			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'UY', now()); 
+		</sql>
+	</changeSet>
+
+	<changeSet id="MLDS-325-6" author="DGJ">
+		<comment>Re-enable sign-up for Sweden to support manual testing...</comment>
+		<sql>
+			UPDATE country SET exclude_registration=false WHERE iso_code_2='SE';
+		</sql>
+	</changeSet>
 	
 </databaseChangeLog>
