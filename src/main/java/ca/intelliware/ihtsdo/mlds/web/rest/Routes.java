@@ -52,7 +52,9 @@ public class Routes {
 	 */
 	static final String USAGE_REPORT_COUNTRY = "/app/rest/commercialUsages/{commercialUsageId}/countries/{commercialUsageCountId}"; 
 
-
+	/**
+	 * - get list of all affiliates
+	 */
 	static final String AFFILIATES = "/app/rest/affiliates";
 	
 	/**
@@ -69,6 +71,11 @@ public class Routes {
 	 * - import affiliates data from CSV
 	 */
 	static final String AFFILIATES_IMPORT = "/app/rest/affiliates/import";
+	
+	/**
+	 * - get list of all affiliates
+	 */
+	public static final String AFFILIATE = "/app/rest/affiliates/{affiliateId}";
 	
 	/**
 	 * control endpoint for application detail:
