@@ -6,7 +6,7 @@
 		</div>
 	</div>
 </div>
-<div class="row" ng-switch="application.applicationType">
+<div class="row">
 	<div class="col-md-8">
 		<div class="applicant-info">
 			<p><strong>Issue No:</strong> {{application.applicationId}}</p>
@@ -18,7 +18,7 @@
 			<div ng-include="'views/admin/applicationSummaryBlock.html'"></div>
 		</div>
 	</div>
-	<div class="col-md-4 well-inactive">
+	<div class="col-md-4 well-inactive" ng-switch="application.applicationType">
 		<div ng-controller="ApplicationReviewComparisonSearchController" ng-switch-when="PRIMARY">
 			<div ng-hide="showComparisonAffiliate">
 				<!-- Search block -->
