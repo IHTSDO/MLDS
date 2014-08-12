@@ -25,7 +25,8 @@ mldsApp.controller('AffiliateController', [
 				queryPromise.success(function(affiliate) {
 					$scope.affiliate = affiliate;
 					$scope.approved = ApplicationUtilsService.isApplicationApproved(affiliate.application);
-					$scope.readOnly = !ApplicationUtilsService.isApplicationApproved(affiliate.application);
+					$scope.isEditable = Session.isAdmin() || (Session.member.key == affiliate.application.member.key);
+					$scope.readOnly = !ApplicationUtilsService.isApplicationApproved(affiliate.application) || !$scope.isEditable;
 					
 					if (affiliate.affiliateDetails) {
 						$scope.affiliateDetails = affiliate.affiliateDetails;
