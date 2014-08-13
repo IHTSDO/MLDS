@@ -63,11 +63,6 @@ public class AffiliatesMapper {
 		getMappings().add(createField("billingCity", AffiliateDetails.class, "billingAddress.city"));
 		getMappings().add(createField("billingPost", AffiliateDetails.class, "billingAddress.post"));
 		getMappings().add(createField("billingCountry", AffiliateDetails.class, "billingAddress.country"));
-		getMappings().add(createField("currentUsage", UsageContext.class));
-		getMappings().add(createField("plannedUsage", UsageContext.class));
-		getMappings().add(createField("purpose", UsageContext.class));
-		getMappings().add(createField("agreementType", UsageContext.class));
-		getMappings().add(createField("implementationStatus", UsageContext.class));
 		
 	}
 	
