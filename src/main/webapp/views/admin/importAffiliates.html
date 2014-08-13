@@ -10,6 +10,7 @@
 				<label>Upload Affiliate CSV File</label>
 				<input type="file" class="form-control" file-model="affiliatesFile">
 				<button class="btn btn-success" ng-disabled="submitting" ng-click="uploadFile()">
+					<i class="fa fa-upload"></i>
 					Upload
 					<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
 				</button>
@@ -19,12 +20,18 @@
 			<h4>Last Import Result</h4>
 			<pre>{{importResult}}</pre>
 		</div>
-		<div>
-			<h2>Export Affiliates as CSV</h2>
-			<a href="{{exportAffiliatesUrl}}" target="_blank" class="btn btn-default">Export Affiliates</a>
+		<div class="page-header">
+			<h2>Export Affiliate Records</h2>
+			<p>Export all affiliates in the system in the same format as the <i>Import Affiliate Records</i> format.</p>
+			<div>
+				<a href="{{exportAffiliatesUrl}}" target="_blank" class="btn btn-default">
+					<i class="fa fa-download"></i>
+					Export Affiliates
+				</a>
+			</div>
 		</div>
-		<div ng-show="audits">
-			<h4>Import History</h4>
+		<div ng-show="audits" class="page-header">
+			<h2>Import Activity</h2>
 			<div ng-include="'views/auditsEmbed.html'"></div>
 		</div>
 	</div>
