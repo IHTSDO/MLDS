@@ -986,4 +986,8 @@
 		</sql>
 	</changeSet>
 	
+	<changeSet id="MLDS-325-4" author="MB">
+		<comment>Unique constraint on homeMember/importKey</comment>
+		<addUniqueConstraint tableName="affiliate" columnNames="import_key, home_member_id"/>
+	</changeSet>
 </databaseChangeLog>

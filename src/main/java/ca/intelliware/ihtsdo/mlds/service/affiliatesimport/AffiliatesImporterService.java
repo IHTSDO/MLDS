@@ -54,24 +54,47 @@ public class AffiliatesImporterService {
 		result.readRecords = lines.size();
 		validateLines(lines, result);
 		if (result.success) {
-			createAffiliateRecords(lines, result);
+			processAffiliateRecords(lines, result);
 		}
 		
 	}
 
-	private void createAffiliateRecords(List<LineRecord> lines, ImportResult result) {
+	private void processAffiliateRecords(List<LineRecord> lines, ImportResult result) {
 		result.importedRecords = 0;
 		for (int i = 0; i < lines.size(); i++) {
 			LineRecord lineRecord = lines.get(i);
 			if (!lineRecord.header && !lineRecord.isBlank) {
 				try {
-					createApprovedAffiliate(lineRecord, result);
+					processLineRecord(lineRecord, result);
 					result.importedRecords += 1;
 				} catch (Exception e) {
 					result.addError(lineRecord, "Failed to populate record: "+e);
 				}
 			}
 		}
+	}
+
+	void processLineRecord(LineRecord record, ImportResult result) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
+		Affiliate affiliate = findExistingAffiliateForUpdate(record);
+		if (affiliate == null) {
+			createApprovedAffiliate(record,result);
+		} else {
+			updateAffiliate(affiliate,record,result);
+		}
+	}
+
+	private Affiliate findExistingAffiliateForUpdate(LineRecord record) throws IllegalAccessException, InstantiationException {
+		Affiliate tmpAffiliate = new Affiliate();
+		PrimaryApplication tmpApplication = new PrimaryApplication();
+		record.setValuesOfMatchingClass(tmpAffiliate, Affiliate.class, affiliatesMapper);
+		record.setValuesOfMatchingClass(tmpApplication, Application.class, affiliatesMapper);
+		Affiliate affiliate = affiliateRepository.findByImportKeyAndHomeMember(tmpAffiliate.getImportKey(),tmpApplication.getMember());
+		return affiliate;
+	}
+
+	private void updateAffiliate(Affiliate affiliate, LineRecord record, ImportResult result) throws IllegalAccessException, InstantiationException {
+		record.setValuesOfMatchingClass(affiliate, Affiliate.class, affiliatesMapper);
+		record.setValuesOfMatchingClass(affiliate.getAffiliateDetails(), AffiliateDetails.class, affiliatesMapper);
 	}
 
 	private void createApprovedAffiliate(LineRecord record, ImportResult result) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
