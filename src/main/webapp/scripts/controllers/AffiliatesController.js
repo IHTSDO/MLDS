@@ -46,7 +46,6 @@ mldsApp.controller('AffiliatesController', [
 			$scope.$watch('showAllAffiliates', toggleAffiliates);
 			
 			function toggleAffiliates() {
-				$log.log('$scope.showAllAffiliates', $scope.showAllAffiliates);
 				if ($scope.showAllAffiliates == 1) {
 					$scope.affiliatesFilter = '';
 				} else {
@@ -58,6 +57,11 @@ mldsApp.controller('AffiliatesController', [
 			$scope.affiliateActiveDetails = function(affiliate) {
 				return affiliate.affiliateDetails || (affiliate.application && affiliate.application.affiliateDetails) || {};
 			};
+			
+			$scope.viewAffiliate = function viewAffiliate(affiliateId) {
+				$location.path('/affiliates/' + affiliateId);
+			};
+			
 			
 			$scope.viewApplication = function(application) {
         		var modalInstance = $modal.open({
