@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.Instant;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.intelliware.ihtsdo.mlds.config.audit.AuditEventConverter;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
-import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
-import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
 
 /**
@@ -47,6 +46,15 @@ public class AuditEventService {
         return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
     }
 
+    public List<AuditEvent> findByAuditEventType(String auditEventType) {
+        final List<PersistentAuditEvent> persistentAuditEvents =
+                persistenceAuditEventRepository.findByAuditEventType(auditEventType);
+
+        return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
+    }
+
+    
+
 	public void logAuditableEvent(String eventType, Map<String,String> auditData) {
 		logAuditableEvent(createAuditEvent(eventType, auditData));
 	}
@@ -62,5 +70,4 @@ public class AuditEventService {
 		persistentAuditEvent.setData(auditData);
 		return persistentAuditEvent;
 	}
-    
 }

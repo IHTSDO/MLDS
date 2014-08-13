@@ -7,6 +7,8 @@ public class Routes {
 	public static final String COUNTRIES = "/app/rest/countries";
 	
 	public static final String MEMBERS = "/app/rest/members";
+	
+	public static final String AUDITS = "/app/rest/audits";
 
 	
 	/**

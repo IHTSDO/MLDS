@@ -20,4 +20,6 @@ import java.util.List;
     
     @Query("select p from PersistentAuditEvent p where p.auditEventDate >= ?1 and p.auditEventDate <= ?2")
     List<PersistentAuditEvent> findByDates(Instant fromDate, Instant toDate);
+    
+    List<PersistentAuditEvent> findByAuditEventType(String auditEventType);
 }

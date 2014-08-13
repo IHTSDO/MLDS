@@ -19,5 +19,9 @@
 			<h4>Last Import Result</h4>
 			<pre>{{importResult}}</pre>
 		</div>
+		<div ng-show="audits">
+			<h4>Import History</h4>
+			<div ng-include="'views/auditsEmbed.html'"></div>
+		</div>
 	</div>
 </div>

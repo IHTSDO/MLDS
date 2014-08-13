@@ -39,10 +39,11 @@ public class AffiliateAuditEvents {
 	
 	public void logImport(ImportResult importResult) {
 		Map<String,String> auditData = Maps.newHashMap();
+		auditData.put("import.success", Boolean.toString(importResult.isSuccess()));
 		auditData.put("import.records", Long.toString(importResult.getReadRecords()));
 		auditData.put("import.affiliates", Long.toString(importResult.getImportedRecords()));
 		auditData.put("import.source", importResult.getSourceMemberKey());
-		String key = "AFFILIATE_IMPORT_"+(importResult.isSuccess()?"SUCCESS":"FAILURE");
-		auditEventService.logAuditableEvent(key, auditData);
+		auditData.put("import.errors", Integer.toString(importResult.getErrors().size()));
+		auditEventService.logAuditableEvent("AFFILIATE_IMPORT", auditData);
 	}
 }
