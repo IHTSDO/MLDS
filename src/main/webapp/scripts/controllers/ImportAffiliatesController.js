@@ -1,8 +1,8 @@
 'use strict';
 
 mldsApp.controller('ImportAffiliatesController',
-        [ '$scope', '$log', '$location', 'ImportAffiliatesService',
-          function ($scope, $log, $location, ImportAffiliatesService) {
+        [ '$scope', '$log', '$location', 'ImportAffiliatesService', 'AuditsService',
+          function ($scope, $log, $location, ImportAffiliatesService, AuditsService) {
         	$scope.submitting = false;
         	$scope.alerts = [];
         	$scope.importResult = null;
@@ -17,13 +17,29 @@ mldsApp.controller('ImportAffiliatesController',
                 		$scope.importResult = result.data;
                 		$scope.alerts.push({type: 'success', msg: 'Import completed.'});
                 		$scope.submitting = false;
+                		loadAudits();
                 	})
         			["catch"](function(message) {
         				$log.log(message);
         				$scope.importResult = message.data;
         				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later. ['+ message.statusText+']'});
         				$scope.submitting = false;
+                		loadAudits();
         			});
             };
+            
+            $scope.audits = [];
+            
+            loadAudits();
+            
+            function loadAudits() {
+            	AuditsService.findByAuditEventType('AFFILIATE_IMPORT')
+            	.then(function(result) {
+            		$scope.audits = result;
+            	})
+    			["catch"](function(message) {
+    				$log.log('Failed to update audit list: '+message);
+    			});
+            }
         }
     ]);
