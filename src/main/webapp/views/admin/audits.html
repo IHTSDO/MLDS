@@ -13,33 +13,5 @@
         </div>
     </div>
 
-
-    <table class="table table-condensed table-striped table-bordered table-responsive">
-        <thead>
-        <tr>
-            <th ng-click="predicate = 'timestamp'; reverse=!reverse">{{'audits.table.header.date' | translate}}</th>
-            <th ng-click="predicate = 'principal'; reverse=!reverse">{{'audits.table.header.principal' | translate}}</th>
-            <th ng-click="predicate = 'type'; reverse=!reverse">{{'audits.table.header.status' | translate}}</th>
-            <th ng-click="predicate = 'data.message'; reverse=!reverse">{{'audits.table.header.data' | translate}}</th>
-        </tr>
-        </thead>
-
-        <tr ng-repeat="audit in audits | filter:filter | orderBy:predicate:reverse" ng-hide="audit.filtered">
-            <td><span>{{audit.timestamp| date:'medium'}}</span></td>
-            <td><small>{{audit.principal}}</small></td>
-            <td>{{audit.type}}</td>
-            <td>
-                <span ng-show="audit.data.message">{{audit.data.message}}</span>
-                <span ng-show="audit.data.remoteAddress">{{'audits.table.data.remoteAddress' | translate}} {{audit.data.remoteAddress}}</span>
-                <span ng-show="audit.data['releasePackage.name']">Release Package Name:  {{audit.data['releasePackage.name']}}</span>
-                <span ng-show="audit.data['releaseVersion.name']">Release Version Name:  {{audit.data['releaseVersion.name']}}</span>
-                <span ng-show="audit.data['releaseFile.label']">Release File Label:  {{audit.data['releaseFile.label']}}</span>
-                <span ng-show="audit.data['application.name']">Application:  {{audit.data['application.name']}}</span>
-                <span ng-show="audit.data['application.approvalState']">Application State:  {{'approval.state.'+audit.data['application.approvalState'] | translate}}</span>
-                <span ng-show="audit.data['affiliate.creator']">Affiliate:  {{audit.data['affiliate.creator']}}</span>
-                <span ng-show="audit.data['import.source']">Source Member:  {{audit.data['import.source']}}</span>
-                <span ng-show="audit.data['import.affiliates']">Affiliates Imported:  {{audit.data['import.affiliates']}}</span>
-            </td>
-        </tr>
-    </table>
+	<div ng-include="'views/auditsEmbed.html'"></div>
 </div>

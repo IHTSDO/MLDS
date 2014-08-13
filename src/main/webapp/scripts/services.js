@@ -81,6 +81,13 @@ mldsApp.factory('AuditsService', ['$http',
                     return response.data;
                 });
                 return promise;
+            },
+            findByAuditEventType: function(auditEventType) {
+                var promise = $http.get('/app/rest/audits?$filter='+encodeURIComponent('auditEventType eq \''+auditEventType+'\''))
+                	.then(function (response) {
+                		return response.data;
+                });
+                return promise;
             }
         };
     }]);
