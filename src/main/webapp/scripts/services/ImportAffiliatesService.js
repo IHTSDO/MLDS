@@ -9,12 +9,14 @@ angular.module('MLDS')
 	service.importAffiliates = function(affiliatesFile) {
 		var formData = new FormData();
         formData.append('file', affiliatesFile);
-        return $http.post('/app/rest/affiliates/import', formData, {
+        return $http.post('/app/rest/affiliates/csv', formData, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         });
 	};
 
+	service.exportAffiliatesUrl = '/app/rest/affiliates/csv';
+	
 	return service;
 }]);
 

@@ -64,4 +64,11 @@ public class EnumValueConverterTest {
 		assertThat(result.errors.get(0), Matchers.containsString("value=UNKNOWN_ENUM"));
 		assertThat(result.errors.get(0), Matchers.containsString("[ONE_ENUM, ANOTHER_ENUM]"));
 	}
+	
+	@Test
+	public void toStringShouldReturnString() {
+		assertEquals(fixture.toString(SomeEnum.ONE_ENUM), "ONE_ENUM");
+		
+		assertEquals(fixture.toString(null), "");
+	}
 }

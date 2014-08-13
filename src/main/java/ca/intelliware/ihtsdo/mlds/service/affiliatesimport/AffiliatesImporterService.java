@@ -166,7 +166,7 @@ public class AffiliatesImporterService {
 	}
 
 	private String[] parseLine(String line) {
-		String[] elements = line.split("\\^", -1);
+		String[] elements = line.split(AffiliateFileFormat.COLUMN_SEPARATOR_REGEX, -1);
 		for (int i = 0; i < elements.length; i++) {
 			elements[i] = StringUtils.trimToEmpty(elements[i]);
 		}

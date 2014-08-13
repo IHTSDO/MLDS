@@ -7,6 +7,8 @@ mldsApp.controller('ImportAffiliatesController',
         	$scope.alerts = [];
         	$scope.importResult = null;
         	
+        	$scope.exportAffiliatesUrl = ImportAffiliatesService.exportAffiliatesUrl;
+        	
         	$scope.uploadFile = function(){
         		$scope.alerts = [];
         		$scope.importResult = null;
