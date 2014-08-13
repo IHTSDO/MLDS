@@ -13,18 +13,19 @@
         <td><small>{{audit.principal}}</small></td>
         <td>{{audit.type}}</td>
         <td>
-            <span ng-show="audit.data.message">{{audit.data.message}}</span>
-            <span ng-show="audit.data.remoteAddress">{{'audits.table.data.remoteAddress' | translate}} {{audit.data.remoteAddress}}</span>
-            <span ng-show="audit.data['releasePackage.name']">Release Package Name:  {{audit.data['releasePackage.name']}}</span>
-            <span ng-show="audit.data['releaseVersion.name']">Release Version Name:  {{audit.data['releaseVersion.name']}}</span>
-            <span ng-show="audit.data['releaseFile.label']">Release File Label:  {{audit.data['releaseFile.label']}}</span>
-            <span ng-show="audit.data['application.name']">Application:  {{audit.data['application.name']}}</span>
-            <span ng-show="audit.data['application.approvalState']">Application State:  {{'approval.state.'+audit.data['application.approvalState'] | translate}}</span>
-            <span ng-show="audit.data['affiliate.creator']">Affiliate:  {{audit.data['affiliate.creator']}}</span>
-            <span ng-show="audit.data['import.success'] !== undefined">Import: {{audit.data['import.success'] === 'true'?'Successful':'Failed'}}</span>
-            <span ng-show="audit.data['import.source']">Source Member:  {{audit.data['import.source']}}</span>
-            <span ng-show="audit.data['import.affiliates'] && audit.data['import.affiliates'] !== '-1'">Affiliates:  {{audit.data['import.affiliates']}}</span>
-            <span ng-show="audit.data['import.errors'] && audit.data['import.errors'] !== '0'">Errors:  {{audit.data['import.errors']}}</span>
+            <span ng-if="audit.data.message">{{audit.data.message}}</span>
+            <span ng-if="audit.data.remoteAddress">{{'audits.table.data.remoteAddress' | translate}} {{audit.data.remoteAddress}}</span>
+            <span ng-if="audit.data['releasePackage.name']">Release Package Name:  {{audit.data['releasePackage.name']}}</span>
+            <span ng-if="audit.data['releaseVersion.name']">Release Version Name:  {{audit.data['releaseVersion.name']}}</span>
+            <span ng-if="audit.data['releaseFile.label']">Release File Label:  {{audit.data['releaseFile.label']}}</span>
+            <span ng-if="audit.data['application.name']">Application:  {{audit.data['application.name']}}</span>
+            <span ng-if="audit.data['application.approvalState']">Application State:  {{'approval.state.'+audit.data['application.approvalState'] | translate}}</span>
+            <span ng-if="audit.data['affiliate.creator']">Affiliate:  {{audit.data['affiliate.creator']}}</span>
+            <span ng-if="audit.data['import.success'] === 'true'" class="text-success"><span class="glyphicon glyphicon-ok"></span> Successful Import</span>
+            <span ng-if="audit.data['import.success'] === 'false'" class="text-danger"> <span class="glyphicon glyphicon-remove"></span> Failed Import</span>
+            <span ng-if="audit.data['import.source']">Source Member:  {{audit.data['import.source']}}</span>
+            <span ng-if="audit.data['import.affiliates'] && audit.data['import.affiliates'] !== '-1'">Affiliates:  {{audit.data['import.affiliates']}}</span>
+            <span ng-if="audit.data['import.errors'] && audit.data['import.errors'] !== '0'">Errors:  {{audit.data['import.errors']}}</span>
         </td>
     </tr>
 </table>
