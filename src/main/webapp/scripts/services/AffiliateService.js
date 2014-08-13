@@ -32,6 +32,10 @@ angular.module('MLDS')
 		return $http.get('/app/rest/affiliates/me');
 	};
 
+	service.affiliate = function(affiliateId) {
+		return $http.get('/app/rest/affiliates/'+ encodeURIComponent(affiliateId));
+	};
+	
 	service.affiliates = function(username) {
 		return $http.get('/app/rest/affiliates/creator/'+encodeURIComponent(username));
 	};
