@@ -9,9 +9,8 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.Instant;
+import org.joda.time.format.ISODateTimeFormat;
 import org.springframework.boot.actuate.audit.AuditEvent;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,30 +32,14 @@ public class AuditResource {
     @Inject
     private AuditEventService auditEventService;
 
-    @RequestMapping(value = "/app/rest/audits/all",
-            method = RequestMethod.GET,
-            produces = "application/json")
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public List<AuditEvent> findAll() {
-        return auditEventService.findAll();
-    }
-
-    @RequestMapping(value = "/app/rest/audits/byDates",
-            method = RequestMethod.GET,
-            produces = "application/json")
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public List<AuditEvent> findByDates(@RequestParam(value = "fromDate") @DateTimeFormat(iso=ISO.DATE) Instant fromDate,
-                                    @RequestParam(value = "toDate") @DateTimeFormat(iso=ISO.DATE) Instant toDate) {
-        return auditEventService.findByDates(fromDate, toDate);
-    }
-
     public static final String FILTER_AUDIT_EVENT_TYPE = "auditEventType eq '(\\w+)'";
+    public static final String FILTER_AUDIT_EVENT_DATE_BETWEEN = "auditEventDate ge '(.*)' and auditEventDate le '(.*)'";
     
     @RequestMapping(value = Routes.AUDITS,
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
-    public @ResponseBody ResponseEntity<List<AuditEvent>> findByFilter(@RequestParam(value="$filter") String filter) {
+    public @ResponseBody ResponseEntity<List<AuditEvent>> findByFilter(@RequestParam(value="$filter",required = false) String filter) {
     	if (StringUtils.isBlank(filter)) {
     		return new ResponseEntity<List<AuditEvent>>(auditEventService.findAll(), HttpStatus.OK);
     	}
@@ -64,6 +47,12 @@ public class AuditResource {
     	if (auditEventTypeMatcher.matches()) {
     		String auditEventType = auditEventTypeMatcher.group(1);
     		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByAuditEventType(auditEventType), HttpStatus.OK);
+    	}
+    	Matcher auditEventDateBetweenMatcher = Pattern.compile(FILTER_AUDIT_EVENT_DATE_BETWEEN).matcher(filter);
+    	if (auditEventDateBetweenMatcher.matches()) {
+    		Instant fromDate = Instant.parse(auditEventDateBetweenMatcher.group(1), ISODateTimeFormat.date());
+    		Instant toDate = Instant.parse(auditEventDateBetweenMatcher.group(2), ISODateTimeFormat.date());
+    		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByDates(fromDate, toDate), HttpStatus.OK);
     	}
     	//FIXME support more kinds of audit event filters...
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
