@@ -76,7 +76,15 @@ public class AffiliateResource {
 		}
 		return new ResponseEntity<Collection<Affiliate>>(affiliates, HttpStatus.OK);
     }
-
+	
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @RequestMapping(value = Routes.AFFILIATE,
+    		method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<Affiliate> getAffiliate(@PathVariable long affiliateId) {
+		Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
+    }
 	
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATES_ME,
