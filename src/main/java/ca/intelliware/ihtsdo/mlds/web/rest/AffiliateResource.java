@@ -31,6 +31,7 @@ import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
@@ -59,7 +60,10 @@ public class AffiliateResource {
 	
 	@Resource
 	AffiliatesImporterService affiliatesImporterService; 
-	
+
+	@Resource
+	AffiliatesExporterService affiliatesExporterService; 
+
 	@Resource
 	SessionService sessionService;
 
@@ -106,7 +110,7 @@ public class AffiliateResource {
 	
 	
 	@RolesAllowed({AuthoritiesConstants.ADMIN})
-    @RequestMapping(value = Routes.AFFILIATES_IMPORT,
+    @RequestMapping(value = Routes.AFFILIATES_CSV,
     		method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<ImportResult> importAffiliates( @RequestParam("file") MultipartFile file) throws IOException {
@@ -115,11 +119,20 @@ public class AffiliateResource {
 		}
 		//FIXME Is this correct that we are assuming UTF8?
 		String content = IOUtils.toString(file.getInputStream(),  Charsets.UTF_8);
-		log.info("Uploaded "+content.length()+"\n"+content);
 		ImportResult importResult = affiliatesImporterService.importFromCSV(content);
 		affiliateAuditEvents.logImport(importResult);
     	HttpStatus httpStatus = importResult.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
 		return new ResponseEntity<ImportResult>(importResult, httpStatus);
+    }
+
+	@RolesAllowed({AuthoritiesConstants.ADMIN})
+    @RequestMapping(value = Routes.AFFILIATES_CSV,
+    		method = RequestMethod.GET,
+            produces = "application/csv")
+    public @ResponseBody ResponseEntity<String> exportAffiliates() throws IOException {
+		String result = affiliatesExporterService.exportToCSV();
+		affiliateAuditEvents.logExport();
+		return new ResponseEntity<String>(result, HttpStatus.OK);
     }
 
 	

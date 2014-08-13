@@ -46,4 +46,9 @@ public class AffiliateAuditEvents {
 		auditData.put("import.errors", Integer.toString(importResult.getErrors().size()));
 		auditEventService.logAuditableEvent("AFFILIATE_IMPORT", auditData);
 	}
+
+	public void logExport() {
+		Map<String,String> auditData = Maps.newHashMap();
+		auditEventService.logAuditableEvent("AFFILIATE_EXPORT", auditData);
+	}
 }

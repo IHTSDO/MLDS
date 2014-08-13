@@ -25,4 +25,14 @@ public class CountryValueConverter extends ValueConverter {
 			result.addError(lineRecord, mapping, "Field value="+valueString+" not one of the recognized ISO 3166-1 alpha-2 country codes");
 		}
 	}
+	
+	@Override
+	public String toString(Object value) {
+		if (value != null) {
+			Country country = (Country) value;
+			return country.getIsoCode2();
+		} else {
+			return "";
+		}
+	}
 }

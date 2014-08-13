@@ -44,5 +44,4 @@ public class EnumValueConverter extends ValueConverter {
 		buffer.append("]");
 		return buffer.toString();
 	}
-
 }
