@@ -23,6 +23,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
+import ca.intelliware.ihtsdo.mlds.domain.ImportApplication;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
@@ -109,7 +110,11 @@ public class AffiliatesImporterService {
 	private void updateAffiliate(Affiliate affiliate, LineRecord record, ImportResult result) throws IllegalAccessException, InstantiationException {
 		populateWithAll(affiliate, record, Affiliate.class);
 		populateWithAll(affiliate.getAffiliateDetails(), record, AffiliateDetails.class);
-		// FIXME MLDS-325 MB what other objects should we update?
+		
+		PrimaryApplication importApplication = createApprovedPrimaryApplication(record, ApplicationType.IMPORT);
+		applicationRepository.save(importApplication);
+		affiliate.addApplication(importApplication);
+		
 		// FIXME MLDS-325 MB create an "Import" application for history?
 	}
 
@@ -117,7 +122,7 @@ public class AffiliatesImporterService {
 		
 		//FIXME use services for much of this where possible... with a create and approve steps
 		
-		PrimaryApplication application = createApprovedPrimaryApplication(record);
+		PrimaryApplication application = createApprovedPrimaryApplication(record, ApplicationType.PRIMARY);
 		application = applicationRepository.save(application);
 		
 		CommercialUsage commercialUsage = createCommercialUsage(record, application.getType());
@@ -169,8 +174,17 @@ public class AffiliatesImporterService {
 		return affiliateDetails;
 	}
 
-	private PrimaryApplication createApprovedPrimaryApplication(LineRecord record) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
-		PrimaryApplication application = (PrimaryApplication) Application.create(ApplicationType.PRIMARY);
+	/**
+	 * Create an application from the record
+	 * @param record
+	 * @param applicationType assumed to be one of Primary or Import (since Import extends Primary)
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 */
+	private PrimaryApplication createApprovedPrimaryApplication(LineRecord record, ApplicationType applicationType) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
+		PrimaryApplication application = (PrimaryApplication) Application.create(applicationType);
 		populateWithAll(application, record, Application.class);
 		application.setApprovalState(ApprovalState.APPROVED);
 		populateWithAll(application, record, PrimaryApplication.class);
