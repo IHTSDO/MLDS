@@ -27,6 +27,12 @@ angular.module('MLDS').controller('ExtensionApplicationController',
 	
 	
 	$scope.submit = function(){
+				
+		if ($scope.extensionApplicationForm.$invalid) {
+			$scope.extensionApplicationForm.attempted = true;
+			return;
+		};
+		
 		$scope.extensionForm.approvalState = 'SUBMITTED';
 		
 		UserRegistrationService.updateApplication($scope.extensionForm)
