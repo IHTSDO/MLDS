@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 import java.io.StringWriter;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Objects;
@@ -50,6 +51,8 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 			stringValue = context.getBaseKey()+i;
 		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "email")) {
 			stringValue = generateEmail(fieldMapping, i, context);
+		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "street")) {
+			stringValue = generateStreet(fieldMapping, i, context);
 		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "number")) {
 			stringValue = generateTelephoneNumber(fieldMapping, i, context);
 		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "first")) {
@@ -61,6 +64,10 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 		return stringValue;
 	}
 	
+	private String generateStreet(FieldMapping fieldMapping, int i, GeneratorContext context) {
+		return Integer.toString(i)+ " "+ (WordUtils.capitalizeFully(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(fieldMapping.columnName), " ")));
+	}
+
 	private String generateFirstName(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		//From http://en.wikipedia.org/wiki/List_of_most_popular_given_names
 		return generateNameFromList(i, new String[] {"William", "Lucas", "Victor", "Noah", "Sofia", "Ida", "Isabella", "Emma", "Freja"});
@@ -69,7 +76,15 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 	private String generateLastName(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		//From http://en.wikipedia.org/wiki/List_of_most_common_surnames_in_Europe
 		return generateNameFromList(i, new String[] {"Jensen", "Nielsen", "Hansen", "Pedersen", "Andersen", "Christensen", "Larsen", "Sørensen", "Rasmussen"})
-				+ " " +i;
+				+ appendUniquenessHint(i);
+	}
+
+	private String appendUniquenessHint(int hint) {
+		return appendUniquenessHint(hint, " ");
+	}
+	
+	private String appendUniquenessHint(int hint, String separator) {
+		return hint > 0 ? separator+hint : "";
 	}
 
 	private String generateNameFromList(int i, String[] options) {
@@ -81,8 +96,9 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 	}
 
 	private String generateEmail(FieldMapping fieldMapping, int i, GeneratorContext context) {
-		return fieldMapping.columnName+"-"+i+"@email.com";
+		return fieldMapping.columnName+appendUniquenessHint(i, "+")+"@email.com";
 	}
+
 
 	public static class GeneratorContext {
 		private int rows = 1;
