@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.apache.commons.io.IOUtils;
@@ -38,6 +40,9 @@ public class AffiliatesImporterService {
 	@Resource CommercialUsageRepository commercialUsageRepository;
 	
 	@Resource AffiliatesMapper affiliatesMapper;
+	
+	@PersistenceContext
+    private EntityManager entityManager;
 	
 	public ImportResult importFromCSV(String contents) throws IOException {
 		ImportResult result = new ImportResult();
@@ -83,6 +88,13 @@ public class AffiliatesImporterService {
 		} else {
 			updateAffiliate(affiliate,record,result);
 		}
+		clearSession();
+	}
+
+	/** For bulk performance clear pending changes from hibernate session */
+	private void clearSession() {
+		entityManager.flush();
+		entityManager.clear();
 	}
 
 	private Affiliate findExistingAffiliateForUpdate(LineRecord record) throws IllegalAccessException, InstantiationException {
