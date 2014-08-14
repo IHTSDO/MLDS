@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
@@ -36,6 +38,13 @@ public class FieldMapping {
 	public void setValue(Object rootObject, String valueString) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		Object value = valueConverter.toObject(valueString);
 		accessor.setValue(rootObject, value);
+	}
+	
+	public String getExampleValue() {
+		return valueConverter.getExampleValue(columnName);
+	}
+	public List<String> getOptions() {
+		return valueConverter.getOptions();
 	}
 
 }

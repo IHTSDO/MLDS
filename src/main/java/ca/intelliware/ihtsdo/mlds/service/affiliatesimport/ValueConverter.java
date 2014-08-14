@@ -1,6 +1,10 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
-import org.thymeleaf.util.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 
 
 public class ValueConverter {
@@ -14,5 +18,13 @@ public class ValueConverter {
 	
 	public String toString(Object value) {
 		return (value == null) ? "" : StringUtils.trim(value.toString());
+	}
+
+	public String getExampleValue(String columnName) {
+		return WordUtils.capitalizeFully("Example "+StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(columnName), " "));
+	}
+
+	public List<String> getOptions() {
+		return new ArrayList<String>();
 	}
 }

@@ -4,6 +4,7 @@ import java.io.StringWriter;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec.ColumnSpec;
 
 import com.google.common.base.Objects;
 
@@ -96,5 +98,19 @@ public class AffiliatesExporterService {
 				first = false;
 			}			
 		}
+	}
+
+	public AffiliatesImportSpec exportSpec() {
+		AffiliatesImportSpec spec = new AffiliatesImportSpec();
+		for (FieldMapping fieldMapping : affiliatesMapper.getMappings()) {
+			ColumnSpec columnSpec = new AffiliatesImportSpec.ColumnSpec();
+			columnSpec.attributeClass = ClassUtils.getShortClassName(fieldMapping.accessor.getAttributeClass());
+			columnSpec.columnName = fieldMapping.columnName;
+			columnSpec.required = fieldMapping.required;
+			columnSpec.example = fieldMapping.getExampleValue();
+			columnSpec.options = fieldMapping.getOptions();
+			spec.getColumns().add(columnSpec);
+		}
+		return spec;
 	}
 }

@@ -73,6 +73,7 @@ public class Routes {
 	 * - import affiliates data from CSV
 	 */
 	static final String AFFILIATES_CSV = "/app/rest/affiliates/csv";
+	static final String AFFILIATES_CSV_SPEC = "/app/rest/affiliates/csvSpec";
 	
 	/**
 	 * - get list of all affiliates

@@ -6,6 +6,7 @@ mldsApp.controller('ImportAffiliatesController',
         	$scope.submitting = false;
         	$scope.alerts = [];
         	$scope.importResult = null;
+        	$scope.importSpec = null;
         	
         	$scope.exportAffiliatesUrl = ImportAffiliatesService.exportAffiliatesUrl;
         	
@@ -33,6 +34,7 @@ mldsApp.controller('ImportAffiliatesController',
             $scope.audits = [];
             
             loadAudits();
+            loadImportSpec();
             
             function loadAudits() {
             	AuditsService.findByAuditEventType('AFFILIATE_IMPORT')
@@ -43,5 +45,17 @@ mldsApp.controller('ImportAffiliatesController',
     				$log.log('Failed to update audit list: '+message);
     			});
             }
+            
+            function loadImportSpec() {
+            	ImportAffiliatesService.importSpec()
+            	.then(function(result) {
+            		$log.log(result);
+            		$scope.importSpec = result.data;
+            	})
+    			["catch"](function(message) {
+    				$log.log("Failed to load import spec"+ message);
+    			});
+
+            };
         }
     ]);
