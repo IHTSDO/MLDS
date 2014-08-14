@@ -43,8 +43,8 @@ mldsApp.controller('AffiliatesController', [
 		        		|| affiliateDetails.firstName.toLowerCase().indexOf($scope.query || '') !== -1
 		        		|| affiliateDetails.lastName.toLowerCase().indexOf($scope.query || '') !== -1
 		        		|| affiliateDetails.email.toLowerCase().indexOf($scope.query || '') !== -1
-		        		|| affiliateDetails.address.country.commonName.toLowerCase().indexOf($scope.query || '') !== -1
-		        		|| affiliate.homeMember.key.toLowerCase().indexOf($scope.query || '') !== -1
+		        		|| ( affiliateDetails.address && affiliateDetails.address.country && affiliateDetails.address.country.commonName.toLowerCase().indexOf($scope.query || '') !== -1)
+		        		|| (affiliate.homeMember && affiliate.homeMember.key.toLowerCase().indexOf($scope.query || '') !== -1)
 		        		));
 		    };
 			
