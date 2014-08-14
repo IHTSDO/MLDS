@@ -9,6 +9,7 @@ public class ImportResult {
 	long importedRecords = -1;
 	String sourceMemberKey;
 	List<String> errors = new ArrayList<String>();
+	long durationMillis = 0;
 
 	public boolean isSuccess() {
 		return success;
@@ -37,5 +38,8 @@ public class ImportResult {
 	private void addError(String message) {
 		errors.add(message);
 		success = false;
+	}
+	public long getDurationMillis() {
+		return durationMillis;
 	}
 }

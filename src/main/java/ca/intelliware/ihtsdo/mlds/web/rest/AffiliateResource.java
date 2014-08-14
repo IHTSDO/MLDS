@@ -32,6 +32,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
@@ -64,6 +65,9 @@ public class AffiliateResource {
 
 	@Resource
 	AffiliatesExporterService affiliatesExporterService; 
+	
+	@Resource
+	AffiliatesImportGenerator affiliatesImportGenerator;
 
 	@Resource
 	SessionService sessionService;
@@ -130,8 +134,14 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_CSV,
     		method = RequestMethod.GET,
             produces = "application/csv")
-    public @ResponseBody ResponseEntity<String> exportAffiliates() throws IOException {
-		String result = affiliatesExporterService.exportToCSV();
+    public @ResponseBody ResponseEntity<String> exportAffiliates(@RequestParam(value="generate",required = false) Integer generateRows) throws IOException {
+		//FIXME DGJ Introduce parameter to generate phoney data until we can add an application start
+		String result;
+		if (generateRows == null) {
+			result = affiliatesExporterService.exportToCSV();
+		} else {
+			result = affiliatesImportGenerator.generateFile(generateRows);
+		}
 		affiliateAuditEvents.logExport();
 		return new ResponseEntity<String>(result, HttpStatus.OK);
     }

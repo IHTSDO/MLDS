@@ -50,8 +50,8 @@ public class EnumValueConverter extends ValueConverter {
 	}
 	
 	@Override
-	public String getExampleValue(String columnName) {
-		return enumClazz.getEnumConstants()[0].toString();
+	public String getExampleValue(int hint, String columnName) {
+		return enumClazz.getEnumConstants()[hint % enumClazz.getEnumConstants().length].toString();
 	}
 	
 	@Override

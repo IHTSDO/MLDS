@@ -14,7 +14,7 @@ mldsApp.controller('ImportAffiliatesController',
         		$scope.alerts = [];
         		$scope.importResult = null;
                 var file = $scope.affiliatesFile;
-                console.log('file is ' + JSON.stringify(file));
+                $scope.submitting = true;
                 ImportAffiliatesService.importAffiliates(file)
                 	.then(function(result) {
                 		$scope.importResult = result.data;

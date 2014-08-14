@@ -41,11 +41,13 @@ public class AffiliatesImporterService {
 	
 	public ImportResult importFromCSV(String contents) throws IOException {
 		ImportResult result = new ImportResult();
+		long start = System.currentTimeMillis();
 		try {
 			importContents(contents, result);
 		} catch (Exception e) {
 			result.addException(e);
 		}
+		result.durationMillis = System.currentTimeMillis() - start;
 		return result;
 	}
 
