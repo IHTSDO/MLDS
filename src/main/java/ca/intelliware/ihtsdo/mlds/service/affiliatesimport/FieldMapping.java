@@ -40,8 +40,8 @@ public class FieldMapping {
 		accessor.setValue(rootObject, value);
 	}
 	
-	public String getExampleValue() {
-		return valueConverter.getExampleValue(columnName);
+	public String getExampleValue(int hint) {
+		return valueConverter.getExampleValue(hint, columnName);
 	}
 	public List<String> getOptions() {
 		return valueConverter.getOptions();

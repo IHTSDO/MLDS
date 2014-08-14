@@ -20,8 +20,8 @@ public class ValueConverter {
 		return (value == null) ? "" : StringUtils.trim(value.toString());
 	}
 
-	public String getExampleValue(String columnName) {
-		return WordUtils.capitalizeFully("Example "+StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(columnName), " "));
+	public String getExampleValue(int hint, String columnName) {
+		return WordUtils.capitalizeFully("Example "+StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(columnName), " "))+" "+hint;
 	}
 
 	public List<String> getOptions() {
