@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('LicensesController',
-		['$scope', '$log', 'MemberService', 'CountryService',
-    function ($scope, $log, MemberService, CountryService) {
+		['$scope', '$log', 'MemberService',
+    function ($scope, $log, MemberService) {
 		$scope.members = MemberService.members;
-		$scope.countries = CountryService.countriesByIsoCode2;
     }]);
 
