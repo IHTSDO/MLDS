@@ -29,7 +29,7 @@
 	    <h3 class="panel-title">Affiliate Information:</h3>
 	  </div>
 	  <div class="panel-body application-review">
-	    <p><strong>Organization Name:</strong> {{application.affiliateDetails.organizationName}}</p>
+	    <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Name:</strong> {{application.affiliateDetails.organizationName}}</p>
 	    <p><strong>Address:</strong> {{application.affiliateDetails.address.street}}</p>
 	    <p><strong>City:</strong> {{application.affiliateDetails.address.city}}</p>
 	    <p><strong>Post Code:</strong> {{application.affiliateDetails.address.post}}</p>
