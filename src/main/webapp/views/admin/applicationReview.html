@@ -34,9 +34,9 @@
 				</div>
 				</script>
 
-
+				<label>Search Existing Affiliates</label>
 				<div class="input-group" class="application-search">
-					<input type="text" ng-model="comparisonAffiliate" placeholder="Search for existing Affiliates" 
+					<input type="text" ng-model="comparisonAffiliate" placeholder="Search affiliate or contact name" 
 					typeahead="affiliate as affiliate.application.affiliateDetails.organizationName for affiliate in getAffiliatesMatching($viewValue)" 
 					typeahead-loading="searchingAffiliates"
 					typeahead-template-url="views/admin/applicationReviewAffiliateSearchTemplate.html"
