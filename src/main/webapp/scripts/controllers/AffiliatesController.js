@@ -22,9 +22,11 @@ mldsApp.controller('AffiliatesController', [
 				$scope.affiliates = AffiliateService.affiliatesResource.query({q:''});
 				$scope.affiliates.$promise
 					.then(function(response) {
+						$log.log('affiliates complete', response);
 						toggleAffiliates();
 					})
 					["catch"](function(message) {
+						$log.log("affitilates failure: "+message);
 						$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
 					});
 			}
@@ -33,6 +35,9 @@ mldsApp.controller('AffiliatesController', [
 			
 			$scope.search = function (affiliate) {
 				var affiliateDetails = $scope.affiliateActiveDetails(affiliate);
+				if (!affiliateDetails || !affiliateDetails.affiliateDetailsId) {
+					return false;
+				}
 		        return !!((
 		        		(affiliateDetails.organizationName && affiliateDetails.organizationName.toLowerCase().indexOf($scope.query || '') !== -1)
 		        		|| affiliateDetails.firstName.toLowerCase().indexOf($scope.query || '') !== -1
@@ -55,7 +60,9 @@ mldsApp.controller('AffiliatesController', [
 			};
 			
 			$scope.affiliateActiveDetails = function(affiliate) {
-				return affiliate.affiliateDetails || (affiliate.application && affiliate.application.affiliateDetails) || {};
+				return affiliate.affiliateDetails 
+					|| (affiliate.application && affiliate.application.affiliateDetails) 
+					|| {};
 			};
 			
 			$scope.viewAffiliate = function viewAffiliate(affiliateId) {

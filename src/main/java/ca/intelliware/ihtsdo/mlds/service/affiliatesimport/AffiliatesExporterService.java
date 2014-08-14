@@ -75,7 +75,7 @@ public class AffiliatesExporterService extends BaseAffiliatesGenerator {
 			columnSpec.attributeClass = ClassUtils.getShortClassName(fieldMapping.accessor.getAttributeClass());
 			columnSpec.columnName = fieldMapping.columnName;
 			columnSpec.required = fieldMapping.required;
-			columnSpec.example = fieldMapping.getExampleValue();
+			columnSpec.example = fieldMapping.getExampleValue(0);
 			columnSpec.options = fieldMapping.getOptions();
 			spec.getColumns().add(columnSpec);
 		}
