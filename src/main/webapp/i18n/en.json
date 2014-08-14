@@ -120,7 +120,7 @@
     "activate": {
         "title": "Activation",
         "messages": {
-            "success": "<strong>Your user has been activated.</strong> Please continue your registration.",
+            "success": "<strong>User account has been created.</strong> The system will take you to continue your registration process in a few moments.",
             "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up."
         }
     },
