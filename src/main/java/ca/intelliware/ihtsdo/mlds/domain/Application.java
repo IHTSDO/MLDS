@@ -26,10 +26,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="application_type")
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=As.PROPERTY, property="applicationType")
-@JsonSubTypes({@Type(value=PrimaryApplication.class, name="PRIMARY"),@Type(value=ExtensionApplication.class, name="EXTENSION")})
+@JsonSubTypes({
+	@Type(value=PrimaryApplication.class, name="PRIMARY"),
+	@Type(value=ExtensionApplication.class, name="EXTENSION"),
+	@Type(value=ImportApplication.class, name="IMPORT")
+	})
 public abstract class Application extends BaseEntity {
 	public static enum ApplicationType {
-		PRIMARY, EXTENSION
+		PRIMARY, EXTENSION, IMPORT
 	}
 	
 	@Id
@@ -158,6 +162,9 @@ public abstract class Application extends BaseEntity {
 		case EXTENSION:
 			return new ExtensionApplication();
 
+		case IMPORT:
+			return new ImportApplication();
+			
 		default:
 			throw new RuntimeException("Unsupported applicationType " + applicationType);
 		}
