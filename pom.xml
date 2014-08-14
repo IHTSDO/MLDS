@@ -512,6 +512,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>ca.intelliware.ihtsdo.mlds.Application</mainClass>
 					<arguments>
 						<argument>--spring.profiles.active=dev</argument>
 					</arguments>
