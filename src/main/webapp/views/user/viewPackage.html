@@ -30,7 +30,7 @@
 						Apply for extension
 					</button>
 					<span class="alert alert-warning" ng-show="!isPrimaryApplicationApproved">Primary application is being processed</span>
-					<span class="alert alert-warning" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant">Application being processed</span>
+					<span class="alert alert-warning" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant && isPrimaryApplicationApproved">Application being processed</span>
 					<span class="alert alert-warning" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant">
 						Application being updated, 
 						<span ng-click="goToExtensionApplication()" class="btn btn-link">click to view application.</span>
