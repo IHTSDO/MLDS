@@ -21,7 +21,11 @@ public class ValueConverter {
 	}
 
 	public String getExampleValue(int hint, String columnName) {
-		return WordUtils.capitalizeFully("Example "+StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(columnName), " "))+" "+hint;
+		String capitalizedExample = WordUtils.capitalizeFully("Example "+StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(columnName), " "));
+		if (hint > 0) {
+			capitalizedExample += " "+hint;
+		}
+		return capitalizedExample;
 	}
 
 	public List<String> getOptions() {
