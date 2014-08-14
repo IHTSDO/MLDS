@@ -65,7 +65,20 @@ public class AffiliateAuditEvents {
 
 	private Map<String, String> createAffiliateDetailsData(Affiliate affiliate) {
 		Map<String,String> auditData = Maps.newHashMap();
-    	auditData.put("affiliate.affiliateDetails", affiliate.getAffiliateDetails().toString());
+    	auditData.put("affiliate.affiliateDetails.firstName", affiliate.getAffiliateDetails().getFirstName());
+    	auditData.put("affiliate.affiliateDetails.lastName", affiliate.getAffiliateDetails().getLastName());
+    	auditData.put("affiliate.affiliateDetails.landlineNumber", affiliate.getAffiliateDetails().getLandlineNumber());
+    	auditData.put("affiliate.affiliateDetails.landlineExtension", affiliate.getAffiliateDetails().getLandlineExtension());
+    	auditData.put("affiliate.affiliateDetails.mobileNumber", affiliate.getAffiliateDetails().getMobileNumber());
+    	auditData.put("affiliate.affiliateDetails.address.street", affiliate.getAffiliateDetails().getAddress().getStreet());
+    	auditData.put("affiliate.affiliateDetails.address.city", affiliate.getAffiliateDetails().getAddress().getCity());
+    	auditData.put("affiliate.affiliateDetails.address.post", affiliate.getAffiliateDetails().getAddress().getPost());
+    	auditData.put("affiliate.affiliateDetails.billingAddress.street", affiliate.getAffiliateDetails().getBillingAddress().getStreet());
+    	auditData.put("affiliate.affiliateDetails.billingAddress.city", affiliate.getAffiliateDetails().getBillingAddress().getCity());
+    	auditData.put("affiliate.affiliateDetails.billingAddress.post", affiliate.getAffiliateDetails().getBillingAddress().getPost());
+    	auditData.put("affiliate.affiliateDetails.billingAddress.country", affiliate.getAffiliateDetails().getBillingAddress().getCountry().getIsoCode2());
+    	auditData.put("affiliate.affiliateDetails.alternateEmail", affiliate.getAffiliateDetails().getAlternateEmail());
+    	auditData.put("affiliate.affiliateDetails.thirdEmail", affiliate.getAffiliateDetails().getThirdEmail());
 		return auditData;
 	}
 
