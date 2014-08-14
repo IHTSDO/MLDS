@@ -43,6 +43,7 @@ public class FieldMapping {
 	public String getExampleValue(int hint) {
 		return valueConverter.getExampleValue(hint, columnName);
 	}
+	
 	public List<String> getOptions() {
 		return valueConverter.getOptions();
 	}
