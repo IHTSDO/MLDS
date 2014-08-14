@@ -44,7 +44,7 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 		appendLineEnding(writer);
 	}
 
-	private String generateValue(FieldMapping fieldMapping, int i, GeneratorContext context) {
+	public String generateValue(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		String stringValue = fieldMapping.getExampleValue(i);
 		// Must have a value to allow re-import for affiliate added by users in our system.
 		if (Objects.equal(fieldMapping.columnName, "importKey")) {
@@ -53,8 +53,14 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 			stringValue = generateEmail(fieldMapping, i, context);
 		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "street")) {
 			stringValue = generateStreet(fieldMapping, i, context);
+		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "city")) {
+			stringValue = generateCity(fieldMapping, i, context);
+		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "post")) {
+			stringValue = generatePostCode(fieldMapping, i, context);
 		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "number")) {
 			stringValue = generateTelephoneNumber(fieldMapping, i, context);
+		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "extension")) {
+			stringValue = generateExtensionNumber(fieldMapping, i, context);
 		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "first")) {
 			stringValue = generateFirstName(fieldMapping, i, context);
 		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "last")) {
@@ -64,8 +70,17 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 		return stringValue;
 	}
 	
+	private String generateExtensionNumber(FieldMapping fieldMapping, int i, GeneratorContext context) {
+		return StringUtils.leftPad(Integer.toString(hashOfColumnName(fieldMapping)%1000), 3, '0');
+	}
+
 	private String generateStreet(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		return Integer.toString(i)+ " "+ (WordUtils.capitalizeFully(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(fieldMapping.columnName), " ")));
+	}
+
+	private String generateCity(FieldMapping fieldMapping, int i, GeneratorContext context) {
+		//From http://en.wikipedia.org/wiki/List_of_most_popular_given_names
+		return generateNameFromList(i, new String[] {"Skagen", "Jerup", "Strandby", "Sindal", "Bindslev", "Frederikshavn", "Ranum", "Aars", "Hadsund", "Mariager"});
 	}
 
 	private String generateFirstName(FieldMapping fieldMapping, int i, GeneratorContext context) {
@@ -91,10 +106,19 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 		return options[i%options.length];
 	}
 
-	private String generateTelephoneNumber(FieldMapping fieldMapping, int i, GeneratorContext context) {
-		return "+1 416 "+StringUtils.leftPad(Integer.toString(fieldMapping.columnName.hashCode()%1000), 3, '0')+" "+StringUtils.leftPad(Integer.toString(i), 4, '0');
+	private String generatePostCode(FieldMapping fieldMapping, int i, GeneratorContext context) {
+		return Integer.toString(9000 + hashOfColumnName(fieldMapping)%1000);
 	}
 
+	
+	private String generateTelephoneNumber(FieldMapping fieldMapping, int i, GeneratorContext context) {
+		return "+1 416 "+StringUtils.leftPad(Integer.toString(hashOfColumnName(fieldMapping)%1000), 3, '0')+" "+StringUtils.leftPad(Integer.toString(i), 4, '0');
+	}
+
+	private int hashOfColumnName(FieldMapping fieldMapping) {
+		return Math.abs(fieldMapping.columnName.hashCode());
+	}
+	
 	private String generateEmail(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		return fieldMapping.columnName+appendUniquenessHint(i, "+")+"@email.com";
 	}
