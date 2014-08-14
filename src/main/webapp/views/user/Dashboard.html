@@ -92,11 +92,11 @@
       </thead>
       <tbody> 
         <tr ng-repeat="application in affiliate.applications">
-          <td>{{application.applicationType}}</td>
+          <td>{{'application.applicationType.'+application.applicationType | translate}}</td>
           <td>{{(application.completedAt || application.submittedAt) | date }}</td>
           <td>
           	<p ng-class="{'text-warning':isApplicationPending(application), 'text-danger':isApplicationWaitingForApplicant(application)}">
-          		<strong>{{application.approvalState}}</strong>
+          		<strong>{{'approval.state.'+application.approvalState | translate}}</strong>
           	  <a href="#/extensionApplication/{{application.applicationId}}" ng-show="application.applicationType === 'EXTENSION'">{{isApplicationWaitingForApplicant(application)?'Continue':'View'}}</a>
          	</p>
           </td>
