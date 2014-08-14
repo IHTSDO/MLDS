@@ -109,6 +109,8 @@ public class AffiliatesImporterService {
 	private void updateAffiliate(Affiliate affiliate, LineRecord record, ImportResult result) throws IllegalAccessException, InstantiationException {
 		record.setValuesOfMatchingClass(affiliate, Affiliate.class, affiliatesMapper);
 		record.setValuesOfMatchingClass(affiliate.getAffiliateDetails(), AffiliateDetails.class, affiliatesMapper);
+		// FIXME MLDS-325 MB what other objects should we update?
+		// FIXME MLDS-325 MB create an "Import" application for history?
 	}
 
 	private void createApprovedAffiliate(LineRecord record, ImportResult result) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
