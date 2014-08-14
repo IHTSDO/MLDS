@@ -40,9 +40,11 @@
 							<h4>How will you be using the extension? FIXME COPY</h4>
 							<div class="form-group">
 								<label>Purpose of Use:</label>
-								<textarea class="form-control" rows="10" cols="135" required name="reason" ng-disabled="readOnly" ng-model="extensionForm.reason"></textarea>
-								<p ng-show="extensionForm.attempted && extensionApplicationForm.reason.$error.required"
+								<textarea class="form-control" rows="10" cols="135" required name="reason" ng-disabled="readOnly" ng-minlength="3" ng-model="extensionForm.reason"></textarea>
+								<p ng-show="extensionApplicationForm.attempted && extensionApplicationForm.reason.$error.required"
 									class="help-block">Required field.</p>
+								<p ng-show="extensionApplicationForm.attempted && extensionApplicationForm.reason.$error.minlength"
+									class="help-block">Reason needs to be longer.</p>
 							</div>
 						</div>
 					</div>
@@ -59,17 +61,12 @@
 								target="_blank" class="btn btn-default btn-block">SNOMED CT Extension Licence</a>
 						</p>
 						<p class="form-group">
-							<label>
-								<input required="" type="checkbox" name="snoMedTC" ng-disabled="readOnly" ng-checked="readOnly">
-									 I agree to the licence 
-							 	<span ng-show="extensionApplicationForm.snoMedTC.$error.required && extensionForm.attempted" class="help-block">
-									You must agree to the terms and conditions of the SNOMED CT Licence in order to register, which also indicates potential fees that be required.
-								</span>
-							</label>
-						</p>
+	            <label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="snoMedTC"> I agree to the licence 
+	            <span ng-show="extensionApplicationForm.snoMedTC.$error.required && extensionApplicationForm.attempted" class="help-block">You must agree to the terms and conditions of the SNOMED CT Licence in order to register, which also indicates potential fees that be required.</span></label>
+	          </p>
 						<div class="panel-footer">
 							<input type="submit" class="btn btn-muted btn-success" ng-disabled="readOnly" value="Apply"/>
-							<div ng-show="extensionForm.attempted"
+							<div ng-show="extensionApplicationForm.attempted"
 								class="has-error">
 								<p ng-show="extensionApplicationForm.$invalid"
 									class="help-block">Please fix the errors listed above.</p>
