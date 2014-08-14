@@ -173,6 +173,7 @@ public class AffiliateResource {
     	copyAffiliateDetailsFields(affiliateDetails, body);
     	
     	affiliateDetailsRepository.save(affiliateDetails);
+    	affiliateAuditEvents.logUpdateOf(affiliate);
     	
     	return new ResponseEntity<AffiliateDetails>(affiliateDetails, HttpStatus.OK);
     }
