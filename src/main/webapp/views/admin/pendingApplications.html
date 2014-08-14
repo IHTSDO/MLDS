@@ -19,7 +19,7 @@
 						<th>Date Submitted</th>
 						<th>Status</th>
 						<th>Type</th>
-						<th class="text-right">Assigned Member</th>
+						<th>Assigned Member</th>
 						<th>Affiliate Name</th>
 						<th>Home Country</th>
 						<th>Use Type</th>
@@ -32,9 +32,9 @@
 									
 					<td>{{application.submittedAt | date}}</td>
 					<td>{{'approval.state.'+application.approvalState | translate}}</td>
-					<td>{{application.applicationType}}</td>
+					<td>{{'application.applicationType.'+application.applicationType | translate}}</td>
 					
-					<td class="text-right">{{'global.member.'+application.member.key | translate}}</td>
+					<td>{{'global.member.'+application.member.key | translate}}</td>
 					<td>{{application.affiliateDetails.organizationName ? application.affiliateDetails.organizationName : application.affiliateDetails.firstName + ' '+application.affiliateDetails.lastName}}</td>
 					<td>{{application.affiliateDetails.address.country.commonName}}</td>
 					<td ng-switch-when="PRIMARY">{{'affiliate.type.'+application.type | translate}} - {{'affiliate.subType.'+application.subType | translate}}</td>
