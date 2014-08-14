@@ -38,6 +38,6 @@ public class CountryValueConverter extends ValueConverter {
 	
 	@Override
 	public String getExampleValue(int hint, String columnName) {
-		return "CA";
+		return "DK";
 	}
 }

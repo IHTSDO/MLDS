@@ -75,10 +75,14 @@ public class AffiliatesExporterService extends BaseAffiliatesGenerator {
 			columnSpec.attributeClass = ClassUtils.getShortClassName(fieldMapping.accessor.getAttributeClass());
 			columnSpec.columnName = fieldMapping.columnName;
 			columnSpec.required = fieldMapping.required;
-			columnSpec.example = fieldMapping.getExampleValue(0);
+			columnSpec.example = getExampleValue(fieldMapping);
 			columnSpec.options = fieldMapping.getOptions();
 			spec.getColumns().add(columnSpec);
 		}
 		return spec;
+	}
+
+	private String getExampleValue(FieldMapping fieldMapping) {
+		return affiliatesImportGenerator.generateValue(fieldMapping, 0, new AffiliatesImportGenerator.GeneratorContext());
 	}
 }
