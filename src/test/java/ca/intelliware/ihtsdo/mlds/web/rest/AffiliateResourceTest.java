@@ -37,6 +37,9 @@ public class AffiliateResourceTest {
     private AffiliateDetailsRepository affiliateDetailsRepository;
     
     @Mock
+    private AffiliateAuditEvents affiliateAuditEvents;
+    
+    @Mock
     private SessionService sessionService;
     
     private MockMvc restUserMockMvc;
@@ -50,6 +53,7 @@ public class AffiliateResourceTest {
         affiliateResource.affiliateDetailsRepository = affiliateDetailsRepository;
         affiliateResource.affiliateRepository = affiliateRepository;
         affiliateResource.applicationAuthorizationChecker = applicationAuthorizationChecker;
+        affiliateResource.affiliateAuditEvents = affiliateAuditEvents;
 
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(affiliateResource).build();
     }
