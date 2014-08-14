@@ -17,6 +17,11 @@ angular.module('MLDS')
 
 	service.exportAffiliatesUrl = '/app/rest/affiliates/csv';
 	
+	service.importSpec = function() {
+		return $http.get('/app/rest/affiliates/csvSpec');
+		//return $http.get('/app/rest/affiliates/csv', {headers: {'Accept':'application/csv+spec'}});
+	};
+	
 	return service;
 }]);
 
