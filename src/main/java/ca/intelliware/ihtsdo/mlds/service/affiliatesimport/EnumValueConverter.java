@@ -1,5 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 
 public class EnumValueConverter extends ValueConverter {
@@ -44,4 +48,20 @@ public class EnumValueConverter extends ValueConverter {
 		buffer.append("]");
 		return buffer.toString();
 	}
+	
+	@Override
+	public String getExampleValue(String columnName) {
+		return enumClazz.getEnumConstants()[0].toString();
+	}
+	
+	@Override
+	public List<String> getOptions() {
+		List<String> options = new ArrayList<String>();
+		for (Object enumConstant : enumClazz.getEnumConstants()) {
+			options.add(enumConstant.toString());
+		}
+		Collections.sort(options);
+		return options;
+	}
+
 }

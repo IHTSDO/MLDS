@@ -35,4 +35,9 @@ public class CountryValueConverter extends ValueConverter {
 			return "";
 		}
 	}
+	
+	@Override
+	public String getExampleValue(String columnName) {
+		return "CA";
+	}
 }

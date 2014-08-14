@@ -33,6 +33,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImporterService;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
@@ -133,6 +134,16 @@ public class AffiliateResource {
 		String result = affiliatesExporterService.exportToCSV();
 		affiliateAuditEvents.logExport();
 		return new ResponseEntity<String>(result, HttpStatus.OK);
+    }
+	
+	//FIXME Would like to use custom produces to overload request path
+	@RolesAllowed({AuthoritiesConstants.ADMIN})
+    @RequestMapping(value = Routes.AFFILIATES_CSV_SPEC,
+    		method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<AffiliatesImportSpec> getAffiliatesImportSpec() throws IOException {
+		AffiliatesImportSpec result = affiliatesExporterService.exportSpec();
+		return new ResponseEntity<AffiliatesImportSpec>(result, HttpStatus.OK);
     }
 
 	
