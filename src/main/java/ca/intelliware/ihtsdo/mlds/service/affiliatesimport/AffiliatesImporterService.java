@@ -100,15 +100,15 @@ public class AffiliatesImporterService {
 	private Affiliate findExistingAffiliateForUpdate(LineRecord record) throws IllegalAccessException, InstantiationException {
 		Affiliate tmpAffiliate = new Affiliate();
 		PrimaryApplication tmpApplication = new PrimaryApplication();
-		record.setValuesOfMatchingClass(tmpAffiliate, Affiliate.class, affiliatesMapper);
-		record.setValuesOfMatchingClass(tmpApplication, Application.class, affiliatesMapper);
+		populateWithAll(tmpAffiliate, record, Affiliate.class);
+		populateWithAll(tmpApplication, record, Application.class);
 		Affiliate affiliate = affiliateRepository.findByImportKeyAndHomeMember(tmpAffiliate.getImportKey(),tmpApplication.getMember());
 		return affiliate;
 	}
 
 	private void updateAffiliate(Affiliate affiliate, LineRecord record, ImportResult result) throws IllegalAccessException, InstantiationException {
-		record.setValuesOfMatchingClass(affiliate, Affiliate.class, affiliatesMapper);
-		record.setValuesOfMatchingClass(affiliate.getAffiliateDetails(), AffiliateDetails.class, affiliatesMapper);
+		populateWithAll(affiliate, record, Affiliate.class);
+		populateWithAll(affiliate.getAffiliateDetails(), record, AffiliateDetails.class);
 		// FIXME MLDS-325 MB what other objects should we update?
 		// FIXME MLDS-325 MB create an "Import" application for history?
 	}
