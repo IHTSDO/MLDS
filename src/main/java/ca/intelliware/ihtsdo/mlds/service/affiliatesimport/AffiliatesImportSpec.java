@@ -5,13 +5,17 @@ import java.util.List;
 
 public class AffiliatesImportSpec {
 
-	private List<ColumnSpec> columns = new ArrayList<ColumnSpec>();
+	List<ColumnSpec> columns = new ArrayList<ColumnSpec>();
+	String example;
 	
 	public List<ColumnSpec> getColumns() {
 		return columns;
 	}
 	
-	
+	public String getExample() {
+		return example;
+	}
+
 	public static class ColumnSpec {
 		String columnName;
 		String attributeClass;

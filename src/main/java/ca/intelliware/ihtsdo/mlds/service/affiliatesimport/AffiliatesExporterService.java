@@ -18,12 +18,11 @@ import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec.
 import com.google.common.base.Objects;
 
 @Service
-public class AffiliatesExporterService {
+public class AffiliatesExporterService extends BaseAffiliatesGenerator {
 
 	@Resource AffiliateRepository affiliateRepository;
+	@Resource AffiliatesImportGenerator affiliatesImportGenerator;
 	
-	@Resource AffiliatesMapper affiliatesMapper;
-
 	public String exportToCSV() {
 		StringWriter writer = new StringWriter();
 		writeHeader(writer);
@@ -45,15 +44,11 @@ public class AffiliatesExporterService {
 			String stringValue = toStringValue(fieldMapping, rootObject);
 			// Must have a value to allow re-import for affiliate added by users in our system.
 			if (Objects.equal(fieldMapping.columnName, "importKey") && StringUtils.isBlank(stringValue)) {
-				stringValue = generatePlaceHolderImportKey(affiliate);
+				stringValue = generatePlaceHolderImportKey(affiliate.getAffiliateId());
 			}
 			writer.append(stringValue);
 		}
 		appendLineEnding(writer);
-	}
-
-	private String generatePlaceHolderImportKey(Affiliate affiliate) {
-		return "AFFILIATE-"+affiliate.getAffiliateId();
 	}
 
 	private String toStringValue(FieldMapping fieldMapping, Object rootObject) {
@@ -72,36 +67,9 @@ public class AffiliatesExporterService {
 		return new IllegalStateException("Unsupported root class field mapping");
 	}
 
-	private void writeHeader(StringWriter writer) {
-		SeparatorWriter separatorWriter = new SeparatorWriter();
-		for (FieldMapping fieldMapping : affiliatesMapper.getMappings()) {
-			separatorWriter.append(writer);
-			writer.append(fieldMapping.columnName);
-		}
-		appendLineEnding(writer);
-	}
-
-	private void appendLineEnding(StringWriter writer) {
-		writer.append(AffiliateFileFormat.LINE_ENDING);
-	}
-
-	private void appendColumnSeparator(StringWriter writer) {
-		writer.append(AffiliateFileFormat.COLUMN_SEPARATOR);
-	}
-	
-	class SeparatorWriter {
-		boolean first = true;
-		public void append(StringWriter writer) {
-			if (!first) {
-				appendColumnSeparator(writer);
-			} else {
-				first = false;
-			}			
-		}
-	}
-
 	public AffiliatesImportSpec exportSpec() {
 		AffiliatesImportSpec spec = new AffiliatesImportSpec();
+		spec.example = affiliatesImportGenerator.generateFile(2);
 		for (FieldMapping fieldMapping : affiliatesMapper.getMappings()) {
 			ColumnSpec columnSpec = new AffiliatesImportSpec.ColumnSpec();
 			columnSpec.attributeClass = ClassUtils.getShortClassName(fieldMapping.accessor.getAttributeClass());
