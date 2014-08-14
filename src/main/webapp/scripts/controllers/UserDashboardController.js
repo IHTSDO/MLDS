@@ -67,6 +67,14 @@ angular.module('MLDS')
         				$log.log('Failed to load release packages');
         			});
         	}
-
+        	
+        	$scope.orderByApprovalState = function orderByApprovalState(application) {
+        		return ApplicationUtilsService.isApplicationApproved(application);
+        	};
+        	
+        	$scope.orderByApplicationType = function orderByApplicationType(application) {
+        		return !ApplicationUtilsService.isPrimaryApplication(application);
+        	};
+        	
         }
     ]);

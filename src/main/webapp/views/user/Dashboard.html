@@ -91,7 +91,7 @@
         </tr>
       </thead>
       <tbody> 
-        <tr ng-repeat="application in affiliate.applications">
+        <tr ng-repeat="application in affiliate.applications | orderBy: [orderByApprovalState, orderByApplicationType]">
           <td>{{'application.applicationType.'+application.applicationType | translate}}</td>
           <td>{{(application.completedAt || application.submittedAt) | date }}</td>
           <td>
