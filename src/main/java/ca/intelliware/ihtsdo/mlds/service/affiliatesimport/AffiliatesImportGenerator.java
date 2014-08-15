@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
 import java.io.StringWriter;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -45,10 +46,14 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 	}
 
 	public String generateValue(FieldMapping fieldMapping, int i, GeneratorContext context) {
-		String stringValue = fieldMapping.getExampleValue(i);
-		// Must have a value to allow re-import for affiliate added by users in our system.
+		String stringValue = generateBasicValue(fieldMapping, i);
 		if (Objects.equal(fieldMapping.columnName, "importKey")) {
+			// Must have a value to allow re-import for affiliate added by users in our system.
 			stringValue = context.getBaseKey()+i;
+		} else if (Objects.equal(fieldMapping.columnName, "member")) {
+			stringValue = context.getSourceMemberKey();
+		} else if (Objects.equal(fieldMapping.columnName, "addressCountry")) {
+			stringValue = context.getSourceCountryKey();
 		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "email")) {
 			stringValue = generateEmail(fieldMapping, i, context);
 		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "street")) {
@@ -69,6 +74,21 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 		
 		return stringValue;
 	}
+
+	private String generateBasicValue(FieldMapping fieldMapping, int hint) {
+		List<String> options = fieldMapping.getOptions();
+		if (options.size() > 0) {
+			return options.get(hint % options.size());
+		} else {
+			String[] words = StringUtils.splitByCharacterTypeCamelCase(fieldMapping.columnName);
+			String capitalizedExample = WordUtils.capitalizeFully("Example "+StringUtils.join(words, " "));
+			if (hint > 0) {
+				capitalizedExample += " "+hint;
+			}
+			return capitalizedExample;
+		}
+	}
+	
 	
 	private String generateExtensionNumber(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		return StringUtils.leftPad(Integer.toString(hashOfColumnName(fieldMapping)%1000), 3, '0');
@@ -127,6 +147,8 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 	public static class GeneratorContext {
 		private int rows = 1;
 		private String baseKey = "AFFILIATE-";
+		private String sourceMemberKey = "DK";
+		private String sourceCountryKey = "DK";
 		
 		public int getRows() {
 			return rows;
@@ -139,6 +161,18 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 		}
 		public void setBaseKey(String baseKey) {
 			this.baseKey = baseKey;
+		}
+		public String getSourceMemberKey() {
+			return sourceMemberKey;
+		}
+		public void setSourceMemberKey(String sourceMemberKey) {
+			this.sourceMemberKey = sourceMemberKey;
+		}
+		public String getSourceCountryKey() {
+			return sourceCountryKey;
+		}
+		public void setSourceCountryKey(String sourceCountryKey) {
+			this.sourceCountryKey = sourceCountryKey;
 		}
 	}
 }
