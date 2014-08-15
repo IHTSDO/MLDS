@@ -20,9 +20,13 @@ import com.google.common.base.Objects;
 @Service
 public class AffiliatesExporterService extends BaseAffiliatesGenerator {
 
-	private static final int EXAMPLE_DATA_ROWS = 2;
-	@Resource AffiliateRepository affiliateRepository;
-	@Resource AffiliatesImportGenerator affiliatesImportGenerator;
+	public static final int EXAMPLE_DATA_ROWS = 2;
+	
+	@Resource 
+	AffiliateRepository affiliateRepository;
+	
+	@Resource 
+	AffiliatesImportGenerator affiliatesImportGenerator;
 	
 	public String exportToCSV() {
 		StringWriter writer = new StringWriter();
