@@ -20,6 +20,7 @@ import com.google.common.base.Objects;
 @Service
 public class AffiliatesExporterService extends BaseAffiliatesGenerator {
 
+	private static final int EXAMPLE_DATA_ROWS = 2;
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource AffiliatesImportGenerator affiliatesImportGenerator;
 	
@@ -69,17 +70,22 @@ public class AffiliatesExporterService extends BaseAffiliatesGenerator {
 
 	public AffiliatesImportSpec exportSpec() {
 		AffiliatesImportSpec spec = new AffiliatesImportSpec();
-		spec.example = affiliatesImportGenerator.generateFile(2);
+		spec.example = affiliatesImportGenerator.generateFile(EXAMPLE_DATA_ROWS);
 		for (FieldMapping fieldMapping : affiliatesMapper.getMappings()) {
-			ColumnSpec columnSpec = new AffiliatesImportSpec.ColumnSpec();
-			columnSpec.attributeClass = ClassUtils.getShortClassName(fieldMapping.accessor.getAttributeClass());
-			columnSpec.columnName = fieldMapping.columnName;
-			columnSpec.required = fieldMapping.required;
-			columnSpec.example = getExampleValue(fieldMapping);
-			columnSpec.options = fieldMapping.getOptions();
+			ColumnSpec columnSpec = generateColumnSpec(fieldMapping);
 			spec.getColumns().add(columnSpec);
 		}
 		return spec;
+	}
+
+	private ColumnSpec generateColumnSpec(FieldMapping fieldMapping) {
+		ColumnSpec columnSpec = new AffiliatesImportSpec.ColumnSpec();
+		columnSpec.attributeClass = ClassUtils.getShortClassName(fieldMapping.accessor.getAttributeClass());
+		columnSpec.columnName = fieldMapping.columnName;
+		columnSpec.required = fieldMapping.required;
+		columnSpec.example = getExampleValue(fieldMapping);
+		columnSpec.options = fieldMapping.getOptions();
+		return columnSpec;
 	}
 
 	private String getExampleValue(FieldMapping fieldMapping) {
