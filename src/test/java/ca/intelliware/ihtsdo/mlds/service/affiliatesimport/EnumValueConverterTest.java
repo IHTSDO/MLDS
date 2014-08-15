@@ -78,4 +78,6 @@ public class EnumValueConverterTest {
 	public void getOptionsShouldProvideSortedListOfOptionsAsStrings() {
 		assertEquals(fixture.getOptions(), Lists.newArrayList("ANOTHER_ENUM", "ONE_ENUM"));
 	}
+	
+	
 }
