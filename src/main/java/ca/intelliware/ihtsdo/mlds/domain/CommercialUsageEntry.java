@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="commercial_usage_entry")
-public class CommercialUsageEntry {
+public class CommercialUsageEntry extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="commercial_usage_entry_id")
@@ -42,12 +42,26 @@ public class CommercialUsageEntry {
 	
 	Instant created = Instant.now();
 	
+	public CommercialUsageEntry() {
+		
+	}
+	
+	//For testing
+	public CommercialUsageEntry(long commercialUsageEntryId, CommercialUsage commercialUsage) {
+		this.commercialUsageEntryId = commercialUsageEntryId;
+		commercialUsage.addEntry(this);
+	}
+	
 	public Long getCommercialUsageEntryId() {
 		return commercialUsageEntryId;
 	}
 
 	public String getName() {
 		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public LocalDate getStartDate() {
@@ -76,5 +90,10 @@ public class CommercialUsageEntry {
 
 	public CommercialUsage getCommercialUsage() {
 		return commercialUsage;
+	}
+
+	@Override
+	protected Object getPK() {
+		return commercialUsageEntryId;
 	}
 }

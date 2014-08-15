@@ -45,16 +45,28 @@ public class AuditEventService {
         return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
     }
 
+    public List<AuditEvent> findByAuditEventType(String auditEventType) {
+        final List<PersistentAuditEvent> persistentAuditEvents =
+                persistenceAuditEventRepository.findByAuditEventType(auditEventType);
+
+        return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
+    }
+
+    
+
 	public void logAuditableEvent(String eventType, Map<String,String> auditData) {
-		persistenceAuditEventRepository.save(createAuditEvent(eventType, auditData));
+		logAuditableEvent(createAuditEvent(eventType, auditData));
 	}
 
-	PersistentAuditEvent createAuditEvent(String eventType, Map<String, String> auditData) {
+	public void logAuditableEvent(PersistentAuditEvent auditEvent) {
+		persistenceAuditEventRepository.save(auditEvent);
+	}
+
+	public PersistentAuditEvent createAuditEvent(String eventType, Map<String, String> auditData) {
 		PersistentAuditEvent persistentAuditEvent = new PersistentAuditEvent();
 		persistentAuditEvent.setPrincipal(currentSecurityContext.getCurrentUserName());
 		persistentAuditEvent.setAuditEventType(eventType);
 		persistentAuditEvent.setData(auditData);
 		return persistentAuditEvent;
 	}
-    
 }

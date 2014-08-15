@@ -5,23 +5,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
-import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ReleasePackagesResourceTest {
 
     private MockMvc restReleasePackagesResource;
@@ -36,7 +39,10 @@ public class ReleasePackagesResourceTest {
 	ReleaseFileRepository releaseFileRepository;
 
 	@Mock
-	AuthorizationChecker authorizationChecker;
+	ReleasePackageAuthorizationChecker authorizationChecker;
+	
+    @Mock
+    private UserMembershipAccessor userMembershipAccessor;
 	
 	@Mock
 	CurrentSecurityContext currentSecurityContext;
@@ -48,14 +54,15 @@ public class ReleasePackagesResourceTest {
 
 	@Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
-        
         releasePackagesResource = new ReleasePackagesResource();
         
         releasePackagesResource.releasePackageRepository = releasePackageRepository;
         releasePackagesResource.authorizationChecker = authorizationChecker;
         releasePackagesResource.currentSecurityContext = currentSecurityContext;
         releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
+        releasePackagesResource.userMembershipAccessor = userMembershipAccessor;
+        
+        Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(new Member("IHTSDO"));
 
         this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releasePackagesResource).build();
     }

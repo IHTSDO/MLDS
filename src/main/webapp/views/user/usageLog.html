@@ -4,11 +4,11 @@
 	 
 		 <h4>Submitted Commercial Usage Report</h4>
 		 <hr>
-		  <p class="bg-success"><span class="pull-right" id="retractBtn"><button ng-disabled="!readOnly" ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
-		<strong>Commercial Usage for:{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }} </strong> </p>
+		  <p class="bg-info"><span class="pull-right" id="retractBtn"><button ng-disabled="!readOnly" ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
+		<strong>Commercial Usage for: {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }} </strong> </p>
 	</div>
 	
-	<div class="panel panel-default" >
+	<div class="panel panel-primary" >
       <div class="panel-heading">
         <h4 class="panel-title">
         	<a ng-click="collapsePanel.usage = !collapsePanel.usage">
@@ -19,40 +19,40 @@
       <div class="panel-body" collapse="collapsePanel.usage" class="panel-collapse collapse in">
        <ng-form name="usageForm" novalidate bs-validation >
                  <div class="form-group" ng-init="affilliateControllerSharedBucket.usageForm = usageForm">
-                    <label>Licence Type: {{'licensee.type.'+commercialUsageReport.type | translate}}</label>
+                    <label>Licence Type: {{'affiliate.type.'+commercialUsageReport.type | translate}}</label>
                   </div>
                   <div class="form-group">
-                    <label>Current Usage</label>
+                    <label>Current Usage:</label>
                     <textarea class="form-control" rows="3" required ng-disabled="readOnly" name="currentUsage" ng-model="commercialUsageReport.context.currentUsage" auto-submit></textarea>
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.currentUsage.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
                   <div class="form-group">
-                    <label>Planned Usage</label>
+                    <label>Planned Usage:</label>
                     <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="plannedUsage" ng-model="commercialUsageReport.context.plannedUsage" auto-submit></textarea>
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.plannedUsage.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
                   <div class="form-group">
-                    <label>Purpose</label>
+                    <label>Purpose:</label>
                     <textarea class="form-control" rows="3" required  ng-disabled="readOnly" name="purpose" ng-model="commercialUsageReport.context.purpose" auto-submit></textarea>
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.purpose.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
                   <div class="form-group">
-                    <label>Type of Agreement</label>
-                    <select name="agreementType"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.agreementType" ng-options="'licensee.agreementType.'+type | translate for type in agreementTypeOptions"  auto-submit>
+                    <label>Type of Agreement:</label>
+                    <select name="agreementType"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.agreementType" ng-options="'affiliate.agreementType.'+type | translate for type in agreementTypeOptions"  auto-submit>
                     </select> 
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.agreementType.$error.required" class="help-block">Required field.</p>
 					</div>
                   </div>
                   <div class="form-group">
-                    <label>Implementation Status</label>
-                    <select name="implementationStatus"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.implementationStatus" ng-options="'licensee.implementationStatus.'+status | translate for status in implementationStatusOptions"  auto-submit>
+                    <label>Implementation Status:</label>
+                    <select name="implementationStatus"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.implementationStatus" ng-options="'affiliate.implementationStatus.'+status | translate for status in implementationStatusOptions"  auto-submit>
                     </select> 
                     <div ng-show="usageForm.attempted">
 						<p ng-show="usageForm.implementationStatus.$error.required" class="help-block">Required field.</p>
@@ -62,10 +62,10 @@
 		</div>
 	</div>
 	
-    <div class="panel panel-default"  ng-hide="readOnly && commercialType">
+    <div class="panel panel-primary"  ng-hide="readOnly && commercialType">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a ng-click="collapsePanel.geographic = !collapsePanel.geographic"> Geographic Scope </a>
+          <a ng-click="collapsePanel.geographic = !collapsePanel.geographic">Countries in Use</a>
         </h4>
       </div>
       <div class="panel-body" collapse="collapsePanel.geographic" class="panel-collapse collapse in">
@@ -117,7 +117,7 @@
       </div>
     </div>
     
-		<div class="panel panel-default" ng-show="commercialType">
+		<div class="panel panel-primary" ng-show="commercialType">
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a ng-click="collapsePanel.sublicensed = !collapsePanel.sublicensed">Sublicensed Institutions</a>
@@ -194,10 +194,11 @@
 <div class="row">
 	<div class="col-xs-offset-1 col-sm-offset-0 col-md-offset-0 col-md-12">
 		<div class="submit-usage" ng-hide="readOnly || !canSubmit">
-			<button ng-click="submitUsageReport(usageForm)" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button> <button ng-click="goToDashboard()" type="button" class="btn btn-link">Back to Dashboard</button>
+			<button ng-click="submitUsageReport(usageForm)" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button> 
 			<div ng-show="usageForm.attempted" class="has-error">
 				<p ng-show="usageForm.$invalid" class="help-block">Please fix the errors listed above.</p>
 			</div>
 		</div>
+		<button ng-click="goToDashboard()" type="button" class="btn btn-link">Back to Dashboard</button>
   </div>
 </div>

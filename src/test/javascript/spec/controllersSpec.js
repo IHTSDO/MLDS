@@ -24,20 +24,11 @@ describe('Controllers Tests ', function () {
 
         beforeEach(inject(function($rootScope, $controller, Password) {
             $scope = $rootScope.$new();
+            $scope.form = {};
             PasswordService = Password;
             $controller('PasswordController',{$scope:$scope, Password:PasswordService});
         }));
 
-        it('should show error if passwords do not match', function(){
-            //GIVEN
-            $scope.password = 'password1';
-            $scope.confirmPassword = 'password2';
-            //WHEN
-            $scope.changePassword();
-            //THEN
-            expect($scope.doNotMatch).toBe('ERROR');
-
-        });
         it('should call Service and set OK on Success', function(){
             //GIVEN
             var pass = 'myPassword';
@@ -59,36 +50,6 @@ describe('Controllers Tests ', function () {
         });
     });
 
-    describe('SettingsController', function () {
-        var $scope, AccountService;
-
-        beforeEach(inject(function ($rootScope, $controller, Account) {
-            $scope = $rootScope.$new();
-
-            AccountService = Account;
-            $controller('SettingsController',{$scope:$scope, resolvedAccount:AccountService, Account:AccountService});
-        }));
-
-        it('should save account', function () {
-            //GIVEN
-            $scope.settingsAccount = {firstName: "John", lastName: "Doe"};
-
-            //SET SPY
-            spyOn(AccountService, 'save');
-
-            //WHEN
-            $scope.save();
-
-            //THEN
-            expect(AccountService.save).toHaveBeenCalled();
-                        expect(AccountService.save).toHaveBeenCalledWith({firstName: "John", lastName: "Doe"}, jasmine.any(Function), jasmine.any(Function));
-
-            //SIMULATE SUCCESS CALLBACK CALL FROM SERVICE
-            AccountService.save.calls.mostRecent().args[1]();
-            expect($scope.error).toBeNull();
-            expect($scope.success).toBe('OK');
-        });
-    });
 
     describe('SessionsController', function () {
         var $scope, SessionsService;

@@ -26,7 +26,7 @@ import org.joda.time.Instant;
 @Entity
 @Table(name = "T_PERSISTENT_AUDIT_EVENT")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class PersistentAuditEvent  {
+public class PersistentAuditEvent extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -48,6 +48,21 @@ public class PersistentAuditEvent  {
     @Column(name="value")
     @CollectionTable(name="T_PERSISTENT_AUDIT_EVENT_DATA", joinColumns=@JoinColumn(name="event_id"))
     private Map<String, String> data = new HashMap<>();
+    
+	@Column(name="affiliate_id")
+    private Long affiliateId;
+
+	@Column(name="application_id")
+    private Long applicationId;
+    
+	@Column(name="release_package_id")
+    private Long releasePackageId;
+    
+	@Column(name="release_version_id")
+    private Long releaseVersionId;
+
+	@Column(name="release_file_id")
+    private Long releaseFileId;
 
     public long getId() {
         return id;
@@ -88,4 +103,49 @@ public class PersistentAuditEvent  {
     public void setData(Map<String, String> data) {
         this.data = data;
     }
+
+	public Long getAffiliateId() {
+		return affiliateId;
+	}
+
+	public void setAffiliateId(Long affiliateId) {
+		this.affiliateId = affiliateId;
+	}
+
+	public Long getApplicationId() {
+		return applicationId;
+	}
+
+	public void setApplicationId(Long applicationId) {
+		this.applicationId = applicationId;
+	}
+
+	public Long getReleasePackageId() {
+		return releasePackageId;
+	}
+
+	public void setReleasePackageId(Long releasePackageId) {
+		this.releasePackageId = releasePackageId;
+	}
+
+	public Long getReleaseVersionId() {
+		return releaseVersionId;
+	}
+
+	public void setReleaseVersionId(Long releaseVersionId) {
+		this.releaseVersionId = releaseVersionId;
+	}
+
+	public Long getReleaseFileId() {
+		return releaseFileId;
+	}
+
+	public void setReleaseFileId(Long releaseFileId) {
+		this.releaseFileId = releaseFileId;
+	}
+	
+	@Override
+	protected Object getPK() {
+		return id;
+	}
 }

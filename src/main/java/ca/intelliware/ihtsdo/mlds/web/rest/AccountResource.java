@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,28 +32,34 @@ import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringWebContext;
+import org.thymeleaf.util.Validate;
 
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
+import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.Licensee;
-import ca.intelliware.ihtsdo.mlds.domain.LicenseeType;
+import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
+import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.registration.Application;
-import ca.intelliware.ihtsdo.mlds.registration.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
+import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.repository.LicenseeRepository;
 import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
 import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
-import ca.intelliware.ihtsdo.mlds.web.UserInfo;
-import ca.intelliware.ihtsdo.mlds.web.UserInfoCalculator;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
 
 import com.codahale.metrics.annotation.Timed;
@@ -89,34 +97,35 @@ public class AccountResource {
     @Resource DuplicateRegistrationEmailSender duplicateRegistrationEmailSender;
     
     @Inject
-    private UserInfoCalculator userInfoCalculator;
-
-    @Inject
 	private DomainBlacklistService domainBlacklistService;
     
     @Resource
-	LicenseeRepository licenseeRepository;
-
+	AffiliateRepository affiliateRepository;
     @Resource
     ApplicationRepository applicationRepository;
-    
 	@Resource 
 	PasswordResetService passwordResetService;
-	
 	@Resource
 	CommercialUsageRepository commercialUsageRepository;
-	
 	@Resource
-	CommercialUsageResetter commercialUsageResetter; 
+	CommercialUsageResetter commercialUsageResetter;
+	@Resource
+	AffiliateAuditEvents affiliateAuditEvents;
+	@Resource
+	AffiliateDetailsRepository affiliateDetailsRepository;
 
+	@Resource
+	UserMembershipAccessor userMembershipAccessor;
+	
     /**
      * POST  /rest/register -> register the user.
      */
     @RequestMapping(value = "/rest/register",
             method = RequestMethod.POST,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     //FIXME: JH-add account to stormpath wrapper
+    @RolesAllowed({ AuthoritiesConstants.ANONYMOUS })
     public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO, HttpServletRequest request,
                                              HttpServletResponse response) {
         User user = userRepository.findOne(userDTO.getLogin());
@@ -130,43 +139,61 @@ public class AccountResource {
         	}
         	
         	List<Application> applications = applicationRepository.findByUsername(userDTO.getLogin());
-        	List<Licensee> licensees = licenseeRepository.findByCreator(userDTO.getLogin());
-        	Application application = new Application();
-        	Licensee licensee = new Licensee();
+        	List<Affiliate> affiliates = affiliateRepository.findByCreator(userDTO.getLogin());
+        	PrimaryApplication application = new PrimaryApplication();
+        	Affiliate affiliate = new Affiliate();
+        	AffiliateDetails affiliateDetails = new AffiliateDetails();
+        	MailingAddress mailingAddress = new MailingAddress();
         	
         	if (applications.size() > 0) {
-        		application = applications.get(0);
+        		// FIXME MLDS-308 can we assume the first one is the primary?
+        		application = (PrimaryApplication) applications.get(0);
         	}
         	
-        	if (licensees.size() > 0) {
-        		licensee = licensees.get(0);
+        	if (affiliates.size() > 0) {
+        		affiliate = affiliates.get(0);
         	}
-        	
+        	        	
         	application.setUsername(userDTO.getLogin());
-        	application.setName(userDTO.getFirstName() + " " + userDTO.getLastName());
-        	application.setEmail(userDTO.getEmail());
-        	//set a default type for application to create licensee and usagelog
-        	application.setType(LicenseeType.COMMERCIAL.toString());
-        	// FIXME MLDS-234 MB how are we storing country here?
-        	application.setCountry(userDTO.getCountry().getCommonName());
-        	licensee.setCreator(userDTO.getLogin());
-        	licensee.setType(LicenseeType.COMMERCIAL);
-        	licensee.setApplication(application);
+        	affiliateDetails.setFirstName(userDTO.getFirstName());
+        	affiliateDetails.setLastName(userDTO.getLastName());
+        	affiliateDetails.setEmail(userDTO.getEmail());
+        	mailingAddress.setCountry(userDTO.getCountry());
+        	affiliateDetails.setAddress(mailingAddress);
+        	application.setAffiliateDetails(affiliateDetails);
         	
+        	//set a default type for application to create affiliate and usagelog
+        	application.setType(AffiliateType.COMMERCIAL);
+        	// FIXME MLDS-234 MB how are we storing country here?
+        	affiliate.setCreator(userDTO.getLogin());
+        	affiliate.setType(AffiliateType.COMMERCIAL);
+        	
+        	Validate.notNull(userDTO.getCountry(), "Country is mandatory");
+        	Member member = userDTO.getCountry().getMember();
+        	Validate.notNull(member, "Country must have a responsible member");
+        	application.setMember(member);
+        	affiliate.setHomeMember(member);
+        	
+        	affiliateRepository.save(affiliate);
+        	affiliateDetailsRepository.save(affiliateDetails);
+
         	applicationRepository.save(application);
-        	licenseeRepository.save(licensee);
+        	
+        	affiliate.setApplication(application);
+        	affiliateRepository.save(affiliate);
         	
         	CommercialUsage commercialUsage = new CommercialUsage();
-	    	commercialUsage.setType(licensee.getType());
+	    	commercialUsage.setType(affiliate.getType());
         	
         	commercialUsageResetter.detachAndReset(commercialUsage, userDTO.getInitialUsagePeriod().getStartDate(), userDTO.getInitialUsagePeriod().getEndDate());
         	
         	commercialUsage = commercialUsageRepository.save(commercialUsage);
         	
-        	licensee.addCommercialUsage(commercialUsage);
+        	affiliate.addCommercialUsage(commercialUsage);
         	
         	application.setCommercialUsage(commercialUsage);
         	
+        	affiliateAuditEvents.logCreationOf(affiliate);
         	
         	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
@@ -183,8 +210,9 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/activate",
             method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
         User user = userService.activateRegistration(key);
         if (user == null) {
@@ -198,7 +226,8 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/authenticate",
             method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @Timed
     public String isAuthenticated(HttpServletRequest request) {
         log.debug("REST request to check if the current user is authenticated");
@@ -210,8 +239,9 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/account",
             method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<UserDTO> getAccount() {
         User user = userService.getUserWithAuthorities();
         if (user == null) {
@@ -222,11 +252,7 @@ public class AccountResource {
             roles.add(authority.getName());
         }
         
-        //FIXME: JH-where does this get set?
-        boolean emailVerified = true;
-        
-        //FIXME: JH-pick a better name
-        UserInfo userInfo = userInfoCalculator.createUserInfo();
+        Member member = userMembershipAccessor.getMemberAssociatedWithUser();
         
         return new ResponseEntity<>(
             new UserDTO(
@@ -237,10 +263,8 @@ public class AccountResource {
                 user.getEmail(),
                 user.getLangKey(),
                 roles,
-                emailVerified,
-                userInfo.getHasApplied(),
-                userInfo.isApproved(),
-                null
+                null,
+                member
                 ),
             HttpStatus.OK);
     }
@@ -250,8 +274,9 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/account",
             method = RequestMethod.POST,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public void saveAccount(@RequestBody UserDTO userDTO) {
         userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail());
     }
@@ -261,8 +286,9 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/account/change_password",
             method = RequestMethod.POST,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<?> changePassword(@RequestBody String password) {
         if (StringUtils.isEmpty(password)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -276,8 +302,9 @@ public class AccountResource {
      */
     @RequestMapping(value = "/rest/account/sessions",
             method = RequestMethod.GET,
-            produces = "application/json")
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<List<PersistentToken>> getCurrentSessions() {
         User user = userRepository.findOne(SecurityUtils.getCurrentLogin());
         if (user == null) {
@@ -304,6 +331,7 @@ public class AccountResource {
     @RequestMapping(value = "/rest/account/sessions/{series}",
             method = RequestMethod.DELETE)
     @Timed
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
         String decodedSeries = URLDecoder.decode(series, "UTF-8");
         User user = userRepository.findOne(SecurityUtils.getCurrentLogin());

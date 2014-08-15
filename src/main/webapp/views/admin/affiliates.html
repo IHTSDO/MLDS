@@ -1,0 +1,54 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+			<h2>Affiliate User Management</h2>
+			<div>
+				<span>Show: </span>
+				<select ng-model="showAllAffiliates">
+					<option value="0" selected="selected">My Pending Applications</option>
+					<option value="1">All Applications</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<div class="input-group">
+      <input class="form-control" type="search" ng-model="query" placeholder="Search Affiliates"> 
+     	<span class="input-group-addon"><span class="fa fa-search"></span></span>
+    </div>
+    <hr>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Application Status</th>
+						<th>Type</th>
+						<th>Home Country</th>
+						<th>Member</th>
+						<th>Email</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-click="viewAffiliate(affiliate.affiliateId)" ng-repeat="affiliate in affiliates | filter: search | filter: affiliatesFilter | orderBy: ['affiliateDetails.organizationName', 'application.affiliateDetails.organizationName', 'affiliateDetails.firstName', 'application.affiliateDetails.firstName', 'affiliateDetails.lastName', 'application.affiliateDetails.lastName', 'creator'] | limitTo:100">
+						<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
+						<td>{{'approval.state.'+affiliate.application.approvalState | translate}}</td>
+						<td>{{'affiliate.type.'+affiliate.application.type | translate}} - {{'affiliate.subType.'+affiliate.application.subType | translate}}</td>
+						<td>{{affiliateActiveDetails(affiliate).address.country.commonName}}</td>
+						<td>{{affiliate.homeMember.key}}</td>
+						<td><a href="mailto:{{affiliate.affiliateDetails.email}}">{{affiliateActiveDetails(affiliate).email}}</a></td>
+						<td> <a class="btn btn-primary btn-sm" ng-click="viewAffiliate(affiliate.affiliateId)"><i class="fa fa-eye"></i> View Affiliate</a></td>
+					</tr>
+				</tbody>
+			</table>
+
+	</div>
+</div>
