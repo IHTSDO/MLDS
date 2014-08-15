@@ -1019,4 +1019,7 @@
     	</column>
     </addColumn>
 	</changeSet>
+	<changeSet id="MLDS-309-2" author="AC">
+		<renameColumn tableName="member" oldColumnName="file_id" newColumnName="license_file"/>
+	</changeSet>
 </databaseChangeLog>

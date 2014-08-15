@@ -24,8 +24,8 @@ public class Member extends BaseEntity {
     Instant createdAt = Instant.now();
     
     @OneToOne()
-	@JoinColumn(name="file_id")
-    File fileId;
+	@JoinColumn(name="license_file")
+    File licenseFile;
     
 	public Member() {}
 	
@@ -51,11 +51,11 @@ public class Member extends BaseEntity {
 	}
 
 	public File getLicense() {
-		return fileId;
+		return licenseFile;
 	}
 
 	public void setLicense(File license) {
-		this.fileId = license;
+		this.licenseFile = license;
 	}
 
     
