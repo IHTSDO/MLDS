@@ -52,7 +52,7 @@ public class PasswordResetToken implements Serializable {
 
         PasswordResetToken resettoken = (PasswordResetToken) o;
 
-        if (passwordResetTokenId != resettoken.passwordResetTokenId) {
+        if (!passwordResetTokenId.equals(resettoken.passwordResetTokenId)) {
             return false;
         }
 
