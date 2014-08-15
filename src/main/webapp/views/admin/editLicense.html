@@ -4,6 +4,10 @@
  </div>
  <div class="modal-body">
  	   	{{member}}
+ 	   	<form name="licenseForm">
+ 	   		<input type="file" required ng-model="memberLicenseForm.blob"/>
+ 	   		<input type="submit" value="Save" name="Save" ng-click="memberLicenseForm.submit()">
+ 	   	</form>
  </div>
  <div class="modal-footer">
      <button class="btn btn-link" ng-click="$dismiss()">Close</button>

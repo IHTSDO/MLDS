@@ -43,8 +43,12 @@ angular.module('MLDS')
 		};
 		
 		service.getMemberLicense = function getMemberLicense(memberKey) {
-			return $http.get('/app/rest/members/' + memberKey + '/license');
-		}
+			return $http.get('/app/rest/members/' + encodeURIComponent(memberKey) + '/license');
+		};
+		
+		service.updateMemberLicense = function updateMemberLicense(memberKey, memberLicense) {
+			return $http.put('/app/rest/members/' + encodeURIComponent(memberKey) + '/license', memberLicense);
+		};
 		
 		return service;
 		

@@ -7,7 +7,7 @@ angular.module('MLDS').controller('ViewLicenseController',
 		$scope.member = member;
 		
 		MemberService.getMemberLicense(member.key).success(function(data) {
-			$log.log(data);
+			$log.log('getMemberLicense', data);
 		});
 		
     }]);
