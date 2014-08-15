@@ -16,6 +16,10 @@ public class AffiliatesImportSpec {
 		return example;
 	}
 
+	public void setExample(String example) {
+		this.example = example;
+	}
+
 	public static class ColumnSpec {
 		String columnName;
 		String attributeClass;
