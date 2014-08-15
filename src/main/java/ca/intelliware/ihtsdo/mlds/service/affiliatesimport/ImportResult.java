@@ -5,8 +5,10 @@ import java.util.List;
 
 public class ImportResult {
 	boolean success = true;
-	long readRecords = -1;
+	long readRows = -1;
 	long importedRecords = -1;
+	private long newRecords = -1;
+	long updatedRecords = -1;
 	String sourceMemberKey;
 	List<String> errors = new ArrayList<String>();
 	long durationMillis = 0;
@@ -14,8 +16,8 @@ public class ImportResult {
 	public boolean isSuccess() {
 		return success;
 	}
-	public long getReadRecords() {
-		return readRecords;
+	public long getReadRows() {
+		return readRows;
 	}
 	public long getImportedRecords() {
 		return importedRecords;
@@ -41,5 +43,20 @@ public class ImportResult {
 	}
 	public long getDurationMillis() {
 		return durationMillis;
+	}
+	public void setSourceMemberKey(String sourceMemberKey) {
+		this.sourceMemberKey = sourceMemberKey;
+	}
+	public long getUpdatedRecords() {
+		return updatedRecords;
+	}
+	public void setUpdatedRecords(long updatedRecords) {
+		this.updatedRecords = updatedRecords;
+	}
+	public long getNewRecords() {
+		return newRecords;
+	}
+	public void setNewRecords(long newRecords) {
+		this.newRecords = newRecords;
 	}
 }
