@@ -1,11 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -23,6 +25,9 @@ import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 public class AffiliateResourceTest {
@@ -40,6 +45,12 @@ public class AffiliateResourceTest {
     private AffiliateAuditEvents affiliateAuditEvents;
     
     @Mock
+    private AffiliatesExporterService affiliatesExporterService;
+
+    @Mock
+    private AffiliatesImportGenerator affiliatesImportGenerator;
+
+    @Mock
     private SessionService sessionService;
     
     private MockMvc restUserMockMvc;
@@ -54,6 +65,8 @@ public class AffiliateResourceTest {
         affiliateResource.affiliateRepository = affiliateRepository;
         affiliateResource.applicationAuthorizationChecker = applicationAuthorizationChecker;
         affiliateResource.affiliateAuditEvents = affiliateAuditEvents;
+        affiliateResource.affiliatesExporterService = affiliatesExporterService;
+        affiliateResource.affiliatesImportGenerator = affiliatesImportGenerator;
 
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(affiliateResource).build();
     }
@@ -148,6 +161,46 @@ public class AffiliateResourceTest {
                 .andExpect(jsonPath("$.billingAddress.country.isoCode2").value("DK")) /* Updated billing country */
                 ;
     }
+    
+    @Test
+    public void getAffiliatesImportSpec() throws Exception {
+    	AffiliatesImportSpec spec = new AffiliatesImportSpec();
+    	spec.setExample("Example File Content");
+		when(affiliatesExporterService.exportSpec()).thenReturn(spec);
+    	
+    	restUserMockMvc.perform(get(Routes.AFFILIATES_CSV_SPEC)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.example").value("Example File Content"))
+                ;
+    }
+
+    @Test
+    public void exportAffiliatesShouldExportAllAffiliatesInCSVFormat() throws Exception {
+		when(affiliatesExporterService.exportToCSV()).thenReturn("affiliates file content");
+    	
+    	restUserMockMvc.perform(get(Routes.AFFILIATES_CSV)
+                .accept("application/csv"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/csv"))
+                .andExpect(content().string(Matchers.equalTo("affiliates file content")))
+                ;
+    }
+
+    @Test
+    public void exportAffiliatesShouldGenerateSpecifiedNumberOfAffiliatesInCSVFormat() throws Exception {
+		when(affiliatesImportGenerator.generateFile(Mockito.eq(10))).thenReturn("generated affiliates file content");
+    	
+    	restUserMockMvc.perform(get(Routes.AFFILIATES_CSV)
+    			.param("generate", "10")
+                .accept("application/csv"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/csv"))
+                .andExpect(content().string(Matchers.equalTo("generated affiliates file content")))
+                ;
+    }
+
 
     private Country createCountry(String code) {
     	return new Country(code, code, code);
