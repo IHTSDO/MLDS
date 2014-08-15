@@ -6,9 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import ca.intelliware.ihtsdo.mlds.domain.BaseEntity;
+
 @Entity
 @Table(name="email_domain_blacklist")
-public class DomainBlacklist {
+public class DomainBlacklist extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="domain_id")
@@ -22,6 +24,11 @@ public class DomainBlacklist {
 
 	public void setDomainname(String domainname) {
 		this.domainname = domainname;
+	}
+
+	@Override
+	protected Object getPK() {
+		return domainId;
 	}
 	
 	

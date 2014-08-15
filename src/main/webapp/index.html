@@ -6,107 +6,48 @@
 <html class="no-js">
 <!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IHTSDO MLDS</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width">
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<!-- build:css(.tmp) styles/main.css -->
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>IHTSDO MLDS</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css">
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="styles/famfamfam-flags.css">
-	<link rel="stylesheet" href="styles/main.css">
-	<!-- endbuild -->
-	
-	<script type='text/javascript' src="bower_components/css3-mediaqueries-js/css3-mediaqueries.js"></script>  
-	<script type='text/javascript' src="bower_components/es5-shim/es5-shim.js"></script>
-	<script type='text/javascript' src="bower_components/placeholders/build/placeholders.js"></script>
-	
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	  <script type='text/javascript' src="bower_components/html5shiv/dist/html5shiv.min.js"></script>
-	  <script type='text/javascript' src="bower_components/respond/respond.min.js"></script>
-	<![endif]-->
+  <link rel="stylesheet" href="styles/famfamfam-flags.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+  
+  <script type='text/javascript' src="bower_components/css3-mediaqueries-js/css3-mediaqueries.js"></script>  
+  <script type='text/javascript' src="bower_components/es5-shim/es5-shim.js"></script>
+  <script type='text/javascript' src="bower_components/placeholders/build/placeholders.js"></script>
+  
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script type='text/javascript' src="bower_components/html5shiv/dist/html5shiv.min.js"></script>
+    <script type='text/javascript' src="bower_components/respond/respond.min.js"></script>
+  <![endif]-->
 
 </head>
 <body ng-app="MLDS" ng-controller="MainController">
   <div class="development"></div>
-  <nav class="navbar navbar-default" role="navigation" ng-switch="authenticated">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-          <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-        </button>
-        <a href="#" ng-switch-when="false"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
-        <a href="#/dashboard" ng-switch-when="true"><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
-      </div>
-      <div class="collapse navbar-collapse" id="navbar-collapse" >
-        <ul class="nav navbar-nav nav-pills navbar-right">
-          <li>
-          	<a href="#" ng-switch-when="false"> <span translate="global.menu.home">Home</span></a>
-          	<a href="#/dashboard" ng-switch-when="true"> <span translate="global.menu.home">Home</span></a>
-          </li>
-          <li ng-switch-when="false"><a href="#/viewPackages"> <span>SNOWMED CT</span></a></li>
-          <li class="dropdown pointer" ng-switch-when="true"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;"> <span> <span class="hidden-tablet"
-                translate="global.menu.account.main"
-              > Account </span> <b class="caret"></b>
-            </span>
-          </a>
-            <ul class="dropdown-menu" ng-controller="MenuController">
-              <li><a href="#/dashboard"> <span translate="global.menu.account.dashboard">Dashboard</span></a></li>
-              <li><a href="#/settings"> <span translate="global.menu.account.settings">Settings</span></a></li>
-              <li><a href="#/password"> <span translate="global.menu.account.password">Password</span></a></li>
-<!--               <li><a href="#/sessions"> <span translate="global.menu.account.sessions">Sessions</span></a></li> -->
-              <li><a href="#/viewPackages"> <span >SNOMED Packages</span></a></li>
-            </ul></li>
-          <li ng-switch-when="false"><a href="#/login"> <span translate="global.menu.account.login">Login</span></a></li>
-          <li ng-switch-when="true"><a href="#/logout"> <span translate="global.menu.account.logout">Log out</span></a></li>
-          <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer" ng-controller="AdminController"><a class="dropdown-toggle" data-toggle="dropdown"
-            href="javascript:;"
-          > <span> <span class="hidden-tablet" translate="global.menu.admin">Admin</span> <b class="caret"></b>
-            </span>
-          </a>
-            <ul class="dropdown-menu">
-              <li><a href="#/adminDashboard"> <span translate="global.menu.account.dashboard">Dashboard</span></a></li>
-              <li><a href="#/packageManagement"> <span>Package Management</span></a></li>
-              <li><a href="#/pendingApplications"> <span>Pending Applications</span></a></li>
-              <li><a href="#/countries"> <span  >Countries</span></a></li>
-              <li class="divider"></li>
-              <li><a href="#/metrics"> <span translate="global.menu.account.metrics">Metrics</span></a></li>
-              <li><a href="#/audits"> <span translate="global.menu.account.audits">Audits</span></a></li>
-              <li><a href="#/logs"> <span translate="global.menu.account.logs">Logs</span></a></li>
-              <li><a href="#/docs"> <span translate="global.menu.account.apidocs">API Docs</span></a></li>
-            </ul></li>
-          <li class="dropdown pointer" ng-controller="LanguageController"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;"> <span> <span class="hidden-tablet"
-                translate="global.menu.language"
-              >Language</span> <b class="caret"></b>
-            </span>
-          </a>
-            <ul class="dropdown-menu">
-<!--               <li active-menu="da"><a href="#" ng-click="changeLanguage('da')"><span class="famfamfam-flag-dk"></span> &nbsp;<span translate="global.language.da">Danish</span></a></li> -->
-              <li active-menu="en"><a href="" ng-click="changeLanguage('en')"><span class="famfamfam-flag-gb"></span> &nbsp;<span translate="global.language.en">English</span></a></li>
-              <li active-menu="fr"><a href="" ng-click="changeLanguage('fr')"><span class="famfamfam-flag-fr"></span> &nbsp;<span translate="global.language.fr">French</span></a></li>
-<!--               <li active-menu="de"><a href="#" ng-click="changeLanguage('de')"><span class="famfamfam-flag-de"></span> &nbsp;<span translate="global.language.de">German</span></a></li> -->
-<!--               <li active-menu="pl"><a href="#" ng-click="changeLanguage('pl')"><span class="famfamfam-flag-pl"></span> &nbsp;<span translate="global.language.pl">Polish</span></a></li> -->
-<!--               <li active-menu="ru"><a href="#" ng-click="changeLanguage('ru')"><span class="famfamfam-flag-ru"></span> &nbsp;<span translate="global.language.ru">Russian</span></a></li> -->
-            </ul></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  
+  <div ng-include src="$root.Session.isStaffOrAdmin()?'views/fixedTopNav.html':'views/topNav.html'" class="navigation"></div>
 
-  <div class="container" ng-view=""></div>
+  <div ng-if="!$root.Session.isStaffOrAdmin()">
+   	<div ng-view="" autoscroll="true" class="container" role="main"></div>
+    <div ng-include src="'views/footer.html'"></div>
+  </div>
 
-<footer class="navbar-fixed-bottom">
-      <div class="container">
-        <p class="muted pull-left">&copy; IHTSDO 2014</p>
-        <a class="btn btn-link pull-right" target="_blank" href="/tos.html">Terms and Conditions FIXME COPY</a>
-
-    </div>
-  </footer>
-
+ 	<div ng-if="$root.Session.isStaffOrAdmin()" class="container-fluid" >
+		<div class="row">
+		    <div ng-include src="'views/sideNav.html'"></div>
+        	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 nav-space" ng-view="" autoscroll="true"></div>
+	        <div ng-include src="'views/adminFooter.html'"></div>
+	    </div>
+  </div>
 
   <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
         <script>
@@ -148,17 +89,28 @@
   <script src="scripts/controllers/AddEditReleaseVersionModalController.js"></script>
   <script src="scripts/controllers/AddReleaseFileModalController.js"></script>
   <script src="scripts/controllers/AddUsageReportController.js"></script>
+  <script src="scripts/controllers/AffiliateController.js"></script>
+  <script src="scripts/controllers/AffiliatesController.js"></script>
+  <script src="scripts/controllers/AffiliateRegistrationController.js"></script>
+  <script src="scripts/controllers/AffiliateRegistrationReviewController.js"></script>
+  <script src="scripts/controllers/AffiliateRegistrationUsageLogController.js"></script>
   <script src="scripts/controllers/ApplicationReviewController.js"></script>
   <script src="scripts/controllers/ApplicationReviewComparisonSearchController.js"></script>
+  <script src="scripts/controllers/ApplicationSummaryModalController.js"></script>
   <script src="scripts/controllers/ApproveApplicationConfirmationModalController.js"></script>
   <script src="scripts/controllers/ApproveApplicationModalController.js"></script>
+  <script src="scripts/controllers/BlocklistController.js"></script>
   <script src="scripts/controllers/ChangeRequestedModalController.js"></script>
+  <script src="scripts/controllers/ContactInfoController.js"></script>
   <script src="scripts/controllers/EditInstitutionController.js"></script>
+  <script src="scripts/controllers/EditLicenseController.js"></script>
+  <script src="scripts/controllers/ExtensionApplicationController.js"></script>
   <script src="scripts/controllers/DeleteInstitutionController.js"></script>
   <script src="scripts/controllers/DeletePackageModalController.js"></script>
   <script src="scripts/controllers/DeleteVersionModalController.js"></script>
   <script src="scripts/controllers/EditCountController.js"></script>
   <script src="scripts/controllers/EditPackageModalController.js"></script>
+  <script src="scripts/controllers/ImportAffiliatesController.js"></script>
   <script src="scripts/controllers/PendingApplicationsController.js"></script>
   <script src="scripts/controllers/RemoveCountryController.js"></script>
   <script src="scripts/controllers/PackageManagementController.js"></script>
@@ -166,10 +118,9 @@
   <script src="scripts/controllers/RetractUsageReportController.js"></script>
   <script src="scripts/controllers/ReviewRequestedModalController.js"></script>
   <script src="scripts/controllers/SubmitUsageReportController.js"></script>
-  <script src="scripts/controllers/AffiliateRegistrationController.js"></script>
-  <script src="scripts/controllers/AffiliateRegistrationReviewController.js"></script>
   <script src="scripts/controllers/TakeOfflineModalController.js"></script>
   <script src="scripts/controllers/TakeOnlineModalController.js"></script>
+  <script src="scripts/controllers/LicensesController.js"></script>
   <script src="scripts/controllers/LoginController.js"></script>
   <script src="scripts/controllers/RegisterController.js"></script>
   <script src="scripts/controllers/RejectApplicationModalController.js"></script>
@@ -177,32 +128,42 @@
   <script src="scripts/controllers/ResetPasswordController.js"></script>
   <script src="scripts/controllers/UserListController.js"></script>
   <script src="scripts/controllers/UserDashboardController.js"></script>
-  <script src="scripts/controllers/AffiliateRegistrationUsageLogController.js"></script>
+  <script src="scripts/controllers/UsageReportsController.js"></script>
   <script src="scripts/controllers/FullPageUsageLogController.js"></script>
   <script src="scripts/controllers/EmbeddableUsageLogController.js"></script>
+  <script src="scripts/controllers/ViewLicenseController.js"></script>
   <script src="scripts/controllers/ViewPackagesController.js"></script>
   <script src="scripts/controllers/ViewPackageController.js"></script>
   <script src="scripts/services.js"></script>
+  <script src="scripts/services/ApplicationUtilsService.js"></script>
   <script src="scripts/services/Events.js"></script>
   <script src="scripts/services/DomainBlacklistService.js"></script>
+  <script src="scripts/services/ImportAffiliatesService.js"></script>
   <script src="scripts/services/UserRegistrationService.js"></script>
+  <script src="scripts/services/AffiliateService.js"></script>
   <script src="scripts/services/AuthenticationSharedService.js"></script>
   <script src="scripts/services/CountryService.js"></script>
   <script src="scripts/services/CommercialUsageService.js"></script>
-  <script src="scripts/services/LicenseeService.js"></script>
+  <script src="scripts/services/MemberService.js"></script>
+  <script src="scripts/services/LookupCollector.js"></script>
   <script src="scripts/services/Register.js"></script>
   <script src="scripts/services/ReleaseFilesService.js"></script>
   <script src="scripts/services/ReleaseVersionsService.js"></script>
   <script src="scripts/services/PackagesService.js"></script>
   <script src="scripts/services/PackageUtilsService.js"></script>
+  <script src="scripts/services/Session.js"></script>
   <script src="scripts/services/USER_ROLES.js"></script>
-  <script src="scripts/services/UserSession.js"></script>
+  <script src="scripts/services/UserAffiliateService.js"></script>
+  <script src="scripts/services/UsageReportsService.js"></script>
   <script src="scripts/directives/activeLink.js"></script>
   <script src="scripts/directives/activeMenu.js"></script>
   <script src="scripts/directives/autoSubmit.js"></script>
   <script src="scripts/directives/bsValidation.js"></script>
   <script src="scripts/directives/dateAfterValidation.js"></script>
+  <script src="scripts/directives/fileModel.js"></script>
   <script src="scripts/directives/inputTel.js"></script>
+  <script src="scripts/directives/locationAwareNav.js"></script>
+  <script src="scripts/directives/match.js"></script>
   <script src="scripts/directives/passwordStrengthBar.js"></script>
   <script src="scripts/directives/unique.js"></script>
   <script src="scripts/country/router_country.js"></script>

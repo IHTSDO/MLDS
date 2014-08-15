@@ -1,15 +1,23 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+
 public class Routes {
 	public static final String API_BASE_URL = "/app/rest";
 	
 	public static final String COUNTRIES = "/app/rest/countries";
 	
+	public static final String MEMBERS = "/app/rest/members";
+	
+	public static final String MEMBER_LICENSE = "/app/rest/members/{memberKey}/license";
+	
+	public static final String AUDITS = "/app/rest/audits";
+
+	
 	/**
 	 *  - get list of all submissions
 	 *  - post period { startDate, endDate } to do start new submission (auto-copy from most recent)
 	 */
-	static final String USAGE_REPORTS = "/app/rest/licensees/{licenseeId}/commercialUsages"; 
+	static final String USAGE_REPORTS = "/app/rest/affiliates/{affiliateId}/commercialUsages"; 
 	
 	
 	/** 
@@ -48,20 +56,39 @@ public class Routes {
 	 */
 	static final String USAGE_REPORT_COUNTRY = "/app/rest/commercialUsages/{commercialUsageId}/countries/{commercialUsageCountId}"; 
 
-
-	static final String LICENSEES = "/app/rest/licensees";
+	/**
+	 * - get list of all affiliates
+	 */
+	static final String AFFILIATES = "/app/rest/affiliates";
 	
 	/**
-	 * - get list of all licensees that user has access to
+	 * - get list of all affiliates that user has access to
 	 */
-	static final String LICENSEES_ME = "/app/rest/licensees/me";
+	static final String AFFILIATES_ME = "/app/rest/affiliates/me";
 
 	/**
-	 * - get list of all licensees for a username
+	 * - get list of all affiliates for a username
 	 */
-	static final String LICENSEES_CREATOR = "/app/rest/licensees/creator/{username:.+}";
+	static final String AFFILIATES_CREATOR = "/app/rest/affiliates/creator/{username:.+}";
 
+	/**
+	 * - import affiliates data from CSV
+	 */
+	static final String AFFILIATES_CSV = "/app/rest/affiliates/csv";
+	static final String AFFILIATES_CSV_SPEC = "/app/rest/affiliates/csvSpec";
 	
+	/**
+	 * - get list of all affiliates
+	 */
+	public static final String AFFILIATE = "/app/rest/affiliates/{affiliateId}";
+	
+	/**
+	 * control endpoint for application detail:
+	 * - GET
+	 * - PUT affiliate details to update details
+	 */
+	public static final String AFFILIATE_DETAIL = "/app/rest/affiliates/{affiliateId}/detail"; 
+
 	/**
 	 * control endpoint for mulitple release packages:
 	 * - GET to get all
@@ -111,6 +138,7 @@ public class Routes {
 	/**
 	 * control endpoint for multiple applications:
 	 * - GET
+	 * - POST application_type to create new application
 	 */
 	public static final String APPLICATIONS = "/app/rest/applications"; 
 
@@ -143,5 +171,6 @@ public class Routes {
 	 * - PUT affiliate user updating application registration
 	 * - POST affiliate user submitting for admin processing
 	 */
-	public static final String APPLICATION_REGISTRATION = "/app/rest/applications/{applicationId}/registration"; 
+	public static final String APPLICATION_REGISTRATION = "/app/rest/applications/{applicationId}/registration";
+
 }

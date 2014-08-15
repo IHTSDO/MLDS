@@ -5,5 +5,6 @@ public class EmailVariables {
 	static final String PASSWORD_RESET_URL = "passwordResetUrl";
 	static final String LOGIN_URL = "loginUrl";
 	static final String VIEW_PACKAGES_URL = "viewPackagesUrl";
+	static final String MEMBERKEY = "memberKey";
 	
 }

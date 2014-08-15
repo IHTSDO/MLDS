@@ -3,17 +3,16 @@
 mldsApp.controller('ApplicationReviewComparisonSearchController', [
 		'$scope',
 		'$log',
-		'LicenseeService',
-		function($scope, $log, LicenseeService) {
-			$scope.showComparisonLicensee = false; // start with search box showing
+		'AffiliateService',
+		'UserAffiliateService',
+		function($scope, $log, AffiliateService, UserAffiliateService) {
+			$scope.showComparisonAffiliate = false; // start with search box showing
 			
-			$scope.getLicenseesMatching = function getLicenseesMatching(text) {
-				return LicenseeService.licenseesResource.query({q:text}).$promise;
-			}
+			$scope.getAffiliatesMatching = UserAffiliateService.getAffiliatesMatching;
 			
-			$scope.selectComparisonLicensee = function(licensee) {
-				$scope.showComparisonLicensee = true;
-				$scope.application = $scope.comparisonLicensee.application;
-				$log.log(licensee, $scope.comparisonLicensee);
-			}
+			$scope.selectComparisonAffiliate = function(affiliate) {
+				$scope.showComparisonAffiliate = true;
+				$scope.application = $scope.comparisonAffiliate.application;
+				$log.log(affiliate, $scope.comparisonAffiliate);
+			};
 		} ]);

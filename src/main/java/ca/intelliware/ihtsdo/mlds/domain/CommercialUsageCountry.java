@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="commercial_usage_count")
-public class CommercialUsageCountry {
+public class CommercialUsageCountry extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="commercial_usage_count_id")
@@ -33,6 +33,16 @@ public class CommercialUsageCountry {
 	
 	Integer practices = 0;
 
+	public CommercialUsageCountry() {
+		
+	}
+	
+	// For Testing
+	public CommercialUsageCountry(long commercialUsageCountId, CommercialUsage commercialUsage) {
+		this.commercialUsageCountId = commercialUsageCountId;
+		commercialUsage.addCount(this);
+	}
+	
 	public Long getCommercialUsageCountId() {
 		return commercialUsageCountId;
 	}
@@ -48,9 +58,18 @@ public class CommercialUsageCountry {
 	public Integer getPractices() {
 		return practices;
 	}
+	
+	public void setPractices(Integer practices) {
+		this.practices = practices;
+	}
 
 	public CommercialUsage getCommercialUsage() {
 		return commercialUsage;
+	}
+
+	@Override
+	protected Object getPK() {
+		return commercialUsageCountId;
 	}
 
 }

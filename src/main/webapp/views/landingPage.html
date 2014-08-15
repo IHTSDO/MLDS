@@ -1,118 +1,30 @@
-<div class="jumbotron row">
-	<div class="col-sx-8 col-md-8 col-lg-8">
-		<h1>
-			<span translate="register.welcome">Welcome the IHTSDO-MLDS</span> - FIXME copy
-		</h1>
-		<p>
-			<span translate="register.subwelcome">The gateway to access SNOMED CT - Orientation</span> - FIXME copy
-		</p>
-	</div>
-	<div class="col-sx-4 col-md-4 col-lg-4 signin">
-		<form class="form" bs-validation="" novalidate="" name="createUserForm" ng-controller="RegisterController" ng-submit="register()" id="createUserForm">
-			<div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
-				<strong>Registration failed!</strong> Please check your input and try again.
-			</div>
-			<div class="alert alert-danger" ng-show="errorUserExists" translate=
-			"register.messages.error.userexists">
-				<strong>A user has already registered with that email address.</strong> Did you mean to
-				login?
-			</div>
-			<h3 class="form-signin-heading" translate="register.title">
-				Register
-			</h3>
-			<div class="form-group">
-				<label translate="global.form.country">Country of residence</label>
-				<input class="form-control" type="text" name="country" autofocus=""  autocomplete="off" 
-					placeholder="{{'global.form.country' | translate}}"
-					ng-model="countryCommonName" 
-					required=""
-					typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
-					typeahead-editable="false"><!--   -->
-				<span ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="help-block">Required field.</span>
-				<span ng-show="createUserForm.country.$error.editable && createUserForm.attempted" class="help-block">Unrecognized country</span>
-				<span ng-show="createUserForm.country.$error.excluded" class="help-block">
-					This IHTSDO member country manages an independent registry for SNOMED users.  Please go to your <a href="{{registerAccount.country.alternateRegistrationUrl}}">national service</a> to register. FIXME COPY
-				</span>
-			</div>
-			<div class="form-group">
-				<label translate="settings.form.firstname">First Name</label>
-				<input ng-model="registerAccount.firstName" name="firstname" type="text" class=
-				"form-control" placeholder="{{'settings.form.firstname.placeholder' | translate}}" required="" />
-				<span ng-show="createUserForm.firstname.$error.required && createUserForm.attempted" class="help-block">Required field.</span>
-			</div>
-			<div class="form-group">
-				<label translate="settings.form.lastname">Last Name</label>
-				<input ng-model="registerAccount.lastName" name="lastname" type="text" class=
-				"form-control" placeholder="{{'settings.form.lastname.placeholder' | translate}}" required="" />
-				<span ng-show="createUserForm.lastname.$error.required && createUserForm.attempted" class="help-block">Required field.</span>
-			</div>
-			<div class="form-group">
-				<label translate="global.form.email">Email address</label>
-				<input ng-model="registerAccount.email" name="email" type="email" class="form-control"
-				placeholder="{{'global.form.email.placeholder' | translate}}" required="" />
-				<span ng-show="createUserForm.email.$error.required && createUserForm.attempted" class="help-block">Required field.</span>
-			</div>
-			<div class="form-group">
-				<label translate="login.form.password.placeholder">Your password</label>
-				<input ng-model="registerAccount.password" name="password" type="password" class=
-				"form-control" placeholder="{{'login.form.password.placeholder' | translate}}" required="" />
-				<span ng-show="createUserForm.password.$error.required && createUserForm.attempted" class="help-block">Required field.</span>
-			</div>
-			<div class="checkbox form-group">
-				<label><input ng-model="user.tos" name="tos" type="checkbox" required="" />
-				<small class="muted" translate="register.form.tos">Agree to our <a href="/tos.html" target="_blank">terms of
-				service</a>.</small></label>
-				<span ng-show="createUserForm.tos.$error.required && createUserForm.attempted" class="help-block">Required field.</span>
-			</div><!--  ng-disabled="!user.name || !user.email || !user.password" -->
-			<button type="submit" class="btn btn-lg btn-primary btn-block" translate="register.form.button">Start
-			Registration</button>
-		</form>
+
+<div class="jumbotron">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="main-login">
+				<h1>Member Licence Distribution Service</h1>
+ 				 <p><i class="fa fa-angle-right"></i> This service provides access to obtaining an Affiliate SNOMED CT License.</p>
+ 				 <p><i class="fa fa-angle-right"></i> Enables registered users to download the latest SNOMED CT International Release.</p>
+	 			 <p><i class="fa fa-angle-right"></i> Provides Self Management for Member Countries to track usage and licenses within their jurisdiction.</p>
+		<hr>
+			<a class="btn btn-default btn-lg" href="#login">Login</a>
+			<a class="btn btn-success btn-lg" href="#register">Register</a>
+		</div>
+		</div>
+
 	</div>
 </div>
+
 <div class="row">
-	<div class="col-sx-4 col-md-4 col-lg-4">
-		<img class="img-responsive" src="http://placehold.it/350x150" alt="Image" />
-		<h2>
-			What is SNOMED CT? FIXME copy
-		</h2>
-		<p>
-			Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-			commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam
-			porta sem malesuada magna mollis euismod. Donec sed odio dui.
-		</p>
-		<p>
-			<a class="btn btn-default" href="#" role="button">View details - FIXME link
-			destination</a>
+	<div class="col-md-12">
+	<div class="page-header">
+		<h2>About</h2>
+	</div>
+		<p class="lead"><strong>SNOMED CT</strong> contributes to the improvement of patient care by underpinning the development of Electronic Health Records that record clinical information in ways that enable meaning-based retrieval.</p>
+
+		<p class="lead">This provides effective access to information required for decision support and consistent reporting and analysis. Patients benefit from the use of SNOMED CT because it improves the recording of EHR information and facilitates better communication, leading to improvements in the quality of care. </p>
+		<p class="lead">For more information, please visit <a href="http://www.ihtsdo.org/" target="_blank" alt="International Health Terminology Standards Development Organisation">IHTSDO.org</a>
 		</p>
 	</div>
-	<div class="col-sx-4 col-md-4 col-lg-4">
-		<img class="img-responsive" src="http://placehold.it/350x150" alt="Image" />
-		<h2>
-			How do I gain access to SNOMED CT? FIXME copy
-		</h2>
-		<p>
-			Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-			commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam
-			porta sem malesuada magna mollis euismod. Donec sed odio dui.
-		</p>
-		<p>
-			<a class="btn btn-default" href="#" role="button">View details - FIXME link
-			destination</a>
-		</p>
-	</div>
-	<div class="col-sx-4 col-md-4 col-lg-4">
-		<img class="img-responsive" src="http://placehold.it/350x150" alt="Image" />
-		<h2>
-			What are the license alteratives and terms? FIXME copy
-		</h2>
-		<p>
-			Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-			Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo,
-			tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-		</p>
-		<p>
-			<a class="btn btn-default" href="#" role="button">View details - FIXME link
-			destination</a>
-		</p>
-	</div>
-</div><!-- /container -->
+</div>

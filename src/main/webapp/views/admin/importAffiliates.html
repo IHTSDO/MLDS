@@ -1,0 +1,82 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+			<h1>Bulk Affiliate Import/Export</h1>
+		</div>
+		<p>Support for bulk import and export of affiliate records from external member's system using a CSV based file format.</p>
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+		
+		<div class="page-header">
+			<h2>Import Affiliate Records</h2>
+		</div>
+		<form class="form-inline"> 
+			<div class="form-group">
+				<label>Upload Affiliate CSV File</label>
+				<input type="file" class="form-control" file-model="affiliatesFile">
+				<button class="btn btn-success" ng-disabled="submitting" ng-click="uploadFile()">
+					<i class="fa fa-upload"></i>
+					Upload
+					<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+				</button>
+			</div>
+		</form>
+		
+		<div ng-show="importResult">
+			<h4>Last Import Result</h4>
+			<pre>{{importResult}}</pre>
+		</div>
+		
+		<div class="page-header">
+			<h2>Export Affiliate Records</h2>
+		</div>
+		<p>Export all affiliates from the system in the same format as used by the <i>Import Affiliate Records</i> feature.</p>
+		<div>
+			<a href="{{exportAffiliatesUrl}}" target="_blank" class="btn btn-default">
+				<i class="fa fa-download"></i>
+				Export Affiliates
+			</a>
+		</div>
+		
+		<div class="page-header" ng-show="importSpec">
+			<h2>Affiliate Record Format</h2>
+		</div>
+		<p>The Affiliate record format is CSV based, although using <kbd>^</kbd> as a field separator and no support for quoting field entries containing the ^ character.</p>
+		<ul>
+			<li>Header row is mandatory and should include the column names in the same order as the column definitions listed below.</li>
+			<li>Each data row represents a single affiliate.</li>
+			<li>The <code>importKey</code> should be unique for all of the affiliates from a single source member.</li>
+			<li>Re-importing an affiliate where the compound key of <code>member</code>+<code>importKey</code> matches an earlier imported affiliate will update the affiliate's data from the earlier import rather than creating a new affiliate entry in the system's database.</li>
+			<li>Source member is identified by its ISO 3166-1 alpha-2 country code or <code>IHTSDO</code> for international non-members.</li>
+		</ul>
+		<h4>Example Import File with Two Affiliate Records</h4>
+		<div><pre>{{importSpec.example}}</pre>
+		</div>
+		<h4>File Format Columns</h4>
+		<table class="table table-condensed table-striped table-bordered table-responsive">
+		    <thead>
+		    <tr>
+		        <th>Name</th>
+		        <th>Type</th>
+		        <th>Required</th>
+		        <th>Example</th>
+		        <th>Options</th>
+		    </tr>
+		    </thead>
+		
+		    <tr ng-repeat="columnSpec in importSpec.columns">
+		        <td>{{columnSpec.columnName}}</td>
+		        <td>{{columnSpec.attributeClass}}</td>
+		        <td>{{columnSpec.required?"Required":""}}</td>
+		        <td>{{columnSpec.example}}</td>
+		        <td>
+		        	<span ng-repeat="option in columnSpec.options">{{option}}{{!$last?", ":""}}</span>
+		        </td>
+		    </tr>
+		</table>
+		
+		<div ng-show="audits" class="page-header">
+			<h2>Import Activity</h2>
+		</div>
+		<div ng-include="'views/auditsEmbed.html'"></div>
+	</div>
+</div>

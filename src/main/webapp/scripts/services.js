@@ -71,36 +71,25 @@ mldsApp.factory('AuditsService', ['$http',
     function ($http) {
         return {
             findAll: function() {
-                var promise = $http.get('app/rest/audits/all').then(function (response) {
+                var promise = $http.get('/app/rest/audits').then(function (response) {
                     return response.data;
                 });
                 return promise;
             },
             findByDates: function(fromDate, toDate) {
-                var promise = $http.get('app/rest/audits/byDates', {params: {fromDate: fromDate, toDate: toDate}}).then(function (response) {
-                    return response.data;
+                var promise = $http.get('/app/rest/audits?$filter='+encodeURIComponent('auditEventDate ge \''+fromDate+'\' and auditEventDate le \''+toDate+'\''))
+               		.then(function (response) {
+               			return response.data;
+                });
+                return promise;
+            },
+            findByAuditEventType: function(auditEventType) {
+                var promise = $http.get('/app/rest/audits?$filter='+encodeURIComponent('auditEventType eq \''+auditEventType+'\''))
+                	.then(function (response) {
+                		return response.data;
                 });
                 return promise;
             }
-        }
-    }]);
-
-mldsApp.factory('Session', [
-    function () {
-        this.create = function (login, firstName, lastName, email, userRoles) {
-            this.login = login;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.email = email;
-            this.userRoles = userRoles;
         };
-        this.invalidate = function () {
-            this.login = null;
-            this.firstName = null;
-            this.lastName = null;
-            this.email = null;
-            this.userRoles = null;
-        };
-        return this;
     }]);
 
