@@ -59,7 +59,7 @@ public class AffiliatesImporterService {
 
 	private void importContents(String contents, ImportResult result) throws IOException {
 		List<LineRecord> lines = parseFile(contents);
-		result.readRecords = lines.size();
+		result.readRows = lines.size();
 		validateLines(lines, result);
 		if (result.success) {
 			processAffiliateRecords(lines, result);
@@ -69,6 +69,8 @@ public class AffiliatesImporterService {
 
 	private void processAffiliateRecords(List<LineRecord> lines, ImportResult result) {
 		result.importedRecords = 0;
+		result.setNewRecords(0);
+		result.updatedRecords = 0;
 		for (int i = 0; i < lines.size(); i++) {
 			LineRecord lineRecord = lines.get(i);
 			if (!lineRecord.header && !lineRecord.isBlank) {
@@ -86,8 +88,10 @@ public class AffiliatesImporterService {
 		Affiliate affiliate = findExistingAffiliateForUpdate(record);
 		if (affiliate == null) {
 			createApprovedAffiliate(record,result);
+			result.setNewRecords(result.getNewRecords() + 1);
 		} else {
 			updateAffiliate(affiliate,record,result);
+			result.updatedRecords += 1;
 		}
 		clearSession();
 	}
@@ -137,7 +141,7 @@ public class AffiliatesImporterService {
 		Affiliate affiliate = createAffiliate(record, application, affiliateDetails);
 		affiliate = affiliateRepository.save(affiliate);
 		
-		result.sourceMemberKey = affiliate.getHomeMember().getKey();
+		result.setSourceMemberKey(affiliate.getHomeMember().getKey());
 	}
 
 	private Affiliate createAffiliate(LineRecord record, PrimaryApplication application, AffiliateDetails affiliateDetails) throws IllegalAccessException, InstantiationException {
