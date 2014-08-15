@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import org.joda.time.Instant;
 
@@ -20,6 +22,10 @@ public class Member extends BaseEntity {
 
     @Column(name="created_at")
     Instant createdAt = Instant.now();
+    
+    @OneToOne()
+	@JoinColumn(name="file_id")
+    File fileId;
     
 	public Member() {}
 	
@@ -42,6 +48,14 @@ public class Member extends BaseEntity {
 	@Override
 	protected Object getPK() {
 		return memberId;
+	}
+
+	public File getLicense() {
+		return fileId;
+	}
+
+	public void setLicense(File license) {
+		this.fileId = license;
 	}
 
     
