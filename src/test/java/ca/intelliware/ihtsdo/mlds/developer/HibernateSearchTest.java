@@ -6,11 +6,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.EntityContext;
+import org.hibernate.search.query.dsl.QueryBuilder;
+import org.hibernate.search.query.dsl.TermTermination;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -25,21 +29,23 @@ import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("dev")
-public class HibernateSearchIndexer {
+@Transactional
+public class HibernateSearchTest {
 	@Resource
 	EntityManager entityManager;
 	
 	@Test
-	public void recreateIndex() throws Exception {
+	public void findAffiliate() throws Exception {
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-		/*
-		Query query = entityManager.createQuery("select a from Affiliate a");
-		List<Affiliate> affiliates = query.getResultList();
-		for (Affiliate affiliate : affiliates) {
-			System.out.println(affiliate.getAffiliateDetails().getOrganizationName());
-			fullTextEntityManager.index(affiliate);
-		}*/
-		fullTextEntityManager.createIndexer().startAndWait();
+
+		QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Affiliate.class).get();
+		Query query = queryBuilder.keyword().onField("ALL").matching("intelliware michael").createQuery();
+		
+		FullTextQuery ftQuery = fullTextEntityManager.createFullTextQuery(query, Affiliate.class);
+		List resultList = ftQuery.getResultList();
+		
+		System.out.println("matching affiliate" + resultList);
+		
 	}
 
 }

@@ -49,7 +49,7 @@ public class Affiliate extends BaseEntity {
 
 	@OneToOne()
 	@JoinColumn(name="affiliate_details_id")
-	@IndexedEmbedded
+	@IndexedEmbedded(prefix="")
 	AffiliateDetails affiliateDetails;
 	
 	@JsonIgnoreProperties({"affiliate"})
