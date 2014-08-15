@@ -4,7 +4,7 @@
 </div>
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<p>Send reason for declining to <a href="mailto:{{application.email}}">{{application.email}}</a></p>
+	<p>Send reason for declining to <a href="mailto:{{application.affiliateDetails.email}}">{{application.affiliateDetails.email}}</a></p>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="$dismiss()" ng-disabled="submitting">Cancel</button>

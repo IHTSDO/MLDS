@@ -1,13 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
-import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import java.util.List;
 
 import org.joda.time.Instant;
-import org.joda.time.LocalDateTime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
+import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 
 /**
  * Spring Data JPA repository for the PersistentAuditEvent entity.
@@ -20,4 +19,6 @@ import java.util.List;
     
     @Query("select p from PersistentAuditEvent p where p.auditEventDate >= ?1 and p.auditEventDate <= ?2")
     List<PersistentAuditEvent> findByDates(Instant fromDate, Instant toDate);
+    
+    List<PersistentAuditEvent> findByAuditEventType(String auditEventType);
 }

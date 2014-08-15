@@ -6,11 +6,13 @@ mldsApp.controller('ApplicationReviewController', [
 		'$routeParams',
 		'$modal',
 		'$location',
+		'Session',
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
-		function($scope, $log, $routeParams, $modal, $location, UserRegistrationService, DomainBlacklistService,
-				PackagesService) {
+		'ApplicationUtilsService',
+		function($scope, $log, $routeParams, $modal, $location, Session, UserRegistrationService, DomainBlacklistService,
+				PackagesService, ApplicationUtilsService) {
 
 			var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
 			
@@ -21,18 +23,21 @@ mldsApp.controller('ApplicationReviewController', [
 			
 			$scope.alerts = [];
 			$scope.submitting = false;
+			$scope.isReadOnly = true;
 
 			function loadApplication() {
 				var queryPromise = UserRegistrationService.getApplicationById(applicationId);
 
 				queryPromise.success(function(application) {
-						if (!UserRegistrationService.isApplicationPending(application)) {
+						if (!ApplicationUtilsService.isApplicationPending(application)) {
 							$log.log('Application not in pending state');
 							goToPendingApplications();
 							return;
 						}
-						
+						//$log.log('loadApplication', application);
 						$scope.application = application;
+						
+						$scope.isReadOnly = !Session.isAdmin() && (Session.member.key !== application.member.key);
 						
 						if (application.commercialUsage) {
 							$scope.commercialUsageInstitutionsByCountry = _.groupBy(application.commercialUsage.entries, 

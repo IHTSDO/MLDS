@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="release_file")
-public class ReleaseFile {
+public class ReleaseFile extends BaseEntity {
 
 	@Id
 	@GeneratedValue
@@ -65,6 +65,11 @@ public class ReleaseFile {
 
 	public void setDownloadUrl(String downloadUrl) {
 		this.downloadUrl = downloadUrl;
+	}
+
+	@Override
+	protected Object getPK() {
+		return releaseFileId;
 	}
 
 }

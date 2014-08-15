@@ -3,9 +3,11 @@ package ca.intelliware.ihtsdo.mlds.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Country {
+public class Country extends BaseEntity {
 
     @Id
     @Column(name="iso_code_2")
@@ -20,6 +22,10 @@ public class Country {
     private boolean excludeRegistration;
     
     private String alternateRegistrationUrl;
+    
+	@ManyToOne
+	@JoinColumn(name="member_id")
+    private Member member;
 
     /* for hibernate */
 	protected Country() {
@@ -58,5 +64,18 @@ public class Country {
 
 	public void setAlternateRegistrationUrl(String alternateRegistrationUrl) {
 		this.alternateRegistrationUrl = alternateRegistrationUrl;
+	}
+
+	@Override
+	protected Object getPK() {
+		return isoCode2;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
 	}
 }

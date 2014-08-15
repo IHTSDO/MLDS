@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 'usageByCountryList', 
-                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport, usageByCountryList) {
+angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 'usageByCountryList', 'UserAffiliateService', 
+                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport, usageByCountryList, UserAffiliateService) {
 	$scope.attemptedSubmit = false;
 	$scope.submitting = false;
 	$scope.alerts = [];
@@ -15,6 +15,7 @@ angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$mo
 		
 		CommercialUsageService.submitUsageReport($scope.commercialUsageReport)
 			.then(function(result) {
+				UserAffiliateService.refreshAffiliate();
 				$location.path('/dashboard');
 				$modalInstance.close(result);
 			})

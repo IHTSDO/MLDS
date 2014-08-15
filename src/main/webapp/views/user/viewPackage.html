@@ -1,8 +1,12 @@
 <div class="row" >
-	<div class="page-header">
-		<h2>{{releasePackage.name}}</h2>
-		<p>{{releasePackage.description}}</p>
+	<div class="col-sm-12 col-md-12 col-lg-12"> 
+		<div class="page-header">
+			<h2>{{releasePackage.name}}</h2>
+			<p>{{releasePackage.description}}</p>
+		</div>
 	</div>
+</div>
+<div class="row">
 	<div class="col-lg-8">
 		<div class="well package" ng-repeat="releaseVersion in releaseVersions.online" ng-show="utils.isLatestVersion(releaseVersion, releaseVersions.online)">
 			<header>	
@@ -10,13 +14,28 @@
 				<p>{{releaseVersion.description}}</p>
 			</header>
 			<div class="footer">
+				<div class="col-md-2">
 				<h4><span class="label label-success">Current:</span> </h4>
+			</div>
+			<div class="col-md-6">
 				<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
-					<a href="{{releaseFile.downloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl">{{releaseFile.label}}</a>
+					<i class="fa fa-file"></i> <a href="{{releaseFile.downloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl || isMembershipUnstarted || isMembershipIncomplete" target="_blank">{{releaseFile.label}}</a>
 				</p>
-				<a class="btn btn-success pull-right" ng-show="!utils.isAllowedToDownload(releaseVersion)" href="#/login">
+				<a class="btn btn-success pull-right" ng-show="!$root.authenticated" href="#/login">
 					Login to download
-				</a>				
+				</a>
+			</div>
+				<div class="pull-right" ng-show="$root.authenticated">
+					<button class="btn btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved" ng-click="utils.openExtensionApplication(releasePackage)">			
+						Apply for extension
+					</button>
+					<span class="alert alert-warning" ng-show="!isPrimaryApplicationApproved">Primary application is being processed</span>
+					<span class="alert alert-warning" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant && isPrimaryApplicationApproved">Application being processed</span>
+					<span class="alert alert-warning" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant">
+						Application being updated, 
+						<span ng-click="goToExtensionApplication()" class="btn btn-link">click to view application.</span>
+					</span>
+				</div>
 			</div>
 		</div>
 	</div>

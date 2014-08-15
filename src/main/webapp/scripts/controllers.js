@@ -2,14 +2,17 @@
 
 /* Controllers */
 
-mldsApp.controller('MainController', ['$scope', '$rootScope',
-    function ($scope, $rootScope) {
+mldsApp.controller('MainController', ['$scope', '$rootScope', 'Session', '$log',
+    function ($scope, $rootScope, Session, $log) {
 		// Used to reverse the result of a function in filters
 		$rootScope.not = function(func) {
 		    return function (item) { 
 		        return !func(item); 
 		    };
 		};
+		$log.log(Session.promise);
+		$rootScope.Session = Session;
+		
     }]);
 
 mldsApp.controller('AdminController', ['$scope',
@@ -33,47 +36,25 @@ mldsApp.controller('LogoutController', ['$location', 'AuthenticationSharedServic
         AuthenticationSharedService.logout();
     }]);
 
-mldsApp.controller('SettingsController', ['$scope', 'Account',
-    function ($scope, Account) {
-        $scope.success = null;
-        $scope.error = null;
-        $scope.settingsAccount = Account.get();
-
-        $scope.save = function () {
-            Account.save($scope.settingsAccount,
-                function (value, responseHeaders) {
-                    $scope.error = null;
-                    $scope.success = 'OK';
-                    $scope.settingsAccount = Account.get();
-                },
-                function (httpResponse) {
-                    $scope.success = null;
-                    $scope.error = "ERROR";
-                });
-        };
-    }]);
-
 
 mldsApp.controller('PasswordController', ['$scope', 'Password',
     function ($scope, Password) {
         $scope.success = null;
         $scope.error = null;
-        $scope.doNotMatch = null;
         $scope.changePassword = function () {
-            if ($scope.password != $scope.confirmPassword) {
-                $scope.doNotMatch = "ERROR";
-            } else {
-                $scope.doNotMatch = null;
-                Password.save($scope.password,
-                    function (value, responseHeaders) {
-                        $scope.error = null;
-                        $scope.success = 'OK';
-                    },
-                    function (httpResponse) {
-                        $scope.success = null;
-                        $scope.error = "ERROR";
-                    });
-            }
+    		if ($scope.form.$invalid) {
+    			$scope.form.attempted = true;
+    			return;
+    		}
+            Password.save($scope.password,
+                function (value, responseHeaders) {
+                    $scope.error = null;
+                    $scope.success = 'OK';
+                },
+                function (httpResponse) {
+                    $scope.success = null;
+                    $scope.error = "ERROR";
+                });
         };
     }]);
 

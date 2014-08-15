@@ -2,15 +2,24 @@
 	<div class="col-md-12">
 		<div class="page-header">
 			<h1>Pending Applications</h1>
+			
+			<div>
+				<span>Show: </span>
+				<select ng-model="showAllApplications">
+					<option value="0" selected="selected">My Pending Applications</option>
+					<option value="1">All Applications</option>
+				</select>
+			</div>
 		</div>
-		<div class="table-responsive well">
+		
+		<div class="table-responsive">
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
 						<th>Date Submitted</th>
 						<th>Status</th>
 						<th>Type</th>
-						<th class="text-right">No. of Sublicences</th>
+						<th>Assigned Member</th>
 						<th>Affiliate Name</th>
 						<th>Home Country</th>
 						<th>Use Type</th>
@@ -19,15 +28,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="application in applications">
+					<tr ng-repeat="application in applications | filter:applicationSearch" ng-switch="application.applicationType">
+									
 					<td>{{application.submittedAt | date}}</td>
 					<td>{{'approval.state.'+application.approvalState | translate}}</td>
-					<td>New</td>
-					<td class="text-right">{{totalSublicences(application.commercialUsage) | number}}</td>
-					<td>{{application.organizationName ? application.organizationName : application.name}}</td>
-					<td>{{application.country}}</td>
-					<td>{{'licensee.type.'+application.type | translate}} - {{application.subType}}</td>
-					<td>{{'licensee.agreementType.'+application.commercialUsage.context.agreementType | translate}}</td>
+					<td>{{'application.applicationType.'+application.applicationType | translate}}</td>
+					
+					<td>{{'global.member.'+application.member.key | translate}}</td>
+					<td>{{application.affiliateDetails.organizationName ? application.affiliateDetails.organizationName : application.affiliateDetails.firstName + ' '+application.affiliateDetails.lastName}}</td>
+					<td>{{application.affiliateDetails.address.country.commonName}}</td>
+					<td ng-switch-when="PRIMARY">{{'affiliate.type.'+application.type | translate}} - {{'affiliate.subType.'+application.subType | translate}}</td>
+					<td ng-switch-when="PRIMARY">{{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</td>
+					
+					<td ng-switch-when="EXTENSION">{{'affiliate.type.'+application.affiliate.type | translate}}</td>
+					<td ng-switch-when="EXTENSION">{{'affiliate.agreementType.'+application.affiliate.commercialUsages[0].context.agreementType | translate}}</td>
+					
 					<td> <a class="btn btn-primary btn-sm" ng-click="goToApplication(application)"><i class="fa fa-pencil"></i> Review</a></td>
 				</tr>
 				</tbody>
