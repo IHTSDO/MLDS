@@ -10,6 +10,7 @@
 					<option value="" selected="selected">{{'global.member.'+Session.member.key | translate}}</option>
 					<option value="1">All Members</option>
 				</select>
+				<a popover-placement="top" popover="Switch between your releases and releases from all members" class="btn btn-link"><i class="fa fa-question-circle fa-2x"></i></a> 
 			</div>
 		</div>
 	</div>
@@ -17,8 +18,8 @@
 <div class="row">
 	<div class="col-lg-8">
 		<div class="page-header">
-			<a popover-placement="top" popover="Fix Me - Lorem ipsum dolor sit amet, consectetur adipiscing elit." class="btn btn-link pull-right"><i class="fa fa-question-circle fa-2x"></i></a>
-			<h3>Public Releases</h3>	
+			<h3>Public Releases</h3>
+			<p>Releases are made public when one or more versions inside the release is made public. To take a release offline, select a release below and set all versions to offline.</p>	
 		</div>
 			<div class="panel panel-primary" ng-repeat="package in onlinePackages">
 				<div class="panel-heading">
@@ -56,8 +57,9 @@
 <div class="row">
 	<div class="col-lg-8">
 		<div class="page-header">
-			<a popover-placement="top" popover="Fix Me - Lorem ipsum dolor sit amet, consectetur adipiscing elit." class="btn btn-link pull-right"><i class="fa fa-question-circle fa-2x"></i></a>
+			
 			<h3>Offline Releases</h3>
+			<p>Releases that do not have any online versions are taken offline. To take a release online, select a release below and set one or more versions online.
 		</div>
 			<div class="panel panel-default" ng-repeat="package in offinePackages">
 				<div class="panel-heading">
