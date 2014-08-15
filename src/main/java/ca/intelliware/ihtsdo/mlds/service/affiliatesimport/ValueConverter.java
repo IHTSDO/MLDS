@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
 
 
 public class ValueConverter {
@@ -18,14 +17,6 @@ public class ValueConverter {
 	
 	public String toString(Object value) {
 		return (value == null) ? "" : StringUtils.trim(value.toString());
-	}
-
-	public String getExampleValue(int hint, String columnName) {
-		String capitalizedExample = WordUtils.capitalizeFully("Example "+StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(columnName), " "));
-		if (hint > 0) {
-			capitalizedExample += " "+hint;
-		}
-		return capitalizedExample;
 	}
 
 	public List<String> getOptions() {
