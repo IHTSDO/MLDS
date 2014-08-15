@@ -25,7 +25,15 @@ angular.module('MLDS')
 	};
 	
 	service.updateAffiliateDetails = function(affiliateId, affiliateDetails) {
-		return $http.put('/app/rest/affiliates/'+encodeURIComponent(affiliateId)+'/detail', affiliateDetails);
+		var promise = $http.put('/app/rest/affiliates/'+encodeURIComponent(affiliateId)+'/detail', affiliateDetails);
+		promise.then(function(result) {
+			var affiliateDetails = result.data;
+			if (affiliateDetails.email === Session.login) {
+				Session.updateUserName(affiliateDetails.firstName, affiliateDetails.lastName);
+			}
+		});
+
+		return promise;
 	};
 
 	service.myAffiliates = function() {

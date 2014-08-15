@@ -35,5 +35,9 @@ angular.module('MLDS').factory('Session', ['USER_ROLES','$q', '$log',
 	        	return this.userRoles && _.contains(this.userRoles, USER_ROLES.user);
 	        };
 	        
+	        this.updateUserName = function(firstName, lastName) {
+	        	this.firstName = firstName;
+	        	this.lastName = lastName;
+	        };
 	        return this;
 	    }]);

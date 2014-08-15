@@ -8,8 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -23,8 +25,10 @@ import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
+import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
+import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
@@ -53,6 +57,9 @@ public class AffiliateResourceTest {
     @Mock
     private SessionService sessionService;
     
+    @Mock
+    private UserRepository userRepository;
+    
     private MockMvc restUserMockMvc;
     
     @Before
@@ -67,6 +74,8 @@ public class AffiliateResourceTest {
         affiliateResource.affiliateAuditEvents = affiliateAuditEvents;
         affiliateResource.affiliatesExporterService = affiliatesExporterService;
         affiliateResource.affiliatesImportGenerator = affiliatesImportGenerator;
+        affiliateResource.userRepository = userRepository;
+        affiliateResource.sessionService = sessionService;
 
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(affiliateResource).build();
     }
@@ -126,6 +135,35 @@ public class AffiliateResourceTest {
                 ;
     	
     	Mockito.verify(affiliateDetailsRepository).save(Mockito.any(AffiliateDetails.class));
+    }
+
+    @Test
+    public void updateAffiliateDetailShouldUpdateUserName() throws Exception {
+    	User user = new User();
+    	user.setLogin("Original Login");
+    	user.setFirstName("Original FirstName");
+    	user.setLastName("Original LastName");
+    	when(userRepository.findOne("user@email.com")).thenReturn(user);
+    	
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.getAffiliateDetails().setEmail("user@email.com");
+		when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"email\":\"ignore@email.com\", \"firstName\": \"Updated FirstName\", \"lastName\": \"Updated LastName\", \"address\": { \"street\":\"Updated Street\" }, \"billingAddress\": {} }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                ;
+    	
+		ArgumentCaptor<User> savedUser = ArgumentCaptor.forClass(User.class);
+    	Mockito.verify(userRepository).save(savedUser.capture());
+    	
+    	Assert.assertEquals("Updated FirstName", savedUser.getValue().getFirstName());
+    	Assert.assertEquals("Updated LastName", savedUser.getValue().getLastName());
+    	
+    	Assert.assertEquals("Original Login", savedUser.getValue().getLogin());
     }
 
     @Test
