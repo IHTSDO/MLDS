@@ -40,13 +40,13 @@
 		<div class="page-header" ng-show="importSpec">
 			<h2>Affiliate Record Format</h2>
 		</div>
-		<p>The Affiliate record format is CSV based using <kbd>^</kbd> as a field separator.</p>
+		<p>The Affiliate record format is CSV based, although using <kbd>^</kbd> as a field separator and no support for quoting field entries containing the ^ character.</p>
 		<ul>
-			<li>Header row is mandatory and should include the column names in the same order as the column definitions below.</li>
-			<li>Each data row represents one affiliate.</li>
-			<li>The <code>importKey</code> should be unique for all the affiliate from a single source member.</li>
-			<li>Re-importing an affiliate with <code>member</code>+<code>importKey</code> matching an earlier import will update the affiliate's data from the earlier import rather than creating a new affiliate entry in the system's database.</li>
-			<li>Source member is identified by its ISO 3166-1 alpha-2 country code or <code>IHTSDO</code> for non-member.</li>
+			<li>Header row is mandatory and should include the column names in the same order as the column definitions listed below.</li>
+			<li>Each data row represents a single affiliate.</li>
+			<li>The <code>importKey</code> should be unique for all of the affiliates from a single source member.</li>
+			<li>Re-importing an affiliate where the compound key of <code>member</code>+<code>importKey</code> matches an earlier imported affiliate will update the affiliate's data from the earlier import rather than creating a new affiliate entry in the system's database.</li>
+			<li>Source member is identified by its ISO 3166-1 alpha-2 country code or <code>IHTSDO</code> for international non-members.</li>
 		</ul>
 		<h4>Example Import File with Two Affiliate Records</h4>
 		<div><pre>{{importSpec.example}}</pre>

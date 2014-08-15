@@ -1,5 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -37,7 +41,12 @@ public class CountryValueConverter extends ValueConverter {
 	}
 	
 	@Override
-	public String getExampleValue(int hint, String columnName) {
-		return "DK";
+	public List<String> getOptions() {
+		List<String> options = new ArrayList<String>();
+		for (Country country : countryRepository.findAll()) {
+			options.add(country.getIsoCode2());
+		}
+		Collections.sort(options);
+		return options;
 	}
 }

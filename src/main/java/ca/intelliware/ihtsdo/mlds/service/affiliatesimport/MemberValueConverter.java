@@ -1,5 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -37,7 +41,13 @@ public class MemberValueConverter extends ValueConverter {
 	}
 	
 	@Override
-	public String getExampleValue(int hint, String columnName) {
-		return "DK";
+	public List<String> getOptions() {
+		List<String> options = new ArrayList<String>();
+		for (Member member : memberRepository.findAll()) {
+			options.add(member.getKey());
+		}
+		Collections.sort(options);
+		return options;
 	}
+
 }

@@ -3,7 +3,6 @@ package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 
 /**
  * Maps an individual CSV column to an entity field
@@ -38,10 +37,6 @@ public class FieldMapping {
 	public void setValue(Object rootObject, String valueString) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		Object value = valueConverter.toObject(valueString);
 		accessor.setValue(rootObject, value);
-	}
-	
-	public String getExampleValue(int hint) {
-		return valueConverter.getExampleValue(hint, columnName);
 	}
 	
 	public List<String> getOptions() {
