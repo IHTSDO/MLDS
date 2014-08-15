@@ -90,6 +90,15 @@ public class Affiliate {
 		return Collections.unmodifiableSet(applications);
 	}
 
+	public Affiliate() {
+		
+	}
+	
+	//For Tests
+	public Affiliate(Long affiliateId) {
+		this.affiliateId = affiliateId;
+	}
+	
 	public String getCreator() {
 		return creator;
 	}
