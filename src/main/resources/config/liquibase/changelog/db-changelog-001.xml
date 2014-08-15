@@ -990,4 +990,14 @@
 		<comment>Unique constraint on homeMember/importKey</comment>
 		<addUniqueConstraint tableName="affiliate" columnNames="import_key, home_member_id"/>
 	</changeSet>
+	
+	<changeSet id="MLDS-325-6" author="MB">
+		<comment>Add missing constraint</comment>
+		<addForeignKeyConstraint constraintName="FK_application_affiliate_details"
+			baseTableName="application" 
+			baseColumnNames="affiliate_details_id" 
+			referencedTableName="affiliate_details" 
+			referencedColumnNames="affiliate_details_id"
+			 />
+	</changeSet>
 </databaseChangeLog>
