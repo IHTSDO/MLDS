@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Sets;
 
 @Entity
-public class Affiliate {
+public class Affiliate extends BaseEntity {
 
 	@Id
 	@GeneratedValue
@@ -150,6 +150,11 @@ public class Affiliate {
 
 	public void setImportKey(String importKey) {
 		this.importKey = importKey;
+	}
+
+	@Override
+	protected Object getPK() {
+		return affiliateId;
 	}
 
 }
