@@ -4,13 +4,14 @@ import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Fields;
 
 @Embeddable
 public class MailingAddress {
 
-	@Field
+	@Fields({ @Field(name="ALL"), @Field()})
 	String street;
-	@Field
+	@Fields({ @Field(name="ALL"), @Field()})
 	String city;
 	@ManyToOne
 	Country country;
