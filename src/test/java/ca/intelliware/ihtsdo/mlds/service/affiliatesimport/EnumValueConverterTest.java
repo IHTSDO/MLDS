@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.google.common.collect.Lists;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class EnumValueConverterTest {
@@ -70,5 +72,10 @@ public class EnumValueConverterTest {
 		assertEquals(fixture.toString(SomeEnum.ONE_ENUM), "ONE_ENUM");
 		
 		assertEquals(fixture.toString(null), "");
+	}
+	
+	@Test
+	public void getOptionsShouldProvideSortedListOfOptionsAsStrings() {
+		assertEquals(fixture.getOptions(), Lists.newArrayList("ANOTHER_ENUM", "ONE_ENUM"));
 	}
 }

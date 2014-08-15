@@ -13,7 +13,6 @@ import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
-import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
 
 /**
  * Holds the mappings from the CSV file columns to entity objects
@@ -74,7 +73,7 @@ public class AffiliatesMapper {
 		} else if (attributeClazz.equals(Country.class)) {
 			return countryValueConverter;
 		} else {
-			return new StringValueConverter();
+			return new ValueConverter();
 		}
 
 	}
