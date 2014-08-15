@@ -1,6 +1,6 @@
 <div>
     <h2>License T&C</h2>
-    
+    {{canAccess}}
     <table class="table table-striped table-bordered table-hover">
     	<thead>
     		<tr>
@@ -9,11 +9,11 @@
     		</tr>
     	</thead>
     	<tbody>
-    		<tr ng-repeat="member in members">
+    		<tr ng-repeat="member in members | orderBy: canAccess : true">
     			<td>{{member.key}}</td>
     			<td>
-    				<button class="btn btn-default">View License</button>
-    				<button class="btn btn-success">Edit License</button>
+    				<button class="btn btn-default" ng-click="viewLicense(member)">View License</button>
+    				<button class="btn btn-success" ng-show="canAccess(member)" ng-click="editLicense(member)">Edit License</button>
     			</td>
     		</tr>
     	</tbody>
