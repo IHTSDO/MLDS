@@ -42,6 +42,10 @@ angular.module('MLDS')
 			return a && b && a.key === b.key;
 		};
 		
+		service.getMemberLicense = function getMemberLicense(memberKey) {
+			return $http.get('/app/rest/members/' + memberKey + '/license');
+		}
+		
 		return service;
 		
 	}]);
