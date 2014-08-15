@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
-import javax.servlet.FilterRegistration.Dynamic;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -29,12 +28,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
-import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 
 import ca.intelliware.ihtsdo.mlds.web.filter.CachingHttpHeadersFilter;
 import ca.intelliware.ihtsdo.mlds.web.filter.StaticResourcesProductionFilter;
 import ca.intelliware.ihtsdo.mlds.web.filter.gzip.GZipServletFilter;
-import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.servlet.InstrumentedFilter;
