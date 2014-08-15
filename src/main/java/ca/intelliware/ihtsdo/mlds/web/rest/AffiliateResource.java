@@ -28,8 +28,10 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
+import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
+import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
@@ -68,6 +70,9 @@ public class AffiliateResource {
 	
 	@Resource
 	AffiliatesImportGenerator affiliatesImportGenerator;
+	
+	@Resource
+	UserRepository userRepository;
 
 	@Resource
 	SessionService sessionService;
@@ -192,13 +197,18 @@ public class AffiliateResource {
     	}
     	
     	copyAffiliateDetailsFields(affiliateDetails, body);
-    	
     	affiliateDetailsRepository.save(affiliateDetails);
+    	
+    	User user = userRepository.findOne(affiliateDetails.getEmail());
+    	if (user != null) {
+    		copyAffiliateDetailsNameFieldsToUser(user, body);
+    		userRepository.save(user);
+    	}
+    	
     	affiliateAuditEvents.logUpdateOf(affiliate);
     	
     	return new ResponseEntity<AffiliateDetails>(affiliateDetails, HttpStatus.OK);
     }
-
 
 	private void copyAffiliateDetailsFields(AffiliateDetails affiliateDetails, AffiliateDetails body) {
 		copyAddressFieldsWithoutCountry(affiliateDetails.getAddress(), body.getAddress());
@@ -225,4 +235,8 @@ public class AffiliateResource {
 		address.setStreet(body.getStreet());
 	}
 
+	private void copyAffiliateDetailsNameFieldsToUser(User user, AffiliateDetails body) {
+    	user.setFirstName(body.getFirstName());
+    	user.setLastName(body.getLastName());
+	}
 }
