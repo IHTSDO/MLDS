@@ -109,25 +109,33 @@ public class AffiliateResource {
 				new Order(Direction.DESC, "affiliateId")
 				);
 		PageRequest pageRequest = new PageRequest(skip / top, top, sort);
-		if (!Strings.isNullOrEmpty(q)) {
+/*		if (!Strings.isNullOrEmpty(q)) {
 			//FIXME query string support incomplete & too slow for 6000 records....
 			affiliates = affiliateRepository.findByTextQuery("%" + q.toLowerCase() + "%");
 		} else {
-			
+*/			
 			if (StringUtils.isBlank(filter)) {
-				affiliates = affiliateRepository.findAll(pageRequest).getContent();
+	    		if (StringUtils.isBlank(q)) {
+	    			affiliates = affiliateRepository.findAll(pageRequest).getContent();
+	    		} else {
+	    			affiliates = affiliateRepository.findByTextQuery('%'+q.toLowerCase()+'%', pageRequest).getContent();
+	    		}
 			} else {
 		    	Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
 		    	if (homeMemberMatcher.matches()) {
 		    		String homeMember = homeMemberMatcher.group(1);
 		    		Member member = memberRepository.findOneByKey(homeMember);
-		    		affiliates = affiliateRepository.findByHomeMember(member, pageRequest).getContent();		    		
+		    		if (StringUtils.isBlank(q)) {
+		    			affiliates = affiliateRepository.findByHomeMember(member, pageRequest).getContent();
+		    		} else {
+		    			affiliates = affiliateRepository.findByHomeMemberAndTextQuery(member, '%'+q.toLowerCase()+'%', pageRequest).getContent();
+		    		}
 		    	} else {
 		        	//FIXME support more kinds of audit event filters...
 		    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		    	}
 			}
-		}
+//		}
 		return new ResponseEntity<Collection<Affiliate>>(affiliates, HttpStatus.OK);
     }
 	
