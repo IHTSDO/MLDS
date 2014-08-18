@@ -14,6 +14,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -102,41 +103,35 @@ public class AffiliateResource {
     		@RequestParam(value="$top", defaultValue="50", required=false) Integer top,
     		@RequestParam(value="$skip", defaultValue="0", required=false) Integer skip,
     		@RequestParam(value="$filter", required=false) String filter) {
-		List<Affiliate> affiliates;
+		Page<Affiliate> affiliates;
 		//FIXME assuming parameters are compatible with paging...
 		Sort sort = new Sort(
 				//FIXME add some more useful orderings...
 				new Order(Direction.DESC, "affiliateId")
 				);
 		PageRequest pageRequest = new PageRequest(skip / top, top, sort);
-/*		if (!Strings.isNullOrEmpty(q)) {
-			//FIXME query string support incomplete & too slow for 6000 records....
-			affiliates = affiliateRepository.findByTextQuery("%" + q.toLowerCase() + "%");
+		if (StringUtils.isBlank(filter)) {
+    		if (StringUtils.isBlank(q)) {
+    			affiliates = affiliateRepository.findAll(pageRequest);
+    		} else {
+    			affiliates = affiliateRepository.findByTextQuery('%'+q.toLowerCase()+'%', pageRequest);
+    		}
 		} else {
-*/			
-			if (StringUtils.isBlank(filter)) {
+	    	Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
+	    	if (homeMemberMatcher.matches()) {
+	    		String homeMember = homeMemberMatcher.group(1);
+	    		Member member = memberRepository.findOneByKey(homeMember);
 	    		if (StringUtils.isBlank(q)) {
-	    			affiliates = affiliateRepository.findAll(pageRequest).getContent();
+	    			affiliates = affiliateRepository.findByHomeMember(member, pageRequest);
 	    		} else {
-	    			affiliates = affiliateRepository.findByTextQuery('%'+q.toLowerCase()+'%', pageRequest).getContent();
+	    			affiliates = affiliateRepository.findByHomeMemberAndTextQuery(member, '%'+q.toLowerCase()+'%', pageRequest);
 	    		}
-			} else {
-		    	Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
-		    	if (homeMemberMatcher.matches()) {
-		    		String homeMember = homeMemberMatcher.group(1);
-		    		Member member = memberRepository.findOneByKey(homeMember);
-		    		if (StringUtils.isBlank(q)) {
-		    			affiliates = affiliateRepository.findByHomeMember(member, pageRequest).getContent();
-		    		} else {
-		    			affiliates = affiliateRepository.findByHomeMemberAndTextQuery(member, '%'+q.toLowerCase()+'%', pageRequest).getContent();
-		    		}
-		    	} else {
-		        	//FIXME support more kinds of audit event filters...
-		    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		    	}
-			}
-//		}
-		return new ResponseEntity<Collection<Affiliate>>(affiliates, HttpStatus.OK);
+	    	} else {
+	        	//FIXME support more kinds of audit event filters...
+	    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	    	}
+		}
+		return new ResponseEntity<Collection<Affiliate>>(affiliates.getContent(), HttpStatus.OK);
     }
 	
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })

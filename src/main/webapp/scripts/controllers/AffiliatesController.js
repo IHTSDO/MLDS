@@ -27,9 +27,8 @@ mldsApp.controller('AffiliatesController', [
 				$scope.downloadingAffiliates = true;
 				$scope.alerts = [];
 				var capturedAffiliates = $scope.affiliates;
-				AffiliateService.filterAffiliates($scope.query, 50, capturedAffiliates.length||0, $scope.showAllAffiliates?null:$scope.homeMember)
+				AffiliateService.filterAffiliates($scope.query, 50, capturedAffiliates.length||0, $scope.showAllAffiliates==1?null:$scope.homeMember)
 					.then(function(response) {
-						$log.log('affiliates nextpage', response);
 						_.each(response.data, function(a) {
 							capturedAffiliates.push(a);
 						});
@@ -51,21 +50,6 @@ mldsApp.controller('AffiliatesController', [
 			}
 
 			loadAffiliates();
-			
-			$scope.searchX = function (affiliate) {
-				var affiliateDetails = $scope.affiliateActiveDetails(affiliate);
-				if (!affiliateDetails || !affiliateDetails.affiliateDetailsId) {
-					return false;
-				}
-		        return !!((
-		        		(affiliateDetails.organizationName && affiliateDetails.organizationName.toLowerCase().indexOf($scope.query || '') !== -1)
-		        		|| affiliateDetails.firstName.toLowerCase().indexOf($scope.query || '') !== -1
-		        		|| affiliateDetails.lastName.toLowerCase().indexOf($scope.query || '') !== -1
-		        		|| affiliateDetails.email.toLowerCase().indexOf($scope.query || '') !== -1
-		        		|| ( affiliateDetails.address && affiliateDetails.address.country && affiliateDetails.address.country.commonName.toLowerCase().indexOf($scope.query || '') !== -1)
-		        		|| (affiliate.homeMember && affiliate.homeMember.key.toLowerCase().indexOf($scope.query || '') !== -1)
-		        		));
-		    };
 			
 			$scope.$watch('showAllAffiliates', loadAffiliates);
 			$scope.$watch('query', loadAffiliates);
