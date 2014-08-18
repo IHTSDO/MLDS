@@ -10,6 +10,8 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class AffiliateSearchRepository {
 	@Resource
 	EntityManager entityManager;
 
-	public List<Affiliate> findAffiliatesMatching(String q, Member homeMember, Pageable pageable) {
+	public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, Pageable pageable) {
 		
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 	
@@ -54,7 +56,7 @@ public class AffiliateSearchRepository {
 		
 		List<Affiliate> resultList = ftQuery.getResultList();
 		
-		return resultList;
+		return new PageImpl<>(resultList, pageable, ftQuery.getResultSize());
 	}
 
 }

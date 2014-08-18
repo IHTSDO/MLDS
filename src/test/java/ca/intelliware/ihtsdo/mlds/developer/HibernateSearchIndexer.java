@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
@@ -21,17 +22,11 @@ public class HibernateSearchIndexer {
 	@Resource
 	EntityManager entityManager;
 	
-	//@Test
+	@Test
 	public void recreateIndex() throws Exception {
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-		/*
-		Query query = entityManager.createQuery("select a from Affiliate a");
-		List<Affiliate> affiliates = query.getResultList();
-		for (Affiliate affiliate : affiliates) {
-			System.out.println(affiliate.getAffiliateDetails().getOrganizationName());
-			fullTextEntityManager.index(affiliate);
-		}*/
-		fullTextEntityManager.createIndexer().startAndWait();
+		
+		//fullTextEntityManager.createIndexer().startAndWait();
 	}
 
 }
