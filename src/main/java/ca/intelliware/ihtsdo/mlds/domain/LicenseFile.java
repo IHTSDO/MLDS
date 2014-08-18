@@ -5,18 +5,20 @@ import java.sql.Blob;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import org.joda.time.Instant;
 
 @Entity
-public class File extends BaseEntity {
+public class LicenseFile extends BaseEntity {
 	@Id
 	@Column(name="file_id")
     private long fileId;
 	
 	private String filename;
 	
-	private Blob blob;
+	@Lob
+	private Blob content;
 	
 	private String creator;
 	
@@ -46,12 +48,12 @@ public class File extends BaseEntity {
 		this.filename = filename;
 	}
 
-	public Blob getBlob() {
-		return blob;
+	public Blob getContent() {
+		return content;
 	}
 
-	public void setBlob(Blob blob) {
-		this.blob = blob;
+	public void setContent(Blob content) {
+		this.content = content;
 	}
 
 	public String getCreator() {
