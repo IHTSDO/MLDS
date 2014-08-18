@@ -104,7 +104,7 @@ public class AffiliateFullTextSearchTest {
 	}
 	
 	private List<Affiliate> search(String query) {
-		List<Affiliate> resultList = affiliateSearchRepository.findAffiliatesMatching(query.toLowerCase(),null,new PageRequest(0, 50));
+		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),null,new PageRequest(0, 50)).getContent();
 		//List<Affiliate> resultList = affiliateRepository.findByTextQuery(query.toLowerCase());
 		return resultList;
 	}

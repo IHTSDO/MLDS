@@ -39,6 +39,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateSearchRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
@@ -60,6 +61,9 @@ public class AffiliateResource {
     
 	@Resource
 	AffiliateRepository affiliateRepository;
+	
+	@Resource
+	AffiliateSearchRepository affiliateSearchRepository;
 	
 	@Resource
 	AffiliateDetailsRepository affiliateDetailsRepository;
@@ -112,6 +116,8 @@ public class AffiliateResource {
 				new Order(Direction.ASC, "affiliateId")
 				);
 		PageRequest pageRequest = new PageRequest(page, pageSize, sort);
+		Member member = null;
+		
 		if (StringUtils.isBlank(filter)) {
     		if (StringUtils.isBlank(q)) {
     			affiliates = affiliateRepository.findAll(pageRequest);
@@ -122,17 +128,22 @@ public class AffiliateResource {
 	    	Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
 	    	if (homeMemberMatcher.matches()) {
 	    		String homeMember = homeMemberMatcher.group(1);
-	    		Member member = memberRepository.findOneByKey(homeMember);
-	    		if (StringUtils.isBlank(q)) {
-	    			affiliates = affiliateRepository.findByHomeMember(member, pageRequest);
-	    		} else {
-	    			affiliates = affiliateRepository.findByHomeMemberAndTextQuery(member, '%'+q.toLowerCase()+'%', pageRequest);
-	    		}
+	    		member = memberRepository.findOneByKey(homeMember);
 	    	} else {
-	        	//FIXME support more kinds of audit event filters...
+	        	//FIXME support more kinds of filters...
 	    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	    	}
+			}
 		}
+		
+		if (!StringUtils.isBlank(q)) {
+			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, pageRequest) ;
+		} else {
+			if (member == null) {
+				affiliates = affiliateRepository.findAll(pageRequest);
+			} else {
+				affiliates = affiliateRepository.findByHomeMember(member, pageRequest);
+			}
+    	}
 		return new ResponseEntity<Collection<Affiliate>>(affiliates.getContent(), HttpStatus.OK);
     }
 	
