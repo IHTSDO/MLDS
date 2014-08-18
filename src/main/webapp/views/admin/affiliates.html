@@ -37,8 +37,9 @@
 						<th></th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr ng-click="viewAffiliate(affiliate.affiliateId)" ng-repeat="affiliate in affiliates | filter: search | filter: affiliatesFilter | orderBy: ['affiliateDetails.organizationName', 'application.affiliateDetails.organizationName', 'affiliateDetails.firstName', 'application.affiliateDetails.firstName', 'affiliateDetails.lastName', 'application.affiliateDetails.lastName', 'creator'] | limitTo:100">
+				<tbody infinite-scroll="nextPage()" infinite-scroll-distance="1" infinite-scroll-disabled="downloadingAffiliates">
+					<!--  orderBy: ['affiliateDetails.organizationName', 'application.affiliateDetails.organizationName', 'affiliateDetails.firstName', 'application.affiliateDetails.firstName', 'affiliateDetails.lastName', 'application.affiliateDetails.lastName', 'creator'] -->
+					<tr ng-click="viewAffiliate(affiliate.affiliateId)" ng-repeat="affiliate in affiliates">
 						<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
 						<td>{{'approval.state.'+affiliate.application.approvalState | translate}}</td>
 						<td>{{'affiliate.type.'+affiliate.application.type | translate}} - {{'affiliate.subType.'+affiliate.application.subType | translate}}</td>
@@ -49,6 +50,7 @@
 					</tr>
 				</tbody>
 			</table>
+			<div ng-show='downloadingAffiliates' class="text-center"><i class="fa fa-spinner"></i> Loading data...</div>
 
 	</div>
 </div>
