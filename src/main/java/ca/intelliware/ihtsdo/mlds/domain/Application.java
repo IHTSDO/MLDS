@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -31,6 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 	@Type(value=ExtensionApplication.class, name="EXTENSION"),
 	@Type(value=ImportApplication.class, name="IMPORT")
 	})
+@Indexed
 public abstract class Application extends BaseEntity {
 	public static enum ApplicationType {
 		PRIMARY, EXTENSION, IMPORT
@@ -51,6 +54,7 @@ public abstract class Application extends BaseEntity {
 		
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="affiliate_details_id")
+	@IndexedEmbedded
 	AffiliateDetails affiliateDetails;
 	
 	@Column(name="notes_internal")
