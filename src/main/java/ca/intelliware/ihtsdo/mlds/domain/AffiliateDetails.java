@@ -14,6 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Fields;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Store;
+
 
 @Entity
 @Table(name="affiliate_details")
@@ -25,9 +30,11 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
     Long affiliateDetailsId;
 		
 	@Column(name="first_name")
+	@Fields({ @Field(name="ALL"), @Field()})
 	String firstName;
 	
 	@Column(name="last_name")
+	@Fields({ @Field(name="ALL"), @Field()})
 	String lastName;
 	
 	String email;
@@ -59,9 +66,11 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	})
 	@AssociationOverrides(@AssociationOverride(name="country", joinColumns=@JoinColumn(name="country_iso_code_2")))
 	@Embedded
+	@IndexedEmbedded
 	MailingAddress address;
 	
 	@Column(name="organization_name")
+	@Fields({ @Field(name="ALL"), @Field()})
 	String organizationName;
 	
 	@AttributeOverrides({
@@ -71,6 +80,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	})
 	@AssociationOverrides(@AssociationOverride(name="country", joinColumns=@JoinColumn(name="billing_country_iso_code_2")))
 	@Embedded
+	@IndexedEmbedded
 	MailingAddress billingAddress;
 
 	public Long getAffiliateDetailsId() {

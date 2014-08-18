@@ -18,9 +18,11 @@ spring:
         openInView: true
         generate-ddl: false
         hibernate:
+            ddl-auto: none
             naming-strategy: org.springframework.boot.orm.jpa.SpringNamingStrategy
         properties:
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+            hibernate.search.default.directory_provider: filesystem
 
     mail:
         host: localhost
