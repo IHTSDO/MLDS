@@ -2,7 +2,6 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,7 +50,6 @@ import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 import com.google.common.base.Objects;
-import com.google.common.base.Strings;
 import com.wordnik.swagger.annotations.Api;
 
 @RestController
@@ -105,8 +103,13 @@ public class AffiliateResource {
     		@RequestParam(value="$filter", required=false) String filter) {
 		Page<Affiliate> affiliates;
 		Sort sort = new Sort(
-				//FIXME add some more useful orderings...
-				new Order(Direction.DESC, "affiliateId")
+				new Order(Direction.ASC, "affiliateDetails.organizationName"),
+				new Order(Direction.ASC, "affiliateDetails.firstName"),
+				new Order(Direction.ASC, "affiliateDetails.lastName"),
+				new Order(Direction.ASC, "application.affiliateDetails.organizationName"),
+				new Order(Direction.ASC, "application.affiliateDetails.firstName"),
+				new Order(Direction.ASC, "application.affiliateDetails.lastName"),
+				new Order(Direction.ASC, "affiliateId")
 				);
 		PageRequest pageRequest = new PageRequest(page, pageSize, sort);
 		if (StringUtils.isBlank(filter)) {
