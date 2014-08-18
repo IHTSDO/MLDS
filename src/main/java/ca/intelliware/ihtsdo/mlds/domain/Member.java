@@ -25,7 +25,7 @@ public class Member extends BaseEntity {
     
     @OneToOne()
 	@JoinColumn(name="license_file")
-    File licenseFile;
+    LicenseFile licenseFile;
     
 	public Member() {}
 	
@@ -50,11 +50,11 @@ public class Member extends BaseEntity {
 		return memberId;
 	}
 
-	public File getLicense() {
+	public LicenseFile getLicense() {
 		return licenseFile;
 	}
 
-	public void setLicense(File license) {
+	public void setLicense(LicenseFile license) {
 		this.licenseFile = license;
 	}
 

@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.intelliware.ihtsdo.mlds.domain.File;
+import ca.intelliware.ihtsdo.mlds.domain.LicenseFile;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.repository.FileRepository;
+import ca.intelliware.ihtsdo.mlds.repository.LicenseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
@@ -33,7 +33,7 @@ public class MemberResource {
     private final Logger log = LoggerFactory.getLogger(MemberResource.class);
     
 	@Resource MemberRepository memberRepository;
-	@Resource FileRepository fileRepository;
+	@Resource LicenseFileRepository licenseFileRepository;
 	@Resource SessionService sessionService;
 	
     @RequestMapping(value = Routes.MEMBERS,
@@ -48,7 +48,7 @@ public class MemberResource {
             method = RequestMethod.GET,
             produces = "application/json")
     @PermitAll
-    public File getMemberLicense(@PathVariable String memberKey) {
+    public LicenseFile getMemberLicense(@PathVariable String memberKey) {
     	return memberRepository.findOneByKey(memberKey).getLicense();
     }
     
