@@ -3,14 +3,21 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,15 +35,17 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
-import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
@@ -73,20 +82,51 @@ public class AffiliateResource {
 	
 	@Resource
 	UserRepository userRepository;
+	
+	@Resource
+	MemberRepository memberRepository;
 
 	@Resource
 	SessionService sessionService;
 
+	public static final int DEFAULT_PAGE_SIZE = 50;
+	
+	public static final String FILTER_HOME_MEMBER = "homeMember eq '(\\w+)'";
+	
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.AFFILIATES,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliates(@RequestParam String q) {
+    public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliates(
+    		@RequestParam String q,
+    		@RequestParam(value="$top", defaultValue="50", required=false) Integer top,
+    		@RequestParam(value="$skip", defaultValue="0", required=false) Integer skip,
+    		@RequestParam(value="$filter", required=false) String filter) {
 		List<Affiliate> affiliates;
+		//FIXME assuming parameters are compatible with paging...
+		Sort sort = new Sort(
+				//FIXME add some more useful orderings...
+				new Order(Direction.DESC, "affiliateId")
+				);
+		PageRequest pageRequest = new PageRequest(skip / top, top, sort);
 		if (!Strings.isNullOrEmpty(q)) {
+			//FIXME query string support incomplete & too slow for 6000 records....
 			affiliates = affiliateRepository.findByTextQuery("%" + q.toLowerCase() + "%");
 		} else {
-			affiliates = affiliateRepository.findAll();
+			
+			if (StringUtils.isBlank(filter)) {
+				affiliates = affiliateRepository.findAll(pageRequest).getContent();
+			} else {
+		    	Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
+		    	if (homeMemberMatcher.matches()) {
+		    		String homeMember = homeMemberMatcher.group(1);
+		    		Member member = memberRepository.findOneByKey(homeMember);
+		    		affiliates = affiliateRepository.findByHomeMember(member, pageRequest).getContent();		    		
+		    	} else {
+		        	//FIXME support more kinds of audit event filters...
+		    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		    	}
+			}
 		}
 		return new ResponseEntity<Collection<Affiliate>>(affiliates, HttpStatus.OK);
     }
