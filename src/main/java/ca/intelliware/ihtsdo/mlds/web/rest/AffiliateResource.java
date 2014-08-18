@@ -100,16 +100,15 @@ public class AffiliateResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliates(
     		@RequestParam String q,
-    		@RequestParam(value="$top", defaultValue="50", required=false) Integer top,
-    		@RequestParam(value="$skip", defaultValue="0", required=false) Integer skip,
+    		@RequestParam(value="$page", defaultValue="0", required=false) Integer page,
+    		@RequestParam(value="$pageSize", defaultValue="50", required=false) Integer pageSize,
     		@RequestParam(value="$filter", required=false) String filter) {
 		Page<Affiliate> affiliates;
-		//FIXME assuming parameters are compatible with paging...
 		Sort sort = new Sort(
 				//FIXME add some more useful orderings...
 				new Order(Direction.DESC, "affiliateId")
 				);
-		PageRequest pageRequest = new PageRequest(skip / top, top, sort);
+		PageRequest pageRequest = new PageRequest(page, pageSize, sort);
 		if (StringUtils.isBlank(filter)) {
     		if (StringUtils.isBlank(q)) {
     			affiliates = affiliateRepository.findAll(pageRequest);
