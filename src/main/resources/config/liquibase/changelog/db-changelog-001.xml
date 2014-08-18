@@ -1022,4 +1022,11 @@
 	<changeSet id="MLDS-309-2" author="AC">
 		<renameColumn tableName="member" oldColumnName="file_id" newColumnName="license_file"/>
 	</changeSet>
+	<changeSet id="MLDS-309-3" author="AC">
+		<renameColumn tableName="file" oldColumnName="blob" newColumnName="content"/>
+	</changeSet>
+	<changeSet id="MLDS-309-4" author="AC/MB">
+		<comment>Use blob storage for files</comment>
+		<modifyDataType tableName="file" columnName="content" newDataType="oid"/>
+	</changeSet>
 </databaseChangeLog>
