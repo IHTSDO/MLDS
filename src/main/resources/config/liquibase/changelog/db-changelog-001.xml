@@ -1027,6 +1027,9 @@
 	</changeSet>
 	<changeSet id="MLDS-309-4" author="AC/MB">
 		<comment>Use blob storage for files</comment>
-		<modifyDataType tableName="file" columnName="content" newDataType="oid"/>
+		<dropColumn tableName="file" columnName="content"/>
+		<addColumn tableName="file">
+			<column name="content" type="oid"></column>
+		</addColumn>
 	</changeSet>
 </databaseChangeLog>
