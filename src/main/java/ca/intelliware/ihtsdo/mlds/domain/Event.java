@@ -13,7 +13,7 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-public abstract class Event {
+public abstract class Event extends BaseEntity {
 
 	@Id @GeneratedValue @Column(name="event_id")
 	private Long id;
@@ -42,5 +42,10 @@ public abstract class Event {
 
 	public String getDescription() {
 		return this.description;
+	}
+	
+	@Override
+	protected Object getPK() {
+		return id;
 	}
 }

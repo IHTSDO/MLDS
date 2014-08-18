@@ -999,5 +999,27 @@
 			referencedTableName="affiliate_details" 
 			referencedColumnNames="affiliate_details_id"
 			 />
+ 	</changeSet>
+ 	
+	<changeSet id="MLDS-309-1" author="AC">
+		<comment>creating new file table for member licenses</comment>
+		<createTable tableName="file">
+      <column name="file_id" type="int8">
+          <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="filename" type="varchar(255)"/>
+      <column name="updated_at" type="timestamp"/>
+      <column name="blob" type="blob"/>
+      <column name="creator" type="varchar(100)"></column>
+      <column name="mimetype" type="varchar(50)"></column>
+    </createTable>
+    <addColumn tableName="member">
+    	<column name="file_id" type="INT8">
+    		<constraints foreignKeyName="member_file" referencedTableName="file" referencedColumnNames="file_id"/>
+    	</column>
+    </addColumn>
+	</changeSet>
+	<changeSet id="MLDS-309-2" author="AC">
+		<renameColumn tableName="member" oldColumnName="file_id" newColumnName="license_file"/>
 	</changeSet>
 </databaseChangeLog>
