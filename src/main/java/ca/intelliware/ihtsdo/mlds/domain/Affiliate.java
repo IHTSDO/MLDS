@@ -16,12 +16,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.Validate;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Sets;
 
 @Entity
+@Indexed
 public class Affiliate extends BaseEntity {
 
 	@Id
@@ -46,6 +49,7 @@ public class Affiliate extends BaseEntity {
 
 	@OneToOne()
 	@JoinColumn(name="affiliate_details_id")
+	@IndexedEmbedded(prefix="")
 	AffiliateDetails affiliateDetails;
 	
 	@JsonIgnoreProperties({"affiliate"})
