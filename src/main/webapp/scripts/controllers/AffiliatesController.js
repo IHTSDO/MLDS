@@ -17,6 +17,7 @@ mldsApp.controller('AffiliatesController', [
 			$scope.homeMember = Session.member || {member: 'NONE'};
 			$scope.downloadingAffiliates = false;
 			$scope.query = '';
+			$scope.page = 0;
 
 			$scope.alerts = [];
 
@@ -26,12 +27,14 @@ mldsApp.controller('AffiliatesController', [
 				}
 				$scope.downloadingAffiliates = true;
 				$scope.alerts = [];
-				var capturedAffiliates = $scope.affiliates;
-				AffiliateService.filterAffiliates($scope.query, 50, capturedAffiliates.length||0, $scope.showAllAffiliates==1?null:$scope.homeMember)
+				//$log.log("wanting existing "+$scope.affiliates.length+" page="+$scope.page);
+				AffiliateService.filterAffiliates($scope.query, $scope.page, 50, $scope.showAllAffiliates==1?null:$scope.homeMember)
 					.then(function(response) {
+						//$log.log("...appending "+response.data.length+" to existing "+$scope.affiliates.length+" page="+$scope.page);
 						_.each(response.data, function(a) {
-							capturedAffiliates.push(a);
+							$scope.affiliates.push(a);
 						});
+						$scope.page = $scope.page + 1;
 						$scope.downloadingAffiliates = false;
 					})
 					["catch"](function(message) {
@@ -44,18 +47,16 @@ mldsApp.controller('AffiliatesController', [
 			function loadAffiliates() {
 				//Force clear - note loadMoreAffiliates works on alias
 				$scope.affiliates = [];
-				$scope.downloadingAffiliates = false;
+				$scope.page = 0;
 				
 				loadMoreAffiliates();
 			}
 
-			loadAffiliates();
-			
 			$scope.$watch('showAllAffiliates', loadAffiliates);
 			$scope.$watch('query', loadAffiliates);
 						
 			$scope.nextPage = function() {
-				loadMoreAffiliates();
+				return loadMoreAffiliates();
 			};
 			
 			$scope.affiliateActiveDetails = function(affiliate) {
