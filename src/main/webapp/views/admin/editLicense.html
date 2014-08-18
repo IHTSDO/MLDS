@@ -1,15 +1,22 @@
 <div class="modal-header">
    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-     <h3 class="modal-title">Edit License</h3>
+     <h3 class="modal-title">Edit {{'global.member.'+member.key | translate}} License</h3>
  </div>
  <div class="modal-body">
- 	   	{{member}}
- 	   	<form name="licenseForm">
- 	   		<input type="file" required ng-model="memberLicenseForm.blob"/>
- 	   		<input type="submit" value="Save" name="Save" ng-click="memberLicenseForm.submit()">
+ 	   	<form name="licenseForm" action="{{'/app/rest/members/' + member.key + '/license'}}" method="POST" enctype="multipart/form-data" bs-validation>
+ 	   		<div class="form-group">
+	 	   		<label>License File</label>
+	 	   		<input class="form-control" type="file" name="file" required ng-model="memberLicenseForm.file"/>
+					<p ng-show="licenseForm.file.$error.required && submitAttempted" class="help-block">
+            Required Field. {{licenseForm.file.$error}}
+          </p> 	   		
+          <input type="submit">Submit</input>
+ 	   		</div>
+ 	   		
  	   	</form>
  </div>
  <div class="modal-footer">
      <button class="btn btn-link" ng-click="$dismiss()">Close</button>
-     <button class="btn btn-success" ng-click="$dismiss()">Save</button>
+<!--      <button class="btn btn-success" ng-show="licenseForm.$invalid" ng-click="submitAttempted = true">Save</button> -->
+     <button class="btn btn-success" ng-click="memberLicenseForm.submit()">Save</button>
  </div>

@@ -47,7 +47,7 @@ angular.module('MLDS')
 		};
 		
 		service.updateMemberLicense = function updateMemberLicense(memberKey, memberLicense) {
-			return $http.put('/app/rest/members/' + encodeURIComponent(memberKey) + '/license', memberLicense);
+			return $http.put('/app/rest/members/' + encodeURIComponent(memberKey) + '/license', memberLicense.file);
 		};
 		
 		return service;

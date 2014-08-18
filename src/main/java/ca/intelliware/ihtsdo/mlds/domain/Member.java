@@ -9,6 +9,8 @@ import javax.persistence.OneToOne;
 
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Member extends BaseEntity {
 	public static final String KEY_IHTSDO = "IHTSDO";
@@ -25,7 +27,7 @@ public class Member extends BaseEntity {
     
     @OneToOne()
 	@JoinColumn(name="license_file")
-    LicenseFile licenseFile;
+    File licenseFile;
     
 	public Member() {}
 	
@@ -50,11 +52,12 @@ public class Member extends BaseEntity {
 		return memberId;
 	}
 
-	public LicenseFile getLicense() {
+	@JsonIgnore
+	public File getLicense() {
 		return licenseFile;
 	}
 
-	public void setLicense(LicenseFile license) {
+	public void setLicense(File license) {
 		this.licenseFile = license;
 	}
 

@@ -6,11 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 
 import org.joda.time.Instant;
 
 @Entity
-public class LicenseFile extends BaseEntity {
+@Table(name="file")
+public class File extends BaseEntity {
 	@Id
 	@Column(name="file_id")
     private long fileId;
@@ -26,6 +28,7 @@ public class LicenseFile extends BaseEntity {
 	
 	@Column(name="updated_at")
 	Instant updatedAt;
+	
 	
 	@Override
 	protected Object getPK() {
