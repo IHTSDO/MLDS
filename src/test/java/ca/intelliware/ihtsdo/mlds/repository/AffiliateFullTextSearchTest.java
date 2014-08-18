@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -103,7 +104,7 @@ public class AffiliateFullTextSearchTest {
 	}
 	
 	private List<Affiliate> search(String query) {
-		List<Affiliate> resultList = affiliateSearchRepository.findAffiliatesMatching(query.toLowerCase());
+		List<Affiliate> resultList = affiliateSearchRepository.findAffiliatesMatching(query.toLowerCase(),null,new PageRequest(0, 50));
 		//List<Affiliate> resultList = affiliateRepository.findByTextQuery(query.toLowerCase());
 		return resultList;
 	}
