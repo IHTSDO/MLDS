@@ -16,10 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.Validate;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Sets;
 
@@ -65,6 +67,11 @@ public class Affiliate extends BaseEntity {
 	@JoinColumn(name="home_member_id")
     Member homeMember;
 
+	@JsonIgnore
+	@Field(name="homeMember")
+	public String getHomeMemberKey() {
+		return homeMember!= null?homeMember.getKey():null;
+	}
 	
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
