@@ -14,7 +14,7 @@ angular.module('MLDS').controller('AddUsageReportController', ['$scope', '$modal
 		CommercialUsageService.createUsageReport(affiliateId, range.startDate, range.endDate)
 			.then(function(result) {
 				//FIXME who should do this?
-				$location.path('/usage-reports/usage-log/'+result.data.commercialUsageId);
+				$location.path('/usageReports/usageLog/'+result.data.commercialUsageId);
 				$modalInstance.close(result);
 			})
 			["catch"](function(message) {
