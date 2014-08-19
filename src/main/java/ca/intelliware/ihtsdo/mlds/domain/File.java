@@ -4,6 +4,7 @@ import java.sql.Blob;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
@@ -14,6 +15,7 @@ import org.joda.time.Instant;
 @Table(name="file")
 public class File extends BaseEntity {
 	@Id
+	@GeneratedValue
 	@Column(name="file_id")
     private long fileId;
 	
@@ -37,10 +39,6 @@ public class File extends BaseEntity {
 
 	public long getFileId() {
 		return fileId;
-	}
-
-	public void setFileId(long fileId) {
-		this.fileId = fileId;
 	}
 
 	public String getFilename() {
