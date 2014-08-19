@@ -26,9 +26,11 @@ mldsApp.controller('ApplicationReviewController', [
 			$scope.isReadOnly = true;
 
 			function loadApplication() {
+				$log.log("load application...");
 				var queryPromise = UserRegistrationService.getApplicationById(applicationId);
 
 				queryPromise.success(function(application) {
+						$log.log("getapplicationbyid.... success");
 						if (!ApplicationUtilsService.isApplicationPending(application)) {
 							$log.log('Application not in pending state');
 							goToPendingApplications();
@@ -51,6 +53,7 @@ mldsApp.controller('ApplicationReviewController', [
 								return count.country.commonName.toLowerCase();
 							});
 						}
+						$log.log("getapplicatiobyid... success end");
 				});
 			}
 
