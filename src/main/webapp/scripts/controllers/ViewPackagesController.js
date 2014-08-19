@@ -14,6 +14,8 @@ angular.module('MLDS')
 	$scope.goToViewPackagePage = function goToViewPackagePage(releasePackageId) {
 		$location.path('/viewPackages/viewPackage/'+ releasePackageId);
 	};
+	
+	$scope.releasePackageOrderBy = UserAffiliateService.releasePackageOrderBy; 
 
 	function loadReleasePackages() {
 		$scope.alerts.splice(0, $scope.alerts.length);

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').factory('PackageUtilsService',
-		[ '$resource', '$q', '$log', '$location', '$modal', 'Session', 'UserRegistrationService', 'UserAffiliateService', 'MemberService', 
-		  function($resource, $q, $log, $location, $modal, Session, UserRegistrationService, UserAffiliateService, MemberService) {
+		[ '$resource', '$q', '$log', '$location', '$modal', 'Session', 'UserRegistrationService', 'MemberService', 
+		  function($resource, $q, $log, $location, $modal, Session, UserRegistrationService, MemberService) {
 			var service = {};
 			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
@@ -111,22 +111,6 @@ angular.module('MLDS').factory('PackageUtilsService',
     		    });
 	    		
 	    	};
-	    	
-	    	service.orderIhtsdo = function(memberReleases) {
-	    		return !(memberReleases.member && MemberService.isIhtsdoMember(memberReleases.member));
-	    	};
-	    	service.orderApprovedMemberships = function(memberReleases) {
-	    		return !(memberReleases.member && _.some(UserAffiliateService.approvedMemberships, _.partial(MemberService.isMemberEqual, memberReleases.member)));
-	    	};
-	    	service.orderIncompleteMemberships = function(memberReleases) {
-	    		return !(memberReleases.member && _.some(UserAffiliateService.incompleteMemberships, _.partial(MemberService.isMemberEqual, memberReleases.member)));
-	    	};
-	    	service.orderMemberName = function(memberReleases) {
-	    		//FIXME use translated member name rather than key
-	    		return  memberReleases.member && memberReleases.member.key || 'NONE';
-	    	};
-
-	    	service.releasePackageOrderBy = [service.orderIhtsdo, service.orderApprovedMemberships, service.orderIncompleteMemberships, service.orderMemberName];
 	    	
 			return service;
 		} ]);

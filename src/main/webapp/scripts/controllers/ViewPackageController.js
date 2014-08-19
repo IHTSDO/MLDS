@@ -72,7 +72,7 @@ angular.module('MLDS')
 	$scope.goToViewPackages = function goToViewPackages() {
 		$location.path('/viewPackages');
 	};
-	
+		
 }]);
 
 

@@ -79,5 +79,7 @@ angular.module('MLDS')
         	$scope.viewUsageReports = function() {
         		$location.path('/usageReports');        		
         	};
+        	
+        	$scope.releasePackageOrderBy = UserAffiliateService.releasePackageOrderBy;
         }
     ]);

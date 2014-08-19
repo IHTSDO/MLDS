@@ -72,5 +72,24 @@ angular.module('MLDS')
 		return !service.isMembershipApproved(member) && !service.isMembershipIncomplete(member);
 	};
 	
+	// User packages
+	service.orderIhtsdo = function(memberReleases) {
+		return !(memberReleases.member && MemberService.isIhtsdoMember(memberReleases.member));
+	};
+	service.orderApprovedMemberships = function(memberReleases) {
+		return !(memberReleases.member && _.some(service.approvedMemberships, _.partial(MemberService.isMemberEqual, memberReleases.member)));
+	};
+	service.orderIncompleteMemberships = function(memberReleases) {
+		return !(memberReleases.member && _.some(service.incompleteMemberships, _.partial(MemberService.isMemberEqual, memberReleases.member)));
+	};
+	service.orderMemberName = function(memberReleases) {
+		//FIXME use translated member name rather than key
+		return  memberReleases.member && memberReleases.member.key || 'NONE';
+	};
+	
+	service.releasePackageOrderBy = [service.orderIhtsdo, service.orderApprovedMemberships, service.orderIncompleteMemberships, service.orderMemberName];
+	
+
+	
 	return service;
 }]);
