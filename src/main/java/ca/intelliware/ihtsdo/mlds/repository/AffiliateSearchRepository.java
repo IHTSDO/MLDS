@@ -54,6 +54,7 @@ public class AffiliateSearchRepository {
 		ftQuery.setFirstResult(pageableUtil.getStartPosition(pageable));
 		ftQuery.setMaxResults(pageable.getPageSize());
 		
+		@SuppressWarnings("unchecked")
 		List<Affiliate> resultList = ftQuery.getResultList();
 		
 		return new PageImpl<>(resultList, pageable, ftQuery.getResultSize());
