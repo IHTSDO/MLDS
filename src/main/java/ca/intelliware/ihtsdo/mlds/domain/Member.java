@@ -2,12 +2,15 @@ package ca.intelliware.ihtsdo.mlds.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.LazyToOne;
 import org.joda.time.Instant;
+import org.springframework.context.annotation.Lazy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,7 +28,7 @@ public class Member extends BaseEntity {
     @Column(name="created_at")
     Instant createdAt = Instant.now();
     
-    @OneToOne()
+    @OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="license_file")
     File licenseFile;
     

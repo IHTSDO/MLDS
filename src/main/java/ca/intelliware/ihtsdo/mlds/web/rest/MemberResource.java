@@ -15,13 +15,11 @@ import org.joda.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,9 +55,14 @@ public class MemberResource {
             method = RequestMethod.GET)
     @PermitAll
     @Transactional
-    public ResponseEntity<org.springframework.core.io.Resource> getMemberLicense(@PathVariable String memberKey) throws SQLException, IOException {
+    public ResponseEntity<?> getMemberLicense(@PathVariable String memberKey) throws SQLException, IOException {
     	HttpHeaders httpHeaders = new HttpHeaders();
     	File license = memberRepository.findOneByKey(memberKey).getLicense();
+    	
+    	if(license == null) {
+    		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    	}
+    	
     	httpHeaders.setContentType(MediaType.valueOf(license.getMimetype()));
     	httpHeaders.setContentLength(license.getContent().length());
     	httpHeaders.setContentDispositionFormData("file", license.getFilename());
