@@ -52,9 +52,8 @@
 		      <tbody> 
 		        <tr ng-click="usageReportsUtils.goToUsageReport(usageReport)" ng-class="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" ng-repeat="usageReport in affiliate.commercialUsages">
 		          <td> 
-		          		<span class="btn-link" tooltip-placement="top" tooltip="Declaration has not been submitted">
-			              <i ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" 
-			              	class="fa fa-exclamation-circle"></i>
+		          		<span class="btn-link" tooltip-placement="top">
+		          			<span ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}"  tooltip="Declaration has not been submitted" tooltip-placement="top"><i class="fa fa-exclamation-circle"></i></span>
 			            	{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}
 		          		</span>
 		          </td>
