@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.apache.commons.io.IOUtils;
@@ -42,6 +43,7 @@ public class MemberResource {
 	@Resource FileRepository fileRepository;
 	@Resource SessionService sessionService;
 	@Resource BlobHelper blobHelper;
+	@Resource EntityManager entityManager;
 	
     @RequestMapping(value = Routes.MEMBERS,
             method = RequestMethod.GET,
@@ -81,16 +83,22 @@ public class MemberResource {
     public ResponseEntity<?> updateMemberLicense(@PathVariable String memberKey, @RequestParam("file") MultipartFile multipartFile) throws IOException {
 		Member member = memberRepository.findOneByKey(memberKey);
 
-		File licenseFile = (member.getLicense() != null) ? member.getLicense(): new File();
-
-		if (!multipartFile.isEmpty() && multipartFile != null) {
-			Blob blob = blobHelper.createBlobFrom(multipartFile);
-			licenseFile.setContent(blob);
-			licenseFile.setCreator(sessionService.getUsernameOrNull());
-			licenseFile.setFilename(multipartFile.getOriginalFilename());
-			licenseFile.setMimetype(multipartFile.getContentType());
-			licenseFile.setLastUpdated(Instant.now());
+		File licenseFile = new File();
+		
+		if (member.getLicense() != null) {
+			entityManager.detach(member.getLicense());
 		}
+
+		if (multipartFile.isEmpty() || multipartFile == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		Blob blob = blobHelper.createBlobFrom(multipartFile);
+		licenseFile.setContent(blob);
+		licenseFile.setCreator(sessionService.getUsernameOrNull());
+		licenseFile.setFilename(multipartFile.getOriginalFilename());
+		licenseFile.setMimetype(multipartFile.getContentType());
+		licenseFile.setLastUpdated(Instant.now());
 
 		fileRepository.save(licenseFile);
 		member.setLicense(licenseFile);
