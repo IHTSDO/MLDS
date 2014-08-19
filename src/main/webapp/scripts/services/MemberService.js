@@ -46,8 +46,17 @@ angular.module('MLDS')
 			return '/app/rest/members/' + encodeURIComponent(memberKey) + '/license';
 		};
 		
-		service.updateMemberLicense = function updateMemberLicense(memberKey, memberLicense) {
+		service.updateMemberLicense = function updateMemberLicense(memberKey, memberLicenseFile) {
 			return $http.put('/app/rest/members/' + encodeURIComponent(memberKey) + '/license', memberLicense.file);
+		};
+		
+		service.updateMemberLicense = function updateMemberLicense(memberKey, memberLicenseFile) {
+			var formData = new FormData();
+	        formData.append('file', memberLicenseFile);
+	        return $http.post('/app/rest/members/' + encodeURIComponent(memberKey) + '/license', formData, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        });
 		};
 		
 		return service;
