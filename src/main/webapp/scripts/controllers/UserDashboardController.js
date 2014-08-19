@@ -76,5 +76,8 @@ angular.module('MLDS')
         		return !ApplicationUtilsService.isPrimaryApplication(application);
         	};
         	
+        	$scope.viewUsageReports = function() {
+        		$location.path('/usage-reports');        		
+        	};
         }
     ]);
