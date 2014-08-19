@@ -1032,4 +1032,7 @@
 			<column name="content" type="oid"></column>
 		</addColumn>
 	</changeSet>
+	<changeSet id="MLDS-309-5" author="AC">
+		<modifyDataType tableName="file" columnName="mimetype" newDataType="varchar(150)"/>
+	</changeSet>
 </databaseChangeLog>
