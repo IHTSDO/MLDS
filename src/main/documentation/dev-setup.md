@@ -38,9 +38,9 @@ Start eclipse and create Eclipse workspace: /projects/IHTSDO/workspace
 
 
 ###Install Database
-- Install Postgres (http://www.postgresql.org/download/)
-- Create mlds user password=password
-- Create mlds database, owned by mlds user.
+Install Postgres
+Create mlds user password=password
+Create mlds database, owned by mlds user.
 
 ###Running the application
 Run the "Application" class at the root of the Java package hierarchy directly
