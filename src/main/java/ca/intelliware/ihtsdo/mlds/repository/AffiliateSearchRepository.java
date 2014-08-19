@@ -9,6 +9,7 @@ import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.BooleanJunction;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,6 +23,8 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 public class AffiliateSearchRepository {
 	@Resource
 	EntityManager entityManager;
+	
+	PageableUtil pageableUtil = new PageableUtil();
 
 	public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, Pageable pageable) {
 		
@@ -30,33 +33,53 @@ public class AffiliateSearchRepository {
 		QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
 				.forEntity(Affiliate.class).get();
 		
+		
+		Query textQuery = buildWildcardQueryForTokens(queryBuilder, q);
+		
 		Query query;
-		Query textQuery = queryBuilder.keyword()
-				.onField("ALL").matching(q)
-				.createQuery();
-		if (homeMember !=null) {
-			Query homeMemberQuery = queryBuilder.keyword()
-					.onField("homeMember").matching(homeMember.getKey())
-					.createQuery();
+		if (homeMember ==null) {
+			query = textQuery;
+		} else {
+			Query homeMemberQuery = buildQueryMatchingHomeMember(queryBuilder, homeMember);
 			
 			query = queryBuilder
 					.bool()
 					.should(textQuery)
 					.must(homeMemberQuery)
 					.createQuery();
-		} else {
-			query = textQuery;
 		}
 		
 		FullTextQuery ftQuery = fullTextEntityManager.createFullTextQuery(query, Affiliate.class);
 		
-		// FIXME 0 based?
-		ftQuery.setFirstResult((pageable.getPageNumber() * pageable.getPageSize()) + pageable.getOffset());
+		ftQuery.setFirstResult(pageableUtil.getStartPosition(pageable));
 		ftQuery.setMaxResults(pageable.getPageSize());
 		
 		List<Affiliate> resultList = ftQuery.getResultList();
 		
 		return new PageImpl<>(resultList, pageable, ftQuery.getResultSize());
+	}
+
+	Query buildQueryMatchingHomeMember(QueryBuilder queryBuilder, Member homeMember) {
+		Query homeMemberQuery = queryBuilder.keyword()
+				.onField("homeMember").matching(homeMember.getKey())
+				.createQuery();
+		return homeMemberQuery;
+	}
+
+	Query buildWildcardQueryForTokens(QueryBuilder queryBuilder, String q) {
+		BooleanJunction<?> bool = queryBuilder.bool();
+		
+		String[] tokens = q.split("\\s+");
+		
+		for (String token : tokens) {
+			bool.should(queryBuilder.keyword()
+					.wildcard()
+					.onField("ALL").matching(token+"*")
+					.createQuery());
+		}
+		Query textQuery = bool.createQuery();
+		
+		return textQuery;
 	}
 
 }

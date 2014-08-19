@@ -68,7 +68,7 @@ public class AffiliateFullTextSearchTest {
 		flush();
 		
 		List<Affiliate> resultList = search(targetFirstName);
-		System.out.println("found " + resultList);
+		
 		assertThat(resultList.size(), is(2));
 		assertThat(resultList, containsInAnyOrder(affiliates.get(3), affiliates.get(5)));
 	}
@@ -92,11 +92,45 @@ public class AffiliateFullTextSearchTest {
 		flush();
 
 		List<Affiliate> resultList = search(targetFirstName + " " + targetLastName);
-		System.out.println("found " + resultList);
+		
 		assertThat(resultList.size(), is(2));
 		assertThat(resultList, contains(affiliates.get(3),affiliates.get(5)));
 	}
 
+	@Test
+	public void findAffiliateByPartialName() throws Exception {
+		long ourInstance = System.currentTimeMillis();
+		
+		String targetFirstName = "ZZFirstNameTestValue" + ourInstance;
+		
+		affiliates.get(4).getAffiliateDetails().setFirstName(targetFirstName);
+		
+		flush();
+		
+		List<Affiliate> resultList = search("ZZFirst");
+		
+		assertThat(resultList.size(), is(1));
+		assertThat(resultList, contains(affiliates.get(4)));
+	}
+	
+	@Test
+	public void findAffiliateByMultiplePartialMatches() throws Exception {
+		long ourInstance = System.currentTimeMillis();
+		
+		String targetFirstName = "ZZFirstNameTestValue" + ourInstance;
+		String targetLastName = "ZZLastNameTestValue" + ourInstance;
+		
+		affiliates.get(4).getAffiliateDetails().setFirstName(targetFirstName);
+		affiliates.get(4).getAffiliateDetails().setLastName(targetLastName);
+		
+		flush();
+		
+		List<Affiliate> resultList = search("ZZFirst ZZLast");
+		
+		assertThat(resultList.size(), is(1));
+		assertThat(resultList, contains(affiliates.get(4)));
+	}
+	
 	private void flush() {
 		entityManager.flush();
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
@@ -105,7 +139,6 @@ public class AffiliateFullTextSearchTest {
 	
 	private List<Affiliate> search(String query) {
 		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),null,new PageRequest(0, 50)).getContent();
-		//List<Affiliate> resultList = affiliateRepository.findByTextQuery(query.toLowerCase());
 		return resultList;
 	}
 
