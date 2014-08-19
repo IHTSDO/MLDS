@@ -24,6 +24,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import ca.intelliware.ihtsdo.mlds.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 
 import com.google.common.collect.Lists;
@@ -147,6 +148,7 @@ public class AffiliateFullTextSearchTest {
 		affiliate.setAffiliateDetails(new AffiliateDetails());
 		affiliate.getAffiliateDetails().setFirstName(randomString("firstName"));;
 		affiliate.getAffiliateDetails().setLastName(randomString("lastName"));;
+		affiliate.getAffiliateDetails().setAddress(new MailingAddress());
 		affiliate.setHomeMember(ihtsdo);
 		
 		entityManager.persist(affiliate.getAffiliateDetails());

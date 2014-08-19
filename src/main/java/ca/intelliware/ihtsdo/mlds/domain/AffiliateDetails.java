@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Fields;
 import org.hibernate.search.annotations.IndexedEmbedded;
-import org.hibernate.search.annotations.Store;
 
 
 @Entity
