@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.search.annotations.Field;
+
 @Entity
 public class Country extends BaseEntity {
 
@@ -16,6 +18,7 @@ public class Country extends BaseEntity {
     @Column(name="iso_code_3")
     private String isoCode3;
     
+    @Field
     @Column(name="common_name")
     private String commonName;
     

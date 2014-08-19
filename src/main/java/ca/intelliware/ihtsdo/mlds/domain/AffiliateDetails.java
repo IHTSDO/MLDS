@@ -36,6 +36,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Fields({ @Field(name="ALL"), @Field()})
 	String lastName;
 	
+	@Fields({ @Field(name="ALL"), @Field()})
 	String email;
 	
 	@Column(name="alternate_email")
