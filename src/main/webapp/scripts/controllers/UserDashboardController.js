@@ -77,7 +77,7 @@ angular.module('MLDS')
         	};
         	
         	$scope.viewUsageReports = function() {
-        		$location.path('/usage-reports');        		
+        		$location.path('/usageReports');        		
         	};
         }
     ]);

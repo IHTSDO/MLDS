@@ -35,7 +35,7 @@ angular.module('MLDS')
 	};
 
 	service.goToUsageReport = function(usageReport) {
-		$location.path('/usage-reports/usage-log/'+encodeURIComponent(usageReport.commercialUsageId));
+		$location.path('/usageReports/usageLog/'+encodeURIComponent(usageReport.commercialUsageId));
 	};
 	
 	service.affiliateIsCommercial = function(affiliate) {

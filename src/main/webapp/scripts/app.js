@@ -59,7 +59,7 @@ mldsApp
                     	UserAffiliateServiceLoaded:['UserAffiliateService', function(UserAffiliateService){ return UserAffiliateService.promise;}]
                     }
                 })
-                .when('/usage-reports', {
+                .when('/usageReports', {
                     templateUrl: 'views/user/usageReports.html',
                     controller: 'UsageReportsController',
                     access: {
@@ -69,7 +69,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/usage-reports/usage-log/:usageReportId', {
+                .when('/usageReports/usageLog/:usageReportId', {
                     templateUrl: 'views/user/fullPageUsageLog.html',
                     controller: 'FullPageUsageLogController',
                     access: {
