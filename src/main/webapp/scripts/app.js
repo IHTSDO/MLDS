@@ -49,7 +49,7 @@ mldsApp
                     }
                 })
                 .when('/dashboard', {
-                    templateUrl: 'views/user/Dashboard.html',
+                    templateUrl: 'views/user/userDashboard.html',
                     controller: 'UserDashboardController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
@@ -152,7 +152,7 @@ mldsApp
                     }
                 })
                 .when('/adminDashboard', {
-                    templateUrl: 'views/admin/dashboard.html',
+                    templateUrl: 'views/admin/adminDashboard.html',
                     controller: 'AdminDashboardController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
