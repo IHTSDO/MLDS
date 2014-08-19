@@ -3,20 +3,20 @@
      <h3 class="modal-title">Edit {{'global.member.'+member.key | translate}} License</h3>
  </div>
  <div class="modal-body">
- 	   	<form name="licenseForm" action="{{'/app/rest/members/' + member.key + '/license'}}" method="POST" enctype="multipart/form-data" bs-validation>
- 	   		<div class="form-group">
-	 	   		<label>License File</label>
-	 	   		<input class="form-control" type="file" name="file" required ng-model="memberLicenseForm.file"/>
-					<p ng-show="licenseForm.file.$error.required && submitAttempted" class="help-block">
-            Required Field. {{licenseForm.file.$error}}
-          </p> 	   		
-          <input type="submit">Submit</input>
- 	   		</div>
- 	   		
- 	   	</form>
+ 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert> 
+ 	<form class="form-inline">
+ 		<div class="form-group">
+  		<label>License File</label>
+  		<input type="file" class="form-control" file-model="memberLicenseForm.file"/>
+ 		</div>
+ 	</form>
  </div>
  <div class="modal-footer">
-     <button class="btn btn-link" ng-click="$dismiss()">Close</button>
-<!--      <button class="btn btn-success" ng-show="licenseForm.$invalid" ng-click="submitAttempted = true">Save</button> -->
-     <button class="btn btn-success" ng-click="memberLicenseForm.submit()">Save</button>
+     <button class="btn btn-link" ng-click="$dismiss()">Cancel</button>
+     <button class="btn btn-success" ng-disabled="submitStatus.submitting" ng-hide="submitStatus.submitSuccessful" ng-click="memberLicenseForm.submit()">
+				<i class="fa fa-upload"></i>
+				Upload
+				<span ng-show="submitStatus.submitting"><i class="fa fa-spinner"></i></span>
+     </button>
+     <button class="btn btn-success" ng-click="$close()" ng-show="submitStatus.submitSuccessful">Close</button>
  </div>
