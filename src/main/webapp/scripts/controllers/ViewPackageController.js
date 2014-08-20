@@ -35,6 +35,7 @@ angular.module('MLDS')
 	};
 	
 	$scope.isPrimaryApplicationApproved = false;
+	$scope.isIHTSDOPackage = false;
 	$scope.isApplicationWaitingForApplicant = false;
 	$scope.matchingExtensionApplication = {};
 	
@@ -52,6 +53,7 @@ angular.module('MLDS')
 			$scope.isPrimaryApplicationApproved = ApplicationUtilsService.isApplicationApproved(UserAffiliateService.affiliate.application);
 			$scope.matchingExtensionApplication = getLatestMatchingMemberApplication(releasePackage);
 			$scope.isApplicationWaitingForApplicant = ApplicationUtilsService.isApplicationWaitingForApplicant($scope.matchingExtensionApplication);
+			$scope.isIHTSDOPackage = MemberService.isIhtsdoMember(releasePackage.member);
 		});
 	};
 

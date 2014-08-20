@@ -33,10 +33,12 @@ angular.module('MLDS')
 	
 	var initializeMemberships = function initializeMemberships() {
 		service.approvedMemberships = _.chain(service.affiliate.applications)
+			.filter(ApplicationUtilsService.isExtensionApplication)
 			.filter(ApplicationUtilsService.isApplicationApproved)
 			.pluck('member')
 			.value();
 		service.incompleteMemberships = _.chain(service.affiliate.applications)
+			.filter(!ApplicationUtilsService.isPrimaryApplication)
 			.filter(ApplicationUtilsService.isApplicationIncomplete)
 			.pluck('member')
 			.value();
