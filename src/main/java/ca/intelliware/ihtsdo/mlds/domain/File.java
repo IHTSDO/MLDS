@@ -26,7 +26,6 @@ public class File extends BaseEntity {
 	private String filename;
 	
 	@Lob
-	@Basic(fetch=FetchType.LAZY)
 	private Blob content;
 	
 	private String creator;
