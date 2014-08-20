@@ -34,25 +34,27 @@ describe('UserAffiliateService Tests ', function () {
     			applications: [
     			               {
     			            	   approvalState: 'APPROVED',
+    			            	   applicationType: 'EXTENSION',
     			            	   member: ihtsdoMember
     			               },
     			               {
     			            	   approvalState: 'SUBMITTED',
+    			            	   applicationType: 'EXTENSION',
     			            	   member: swedenMember
     			               }
     			               ]	
     		};
     		UserAffiliateService.setAffiliate(affiliate);
-    		
     		expect(UserAffiliateService.approvedMemberships).toEqual([ihtsdoMember]);
     		expect(UserAffiliateService.incompleteMemberships).toEqual([swedenMember]);
     	});
-
+    	
     	it('should confer ihtsdo approved membership if only have territory membership', function() {
     		affiliate = {
     			applications: [
     			               {
     			            	   approvalState: 'APPROVED',
+    			            	   applicationType: 'EXTENSION',
     			            	   member: swedenMember
     			               },
     			               ]	
@@ -68,6 +70,7 @@ describe('UserAffiliateService Tests ', function () {
     			applications: [
     			               {
     			            	   approvalState: 'SUBMITTED',
+    			            	   applicationType: 'EXTENSION',
     			            	   member: swedenMember
     			               },
     			               ]	
