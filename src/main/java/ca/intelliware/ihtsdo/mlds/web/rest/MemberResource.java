@@ -53,7 +53,7 @@ public class MemberResource {
     	return memberRepository.findAll();
     }
     
-    @RequestMapping(value = Routes.MEMBER_LICENSE,
+    @RequestMapping(value = Routes.MEMBER_LICENCE,
             method = RequestMethod.GET)
     @PermitAll
     @Transactional
@@ -74,7 +74,7 @@ public class MemberResource {
 		return new ResponseEntity<org.springframework.core.io.Resource>(contents, httpHeaders, HttpStatus.OK);
     }
     
-    @RequestMapping(value = Routes.MEMBER_LICENSE,
+    @RequestMapping(value = Routes.MEMBER_LICENCE,
             method = RequestMethod.POST,
     		headers = "content-type=multipart/*",
             produces = "application/json")

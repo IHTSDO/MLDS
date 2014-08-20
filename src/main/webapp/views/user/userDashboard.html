@@ -138,7 +138,7 @@
 
 <div class="row" ng-repeat="memberReleases in approvedReleasePackagesByMember | orderBy: releasePackageOrderBy">
 	 <div class="col-lg-12">
-	  <h3>{{'global.member.'+memberReleases.packages[0].member.key | translate}} <button class="btn-sm btn-link" ng-click="viewLicense(memberReleases.packages[0].member.key)">View License</button></h3>
+	  <h3>{{'global.member.'+memberReleases.packages[0].member.key | translate}} <button class="btn-sm btn-link" ng-click="viewLicence(memberReleases.packages[0].member.key)">View Licence</button></h3>
 	</div>
 	<div class="col-md-4" ng-repeat="releasePackage in memberReleases.packages | orderBy:packageUtils.getLatestPublishedDate:true | filter: packageUtils.isPackagePublished">
 		<div class="well package" ng-repeat="releaseVersion in releasePackage.releaseVersions" ng-show="packageUtils.isVersionOnline(releaseVersion) && packageUtils.isLatestVersion(releaseVersion, releasePackage.releaseVersions)">

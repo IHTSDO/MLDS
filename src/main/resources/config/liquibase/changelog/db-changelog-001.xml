@@ -1036,9 +1036,6 @@
 		<modifyDataType tableName="file" columnName="mimetype" newDataType="varchar(150)"/>
 	</changeSet>
 	
-	<!--  fix spelling 
-		find real license
-		 -->
 	<changeSet id="MLDS-309-6" author="ac/mb">
 		<comment>Load up IHTSDO license</comment>
 		<createTable tableName="tmpblob">
@@ -1064,5 +1061,10 @@
 			set license_file = (select file_id from file where file.filename = 'Ihtsdo_AffiliateLicenceAgreement_v11.pdf' limit 1)
 		</sql>
 		<dropTable tableName="tmpblob"/>
+	</changeSet>
+	
+	<changeSet id="MLDS-309-7" author="AC">
+		<comment>Fixing licence spelling</comment>
+		<renameColumn tableName="member" oldColumnName="licenseFile" newColumnName="licenceFile"/>
 	</changeSet>
 </databaseChangeLog>

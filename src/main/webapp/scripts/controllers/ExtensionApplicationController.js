@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('ExtensionApplicationController', 
-		['$scope', '$location', '$log', '$routeParams', 'UserRegistrationService', 'UserAffiliateService', 'ApplicationUtilsService',
-           	function($scope, $location, $log, $routeParams, UserRegistrationService, UserAffiliateService, ApplicationUtilsService) {
+		['$scope', '$location', '$log', '$routeParams', 'UserRegistrationService', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService',
+           	function($scope, $location, $log, $routeParams, UserRegistrationService, UserAffiliateService, ApplicationUtilsService, MemberService) {
 	
 	var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
 	
@@ -10,6 +10,10 @@ angular.module('MLDS').controller('ExtensionApplicationController',
 	$scope.readOnly = false;
 	$scope.isApplicationWaitingForApplicant = false;
 	$scope.isApplicationRejected = false;
+	
+	$scope.viewLicence = function (memberKey) {
+		MemberService.getMemberLicence(memberKey);
+	};
 	
 	UserRegistrationService.getApplicationById(applicationId)
 		.then(function(result) {
