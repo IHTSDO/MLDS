@@ -129,7 +129,9 @@ public class Routes {
 	 * - PUT
 	 * - DELETE
 	 */
-	static final String RELEASE_FILE = "/app/rest/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/releaseFiles/{releaseFileId}"; 
+	static final String RELEASE_FILE = "/app/rest/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/releaseFiles/{releaseFileId}";
+	
+	static final String RELEASE_FILE_DOWNLOAD = "/app/rest/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/releaseFiles/{releaseFileId}/download";
 	
 	
 	public static final String PASSWORD_RESET = "/app/rest/passwordReset";
