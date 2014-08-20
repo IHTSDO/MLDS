@@ -24,6 +24,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import ca.intelliware.ihtsdo.mlds.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 
@@ -36,13 +37,14 @@ import com.google.common.collect.Lists;
 @Transactional
 public class AffiliateFullTextSearchTest {
 	@Resource EntityManager entityManager;
-	@Resource
-	AffiliateRepository affiliateRepository;
 	
-	@Resource
-	AffiliateSearchRepository affiliateSearchRepository;
+	@Resource AffiliateRepository affiliateRepository;
+	
+	@Resource AffiliateSearchRepository affiliateSearchRepository;
 	
 	@Resource MemberRepository memberRepository;
+	
+	@Resource CountryRepository countryRepository;
 
 	Random random = new Random();
 	
@@ -132,6 +134,49 @@ public class AffiliateFullTextSearchTest {
 		assertThat(resultList, contains(affiliates.get(4)));
 	}
 	
+	@Test
+	public void findAffiliateByCountryCommonName() throws Exception {
+		Country country = new Country("ZZ","ZZZ","ZZZimba");
+		countryRepository.save(country);
+		
+		affiliates.get(4).getAffiliateDetails().getAddress().setCountry(country);
+		flush();
+		
+		List<Affiliate> resultList = search("ZZZimba");
+		
+		assertThat(resultList.size(), is(1));
+		assertThat(resultList, contains(affiliates.get(4)));
+	}
+
+	@Test
+	public void findAffiliateByEmailDomain() throws Exception {
+		
+		affiliates.get(4).getAffiliateDetails().setEmail("fred22@exampleZZZ.com");
+		flush();
+		
+		List<Affiliate> resultList = search("exampleZZZ.com");
+		
+		assertThat(resultList.size(), is(1));
+		assertThat(resultList, contains(affiliates.get(4)));
+	}
+	
+	@Test
+	public void findAffiliateByEmailAddress() throws Exception {
+		
+		affiliates.get(4).getAffiliateDetails().setEmail("fred22@exampleZZZ.com");
+		flush();
+		
+		List<Affiliate> resultList = search("fred22@exampleZZZ.com");
+		
+		assertThat(resultList.size(), is(1));
+		assertThat(resultList, contains(affiliates.get(4)));
+	}
+	
+	/**
+	 * flush to JPA + Lucene.  JPA queries trigger a JPA flush, but Hibernate Search
+	 * only flushes on TX commit by default.  But are using a TX rollback test strategy, so we
+	 * need to flush Lucene manually.
+	 */
 	private void flush() {
 		entityManager.flush();
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);

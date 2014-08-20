@@ -2,8 +2,8 @@
 
 angular.module('MLDS')
     .controller('ViewPackageController', 
-    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location', '$log', 'UserAffiliateService', 'ApplicationUtilsService',
-          function($scope, $routeParams, PackagesService, PackageUtilsService, $location, $log, UserAffiliateService, ApplicationUtilsService){
+    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location', '$log', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService',
+          function($scope, $routeParams, PackagesService, PackageUtilsService, $location, $log, UserAffiliateService, ApplicationUtilsService, MemberService){
     	
 	var releasePackageId = $routeParams.releasePackageId && parseInt($routeParams.releasePackageId, 10);
 	
@@ -12,6 +12,10 @@ angular.module('MLDS')
 			offline: []
 		};
 	$scope.releasePackage = {releaseVersions:[]};
+	
+	$scope.viewLicense = function (memberKey) {
+		MemberService.getMemberLicense(memberKey);
+	};
 	
 	$scope.isMembershipApproved = false;
 	$scope.isMembershipIncomplete = false;
