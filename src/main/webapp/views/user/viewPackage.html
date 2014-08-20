@@ -19,7 +19,7 @@
 			</div>
 			<div class="col-md-6">
 				<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
-					<i class="fa fa-file"></i> <a href="{{releaseFile.downloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl || isMembershipUnstarted || isMembershipIncomplete" target="_blank">{{releaseFile.label}}</a>
+					<i class="fa fa-file"></i> <a href="{{'/app/rest/releasePackages/'+releasePackage.releasePackageId+'/releaseVersions/'+releaseVersion.releaseVersionId+'/releaseFiles/'+releaseFile.releaseFileId+'/download'}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl || isMembershipUnstarted || isMembershipIncomplete" target="_blank">{{releaseFile.label}}</a>
 				</p>
 				<a class="btn btn-success pull-right" ng-show="!$root.authenticated" href="#/login">
 					Login to download

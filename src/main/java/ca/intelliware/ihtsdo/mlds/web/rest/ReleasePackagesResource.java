@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
@@ -61,6 +63,9 @@ public class ReleasePackagesResource {
 	
 	@Resource
 	UserMembershipAccessor userMembershipAccessor;
+	
+	@Resource
+	UriDownloader uriDownloader;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Packages
@@ -390,4 +395,23 @@ public class ReleasePackagesResource {
 		
 		return new ResponseEntity<ReleaseFile>(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = Routes.RELEASE_FILE_DOWNLOAD,
+    		method = RequestMethod.GET)
+	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    public @ResponseBody void downloadReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId, HttpServletRequest request, HttpServletResponse response) {
+    	
+    	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
+    	if (releaseFile == null) {
+    		//FIXME better 404 handling...
+    		throw new RuntimeException("no such file found");
+    	}
+    	
+    	//FIXME should we check children being consistent?
+    	//FIXME better check for download?
+    	authorizationChecker.checkCanAccessReleaseVersion(releaseFile.getReleaseVersion());
+    	
+    	String downloadUrl = releaseFile.getDownloadUrl();
+    	uriDownloader.download(downloadUrl, request, response);
+    }
 }

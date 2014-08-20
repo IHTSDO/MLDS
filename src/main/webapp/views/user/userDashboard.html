@@ -145,7 +145,7 @@
 		    <h3>{{releasePackage.name}}</h3>
 		    <p>Current: {{releaseVersion.publishedAt | date:'medium'}}</p>
 		    <p ng-repeat="releaseFile in releaseVersion.releaseFiles | orderBy: 'label'">
-		 		<i class="fa fa-file"></i>  <a class="btn btn-link" href="{{releaseFile.downloadUrl}}">{{releaseFile.label}}</a>
+		 		<i class="fa fa-file"></i>  <a class="btn btn-link" href="{{'/app/rest/releasePackages/'+releasePackage.releasePackageId+'/releaseVersions/'+releaseVersion.releaseVersionId+'/releaseFiles/'+releaseFile.releaseFileId+'/download'}}">{{releaseFile.label}}</a>
 		 	</p>
 		</div>
 	</div>
