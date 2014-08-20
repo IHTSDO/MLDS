@@ -6,6 +6,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 
+import liquibase.integration.spring.SpringLiquibase;
+
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.slf4j.Logger;
@@ -22,6 +24,9 @@ public class SearchConfiguration {
     
 	@Resource
 	EntityManager entityManager;
+	
+	/** Make sure our db migrations are up-to-date before we try to use Hibernate to rebuild the index */
+	@Resource SpringLiquibase liqubaseDependency;
 	
 	@PostConstruct
 	public void recreateIndex() throws Exception {

@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('MLDS').controller('LicensesController',
-		['$scope', '$log', '$modal', 'MemberService', 'Session', '$window',
-    function ($scope, $log, $modal, MemberService, Session, $window) {
+		['$scope', '$log', '$modal', 'MemberService', 'Session', 
+		 function ($scope, $log, $modal, MemberService, Session) {
 		$scope.members = MemberService.members;
 		$scope.canAccess = function(member) {
 			return member.key === Session.member.key;
 		};
 		
-		$scope.viewLicense = function viewLicense(member) {
-			$window.open(MemberService.getMemberLicense(member.key), '_blank');
+		$scope.viewLicense = function (memberKey) {
+			MemberService.getMemberLicense(memberKey);
 		};
 		
 		$scope.editLicense = function editLicense(member) {
