@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,6 +12,8 @@ import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.BooleanJunction;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +22,15 @@ import org.springframework.stereotype.Service;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 
+/**
+ * Turn on trace level logging to get lucene score and explain info on query.
+ * 
+ * @author buckleym
+ */
 @Service
 public class AffiliateSearchRepository {
+	static final Logger LOG = LoggerFactory.getLogger(AffiliateSearchRepository.class);
+	
 	@Resource
 	EntityManager entityManager;
 	
@@ -56,8 +66,30 @@ public class AffiliateSearchRepository {
 		
 		@SuppressWarnings("unchecked")
 		List<Affiliate> resultList = ftQuery.getResultList();
+
+		dumpDebugInfoWithScores(ftQuery);
+		
+		LOG.debug("Found {} results for query: {}", ftQuery.getResultSize(), q);
 		
 		return new PageImpl<>(resultList, pageable, ftQuery.getResultSize());
+	}
+
+	@SuppressWarnings("unchecked")
+	void dumpDebugInfoWithScores(FullTextQuery ftQuery) {
+		if (LOG.isTraceEnabled()) {
+			
+			ftQuery.setProjection(
+					FullTextQuery.DOCUMENT_ID,
+					FullTextQuery.SCORE,
+					FullTextQuery.EXPLANATION,
+					"affiliateDetails.organizationName"
+					);
+			
+			for (Object[] projection : (List<Object[]>) ftQuery.getResultList()) {
+				LOG.trace("Projection: {}",Arrays.asList(projection));
+			}
+			
+		}
 	}
 
 	Query buildQueryMatchingHomeMember(QueryBuilder queryBuilder, Member homeMember) {
@@ -73,6 +105,9 @@ public class AffiliateSearchRepository {
 		String[] tokens = q.split("\\s+");
 		
 		for (String token : tokens) {
+			bool.should(queryBuilder.keyword()
+					.onField("ALL").matching(token)
+					.createQuery());
 			bool.should(queryBuilder.keyword()
 					.wildcard()
 					.onField("ALL").matching(token+"*")
