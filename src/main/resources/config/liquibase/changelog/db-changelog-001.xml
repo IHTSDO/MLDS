@@ -1035,4 +1035,34 @@
 	<changeSet id="MLDS-309-5" author="AC">
 		<modifyDataType tableName="file" columnName="mimetype" newDataType="varchar(150)"/>
 	</changeSet>
+	
+	<!--  fix spelling 
+		find real license
+		 -->
+	<changeSet id="MLDS-309-6" author="ac/mb">
+		<comment>Load up IHTSDO license</comment>
+		<createTable tableName="tmpblob">
+      <column name="content" type="bytea"/>
+      <column name="o" type="oid"/>
+		</createTable>
+		<insert tableName="tmpblob">
+      <column name="content" valueBlobFile="../../../config/Ihtsdo_AffiliateLicenceAgreement_v11.pdf"/>
+		</insert>
+		<sql>
+			update tmpblob
+				set o = lo_create(-1);
+		</sql>
+		<sql>
+			select lowrite(lo_open((select o from tmpblob),131072), (select content from tmpblob)));
+		</sql>
+		<sql>
+			insert into file (file_id, filename, updated_at, creator, mimetype, content)
+			values (nextval('hibernate_sequence'), 'Ihtsdo_AffiliateLicenceAgreement_v11.pdf', now(), 'system', 'application/pdf', (select o from tmpblob)))
+		</sql>
+		<sql>
+			update member 
+			set license_file = (select file_id from file where file.filename = 'Ihtsdo_AffiliateLicenceAgreement_v11.pdf' limit 1)
+		</sql>
+		<dropTable tableName="tmpblob"/>
+	</changeSet>
 </databaseChangeLog>
