@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -63,5 +65,12 @@ public class Member extends BaseEntity {
 		this.licenseFile = license;
 	}
 
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this,ToStringStyle.SHORT_PREFIX_STYLE)
+			.append("key", key)
+			.append("memberId", memberId)
+			.toString();
+	}
     
 }
