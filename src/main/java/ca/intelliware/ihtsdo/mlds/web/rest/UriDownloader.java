@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -24,25 +25,38 @@ public class UriDownloader {
 
 	public void download(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) {
 		try {
-			CloseableHttpClient httpclient = HttpClients.createDefault();
-			HttpGet hostingRequest = new HttpGet(downloadUrl);
-	    	copyClientHeadersToHostingRequest(clientRequest, hostingRequest);
-	    	CloseableHttpResponse hostingResponse = httpclient.execute(hostingRequest);
-	    	try {
-	    		log.info("entity url="+downloadUrl+" disp="+hostingResponse.getFirstHeader("Content-Disposition")+" type="+hostingResponse.getFirstHeader("Content-Type"));
-		    	copyHostingHeadersToClientResponse(hostingResponse, clientResponse);
-		    	setContentDispositionIfMissing(hostingResponse, clientResponse, downloadUrl);
-		    	HttpEntity hostingEntity = hostingResponse.getEntity();
-		    	log.info("entity streaming="+hostingEntity.isStreaming());
-		    	hostingEntity.writeTo(clientResponse.getOutputStream());
-//		    	IOUtils.copyLarge(hostingEntity.getContent(), clientResponse.getOutputStream());
-	    	} finally {
-	    		hostingResponse.close();
-	    		log.info("entity download done");
-	    	}
+			CloseableHttpClient httpClient = createHttpClient();
+			try {
+				HttpGet hostingRequest = new HttpGet(downloadUrl);
+		    	copyClientHeadersToHostingRequest(clientRequest, hostingRequest);
+		    	CloseableHttpResponse hostingResponse = httpClient.execute(hostingRequest);
+		    	try {
+		    		log.info("entity url="+downloadUrl+" disp="+hostingResponse.getFirstHeader("Content-Disposition")+" type="+hostingResponse.getFirstHeader("Content-Type"));
+		    		int statusCode = hostingResponse.getStatusLine().getStatusCode();
+		    		if (statusCode >= 200 && statusCode < 300) {
+				    	copyHostingHeadersToClientResponse(hostingResponse, clientResponse);
+				    	setContentDispositionIfMissing(hostingResponse, clientResponse, downloadUrl);
+				    	HttpEntity hostingEntity = hostingResponse.getEntity();
+				    	log.info("entity streaming="+hostingEntity.isStreaming());
+				    	hostingEntity.writeTo(clientResponse.getOutputStream());
+			    	} else {
+			    		log.info("aborted due to hosting="+statusCode);
+			    		clientResponse.sendError(statusCode);
+			    	}
+		    	} finally {
+		    		hostingResponse.close();
+		    		log.info("entity download done");
+		    	}
+			} finally {
+				httpClient.close();
+			}
 		} catch (IOException ex) {
 			throw new RuntimeException("Error while downloading file");
 		}
+	}
+
+	private CloseableHttpClient createHttpClient() {
+		return HttpClients.createDefault();
 	}
 
 	private void setContentDispositionIfMissing(CloseableHttpResponse hostingResponse, HttpServletResponse clientResponse, String downloadUrl) {
@@ -64,12 +78,21 @@ public class UriDownloader {
 		} catch (URISyntaxException e) {
 			log.error("Failed to generate content-disposition due to error parsing uri");
 		}
-		
 	}
 
 	private void copyClientHeadersToHostingRequest(HttpServletRequest clientRequest, HttpGet hostingRequest) {
-		// TODO Auto-generated method stub
+		copyClientHeaderToHostingRequest("If-Modified-Since", clientRequest, hostingRequest);
+		copyClientHeaderToHostingRequest("If-None-Match", clientRequest, hostingRequest);
+		copyClientHeaderToHostingRequest("If-Unmodified-Since", clientRequest, hostingRequest);
 		
+	}
+
+	private void copyClientHeaderToHostingRequest(String key,
+			HttpServletRequest clientRequest, HttpGet hostingRequest) {
+		String value = clientRequest.getHeader(key);
+		if (value != null) {
+			hostingRequest.addHeader(key, value);
+		}
 	}
 
 	private void copyHostingHeadersToClientResponse(CloseableHttpResponse hostingResponse, HttpServletResponse clientResponse) {
