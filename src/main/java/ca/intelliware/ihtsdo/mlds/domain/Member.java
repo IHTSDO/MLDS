@@ -30,8 +30,8 @@ public class Member extends BaseEntity {
     
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="license_file")
-    File licenseFile;
+	@JoinColumn(name="licence_file")
+    File licenceFile;
     
 	public Member() {}
 	
@@ -58,11 +58,11 @@ public class Member extends BaseEntity {
 
 	@JsonIgnore
 	public File getLicense() {
-		return licenseFile;
+		return licenceFile;
 	}
 
 	public void setLicense(File license) {
-		this.licenseFile = license;
+		this.licenceFile = license;
 	}
 
 	@Override
