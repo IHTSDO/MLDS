@@ -8,6 +8,7 @@ public class Routes {
 	
 	public static final String MEMBERS = "/app/rest/members";
 	
+	// FIXME MLDS-309 spelling
 	public static final String MEMBER_LICENSE = "/app/rest/members/{memberKey}/license";
 	
 	public static final String AUDITS = "/app/rest/audits";
