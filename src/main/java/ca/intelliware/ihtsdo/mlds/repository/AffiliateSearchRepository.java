@@ -77,6 +77,14 @@ public class AffiliateSearchRepository {
 					.wildcard()
 					.onField("ALL").matching(token+"*")
 					.createQuery());
+			bool.should(queryBuilder.keyword()
+					.wildcard()
+					.onField("address.country.commonName").matching(token+"*")
+					.createQuery());
+			bool.should(queryBuilder.keyword()
+					.wildcard()
+					.onField("email").matching(token+"*")
+					.createQuery());
 		}
 		Query textQuery = bool.createQuery();
 		

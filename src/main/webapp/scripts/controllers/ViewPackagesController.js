@@ -9,6 +9,10 @@ angular.module('MLDS')
 	$scope.releasePackagesByMember = [];
 	$scope.alerts = [];
 	
+	$scope.viewLicense = function (memberKey) {
+		MemberService.getMemberLicense(memberKey);
+	};
+	
 	loadReleasePackages();
 		
 	$scope.goToViewPackagePage = function goToViewPackagePage(releasePackageId) {

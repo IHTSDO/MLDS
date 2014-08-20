@@ -12,7 +12,7 @@
     		<tr ng-repeat="member in members | orderBy: canAccess : true">
     			<td>{{member.key}}</td>
     			<td>
-    				<button class="btn btn-default" ng-click="viewLicense(member)">View License</button>
+    				<button class="btn btn-default" ng-click="viewLicense(member.key)">View License</button>
     				<button class="btn btn-success" ng-show="canAccess(member)" ng-click="editLicense(member)">Edit License</button>
     			</td>
     		</tr>

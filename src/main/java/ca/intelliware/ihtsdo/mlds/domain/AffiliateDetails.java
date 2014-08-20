@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.apache.lucene.analysis.standard.UAX29URLEmailAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Fields;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -36,6 +38,10 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Fields({ @Field(name="ALL"), @Field()})
 	String lastName;
 	
+	@Fields({ 
+		@Field(name="ALL"),  // the default analyzer splits on @ 
+		@Field(analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
+		})
 	String email;
 	
 	@Column(name="alternate_email")

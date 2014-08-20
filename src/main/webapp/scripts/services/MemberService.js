@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('MemberService', ['$http', '$log', '$q', function($http, $log, $q){
+.factory('MemberService', ['$http', '$log', '$q', '$window', function($http, $log, $q, $window){
 	
 		var membersListQ = 
 			$http.get('/app/rest/members')
@@ -43,7 +43,7 @@ angular.module('MLDS')
 		};
 		
 		service.getMemberLicense = function getMemberLicense(memberKey) {
-			return '/app/rest/members/' + encodeURIComponent(memberKey) + '/license';
+			$window.open('/app/rest/members/' + encodeURIComponent(memberKey) + '/license', '_blank');
 		};
 		
 		service.updateMemberLicense = function updateMemberLicense(memberKey, memberLicenseFile) {
