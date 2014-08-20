@@ -4,7 +4,7 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>utf-8</charset>
-            <Pattern>[%p] %d %c - %m%n</Pattern>
+            <Pattern>%d [%p] %c - %m%n</Pattern>
         </encoder>
     </appender>
     <logger name="javax.activation" level="warn"/>
