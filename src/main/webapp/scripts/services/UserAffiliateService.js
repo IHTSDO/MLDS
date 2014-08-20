@@ -38,7 +38,7 @@ angular.module('MLDS')
 			.pluck('member')
 			.value();
 		service.incompleteMemberships = _.chain(service.affiliate.applications)
-			.filter(!ApplicationUtilsService.isPrimaryApplication)
+			.filter(ApplicationUtilsService.isExtensionApplication)
 			.filter(ApplicationUtilsService.isApplicationIncomplete)
 			.pluck('member')
 			.value();
