@@ -96,6 +96,7 @@ public class UriDownloader {
 	}
 
 	private void copyHostingHeadersToClientResponse(CloseableHttpResponse hostingResponse, HttpServletResponse clientResponse) {
+		copyHostingHeaderToClientResponse("Cache-Control", hostingResponse, clientResponse);
 		copyHostingHeaderToClientResponse("Content-Disposition", hostingResponse, clientResponse);
 		copyHostingHeaderToClientResponse("Content-Type", hostingResponse, clientResponse);
 		copyHostingHeaderToClientResponse("Content-Length", hostingResponse, clientResponse);
