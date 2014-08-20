@@ -1065,6 +1065,6 @@
 	
 	<changeSet id="MLDS-309-7" author="AC">
 		<comment>Fixing licence spelling</comment>
-		<renameColumn tableName="member" oldColumnName="licenseFile" newColumnName="licenceFile"/>
+		<renameColumn tableName="member" oldColumnName="license_file" newColumnName="licence_file"/>
 	</changeSet>
 </databaseChangeLog>
