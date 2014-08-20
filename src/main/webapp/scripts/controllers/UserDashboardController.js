@@ -14,9 +14,9 @@ angular.module('MLDS')
         	$scope.approvedReleasePackagesByMember = [];
         	$scope.notApprovedReleasePackagesByMember = [];
 
-        	$scope.viewLicense = function (memberKey) {
-        		MemberService.getMemberLicense(memberKey);
-        	};
+        	$scope.viewLicence = function (memberKey) {
+    			MemberService.getMemberLicence(memberKey);
+    		};
         	
         	UserAffiliateService.promise.then(function() {
         		if (ApplicationUtilsService.isApplicationWaitingForApplicant(UserAffiliateService.affiliate.application)) {
