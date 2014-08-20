@@ -5116,7 +5116,6 @@ a.list-group-item-danger.active:focus {
   background-color: #eeeeee;
   border: 1px solid #dbdbdb;
   border-radius: 4px;
-  overflow: hidden;
 }
 .close {
   float: right;
