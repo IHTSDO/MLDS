@@ -1,6 +1,6 @@
 'use strict';
 
-mldsApp.controller('AffiliateController', [
+mldsApp.controller('EditAffiliateController', [
 		'$scope',
 		'$log',
 		'$location',
@@ -18,16 +18,17 @@ mldsApp.controller('AffiliateController', [
 			$scope.affiliateDetails = {};
 			$scope.approved = false;
 			$scope.readOnly = false;
-			$scope.isApplicationApproved = ApplicationUtilsService.isApplicationApproved;
+			$scope.type;
 
 			function loadAffiliate() {
 				var queryPromise = AffiliateService.affiliate(affiliateId);
 				
 				queryPromise.success(function(affiliate) {
 					$scope.affiliate = affiliate;
-					$scope.approved = $scope.isApplicationApproved(affiliate.application);
+					$scope.approved = ApplicationUtilsService.isApplicationApproved(affiliate.application);
 					$scope.isEditable = Session.isAdmin() || (Session.member.key == affiliate.application.member.key);
-					$scope.readOnly = !$scope.isApplicationApproved(affiliate.application) || !$scope.isEditable;
+					$scope.readOnly = !ApplicationUtilsService.isApplicationApproved(affiliate.application) || !$scope.isEditable;
+					$scope.type = affiliate.type;
 					
 					if (affiliate.affiliateDetails) {
 						$scope.affiliateDetails = affiliate.affiliateDetails;
@@ -37,23 +38,6 @@ mldsApp.controller('AffiliateController', [
 			}
 
 			loadAffiliate(); 
-			
-			$scope.viewApplication = function(application) {
-        		var modalInstance = $modal.open({
-        			templateUrl: 'views/admin/applicationSummaryModal.html',
-        			controller: 'ApplicationSummaryModalController',
-        			size:'lg',
-        			resolve: {
-        				application: function() {
-        					return application;
-        				}
-        			}
-        		});
-			};
-			
-			$scope.approveApplication = function(application) {
-				$location.path('/applicationReview/' + application.applicationId);
-			};
 			
 			$scope.form = {};
 	    	$scope.form.attempted = false;
@@ -68,10 +52,8 @@ mldsApp.controller('AffiliateController', [
 	    		$scope.alerts.splice(0, $scope.alerts.length);
 
 	    		AffiliateService.updateAffiliateDetails($scope.affiliate.affiliateId, $scope.affiliateDetails)
-	    			.then(function(result) {
-	    				$scope.affiliateDetails = result.data;
-	    				$scope.submitting = false;
-	    				$scope.alerts.push({type: 'success', msg: 'Contact information has been successfully saved.'});
+	    			.success(function(result) {
+	    				$location.path('/affiliates/'+ affiliateId);
 	    			})
 				["catch"](function(message) {
 					$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
@@ -80,8 +62,7 @@ mldsApp.controller('AffiliateController', [
 	        };
 	        
 	        $scope.cancel = function() {
-	        	//FIXME $route.reload wasnt clearing out scope state - is there a better way?
-	        	window.location.reload();
+	        	$location.path('/affiliates/'+ affiliateId);
 	        };
 			
 		} ]);
