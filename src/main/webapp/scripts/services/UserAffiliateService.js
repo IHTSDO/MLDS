@@ -48,7 +48,7 @@ angular.module('MLDS')
 			if (ApplicationUtilsService.isApplicationApproved(service.affiliate.application)) {
 				service.approvedMemberships.push(MemberService.ihtsdoMember);
 			} else if (ApplicationUtilsService.isApplicationIncomplete(service.affiliate.application)) {
-				service.approvedMemberships.push(MemberService.ihtsdoMember);
+				service.incompleteMemberships.push(MemberService.ihtsdoMember);
 			}
 		}
 	};
