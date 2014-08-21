@@ -1,6 +1,6 @@
 'use strict';
 
-mldsApp.factory('ApprovalStateService', [function(){
+mldsApp.factory('ApprovalStateUtils', [function(){
 
 	// complete, waiting for applicant, waiting for staff
 	
