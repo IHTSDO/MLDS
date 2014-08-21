@@ -3,6 +3,8 @@
 		<div class="alert alert-warning" ng-show="!isEditable">
 			You can view applications submitted to other Member Registration Centres, but you cannot process them.
 		</div>
+		<button class="btn btn-link pull-right" ng-click="cancel()"
+			ng-disabled="submitting">Back to Affiliate</button>
 		<div ng-include="'views/contactInfo.html'"></div>
 	</div>
 </div>
