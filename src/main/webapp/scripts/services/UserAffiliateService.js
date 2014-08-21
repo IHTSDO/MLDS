@@ -42,12 +42,14 @@ angular.module('MLDS')
 			.filter(ApplicationUtilsService.isApplicationIncomplete)
 			.pluck('member')
 			.value();
-		
-		// Include IHTSDO international membership if the application was for a member country
-		if (service.approvedMemberships.length > 0) {
-			addIhtsdoMemberIfMissing(service.approvedMemberships);
-		} else if (service.incompleteMemberships.length > 0) {
-			addIhtsdoMemberIfMissing(service.incompleteMemberships);
+
+		// Include IHTSDO international membership from primary application
+		if (service.affiliate.application) {
+			if (ApplicationUtilsService.isApplicationApproved(service.affiliate.application)) {
+				service.approvedMemberships.push(MemberService.ihtsdoMember);
+			} else if (ApplicationUtilsService.isApplicationIncomplete(service.affiliate.application)) {
+				service.approvedMemberships.push(MemberService.ihtsdoMember);
+			}
 		}
 	};
 	

@@ -90,6 +90,10 @@ public class ReleasePackageAuditEvents {
 
 	private void logReleaseFileEvent(String eventType, ReleaseFile releaseFile) {
 		Map<String, String> auditData = createReleaseFileData(releaseFile);
+		logReleaseFileEvent(eventType, releaseFile, auditData);
+	}
+
+	private void logReleaseFileEvent(String eventType, ReleaseFile releaseFile, Map<String, String> auditData) {
 		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
 		auditEvent.setReleaseFileId(releaseFile.getReleaseFileId());
 		auditEvent.setReleaseVersionId(releaseFile.getReleaseVersion().getReleaseVersionId());
@@ -101,5 +105,11 @@ public class ReleasePackageAuditEvents {
 		Map<String,String> auditData = Maps.newHashMap();
 		auditData.put("releaseFile.label", releaseFile.getLabel());
 		return auditData;
+	}
+
+	public void logDownload(ReleaseFile releaseFile, int statusCode) {
+		Map<String, String> auditData = createReleaseFileData(releaseFile);
+		auditData.put("download.statusCode", Integer.toString(statusCode));
+		logReleaseFileEvent("RELEASE_FILE_DOWNLOADED", releaseFile, auditData);
 	}
 }
