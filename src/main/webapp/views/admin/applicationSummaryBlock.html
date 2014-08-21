@@ -15,12 +15,12 @@
 	  <div class="panel-body">
 	    <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
 		    <span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{application.affiliateDetails.organizationTypeOther}}</span>
-		    <span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{'affiliate.organizationType.'+application.affiliateDetails.organizationType | translate}}</span> 
+		    <span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{application.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
 		  </p>
-		  <p ng-switch-when="PRIMARY"><strong>Use Type:</strong> {{'affiliate.type.'+application.type | translate}}</p>
-		  <p ng-switch-when="EXTENSION"><strong>Use Type:</strong> {{'affiliate.type.'+application.affiliate.type | translate}}</p>
-		  <p ng-switch-when="PRIMARY"><strong>Use Subtype:</strong> {{'affiliate.subType.'+application.subType | translate}}</p>
-		  <p ng-switch-when="PRIMARY"><strong>Type of Agreement:</strong> {{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</p>
+		  <p ng-switch-when="PRIMARY"><strong>Use Type:</strong> {{application.type | enum:'affiliate.type.'}}</p>
+		  <p ng-switch-when="EXTENSION"><strong>Use Type:</strong> {{application.affiliate.type | enum:'affiliate.type.'}}</p>
+		  <p ng-switch-when="PRIMARY"><strong>Use Subtype:</strong> {{application.subType | enum:'affiliate.subType.'}}</p>
+		  <p ng-switch-when="PRIMARY"><strong>Type of Agreement:</strong> {{application.commercialUsage.context.agreementType | enum:'affiliate.agreementType.'}}</p>
 		</div>
 	</div>
 	
@@ -96,7 +96,7 @@
 	    </div>
 	    <div>
 	      <strong>Implementation Status:</strong>
-	     <p> {{'affiliate.implementationStatus.'+application.commercialUsage.context.implementationStatus | translate}}</p>
+	     <p> {{application.commercialUsage.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</p>
 	      <div ng-show="application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
 	       <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
 	       <p><strong>Practices:</strong> {{countryRecord.practices}} </p>

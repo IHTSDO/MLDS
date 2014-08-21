@@ -41,8 +41,8 @@
 					<!--  orderBy: ['affiliateDetails.organizationName', 'application.affiliateDetails.organizationName', 'affiliateDetails.firstName', 'application.affiliateDetails.firstName', 'affiliateDetails.lastName', 'application.affiliateDetails.lastName', 'creator'] -->
 					<tr ng-click="viewAffiliate(affiliate.affiliateId)" ng-repeat="affiliate in affiliates">
 						<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
-						<td>{{'approval.state.'+affiliate.application.approvalState | translate}}</td>
-						<td>{{'affiliate.type.'+affiliate.application.type | translate}} - {{'affiliate.subType.'+affiliate.application.subType | translate}}</td>
+						<td>{{affiliate.application.approvalState | enum:'approval.state.'}}</td>
+						<td>{{affiliate.application.type | enum:'affiliate.type.'}} - {{affiliate.application.subType | enum:'affiliate.subType.'}}</td>
 						<td>{{affiliateActiveDetails(affiliate).address.country.commonName}}</td>
 						<td>{{affiliate.homeMember.key}}</td>
 						<td><a href="mailto:{{affiliate.affiliateDetails.email}}">{{affiliateActiveDetails(affiliate).email}}</a></td>

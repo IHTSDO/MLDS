@@ -24,10 +24,8 @@
 							date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}
 							{{usageReport.startDate | date : 'yyyy'}}
 					</span></td>
-					<td><span class="btn-link"> {{'affiliate.type.' +
-							usageReport.type | translate}} </span></td>
-					<td><span class="btn-link"> {{'approval.state.' +
-							usageReport.approvalState | translate}} </span></td>
+					<td><span class="btn-link"> {{ usageReport.type | enum:'affiliate.type.'}}</span></td>
+					<td><span class="btn-link"> {{ usageReport.approvalState | enum:'approval.state.'}} </span></td>
 					<td><span class="btn-link">
 							{{usageReportsUtils.usageReportCountries(usageReport)}} </span></td>
 					<td><span class="btn-link">

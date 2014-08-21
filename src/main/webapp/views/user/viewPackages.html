@@ -18,7 +18,7 @@
 					<a class="btn btn-success btn-sm" ng-show="!$root.authenticated" href="#/login">Login to download</a>
 				</span>
 				<h2>
-					{{'global.member.'+memberReleases.packages[0].member.key | translate}} 
+					{{memberReleases.packages[0].member.key | enum:'global.member.'}} 
 					<a class="btn-sm btn-link" ng-click="viewLicence(memberReleases.packages[0].member.key)">View Licence</a>
 				</h2>
 			</div>

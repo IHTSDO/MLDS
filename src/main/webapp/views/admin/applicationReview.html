@@ -2,7 +2,7 @@
 	<div class="col-md-12">
 		<div class="page-header">
 			<span class="pull-right"><a href="#/pendingApplications">Back to Pending Applications</a></span>
-			<h1>{{'application.applicationType.'+application.applicationType | translate}} Application Review</h1>
+			<h1>{{application.applicationType | enum:'application.applicationType.'}} Application Review</h1>
 		</div>
 	</div>
 </div>
@@ -11,7 +11,7 @@
 		<div class="applicant-info">
 			<p><strong>Issue No:</strong> {{application.applicationId}}</p>
 			<div ng-show="application.organizationName">
-				<h4 class="application-title">{{application.organizationName}} - {{application.name}} <span class="label label-success">{{'approval.state.'+application.approvalState | translate}}</span></h4>
+				<h4 class="application-title">{{application.organizationName}} - {{application.name}} <span class="label label-success">{{application.approvalState | enum:'approval.state.'}}</span></h4>
 				<p> <strong>Application Date: {{application.submittedAt | date}}</strong> </p>
 			</div>
 			<hr>
@@ -28,8 +28,8 @@
 				<h5>{{match.model.application.affiliateDetails.organizationName}} - {{match.model.application.affiliateDetails.firstName}} {{match.model.application.affiliateDetails.lastName}}</strong></h5>
 				{{match.model.application.affiliateDetails.address.street}}<br>
 				{{match.model.application.affiliateDetails.address.city}}, {{match.model.application.affiliateDetails.address.country.commonName}} <br>
-				<strong>Usage Type:</strong> {{'affiliate.type.'+match.model.application.type | translate}} - {{'affiliate.subType.'+match.model.application.subType | translate}}<br>
-				<strong>Type of Agreement:</strong> {{'affiliate.agreementType.'+match.model.application.commercialUsage.context.agreementType | translate}}
+				<strong>Usage Type:</strong> {{match.model.application.type | enum:'affiliate.type.'}} - {{match.model.application.subType | enum:'affiliate.subType.'}}<br>
+				<strong>Type of Agreement:</strong> {{match.model.application.commercialUsage.context.agreementType | enum:'affiliate.agreementType.'}}
 				</address>
 				</div>
 				</script>

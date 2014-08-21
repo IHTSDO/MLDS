@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#/adminDashboard">
-	    <span ng-show="Session.member" ng-bind="'global.member.'+Session.member.key | translate"></span>
+	    <span ng-show="Session.member" ng-bind="Session.member.key | enum:'global.member.'"></span>
       	<span ng-hide="Session.member" ng-bind="'global.member.IHTSDO' | translate"></span>
       </a>
     </div>

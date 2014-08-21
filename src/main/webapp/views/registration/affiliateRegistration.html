@@ -79,7 +79,7 @@
 			  				</p>
   				        </div>
             <div class="form-group">
-            	<label>Member</label> <span ng-show="affiliateform.affiliateDetails.address.country.member">{{'global.member.'+affiliateform.affiliateDetails.address.country.member.key | translate}}</span>
+            	<label>Member</label> <span ng-show="affiliateform.affiliateDetails.address.country.member">{{affiliateform.affiliateDetails.address.country.member.key | enum:'global.member.'}}</span>
             </div>
           </div>
         </div>
@@ -239,7 +239,7 @@
                   <div class="form-group has-error has-feedback">
                     <label>Organization Type</label> 
                      <select class="form-control" name="organizationType" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationType" auto-submit>
-                    	<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{'affiliate.organizationType.' + organizationType | translate}}</option>
+                    	<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{organizationType | enum:'affiliate.organizationType.'}}</option>
                     </select>
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationType.$error.required && affiliateApplicationForm.attempted">
                       Required field.

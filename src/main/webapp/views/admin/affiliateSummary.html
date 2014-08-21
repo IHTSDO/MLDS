@@ -27,8 +27,8 @@
 						<div class="panel-body">
 							<h4>Usage Type:</h4>
 			  			<ul class="list-group">
-			  				<li class="list-group-item"><strong>Type:</strong> {{'affiliate.type.'+affiliate.application.type | translate}}</li>
-			  				<li class="list-group-item"><strong>Subtype:</strong> {{'affiliate.subType.'+affiliate.application.subType | translate}}</li>
+			  				<li class="list-group-item"><strong>Type:</strong> {{affiliate.application.type | enum:'affiliate.type.'}}</li>
+			  				<li class="list-group-item"><strong>Subtype:</strong> {{affiliate.application.subType | enum:'affiliate.subType.'}}</li>
 			  			</ul>
 			
 			  			<h4>Contact Information:</h4>
@@ -51,7 +51,7 @@
 			  				<li class="list-group-item"><strong>Organization Name:</strong> {{affiliateDetails.organizationName}}</li>
 			  				<li class="list-group-item"><strong>Organization Type:</strong>
 			  					<span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{affiliateDetails.organizationTypeOther}}</span>
-			  					<span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{'affiliate.organizationType.'+affiliateDetails.organizationType | translate}}</span> 
+			  					<span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
 			 					</li>
 			  				<li class="list-group-item"><strong>Address:</strong> {{affiliateDetails.address.street}}</li>
 			  				<li class="list-group-item"><strong>City:</strong> {{affiliateDetails.address.city}}</li>
@@ -93,7 +93,7 @@
 						<li class="list-group-item" ng-repeat="application in affiliate.applications">
 							<div class="row">
 								<div class="col-xs-6">
-									{{'application.applicationType.'+application.applicationType | translate}}
+									{{application.applicationType | enum:'application.applicationType.'}}
 								</div>
 								<div class="col-xs-6">
 									<a class="btn btn-primary btn-sm" ng-show="isApplicationApproved(application)" ng-click="viewApplication(application)"><i class="fa fa-eye"></i> Application</a>			

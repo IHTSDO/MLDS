@@ -31,17 +31,17 @@
 					<tr ng-repeat="application in applications | filter:applicationSearch" ng-switch="application.applicationType">
 									
 					<td>{{application.submittedAt | date}}</td>
-					<td>{{'approval.state.'+application.approvalState | translate}}</td>
-					<td>{{'application.applicationType.'+application.applicationType | translate}}</td>
+					<td>{{application.approvalState | enum:'approval.state.'}}</td>
+					<td>{{application.applicationType | enum:'application.applicationType.'}}</td>
 					
-					<td>{{'global.member.'+application.member.key | translate}}</td>
+					<td>{{application.member.key | enum:'global.member.'}}</td>
 					<td>{{application.affiliateDetails.organizationName ? application.affiliateDetails.organizationName : application.affiliateDetails.firstName + ' '+application.affiliateDetails.lastName}}</td>
 					<td>{{application.affiliateDetails.address.country.commonName}}</td>
-					<td ng-switch-when="PRIMARY">{{'affiliate.type.'+application.type | translate}} - {{'affiliate.subType.'+application.subType | translate}}</td>
-					<td ng-switch-when="PRIMARY">{{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</td>
+					<td ng-switch-when="PRIMARY">{{application.type | enum:'affiliate.type.'}} - {{application.subType | enum:'affiliate.subType.'}}</td>
+					<td ng-switch-when="PRIMARY">{{application.commercialUsage.context.agreementType | enum:'affiliate.agreementType.'}}</td>
 					
-					<td ng-switch-when="EXTENSION">{{'affiliate.type.'+application.affiliate.type | translate}}</td>
-					<td ng-switch-when="EXTENSION">{{'affiliate.agreementType.'+application.affiliate.commercialUsages[0].context.agreementType | translate}}</td>
+					<td ng-switch-when="EXTENSION">{{application.affiliate.type | enum:'affiliate.type.'}}</td>
+					<td ng-switch-when="EXTENSION">{{application.affiliate.commercialUsages[0].context.agreementType | enum:'affiliate.agreementType.'}}</td>
 					
 					<td> <a class="btn btn-primary btn-sm" ng-click="goToApplication(application)"><i class="fa fa-pencil"></i> Review</a></td>
 				</tr>
