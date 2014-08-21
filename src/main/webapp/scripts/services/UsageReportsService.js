@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('UsageReportsService', [ '$location', '$log', '$modal', 'AffiliateService', 'ApprovalStateService',
-                                    function($location, $log, $modal, AffiliateService, ApprovalStateService){
+.factory('UsageReportsService', [ '$location', '$log', '$modal', 'AffiliateService', 'ApprovalStateUtils',
+                                    function($location, $log, $modal, AffiliateService, ApprovalStateUtils){
 
 	var service = {};
 	
@@ -21,7 +21,7 @@ angular.module('MLDS')
 	};
 	
 	service.isUsageReportWaitingForApplicant = function(usageReport) {
-		return ApprovalStateService.isWaitingForApplicant(usageReport.approvalState);
+		return ApprovalStateUtils.isWaitingForApplicant(usageReport.approvalState);
 	};
 
 	service.openAddUsageReportModal = function(affiliate) {
