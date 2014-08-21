@@ -257,8 +257,18 @@ mldsApp
                     }
                 })
                 .when('/affiliates/:affiliateId', {
-                    templateUrl: 'views/admin/affiliate.html',
-                    controller: 'AffiliateController',
+                    templateUrl: 'views/admin/affiliateSummary.html',
+                    controller: 'AffiliateSummaryController',
+                    access: {
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/affiliates/:affiliateId/edit', {
+                    templateUrl: 'views/admin/editAffiliate.html',
+                    controller: 'EditAffiliateController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
