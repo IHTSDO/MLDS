@@ -49,25 +49,50 @@ describe('UserAffiliateService Tests ', function () {
     		expect(UserAffiliateService.incompleteMemberships).toEqual([swedenMember]);
     	});
     	
-    	it('should confer ihtsdo approved membership if only have territory membership', function() {
+    	it('should confer ihtsdo approved membership with primary application to a territory', function() {
+    		var primary = {
+	            	   approvalState: 'APPROVED',
+	            	   applicationType: 'PRIMARY',
+	            	   member: swedenMember
+	               };
     		affiliate = {
-    			applications: [
-    			               {
-    			            	   approvalState: 'APPROVED',
-    			            	   applicationType: 'EXTENSION',
-    			            	   member: swedenMember
-    			               },
+    			application:primary,
+    			applications: [ primary
     			               ]	
     		};
     		UserAffiliateService.setAffiliate(affiliate);
     		
-    		expect(UserAffiliateService.approvedMemberships).toEqual([swedenMember, ihtsdoMember]);
+    		expect(UserAffiliateService.approvedMemberships).toEqual([ihtsdoMember]);
     		expect(UserAffiliateService.incompleteMemberships).toEqual([]);
     	});
 
-    	it('should confer ihtsdo incomplete membership if only have territory membership', function() {
+    	it('should confer ihtsdo incomplete membership with incomplete primary application to a territory', function() {
+    		var primary = {
+	            	   approvalState: 'SUBMITTED',
+	            	   applicationType: 'PRIMARY',
+	            	   member: swedenMember
+	               };
     		affiliate = {
+    			application:primary,
+    			applications: [ primary
+    			               ]	
+    		};
+    		UserAffiliateService.setAffiliate(affiliate);
+    		
+    		expect(UserAffiliateService.approvedMemberships).toEqual([]);
+    		expect(UserAffiliateService.incompleteMemberships).toEqual([ihtsdoMember]);
+    	});
+    	
+    	it('should confer ihtsdo incomplete membership if only have territory membership', function() {
+    		var primary = {
+	            	   approvalState: 'APPROVED',
+	            	   applicationType: 'PRIMARY',
+	            	   member: swedenMember
+	               };
+    		affiliate = {
+				application:primary,
     			applications: [
+    			               primary,
     			               {
     			            	   approvalState: 'SUBMITTED',
     			            	   applicationType: 'EXTENSION',
@@ -77,8 +102,8 @@ describe('UserAffiliateService Tests ', function () {
     		};
     		UserAffiliateService.setAffiliate(affiliate);
     		
-    		expect(UserAffiliateService.approvedMemberships).toEqual([]);
-    		expect(UserAffiliateService.incompleteMemberships).toEqual([swedenMember, ihtsdoMember]);
+    		expect(UserAffiliateService.approvedMemberships).toEqual([ihtsdoMember]);
+    		expect(UserAffiliateService.incompleteMemberships).toEqual([swedenMember]);
     	});
 
     	it('should be ignore REJECTED applications', function() {
