@@ -1,18 +1,18 @@
 'use strict';
 
-describe('ApprovalStateService Tests ', function () {
+describe('ApprovalStateUtils Tests ', function () {
 	var allApprovalStates = ['NOT_SUBMITTED', 'SUBMITTED', 'CHANGE_REQUESTED', 'RESUBMITTED', 'REVIEW_REQUESTED', 'APPROVED', 'REJECTED'];
 	
     beforeEach(module('MLDS'));
     
     describe('ApprovalState utilities', function() {
-    	var ApprovalStateService;
+    	var ApprovalStateUtils = null;
     	
         beforeEach(module(function($provide) {
       	}));
 
-    	beforeEach(inject(function (_ApprovalStateService_) {
-    		ApprovalStateService = _ApprovalStateService_;
+    	beforeEach(inject(function (_ApprovalStateUtils_) {
+    		ApprovalStateUtils = _ApprovalStateUtils_;
         }));
 
     	function expectTruthyFor(func, shouldBeTruthy) {
@@ -34,23 +34,23 @@ describe('ApprovalStateService Tests ', function () {
     	//FIXME these tests feel like pure duplication of actual code... Rewrite/remove?
     	
     	it('should be able to test isWaitingForApplicant', function() {
-    		expectTruthyFor(ApprovalStateService.isWaitingForApplicant, ['NOT_SUBMITTED', 'CHANGE_REQUESTED']);
+    		expectTruthyFor(ApprovalStateUtils.isWaitingForApplicant, ['NOT_SUBMITTED', 'CHANGE_REQUESTED']);
     	});
 
     	it('should be able to test isApproved', function() {
-    		expectTruthyFor(ApprovalStateService.isApproved, ['APPROVED']);
+    		expectTruthyFor(ApprovalStateUtils.isApproved, ['APPROVED']);
     	});
 
     	it('should be able to test isRejected', function() {
-    		expectTruthyFor(ApprovalStateService.isRejected, ['REJECTED']);
+    		expectTruthyFor(ApprovalStateUtils.isRejected, ['REJECTED']);
     	});
 
     	it('should be able to test isIncomplete', function() {
-    		expectTruthyFor(ApprovalStateService.isIncomplete, ['NOT_SUBMITTED', 'SUBMITTED', 'CHANGE_REQUESTED', 'RESUBMITTED', 'REVIEW_REQUESTED']);
+    		expectTruthyFor(ApprovalStateUtils.isIncomplete, ['NOT_SUBMITTED', 'SUBMITTED', 'CHANGE_REQUESTED', 'RESUBMITTED', 'REVIEW_REQUESTED']);
     	});
 
     	it('should be able to test isPending', function() {
-    		expectTruthyFor(ApprovalStateService.isPending, ['SUBMITTED', 'RESUBMITTED', 'REVIEW_REQUESTED']);
+    		expectTruthyFor(ApprovalStateUtils.isPending, ['SUBMITTED', 'RESUBMITTED', 'REVIEW_REQUESTED']);
     	});
     });
 });
