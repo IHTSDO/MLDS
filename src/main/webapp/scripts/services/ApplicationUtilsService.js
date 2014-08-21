@@ -1,32 +1,27 @@
 'use strict';
 
-mldsApp.factory('ApplicationUtilsService', [function(){
+mldsApp.factory('ApplicationUtilsService', ['ApprovalStateService', function(ApprovalStateService){
 		
 		var service = {};
 			
 		service.isApplicationWaitingForApplicant = function isApplicationWaitingForApplicant(application) {
-			return (!application.approvalState
-				|| application.approvalState === 'NOT_SUBMITTED'
-				|| application.approvalState === 'CHANGE_REQUESTED');
+			return ApprovalStateService.isWaitingForApplicant(application.approvalState);
 		};
 
 		service.isApplicationApproved = function isApplicationApproved(application) {
-			return (application.approvalState === 'APPROVED');
+			return ApprovalStateService.isApproved(application.approvalState);
 		};
 
 		service.isApplicationRejected = function isApplicationRejected(application) {
-			return (application.approvalState === 'REJECTED');
+			return ApprovalStateService.isRejected(application.approvalState);
 		};
 
 		service.isApplicationIncomplete = function isApplicationIncomplete(application) {
-			return (application.approvalState !== 'APPROVED'
-				&& application.approvalState !== 'REJECTED');
+			return ApprovalStateService.isIncomplete(application.approvalState);
 		};
 			
 		service.isApplicationPending = function isApplicationPending(application) {
-			return (application.approvalState === 'SUBMITTED'
-				|| application.approvalState === 'RESUBMITTED'
-				|| application.approvalState === 'REVIEW_REQUESTED');
+			return ApprovalStateService.isPending(application.approvalState);
 		};
 
 		service.getOrganizationTypes = function() {
