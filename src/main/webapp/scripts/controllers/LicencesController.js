@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('LicensesController',
+angular.module('MLDS').controller('LicencesController',
 		['$scope', '$log', '$modal', 'MemberService', 'Session', 
 		 function ($scope, $log, $modal, MemberService, Session) {
 		$scope.members = MemberService.members;
@@ -8,14 +8,14 @@ angular.module('MLDS').controller('LicensesController',
 			return member.key === Session.member.key;
 		};
 		
-		$scope.viewLicense = function (memberKey) {
-			MemberService.getMemberLicense(memberKey);
+		$scope.viewLicence = function (memberKey) {
+			MemberService.getMemberLicence(memberKey);
 		};
 		
-		$scope.editLicense = function editLicense(member) {
+		$scope.editLicence = function editLicence(member) {
 			var modalInstance = $modal.open({
-                templateUrl: 'views/admin/editLicense.html',
-                controller: 'EditLicenseController',
+                templateUrl: 'views/admin/editLicence.html',
+                controller: 'EditLicenceController',
                 scope: $scope,
                 size: 'lg',
                 backdrop: 'static',

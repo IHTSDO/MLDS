@@ -39,6 +39,10 @@ mldsApp.factory('ApplicationUtilsService', [function(){
 		service.isPrimaryApplication = function isPrimaryApplication(application) {
 			return (application.applicationType === 'PRIMARY');
 		};
+
+		service.isExtensionApplication = function isExtensionApplication(application) {
+			return (application.applicationType === 'EXTENSION');
+		};
 		
 		return service;
 	}]);

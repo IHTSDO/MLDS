@@ -20,6 +20,7 @@ spring:
             hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: false
+            hibernate.search.default.directory_provider: filesystem
             hibernate.search.default.indexBase: /var/opt/mlds/lucene
 
     mail:
