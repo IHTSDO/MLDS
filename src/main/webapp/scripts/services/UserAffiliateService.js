@@ -26,6 +26,7 @@ angular.module('MLDS')
 	$rootScope.$on('event:auth-loginCancelled', loadUserAffiliate);
 
 	var initializeMemberships = function initializeMemberships() {
+		// Including memberships from extension applications only as IHTSDO is always primary application
 		service.approvedMemberships = _.chain(service.affiliate.applications)
 			.filter(ApplicationUtilsService.isExtensionApplication)
 			.filter(ApplicationUtilsService.isApplicationApproved)
