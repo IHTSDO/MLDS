@@ -34,7 +34,8 @@
 </div>
 
 <div class="row">
-  <div class="col-lg-4"> 
+  <div class="col-lg-4"
+  	ng-controller="UsageReportsTableController"> 
     <div class="panel panel-default dashboard">
   <div class="panel-heading">
      <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="usageReportsUtils.openAddUsageReportModal(affiliate)"><i class="fa fa-plus"></i> New Report</button></span>
@@ -52,10 +53,19 @@
 		        </tr>
 		      </thead>
 		      <tbody> 
-		        <tr ng-click="usageReportsUtils.goToUsageReport(usageReport)" ng-class="{{usageReport.approvalState === 'NOT_SUBMITTED'}}" ng-repeat="usageReport in affiliate.commercialUsages">
+		        <tr
+		        	ng-repeat="usageReport in affiliate.commercialUsages | orderBy:'-startDate'"
+					ng-click="usageReportsUtils.goToUsageReport(usageReport)" 
+					ng-class="{highlight:usageReportsUtils.isUsageReportWaitingForApplicant(usageReport)}"
+		        	>
 		          <td> 
 		          		<span class="btn-link" tooltip-placement="top">
-		          			<span ng-show="{{usageReport.approvalState === 'NOT_SUBMITTED'}}"  tooltip="Declaration has not been submitted" tooltip-placement="top"><i class="fa fa-exclamation-circle"></i></span>
+		          			<span  tooltip="Declaration has not been submitted" 
+		          				tooltip-placement="top"
+			          			ng-show="usageReportsUtils.isUsageReportWaitingForApplicant(usageReport)"  
+		          				>
+		          				<i class="fa fa-exclamation-circle"></i>
+	          				</span>
 			            	{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}
 		          		</span>
 		          </td>
