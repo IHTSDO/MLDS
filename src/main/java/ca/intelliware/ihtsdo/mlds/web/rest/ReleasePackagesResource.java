@@ -412,6 +412,8 @@ public class ReleasePackagesResource {
     	authorizationChecker.checkCanAccessReleaseVersion(releaseFile.getReleaseVersion());
     	
     	String downloadUrl = releaseFile.getDownloadUrl();
-    	uriDownloader.download(downloadUrl, request, response);
+    	int statusCode = uriDownloader.download(downloadUrl, request, response);
+    	
+    	releasePackageAuditEvents.logDownload(releaseFile, statusCode);
     }
 }

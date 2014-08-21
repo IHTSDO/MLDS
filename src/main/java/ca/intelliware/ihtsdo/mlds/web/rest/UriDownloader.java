@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -23,7 +22,7 @@ public class UriDownloader {
 
     private final Logger log = LoggerFactory.getLogger(UriDownloader.class);
 
-	public void download(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) {
+	public int download(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) {
 		try {
 			CloseableHttpClient httpClient = createHttpClient();
 			try {
@@ -43,6 +42,7 @@ public class UriDownloader {
 			    		log.info("aborted due to hosting="+statusCode);
 			    		clientResponse.sendError(statusCode);
 			    	}
+		    		return statusCode;
 		    	} finally {
 		    		hostingResponse.close();
 		    		log.info("entity download done");
