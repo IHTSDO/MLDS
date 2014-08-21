@@ -49,6 +49,53 @@ describe('UserAffiliateService Tests ', function () {
     		expect(UserAffiliateService.incompleteMemberships).toEqual([swedenMember]);
     	});
     	
+    	it('should add ihtsdoMember as approved if primary application is approved', function() {
+    		affiliate = {
+    		    application: {
+    		        approvalState: 'APPROVED'
+    		    },
+    			applications: []	
+    		};
+    		UserAffiliateService.setAffiliate(affiliate);
+    		expect(UserAffiliateService.approvedMemberships).toEqual([ihtsdoMember]);
+    		expect(UserAffiliateService.incompleteMemberships).toEqual([]);
+    	});
+    	
+    	it('should add ihtsdoMember as incompleteMemberships if primary application if not approved', function() {
+    		affiliate = {
+    		    application: {
+    		        approvalState: 'SUBMITTED'
+    		    },
+    			applications: []	
+    		};
+    		UserAffiliateService.setAffiliate(affiliate);
+    		expect(UserAffiliateService.approvedMemberships).toEqual([]);
+    		expect(UserAffiliateService.incompleteMemberships).toEqual([ihtsdoMember]);
+    	});
+    	
+    	it('should be able to match application based on member and application type', function() {
+    		affiliate = {
+    		    application: {
+    		        approvalState: 'APPROVED'
+    		    },
+    			applications: [
+    			               {
+    			            	   approvalState: 'SUBMITTED',
+    			            	   applicationType: 'EXTENSION',
+    			            	   member: franceMember
+    			               },
+    			               {
+    			            	   approvalState: 'SUBMITTED',
+    			            	   applicationType: 'EXTENSION',
+    			            	   member: swedenMember
+    			               }
+    			               ]	
+    		};
+    		UserAffiliateService.setAffiliate(affiliate);
+    		expect(UserAffiliateService.approvedMemberships).toEqual([ihtsdoMember]);
+    		expect(UserAffiliateService.incompleteMemberships).toEqual([franceMember, swedenMember]);
+    	});
+    	
     	it('should confer ihtsdo approved membership with primary application to a territory', function() {
     		var primary = {
 	            	   approvalState: 'APPROVED',
