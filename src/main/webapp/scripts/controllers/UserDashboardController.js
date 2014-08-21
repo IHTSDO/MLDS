@@ -23,21 +23,9 @@ angular.module('MLDS')
         			$location.path('/affiliateRegistration');
         			return;
         		}
-        		
-        		$scope.affiliate.commercialUsages.sort(function(a, b) {
-        			if (a.startDate && b.startDate) {
-        				return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
-        			} else if (a.startDate) {
-        				return 1;
-        			} else {
-        				return -1;
-        			}
-        		});
         	});
 
         	loadReleasePackages();
-        	
-        	$scope.usageReportsUtils = UsageReportsService;
         	
         	$scope.isApplicationPending = function(application) {
         		return ApplicationUtilsService.isApplicationPending(application);

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('UsageReportsService', [ '$location', '$log', '$modal', 'AffiliateService',
-                                    function($location, $log, $modal, AffiliateService){
+.factory('UsageReportsService', [ '$location', '$log', '$modal', 'AffiliateService', 'ApprovalStateService',
+                                    function($location, $log, $modal, AffiliateService, ApprovalStateService){
 
 	var service = {};
 	
@@ -18,6 +18,10 @@ angular.module('MLDS')
 		return usageReport.countries.reduce(function(total, count) {
 			return total + (count.practices || 0);
 		}, 0);
+	};
+	
+	service.isUsageReportWaitingForApplicant = function(usageReport) {
+		return ApprovalStateService.isWaitingForApplicant(usageReport.approvalState);
 	};
 
 	service.openAddUsageReportModal = function(affiliate) {
