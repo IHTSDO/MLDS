@@ -25,12 +25,6 @@ angular.module('MLDS')
 	$rootScope.$on('event:auth-loginConfirmed', loadUserAffiliate);
 	$rootScope.$on('event:auth-loginCancelled', loadUserAffiliate);
 
-	var addIhtsdoMemberIfMissing = function addIhtsdoMemberIfMissing(memberships) {
-		if (! _.some(memberships, MemberService.isIhtsdoMember)) {
-			memberships.push(MemberService.ihtsdoMember);
-		}
-	};
-	
 	var initializeMemberships = function initializeMemberships() {
 		service.approvedMemberships = _.chain(service.affiliate.applications)
 			.filter(ApplicationUtilsService.isExtensionApplication)

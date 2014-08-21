@@ -38,7 +38,7 @@ describe('ApplicationUtilsService Tests ', function () {
     		});
     	}
     	
-    	//FIXME these tests feel like pure duplication of actual code... Rewrite/remove?
+    	//TODO these tests feel like pure duplication of actual code... Rewrite/remove?
     	
     	it('should be able to test isApplicationWaitingForApplicant', function() {
     		expectTruthyFor(ApplicationUtilsService.isApplicationWaitingForApplicant, ['NOT_SUBMITTED', 'CHANGE_REQUESTED']);
