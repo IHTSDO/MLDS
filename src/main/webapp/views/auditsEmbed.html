@@ -20,7 +20,7 @@
             <span ng-if="audit.data['releaseFile.label']">Release File Label:  {{audit.data['releaseFile.label']}}</span>
             <span ng-if="audit.data['download.statusCode']">Http:  {{audit.data['download.statusCode']}}</span>
             <span ng-if="audit.data['application.name']">Application:  {{audit.data['application.name']}}</span>
-            <span ng-if="audit.data['application.approvalState']">Application State:  {{'approval.state.'+audit.data['application.approvalState'] | translate}}</span>
+            <span ng-if="audit.data['application.approvalState']">Application State:  {{audit.data['application.approvalState'] | enum:'approval.state.'}}</span>
             <span ng-if="audit.data['affiliate.creator']">Affiliate:  {{audit.data['affiliate.creator']}}</span>
             <span ng-if="audit.data['import.success'] === 'true'" class="text-success"><span class="glyphicon glyphicon-ok"></span> Successful Import</span>
             <span ng-if="audit.data['import.success'] === 'false'" class="text-danger"> <span class="glyphicon glyphicon-remove"></span> Failed Import</span>
