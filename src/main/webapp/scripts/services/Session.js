@@ -6,7 +6,6 @@ angular.module('MLDS').factory('Session', ['USER_ROLES','$q', '$log',
 			this.promise = loadedDefer.promise;
 			
 	        this.create = function (login, firstName, lastName, email, userRoles, member) {
-	        	$log.log('Session.create()');
 	            this.login = login;
 	            this.firstName = firstName;
 	            this.lastName = lastName;
@@ -16,7 +15,6 @@ angular.module('MLDS').factory('Session', ['USER_ROLES','$q', '$log',
 	            loadedDefer.resolve(this);
 	        };
 	        this.invalidate = function () {
-	        	$log.log('Session.invalidate()');
 	            this.login = null;
 	            this.firstName = null;
 	            this.lastName = null;

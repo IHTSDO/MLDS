@@ -27,7 +27,7 @@ angular.module('MLDS')
 				service.countriesByIsoCode2[c.isoCode2] = c;
 			});
 			
-			$log.log('CountryService', service);
+			// $log.log('CountryService', service);
 		});
 		
 		return service;

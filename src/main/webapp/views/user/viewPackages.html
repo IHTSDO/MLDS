@@ -13,6 +13,7 @@
 	<h2>
 		{{'global.member.'+memberReleases.packages[0].member.key | translate}} 
 		<a class="btn-sm btn-link" ng-click="viewLicence(memberReleases.packages[0].member.key)">View Licence</a>
+		<a class="btn btn-success btn-sm pull-right" ng-show="!isMembershipApproved(memberReleases.packages[0].member)" ng-click="utils.openExtensionApplication(memberReleases.packages[0])">Apply for Extension</a>
 		<a class="btn btn-success btn-sm pull-right" ng-show="!$root.authenticated" href="#/login">Login to download</a>
 	</h2>
 	<div class="row" ng-repeat="releasePackage in memberReleases.packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished">

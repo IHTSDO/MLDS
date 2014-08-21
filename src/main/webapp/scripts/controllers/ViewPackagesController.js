@@ -9,6 +9,8 @@ angular.module('MLDS')
 	$scope.releasePackagesByMember = [];
 	$scope.alerts = [];
 	
+	$scope.isMembershipApproved = UserAffiliateService.isMembershipApproved;
+	
 	$scope.viewLicence = function (memberKey) {
 		MemberService.getMemberLicence(memberKey);
 	};
