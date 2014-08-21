@@ -27,7 +27,6 @@ angular.module('MLDS')
 				service.membersByKey[m.key] = m;
 			});
 			
-			$log.log('MemberService', service);
 		});
 		
 		//FIXME is there a better way to indicate the IHTSDO/international member?
