@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +15,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
+import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.web.rest.RouteLinkBuilder;
+import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -39,6 +44,34 @@ public class JacksonConfigurer {
 	public Module mldsModule(final EntityManager em) {
 		SimpleModule mldsModule = new SimpleModule("MLDS Jackson");
 		
+		mldsModule.addSerializer(ReleaseFile.class, new JsonSerializer<ReleaseFile>() {
+			@Override
+			public void serialize(ReleaseFile value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+				jgen.writeStartObject();
+				jgen.writeObjectField("releaseFileId", value.getReleaseFileId());
+				jgen.writeObjectField("label", value.getLabel());
+				jgen.writeObjectField("createdAt", value.getCreatedAt());
+				jgen.writeObjectField("clientDownloadUrl", calculateClientDownloadUrl(value));
+				if (isToSeeRawDownloadUrl()) {
+					jgen.writeObjectField("downloadUrl", value.getDownloadUrl());
+				}
+				jgen.writeEndObject();
+			}
+
+			private boolean isToSeeRawDownloadUrl() {
+				return new CurrentSecurityContext().isStaffOrAdmin();
+			}
+
+			private URI calculateClientDownloadUrl(ReleaseFile value) {
+				RouteLinkBuilder routeLinkBuilder = new RouteLinkBuilder();
+				return routeLinkBuilder.toURLWithKeyValues(
+						Routes.RELEASE_FILE_DOWNLOAD, 
+						"releasePackageId", value.getReleaseVersion().getReleasePackage().getReleasePackageId(),
+						"releaseVersionId", value.getReleaseVersion().getReleaseVersionId(),
+						"releaseFileId", value.getReleaseFileId()
+						);
+			}});
+		
 		mldsModule.addSerializer(Member.class, new JsonSerializer<Member>() {
 			@Override
 			public void serialize(Member value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
@@ -46,6 +79,7 @@ public class JacksonConfigurer {
 				jgen.writeObjectField("key", value.getKey());
 				jgen.writeEndObject();
 			}});
+		
 		mldsModule.addDeserializer(Member.class, new JsonDeserializer<Member>() {
 			@Override
 			public Member deserialize(JsonParser jp, DeserializationContext ctxt)
