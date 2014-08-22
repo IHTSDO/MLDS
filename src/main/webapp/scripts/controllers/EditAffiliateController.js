@@ -53,7 +53,9 @@ mldsApp.controller('EditAffiliateController', [
 
 	    		AffiliateService.updateAffiliateDetails($scope.affiliate.affiliateId, $scope.affiliateDetails)
 	    			.success(function(result) {
-	    				$location.path('/affiliates/'+ affiliateId);
+	    				$scope.affiliateDetails = result.data;
+	    				$scope.submitting = false;
+	    				$scope.alerts.push({type: 'success', msg: 'Contact information has been successfully saved.'});
 	    			})
 				["catch"](function(message) {
 					$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
