@@ -10,7 +10,7 @@ mldsApp.controller('MainController', ['$scope', '$rootScope', 'Session', '$log',
 		        return !func(item); 
 		    };
 		};
-		$log.log(Session.promise);
+		//$log.log(Session.promise);
 		$rootScope.Session = Session;
 		
 //		Session.promise
