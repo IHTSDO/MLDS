@@ -151,16 +151,6 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
-                .when('/adminDashboard', {
-                    templateUrl: 'views/admin/adminDashboard.html',
-                    controller: 'AdminDashboardController',
-                    access: {
-                        authorizedRoles: USER_ROLES.staffOrAdmin
-                    },
-                    resolve: {
-                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
-                    }
-                })
                 .when('/packageManagement', {
                     templateUrl: 'views/admin/packageManagement.html',
                     controller: 'PackageManagementController',
@@ -426,7 +416,7 @@ mldsApp
                     $rootScope.authenticated = true;
                     if ($location.path() === "/login") {
                     	if (AuthenticationSharedService.isAuthorized(USER_ROLES.staffOrAdmin)) {
-                    		$location.path('/adminDashboard').replace();                    		
+                    		$location.path('/pendingApplications').replace();                    		
                     	} else {
                     		$location.path('/dashboard').replace();
                     	}

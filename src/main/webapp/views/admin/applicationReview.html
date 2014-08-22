@@ -9,7 +9,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<div class="applicant-info">
-			<p><strong>Issue No:</strong> {{application.applicationId}}</p>
+			<p><strong>Application No:</strong> {{application.applicationId}}</p>
 			<div ng-show="application.organizationName">
 				<h4 class="application-title">{{application.organizationName}} - {{application.name}} <span class="label label-success">{{application.approvalState | enum:'approval.state.'}}</span></h4>
 				<p> <strong>Application Date: {{application.submittedAt | date}}</strong> </p>
