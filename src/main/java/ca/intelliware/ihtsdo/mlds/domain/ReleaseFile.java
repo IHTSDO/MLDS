@@ -11,9 +11,11 @@ import javax.persistence.Table;
 import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="release_file")
+@JsonIgnoreProperties(ignoreUnknown=true) // we're attaching a clientDownloadUrl that we should ignore when de-serializing
 public class ReleaseFile extends BaseEntity {
 
 	@Id
@@ -35,6 +37,8 @@ public class ReleaseFile extends BaseEntity {
 	@Column(name="download_url")
 	String downloadUrl;
 
+	// Note:
+	// String clientDownloadUrl = rest endpoint calculated in JSON JacksonConfigurer
 
 	public Instant getCreatedAt() {
 		return createdAt;

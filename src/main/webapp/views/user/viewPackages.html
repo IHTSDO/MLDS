@@ -40,7 +40,7 @@
 								<div class="col-sm-2"><strong>Current: {{version.name}}</strong></div>
 								<ul class="list-unstyled">
 									<li ng-repeat="releaseFile in version.releaseFiles">
-										<a href="{{'/app/rest/releasePackages/'+releasePackage.releasePackageId+'/releaseVersions/'+releaseVersion.releaseVersionId+'/releaseFiles/'+releaseFile.releaseFileId+'/download'}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl || isMembershipUnstarted || isMembershipIncomplete" target="_blank">{{releaseFile.label}}</a>
+										<a href="{{releaseFile.clientDownloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.clientDownloadUrl || isMembershipUnstarted || isMembershipIncomplete" target="_blank">{{releaseFile.label}}</a>
 									</li>
 								</ul>
 							</div>
