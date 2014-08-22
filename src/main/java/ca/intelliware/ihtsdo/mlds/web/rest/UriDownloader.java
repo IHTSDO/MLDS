@@ -30,22 +30,18 @@ public class UriDownloader {
 		    	copyClientHeadersToHostingRequest(clientRequest, hostingRequest);
 		    	CloseableHttpResponse hostingResponse = httpClient.execute(hostingRequest);
 		    	try {
-		    		log.info("entity url="+downloadUrl+" disp="+hostingResponse.getFirstHeader("Content-Disposition")+" type="+hostingResponse.getFirstHeader("Content-Type"));
 		    		int statusCode = hostingResponse.getStatusLine().getStatusCode();
 		    		if (statusCode >= 200 && statusCode < 300) {
 				    	copyHostingHeadersToClientResponse(hostingResponse, clientResponse);
 				    	setContentDispositionIfMissing(hostingResponse, clientResponse, downloadUrl);
 				    	HttpEntity hostingEntity = hostingResponse.getEntity();
-				    	log.info("entity streaming="+hostingEntity.isStreaming());
 				    	hostingEntity.writeTo(clientResponse.getOutputStream());
 			    	} else {
-			    		log.info("aborted due to hosting="+statusCode);
 			    		clientResponse.sendError(statusCode);
 			    	}
 		    		return statusCode;
 		    	} finally {
 		    		hostingResponse.close();
-		    		log.info("entity download done");
 		    	}
 			} finally {
 				httpClient.close();
