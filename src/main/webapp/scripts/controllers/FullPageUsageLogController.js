@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('FullPageUsageLogController', ['$scope', '$log', 'CountryService', 'CommercialUsageService', '$routeParams', 'Events', '$q', 
-                                                 		function($scope, $log, CountryService, CommercialUsageService, $routeParams, Events, $q) {
+angular.module('MLDS').controller('FullPageUsageLogController', ['$scope', '$log', 'CountryService', 'CommercialUsageService', '$routeParams', 'Events', '$q', '$location',
+                                                 		function($scope, $log, CountryService, CommercialUsageService, $routeParams, Events, $q, $location) {
 
 	var usageReportDefer = $q.defer();
 
@@ -29,5 +29,9 @@ angular.module('MLDS').controller('FullPageUsageLogController', ['$scope', '$log
 			}
 		});
 	}
+	
+	$scope.goToDashboard = function() {
+		$location.path('/dashboard');	
+	};
 	
 }]);
