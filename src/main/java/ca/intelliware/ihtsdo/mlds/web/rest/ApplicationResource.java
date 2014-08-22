@@ -146,7 +146,7 @@ public class ApplicationResource {
 		} else {
 			// Limited OData implementation - expand or use real OData library in the future
 			if (Objects.equal(filter, "approvalState/pending eq true")) {
-				applications = applicationRepository.findByApprovalStateIn(Lists.newArrayList(ApprovalState.SUBMITTED, ApprovalState.RESUBMITTED, ApprovalState.REVIEW_REQUESTED));
+				applications = applicationRepository.findByApprovalStateIn(Lists.newArrayList(ApprovalState.SUBMITTED, ApprovalState.RESUBMITTED, ApprovalState.REVIEW_REQUESTED, ApprovalState.CHANGE_REQUESTED));
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
