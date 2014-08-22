@@ -2,9 +2,7 @@
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12"> 
 		<div class="page-header">
-			<h1>
-				Available Release Packages
-			</h1>
+			<h1>SNOMED CT - Downloads</h1>
 		</div>
 	</div>
 </div>
@@ -13,10 +11,6 @@
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<div>
-				<span class="pull-right">
-					<a class="btn btn-success btn-sm" ng-show="!isMembershipApproved(memberReleases.packages[0].member)" ng-click="utils.openExtensionApplication(memberReleases.packages[0])">Apply for Extension</a>
-					<a class="btn btn-success btn-sm" ng-show="!$root.authenticated" href="#/login">Login to download</a>
-				</span>
 				<h2>
 					{{memberReleases.packages[0].member.key | enum:'global.member.'}} 
 					<a class="btn-sm btn-link" ng-click="viewLicence(memberReleases.packages[0].member.key)">View Licence</a>
@@ -26,38 +20,30 @@
 	</div>
 	<div class="row" ng-repeat="releasePackage in memberReleases.packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished">
 		<div class="col-sm-12 col-md-12 col-lg-12"> 
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">{{releasePackage.name}}</h3>
+			<div class="well package">
+				<div class="pull-right" ng-show="$root.authenticated">
+					<span class="alert alert-warning" ng-show="!isPrimaryApplicationApproved">Primary application is being processed</span>
+					<button class="btn btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved && !isIHTSDOPackage" ng-click="utils.openExtensionApplication(releasePackage)">			
+						Apply for extension
+					</button>
+					<span class="alert alert-warning" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant && isPrimaryApplicationApproved && !isIHTSDOPackage">Application being processed</span>
+					<span class="alert alert-warning" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant && !isIHTSDOPackage">
+						Application being updated, 
+						<span ng-click="goToExtensionApplication()" class="btn btn-link">click to view application.</span>
+					</span>
 				</div>
-				<div class="panel-body">
+					<h3>{{releasePackage.name}}</h3>
 					<p>{{releasePackage.description}}</p>
-					<table class="table table-striped table-bordered table-hover">
-						<thead>
-							<tr>
-								<th>Version</th>
-								<th>Description</th>
-								<th>Files</th>
-								<th>Date Released</th>
-							</tr>
-						</thead>
-						<tbody>
-	
-							<tr ng-repeat="version in releasePackage.releaseVersions | filter: utils.isVersionOnline"
+							<div ng-repeat="version in releasePackage.releaseVersions | filter: utils.isVersionOnline"
 							ng-show="utils.isLatestVersion(version, (releasePackage.releaseVersions | filter: utils.isVersionOnline))" 
 							ng-click="goToViewPackagePage(releasePackage.releasePackageId)">
-								<td class="col-sm-2">{{version.name}}</td>
-								<td class="col-sm-6">{{version.description}}</td>
-								<td class="col-sm-2">
-									<span ng-repeat="file in version.releaseFiles">
-										<span>{{file.label}}</span><span ng-show="!$last">, </span>
-									</span>
-								</td>
-								<td class="col-sm-2">{{version.publishedAt | date:'medium'}}</td>
-							</tr>
-						</tbody>
-					</table>
-	
+								<div class="col-sm-2"><strong>Current: {{version.name}}</strong></div>
+								<ul class="list-unstyled">
+									<li ng-repeat="releaseFile in version.releaseFiles">
+										<a href="{{'/app/rest/releasePackages/'+releasePackage.releasePackageId+'/releaseVersions/'+releaseVersion.releaseVersionId+'/releaseFiles/'+releaseFile.releaseFileId+'/download'}}" class="btn btn-link" ng-disabled="!releaseFile.downloadUrl || isMembershipUnstarted || isMembershipIncomplete" target="_blank">{{releaseFile.label}}</a>
+									</li>
+								</ul>
+							</div>
 				</div>
 	
 			</div>
