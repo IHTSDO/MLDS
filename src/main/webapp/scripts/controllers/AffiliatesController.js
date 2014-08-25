@@ -13,42 +13,62 @@ mldsApp.controller('AffiliatesController', [
 				PackagesService, AffiliateService) {
 
 			$scope.affiliates = [];
-			$scope.showAllAffiliates = false;
-			$scope.affiliatesFilter = '';
+			$scope.showAllAffiliates = 0;
+			$scope.homeMember = Session.member || {member: 'NONE'};
+			$scope.downloadingAffiliates = false;
+			$scope.query = '';
+			$scope.page = 0;
 
 			$scope.alerts = [];
 
-			function loadAffiliates() {
-				$scope.affiliates = AffiliateService.affiliatesResource.query({q:''});
-				$scope.affiliates.$promise
+			function loadMoreAffiliates() {
+				if ($scope.downloadingAffiliates) {
+					return;
+				}
+				$scope.downloadingAffiliates = true;
+				$scope.alerts = [];
+				//$log.log("wanting existing "+$scope.affiliates.length+" page="+$scope.page);
+				AffiliateService.filterAffiliates($scope.query, $scope.page, 50, $scope.showAllAffiliates==1?null:$scope.homeMember)
 					.then(function(response) {
-						toggleAffiliates();
+						//$log.log("...appending "+response.data.length+" to existing "+$scope.affiliates.length+" page="+$scope.page);
+						_.each(response.data, function(a) {
+							$scope.affiliates.push(a);
+						});
+						$scope.page = $scope.page + 1;
+						$scope.downloadingAffiliates = false;
 					})
 					["catch"](function(message) {
-						$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+						$scope.downloadingAffiliates = false;
+						$log.log("affiliates download failure: "+message);
+						$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
 					});
 			}
+			
+			function loadAffiliates() {
+				//Force clear - note loadMoreAffiliates works on alias
+				$scope.affiliates = [];
+				$scope.page = 0;
+				
+				loadMoreAffiliates();
+			}
 
-			loadAffiliates();
-			
-			$scope.$watch('showAllAffiliates', function() {
-				if ($scope.affiliates.$resolved) {
-					toggleAffiliates();
-				}
-			});
-			
-			function toggleAffiliates() {
-				if ($scope.affiliatesFilter) {
-					$scope.affiliatesFilter = '';
-				} else {
-					var memberKey = Session.member && Session.member.key || 'NONE';
-					$scope.affiliatesFilter = {'homeMember': memberKey};
-				}
+			$scope.$watch('showAllAffiliates', loadAffiliates);
+			$scope.$watch('query', loadAffiliates);
+						
+			$scope.nextPage = function() {
+				return loadMoreAffiliates();
 			};
-
+			
 			$scope.affiliateActiveDetails = function(affiliate) {
-				return affiliate.affiliateDetails || (affiliate.application && affiliate.application.affiliateDetails) || {};
+				return affiliate.affiliateDetails 
+					|| (affiliate.application && affiliate.application.affiliateDetails) 
+					|| {};
 			};
+			
+			$scope.viewAffiliate = function viewAffiliate(affiliateId) {
+				$location.path('/affiliates/' + affiliateId);
+			};
+			
 			
 			$scope.viewApplication = function(application) {
         		var modalInstance = $modal.open({
@@ -62,6 +82,5 @@ mldsApp.controller('AffiliatesController', [
         				}
         			}
         		});
-
 			};
 		} ]);

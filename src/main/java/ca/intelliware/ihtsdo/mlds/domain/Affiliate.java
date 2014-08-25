@@ -16,12 +16,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.Validate;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Sets;
 
 @Entity
-public class Affiliate {
+@Indexed
+public class Affiliate extends BaseEntity {
+
 	@Id
 	@GeneratedValue
 	@Column(name="affiliate_id")
@@ -36,17 +43,23 @@ public class Affiliate {
 	//FIXME username of user
 	String creator;
 	
+	@Column(name="import_key")
+	String importKey;
+	
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="affiliate")
 	Set<CommercialUsage> commercialUsages = Sets.newHashSet();
 
 	@OneToOne()
 	@JoinColumn(name="affiliate_details_id")
+	@IndexedEmbedded(prefix="")
 	AffiliateDetails affiliateDetails;
 	
+	@JsonIgnoreProperties({"affiliate"})
 	@OneToOne()
 	@JoinColumn(name="application_id")
 	PrimaryApplication application;
 
+	@JsonIgnoreProperties({"affiliate"})
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="affiliate")
 	Set<Application> applications = Sets.newHashSet();
 
@@ -54,6 +67,11 @@ public class Affiliate {
 	@JoinColumn(name="home_member_id")
     Member homeMember;
 
+	@JsonIgnore
+	@Field(name="homeMember")
+	public String getHomeMemberKey() {
+		return homeMember!= null?homeMember.getKey():null;
+	}
 	
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
@@ -83,6 +101,15 @@ public class Affiliate {
 		return Collections.unmodifiableSet(applications);
 	}
 
+	public Affiliate() {
+		
+	}
+	
+	//For Tests
+	public Affiliate(Long affiliateId) {
+		this.affiliateId = affiliateId;
+	}
+	
 	public String getCreator() {
 		return creator;
 	}
@@ -127,4 +154,18 @@ public class Affiliate {
 	public void setHomeMember(Member homeMember) {
 		this.homeMember = homeMember;
 	}
+
+	public String getImportKey() {
+		return importKey;
+	}
+
+	public void setImportKey(String importKey) {
+		this.importKey = importKey;
+	}
+
+	@Override
+	protected Object getPK() {
+		return affiliateId;
+	}
+
 }

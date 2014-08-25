@@ -120,7 +120,7 @@
     "activate": {
         "title": "Activation",
         "messages": {
-            "success": "<strong>Your user has been activated.</strong> Please continue your registration.",
+            "success": "<strong>User account has been created.</strong> The system will take you to continue your registration process in a few moments.",
             "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up."
         }
     },
@@ -146,7 +146,7 @@
             "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
             "error": {
                 "fail": "<strong>Registration failed!</strong> Please try again later.",
-                "userexists": "<strong>A user has already registered with that email address.</strong> Did you mean to login?"
+                "userexists": "<strong>A user has already registered with that email address.</strong> Did you mean to <a href='#/login'>login</a>?"
             }
         }
     },
@@ -160,7 +160,7 @@
         },
         "messages": {
             "error": {
-                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again."
+                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again. Passwords are case sensitive."
             }
         }
     },
@@ -191,7 +191,7 @@
         }
     },
     "password": {
-        "title": "Password for [<b>{{username}}</b>]",
+        "title": "Password for {{username}}",
         "form": {
             "button": "Save"
         },
@@ -397,5 +397,13 @@
 				"APPROVED": "Approved",
 				"REJECTED": "Declined"
     	}	
+    },
+    "application": {
+    	"applicationType": {
+    		"PRIMARY": "Primary",
+    		"EXTENSION": "Extension",
+    		"IMPORT": "Import"
+    	}
     }
+    
 }

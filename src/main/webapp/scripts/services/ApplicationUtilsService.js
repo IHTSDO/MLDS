@@ -1,32 +1,27 @@
 'use strict';
 
-mldsApp.factory('ApplicationUtilsService', [function(){
+mldsApp.factory('ApplicationUtilsService', ['ApprovalStateUtils', function(ApprovalStateUtils){
 		
 		var service = {};
 			
-		service.isApplicationWaitingForApplicant = function(application) {
-			return (!application.approvalState
-				|| application.approvalState === 'NOT_SUBMITTED'
-				|| application.approvalState === 'CHANGE_REQUESTED');
+		service.isApplicationWaitingForApplicant = function isApplicationWaitingForApplicant(application) {
+			return ApprovalStateUtils.isWaitingForApplicant(application.approvalState);
 		};
 
-		service.isApplicationApproved = function(application) {
-			return (application.approvalState === 'APPROVED');
+		service.isApplicationApproved = function isApplicationApproved(application) {
+			return ApprovalStateUtils.isApproved(application.approvalState);
 		};
 
-		service.isApplicationRejected = function(application) {
-			return (application.approvalState === 'REJECTED');
+		service.isApplicationRejected = function isApplicationRejected(application) {
+			return ApprovalStateUtils.isRejected(application.approvalState);
 		};
 
-		service.isApplicationIncomplete = function(application) {
-			return (application.approvalState !== 'APPROVED'
-				&& application.approvalState !== 'REJECTED');
+		service.isApplicationIncomplete = function isApplicationIncomplete(application) {
+			return ApprovalStateUtils.isIncomplete(application.approvalState);
 		};
 			
-		service.isApplicationPending = function(application) {
-			return (application.approvalState === 'SUBMITTED'
-				|| application.approvalState === 'RESUBMITTED'
-				|| application.approvalState === 'REVIEW_REQUESTED');
+		service.isApplicationPending = function isApplicationPending(application) {
+			return ApprovalStateUtils.isPending(application.approvalState);
 		};
 
 		service.getOrganizationTypes = function() {
@@ -34,6 +29,14 @@ mldsApp.factory('ApplicationUtilsService', [function(){
 			        'RESEARCH_AND_DEVELOPMENT_ORGANIZATION', 'HEALTHERCARE_APPLICATION_DEVELOPER',
 			        'GENERAL_PRACTITIONER_PRACTICE', 'EDUCATIONAL_INSTITUTE', 'OTHER'
 			];
+		};
+		
+		service.isPrimaryApplication = function isPrimaryApplication(application) {
+			return (application.applicationType === 'PRIMARY');
+		};
+
+		service.isExtensionApplication = function isExtensionApplication(application) {
+			return (application.applicationType === 'EXTENSION');
 		};
 		
 		return service;

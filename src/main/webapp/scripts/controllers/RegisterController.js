@@ -6,7 +6,6 @@ mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$
 		
         $scope.success = null;
         $scope.error = null;
-        $scope.doNotMatch = null;
         $scope.errorUserExists = null;
         $scope.registerAccount = {};
         $scope.confirmPassword = null;
@@ -26,7 +25,6 @@ mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$
     			return;
     		}
             $scope.registerAccount.langKey = $translate.use();
-            $scope.doNotMatch = null;
             $scope.registerAccount.login = $scope.registerAccount.email;
             $log.log('initialUsagePeriod', CommercialUsageService.generateRanges());
             

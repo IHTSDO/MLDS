@@ -22,12 +22,6 @@ public class UserDTO {
 
     private List<String> roles;
 
-    private boolean emailVerified;
-
-	private boolean applicationApproved;
-	
-	private boolean applicationMade;
-
 	private CommercialUsagePeriod initialUsagePeriod;
 	
 	private Country country;
@@ -41,7 +35,7 @@ public class UserDTO {
 
     
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   List<String> roles, boolean emailVerified, boolean applicationMade, boolean applicationApproved, CommercialUsagePeriod submissionPeriod,
+                   List<String> roles, CommercialUsagePeriod submissionPeriod,
                    Member staffOrAdminMember) {
         this.login = login;
         this.password = password;
@@ -50,25 +44,10 @@ public class UserDTO {
         this.email = email;
         this.langKey = langKey;
         this.roles = roles;
-        this.emailVerified = emailVerified;
-        this.applicationMade = applicationMade;
-        this.applicationApproved = applicationApproved;
         this.setInitialUsagePeriod(submissionPeriod);
         this.member = staffOrAdminMember;
     }
 
-    public boolean isApplicationMade() {
-    	return applicationMade;
-    }
-    
-    public boolean isEmailVerified() {
-    	return emailVerified;
-    }
-    
-    public boolean isApplicationApproved() {
-    	return applicationApproved;
-    }
-    
     public String getPassword() {
         return password;
     }

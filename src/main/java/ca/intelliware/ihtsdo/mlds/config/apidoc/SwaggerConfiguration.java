@@ -1,5 +1,16 @@
 package ca.intelliware.ihtsdo.mlds.config.apidoc;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.env.Environment;
+
 import com.mangofactory.swagger.configuration.JacksonScalaSupport;
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
 import com.mangofactory.swagger.configuration.SpringSwaggerModelConfig;
@@ -7,18 +18,8 @@ import com.mangofactory.swagger.configuration.SwaggerGlobalSettings;
 import com.mangofactory.swagger.core.SwaggerApiResourceListing;
 import com.mangofactory.swagger.scanners.ApiListingReferenceScanner;
 import com.wordnik.swagger.model.ApiInfo;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
-import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.List;
-
-@Configuration
+//@Configuration we aren't using this, so let's skip the bloat
 @ComponentScan(basePackages = "com.mangofactory.swagger")
 public class SwaggerConfiguration implements EnvironmentAware {
     public static final List<String> DEFAULT_INCLUDE_PATTERNS = Arrays.asList("/app/rest/.*");

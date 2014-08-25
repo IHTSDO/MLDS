@@ -2,16 +2,24 @@
 	<div class="col-md-12">
 		<div class="page-header">
 			<h1>Pending Applications</h1>
-			<button class="btn btn-primary" ng-model="showAllApplications" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Show all member applications</button>
+			
+			<div>
+				<span>Show: </span>
+				<select ng-model="showAllApplications">
+					<option value="0" selected="selected">My Pending Applications</option>
+					<option value="1">All Applications</option>
+				</select>
+			</div>
 		</div>
+		
 		<div class="table-responsive">
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Date Submitted</th>
-						<th>Status</th>
-						<th>Type</th>
-						<th class="text-right">No. of Sublicences</th>
+						<th><a ng-click="orderByField='submittedAt'; reverseSort = !reverseSort">Date Submitted <span ng-show="orderByField == 'submittedAt'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span></a></th>
+						<th><a ng-click="orderByField='approvalState'; reverseSort = !reverseSort">Status <span ng-show="orderByField == 'approvalState'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span></a></th>
+						<th><a ng-click="orderByField='applicationType'; reverseSort = !reverseSort">Type <span ng-show="orderByField == 'applicationType'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span></a></th>
+						<th>Assigned Member</th>
 						<th>Affiliate Name</th>
 						<th>Home Country</th>
 						<th>Use Type</th>
@@ -20,15 +28,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="application in applications | filter: applicationSearch">
+					<tr ng-repeat="application in applications | filter:applicationSearch | orderBy:orderByField:reverseSort" ng-switch="application.applicationType">
+									
 					<td>{{application.submittedAt | date}}</td>
-					<td>{{'approval.state.'+application.approvalState | translate}}</td>
-					<td>New</td>
-					<td class="text-right">{{totalSublicences(application.commercialUsage) | number}}</td>
+					<td>{{application.approvalState | enum:'approval.state.'}}</td>
+					<td>{{application.applicationType | enum:'application.applicationType.'}}</td>
+					
+					<td>{{application.member.key | enum:'global.member.'}}</td>
 					<td>{{application.affiliateDetails.organizationName ? application.affiliateDetails.organizationName : application.affiliateDetails.firstName + ' '+application.affiliateDetails.lastName}}</td>
 					<td>{{application.affiliateDetails.address.country.commonName}}</td>
-					<td>{{'affiliate.type.'+application.type | translate}} - {{'affiliate.subType.'+application.subType | translate}}</td>
-					<td>{{'affiliate.agreementType.'+application.commercialUsage.context.agreementType | translate}}</td>
+					<td ng-switch-when="PRIMARY">{{application.type | enum:'affiliate.type.'}} - {{application.subType | enum:'affiliate.subType.'}}</td>
+					<td ng-switch-when="PRIMARY">{{application.commercialUsage.context.agreementType | enum:'affiliate.agreementType.'}}</td>
+					
+					<td ng-switch-when="EXTENSION">{{application.affiliate.type | enum:'affiliate.type.'}}</td>
+					<td ng-switch-when="EXTENSION">{{application.affiliate.commercialUsages[0].context.agreementType | enum:'affiliate.agreementType.'}}</td>
+					
 					<td> <a class="btn btn-primary btn-sm" ng-click="goToApplication(application)"><i class="fa fa-pencil"></i> Review</a></td>
 				</tr>
 				</tbody>

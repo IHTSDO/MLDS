@@ -12,7 +12,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -25,9 +24,8 @@ import ca.intelliware.ihtsdo.mlds.domain.Authority;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
-import ca.intelliware.ihtsdo.mlds.web.UserInfo;
-import ca.intelliware.ihtsdo.mlds.web.UserInfoCalculator;
 
 /**
  * Test class for the AccountResource REST controller.
@@ -42,9 +40,6 @@ public class AccountResourceTest {
     @Mock
     private UserMembershipAccessor userMembershipAccessor;
 
-    @Mock
-    private UserInfoCalculator userInfoCalculator;
-    
     private MockMvc restUserMockMvc;
     
     @Before
@@ -53,8 +48,6 @@ public class AccountResourceTest {
         AccountResource accountResource = new AccountResource();
         ReflectionTestUtils.setField(accountResource, "userService", userService);
         accountResource.userMembershipAccessor = userMembershipAccessor;
-        accountResource.userInfoCalculator = userInfoCalculator;
-        Mockito.stub(userInfoCalculator.createUserInfo()).toReturn(new UserInfo());
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(accountResource).build();
     }
 
@@ -95,7 +88,7 @@ public class AccountResourceTest {
         user.setEmail("john.doe@jhipter.com");
         user.setAuthorities(authorities);
         when(userService.getUserWithAuthorities()).thenReturn(user);
-        when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(new Member("IHTSDO"));
+        when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(new Member("IHTSDO", 1));
 
         restUserMockMvc.perform(get("/app/rest/account")
                 .accept(MediaType.APPLICATION_JSON))

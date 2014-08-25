@@ -58,6 +58,10 @@ public class CommercialUsageCountry extends BaseEntity {
 	public Integer getPractices() {
 		return practices;
 	}
+	
+	public void setPractices(Integer practices) {
+		this.practices = practices;
+	}
 
 	public CommercialUsage getCommercialUsage() {
 		return commercialUsage;

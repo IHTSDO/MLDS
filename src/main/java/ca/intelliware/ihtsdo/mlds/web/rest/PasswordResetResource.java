@@ -3,10 +3,10 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 
-import org.apache.commons.lang.Validate;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
 import ca.intelliware.ihtsdo.mlds.service.mail.PasswordResetEmailSender;
@@ -37,15 +36,20 @@ public class PasswordResetResource {
 
 	@RequestMapping(value=Routes.PASSWORD_RESET,
 			method = RequestMethod.POST,
-    		produces = "application/json")
-	@RolesAllowed(AuthoritiesConstants.USER)
+    		produces = MediaType.APPLICATION_JSON_VALUE)
+	@PermitAll
 	public ResponseEntity<String> requestPasswordReset(@RequestBody Map<String,Object> params) {
 		// FIXME MLDS-20 validate email - bad request
 		// look up user - not found?
 		String emailAddress = (String) params.get("email");
-		Validate.notEmpty(emailAddress);
+		if (Strings.isNullOrEmpty(emailAddress)) {
+			return new ResponseEntity<>("no email provided", HttpStatus.BAD_REQUEST);
+		}
 		
 		final User user = userRepository.getUserByEmail(emailAddress);
+		if (user == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		
 		final String tokenKey = passwordResetService.createTokenForUser(user);
 		
@@ -56,8 +60,8 @@ public class PasswordResetResource {
 
 	@RequestMapping(value=Routes.PASSWORD_RESET_ITEM,
 			method = RequestMethod.POST,
-    		produces = "application/json")
-	@RolesAllowed(AuthoritiesConstants.USER)
+    		produces = MediaType.APPLICATION_JSON_VALUE)
+	@PermitAll
 	public ResponseEntity<String> resetPassword(@PathVariable String token, @RequestBody Map<String,Object>params) {
 		
 		String newPassword = (String) params.get("password");
