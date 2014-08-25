@@ -153,7 +153,7 @@ mldsApp
                 })
                 .when('/releaseManagement', {
                     templateUrl: 'views/admin/releaseManagement.html',
-                    controller: 'PackageManagementController',
+                    controller: 'ReleaseManagementController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -164,7 +164,7 @@ mldsApp
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
                 .when('/releaseManagement/release/:packageId', {
                     templateUrl: 'views/admin/release.html',
-                    controller: 'PackageController',
+                    controller: 'ReleaseController',
                     access: {
                     	authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -174,7 +174,7 @@ mldsApp
                 })
                 .when('/releaseManagement/release/:packageId/:edit', {
                     templateUrl: 'views/admin/release.html',
-                    controller: 'PackageController',
+                    controller: 'ReleaseController',
                     access: {
                     	authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -185,7 +185,7 @@ mldsApp
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
                 .when('/viewReleases', {
                     templateUrl: 'views/user/viewReleases.html',
-                    controller: 'ViewPackagesController',
+                    controller: 'ViewReleasesController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
                     },
@@ -195,7 +195,7 @@ mldsApp
                 })
                 .when('/viewReleases/viewRelease/:releasePackageId', {
                     templateUrl: 'views/user/viewRelease.html',
-                    controller: 'ViewPackageController',
+                    controller: 'ViewReleaseController',
                     access: {
                     	authorizedRoles: [USER_ROLES.all]
                     },
@@ -434,7 +434,7 @@ mldsApp
                     		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
                     		$location.path() !== "/resetPassword" &&
-                    		$location.path().indexOf("/viewPackage") == -1 &&
+                    		$location.path().indexOf("/viewRelease") == -1 &&
                     		$location.path() !== "/viewReleases" &&
                     		$location.path() !== "/emailVerification" &&
                             $location.path() !== "/activate") {

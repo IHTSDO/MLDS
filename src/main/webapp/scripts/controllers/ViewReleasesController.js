@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS')
-    .controller('ViewPackagesController', 
+    .controller('ViewReleasesController', 
     		['$scope', '$log', 'PackagesService', 'PackageUtilsService', '$location', 'MemberService', 'UserAffiliateService',
            function ($scope, $log, PackagesService, PackageUtilsService, $location, MemberService, UserAffiliateService) {
 			
