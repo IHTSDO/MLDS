@@ -16,6 +16,8 @@ mldsApp.controller('PendingApplicationsController', [
 			$scope.showAllApplications = 0;
 			$scope.applicationSearch = '';
 
+			$scope.orderByField = 'submittedAt';
+			$scope.reverseSort = false;
 
 			function loadApplications() {
 				// FIXME should be replaced by API call
