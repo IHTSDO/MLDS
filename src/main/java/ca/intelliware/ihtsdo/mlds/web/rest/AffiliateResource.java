@@ -194,7 +194,7 @@ public class AffiliateResource {
 	@RolesAllowed({AuthoritiesConstants.ADMIN})
     @RequestMapping(value = Routes.AFFILIATES_CSV,
     		method = RequestMethod.GET,
-            produces = "application/csv")
+            produces = "application/csv;charset=UTF-8")
     public @ResponseBody ResponseEntity<String> exportAffiliates(@RequestParam(value="generate",required = false) Integer generateRows) throws IOException {
 		//FIXME DGJ Introduce parameter to generate phoney data until we can add an application start
 		String result;

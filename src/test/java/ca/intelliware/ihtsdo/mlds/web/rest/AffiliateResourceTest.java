@@ -221,7 +221,7 @@ public class AffiliateResourceTest {
     	restUserMockMvc.perform(get(Routes.AFFILIATES_CSV)
                 .accept("application/csv"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/csv"))
+                .andExpect(content().contentType("application/csv;charset=UTF-8"))
                 .andExpect(content().string(Matchers.equalTo("affiliates file content")))
                 ;
     }
@@ -234,7 +234,7 @@ public class AffiliateResourceTest {
     			.param("generate", "10")
                 .accept("application/csv"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/csv"))
+                .andExpect(content().contentType("application/csv;charset=UTF-8"))
                 .andExpect(content().string(Matchers.equalTo("generated affiliates file content")))
                 ;
     }
