@@ -9,6 +9,10 @@
 	</div>
 </div>
 <div class="row">
+		<div class="col-sm-12">
+			<alert ng-repeat="alert in alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+		</div>
+
 	<div class="col-md-8">
 		<div class="alert alert-warning" ng-show="!isEditable">
 			You can view applications submitted to other Member Registration Centres, but you cannot process them.
