@@ -280,6 +280,8 @@ public class AffiliateResource {
     	affiliateDetails.setThirdEmail(body.getThirdEmail());
     	
     	// FIXME MLDS-32 MB Should we restrict changes to ADMIN only?
+    	affiliateDetails.setType(body.getType());
+    	affiliateDetails.setOtherText(body.getOtherText());
     	affiliateDetails.setSubType(body.getSubType());
 	}
 
