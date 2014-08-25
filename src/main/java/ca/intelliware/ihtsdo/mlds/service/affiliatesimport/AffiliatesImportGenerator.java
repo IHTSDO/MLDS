@@ -100,17 +100,20 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 
 	private String generateCity(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		//From http://en.wikipedia.org/wiki/List_of_most_popular_given_names
-		return generateNameFromList(i, new String[] {"Skagen", "Jerup", "Strandby", "Sindal", "Bindslev", "Frederikshavn", "Ranum", "Aars", "Hadsund", "Mariager"});
+		// size 11
+		return generateNameFromList(i, new String[] {"Skagen", "Jerup", "Strandby", "Sindal", "Bindslev", "Frederikshavn", "Ranum", "Aars", "Hadsund", "Mariager", "Copenhagen"});
 	}
 
 	private String generateFirstName(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		//From http://en.wikipedia.org/wiki/List_of_most_popular_given_names
+		// size 9
 		return generateNameFromList(i, new String[] {"William", "Lucas", "Victor", "Noah", "Sofia", "Ida", "Isabella", "Emma", "Freja"});
 	}
 
 	private String generateLastName(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		//From http://en.wikipedia.org/wiki/List_of_most_common_surnames_in_Europe
-		return generateNameFromList(i, new String[] {"Jensen", "Nielsen", "Hansen", "Pedersen", "Andersen", "Christensen", "Larsen", "Sørensen", "Rasmussen"})
+		// size 10 -- keep list sizes relatively-prime so we get good mixing for search testing.
+		return generateNameFromList(i, new String[] {"Jensen", "Nielsen", "Hansen", "Pedersen", "Andersen", "Christensen", "Larsen", "S\u00F8rensen", "Rasmussen", "J\u00F8rgensen"})
 				+ appendUniquenessHint(i);
 	}
 
