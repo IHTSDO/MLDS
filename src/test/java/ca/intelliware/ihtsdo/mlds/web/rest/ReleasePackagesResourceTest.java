@@ -62,7 +62,7 @@ public class ReleasePackagesResourceTest {
         releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
         releasePackagesResource.userMembershipAccessor = userMembershipAccessor;
         
-        Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(new Member("IHTSDO"));
+        Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(new Member("IHTSDO", 1));
 
         this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releasePackagesResource).build();
     }
