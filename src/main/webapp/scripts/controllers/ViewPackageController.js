@@ -11,7 +11,7 @@ angular.module('MLDS')
 			online: [],
 			offline: []
 		};
-	$scope.releasePackage = {releaseVersions:[]};
+	$scope.releasePackage = $scope.releasePackage || {releaseVersions:[]};
 	
 	$scope.viewLicence = function (memberKey) {
 		MemberService.getMemberLicence(memberKey);
@@ -42,23 +42,31 @@ angular.module('MLDS')
 	$scope.goToExtensionApplication = function goToExtensionApplication() {
 		$location.path('/extensionApplication/'+$scope.matchingExtensionApplication.applicationId);
 	};
-	
-	var setReleasePackage = function setReleasePackage(releasePackage) {
-		$scope.releasePackage = releasePackage;
-		//$log.log('setReleasePackage', releasePackage);
+		
+	var initReleasePackageState = function initReleasePackageState(releasePackage) {
 		UserAffiliateService.promise.then(function() {
 			$scope.isMembershipApproved = UserAffiliateService.isMembershipApproved(releasePackage.member);
 			$scope.isMembershipIncomplete = UserAffiliateService.isMembershipIncomplete(releasePackage.member);
 			$scope.isMembershipUnstarted = UserAffiliateService.isMembershipNotStarted(releasePackage.member);
 			$scope.isPrimaryApplicationApproved = ApplicationUtilsService.isApplicationApproved(UserAffiliateService.affiliate.application);
-			$scope.matchingExtensionApplication = getLatestMatchingMemberApplication(releasePackage);
+//			$scope.matchingExtensionApplication = getLatestMatchingMemberApplication(releasePackage);
 			$scope.isApplicationWaitingForApplicant = ApplicationUtilsService.isApplicationWaitingForApplicant($scope.matchingExtensionApplication);
 			$scope.isIHTSDOPackage = MemberService.isIhtsdoMember(releasePackage.member);
 		});
 	};
 
+	var setReleasePackage = function setReleasePackage(releasePackage) {
+		$scope.releasePackage = releasePackage;
+		//$log.log('setReleasePackage', releasePackage);
+		initReleasePackageState(releasePackage);
+	};
+
 	var loadReleasePackage = function loadReleasePackage() {
-		if (releasePackageId) {
+		if ($scope.releasePackage && $scope.releasePackage.releasePackageId) {
+			// Already initialized as sub-controller
+			initReleasePackageState($scope.releasePackage);
+		} else if (releasePackageId) {
+			// Main controller
 			PackagesService.get({releasePackageId: releasePackageId})
 			.$promise.then(function(result) {
 				setReleasePackage(result);
@@ -73,6 +81,7 @@ angular.module('MLDS')
 		};
 	};
 
+	$log.log('releasePackage', $scope.releasePackage);
 	loadReleasePackage();
 
 	$scope.goToViewPackages = function goToViewPackages() {
