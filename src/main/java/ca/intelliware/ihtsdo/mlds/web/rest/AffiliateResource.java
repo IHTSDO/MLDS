@@ -279,7 +279,7 @@ public class AffiliateResource {
     	// Can not update: OrganizationName, OrganizationType, OrganizationTypeOther
     	affiliateDetails.setThirdEmail(body.getThirdEmail());
     	
-    	// FIXME MLDS-32 MB
+    	// FIXME MLDS-32 MB Should we restrict changes to ADMIN only?
     	affiliateDetails.setSubType(body.getSubType());
 	}
 
