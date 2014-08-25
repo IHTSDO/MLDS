@@ -86,13 +86,16 @@ public class AffiliatesImporterService {
 
 	void processLineRecord(LineRecord record, ImportResult result) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		Affiliate affiliate = findExistingAffiliateForUpdate(record);
+		Application application;
 		if (affiliate == null) {
-			createApprovedAffiliate(record,result);
+			application = createApprovedAffiliate(record);
 			result.setNewRecords(result.getNewRecords() + 1);
 		} else {
-			updateAffiliate(affiliate,record,result);
+			application = updateAffiliate(affiliate,record);
 			result.updatedRecords += 1;
 		}
+		result.setSourceMemberKey(application.getMember().getKey());
+
 		clearSession();
 	}
 
@@ -111,7 +114,7 @@ public class AffiliatesImporterService {
 		return affiliate;
 	}
 
-	private void updateAffiliate(Affiliate affiliate, LineRecord record, ImportResult result) throws IllegalAccessException, InstantiationException {
+	private Application updateAffiliate(Affiliate affiliate, LineRecord record) throws IllegalAccessException, InstantiationException {
 		populateWithAll(affiliate, record, Affiliate.class);
 		populateWithAll(affiliate.getAffiliateDetails(), record, AffiliateDetails.class);
 		
@@ -119,10 +122,10 @@ public class AffiliatesImporterService {
 		applicationRepository.save(importApplication);
 		affiliate.addApplication(importApplication);
 		
-		// FIXME MLDS-325 MB create an "Import" application for history?
+		return importApplication;
 	}
 
-	private void createApprovedAffiliate(LineRecord record, ImportResult result) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
+	private Application createApprovedAffiliate(LineRecord record) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		
 		//FIXME use services for much of this where possible... with a create and approve steps
 		
@@ -141,7 +144,7 @@ public class AffiliatesImporterService {
 		Affiliate affiliate = createAffiliate(record, application, affiliateDetails);
 		affiliate = affiliateRepository.save(affiliate);
 		
-		result.setSourceMemberKey(affiliate.getHomeMember().getKey());
+		return application;
 	}
 
 	private Affiliate createAffiliate(LineRecord record, PrimaryApplication application, AffiliateDetails affiliateDetails) throws IllegalAccessException, InstantiationException {
