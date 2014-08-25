@@ -408,8 +408,7 @@ public class ReleasePackagesResource {
     	}
     	
     	//FIXME should we check children being consistent?
-    	//FIXME better check for download?
-    	authorizationChecker.checkCanAccessReleaseVersion(releaseFile.getReleaseVersion());
+    	authorizationChecker.checkCanDownloadReleaseVersion(releaseFile.getReleaseVersion());
     	
     	String downloadUrl = releaseFile.getDownloadUrl();
     	int statusCode = uriDownloader.download(downloadUrl, request, response);

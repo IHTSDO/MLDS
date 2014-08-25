@@ -4,14 +4,25 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateMembershipCalculator;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ReleasePackageAuthorizationCheckerTest {
+	
+	@Mock
+	private UserMembershipAccessor userMembershipAccessor;
+
 	ReleasePackageAuthorizationChecker authorizationChecker;
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
 	ReleasePackage ihtsdoReleasePackage;
@@ -20,13 +31,15 @@ public class ReleasePackageAuthorizationCheckerTest {
 	ReleaseVersion onlineReleaseVersion;
 	Member ihtsdo;
 	Member sweden;
-	
+
 	@Before
 	public void setUp() {
 		authorizationChecker = new ReleasePackageAuthorizationChecker();
 		authorizationChecker.currentSecurityContext = new CurrentSecurityContext();
-		sweden = new Member("SE");
-		ihtsdo = new Member("IHTSDO");
+		authorizationChecker.userMembershipAccessor = userMembershipAccessor;
+		
+		sweden = new Member("SE", 1);
+		ihtsdo = new Member("IHTSDO", 2);
 		
 		ihtsdoReleasePackage = new ReleasePackage();
 		ihtsdoReleasePackage.setMember(ihtsdo);
@@ -118,4 +131,49 @@ public class ReleasePackageAuthorizationCheckerTest {
 		authorizationChecker.checkCanAccessReleaseVersion(offlineReleaseVersion);
 	}
 
+	@Test
+	public void AdminCanDownloadPackageVersion() {
+		securityContextSetup.asAdmin();
+		
+		authorizationChecker.checkCanDownloadReleaseVersion(offlineReleaseVersion);
+	}
+
+	@Test
+	public void staffCanDownloadPackageVersion() {
+		securityContextSetup.asIHTSDOStaff();
+		
+		authorizationChecker.checkCanDownloadReleaseVersion(offlineReleaseVersion);
+	}
+	
+	@Test
+	public void userCanDownloadApprovedPackageVersion() {
+		ReleasePackage releasePackage = new ReleasePackage(1L);
+		releasePackage.setMember(ihtsdo);
+		ReleaseVersion onlineIhtsdoVersion = new ReleaseVersion(2L);
+		releasePackage.addReleaseVersion(onlineIhtsdoVersion);
+		onlineIhtsdoVersion.setOnline(true);
+		
+
+		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
+		
+		securityContextSetup.asAffiliateUser();
+		
+		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
+	}
+
+	@Test(expected=IllegalStateException.class)
+	public void userCannotDownloadUnapprovedPackageVersion() {
+		ReleasePackage releasePackage = new ReleasePackage(1L);
+		releasePackage.setMember(ihtsdo);
+		ReleaseVersion onlineIhtsdoVersion = new ReleaseVersion(2L);
+		releasePackage.addReleaseVersion(onlineIhtsdoVersion);
+		onlineIhtsdoVersion.setOnline(true);
+		
+
+		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(false);
+		
+		securityContextSetup.asAffiliateUser();
+		
+		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
+	}
 }

@@ -39,6 +39,11 @@ public class Member extends BaseEntity {
 		this.key = key;
 	}
 
+	public Member(String key, long memberId) {
+		this.key = key;
+		this.memberId = memberId;
+	}
+
 	public Long getMemberId() {
 		return memberId;
 	}
