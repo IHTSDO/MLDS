@@ -284,20 +284,6 @@ public class ApplicationResource {
 
 		application.setUsername(sessionService.getUsernameOrNull());
 
-		if (application instanceof PrimaryApplication) {
-			PrimaryApplication primaryApplication = (PrimaryApplication) application;
-			if (checkIfValidField(request, "type")){
-				primaryApplication.setType(AffiliateType.valueOf(getStringField(request, "type")));
-			}
-			if (checkIfValidField(request, "subType")) {
-				primaryApplication.setSubType(AffiliateSubType.valueOf(getStringField(request, "subType")));
-			}
-			primaryApplication.setOtherText(getStringField(request, "otherText"));
-			
-			primaryApplication.setSnoMedLicence(Boolean.parseBoolean(getStringField(request, "snoMedTC")));
-		}
-		
-		
 		AffiliateDetails affiliateDetails = application.getAffiliateDetails();
 		createAffiliateDetails(affiliateDetailsJsonNode, address, billing, affiliateDetails);
 		affiliateDetailsRepository.save(affiliateDetails);
@@ -308,6 +294,20 @@ public class ApplicationResource {
 		if (application.getApprovalState() == null) {
 			application.setApprovalState(ApprovalState.NOT_SUBMITTED);
 		}
+
+		if (application instanceof PrimaryApplication) {
+			PrimaryApplication primaryApplication = (PrimaryApplication) application;
+			if (checkIfValidField(request, "type")){
+				primaryApplication.setType(AffiliateType.valueOf(getStringField(request, "type")));
+			}
+			if (checkIfValidField(request, "subType")) {
+				primaryApplication.getAffiliateDetails().setSubType(AffiliateSubType.valueOf(getStringField(request, "subType")));
+			}
+			primaryApplication.setOtherText(getStringField(request, "otherText"));
+			
+			primaryApplication.setSnoMedLicence(Boolean.parseBoolean(getStringField(request, "snoMedTC")));
+		}
+		
 		return application;
 	}
 

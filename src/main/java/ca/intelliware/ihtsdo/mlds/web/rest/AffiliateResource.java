@@ -278,6 +278,9 @@ public class AffiliateResource {
     	affiliateDetails.setMobileNumber(body.getMobileNumber());
     	// Can not update: OrganizationName, OrganizationType, OrganizationTypeOther
     	affiliateDetails.setThirdEmail(body.getThirdEmail());
+    	
+    	// FIXME MLDS-32 MB
+    	affiliateDetails.setSubType(body.getSubType());
 	}
 
 	private void copyAddressFields(MailingAddress address, MailingAddress body) {
