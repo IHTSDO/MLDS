@@ -12,7 +12,6 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 
 /**
  * Holds the mappings from the CSV file columns to entity objects
@@ -40,9 +39,9 @@ public class AffiliatesMapper {
 	void populateMappings() {
 		getMappings().add(createField("member", Application.class).required());
 		getMappings().add(createField("importKey", Affiliate.class).required());
-		getMappings().add(createField("type", PrimaryApplication.class));
+		getMappings().add(createField("type", AffiliateDetails.class));
 		getMappings().add(createField("subType", AffiliateDetails.class));
-		getMappings().add(createField("otherText", PrimaryApplication.class));
+		getMappings().add(createField("otherText", AffiliateDetails.class));
 		getMappings().add(createField("firstName", AffiliateDetails.class));
 		getMappings().add(createField("lastName", AffiliateDetails.class));
 		getMappings().add(createField("email", AffiliateDetails.class));

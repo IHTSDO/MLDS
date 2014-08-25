@@ -1,10 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -12,12 +9,6 @@ import javax.persistence.ManyToOne;
 @DiscriminatorValue("PRIMARY")
 public class PrimaryApplication extends Application{
 
-	// FIXME MLDS-310 MB consider moving these into AffiliateDetails for a consistent approach
-	@Enumerated(EnumType.STRING)
-	AffiliateType type;
-	
-	@Column(name = "other_text")
-	String otherText;
 	boolean snomedlicense;
 	@ManyToOne
 	@JoinColumn(name = "commercial_usage_id")
@@ -29,16 +20,19 @@ public class PrimaryApplication extends Application{
 		super(id);
 	}
 
+	@Deprecated
 	public AffiliateSubType getSubType() {
 		return affiliateDetails==null?null:affiliateDetails.getSubType();
 	}
 
+	@Deprecated
 	public AffiliateType getType() {
-		return type;
+		return affiliateDetails==null?null:affiliateDetails.getType();
 	}
 
-	public void setType(AffiliateType type) {
-		this.type = type;
+	@Deprecated
+	public String getOtherText() {
+		return affiliateDetails==null?null:affiliateDetails.getOtherText();
 	}
 
 	public boolean isSnoMedLicence() {
@@ -47,14 +41,6 @@ public class PrimaryApplication extends Application{
 
 	public void setSnoMedLicence(boolean snoMedLicence) {
 		this.snomedlicense = snoMedLicence;
-	}
-
-	public String getOtherText() {
-		return otherText;
-	}
-
-	public void setOtherText(String otherText) {
-		this.otherText = otherText;
 	}
 
 	public CommercialUsage getCommercialUsage() {
