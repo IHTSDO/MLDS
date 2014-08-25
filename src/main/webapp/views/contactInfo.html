@@ -28,7 +28,43 @@
 	</div>
 
 	<div class="row">
-		<div class="col-sm-12 col-md-12 col-lg-12"> 
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		
+			<div class="panel panel-primary" ng-show="$root.Session.isAdmin()">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a ng-click="collapsePanel.super = !collapsePanel.super">Superadmin Editable</a>
+					</h4>
+				</div>
+				<div id="collapseSuper" class="panel-collapse collapse in"
+					collapse="collapsePanel.super" >
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group" ng-show="affiliate.type && affiliate.type != 'OTHER'">
+									<label>Subtype</label>
+										<select class="form-control input-md" name="usageSubType" ng-model="affiliateDetails.subType" ng-required="affiliate.type!='OTHER'">
+											<!-- TODO MB can we share the options with affiliateRegistration.html? -->
+											<option value="DEVELOPER" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.DEVELOPER">Developer</option>
+											<option value="DEVELOPMENT" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.DEVELOPMENT">Development</option>
+											<option value="EDUCATIONAL" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.EDUCATIONAL">Educational</option>
+											<option value="HEALTHCAREPROVIDER" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.HEALTHCAREPROVIDER">Healthcare Provider</option>
+											<option value="PERSONAL" ng-show="affiliateform.type=='INDIVIDUAL'" translate="affiliate.subType.PERSONAL">Personal</option>
+											<option value="RESEARCH" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.RESEARCH">Research</option>
+											<option value="VENDOR" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.VENDOR">Vendor</option>
+					                  </select>
+
+									<p class="help-block"
+										ng-show="form.usageSubType.$error.required && form.attempted">
+										Subtype field is required.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h4 class="panel-title">
