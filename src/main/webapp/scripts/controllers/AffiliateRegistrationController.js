@@ -1,8 +1,8 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationController',
-        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', 'CountryService', '$modal', 'Session', 'Events', 'ApplicationUtilsService',
-          function ($scope, $log, UserRegistrationService, $location, UserSession, CountryService, $modal, Session, Events, ApplicationUtilsService) {
+        [ '$scope', '$log', 'UserRegistrationService', '$location', 'CountryService', '$modal', 'Session', 'Events', 'ApplicationUtilsService', 'MemberService',
+          function ($scope, $log, UserRegistrationService, $location, CountryService, $modal, Session, Events, ApplicationUtilsService, MemberService) {
         	
         	var loadApplication = function() {
         		var queryPromise =  UserRegistrationService.getApplication();
@@ -25,6 +25,10 @@ mldsApp.controller('AffiliateRegistrationController',
         	};
         	
         	loadApplication();
+        	
+        	$scope.viewLicence = function (memberKey) {
+    			MemberService.getMemberLicence(memberKey);
+    		};
         	
         	$scope.approvalState = {};
         	$scope.availableCountries = CountryService.countries;
@@ -53,7 +57,6 @@ mldsApp.controller('AffiliateRegistrationController',
 
         	$scope.saveApplication = function() {
     			UserRegistrationService.saveApplication($scope.affiliateform, $scope.applicationId);
-    			UserSession.reapplied();
         	};
         	
         	$scope.submit = $scope.saveApplication;

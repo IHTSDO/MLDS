@@ -56,11 +56,10 @@ import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
 import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
-import ca.intelliware.ihtsdo.mlds.web.UserInfo;
-import ca.intelliware.ihtsdo.mlds.web.UserInfoCalculator;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
 
 import com.codahale.metrics.annotation.Timed;
@@ -97,9 +96,6 @@ public class AccountResource {
     
     @Resource DuplicateRegistrationEmailSender duplicateRegistrationEmailSender;
     
-    @Inject
-    UserInfoCalculator userInfoCalculator;
-
     @Inject
 	private DomainBlacklistService domainBlacklistService;
     
@@ -167,7 +163,7 @@ public class AccountResource {
         	application.setAffiliateDetails(affiliateDetails);
         	
         	//set a default type for application to create affiliate and usagelog
-        	application.setType(AffiliateType.COMMERCIAL);
+        	affiliateDetails.setType(AffiliateType.COMMERCIAL);
         	// FIXME MLDS-234 MB how are we storing country here?
         	affiliate.setCreator(userDTO.getLogin());
         	affiliate.setType(AffiliateType.COMMERCIAL);
@@ -256,12 +252,6 @@ public class AccountResource {
             roles.add(authority.getName());
         }
         
-        //FIXME: JH-where does this get set?
-        boolean emailVerified = true;
-        
-        //FIXME: JH-pick a better name
-        UserInfo userInfo = userInfoCalculator.createUserInfo();
-        
         Member member = userMembershipAccessor.getMemberAssociatedWithUser();
         
         return new ResponseEntity<>(
@@ -273,9 +263,6 @@ public class AccountResource {
                 user.getEmail(),
                 user.getLangKey(),
                 roles,
-                emailVerified,
-                userInfo.getHasApplied(),
-                userInfo.isApproved(),
                 null,
                 member
                 ),

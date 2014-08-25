@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,7 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Sets;
@@ -60,6 +63,9 @@ public class ReleasePackagesResource {
 	
 	@Resource
 	UserMembershipAccessor userMembershipAccessor;
+	
+	@Resource
+	UriDownloader uriDownloader;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Packages
@@ -389,4 +395,27 @@ public class ReleasePackagesResource {
 		
 		return new ResponseEntity<ReleaseFile>(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = Routes.RELEASE_FILE_DOWNLOAD,
+    		method = RequestMethod.GET)
+	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    public @ResponseBody void downloadReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId, HttpServletRequest request, HttpServletResponse response) {
+    	
+    	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
+    	if (releaseFile == null) {
+    		//TODO better 404 handling
+    		throw new RuntimeException("no such file found");
+    	}
+    	
+    	//FIXME should we check children being consistent?
+    	authorizationChecker.checkCanDownloadReleaseVersion(releaseFile.getReleaseVersion());
+    	
+    	int statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
+    	try {
+	    	String downloadUrl = releaseFile.getDownloadUrl();
+	    	statusCode = uriDownloader.download(downloadUrl, request, response);
+    	} finally {
+    		releasePackageAuditEvents.logDownload(releaseFile, statusCode);
+    	}
+    }
 }

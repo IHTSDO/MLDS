@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').factory('Session', ['USER_ROLES','$q',
-	    function (USER_ROLES, $q) {
+angular.module('MLDS').factory('Session', ['USER_ROLES','$q', '$log',
+	    function (USER_ROLES, $q, $log) {
 			var loadedDefer = $q.defer();
 			this.promise = loadedDefer.promise;
 			
@@ -31,7 +31,11 @@ angular.module('MLDS').factory('Session', ['USER_ROLES','$q',
 	        };
 	        this.isUser = function() {
 	        	return this.userRoles && _.contains(this.userRoles, USER_ROLES.user);
-	        }
+	        };
 	        
+	        this.updateUserName = function(firstName, lastName) {
+	        	this.firstName = firstName;
+	        	this.lastName = lastName;
+	        };
 	        return this;
 	    }]);

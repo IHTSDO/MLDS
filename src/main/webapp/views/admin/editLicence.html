@@ -1,0 +1,22 @@
+<div class="modal-header">
+   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+     <h3 class="modal-title">Edit {{member.key | enum:'global.member.'}} Licence</h3>
+ </div>
+ <div class="modal-body">
+ 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert> 
+ 	<form class="form-inline">
+ 		<div class="form-group">
+  		<label>Licence File</label>
+  		<input type="file" file-model="memberLicenceForm.file"/>
+ 		</div>
+ 	</form>
+ </div>
+ <div class="modal-footer">
+     <button class="btn btn-link" ng-click="$dismiss()">Cancel</button>
+     <button class="btn btn-success" ng-disabled="submitStatus.submitting" ng-hide="submitStatus.submitSuccessful" ng-click="memberLicenceForm.submit()">
+				<i class="fa fa-upload"></i>
+				Upload
+				<span ng-show="submitStatus.submitting"><i class="fa fa-spinner"></i></span>
+     </button>
+     <button class="btn btn-success" ng-click="$close()" ng-show="submitStatus.submitSuccessful">Close</button>
+ </div>

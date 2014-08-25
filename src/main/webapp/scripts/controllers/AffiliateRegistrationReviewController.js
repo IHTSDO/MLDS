@@ -1,8 +1,9 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationReviewController',
-        [ '$scope', '$log', 'UserRegistrationService', '$location', 'UserSession', '$modalInstance', 'CommercialUsageService', 'UserAffiliateService',
-          function ($scope, $log, UserRegistrationService, $location, UserSession, $modalInstance, CommercialUsageService, UserAffiliateService) {
+        [ '$scope', '$log', 'UserRegistrationService', '$location', '$modalInstance', 'CommercialUsageService', 'UserAffiliateService',
+          function ($scope, $log, UserRegistrationService, $location, $modalInstance, CommercialUsageService, UserAffiliateService) {
+        	CommercialUsageService.getUsageReport(CommercialUsageService.currentCommercialUsageReport.commercialUsageId);
         	$scope.CommercialUsageService = CommercialUsageService;
         	$scope.submitting = false;
         	$scope.alerts = [];
@@ -27,13 +28,12 @@ mldsApp.controller('AffiliateRegistrationReviewController',
     			var httpPromise = UserRegistrationService.submitApplication($scope.affiliateform, $scope.applicationId);
     			
     			httpPromise.then(function() {
-    				UserSession.updateSession();
     				UserAffiliateService.refreshAffiliate();
     				$location.path('/dashboard');
     				$modalInstance.close();
     			})
     			["catch"](function(message) {
-    				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+    				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
     				$scope.submitting = false;
     			});
 			};
