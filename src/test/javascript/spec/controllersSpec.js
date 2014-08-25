@@ -24,20 +24,11 @@ describe('Controllers Tests ', function () {
 
         beforeEach(inject(function($rootScope, $controller, Password) {
             $scope = $rootScope.$new();
+            $scope.form = {};
             PasswordService = Password;
             $controller('PasswordController',{$scope:$scope, Password:PasswordService});
         }));
 
-        it('should show error if passwords do not match', function(){
-            //GIVEN
-            $scope.password = 'password1';
-            $scope.confirmPassword = 'password2';
-            //WHEN
-            $scope.changePassword();
-            //THEN
-            expect($scope.doNotMatch).toBe('ERROR');
-
-        });
         it('should call Service and set OK on Success', function(){
             //GIVEN
             var pass = 'myPassword';

@@ -1,0 +1,40 @@
+<div class="panel panel-default dashboard"
+	ng-controller="UsageReportsTableController">
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Report Date</th>
+					<th>Usage Type</th>
+					<th>Approval State</th>
+					<th>Countries</th>
+					<th>Hospitals</th>
+					<th>Practices</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-click="usageReportsUtils.goToUsageReport(usageReport)"
+					ng-class="{highlight:usageReportsUtils.isUsageReportWaitingForApplicant(usageReport)}"
+					ng-repeat="usageReport in affiliate.commercialUsages | orderBy:'-startDate'">
+					<td><span class="btn-link"> <span
+							ng-show="usageReportsUtils.isUsageReportWaitingForApplicant(usageReport)"
+							tooltip="Declaration has not been submitted"
+							tooltip-placement="top"><i
+								class="fa fa-exclamation-circle"></i></span> {{usageReport.startDate |
+							date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}
+							{{usageReport.startDate | date : 'yyyy'}}
+					</span></td>
+					<td><span class="btn-link"> {{ usageReport.type | enum:'affiliate.type.'}}</span></td>
+					<td><span class="btn-link"> {{ usageReport.approvalState | enum:'approval.state.'}} </span></td>
+					<td><span class="btn-link">
+							{{usageReportsUtils.usageReportCountries(usageReport)}} </span></td>
+					<td><span class="btn-link">
+							{{usageReportsUtils.usageReportHospitals(usageReport)}} </span></td>
+					<td><span class="btn-link">
+							{{usageReportsUtils.usageReportPractices(usageReport)}} </span></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>

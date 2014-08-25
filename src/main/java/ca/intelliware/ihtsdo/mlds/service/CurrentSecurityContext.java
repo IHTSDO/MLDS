@@ -14,7 +14,11 @@ public class CurrentSecurityContext {
 
 	public String getCurrentUserName() {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
-		return securityContext.getAuthentication().getName();
+		if (securityContext.getAuthentication() != null) {
+			return securityContext.getAuthentication().getName();
+		} else {
+			return "MISSING PRINCIPAL";
+		}
 	}
 
 	public boolean isAdmin() {
@@ -23,9 +27,11 @@ public class CurrentSecurityContext {
 
 	private boolean hasRole(String role) {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
-		for (GrantedAuthority authority : securityContext.getAuthentication().getAuthorities()) {
-			if (role.equals(authority.getAuthority())) {
-				return true;
+		if (securityContext.getAuthentication() != null) {
+			for (GrantedAuthority authority : securityContext.getAuthentication().getAuthorities()) {
+				if (role.equals(authority.getAuthority())) {
+					return true;
+				}
 			}
 		}
 		return false;

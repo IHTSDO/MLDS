@@ -3,7 +3,7 @@
 /* App Module */
 
 var mldsApp = angular.module('MLDS', ['http-auth-interceptor', 'tmh.dynamicLocale',
-    'ngResource', 'ngRoute', 'ngCookies', 'mldsAppUtils', 'pascalprecht.translate', 'truncate', 'ui.bootstrap']);
+    'ngResource', 'ngRoute', 'ngCookies', 'mldsAppUtils', 'pascalprecht.translate', 'truncate', 'ui.bootstrap', 'infinite-scroll']);
 
 mldsApp
     .config(['$routeProvider', '$httpProvider', '$translateProvider',  'tmhDynamicLocaleProvider', 'USER_ROLES',
@@ -49,7 +49,7 @@ mldsApp
                     }
                 })
                 .when('/dashboard', {
-                    templateUrl: 'views/user/Dashboard.html',
+                    templateUrl: 'views/user/userDashboard.html',
                     controller: 'UserDashboardController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
@@ -59,7 +59,7 @@ mldsApp
                     	UserAffiliateServiceLoaded:['UserAffiliateService', function(UserAffiliateService){ return UserAffiliateService.promise;}]
                     }
                 })
-                .when('/usage-reports', {
+                .when('/usageReports', {
                     templateUrl: 'views/user/usageReports.html',
                     controller: 'UsageReportsController',
                     access: {
@@ -69,7 +69,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/usage-reports/usage-log/:usageReportId', {
+                .when('/usageReports/usageLog/:usageReportId', {
                     templateUrl: 'views/user/fullPageUsageLog.html',
                     controller: 'FullPageUsageLogController',
                     access: {
@@ -151,19 +151,9 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
-                .when('/adminDashboard', {
-                    templateUrl: 'views/admin/dashboard.html',
-                    controller: 'AdminDashboardController',
-                    access: {
-                        authorizedRoles: USER_ROLES.staffOrAdmin
-                    },
-                    resolve: {
-                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
-                    }
-                })
-                .when('/packageManagement', {
-                    templateUrl: 'views/admin/packageManagement.html',
-                    controller: 'PackageManagementController',
+                .when('/releaseManagement', {
+                    templateUrl: 'views/admin/releaseManagement.html',
+                    controller: 'ReleaseManagementController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -172,9 +162,9 @@ mldsApp
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
-                .when('/packageManagement/package/:packageId', {
-                    templateUrl: 'views/admin/package.html',
-                    controller: 'PackageController',
+                .when('/releaseManagement/release/:packageId', {
+                    templateUrl: 'views/admin/release.html',
+                    controller: 'ReleaseController',
                     access: {
                     	authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -182,9 +172,9 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/packageManagement/package/:packageId/:edit', {
-                    templateUrl: 'views/admin/package.html',
-                    controller: 'PackageController',
+                .when('/releaseManagement/release/:packageId/:edit', {
+                    templateUrl: 'views/admin/release.html',
+                    controller: 'ReleaseController',
                     access: {
                     	authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -193,9 +183,9 @@ mldsApp
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
-                .when('/viewPackages', {
-                    templateUrl: 'views/user/viewPackages.html',
-                    controller: 'ViewPackagesController',
+                .when('/viewReleases', {
+                    templateUrl: 'views/user/viewReleases.html',
+                    controller: 'ViewReleasesController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
                     },
@@ -203,9 +193,9 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/viewPackages/viewPackage/:releasePackageId', {
-                    templateUrl: 'views/user/viewPackage.html',
-                    controller: 'ViewPackageController',
+                .when('/viewReleases/viewRelease/:releasePackageId', {
+                    templateUrl: 'views/user/viewRelease.html',
+                    controller: 'ViewReleaseController',
                     access: {
                     	authorizedRoles: [USER_ROLES.all]
                     },
@@ -256,6 +246,36 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                .when('/affiliates/:affiliateId', {
+                    templateUrl: 'views/admin/affiliateSummary.html',
+                    controller: 'AffiliateSummaryController',
+                    access: {
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/affiliates/:affiliateId/edit', {
+                    templateUrl: 'views/admin/editAffiliate.html',
+                    controller: 'EditAffiliateController',
+                    access: {
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/licences', {
+                    templateUrl: 'views/admin/licences.html',
+                    controller: 'LicencesController',
+                    access: {
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
                 .when('/metrics', {
                     templateUrl: 'views/admin/metrics.html',
                     controller: 'MetricsController',
@@ -279,9 +299,9 @@ mldsApp
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
-                .when('/audits', {
-                    templateUrl: 'views/admin/audits.html',
-                    controller: 'AuditsController',
+                .when('/activityLog', {
+                    templateUrl: 'views/admin/activityLogs.html',
+                    controller: 'ActivityLogsController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -320,9 +340,22 @@ mldsApp
                 })
                 .when('/blocklist', {
                     templateUrl: 'views/admin/blocklist.html',
-                    controller: 'BlockListController',
+                    controller: 'BlocklistController',
                     access: {
                         authorizedRoles: [USER_ROLES.admin]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/importAffiliates', {
+                    templateUrl: 'views/admin/importAffiliates.html',
+                    controller: 'ImportAffiliatesController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .otherwise({
@@ -351,7 +384,7 @@ mldsApp
             
 //            var apiDelay = 1000;
 //            var otherDelay = 0;
-//            var errorMethodMatches = /PUT|xDELETE|xPOST/;
+//            var errorMethodMatches = /xPUT|xDELETE|xPOST/;
 //            var delayHandlerFactory = function($q, $timeout) {
 //                return function(promise) {
 //                    return promise.then(function(response) {
@@ -383,7 +416,7 @@ mldsApp
                     $rootScope.authenticated = true;
                     if ($location.path() === "/login") {
                     	if (AuthenticationSharedService.isAuthorized(USER_ROLES.staffOrAdmin)) {
-                    		$location.path('/adminDashboard').replace();                    		
+                    		$location.path('/pendingApplications').replace();                    		
                     	} else {
                     		$location.path('/dashboard').replace();
                     	}
@@ -401,8 +434,8 @@ mldsApp
                     		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
                     		$location.path() !== "/resetPassword" &&
-                    		$location.path().indexOf("/viewPackage") == -1 &&
-                    		$location.path() !== "/viewPackages" &&
+                    		$location.path().indexOf("/viewRelease") == -1 &&
+                    		$location.path() !== "/viewReleases" &&
                     		$location.path() !== "/emailVerification" &&
                             $location.path() !== "/activate") {
                         $location.path('/login').replace();

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 
-                                                 		function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location){
+angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', 
+                                                 		function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams){
 	$scope.collapsePanel = {};
 	
 	$scope.usageLogForm = {};
@@ -192,7 +192,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 					}
 				})
 				['catch'](function() {
-					$scope.geographicAlerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+					$scope.geographicAlerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
 					$scope.geographicAdding = Math.max($scope.geographicAdding - 1, 0);
 					if ($scope.geographicAdding === 0) {
 						CommercialUsageService.broadcastCommercialUsageUpdate();
@@ -233,7 +233,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 				}
 			})
 			['catch'](function() {
-				$scope.geographicAlerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.geographicAlerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
 				$scope.geographicRemoving = Math.max($scope.geographicRemoving - 1, 0);
 				if ($scope.geographicRemoving === 0) {
 					CommercialUsageService.broadcastCommercialUsageUpdate();
@@ -383,10 +383,6 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 				}
 			}
 		});
-	};
-
-	$scope.goToDashboard = function() {
-		$location.path('/dashboard');	
 	};
 	
 	$scope.institutionDateRangeOutsidePeriod = function(institution) {

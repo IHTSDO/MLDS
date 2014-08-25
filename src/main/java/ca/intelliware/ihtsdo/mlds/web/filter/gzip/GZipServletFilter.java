@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.GZIPOutputStream;
@@ -30,7 +31,7 @@ public class GZipServletFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        if (!isIncluded(httpRequest) && acceptsGZipEncoding(httpRequest) && !response.isCommitted()) {
+        if (!isIncluded(httpRequest) && acceptsGZipEncoding(httpRequest) && !response.isCommitted() && !isStreamingRequest(httpRequest)) {
             // Client accepts zipped content
             if (log.isTraceEnabled()) {
                 log.trace("{} Written with gzip compression", httpRequest.getRequestURL());
@@ -90,7 +91,11 @@ public class GZipServletFilter implements Filter {
         }
     }
 
-    /**
+    private boolean isStreamingRequest(HttpServletRequest request) {
+		return request.getRequestURI().endsWith("/download");
+	}
+
+	/**
      * Checks if the request uri is an include. These cannot be gzipped.
      */
     private boolean isIncluded(final HttpServletRequest request) {

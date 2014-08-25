@@ -26,15 +26,17 @@ mldsApp.controller('ApplicationReviewController', [
 			$scope.isReadOnly = true;
 
 			function loadApplication() {
+				$log.log("load application...");
 				var queryPromise = UserRegistrationService.getApplicationById(applicationId);
 
 				queryPromise.success(function(application) {
+						$log.log("getapplicationbyid.... success");
 						if (!ApplicationUtilsService.isApplicationPending(application)) {
 							$log.log('Application not in pending state');
 							goToPendingApplications();
 							return;
 						}
-						$log.log('loadApplication', application);
+						//$log.log('loadApplication', application);
 						$scope.application = application;
 						
 						$scope.isReadOnly = !Session.isAdmin() && (Session.member.key !== application.member.key);
@@ -51,6 +53,7 @@ mldsApp.controller('ApplicationReviewController', [
 								return count.country.commonName.toLowerCase();
 							});
 						}
+						$log.log("getapplicatiobyid... success end");
 				});
 			}
 
@@ -65,7 +68,7 @@ mldsApp.controller('ApplicationReviewController', [
 						$scope.submitting = false;
 					})
 					["catch"](function(message) {
-						$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+						$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
 						$scope.submitting = false;
 					});
 			};

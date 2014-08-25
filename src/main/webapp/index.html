@@ -36,17 +36,17 @@
   
   <div ng-include src="$root.Session.isStaffOrAdmin()?'views/fixedTopNav.html':'views/topNav.html'" class="navigation"></div>
 
- 	<div ng-hide="$root.Session.isStaffOrAdmin()">
-    <div ng-view="" class="container" role="main"></div>
+  <div ng-if="!$root.Session.isStaffOrAdmin()">
+   	<div ng-view="" autoscroll="true" class="container" role="main"></div>
     <div ng-include src="'views/footer.html'"></div>
   </div>
 
- 	<div ng-show="$root.Session.isStaffOrAdmin()" class="container-fluid" >
+ 	<div ng-if="$root.Session.isStaffOrAdmin()" class="container-fluid" >
 		<div class="row">
 		    <div ng-include src="'views/sideNav.html'"></div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 nav-space" ng-view=""></div>
-        <div ng-include src="'views/adminFooter.html'"></div>
-    </div>
+        	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 nav-space" ng-view="" autoscroll="true"></div>
+	        <div ng-include src="'views/adminFooter.html'"></div>
+	    </div>
   </div>
 
   <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
@@ -77,44 +77,51 @@
   <script src="bower_components/moment/moment.js"></script>
   <script src="bower_components/underscore/underscore.js"></script>
   <script src="bower_components/intl-tel-input/build/js/intlTelInput.js" charset="UTF-8"></script>
+  <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
   <script src="scripts/http-auth-interceptor.js"></script>
   <script src="scripts/truncate.js"></script>
   <script src="scripts/utils.js"></script>
   <script src="scripts/app.js"></script>
   <script src="scripts/controllers.js"></script>
   <script src="scripts/controllers/ActivationController.js"></script>
-  <script src="scripts/controllers/AdminDashboardController.js"></script>
   <script src="scripts/controllers/AddInstitutionController.js"></script>
-  <script src="scripts/controllers/AddPackageModalController.js"></script>
+  <script src="scripts/controllers/AddReleaseModalController.js"></script>
   <script src="scripts/controllers/AddEditReleaseVersionModalController.js"></script>
   <script src="scripts/controllers/AddReleaseFileModalController.js"></script>
   <script src="scripts/controllers/AddUsageReportController.js"></script>
   <script src="scripts/controllers/AffiliatesController.js"></script>
+  <script src="scripts/controllers/AffiliateSummaryController.js"></script>
+  <script src="scripts/controllers/AffiliateRegistrationController.js"></script>
+  <script src="scripts/controllers/AffiliateRegistrationReviewController.js"></script>
+  <script src="scripts/controllers/AffiliateRegistrationUsageLogController.js"></script>
   <script src="scripts/controllers/ApplicationReviewController.js"></script>
   <script src="scripts/controllers/ApplicationReviewComparisonSearchController.js"></script>
   <script src="scripts/controllers/ApplicationSummaryModalController.js"></script>
   <script src="scripts/controllers/ApproveApplicationConfirmationModalController.js"></script>
   <script src="scripts/controllers/ApproveApplicationModalController.js"></script>
+  <script src="scripts/controllers/BlocklistController.js"></script>
   <script src="scripts/controllers/ChangeRequestedModalController.js"></script>
   <script src="scripts/controllers/ContactInfoController.js"></script>
+  <script src="scripts/controllers/EditAffiliateController.js"></script>
   <script src="scripts/controllers/EditInstitutionController.js"></script>
+  <script src="scripts/controllers/EditLicenceController.js"></script>
   <script src="scripts/controllers/ExtensionApplicationController.js"></script>
   <script src="scripts/controllers/DeleteInstitutionController.js"></script>
   <script src="scripts/controllers/DeletePackageModalController.js"></script>
   <script src="scripts/controllers/DeleteVersionModalController.js"></script>
   <script src="scripts/controllers/EditCountController.js"></script>
-  <script src="scripts/controllers/EditPackageModalController.js"></script>
+  <script src="scripts/controllers/EditReleaseModalController.js"></script>
+  <script src="scripts/controllers/ImportAffiliatesController.js"></script>
   <script src="scripts/controllers/PendingApplicationsController.js"></script>
   <script src="scripts/controllers/RemoveCountryController.js"></script>
-  <script src="scripts/controllers/PackageManagementController.js"></script>
-  <script src="scripts/controllers/PackageController.js"></script>
+  <script src="scripts/controllers/ReleaseManagementController.js"></script>
+  <script src="scripts/controllers/ReleaseController.js"></script>
   <script src="scripts/controllers/RetractUsageReportController.js"></script>
   <script src="scripts/controllers/ReviewRequestedModalController.js"></script>
   <script src="scripts/controllers/SubmitUsageReportController.js"></script>
-  <script src="scripts/controllers/AffiliateRegistrationController.js"></script>
-  <script src="scripts/controllers/AffiliateRegistrationReviewController.js"></script>
   <script src="scripts/controllers/TakeOfflineModalController.js"></script>
   <script src="scripts/controllers/TakeOnlineModalController.js"></script>
+  <script src="scripts/controllers/LicencesController.js"></script>
   <script src="scripts/controllers/LoginController.js"></script>
   <script src="scripts/controllers/RegisterController.js"></script>
   <script src="scripts/controllers/RejectApplicationModalController.js"></script>
@@ -123,15 +130,17 @@
   <script src="scripts/controllers/UserListController.js"></script>
   <script src="scripts/controllers/UserDashboardController.js"></script>
   <script src="scripts/controllers/UsageReportsController.js"></script>
-  <script src="scripts/controllers/AffiliateRegistrationUsageLogController.js"></script>
   <script src="scripts/controllers/FullPageUsageLogController.js"></script>
   <script src="scripts/controllers/EmbeddableUsageLogController.js"></script>
-  <script src="scripts/controllers/ViewPackagesController.js"></script>
-  <script src="scripts/controllers/ViewPackageController.js"></script>
+  <script src="scripts/controllers/ViewReleasesController.js"></script>
+  <script src="scripts/controllers/UsageReportsTableController.js"></script>
+  <script src="scripts/controllers/ViewReleaseController.js"></script>
   <script src="scripts/services.js"></script>
   <script src="scripts/services/ApplicationUtilsService.js"></script>
+  <script src="scripts/services/ApprovalStateUtils.js"></script>
   <script src="scripts/services/Events.js"></script>
   <script src="scripts/services/DomainBlacklistService.js"></script>
+  <script src="scripts/services/ImportAffiliatesService.js"></script>
   <script src="scripts/services/UserRegistrationService.js"></script>
   <script src="scripts/services/AffiliateService.js"></script>
   <script src="scripts/services/AuthenticationSharedService.js"></script>
@@ -147,13 +156,14 @@
   <script src="scripts/services/Session.js"></script>
   <script src="scripts/services/USER_ROLES.js"></script>
   <script src="scripts/services/UserAffiliateService.js"></script>
-  <script src="scripts/services/UserSession.js"></script>
   <script src="scripts/services/UsageReportsService.js"></script>
   <script src="scripts/directives/activeLink.js"></script>
   <script src="scripts/directives/activeMenu.js"></script>
   <script src="scripts/directives/autoSubmit.js"></script>
   <script src="scripts/directives/bsValidation.js"></script>
   <script src="scripts/directives/dateAfterValidation.js"></script>
+  <script src="scripts/directives/enumDirective.js"></script>
+  <script src="scripts/directives/fileModel.js"></script>
   <script src="scripts/directives/inputTel.js"></script>
   <script src="scripts/directives/locationAwareNav.js"></script>
   <script src="scripts/directives/match.js"></script>

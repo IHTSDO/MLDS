@@ -1,14 +1,14 @@
 <form novalidate="" name="affiliateApplicationForm" ng-submit="affiliateform.submit()" bs-validation="" id="affiliateApplicationForm">
   <div class="container">
 	  <div class="row space" ng-show="approvalState === 'CHANGE_REQUESTED'">
-	  <div class="col-sm-12 col-md-12 col-lg-12">
-	  	<div class="alert alert-warning" role="alert">
-	  		<div><strong>Affiliate Registration Needs Change</strong></div>
-	  		<p>Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
-	  	</div>
-	  </div>
-	</div>
-  
+		  <div class="col-sm-12 col-md-12 col-lg-12">
+		  	<div class="alert alert-warning" role="alert">
+		  		<div><strong>Affiliate Registration Needs Change</strong></div>
+		  		<p>Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
+		  	</div>
+		  </div>
+		</div>
+  	<h1>Affiliate Registration</h1>
   	<div class="row">
     <div class="col-sx-12 col-md-12">
       <div class="panel-group" id="accordion">
@@ -79,7 +79,7 @@
 			  				</p>
   				        </div>
             <div class="form-group">
-            	<label>Member</label> <span ng-show="affiliateform.affiliateDetails.address.country.member">{{'global.member.'+affiliateform.affiliateDetails.address.country.member.key | translate}}</span>
+            	<label>Member</label> <span ng-show="affiliateform.affiliateDetails.address.country.member">{{affiliateform.affiliateDetails.address.country.member.key | enum:'global.member.'}}</span>
             </div>
           </div>
         </div>
@@ -120,13 +120,15 @@
                       <p ng-show="affiliateApplicationForm.contactEmail.$error.required" class="help-block">
                         Required field.
                       </p>
-                      <p ng-show="!affiliateApplicationForm.contactEmail.$error.required && affiliateApplicationForm.contactEmail.$error.notUnique" class="help-block">
-                        Email Addresses need to be unique.
-                      </p>
                       <p ng-show="!affiliateApplicationForm.contactEmail.$error.required && affiliateApplicationForm.contactEmail.$error.email" class="help-block">
                         Invalid Email Address.
                       </p>
                     </div>
+                    <p class="help-block" ng-show="!affiliateApplicationForm.contactEmail.$error.required
+                    	&& !affiliateApplicationForm.contactEmail.$error.email 
+                    	&& affiliateApplicationForm.contactEmail.$error.notUnique ">
+                      Email Addresses need to be unique.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -239,7 +241,7 @@
                   <div class="form-group has-error has-feedback">
                     <label>Organization Type</label> 
                      <select class="form-control" name="organizationType" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationType" auto-submit>
-                    	<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{'affiliate.organizationType.' + organizationType | translate}}</option>
+                    	<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{organizationType | enum:'affiliate.organizationType.'}}</option>
                     </select>
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationType.$error.required && affiliateApplicationForm.attempted">
                       Required field.
@@ -352,13 +354,16 @@
                       <p ng-show="affiliateApplicationForm.alternateEmail.$error.required" class="help-block">
                         Required field.
                       </p>
-                      <p ng-show="!affiliateApplicationForm.alternateEmail.$error.required && affiliateApplicationForm.alternateEmail.$error.notUnique" class="help-block">
-                        Email Addresses need to be unique.
-                      </p>
                       <p ng-show="!affiliateApplicationForm.alternateEmail.$error.required && affiliateApplicationForm.alternateEmail.$error.email" class="help-block">
                         Invalid Email Address.
                       </p>
                     </div>
+                    <p class="help-block"
+                    	ng-show="!affiliateApplicationForm.alternateEmail.$error.required
+                    		&& !affiliateApplicationForm.alternateEmail.$error.email
+                    		&& affiliateApplicationForm.alternateEmail.$error.notUnique">
+                      Email Addresses need to be unique.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -370,13 +375,16 @@
                       <p ng-show="affiliateApplicationForm.thirdEmail.$error.required" class="help-block">
                         Required field.
                       </p>
-                       <p ng-show="!affiliateApplicationForm.thirdEmail.$error.required && affiliateApplicationForm.thirdEmail.$error.notUnique" class="help-block">
-                        Email Addresses need to be unique.
-                      </p>
                       <p ng-show="!affiliateApplicationForm.thirdEmail.$error.required && affiliateApplicationForm.thirdEmail.$error.email" class="help-block">
                         Invalid Email Address.
                       </p>
                     </div>
+                    <p class="help-block" 
+                    	ng-show="!affiliateApplicationForm.thirdEmail.$error.required 
+                    		&& !affiliateApplicationForm.thirdEmail.$error.email 
+		                    && affiliateApplicationForm.thirdEmail.$error.notUnique">
+	                      Email Addresses need to be unique.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -408,7 +416,7 @@
             Licence abstract -- explain importance of terms. Describe reporting and possible $$$ obligations! FIXME - copy
           </p>
           <p>
-            <a href="http://ihtsdo.org/fileadmin/user_upload/Docs_01/License/Ihtsdo_AffiliateLicenceAgreement_v11.pdf" target="_blank" class="btn btn-default btn-block">SNOMED Licence</a>
+            <a ng-click="viewLicence(affiliateform.affiliateDetails.address.country.member.key)" target="_blank" class="btn btn-default btn-block">SNOMED Licence</a>
           </p>
           <p class="form-group">
             <label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="affiliateform.snoMedTC"> I agree to the licence 

@@ -5,7 +5,7 @@
           <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
         </button>
         <a href="#" ng-href="{{authenticated?'#/dashboard':'#'}}" ><img class="img-responsive" src="images/logo.jpg" alt="ihtsdo-logo"></a>
-        <div ng-show="Session.member" ng-bind="'global.member.'+Session.member.key | translate" class="brand"></div>
+        <div ng-show="Session.member" ng-bind="Session.member.key | enum:'global.member.'" class="brand"></div>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse" >
         <ul id="topNav" location-aware-nav class="nav navbar-nav nav-pills navbar-right">
@@ -16,9 +16,9 @@
           	<a href="#/dashboard"> <span translate="global.menu.dashboard">Dashboard</span></a>
           </li>
           
-          <li ng-switch-when="true"><a href="#/usage-reports"> <span translate="global.menu.usageReports">Usage Reports</span></a></li>
+          <li ng-switch-when="true"><a href="#/usageReports"> <span translate="global.menu.usageReports">Usage Reports</span></a></li>
           
-          <li><a href="#/viewPackages"> <span translate="global.menu.releasePackages">Release Packages</span></a></li>
+          <li><a href="#/viewReleases"> <span translate="global.menu.releasePackages">Release Packages</span></a></li>
           
           <li class="dropdown pointer" ng-switch-when="true">
           	<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;"> 

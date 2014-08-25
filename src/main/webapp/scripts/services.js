@@ -71,14 +71,22 @@ mldsApp.factory('AuditsService', ['$http',
     function ($http) {
         return {
             findAll: function() {
-                var promise = $http.get('app/rest/audits/all').then(function (response) {
+                var promise = $http.get('/app/rest/audits').then(function (response) {
                     return response.data;
                 });
                 return promise;
             },
             findByDates: function(fromDate, toDate) {
-                var promise = $http.get('app/rest/audits/byDates', {params: {fromDate: fromDate, toDate: toDate}}).then(function (response) {
-                    return response.data;
+                var promise = $http.get('/app/rest/audits?$filter='+encodeURIComponent('auditEventDate ge \''+fromDate+'\' and auditEventDate le \''+toDate+'\''))
+               		.then(function (response) {
+               			return response.data;
+                });
+                return promise;
+            },
+            findByAuditEventType: function(auditEventType) {
+                var promise = $http.get('/app/rest/audits?$filter='+encodeURIComponent('auditEventType eq \''+auditEventType+'\''))
+                	.then(function (response) {
+                		return response.data;
                 });
                 return promise;
             }

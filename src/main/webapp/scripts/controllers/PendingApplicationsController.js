@@ -13,9 +13,11 @@ mldsApp.controller('PendingApplicationsController', [
 				PackagesService, AffiliateService) {
 
 			$scope.applications = [];
-			$scope.showAllApplications = false;
+			$scope.showAllApplications = 0;
 			$scope.applicationSearch = '';
 
+			$scope.orderByField = 'submittedAt';
+			$scope.reverseSort = false;
 
 			function loadApplications() {
 				// FIXME should be replaced by API call
@@ -34,7 +36,8 @@ mldsApp.controller('PendingApplicationsController', [
 			$scope.$watch('showAllApplications', toggleApplications);
 			
 			function toggleApplications() {
-				if ($scope.showAllApplications) {
+				$log.log('$scope.showAllApplications', $scope.showAllApplications);
+				if ($scope.showAllApplications == 1) {
 					$scope.applicationSearch = '';
 				} else {
 					var memberKey = Session.member && Session.member.key || 'NONE';

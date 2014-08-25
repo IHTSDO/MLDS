@@ -2,17 +2,25 @@
 
 /* Controllers */
 
-mldsApp.controller('MainController', ['$scope', '$rootScope', 'Session', '$log',
-    function ($scope, $rootScope, Session, $log) {
+mldsApp.controller('MainController', ['$scope', '$rootScope', 'Session', '$log', '$location', 'AuthenticationSharedService',
+    function ($scope, $rootScope, Session, $log, $location, AuthenticationSharedService) {
 		// Used to reverse the result of a function in filters
 		$rootScope.not = function(func) {
 		    return function (item) { 
 		        return !func(item); 
 		    };
 		};
-		$log.log(Session.promise);
+		//$log.log(Session.promise);
 		$rootScope.Session = Session;
 		
+//		Session.promise
+//			.then(function() {
+//				if (Session.isStaffOrAdmin()) {
+//					$location.path('/adminDashboard').replace();		
+//				} else if (Session.isUser()) {
+//					$location.path('/dashboard').replace();
+//				}
+//			});
     }]);
 
 mldsApp.controller('AdminController', ['$scope',
@@ -41,22 +49,20 @@ mldsApp.controller('PasswordController', ['$scope', 'Password',
     function ($scope, Password) {
         $scope.success = null;
         $scope.error = null;
-        $scope.doNotMatch = null;
         $scope.changePassword = function () {
-            if ($scope.password != $scope.confirmPassword) {
-                $scope.doNotMatch = "ERROR";
-            } else {
-                $scope.doNotMatch = null;
-                Password.save($scope.password,
-                    function (value, responseHeaders) {
-                        $scope.error = null;
-                        $scope.success = 'OK';
-                    },
-                    function (httpResponse) {
-                        $scope.success = null;
-                        $scope.error = "ERROR";
-                    });
-            }
+    		if ($scope.form.$invalid) {
+    			$scope.form.attempted = true;
+    			return;
+    		}
+            Password.save($scope.password,
+                function (value, responseHeaders) {
+                    $scope.error = null;
+                    $scope.success = 'OK';
+                },
+                function (httpResponse) {
+                    $scope.success = null;
+                    $scope.error = "ERROR";
+                });
         };
     }]);
 
@@ -168,7 +174,7 @@ mldsApp.controller('LogsController', ['$scope', 'resolvedLogs', 'LogsService',
         }
     }]);
 
-mldsApp.controller('AuditsController', ['$scope', '$translate', '$filter', 'AuditsService',
+mldsApp.controller('ActivityLogsController', ['$scope', '$translate', '$filter', 'AuditsService',
     function ($scope, $translate, $filter, AuditsService) {
         $scope.onChangeDate = function() {
             AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function(data){

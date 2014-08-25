@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -13,9 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -25,10 +28,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="application_type")
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=As.PROPERTY, property="applicationType")
-@JsonSubTypes({@Type(value=PrimaryApplication.class, name="PRIMARY"),@Type(value=ExtensionApplication.class, name="EXTENSION")})
+@JsonSubTypes({
+	@Type(value=PrimaryApplication.class, name="PRIMARY"),
+	@Type(value=ExtensionApplication.class, name="EXTENSION"),
+	@Type(value=ImportApplication.class, name="IMPORT")
+	})
+@Indexed
 public abstract class Application extends BaseEntity {
 	public static enum ApplicationType {
-		PRIMARY, EXTENSION
+		PRIMARY, EXTENSION, IMPORT
 	}
 	
 	@Id
@@ -37,20 +45,25 @@ public abstract class Application extends BaseEntity {
     Long applicationId;
 	
 	// the parent
-	@JsonIgnore
+	@JsonIgnoreProperties({"application", "applications"})
 	@ManyToOne
 	@JoinColumn(name="affiliate_id")
 	Affiliate affiliate;
 
 	String username;
-	
-	@OneToOne()
+		
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="affiliate_details_id")
+	@IndexedEmbedded
 	AffiliateDetails affiliateDetails;
 	
 	@Column(name="notes_internal")
 	String notesInternal;
 	
+	@Column(name="created_at")
+	private
+	Instant createdAt = Instant.now();
+
 	// Timestamp last submitted by the applicant
 	@Column(name="submitted_at")
 	Instant submittedAt;
@@ -137,6 +150,10 @@ public abstract class Application extends BaseEntity {
 		return affiliate;
 	}
 
+	public void setAffiliate(Affiliate affiliate) {
+		affiliate.addApplication(this);
+	}
+	
 	public Member getMember() {
 		return member;
 	}
@@ -153,8 +170,15 @@ public abstract class Application extends BaseEntity {
 		case EXTENSION:
 			return new ExtensionApplication();
 
+		case IMPORT:
+			return new ImportApplication();
+			
 		default:
 			throw new RuntimeException("Unsupported applicationType " + applicationType);
 		}
+	}
+
+	public Instant getCreatedAt() {
+		return createdAt;
 	}
 }

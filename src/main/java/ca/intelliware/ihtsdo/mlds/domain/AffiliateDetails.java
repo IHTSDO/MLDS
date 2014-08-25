@@ -14,6 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.apache.lucene.analysis.standard.UAX29URLEmailAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Fields;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 
 @Entity
 @Table(name="affiliate_details")
@@ -23,13 +29,29 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@GeneratedValue
 	@Column(name="affiliate_details_id")
     Long affiliateDetailsId;
-		
+
+	@Enumerated(EnumType.STRING)
+	AffiliateType type;
+
+	@Column(name = "other_text")
+	String otherText;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "subtype")
+	AffiliateSubType subType;
+
 	@Column(name="first_name")
+	@Fields({ @Field(name="ALL"), @Field()})
 	String firstName;
 	
 	@Column(name="last_name")
+	@Fields({ @Field(name="ALL"), @Field()})
 	String lastName;
 	
+	@Fields({ 
+		@Field(name="ALL"),  // the default analyzer splits on @ 
+		@Field(analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
+		})
 	String email;
 	
 	@Column(name="alternate_email")
@@ -59,9 +81,11 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	})
 	@AssociationOverrides(@AssociationOverride(name="country", joinColumns=@JoinColumn(name="country_iso_code_2")))
 	@Embedded
+	@IndexedEmbedded
 	MailingAddress address;
 	
 	@Column(name="organization_name")
+	@Fields({ @Field(name="ALL"), @Field()})
 	String organizationName;
 	
 	@AttributeOverrides({
@@ -71,6 +95,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	})
 	@AssociationOverrides(@AssociationOverride(name="country", joinColumns=@JoinColumn(name="billing_country_iso_code_2")))
 	@Embedded
+	@IndexedEmbedded
 	MailingAddress billingAddress;
 
 	public Long getAffiliateDetailsId() {
@@ -191,7 +216,42 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 		this.organizationTypeOther = organizationTypeOther;
 	}
 	
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
 	}
+
+	public AffiliateDetails copyNoId() {
+		AffiliateDetails detailsCopy = (AffiliateDetails) clone();
+		detailsCopy.setAffiliateDetailsId(null);
+		return detailsCopy;
+	}
+
+	public AffiliateType getType() {
+		return type;
+	}
+
+	public void setType(AffiliateType type) {
+		this.type = type;
+	}
+	
+	public String getOtherText() {
+		return otherText;
+	}
+
+	public void setOtherText(String otherText) {
+		this.otherText = otherText;
+	}
+
+	public AffiliateSubType getSubType() {
+		return subType;
+	}
+
+	public void setSubType(AffiliateSubType subType) {
+		this.subType = subType;
+	}
+
 }

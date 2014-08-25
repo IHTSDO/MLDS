@@ -1,0 +1,21 @@
+<div>
+    <h2>Licence T&C</h2>
+    <table class="table table-striped table-bordered table-hover">
+    	<thead>
+    		<tr>
+    			<th>Member</th>
+    			<th>Actions</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		<tr ng-repeat="member in members | orderBy: canAccess : true">
+    			<td>{{member.key}}</td>
+    			<td>
+    				<button class="btn btn-primary" ng-click="viewLicence(member.key)"><i class="fa fa-file-o"></i> Download Licence</button>
+    				<button class="btn btn-success" ng-show="canAccess(member)" ng-click="editLicence(member)"><i class="fa fa-edit"></i> Edit Licence</button>
+    			</td>
+    		</tr>
+    	</tbody>
+    </table>
+    
+</div>
