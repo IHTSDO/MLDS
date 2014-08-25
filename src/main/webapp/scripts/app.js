@@ -299,9 +299,9 @@ mldsApp
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
-                .when('/audits', {
-                    templateUrl: 'views/admin/audits.html',
-                    controller: 'AuditsController',
+                .when('/activityLog', {
+                    templateUrl: 'views/admin/activityLogs.html',
+                    controller: 'ActivityLogsController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
