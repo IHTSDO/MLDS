@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
@@ -78,7 +79,10 @@ public class AffiliateAuditEvents {
     	auditData.put("affiliate.affiliateDetails.billingAddress.street", affiliate.getAffiliateDetails().getBillingAddress().getStreet());
     	auditData.put("affiliate.affiliateDetails.billingAddress.city", affiliate.getAffiliateDetails().getBillingAddress().getCity());
     	auditData.put("affiliate.affiliateDetails.billingAddress.post", affiliate.getAffiliateDetails().getBillingAddress().getPost());
-    	auditData.put("affiliate.affiliateDetails.billingAddress.country", affiliate.getAffiliateDetails().getBillingAddress().getCountry().getIsoCode2());
+    	Country billingCountry = affiliate.getAffiliateDetails().getBillingAddress().getCountry();
+    	if (billingCountry != null) {
+    		auditData.put("affiliate.affiliateDetails.billingAddress.country", billingCountry.getIsoCode2());
+    	}
     	auditData.put("affiliate.affiliateDetails.alternateEmail", affiliate.getAffiliateDetails().getAlternateEmail());
     	auditData.put("affiliate.affiliateDetails.thirdEmail", affiliate.getAffiliateDetails().getThirdEmail());
 		return auditData;
