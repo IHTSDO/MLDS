@@ -52,7 +52,6 @@ angular.module('MLDS')
 			$scope.matchingExtensionApplication = getLatestMatchingMemberApplication(releasePackage);
 			$scope.isApplicationWaitingForApplicant = ApplicationUtilsService.isApplicationWaitingForApplicant($scope.matchingExtensionApplication);
 			$scope.isIHTSDOPackage = MemberService.isIhtsdoMember(releasePackage.member);
-			$log.log(releasePackage, $scope);
 		});
 	};
 
