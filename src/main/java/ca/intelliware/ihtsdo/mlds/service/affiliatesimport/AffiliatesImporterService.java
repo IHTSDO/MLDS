@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,6 @@ import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
-import ca.intelliware.ihtsdo.mlds.domain.ImportApplication;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
@@ -190,6 +190,8 @@ public class AffiliatesImporterService {
 	private PrimaryApplication createApprovedPrimaryApplication(LineRecord record, ApplicationType applicationType) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		PrimaryApplication application = (PrimaryApplication) Application.create(applicationType);
 		populateWithAll(application, record, Application.class);
+		application.setCompletedAt(Instant.now());
+		application.setSubmittedAt(Instant.now());
 		application.setApprovalState(ApprovalState.APPROVED);
 		populateWithAll(application, record, PrimaryApplication.class);
 		application.setAffiliateDetails(createPopulateAffiliateDetails(record));
