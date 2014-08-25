@@ -60,6 +60,10 @@ public abstract class Application extends BaseEntity {
 	@Column(name="notes_internal")
 	String notesInternal;
 	
+	@Column(name="created_at")
+	private
+	Instant createdAt = Instant.now();
+
 	// Timestamp last submitted by the applicant
 	@Column(name="submitted_at")
 	Instant submittedAt;
@@ -172,5 +176,9 @@ public abstract class Application extends BaseEntity {
 		default:
 			throw new RuntimeException("Unsupported applicationType " + applicationType);
 		}
+	}
+
+	public Instant getCreatedAt() {
+		return createdAt;
 	}
 }
