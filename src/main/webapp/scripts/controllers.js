@@ -174,7 +174,7 @@ mldsApp.controller('LogsController', ['$scope', 'resolvedLogs', 'LogsService',
         }
     }]);
 
-mldsApp.controller('AuditsController', ['$scope', '$translate', '$filter', 'AuditsService',
+mldsApp.controller('ActivityLogsController', ['$scope', '$translate', '$filter', 'AuditsService',
     function ($scope, $translate, $filter, AuditsService) {
         $scope.onChangeDate = function() {
             AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function(data){

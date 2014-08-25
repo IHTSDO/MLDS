@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS')
-    .controller('ViewPackagesController', 
+    .controller('ViewReleasesController', 
     		['$scope', '$log', 'PackagesService', 'PackageUtilsService', '$location', 'MemberService', 'UserAffiliateService',
            function ($scope, $log, PackagesService, PackageUtilsService, $location, MemberService, UserAffiliateService) {
 			
@@ -18,7 +18,7 @@ angular.module('MLDS')
 	loadReleasePackages();
 		
 	$scope.goToViewPackagePage = function goToViewPackagePage(releasePackageId) {
-		$location.path('/viewPackages/viewPackage/'+ releasePackageId);
+		$location.path('/viewReleases/viewRelease/'+ releasePackageId);
 	};
 	
 	$scope.releasePackageOrderBy = UserAffiliateService.releasePackageOrderBy; 

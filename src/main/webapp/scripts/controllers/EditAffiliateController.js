@@ -6,10 +6,11 @@ mldsApp.controller('EditAffiliateController', [
 		'$location',
 		'$modal',
 		'$routeParams',
+		'$timeout',
 		'Session',
 		'AffiliateService',
 		'ApplicationUtilsService',
-		function($scope, $log, $location, $modal, $routeParams, Session, AffiliateService, ApplicationUtilsService) {
+		function($scope, $log, $location, $modal, $routeParams, $timeout, Session, AffiliateService, ApplicationUtilsService) {
 			
 			var affiliateId = $routeParams.affiliateId && parseInt($routeParams.affiliateId, 10);
 			
@@ -55,7 +56,13 @@ mldsApp.controller('EditAffiliateController', [
 	    			.success(function(result) {
 	    				$scope.affiliateDetails = result.data;
 	    				$scope.submitting = false;
-	    				$scope.alerts.push({type: 'success', msg: 'Contact information has been successfully saved.'});
+	    				$location.path('/affiliates/'+ affiliateId);
+	    				/* FIXME MB introduce an alerts service, put the alerts on the root scope, and prune 
+	    				 * dismissed alerts on route change
+	    				 */
+	    				$timeout(function(){
+		    				$scope.alerts.push({type: 'success', msg: 'Contact information has been successfully saved.'});
+	    				});
 	    			})
 				["catch"](function(message) {
 					$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});

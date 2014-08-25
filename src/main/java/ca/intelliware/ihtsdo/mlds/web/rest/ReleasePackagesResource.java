@@ -403,17 +403,19 @@ public class ReleasePackagesResource {
     	
     	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
     	if (releaseFile == null) {
-    		//FIXME better 404 handling...
+    		//TODO better 404 handling
     		throw new RuntimeException("no such file found");
     	}
     	
     	//FIXME should we check children being consistent?
-    	//FIXME better check for download?
-    	authorizationChecker.checkCanAccessReleaseVersion(releaseFile.getReleaseVersion());
+    	authorizationChecker.checkCanDownloadReleaseVersion(releaseFile.getReleaseVersion());
     	
-    	String downloadUrl = releaseFile.getDownloadUrl();
-    	int statusCode = uriDownloader.download(downloadUrl, request, response);
-    	
-    	releasePackageAuditEvents.logDownload(releaseFile, statusCode);
+    	int statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
+    	try {
+	    	String downloadUrl = releaseFile.getDownloadUrl();
+	    	statusCode = uriDownloader.download(downloadUrl, request, response);
+    	} finally {
+    		releasePackageAuditEvents.logDownload(releaseFile, statusCode);
+    	}
     }
 }
