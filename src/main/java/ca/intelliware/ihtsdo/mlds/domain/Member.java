@@ -10,11 +10,14 @@ import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Member extends BaseEntity {
 	public static final String KEY_IHTSDO = "IHTSDO";
 	
@@ -35,8 +38,9 @@ public class Member extends BaseEntity {
     
 	public Member() {}
 	
-	public Member(String key) {
+	public Member(String key, long memberId) {
 		this.key = key;
+		this.memberId = memberId;
 	}
 
 	public Long getMemberId() {

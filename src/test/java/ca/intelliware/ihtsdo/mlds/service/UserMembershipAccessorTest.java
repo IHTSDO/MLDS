@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
+import java.util.Collection;
+
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,6 +20,7 @@ import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserMembershipAccessorTest {
@@ -30,6 +33,9 @@ public class UserMembershipAccessorTest {
 	
 	@Mock
 	private CurrentSecurityContext currentSecurityContext;
+	
+	@Mock
+	private AffiliateMembershipCalculator affiliateMembershipCalculator;
 
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
 
@@ -45,11 +51,12 @@ public class UserMembershipAccessorTest {
         userMembershipAccessor.affiliateRepository = affiliateRepository;
         userMembershipAccessor.currentSecurityContext = currentSecurityContext;
         userMembershipAccessor.memberRepository = memberRespository;
+        userMembershipAccessor.affiliateMembershipCalculator = affiliateMembershipCalculator;
         
         userMembershipAccessor.currentSecurityContext = new CurrentSecurityContext();
         
-		sweden = new Member("SE");
-		ihtsdo = new Member("IHTSDO");
+		sweden = new Member("SE", 1);
+		ihtsdo = new Member("IHTSDO", 2);
     }
 
     @Test
@@ -94,5 +101,55 @@ public class UserMembershipAccessorTest {
     	Member member = userMembershipAccessor.getMemberAssociatedWithUser();
     	
     	Assert.assertThat(member, Matchers.is((Member)null));
+    }
+
+    @Test
+    public void getAcceptedAffiliateMembershipsOfUserShouldContainAcceptedApplicationsForAffiliate() {
+    	Affiliate affiliate = new Affiliate();
+    	//Note that in this scenario the sweeden extension has not been accepted yet...
+    	affiliate.setHomeMember(sweden);
+    	Mockito.when(affiliateRepository.findByCreator("user")).thenReturn(Lists.newArrayList(affiliate));
+    	
+    	Mockito.when(affiliateMembershipCalculator.acceptedMemberships(affiliate)).thenReturn(Sets.newHashSet(ihtsdo));
+    	
+    	securityContextSetup.asAffiliateUser();
+    	
+    	Collection<Member> affiliateMemberships = userMembershipAccessor.getAcceptedAffiliateMembershipsOfUser();
+    	
+    	Assert.assertThat(affiliateMemberships, Matchers.contains(ihtsdo));
+    }
+
+    @Test
+    public void isAffiliateMemberApplicationAcceptedShouldContainAcceptedApplicationsForAffiliate() {
+    	Affiliate affiliate = new Affiliate();
+    	//Note that in this scenario the sweeden extension has not been accepted yet...
+    	affiliate.setHomeMember(sweden);
+    	Mockito.when(affiliateRepository.findByCreator("user")).thenReturn(Lists.newArrayList(affiliate));
+    	
+    	Mockito.when(affiliateMembershipCalculator.acceptedMemberships(affiliate)).thenReturn(Sets.newHashSet(ihtsdo));
+    	
+    	securityContextSetup.asAffiliateUser();
+    	
+    	Assert.assertThat(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo), Matchers.equalTo(true));
+    	Assert.assertThat(userMembershipAccessor.isAffiliateMemberApplicationAccepted(sweden), Matchers.equalTo(false));
+    }
+
+    @Test
+    public void getAcceptedAffiliateMembershipsOfUserShouldBeEmptyForStaff() {
+    	securityContextSetup.asIHTSDOStaff();
+    	
+    	Collection<Member> affiliateMemberships = userMembershipAccessor.getAcceptedAffiliateMembershipsOfUser();
+    	
+    	Assert.assertThat(affiliateMemberships, Matchers.emptyCollectionOf(Member.class));
+    }
+
+    @Test
+    public void getAcceptedAffiliateMembershipsOfUserShouldBeEmptyForAnonymous() {
+    	securityContextSetup.asAnonymous();
+    	
+    	Collection<Member> affiliateMemberships = userMembershipAccessor.getAcceptedAffiliateMembershipsOfUser();
+    	
+    	Assert.assertThat(affiliateMemberships, Matchers.emptyCollectionOf(Member.class));
+    	
     }
 }

@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +11,8 @@ import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
+
+import com.google.common.collect.Lists;
 
 /**
  * Get the primary member for the current user.
@@ -25,6 +28,9 @@ public class UserMembershipAccessor {
 	
 	@Resource
 	MemberRepository memberRepository;
+	
+	@Resource
+	AffiliateMembershipCalculator affiliateMembershipCalculator;
 
 	public Member getMemberAssociatedWithUser() {
 		if (currentSecurityContext.isStaffOrAdmin()) {
@@ -42,11 +48,46 @@ public class UserMembershipAccessor {
 	}
 
 	private Member getAffiliateHomeMember() {
+		Affiliate affiliate = getAffiliate();
+		if (affiliate != null) {
+			return affiliate.getHomeMember();
+		} else {
+			return null;
+		}
+	}
+
+	private Affiliate getAffiliate() {
 		List<Affiliate> affiliates = affiliateRepository.findByCreator(currentSecurityContext.getCurrentUserName());
-		if (affiliates.size() >= 0) {
-			return affiliates.get(0).getHomeMember();
+		if (affiliates.size() > 0) {
+			return affiliates.get(0);
 		}
 		return null;
+	}
+	
+	/**
+	 * Collection of accepted membership applications. Note that this 
+	 * might not include the "home member" if the extension application
+	 * for a non-ihtsdo member has not been accepted yet.
+	 */
+	public Collection<Member> getAcceptedAffiliateMembershipsOfUser() {
+		if (currentSecurityContext.isUser()) {
+			return getAffiliateMemberships();
+		} else {
+			return Lists.newArrayList();
+		}
+	}
+
+	public boolean isAffiliateMemberApplicationAccepted(Member member) {
+		return getAcceptedAffiliateMembershipsOfUser().contains(member);
+	}
+	
+	private Collection<Member> getAffiliateMemberships() {
+		Affiliate affiliate = getAffiliate();
+		if (affiliate != null) {
+			return affiliateMembershipCalculator.acceptedMemberships(affiliate);
+		} else {
+			return Lists.newArrayList();
+		}
 	}
 
 }

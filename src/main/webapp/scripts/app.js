@@ -151,9 +151,9 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
-                .when('/packageManagement', {
-                    templateUrl: 'views/admin/packageManagement.html',
-                    controller: 'PackageManagementController',
+                .when('/releaseManagement', {
+                    templateUrl: 'views/admin/releaseManagement.html',
+                    controller: 'ReleaseManagementController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -162,9 +162,9 @@ mldsApp
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
-                .when('/packageManagement/package/:packageId', {
-                    templateUrl: 'views/admin/package.html',
-                    controller: 'PackageController',
+                .when('/releaseManagement/release/:packageId', {
+                    templateUrl: 'views/admin/release.html',
+                    controller: 'ReleaseController',
                     access: {
                     	authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -172,9 +172,9 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/packageManagement/package/:packageId/:edit', {
-                    templateUrl: 'views/admin/package.html',
-                    controller: 'PackageController',
+                .when('/releaseManagement/release/:packageId/:edit', {
+                    templateUrl: 'views/admin/release.html',
+                    controller: 'ReleaseController',
                     access: {
                     	authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -183,9 +183,9 @@ mldsApp
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
-                .when('/viewPackages', {
-                    templateUrl: 'views/user/viewPackages.html',
-                    controller: 'ViewPackagesController',
+                .when('/viewReleases', {
+                    templateUrl: 'views/user/viewReleases.html',
+                    controller: 'ViewReleasesController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
                     },
@@ -193,9 +193,9 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/viewPackages/viewPackage/:releasePackageId', {
-                    templateUrl: 'views/user/viewPackage.html',
-                    controller: 'ViewPackageController',
+                .when('/viewReleases/viewRelease/:releasePackageId', {
+                    templateUrl: 'views/user/viewRelease.html',
+                    controller: 'ViewReleaseController',
                     access: {
                     	authorizedRoles: [USER_ROLES.all]
                     },
@@ -299,9 +299,9 @@ mldsApp
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     }
                 })
-                .when('/audits', {
-                    templateUrl: 'views/admin/audits.html',
-                    controller: 'AuditsController',
+                .when('/activityLog', {
+                    templateUrl: 'views/admin/activityLogs.html',
+                    controller: 'ActivityLogsController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -434,8 +434,8 @@ mldsApp
                     		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
                     		$location.path() !== "/resetPassword" &&
-                    		$location.path().indexOf("/viewPackage") == -1 &&
-                    		$location.path() !== "/viewPackages" &&
+                    		$location.path().indexOf("/viewRelease") == -1 &&
+                    		$location.path() !== "/viewReleases" &&
                     		$location.path() !== "/emailVerification" &&
                             $location.path() !== "/activate") {
                         $location.path('/login').replace();
