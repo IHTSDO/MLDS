@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').factory('PackageUtilsService',
-		[ '$resource', '$q', '$log', '$location', '$modal', 'Session', 'UserRegistrationService', 'MemberService', 
-		  function($resource, $q, $log, $location, $modal, Session, UserRegistrationService, MemberService) {
+		[ '$resource', '$q', '$log', '$location', '$modal', 'Session', 'UserRegistrationService', 'MemberService', 'UserAffiliateService',
+		  function($resource, $q, $log, $location, $modal, Session, UserRegistrationService, MemberService, UserAffiliateService) {
 			var service = {};
 			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
@@ -96,8 +96,9 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		    });
 	    		
 	    		modalInstance.result.then(function () {
-	    			UserRegistrationService.createExtensionApplication(releasePackage.member.key)
+	    			UserRegistrationService.createExtensionApplication(releasePackage.member)
 		    			.then(function(result) {
+		    				UserAffiliateService.refreshAffiliate();
 		    				if(result.data && result.data.applicationId) {
 		    					$location.path('/extensionApplication/'+ result.data.applicationId);
 		    				}
