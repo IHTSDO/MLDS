@@ -15,7 +15,7 @@ angular.module('MLDS').controller('AddPackageModalController', ['$scope', '$log'
 			
 			PackagesService.save($scope.releasePackage)
 				.$promise.then(function(result) {
-					$location.path('/packageManagement/package/'+encodeURIComponent(result.releasePackageId));
+					$location.path('/releaseManagement/package/'+encodeURIComponent(result.releasePackageId));
 
 					$modalInstance.close(result);
 				})
