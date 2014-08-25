@@ -163,7 +163,7 @@ mldsApp
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
                 .when('/releaseManagement/release/:packageId', {
-                    templateUrl: 'views/admin/package.html',
+                    templateUrl: 'views/admin/release.html',
                     controller: 'PackageController',
                     access: {
                     	authorizedRoles: USER_ROLES.staffOrAdmin
@@ -173,7 +173,7 @@ mldsApp
                     }
                 })
                 .when('/releaseManagement/release/:packageId/:edit', {
-                    templateUrl: 'views/admin/package.html',
+                    templateUrl: 'views/admin/release.html',
                     controller: 'PackageController',
                     access: {
                     	authorizedRoles: USER_ROLES.staffOrAdmin
@@ -184,7 +184,7 @@ mldsApp
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
                 .when('/viewReleases', {
-                    templateUrl: 'views/user/viewPackages.html',
+                    templateUrl: 'views/user/viewReleases.html',
                     controller: 'ViewPackagesController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
@@ -194,7 +194,7 @@ mldsApp
                     }
                 })
                 .when('/viewReleases/viewRelease/:releasePackageId', {
-                    templateUrl: 'views/user/viewPackage.html',
+                    templateUrl: 'views/user/viewRelease.html',
                     controller: 'ViewPackageController',
                     access: {
                     	authorizedRoles: [USER_ROLES.all]
