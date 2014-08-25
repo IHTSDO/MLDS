@@ -1075,4 +1075,28 @@
     	</addColumn>
 	</changeSet>
 
+    <changeSet id="MLDS-323" author="MB">
+    	<comment>Move subType from PrimaryApplication to AffiliateDetails</comment>
+    	<addColumn tableName="affiliate_details">
+    		<column name="subtype" type="VARCHAR(255)" afterColumn="affiliate_details_id"/>
+    	</addColumn>
+    	<!-- copy PA to affiliate.affilliateDetails -->
+    	<sql>
+    		UPDATE affiliate_details
+    		SET subtype = pa.subtype
+    		FROM affiliate_details AS af_ad
+    		JOIN affiliate AS af ON af.affiliate_details_id = af_ad.affiliate_details_id
+    		JOIN application AS pa ON pa.application_id = af.application_id
+    	</sql>
+    	<!-- copy pa.subtype to all applications.affiliateDetails -->
+    	<sql>
+    		UPDATE affiliate_details
+    		SET subtype = pa.subtype
+    		FROM affiliate_details AS application_ad
+    		JOIN application ON application.affiliate_details_id = application_ad.affiliate_details_id
+    		JOIN affiliate ON application.affiliate_id = affiliate.affiliate_id
+    		JOIN application AS pa ON affiliate.application_id = pa.application_id
+    	</sql>
+    	<dropColumn tableName="application" columnName="subtype"/>
+    </changeSet>
 </databaseChangeLog>
