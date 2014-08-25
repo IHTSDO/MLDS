@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS')
-    .controller('ViewPackageController', 
+    .controller('ViewReleaseController', 
     		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location', '$log', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService',
           function($scope, $routeParams, PackagesService, PackageUtilsService, $location, $log, UserAffiliateService, ApplicationUtilsService, MemberService){
     	
@@ -75,17 +75,17 @@ angular.module('MLDS')
 			["catch"](function(message) {
 				//FIXME how to handle errors + not present 
 				$log.log('ReleasePackage not found');
-				$location.path('/viewPackages');
+				$scope.goToViewPackages();
 			});
 		} else {
-			$location.path('/viewPackages');
+			$scope.goToViewPackages();
 		};
 	};
 
 	loadReleasePackage();
 
 	$scope.goToViewPackages = function goToViewPackages() {
-		$location.path('/viewPackages');
+		$location.path('/viewReleases');
 	};
 		
 }]);

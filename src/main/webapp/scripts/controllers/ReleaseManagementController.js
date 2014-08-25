@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('PackageManagementController', 
+angular.module('MLDS').controller('ReleaseManagementController', 
 		['$scope', '$log', '$modal', 'PackagesService', '$location', 'PackageUtilsService',
     function ($scope, $log, $modal, PackagesService, $location, PackageUtilsService) {
 			
@@ -34,8 +34,8 @@ angular.module('MLDS').controller('PackageManagementController',
 		
 		$scope.addReleasePackage = function() {
 			var modalInstance = $modal.open({
-				templateUrl: 'views/admin/addPackageModal.html',
-				controller: 'AddPackageModalController',
+				templateUrl: 'views/admin/addReleaseModal.html',
+				controller: 'AddReleaseModalController',
 				size:'lg',
 				backdrop: 'static',
 				resolve: {
@@ -63,7 +63,7 @@ angular.module('MLDS').controller('PackageManagementController',
         };
         
         $scope.goToPackage = function(packageEntity) {
-        	$location.path('/packageManagement/package/'+encodeURIComponent(packageEntity.releasePackageId));
+        	$location.path('/releaseManagement/release/'+encodeURIComponent(packageEntity.releasePackageId));
         };
         
         $scope.deleteReleasePackage = function(releasePackage) {

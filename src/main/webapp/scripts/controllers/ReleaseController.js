@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('PackageController', 
+angular.module('MLDS').controller('ReleaseController', 
 		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService', 'ReleaseFilesService', 'PackageUtilsService',
 		 function($scope, $log, $routeParams, $location, $modal, PackagesService, ReleaseFilesService, PackageUtilsService) {
 
@@ -29,10 +29,10 @@ angular.module('MLDS').controller('PackageController',
 					["catch"](function(message) {
 						//FIXME how to handle errors + not present
 						$log.log('ReleasePackage not found');
-						$location.path('/packageManagement');
+						$scope.goToReleaseManagement();
 					});
 		} else {
-			$location.path('/packageManagement');
+			$scope.goToReleaseManagement();
 		};
 	};
 
@@ -76,8 +76,8 @@ angular.module('MLDS').controller('PackageController',
 	
     $scope.editReleasePackage = function() {
         var modalInstance = $modal.open({
-              templateUrl: 'views/admin/editPackageModal.html',
-              controller: 'EditPackageModalController',
+              templateUrl: 'views/admin/editReleaseModal.html',
+              controller: 'EditReleaseModalController',
               scope: $scope,
               size: 'lg',
               backdrop: 'static',
@@ -165,6 +165,6 @@ angular.module('MLDS').controller('PackageController',
     
     
     $scope.goToReleaseManagement = function() {
-    	$location.path('/packageManagement');
+    	$location.path('/releaseManagement');
     };
 }]);
