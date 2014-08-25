@@ -32,7 +32,7 @@
 		
 		<div class="panel panel-primary">	
 		<div class="panel-heading">	
-		<div ng-class="{'status': !isMembershipApproved}">
+		<div ng-class="{'status text-muted': !isMembershipApproved}">
 			<div ng-show="$root.authenticated">
 				<span class="btn btn-warning pull-right" ng-show="!isPrimaryApplicationApproved">Primary application is being processed</span>
 				<button class="btn btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved && !isIHTSDOPackage" ng-click="utils.openExtensionApplication(releasePackage)">			
