@@ -40,5 +40,5 @@ angular.module('MLDS')
 				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
 			});
 	}
-	
+		
 }]);

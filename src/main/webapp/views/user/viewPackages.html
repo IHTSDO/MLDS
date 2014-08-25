@@ -18,7 +18,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row" ng-repeat="releasePackage in memberReleases.packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished">
+	<div class="row" ng-repeat="releasePackage in memberReleases.packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished" ng-controller="ViewPackageController">
 		<div class="col-sm-12 col-md-12 col-lg-12"> 
 			<div class="well package">
 				<div class="pull-right" ng-show="$root.authenticated">
@@ -40,7 +40,7 @@
 								<div class="col-sm-2"><strong>Current: {{version.name}}</strong></div>
 								<ul class="list-unstyled">
 									<li ng-repeat="releaseFile in version.releaseFiles">
-										<a href="{{releaseFile.clientDownloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.clientDownloadUrl || isMembershipUnstarted || isMembershipIncomplete" target="_blank">{{releaseFile.label}}</a>
+										<a href="{{releaseFile.clientDownloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.clientDownloadUrl || utils.isMembershipUnstarted || isMembershipIncomplete" target="_blank">{{releaseFile.label}}</a>
 									</li>
 								</ul>
 							</div>
