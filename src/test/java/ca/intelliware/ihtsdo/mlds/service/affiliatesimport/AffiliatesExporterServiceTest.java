@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
@@ -51,7 +52,7 @@ public class AffiliatesExporterServiceTest {
 		fixture.affiliatesMapper = affiliatesMapper;
 		
 		importKeyColumn = new FieldMapping(0, "importKey", Affiliate.class, new Accessor(Affiliate.class, "importKey"), new ValueConverter());
-		applicationTypeColumn = new FieldMapping(1, "type", PrimaryApplication.class, new Accessor(PrimaryApplication.class, "type"), new EnumValueConverter(AffiliateType.class));
+		applicationTypeColumn = new FieldMapping(1, "type", AffiliateDetails.class, new Accessor(AffiliateDetails.class, "type"), new EnumValueConverter(AffiliateType.class));
 		applicationTypeColumn.required = true;
 		fieldMappings = Lists.newArrayList(importKeyColumn, applicationTypeColumn);
 		
@@ -90,7 +91,11 @@ public class AffiliatesExporterServiceTest {
 		Affiliate affiliate = new Affiliate(123L);
 		affiliate.setImportKey("IMPORTED-1");
 		PrimaryApplication primaryApplication = new PrimaryApplication(1);
-		primaryApplication.setType(AffiliateType.OTHER);
+		primaryApplication.setAffiliateDetails(new AffiliateDetails());
+		primaryApplication.getAffiliateDetails().setType(AffiliateType.OTHER);
+		// FIXME MLDS-32 MB is this the right thing?
+		affiliate.setAffiliateDetails(new AffiliateDetails());
+		affiliate.getAffiliateDetails().setType(AffiliateType.OTHER);
 		affiliate.setApplication(primaryApplication);
 		
 		when(affiliateRepository.findAll()).thenReturn(Lists.newArrayList(affiliate));
@@ -109,8 +114,8 @@ public class AffiliatesExporterServiceTest {
 		// Data Row 1
 		String[] dataRow1 = splitLine(lines.get(1));
 		assertEquals(dataRow1.length, 2);
-		assertEquals(dataRow1[0], "IMPORTED-1");
-		assertEquals(dataRow1[1], "OTHER");
+		assertEquals("IMPORTED-1", dataRow1[0]);
+		assertEquals("OTHER", dataRow1[1]);
 	}
 
 	@Test

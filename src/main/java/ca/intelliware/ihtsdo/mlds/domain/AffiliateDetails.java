@@ -29,7 +29,13 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@GeneratedValue
 	@Column(name="affiliate_details_id")
     Long affiliateDetailsId;
-		
+
+	@Enumerated(EnumType.STRING)
+	AffiliateType type;
+
+	@Column(name = "other_text")
+	String otherText;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "subtype")
 	AffiliateSubType subType;
@@ -224,6 +230,22 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 		return detailsCopy;
 	}
 
+	public AffiliateType getType() {
+		return type;
+	}
+
+	public void setType(AffiliateType type) {
+		this.type = type;
+	}
+	
+	public String getOtherText() {
+		return otherText;
+	}
+
+	public void setOtherText(String otherText) {
+		this.otherText = otherText;
+	}
+
 	public AffiliateSubType getSubType() {
 		return subType;
 	}
@@ -231,4 +253,5 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	public void setSubType(AffiliateSubType subType) {
 		this.subType = subType;
 	}
+
 }

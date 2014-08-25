@@ -297,13 +297,14 @@ public class ApplicationResource {
 
 		if (application instanceof PrimaryApplication) {
 			PrimaryApplication primaryApplication = (PrimaryApplication) application;
+			// FIXME MLDS-32 MB we should update the client to match the new structure
 			if (checkIfValidField(request, "type")){
-				primaryApplication.setType(AffiliateType.valueOf(getStringField(request, "type")));
+				primaryApplication.getAffiliateDetails().setType(AffiliateType.valueOf(getStringField(request, "type")));
 			}
 			if (checkIfValidField(request, "subType")) {
 				primaryApplication.getAffiliateDetails().setSubType(AffiliateSubType.valueOf(getStringField(request, "subType")));
 			}
-			primaryApplication.setOtherText(getStringField(request, "otherText"));
+			primaryApplication.getAffiliateDetails().setOtherText(getStringField(request, "otherText"));
 			
 			primaryApplication.setSnoMedLicence(Boolean.parseBoolean(getStringField(request, "snoMedTC")));
 		}
