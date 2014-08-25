@@ -63,7 +63,7 @@ angular.module('MLDS').controller('PackageManagementController',
         };
         
         $scope.goToPackage = function(packageEntity) {
-        	$location.path('/packageManagement/package/'+encodeURIComponent(packageEntity.releasePackageId));
+        	$location.path('/releaseManagement/release/'+encodeURIComponent(packageEntity.releasePackageId));
         };
         
         $scope.deleteReleasePackage = function(releasePackage) {
