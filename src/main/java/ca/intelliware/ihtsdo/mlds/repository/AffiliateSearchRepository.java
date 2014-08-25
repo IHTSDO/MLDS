@@ -6,7 +6,10 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.search.Query;
+import org.hibernate.search.SearchFactory;
+import org.hibernate.search.errors.EmptyQueryException;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
@@ -38,9 +41,7 @@ public class AffiliateSearchRepository {
 
 	public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, Pageable pageable) {
 		
-		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-	
-		QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
+		QueryBuilder queryBuilder = getSearchFactory().buildQueryBuilder()
 				.forEntity(Affiliate.class).get();
 		
 		
@@ -59,7 +60,7 @@ public class AffiliateSearchRepository {
 					.createQuery();
 		}
 		
-		FullTextQuery ftQuery = fullTextEntityManager.createFullTextQuery(query, Affiliate.class);
+		FullTextQuery ftQuery = getFullTextEntityManager().createFullTextQuery(query, Affiliate.class);
 		
 		ftQuery.setFirstResult(pageableUtil.getStartPosition(pageable));
 		ftQuery.setMaxResults(pageable.getPageSize());
@@ -72,6 +73,14 @@ public class AffiliateSearchRepository {
 		LOG.debug("Found {} results for query: {}", ftQuery.getResultSize(), q);
 		
 		return new PageImpl<>(resultList, pageable, ftQuery.getResultSize());
+	}
+
+	private SearchFactory getSearchFactory() {
+		return getFullTextEntityManager().getSearchFactory();
+	}
+
+	private FullTextEntityManager getFullTextEntityManager() {
+		return Search.getFullTextEntityManager(entityManager);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -102,12 +111,23 @@ public class AffiliateSearchRepository {
 	Query buildWildcardQueryForTokens(QueryBuilder queryBuilder, String q) {
 		BooleanJunction<?> bool = queryBuilder.bool();
 		
-		String[] tokens = q.split("\\s+");
+		//Analyzer searchtokenAnalyzer = getSearchFactory().getAnalyzer("searchtokenanalyzer");
 		
+		try {
+			// We're letting the default analyzer tokenize the main query for the ALL field
+			Query allKeywordQuery = queryBuilder.keyword()
+					.onField("ALL").matching(q)
+					.createQuery();
+			bool.should(allKeywordQuery);
+		} catch (EmptyQueryException e) {
+			System.out.println(e);
+			// ignore it, and allow the full query since we have a limit.
+		}
+
+		// And then we do a dumb split on whitespace and turn every string into a wildcard query
+		// on all the fields.
+		String[] tokens = q.split("\\s+");
 		for (String token : tokens) {
-			bool.should(queryBuilder.keyword()
-					.onField("ALL").matching(token)
-					.createQuery());
 			bool.should(queryBuilder.keyword()
 					.wildcard()
 					.onField("ALL").matching(token+"*")
