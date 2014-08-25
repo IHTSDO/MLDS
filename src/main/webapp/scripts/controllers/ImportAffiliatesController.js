@@ -17,15 +17,15 @@ mldsApp.controller('ImportAffiliatesController',
                 $scope.submitting = true;
                 ImportAffiliatesService.importAffiliates(file)
                 	.then(function(result) {
-                		$scope.importResult = result.data;
+                		$scope.importResult = JSON.stringify(result.data, undefined, 2);
                 		$scope.alerts.push({type: 'success', msg: 'Import completed.'});
                 		$scope.submitting = false;
                 		loadAudits();
                 	})
         			["catch"](function(message) {
         				$log.log(message);
-        				$scope.importResult = message.data;
-        				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later. ['+ message.statusText+']'});
+        				$scope.importResult = JSON.stringify(message.data, undefined, 2);
+        				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
         				$scope.submitting = false;
                 		loadAudits();
         			});
