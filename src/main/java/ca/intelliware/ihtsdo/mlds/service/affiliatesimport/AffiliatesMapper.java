@@ -41,8 +41,8 @@ public class AffiliatesMapper {
 		getMappings().add(createField("member", Application.class).required());
 		getMappings().add(createField("importKey", Affiliate.class).required());
 		getMappings().add(createField("type", PrimaryApplication.class));
-		getMappings().add(createField("otherText", PrimaryApplication.class));
 		getMappings().add(createField("subType", AffiliateDetails.class));
+		getMappings().add(createField("otherText", PrimaryApplication.class));
 		getMappings().add(createField("firstName", AffiliateDetails.class));
 		getMappings().add(createField("lastName", AffiliateDetails.class));
 		getMappings().add(createField("email", AffiliateDetails.class));
