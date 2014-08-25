@@ -15,9 +15,7 @@ public class PrimaryApplication extends Application{
 	// FIXME MLDS-310 MB consider moving these into AffiliateDetails for a consistent approach
 	@Enumerated(EnumType.STRING)
 	AffiliateType type;
-	@Enumerated(EnumType.STRING)
-	@Column(name = "subtype")
-	AffiliateSubType subType;
+	
 	@Column(name = "other_text")
 	String otherText;
 	boolean snomedlicense;
@@ -32,11 +30,7 @@ public class PrimaryApplication extends Application{
 	}
 
 	public AffiliateSubType getSubType() {
-		return subType;
-	}
-
-	public void setSubType(AffiliateSubType subType) {
-		this.subType = subType;
+		return affiliateDetails==null?null:affiliateDetails.getSubType();
 	}
 
 	public AffiliateType getType() {

@@ -29,7 +29,6 @@ public class ApplicationService {
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource MemberRepository memberRepository;
 
-
 	public Application startNewApplication(ApplicationType applicationType, Member member) {
 		Application application = Application.create(applicationType);
 		
