@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('PackageController', 
+angular.module('MLDS').controller('ReleaseController', 
 		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService', 'ReleaseFilesService', 'PackageUtilsService',
 		 function($scope, $log, $routeParams, $location, $modal, PackagesService, ReleaseFilesService, PackageUtilsService) {
 
