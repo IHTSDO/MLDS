@@ -33,14 +33,14 @@
 				<div class="panel-heading">	
 					<div ng-class="{'status text-muted': !isMembershipApproved}">
 						<div ng-show="$root.authenticated">
-							<span class="btn btn-warning pull-right" ng-show="!isPrimaryApplicationApproved">Primary application is being processed</span>
-							<button class="btn btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved && !isIHTSDOPackage" ng-click="utils.openExtensionApplication(releasePackage)">			
+							<span class="btn-sm btn-warning pull-right" ng-show="!isPrimaryApplicationApproved">Primary application is being processed</span>
+							<button class="btn-sm btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved && !isIHTSDOPackage" ng-click="utils.openExtensionApplication(releasePackage)">			
 								Apply for extension
 							</button>
-							<span class="btn btn-warning pull-right" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant && isPrimaryApplicationApproved && !isIHTSDOPackage">Application being processed</span>
-							<span class="btn btn-warning pull-right" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant && !isIHTSDOPackage">
+							<span class="btn-sm btn-warning pull-right" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant && isPrimaryApplicationApproved && !isIHTSDOPackage">Application being processed</span>
+							<span class="btn-sm btn-warning pull-right" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant && !isIHTSDOPackage">
 								Application in progress, 
-								<span ng-click="goToExtensionApplication()" class="btn btn-link">click to continue application.</span>
+								<span ng-click="goToExtensionApplication()" class="btn-sm btn-link">click to continue application.</span>
 							</span>
 						</div>
 						<div ng-show="isMembershipApproved">
