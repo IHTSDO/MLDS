@@ -27,7 +27,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row" ng-repeat="releasePackage in memberReleases.packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished" ng-controller="ViewPackageController">
+	<div class="row" ng-repeat="releasePackage in memberReleases.packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished" ng-controller="ViewReleaseController">
 		<div class="col-sm-12 col-md-12 col-lg-12"> 
 		
 		<div class="panel panel-primary">	

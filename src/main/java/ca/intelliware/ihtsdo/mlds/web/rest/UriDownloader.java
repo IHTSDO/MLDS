@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -20,7 +22,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UriDownloader {
 
-    private final Logger log = LoggerFactory.getLogger(UriDownloader.class);
+    private static final String HEADER_CONTENT_DISPOSITION = "Content-Disposition";
+    
+	private final Logger log = LoggerFactory.getLogger(UriDownloader.class);
 
 	public int download(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) {
 		try {
@@ -31,7 +35,7 @@ public class UriDownloader {
 		    	CloseableHttpResponse hostingResponse = httpClient.execute(hostingRequest);
 		    	try {
 		    		int statusCode = hostingResponse.getStatusLine().getStatusCode();
-		    		if (statusCode >= 200 && statusCode < 300) {
+		    		if (statusCode >= 200 && statusCode < 300 || statusCode == HttpStatus.SC_NOT_MODIFIED) {
 				    	copyHostingHeadersToClientResponse(hostingResponse, clientResponse);
 				    	setContentDispositionIfMissing(hostingResponse, clientResponse, downloadUrl);
 				    	HttpEntity hostingEntity = hostingResponse.getEntity();
@@ -56,7 +60,7 @@ public class UriDownloader {
 	}
 
 	private void setContentDispositionIfMissing(CloseableHttpResponse hostingResponse, HttpServletResponse clientResponse, String downloadUrl) {
-		if (hostingResponse.getFirstHeader("Content-Disposition") != null) {
+		if (hostingResponse.getFirstHeader(HEADER_CONTENT_DISPOSITION) != null) {
 			return;
 		}
 		try {
@@ -70,16 +74,16 @@ public class UriDownloader {
 				}
 				value += "; filename=\""+path+"\"";
 			}
-			clientResponse.addHeader("Content-Disposition", value);
+			clientResponse.addHeader(HEADER_CONTENT_DISPOSITION, value);
 		} catch (URISyntaxException e) {
 			log.error("Failed to generate content-disposition due to error parsing uri");
 		}
 	}
 
 	private void copyClientHeadersToHostingRequest(HttpServletRequest clientRequest, HttpGet hostingRequest) {
-		copyClientHeaderToHostingRequest("If-Modified-Since", clientRequest, hostingRequest);
-		copyClientHeaderToHostingRequest("If-None-Match", clientRequest, hostingRequest);
-		copyClientHeaderToHostingRequest("If-Unmodified-Since", clientRequest, hostingRequest);
+		copyClientHeaderToHostingRequest(HttpHeaders.IF_MODIFIED_SINCE, clientRequest, hostingRequest);
+		copyClientHeaderToHostingRequest(HttpHeaders.IF_NONE_MATCH, clientRequest, hostingRequest);
+		copyClientHeaderToHostingRequest(HttpHeaders.IF_UNMODIFIED_SINCE, clientRequest, hostingRequest);
 		
 	}
 
@@ -92,14 +96,14 @@ public class UriDownloader {
 	}
 
 	private void copyHostingHeadersToClientResponse(CloseableHttpResponse hostingResponse, HttpServletResponse clientResponse) {
-		copyHostingHeaderToClientResponse("Cache-Control", hostingResponse, clientResponse);
-		copyHostingHeaderToClientResponse("Content-Disposition", hostingResponse, clientResponse);
-		copyHostingHeaderToClientResponse("Content-Type", hostingResponse, clientResponse);
-		copyHostingHeaderToClientResponse("Content-Length", hostingResponse, clientResponse);
-		copyHostingHeaderToClientResponse("Date", hostingResponse, clientResponse);
-		copyHostingHeaderToClientResponse("ETag", hostingResponse, clientResponse);
-		copyHostingHeaderToClientResponse("Expires", hostingResponse, clientResponse);
-		copyHostingHeaderToClientResponse("Last-Modified", hostingResponse, clientResponse);
+		copyHostingHeaderToClientResponse(HttpHeaders.CACHE_CONTROL, hostingResponse, clientResponse);
+		copyHostingHeaderToClientResponse(HEADER_CONTENT_DISPOSITION, hostingResponse, clientResponse);
+		copyHostingHeaderToClientResponse(HttpHeaders.CONTENT_TYPE, hostingResponse, clientResponse);
+		copyHostingHeaderToClientResponse(HttpHeaders.CONTENT_LENGTH, hostingResponse, clientResponse);
+		copyHostingHeaderToClientResponse(HttpHeaders.DATE, hostingResponse, clientResponse);
+		copyHostingHeaderToClientResponse(HttpHeaders.ETAG, hostingResponse, clientResponse);
+		copyHostingHeaderToClientResponse(HttpHeaders.EXPIRES, hostingResponse, clientResponse);
+		copyHostingHeaderToClientResponse(HttpHeaders.LAST_MODIFIED, hostingResponse, clientResponse);
 	}
 
 	private void copyHostingHeaderToClientResponse(String key, CloseableHttpResponse hostingResponse, HttpServletResponse clientResponse) {

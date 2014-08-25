@@ -88,7 +88,7 @@ public class AccountResourceTest {
         user.setEmail("john.doe@jhipter.com");
         user.setAuthorities(authorities);
         when(userService.getUserWithAuthorities()).thenReturn(user);
-        when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(new Member("IHTSDO"));
+        when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(new Member("IHTSDO", 1));
 
         restUserMockMvc.perform(get("/app/rest/account")
                 .accept(MediaType.APPLICATION_JSON))
