@@ -183,7 +183,7 @@ mldsApp
                     }
                 })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
-                .when('/viewPackages', {
+                .when('/viewReleases', {
                     templateUrl: 'views/user/viewPackages.html',
                     controller: 'ViewPackagesController',
                     access: {
@@ -193,7 +193,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/viewPackages/viewPackage/:releasePackageId', {
+                .when('/viewReleases/viewRelease/:releasePackageId', {
                     templateUrl: 'views/user/viewPackage.html',
                     controller: 'ViewPackageController',
                     access: {
@@ -435,7 +435,7 @@ mldsApp
                     		$location.path() !== "/requestPasswordReset" &&
                     		$location.path() !== "/resetPassword" &&
                     		$location.path().indexOf("/viewPackage") == -1 &&
-                    		$location.path() !== "/viewPackages" &&
+                    		$location.path() !== "/viewReleases" &&
                     		$location.path() !== "/emailVerification" &&
                             $location.path() !== "/activate") {
                         $location.path('/login').replace();

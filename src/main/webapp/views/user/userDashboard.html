@@ -140,7 +140,7 @@
   <div class="col-lg-12">
 	  <div class="page-header">
 	    <h1>
-	     Release Packages <a href="#/viewPackages"class="btn btn-link">View All <i class="fa fa-angle-double-right"></i></a>
+	     Release Packages <a href="#/viewReleases"class="btn btn-link">View All <i class="fa fa-angle-double-right"></i></a>
 	   </h1> 
 	 </div>
 	</div>
@@ -166,6 +166,6 @@
 	 	<h3>Other Available Releases</h3>
 	 </div>
 	<div ng-repeat="memberReleases in notApprovedReleasePackagesByMember | orderBy: releasePackageOrderBy">
-		<a href="#/viewPackages"class="btn btn-link">{{memberReleases.packages[0].member.key | enum:'global.member.'}}</a>
+		<a href="#/viewReleases"class="btn btn-link">{{memberReleases.packages[0].member.key | enum:'global.member.'}}</a>
 	</div>
 </div>
