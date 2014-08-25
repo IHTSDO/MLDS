@@ -47,7 +47,7 @@ public class UriDownloader {
 				httpClient.close();
 			}
 		} catch (IOException ex) {
-			throw new RuntimeException("Error while downloading file");
+			throw new RuntimeException("Error while downloading file", ex);
 		}
 	}
 
