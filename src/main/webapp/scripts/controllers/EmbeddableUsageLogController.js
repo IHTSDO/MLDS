@@ -192,7 +192,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 					}
 				})
 				['catch'](function() {
-					$scope.geographicAlerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+					$scope.geographicAlerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
 					$scope.geographicAdding = Math.max($scope.geographicAdding - 1, 0);
 					if ($scope.geographicAdding === 0) {
 						CommercialUsageService.broadcastCommercialUsageUpdate();
@@ -233,7 +233,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 				}
 			})
 			['catch'](function() {
-				$scope.geographicAlerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.geographicAlerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
 				$scope.geographicRemoving = Math.max($scope.geographicRemoving - 1, 0);
 				if ($scope.geographicRemoving === 0) {
 					CommercialUsageService.broadcastCommercialUsageUpdate();

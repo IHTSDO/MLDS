@@ -28,7 +28,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         				$scope.readOnly = true;
         			} else {
         				$log.log('No affiliates found...');
-        				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+        				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
         				return;
         			}
     				$scope.affiliate = affiliate;
@@ -36,7 +36,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
     				$scope.approved = AffiliateService.isApplicationApproved(affiliate);
         		})
     			["catch"](function(message) {
-    				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+    				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
     				$log.log('Error loading my affiliate');
     			});
 
@@ -60,7 +60,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
     				$scope.alerts.push({type: 'success', msg: 'Contact information has been successfully saved.'});
     			})
 			["catch"](function(message) {
-				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
 				$scope.submitting = false;
 			});
         };

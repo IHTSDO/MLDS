@@ -40,7 +40,7 @@ mldsApp.controller('AffiliatesController', [
 					["catch"](function(message) {
 						$scope.downloadingAffiliates = false;
 						$log.log("affiliates download failure: "+message);
-						$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+						$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
 					});
 			}
 			
