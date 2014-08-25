@@ -29,10 +29,10 @@ angular.module('MLDS').controller('PackageController',
 					["catch"](function(message) {
 						//FIXME how to handle errors + not present
 						$log.log('ReleasePackage not found');
-						$location.path('/packageManagement');
+						$scope.goToReleaseManagement();
 					});
 		} else {
-			$location.path('/packageManagement');
+			$scope.goToReleaseManagement();
 		};
 	};
 
@@ -165,6 +165,6 @@ angular.module('MLDS').controller('PackageController',
     
     
     $scope.goToReleaseManagement = function() {
-    	$location.path('/packageManagement');
+    	$location.path('/releaseManagement');
     };
 }]);
