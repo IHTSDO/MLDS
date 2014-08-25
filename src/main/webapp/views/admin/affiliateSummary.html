@@ -94,7 +94,7 @@
 			<div class="panel-collapse collapse in">
 				<div class="panel-body">
 					<ul class="list-group">
-						<li class="list-group-item" ng-repeat="application in affiliate.applications | orderBy:['submittedAt','createdAt']">
+						<li class="list-group-item" ng-repeat="application in affiliate.applications | orderBy:['-submittedAt','-createdAt']">
 							<div class="row">
 								<div class="col-xs-4">
 									{{application.applicationType | enum:'application.applicationType.'}}
