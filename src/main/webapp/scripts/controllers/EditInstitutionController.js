@@ -23,7 +23,7 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 				$modalInstance.close(result);		
 			})
 			["catch"](function(message) {
-				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
 				$scope.submitting = false;
 			});
 	};

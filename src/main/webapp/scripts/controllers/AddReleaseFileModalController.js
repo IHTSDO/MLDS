@@ -29,7 +29,7 @@ angular.module('MLDS').controller('AddReleaseFileModalController',
 				$modalInstance.close(result);
 			})
 			["catch"](function(message) {
-				$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later.'});
+				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
 				$scope.submitting = false;
 			});
 	};

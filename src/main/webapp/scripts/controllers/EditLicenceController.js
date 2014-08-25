@@ -20,7 +20,7 @@ angular.module('MLDS').controller('EditLicenceController',
 	        	})
 				["catch"](function(message) {
 					$log.log(message);
-					$scope.alerts.push({type: 'danger', msg: 'Network failure, please try again later. ['+ message.statusText+']'});
+					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later. ['+ message.statusText+']'});
 					$scope.submitStatus = {notSubmitted: true};
 				});
 		};
