@@ -1,13 +1,18 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 @Service
 public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 
+	@Resource UserMembershipAccessor userMembershipAccessor;
+	
 	public void checkCanCreateReleasePackages() {
 		if (isStaffOrAdmin()) {
 			return;
@@ -24,7 +29,7 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 	}
 
 	boolean shouldSeeOfflinePackages() {
-		return currentSecurityContext.isAdmin() || currentSecurityContext.isStaff();
+		return currentSecurityContext.isStaffOrAdmin();
 	}
 
 	public void checkCanAccessReleaseVersion(ReleaseVersion releaseVersion) {
@@ -32,6 +37,16 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 			return;
 		}
 		failCheck("User not authorized to access offline release version.");
+	}
+
+	public void checkCanDownloadReleaseVersion(ReleaseVersion releaseVersion) {
+		if (isStaffOrAdmin()) {
+			return;
+		} else if (releaseVersion.isOnline() 
+				&& userMembershipAccessor.isAffiliateMemberApplicationAccepted(releaseVersion.getReleasePackage().getMember())) {
+			return;
+		}
+		failCheck("User not authorized to download release version.");
 	}
 
 }
