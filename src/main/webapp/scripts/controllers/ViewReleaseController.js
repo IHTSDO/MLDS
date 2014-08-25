@@ -49,7 +49,7 @@ angular.module('MLDS')
 			$scope.isMembershipIncomplete = UserAffiliateService.isMembershipIncomplete(releasePackage.member);
 			$scope.isMembershipUnstarted = UserAffiliateService.isMembershipNotStarted(releasePackage.member);
 			$scope.isPrimaryApplicationApproved = ApplicationUtilsService.isApplicationApproved(UserAffiliateService.affiliate.application);
-//			$scope.matchingExtensionApplication = getLatestMatchingMemberApplication(releasePackage);
+			$scope.matchingExtensionApplication = getLatestMatchingMemberApplication(releasePackage);
 			$scope.isApplicationWaitingForApplicant = ApplicationUtilsService.isApplicationWaitingForApplicant($scope.matchingExtensionApplication);
 			$scope.isIHTSDOPackage = MemberService.isIhtsdoMember(releasePackage.member);
 			$log.log(releasePackage, $scope);
