@@ -22,8 +22,8 @@ public class ApplicationAuthorizationCheckerTest {
 	public void setUp() {
 		authorizationChecker = new ApplicationAuthorizationChecker();
 		authorizationChecker.currentSecurityContext = new CurrentSecurityContext();
-		sweden = new Member("SE");
-		ihtsdo = new Member("IHTSDO");
+		sweden = new Member("SE", 1);
+		ihtsdo = new Member("IHTSDO", 2);
 		
 		ihtsdoApplication = new PrimaryApplication();
 		ihtsdoApplication.setMember(ihtsdo);

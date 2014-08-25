@@ -36,8 +36,8 @@ public class MemberValueConverterTest {
     	
     	fixture.memberRepository = memberRepository;
     	
-    	memberAB = new Member("AB");
-    	memberST = new Member("ST");
+    	memberAB = new Member("AB", 1);
+    	memberST = new Member("ST", 2);
     	
 		lineRecord = new LineRecord(1, new String[]{"field"}, false);
 		fieldMapping = new FieldMapping(2, "columnName", null, null, null);
