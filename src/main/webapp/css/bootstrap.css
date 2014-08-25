@@ -6143,6 +6143,9 @@ a.tooltip span {
 .panel-heading .caret {
   color: #000000;
 }
+.status {
+  padding-bottom: 10px;
+}
 .applicant-info {
   border-top: 2px solid #04add8;
   padding: 20px 10px 0;
