@@ -76,8 +76,8 @@ angular.module('MLDS').controller('ReleaseController',
 	
     $scope.editReleasePackage = function() {
         var modalInstance = $modal.open({
-              templateUrl: 'views/admin/editPackageModal.html',
-              controller: 'EditPackageModalController',
+              templateUrl: 'views/admin/editReleaseModal.html',
+              controller: 'EditReleaseModalController',
               scope: $scope,
               size: 'lg',
               backdrop: 'static',

@@ -34,8 +34,8 @@ angular.module('MLDS').controller('ReleaseManagementController',
 		
 		$scope.addReleasePackage = function() {
 			var modalInstance = $modal.open({
-				templateUrl: 'views/admin/addPackageModal.html',
-				controller: 'AddPackageModalController',
+				templateUrl: 'views/admin/addReleaseModal.html',
+				controller: 'AddReleaseModalController',
 				size:'lg',
 				backdrop: 'static',
 				resolve: {

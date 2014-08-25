@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('MLDS').controller('AddPackageModalController', ['$scope', '$log', '$modalInstance', '$location', 'PackagesService', 
-    function ($scope, $log, $modalInstance, $location, PackagesService) {
-		$scope.releasePackage = {};
+angular.module('MLDS').controller('EditReleaseModalController', ['$scope', '$log', '$modalInstance', '$location', 'PackagesService', 'releasePackage', 
+    function ($scope, $log, $modalInstance, $location, PackagesService, releasePackage) {
+		$scope.releasePackage = releasePackage;
 		
 		$scope.submitAttempted = false;
 		$scope.submitting = false;
@@ -13,10 +13,8 @@ angular.module('MLDS').controller('AddPackageModalController', ['$scope', '$log'
 			$scope.submitting = true;
 			$scope.alerts.splice(0, $scope.alerts.length);
 			
-			PackagesService.save($scope.releasePackage)
+			PackagesService.update($scope.releasePackage)
 				.$promise.then(function(result) {
-					$location.path('/releaseManagement/package/'+encodeURIComponent(result.releasePackageId));
-
 					$modalInstance.close(result);
 				})
 				["catch"](function(message) {
