@@ -401,7 +401,8 @@
     "application": {
     	"applicationType": {
     		"PRIMARY": "Primary",
-    		"EXTENSION": "Extension"
+    		"EXTENSION": "Extension",
+    		"IMPORT": "Import"
     	}
     }
     

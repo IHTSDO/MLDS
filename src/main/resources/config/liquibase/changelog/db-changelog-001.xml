@@ -1067,4 +1067,12 @@
 		<comment>Fixing licence spelling</comment>
 		<renameColumn tableName="member" oldColumnName="license_file" newColumnName="licence_file"/>
 	</changeSet>
+
+	<changeSet id="MLDS-325-7" author="DGJ">
+		<comment>Add creation timestamp for applications</comment>
+    	<addColumn tableName="application">
+			<column name="created_at" type="timestamp"/>
+    	</addColumn>
+	</changeSet>
+
 </databaseChangeLog>
