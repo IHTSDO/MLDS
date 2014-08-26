@@ -60,16 +60,21 @@
 						<div class="col-lg-1">
 							<div class="btn btn-success btn-sm">Current: </div>
 						</div>
-						<div class="col-lg-11" ng-repeat="releaseFile in version.releaseFiles">
+						<div class="col-lg-11" >
 							<h4 class="version">{{version.name}}</h4>
-								<i class="fa fa-file"></i>
-								<span ng-show="releaseFile.clientDownloadUrl && isMembershipApproved">
-									<a href="{{releaseFile.clientDownloadUrl}}" class="btn btn-link" target="_blank">{{releaseFile.label}}</a>
-								</span>
-								<span ng-show="!(releaseFile.clientDownloadUrl && isMembershipApproved)">
-									{{releaseFile.label}}
-								</span>
+							<ul class="list-unstyled">
+							  <li ng-repeat="releaseFile in version.releaseFiles">
+									<i class="fa fa-file"></i>
+									<span ng-show="releaseFile.clientDownloadUrl && isMembershipApproved">
+										<a href="{{releaseFile.clientDownloadUrl}}" class="btn btn-link" target="_blank">{{releaseFile.label}}</a>
+									</span>
+									<span ng-show="!(releaseFile.clientDownloadUrl && isMembershipApproved)">
+										{{releaseFile.label}}
+									</span>
+								</li>
+							</ul>
 						</div>
+						
 					</div>
 				</div>
 			</div>
