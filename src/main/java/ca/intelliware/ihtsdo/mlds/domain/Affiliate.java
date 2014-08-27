@@ -175,4 +175,8 @@ public class Affiliate extends BaseEntity {
 	public String getNotesInternal() {
 		return notesInternal;
 	}
+
+	public void setNotesInternal(String notesInternal) {
+		this.notesInternal = notesInternal;
+	}
 }

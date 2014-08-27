@@ -62,14 +62,14 @@ mldsApp.controller('AffiliateSummaryController', [
 				$scope.alerts.splice(0, $scope.alerts.length);
 				$scope.submitting = true;
 				
-//				UserRegistrationService.updateApplicationNoteInternal($scope.application)
-//					.then(function(result) {
+				AffiliateService.updateAffiliate($scope.affiliate)
+					.then(function(result) {
 						$scope.submitting = false;
-//					})
-//					["catch"](function(message) {
-//						$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
-//						$scope.submitting = false;
-//					});
+					})
+					["catch"](function(message) {
+						$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+						$scope.submitting = false;
+					});
 			};
 			
 		} ]);
