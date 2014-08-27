@@ -4396,6 +4396,7 @@ a.list-group-item.active > .badge,
   margin-top: 20px;
   background-image: url("../images/home-banner.jpg");
   height: 650px;
+  border: 1px solid #eeeeee;
 }
 .jumbotron h1,
 .jumbotron .h1 {
