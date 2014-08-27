@@ -92,6 +92,16 @@
 		</div> 
 	</div>
 	<div class="col-md-4">
+		<form name="notesForm" novalidate bs-validation>
+			<div class="form-group">
+				<div class="pull-right" ng-show="submitting"><i class="fa fa-spinner"></i></div>
+			</div>
+			<div class="form-group">
+				<label>Staff Notes</label>
+				<textarea class="form-control" rows="10" required name="notesInternal" ng-model="affiliate.notesInternal" ng-disabled="!isEditable" auto-submit></textarea>
+			</div>
+		</form>
+
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title">Applications</h4>
