@@ -4,11 +4,10 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.google.common.base.Objects;
-
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+
+import com.google.common.base.Objects;
 
 /**
  * Provide access check helpers for our rest controllers.

@@ -1,15 +1,16 @@
 package ca.intelliware.ihtsdo.mlds.config.metrics;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-
-import javax.inject.Inject;
-import javax.sql.DataSource;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @Configuration
 public class JHipsterHealthIndicatorConfiguration implements InitializingBean {

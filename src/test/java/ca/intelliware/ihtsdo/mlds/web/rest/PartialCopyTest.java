@@ -2,8 +2,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.io.IOException;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
