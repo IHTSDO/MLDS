@@ -73,6 +73,10 @@ public class Affiliate extends BaseEntity {
 		return homeMember!= null?homeMember.getKey():null;
 	}
 	
+	@Column(name="notes_internal")
+	String notesInternal;
+
+	
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
 		
@@ -168,4 +172,7 @@ public class Affiliate extends BaseEntity {
 		return affiliateId;
 	}
 
+	public String getNotesInternal() {
+		return notesInternal;
+	}
 }
