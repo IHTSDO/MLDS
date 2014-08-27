@@ -34,10 +34,8 @@ import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Sets;
-import com.wordnik.swagger.annotations.Api;
 
 @RestController
-@Api(value = "releasePackages", description = "Release Package and Version Release API")
 public class ReleasePackagesResource {
 
 	@Resource

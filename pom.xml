@@ -115,7 +115,6 @@
 		<liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
 		<metrics-spring.version>3.0.0</metrics-spring.version>
 		<postgresql.version>9.3-1100-jdbc41</postgresql.version>
-		<swagger-springmvc.version>0.8.2</swagger-springmvc.version>
 		<usertype.core.version>3.2.0.GA</usertype.core.version>
 	</properties>
 
@@ -397,11 +396,6 @@
 			<artifactId>springloaded</artifactId>
 			<version>1.2.0.RELEASE</version>
 		</dependency>
-		<dependency>
-			<groupId>com.mangofactory</groupId>
-			<artifactId>swagger-springmvc</artifactId>
-			<version>${swagger-springmvc.version}</version>
-		</dependency>
 
 		<!-- Database dependencies -->
 		<dependency>
@@ -444,6 +438,11 @@
 			<groupId>com.mattbertolini</groupId>
 			<artifactId>liquibase-slf4j</artifactId>
 			<version>${liquibase-slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>17.0</version>
 		</dependency>
 	</dependencies>
 	<build>

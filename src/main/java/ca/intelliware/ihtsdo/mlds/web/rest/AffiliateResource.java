@@ -51,10 +51,8 @@ import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 import com.google.common.base.Objects;
-import com.wordnik.swagger.annotations.Api;
 
 @RestController
-@Api(value = "affiliate", description = "Affiliate API")
 public class AffiliateResource {
 
     private final Logger log = LoggerFactory.getLogger(AffiliateResource.class);
