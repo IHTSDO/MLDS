@@ -14,6 +14,7 @@ import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
+@SuppressWarnings("unchecked")
 public class ApplicationAuditEventsTest {
 
 	@Mock
