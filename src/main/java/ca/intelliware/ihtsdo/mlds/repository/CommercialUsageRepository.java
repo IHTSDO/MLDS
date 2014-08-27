@@ -6,8 +6,8 @@ import org.joda.time.LocalDate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 
 public interface CommercialUsageRepository extends JpaRepository<CommercialUsage, Long> {
     @Query("select p from CommercialUsage p where p.affiliate = ?1 and p.startDate = ?2 and p.endDate = ?3")

@@ -1,8 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.web.filter.gzip;
 
-import javax.servlet.ServletOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import javax.servlet.ServletOutputStream;
 
 class GZipServletOutputStream extends ServletOutputStream {
     private OutputStream stream;
