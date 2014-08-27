@@ -132,7 +132,9 @@ public class Affiliate extends BaseEntity {
 
 	public void setApplication(PrimaryApplication application) {
 		this.application = application;
-		addApplication(application);
+		if (application != null) {
+			addApplication(application);
+		}
 	}
 	
 	public AffiliateDetails getAffiliateDetails() {

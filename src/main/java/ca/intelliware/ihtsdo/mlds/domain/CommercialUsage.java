@@ -21,6 +21,7 @@ import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Sets;
 
 @Entity
@@ -63,9 +64,12 @@ public class CommercialUsage extends BaseEntity {
 	private Instant submitted = null;
 
 	
+	
+	@JsonProperty("entries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	Set<CommercialUsageEntry> usage = Sets.newHashSet();
 	
+	@JsonProperty("countries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	Set<CommercialUsageCountry> countries = Sets.newHashSet();
 	
@@ -113,6 +117,7 @@ public class CommercialUsage extends BaseEntity {
 		usage.add(newEntryValue);
 	}
 
+	@JsonIgnore
 	public Set<CommercialUsageEntry> getEntries() {
 		return Collections.unmodifiableSet(usage);
 	}
@@ -128,6 +133,7 @@ public class CommercialUsage extends BaseEntity {
 		countries.add(newCountryValue);
 	}
 
+	@JsonIgnore
 	public Set<CommercialUsageCountry> getCountries() {
 		return Collections.unmodifiableSet(countries);
 	}
