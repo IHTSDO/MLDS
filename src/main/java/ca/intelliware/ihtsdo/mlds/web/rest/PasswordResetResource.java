@@ -39,8 +39,6 @@ public class PasswordResetResource {
     		produces = MediaType.APPLICATION_JSON_VALUE)
 	@PermitAll
 	public ResponseEntity<String> requestPasswordReset(@RequestBody Map<String,Object> params) {
-		// FIXME MLDS-20 validate email - bad request
-		// look up user - not found?
 		String emailAddress = (String) params.get("email");
 		if (Strings.isNullOrEmpty(emailAddress)) {
 			return new ResponseEntity<>("no email provided", HttpStatus.BAD_REQUEST);

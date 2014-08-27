@@ -164,7 +164,6 @@ public class AccountResource {
         	
         	//set a default type for application to create affiliate and usagelog
         	affiliateDetails.setType(AffiliateType.COMMERCIAL);
-        	// FIXME MLDS-234 MB how are we storing country here?
         	affiliate.setCreator(userDTO.getLogin());
         	affiliate.setType(AffiliateType.COMMERCIAL);
         	

@@ -36,7 +36,6 @@ public class PersistentAuditEvent extends BaseEntity {
     @NotNull
     private String principal;
 
-    // FIXME MLDS-256 change column definition to timestamp
     @Column(name = "event_date")
     private Instant auditEventDate = Instant.now();
     
