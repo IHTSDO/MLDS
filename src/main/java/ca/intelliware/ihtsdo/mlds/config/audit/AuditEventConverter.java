@@ -1,11 +1,16 @@
 package ca.intelliware.ihtsdo.mlds.config.audit;
 
-import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
-import java.util.*;
+import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 
 @Configuration
 public class AuditEventConverter {

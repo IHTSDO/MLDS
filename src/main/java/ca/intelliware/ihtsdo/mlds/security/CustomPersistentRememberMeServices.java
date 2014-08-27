@@ -1,9 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.security;
 
-import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
-import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
-import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import java.security.SecureRandom;
+import java.util.Arrays;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +22,10 @@ import org.springframework.security.web.authentication.rememberme.RememberMeAuth
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.security.SecureRandom;
-import java.util.Arrays;
+import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
+import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
+import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 
 /**
  * Custom implementation of Spring Security's RememberMeServices.

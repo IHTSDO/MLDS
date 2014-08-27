@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +14,6 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
-import ca.intelliware.ihtsdo.mlds.service.AffiliateMembershipCalculator;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 

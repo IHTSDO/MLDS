@@ -11,7 +11,6 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 public class ThymeleafConfiguration {

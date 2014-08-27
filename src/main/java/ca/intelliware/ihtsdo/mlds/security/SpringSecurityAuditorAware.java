@@ -1,8 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.security;
 
-import ca.intelliware.ihtsdo.mlds.config.Constants;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
+
+import ca.intelliware.ihtsdo.mlds.config.Constants;
 
 /**
  * Implementation of AuditorAware based on Spring Security.

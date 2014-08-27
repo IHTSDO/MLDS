@@ -1,6 +1,8 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;

@@ -4,11 +4,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
