@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.util.NestedServletException;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
@@ -268,7 +269,23 @@ public class AffiliateResourceTest {
         		.content("{ \"notesInternal\": \"Updated notes\" }")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+	}
 
+	@Test
+	public void updateAffiliateShouldFailIfCurrentUserCannotManage() throws Exception {
+        when(affiliateRepository.findOne(999L)).thenReturn(createBlankAffiliate());
+        Mockito.doThrow(new IllegalStateException("not allowed")).when(applicationAuthorizationChecker).checkCanManageAffiliate(Mockito.any(Affiliate.class));
+
+        try {
+        	restUserMockMvc.perform(put(Routes.AFFILIATE, 999L)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"notesInternal\": \"Updated notes\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is5xxServerError());
+        	Assert.fail();
+        } catch (NestedServletException e) {
+        	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("not allowed"));
+        }
 	}
 
 	@Test
