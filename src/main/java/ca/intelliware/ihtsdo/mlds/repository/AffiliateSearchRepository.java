@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.search.Filter;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.SearchFactory;
 import org.hibernate.search.errors.EmptyQueryException;
@@ -55,7 +56,7 @@ public class AffiliateSearchRepository {
 			
 			query = queryBuilder
 					.bool()
-					.should(textQuery)
+					.must(textQuery)
 					.must(homeMemberQuery)
 					.createQuery();
 		}
