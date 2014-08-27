@@ -162,10 +162,10 @@ public class AffiliateResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<Affiliate> updateAffiliate(@PathVariable Long affiliateId, @RequestBody Affiliate body) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
-    	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
     	if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+    	applicationAuthorizationChecker.checkCanManageAffiliate(affiliate);
     	
     	copyAffiliateFields(affiliate, body);
     	affiliateRepository.save(affiliate);
