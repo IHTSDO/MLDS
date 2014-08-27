@@ -86,7 +86,7 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
 	
 	@Test
 	public void downloadReleaseFileShouldLogToAudit() throws Exception {
-		ReleaseFile releaseFile = withReleaseFileWithIdOf(3L);
+		withReleaseFileWithIdOf(3L);
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
 				.contentType(MediaType.APPLICATION_JSON)

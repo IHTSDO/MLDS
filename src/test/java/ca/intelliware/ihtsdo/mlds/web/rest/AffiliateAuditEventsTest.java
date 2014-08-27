@@ -19,6 +19,7 @@ public class AffiliateAuditEventsTest {
 
 	AffiliateAuditEvents affiliateAuditEvents;
 
+	@SuppressWarnings("unchecked")
 	@Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -30,6 +31,7 @@ public class AffiliateAuditEventsTest {
         Mockito.when(auditEventService.createAuditEvent(Mockito.anyString(), Mockito.anyMap())).thenReturn(new PersistentAuditEvent());
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void logUpdateOfAffiliate() {
 		Affiliate affiliate = new Affiliate(123L);
