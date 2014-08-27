@@ -19,6 +19,9 @@ mldsApp.controller('AffiliateSummaryController', [
 			$scope.approved = false;
 			$scope.isApplicationApproved = ApplicationUtilsService.isApplicationApproved;
 
+			$scope.alerts = [];
+			$scope.submitting = false;
+
 			function loadAffiliate() {
 				var queryPromise = AffiliateService.affiliate(affiliateId);
 				
@@ -53,6 +56,20 @@ mldsApp.controller('AffiliateSummaryController', [
 			
 			$scope.approveApplication = function approveApplication(application) {
 				$location.path('/applicationReview/' + application.applicationId);
+			};
+			
+			$scope.submit = function submit() {
+				$scope.alerts.splice(0, $scope.alerts.length);
+				$scope.submitting = true;
+				
+//				UserRegistrationService.updateApplicationNoteInternal($scope.application)
+//					.then(function(result) {
+						$scope.submitting = false;
+//					})
+//					["catch"](function(message) {
+//						$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+//						$scope.submitting = false;
+//					});
 			};
 			
 		} ]);
