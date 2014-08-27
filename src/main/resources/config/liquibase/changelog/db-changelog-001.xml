@@ -1128,4 +1128,12 @@
     	<dropColumn tableName="application" columnName="type"/>
     	<dropColumn tableName="application" columnName="other_text"/>
     </changeSet>
+    
+    <changeSet id="MLDS-329-1" author="DGJ">
+		<comment>Add staff notes to affiliate</comment>
+		<addColumn tableName="affiliate">
+			<column name="notes_internal" type="TEXT"/>
+		</addColumn>
+	</changeSet>
+    
 </databaseChangeLog>
