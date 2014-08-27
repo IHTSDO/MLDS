@@ -24,15 +24,31 @@ public class PrimaryApplication extends Application{
 	public AffiliateSubType getSubType() {
 		return affiliateDetails==null?null:affiliateDetails.getSubType();
 	}
+	
+	@Deprecated
+	public void setSubType(AffiliateSubType ignore) {
+		//ignore
+	}
+	
 
 	@Deprecated
 	public AffiliateType getType() {
 		return affiliateDetails==null?null:affiliateDetails.getType();
 	}
+	
+	@Deprecated
+	public void setType(AffiliateType ignore) {
+		// ignore
+	}
 
 	@Deprecated
 	public String getOtherText() {
 		return affiliateDetails==null?null:affiliateDetails.getOtherText();
+	}
+	
+	@Deprecated
+	public void setOtherText(String ignore) {
+		// ignore
 	}
 
 	public boolean isSnoMedLicence() {

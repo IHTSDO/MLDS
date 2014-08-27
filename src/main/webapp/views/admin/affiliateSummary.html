@@ -94,7 +94,12 @@
 	<div class="col-md-4">
 		<form name="notesForm" novalidate bs-validation>
 			<div class="form-group">
-				<div class="pull-right" ng-show="submitting"><i class="fa fa-spinner"></i></div>
+				<div class="pull-right">
+					<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+					<div class="btn btn-success btn-xs" ng-click="submit()" ng-disabled="submitting">
+						Save
+					</div>
+				</div>
 			</div>
 			<div class="form-group">
 				<label>Staff Notes</label>

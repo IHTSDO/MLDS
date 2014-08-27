@@ -155,7 +155,30 @@ public class AffiliateResource {
 		Affiliate affiliate = affiliateRepository.findOne(affiliateId);
 		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
     }
-	
+
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @RequestMapping(value = Routes.AFFILIATE,
+    		method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<Affiliate> updateAffiliate(@PathVariable Long affiliateId, @RequestBody Affiliate body) {
+    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+    	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
+    	if (affiliate == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	
+    	copyAffiliateFields(affiliate, body);
+    	affiliateRepository.save(affiliate);
+    	
+    	affiliateAuditEvents.logUpdateOfAffiliate(affiliate);
+    	
+    	return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
+    }
+
+	private void copyAffiliateFields(Affiliate affiliate, Affiliate body) {
+		affiliate.setNotesInternal(body.getNotesInternal());
+	}
+
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATES_ME,
     		method = RequestMethod.GET,
@@ -261,7 +284,7 @@ public class AffiliateResource {
     		userRepository.save(user);
     	}
     	
-    	affiliateAuditEvents.logUpdateOf(affiliate);
+    	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate);
     	
     	return new ResponseEntity<AffiliateDetails>(affiliateDetails, HttpStatus.OK);
     }

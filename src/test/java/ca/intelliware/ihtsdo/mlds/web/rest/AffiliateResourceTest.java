@@ -81,7 +81,7 @@ public class AffiliateResourceTest {
     }
     
     @Test
-    public void updateAffiliateDetailShouldFailForUnknownApplication() throws Exception {
+    public void updateAffiliateDetailShouldFailForUnknownAffiliate() throws Exception {
         when(affiliateRepository.findOne(999L)).thenReturn(null);
 
         restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 999L)
@@ -258,4 +258,68 @@ public class AffiliateResourceTest {
     	
     	return affiliate;
     }
+	
+	@Test
+	public void updateAffiliateShouldFailForUnknownAffiliate() throws Exception {
+        when(affiliateRepository.findOne(999L)).thenReturn(null);
+
+        restUserMockMvc.perform(put(Routes.AFFILIATE, 999L)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"notesInternal\": \"Updated notes\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+	}
+
+	@Test
+	public void updateAffiliateShouldUpdateSaveWithSafeFields() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setNotesInternal("Original Notes");
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"notesInternal\": \"Updated Notes\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.notesInternal").value("Updated Notes"))
+                ;
+    	
+    	Mockito.verify(affiliateRepository).save(Mockito.any(Affiliate.class));
+	}
+
+	@Test
+	public void updateAffiliateShouldAuditLog() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"notesInternal\": \"Updated Notes\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                ;
+    	
+    	Mockito.verify(affiliateAuditEvents).logUpdateOfAffiliate(Mockito.any(Affiliate.class));
+	}
+
+	@Test
+	public void updateAffiliateShouldIgnoreNonSafeFields() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setCreator("original@email.com");
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"creator\": \"updated@email.com\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.creator").value("original@email.com"))
+                ;
+    	
+    	Mockito.verify(affiliateRepository).save(Mockito.any(Affiliate.class));
+	}
 }
