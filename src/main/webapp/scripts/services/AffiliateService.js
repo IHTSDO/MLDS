@@ -44,6 +44,10 @@ angular.module('MLDS')
 		return $http.put('/app/rest/affiliates/'+ encodeURIComponent(affiliate.affiliateId), affiliateCopy);
 	};
 	
+	service.createLogin = function createLogin(affiliate) {
+		return $http.post('/app/rest/account/create', affiliate);
+	};
+	
 	service.updateAffiliateDetails = function(affiliateId, affiliateDetails) {
 		var promise = $http.put('/app/rest/affiliates/'+encodeURIComponent(affiliateId)+'/detail', affiliateDetails);
 		promise.then(function(result) {

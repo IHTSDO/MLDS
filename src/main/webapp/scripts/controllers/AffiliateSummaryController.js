@@ -63,12 +63,29 @@ mldsApp.controller('AffiliateSummaryController', [
 				$scope.submitting = true;
 				
 				AffiliateService.updateAffiliate($scope.affiliate)
-					.then(function(result) {
-						$scope.submitting = false;
+				.then(function(result) {
+					$scope.submitting = false;
+				})
+				["catch"](function(message) {
+					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+					$scope.submitting = false;
+				});
+			};
+			
+			$scope.createLogin = function createLogin(){
+				if (!$scope.affiliate.affiliateDetails.email) {
+					$log.log('no email!');
+					return;
+				}
+				
+				AffiliateService.createLogin($scope.affiliate)
+					.success(function(result) {
+						$log.log('login created');
+						$scope.alerts.push({type: 'success', msg: 'Login has been successfully created for user.'});
+						loadAffiliate();
 					})
-					["catch"](function(message) {
-						$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
-						$scope.submitting = false;
+					.error(function(result) {
+						$log.log('error open modal');
 					});
 			};
 			
