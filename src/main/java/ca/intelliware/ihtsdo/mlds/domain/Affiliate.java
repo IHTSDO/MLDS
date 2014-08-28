@@ -21,13 +21,16 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Sets;
 
 @Entity
 @Indexed
+@JsonFilter("affiliatePrivacyFilter")
 public class Affiliate extends BaseEntity {
+	public static final String[] PRIVATE_FIELDS = {"notesInternal"};
 
 	@Id
 	@GeneratedValue
@@ -76,7 +79,6 @@ public class Affiliate extends BaseEntity {
 	@Column(name="notes_internal")
 	String notesInternal;
 
-	
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
 		
