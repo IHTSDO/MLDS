@@ -1,20 +1,25 @@
-package ca.intelliware.ihtsdo.mlds.domain;
+package ca.intellware.ihtsdo.mlds.domain.json;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
-import ca.intelliware.ihtsdo.mlds.web.rest.AffiliateResource;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 public class AffiliateJsonTest {
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
@@ -34,8 +39,7 @@ public class AffiliateJsonTest {
 	
 	@Before
 	public void configureJackson() {
-		objectMapper = new ObjectMapper();
-		objectMapper.registerModule(new JodaModule());
+		objectMapper = new ObjectMapperTestBuilder().buildObjectMapper();
 	}
 	
 	@Test
@@ -57,14 +61,32 @@ public class AffiliateJsonTest {
 		
 	}
 
-	//@Test
+	@Test
 	public void userCanNotSeeNotesInteral() throws Exception {
-		securityContextSetup.asAdmin();
+		securityContextSetup.asAffiliateUser();
 		affiliate.setNotesInternal("our note");
 		
 		JsonNode tree = objectMapper.readTree(objectMapper.writeValueAsString(affiliate));
 		
 		assertNull("notesInternal node removed",tree.get("notesInternal"));
+		
+	}
+	
+	/**
+	 * My first implementation was via a serialization config, but that was one-time thing.
+	 * Make sure that our filter is re-evaluated every call.
+	 */
+	@Test
+	public void propertyInclusionIsNotFixedForever() throws Exception {
+		affiliate.setNotesInternal("our note");
+		
+		securityContextSetup.asAffiliateUser();
+		JsonNode tree = objectMapper.readTree(objectMapper.writeValueAsString(affiliate));
+		assertNull("notesInternal node removed",tree.get("notesInternal"));
+		
+		securityContextSetup.asAdmin();
+		JsonNode adminTree = objectMapper.readTree(objectMapper.writeValueAsString(affiliate));
+		assertNotNull("admin still sees notes, after user has not",adminTree.get("notesInternal"));
 		
 	}
 	
