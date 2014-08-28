@@ -2,6 +2,7 @@ package ca.intellware.ihtsdo.mlds.domain.json;
 
 import java.util.Arrays;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
@@ -12,7 +13,12 @@ import ca.intelliware.ihtsdo.mlds.domain.json.ApplicationCollection;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SerialiationCycleTest {
-	ObjectMapper objectMapper = new ObjectMapper();
+	ObjectMapper objectMapper;
+
+	@Before
+	public void configureJackson() {
+		objectMapper = new ObjectMapperTestBuilder().buildObjectMapper();
+	}
 
 	@Test
 	public void cycleFromAffiliateToApplicationIsOK() throws Exception {
