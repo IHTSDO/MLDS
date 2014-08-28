@@ -40,7 +40,10 @@ public class CommercialUsageResourceTest {
         commercialUsageResource.affiliateRepository = affiliateRepository;
         commercialUsageResource.authorizationChecker = authorizationChecker;
         
-        this.restCommercialUsageResource = MockMvcBuilders.standaloneSetup(commercialUsageResource).build();
+        this.restCommercialUsageResource = MockMvcBuilders
+        		.standaloneSetup(commercialUsageResource)
+        		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
+        		.build();
     }
 
 	@Test
