@@ -374,6 +374,8 @@ public class AccountResource {
     	final String tokenKey = passwordResetService.createTokenForUser(user);
 		passwordResetEmailSender.sendPasswordResetEmail(user, tokenKey);
     	
+		affiliateAuditEvents.logCreationOf(affiliate);
+		
     	return new ResponseEntity<>(HttpStatus.CREATED);
     	
     	
