@@ -39,7 +39,10 @@ public class ApplicationUpdateTest {
 		applicationResource.objectMapper = new ObjectMapper();
 		applicationResource.applicationService = new ApplicationService();
 
-		this.mockMvc = MockMvcBuilders.standaloneSetup(applicationResource).build();
+		this.mockMvc = MockMvcBuilders
+				.standaloneSetup(applicationResource)
+        		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
+        		.build();
 	}
 
 	@Test
