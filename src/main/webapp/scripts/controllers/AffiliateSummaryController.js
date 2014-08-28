@@ -75,6 +75,7 @@ mldsApp.controller('AffiliateSummaryController', [
 			$scope.createLogin = function createLogin(){
 				if (!$scope.affiliate.affiliateDetails.email) {
 					$log.log('no email!');
+					createLoginModal({noEmail: 'true'});
 					return;
 				}
 				
@@ -86,7 +87,24 @@ mldsApp.controller('AffiliateSummaryController', [
 					})
 					.error(function(result) {
 						$log.log('error open modal');
+						createLoginModal({duplicateEmail: 'true'});
 					});
+			};
+			
+			function createLoginModal(reason) {
+        		var modalInstance = $modal.open({
+        			templateUrl: 'views/admin/createLoginModal.html',
+        			controller: 'CreateLoginModalController',
+        			size:'sm',
+        			resolve: {
+        				affiliate: function() {
+        					return $scope.affiliate;
+        				},
+        				reason: function() {
+        					return reason;
+        				}
+        			}
+        		});
 			};
 			
 		} ]);
