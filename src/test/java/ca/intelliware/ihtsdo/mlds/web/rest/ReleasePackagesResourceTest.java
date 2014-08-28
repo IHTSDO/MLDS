@@ -64,7 +64,10 @@ public class ReleasePackagesResourceTest {
         
         Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(new Member("IHTSDO", 1));
 
-        this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releasePackagesResource).build();
+        this.restReleasePackagesResource = MockMvcBuilders
+        		.standaloneSetup(releasePackagesResource)
+        		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
+        		.build();
     }
 
 	@Test

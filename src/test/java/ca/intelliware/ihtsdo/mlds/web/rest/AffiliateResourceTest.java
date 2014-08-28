@@ -30,6 +30,7 @@ import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
@@ -63,6 +64,8 @@ public class AffiliateResourceTest {
     
     private MockMvc restUserMockMvc;
     
+    SecurityContextSetup securityContextSetup = new SecurityContextSetup();
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -78,10 +81,16 @@ public class AffiliateResourceTest {
         affiliateResource.userRepository = userRepository;
         affiliateResource.sessionService = sessionService;
 
-        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(affiliateResource).build();
+        securityContextSetup.asAdmin();
+		
+		this.restUserMockMvc = MockMvcBuilders
+				.standaloneSetup(affiliateResource)
+        		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
+        		.build();
     }
+
     
-    @Test
+	@Test
     public void updateAffiliateDetailShouldFailForUnknownAffiliate() throws Exception {
         when(affiliateRepository.findOne(999L)).thenReturn(null);
 
