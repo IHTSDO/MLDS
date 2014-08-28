@@ -25,6 +25,10 @@ public class AffiliateAuditEvents {
 		logEvent("AFFILIATE_CREATED", affiliate);
 	}
 
+	public void logCreationOfAffiliateLogin(Affiliate affiliate) {
+		logEvent("AFFILIATE_LOGIN_CREATED", affiliate);
+	}
+	
 	private void logEvent(String eventType, Affiliate affiliate) {
 		Map<String, String> auditData = createReleasePackageData(affiliate);
 		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
