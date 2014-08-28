@@ -9,9 +9,18 @@
 	</div>
 </div>
 <div class="row">
-		<div class="col-sm-12">
-			<alert ng-repeat="alert in alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+	<div class="col-sm-12">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+	</div>
+
+	<div class="col-sm-12" ng-show="!affiliate.creator && $root.Session.isAdmin()">
+		<div class="alert alert-warning">
+			<button class="btn btn-xs btn-success pull-right" ng-click="createLogin()">
+				Create Login
+			</button>
+			User does not have a login
 		</div>
+	</div>
 
 	<div class="col-md-8">
 		<div class="alert alert-warning" ng-show="!isEditable">
