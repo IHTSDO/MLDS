@@ -60,6 +60,7 @@ import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
 import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
+import ca.intelliware.ihtsdo.mlds.service.mail.PasswordResetEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
 
 import com.codahale.metrics.annotation.Timed;
@@ -105,6 +106,8 @@ public class AccountResource {
     ApplicationRepository applicationRepository;
 	@Resource 
 	PasswordResetService passwordResetService;
+	@Resource 
+	PasswordResetEmailSender passwordResetEmailSender;
 	@Resource
 	CommercialUsageRepository commercialUsageRepository;
 	@Resource
@@ -353,4 +356,27 @@ public class AccountResource {
                 locale, variables, applicationContext);
         return templateEngine.process(MailService.EMAIL_ACTIVATION_PREFIX + MailService.TEMPLATE_SUFFIX, context);
     }
+    
+    @RequestMapping(value = "/rest/account/create", method = RequestMethod.POST)
+    @RolesAllowed({AuthoritiesConstants.ADMIN})
+    public ResponseEntity<?> createLogin(@RequestBody Affiliate body, HttpServletRequest request, HttpServletResponse response) {
+    	Affiliate affiliate = affiliateRepository.findOne(body.getAffiliateId());
+    	User user = userRepository.findOne(body.getAffiliateDetails().getEmail());
+    	
+    	if (user != null) {
+    		return new ResponseEntity<>(HttpStatus.CONFLICT);
+    	}
+    	
+    	affiliate.setCreator(body.getAffiliateDetails().getEmail().toLowerCase());
+    	user = userService.createUserInformation(body.getAffiliateDetails().getEmail().toLowerCase(), "", body.getAffiliateDetails().getFirstName(),
+    			body.getAffiliateDetails().getLastName(), body.getAffiliateDetails().getEmail().toLowerCase(), "en");
+    	
+    	final String tokenKey = passwordResetService.createTokenForUser(user);
+		passwordResetEmailSender.sendPasswordResetEmail(user, tokenKey);
+    	
+    	return new ResponseEntity<>(HttpStatus.CREATED);
+    	
+    	
+    }
+    
 }
