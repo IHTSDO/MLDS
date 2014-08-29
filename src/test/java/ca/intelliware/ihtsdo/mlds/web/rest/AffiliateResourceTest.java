@@ -31,6 +31,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
@@ -80,6 +81,7 @@ public class AffiliateResourceTest {
         affiliateResource.affiliatesImportGenerator = affiliatesImportGenerator;
         affiliateResource.userRepository = userRepository;
         affiliateResource.sessionService = sessionService;
+        affiliateResource.currentSecurityContext = new CurrentSecurityContext();
 
         securityContextSetup.asAdmin();
 		
