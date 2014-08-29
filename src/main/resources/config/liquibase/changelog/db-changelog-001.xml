@@ -1159,4 +1159,8 @@
     	<dropColumn tableName="commercial_usage" columnName="agreement_type"/>
     	<addNotNullConstraint tableName="affiliate_details" columnName="agreement_type"/>
     </changeSet>
+    <changeSet id="MLDS-303-1" author="MB">
+    	<comment>Drop not-null constraint to support import</comment>
+    	<dropNotNullConstraint tableName="affiliate_details" columnName="agreement_type"/>
+    </changeSet>
 </databaseChangeLog>
