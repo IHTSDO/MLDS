@@ -79,17 +79,22 @@ mldsApp.controller('AffiliateSummaryController', [
 					return;
 				}
 				
-				AffiliateService.createLogin($scope.affiliate)
-					.success(function(result) {
-						$log.log('login created');
-						$scope.alerts.push({type: 'success', msg: 'Login has been successfully created for user.'});
-						loadAffiliate();
-					})
-					.error(function(result) {
-						$log.log('error open modal');
-						createLoginModal({duplicateEmail: 'true'});
-					});
+				requestLoginCreation();
 			};
+			
+			function requestLoginCreation() {
+				AffiliateService.createLogin($scope.affiliate)
+				.success(function(result) {
+					$log.log('login created');
+					$scope.alerts.push({type: 'success', msg: 'Login has been successfully created for user.'});
+					loadAffiliate();
+				})
+				.error(function(result) {
+					$log.log('error open modal');
+					createLoginModal({duplicateEmail: 'true'});
+				});
+			};
+			
 			
 			function createLoginModal(reason) {
         		var modalInstance = $modal.open({
@@ -105,6 +110,10 @@ mldsApp.controller('AffiliateSummaryController', [
         				}
         			}
         		});
+        		
+        		modalInstance.result.then(function () {
+        			requestLoginCreation();
+    		    });
 			};
 			
 		} ]);

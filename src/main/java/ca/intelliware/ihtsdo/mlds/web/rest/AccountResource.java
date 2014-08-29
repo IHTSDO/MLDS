@@ -368,6 +368,7 @@ public class AccountResource {
     	}
     	
     	affiliate.setCreator(body.getAffiliateDetails().getEmail().toLowerCase());
+    	affiliate.getAffiliateDetails().setEmail(body.getAffiliateDetails().getEmail().toLowerCase());
     	user = userService.createUserInformation(body.getAffiliateDetails().getEmail().toLowerCase(), "", body.getAffiliateDetails().getFirstName(),
     			body.getAffiliateDetails().getLastName(), body.getAffiliateDetails().getEmail().toLowerCase(), "en");
     	
