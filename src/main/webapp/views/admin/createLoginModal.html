@@ -5,23 +5,38 @@
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}">{{alert.msg}}</alert>
 	
-	<form name="createLoginForm" bs-validate>
+	<form name="createLoginForm" bs-validation>
 		<div class="form-group">
-			<label>Email</label> 
+			<label>Login Email</label> 
 			<input class="form-control" type="email" name="email" ng-model="affiliate.affiliateDetails.email" required
 				unique="{{[oldEmail]}}"
 				/>
-			<p class="help-block" ng-show="!createLoginForm.email.$error.required
-       	&& !createLoginForm.email.$error.email 
-       	&& createLoginForm.email.$error.notUnique ">
-         Email already in use.
-       </p>
+			<div ng-show="submitAttempted">
+				<p class="help-block" ng-show="!createLoginForm.email.$error.required
+			       	&& !createLoginForm.email.$error.email 
+			       	&& createLoginForm.email.$error.notUnique ">
+			         Email already in use.
+				</p>
+				<p class="help-block" ng-show="createLoginForm.email.$error.required
+			       	&& !createLoginForm.email.$error.email 
+			       	&& !createLoginForm.email.$error.notUnique ">
+			         Field is required.
+			    </p>
+			    <p class="help-block" ng-show="!createLoginForm.email.$error.required
+			       	&& createLoginForm.email.$error.email 
+			       	&& !createLoginForm.email.$error.notUnique ">
+			         Please enter a valid email.
+			    </p>
+			</div>
 		</div>
 	</form>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="$dismiss()" ng-disabled="submitting">Cancel</button>
-	<button class="btn btn-success" ng-disabled="submitting" ng-click="ok()">
+	<button class="btn btn-success" ng-show="createLoginForm.$invalid" ng-click="submitAttempted = true" >
+		Retry
+	</button>
+	<button class="btn btn-success" ng-show="!createLoginForm.$invalid" ng-disabled="submitting" ng-click="ok()">
 		Retry
 		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
 	</button>
