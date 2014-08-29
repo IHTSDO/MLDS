@@ -1136,4 +1136,27 @@
 		</addColumn>
 	</changeSet>
     
+    <changeSet id="MLDS-303" author="MB">
+    	<comment>Move agreementType from usage to affiliate_details</comment>
+    	<addColumn tableName="affiliate_details">
+    		<column name="agreement_type" type="VARCHAR(255)" value="AFFILIATE_NORMAL"/>
+    	</addColumn>
+    	<!-- copy existing values to affiliate_details under affiliate and applications -->
+    	<sql>
+    		UPDATE affiliate_details
+    		SET agreement_type = u.agreement_type
+    		FROM affiliate_details as ad
+    		JOIN affiliate as a ON a.affiliate_details_id = ad.affiliate_details_id
+    		JOIN commercial_usage as u ON u.affiliate_id = a.affiliate_id
+    	</sql>
+    	<sql>
+    		UPDATE affiliate_details
+    		SET agreement_type = u.agreement_type
+    		FROM affiliate_details as ad
+    		JOIN application as app ON app.affiliate_details_id = ad.affiliate_details_id
+    		JOIN commercial_usage as u ON u.affiliate_id = app.affiliate_id
+    	</sql>
+    	<dropColumn tableName="commercial_usage" columnName="agreement_type"/>
+    	<addNotNullConstraint tableName="affiliate_details" columnName="agreement_type"/>
+    </changeSet>
 </databaseChangeLog>
