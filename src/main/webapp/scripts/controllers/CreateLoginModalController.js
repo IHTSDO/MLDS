@@ -5,6 +5,7 @@ angular.module('MLDS').controller('CreateLoginModalController',
     function ($scope, $log, $modalInstance, affiliate, reason) {
 		$log.log('create login modal controller!', reason);
 		$scope.affiliate = affiliate;
+		$scope.submitAttempted = false;
 		
 		$scope.alerts = [];
 		
