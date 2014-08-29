@@ -61,6 +61,7 @@ public class AffiliatesMapper {
 		getMappings().add(createField("billingCity", AffiliateDetails.class, "billingAddress.city"));
 		getMappings().add(createField("billingPost", AffiliateDetails.class, "billingAddress.post"));
 		getMappings().add(createField("billingCountry", AffiliateDetails.class, "billingAddress.country"));
+		// FIXME MLDS-303 Should we add agreementType here?  Or default it
 		
 	}
 	
