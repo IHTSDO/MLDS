@@ -100,12 +100,17 @@ mldsApp.controller('AffiliateRegistrationController',
         		};
         	};
         	
-        	$scope.affiliateTypeChanged = function() {
-        		$scope.$broadcast(Events.affiliateTypeUpdated, $scope.affiliateform.type);
-        		$scope.saveApplication();
-        	};
+        	$scope.$watch('affiliateform.type',function(newValue,oldValue) {
+        		console.log('type changed ', newValue, oldValue);
+        		if (oldValue) {
+            		$scope.affiliateform.subType = '';
+            		$scope.affiliateform.otherText = '';
+            		$scope.$broadcast(Events.affiliateTypeUpdated, $scope.affiliateform.type);
+            		$scope.saveApplication();
+        		}
+        	});
         	
         	$scope.collapsePanel = {};
-        	
+        	$scope.agreementTypeOptions = ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD'];
         }
     ]);

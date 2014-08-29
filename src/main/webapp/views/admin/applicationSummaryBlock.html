@@ -20,7 +20,7 @@
 		  <p ng-switch-when="PRIMARY"><strong>Use Type:</strong> {{application.type | enum:'affiliate.type.'}}</p>
 		  <p ng-switch-when="EXTENSION"><strong>Use Type:</strong> {{application.affiliate.type | enum:'affiliate.type.'}}</p>
 		  <p ng-switch-when="PRIMARY"><strong>Use Subtype:</strong> {{application.subType | enum:'affiliate.subType.'}}</p>
-		  <p ng-switch-when="PRIMARY"><strong>Type of Agreement:</strong> {{application.commercialUsage.context.agreementType | enum:'affiliate.agreementType.'}}</p>
+		  <p ng-switch-when="PRIMARY"><strong>Type of Agreement:</strong> {{application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</p>
 		</div>
 	</div>
 	

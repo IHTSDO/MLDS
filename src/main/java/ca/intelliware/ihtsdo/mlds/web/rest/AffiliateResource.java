@@ -304,6 +304,7 @@ public class AffiliateResource {
     	affiliateDetails.setType(body.getType());
     	affiliateDetails.setOtherText(body.getOtherText());
     	affiliateDetails.setSubType(body.getSubType());
+    	affiliateDetails.setAgreementType(body.getAgreementType());
 	}
 
 	private void copyAddressFields(MailingAddress address, MailingAddress body) {

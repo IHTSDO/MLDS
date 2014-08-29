@@ -21,6 +21,8 @@ mldsApp.controller('EditAffiliateController', [
 			$scope.readOnly = false;
 			$scope.type;
 
+	    	$scope.agreementTypeOptions = ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD'];
+	    	
 			function loadAffiliate() {
 				var queryPromise = AffiliateService.affiliate(affiliateId);
 				
