@@ -20,7 +20,7 @@ angular.module('MLDS').controller('CreateLoginModalController',
 		$scope.oldEmail = $scope.affiliate.affiliateDetails.email;
 		
 		$scope.ok = function() {
-			$scope.submitting = true;
+			$modalInstance.close();
 		};
 		
     }]);
