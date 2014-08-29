@@ -40,6 +40,10 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Column(name = "subtype")
 	AffiliateSubType subType;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name="agreement_type")
+	AgreementType agreementType = AgreementType.AFFILIATE_NORMAL;
+
 	@Column(name="first_name")
 	@Fields({ @Field(name="ALL"), @Field()})
 	String firstName;
@@ -253,5 +257,14 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	public void setSubType(AffiliateSubType subType) {
 		this.subType = subType;
 	}
+	
+	public AgreementType getAgreementType() {
+		return agreementType;
+	}
+
+	public void setAgreementType(AgreementType agreementType) {
+		this.agreementType = agreementType;
+	}
+
 
 }
