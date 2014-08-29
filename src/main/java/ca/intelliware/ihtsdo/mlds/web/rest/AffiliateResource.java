@@ -43,6 +43,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateSearchRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
@@ -89,6 +90,9 @@ public class AffiliateResource {
 
 	@Resource
 	SessionService sessionService;
+	
+	@Resource
+	CurrentSecurityContext currentSecurityContext;
 
 	public static final int DEFAULT_PAGE_SIZE = 50;
 	
@@ -297,14 +301,14 @@ public class AffiliateResource {
     	affiliateDetails.setLandlineNumber(body.getLandlineNumber());
     	affiliateDetails.setLastName(body.getLastName());
     	affiliateDetails.setMobileNumber(body.getMobileNumber());
-    	// Can not update: OrganizationName, OrganizationType, OrganizationTypeOther
     	affiliateDetails.setThirdEmail(body.getThirdEmail());
     	
-    	// FIXME MLDS-32 MB Should we restrict changes to ADMIN only?
-    	affiliateDetails.setType(body.getType());
-    	affiliateDetails.setOtherText(body.getOtherText());
-    	affiliateDetails.setSubType(body.getSubType());
-    	affiliateDetails.setAgreementType(body.getAgreementType());
+    	if (currentSecurityContext.isAdmin()) {
+	    	affiliateDetails.setType(body.getType());
+	    	affiliateDetails.setOtherText(body.getOtherText());
+	    	affiliateDetails.setSubType(body.getSubType());
+	    	affiliateDetails.setAgreementType(body.getAgreementType());
+    	}
 	}
 
 	private void copyAddressFields(MailingAddress address, MailingAddress body) {
