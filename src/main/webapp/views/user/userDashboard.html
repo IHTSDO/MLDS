@@ -160,7 +160,7 @@
 	</div>
 	<div class="col-md-4" ng-repeat="releasePackage in memberReleases.packages | orderBy:packageUtils.getLatestPublishedDate:true | filter: packageUtils.isPackagePublished">
 		<div class="well package" ng-repeat="releaseVersion in releasePackage.releaseVersions" ng-show="packageUtils.isVersionOnline(releaseVersion) && packageUtils.isLatestVersion(releaseVersion, releasePackage.releaseVersions)">
-		    <h3>{{releasePackage.name}}</h3>
+		    <h3 ng-click="goToViewPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}  </h3>
 		    <p>Current: {{releaseVersion.publishedAt | date:'medium'}}</p>
 		    <p ng-repeat="releaseFile in releaseVersion.releaseFiles | orderBy: 'label'">
 		 		<i class="fa fa-file"></i>  <a class="btn btn-link" href="{{releaseFile.clientDownloadUrl}}">{{releaseFile.label}}</a>
