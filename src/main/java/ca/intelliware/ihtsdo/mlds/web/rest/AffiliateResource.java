@@ -124,7 +124,7 @@ public class AffiliateResource {
     		if (StringUtils.isBlank(q)) {
     			affiliates = affiliateRepository.findAll(pageRequest);
     		} else {
-    			affiliates = affiliateRepository.findByTextQuery('%'+q.toLowerCase()+'%', pageRequest);
+    			affiliates = affiliateRepository.findByTextQuery(q.toLowerCase(), pageRequest);
     		}
 		} else {
 	    	Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);

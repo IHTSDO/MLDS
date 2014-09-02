@@ -23,10 +23,21 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 
 	Affiliate findByImportKeyAndHomeMember(String importKey, Member member);
 
-	@Query(value="SELECT a from Affiliate a where a.homeMember = :homeMember and (LOWER(a.application.affiliateDetails.lastName) like :q OR LOWER(a.application.affiliateDetails.firstName) like :q OR LOWER(a.application.affiliateDetails.organizationName) like :q OR LOWER(a.application.affiliateDetails.address.street) like :q)")
+	@Query(value="SELECT a from Affiliate a where "
+			+ "a.homeMember = :homeMember "
+			+ "and (LOWER(a.application.affiliateDetails.lastName) like :q "
+				+ "OR LOWER(a.application.affiliateDetails.firstName) like :q "
+				+ "OR LOWER(a.application.affiliateDetails.organizationName) like :q "
+				+ "OR LOWER(a.application.affiliateDetails.address.street) like :q)")
 	Page<Affiliate> findByHomeMemberAndTextQuery(@Param("homeMember") Member homeMember, @Param("q") String q, Pageable pageable);
 
-	@Query(value="SELECT a from Affiliate a where (LOWER(a.application.affiliateDetails.lastName) like :q OR LOWER(a.application.affiliateDetails.firstName) like :q OR LOWER(a.application.affiliateDetails.organizationName) like :q OR LOWER(a.application.affiliateDetails.address.street) like :q)")
+	@Query(value="SELECT a from Affiliate a where "
+			+ "(LOWER(a.application.affiliateDetails.lastName) like '%' || :q || '%' "
+			+ "OR LOWER(a.application.affiliateDetails.firstName) like '%' || :q || '%' "
+			+ "OR LOWER(a.application.affiliateDetails.organizationName) like '%' || :q || '%' "
+			+ "OR LOWER(a.application.affiliateDetails.address.street) like '%' || :q || '%' ))"
+			+ "OR CAST(:q, as INT) = a.affiliateId )"
+			)
 	Page<Affiliate> findByTextQuery(@Param("q") String q, Pageable pageable);
 
 	Page<Affiliate> findByHomeMember(Member homeMember, Pageable pageable);
