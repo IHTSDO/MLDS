@@ -39,12 +39,6 @@ mldsApp.controller('MenuController', ['$scope',
     }]);
 
 
-mldsApp.controller('LogoutController', ['$location', 'AuthenticationSharedService',
-    function ($location, AuthenticationSharedService) {
-        AuthenticationSharedService.logout();
-    }]);
-
-
 mldsApp.controller('PasswordController', ['$scope', 'Password',
     function ($scope, Password) {
         $scope.success = null;
