@@ -56,8 +56,11 @@
 		<div>
 			<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 
-			<div class="alert alert-warning" ng-show="isReadOnly">
+			<div class="alert alert-warning" ng-show="showNonMemberAlert">
 				You can view applications submitted to other Member Registration Centres, but you cannot process them.
+			</div>
+			<div class="alert alert-warning" ng-show="showNonPendingAlert && !showNonMemberAlert">
+				You can view applications with the {{application.approvalState | enum:'approval.state.'}} status, but you cannot process them. FIXME
 			</div>
 
 			<form name="notesForm" novalidate bs-validation>
@@ -66,15 +69,15 @@
 				</div>
 				<div class="form-group">
 					<label>Staff Notes</label>
-					<textarea class="form-control" rows="10" required name="notesInternal" ng-model="application.notesInternal" ng-disabled="isReadOnly" auto-submit></textarea>
+					<textarea class="form-control" rows="10" required name="notesInternal" ng-model="application.notesInternal" ng-disabled="isNoteReadOnly" auto-submit></textarea>
 				</div>
 			</form>
 			<div>
-				<a class="btn btn-success btn-block" ng-click="approveApplication()" ng-disabled="isReadOnly">Approve Application</a>
-				<a class="btn btn-warning btn-block" ng-click="changeRequested()" ng-disabled="isReadOnly">Change Requested from Applicant</a>
-				<a class="btn btn-warning btn-block" ng-click="reviewRequested()" ng-disabled="isReadOnly">Review Requested from Staff</a>
+				<a class="btn btn-success btn-block" ng-click="approveApplication()" ng-disabled="isActionDisabled">Approve Application</a>
+				<a class="btn btn-warning btn-block" ng-click="changeRequested()" ng-disabled="isActionDisabled">Change Requested from Applicant</a>
+				<a class="btn btn-warning btn-block" ng-click="reviewRequested()" ng-disabled="isActionDisabled">Review Requested from Staff</a>
 				<br><br>
-				<a class="btn btn-danger btn-block" ng-click="rejectApplication()" ng-disabled="isReadOnly">Decline Application</a>
+				<a class="btn btn-danger btn-block" ng-click="rejectApplication()" ng-disabled="isActionDisabled">Decline Application</a>
 			</div>
 		</div>
 
