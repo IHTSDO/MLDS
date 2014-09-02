@@ -20,7 +20,7 @@
 		  <p ng-switch-when="PRIMARY"><strong>Use Type:</strong> {{application.type | enum:'affiliate.type.'}}</p>
 		  <p ng-switch-when="EXTENSION"><strong>Use Type:</strong> {{application.affiliate.type | enum:'affiliate.type.'}}</p>
 		  <p ng-switch-when="PRIMARY"><strong>Use Subtype:</strong> {{application.subType | enum:'affiliate.subType.'}}</p>
-		  <p ng-switch-when="PRIMARY"><strong>Type of Agreement:</strong> {{application.commercialUsage.context.agreementType | enum:'affiliate.agreementType.'}}</p>
+		  <p ng-switch-when="PRIMARY"><strong>Type of Agreement:</strong> {{application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</p>
 		</div>
 	</div>
 	
@@ -55,7 +55,7 @@
 	
 	<div class="panel panel-primary"  ng-show="application.type=='INDIVIDUAL'">
 	  <div class="panel-heading">
-	    <h3 class="panel-title">Panel title</h3>
+	    <h3 class="panel-title">Affiliate Address</h3>
 	  </div>
 	  <div class="panel-body application-review">
 	    <p><strong>Address:</strong> {{application.affiliateDetails.address.street}}</p>

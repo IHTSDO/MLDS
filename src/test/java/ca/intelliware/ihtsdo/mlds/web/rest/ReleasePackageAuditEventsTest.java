@@ -12,6 +12,7 @@ import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
+@SuppressWarnings("unchecked")
 public class ReleasePackageAuditEventsTest {
 
 	@Mock

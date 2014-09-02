@@ -1,6 +1,6 @@
 'use strict';
 
-mldsApp.controller('RegisterController', ['$scope', '$translate', 'Register', '$location', '$log', 'CommercialUsageService','CountryService',
+angular.module('MLDS').controller('RegisterController', ['$scope', '$translate', 'Register', '$location', '$log', 'CommercialUsageService','CountryService',
     function ($scope, $translate, Register, $location, $log, CommercialUsageService,CountryService) {
 		$scope.availableCountries = CountryService.countries;
 		

@@ -87,6 +87,23 @@
 										Subtype field is required.
 									</p>
 								</div>
+								
+								<div class="form-group">
+									<label>Type of Agreement:</label>
+									<select class="form-control input-md"
+					              		name="agreementType"
+										required
+										ng-disabled="readOnly"
+										ng-model="affiliateDetails.agreementType"
+										ng-options="type | enum:'affiliate.agreementType.' for type in agreementTypeOptions"
+										auto-submit>
+									</select>
+									<div ng-show="form.attempted">
+										<p class="help-block"
+											ng-show="form.agreementType.$error.required">Required field.</p>
+								</div>
+								
+							</div>
 							</div>
 						</div>
 					</div>

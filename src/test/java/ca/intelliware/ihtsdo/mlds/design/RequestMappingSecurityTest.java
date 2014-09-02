@@ -13,10 +13,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.google.common.collect.Sets;
-
 import ca.intelliware.ihtsdo.mlds.design.ControllerMethodTraversal.MethodVisitor;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+
+import com.google.common.collect.Sets;
 
 public class RequestMappingSecurityTest {
 	

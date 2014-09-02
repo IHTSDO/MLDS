@@ -16,7 +16,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         $scope.type = null;
         $scope.approved = true;
         $scope.readOnly = false;
-        
+
         function loadAffiliate() {
         	AffiliateService.myAffiliate()
         		.then(function(result) {
@@ -69,5 +69,4 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         	//FIXME $route.reload wasnt clearing out scope state - is there a better way?
         	window.location.reload();
         };
-        
     }]);

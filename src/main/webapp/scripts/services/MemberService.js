@@ -29,6 +29,16 @@ angular.module('MLDS')
 			
 		});
 		
+		function updateMemberEntry(updatedMember) {
+			// Update collections in place - assuming only minor updates to the member
+			service.membersByKey[updatedMember.key] = updatedMember;
+			_.each(service.members, function(member, index) {
+				if (member.key === updatedMember.key) {
+					service.members[index] = updatedMember;
+				}
+			});
+		}
+		
 		//FIXME is there a better way to indicate the IHTSDO/international member?
 		service.ihtsdoMemberKey = 'IHTSDO';
 		service.ihtsdoMember = {key: service.ihtsdoMemberKey};
@@ -48,10 +58,14 @@ angular.module('MLDS')
 		service.updateMemberLicence = function updateMemberLicence(memberKey, memberLicenceFile) {
 			var formData = new FormData();
 	        formData.append('file', memberLicenceFile);
-	        return $http.post('/app/rest/members/' + encodeURIComponent(memberKey) + '/licence', formData, {
+	        var promise = $http.post('/app/rest/members/' + encodeURIComponent(memberKey) + '/licence', formData, {
 	            transformRequest: angular.identity,
 	            headers: {'Content-Type': undefined}
 	        });
+	        promise.then(function(result) {
+	        	updateMemberEntry(result.data);
+	        });
+	        return promise;
 		};
 		
 		return service;

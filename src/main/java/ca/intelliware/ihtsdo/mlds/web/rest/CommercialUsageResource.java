@@ -20,25 +20,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 
-import com.wordnik.swagger.annotations.Api;
-
 @RestController
-@Api(value = "commercialUsage", description = "Commercial usage reporting and submission API")
 public class CommercialUsageResource {
 	
 	@Resource
