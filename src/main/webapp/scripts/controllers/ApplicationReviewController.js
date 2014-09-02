@@ -23,7 +23,11 @@ mldsApp.controller('ApplicationReviewController', [
 			
 			$scope.alerts = [];
 			$scope.submitting = false;
-			$scope.isReadOnly = true;
+			
+			$scope.isNoteReadOnly = true;
+			$scope.isActionDisabled = true;
+			$scope.showNonMemberAlert = false;
+			$scope.showNonPendingAlert = false;
 
 			function loadApplication() {
 				$log.log("load application...");
@@ -31,15 +35,21 @@ mldsApp.controller('ApplicationReviewController', [
 
 				queryPromise.success(function(application) {
 						$log.log("getapplicationbyid.... success");
-						if (!ApplicationUtilsService.isApplicationPending(application)) {
-							$log.log('Application not in pending state');
-							goToPendingApplications();
-							return;
-						}
 						//$log.log('loadApplication', application);
 						$scope.application = application;
 						
-						$scope.isReadOnly = !Session.isAdmin() && (Session.member.key !== application.member.key);
+						if (Session.isAdmin() || (Session.member.key === application.member.key)) {
+							$scope.isNoteReadOnly = false;
+							$scope.isActionDisabled = false;
+						} else {
+							$scope.showNonMemberAlert = true;
+						}
+						
+						if (!ApplicationUtilsService.isApplicationPending(application)) {
+							 $scope.isActionDisabled = true;
+							 $scope.showNonPendingAlert = true;
+						}
+						
 						
 						if (application.commercialUsage) {
 							$scope.commercialUsageInstitutionsByCountry = _.groupBy(application.commercialUsage.entries, 
