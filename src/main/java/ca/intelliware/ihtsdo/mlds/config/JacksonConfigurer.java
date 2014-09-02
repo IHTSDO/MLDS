@@ -57,7 +57,7 @@ public class JacksonConfigurer {
 		SimpleFilterProvider filterProvider = new SimpleFilterProvider();
 		filterProvider.addFilter("affiliatePrivacyFilter", new InternalPrivacyFilter(Affiliate.PRIVATE_FIELDS) );
 		
-		//mapper.setFilters(filterProvider);
+		mapper.setFilters(filterProvider);
 	}
 
 }
