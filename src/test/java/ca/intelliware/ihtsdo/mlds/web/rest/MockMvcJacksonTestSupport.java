@@ -6,7 +6,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-import ca.intellware.ihtsdo.mlds.domain.json.ObjectMapperTestBuilder;
+import ca.intelliware.ihtsdo.mlds.domain.json.ObjectMapperTestBuilder;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;

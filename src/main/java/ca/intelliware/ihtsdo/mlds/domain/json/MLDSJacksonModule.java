@@ -20,11 +20,6 @@ public class MLDSJacksonModule extends SimpleModule {
 		super("MLDS Jackson");
 		this.em = em;
 		this.currentSecurityContext = securityConext;
-	}
-
-	@Override
-	public void setupModule(SetupContext context) {
-		super.setupModule(context);
 		
 		addSerializer(ReleaseFile.class, new ReleaseFileSerializer());
 		
