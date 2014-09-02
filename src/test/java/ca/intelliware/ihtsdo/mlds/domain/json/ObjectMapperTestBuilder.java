@@ -1,4 +1,4 @@
-package ca.intellware.ihtsdo.mlds.domain.json;
+package ca.intelliware.ihtsdo.mlds.domain.json;
 
 import javax.persistence.EntityManager;
 
