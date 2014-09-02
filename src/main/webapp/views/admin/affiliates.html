@@ -28,6 +28,7 @@
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
+						<th>ID</th>
 						<th>Name</th>
 						<th>Type</th>
 						<th>Home Country</th>
@@ -39,6 +40,7 @@
 				<tbody infinite-scroll="nextPage()" infinite-scroll-distance="1" infinite-scroll-disabled="downloadingAffiliates">
 					<!--  orderBy: ['affiliateDetails.organizationName', 'application.affiliateDetails.organizationName', 'affiliateDetails.firstName', 'application.affiliateDetails.firstName', 'affiliateDetails.lastName', 'application.affiliateDetails.lastName', 'creator'] -->
 					<tr ng-click="viewAffiliate(affiliate.affiliateId)" ng-repeat="affiliate in affiliates">
+						<td>{{affiliate.affiliateId}}</td>
 						<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
 						<td>{{affiliate.application.type | enum:'affiliate.type.'}} - {{affiliate.application.subType | enum:'affiliate.subType.'}} {{affiliate.affiliateDetails.otherText}}</td>
 						<td>{{affiliateActiveDetails(affiliate).address.country.commonName}}</td>
