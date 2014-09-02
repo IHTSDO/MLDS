@@ -21,10 +21,11 @@ angular.module('MLDS').controller('ReleaseManagementController',
 			$scope.onlinePackages = memberFiltered
 				.filter(PackageUtilsService.isPackagePublished)
 				.sortBy(PackageUtilsService.getLatestPublishedDate)
+				.reverse()
 				.value();
 			$scope.offinePackages = memberFiltered
 				.reject(PackageUtilsService.isPackagePublished)
-				.sortBy('createAt')
+				.sortBy('createdAt')
 				.value();
 		}
 		
