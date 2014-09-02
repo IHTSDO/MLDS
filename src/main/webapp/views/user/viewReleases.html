@@ -33,7 +33,8 @@
 				<div class="panel-heading">	
 					<div ng-class="{'status text-muted': !isMembershipApproved}">
 						<div ng-show="$root.authenticated">
-							<span class="btn-sm btn-warning pull-right" ng-show="!isPrimaryApplicationApproved">Primary application is being processed</span>
+							<span class="btn-sm btn-warning pull-right" ng-show="isPrimaryApplicationWaitingForApplicant">Primary application is needs attention</span>
+							<span class="btn-sm btn-warning pull-right" ng-show="!isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved">Primary application is being processed</span>
 							<button class="btn-sm btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved && !isIHTSDOPackage" ng-click="utils.openExtensionApplication(releasePackage)">			
 								Apply for extension
 							</button>
