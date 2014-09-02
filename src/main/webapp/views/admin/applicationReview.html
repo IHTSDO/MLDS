@@ -8,6 +8,13 @@
 </div>
 <div class="row">
 	<div class="col-md-8">
+		<div class="alert alert-warning" ng-show="showNonMemberAlert">
+			You can view applications submitted to other Member Registration Centres, but you cannot process them.
+		</div>
+		<div class="alert alert-warning" ng-show="showNonPendingAlert && !showNonMemberAlert">
+			You can view applications with the {{application.approvalState | enum:'approval.state.'}} status, but you cannot process them. FIXME
+		</div>
+
 		<div class="applicant-info">
 			<p><strong>Application No:</strong> {{application.applicationId}}</p>
 			<div ng-show="application.organizationName">
@@ -55,13 +62,6 @@
 
 		<div>
 			<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-
-			<div class="alert alert-warning" ng-show="showNonMemberAlert">
-				You can view applications submitted to other Member Registration Centres, but you cannot process them.
-			</div>
-			<div class="alert alert-warning" ng-show="showNonPendingAlert && !showNonMemberAlert">
-				You can view applications with the {{application.approvalState | enum:'approval.state.'}} status, but you cannot process them. FIXME
-			</div>
 
 			<form name="notesForm" novalidate bs-validation>
 				<div class="form-group">
