@@ -1136,8 +1136,9 @@
 		</addColumn>
 	</changeSet>
     
-    <changeSet id="MLDS-303" author="MB">
-    	<comment>Move agreementType from usage to affiliate_details</comment>
+    <changeSet id="MLDS-303" author="MB" >
+    	<validCheckSum>7:30044a9ffda07bc50605ba9c9331f37c</validCheckSum>
+    	<comment>Move agreementType from usage to affiliate_details.  Changed to default agreement_type if no other source found.</comment>
     	<addColumn tableName="affiliate_details">
     		<column name="agreement_type" type="VARCHAR(255)" value="AFFILIATE_NORMAL"/>
     	</addColumn>
@@ -1155,6 +1156,11 @@
     		FROM affiliate_details as ad
     		JOIN application as app ON app.affiliate_details_id = ad.affiliate_details_id
     		JOIN commercial_usage as u ON u.affiliate_id = app.affiliate_id
+    	</sql>
+    	<sql>
+    		UPDATE affiliate_details
+    		SET agreement_type = 'AFFILIATE_NORMAL'
+    		WHERE agreement_type is null
     	</sql>
     	<dropColumn tableName="commercial_usage" columnName="agreement_type"/>
     	<addNotNullConstraint tableName="affiliate_details" columnName="agreement_type"/>

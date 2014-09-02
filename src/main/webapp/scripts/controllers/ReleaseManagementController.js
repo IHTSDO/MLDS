@@ -15,6 +15,9 @@ angular.module('MLDS').controller('ReleaseManagementController',
 		
 		function extractPackages() {
 			var packages = $scope.packages;
+			if (!packages.$resolved) {
+				return;
+			}
 			
 			var memberFiltered = _.chain(packages).filter(function(p){ return PackageUtilsService.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); });
 			

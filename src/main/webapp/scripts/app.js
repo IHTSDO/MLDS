@@ -310,13 +310,10 @@ mldsApp
                     }
                 })
                 .when('/logout', {
-                    templateUrl: 'views/main.html',
+                    templateUrl: 'views/logout.html',
                     controller: 'LogoutController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
-                    },
-                    resolve: {
-                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/docs', {
@@ -382,25 +379,26 @@ mldsApp
             tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js')
             tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
             
-//            var apiDelay = 1000;
-//            var otherDelay = 0;
-//            var errorMethodMatches = /xPUT|xDELETE|xPOST/;
-//            var delayHandlerFactory = function($q, $timeout) {
-//                return function(promise) {
-//                    return promise.then(function(response) {
-//                        return $timeout(function() {
-//                        	if (errorMethodMatches.test(response.config.method)) {
-//                        		return $q.reject(response);		
-//                        	} else {
-//                        		return response;
-//                        	}
-//                        }, (response.config.url.indexOf('/rest') !== -1 || response.config.url.indexOf('/api') !== -1   ? apiDelay : otherDelay));
-//                    }, function(response) {
-//                        return $q.reject(response);
-//                    });
-//                };
-//            };
-//            $httpProvider.responseInterceptors.push(delayHandlerFactory);
+            var delayHandlerFactory = function($q, $timeout) {
+                var apiDelay = 2000;
+                var otherDelay = 1000;
+                var errorMethodMatches = /xPUT|xDELETE|xPOST/;
+                
+                return function(promise) {
+                    return promise.then(function(response) {
+                        return $timeout(function() {
+                        	if (errorMethodMatches.test(response.config.method)) {
+                        		return $q.reject(response);		
+                        	} else {
+                        		return response;
+                        	}
+                        }, (response.config.url.indexOf('/rest') !== -1 || response.config.url.indexOf('/api') !== -1   ? apiDelay : otherDelay));
+                    }, function(response) {
+                        return $q.reject(response);
+                    });
+                };
+            };
+            //$httpProvider.responseInterceptors.push(delayHandlerFactory);
             
         }])
         .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
