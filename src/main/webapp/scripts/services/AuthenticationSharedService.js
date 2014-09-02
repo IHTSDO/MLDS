@@ -77,9 +77,12 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                 $rootScope.authenticated = false;
                 $rootScope.account = null;
 
-                $http.get('app/logout');
+                // logout client-side
                 Session.invalidate();
-                authService.loginCancelled();
+                // logout server-side
+                $http.get('app/logout').then(function(){
+                    authService.loginCancelled();
+                });
             }
         };
     }]);

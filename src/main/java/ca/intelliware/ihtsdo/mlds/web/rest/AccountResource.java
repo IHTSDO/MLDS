@@ -200,7 +200,7 @@ public class AccountResource {
         	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
-                    userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey());
+                    userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey(), false);
             final Locale locale = Locale.forLanguageTag(user.getLangKey());
             String content = createHtmlContentFromTemplate(user, locale, request, response);
             mailService.sendActivationEmail(user.getEmail(), content, locale);
@@ -370,7 +370,7 @@ public class AccountResource {
     	affiliate.setCreator(body.getAffiliateDetails().getEmail().toLowerCase());
     	affiliate.getAffiliateDetails().setEmail(body.getAffiliateDetails().getEmail().toLowerCase());
     	user = userService.createUserInformation(body.getAffiliateDetails().getEmail().toLowerCase(), "", body.getAffiliateDetails().getFirstName(),
-    			body.getAffiliateDetails().getLastName(), body.getAffiliateDetails().getEmail().toLowerCase(), "en");
+    			body.getAffiliateDetails().getLastName(), body.getAffiliateDetails().getEmail().toLowerCase(), "en", true);
     	
     	final String tokenKey = passwordResetService.createTokenForUser(user);
 		passwordResetEmailSender.sendPasswordResetEmail(user, tokenKey);
