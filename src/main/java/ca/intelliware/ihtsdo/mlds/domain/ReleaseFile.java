@@ -37,6 +37,12 @@ public class ReleaseFile extends BaseEntity {
 	@Column(name="download_url")
 	String downloadUrl;
 
+	public ReleaseFile() { }
+	
+	public ReleaseFile(long releaseFileId) {
+		this.releaseFileId = releaseFileId;
+	}
+	
 	// Note:
 	// String clientDownloadUrl = rest endpoint calculated in JSON JacksonConfigurer
 
