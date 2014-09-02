@@ -8,6 +8,15 @@
 </div>
 <div class="row">
 	<div class="col-md-8">
+		<div class="alert alert-warning" ng-show="showNonMemberAlert">
+			You can view applications submitted to other Member Registration Centres, but you cannot process them.
+		</div>
+		<div class="alert alert-warning" ng-show="showNonPendingAlert && !showNonMemberAlert">
+			You can view applications with the {{application.approvalState | enum:'approval.state.'}} status, but you cannot process them. FIXME
+		</div>
+
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
 		<div class="applicant-info">
 			<p><strong>Application No:</strong> {{application.applicationId}}</p>
 			<div ng-show="application.organizationName">
@@ -29,7 +38,7 @@
 				{{match.model.application.affiliateDetails.address.street}}<br>
 				{{match.model.application.affiliateDetails.address.city}}, {{match.model.application.affiliateDetails.address.country.commonName}} <br>
 				<strong>Usage Type:</strong> {{match.model.application.type | enum:'affiliate.type.'}} - {{match.model.application.subType | enum:'affiliate.subType.'}}<br>
-				<strong>Type of Agreement:</strong> {{match.model.application.commercialUsage.context.agreementType | enum:'affiliate.agreementType.'}}
+				<strong>Type of Agreement:</strong> {{match.model.application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}
 				</address>
 				</div>
 				</script>
@@ -54,11 +63,6 @@
 		</div>
 
 		<div>
-			<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-
-			<div class="alert alert-warning" ng-show="isReadOnly">
-				You can view applications submitted to other Member Registration Centres, but you cannot process them.
-			</div>
 
 			<form name="notesForm" novalidate bs-validation>
 				<div class="form-group">
@@ -66,15 +70,15 @@
 				</div>
 				<div class="form-group">
 					<label>Staff Notes</label>
-					<textarea class="form-control" rows="10" required name="notesInternal" ng-model="application.notesInternal" ng-disabled="isReadOnly" auto-submit></textarea>
+					<textarea class="form-control" rows="10" required name="notesInternal" ng-model="application.notesInternal" ng-disabled="isNoteReadOnly" auto-submit></textarea>
 				</div>
 			</form>
 			<div>
-				<a class="btn btn-success btn-block" ng-click="approveApplication()" ng-disabled="isReadOnly">Approve Application</a>
-				<a class="btn btn-warning btn-block" ng-click="changeRequested()" ng-disabled="isReadOnly">Change Requested from Applicant</a>
-				<a class="btn btn-warning btn-block" ng-click="reviewRequested()" ng-disabled="isReadOnly">Review Requested from Staff</a>
+				<a class="btn btn-success btn-block" ng-click="approveApplication()" ng-disabled="isActionDisabled">Approve Application</a>
+				<a class="btn btn-warning btn-block" ng-click="changeRequested()" ng-disabled="isActionDisabled">Change Requested from Applicant</a>
+				<a class="btn btn-warning btn-block" ng-click="reviewRequested()" ng-disabled="isActionDisabled">Review Requested from Staff</a>
 				<br><br>
-				<a class="btn btn-danger btn-block" ng-click="rejectApplication()" ng-disabled="isReadOnly">Decline Application</a>
+				<a class="btn btn-danger btn-block" ng-click="rejectApplication()" ng-disabled="isActionDisabled">Decline Application</a>
 			</div>
 		</div>
 

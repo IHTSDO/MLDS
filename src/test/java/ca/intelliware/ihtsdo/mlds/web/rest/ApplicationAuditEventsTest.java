@@ -9,15 +9,12 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
-import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
-import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
-import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationAuditEvents;
-import ca.intelliware.ihtsdo.mlds.web.rest.ReleasePackageAuditEvents;
 
+@SuppressWarnings("unchecked")
 public class ApplicationAuditEventsTest {
 
 	@Mock

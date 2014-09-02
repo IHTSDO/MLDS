@@ -27,6 +27,7 @@ public class HibernateSearchIndexer {
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 		
 		//fullTextEntityManager.createIndexer().startAndWait();
+		fullTextEntityManager.toString();
 	}
 
 }

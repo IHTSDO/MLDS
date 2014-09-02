@@ -17,7 +17,7 @@ angular.module('MLDS')
 	};
 
 	service.myAffiliate = function() {
-		return $http.get('/app/rest/affiliates/me')
+		return $http.get('/app/rest/affiliates/me', {ignoreAuthModule:true})
 			.then(function(result) {
     			var affiliates = result.data;
     			if (affiliates && affiliates.length > 0) {
@@ -30,6 +30,22 @@ angular.module('MLDS')
     				return result; 
     			}
 			});
+	};
+	
+	service.updateAffiliate = function(affiliate) {
+		//FIXME workaround for unmodifiable collection issue..
+		var affiliateCopy = angular.copy(affiliate);
+		affiliateCopy.commercialUsages = [];
+		affiliateCopy.applications = [];
+		if (affiliateCopy.application) {
+			affiliateCopy.application.commercialUsage = null;
+		}
+		//TODO optimize http method size by stripping out some of child elements
+		return $http.put('/app/rest/affiliates/'+ encodeURIComponent(affiliate.affiliateId), affiliateCopy);
+	};
+	
+	service.createLogin = function createLogin(affiliate) {
+		return $http.post('/app/rest/account/create', affiliate);
 	};
 	
 	service.updateAffiliateDetails = function(affiliateId, affiliateDetails) {

@@ -1,7 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 import java.util.Random;
@@ -172,6 +174,18 @@ public class AffiliateFullTextSearchTest {
 		assertThat(resultList, contains(affiliates.get(4)));
 	}
 	
+	@Test
+	public void findByNameWithinMatchingMemberOnlyShowsNameMatches() throws Exception {
+		
+		affiliates.get(4).getAffiliateDetails().setEmail("fred22@exampleZZZ.com");
+		flush();
+		
+		List<Affiliate> resultList = search("fred22@exampleZZZ.com", ihtsdo);
+		
+		assertThat(resultList.size(), is(1));
+		assertThat(resultList, contains(affiliates.get(4)));
+	}
+	
 	/**
 	 * flush to JPA + Lucene.  JPA queries trigger a JPA flush, but Hibernate Search
 	 * only flushes on TX commit by default.  But are using a TX rollback test strategy, so we
@@ -184,7 +198,11 @@ public class AffiliateFullTextSearchTest {
 	}
 	
 	private List<Affiliate> search(String query) {
-		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),null,new PageRequest(0, 50)).getContent();
+		return search(query, null);
+	}
+
+	private List<Affiliate> search(String query, Member member) {
+		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),member,new PageRequest(0, 50)).getContent();
 		return resultList;
 	}
 

@@ -48,13 +48,13 @@ public class AffiliatesImportGeneratorIntegrationTest {
 		String[] dataRow1 = splitLine(lines.get(1));
 		assertEquals(dataRow1.length, affiliatesMapper.getMappings().size());
 		assertEquals("DK", dataRow1[0]);
-		assertEquals("Example Other Text", dataRow1[4]);
+		assertEquals("Example Other Text", dataRow1[5]);
 
 		// Data Row 2
 		String[] dataRow2 = splitLine(lines.get(2));
 		assertEquals(dataRow2.length, affiliatesMapper.getMappings().size());
 		assertEquals("DK", dataRow2[0]);
-		assertEquals("Example Other Text 1", dataRow2[4]);
+		assertEquals("Example Other Text 1", dataRow2[5]);
 	}
 	
 	private String[] splitLine(String line) {

@@ -1,6 +1,6 @@
 'use strict';
 
-mldsApp.controller('PendingApplicationsController', [
+angular.module('MLDS').controller('PendingApplicationsController', [
 		'$scope',
 		'$log',
 		'$location',

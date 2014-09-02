@@ -48,7 +48,10 @@ public class AccountResourceTest {
         AccountResource accountResource = new AccountResource();
         ReflectionTestUtils.setField(accountResource, "userService", userService);
         accountResource.userMembershipAccessor = userMembershipAccessor;
-        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(accountResource).build();
+        this.restUserMockMvc = MockMvcBuilders
+        		.standaloneSetup(accountResource)
+        		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
+        		.build();
     }
 
     @Test

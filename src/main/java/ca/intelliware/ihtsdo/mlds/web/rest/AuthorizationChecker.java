@@ -7,6 +7,8 @@ import org.apache.commons.lang.ObjectUtils;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
+import com.google.common.base.Objects;
+
 /**
  * Provide access check helpers for our rest controllers.
  * FIXME MLDS-23
@@ -56,5 +58,24 @@ public class AuthorizationChecker {
 			return;
 		}
 		checkCurrentUserIsMemberOfAffiliate(affiliate);
+	}
+
+	protected boolean isAdminOrStaffOfMember(String memberKey) {
+		if (currentSecurityContext.isAdmin()) {
+			return true;
+		}
+		if (currentSecurityContext.isStaff()
+				&& Objects.equal(currentSecurityContext.getStaffMemberKey(), memberKey)) {
+			return true;
+		}
+		return false;
+
+	}
+	
+	public void checkCanManageAffiliate(Affiliate affiliate) {
+		if (isAdminOrStaffOfMember(affiliate.getHomeMemberKey())) {
+			return;
+		}
+		failCheck("User not authorized to manage Affiliate");
 	}
 }
