@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -34,6 +35,7 @@ import ca.intelliware.ihtsdo.mlds.repository.FileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.MemberDTO;
 
 @RestController
 public class MemberResource {
@@ -49,8 +51,14 @@ public class MemberResource {
             method = RequestMethod.GET,
             produces = "application/json")
     @PermitAll
-    public List<Member> getMembers() {
-    	return memberRepository.findAll();
+    @Transactional
+    public List<MemberDTO> getMembers() {
+    	List<MemberDTO> memberDTOs = new ArrayList<MemberDTO>();
+    	
+    	for (Member member : memberRepository.findAll()) {
+			memberDTOs.add(new MemberDTO(member));
+		}
+    	return memberDTOs;
     }
     
     @RequestMapping(value = Routes.MEMBER_LICENCE,
@@ -104,7 +112,7 @@ public class MemberResource {
 		member.setLicense(licenseFile);
 		memberRepository.save(member);
 
-		return new ResponseEntity<Member>(member, HttpStatus.OK);
+		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
 	}
 
 }
