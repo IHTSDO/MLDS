@@ -17,7 +17,7 @@ angular.module('MLDS')
 	};
 
 	service.myAffiliate = function() {
-		return $http.get('/app/rest/affiliates/me')
+		return $http.get('/app/rest/affiliates/me', {ignoreAuthModule:true})
 			.then(function(result) {
     			var affiliates = result.data;
     			if (affiliates && affiliates.length > 0) {
