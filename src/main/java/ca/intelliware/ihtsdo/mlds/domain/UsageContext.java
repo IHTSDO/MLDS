@@ -2,8 +2,6 @@ package ca.intelliware.ihtsdo.mlds.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 @Embeddable
 public class UsageContext {
@@ -16,10 +14,6 @@ public class UsageContext {
 	
 	String purpose;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name="agreement_type")
-	AgreementType agreementType;
-
 	@Column(name="implementation_status")
 	String implementationStatus;
 	
@@ -35,10 +29,6 @@ public class UsageContext {
 		return purpose;
 	}
 
-	public AgreementType getAgreementType() {
-		return agreementType;
-	}
-
 	public void setCurrentUsage(String currentUsage) {
 		this.currentUsage = currentUsage;
 	}
@@ -49,10 +39,6 @@ public class UsageContext {
 
 	public void setPurpose(String purpose) {
 		this.purpose = purpose;
-	}
-
-	public void setAgreementType(AgreementType agreementType) {
-		this.agreementType = agreementType;
 	}
 
 	public String getImplementationStatus() {

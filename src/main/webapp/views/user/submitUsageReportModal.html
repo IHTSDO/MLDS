@@ -21,7 +21,6 @@
   				<li class="list-group-item"><strong>Current Usage:</strong> {{commercialUsageReport.context.currentUsage}}</li>
   				<li class="list-group-item"><strong>Planned Usage:</strong> {{commercialUsageReport.context.plannedUsage}}</li>
   				<li class="list-group-item"><strong>Purpose:</strong> {{commercialUsageReport.context.purpose}}</li>
-  				<li class="list-group-item"><strong>Agreement Type:</strong> {{commercialUsageReport.context.agreementType | enum:'affiliate.agreementType.'}}</li>
   				<li class="list-group-item"><strong>Implementation Status:</strong> {{commercialUsageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</li>
   				<li class="list-group-item" ng-show="commercialUsageReport.type=='COMMERCIAL'" ng-repeat="countryRecord in usageByCountryList">
   					<strong>Country:</strong> {{countryRecord.country.commonName}}<br>

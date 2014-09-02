@@ -1,6 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
@@ -11,10 +11,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.google.common.collect.Maps;
-
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
+
+import com.google.common.collect.Maps;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AuditEventServiceTest {

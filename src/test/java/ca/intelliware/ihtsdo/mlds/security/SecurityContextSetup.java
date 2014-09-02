@@ -4,8 +4,6 @@ import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-
 public class SecurityContextSetup {
 	public static final String USERNAME = "user";
 	

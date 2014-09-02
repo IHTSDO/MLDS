@@ -1,7 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
-import ca.intelliware.ihtsdo.mlds.security.*;
-import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
+import javax.inject.Inject;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +17,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
 
-import javax.inject.Inject;
+import ca.intelliware.ihtsdo.mlds.security.AjaxAuthenticationFailureHandler;
+import ca.intelliware.ihtsdo.mlds.security.AjaxAuthenticationSuccessHandler;
+import ca.intelliware.ihtsdo.mlds.security.AjaxLogoutSuccessHandler;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.security.Http401UnauthorizedEntryPoint;
 
 @Configuration
 @EnableWebSecurity

@@ -17,21 +17,26 @@ import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.Validate;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Fields;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Sets;
 
 @Entity
 @Indexed
+@JsonFilter("affiliatePrivacyFilter")
 public class Affiliate extends BaseEntity {
+	public static final String[] PRIVATE_FIELDS = {"notesInternal"};
 
 	@Id
 	@GeneratedValue
 	@Column(name="affiliate_id")
+	@Fields({ @Field(name="ALL"), @Field()})
 	Long affiliateId;
 
 	//@Type(type="jodatimeInstant")
@@ -73,6 +78,9 @@ public class Affiliate extends BaseEntity {
 		return homeMember!= null?homeMember.getKey():null;
 	}
 	
+	@Column(name="notes_internal")
+	String notesInternal;
+
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
 		
@@ -128,7 +136,9 @@ public class Affiliate extends BaseEntity {
 
 	public void setApplication(PrimaryApplication application) {
 		this.application = application;
-		addApplication(application);
+		if (application != null) {
+			addApplication(application);
+		}
 	}
 	
 	public AffiliateDetails getAffiliateDetails() {
@@ -168,4 +178,11 @@ public class Affiliate extends BaseEntity {
 		return affiliateId;
 	}
 
+	public String getNotesInternal() {
+		return notesInternal;
+	}
+
+	public void setNotesInternal(String notesInternal) {
+		this.notesInternal = notesInternal;
+	}
 }

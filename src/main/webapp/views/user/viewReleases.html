@@ -33,7 +33,8 @@
 				<div class="panel-heading">	
 					<div ng-class="{'status text-muted': !isMembershipApproved}">
 						<div ng-show="$root.authenticated">
-							<span class="btn-sm btn-warning pull-right" ng-show="!isPrimaryApplicationApproved">Primary application is being processed</span>
+							<span class="btn-sm btn-warning pull-right" ng-show="isPrimaryApplicationWaitingForApplicant">Primary application is needs attention</span>
+							<span class="btn-sm btn-warning pull-right" ng-show="!isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved">Primary application is being processed</span>
 							<button class="btn-sm btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved && !isIHTSDOPackage" ng-click="utils.openExtensionApplication(releasePackage)">			
 								Apply for extension
 							</button>
@@ -60,16 +61,21 @@
 						<div class="col-lg-1">
 							<div class="btn btn-success btn-sm">Current: </div>
 						</div>
-						<div class="col-lg-11" ng-repeat="releaseFile in version.releaseFiles">
+						<div class="col-lg-11" >
 							<h4 class="version">{{version.name}}</h4>
-								<i class="fa fa-file"></i>
-								<span ng-show="releaseFile.clientDownloadUrl && isMembershipApproved">
-									<a href="{{releaseFile.clientDownloadUrl}}" class="btn btn-link" target="_blank">{{releaseFile.label}}</a>
-								</span>
-								<span ng-show="!(releaseFile.clientDownloadUrl && isMembershipApproved)">
-									{{releaseFile.label}}
-								</span>
+							<ul class="list-unstyled">
+							  <li ng-repeat="releaseFile in version.releaseFiles">
+									<i class="fa fa-file"></i>
+									<span ng-show="releaseFile.clientDownloadUrl && isMembershipApproved">
+										<a href="{{releaseFile.clientDownloadUrl}}" class="btn btn-link" target="_blank">{{releaseFile.label}}</a>
+									</span>
+									<span ng-show="!(releaseFile.clientDownloadUrl && isMembershipApproved)">
+										{{releaseFile.label}}
+									</span>
+								</li>
+							</ul>
 						</div>
+						
 					</div>
 				</div>
 			</div>

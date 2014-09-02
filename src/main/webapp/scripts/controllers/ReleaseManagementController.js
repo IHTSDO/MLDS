@@ -15,16 +15,20 @@ angular.module('MLDS').controller('ReleaseManagementController',
 		
 		function extractPackages() {
 			var packages = $scope.packages;
+			if (!packages.$resolved) {
+				return;
+			}
 			
 			var memberFiltered = _.chain(packages).filter(function(p){ return PackageUtilsService.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); });
 			
 			$scope.onlinePackages = memberFiltered
 				.filter(PackageUtilsService.isPackagePublished)
 				.sortBy(PackageUtilsService.getLatestPublishedDate)
+				.reverse()
 				.value();
 			$scope.offinePackages = memberFiltered
 				.reject(PackageUtilsService.isPackagePublished)
-				.sortBy('createAt')
+				.sortBy('createdAt')
 				.value();
 		}
 		

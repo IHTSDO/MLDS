@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.util.NestedServletException;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
@@ -29,6 +30,8 @@ import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
@@ -62,6 +65,8 @@ public class AffiliateResourceTest {
     
     private MockMvc restUserMockMvc;
     
+    SecurityContextSetup securityContextSetup = new SecurityContextSetup();
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -76,12 +81,19 @@ public class AffiliateResourceTest {
         affiliateResource.affiliatesImportGenerator = affiliatesImportGenerator;
         affiliateResource.userRepository = userRepository;
         affiliateResource.sessionService = sessionService;
+        affiliateResource.currentSecurityContext = new CurrentSecurityContext();
 
-        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(affiliateResource).build();
+        securityContextSetup.asAdmin();
+		
+		this.restUserMockMvc = MockMvcBuilders
+				.standaloneSetup(affiliateResource)
+        		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
+        		.build();
     }
+
     
-    @Test
-    public void updateAffiliateDetailShouldFailForUnknownApplication() throws Exception {
+	@Test
+    public void updateAffiliateDetailShouldFailForUnknownAffiliate() throws Exception {
         when(affiliateRepository.findOne(999L)).thenReturn(null);
 
         restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 999L)
@@ -258,4 +270,84 @@ public class AffiliateResourceTest {
     	
     	return affiliate;
     }
+	
+	@Test
+	public void updateAffiliateShouldFailForUnknownAffiliate() throws Exception {
+        when(affiliateRepository.findOne(999L)).thenReturn(null);
+
+        restUserMockMvc.perform(put(Routes.AFFILIATE, 999L)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"notesInternal\": \"Updated notes\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+	}
+
+	@Test
+	public void updateAffiliateShouldFailIfCurrentUserCannotManage() throws Exception {
+        when(affiliateRepository.findOne(999L)).thenReturn(createBlankAffiliate());
+        Mockito.doThrow(new IllegalStateException("not allowed")).when(applicationAuthorizationChecker).checkCanManageAffiliate(Mockito.any(Affiliate.class));
+
+        try {
+        	restUserMockMvc.perform(put(Routes.AFFILIATE, 999L)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"notesInternal\": \"Updated notes\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is5xxServerError());
+        	Assert.fail();
+        } catch (NestedServletException e) {
+        	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("not allowed"));
+        }
+	}
+
+	@Test
+	public void updateAffiliateShouldUpdateSaveWithSafeFields() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setNotesInternal("Original Notes");
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"notesInternal\": \"Updated Notes\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.notesInternal").value("Updated Notes"))
+                ;
+    	
+    	Mockito.verify(affiliateRepository).save(Mockito.any(Affiliate.class));
+	}
+
+	@Test
+	public void updateAffiliateShouldAuditLog() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"notesInternal\": \"Updated Notes\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                ;
+    	
+    	Mockito.verify(affiliateAuditEvents).logUpdateOfAffiliate(Mockito.any(Affiliate.class));
+	}
+
+	@Test
+	public void updateAffiliateShouldIgnoreNonSafeFields() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setCreator("original@email.com");
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"creator\": \"updated@email.com\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.creator").value("original@email.com"))
+                ;
+    	
+    	Mockito.verify(affiliateRepository).save(Mockito.any(Affiliate.class));
+	}
 }

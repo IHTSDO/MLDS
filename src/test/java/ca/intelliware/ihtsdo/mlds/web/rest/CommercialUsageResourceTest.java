@@ -4,11 +4,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +40,10 @@ public class CommercialUsageResourceTest {
         commercialUsageResource.affiliateRepository = affiliateRepository;
         commercialUsageResource.authorizationChecker = authorizationChecker;
         
-        this.restCommercialUsageResource = MockMvcBuilders.standaloneSetup(commercialUsageResource).build();
+        this.restCommercialUsageResource = MockMvcBuilders
+        		.standaloneSetup(commercialUsageResource)
+        		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
+        		.build();
     }
 
 	@Test

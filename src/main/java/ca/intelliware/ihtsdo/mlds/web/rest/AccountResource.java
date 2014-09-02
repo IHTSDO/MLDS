@@ -60,6 +60,7 @@ import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
 import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
+import ca.intelliware.ihtsdo.mlds.service.mail.PasswordResetEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
 
 import com.codahale.metrics.annotation.Timed;
@@ -105,6 +106,8 @@ public class AccountResource {
     ApplicationRepository applicationRepository;
 	@Resource 
 	PasswordResetService passwordResetService;
+	@Resource 
+	PasswordResetEmailSender passwordResetEmailSender;
 	@Resource
 	CommercialUsageRepository commercialUsageRepository;
 	@Resource
@@ -164,7 +167,6 @@ public class AccountResource {
         	
         	//set a default type for application to create affiliate and usagelog
         	affiliateDetails.setType(AffiliateType.COMMERCIAL);
-        	// FIXME MLDS-234 MB how are we storing country here?
         	affiliate.setCreator(userDTO.getLogin());
         	affiliate.setType(AffiliateType.COMMERCIAL);
         	
@@ -198,7 +200,7 @@ public class AccountResource {
         	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
-                    userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey());
+                    userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey(), false);
             final Locale locale = Locale.forLanguageTag(user.getLangKey());
             String content = createHtmlContentFromTemplate(user, locale, request, response);
             mailService.sendActivationEmail(user.getEmail(), content, locale);
@@ -354,4 +356,30 @@ public class AccountResource {
                 locale, variables, applicationContext);
         return templateEngine.process(MailService.EMAIL_ACTIVATION_PREFIX + MailService.TEMPLATE_SUFFIX, context);
     }
+    
+    @RequestMapping(value = "/rest/account/create", method = RequestMethod.POST)
+    @RolesAllowed({AuthoritiesConstants.ADMIN})
+    public ResponseEntity<?> createLogin(@RequestBody Affiliate body, HttpServletRequest request, HttpServletResponse response) {
+    	Affiliate affiliate = affiliateRepository.findOne(body.getAffiliateId());
+    	User user = userRepository.findOne(body.getAffiliateDetails().getEmail());
+    	
+    	if (user != null) {
+    		return new ResponseEntity<>(HttpStatus.CONFLICT);
+    	}
+    	
+    	affiliate.setCreator(body.getAffiliateDetails().getEmail().toLowerCase());
+    	affiliate.getAffiliateDetails().setEmail(body.getAffiliateDetails().getEmail().toLowerCase());
+    	user = userService.createUserInformation(body.getAffiliateDetails().getEmail().toLowerCase(), "", body.getAffiliateDetails().getFirstName(),
+    			body.getAffiliateDetails().getLastName(), body.getAffiliateDetails().getEmail().toLowerCase(), "en", true);
+    	
+    	final String tokenKey = passwordResetService.createTokenForUser(user);
+		passwordResetEmailSender.sendPasswordResetEmail(user, tokenKey);
+    	
+		affiliateAuditEvents.logCreationOfAffiliateLogin(affiliate);
+		
+    	return new ResponseEntity<>(HttpStatus.CREATED);
+    	
+    	
+    }
+    
 }

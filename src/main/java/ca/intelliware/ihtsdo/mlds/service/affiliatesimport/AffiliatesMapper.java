@@ -41,6 +41,7 @@ public class AffiliatesMapper {
 		getMappings().add(createField("importKey", Affiliate.class).required());
 		getMappings().add(createField("type", AffiliateDetails.class));
 		getMappings().add(createField("subType", AffiliateDetails.class));
+		getMappings().add(createField("agreementType", AffiliateDetails.class));
 		getMappings().add(createField("otherText", AffiliateDetails.class));
 		getMappings().add(createField("firstName", AffiliateDetails.class));
 		getMappings().add(createField("lastName", AffiliateDetails.class));
@@ -61,6 +62,7 @@ public class AffiliatesMapper {
 		getMappings().add(createField("billingCity", AffiliateDetails.class, "billingAddress.city"));
 		getMappings().add(createField("billingPost", AffiliateDetails.class, "billingAddress.post"));
 		getMappings().add(createField("billingCountry", AffiliateDetails.class, "billingAddress.country"));
+		// FIXME MLDS-303 Should we add agreementType here?  Or default it
 		
 	}
 	

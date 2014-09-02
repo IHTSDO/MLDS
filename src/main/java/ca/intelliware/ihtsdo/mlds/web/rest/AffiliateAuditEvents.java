@@ -25,6 +25,10 @@ public class AffiliateAuditEvents {
 		logEvent("AFFILIATE_CREATED", affiliate);
 	}
 
+	public void logCreationOfAffiliateLogin(Affiliate affiliate) {
+		logEvent("AFFILIATE_LOGIN_CREATED", affiliate);
+	}
+	
 	private void logEvent(String eventType, Affiliate affiliate) {
 		Map<String, String> auditData = createReleasePackageData(affiliate);
 		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
@@ -54,8 +58,20 @@ public class AffiliateAuditEvents {
 		Map<String,String> auditData = Maps.newHashMap();
 		auditEventService.logAuditableEvent("AFFILIATE_EXPORT", auditData);
 	}
-	
-	public void logUpdateOf(Affiliate affiliate) {
+
+	public void logUpdateOfAffiliate(Affiliate affiliate) {
+		logAffiliateUpdate("AFFILATE_UPDATED", affiliate);
+	}
+
+	private void logAffiliateUpdate(String eventType, Affiliate affiliate) {
+		Map<String,String> auditData = Maps.newHashMap();
+    	auditData.put("affiliate.notesInternal", affiliate.getNotesInternal());
+		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
+		auditEvent.setAffiliateId(affiliate.getAffiliateId());
+		auditEventService.logAuditableEvent(auditEvent);
+	}
+
+	public void logUpdateOfAffiliateDetails(Affiliate affiliate) {
 		logDetailsUpdate("AFFILATEDETAILS_UPDATED", affiliate);
 	}
 

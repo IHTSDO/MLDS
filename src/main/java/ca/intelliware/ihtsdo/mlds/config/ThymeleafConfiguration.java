@@ -11,7 +11,6 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 public class ThymeleafConfiguration {
@@ -40,7 +39,7 @@ public class ThymeleafConfiguration {
         emailTemplateResolver.setTemplateMode("HTML5");
         emailTemplateResolver.setCharacterEncoding(CharEncoding.UTF_8);
         emailTemplateResolver.setOrder(1);
-        // FIXME MLDS-20 MB push this into yml config?
+        // TODO MLDS-20 MB push this into yml config?
         emailTemplateResolver.setCacheTTLMs(2000L);
         return emailTemplateResolver;
     }
@@ -73,7 +72,7 @@ public class ThymeleafConfiguration {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:/mails/messages/messages");
         messageSource.setDefaultEncoding(CharEncoding.UTF_8);
-        // FIXME MLDS-20 MB push this into yml config?
+        // TODO MLDS-20 MB push this into yml config?
         messageSource.setCacheSeconds(1);
         return messageSource;
     }

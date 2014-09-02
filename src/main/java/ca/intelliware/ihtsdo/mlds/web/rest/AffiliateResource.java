@@ -43,6 +43,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateSearchRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
@@ -51,10 +52,8 @@ import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 import com.google.common.base.Objects;
-import com.wordnik.swagger.annotations.Api;
 
 @RestController
-@Api(value = "affiliate", description = "Affiliate API")
 public class AffiliateResource {
 
     private final Logger log = LoggerFactory.getLogger(AffiliateResource.class);
@@ -91,6 +90,9 @@ public class AffiliateResource {
 
 	@Resource
 	SessionService sessionService;
+	
+	@Resource
+	CurrentSecurityContext currentSecurityContext;
 
 	public static final int DEFAULT_PAGE_SIZE = 50;
 	
@@ -122,7 +124,7 @@ public class AffiliateResource {
     		if (StringUtils.isBlank(q)) {
     			affiliates = affiliateRepository.findAll(pageRequest);
     		} else {
-    			affiliates = affiliateRepository.findByTextQuery('%'+q.toLowerCase()+'%', pageRequest);
+    			affiliates = affiliateRepository.findByTextQuery(q.toLowerCase(), pageRequest);
     		}
 		} else {
 	    	Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
@@ -155,7 +157,30 @@ public class AffiliateResource {
 		Affiliate affiliate = affiliateRepository.findOne(affiliateId);
 		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
     }
-	
+
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @RequestMapping(value = Routes.AFFILIATE,
+    		method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<Affiliate> updateAffiliate(@PathVariable Long affiliateId, @RequestBody Affiliate body) {
+    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+    	if (affiliate == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	applicationAuthorizationChecker.checkCanManageAffiliate(affiliate);
+    	
+    	copyAffiliateFields(affiliate, body);
+    	affiliateRepository.save(affiliate);
+    	
+    	affiliateAuditEvents.logUpdateOfAffiliate(affiliate);
+    	
+    	return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
+    }
+
+	private void copyAffiliateFields(Affiliate affiliate, Affiliate body) {
+		affiliate.setNotesInternal(body.getNotesInternal());
+	}
+
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATES_ME,
     		method = RequestMethod.GET,
@@ -261,7 +286,7 @@ public class AffiliateResource {
     		userRepository.save(user);
     	}
     	
-    	affiliateAuditEvents.logUpdateOf(affiliate);
+    	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate);
     	
     	return new ResponseEntity<AffiliateDetails>(affiliateDetails, HttpStatus.OK);
     }
@@ -276,13 +301,14 @@ public class AffiliateResource {
     	affiliateDetails.setLandlineNumber(body.getLandlineNumber());
     	affiliateDetails.setLastName(body.getLastName());
     	affiliateDetails.setMobileNumber(body.getMobileNumber());
-    	// Can not update: OrganizationName, OrganizationType, OrganizationTypeOther
     	affiliateDetails.setThirdEmail(body.getThirdEmail());
     	
-    	// FIXME MLDS-32 MB Should we restrict changes to ADMIN only?
-    	affiliateDetails.setType(body.getType());
-    	affiliateDetails.setOtherText(body.getOtherText());
-    	affiliateDetails.setSubType(body.getSubType());
+    	if (currentSecurityContext.isAdmin()) {
+	    	affiliateDetails.setType(body.getType());
+	    	affiliateDetails.setOtherText(body.getOtherText());
+	    	affiliateDetails.setSubType(body.getSubType());
+	    	affiliateDetails.setAgreementType(body.getAgreementType());
+    	}
 	}
 
 	private void copyAddressFields(MailingAddress address, MailingAddress body) {

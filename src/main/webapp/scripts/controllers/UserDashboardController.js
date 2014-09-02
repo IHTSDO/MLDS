@@ -72,5 +72,10 @@ angular.module('MLDS')
         	};
         	
         	$scope.releasePackageOrderBy = UserAffiliateService.releasePackageOrderBy;
+        	
+        	$scope.goToViewPackagePage = function goToViewPackagePage(releasePackageId) {
+        		$location.path('/viewReleases/viewRelease/'+ releasePackageId);
+        	};
+
         }
     ]);
