@@ -398,7 +398,7 @@ mldsApp
                     });
                 };
             };
-            $httpProvider.responseInterceptors.push(delayHandlerFactory);
+            //$httpProvider.responseInterceptors.push(delayHandlerFactory);
             
         }])
         .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
