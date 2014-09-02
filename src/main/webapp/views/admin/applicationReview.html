@@ -15,6 +15,8 @@
 			You can view applications with the {{application.approvalState | enum:'approval.state.'}} status, but you cannot process them. FIXME
 		</div>
 
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
 		<div class="applicant-info">
 			<p><strong>Application No:</strong> {{application.applicationId}}</p>
 			<div ng-show="application.organizationName">
@@ -61,7 +63,6 @@
 		</div>
 
 		<div>
-			<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 
 			<form name="notesForm" novalidate bs-validation>
 				<div class="form-group">
