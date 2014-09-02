@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.Validate;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Fields;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
@@ -35,6 +36,7 @@ public class Affiliate extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="affiliate_id")
+	@Fields({ @Field(name="ALL"), @Field()})
 	Long affiliateId;
 
 	//@Type(type="jodatimeInstant")
