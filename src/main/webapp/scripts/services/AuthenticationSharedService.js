@@ -4,7 +4,12 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
     function ($rootScope, $http, authService, Session, Account) {
         return {
             login: function (param) {
-                var data ="j_username=" + param.username +"&j_password=" + param.password +"&_spring_security_remember_me=" + param.rememberMe +"&submit=Login";
+                var data = $.param({ 
+                	j_username : param.username, 
+                	j_password : param.password,
+                	_spring_security_remember_me : param.rememberMe
+            	});
+                
                 $http.post('app/authentication', data, {
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded"
