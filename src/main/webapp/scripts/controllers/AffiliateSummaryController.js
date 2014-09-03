@@ -15,7 +15,6 @@ mldsApp.controller('AffiliateSummaryController', [
 			
 			$scope.alerts = [];
 			$scope.affiliate = {};
-			$scope.affiliateDetails = {};
 			$scope.approved = false;
 			$scope.isApplicationApproved = ApplicationUtilsService.isApplicationApproved;
 
@@ -29,8 +28,6 @@ mldsApp.controller('AffiliateSummaryController', [
 					$scope.affiliate = affiliate;
 					$scope.approved = $scope.isApplicationApproved(affiliate.application);
 					$scope.isEditable = Session.isAdmin() || (Session.member.key == affiliate.application.member.key);
-					
-					$scope.affiliateDetails = (affiliate.affiliateDetails) ? affiliate.affiliateDetails : affiliate.application.affiliateDetails;
 				});
 					
 			}
