@@ -38,7 +38,7 @@ public class AffiliateAuditEventsTest {
 		
 		affiliateAuditEvents.logUpdateOfAffiliate(affiliate);
 
-		Mockito.verify(auditEventService).createAuditEvent(Mockito.eq("AFFILATE_UPDATED"),Mockito.anyMap());
+		Mockito.verify(auditEventService).createAuditEvent(Mockito.eq("AFFILIATE_UPDATED"),Mockito.anyMap());
 		
 		ArgumentCaptor<PersistentAuditEvent> auditEvent = ArgumentCaptor.forClass(PersistentAuditEvent.class);
 		Mockito.verify(auditEventService).logAuditableEvent(auditEvent.capture());
