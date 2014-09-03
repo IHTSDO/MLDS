@@ -17,6 +17,16 @@ import com.google.common.collect.Maps;
 @Service
 public class ReleasePackageAuditEvents {
 
+	private static final String EVENT_RELEASE_FILE_CREATED = "RELEASE_FILE_CREATED";
+	private static final String EVENT_RELEASE_FILE_DELETED = "RELEASE_FILE_DELETED";
+	private static final String EVENT_RELEASE_FILE_DOWNLOADED = "RELEASE_FILE_DOWNLOADED";
+	private static final String EVENT_RELEASE_PACKAGE_DELETED = "RELEASE_PACKAGE_DELETED";
+	private static final String EVENT_RELEASE_PACKAGE_CREATED = "RELEASE_PACKAGE_CREATED";
+	private static final String EVENT_RELEASE_VERSION_TAKEN_OFFLINE = "RELEASE_VERSION_TAKEN_OFFLINE";
+	private static final String EVENT_RELEASE_VERSION_TAKEN_ONLINE = "RELEASE_VERSION_TAKEN_ONLINE";
+	private static final String EVENT_RELEASE_VERSION_CREATED = "RELEASE_VERSION_CREATED";
+	private static final String EVENT_RELEASE_VERSION_DELETED = "RELEASE_VERSION_DELETED";
+	
 	@Resource
 	AuditEventService auditEventService;
 
@@ -24,11 +34,11 @@ public class ReleasePackageAuditEvents {
 	// Release Package
 	
 	public void logCreationOf(ReleasePackage releasePackage) {
-		logReleasePackageEvent("RELEASE_PACKAGE_CREATED", releasePackage);
+		logReleasePackageEvent(EVENT_RELEASE_PACKAGE_CREATED, releasePackage);
 	}
 
 	public void logDeletionOf(ReleasePackage releasePackage) {
-		logReleasePackageEvent("RELEASE_PACKAGE_DELETED", releasePackage);
+		logReleasePackageEvent(EVENT_RELEASE_PACKAGE_DELETED, releasePackage);
 	}
 
 	private void logReleasePackageEvent(String eventType, ReleasePackage releasePackage) {
@@ -39,28 +49,28 @@ public class ReleasePackageAuditEvents {
 	}
 	
 	private Map<String, String> createReleasePackageData(ReleasePackage releasePackage) {
-		Map<String,String> auditData = Maps.newHashMap();
-    	auditData.put("releasePackage.name", releasePackage.getName());
-		return auditData;
+		return AuditDataBuilder.start()
+				.addReleasePackageName(releasePackage)
+				.toAuditData();
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
 	// Release Version
 
 	public void logCreationOf(ReleaseVersion releaseVersion) {
-		logReleaseVersionEvent("RELEASE_VERSION_CREATED", releaseVersion);
+		logReleaseVersionEvent(EVENT_RELEASE_VERSION_CREATED, releaseVersion);
 	}
 
 	public void logDeletionOf(ReleaseVersion releaseVersion) {
-		logReleaseVersionEvent("RELEASE_VERSION_DELETED", releaseVersion);
+		logReleaseVersionEvent(EVENT_RELEASE_VERSION_DELETED, releaseVersion);
 	}
 
 	public void logTakenOnline(ReleaseVersion releaseVersion) {
-		logReleaseVersionEvent("RELEASE_VERSION_TAKEN_ONLINE", releaseVersion);
+		logReleaseVersionEvent(EVENT_RELEASE_VERSION_TAKEN_ONLINE, releaseVersion);
 	}
 
 	public void logTakenOffline(ReleaseVersion releaseVersion) {
-		logReleaseVersionEvent("RELEASE_VERSION_TAKEN_OFFLINE", releaseVersion);
+		logReleaseVersionEvent(EVENT_RELEASE_VERSION_TAKEN_OFFLINE, releaseVersion);
 	}
 
 	private void logReleaseVersionEvent(String eventType, ReleaseVersion releaseVersion) {
@@ -70,22 +80,26 @@ public class ReleasePackageAuditEvents {
 		auditEvent.setReleasePackageId(releaseVersion.getReleasePackage().getReleasePackageId());
 		auditEventService.logAuditableEvent(auditEvent);
 	}
-
+	
 	private Map<String, String> createReleaseVersionData(ReleaseVersion releaseVersion) {
-		Map<String,String> auditData = Maps.newHashMap();
-		auditData.put("releaseVersion.name", releaseVersion.getName());
-		return auditData;
+		return AuditDataBuilder.start()
+			.addReleaseVersionName(releaseVersion)
+			.addReleasePackageName(releaseVersion.getReleasePackage())
+			.toAuditData();
 	}
+
+
+	
 
 	//////////////////////////////////////////////////////////////////////////////////////
 	// Release File
 
 	public void logCreationOf(ReleaseFile releaseFile) {
-		logReleaseFileEvent("RELEASE_FILE_CREATED", releaseFile);
+		logReleaseFileEvent(EVENT_RELEASE_FILE_CREATED, releaseFile);
 	}
 
 	public void logDeletionOf(ReleaseFile releaseFile) {
-		logReleaseFileEvent("RELEASE_FILE_DELETED", releaseFile);
+		logReleaseFileEvent(EVENT_RELEASE_FILE_DELETED, releaseFile);
 	}
 
 	private void logReleaseFileEvent(String eventType, ReleaseFile releaseFile) {
@@ -102,14 +116,17 @@ public class ReleasePackageAuditEvents {
 	}
 
 	private Map<String, String> createReleaseFileData(ReleaseFile releaseFile) {
-		Map<String,String> auditData = Maps.newHashMap();
-		auditData.put("releaseFile.label", releaseFile.getLabel());
-		return auditData;
+		AuditDataBuilder builder = AuditDataBuilder.start();
+		builder.addReleaseFileLabel(releaseFile);
+		builder.addReleaseVersionName(releaseFile.getReleaseVersion());
+		builder.addReleasePackageName(releaseFile.getReleaseVersion().getReleasePackage());
+
+		return builder.toAuditData();
 	}
 
 	public void logDownload(ReleaseFile releaseFile, int statusCode) {
 		Map<String, String> auditData = createReleaseFileData(releaseFile);
 		auditData.put("download.statusCode", Integer.toString(statusCode));
-		logReleaseFileEvent("RELEASE_FILE_DOWNLOADED", releaseFile, auditData);
+		logReleaseFileEvent(EVENT_RELEASE_FILE_DOWNLOADED, releaseFile, auditData);
 	}
 }

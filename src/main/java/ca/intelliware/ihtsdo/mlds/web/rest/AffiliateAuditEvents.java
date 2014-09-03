@@ -16,30 +16,36 @@ import com.google.common.collect.Maps;
 
 @Service
 public class AffiliateAuditEvents {
-
+	static final String EVENT_AFFILIATEDETAILS_UPDATED = "AFFILIATEDETAILS_UPDATED";
+	static final String EVENT_AFFILIATE_UPDATED = "AFFILIATE_UPDATED";
+	static final String EVENT_AFFILIATE_EXPORT = "AFFILIATE_EXPORT";
+	static final String EVENT_AFFILIATE_IMPORT = "AFFILIATE_IMPORT";
+	static final String EVENT_AFFILIATE_LOGIN_CREATED = "AFFILIATE_LOGIN_CREATED";
+	static final String EVENT_AFFILIATE_CREATED = "AFFILIATE_CREATED";
+	
 	@Resource
 	AuditEventService auditEventService;
 
 	
 	public void logCreationOf(Affiliate affiliate) {
-		logEvent("AFFILIATE_CREATED", affiliate);
+		logEvent(EVENT_AFFILIATE_CREATED, affiliate);
 	}
 
 	public void logCreationOfAffiliateLogin(Affiliate affiliate) {
-		logEvent("AFFILIATE_LOGIN_CREATED", affiliate);
+		logEvent(EVENT_AFFILIATE_LOGIN_CREATED, affiliate);
 	}
 	
 	private void logEvent(String eventType, Affiliate affiliate) {
-		Map<String, String> auditData = createReleasePackageData(affiliate);
+		Map<String, String> auditData = createAffiliateData(affiliate);
 		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
 		auditEvent.setAffiliateId(affiliate.getAffiliateId());
 		auditEventService.logAuditableEvent(auditEvent);
 	}
 	
-	private Map<String, String> createReleasePackageData(Affiliate affiliate) {
-		Map<String,String> auditData = Maps.newHashMap();
-    	auditData.put("affiliate.creator", affiliate.getCreator());
-		return auditData;
+	private Map<String, String> createAffiliateData(Affiliate affiliate) {
+		return AuditDataBuilder.start()
+			.addAffiliateCreator(affiliate)
+			.toAuditData();
 	}
 	
 	public void logImport(ImportResult importResult) {
@@ -51,16 +57,16 @@ public class AffiliateAuditEvents {
 		auditData.put("import.updatedAffiliates", Long.toString(importResult.getUpdatedRecords()));
 		auditData.put("import.source", importResult.getSourceMemberKey());
 		auditData.put("import.errors", Integer.toString(importResult.getErrors().size()));
-		auditEventService.logAuditableEvent("AFFILIATE_IMPORT", auditData);
+		auditEventService.logAuditableEvent(EVENT_AFFILIATE_IMPORT, auditData);
 	}
 
 	public void logExport() {
 		Map<String,String> auditData = Maps.newHashMap();
-		auditEventService.logAuditableEvent("AFFILIATE_EXPORT", auditData);
+		auditEventService.logAuditableEvent(EVENT_AFFILIATE_EXPORT, auditData);
 	}
 
 	public void logUpdateOfAffiliate(Affiliate affiliate) {
-		logAffiliateUpdate("AFFILATE_UPDATED", affiliate);
+		logAffiliateUpdate(EVENT_AFFILIATE_UPDATED, affiliate);
 	}
 
 	private void logAffiliateUpdate(String eventType, Affiliate affiliate) {
@@ -72,7 +78,7 @@ public class AffiliateAuditEvents {
 	}
 
 	public void logUpdateOfAffiliateDetails(Affiliate affiliate) {
-		logDetailsUpdate("AFFILATEDETAILS_UPDATED", affiliate);
+		logDetailsUpdate(EVENT_AFFILIATEDETAILS_UPDATED, affiliate);
 	}
 
 	private void logDetailsUpdate(String eventType, Affiliate affiliate) {
@@ -103,5 +109,5 @@ public class AffiliateAuditEvents {
     	auditData.put("affiliate.affiliateDetails.thirdEmail", affiliate.getAffiliateDetails().getThirdEmail());
 		return auditData;
 	}
-
+	
 }
