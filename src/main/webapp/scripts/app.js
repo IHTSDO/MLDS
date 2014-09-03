@@ -79,6 +79,16 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                .when('/usageReportReview/:usageReportId', {
+                    templateUrl: 'views/admin/usageReportReview.html',
+                    controller: 'UsageReportReviewController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
                 .when('/usageReports/usageLog/:usageReportId', {
                     templateUrl: 'views/user/fullPageUsageLog.html',
                     controller: 'FullPageUsageLogController',
