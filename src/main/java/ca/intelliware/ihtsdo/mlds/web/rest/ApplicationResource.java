@@ -102,12 +102,13 @@ public class ApplicationResource {
 			application.setCompletedAt(Instant.now());
 		}
 		
+		Affiliate affiliate = null;
 		
 		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
 			List<Affiliate> affiliates = affiliateRepository.findByCreator(application.getUsername());
 			
 			if (affiliates.size() > 0) {
-				Affiliate affiliate = affiliates.get(0);
+				affiliate = affiliates.get(0);
 				AffiliateDetails affiliateDetails = (AffiliateDetails) application.getAffiliateDetails().clone(); 
 				
 				affiliateDetailsResetter.detach(affiliateDetails);
@@ -120,13 +121,11 @@ public class ApplicationResource {
 			}
 		}
 		
-		
-		
 		applicationRepository.save(application);
 		
 		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
 			User user = userRepository.getUserByEmail(application.getAffiliateDetails().getEmail());
-			applicationApprovedEmailSender.sendApplicationApprovalEmail(user, application.getMember().getKey());
+			applicationApprovedEmailSender.sendApplicationApprovalEmail(user, application.getMember().getKey(), affiliate.getAffiliateId());
 		}
 		
 		applicationAuditEvents.logApprovalStateChange(application);
