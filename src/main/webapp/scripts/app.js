@@ -69,8 +69,8 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/usageReports', {
-                    templateUrl: 'views/admin/usageReports.html',
+                .when('/usageReportsReview', {
+                    templateUrl: 'views/admin/usageReportsReview.html',
                     controller: 'AdminUsageReportsController',
                     access: {
                         authorizedRoles: [USER_ROLES.admin]
