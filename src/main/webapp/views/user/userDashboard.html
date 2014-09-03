@@ -124,7 +124,8 @@
        <a ng-show="isApplicationWaitingForApplicant(affiliate.application)" class="btn btn-default" href="#/affiliateRegistration">Edit Affiliate Application</a>
   </div>
   <div class="panel-body">
-	<ul class="list-group">
+	<ul class="list-group" ng-show="affiliate.application.approvalState === 'APPROVED'">
+		<li class="list-group-item"><strong>Affiliate No:</strong> {{affiliate.affiliateId}}</li>
 		<li class="list-group-item"><strong>Type:</strong> {{affiliate.affiliateDetails.type | enum:'affiliate.type.'}}</li>
 		<li class="list-group-item">
 			<strong>Subtype:</strong> {{affiliate.affiliateDetails.subType | enum:'affiliate.subType.'}}
