@@ -21,6 +21,7 @@ import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Sets;
 
@@ -34,7 +35,7 @@ public class CommercialUsage extends BaseEntity {
 
 	// the parent
 	//FIXME review dependency graph!
-	@JsonIgnore
+	@JsonIgnoreProperties({"application", "applications", "commercialUsages"})
 	@ManyToOne
 	@JoinColumn(name="affiliate_id")
 	Affiliate affiliate;

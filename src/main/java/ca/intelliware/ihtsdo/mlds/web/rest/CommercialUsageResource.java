@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
@@ -69,6 +73,25 @@ public class CommercialUsageResource {
     	}
     	
     	return new ResponseEntity<Collection<CommercialUsage>>(affiliate.getCommercialUsages(), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = Routes.USAGE_REPORTS_ALL,
+    		method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({ AuthoritiesConstants.ADMIN })
+    public @ResponseBody ResponseEntity<Collection<CommercialUsage>> getAllUsageReports(@RequestParam(value="$filter") String filter) {
+    	Collection<CommercialUsage> usageReports = null;
+    	if (filter == null) {
+    		usageReports = commercialUsageRepository.findAll();
+    	} else {
+    		if (Objects.equal(filter, "approvalState/submitted eq true")) {
+    			usageReports = commercialUsageRepository.findByApprovalStateIn(Lists.newArrayList(ApprovalState.SUBMITTED));
+			} else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+    	}
+    	
+    	return new ResponseEntity<Collection<CommercialUsage>>(usageReports, HttpStatus.OK);
     }
        
     public static class CommercialUsageApprovalTransitionMessage {
