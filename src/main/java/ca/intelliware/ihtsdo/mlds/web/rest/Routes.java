@@ -28,6 +28,11 @@ public class Routes {
 	static final String USAGE_REPORT = "/app/rest/commercialUsages/{commercialUsageId}";
 
 	/** 
+	 * get
+	 */ 
+	static final String USAGE_REPORTS_ALL = "/app/rest/commercialUsages/";
+	
+	/** 
 	 * put { context json}
 	 */ 
 	static final String USAGE_REPORT_CONTEXT = "/app/rest/commercialUsages/{commercialUsageId}/context";
