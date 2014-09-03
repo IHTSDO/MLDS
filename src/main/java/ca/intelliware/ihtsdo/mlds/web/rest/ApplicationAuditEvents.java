@@ -15,7 +15,7 @@ import com.google.common.collect.Maps;
 @Service
 public class ApplicationAuditEvents {
 
-	public static final String APPLICATION_APPROVAL_STATE_CHANGED = "APPLICATION_APPROVAL_STATE_CHANGED";
+	public static final String EVENT_APPLICATION_APPROVAL_STATE_CHANGED = "APPLICATION_APPROVAL_STATE_CHANGED";
 
 	@Resource
 	AuditEventService auditEventService;
@@ -31,8 +31,11 @@ public class ApplicationAuditEvents {
 	public void logApprovalStateChange(Application application) {
     	Map<String, String> auditData = createAuditData(application);
     	auditData.put("application.approvalState", ""+application.getApprovalState());
-    	PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(APPLICATION_APPROVAL_STATE_CHANGED, auditData);
+    	PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(EVENT_APPLICATION_APPROVAL_STATE_CHANGED, auditData);
     	auditEvent.setApplicationId(application.getApplicationId());
+    	if (application.getAffiliate() != null) {
+    		auditEvent.setAffiliateId(application.getAffiliate().getAffiliateId());
+    	}
     	auditEventService.logAuditableEvent(auditEvent);
 	}
 }
