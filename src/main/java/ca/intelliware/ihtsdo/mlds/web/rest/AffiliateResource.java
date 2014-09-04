@@ -312,7 +312,7 @@ public class AffiliateResource {
     	copyAffiliateDetailsFields(affiliateDetails, body);
     	affiliateDetailsRepository.save(affiliateDetails);
     	
-    	User user = userRepository.findOne(affiliateDetails.getEmail());
+    	User user = userRepository.findByLoginIgnoreCase(affiliateDetails.getEmail());
     	if (user != null) {
     		copyAffiliateDetailsNameFieldsToUser(user, body);
     		userRepository.save(user);
