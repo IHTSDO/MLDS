@@ -329,8 +329,35 @@
             "data": {
                 "remoteAddress": "Remote Address:"
             }
-        }
+        },
+        "type": {
+        	"AUTHORIZATION_FAILURE": "Authorization Failure",
+        	"AUTHENTICATION_SUCCESS": "Authorization Success",
+        	"AUTHENTICATION_FAILURE": "Authentication Failure",
+        	
+			"AFFILIATE_CREATED": "Affiliate Created",
+			"AFFILIATE_CREATED_BY_IMPORT": "Affiliate Created from Import",
+			"AFFILIATE_UPDATED": "Affiliate Updated",
+			"AFFILIATE_UPDATED_BY_IMPORT": "Affiliate Updated from Import",
+			"AFFILIATEDETAILS_UPDATED": "Affiliate Details Updated",
+			"AFFILIATE_EXPORT": "Affiliate Batch Export",
+			"AFFILIATE_IMPORT": "Affiliate Batch Import",
+			"AFFILIATE_LOGIN_CREATED": "Affiliate Login Created",
 
+        	"APPLICATION_CREATED": "Application Created",
+        	"APPLICATION_APPROVAL_STATE_CHANGED": "Affiliate Approval State Changed",
+        	
+			"RELEASE_FILE_CREATED": "Release File Created",
+			"RELEASE_FILE_DELETED": "Release File Deleted",
+			"RELEASE_FILE_DOWNLOADED": "Release File Downloaded",
+			"RELEASE_PACKAGE_DELETED": "Release Package Deleted",
+			"RELEASE_PACKAGE_CREATED": "Release Package Created",
+			"RELEASE_VERSION_TAKEN_OFFLINE": "Release Version Taken Offline",
+			"RELEASE_VERSION_TAKEN_ONLINE": "Release Version Taken Online",
+			"RELEASE_VERSION_CREATED": "Release Version Created",
+			"RELEASE_VERSION_DELETED": "Release Version Deleted"
+
+        }
     },
     "errors": {
         "title": "Error page!",
