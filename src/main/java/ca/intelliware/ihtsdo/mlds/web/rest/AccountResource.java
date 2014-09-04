@@ -143,7 +143,7 @@ public class AccountResource {
     @RolesAllowed({ AuthoritiesConstants.ANONYMOUS })
     public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO, HttpServletRequest request,
                                              HttpServletResponse response) {
-        User user = userRepository.findOne(userDTO.getLogin());
+        User user = userRepository.findByLoginIgnoreCase(userDTO.getLogin());
         if (user != null) {
         	String passwordResetToken = passwordResetService.createTokenForUser(user);
 			duplicateRegistrationEmailSender.sendDuplicateRegistrationEmail(user,passwordResetToken );
@@ -357,7 +357,7 @@ public class AccountResource {
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<List<PersistentToken>> getCurrentSessions() {
-        User user = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        User user = userRepository.findByLoginIgnoreCase(SecurityUtils.getCurrentLogin());
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -385,7 +385,7 @@ public class AccountResource {
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
         String decodedSeries = URLDecoder.decode(series, "UTF-8");
-        User user = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        User user = userRepository.findByLoginIgnoreCase(SecurityUtils.getCurrentLogin());
         List<PersistentToken> persistentTokens = persistentTokenRepository.findByUser(user);
         for (PersistentToken persistentToken : persistentTokens) {
             if (StringUtils.equals(persistentToken.getSeries(), decodedSeries)) {
@@ -411,7 +411,7 @@ public class AccountResource {
     @Timed
     public ResponseEntity<?> createLogin(@RequestBody Affiliate body, HttpServletRequest request, HttpServletResponse response) {
     	Affiliate affiliate = affiliateRepository.findOne(body.getAffiliateId());
-    	User user = userRepository.findOne(body.getAffiliateDetails().getEmail());
+    	User user = userRepository.findByLoginIgnoreCase(body.getAffiliateDetails().getEmail());
     	
     	if (user != null) {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);

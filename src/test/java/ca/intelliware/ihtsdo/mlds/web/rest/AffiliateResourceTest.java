@@ -162,7 +162,7 @@ public class AffiliateResourceTest {
     	user.setLogin("Original Login");
     	user.setFirstName("Original FirstName");
     	user.setLastName("Original LastName");
-    	when(userRepository.findOne("user@email.com")).thenReturn(user);
+    	when(userRepository.findByLoginIgnoreCase("user@email.com")).thenReturn(user);
     	
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.getAffiliateDetails().setEmail("user@email.com");

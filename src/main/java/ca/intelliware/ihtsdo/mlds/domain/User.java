@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -20,6 +21,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.base.Objects;
 
 /**
  * A user.
@@ -30,10 +32,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User extends AbstractAuditingEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue
+	@Column(name="user_id")
+	private Long userId;
 
     @NotNull
     @Size(min = 0, max = 50)
-    @Id
     private String login;
 
     @JsonIgnore
@@ -168,7 +173,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
         User user = (User) o;
 
-        if (!login.equals(user.login)) {
+        if (!Objects.equal(userId, user.userId)) {
             return false;
         }
 
@@ -177,7 +182,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return login.hashCode();
+        return userId.hashCode();
     }
 
     @Override
@@ -193,4 +198,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
                 ", activationKey='" + activationKey + '\'' +
                 "}";
     }
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 }
