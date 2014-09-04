@@ -56,9 +56,6 @@ public class CommercialUsage extends BaseEntity {
 	@Column(name="approval_state")
 	private ApprovalState approvalState;
 	
-	@Column(name="reviewed")
-	private Boolean reviewed;
-	
 	private String note;
 
 	@Embedded
@@ -193,14 +190,6 @@ public class CommercialUsage extends BaseEntity {
 	@Override
 	protected Object getPK() {
 		return commercialUsageId;
-	}
-
-	public Boolean getReviewed() {
-		return reviewed;
-	}
-
-	public void setReviewed(Boolean reviewed) {
-		this.reviewed = reviewed;
 	}
 
 }

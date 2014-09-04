@@ -1169,11 +1169,4 @@
     	<comment>Drop not-null constraint to support import</comment>
     	<dropNotNullConstraint tableName="affiliate_details" columnName="agreement_type"/>
     </changeSet>
-    <changeSet id="MLDS-233-1" author="AC">
-    	<comment>Adding column to usage reports and update existing columns</comment>
-    	<addColumn tableName="commercial_usage">
-    		<column name="reviewed" type="BOOLEAN" defaultValue="false" ></column>
-    	</addColumn>
-    	<addDefaultValue columnName="reviewed" tableName="commercial_usage" defaultValueBoolean="false"/>
-    </changeSet>
 </databaseChangeLog>
