@@ -11,7 +11,7 @@
     <tr ng-repeat="audit in audits | filter:filter | orderBy:predicate:reverse" ng-hide="audit.filtered">
         <td><span>{{audit.timestamp| date:'medium'}}</span></td>
         <td><small>{{audit.principal}}</small></td>
-        <td>{{audit.type}}</td>
+        <td>{{audit.type | enum:'audits.type.'}}</td>
         <td>
             <span ng-if="audit.data.message">{{audit.data.message}}</span>
             <span ng-if="audit.data.remoteAddress">{{'audits.table.data.remoteAddress' | translate}} {{audit.data.remoteAddress}}</span>
