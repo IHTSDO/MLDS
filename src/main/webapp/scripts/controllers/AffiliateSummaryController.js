@@ -9,7 +9,8 @@ mldsApp.controller('AffiliateSummaryController', [
 		'Session',
 		'AffiliateService',
 		'ApplicationUtilsService',
-		function($scope, $log, $location, $modal, $routeParams, Session, AffiliateService, ApplicationUtilsService) {
+		'AuditsService',
+		function($scope, $log, $location, $modal, $routeParams, Session, AffiliateService, ApplicationUtilsService, AuditsService) {
 			
 			var affiliateId = $routeParams.affiliateId && parseInt($routeParams.affiliateId, 10);
 			
@@ -17,10 +18,22 @@ mldsApp.controller('AffiliateSummaryController', [
 			$scope.affiliate = {};
 			$scope.approved = false;
 			$scope.isApplicationApproved = ApplicationUtilsService.isApplicationApproved;
+			$scope.audits = [];
 
 			$scope.alerts = [];
 			$scope.submitting = false;
 
+			function loadAffiliateAudits(affiliateId) {
+	          	AuditsService.findByAffiliateId(affiliateId)
+            	.then(function(result) {
+            		$scope.audits = result;
+            	})
+    			["catch"](function(message) {
+    				$scope.alerts.push({type: 'danger', msg: 'Network request failure retrieving audit logs, please try again later.'});
+    				$log.log('Failed to update audit list: '+message);
+    			});
+	        }
+			
 			function loadAffiliate() {
 				var queryPromise = AffiliateService.affiliate(affiliateId);
 				
@@ -28,6 +41,7 @@ mldsApp.controller('AffiliateSummaryController', [
 					$scope.affiliate = affiliate;
 					$scope.approved = $scope.isApplicationApproved(affiliate.application);
 					$scope.isEditable = Session.isAdmin() || (Session.member.key == affiliate.application.member.key);
+					loadAffiliateAudits(affiliate.affiliateId);
 				});
 					
 			}

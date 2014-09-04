@@ -3,6 +3,8 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import javax.annotation.Resource;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,12 +32,16 @@ public class ApplicationUpdateTest {
 	
 	@Mock
 	ApplicationRepository applicationRepository;
+	
+	@Mock
+	ApplicationAuditEvents applicationAuditEvents;
 
 	@Before
 	public void setup() {
 
 		ApplicationResource applicationResource = new ApplicationResource();
 		applicationResource.applicationRepository = applicationRepository;
+		applicationResource.applicationAuditEvents = applicationAuditEvents;
 		applicationResource.objectMapper = new ObjectMapper();
 		applicationResource.applicationService = new ApplicationService();
 

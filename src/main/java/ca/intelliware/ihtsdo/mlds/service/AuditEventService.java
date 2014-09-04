@@ -52,7 +52,7 @@ public class AuditEventService {
         return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
     }
 
-	public List<AuditEvent> findByAffiliateId(String affiliateId) {
+	public List<AuditEvent> findByAffiliateId(Long affiliateId) {
         final List<PersistentAuditEvent> persistentAuditEvents =
                 persistenceAuditEventRepository.findByAffiliateId(affiliateId);
 

@@ -111,7 +111,7 @@ public class AuditResourceTest {
 
 	@Test
     public void findByFilterShouldAllowFilteringByAffiliate() throws Exception {
-		when(auditEventService.findByAffiliateId("123")).thenReturn(Arrays.asList(createAuditEvent("TypeA")));
+		when(auditEventService.findByAffiliateId(123L)).thenReturn(Arrays.asList(createAuditEvent("TypeA")));
 		
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "affiliateId eq '123'")
