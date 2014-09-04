@@ -18,6 +18,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -181,4 +182,7 @@ public abstract class Application extends BaseEntity {
 	public Instant getCreatedAt() {
 		return createdAt;
 	}
+	
+	@JsonIgnore
+	public abstract ApplicationType getApplicationType();
 }

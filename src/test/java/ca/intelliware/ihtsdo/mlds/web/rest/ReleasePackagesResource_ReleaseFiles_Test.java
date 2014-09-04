@@ -15,11 +15,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 public class ReleasePackagesResource_ReleaseFiles_Test {
 
@@ -45,6 +47,9 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
 	
 	@Mock
 	UriDownloader uriDownloader;
+	
+	@Mock
+	UserMembershipAccessor userMembershipAccessor;
 
 	ReleasePackagesResource releasePackagesResource;
 
@@ -61,6 +66,7 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
         releasePackagesResource.currentSecurityContext = currentSecurityContext;
         releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
         releasePackagesResource.uriDownloader = uriDownloader;
+        releasePackagesResource.userMembershipAccessor = userMembershipAccessor;
 
         this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releasePackagesResource).build();
     }
@@ -93,6 +99,6 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-		Mockito.verify(releasePackageAuditEvents).logDownload(Mockito.any(ReleaseFile.class), Mockito.anyInt());
+		Mockito.verify(releasePackageAuditEvents).logDownload(Mockito.any(ReleaseFile.class), Mockito.anyInt(), Mockito.any(Affiliate.class));
 	}
 }

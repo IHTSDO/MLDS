@@ -15,6 +15,7 @@ import com.google.common.collect.Maps;
 @Service
 public class ApplicationAuditEvents {
 
+	public static final String EVENT_APPLICATION_CREATED = "APPLICATION_CREATED";
 	public static final String EVENT_APPLICATION_APPROVAL_STATE_CHANGED = "APPLICATION_APPROVAL_STATE_CHANGED";
 
 	@Resource
@@ -25,13 +26,26 @@ public class ApplicationAuditEvents {
 		String name = (application.getAffiliateDetails() != null && application.getAffiliateDetails().getOrganizationName() != null) ? application.getAffiliateDetails().getOrganizationName() : application.getUsername(); 
 		auditData.put("application.name", ""+name);
     	auditData.put("application.applicationId", ""+application.getApplicationId());
+    	if (application.getMember() != null) {
+    		auditData.put("application.member", ""+application.getMember().getKey());
+    	}
+    	auditData.put("application.type", ""+application.getApplicationType());
 		return auditData;
 	}
 	
+	public void logCreationOf(Application application) {
+		Map<String, String> auditData = createAuditData(application);
+		logEvent(application, EVENT_APPLICATION_CREATED, auditData);
+	}
+	
 	public void logApprovalStateChange(Application application) {
-    	Map<String, String> auditData = createAuditData(application);
-    	auditData.put("application.approvalState", ""+application.getApprovalState());
-    	PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(EVENT_APPLICATION_APPROVAL_STATE_CHANGED, auditData);
+		Map<String, String> auditData = createAuditData(application);
+		auditData.put("application.approvalState", ""+application.getApprovalState());
+		logEvent(application, EVENT_APPLICATION_APPROVAL_STATE_CHANGED, auditData);
+	}
+
+	private void logEvent(Application application, String eventType, Map<String, String> auditData) {
+		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
     	auditEvent.setApplicationId(application.getApplicationId());
     	if (application.getAffiliate() != null) {
     		auditEvent.setAffiliateId(application.getAffiliate().getAffiliateId());

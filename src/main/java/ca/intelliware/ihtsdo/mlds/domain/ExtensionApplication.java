@@ -21,5 +21,10 @@ public class ExtensionApplication extends Application {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
+	
+	@Override
+	public ApplicationType getApplicationType() {
+		return Application.ApplicationType.EXTENSION;
+	}
 
 }
