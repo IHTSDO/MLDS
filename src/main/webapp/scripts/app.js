@@ -316,14 +316,14 @@ mldsApp
                         lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     },
                     access: {
-                        authorizedRoles: USER_ROLES.staffOrAdmin
+                        authorizedRoles: [USER_ROLES.admin]
                     }
                 })
                 .when('/activityLog', {
                     templateUrl: 'views/admin/activityLogs.html',
                     controller: 'ActivityLogsController',
                     access: {
-                        authorizedRoles: USER_ROLES.staffOrAdmin
+                        authorizedRoles: [USER_ROLES.admin]
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
