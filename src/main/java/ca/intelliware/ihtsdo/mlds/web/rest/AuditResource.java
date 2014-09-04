@@ -51,7 +51,7 @@ public class AuditResource {
     	}
     	Matcher affiliateIdMatcher = Pattern.compile(FILTER_BY_AFFILIATE_ID).matcher(filter);
     	if (affiliateIdMatcher.matches()) {
-    		String affiliateId = affiliateIdMatcher.group(1);
+    		Long affiliateId = Long.parseLong(affiliateIdMatcher.group(1));
     		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByAffiliateId(affiliateId), HttpStatus.OK);
     	}
     	Matcher auditEventDateBetweenMatcher = Pattern.compile(FILTER_BY_AUDIT_EVENT_DATE_BETWEEN).matcher(filter);
