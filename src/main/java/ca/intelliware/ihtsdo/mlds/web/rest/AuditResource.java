@@ -30,7 +30,7 @@ import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 public class AuditResource {
 
     @Inject
-    private AuditEventService auditEventService;
+    AuditEventService auditEventService;
 
     public static final String FILTER_AUDIT_EVENT_TYPE = "auditEventType eq '(\\w+)'";
     public static final String FILTER_AUDIT_EVENT_DATE_BETWEEN = "auditEventDate ge '(.*)' and auditEventDate le '(.*)'";
@@ -54,7 +54,7 @@ public class AuditResource {
     		Instant toDate = Instant.parse(auditEventDateBetweenMatcher.group(2), ISODateTimeFormat.date());
     		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByDates(fromDate, toDate), HttpStatus.OK);
     	}
-    	//FIXME support more kinds of audit event filters...
+    	//TODO support more kinds of audit event filters...
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
