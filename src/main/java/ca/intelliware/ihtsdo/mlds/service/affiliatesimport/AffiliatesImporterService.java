@@ -170,7 +170,7 @@ public class AffiliatesImporterService {
 		UsageContext usageContext = new UsageContext();
 		populateWithAll(usageContext, record, UsageContext.class);
 		commercialUsage.setContext(usageContext);
-		commercialUsage.setApprovalState(ApprovalState.APPROVED);
+		commercialUsage.setApprovalState(ApprovalState.NOT_SUBMITTED);
 		commercialUsage.setType(affiliateType);
 		return commercialUsage;
 	}
