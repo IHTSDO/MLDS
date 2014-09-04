@@ -133,7 +133,7 @@ angular.module('MLDS')
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
-
+		
 		service.retractUsageReport = function(usageReport, options) {
 			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
 					{
@@ -144,6 +144,14 @@ angular.module('MLDS')
 			return httpPromise;
 		};
 
+		service.reviewUsageReport = function(usageReport) {
+			return $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
+					{
+						transition: 'REVIEWED'
+					}
+				);
+		};
+		
 		function generateRangeEntry(start, end) {
 			return {
 				description: ''+start.format('MMM')+' - '+end.format('MMM YYYY'),
