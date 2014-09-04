@@ -52,6 +52,13 @@ public class AuditEventService {
         return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
     }
 
+	public List<AuditEvent> findByAffiliateId(String affiliateId) {
+        final List<PersistentAuditEvent> persistentAuditEvents =
+                persistenceAuditEventRepository.findByAffiliateId(affiliateId);
+
+        return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
+	}
+
     
 
 	public void logAuditableEvent(String eventType, Map<String,String> auditData) {
@@ -69,4 +76,5 @@ public class AuditEventService {
 		persistentAuditEvent.setData(auditData);
 		return persistentAuditEvent;
 	}
+
 }
