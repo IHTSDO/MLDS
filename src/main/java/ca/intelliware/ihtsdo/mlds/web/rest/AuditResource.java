@@ -32,8 +32,9 @@ public class AuditResource {
     @Inject
     AuditEventService auditEventService;
 
-    public static final String FILTER_AUDIT_EVENT_TYPE = "auditEventType eq '(\\w+)'";
-    public static final String FILTER_AUDIT_EVENT_DATE_BETWEEN = "auditEventDate ge '(.*)' and auditEventDate le '(.*)'";
+    public static final String FILTER_BY_AUDIT_EVENT_TYPE = "auditEventType eq '(\\w+)'";
+    public static final String FILTER_BY_AFFILIATE_ID = "affiliateId eq '(\\w+)'";
+    public static final String FILTER_BY_AUDIT_EVENT_DATE_BETWEEN = "auditEventDate ge '(.*)' and auditEventDate le '(.*)'";
     
     @RequestMapping(value = Routes.AUDITS,
             method = RequestMethod.GET,
@@ -43,12 +44,17 @@ public class AuditResource {
     	if (StringUtils.isBlank(filter)) {
     		return new ResponseEntity<List<AuditEvent>>(auditEventService.findAll(), HttpStatus.OK);
     	}
-    	Matcher auditEventTypeMatcher = Pattern.compile(FILTER_AUDIT_EVENT_TYPE).matcher(filter);
+    	Matcher auditEventTypeMatcher = Pattern.compile(FILTER_BY_AUDIT_EVENT_TYPE).matcher(filter);
     	if (auditEventTypeMatcher.matches()) {
     		String auditEventType = auditEventTypeMatcher.group(1);
     		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByAuditEventType(auditEventType), HttpStatus.OK);
     	}
-    	Matcher auditEventDateBetweenMatcher = Pattern.compile(FILTER_AUDIT_EVENT_DATE_BETWEEN).matcher(filter);
+    	Matcher affiliateIdMatcher = Pattern.compile(FILTER_BY_AFFILIATE_ID).matcher(filter);
+    	if (affiliateIdMatcher.matches()) {
+    		String affiliateId = affiliateIdMatcher.group(1);
+    		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByAffiliateId(affiliateId), HttpStatus.OK);
+    	}
+    	Matcher auditEventDateBetweenMatcher = Pattern.compile(FILTER_BY_AUDIT_EVENT_DATE_BETWEEN).matcher(filter);
     	if (auditEventDateBetweenMatcher.matches()) {
     		Instant fromDate = Instant.parse(auditEventDateBetweenMatcher.group(1), ISODateTimeFormat.date());
     		Instant toDate = Instant.parse(auditEventDateBetweenMatcher.group(2), ISODateTimeFormat.date());
