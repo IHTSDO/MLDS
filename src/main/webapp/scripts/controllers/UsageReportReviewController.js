@@ -64,11 +64,22 @@ angular.module('MLDS').controller('UsageReportReviewController',
 				})
 				["catch"](function(message) {
 					$log.log("find usage report failure: "+message.statusText);
-					$location.path('/usageReports');
+					$location.path('/usageReportsReview');
 				});
 		}
 		
 		findUsageReport(usageReportId);
+		
+		$scope.reviewedUsageReport = function reviewedUsageReport() {
+			CommercialUsageService.reviewUsageReport($scope.usageReport)
+				.then(function(result) {
+					$log.log(result);
+					$location.path('/usageReportsReview');
+				})
+				["catch"](function(message) {
+					$log.log("failed to update usage report: "+message.statusText);
+				});
+		};
 		
     }]);
 
