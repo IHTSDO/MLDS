@@ -214,8 +214,6 @@ public class ApplicationResource {
 		application.setSubmittedAt(Instant.now());
 		applicationRepository.save(application);
 		
-		applicationAuditEvents.logApprovalStateChange(application);
-		
 		//FIXME should be a different trigger and way to connect applications with affiliate
 		List<Affiliate> affiliates = affiliateRepository.findByCreator(application.getUsername());
 		Affiliate affiliate = new Affiliate();
@@ -229,6 +227,8 @@ public class ApplicationResource {
 		affiliate.setType(application.getType());
 		affiliate.setHomeMember(application.getMember());
 		affiliateRepository.save(affiliate);
+		
+		applicationAuditEvents.logApprovalStateChange(application);
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}
@@ -429,6 +429,8 @@ public class ApplicationResource {
 		
 		Application application = applicationService.startNewApplication(requestBody.getApplicationType(), member);
 		
+		applicationAuditEvents.logCreationOf(application);
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(routeLinkBuilder.toURLWithKeyValues(Routes.APPLICATION, "applicationId", application.getApplicationId()));
 		ResponseEntity<Application> result = new ResponseEntity<Application>(application, headers, HttpStatus.CREATED);
@@ -446,6 +448,8 @@ public class ApplicationResource {
 		
 		try {
 			applicationService.doUpdate(original, updatedApplication);
+			
+			applicationAuditEvents.logApprovalStateChange(updatedApplication);
 		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<String>("Forbidden change to application:" + e.getMessage(), HttpStatus.CONFLICT);
 		}

@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
@@ -29,7 +30,7 @@ public class ReleasePackageAuditEvents {
 	
 	@Resource
 	AuditEventService auditEventService;
-
+	
 	//////////////////////////////////////////////////////////////////////////////////////
 	// Release Package
 	
@@ -108,11 +109,17 @@ public class ReleasePackageAuditEvents {
 	}
 
 	private void logReleaseFileEvent(String eventType, ReleaseFile releaseFile, Map<String, String> auditData) {
+		PersistentAuditEvent auditEvent = createAuditEvent(eventType, releaseFile, auditData);
+		auditEventService.logAuditableEvent(auditEvent);
+	}
+
+	private PersistentAuditEvent createAuditEvent(String eventType,
+			ReleaseFile releaseFile, Map<String, String> auditData) {
 		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
 		auditEvent.setReleaseFileId(releaseFile.getReleaseFileId());
 		auditEvent.setReleaseVersionId(releaseFile.getReleaseVersion().getReleaseVersionId());
 		auditEvent.setReleasePackageId(releaseFile.getReleaseVersion().getReleasePackage().getReleasePackageId());
-		auditEventService.logAuditableEvent(auditEvent);
+		return auditEvent;
 	}
 
 	private Map<String, String> createReleaseFileData(ReleaseFile releaseFile) {
@@ -124,9 +131,13 @@ public class ReleasePackageAuditEvents {
 		return builder.toAuditData();
 	}
 
-	public void logDownload(ReleaseFile releaseFile, int statusCode) {
+	public void logDownload(ReleaseFile releaseFile, int statusCode, Affiliate affiliate) {
 		Map<String, String> auditData = createReleaseFileData(releaseFile);
 		auditData.put("download.statusCode", Integer.toString(statusCode));
-		logReleaseFileEvent(EVENT_RELEASE_FILE_DOWNLOADED, releaseFile, auditData);
+		PersistentAuditEvent auditEvent = createAuditEvent(EVENT_RELEASE_FILE_DOWNLOADED, releaseFile, auditData);
+		if (affiliate != null) {
+			auditEvent.setAffiliateId(affiliate.getAffiliateId());
+		}
+		auditEventService.logAuditableEvent(auditEvent);
 	}
 }
