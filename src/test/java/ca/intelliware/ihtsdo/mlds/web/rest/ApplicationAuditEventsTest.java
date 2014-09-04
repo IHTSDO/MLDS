@@ -57,6 +57,7 @@ public class ApplicationAuditEventsTest {
 		expected.put("application.name", "Test Organization");
 		expected.put("application.applicationId", "123");
 		expected.put("application.approvalState", "APPROVED");
+		expected.put("application.type", "PRIMARY");
 		
 		Mockito.verify(auditEventService).createAuditEvent(Mockito.anyString(), Mockito.eq(expected));
 	}

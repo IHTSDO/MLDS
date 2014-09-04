@@ -413,7 +413,7 @@ public class ReleasePackagesResource {
 	    	String downloadUrl = releaseFile.getDownloadUrl();
 	    	statusCode = uriDownloader.download(downloadUrl, request, response);
     	} finally {
-    		releasePackageAuditEvents.logDownload(releaseFile, statusCode);
+    		releasePackageAuditEvents.logDownload(releaseFile, statusCode, userMembershipAccessor.getAffiliate());
     	}
     }
 }

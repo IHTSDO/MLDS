@@ -11,7 +11,6 @@ import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 
 import com.google.common.base.Objects;
@@ -33,8 +32,7 @@ public class AffiliateMembershipCalculator {
 	}
 
 	private Member actingMembership(Application application) {
-		//TODO replace direct class ref
-		if (PrimaryApplication.class.isInstance(application)) {
+		if (Objects.equal(application.getApplicationType(), Application.ApplicationType.PRIMARY)) {
 			return memberRepository.findOneByKey(Member.KEY_IHTSDO);
 		} else {
 			return application.getMember();

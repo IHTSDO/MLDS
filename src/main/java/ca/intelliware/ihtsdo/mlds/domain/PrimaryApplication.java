@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
+
 @Entity
 @DiscriminatorValue("PRIMARY")
 public class PrimaryApplication extends Application{
@@ -65,6 +67,11 @@ public class PrimaryApplication extends Application{
 
 	public void setCommercialUsage(CommercialUsage commercialUsage) {
 		this.commercialUsage = commercialUsage;
+	}
+	
+	@Override
+	public ApplicationType getApplicationType() {
+		return Application.ApplicationType.PRIMARY;
 	}
 
 }
