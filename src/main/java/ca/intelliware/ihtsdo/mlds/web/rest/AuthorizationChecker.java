@@ -22,6 +22,10 @@ public class AuthorizationChecker {
 		return currentSecurityContext.isStaffOrAdmin();
 	}
 	
+	protected boolean isAdmin() {
+		return currentSecurityContext.isAdmin();
+	}
+	
 	// FIXME MLDS-256 MB inline this?
 	public String getCurrentUserName() {
 		return currentSecurityContext.getCurrentUserName();
