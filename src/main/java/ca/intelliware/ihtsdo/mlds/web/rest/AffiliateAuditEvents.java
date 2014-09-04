@@ -16,12 +16,14 @@ import com.google.common.collect.Maps;
 
 @Service
 public class AffiliateAuditEvents {
-	static final String EVENT_AFFILIATEDETAILS_UPDATED = "AFFILIATEDETAILS_UPDATED";
+	static final String EVENT_AFFILIATE_CREATED = "AFFILIATE_CREATED";
+	static final String EVENT_AFFILIATE_CREATED_BY_IMPORT = "AFFILIATE_CREATED_BY_IMPORT";
 	static final String EVENT_AFFILIATE_UPDATED = "AFFILIATE_UPDATED";
+	static final String EVENT_AFFILIATE_UPDATED_BY_IMPORT = "AFFILIATE_UPDATED_BY_IMPORT";
+	static final String EVENT_AFFILIATEDETAILS_UPDATED = "AFFILIATEDETAILS_UPDATED";
 	static final String EVENT_AFFILIATE_EXPORT = "AFFILIATE_EXPORT";
 	static final String EVENT_AFFILIATE_IMPORT = "AFFILIATE_IMPORT";
 	static final String EVENT_AFFILIATE_LOGIN_CREATED = "AFFILIATE_LOGIN_CREATED";
-	static final String EVENT_AFFILIATE_CREATED = "AFFILIATE_CREATED";
 	
 	@Resource
 	AuditEventService auditEventService;
@@ -29,6 +31,14 @@ public class AffiliateAuditEvents {
 	
 	public void logCreationOf(Affiliate affiliate) {
 		logEvent(EVENT_AFFILIATE_CREATED, affiliate);
+	}
+
+	public void logCreationByImport(Affiliate affiliate) {
+		logEvent(EVENT_AFFILIATE_CREATED_BY_IMPORT, affiliate);
+	}
+
+	public void logUpdateByImport(Affiliate affiliate) {
+		logEvent(EVENT_AFFILIATE_UPDATED_BY_IMPORT, affiliate);
 	}
 
 	public void logCreationOfAffiliateLogin(Affiliate affiliate) {

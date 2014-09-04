@@ -30,6 +30,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
+import ca.intelliware.ihtsdo.mlds.web.rest.AffiliateAuditEvents;
 
 @Service
 @Transactional
@@ -39,6 +40,8 @@ public class AffiliatesImporterService {
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource AffiliateDetailsRepository affiliateDetailsRepository;
 	@Resource CommercialUsageRepository commercialUsageRepository;
+	@Resource AffiliateAuditEvents affiliateAuditEvents;
+
 	
 	@Resource AffiliatesMapper affiliatesMapper;
 	
@@ -122,6 +125,8 @@ public class AffiliatesImporterService {
 		applicationRepository.save(importApplication);
 		affiliate.addApplication(importApplication);
 		
+		affiliateAuditEvents.logUpdateByImport(affiliate);
+		
 		return importApplication;
 	}
 
@@ -143,6 +148,8 @@ public class AffiliatesImporterService {
 		
 		Affiliate affiliate = createAffiliate(record, application, affiliateDetails);
 		affiliate = affiliateRepository.save(affiliate);
+		
+		affiliateAuditEvents.logCreationByImport(affiliate);
 		
 		return application;
 	}
