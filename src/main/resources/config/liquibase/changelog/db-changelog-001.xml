@@ -1248,5 +1248,54 @@
     <changeSet id="MLDS-666-1" author="DGJ">
     	<comment>Commercial usage entry start date should be optional</comment>
     	<dropNotNullConstraint tableName="commercial_usage_entry" columnName="start_date"/>
-    </changeSet>    
+    </changeSet>
+        
+    <changeSet id="MLDS-540" author="MB">
+    	<comment>Introduce sequence pk to T_USER so login can be easily edited</comment>
+		<dropForeignKeyConstraint baseTableName="T_USER_AUTHORITY" constraintName="fk_user_login"/>
+		<dropForeignKeyConstraint baseTableName="T_PERSISTENT_TOKEN" constraintName="fk_user_persistent_token"/>
+		<dropForeignKeyConstraint baseTableName="RELEASE_PACKAGE" constraintName="FK_package_t_user"/>
+		<dropForeignKeyConstraint baseTableName="RELEASE_VERSION" constraintName="FK_release_version_t_user"/>
+    	<dropPrimaryKey tableName="T_USER" constraintName="pk_t_user"/>
+    	<addColumn tableName="T_USER">
+            <column name="user_id" type="bigint"/>
+    	</addColumn>
+    	<sql>
+    		update t_user
+    		set user_id = nextval('hibernate_sequence')
+    	</sql>
+    	<addNotNullConstraint tableName="T_USER" columnName="user_id"/>
+    	<addPrimaryKey tableName="T_USER" columnNames="user_id"/>
+    	
+    	<addColumn tableName="T_USER_AUTHORITY">
+            <column name="user_id" type="bigint"/>
+    	</addColumn>
+    	<sql>
+    		update t_user_authority
+    		set user_id = u.user_id
+    		from t_user_authority as ua 
+    		JOIN t_user as u ON u.login = ua.login 
+    	</sql>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="T_USER_AUTHORITY"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="T_USER"/>
+                                 
+    	<addColumn tableName="T_PERSISTENT_TOKEN">
+            <column name="user_id" type="bigint"/>
+    	</addColumn>
+    	<sql>
+    		update T_PERSISTENT_TOKEN
+    		set user_id = u.user_id
+    		from T_PERSISTENT_TOKEN as pt 
+    		JOIN t_user as u ON u.login = pt.user_login 
+    	</sql>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="T_PERSISTENT_TOKEN"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="T_USER"/>
+                                 
+    </changeSet>
 </databaseChangeLog>

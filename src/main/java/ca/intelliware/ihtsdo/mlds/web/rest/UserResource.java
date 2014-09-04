@@ -50,7 +50,7 @@ public class UserResource {
     @RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public User getUser(@PathVariable String login, HttpServletResponse response) {
         log.debug("REST request to get User : {}", login);
-        User user = userRepository.findOne(login);
+        User user = userRepository.findByLoginIgnoreCase(login);
         if (user == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }

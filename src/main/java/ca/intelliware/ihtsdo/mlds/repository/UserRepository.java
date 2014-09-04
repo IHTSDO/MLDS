@@ -12,7 +12,6 @@ import ca.intelliware.ihtsdo.mlds.domain.User;
  * Spring Data JPA repository for the User entity.
  */
 public interface UserRepository extends JpaRepository<User, String> {
-
     
     @Query("select u from User u where u.activationKey = ?1")
     User getUserByActivationKey(String activationKey);
@@ -23,5 +22,8 @@ public interface UserRepository extends JpaRepository<User, String> {
 
 
 	User getUserByEmail(String emailAddress);
+
+
+	User findByLoginIgnoreCase(String login);
 
 }
