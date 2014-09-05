@@ -58,7 +58,10 @@ public class CommercialUsageResource {
 	CommercialUsageAuthorizationChecker authorizationChecker;
 	
 	@Resource
-	CommercialUsageResetter commercialUsageResetter;  
+	CommercialUsageResetter commercialUsageResetter;
+	
+	@Resource
+	CommercialUsageAuditEvents commercialUsageAuditEvents;
 	
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.GET,
@@ -153,6 +156,8 @@ public class CommercialUsageResource {
     	
     	affiliate.addCommercialUsage(commercialUsage);
     	
+    	commercialUsageAuditEvents.logCreationOf(commercialUsage);
+    	
 		ResponseEntity<CommercialUsage> responseEntity = new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
 		return responseEntity;
     }
@@ -242,6 +247,8 @@ public class CommercialUsageResource {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
     	}
         
+    	commercialUsageAuditEvents.logApprovalStateChange(commercialUsage);
+    	
 		ResponseEntity<CommercialUsage> responseEntity = new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
 		return responseEntity;
     }
