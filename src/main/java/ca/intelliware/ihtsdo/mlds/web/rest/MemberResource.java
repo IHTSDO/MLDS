@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.codahale.metrics.annotation.Timed;
+
 import ca.intelliware.ihtsdo.mlds.domain.File;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.repository.BlobHelper;
@@ -52,6 +54,7 @@ public class MemberResource {
             produces = "application/json")
     @PermitAll
     @Transactional
+    @Timed
     public List<MemberDTO> getMembers() {
     	List<MemberDTO> memberDTOs = new ArrayList<MemberDTO>();
     	
@@ -65,6 +68,7 @@ public class MemberResource {
             method = RequestMethod.GET)
     @PermitAll
     @Transactional
+    @Timed
     public ResponseEntity<?> getMemberLicense(@PathVariable String memberKey) throws SQLException, IOException {
     	HttpHeaders httpHeaders = new HttpHeaders();
     	File license = memberRepository.findOneByKey(memberKey).getLicense();
@@ -88,6 +92,7 @@ public class MemberResource {
             produces = "application/json")
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Transactional
+	@Timed
     public ResponseEntity<?> updateMemberLicense(@PathVariable String memberKey, @RequestParam("file") MultipartFile multipartFile) throws IOException {
 		Member member = memberRepository.findOneByKey(memberKey);
 

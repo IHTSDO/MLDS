@@ -32,6 +32,7 @@ import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
+import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Objects;
 import com.google.common.collect.Sets;
 
@@ -72,6 +73,7 @@ public class ReleasePackagesResource {
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@PermitAll
+	@Timed
     public @ResponseBody ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
 		
     	Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
@@ -111,6 +113,7 @@ public class ReleasePackagesResource {
     		method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
     public @ResponseBody ResponseEntity<ReleasePackage> createReleasePackage(@RequestBody ReleasePackage releasePackage) {
     	authorizationChecker.checkCanCreateReleasePackages();
     	
@@ -130,6 +133,7 @@ public class ReleasePackagesResource {
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Timed
     public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
     	//FIXME should we check children being consistent?		
     	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
@@ -180,6 +184,7 @@ public class ReleasePackagesResource {
     		method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
     public @ResponseBody ResponseEntity<ReleasePackage> updateReleasePackage(@PathVariable long releasePackageId, @RequestBody ReleasePackage body) {
     	
     	ReleasePackage releasePackage = releasePackageRepository.findOne(body.getReleasePackageId());
@@ -201,6 +206,7 @@ public class ReleasePackagesResource {
     		method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
     public @ResponseBody ResponseEntity<?> deactivateReleasePackage(@PathVariable long releasePackageId) {
     	
     	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
@@ -233,6 +239,7 @@ public class ReleasePackagesResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
     public @ResponseBody ResponseEntity<ReleaseVersion> createReleaseVersion(@PathVariable long releasePackageId, @RequestBody ReleaseVersion releaseVersion) {
 		
 		ReleasePackage releasePackage = releasePackageRepository.getOne(releasePackageId);
@@ -258,6 +265,7 @@ public class ReleasePackagesResource {
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
     public @ResponseBody ResponseEntity<ReleaseVersion> getReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
     	//FIXME should we check children being consistent?
     	
@@ -277,6 +285,7 @@ public class ReleasePackagesResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
     public @ResponseBody ResponseEntity<ReleaseVersion> updateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseVersion body) {
     	
 		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
@@ -308,6 +317,7 @@ public class ReleasePackagesResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
 	public @ResponseBody
 	ResponseEntity<?> deactivateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
 
@@ -338,6 +348,7 @@ public class ReleasePackagesResource {
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
     public @ResponseBody ResponseEntity<ReleaseFile> getReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
     	
     	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
@@ -356,6 +367,7 @@ public class ReleasePackagesResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
     public @ResponseBody ResponseEntity<ReleaseFile> createReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseFile body) {
 		
 		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
@@ -378,6 +390,7 @@ public class ReleasePackagesResource {
 			method = RequestMethod.DELETE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
+	@Timed
 	public @ResponseBody ResponseEntity<ReleaseFile> deleteReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
 		
 		ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
@@ -397,6 +410,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_FILE_DOWNLOAD,
     		method = RequestMethod.GET)
 	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
     public @ResponseBody void downloadReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId, HttpServletRequest request, HttpServletResponse response) {
     	
     	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);

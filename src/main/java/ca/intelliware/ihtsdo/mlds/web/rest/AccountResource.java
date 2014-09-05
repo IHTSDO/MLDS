@@ -359,6 +359,7 @@ public class AccountResource {
     
     @RequestMapping(value = "/rest/account/create", method = RequestMethod.POST)
     @RolesAllowed({AuthoritiesConstants.ADMIN})
+    @Timed
     public ResponseEntity<?> createLogin(@RequestBody Affiliate body, HttpServletRequest request, HttpServletResponse response) {
     	Affiliate affiliate = affiliateRepository.findOne(body.getAffiliateId());
     	User user = userRepository.findOne(body.getAffiliateDetails().getEmail());
