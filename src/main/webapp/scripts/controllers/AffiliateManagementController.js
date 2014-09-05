@@ -1,6 +1,6 @@
 'use strict';
 
-mldsApp.controller('AffiliatesController', [
+mldsApp.controller('AffiliateManagementController', [
 		'$scope',
 		'$log',
 		'$location',
@@ -15,6 +15,7 @@ mldsApp.controller('AffiliatesController', [
 			$scope.affiliates = [];
 			$scope.showAllAffiliates = 0;
 			$scope.homeMember = Session.member || {member: 'NONE'};
+			$scope.isAdmin = Session.isAdmin();
 			$scope.downloadingAffiliates = false;
 			$scope.query = '';
 			$scope.page = 0;
@@ -66,7 +67,7 @@ mldsApp.controller('AffiliatesController', [
 			};
 			
 			$scope.viewAffiliate = function viewAffiliate(affiliateId) {
-				$location.path('/affiliates/' + affiliateId);
+				$location.path('/affiliateManagement/' + affiliateId);
 			};
 			
 			

@@ -277,11 +277,14 @@
 									<div class="form-group">
 										<input class="form-control" type="text"
 											ng-model="affiliateDetails.address.post"
-											name="addressPostIndividual" ng-required="type=='INDIVIDUAL'"
+											name="addressPostIndividual" ng-required="type=='INDIVIDUAL'" ng-max-length="25"
 											placeholder="Post Code" ng-disabled="readOnly">
 										<p
 											ng-show="form.addresPostIndividual.$error.required && form.attempted"
 											class="help-block">Required field.</p>
+										<p
+											ng-show="form.addresPostIndividual.$error.maxlength"
+											class="help-block">Post Code is too long.</p>
 									</div>
 								</div>
 							</div>
@@ -352,9 +355,11 @@
 									<input class="form-control" type="text"
 										ng-model="affiliateDetails.address.post" name="addressPost"
 										ng-required="type!='INDIVIDUAL'" placeholder="Post Code"
-										ng-disabled="readOnly">
+										ng-maxlength="25" ng-disabled="readOnly">
 									<p ng-show="form.addressPost.$error.required && form.attempted"
 										class="help-block">Required field.</p>
+									<p ng-show="form.addressPost.$error.maxlength"
+										class="help-block">Post Code is too long.</p>
 								</div>
 							</div>
 						</div>
@@ -405,11 +410,14 @@
 									<div class="form-group">
 										<input class="form-control" type="text"
 											ng-model="affiliateDetails.billingAddress.post"
-											name="billingAddressPost" ng-required="type=='COMMERCIAL'"
+											name="billingAddressPost" ng-required="type=='COMMERCIAL'" ng-maxlength="25"
 											placeholder="Post Code" ng-disabled="readOnly">
 										<p
 											ng-show="form.billingAddressPost.$error.required && form.attempted"
 											class="help-block">Required field.</p>
+										<p
+											ng-show="form.billingAddressPost.$error.maxlength"
+											class="help-block">Post Code is too long.</p>
 									</div>
 								</div>
 							</div>
