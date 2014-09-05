@@ -13,6 +13,10 @@
     <li><a href="#/blocklist"><i class="fa fa-bolt"></i> Manage Blocklist</a></li>
     <li><a href="#/countries"><i class="fa fa-flag-o"></i> National Registration List</a></li>
   </ul>
+  <ul class="nav nav-sidebar" ng-show="$root.Session.isAdmin()">
+    <li><a href="#/metrics"><i class="fa fa-exchange"></i> System Metrics</a></li>
+    <li><a href="#/logs"><i class="fa fa-navicon"></i> System Loggers</a></li>
+  </ul>
   <ul class="nav nav-sidebar">
     <li><a href="#/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
   </ul>

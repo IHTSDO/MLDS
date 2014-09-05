@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codahale.metrics.annotation.Timed;
+
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
@@ -40,6 +42,7 @@ public class AuditResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
     public @ResponseBody ResponseEntity<List<AuditEvent>> findByFilter(@RequestParam(value="$filter",required = false) String filter) {
     	if (StringUtils.isBlank(filter)) {
     		return new ResponseEntity<List<AuditEvent>>(auditEventService.findAll(), HttpStatus.OK);
