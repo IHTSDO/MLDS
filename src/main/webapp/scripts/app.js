@@ -256,9 +256,9 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/affiliates', {
-                    templateUrl: 'views/admin/affiliates.html',
-                    controller: 'AffiliatesController',
+                .when('/affiliateManagement', {
+                    templateUrl: 'views/admin/affiliateManagement.html',
+                    controller: 'AffiliateManagementController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -266,7 +266,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/affiliates/:affiliateId', {
+                .when('/affiliateManagement/:affiliateId', {
                     templateUrl: 'views/admin/affiliateSummary.html',
                     controller: 'AffiliateSummaryController',
                     access: {
@@ -276,7 +276,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/affiliates/:affiliateId/edit', {
+                .when('/affiliateManagement/:affiliateId/edit', {
                     templateUrl: 'views/admin/editAffiliate.html',
                     controller: 'EditAffiliateController',
                     access: {
