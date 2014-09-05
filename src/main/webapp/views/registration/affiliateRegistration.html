@@ -233,9 +233,14 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" name="postalCode" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Post Code" auto-submit>
+                      <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" name="postalCode" 
+                      	ng-required="affiliateform.type=='INDIVIDUAL'" ng-maxlenth="25" 
+                      	placeholder="Post Code" auto-submit>
                       <p ng-show="affiliateApplicationForm.postalCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
                         Required field.
+                      </p>
+                      <p ng-show="affiliateApplicationForm.postalCode.$error.maxlength" class="help-block">
+                        Post Code is too long.
                       </p>
                     </div>
                   </div>
@@ -322,9 +327,15 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" 
+                    	ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type=='COMMERCIAL'"
+                    	ng-maxlength="25" 
+                    	placeholder="Post Code" auto-submit>
                     <p ng-show="affiliateApplicationForm.postCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
+                    </p>
+                    <p ng-show="affiliateApplicationForm.postCode.$error.maxlength" class="help-block">
+                      Post Code is too long.
                     </p>
                   </div>
                 </div>
@@ -375,9 +386,14 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.post" name="billingPostCode" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" placeholder="Post Code" auto-submit>
+                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.post" name="billingPostCode" 
+                    	ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" ng-maxlength="25" 
+                    	placeholder="Post Code" auto-submit>
                     <p ng-show="affiliateApplicationForm.billingPostCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
+                    </p>
+                    <p ng-show="affiliateApplicationForm.billingPostCode.$error.maxlength" class="help-block">
+                      Post Code is too long.
                     </p>
                   </div>
                 </div>
