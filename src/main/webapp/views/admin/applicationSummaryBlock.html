@@ -36,7 +36,7 @@
 	    <p><strong>Country:</strong> {{application.affiliateDetails.address.country.commonName}}</p>
 	    <p><strong>Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.contactextension">ext: {{application.affiliateDetails.landlineExtension}}</span></p>
 	    <p><strong>Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
-	    <p ng-show="application.type=='COMMERCIAL'"><strong>Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
+	    <p ng-show="application.affiliateDetails.thirdEmail"><strong>Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
 	    <p ng-show="application.type=='OTHER'"><strong>Other:</strong>{{application.otherText}}</p>
 	  </div>
 	</div>

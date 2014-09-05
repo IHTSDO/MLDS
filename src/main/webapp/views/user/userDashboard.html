@@ -99,17 +99,27 @@
           <th>Type</th>
           <th>Date</th>
           <th>Status</th>
+          <th>View</th>
         </tr>
       </thead>
       <tbody> 
         <tr ng-repeat="application in affiliate.applications | orderBy: [orderByApprovalState, orderByApplicationType]">
           <td>{{application.applicationType | enum:'application.applicationType.'}}</td>
-          <td>{{(application.completedAt || application.submittedAt) | date }}</td>
+          <td>{{(application.completedAt || application.submittedAt) | date:'shortDate' }}</td>
+          <td ng-class="{'text-warning':isApplicationPending(application), 'text-danger':isApplicationWaitingForApplicant(application)}">
+         		<strong>{{application.approvalState | enum:'approval.state.'}}</strong>
+          </td>
           <td>
-          	<p ng-class="{'text-warning':isApplicationPending(application), 'text-danger':isApplicationWaitingForApplicant(application)}">
-          		<strong>{{application.approvalState | enum:'approval.state.'}}</strong>
-          	  <a href="#/extensionApplication/{{application.applicationId}}" ng-show="application.applicationType === 'EXTENSION'">{{isApplicationWaitingForApplicant(application)?'Continue':'View'}}</a>
-         	</p>
+						<a href="#/extensionApplication/{{application.applicationId}}" class="btn-sm" 
+							ng-class="{'btn-warning': isApplicationWaitingForApplicant(application), 'btn-primary': !isApplicationWaitingForApplicant(application)}" 
+	            ng-if="application.applicationType === 'EXTENSION'">
+	             <span ng-if="isApplicationWaitingForApplicant(application)"><i class="fa fa-edit"></i> Edit</span>
+	             <span ng-if="!isApplicationWaitingForApplicant(application)"><i class="fa fa-eye"></i> View</span>
+						</a>
+						<a class="btn-sm btn-primary"
+							ng-click="viewApplication(application)" ng-if="application.applicationType === 'PRIMARY'">
+								<i class="fa fa-eye"></i> View
+						</a>
           </td>
         </tr>
       </tbody>
