@@ -54,7 +54,7 @@ mldsApp.controller('AffiliateSummaryController', [
 			
 			$scope.viewApplication = function viewApplication(application) {
         		var modalInstance = $modal.open({
-        			templateUrl: 'views/admin/applicationSummaryModal.html',
+        			templateUrl: 'views/applicationSummaryModal.html',
         			controller: 'ApplicationSummaryModalController',
         			size:'lg',
         			resolve: {

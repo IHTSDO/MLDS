@@ -2,13 +2,14 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService', 'PackageUtilsService', 'MemberService', 'PackagesService',
-          function ($scope, $log, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService, PackageUtilsService, MemberService, PackagesService) {
+        [ '$scope', '$log', '$modal', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService', 'PackageUtilsService', 'MemberService', 'PackagesService',
+          function ($scope, $log, $modal, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService, PackageUtilsService, MemberService, PackagesService) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
         	$scope.packageUtils = PackageUtilsService;
+        	$scope.usageReportsUtils = UsageReportsService;
         	
         	$scope.affiliate = UserAffiliateService.affiliate;
         	$scope.approvedReleasePackagesByMember = [];
@@ -76,6 +77,19 @@ angular.module('MLDS')
         	$scope.goToViewPackagePage = function goToViewPackagePage(releasePackageId) {
         		$location.path('/viewReleases/viewRelease/'+ releasePackageId);
         	};
+        	
+        	$scope.viewApplication = function viewApplication(application) {
+        		var modalInstance = $modal.open({
+        			templateUrl: 'views/applicationSummaryModal.html',
+        			controller: 'ApplicationSummaryModalController',
+        			size:'lg',
+        			resolve: {
+        				application: function() {
+        					return application;
+        				}
+        			}
+        		});
+			};
 
         }
     ]);

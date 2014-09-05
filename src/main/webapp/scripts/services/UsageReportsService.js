@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 angular.module('MLDS')
 .factory('UsageReportsService', [ '$location', '$log', '$modal', 'AffiliateService', 'ApprovalStateUtils',
