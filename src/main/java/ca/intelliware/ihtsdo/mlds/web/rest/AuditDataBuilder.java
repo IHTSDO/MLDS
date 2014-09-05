@@ -60,6 +60,20 @@ public class AuditDataBuilder {
 		return this;
 	}
 
+	public AuditDataBuilder addAffiliateId(Affiliate affiliate) {
+		if (affiliate != null) {
+	    	auditData.put("affiliate.affiliateId", ""+affiliate.getAffiliateId());
+		}
+		return this;
+	}
+
+	public AuditDataBuilder addAffiliateHomeMember(Affiliate affiliate) {
+		if (affiliate != null) {
+	    	auditData.put("affiliate.homeMember", ""+affiliate.getHomeMemberKey());
+		}
+		return this;
+	}
+
 	public Map<String,String> toAuditData() {
 		return auditData;
 	}

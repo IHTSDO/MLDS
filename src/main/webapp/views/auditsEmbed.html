@@ -16,18 +16,21 @@
             <span ng-if="audit.data.message">{{audit.data.message}}</span>
             <span ng-if="audit.data.remoteAddress">{{'audits.table.data.remoteAddress' | translate}} {{audit.data.remoteAddress}}</span>
             
-            <span ng-if="audit.data['releasePackage.name']"><strong>Release Package Name:</strong> {{audit.data['releasePackage.name']}}</span>
+            <span ng-if="audit.data['affiliate.creator']"><i class="fa fa-users"></i> <strong>Affiliate:</strong> {{audit.data['affiliate.creator']}}</span>
+            <span ng-if="audit.data['affiliate.affiliateId']"><strong>No:</strong> {{audit.data['affiliate.affiliateId']}}</span>
+            <span ng-if="audit.data['affiliate.homeMember']"><strong>Member:</strong> {{audit.data['affiliate.homeMember'] | enum:'global.member.'}}</span>
+            <span ng-if="audit.data['affiliate.notesInternal']"><strong>Staff Notes:</strong> {{audit.data['affiliate.notesInternal']}}</span>
+            
+            <span ng-if="audit.data['releasePackage.name']"><i class="fa fa-cube"></i> <strong>Release Package Name:</strong> {{audit.data['releasePackage.name']}}</span>
             <span ng-if="audit.data['releaseVersion.name']"><strong>Release Version Name:</strong> {{audit.data['releaseVersion.name']}}</span>
             <span ng-if="audit.data['releaseFile.label']"><strong>Release File Label:</strong> {{audit.data['releaseFile.label']}}</span>
             <span ng-if="audit.data['download.statusCode']"><strong>Http:</strong> {{audit.data['download.statusCode']}}</span>
             
-            <span ng-if="audit.data['application.name']"><strong>Application:</strong> {{audit.data['application.name']}}</span>
+            <span ng-if="audit.data['application.name']"><i class="fa fa-tasks"></i> <strong>Application:</strong> {{audit.data['application.name']}}</span>
+            <span ng-if="audit.data['application.applicationId']"><strong>No:</strong> {{audit.data['application.applicationId']}}</span>
             <span ng-if="audit.data['application.type']"><strong>Type:</strong> {{audit.data['application.type'] | enum:'application.applicationType.'}}</span>
             <span ng-if="audit.data['application.member']"><strong>Member:</strong> {{audit.data['application.member'] | enum:'global.member.'}}</span>
             <span ng-if="audit.data['application.approvalState']"><strong>Application State:</strong> {{audit.data['application.approvalState'] | enum:'approval.state.'}}</span>
-            
-            <span ng-if="audit.data['affiliate.creator']"><strong>Affiliate:</strong> {{audit.data['affiliate.creator']}}</span>
-            <span ng-if="audit.data['affiliate.notesInternal']"><strong>Staff Notes:</strong> {{audit.data['affiliate.notesInternal']}}</span>
             
             <span ng-if="audit.data['import.success'] === 'true'" class="text-success"><span class="glyphicon glyphicon-ok"></span> Successful Import</span>
             <span ng-if="audit.data['import.success'] === 'false'" class="text-danger"><span class="glyphicon glyphicon-remove"></span> Failed Import</span>
@@ -35,7 +38,8 @@
             <span ng-if="audit.data['import.affiliates'] && audit.data['import.affiliates'] !== '-1'"><strong>Affiliates:</strong> {{audit.data['import.affiliates']}}</span>
             <span ng-if="audit.data['import.errors'] && audit.data['import.errors'] !== '0'"><strong>Errors:</strong> {{audit.data['import.errors']}}</span>
             
-            <span ng-if="audit.data['usage.type']"><strong>Usage:</strong> {{audit.data['usage.type'] | enum:'affiliate.type.'}}</span>
+            <span ng-if="audit.data['usage.type']"><i class="fa fa-file-text"></i> <strong>Usage:</strong> {{audit.data['usage.type'] | enum:'affiliate.type.'}}</span>
+            <span ng-if="audit.data['usage.commercialUsageId']"><strong>No:</strong> {{audit.data['usage.commercialUsageId']}}</span>
             <span ng-if="audit.data['usage.period.start'] || audit.data['usage.period.end']"><strong>Period:</strong> {{audit.data['usage.period.start']}} - {{audit.data['usage.period.end']}}</span>
             <span ng-if="audit.data['usage.approvalState']"><strong>Approval State:</strong> {{audit.data['usage.approvalState'] | enum:'approval.state.'}}</span>
             
