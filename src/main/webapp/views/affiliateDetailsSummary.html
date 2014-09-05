@@ -25,8 +25,8 @@
 	  			<ul class="list-group">
 	  				<li class="list-group-item"><strong>Name:</strong> {{affiliate.affiliateDetails.firstName}} {{affiliate.affiliateDetails.lastName}}</li>
 	  				<li class="list-group-item"><strong>Email:</strong> {{affiliate.affiliateDetails.email}}</li>
-	  				<li class="list-group-item"><strong>Alternate Email:</strong> {{affiliate.affiliateDetails.alternateEmail}}</li>
-	  				<li class="list-group-item" ng-show="affiliate.affiliateDetails.thirdEmail"><strong>Third Email:</strong> {{affiliate.affiliateDetails.thirdEmail}}</li>
+	  				<li class="list-group-item" ng-show="affiliate.affiliateDetails.type=='INDIVIDUAL'"><strong>Alternate Email:</strong> {{affiliate.affiliateDetails.alternateEmail}}</li>
+	  				<li class="list-group-item" ng-show="affiliate.affiliateDetails.type=='INDIVIDUAL' && affiliate.affiliateDetails.thirdEmail"><strong>Third Email:</strong> {{affiliate.affiliateDetails.thirdEmail}}</li>
 	  				<li class="list-group-item"><strong>Landline Phone Number:</strong> {{affiliate.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.extension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
 	  				<li class="list-group-item"><strong>Mobile Phone Number:</strong> {{affiliate.affiliateDetails.mobileNumber}}</li>
 	  			</ul>
