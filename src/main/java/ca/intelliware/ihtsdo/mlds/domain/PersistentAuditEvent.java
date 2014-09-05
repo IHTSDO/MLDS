@@ -53,7 +53,10 @@ public class PersistentAuditEvent extends BaseEntity {
 
 	@Column(name="application_id")
     private Long applicationId;
-    
+
+	@Column(name="commercial_usage_id")
+    private Long commercialUsageId;
+
 	@Column(name="release_package_id")
     private Long releasePackageId;
     
@@ -146,5 +149,13 @@ public class PersistentAuditEvent extends BaseEntity {
 	@Override
 	protected Object getPK() {
 		return id;
+	}
+
+	public Long getCommercialUsageId() {
+		return commercialUsageId;
+	}
+
+	public void setCommercialUsageId(Long commercialUsageId) {
+		this.commercialUsageId = commercialUsageId;
 	}
 }

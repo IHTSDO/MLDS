@@ -1169,4 +1169,13 @@
     	<comment>Drop not-null constraint to support import</comment>
     	<dropNotNullConstraint tableName="affiliate_details" columnName="agreement_type"/>
     </changeSet>
+    
+    <changeSet id="MLDS-322-1" author="DGJ">
+		<comment>Add commercial usage entity references to audit log</comment>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="commercial_usage_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
+    		</column>
+		</addColumn>
+    </changeSet>
 </databaseChangeLog>

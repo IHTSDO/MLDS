@@ -627,8 +627,10 @@
 			"RELEASE_VERSION_TAKEN_OFFLINE": "Release Version Taken Offline",
 			"RELEASE_VERSION_TAKEN_ONLINE": "Release Version Taken Online",
 			"RELEASE_VERSION_CREATED": "Release Version Created",
-			"RELEASE_VERSION_DELETED": "Release Version Deleted"
-
+			"RELEASE_VERSION_DELETED": "Release Version Deleted",
+			
+			"USAGE_CREATED": "Usage Created",
+			"USAGE_APPROVAL_STATE_CHANGED": "Usage Approval State Changed"
         }
     },
     "errors": {
@@ -641,9 +643,9 @@
     	"type": {
     		"title": "Type",
     		"COMMERCIAL": "Commercial",
-				"ACADEMIC": "Academic",
-				"OTHER": "Other",
-				"INDIVIDUAL": "Individual"
+			"ACADEMIC": "Academic",
+			"OTHER": "Other",
+			"INDIVIDUAL": "Individual"
     	},
     	"subType": {
     		"DEVELOPER": "Developer",
@@ -656,23 +658,23 @@
     	},
     	"agreementType": {
     		"AFFILIATE_NORMAL": "Affiliate - Normal",
-				"AFFILIATE_RESEARCH": "Affiliate - Research",
-				"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
-			},
-			"organizationType": {
-				"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization", 
-				"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization", 
-				"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization", 
-				"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer",
-				"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice", 
-				"EDUCATIONAL_INSTITUTE": "Educational Institute", 
-				"OTHER": "Other"
-			},
-			"implementationStatus": {
-				"IMPLEMENTED": "Live/Implemented",
-				"DEVELOPMENT": "In Progress/Development",
-				"PLANNING": "In Planning Stage"
-			}
+			"AFFILIATE_RESEARCH": "Affiliate - Research",
+			"AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
+		},
+		"organizationType": {
+			"PUBLIC_HEALTH_ORGANIZATION" : "Public Health Organization", 
+			"PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization", 
+			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization", 
+			"HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer",
+			"GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice", 
+			"EDUCATIONAL_INSTITUTE": "Educational Institute", 
+			"OTHER": "Other"
+		},
+		"implementationStatus": {
+			"IMPLEMENTED": "Live/Implemented",
+			"DEVELOPMENT": "In Progress/Development",
+			"PLANNING": "In Planning Stage"
+		}
     },
     "approval": {
     	"state": {
