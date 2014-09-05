@@ -2,7 +2,7 @@
 	<div class="col-md-12">
 		<div class="page-header">
 			<h2>Affiliate Management</h2>
-			<div>
+			<div ng-if="isAdmin">
 				<span>Show: </span>
 				<select ng-model="showAllAffiliates">
 					<option value="0" selected="selected">My Affiliates</option>
