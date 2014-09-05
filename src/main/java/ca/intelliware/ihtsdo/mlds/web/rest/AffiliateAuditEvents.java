@@ -55,6 +55,8 @@ public class AffiliateAuditEvents {
 	private Map<String, String> createAffiliateData(Affiliate affiliate) {
 		return AuditDataBuilder.start()
 			.addAffiliateCreator(affiliate)
+			.addAffiliateId(affiliate)
+			.addAffiliateHomeMember(affiliate)
 			.toAuditData();
 	}
 	
@@ -80,7 +82,7 @@ public class AffiliateAuditEvents {
 	}
 
 	private void logAffiliateUpdate(String eventType, Affiliate affiliate) {
-		Map<String,String> auditData = Maps.newHashMap();
+		Map<String,String> auditData = createAffiliateData(affiliate);
     	auditData.put("affiliate.notesInternal", affiliate.getNotesInternal());
 		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
 		auditEvent.setAffiliateId(affiliate.getAffiliateId());
@@ -99,7 +101,7 @@ public class AffiliateAuditEvents {
 	}
 
 	private Map<String, String> createAffiliateDetailsData(Affiliate affiliate) {
-		Map<String,String> auditData = Maps.newHashMap();
+		Map<String,String> auditData = createAffiliateData(affiliate);
     	auditData.put("affiliate.affiliateDetails.firstName", affiliate.getAffiliateDetails().getFirstName());
     	auditData.put("affiliate.affiliateDetails.lastName", affiliate.getAffiliateDetails().getLastName());
     	auditData.put("affiliate.affiliateDetails.landlineNumber", affiliate.getAffiliateDetails().getLandlineNumber());
