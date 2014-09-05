@@ -11,15 +11,13 @@
 		<div class="panel panel-primary" >
 	      <div class="panel-heading">
 	        <h4 class="panel-title">
-	        	<a ng-click="collapsePanel.usage = !collapsePanel.usage">
 	        	Licence Usage<span class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</span>
-	        	</a>
 	        	</h4>
 	      </div>
-	      <div class="panel-body" collapse="collapsePanel.usage" class="panel-collapse collapse in">
+	      <div class="panel-body panel-collapse collapse in">
 	       <ng-form name="usageForm" novalidate bs-validation >
 	                 <div class="form-group" ng-init="affilliateControllerSharedBucket.usageForm = usageForm">
-	                    <label>Licence Type: {{commercialUsageReport.type | enum:'affiliate.type.'}}</label>
+	                    <label>Licence Type: </label> <span>{{commercialUsageReport.type | enum:'affiliate.type.'}}</span>
 	                  </div>
 	                  <div class="form-group">
 	                    <label>Current Usage:</label>
@@ -44,7 +42,7 @@
 	                  </div>
 	                  <div class="form-group">
 	                    <label>Implementation Status:</label>
-	                    <select name="implementationStatus"  required ng-disabled="readOnly" ng-model="commercialUsageReport.context.implementationStatus" ng-options="status | enum:'affiliate.implementationStatus.' for status in implementationStatusOptions"  auto-submit>
+	                    <select name="implementationStatus" class="form-control" required ng-disabled="readOnly" ng-model="commercialUsageReport.context.implementationStatus" ng-options="status | enum:'affiliate.implementationStatus.' for status in implementationStatusOptions"  auto-submit>
 	                    </select> 
 	                    <div ng-show="usageForm.attempted">
 							<p ng-show="usageForm.implementationStatus.$error.required" class="help-block">Required field.</p>
@@ -57,10 +55,10 @@
     <div class="panel panel-primary"  ng-hide="readOnly && commercialType">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a ng-click="collapsePanel.geographic = !collapsePanel.geographic">Countries in Use</a>
+          Countries in Use
         </h4>
       </div>
-      <div class="panel-body" collapse="collapsePanel.geographic" class="panel-collapse collapse in">
+      <div class="panel-body panel-collapse collapse in">
       	  <alert ng-repeat="alert in geographicAlerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
         <p>
           <strong>Select the countries in which SNOMED CT will be used</strong>
@@ -110,10 +108,10 @@
 		<div class="panel panel-primary" ng-show="commercialType">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a ng-click="collapsePanel.sublicensed = !collapsePanel.sublicensed">Sublicensed Institutions</a>
+					Sublicensed Institutions
 				</h4>
 			</div>
-			<div class="panel-body" collapse="collapsePanel.sublicensed">
+			<div class="panel-body" >
 				<div ng-show="usageByCountryList.length == 0 && !readOnly">A country needs to be selected before entering Sublicensed Institutions.</div>
 				<div ng-show="usageByCountryList.length == 0 && readOnly">No countries have been selected.</div>
 				<div class="country-listing" ng-repeat="countryUsage in usageByCountryList">
