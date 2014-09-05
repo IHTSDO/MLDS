@@ -30,6 +30,15 @@
             <span ng-if="audit.data['import.source']"><strong>Source Member:</strong> {{audit.data['import.source']}}</span>
             <span ng-if="audit.data['import.affiliates'] && audit.data['import.affiliates'] !== '-1'"><strong>Affiliates:</strong> {{audit.data['import.affiliates']}}</span>
             <span ng-if="audit.data['import.errors'] && audit.data['import.errors'] !== '0'"><strong>Errors:</strong> {{audit.data['import.errors']}}</span>
+            
+            <span ng-if="audit.data['affiliate.affiliateDetails.firstName']"><strong>First Name:</strong> {{audit.data['affiliate.affiliateDetails.firstName']}}</span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.lastName']"><strong>Last Name:</strong> {{audit.data['affiliate.affiliateDetails.lastName']}}</span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.landlineNumber'] || audit.data['affiliate.affiliateDetails.landlineExtension']"><strong>Landline:</strong> {{audit.data['affiliate.affiliateDetails.landlineNumber']}} <span ng-show="audit.data['affiliate.affiliateDetails.landlineExtension']">ext: {{audit.data['affiliate.affiliateDetails.landlineExtension']}}</span></span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.mobileNumber']"><strong>Mobile:</strong> {{audit.data['affiliate.affiliateDetails.mobileNumber']}}</span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.address.street'] || audit.data['affiliate.affiliateDetails.address.city'] || audit.data['affiliate.affiliateDetails.address.post']"><strong>Address:</strong> {{audit.data['affiliate.affiliateDetails.address.street']}}, {{audit.data['affiliate.affiliateDetails.address.city']}}, {{audit.data['affiliate.affiliateDetails.address.post']}}</span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.billingAddress.street'] || audit.data['affiliate.affiliateDetails.billingAddress.city'] || audit.data['affiliate.affiliateDetails.billingAddress.post'] || audit.data['affiliate.affiliateDetails.billingAddress.country']"><strong>Billing:</strong> {{audit.data['affiliate.affiliateDetails.billingAddress.street']}}, {{audit.data['affiliate.affiliateDetails.billingAddress.city']}}, {{audit.data['affiliate.affiliateDetails.billingAddress.post']}}<span ng-show="audit.data['affiliate.affiliateDetails.billingAddress.country']">, {{audit.data['affiliate.affiliateDetails.billingAddress.country'] | enum:'global.country.'}}</span></span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.alternateEmail']"><strong>Alternative Email:</strong> {{audit.data['affiliate.affiliateDetails.alternateEmail']}}</span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.thirdEmail']"><strong>Third Email:</strong> {{audit.data['affiliate.affiliateDetails.thirdEmail']}}</span>
         </td>
     </tr>
 </table>
