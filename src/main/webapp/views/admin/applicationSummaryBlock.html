@@ -48,6 +48,8 @@
 	  <div class="panel-body application-review">
 	    <p><strong>Name:</strong> {{application.affiliateDetails.firstName}} {{application.affiliateDetails.lastName}}</p>
 	    <p><strong>Email:</strong> {{application.affiliateDetails.email}}</p>
+	    <p ng-show="application.type=='INDIVIDUAL'"><strong>Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
+	    <p ng-show="application.type=='INDIVIDUAL' && application.affiliateDetails.thirdEmail"><strong>Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
 	    <p><strong>Landline Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.extension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></p>
 	    <p><strong>Mobile Phone Number:</strong> {{application.affiliateDetails.mobileNumber}}</p>
 	  </div>
