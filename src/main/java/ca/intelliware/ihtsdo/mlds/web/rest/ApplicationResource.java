@@ -46,6 +46,7 @@ import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
+import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -76,6 +77,7 @@ public class ApplicationResource {
 
 	@RequestMapping(value="api/applications")
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Timed
 	public @ResponseBody Iterable<Application> getApplications() {
 		return applicationRepository.findAll();
 	}
@@ -84,6 +86,7 @@ public class ApplicationResource {
 			method=RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Timed
 	public @ResponseBody ResponseEntity<Application> approveApplication(@PathVariable long applicationId, @RequestBody String approvalStateString) throws CloneNotSupportedException {
 		//FIXME why cant this be the body type?
 		ApprovalState approvalState = ApprovalState.valueOf(approvalStateString);
@@ -138,6 +141,7 @@ public class ApplicationResource {
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Timed
 	public @ResponseBody ResponseEntity<ApplicationCollection> getApplications(@RequestParam(value="$filter") String filter){
 		Iterable<Application> applications;
 		if (filter == null) {
@@ -157,6 +161,7 @@ public class ApplicationResource {
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Timed
 	public  @ResponseBody ResponseEntity<Application> getApplication(@PathVariable long applicationId){
 		Application application = applicationRepository.findOne(applicationId);
 		if (application == null) {
@@ -170,6 +175,7 @@ public class ApplicationResource {
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
+	@Timed
 	public  @ResponseBody ResponseEntity<Application> getApplicationForMe(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		if (applications.size() > 0) {
@@ -183,6 +189,7 @@ public class ApplicationResource {
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
+	@Timed
 	public @ResponseBody ResponseEntity<Application> getUserApplication(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		if (applications.size() > 0) {
@@ -197,6 +204,7 @@ public class ApplicationResource {
 			method=RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
+	@Timed
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
 		PrimaryApplication application = findOrStartInitialApplication();
         application = saveApplicationFields(request,application);
@@ -239,6 +247,7 @@ public class ApplicationResource {
 			method=RequestMethod.PUT,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
+	@Timed
 	public @ResponseBody ResponseEntity<Application> saveApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
         Application application = findOrStartInitialApplication();
         application = saveApplicationFields(request,application);
@@ -264,6 +273,7 @@ public class ApplicationResource {
 			method=RequestMethod.PUT,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody String notesInternal) {
 		Application application = applicationRepository.findOne(applicationId);
 		if (application == null) {
@@ -422,6 +432,7 @@ public class ApplicationResource {
 			method=RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Timed
 	public ResponseEntity<Application> createApplication(@RequestBody CreateApplicationDTO requestBody) {
 		
 		// FIXME MLDS-308 it is an error to try to create an extension application without a target member.
@@ -442,6 +453,7 @@ public class ApplicationResource {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Transactional
+	@Timed
 	public ResponseEntity<?> updateApplication(@PathVariable long applicationId, @RequestBody ObjectNode requestBody) throws IOException {
 		Application original = applicationRepository.findOne(applicationId);
 		Application updatedApplication = constructUpdatedApplication(requestBody, original);

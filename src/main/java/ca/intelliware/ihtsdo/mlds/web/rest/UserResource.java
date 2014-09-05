@@ -34,6 +34,7 @@ public class UserResource {
     		method = RequestMethod.GET,
     		produces = "application/json")
     @RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @Timed
     public @ResponseBody Iterable<User> getUsers() {
     	log.debug("Rest request to get all Users");
     	return userRepository.findAll();
