@@ -49,7 +49,7 @@ mldsApp.controller('AffiliateSummaryController', [
 			loadAffiliate(); 
 			
 			$scope.editAffiliate = function editAffiliate() {
-				$location.path('/affiliates/' + affiliateId + '/edit')
+				$location.path('/affiliateManagement/' + affiliateId + '/edit')
 			};
 			
 			$scope.viewApplication = function viewApplication(application) {

@@ -15,6 +15,7 @@ angular.module('MLDS').controller('PendingApplicationsController', [
 			$scope.applications = [];
 			$scope.showAllApplications = 0;
 			$scope.applicationSearch = '';
+			$scope.isAdmin = Session.isAdmin();
 
 			$scope.orderByField = 'submittedAt';
 			$scope.reverseSort = false;
