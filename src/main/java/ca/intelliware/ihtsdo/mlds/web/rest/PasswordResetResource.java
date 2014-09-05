@@ -20,6 +20,7 @@ import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
 import ca.intelliware.ihtsdo.mlds.service.mail.PasswordResetEmailSender;
 
+import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Strings;
 
 @RestController
@@ -38,6 +39,7 @@ public class PasswordResetResource {
 			method = RequestMethod.POST,
     		produces = MediaType.APPLICATION_JSON_VALUE)
 	@PermitAll
+	@Timed
 	public ResponseEntity<String> requestPasswordReset(@RequestBody Map<String,Object> params) {
 		String emailAddress = (String) params.get("email");
 		if (Strings.isNullOrEmpty(emailAddress)) {
@@ -60,6 +62,7 @@ public class PasswordResetResource {
 			method = RequestMethod.POST,
     		produces = MediaType.APPLICATION_JSON_VALUE)
 	@PermitAll
+	@Timed
 	public ResponseEntity<String> resetPassword(@PathVariable String token, @RequestBody Map<String,Object>params) {
 		
 		String newPassword = (String) params.get("password");

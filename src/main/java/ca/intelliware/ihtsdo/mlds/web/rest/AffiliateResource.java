@@ -51,6 +51,7 @@ import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImporterSer
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
+import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Objects;
 
 @RestController
@@ -102,6 +103,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliates(
     		@RequestParam String q,
     		@RequestParam(value="$page", defaultValue="0", required=false) Integer page,
@@ -153,6 +155,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATE,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<Affiliate> getAffiliate(@PathVariable long affiliateId) {
 		Affiliate affiliate = affiliateRepository.findOne(affiliateId);
 		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
@@ -162,6 +165,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATE,
     		method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<Affiliate> updateAffiliate(@PathVariable Long affiliateId, @RequestBody Affiliate body) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
     	if (affiliate == null) {
@@ -185,6 +189,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_ME,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesMe() {
     	String username = sessionService.getUsernameOrNull();
     	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
@@ -194,6 +199,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_CREATOR,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesForUser(@PathVariable String username) {
     	applicationAuthorizationChecker.checkCanAccessAffiliate(username);
     	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
@@ -204,6 +210,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_CSV,
     		method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<ImportResult> importAffiliates( @RequestParam("file") MultipartFile file) throws IOException {
 		if (file.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -220,6 +227,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_CSV,
     		method = RequestMethod.GET,
             produces = "application/csv;charset=UTF-8")
+	@Timed
     public @ResponseBody ResponseEntity<String> exportAffiliates(@RequestParam(value="generate",required = false) Integer generateRows) throws IOException {
 		//FIXME DGJ Introduce parameter to generate phoney data until we can add an application start
 		String result;
@@ -237,6 +245,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_CSV_SPEC,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<AffiliatesImportSpec> getAffiliatesImportSpec() throws IOException {
 		AffiliatesImportSpec result = affiliatesExporterService.exportSpec();
 		return new ResponseEntity<AffiliatesImportSpec>(result, HttpStatus.OK);
@@ -247,6 +256,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATE_DETAIL,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<AffiliateDetails> updateAffiliateDetail(@PathVariable Long affiliateId) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
     	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
@@ -260,6 +270,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATE_DETAIL,
     		method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<AffiliateDetails> updateAffiliateDetail(@PathVariable Long affiliateId, @RequestBody AffiliateDetails body) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
     	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
