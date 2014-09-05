@@ -25,6 +25,8 @@
 	  			<ul class="list-group">
 	  				<li class="list-group-item"><strong>Name:</strong> {{affiliate.affiliateDetails.firstName}} {{affiliate.affiliateDetails.lastName}}</li>
 	  				<li class="list-group-item"><strong>Email:</strong> {{affiliate.affiliateDetails.email}}</li>
+	  				<li class="list-group-item"><strong>Alternate Email:</strong> {{affiliate.affiliateDetails.alternateEmail}}</li>
+	  				<li class="list-group-item" ng-show="affiliate.affiliateDetails.thirdEmail"><strong>Third Email:</strong> {{affiliate.affiliateDetails.thirdEmail}}</li>
 	  				<li class="list-group-item"><strong>Landline Phone Number:</strong> {{affiliate.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.extension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
 	  				<li class="list-group-item"><strong>Mobile Phone Number:</strong> {{affiliate.affiliateDetails.mobileNumber}}</li>
 	  			</ul>
@@ -40,17 +42,15 @@
 	  				<h4>Organization:</h4>
 	  				<li class="list-group-item"><strong>Organization Name:</strong> {{affiliate.affiliateDetails.organizationName}}</li>
 	  				<li class="list-group-item"><strong>Organization Type:</strong>
-	  					<span ng-show="affiliateDetails.organizationType=='OTHER'">{{affiliate.affiliateDetails.organizationTypeOther}}</span>
-	  					<span ng-show="affiliateDetails.organizationType!='OTHER'">{{affiliate.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
+	  					<span ng-show="affiliate.affiliateDetails.organizationType=='OTHER'">{{affiliate.affiliateDetails.organizationTypeOther}}</span>
+	  					<span ng-show="affiliate.affiliateDetails.organizationType!='OTHER'">{{affiliate.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
 	 					</li>
 	  				<li class="list-group-item"><strong>Address:</strong> {{affiliate.affiliateDetails.address.street}}</li>
 	  				<li class="list-group-item"><strong>City:</strong> {{affiliate.affiliateDetails.address.city}}</li>
 	  				<li class="list-group-item"><strong>Post Code:</strong> {{affiliate.affiliateDetails.address.post}}</li>
 	  				<li class="list-group-item"><strong>Country:</strong> {{affiliate.affiliateDetails.address.country.commonName}}</li>
 	  				<li class="list-group-item"><strong>Phone Number:</strong> {{affiliate.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.affiliateDetailsextension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
-	  				<li class="list-group-item"><strong>Alternate Email:</strong> {{affiliate.affiliateDetails.alternateEmail}}</li>
-	  				<li class="list-group-item" ng-show="affiliateform.type=='COMMERCIAL'"><strong>Third Email:</strong> {{affiliate.affiliateDetails.thirdEmail}}</li>
-	  				<li class="list-group-item" ng-show="affiliateform.type=='OTHER'"><strong>Other:</strong>{{affiliate.affiliate.application.otherText}}</li>
+	  				<li class="list-group-item" ng-show="affiliate.affiliateDetails=='OTHER'"><strong>Other:</strong>{{affiliate.affiliate.application.otherText}}</li>
 	  			</ul>
 	
 	
