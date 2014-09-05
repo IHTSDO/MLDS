@@ -165,16 +165,26 @@ mldsApp.controller('LogsController', ['$scope', 'resolvedLogs', 'LogsService',
             LogsService.changeLevel({name: name, level: level}, function () {
                 $scope.loggers = LogsService.findAll();
             });
-        }
+        };
     }]);
 
 mldsApp.controller('ActivityLogsController', ['$scope', '$translate', '$filter', 'AuditsService',
     function ($scope, $translate, $filter, AuditsService) {
-        $scope.onChangeDate = function() {
-            AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function(data){
-                $scope.audits = data;
-            });
-        };
+		$scope.submitting = false;
+		
+		function loadActivity() {
+			$scope.submitting = true;
+			AuditsService.findByDates($scope.fromDate, $scope.toDate)
+			.then(function(data){
+				$scope.audits = data;
+				$scope.submitting = false;
+			})
+			["catch"](function(message) {
+				$scope.submitting = false;
+			});
+			
+		}
+        $scope.onChangeDate = loadActivity;
 
         // Date picker configuration
         $scope.today = function() {
@@ -199,8 +209,6 @@ mldsApp.controller('ActivityLogsController', ['$scope', '$translate', '$filter',
         $scope.today();
         $scope.previousMonth();
         
-        AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function(data){
-            $scope.audits = data;
-        });
+        loadActivity();
     }]);
 
