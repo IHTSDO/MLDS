@@ -10,6 +10,7 @@ import org.junit.Test;
 @Ignore // Use explore behaviour
 public class HttpAuthIntegrationTest {
 	// https://usermanagement.ihtsdotools.org/security-web/query/users/AdamT/apps/Refset
+	//https://usermanagement.ihtsdotools.org/security-web/query/?queryName=getUserAppPerms&username=AdamT&appName=Refset
 	HttpAuthAdaptor httpAuthAdaptor = new HttpAuthAdaptor("https://usermanagement.ihtsdotools.org/security-web/query/");
 
 	@Test
