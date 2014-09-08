@@ -39,7 +39,7 @@ public class Affiliate extends BaseEntity {
 	@Fields({ @Field(name="ALL"), @Field()})
 	Long affiliateId;
 
-	//@Type(type="jodatimeInstant")
+	//@Type(type="jodatimeInstant")Member homeMember;
 	Instant created = Instant.now();
 
 	@Enumerated(EnumType.STRING)
@@ -81,6 +81,10 @@ public class Affiliate extends BaseEntity {
 	@Column(name="notes_internal")
 	String notesInternal;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name="standing_state")
+	StandingState standingState = StandingState.APPLYING;
+	
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
 		
