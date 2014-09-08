@@ -25,6 +25,7 @@ angular.module('MLDS').controller('ReleaseController',
 			.$promise.then(function(result) {
 				$scope.packageEntity = result;
 				$scope.isEditableReleasePackage = PackageUtilsService.isEditableReleasePackage(result);
+				$scope.isRemovableReleasePackage = PackageUtilsService.isRemovableReleasePackage(result);
 				})
 					["catch"](function(message) {
 						//FIXME how to handle errors + not present
