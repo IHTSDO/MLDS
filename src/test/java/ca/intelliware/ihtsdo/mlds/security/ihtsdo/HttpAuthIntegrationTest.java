@@ -16,7 +16,7 @@ public class HttpAuthIntegrationTest {
 	@Test
 	public void loginWithGoodPasswordReturnsTrue() throws Exception {
 		String username = "michaelb";
-		String password = "XXXXXXXX";
+		String password = "XXXXXXXX";// put a real password in
 		
 		boolean result = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
 		
