@@ -253,7 +253,7 @@ angular.module('MLDS').factory('PackagesService',
 				return service;
 			} else {
 				return $resource('app/rest/releasePackages/:releasePackageId', {releasePackageId: '@releasePackageId'}, {
-					update: {method: 'PUT'}
+					update: {method: 'PUT'}, remove: {method:'DELETE'}
 				});
 			}
 		} ]);
