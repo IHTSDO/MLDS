@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web.rest;
+package ca.intelliware.ihtsdo.mlds.web;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;

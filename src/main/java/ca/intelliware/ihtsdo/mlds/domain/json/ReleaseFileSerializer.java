@@ -5,7 +5,7 @@ import java.net.URI;
 
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
-import ca.intelliware.ihtsdo.mlds.web.rest.RouteLinkBuilder;
+import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
