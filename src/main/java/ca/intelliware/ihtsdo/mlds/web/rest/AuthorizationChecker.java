@@ -44,7 +44,6 @@ public class AuthorizationChecker {
 
 	protected void checkCurrentUserIsUser(String username) {
 		if (! ObjectUtils.equals(currentSecurityContext.getCurrentUserName(), username)) {
-			//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
 			failCheck("User not authorized to access Affiliate");
 		}
 	}
