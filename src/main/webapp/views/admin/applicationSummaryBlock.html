@@ -26,7 +26,7 @@
 	
 	<div class="panel panel-primary" ng-show="application.type!='INDIVIDUAL'">
 	  <div class="panel-heading">
-	    <h3 class="panel-title">Affiliate Information:</h3>
+	    <h3 class="panel-title">Affiliate Information</h3>
 	  </div>
 	  <div class="panel-body application-review">
 	    <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Name:</strong> {{application.affiliateDetails.organizationName}}</p>
@@ -117,4 +117,14 @@
 	 		</div>
 	  </div>
 	</div>
+	
+	<div class="panel panel-primary" ng-show="audits && audits.length > 0">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Application Activity</h3>
+	  </div>
+	  <div class="panel-body application-review">
+		<div ng-include="'views/auditsEmbed.html'"></div>
+	  </div>
+	</div>
+	
 </div>
