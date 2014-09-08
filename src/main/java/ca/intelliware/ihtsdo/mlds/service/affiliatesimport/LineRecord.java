@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -8,24 +10,24 @@ import org.apache.commons.lang.StringUtils;
 public class LineRecord {
 	boolean header = false;
 	long lineNumber = 0;
-	String[] fields;
+	List<String> fields;
 	boolean isBlank = false;
-	public LineRecord(long lineNumber, String[] fields, boolean isBlank) {
+	public LineRecord(long lineNumber, List<String> fields, boolean isBlank) {
 		this.lineNumber = lineNumber;
 		this.fields = fields;
 		this.isBlank = isBlank;
 	}
 	
 	private String fieldValue(int fieldIndex) {
-		return fields[fieldIndex];
+		return fields.get(fieldIndex);
 	}
 	
 	public void validate(ImportResult result, AffiliatesMapper affiliatesMapper) {
 		if (isBlank) {
 			return;
 		}
-		if (fields.length != affiliatesMapper.getMappings().size()) {
-			result.addError(this, "Incorrect number of fields: found="+ fields.length+" required="+affiliatesMapper.getMappings().size());
+		if (fields.size() != affiliatesMapper.getMappings().size()) {
+			result.addError(this, "Incorrect number of fields: found="+ fields.size()+" required="+affiliatesMapper.getMappings().size());
 		} else if (header) {
 			validateHeaderRecord(result, affiliatesMapper);
 		} else {
