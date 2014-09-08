@@ -1178,4 +1178,34 @@
     		</column>
 		</addColumn>
     </changeSet>
+    
+    <changeSet id="MLDS-314-1" author="DGJ" >
+    	<comment>Add affiliate standing state</comment>
+    	<addColumn tableName="affiliate">
+    		<column name="standing_state" type="VARCHAR(255)" value="APPLYING"/>
+    	</addColumn>
+    	<!--  based initial values on the primary application outcome -->
+    	<sql>
+    		UPDATE affiliate
+    		SET standing_state='APPLYING'
+    	</sql>
+    	<sql>
+    		UPDATE affiliate a
+    		SET standing_state='REJECTED'
+    		FROM application app
+    		WHERE a.affiliate_id = app.affiliate_id AND 
+    			app.application_type='PRIMARY' AND
+    			app.approval_state='REJECTED'
+    	</sql>
+    	<sql>
+    		UPDATE affiliate a
+    		SET standing_state='IN_GOOD_STANDING'
+    		FROM application app
+    		WHERE a.affiliate_id = app.affiliate_id AND 
+    			app.application_type='PRIMARY' AND
+    			app.approval_state='APPROVED'
+    	</sql>
+    	<addNotNullConstraint tableName="affiliate" columnName="standing_state"/>
+    </changeSet>
+    
 </databaseChangeLog>
