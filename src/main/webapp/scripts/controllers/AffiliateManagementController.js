@@ -80,6 +80,9 @@ mldsApp.controller('AffiliateManagementController', [
         			resolve: {
         				application: function() {
         					return application;
+        				},
+        				audits: function() {
+        					return [];
         				}
         			}
         		});
