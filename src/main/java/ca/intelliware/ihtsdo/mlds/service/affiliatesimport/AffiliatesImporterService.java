@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -223,7 +224,7 @@ public class AffiliatesImporterService {
 		List<String> lines = IOUtils.readLines(new StringReader(contents));
 		boolean headerFound = false;
 		for (String line : lines) {
-			String[] fields = parseLine(line);
+			List<String> fields = parseLine(line);
 			LineRecord record = new LineRecord(records.size() + 1, fields, StringUtils.isBlank(line));
 			if (!headerFound && !record.isBlank) {
 				record.header = true;
@@ -234,12 +235,12 @@ public class AffiliatesImporterService {
 		return records;
 	}
 
-	private String[] parseLine(String line) {
+	private List<String> parseLine(String line) {
 		String[] elements = line.split(AffiliateFileFormat.COLUMN_SEPARATOR_REGEX, -1);
 		for (int i = 0; i < elements.length; i++) {
 			elements[i] = StringUtils.trimToEmpty(elements[i]);
 		}
-		return elements;
+		return Arrays.asList(elements);
 	}
 	
 

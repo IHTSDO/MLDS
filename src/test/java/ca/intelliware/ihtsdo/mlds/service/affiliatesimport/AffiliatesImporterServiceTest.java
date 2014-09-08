@@ -53,7 +53,7 @@ public class AffiliatesImporterServiceTest {
 	public void firstRunCreatesAffiliate() throws Exception {
 		// setup
 		setField(fields,"organizationName", "Our Name");
-		LineRecord record = new LineRecord(1, fields.toArray(new String[0]), false);
+		LineRecord record = new LineRecord(1, fields, false);
 		
 		// execution
 		affiliatesImporterService.processLineRecord(record, new ImportResult());
@@ -67,7 +67,7 @@ public class AffiliatesImporterServiceTest {
 	public void secondRunUpdatesAffiliateDetails() throws Exception {
 		// setup
 		setField(fields,"organizationName", "Our Name");
-		LineRecord record = new LineRecord(1, fields.toArray(new String[0]), false);
+		LineRecord record = new LineRecord(1, fields, false);
 		
 		// execution #1
 		affiliatesImporterService.processLineRecord(record, new ImportResult());
@@ -77,7 +77,7 @@ public class AffiliatesImporterServiceTest {
 		
 		// execution #2
 		setField(fields,"organizationName", "Our New Name");
-		LineRecord record2 = new LineRecord(1, fields.toArray(new String[0]), false);
+		LineRecord record2 = new LineRecord(1, fields, false);
 		
 		affiliatesImporterService.processLineRecord(record2, new ImportResult());
 
@@ -90,7 +90,7 @@ public class AffiliatesImporterServiceTest {
 	@Test
 	public void updateAddsAnImportApplicationAsLog() throws Exception {
 		setField(fields,"organizationName", "Our Name");
-		LineRecord record = new LineRecord(1, fields.toArray(new String[0]), false);
+		LineRecord record = new LineRecord(1, fields, false);
 		
 		// execution #1
 		affiliatesImporterService.processLineRecord(record, new ImportResult());
@@ -99,7 +99,7 @@ public class AffiliatesImporterServiceTest {
 		
 		// execution #2
 		setField(fields,"organizationName", "Our New Name");
-		LineRecord record2 = new LineRecord(1, fields.toArray(new String[0]), false);
+		LineRecord record2 = new LineRecord(1, fields, false);
 		
 		affiliatesImporterService.processLineRecord(record2, new ImportResult());
 
@@ -118,7 +118,7 @@ public class AffiliatesImporterServiceTest {
 	public void shouldCreateNotSubmittedUsageOnInitialImport() throws Exception {
 		// setup
 		setField(fields,"organizationName", "Our Name");
-		LineRecord record = new LineRecord(1, fields.toArray(new String[0]), false);
+		LineRecord record = new LineRecord(1, fields, false);
 		
 		// execution
 		affiliatesImporterService.processLineRecord(record, new ImportResult());
