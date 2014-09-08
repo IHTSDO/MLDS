@@ -54,6 +54,7 @@ import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;

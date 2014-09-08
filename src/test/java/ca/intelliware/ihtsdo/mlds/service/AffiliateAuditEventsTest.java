@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web.rest;
+package ca.intelliware.ihtsdo.mlds.service;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
 public class AffiliateAuditEventsTest {
