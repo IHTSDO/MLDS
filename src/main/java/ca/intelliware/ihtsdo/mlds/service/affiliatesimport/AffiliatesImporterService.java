@@ -30,7 +30,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.web.rest.AffiliateAuditEvents;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 
 @Service
 @Transactional

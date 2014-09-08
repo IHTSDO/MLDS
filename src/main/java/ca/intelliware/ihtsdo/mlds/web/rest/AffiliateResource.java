@@ -43,7 +43,9 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateSearchRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliateImportAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
@@ -73,7 +75,10 @@ public class AffiliateResource {
 
 	@Resource
 	AffiliateAuditEvents affiliateAuditEvents;
-	
+
+	@Resource
+	AffiliateImportAuditEvents affiliateImportAuditEvents;
+
 	@Resource
 	AffiliatesImporterService affiliatesImporterService; 
 
@@ -218,7 +223,7 @@ public class AffiliateResource {
 		//FIXME Is this correct that we are assuming UTF8?
 		String content = IOUtils.toString(file.getInputStream(),  Charsets.UTF_8);
 		ImportResult importResult = affiliatesImporterService.importFromCSV(content);
-		affiliateAuditEvents.logImport(importResult);
+		affiliateImportAuditEvents.logImport(importResult);
     	HttpStatus httpStatus = importResult.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
 		return new ResponseEntity<ImportResult>(importResult, httpStatus);
     }
@@ -236,7 +241,7 @@ public class AffiliateResource {
 		} else {
 			result = affiliatesImportGenerator.generateFile(generateRows);
 		}
-		affiliateAuditEvents.logExport();
+		affiliateImportAuditEvents.logExport();
 		return new ResponseEntity<String>(result, HttpStatus.OK);
     }
 	
