@@ -5,6 +5,10 @@ angular.module('MLDS').factory('PackageUtilsService',
 		  function($resource, $q, $log, $location, $modal, Session, UserRegistrationService, MemberService, UserAffiliateService) {
 			var service = {};
 			
+			service.isReleasePackageInactive = function isReleasePackageInactive(packageEntity) {
+				return (packageEntity.inactiveAt) ? true : false;
+			};
+			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
 	        	for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
 	        		if (packageEntity.releaseVersions[i].online) {
@@ -76,6 +80,10 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		var memberMatches = angular.equals(userMember, releasePackage.member);
 	    		//$log.log('isEditableReleasePackage', releasePackage, Session, memberMatches);
 	    		return Session.isAdmin() || memberMatches;
+	    	};
+	    	
+	    	service.isRemovableReleasePackage = function isRemovableReleasePackage(releasePackage) {
+	    		return !service.isPackagePublished(releasePackage);
 	    	};
 	    	
 	    	service.isReleasePackageMatchingMember = function isReleasePackageMatchingMember(releasePackage) {
