@@ -113,8 +113,8 @@ angular.module('MLDS').controller('ReleaseController',
                 }
               }
             });
-        modalInstance.result.then(function(updatedReleasePackage) {
-        	$scope.packageEntity = updatedReleasePackage;
+        modalInstance.result.then(function() {
+        	$scope.goToReleaseManagement();
         });
     };
     
