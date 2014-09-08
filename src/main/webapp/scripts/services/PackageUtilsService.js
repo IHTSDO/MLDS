@@ -78,6 +78,10 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		return Session.isAdmin() || memberMatches;
 	    	};
 	    	
+	    	service.isRemovableReleasePackage = function isRemovableReleasePackage(releasePackage) {
+	    		return !service.isPackagePublished(releasePackage);
+	    	};
+	    	
 	    	service.isReleasePackageMatchingMember = function isReleasePackageMatchingMember(releasePackage) {
 	    		var userMember = Session.member;
 	    		var memberMatches = angular.equals(userMember, releasePackage.member);
