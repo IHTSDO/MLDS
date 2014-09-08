@@ -29,7 +29,7 @@
 <form name="extensionApplicationForm" novalidate bs-validation ng-submit="submit()">
 	<div class="row">
 		<div class="col-sx-12 col-md-12">
-			<div class="panel-group" id="accordion">
+			<div>
 				<div class="panel panel-primary applicant">
 					<div class="panel-heading">
 						<h4 class="panel-title">{{extensionForm.member.key | enum:'global.member.'}} Extension Application Form</h4>
@@ -52,19 +52,19 @@
 
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">SNOMED CT Extension Agreement</h3>
+						<h3 class="panel-title">{{extensionForm.member.key | enum:'global.member.'}} Extension Agreement</h3>
 					</div>
 					<div class="panel-body">
 						<p class="bg-warning text-warning">Extension licence abstract -- explain importance of terms. Describe reporting and possible $$$ obligations! FIXME - copy</p>
 						<p>
 							<a ng-click="viewLicence(extensionForm.member.key)"
-								target="_blank" class="btn btn-default btn-block">SNOMED CT Extension Licence</a>
+								target="_blank" class="btn btn-default btn-block">{{extensionForm.member.key | enum:'global.member.'}} Extension Licence</a>
 						</p>
 						<p class="form-group">
 	            <label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="snoMedTC" ng-checked="readOnly" ng-disabled="readOnly"> I agree to the licence 
 	            <span ng-show="extensionApplicationForm.snoMedTC.$error.required && extensionApplicationForm.attempted" class="help-block">You must agree to the terms and conditions of the SNOMED CT Licence in order to register, which also indicates potential fees that be required.</span></label>
 	          </p>
-						<div class="panel-footer">
+						<div class="panel-footer" ng-show="!readOnly">
 							<input type="submit" class="btn btn-muted btn-success" ng-disabled="readOnly" value="Apply"/>
 							<div ng-show="extensionApplicationForm.attempted"
 								class="has-error">
