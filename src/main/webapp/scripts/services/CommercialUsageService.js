@@ -160,10 +160,10 @@ angular.module('MLDS')
 			};
 		};
 		
-		service.generateRanges = function generateRanges() {
+		
+		function biannaulPeriods(periods) {
 			var ranges = [];
 			var date = moment().local();
-			var periods = 6;
 			for (var i = 0; i < periods; i++) {
 				var isFirstHalfOfYear = date.isBefore(date.clone().month(6).startOf('month'));
 				if (isFirstHalfOfYear) {
@@ -178,6 +178,29 @@ angular.module('MLDS')
 				date = date.clone().subtract(2, 'months');
 			}
 			return ranges;
+		};
+		
+		function annualPeriods(periods) {
+			var ranges = [];
+			var date = moment().local();
+			
+			for (var i = 0; i < periods; i++) {
+				date = date.startOf('year');
+				var end = date.clone().endOf('year');
+				ranges.push(generateRangeEntry(date, end));
+				
+				date = date.clone().subtract(2, 'months');
+			}
+			
+			return ranges;
+		};
+		
+		service.generateRanges = function generateRanges() {
+			var periods = 6;
+			
+			//return biannaulPeriods(periods);
+			
+			return annualPeriods(periods);
 		};
 		
 		
