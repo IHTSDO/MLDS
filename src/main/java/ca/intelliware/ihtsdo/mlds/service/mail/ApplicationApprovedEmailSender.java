@@ -24,7 +24,7 @@ public class ApplicationApprovedEmailSender {
 		variables.put(EmailVariables.USER, user);
 		variables.put(EmailVariables.MEMBERKEY, memberKey);
 		variables.put(EmailVariables.LOGIN_URL, clientLinkBuilder.buildLoginLink());
-		variables.put(EmailVariables.VIEW_PACKAGES_URL, clientLinkBuilder.buildViewPackagesLink());
+		variables.put(EmailVariables.VIEW_PACKAGES_URL, clientLinkBuilder.buildViewReleasesLink());
 		String content = templateEvaluator.evaluateTemplate("applicationApprovedEmail", locale, variables);
 		String subject = templateEvaluator.getTitleFor("applicationApproved", locale);
 		
