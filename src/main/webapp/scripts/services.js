@@ -92,10 +92,17 @@ mldsApp.factory('AuditsService', ['$http',
             },
             findByAffiliateId: function(affiliateId) {
                 var promise = $http.get('/app/rest/audits?$filter='+encodeURIComponent('affiliateId eq \''+affiliateId+'\''))
+	            	.then(function (response) {
+	            		return response.data;
+	            	});
+                return promise;
+            },
+            findByApplicationId: function(applicationId) {
+                var promise = $http.get('/app/rest/audits?$filter='+encodeURIComponent('applicationId eq \''+applicationId+'\''))
             	.then(function (response) {
             		return response.data;
-            });
-            return promise;
+	            });
+	            return promise;
             }
         };
     }]);

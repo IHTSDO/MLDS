@@ -11,12 +11,14 @@ mldsApp.controller('ApplicationReviewController', [
 		'DomainBlacklistService',
 		'PackagesService',
 		'ApplicationUtilsService',
+		'AuditsService',
 		function($scope, $log, $routeParams, $modal, $location, Session, UserRegistrationService, DomainBlacklistService,
-				PackagesService, ApplicationUtilsService) {
+				PackagesService, ApplicationUtilsService, AuditsService) {
 
 			var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
 			
 			$scope.application = {};
+			$scope.audits = [];
 			
 			$scope.commercialUsageInstitutionsByCountry = {};
 			$scope.usageCountryCountslist = [];
@@ -28,6 +30,17 @@ mldsApp.controller('ApplicationReviewController', [
 			$scope.isActionDisabled = true;
 			$scope.showNonMemberAlert = false;
 			$scope.showNonPendingAlert = false;
+
+			function loadApplicationAudits(applicationId) {
+	          	AuditsService.findByApplicationId(applicationId)
+            	.then(function(result) {
+            		$scope.audits = result;
+            	})
+    			["catch"](function(message) {
+    				$scope.alerts.push({type: 'danger', msg: 'Network request failure retrieving audit logs, please try again later.'});
+    				$log.log('Failed to update audit list: '+message);
+    			});
+	        }
 
 			function loadApplication() {
 				$log.log("load application...");
@@ -50,6 +63,7 @@ mldsApp.controller('ApplicationReviewController', [
 							 $scope.showNonPendingAlert = true;
 						}
 						
+						loadApplicationAudits(application.applicationId);
 						
 						if (application.commercialUsage) {
 							$scope.commercialUsageInstitutionsByCountry = _.groupBy(application.commercialUsage.entries, 

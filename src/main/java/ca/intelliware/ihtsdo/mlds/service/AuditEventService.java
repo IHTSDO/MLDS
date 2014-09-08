@@ -59,7 +59,12 @@ public class AuditEventService {
         return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
 	}
 
-    
+	public List<AuditEvent> findByApplicationId(long applicationId) {
+        final List<PersistentAuditEvent> persistentAuditEvents =
+                persistenceAuditEventRepository.findByApplicationId(applicationId);
+
+        return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
+	}
 
 	public void logAuditableEvent(String eventType, Map<String,String> auditData) {
 		logAuditableEvent(createAuditEvent(eventType, auditData));

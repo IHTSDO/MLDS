@@ -121,6 +121,18 @@ public class AuditResourceTest {
                 ;
     }
 
+	@Test
+    public void findByFilterShouldAllowFilteringByApplication() throws Exception {
+		when(auditEventService.findByApplicationId(123L)).thenReturn(Arrays.asList(createAuditEvent("TypeA")));
+		
+        restUserMockMvc.perform(get(Routes.AUDITS)
+        		.param("$filter", "applicationId eq '123'")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].type", Matchers.is("TypeA")))
+                ;
+    }
+
 	private AuditEvent createAuditEvent(String type) {
 		return new AuditEvent("testUser", type, "value1");
 	}
