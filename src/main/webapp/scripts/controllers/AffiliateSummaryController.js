@@ -60,6 +60,12 @@ mldsApp.controller('AffiliateSummaryController', [
         			resolve: {
         				application: function() {
         					return application;
+        				},
+        				audits: function() {
+        					var match = ''+application.applicationId;
+        					return _.filter($scope.audits, function(audit) {
+        						return audit && audit.data && audit.data['application.applicationId'] === match;
+        					});
         				}
         			}
         		});
