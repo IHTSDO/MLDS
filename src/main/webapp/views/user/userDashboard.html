@@ -114,10 +114,10 @@
           		<a ng-if="isApplicationWaitingForApplicant(application)" href="#/extensionApplication/{{application.applicationId}}" class="btn-warning btn-sm">
           			<i class="fa fa-edit"></i> Edit
           		</a>
-          		<a ng-if="application.approvalState === 'SUBMITTED'" href="#/extensionApplication/{{application.applicationId}}" class="btn-primary btn-sm">
+          		<a ng-if="isApplicationPending(application)" href="#/extensionApplication/{{application.applicationId}}" class="btn-primary btn-sm">
           			<i class="fa fa-eye"></i> View
           		</a>
-          		<a ng-if="application.approvalState === 'APPROVED'" ng-click="viewApplication(application)" class="btn-primary btn-sm">
+          		<a ng-if="isApplicationApproved(application)" ng-click="viewApplication(application)" class="btn-primary btn-sm">
           			<i class="fa fa-eye"></i> View
           		</a>
           	</span>
