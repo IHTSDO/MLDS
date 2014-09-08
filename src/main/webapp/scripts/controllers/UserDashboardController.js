@@ -86,6 +86,9 @@ angular.module('MLDS')
         			resolve: {
         				application: function() {
         					return application;
+        				},
+        				audits: function() {
+        					return [];
         				}
         			}
         		});
