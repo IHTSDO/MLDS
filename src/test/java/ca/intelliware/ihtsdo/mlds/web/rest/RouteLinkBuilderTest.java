@@ -7,6 +7,8 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
+import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
+
 public class RouteLinkBuilderTest {
 	RouteLinkBuilder routeLinkBuilder = new RouteLinkBuilder();
 
