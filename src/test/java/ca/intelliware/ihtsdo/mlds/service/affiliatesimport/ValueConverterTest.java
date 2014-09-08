@@ -3,6 +3,8 @@ package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +26,7 @@ public class ValueConverterTest {
     public void setup() {
     	fixture = new ValueConverter();
     	
-		lineRecord = new LineRecord(1, new String[]{"field"}, false);
+		lineRecord = new LineRecord(1, Arrays.asList("field"), false);
 		fieldMapping = new FieldMapping(2, "columnName", null, null, null);
 		result = new ImportResult();
     }
