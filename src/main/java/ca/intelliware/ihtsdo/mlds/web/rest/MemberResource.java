@@ -102,7 +102,7 @@ public class MemberResource {
 			entityManager.detach(member.getLicense());
 		}
 
-		if (multipartFile.isEmpty() || multipartFile == null) {
+		if (multipartFile == null || multipartFile.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
