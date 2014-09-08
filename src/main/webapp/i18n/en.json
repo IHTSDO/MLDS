@@ -594,7 +594,7 @@
         "table": {
             "header": {
                 "principal": "User",
-                "date": "Date",
+                "date": "Date (Local)",
                 "status": "State",
                 "data": "Extra data"
             },
