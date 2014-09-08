@@ -36,6 +36,7 @@ public class AuditResource {
 
     public static final String FILTER_BY_AUDIT_EVENT_TYPE = "auditEventType eq '(\\w+)'";
     public static final String FILTER_BY_AFFILIATE_ID = "affiliateId eq '(\\w+)'";
+    public static final String FILTER_BY_APPLICATION_ID = "applicationId eq '(\\w+)'";
     public static final String FILTER_BY_AUDIT_EVENT_DATE_BETWEEN = "auditEventDate ge '(.*)' and auditEventDate le '(.*)'";
     
     @RequestMapping(value = Routes.AUDITS,
@@ -56,6 +57,11 @@ public class AuditResource {
     	if (affiliateIdMatcher.matches()) {
     		Long affiliateId = Long.parseLong(affiliateIdMatcher.group(1));
     		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByAffiliateId(affiliateId), HttpStatus.OK);
+    	}
+    	Matcher applicationIdMatcher = Pattern.compile(FILTER_BY_APPLICATION_ID).matcher(filter);
+    	if (applicationIdMatcher.matches()) {
+    		Long applicationId = Long.parseLong(applicationIdMatcher.group(1));
+    		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByApplicationId(applicationId), HttpStatus.OK);
     	}
     	Matcher auditEventDateBetweenMatcher = Pattern.compile(FILTER_BY_AUDIT_EVENT_DATE_BETWEEN).matcher(filter);
     	if (auditEventDateBetweenMatcher.matches()) {
