@@ -22,7 +22,10 @@
               </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" translate="login.form.button">Authenticate</button>
+          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()">
+          	<span translate="login.form.button">Authenticate</span>
+          	<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+          </button>
         </form>
       <hr>
       <div>
