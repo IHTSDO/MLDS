@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 import org.junit.Before;
@@ -49,7 +50,8 @@ public class HttpAuthAuthenticationProviderTest {
 	public void successReturnsAnAuthentication() throws Exception {
 		stubUserLookup("username", remoteUserInfo);
 		stubUserPasswordCheckResult("username", "password", true);
-		
+		stubUserPerms("username", adminUserPermission);
+
 		Authentication authentication = authenticationProvider.authenticate(new UsernamePasswordAuthenticationToken("username", "password"));
 		
 		assertNotNull(authentication);
@@ -83,11 +85,16 @@ public class HttpAuthAuthenticationProviderTest {
 	public void successfulAuthenticationHasAuthorities() throws Exception {
 		stubUserLookup("username", remoteUserInfo);
 		stubUserPasswordCheckResult("username", "password", true);
-		Mockito.stub(httpAuthAdaptorMock.getUserPermissions("username")).toReturn(Arrays.asList(adminUserPermission));
+		stubUserPerms("username", adminUserPermission);
 		
 		Authentication authentication = authenticationProvider.authenticate(new UsernamePasswordAuthenticationToken("username", "password"));
 		
 		assertThat(authentication.getAuthorities(), not(empty()));
+	}
+
+	private void stubUserPerms(String username, CentralAuthUserPermission... perms)
+			throws ClientProtocolException, IOException {
+		Mockito.stub(httpAuthAdaptorMock.getUserPermissions(username)).toReturn(Arrays.asList(perms));
 	}
 
 
