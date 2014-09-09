@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +58,7 @@ import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAuthenticationProvider.RemoteUserDetails;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAdaptor;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
@@ -125,6 +127,11 @@ public class AccountResource {
 	@Resource
 	UserMembershipAccessor userMembershipAccessor;
 	
+	@Resource
+	HttpAuthAdaptor httpAuthAdaptor;
+	
+	CurrentSecurityContext currentSecurityContext = new CurrentSecurityContext();
+
     /**
      * POST  /rest/register -> register the user.
      */
@@ -202,7 +209,6 @@ public class AccountResource {
         	
         	affiliateAuditEvents.logCreationOf(affiliate);
         	
-        	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
                     userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey(), false);
@@ -243,47 +249,48 @@ public class AccountResource {
 
     /**
      * GET  /rest/account -> get the current user.
+     * @throws IOException 
+     * @throws ClientProtocolException 
      */
     @RequestMapping(value = "/rest/account",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-    public ResponseEntity<UserDTO> getAccount() {
-    	CurrentSecurityContext currentSecurityContext = new CurrentSecurityContext();
+    public ResponseEntity<UserDTO> getAccount() throws ClientProtocolException, IOException {
     	final UserDTO userDto;
-    	if (currentSecurityContext.isStaffOrAdmin()) {
-    		RemoteUserDetails remoteUserDetails = currentSecurityContext.getRemoteUserDetails();
-    		CentralAuthUserInfo centralAuthUserInfo = remoteUserDetails.getCentralAuthUserInfo();
-    		
-            Member member = userMembershipAccessor.getMemberAssociatedWithUser();
-    		List<String> roles = currentSecurityContext.getRolesList();
-			userDto = new UserDTO(
-    				remoteUserDetails.getUsername(),
-    				"XX",
-    				centralAuthUserInfo.getGivenName(),
-    				centralAuthUserInfo.getSurname(),
-    				centralAuthUserInfo.getEmail(),
-    				"en",
-    			    roles,
-    			    null,
-    			    member
-    				);
-    	} else if (currentSecurityContext.isUser()) {
-            User user = userService.getUserWithAuthorities();
-            if (user == null) {
-    			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            } else {
-            	userDto = createUserDtoFromUser(user);
-            }
-    	} else {
-    		throw new RuntimeException("Security requires login, but can't find login type");
-    	}
-    	
-		return new ResponseEntity<>(
-            userDto,
-            HttpStatus.OK);
+        User user = userService.getUserWithAuthorities();
+        if (user != null) {
+        	userDto = createUserDtoFromUser(user);
+        } else {
+        	CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserInfo(currentSecurityContext.getCurrentUserName());
+        	if (userInfo != null) {
+                userDto = createUserDtoFromRemoteUserInfo(userInfo);
+        	} else {
+            	return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        	}
+        }
+        
+		return new ResponseEntity<>(userDto,HttpStatus.OK);
     }
+	private UserDTO createUserDtoFromRemoteUserInfo(CentralAuthUserInfo userInfo) {
+		Member member = userMembershipAccessor.getMemberAssociatedWithUser();
+		
+		List<String> roles = currentSecurityContext.getRolesList();
+		
+		UserDTO userDto = new UserDTO(
+				userInfo.getName(),
+				"XX",
+				userInfo.getGivenName(),
+				userInfo.getSurname(),
+				userInfo.getEmail(),
+				"en", // The central service doesn't have a language preference.
+			    roles,
+			    null,
+			    member
+				);
+		return userDto;
+	}
     
 	private UserDTO createUserDtoFromUser(User user) {
 		Set<Authority> authorities = user.getAuthorities();
@@ -304,6 +311,7 @@ public class AccountResource {
 		    );
 		return userDto;
 	}
+	
 	private List<String> rolesFromAuthorities(Set<Authority> authorities) {
 		List<String> roles = new ArrayList<>();
 		for (Authority authority : authorities) {
