@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
+import java.util.Map;
+
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
@@ -45,6 +48,24 @@ public class AffiliateAuditEventsTest {
 		Mockito.verify(auditEventService).logAuditableEvent(auditEvent.capture());
 		
 		Assert.assertThat(auditEvent.getValue().getAffiliateId(), Matchers.equalTo(123L));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void logStandingStateChangeShouldIndicateNewState() {
+		Affiliate affiliate = new Affiliate(123L);
+		affiliate.setStandingState(StandingState.REJECTED);
+		
+		affiliateAuditEvents.logStandingStateChange(affiliate);
+
+		ArgumentCaptor<Map<String,String>> auditEvent = ArgumentCaptor.forClass((Class)Map.class);
+		Mockito.verify(auditEventService).createAuditEvent(
+				Mockito.eq(AffiliateAuditEvents.EVENT_AFFILIATE_STANDING_STATE_CHANGED),
+				auditEvent.capture());
+		
+		Assert.assertThat(auditEvent.getValue(), Matchers.hasEntry("affiliate.standingState", "REJECTED"));
+		
+		Mockito.verify(auditEventService).logAuditableEvent(Mockito.any(PersistentAuditEvent.class));
 	}
 
 }
