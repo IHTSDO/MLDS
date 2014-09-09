@@ -1,8 +1,13 @@
 'use strict';
 
 angular.module('MLDS').controller('ActivationController',
-		['$scope', '$routeParams', 'Activate', '$timeout', '$location', 
-    function ($scope, $routeParams, Activate, $timeout, $location) {
+		['$scope', '$routeParams', 'Activate', '$timeout', '$location', 'Session',
+    function ($scope, $routeParams, Activate, $timeout, $location, Session) {
+		$rootScope.authenticationError = false;
+	    $rootScope.authenticated = false;
+	    $rootScope.account = null;
+	    Session.invalidate();
+	    
         Activate.get({key: $routeParams.key},
             function (value, responseHeaders) {
                 $scope.error = null;
