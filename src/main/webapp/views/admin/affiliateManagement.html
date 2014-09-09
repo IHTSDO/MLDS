@@ -39,8 +39,7 @@
 					</tr>
 				</thead>
 				<tbody infinite-scroll="nextPage()" infinite-scroll-distance="1" infinite-scroll-disabled="downloadingAffiliates">
-					<!--  orderBy: ['affiliateDetails.organizationName', 'application.affiliateDetails.organizationName', 'affiliateDetails.firstName', 'application.affiliateDetails.firstName', 'affiliateDetails.lastName', 'application.affiliateDetails.lastName', 'creator'] -->
-					<tr ng-click="viewAffiliate(affiliate.affiliateId)" ng-repeat="affiliate in affiliates" ng-show="affiliate.application.approvalState === 'APPROVED'">
+					<tr ng-click="viewAffiliate(affiliate.affiliateId)" ng-repeat="affiliate in affiliates">
 						<td>{{affiliate.affiliateId}}</td>
 						<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
 						<td>{{affiliate.standingState | enum:'affiliate.standingState.'}}</td>
