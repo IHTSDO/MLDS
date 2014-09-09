@@ -2,6 +2,7 @@
 
 mldsApp.controller('LoginController', ['$scope', '$location', 'AuthenticationSharedService',
     function ($scope, $location, AuthenticationSharedService) {
+		$rootScope.authenticationError = false;
         $scope.rememberMe = true;
     	$scope.submitting = false;
         $scope.login = function () {
