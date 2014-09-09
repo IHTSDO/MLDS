@@ -128,12 +128,14 @@
          		<strong>{{application.approvalState | enum:'approval.state.'}}</strong>
           </td>
           <td>
-						<a href="#/extensionApplication/{{application.applicationId}}" class="btn-sm" 
-							ng-class="{'btn-warning': isApplicationWaitingForApplicant(application), 'btn-primary': !isApplicationWaitingForApplicant(application)}" 
-	            ng-if="application.applicationType === 'EXTENSION'">
-	             <span ng-if="isApplicationWaitingForApplicant(application)"><i class="fa fa-edit"></i> Edit</span>
-	             <span ng-if="!isApplicationWaitingForApplicant(application)"><i class="fa fa-eye"></i> View</span>
-						</a>
+          	<span ng-if="application.applicationType === 'EXTENSION'">
+          		<a ng-if="isApplicationWaitingForApplicant(application)" href="#/extensionApplication/{{application.applicationId}}" class="btn-warning btn-sm">
+          			<i class="fa fa-edit"></i> Edit
+          		</a>
+          		<a ng-if="!isApplicationWaitingForApplicant(application)"ng-click="viewApplication(application)" class="btn-primary btn-sm">
+          			<i class="fa fa-eye"></i> View
+          		</a>
+          	</span>
 						<a class="btn-sm btn-primary"
 							ng-click="viewApplication(application)" ng-if="application.applicationType === 'PRIMARY'">
 								<i class="fa fa-eye"></i> View

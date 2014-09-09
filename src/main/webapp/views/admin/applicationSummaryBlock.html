@@ -1,7 +1,7 @@
 <div ng-switch="application.applicationType">
 	<div class="panel panel-primary" ng-switch-when="EXTENSION">
 	  <div class="panel-heading">
-	    <h3 class="panel-title">Extension Application Info</h3>
+	    <h3 class="panel-title">{{application.member.key | enum:'global.member.'}} Extension Application Info</h3>
 	  </div>
 	  <div class="panel-body">
 		  <p><strong>Reason:</strong> {{application.reason}}</p>
@@ -18,7 +18,7 @@
 		    <span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{application.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
 		  </p>
 		  <p ng-switch-when="PRIMARY"><strong>Use Type:</strong> {{application.type | enum:'affiliate.type.'}}</p>
-		  <p ng-switch-when="EXTENSION"><strong>Use Type:</strong> {{application.affiliate.type | enum:'affiliate.type.'}}</p>
+		  <p ng-switch-when="EXTENSION"><strong>Use Type:</strong> {{application.affiliateDetails.type | enum:'affiliate.type.'}}</p>
 		  <p ng-switch-when="PRIMARY"><strong>Use Subtype:</strong> {{application.subType | enum:'affiliate.subType.'}}</p>
 		  <p ng-switch-when="PRIMARY"><strong>Type of Agreement:</strong> {{application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</p>
 		  <p ng-show="standingState"><strong>Account Standing:</strong> {{standingState | enum:'affiliate.standingState.'}}</p>
