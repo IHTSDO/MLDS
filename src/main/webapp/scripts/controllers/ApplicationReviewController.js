@@ -64,6 +64,10 @@ mldsApp.controller('ApplicationReviewController', [
 						}
 						
 						loadApplicationAudits(application.applicationId);
+
+						if (application.affiliate) {
+							$scope.standingState = application.affiliate.standingState;
+						}
 						
 						if (application.commercialUsage) {
 							$scope.commercialUsageInstitutionsByCountry = _.groupBy(application.commercialUsage.entries, 
