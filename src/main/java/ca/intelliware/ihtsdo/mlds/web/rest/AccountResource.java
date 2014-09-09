@@ -59,7 +59,6 @@ import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAdaptor;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAuthenticationProvider.RemoteUserDetails;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
@@ -285,7 +284,7 @@ public class AccountResource {
 				userInfo.getGivenName(),
 				userInfo.getSurname(),
 				userInfo.getEmail(),
-				"en",
+				"en", // The central service doesn't have a language preference.
 			    roles,
 			    null,
 			    member
