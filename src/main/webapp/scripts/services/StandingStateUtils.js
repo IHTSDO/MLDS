@@ -3,7 +3,15 @@
 mldsApp.factory('StandingStateUtils', [function(){
 
 		var service = {};
-			
+
+		service.isDeactivationPending = function isSuccessCategory(standingState) {
+			return (standingState === 'DEACTIVATION_PENDING');
+		};
+
+		service.isDeregistrationPending = function isSuccessCategory(standingState) {
+			return (standingState === 'DEREGISTRATION_PENDING');
+		};
+
 		service.isSuccessCategory = function isSuccessCategory(standingState) {
 			return (standingState === 'IN_GOOD_STANDING');
 		};
