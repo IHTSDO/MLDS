@@ -21,15 +21,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * HTTP query marshaller for the IHTSDO shared web authentication service.
  */
-@Service
 public class HttpAuthAdaptor {
 	static final String PARAM_USERNAME = "username";
 	static final String PARAM_QUERY_NAME = "queryName";
 	static final String PARAM_APP_NAME = "appName";
 	static final String PARAM_PASSWORD = "password";
 
-	//FIXME MLDS-170 MB extract to config
-	String queryUrl = "https://usermanagement.ihtsdotools.org/security-web/query/";
+	String queryUrl;
+	String applicationName = "MLDS";
 	HttpClient httpClient = HttpClients.createDefault();
 	
 	@Resource
@@ -102,7 +101,7 @@ public class HttpAuthAdaptor {
 		builder.addParam(PARAM_QUERY_NAME, "getUserAppPerms");
 		builder.addParam(PARAM_USERNAME, username);
 		//FIXME MLDS-170 MB extract to config
-		builder.addParam(PARAM_APP_NAME, "MLDS");
+		builder.addParam(PARAM_APP_NAME, applicationName);
 		HttpPost request = builder.toRequest();
 		
 		HttpResponse response = httpClient.execute(request);
@@ -113,6 +112,22 @@ public class HttpAuthAdaptor {
 		} finally {
 			request.releaseConnection();
 		}
+	}
+
+	public String getQueryUrl() {
+		return queryUrl;
+	}
+
+	public void setQueryUrl(String queryUrl) {
+		this.queryUrl = queryUrl;
+	}
+
+	public String getApplicationName() {
+		return applicationName;
+	}
+
+	public void setApplicationName(String applicationName) {
+		this.applicationName = applicationName;
 	}
 	
 	

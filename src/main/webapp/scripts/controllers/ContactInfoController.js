@@ -17,6 +17,26 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         $scope.approved = true;
         $scope.readOnly = false;
 
+        function checkAddresses(a, b) {
+    		if( a && b && (a.street != '' && a.street === b.street) 
+    				&& (a.city != '' && a.city === b.city)
+    				&& (a.country != '' && a.country === b.country)
+    				) {
+    			return true;
+    		}
+    		return false;
+    	};
+    	
+    	$scope.copyAddress = function() {
+    		if($scope.isSameAddress) {
+    			$scope.affiliateDetails.billingAddress = {};
+    			$scope.affiliateDetails.billingAddress.street = $scope.affiliateDetails.address.street;
+    			$scope.affiliateDetails.billingAddress.city = $scope.affiliateDetails.address.city;
+    			$scope.affiliateDetails.billingAddress.post = $scope.affiliateDetails.address.post;
+    			$scope.affiliateDetails.billingAddress.country = $scope.affiliateDetails.address.country;
+    		};
+    	};
+        
         function loadAffiliate() {
         	AffiliateService.myAffiliate()
         		.then(function(result) {
@@ -34,6 +54,9 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
     				$scope.affiliate = affiliate;
     				$scope.type = affiliate.type;
     				$scope.approved = AffiliateService.isApplicationApproved(affiliate);
+    				if (checkAddresses($scope.affiliateDetails, $scope.affiliateDetails.billingAddress)) {
+    					$scope.isSameAddress = true;
+    				}
         		})
     			["catch"](function(message) {
     				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
