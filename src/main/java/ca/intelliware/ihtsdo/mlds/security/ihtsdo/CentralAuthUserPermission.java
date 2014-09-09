@@ -8,6 +8,17 @@ public class CentralAuthUserPermission {
 	String app;
 	String role;
 	String member;
+	
+	public CentralAuthUserPermission() {
+	}
+
+	public CentralAuthUserPermission(String app, String role, String member) {
+		this();
+		this.app = app;
+		this.role = role;
+		this.member = member;
+	}
+
 	public String getApp() {
 		return app;
 	}
