@@ -1,5 +1,5 @@
   <div class="row" ng-hide="usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED'">
-    <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-12">
       <div class="alert alert-danger space" role="alert">
         <div><strong>Usage Declaration Required</strong></div>
         <p>You have not submitted a usage declaration. To complete your affiliate registration, please submit a usage declaration by selecting an existing or creating a new usage declaration from the Usage Reports module below.</p>
@@ -8,7 +8,7 @@
   </div>
 
   <div class="row space" ng-show="affiliate.application.approvalState === 'CHANGE_REQUESTED'">
-    <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-12">
       <div class="alert alert-warning" role="alert">
         <div><strong>Affiliate Registration Requires Change</strong></div>
         <p>Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
@@ -17,7 +17,7 @@
   </div>
 
   <div class="row" ng-show="affiliate.application.approvalState === 'REJECTED'">
-    <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-12">
       <div class="alert alert-danger" role="alert">
         <div><strong>Affiliate Registration Declined</strong></div>
         <p>Your affiliate registration has been declined. Please see email regarding the details of the decision.</p>
@@ -25,8 +25,26 @@
     </div>
   </div>
 
+  <div class="row" ng-show="standingStateUtils.isDeactivationPending(affiliate.standingState)">
+    <div class="col-sm-12">
+      <div class="alert alert-danger space" role="alert">
+        <div><strong>Account Deactivation Pending FIXME</strong></div>
+        <p>Your account is scheduled to be Deactivated. Please contact IHTSDO to resolve the issue. FIXME</p>
+      </div>
+    </div>
+  </div>
+
+<div class="row" ng-show="standingStateUtils.isDeregistrationPending(affiliate.standingState)">
+    <div class="col-sm-12">
+      <div class="alert alert-danger space" role="alert">
+        <div><strong>Account Deregistration Pending FIXME</strong></div>
+        <p>Your account is scheduled to be Deregistered. Please contact IHTSDO to resolve the issue. FIXME</p>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-12">
      <div class="page-header">
       <h1>Welcome {{firstName}} {{lastName}}</h1> 
     </div>
