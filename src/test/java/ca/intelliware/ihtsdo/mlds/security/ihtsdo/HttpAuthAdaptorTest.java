@@ -39,6 +39,8 @@ public class HttpAuthAdaptorTest {
 	public void setUp() {
 		httpAuthAdaptor.httpClient = httpClient;
 		httpAuthAdaptor.objectMapper = new ObjectMapperTestBuilder().buildObjectMapper();
+		httpAuthAdaptor.setApplicationName("MLDS");
+		httpAuthAdaptor.setQueryUrl("http://example.com/");
 	}
 	
 	@Test
