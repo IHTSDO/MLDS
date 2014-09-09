@@ -2,6 +2,14 @@
 
 mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authService', 'Session', 'Account',
     function ($rootScope, $http, authService, Session, Account) {
+		var extractErrorCodeFromMessage = function extractErrorCodeFromMessage(message) {
+            var errorCodePatternResult = /MLDS_ERR_[A-Z_]+/.exec(message);
+            if (errorCodePatternResult) {
+            	return errorCodePatternResult[0];
+            } else {
+            	return null;
+            }
+		};
         return {
             login: function (param) {
                 var data = $.param({ 
@@ -22,7 +30,18 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                         authService.loginConfirmed(data);
                     });
                 }).error(function (data, status, headers, config) {
+                    var errorCode = extractErrorCodeFromMessage(data.message);
+                    var messageKey;
+                    if (errorCode) {
+                    	messageKey = {
+                    		'MLDS_ERR_AUTH_NO_PERMISSIONS' : 'login.messages.error.noPermissions',
+                    		'MLDS_ERR_AUTH_BAD_PASSWORD' : 'login.messages.error.authentication',
+                    		'MLDS_ERR_AUTH_SYSTEM' : 'global.messages.error.server'
+                    	}[errorCode];
+                    }
                     $rootScope.authenticationError = true;
+                    $rootScope.authenticationErrorMessageKey = messageKey?messageKey:'login.messages.error.authentication';
+                    
                     Session.invalidate();
                 });
             },

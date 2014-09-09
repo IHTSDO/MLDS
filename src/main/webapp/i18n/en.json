@@ -420,7 +420,8 @@
         },
         "messages": {
             "error": {
-                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again. Passwords are case sensitive."
+                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again. Passwords are case sensitive.",
+                "noPermissions": "<strong>Authentication failed!</strong> We authenticated you, but your account has no access to this application, or is misconfigured.  Please contact support."
             }
         }
     },
