@@ -6,18 +6,17 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.BufferedHttpEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.io.Closeables;
 
 /**
  * HTTP query marshaller for the IHTSDO shared web authentication service.
@@ -31,13 +30,12 @@ public class HttpAuthAdaptor {
 
 	//FIXME MLDS-170 MB extract to config
 	String queryUrl = "https://usermanagement.ihtsdotools.org/security-web/query/";
-	CloseableHttpClient httpClient = HttpClients.createDefault();
+	HttpClient httpClient = HttpClients.createDefault();
 	
 	@Resource
 	ObjectMapper objectMapper;
 
 	public HttpAuthAdaptor() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public HttpAuthAdaptor(String url) {
@@ -52,21 +50,22 @@ public class HttpAuthAdaptor {
 		builder.addParam(PARAM_PASSWORD, password);
 		HttpPost request = builder.toRequest();
 	    
-		CloseableHttpResponse response = httpClient.execute(request);
-		
-		int statusCode = response.getStatusLine().getStatusCode();
-		boolean result;
-		if (statusCode == 200) {
-			result = true;
-		} else if (statusCode == 401) {
-			result = false;
-		} else {
-			throw new IOException("Authentication service returned unexpected value: " + statusCode);
+		HttpResponse response = httpClient.execute(request);
+		try {
+			int statusCode = response.getStatusLine().getStatusCode();
+			boolean result;
+			if (statusCode == 200) {
+				result = true;
+			} else if (statusCode == 401) {
+				result = false;
+			} else {
+				throw new IOException("Authentication service returned unexpected value: " + statusCode);
+			}
+			
+			return result;
+		} finally {
+			request.releaseConnection();
 		}
-		
-		Closeables.close(response, true);
-		
-		return result;
 	}
 
 	public CentralAuthUserInfo getUserInfo(String username) throws IOException {
@@ -75,7 +74,7 @@ public class HttpAuthAdaptor {
 		builder.addParam(PARAM_USERNAME, username);
 		HttpPost request = builder.toRequest();
 	    
-		CloseableHttpResponse response = httpClient.execute(request);
+		HttpResponse response = httpClient.execute(request);
 		
 		HttpEntity entity = new BufferedHttpEntity(response.getEntity());
 		
@@ -89,19 +88,13 @@ public class HttpAuthAdaptor {
 			} else {
 				throw new IllegalStateException("Unexpected JSON: " + body, e);
 			}
+		} finally {
+			request.releaseConnection();
 		}
 	}
 	
 	static class AuthoritiesResponse {
-		List<CentralAuthUserPermission> perms;
-
-		public List<CentralAuthUserPermission> getPerms() {
-			return perms;
-		}
-
-		public void setPerms(List<CentralAuthUserPermission> perms) {
-			this.perms = perms;
-		}
+		public List<CentralAuthUserPermission> perms;
 	}
 	
 	public List<CentralAuthUserPermission> getUserPermissions(String username) throws ClientProtocolException, IOException {
@@ -112,11 +105,14 @@ public class HttpAuthAdaptor {
 		builder.addParam(PARAM_APP_NAME, "MLDS");
 		HttpPost request = builder.toRequest();
 		
-		CloseableHttpResponse response = httpClient.execute(request);
-		
-		AuthoritiesResponse authResponse = objectMapper.readValue(response.getEntity().getContent(), AuthoritiesResponse.class);
-		
-		return authResponse.getPerms();
+		HttpResponse response = httpClient.execute(request);
+
+		try {
+			AuthoritiesResponse authResponse = objectMapper.readValue(response.getEntity().getContent(), AuthoritiesResponse.class);
+			return authResponse.perms;
+		} finally {
+			request.releaseConnection();
+		}
 	}
 	
 	

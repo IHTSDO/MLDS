@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAuthenticationProvider.RemoteUserDetails;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.RemoteUserDetails;
 
 import com.google.common.collect.Lists;
 
