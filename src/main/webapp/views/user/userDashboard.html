@@ -143,10 +143,12 @@
 		</li>
 		<li class="list-group-item"><strong>Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType |  enum:'affiliate.agreementType.'}}</li>
 	</ul>
-    <span class="alert alert-warning btn-block" ng-show="isApplicationPending(affiliate.application)">
-      <strong>Application Status:</strong> Pending Approval</span>
-    <span class="alert alert-success btn-block" ng-show="affiliate.application.approvalState === 'APPROVED'">
-      <strong>Application Status:</strong> Approved</span>
+    <span class="alert alert-success btn-block" ng-show="standingStateUtils.isSuccessCategory(affiliate.standingState)">
+      <strong>Account Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</span>
+    <span class="alert alert-warning btn-block" ng-show="standingStateUtils.isWarningCategory(affiliate.standingState)">
+      <strong>Account Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</span>
+    <span class="alert alert-danger btn-block" ng-show="standingStateUtils.isDangerCategory(affiliate.standingState)">
+      <strong>Account Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</span>
   </div>
 </div>
 
