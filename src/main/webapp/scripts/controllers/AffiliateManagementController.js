@@ -28,7 +28,6 @@ mldsApp.controller('AffiliateManagementController', [
 				}
 				$scope.downloadingAffiliates = true;
 				$scope.alerts = [];
-				//$log.log("wanting existing "+$scope.affiliates.length+" page="+$scope.page);
 				AffiliateService.filterAffiliates($scope.query, $scope.page, 50, $scope.showAllAffiliates==1?null:$scope.homeMember)
 					.then(function(response) {
 						//$log.log("...appending "+response.data.length+" to existing "+$scope.affiliates.length+" page="+$scope.page);
