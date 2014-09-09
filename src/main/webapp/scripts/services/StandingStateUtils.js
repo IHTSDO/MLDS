@@ -4,6 +4,14 @@ mldsApp.factory('StandingStateUtils', [function(){
 
 		var service = {};
 
+		service.isApplying = function isApplying(standingState) {
+			return (standingState === 'APPLYING');
+		};
+
+		service.isRejected = function isRejected(standingState) {
+			return (standingState === 'REJECTED');
+		};
+
 		service.isDeactivationPending = function isSuccessCategory(standingState) {
 			return (standingState === 'DEACTIVATION_PENDING');
 		};

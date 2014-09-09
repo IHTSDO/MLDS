@@ -10,7 +10,8 @@ mldsApp.controller('AffiliateSummaryController', [
 		'AffiliateService',
 		'ApplicationUtilsService',
 		'AuditsService',
-		function($scope, $log, $location, $modal, $routeParams, Session, AffiliateService, ApplicationUtilsService, AuditsService) {
+		'StandingStateUtils',
+		function($scope, $log, $location, $modal, $routeParams, Session, AffiliateService, ApplicationUtilsService, AuditsService, StandingStateUtils) {
 			
 			var affiliateId = $routeParams.affiliateId && parseInt($routeParams.affiliateId, 10);
 			
@@ -19,6 +20,8 @@ mldsApp.controller('AffiliateSummaryController', [
 			$scope.approved = false;
 			$scope.isApplicationApproved = ApplicationUtilsService.isApplicationApproved;
 			$scope.audits = [];
+			
+			$scope.standingStateUtils = StandingStateUtils; 
 
 			$scope.alerts = [];
 			$scope.submitting = false;
@@ -49,11 +52,32 @@ mldsApp.controller('AffiliateSummaryController', [
 			loadAffiliate(); 
 			
 			$scope.editAffiliate = function editAffiliate() {
-				$location.path('/affiliateManagement/' + affiliateId + '/edit')
+				$location.path('/affiliateManagement/' + affiliateId + '/edit');
+			};
+			
+			$scope.changeStanding = function changeStanding() {
+				if ($scope.standingStateUtils.isApplying($scope.affiliate.standingState)) {
+					return;
+				}
+				
+				var modalInstance = $modal.open({
+        			templateUrl: 'views/admin/editAffiliateStandingModal.html',
+        			controller: 'EditAffiliateStandingModalController',
+        			size:'lg',
+        			resolve: {
+        				affiliate: function() {
+        					return angular.copy($scope.affiliate);
+        				}
+        			}
+        		});
+        		modalInstance.result.then(function (updatedApplication) {
+        			loadAffiliate();
+    		    });
+
 			};
 			
 			$scope.viewApplication = function viewApplication(application) {
-        		var modalInstance = $modal.open({
+        		$modal.open({
         			templateUrl: 'views/applicationSummaryModal.html',
         			controller: 'ApplicationSummaryModalController',
         			size:'lg',
