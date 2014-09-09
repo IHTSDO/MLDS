@@ -19,7 +19,12 @@
 	  					<span ng-show="affiliate.affiliateDetails.type == 'OTHER'">{{affiliate.affiliateDetails.otherText}}</span>
   					</li>
 	  				<li class="list-group-item"><strong>Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</li>
-	  				<li class="list-group-item"><strong>Account Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</li>
+	  				<li class="list-group-item"><strong>Account Standing:</strong>
+	  					{{affiliate.standingState | enum:'affiliate.standingState.'}}
+	  					<span class="text-warning" ng-show="standingStateUtils.isWarningCategory(affiliate.standingState)"><i class="fa fa-exclamation-circle"></i></span>
+	  					<span class="text-danger" ng-show="standingStateUtils.isDangerCategory(affiliate.standingState)"><i class="fa fa-exclamation-circle"></i></span>
+	  					<span class="pull-right btn-sm btn-success" ng-show="isEditable && !standingStateUtils.isApplying(affiliate.standingState) && !standingStateUtils.isRejected(affiliate.standingState)" ng-click="changeStanding()">Edit Account Standing</span>
+	  				</li>
 	  			</ul>
 	
 	  			<h4>Contact Information:</h4>
