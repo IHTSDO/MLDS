@@ -19,6 +19,10 @@
             <span ng-if="audit.data['affiliate.creator']"><i class="fa fa-users"></i> <strong>Affiliate:</strong> {{audit.data['affiliate.creator']}}</span>
             <span ng-if="audit.data['affiliate.affiliateId']"><strong>No:</strong> {{audit.data['affiliate.affiliateId']}}</span>
             <span ng-if="audit.data['affiliate.homeMember']"><strong>Member:</strong> {{audit.data['affiliate.homeMember'] | enum:'global.member.'}}</span>
+            <span ng-if="audit.data['affiliate.standingState']"><strong>Standing:</strong>
+            	<span ng-show="audit.data['affiliate.standingState'] === 'REJECTED'" class="text-danger"><span class="glyphicon glyphicon-remove"></span></span>
+            	{{audit.data['affiliate.standingState'] | enum:'affiliate.standingState.'}}
+            </span>
             <span ng-if="audit.data['affiliate.notesInternal']"><strong>Staff Notes:</strong> {{audit.data['affiliate.notesInternal']}}</span>
             
             <span ng-if="audit.data['releasePackage.name']"><i class="fa fa-cube"></i> <strong>Release Package Name:</strong> {{audit.data['releasePackage.name']}}</span>
@@ -30,7 +34,11 @@
             <span ng-if="audit.data['application.applicationId']"><strong>No:</strong> {{audit.data['application.applicationId']}}</span>
             <span ng-if="audit.data['application.type']"><strong>Type:</strong> {{audit.data['application.type'] | enum:'application.applicationType.'}}</span>
             <span ng-if="audit.data['application.member']"><strong>Member:</strong> {{audit.data['application.member'] | enum:'global.member.'}}</span>
-            <span ng-if="audit.data['application.approvalState']"><strong>Application State:</strong> {{audit.data['application.approvalState'] | enum:'approval.state.'}}</span>
+            <span ng-if="audit.data['application.approvalState']"><strong>Application State:</strong>
+               	<span ng-show="audit.data['application.approvalState'] === 'APPROVED'" class="text-success"><span class="glyphicon glyphicon-ok"></span></span>
+            	<span ng-show="audit.data['application.approvalState'] === 'REJECTED'" class="text-danger"><span class="glyphicon glyphicon-remove"></span></span>
+            	{{audit.data['application.approvalState'] | enum:'approval.state.'}}
+            </span>
             
             <span ng-if="audit.data['import.success'] === 'true'" class="text-success"><span class="glyphicon glyphicon-ok"></span> Successful Import</span>
             <span ng-if="audit.data['import.success'] === 'false'" class="text-danger"><span class="glyphicon glyphicon-remove"></span> Failed Import</span>

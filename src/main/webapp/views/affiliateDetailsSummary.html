@@ -19,6 +19,7 @@
 	  					<span ng-show="affiliate.affiliateDetails.type == 'OTHER'">{{affiliate.affiliateDetails.otherText}}</span>
   					</li>
 	  				<li class="list-group-item"><strong>Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</li>
+	  				<li class="list-group-item"><strong>Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</li>
 	  			</ul>
 	
 	  			<h4>Contact Information:</h4>
