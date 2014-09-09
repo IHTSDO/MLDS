@@ -1,7 +1,7 @@
 'use strict';
 
-mldsApp.controller('LoginController', ['$scope', '$location', 'AuthenticationSharedService',
-    function ($scope, $location, AuthenticationSharedService) {
+mldsApp.controller('LoginController', ['$scope', '$location', 'AuthenticationSharedService', '$rootScope',
+    function ($scope, $location, AuthenticationSharedService, $rootScope) {
 		$rootScope.authenticationError = false;
         $scope.rememberMe = true;
     	$scope.submitting = false;
