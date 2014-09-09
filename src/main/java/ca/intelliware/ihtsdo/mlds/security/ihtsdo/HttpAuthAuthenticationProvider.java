@@ -1,7 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -19,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo.Status;
+
+import com.google.common.collect.Lists;
 
 /**
  * AuthenticationProvider implementation that queries the IHTSDO Stormpath wrapper.
@@ -91,10 +92,12 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 			try {
 				boolean isValid = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
 				CentralAuthUserInfo remoteUserInfo = httpAuthAdaptor.getUserInfo(username);
-				List<CentralAuthUserPermission> userPermissions = httpAuthAdaptor.getUserPermissions(username);
 				
 				if (isValid) {
-					List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN));
+			    	// FIXME MLDS-170 MB build permissions
+					List<CentralAuthUserPermission> userPermissions = httpAuthAdaptor.getUserPermissions(username);
+					List<SimpleGrantedAuthority> authorities = buildAuthoritiesList(userPermissions);
+					
 					RemoteUserDetails user = new RemoteUserDetails(remoteUserInfo, authorities);
 					return new UsernamePasswordAuthenticationToken(user, password,authorities);
 				} else {
@@ -107,6 +110,21 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 		} else {
 			throw new IllegalArgumentException("Unsupported type of authentication request: " + authentication.getClass());
 		}
+	}
+
+	private List<SimpleGrantedAuthority> buildAuthoritiesList(List<CentralAuthUserPermission> userPermissions) {
+		List<SimpleGrantedAuthority> authorities = Lists.newArrayList();
+		for (CentralAuthUserPermission centralAuthUserPermission : userPermissions) {
+			authorities.add(buildAuthorityFromRemoteUserPermission(centralAuthUserPermission));
+		}
+		// For debug for now.
+		authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN));
+		return authorities;
+	}
+
+	private SimpleGrantedAuthority buildAuthorityFromRemoteUserPermission(CentralAuthUserPermission centralAuthUserPermission) {
+		// FIXME MLDS-170 MB staff vs admin, and add member param for staff role.
+		return new SimpleGrantedAuthority(centralAuthUserPermission.getRole());
 	}
 
 	@Override
