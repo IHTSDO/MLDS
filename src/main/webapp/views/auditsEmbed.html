@@ -21,6 +21,7 @@
             <span ng-if="audit.data['affiliate.homeMember']"><strong>Member:</strong> {{audit.data['affiliate.homeMember'] | enum:'global.member.'}}</span>
             <span ng-if="audit.data['affiliate.standingState']"><strong>Standing:</strong>
             	<span ng-show="audit.data['affiliate.standingState'] === 'REJECTED'" class="text-danger"><span class="glyphicon glyphicon-remove"></span></span>
+            	<span ng-show="audit.data['affiliate.standingState'] === 'DEREGISTERED'" class="text-danger"><span class="glyphicon glyphicon-remove"></span></span>
             	{{audit.data['affiliate.standingState'] | enum:'affiliate.standingState.'}}
             </span>
             <span ng-if="audit.data['affiliate.notesInternal']"><strong>Staff Notes:</strong> {{audit.data['affiliate.notesInternal']}}</span>

@@ -36,6 +36,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
@@ -178,7 +179,19 @@ public class AffiliateResource {
     	}
     	applicationAuthorizationChecker.checkCanManageAffiliate(affiliate);
     	
+    	StandingState originalStanding = affiliate.getStandingState();
+    	
     	copyAffiliateFields(affiliate, body);
+    	
+    	if (! Objects.equal(originalStanding, affiliate.getStandingState())) {
+    		if (Objects.equal(originalStanding, StandingState.APPLYING)
+    				|| Objects.equal(originalStanding, StandingState.REJECTED)) {
+    			return new ResponseEntity<>(HttpStatus.CONFLICT);
+    		} else {
+    			affiliateAuditEvents.logStandingStateChange(affiliate);
+    		}
+    	}
+
     	affiliateRepository.save(affiliate);
     	
     	affiliateAuditEvents.logUpdateOfAffiliate(affiliate);
@@ -188,6 +201,9 @@ public class AffiliateResource {
 
 	private void copyAffiliateFields(Affiliate affiliate, Affiliate body) {
 		affiliate.setNotesInternal(body.getNotesInternal());
+		if (body.getStandingState() != null) {
+			affiliate.setStandingState(body.getStandingState());
+		}
 	}
 
 	@RolesAllowed({AuthoritiesConstants.USER})
