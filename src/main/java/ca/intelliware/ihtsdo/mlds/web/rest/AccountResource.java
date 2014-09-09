@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
@@ -54,8 +55,11 @@ import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAuthenticationProvider.RemoteUserDetails;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
+import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
@@ -246,31 +250,67 @@ public class AccountResource {
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<UserDTO> getAccount() {
-        User user = userService.getUserWithAuthorities();
-        if (user == null) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        List<String> roles = new ArrayList<>();
-        for (Authority authority : user.getAuthorities()) {
-            roles.add(authority.getName());
-        }
+    	CurrentSecurityContext currentSecurityContext = new CurrentSecurityContext();
+    	final UserDTO userDto;
+    	if (currentSecurityContext.isStaffOrAdmin()) {
+    		RemoteUserDetails remoteUserDetails = currentSecurityContext.getRemoteUserDetails();
+    		CentralAuthUserInfo centralAuthUserInfo = remoteUserDetails.getCentralAuthUserInfo();
+    		
+            Member member = userMembershipAccessor.getMemberAssociatedWithUser();
+    		List<String> roles = currentSecurityContext.getRolesList();
+			userDto = new UserDTO(
+    				remoteUserDetails.getUsername(),
+    				"XX",
+    				centralAuthUserInfo.getGivenName(),
+    				centralAuthUserInfo.getSurname(),
+    				centralAuthUserInfo.getEmail(),
+    				"en",
+    			    roles,
+    			    null,
+    			    member
+    				);
+    	} else if (currentSecurityContext.isUser()) {
+            User user = userService.getUserWithAuthorities();
+            if (user == null) {
+    			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+            	userDto = createUserDtoFromUser(user);
+            }
+    	} else {
+    		throw new RuntimeException("Security requires login, but can't find login type");
+    	}
+    	
+		return new ResponseEntity<>(
+            userDto,
+            HttpStatus.OK);
+    }
+    
+	private UserDTO createUserDtoFromUser(User user) {
+		Set<Authority> authorities = user.getAuthorities();
+		List<String> roles = rolesFromAuthorities(authorities);
         
         Member member = userMembershipAccessor.getMemberAssociatedWithUser();
         
-        return new ResponseEntity<>(
-            new UserDTO(
-                user.getLogin(),
-                user.getPassword(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getLangKey(),
-                roles,
-                null,
-                member
-                ),
-            HttpStatus.OK);
-    }
+        UserDTO userDto = new UserDTO(
+		    user.getLogin(),
+		    "XXX",
+		    user.getFirstName(),
+		    user.getLastName(),
+		    user.getEmail(),
+		    user.getLangKey(),
+		    roles,
+		    null,
+		    member
+		    );
+		return userDto;
+	}
+	private List<String> rolesFromAuthorities(Set<Authority> authorities) {
+		List<String> roles = new ArrayList<>();
+		for (Authority authority : authorities) {
+            roles.add(authority.getName());
+        }
+		return roles;
+	}
 
     /**
      * POST  /rest/account -> update the current user information.

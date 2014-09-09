@@ -85,6 +85,7 @@ public class CustomPersistentRememberMeServices extends
     @Transactional
     protected UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request, HttpServletResponse response) {
 
+    	// FIXME MLDS-170 MB this is busted for remote users
         PersistentToken token = getPersistentToken(cookieTokens);
         String login = token.getUser().getLogin();
 
@@ -109,6 +110,7 @@ public class CustomPersistentRememberMeServices extends
         String login = successfulAuthentication.getName();
 
         log.debug("Creating new persistent login for user {}", login);
+    	// FIXME MLDS-170 MB this is busted for remote users
         User user = userRepository.findOne(login);
 
         PersistentToken token = new PersistentToken();
