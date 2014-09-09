@@ -324,7 +324,7 @@
 									<label>Address:</label> <input class="form-control"
 										name="addressStreet" placeholder="123 Somewhere Avenue"
 										ng-required="type!='INDIVIDUAL'" ng-model="affiliateDetails.address.street"
-										ng-disabled="readOnly">
+										ng-disabled="readOnly" ng-change="copyAddress()">
 									<p
 										ng-show="form.addressStreet.$error.required && form.attempted"
 										class="help-block">Required field.</p>
@@ -345,7 +345,7 @@
 									<input class="form-control" name="addressCity"
 										placeholder="City" ng-required="type!='INDIVIDUAL'"
 										ng-model="affiliateDetails.address.city"
-										ng-disabled="readOnly">
+										ng-disabled="readOnly" ng-change="copyAddress()">
 									<p ng-show="form.addressCity.$error.required && form.attempted"
 										class="help-block">Required field.</p>
 								</div>
@@ -355,7 +355,7 @@
 									<input class="form-control" type="text"
 										ng-model="affiliateDetails.address.post" name="addressPost"
 										ng-required="type!='INDIVIDUAL'" placeholder="Post Code"
-										ng-maxlength="25" ng-disabled="readOnly">
+										ng-maxlength="25" ng-disabled="readOnly" ng-change="copyAddress()">
 									<p ng-show="form.addressPost.$error.required && form.attempted"
 										class="help-block">Required field.</p>
 									<p ng-show="form.addressPost.$error.maxlength"
@@ -371,6 +371,13 @@
 							</div>
 						</div>
 						<hr>
+						<div class="row" ng-show="!$root.Session.isStaffOrAdmin()">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Use Organization Address as Billing Address</label> <input name="use" type="checkbox" ng-change="copyAddress()" ng-model="isSameAddress">
+                </div>
+              </div>
+            </div>
 						<div ng-show="type=='COMMERCIAL'">
 							<div class="row">
 								<div class="col-md-6">
@@ -379,7 +386,7 @@
 											name="billingAddressStreet" placeholder="Address"
 											ng-required="type=='COMMERCIAL'"
 											ng-model="affiliateDetails.billingAddress.street"
-											ng-disabled="readOnly">
+											ng-disabled="readOnly || isSameAddress">
 										<p
 											ng-show="form.billingAddressStreet.$error.required && form.attempted"
 											class="help-block">Required field.</p>
@@ -400,7 +407,7 @@
 										<input class="form-control" name="billingAddressCity"
 											placeholder="City" ng-required="type=='COMMERCIAL'"
 											ng-model="affiliateDetails.billingAddress.city"
-											ng-disabled="readOnly">
+											ng-disabled="readOnly || isSameAddress">
 										<p
 											ng-show="form.billingAddressCity.$error.required && form.attempted"
 											class="help-block">Required field.</p>
@@ -411,7 +418,7 @@
 										<input class="form-control" type="text"
 											ng-model="affiliateDetails.billingAddress.post"
 											name="billingAddressPost" ng-required="type=='COMMERCIAL'" ng-maxlength="25"
-											placeholder="Post Code" ng-disabled="readOnly">
+											placeholder="Post Code" ng-disabled="readOnly || isSameAddress">
 										<p
 											ng-show="form.billingAddressPost.$error.required && form.attempted"
 											class="help-block">Required field.</p>
@@ -431,7 +438,7 @@
 											placeholder="Country"
 											typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
 											typeahead-editable="false"
-											ng-disabled="readOnly">
+											ng-disabled="readOnly || isSameAddress">
 										<p
 											ng-show="form.billingAddressCountry.$error.required && form.attempted"
 											class="help-block">Required field.</p>
