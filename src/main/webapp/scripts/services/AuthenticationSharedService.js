@@ -18,12 +18,14 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                 	_spring_security_remember_me : param.rememberMe
             	});
                 
-                $http.post('app/authentication', data, {
+                var httpPromise = $http.post('app/authentication', data, {
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
                     ignoreAuthModule: 'ignoreAuthModule'
-                }).success(function (data, status, headers, config) {
+                });
+                
+                httpPromise.success(function (data, status, headers, config) {
                     Account.get(function(data) {
                         Session.create(data.login, data.firstName, data.lastName, data.email, data.roles, data.member);
                         $rootScope.account = Session;
@@ -44,6 +46,7 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                     
                     Session.invalidate();
                 });
+                return httpPromise;
             },
             valid: function (authorizedRoles) {
 
