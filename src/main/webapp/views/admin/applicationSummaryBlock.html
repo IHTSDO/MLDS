@@ -13,7 +13,7 @@
 	    <h3 class="panel-title">Affiliate Info</h3>
 	  </div>
 	  <div class="panel-body">
-	    <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
+	      <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
 		    <span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{application.affiliateDetails.organizationTypeOther}}</span>
 		    <span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{application.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
 		  </p>
@@ -21,6 +21,7 @@
 		  <p ng-switch-when="EXTENSION"><strong>Use Type:</strong> {{application.affiliate.type | enum:'affiliate.type.'}}</p>
 		  <p ng-switch-when="PRIMARY"><strong>Use Subtype:</strong> {{application.subType | enum:'affiliate.subType.'}}</p>
 		  <p ng-switch-when="PRIMARY"><strong>Type of Agreement:</strong> {{application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</p>
+		  <p ng-show="standingState"><strong>Account Standing:</strong> {{standingState | enum:'affiliate.standingState.'}}</p>
 		</div>
 	</div>
 	
