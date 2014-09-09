@@ -2,14 +2,15 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$modal', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService', 'PackageUtilsService', 'MemberService', 'PackagesService',
-          function ($scope, $log, $modal, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService, PackageUtilsService, MemberService, PackagesService) {
+        [ '$scope', '$log', '$modal', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService', 'PackageUtilsService', 'MemberService', 'PackagesService', 'StandingStateUtils',
+          function ($scope, $log, $modal, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService, PackageUtilsService, MemberService, PackagesService, StandingStateUtils) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
         	$scope.packageUtils = PackageUtilsService;
         	$scope.usageReportsUtils = UsageReportsService;
+        	$scope.standingStateUtils = StandingStateUtils;
         	
         	$scope.affiliate = UserAffiliateService.affiliate;
         	$scope.approvedReleasePackagesByMember = [];
@@ -39,7 +40,7 @@ angular.module('MLDS')
         	$scope.isApplicationApproved = function(application) {
         		return ApplicationUtilsService.isApplicationApproved(application);
         	};
-
+        	
         	function loadReleasePackages() {
         		PackagesService.query().$promise
         			.then(function(releasePackages) {
