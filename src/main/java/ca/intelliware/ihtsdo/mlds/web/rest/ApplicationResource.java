@@ -26,11 +26,13 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateSubType;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
+import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.domain.json.ApplicationCollection;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
@@ -40,6 +42,7 @@ import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
@@ -66,6 +69,7 @@ public class ApplicationResource {
 	@Resource ApplicationApprovedEmailSender applicationApprovedEmailSender;
 	@Resource UserRepository userRepository;
 	@Resource ApplicationAuditEvents applicationAuditEvents;
+	@Resource AffiliateAuditEvents affiliateAuditEvents;
 	@Resource ApplicationAuthorizationChecker authorizationChecker;
 	@Resource CountryRepository countryRepository;
 	@Resource AffiliateDetailsRepository affiliateDetailsRepository;
@@ -106,22 +110,33 @@ public class ApplicationResource {
 			application.setCompletedAt(Instant.now());
 		}
 		
-		Affiliate affiliate = null;
+		Affiliate affiliate = findAffiliateByUsername(application.getUsername());
+		if (affiliate == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		
 		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
-			List<Affiliate> affiliates = affiliateRepository.findByCreator(application.getUsername());
+			AffiliateDetails affiliateDetails = (AffiliateDetails) application.getAffiliateDetails().clone(); 
 			
-			if (affiliates.size() > 0) {
-				affiliate = affiliates.get(0);
-				AffiliateDetails affiliateDetails = (AffiliateDetails) application.getAffiliateDetails().clone(); 
-				
-				affiliateDetailsResetter.detach(affiliateDetails);
-				
-				affiliateDetails = affiliateDetailsRepository.save(affiliateDetails);
-				affiliate.setAffiliateDetails(affiliateDetails);
+			affiliateDetailsResetter.detach(affiliateDetails);
+			
+			affiliateDetails = affiliateDetailsRepository.save(affiliateDetails);
+			affiliate.setAffiliateDetails(affiliateDetails);
+			affiliateRepository.save(affiliate);
+		}
+		
+		//FIXME MLDS-314 not sure where this code should be
+		if (Objects.equal(application.getApplicationType(), ApplicationType.PRIMARY)) {
+			StandingState newState = null;
+			if (Objects.equal(application.getApprovalState(), ApprovalState.APPROVED)) {
+				newState = StandingState.IN_GOOD_STANDING;
+			} else if (Objects.equal(application.getApprovalState(), ApprovalState.REJECTED)) {
+				newState = StandingState.REJECTED;
+			}
+			if (Objects.equal(affiliate.getStandingState(), StandingState.APPLYING) && newState != null) {
+				affiliate.setStandingState(newState);
 				affiliateRepository.save(affiliate);
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				affiliateAuditEvents.logStandingStateChange(affiliate);
 			}
 		}
 		
@@ -135,6 +150,16 @@ public class ApplicationResource {
 		applicationAuditEvents.logApprovalStateChange(application);
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
+	}
+
+	private Affiliate findAffiliateByUsername(String username) {
+		Affiliate affiliate = null;
+		List<Affiliate> affiliates = affiliateRepository.findByCreator(username);
+		
+		if (affiliates.size() > 0) {
+			affiliate = affiliates.get(0);
+		}
+		return affiliate;
 	}
 	
 	

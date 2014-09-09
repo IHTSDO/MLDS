@@ -615,6 +615,7 @@
 			"AFFILIATE_EXPORT": "Affiliate Batch Export",
 			"AFFILIATE_IMPORT": "Affiliate Batch Import",
 			"AFFILIATE_LOGIN_CREATED": "Affiliate Login Created",
+			"AFFILIATE_STANDING_STATE_CHANGED": "Affiliate Standing State Changed",
 
         	"APPLICATION_CREATED": "Application Created",
         	"APPLICATION_APPROVAL_STATE_CHANGED": "Application Approval State Changed",
@@ -674,6 +675,18 @@
 			"IMPLEMENTED": "Live/Implemented",
 			"DEVELOPMENT": "In Progress/Development",
 			"PLANNING": "In Planning Stage"
+		},
+		"standingState": {
+			"APPLYING":"Applying",
+			"IN_GOOD_STANDING":"In Good Standing",
+			
+			"REJECTED":"Rejected",
+			
+			"DEACTIVATION_PENDING":"Deactivation Pending",
+			"DEACTIVATED":"Deactivated",
+			
+			"DEREGISTRATION_PENDING":"Deregistration Pending",
+			"DEREGISTERED":"Deregistered"
 		}
     },
     "approval": {

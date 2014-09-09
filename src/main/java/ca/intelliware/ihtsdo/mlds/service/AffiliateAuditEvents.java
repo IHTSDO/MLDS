@@ -18,6 +18,7 @@ public class AffiliateAuditEvents {
 	static final String EVENT_AFFILIATE_UPDATED_BY_IMPORT = "AFFILIATE_UPDATED_BY_IMPORT";
 	static final String EVENT_AFFILIATEDETAILS_UPDATED = "AFFILIATEDETAILS_UPDATED";
 	static final String EVENT_AFFILIATE_LOGIN_CREATED = "AFFILIATE_LOGIN_CREATED";
+	static final String EVENT_AFFILIATE_STANDING_STATE_CHANGED = "AFFILIATE_STANDING_STATE_CHANGED";
 	
 	@Resource
 	AuditEventService auditEventService;
@@ -38,9 +39,19 @@ public class AffiliateAuditEvents {
 	public void logCreationOfAffiliateLogin(Affiliate affiliate) {
 		logEvent(EVENT_AFFILIATE_LOGIN_CREATED, affiliate);
 	}
-	
+
+	public void logStandingStateChange(Affiliate affiliate) {
+		Map<String, String> auditData = createAffiliateData(affiliate);
+		auditData.put("affiliate.standingState", ""+affiliate.getStandingState());
+		logEvent(EVENT_AFFILIATE_STANDING_STATE_CHANGED, affiliate, auditData);
+	}
+
 	private void logEvent(String eventType, Affiliate affiliate) {
 		Map<String, String> auditData = createAffiliateData(affiliate);
+		logEvent(eventType, affiliate, auditData);
+	}
+
+	private void logEvent(String eventType, Affiliate affiliate, Map<String, String> auditData) {
 		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
 		auditEvent.setAffiliateId(affiliate.getAffiliateId());
 		auditEventService.logAuditableEvent(auditEvent);
@@ -61,9 +72,7 @@ public class AffiliateAuditEvents {
 	private void logAffiliateUpdate(String eventType, Affiliate affiliate) {
 		Map<String,String> auditData = createAffiliateData(affiliate);
     	auditData.put("affiliate.notesInternal", affiliate.getNotesInternal());
-		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
-		auditEvent.setAffiliateId(affiliate.getAffiliateId());
-		auditEventService.logAuditableEvent(auditEvent);
+		logEvent(eventType, affiliate, auditData);
 	}
 
 	public void logUpdateOfAffiliateDetails(Affiliate affiliate) {
@@ -72,9 +81,7 @@ public class AffiliateAuditEvents {
 
 	private void logDetailsUpdate(String eventType, Affiliate affiliate) {
 		Map<String, String> auditData = createAffiliateDetailsData(affiliate);
-		PersistentAuditEvent auditEvent = auditEventService.createAuditEvent(eventType, auditData);
-		auditEvent.setAffiliateId(affiliate.getAffiliateId());
-		auditEventService.logAuditableEvent(auditEvent);
+		logEvent(eventType, affiliate, auditData);
 	}
 
 	private Map<String, String> createAffiliateDetailsData(Affiliate affiliate) {
