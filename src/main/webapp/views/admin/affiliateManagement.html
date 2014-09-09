@@ -2,7 +2,7 @@
 	<div class="col-md-12">
 		<div class="page-header">
 			<h2>Affiliate Management</h2>
-			<div ng-if="isAdmin">
+			<div ng-show="isAdmin">
 				<span>Show: </span>
 				<select ng-model="showAllAffiliates">
 					<option value="0" selected="selected">My Affiliates</option>
@@ -30,6 +30,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Name</th>
+						<th>Standing</th>
 						<th>Type</th>
 						<th>Home Country</th>
 						<th>Member</th>
@@ -42,6 +43,7 @@
 					<tr ng-click="viewAffiliate(affiliate.affiliateId)" ng-repeat="affiliate in affiliates" ng-show="affiliate.application.approvalState === 'APPROVED'">
 						<td>{{affiliate.affiliateId}}</td>
 						<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
+						<td>{{affiliate.standingState | enum:'affiliate.standingState.'}}</td>
 						<td>{{affiliate.application.type | enum:'affiliate.type.'}} - {{affiliate.application.subType | enum:'affiliate.subType.'}} {{affiliate.affiliateDetails.otherText}}</td>
 						<td>{{affiliateActiveDetails(affiliate).address.country.commonName}}</td>
 						<td>{{affiliate.homeMember.key}}</td>
