@@ -21,16 +21,20 @@ public class UserStandingCalculator {
 	@Resource
 	AffiliateRepository affiliateRepository;
 
-	public boolean isAffiliateDeactivated() {
-		return Objects.equal(getAffiliateStanding(), StandingState.DEACTIVATED);
+	public boolean isLoggedInUserAffiliateDeactivated() {
+		return Objects.equal(getLoggedInUserAffiliateStanding(), StandingState.DEACTIVATED);
 	}
 
-	public boolean isAffiliateDeregistered() {
-		return Objects.equal(getAffiliateStanding(), StandingState.DEREGISTERED);
+	public boolean isLoggedInUserAffiliateDeregistered() {
+		return Objects.equal(getLoggedInUserAffiliateStanding(), StandingState.DEREGISTERED);
 	}
 
-	public StandingState getAffiliateStanding() {
-		Affiliate affiliate = getAffiliate();
+	public StandingState getLoggedInUserAffiliateStanding() {
+		return getUserAffiliateStanding(currentSecurityContext.getCurrentUserName());
+	}
+
+	public StandingState getUserAffiliateStanding(String currentUserName) {
+		Affiliate affiliate = getAffiliate(currentUserName);
 		if (affiliate != null) {
 			return affiliate.getStandingState();
 		} else {
@@ -38,8 +42,8 @@ public class UserStandingCalculator {
 		}
 	}
 	
-	private Affiliate getAffiliate() {
-		List<Affiliate> affiliates = affiliateRepository.findByCreator(currentSecurityContext.getCurrentUserName());
+	private Affiliate getAffiliate(String currentUserName) {
+		List<Affiliate> affiliates = affiliateRepository.findByCreator(currentUserName);
 		if (affiliates.size() > 0) {
 			return affiliates.get(0);
 		}
