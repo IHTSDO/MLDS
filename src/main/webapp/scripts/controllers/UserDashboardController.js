@@ -21,13 +21,14 @@ angular.module('MLDS')
     		};
         	
         	UserAffiliateService.promise.then(function() {
+        		loadReleasePackages();
+        		
         		if (ApplicationUtilsService.isApplicationWaitingForApplicant(UserAffiliateService.affiliate.application)) {
         			$location.path('/affiliateRegistration');
         			return;
         		}
         	});
 
-        	loadReleasePackages();
         	
         	$scope.isApplicationPending = function(application) {
         		return ApplicationUtilsService.isApplicationPending(application);
@@ -52,8 +53,13 @@ angular.module('MLDS')
         							member: MemberService.membersByKey[memberKey], 
         							packages: packages};})
         					.value();
-        				$scope.approvedReleasePackagesByMember = _.filter(releasePackagesByMember, function(memberRelease) {return UserAffiliateService.isMembershipApproved(memberRelease.member);});
-        				$scope.notApprovedReleasePackagesByMember = _.filter(releasePackagesByMember, function(memberRelease) {return ! UserAffiliateService.isMembershipApproved(memberRelease.member);});
+        				if (StandingStateUtils.isDeactivated($scope.affiliate.standingState)) {
+        					$scope.approvedReleasePackagesByMember = [];
+        					$scope.notApprovedReleasePackagesByMember = releasePackagesByMember;
+        				} else {
+	        				$scope.approvedReleasePackagesByMember = _.filter(releasePackagesByMember, function(memberRelease) {return UserAffiliateService.isMembershipApproved(memberRelease.member);});
+	        				$scope.notApprovedReleasePackagesByMember = _.filter(releasePackagesByMember, function(memberRelease) {return ! UserAffiliateService.isMembershipApproved(memberRelease.member);});
+        				}
         			})
         			["catch"](function(message) {
         				//FIXME failed to load release packages
