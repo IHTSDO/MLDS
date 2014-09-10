@@ -125,7 +125,6 @@ public class ReleasePackagesResource {
     	releasePackageAuditEvents.logCreationOf(releasePackage);
     	
     	ResponseEntity<ReleasePackage> result = new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
-    	// FIXME MLDS-256 MB can we build this link? result.getHeaders().setLocation(location);
 		return result;
     }
 	
@@ -257,7 +256,6 @@ public class ReleasePackagesResource {
     	releasePackageAuditEvents.logCreationOf(releaseVersion);
     	
     	ResponseEntity<ReleaseVersion> result = new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
-    	// FIXME MLDS-256 MB can we build this link? result.getHeaders().setLocation(location);
 		return result;
     }
 

@@ -11,7 +11,6 @@ import com.google.common.base.Objects;
 
 /**
  * Provide access check helpers for our rest controllers.
- * FIXME MLDS-23
  */
 public class AuthorizationChecker {
 
@@ -24,11 +23,6 @@ public class AuthorizationChecker {
 	
 	protected boolean isAdmin() {
 		return currentSecurityContext.isAdmin();
-	}
-	
-	// FIXME MLDS-256 MB inline this?
-	public String getCurrentUserName() {
-		return currentSecurityContext.getCurrentUserName();
 	}
 	
 	protected void failCheck(String description) {
