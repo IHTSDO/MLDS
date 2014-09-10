@@ -16,12 +16,16 @@ import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
+import ca.intelliware.ihtsdo.mlds.service.UserStandingCalculator;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReleasePackageAuthorizationCheckerTest {
 	
 	@Mock
 	private UserMembershipAccessor userMembershipAccessor;
+	
+	@Mock
+	private UserStandingCalculator userStandingCalculator;
 
 	ReleasePackageAuthorizationChecker authorizationChecker;
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
@@ -37,6 +41,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 		authorizationChecker = new ReleasePackageAuthorizationChecker();
 		authorizationChecker.currentSecurityContext = new CurrentSecurityContext();
 		authorizationChecker.userMembershipAccessor = userMembershipAccessor;
+		authorizationChecker.userStandingCalculator = userStandingCalculator;
 		
 		sweden = new Member("SE", 1);
 		ihtsdo = new Member("IHTSDO", 2);
@@ -176,4 +181,23 @@ public class ReleasePackageAuthorizationCheckerTest {
 		
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
+
+	@Test(expected=IllegalStateException.class)
+	public void userCannotDownloadApprovedPackageVersionWhenAccountDeactivated() {
+		ReleasePackage releasePackage = new ReleasePackage(1L);
+		releasePackage.setMember(ihtsdo);
+		ReleaseVersion onlineIhtsdoVersion = new ReleaseVersion(2L);
+		releasePackage.addReleaseVersion(onlineIhtsdoVersion);
+		onlineIhtsdoVersion.setOnline(true);
+
+		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
+		
+		Mockito.when(userStandingCalculator.isAffiliateDeactivated()).thenReturn(true);
+		
+		
+		securityContextSetup.asAffiliateUser();
+		
+		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
+	}
+
 }

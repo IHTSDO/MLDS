@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
+import ca.intelliware.ihtsdo.mlds.service.UserStandingCalculator;
 
 @Service
 public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 
 	@Resource UserMembershipAccessor userMembershipAccessor;
+	@Resource UserStandingCalculator userStandingCalculator;
 	
 	public void checkCanCreateReleasePackages() {
 		if (isStaffOrAdmin()) {
@@ -43,10 +45,12 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 		if (isStaffOrAdmin()) {
 			return;
 		} else if (releaseVersion.isOnline() 
+				&& !userStandingCalculator.isAffiliateDeactivated()
 				&& userMembershipAccessor.isAffiliateMemberApplicationAccepted(releaseVersion.getReleasePackage().getMember())) {
 			return;
 		}
 		failCheck("User not authorized to download release version.");
 	}
+
 
 }
