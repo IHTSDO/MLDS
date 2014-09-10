@@ -192,7 +192,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 
 		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
 		
-		Mockito.when(userStandingCalculator.isAffiliateDeactivated()).thenReturn(true);
+		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeactivated()).thenReturn(true);
 		
 		
 		securityContextSetup.asAffiliateUser();

@@ -45,7 +45,7 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 		if (isStaffOrAdmin()) {
 			return;
 		} else if (releaseVersion.isOnline() 
-				&& !userStandingCalculator.isAffiliateDeactivated()
+				&& !userStandingCalculator.isLoggedInUserAffiliateDeactivated()
 				&& userMembershipAccessor.isAffiliateMemberApplicationAccepted(releaseVersion.getReleasePackage().getMember())) {
 			return;
 		}

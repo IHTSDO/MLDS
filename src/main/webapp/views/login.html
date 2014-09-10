@@ -2,7 +2,7 @@
   <div class="col-md-3"></div>
     <div class="col-md-6 login">
         <h1 translate="login.title">Authentication</h1>
-        <div class="alert alert-danger" ng-show="authenticationError" translate="{{authenticationErrorMessageKey}}" translate-compile>
+        <div class="alert alert-danger" ng-show="authenticationError" ng-bind-html="authenticationErrorMessageKey | translate">
         </div>
 
         <form class="form" role="form">
