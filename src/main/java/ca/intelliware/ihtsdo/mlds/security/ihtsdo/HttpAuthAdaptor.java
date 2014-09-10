@@ -13,7 +13,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -100,7 +99,6 @@ public class HttpAuthAdaptor {
 		PostRequestBuilder builder = new PostRequestBuilder(queryUrl);
 		builder.addParam(PARAM_QUERY_NAME, "getUserAppPerms");
 		builder.addParam(PARAM_USERNAME, username);
-		//FIXME MLDS-170 MB extract to config
 		builder.addParam(PARAM_APP_NAME, applicationName);
 		HttpPost request = builder.toRequest();
 		
