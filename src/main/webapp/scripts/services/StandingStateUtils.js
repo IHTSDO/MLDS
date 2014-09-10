@@ -12,11 +12,15 @@ mldsApp.factory('StandingStateUtils', [function(){
 			return (standingState === 'REJECTED');
 		};
 
-		service.isDeactivationPending = function isSuccessCategory(standingState) {
+		service.isDeactivated = function isDeactivated(standingState) {
+			return (standingState === 'DEACTIVATED');
+		};
+		
+		service.isDeactivationPending = function isDeactivationPending(standingState) {
 			return (standingState === 'DEACTIVATION_PENDING');
 		};
 
-		service.isDeregistrationPending = function isSuccessCategory(standingState) {
+		service.isDeregistrationPending = function isDeregistrationPending(standingState) {
 			return (standingState === 'DEREGISTRATION_PENDING');
 		};
 

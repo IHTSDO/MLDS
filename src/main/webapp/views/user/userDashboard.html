@@ -25,6 +25,15 @@
     </div>
   </div>
 
+  <div class="row" ng-show="standingStateUtils.isDeactivated(affiliate.standingState)">
+    <div class="col-sm-12">
+      <div class="alert alert-danger space" role="alert">
+        <div><strong>Account Deactivated FIXME</strong></div>
+        <p>Your account has been Deactivated. Please contact IHTSDO to resolve the issue. FIXME</p>
+      </div>
+    </div>
+  </div>
+
   <div class="row" ng-show="standingStateUtils.isDeactivationPending(affiliate.standingState)">
     <div class="col-sm-12">
       <div class="alert alert-danger space" role="alert">
