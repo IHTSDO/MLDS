@@ -52,7 +52,7 @@ public class UserStandingCalculatorTest {
 
     	securityContextSetup.asAffiliateUser();
     	
-    	StandingState standingState = userStandingCalculator.getAffiliateStanding();
+    	StandingState standingState = userStandingCalculator.getLoggedInUserAffiliateStanding();
     	
     	Assert.assertThat(standingState, Matchers.equalTo(StandingState.IN_GOOD_STANDING));
     }
@@ -63,7 +63,7 @@ public class UserStandingCalculatorTest {
 
     	securityContextSetup.asIHTSDOStaff();
     	
-    	StandingState standingState = userStandingCalculator.getAffiliateStanding();
+    	StandingState standingState = userStandingCalculator.getLoggedInUserAffiliateStanding();
     	
     	Assert.assertThat(standingState, Matchers.nullValue(StandingState.class));
     }
@@ -76,7 +76,7 @@ public class UserStandingCalculatorTest {
 
     	securityContextSetup.asAffiliateUser();
     	
-    	boolean isDeactivated = userStandingCalculator.isAffiliateDeactivated();
+    	boolean isDeactivated = userStandingCalculator.isLoggedInUserAffiliateDeactivated();
     	
     	Assert.assertThat(isDeactivated, Matchers.equalTo(false));
     }
@@ -89,7 +89,7 @@ public class UserStandingCalculatorTest {
 
     	securityContextSetup.asAffiliateUser();
     	
-    	boolean isDeactivated = userStandingCalculator.isAffiliateDeactivated();
+    	boolean isDeactivated = userStandingCalculator.isLoggedInUserAffiliateDeactivated();
     	
     	Assert.assertThat(isDeactivated, Matchers.equalTo(true));
     }

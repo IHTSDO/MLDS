@@ -15,6 +15,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import ca.intelliware.ihtsdo.mlds.domain.ApplicationErrorCodes;
+
 /**
  * AuthenticationProvider implementation that queries the IHTSDO Stormpath wrapper.
  */
@@ -41,13 +43,15 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 				
 				boolean isValid = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
 				if (!isValid) {
-					throw new BadCredentialsException("MLDS_ERR_AUTH_BAD_PASSWORD: Password for remote user was invalid: " + username);
+					throw new BadCredentialsException(ApplicationErrorCodes.MLDS_ERR_AUTH_BAD_PASSWORD
+							+ ": Password for remote user was invalid: " + username);
 				}
 				
 				List<CentralAuthUserPermission> userPermissions = httpAuthAdaptor.getUserPermissions(username);
 				List<GrantedAuthority> authorities = authorityConverter.buildAuthoritiesList(userPermissions);
 				if (authorities.isEmpty()) {
-					throw new DisabledException("MLDS_ERR_AUTH_NO_PERMISSIONS: Users exists, but has no permissions assigned: "+ username);
+					throw new DisabledException(ApplicationErrorCodes.MLDS_ERR_AUTH_NO_PERMISSIONS
+							+ ": Users exists, but has no permissions assigned: "+ username);
 				}
 				
 				RemoteUserDetails user = new RemoteUserDetails(remoteUserInfo, authorities);
