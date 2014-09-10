@@ -71,6 +71,9 @@
 				</div>
 				<div class="form-group">
 					<label>Staff Notes</label>
+					<button class="btn btn-success btn-xs pull-right" ng-show="!isActionDisabled" ng-disabled="isActionDisabled">
+						Save
+					</button>
 					<textarea class="form-control" rows="10" required name="notesInternal" ng-model="application.notesInternal" ng-disabled="isNoteReadOnly" auto-submit></textarea>
 				</div>
 			</form>
