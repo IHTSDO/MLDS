@@ -31,23 +31,28 @@
 		<div class="col-sm-12 col-md-12 col-lg-12"> 
 			<div class="panel panel-primary">	
 				<div class="panel-heading">	
-					<div ng-class="{'status text-muted': !isMembershipApproved}">
+					<div ng-class="{'status text-muted': !isMembershipInGoodStanding}">
 						<div ng-show="$root.authenticated">
-							<span class="btn-sm btn-warning pull-right" ng-show="isPrimaryApplicationWaitingForApplicant">Primary application is needs attention</span>
-							<span class="btn-sm btn-warning pull-right" ng-show="!isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved">Primary application is being processed</span>
-							<button class="btn-sm btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved && !isIHTSDOPackage" ng-click="utils.openExtensionApplication(releasePackage)">			
-								Apply for extension
-							</button>
-							<span class="btn-sm btn-warning pull-right" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant && isPrimaryApplicationApproved && !isIHTSDOPackage">Application being processed</span>
-							<span class="btn-sm btn-warning pull-right" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant && !isIHTSDOPackage">
-								Application in progress, 
-								<span ng-click="goToExtensionApplication()" class="btn-sm btn-link">click to continue application.</span>
-							</span>
+							<div ng-show="isAccountDeactivated">
+								<span class="btn-sm btn-warning pull-right" ng-show="isAccountDeactivated">Account Deactivated</span>
+							</div>
+							<div ng-show="!isAccountDeactivated">
+								<span class="btn-sm btn-warning pull-right" ng-show="isPrimaryApplicationWaitingForApplicant">Primary application is needs attention</span>
+								<span class="btn-sm btn-warning pull-right" ng-show="!isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved">Primary application is being processed</span>
+								<button class="btn-sm btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved && !isIHTSDOPackage" ng-click="utils.openExtensionApplication(releasePackage)">			
+									Apply for extension
+								</button>
+								<span class="btn-sm btn-warning pull-right" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant && isPrimaryApplicationApproved && !isIHTSDOPackage">Application being processed</span>
+								<span class="btn-sm btn-warning pull-right" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant && !isIHTSDOPackage">
+									Application in progress, 
+									<span ng-click="goToExtensionApplication()" class="btn-sm btn-link">click to continue application.</span>
+								</span>
+							</div>
 						</div>
-						<div ng-show="isMembershipApproved">
-							<h3 class="panel-title" ng-click="goToViewPackagePage(releasePackage.releasePackageId)" ng-disabled="!isMembershipApproved">{{releasePackage.name}}</h3>
+						<div ng-show="isMembershipInGoodStanding">
+							<h3 class="panel-title" ng-click="goToViewPackagePage(releasePackage.releasePackageId)" ng-disabled="!isMembershipInGoodStanding">{{releasePackage.name}}</h3>
 						</div>
-						<div ng-show="!isMembershipApproved">
+						<div ng-show="!isMembershipInGoodStanding">
 							<h3 class="panel-title">{{releasePackage.name}}</h3>
 						</div>
 					</div>
@@ -66,10 +71,10 @@
 							<ul class="list-unstyled">
 							  <li ng-repeat="releaseFile in version.releaseFiles">
 									<i class="fa fa-file"></i>
-									<span ng-show="releaseFile.clientDownloadUrl && isMembershipApproved">
+									<span ng-show="releaseFile.clientDownloadUrl && isMembershipInGoodStanding">
 										<a href="{{releaseFile.clientDownloadUrl}}" class="btn btn-link" target="_blank">{{releaseFile.label}}</a>
 									</span>
-									<span ng-show="!(releaseFile.clientDownloadUrl && isMembershipApproved)">
+									<span ng-show="!(releaseFile.clientDownloadUrl && isMembershipInGoodStanding)">
 										{{releaseFile.label}}
 									</span>
 								</li>

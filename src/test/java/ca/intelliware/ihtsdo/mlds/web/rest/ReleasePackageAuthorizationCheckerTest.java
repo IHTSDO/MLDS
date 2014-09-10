@@ -194,10 +194,25 @@ public class ReleasePackageAuthorizationCheckerTest {
 		
 		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeactivated()).thenReturn(true);
 		
-		
 		securityContextSetup.asAffiliateUser();
 		
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
+	@Test(expected=IllegalStateException.class)
+	public void userCannotDownloadApprovedPackageVersionWhenAccountDeregistered() {
+		ReleasePackage releasePackage = new ReleasePackage(1L);
+		releasePackage.setMember(ihtsdo);
+		ReleaseVersion onlineIhtsdoVersion = new ReleaseVersion(2L);
+		releasePackage.addReleaseVersion(onlineIhtsdoVersion);
+		onlineIhtsdoVersion.setOnline(true);
+
+		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
+		
+		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeregistered()).thenReturn(true);
+		
+		securityContextSetup.asAffiliateUser();
+		
+		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
+	}
 }
