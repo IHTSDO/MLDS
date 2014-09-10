@@ -62,6 +62,7 @@ public class Affiliate extends BaseEntity {
 	@JsonIgnoreProperties({"affiliate"})
 	@OneToOne()
 	@JoinColumn(name="application_id")
+	@IndexedEmbedded(prefix="")
 	PrimaryApplication application;
 
 	@JsonIgnoreProperties({"affiliate"})

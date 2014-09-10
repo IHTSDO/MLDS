@@ -34,7 +34,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 	@Type(value=ExtensionApplication.class, name="EXTENSION"),
 	@Type(value=ImportApplication.class, name="IMPORT")
 	})
-@Indexed
 public abstract class Application extends BaseEntity {
 	public static enum ApplicationType {
 		PRIMARY, EXTENSION, IMPORT
@@ -55,7 +54,7 @@ public abstract class Application extends BaseEntity {
 		
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="affiliate_details_id")
-	@IndexedEmbedded
+	@IndexedEmbedded(prefix="")
 	AffiliateDetails affiliateDetails;
 	
 	@Column(name="notes_internal")
