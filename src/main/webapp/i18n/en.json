@@ -381,7 +381,7 @@
         "title": "Activation",
         "messages": {
             "success": "<strong>User account has been created.</strong> The system will take you to continue your registration process in a few moments. If you are not redirected automatically please <a href=\"#/usageReports\">click here.</a>",
-            "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up."
+            "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up. If you are still encountering difficulties please contact support."
         }
     },
     "register": {

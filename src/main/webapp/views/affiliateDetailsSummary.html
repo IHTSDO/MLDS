@@ -23,7 +23,10 @@
 	  					{{affiliate.standingState | enum:'affiliate.standingState.'}}
 	  					<span class="text-warning" ng-show="standingStateUtils.isWarningCategory(affiliate.standingState)"><i class="fa fa-exclamation-circle"></i></span>
 	  					<span class="text-danger" ng-show="standingStateUtils.isDangerCategory(affiliate.standingState)"><i class="fa fa-exclamation-circle"></i></span>
-	  					<span class="pull-right btn-sm btn-success" ng-show="isEditable && !standingStateUtils.isApplying(affiliate.standingState) && !standingStateUtils.isRejected(affiliate.standingState)" ng-click="changeStanding()">Edit Account Standing</span>
+	  					<span class="pull-right" ng-show="isEditable">
+	  						<span class="btn-sm btn-success" ng-show="!standingStateUtils.isApplying(affiliate.standingState) && !standingStateUtils.isRejected(affiliate.standingState)" ng-click="changeStanding()">Edit Account Standing</span>
+	  						<span class="btn-sm btn-default" ng-show="standingStateUtils.isApplying(affiliate.standingState) || standingStateUtils.isRejected(affiliate.standingState)" ng-disabled="true">Edit Account Standing</span>
+	  					</span>
 	  				</li>
 	  			</ul>
 	
