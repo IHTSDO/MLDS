@@ -58,6 +58,7 @@ public class AffiliateAuditEventsTest {
 		
 		affiliateAuditEvents.logStandingStateChange(affiliate);
 
+		@SuppressWarnings("rawtypes")
 		ArgumentCaptor<Map<String,String>> auditEvent = ArgumentCaptor.forClass((Class)Map.class);
 		Mockito.verify(auditEventService).createAuditEvent(
 				Mockito.eq(AffiliateAuditEvents.EVENT_AFFILIATE_STANDING_STATE_CHANGED),

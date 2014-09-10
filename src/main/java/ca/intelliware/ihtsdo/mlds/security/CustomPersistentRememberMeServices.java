@@ -110,8 +110,11 @@ public class CustomPersistentRememberMeServices extends
         String login = successfulAuthentication.getName();
 
         log.debug("Creating new persistent login for user {}", login);
-    	// FIXME MLDS-170 MB this is busted for remote users
         User user = userRepository.findOne(login);
+        if (user == null) {
+        	// FIXME MLDS-170 MB this is busted for remote users
+        	return;
+        }
 
         PersistentToken token = new PersistentToken();
         token.setSeries(generateSeriesData());
