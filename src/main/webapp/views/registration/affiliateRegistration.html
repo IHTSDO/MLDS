@@ -48,9 +48,14 @@
                 </p>
               </div>
               <div class="form-group" ng-show="affiliateform.type=='OTHER'">
-                <label>Other:</label> <input type="text" class="form-control" placeholder="Other" name="otherText" ng-required="affiliateform.type=='OTHER'" ng-model="affiliateform.otherText" auto-submit>
+                <label>Other:</label> 
+                <input type="text" class="form-control" placeholder="Other" name="otherText" 
+                	ng-required="affiliateform.type=='OTHER'" ng-model="affiliateform.otherText" ng-maxlength="255" auto-submit>
                 <p ng-show="affiliateApplicationForm.otherText.$error.required && affiliateApplicationForm.attempted" class="help-block">
                   Other field is required.
+                </p>
+                <p ng-show="affiliateApplicationForm.otherText.$error.maxLength" class="help-block">
+                  Input value is too long.
                 </p>
               </div>
               <div class="form-group">
@@ -118,7 +123,9 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Alternate Email:</label> 
-                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" required="" name="contactAlternateEmail" ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit unique="{{[affiliateform.affiliateDetails.wmail, affiliateform.affiliateDetails.thirdEmail]}}">
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" required="" name="contactAlternateEmail" 
+                    	ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit ng-maxlength="100" 
+                    	unique="{{[affiliateform.affiliateDetails.wmail, affiliateform.affiliateDetails.thirdEmail]}}">
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.contactAlternateEmail.$error.required" class="help-block">
                         Required field.
@@ -132,6 +139,9 @@
                     	&& affiliateApplicationForm.contactAlternateEmail.$error.notUnique ">
                       Email Addresses need to be unique.
                     </p>
+                    <p ng-show="affiliateApplicationForm.contactAlternateEmail.$error.maxLength" class="help-block">
+		                  Input value is too long.
+		                </p>
                   </div>
                 </div>
               </div>
@@ -139,7 +149,10 @@
               <div class="row" ng-show="affiliateform.type === 'INDIVIDUAL'">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Third Email:</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" name="thirdEmail" ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
+                    <label>Third Email:</label> 
+                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" name="thirdEmail" 
+                    	ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit ng-maxlength="100"  
+                    	unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="!affiliateApplicationForm.thirdEmail.$error.required && affiliateApplicationForm.thirdEmail.$error.email" class="help-block">
                         Invalid Email Address.
@@ -151,6 +164,9 @@
 		                    && affiliateApplicationForm.thirdEmail.$error.notUnique">
 	                      Email Addresses need to be unique.
                     </p>
+                    <p ng-show="affiliateApplicationForm.thirdEmail.$error.maxLength" class="help-block">
+		                  Input value is too long.
+		                </p>
                   </div>
                 </div>
               </div>
@@ -166,7 +182,8 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <input class="form-control" type="tel" required="" name="contactPhone" ng-model="affiliateform.affiliateDetails.landlineNumber" auto-submit>
+                    <input class="form-control" type="tel" required="" name="contactPhone" ng-max-length="255" 
+                    	ng-model="affiliateform.affiliateDetails.landlineNumber" auto-submit>
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.contactPhone.$error.required" class="help-block">
                         Required field.
@@ -175,11 +192,18 @@
                         Invalid Phone Number.
                       </p>
                     </div>
+                    <p ng-show="affiliateApplicationForm.contactPhone.$error.maxLength" class="help-block">
+		                  Input value is too long.
+		                </p>
                   </div>
                 </div>
                 <div class="col-md-2">
                   <div class="form-group">
-                    <input class="form-control col-md-2" placeholder="Extension" ng-model="affiliateform.affiliateDetails.landlineExtension" auto-submit>
+                    <input class="form-control col-md-2" placeholder="Extension" name="contactExtension" ng-maxlength="255"
+                    	ng-model="affiliateform.affiliateDetails.landlineExtension" auto-submit>
+                   	<p ng-show="affiliateApplicationForm.contactExtension.$error.maxLength" class="help-block">
+		                  Input value is too long.
+		                </p>
                   </div>
                 </div>
               </div>
@@ -191,7 +215,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input class="form-control" type="tel" name="mobilePhone" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.mobileNumber" auto-submit>
+                    <input class="form-control" type="tel" name="mobilePhone" ng-maxlength="255"
+                    	ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.mobileNumber" auto-submit>
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.mobilePhone.$error.required" class="help-block">
                         Required field.
@@ -200,6 +225,9 @@
                         Invalid Phone Number.
                       </p>
                     </div>
+                    <p ng-show="affiliateApplicationForm.mobilePhone.$error.maxLength" class="help-block">
+		                  Input value is too long.
+		                </p>
                   </div>
                 </div>
               </div>
@@ -207,10 +235,15 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Address:</label> <input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.street" auto-submit>
+                      <label>Address:</label>
+                      <input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-maxlength="255" 
+                      	ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.street" auto-submit>
                       <p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block">
                         Required field.
                       </p>
+                      <p ng-show="affiliateApplicationForm.address.$error.maxLength" class="help-block">
+			                  Input value is too long.
+			                </p>
                     </div>
                   </div>
                 </div>
@@ -225,9 +258,12 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input class="form-control" name="city" placeholder="City" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.city" auto-submit>
-                      <p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block">
+                      <input class="form-control" name="city" placeholder="City" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.city" ng-maxlength="255" auto-submit>
+                      <p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block" >
                         Required field.
+                      </p>
+                      <p ng-show="affiliateApplicationForm.postalCode.$error.maxlength" class="help-block">
+                        Input value is too long.
                       </p>
                     </div>
                   </div>
@@ -240,7 +276,7 @@
                         Required field.
                       </p>
                       <p ng-show="affiliateApplicationForm.postalCode.$error.maxlength" class="help-block">
-                        Post Code is too long.
+                        Input value is too long.
                       </p>
                     </div>
                   </div>
@@ -268,9 +304,14 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group has-error has-feedback">
-                    <label>Organization Name:</label> <input class="form-control help-block" name="organizationName" placeholder="Organization Name" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationName" auto-submit>
+                    <label>Organization Name:</label> 
+                    <input class="form-control help-block" name="organizationName" placeholder="Organization Name" ng-maxlength="255" 
+                    	ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationName" auto-submit>
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted">
                       Required field.
+                    </p>
+                    <p ng-show="affiliateApplicationForm.organizationName.$error.maxlength" class="help-block">
+                      Input value is too long.
                     </p>
                   </div>
                 </div>
@@ -291,9 +332,13 @@
               <div class="row" ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">
                 <div class="col-md-6">
                   <div class="form-group has-error has-feedback">
-                    <input class="form-control help-block" name="organizationTypeOther" placeholder="Other Organization Type" ng-required="affiliateApplicationForm.organizationType.type=='Other'" ng-model="affiliateform.affiliateDetails.organizationTypeOther" auto-submit>
+                    <input class="form-control help-block" name="organizationTypeOther" placeholder="Other Organization Type" ng-maxlength="255" 
+                    	ng-required="affiliateApplicationForm.organizationType.type=='Other'" ng-model="affiliateform.affiliateDetails.organizationTypeOther" auto-submit>
                     <p class="help-block" ng-show="affiliateApplicationForm.organizationTypeOther.$error.required && affiliateApplicationForm.attempted">
                       An Organization type is required.
+                    </p>
+                    <p ng-show="affiliateApplicationForm.organizationTypeOther.$error.maxlength" class="help-block">
+                      Input value is too long.
                     </p>
                   </div>
                 </div>
@@ -301,9 +346,14 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Address:</label> <input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-change="copyAddress()" required="" ng-model="affiliateform.affiliateDetails.address.street" auto-submit>
+                    <label>Address:</label> 
+                    <input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-change="copyAddress()" 
+                    	required="" ng-model="affiliateform.affiliateDetails.address.street" auto-submit ng-maxlength="255">
                     <p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
+                    </p>
+                    <p ng-show="affiliateApplicationForm.address.$error.maxlength" class="help-block">
+                      Input value is too long.
                     </p>
                   </div>
                 </div>
@@ -319,9 +369,13 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" name="city" placeholder="City" required="" ng-model="affiliateform.affiliateDetails.address.city" ng-change="copyAddress()" auto-submit>
+                    <input class="form-control" name="city" placeholder="City" required="" ng-maxlength="255" 
+                    	ng-model="affiliateform.affiliateDetails.address.city" ng-change="copyAddress()" auto-submit>
                     <p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
+                    </p>
+                    <p ng-show="affiliateApplicationForm.city.$error.maxlength" class="help-block">
+                      Input value is too long.
                     </p>
                   </div>
                 </div>
@@ -335,7 +389,7 @@
                       Required field.
                     </p>
                     <p ng-show="affiliateApplicationForm.postCode.$error.maxlength" class="help-block">
-                      Post Code is too long.
+                      Input value is too long.
                     </p>
                   </div>
                 </div>
@@ -360,9 +414,14 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Billing Address:</label> <input class="form-control" name="billingAddress" placeholder="Address" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" ng-model="affiliateform.affiliateDetails.billingAddress.street" auto-submit>
+                    <label>Billing Address:</label> 
+                    <input class="form-control" name="billingAddress" placeholder="Address" ng-maxlength="255" 
+                    	ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" ng-model="affiliateform.affiliateDetails.billingAddress.street" auto-submit>
                     <p ng-show="affiliateApplicationForm.billingAddress.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
+                    </p>
+                    <p ng-show="affiliateApplicationForm.billingAddress.$error.maxlength" class="help-block">
+                      Input value is too long.
                     </p>
                   </div>
                 </div>
@@ -378,9 +437,13 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <input class="form-control" name="billingCity" placeholder="City" ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" ng-model="affiliateform.affiliateDetails.billingAddress.city" auto-submit>
+                    <input class="form-control" name="billingCity" placeholder="City" ng-maxlength="255" 
+                    	ng-disabled="isSameAddress" ng-required="affiliateform.type=='COMMERCIAL'" ng-model="affiliateform.affiliateDetails.billingAddress.city" auto-submit>
                     <p ng-show="affiliateApplicationForm.billingCity.$error.required && affiliateApplicationForm.attempted" class="help-block">
                       Required field.
+                    </p>
+                    <p ng-show="affiliateApplicationForm.billingCity.$error.maxlength" class="help-block">
+                      Input value is too long.
                     </p>
                   </div>
                 </div>
@@ -393,7 +456,7 @@
                       Required field.
                     </p>
                     <p ng-show="affiliateApplicationForm.billingPostCode.$error.maxlength" class="help-block">
-                      Post Code is too long.
+                      Input value is too long.
                     </p>
                   </div>
                 </div>
