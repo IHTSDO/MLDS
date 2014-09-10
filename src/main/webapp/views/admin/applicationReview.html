@@ -28,7 +28,7 @@
 		</div>
 	</div>
 	<div class="col-md-4 well-inactive" ng-switch="application.applicationType">
-		<div ng-controller="ApplicationReviewComparisonSearchController" ng-switch-when="PRIMARY">
+		<div ng-init="setOriginalAffiliate(application.affiliate)" ng-controller="ApplicationReviewComparisonSearchController" ng-switch-when="PRIMARY">
 			<div>
 				<!-- Search block -->
 				<script type="text/ng-template" id="views/admin/applicationReviewAffiliateSearchTemplate.html">
