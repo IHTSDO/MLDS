@@ -460,6 +460,7 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Timed
 	public ResponseEntity<Application> createApplication(@RequestBody CreateApplicationDTO requestBody) {
+		authorizationChecker.checkCanCreateApplication(requestBody);
 		
 		// FIXME MLDS-308 it is an error to try to create an extension application without a target member.
 		Member member = (requestBody.getMemberKey() != null) ?  memberRepository.findOneByKey(requestBody.getMemberKey()) : userMembershipAccessor.getMemberAssociatedWithUser();
