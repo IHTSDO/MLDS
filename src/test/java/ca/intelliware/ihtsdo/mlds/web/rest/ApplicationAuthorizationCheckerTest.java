@@ -12,8 +12,8 @@ import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.security.UserStandingCalculator;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
-import ca.intelliware.ihtsdo.mlds.service.UserStandingCalculator;
 import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationResource.CreateApplicationDTO;
 
 @RunWith(MockitoJUnitRunner.class)

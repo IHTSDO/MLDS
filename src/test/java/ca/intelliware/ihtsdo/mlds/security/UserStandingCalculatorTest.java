@@ -1,6 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.service;
-
-import java.util.Collection;
+package ca.intelliware.ihtsdo.mlds.security;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -12,14 +10,12 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
-import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
-import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.security.UserStandingCalculator;
+import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserStandingCalculatorTest {
