@@ -138,13 +138,13 @@ public class CommercialUsageResource {
     	}
     	
     	CommercialUsage commercialUsage = null;
-		List<CommercialUsage> commercialUsages = commercialUsageRepository.findBySamePeriod(affiliate, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
+		List<CommercialUsage> commercialUsages = commercialUsageRepository.findActiveBySamePeriod(affiliate, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
 		if (commercialUsages.size() > 0) {
 			// Return the existing commercial usage unmodified
 			commercialUsage = commercialUsages.get(0);
 			return new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
 		} else {
-			commercialUsages = commercialUsageRepository.findByMostRecentPeriod(affiliate);
+			commercialUsages = commercialUsageRepository.findActiveByMostRecentPeriod(affiliate);
 			if (commercialUsages.size() > 0) {
 				commercialUsage = commercialUsages.get(0);
 			}

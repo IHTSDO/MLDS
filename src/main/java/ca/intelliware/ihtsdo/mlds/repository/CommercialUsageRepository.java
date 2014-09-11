@@ -12,11 +12,11 @@ import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 
 public interface CommercialUsageRepository extends JpaRepository<CommercialUsage, Long> {
-    @Query("select p from CommercialUsage p where p.affiliate = ?1 and p.startDate = ?2 and p.endDate = ?3")
-    List<CommercialUsage> findBySamePeriod(Affiliate affiliate, LocalDate startDate, LocalDate endDate);
+    @Query("SELECT p FROM CommercialUsage p WHERE p.affiliate = ?1 AND p.startDate = ?2 AND p.endDate = ?3 AND p.effectiveTo IS NULL")
+    List<CommercialUsage> findActiveBySamePeriod(Affiliate affiliate, LocalDate startDate, LocalDate endDate);
 
-    @Query("select p from CommercialUsage p where p.affiliate = ?1 order by p.startDate DESC")
-    List<CommercialUsage> findByMostRecentPeriod(Affiliate affiliate);
+    @Query("SELECT p FROM CommercialUsage p WHERE p.affiliate = ?1 AND p.effectiveTo IS NULL ORDER BY p.startDate DESC")
+    List<CommercialUsage> findActiveByMostRecentPeriod(Affiliate affiliate);
     
     Collection<CommercialUsage> findByApprovalStateIn(Collection<ApprovalState> approvalState);
 

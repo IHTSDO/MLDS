@@ -83,9 +83,9 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 	public void createNewSubmissionShouldCreateNewBlankUsageWhenNoExistingUsages() throws Exception {
 		CommercialUsagePeriod usagePeriod = withUsagePeriod("2014-01-01", "2014-06-30");
 		
-		Mockito.when(commercialUsageRepository.findBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
+		Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
 		
-		Mockito.when(commercialUsageRepository.findByMostRecentPeriod(Mockito.any(Affiliate.class))).thenReturn(Arrays.<CommercialUsage>asList());
+		Mockito.when(commercialUsageRepository.findActiveByMostRecentPeriod(Mockito.any(Affiliate.class))).thenReturn(Arrays.<CommercialUsage>asList());
 		
 		final long newCommercialUsageId = 123L;
 		saveCommercialUsageAndAssignIdForNewEntities(newCommercialUsageId);
@@ -119,7 +119,7 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 		CommercialUsage commercialUsage = new CommercialUsage(2L, affiliate);
 		commercialUsage.setApprovalState(ApprovalState.SUBMITTED);
 		
-		Mockito.when(commercialUsageRepository.findBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList(commercialUsage));
+		Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList(commercialUsage));
 		
 		postCreateNewSubmission(affiliate.getAffiliateId(), usagePeriod)
 					.andExpect(status().isOk())
@@ -136,9 +136,9 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 		otherCommercialUsage.setType(AffiliateType.COMMERCIAL);
 		otherCommercialUsage.setApprovalState(ApprovalState.SUBMITTED);
 
-		Mockito.when(commercialUsageRepository.findBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
+		Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
 		
-		Mockito.when(commercialUsageRepository.findByMostRecentPeriod(Mockito.any(Affiliate.class))).thenReturn(Arrays.<CommercialUsage>asList(otherCommercialUsage));
+		Mockito.when(commercialUsageRepository.findActiveByMostRecentPeriod(Mockito.any(Affiliate.class))).thenReturn(Arrays.<CommercialUsage>asList(otherCommercialUsage));
 		
 		final long newCommercialUsageId = 123L;
 		saveCommercialUsageAndAssignIdForNewEntities(newCommercialUsageId);
@@ -155,9 +155,9 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 	public void createNewSubmissionShouldLogWhenNewUsageIsCreated() throws Exception {
 		CommercialUsagePeriod usagePeriod = withUsagePeriod("2014-01-01", "2014-06-30");
 		
-		Mockito.when(commercialUsageRepository.findBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
+		Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
 		
-		Mockito.when(commercialUsageRepository.findByMostRecentPeriod(Mockito.any(Affiliate.class))).thenReturn(Arrays.<CommercialUsage>asList());
+		Mockito.when(commercialUsageRepository.findActiveByMostRecentPeriod(Mockito.any(Affiliate.class))).thenReturn(Arrays.<CommercialUsage>asList());
 		
 		final long newCommercialUsageId = 123L;
 		saveCommercialUsageAndAssignIdForNewEntities(newCommercialUsageId);
