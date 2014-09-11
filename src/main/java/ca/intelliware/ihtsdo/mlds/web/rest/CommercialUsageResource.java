@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
 import org.springframework.http.HttpHeaders;
@@ -244,8 +246,11 @@ public class CommercialUsageResource {
     		commercialUsage.setSubmitted(Instant.now());
     		commercialUsage = commercialUsageRepository.save(commercialUsage);
     	} else if ((ApprovalState.SUBMITTED.equals(commercialUsage.getApprovalState()) || ApprovalState.APPROVED.equals(commercialUsage.getApprovalState())) && ApprovalTransition.RETRACT.equals(applyTransition.getTransition())) {
-        	commercialUsage.setApprovalState(ApprovalState.NOT_SUBMITTED);
-        	commercialUsage.setSubmitted(null);
+    		// Mark original usage as no-longer effective
+    		commercialUsage.setEffectiveTo(Instant.now());
+        	commercialUsage = commercialUsageRepository.saveAndFlush(commercialUsage);
+        	// Create duplicate usage to replace original and become the active one
+        	commercialUsageResetter.detachAndReset(commercialUsage, commercialUsage.getStartDate(), commercialUsage.getEndDate());
         	commercialUsage = commercialUsageRepository.save(commercialUsage);
     	} else if (ApprovalState.SUBMITTED.equals(commercialUsage.getApprovalState()) && ApprovalTransition.REVIEWED.equals(applyTransition.getTransition())) {
     		authorizationChecker.checkCanReviewUsageReports();
