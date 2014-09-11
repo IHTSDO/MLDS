@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.security;
+package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +18,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Authority;
 import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.UserNotActivatedException;
 
 /**
  * Authenticate a user from the database.

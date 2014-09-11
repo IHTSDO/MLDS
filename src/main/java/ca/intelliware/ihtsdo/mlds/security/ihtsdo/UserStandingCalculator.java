@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.security;
+package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import java.util.List;
 
@@ -11,7 +11,6 @@ import com.google.common.base.Objects;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 @Service
 public class UserStandingCalculator {

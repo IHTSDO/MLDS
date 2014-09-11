@@ -1,6 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -8,12 +7,9 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.results.ResultMatchers;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -22,20 +18,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.util.NestedServletException;
 
-import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
-import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
 import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationResource.CreateApplicationDTO;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ApplicationResourceTest {
 	private MockMvc mockMvc;
@@ -133,5 +123,4 @@ public class ApplicationResourceTest {
 		ExtensionApplication application = new ExtensionApplication(applicationId);
 		Mockito.when(applicationService.startNewApplication(ApplicationType.EXTENSION, sweden)).thenReturn(application);
 	}
-
 }

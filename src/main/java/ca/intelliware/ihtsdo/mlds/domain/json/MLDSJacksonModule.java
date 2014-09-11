@@ -6,7 +6,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.MemberJsonDeserializer;
 import ca.intelliware.ihtsdo.mlds.domain.MemberSerializer;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 

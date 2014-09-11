@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.service;
+package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.RemoteUserDetails;
 
 import com.google.common.collect.Lists;
 
