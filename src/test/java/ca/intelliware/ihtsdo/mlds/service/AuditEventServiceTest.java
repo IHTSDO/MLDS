@@ -13,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
 import com.google.common.collect.Maps;
 

@@ -2,7 +2,7 @@ package ca.intelliware.ihtsdo.mlds.domain.json;
 
 import java.util.Set;
 
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.PropertyWriter;

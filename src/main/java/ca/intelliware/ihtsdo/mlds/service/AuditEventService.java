@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.intelliware.ihtsdo.mlds.config.audit.AuditEventConverter;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
 /**
  * Service for managing audit events.

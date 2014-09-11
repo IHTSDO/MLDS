@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.security;
+package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -12,8 +12,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
-import ca.intelliware.ihtsdo.mlds.security.UserStandingCalculator;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.UserStandingCalculator;
 
 import com.google.common.collect.Lists;
 

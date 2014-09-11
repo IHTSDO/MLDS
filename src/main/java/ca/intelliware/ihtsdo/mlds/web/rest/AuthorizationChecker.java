@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.ObjectUtils;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
 import com.google.common.base.Objects;
 
