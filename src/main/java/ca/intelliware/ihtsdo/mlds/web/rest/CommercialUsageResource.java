@@ -1,6 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 
-import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
 import org.springframework.http.HttpHeaders;
@@ -22,10 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
@@ -41,6 +35,10 @@ import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
+
+import com.codahale.metrics.annotation.Timed;
+import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 
 @RestController
 public class CommercialUsageResource {

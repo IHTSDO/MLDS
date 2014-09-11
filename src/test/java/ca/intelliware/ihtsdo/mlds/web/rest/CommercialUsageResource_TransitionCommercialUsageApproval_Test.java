@@ -1,6 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -11,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.AdditionalAnswers;
-import org.mockito.ArgumentMatcher;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
@@ -27,15 +24,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.web.rest.CommercialUsageResource.ApprovalTransition;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CommercialUsageResourceTest {
+public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
     @Mock
     AffiliateRepository affiliateRepository;
     
@@ -77,37 +72,6 @@ public class CommercialUsageResourceTest {
 
     }
 
-	@Test
-	public void getUsageReportsShouldReturn404ForUnknownAffiliate() throws Exception {
-		Mockito.when(affiliateRepository.findOne(999L)).thenReturn(null);
-		
-		restCommercialUsageResource.perform(MockMvcRequestBuilders.get(Routes.USAGE_REPORTS, 999L)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-	}
-
-	@Test
-	public void getUsageReportsShouldReturnUsageReportsForAffiliate() throws Exception {
-		Affiliate affiliate = new Affiliate();
-		CommercialUsage commercialUsage = new CommercialUsage(2L, affiliate);
-		commercialUsage.setNote("Test Note");
-		CommercialUsageCountry commercialUsageCountry = new CommercialUsageCountry(3L, commercialUsage);
-		commercialUsageCountry.setPractices(13);
-		CommercialUsageEntry commercialUsageEntry = new CommercialUsageEntry(4L, commercialUsage);
-		commercialUsageEntry.setName("Test Name");
-		affiliate.addCommercialUsage(commercialUsage);
-		Mockito.when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-		
-		restCommercialUsageResource.perform(MockMvcRequestBuilders.get(Routes.USAGE_REPORTS, 1L)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].note").value("Test Note"))
-                .andExpect(jsonPath("$[0].countries[0].practices").value(13))
-                .andExpect(jsonPath("$[0].entries[0].name").value("Test Name"))
-                ;
-
-	}
 	
 	@Test
 	public void transitionCommercialUsageApprovalShouldFailForUnsupportedTransitions() throws Exception {
@@ -174,9 +138,9 @@ public class CommercialUsageResourceTest {
 	}
 
 	private void withCommercialUsageResetter() {
-		Mockito.doAnswer(new Answer() {
+		Mockito.doAnswer(new Answer<CommercialUsage>() {
 			@Override
-			public Object answer(InvocationOnMock invocation) throws Throwable {
+			public CommercialUsage answer(InvocationOnMock invocation) throws Throwable {
 				//Act as reset and save...
 				CommercialUsage usage = (CommercialUsage) invocation.getArguments()[0];
 				usage.setCommercialUsageId(null);
