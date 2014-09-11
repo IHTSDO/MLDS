@@ -11,6 +11,10 @@ mldsApp.factory('StandingStateUtils', [function(){
 		service.isRejected = function isRejected(standingState) {
 			return (standingState === 'REJECTED');
 		};
+		
+		service.wasApproved = function wasApproved(standingState) {
+			return (standingState !== 'APPLYING' && standingState !== 'REJECTED');
+		};
 
 		service.isDeactivated = function isDeactivated(standingState) {
 			return (standingState === 'DEACTIVATED');
