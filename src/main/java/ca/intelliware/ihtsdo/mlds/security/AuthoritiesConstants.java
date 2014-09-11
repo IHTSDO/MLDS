@@ -24,6 +24,7 @@ public final class AuthoritiesConstants {
     public static final String[] ADMIN_ONLY = { ADMIN };
     public static final String[] USER_ONLY = { USER };
     public static final String[] UNAUTHENTICATED = { ANONYMOUS };
+    public static final String[] USER_OR_ADMIN = { USER, ADMIN };
 
 	public static String staffRoleForMember(String memberKey) {
 		return STAFF + "_" + memberKey;
