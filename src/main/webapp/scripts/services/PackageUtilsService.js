@@ -100,25 +100,23 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		
 	    		var modalInstance = $modal.open({
 	    		      templateUrl: 'views/user/startExtensionApplicationModal.html',
-	    		      size: 'sm'
+	    		      controller: 'StartExtensionApplicationModalController',
+	    		      size: 'sm',
+	    		      backdrop: 'static',
+	    		    	  resolve: {
+								releasePackage: function() {
+									return releasePackage;
+								}
+							}
 	    		    });
 	    		
-	    		modalInstance.result.then(function () {
-	    			UserRegistrationService.createExtensionApplication(releasePackage.member)
-		    			.then(function(result) {
-		    				UserAffiliateService.refreshAffiliate();
-		    				if(result.data && result.data.applicationId) {
-		    					$location.path('/extensionApplication/'+ result.data.applicationId);
-		    				}
-		    			})
-		    			["catch"](function(message) {
-		    				// FIXME: Should we show a global alert of some kind?
-		    				$log.log(message);
-		    			});
-    		    }, function () {
-    		    	//$log.info('Modal dismissed');
-    		    });
-	    		
+				modalInstance.result
+					.then(function(result) {
+						UserAffiliateService.refreshAffiliate();
+		    			if(result.data && result.data.applicationId) {
+		    				$location.path('/extensionApplication/'+ result.data.applicationId);
+		    			}
+		    	});
 	    	};
 	    	
 			return service;
