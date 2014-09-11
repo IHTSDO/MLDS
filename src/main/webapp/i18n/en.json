@@ -708,6 +708,10 @@
     		"EXTENSION": "Extension",
     		"IMPORT": "Import"
     	}
+    },
+    "sublicenceType": {
+    	"DATA_ANALYSIS_SYSTEM": "Data Analysis System",
+    	"DATA_CREATION_SYSTEM": "Data Creation System"
     }
     
 }
