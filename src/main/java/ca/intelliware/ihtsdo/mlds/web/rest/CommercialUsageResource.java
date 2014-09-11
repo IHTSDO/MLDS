@@ -126,7 +126,7 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.POST,
     		produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN })
     @Timed
     public @ResponseBody ResponseEntity<CommercialUsage> createNewSubmission(@PathVariable long affiliateId, @RequestBody CommercialUsagePeriod submissionPeriod) {
     	
@@ -228,7 +228,7 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORT_APPROVAL,
     		method = RequestMethod.POST,
     		produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN })
     @Timed
     public @ResponseBody ResponseEntity<CommercialUsage> transitionCommercialUsageApproval(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageApprovalTransitionMessage applyTransition) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);

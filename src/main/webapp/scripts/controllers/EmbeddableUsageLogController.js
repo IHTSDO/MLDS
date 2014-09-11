@@ -26,8 +26,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 	$scope.readOnly = false;
 	$scope.commercialType = false;
 	
-	//FIXME: To change when staff/admin can edit usage
-	$scope.isAffiliateUser = true;
+	$scope.isEditable = true;
 	
 	//FIXME apparently not recommended to share controller state through scope
 	$scope.canSubmit = $scope.$parent.usageLogCanSubmit;
@@ -121,9 +120,8 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 		$scope.availableCountries = [];
 		$scope.currentCountries = [];
 		$scope.commercialUsageReport = usageReport;
-		//FIXME: To change when staff/admin can edit usage
-		$scope.isAffiliateUser = !Session.isStaffOrAdmin();
-		$scope.readOnly = $scope.isAffiliateUser ? usageReport.approvalState !== 'NOT_SUBMITTED' : true;
+		$scope.isEditable = Session.isUser() || Session.isAdmin(); //Only Admin or User can edit
+		$scope.readOnly = $scope.isEditable ? usageReport.approvalState !== 'NOT_SUBMITTED' : true;
 		$scope.commercialType = usageReport.type === 'COMMERCIAL';
 		
 		usageReport.countries.forEach(function(usageCount) {
