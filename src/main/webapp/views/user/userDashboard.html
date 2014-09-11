@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div class="row" ng-show="affiliate.application.approvalState === 'REJECTED'">
+  <div class="row" ng-show="standingStateUtils.isRejected(affiliate.standingState)">
     <div class="col-sm-12">
       <div class="alert alert-danger" role="alert">
         <div><strong>Affiliate Registration Declined</strong></div>
@@ -163,14 +163,18 @@
        <a ng-show="isApplicationWaitingForApplicant(affiliate.application)" class="btn btn-default" href="#/affiliateRegistration">Edit Affiliate Application</a>
   </div>
   <div class="panel-body">
-	<ul class="list-group" ng-show="affiliate.application.approvalState === 'APPROVED'">
+	<ul class="list-group" >
 		<li class="list-group-item"><strong>Affiliate No:</strong> {{affiliate.affiliateId}}</li>
-		<li class="list-group-item"><strong>Type:</strong> {{affiliate.affiliateDetails.type | enum:'affiliate.type.'}}</li>
-		<li class="list-group-item">
+		<li class="list-group-item" ng-show="standingStateUtils.wasApproved(affiliate.standingState)">
+			<strong>Type:</strong> {{affiliate.affiliateDetails.type | enum:'affiliate.type.'}}
+		</li>
+		<li class="list-group-item" ng-show="standingStateUtils.wasApproved(affiliate.standingState)">
 			<strong>Subtype:</strong> {{affiliate.affiliateDetails.subType | enum:'affiliate.subType.'}}
 			<span ng-show="affiliate.affiliateDetails.type == 'OTHER'">{{affiliate.affiliateDetails.otherText}}</span>
 		</li>
-		<li class="list-group-item"><strong>Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType |  enum:'affiliate.agreementType.'}}</li>
+		<li class="list-group-item" ng-show="standingStateUtils.wasApproved(affiliate.standingState)">
+			<strong>Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType |  enum:'affiliate.agreementType.'}}
+		</li>
 	</ul>
     <span class="alert alert-success btn-block" ng-show="standingStateUtils.isSuccessCategory(affiliate.standingState)">
       <strong>Account Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</span>
