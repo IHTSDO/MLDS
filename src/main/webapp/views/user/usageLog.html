@@ -166,19 +166,38 @@
 				</div>
         <div class="row">
           <div class="country-footer">
-            <div class="col-xs-8 col-sm-8  col-md-8 col-lg-8">
-              <p><strong>Practices: </strong> <span class="label label-default">{{countryUsage.count.practices | number}}</span></p>
+            <div class="col-xs-4 col-sm-4  col-md-4 col-lg-4">
+              <p>
+              	<strong>Data Analysis Practices: </strong> 
+              	<span class="label label-default">{{countryUsage.count.analysisPractices | number}}</span>
+              </p>
+            </div>
+            <div class="col-xs-4 col-sm-4  col-md-4 col-lg-4">
+              <p>
+              	<strong>Data Creation Practices: </strong> 
+              	<span class="label label-default">{{countryUsage.count.creationPractices | number}}</span>
+              </p>
             </div>
             <div class="col-xs-4 col-sm-4  col-md-4 col-lg-4">
               <button ng-hide="readOnly" type="button" class="btn btn-default btn-xs pull-right" ng-click="editCountModal(countryUsage.count)"> <i class="fa fa-pencil"></i> Add Practices</button>
             </div>
           </div>
-           </div>
         </div>
+        <div class="row" ng-show="countryUsage.count.notes">
+          <div class="country-footer">
+            <div class="col-xs-12 col-sm-12  col-md-12 col-lg-12">
+             	<label>Notes: </label> 
+              <p>
+              	{{countryUsage.count.notes}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			</div>
 		</div>
-	    <div class="space"></div>
+	</div>
+  <div class="space"></div>
 </div>
 </div>
 

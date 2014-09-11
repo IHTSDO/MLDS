@@ -3,6 +3,7 @@
 angular.module('MLDS').controller('EditCountController', ['$scope', '$modalInstance', 'usageReport', 'count', 'country', '$log', 'CommercialUsageService',
                                                        	function($scope, $modalInstance, usageReport, count, country, $log, CommercialUsageService) {
 	$scope.country = country;
+	$log.log('count', count);
 	$scope.count = count;
 	$scope.usageReport = usageReport;
 	
@@ -18,6 +19,7 @@ angular.module('MLDS').controller('EditCountController', ['$scope', '$modalInsta
 		$scope.submitAttempted = true;
 		$scope.submitting = true;
 		$scope.alerts.splice(0, $scope.alerts.length);
+		
 		
 		CommercialUsageService.updateUsageCount($scope.usageReport, $scope.count)
 			.then(function(result) {
