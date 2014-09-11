@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
+import ca.intelliware.ihtsdo.mlds.security.UserStandingCalculator;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
-import ca.intelliware.ihtsdo.mlds.service.UserStandingCalculator;
 
 @Service
 public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
