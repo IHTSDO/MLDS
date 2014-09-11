@@ -14,9 +14,9 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.security.UserStandingCalculator;
 import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
-import ca.intelliware.ihtsdo.mlds.service.UserStandingCalculator;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReleasePackageAuthorizationCheckerTest {
