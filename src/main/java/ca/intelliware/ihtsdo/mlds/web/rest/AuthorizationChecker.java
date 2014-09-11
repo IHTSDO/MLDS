@@ -25,6 +25,10 @@ public class AuthorizationChecker {
 		return currentSecurityContext.isAdmin();
 	}
 	
+	protected boolean isUser() {
+		return currentSecurityContext.isUser();
+	}
+	
 	protected void failCheck(String description) {
 		//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
 		throw new IllegalStateException(description);

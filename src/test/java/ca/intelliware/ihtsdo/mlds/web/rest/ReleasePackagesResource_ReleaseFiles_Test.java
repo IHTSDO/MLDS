@@ -118,6 +118,7 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
 					.contentType(MediaType.APPLICATION_JSON)
 	                .accept(MediaType.APPLICATION_JSON))
 	                .andExpect(status().is5xxServerError());
+			Assert.fail();
         } catch (NestedServletException e) {
         	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("ACCOUNT DEACTIVATED"));
         }
