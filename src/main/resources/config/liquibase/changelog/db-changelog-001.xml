@@ -1207,5 +1207,11 @@
     	</sql>
     	<addNotNullConstraint tableName="affiliate" columnName="standing_state"/>
     </changeSet>
-    
+
+	<changeSet id="MLDS-307-1" author="DGJ" >
+    	<comment>Add effectiveTo marker for usages</comment>
+    	<addColumn tableName="commercial_usage">
+    		<column name="effective_to" type="timestamp"/>
+    	</addColumn>
+    </changeSet>
 </databaseChangeLog>
