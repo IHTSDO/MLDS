@@ -57,6 +57,9 @@ public class CommercialUsage extends BaseEntity {
 	private ApprovalState approvalState;
 	
 	private String note;
+	
+	@Column(name="effective_to")
+	private Instant effectiveTo;
 
 	@Embedded
 	UsageContext context;
@@ -190,6 +193,14 @@ public class CommercialUsage extends BaseEntity {
 	@Override
 	protected Object getPK() {
 		return commercialUsageId;
+	}
+
+	public Instant getEffectiveTo() {
+		return effectiveTo;
+	}
+
+	public void setEffectiveTo(Instant effectiveTo) {
+		this.effectiveTo = effectiveTo;
 	}
 
 }
