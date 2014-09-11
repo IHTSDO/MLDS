@@ -1208,10 +1208,19 @@
     	<addNotNullConstraint tableName="affiliate" columnName="standing_state"/>
     </changeSet>
 
-	<changeSet id="MLDS-307-1" author="DGJ" >
+		<changeSet id="MLDS-307-1" author="DGJ" >
     	<comment>Add effectiveTo marker for usages</comment>
     	<addColumn tableName="commercial_usage">
     		<column name="effective_to" type="timestamp"/>
     	</addColumn>
     </changeSet>
+    
+    <changeSet id="MLDS-343" author="AC">
+    	<comment>Add sublicense type to hospital</comment>
+    	<addColumn tableName="commercial_usage_entry" >
+    		<column name="sublicence_type" type="VARCHAR(255)" value="DATA_ANALYSIS_SYSTEM"></column>
+    	</addColumn>
+    	<addNotNullConstraint tableName="commercial_usage_entry" columnName="sublicence_type"/>
+    </changeSet>
+    
 </databaseChangeLog>
