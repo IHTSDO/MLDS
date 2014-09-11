@@ -134,6 +134,7 @@
 							<th>Hospital Name</th>
 							<th>Started to Use</th>
 							<th>Ceased Use</th>
+							<th>Sub-Licence Type</th>
 							<th>Note</th>
 							<th></th>
 						</tr>
@@ -148,6 +149,7 @@
 									</a>
 								</span>
 							</td>
+							<td>{{institution.sublicenceType | enum:'sublicenceType.'}}</td>
 							<td>{{institution.note}}</td>
 							<td>
 								<div class="btn-group" dropdown ng-hide="readOnly">
