@@ -8,14 +8,31 @@
 	
 	<form name="formCount" bs-validation novalidate>
     <div class="row">
-      <div class="form-group">
-        <div class="col-md-6">
-          <label>Practices</label> 
-          <input type="number" min="0" class="form-control" name="practices" ng-model="count.practices" ng-required="true">
-          <span ng-show="formCount.practices.$error.required && submitAttempted" class="help-block">Required Field</span>
-          <span ng-show="formCount.practices.$error.number && submitAttempted" class="help-block">Not a valid number</span>
+      <div class="col-md-6">
+	      <div class="form-group">
+          <label>Data Analysis Practices</label> 
+          <input type="number" min="0" class="form-control" name="analysisPractices" ng-model="count.analysisPractices" ng-required="true">
+          <span ng-show="formCount.analysisPractices.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formCount.analysisPractices.$error.number && submitAttempted" class="help-block">Not a valid number</span>
         </div>
       </div>
+      <div class="col-md-6">
+	      <div class="form-group">
+          <label>Data Creation Practices</label> 
+          <input type="number" min="0" class="form-control" name="creationPractices" ng-model="count.creationPractices" ng-required="true">
+          <span ng-show="formCount.creationPractices.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formCount.creationPractices.$error.number && submitAttempted" class="help-block">Not a valid number</span>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+    	<div class="col-md-12">
+    		<div class="form-group">
+    			<label>Notes</label>
+    			<textarea class="form-control" rows="3" ng-model="count.notes" ></textarea>
+    		</div>
+    	</div>
     </div>
 	</form>
 </div>
