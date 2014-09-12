@@ -8,7 +8,6 @@ import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang.Validate;
-import org.joda.time.Instant;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,7 +33,11 @@ import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.ApprovalTransition;
+import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuditEvents;
+import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
+import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Objects;
@@ -63,6 +66,9 @@ public class CommercialUsageResource {
 	
 	@Resource
 	CommercialUsageAuditEvents commercialUsageAuditEvents;
+	
+	@Resource
+	CommercialUsageService commercialUsageService;
 	
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.GET,
@@ -108,12 +114,6 @@ public class CommercialUsageResource {
     	public void setTransition(ApprovalTransition transition) {
     		this.transition = transition;
     	}
-    }
-    
-    public static enum ApprovalTransition {
-    	SUBMIT,
-    	RETRACT,
-    	REVIEWED,
     }
     
     /**
@@ -238,30 +238,9 @@ public class CommercialUsageResource {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
     	
-    	// FIXME Extract out to "workflow" handler
-    	if (ApprovalState.NOT_SUBMITTED.equals(commercialUsage.getApprovalState()) && ApprovalTransition.SUBMIT.equals(applyTransition.getTransition())) {
-    		commercialUsage.setApprovalState(ApprovalState.SUBMITTED);
-    		commercialUsage.setSubmitted(Instant.now());
-    		commercialUsage = commercialUsageRepository.save(commercialUsage);
-    	} else if ((ApprovalState.SUBMITTED.equals(commercialUsage.getApprovalState()) || ApprovalState.APPROVED.equals(commercialUsage.getApprovalState())) && ApprovalTransition.RETRACT.equals(applyTransition.getTransition())) {
-    		// Mark original usage as no-longer effective
-    		commercialUsage.setEffectiveTo(Instant.now());
-        	commercialUsage = commercialUsageRepository.saveAndFlush(commercialUsage);
-        	// Create duplicate usage to replace original and become the active one
-        	commercialUsageResetter.detachAndReset(commercialUsage, commercialUsage.getStartDate(), commercialUsage.getEndDate());
-        	commercialUsage = commercialUsageRepository.save(commercialUsage);
-    	} else if (ApprovalState.SUBMITTED.equals(commercialUsage.getApprovalState()) && ApprovalTransition.REVIEWED.equals(applyTransition.getTransition())) {
-    		authorizationChecker.checkCanReviewUsageReports();
-        	commercialUsage.setApprovalState(ApprovalState.APPROVED);
-        	commercialUsage = commercialUsageRepository.save(commercialUsage);
-    	} else {
-    		return new ResponseEntity<>(HttpStatus.CONFLICT);
-    	}
-        
-    	commercialUsageAuditEvents.logApprovalStateChange(commercialUsage);
+    	commercialUsage = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, applyTransition.getTransition());
     	
-		ResponseEntity<CommercialUsage> responseEntity = new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
-		return responseEntity;
+		return new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
     }
 
     @Transactional
