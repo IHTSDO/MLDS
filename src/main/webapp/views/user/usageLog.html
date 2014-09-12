@@ -197,6 +197,23 @@
 
 		</div>
 	</div>
+	<div class="panel panel-primary" ng-show="commercialType">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				Other Activities
+			</h4>
+		</div>
+		<div class="panel-body" >
+			<ng-form name="usageForm" novalidate bs-validation >
+				<p>Affiliates are required to notify IHTSDO prior to engaging in any activities that do not fall within the existing categories at which time the IHTSDO will determine the appropriate Fee Structure for the activity in question.</p>
+				<p>Please describe activity below.</p>
+				<div class="form-group">
+					<textarea rows="4" class="form-control" name="otherActivities" ng-model="commercialUsageReport.context.otherActivities" ng-disabled="readOnly" auto-submit></textarea>
+				</div>
+			</ng-form>
+		</div>
+	</div>
+	
   <div class="space"></div>
 </div>
 </div>
