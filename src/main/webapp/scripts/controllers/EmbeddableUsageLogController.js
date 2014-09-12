@@ -185,7 +185,8 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 				$scope.geographicAdding += 1;
 				CommercialUsageService.addUsageCount($scope.commercialUsageReport, 
 						{
-						practices: 0,
+						analysisPractices: 0,
+						creationPractices: 0,
 						country: country
 				}, {skipBroadcast: true})
 				.then(function() {
