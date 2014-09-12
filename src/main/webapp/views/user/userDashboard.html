@@ -62,56 +62,7 @@
 
 <div class="row">
   <div class="col-lg-4"
-  	ng-controller="UsageReportsTableController"> 
-    <div class="panel panel-default dashboard">
-  <div class="panel-heading">
-     <span class="pull-right"><button class="btn btn-success btn-xs" ng-click="usageReportsUtils.openAddUsageReportModal(affiliate)"><i class="fa fa-plus"></i> New Report</button></span>
-    <h3 class="panel-title">Usage Reports
-    	<button ng-click="viewUsageReports()" class="btn btn-link btn-xs">View All <i class="fa fa-angle-double-right"></i></button>
-    </h3>
-  </div>
-  <div class="table-responsive">
-    <table class="table table-striped">
-		      <thead> 
-		        <tr>
-		          <th>Report Date</th>
-		          <th>Hospitals</th>
-		          <th>Practices</th>
-		        </tr>
-		      </thead>
-		      <tbody> 
-		        <tr
-		        	ng-repeat="usageReport in affiliate.commercialUsages | orderBy:'-startDate'"
-					ng-click="usageReportsUtils.goToUsageReport(usageReport)" 
-					ng-class="{highlight:usageReportsUtils.isUsageReportWaitingForApplicant(usageReport)}"
-		        	>
-		          <td> 
-		          		<span class="btn-link" tooltip-placement="top">
-		          			<span  tooltip="Declaration has not been submitted" 
-		          				tooltip-placement="top"
-			          			ng-show="usageReportsUtils.isUsageReportWaitingForApplicant(usageReport)"  
-		          				>
-		          				<i class="fa fa-exclamation-circle"></i>
-	          				</span>
-			            	{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}} {{usageReport.startDate | date : 'yyyy'}}
-		          		</span>
-		          </td>
-		          <td>
-		            <span class="btn-link">
-		            	{{usageReportsUtils.usageReportHospitals(usageReport)}}
-		            </span>
-		          </td>
-		          <td>
-		            <span class="btn-link">
-		            	{{usageReportsUtils.usageReportPractices(usageReport)}}
-		            </span>
-		          </td>
-		        </tr>
-		      </tbody>
-		    </table>
-
-  </div>
-</div>
+  	ng-controller="UsageReportsTableController" ng-include="'views/usageReportsTable.html'" ng-init="setShowAllColumns(false); setShowViewAll(true)">
   </div>
   <div class="col-lg-4">
 
