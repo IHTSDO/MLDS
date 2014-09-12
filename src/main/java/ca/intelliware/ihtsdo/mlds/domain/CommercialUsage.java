@@ -67,8 +67,6 @@ public class CommercialUsage extends BaseEntity {
 	//@Type(type="jodatimeInstant")
 	private Instant submitted = null;
 
-	
-	
 	@JsonProperty("entries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	Set<CommercialUsageEntry> usage = Sets.newHashSet();
@@ -202,5 +200,4 @@ public class CommercialUsage extends BaseEntity {
 	public void setEffectiveTo(Instant effectiveTo) {
 		this.effectiveTo = effectiveTo;
 	}
-
 }

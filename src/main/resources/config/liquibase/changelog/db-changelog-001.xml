@@ -1223,4 +1223,26 @@
     	<addNotNullConstraint tableName="commercial_usage_entry" columnName="sublicence_type"/>
     </changeSet>
     
+    <changeSet id="MLDS-343-2" author="AC">
+    	<comment>split practices into separate fields</comment>
+    	<addColumn tableName="commercial_usage_count" >
+    		<column name="creation_practices" type="int" value="0"></column>
+    	</addColumn>
+    	<renameColumn tableName="commercial_usage_count" oldColumnName="practices" newColumnName="analysis_practices"/>
+    </changeSet>
+    
+    <changeSet id="MLDS-343-3" author="AC">
+    	<comment>adding notes to commercial usage count</comment>
+    	<addColumn tableName="commercial_usage_count" >
+    		<column name="notes" type="TEXT"/>
+    	</addColumn>
+    </changeSet>
+    
+    <changeSet id="MLDS-343-4" author="AC">
+    	<comment>add other activites notes to commercial_usage</comment>
+    	<addColumn tableName="commercial_usage" >
+    		<column name="other_activities" type="TEXT"/>
+    	</addColumn>
+    </changeSet>
+    
 </databaseChangeLog>
