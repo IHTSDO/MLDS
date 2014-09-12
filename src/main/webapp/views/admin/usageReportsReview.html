@@ -20,7 +20,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="usageReport in usageReports | orderBy:orderByField:reverseSort">
-					<td>{{usageReport.affiliate.affiliateDetails.organizationName ? usageReport.affiliate.affiliateDetails.organizationName : usageReport.affiliate.affiliateDetails.firstName + ' ' + usageReport.affiliate.affiliateDetails.lastName}}</td>
+					<td>{{affiliateDetails(usageReport).organizationName ? affiliateDetails(usageReport).organizationName : affiliateDetails(usageReport).firstName + ' ' + affiliateDetails(usageReport).lastName}}</td>
 					<td>{{usageReport.submitted | date}}</td>
 					<td>{{usageReport.type | enum:'affiliate.type.'}}</td>
 					
