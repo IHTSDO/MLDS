@@ -34,7 +34,10 @@ public class AffiliateJsonTest {
 		usage = new CommercialUsage(55L,affiliate);
 		affiliate.addCommercialUsage(usage);
 		usage.addEntry(new CommercialUsageEntry(22,usage));
-		usage.addCount(new CommercialUsageCountry(23,usage));
+		CommercialUsageCountry country = new CommercialUsageCountry(23,usage);
+		country.setAnalysisPractices(5);
+		country.setCreationPractices(3);
+		usage.addCount(country);
 	}
 	
 	@Before
