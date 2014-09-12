@@ -22,7 +22,7 @@
 			<tbody>
 				<tr ng-click="usageReportsUtils.goToUsageReport(usageReport)"
 					ng-class="{highlight:usageReportsUtils.isUsageReportWaitingForApplicant(usageReport), 'text-muted':usageReport.effectiveTo}"
-					ng-repeat="usageReport in affiliate.commercialUsages | orderBy:['-startDate', isActiveUsageReport, '-effectiveTo']">
+					ng-repeat="usageReport in $parent.affiliate.commercialUsages | orderBy:['-startDate', isActiveUsageReport, '-effectiveTo']">
 					<td ng-class="{'text-muted':usageReport.effectiveTo !== null}">
 						<span class="btn-link"> 
 							<span ng-show="usageReport.effectiveTo" class="text-muted">
