@@ -19,6 +19,8 @@ angular.module('MLDS')
 		};
 
 		function serializeCommercialCount(count) {
+			$log.log('count', count);
+			
 			return count;
 		};
 
