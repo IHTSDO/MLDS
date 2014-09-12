@@ -68,12 +68,12 @@
 	 						</span><br>
   				  </span>
  					</li>
- 					<li class="list-group-item"><strong>Other Activities:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.otherActivities}}</li>
  					<li class="list-group-item" ng-show="affiliateform.type!='COMMERCIAL'"><strong>Countries:</strong>
  						<span ng-repeat="countryRecord in usageCountryCountslist">
   						{{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
  						</span><br>
  					</li>
+ 					<li class="list-group-item"><strong>Other Activities:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.otherActivities}}</li>
  				</ul>
   		  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 
