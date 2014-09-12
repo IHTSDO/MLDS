@@ -39,7 +39,6 @@ public class CommercialUsageCountry extends BaseEntity {
 	@Column(name="creation_practices")
 	Integer creationPractices = 0;
 	
-
 	public CommercialUsageCountry() {
 		
 	}
@@ -65,7 +64,20 @@ public class CommercialUsageCountry extends BaseEntity {
 	public CommercialUsage getCommercialUsage() {
 		return commercialUsage;
 	}
-
+	
+	public Integer getPractices() {
+		return analysisPractices + creationPractices;
+	}
+	
+	/**
+	 * Stub to allow Jackson to deserizalize our synthetic "practices" property.
+	 * @param dummy
+	 */
+	@Deprecated
+	public void setPractices(Integer dummy) {
+		// do nothing.
+	}
+	
 	@Override
 	protected Object getPK() {
 		return commercialUsageCountId;
