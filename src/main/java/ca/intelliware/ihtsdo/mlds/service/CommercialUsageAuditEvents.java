@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web.rest;
+package ca.intelliware.ihtsdo.mlds.service;
 
 import java.util.Map;
 
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
-import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
 import com.google.common.collect.Maps;
 

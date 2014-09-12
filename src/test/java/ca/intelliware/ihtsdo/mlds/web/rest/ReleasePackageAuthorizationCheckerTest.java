@@ -39,7 +39,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 	@Before
 	public void setUp() {
 		authorizationChecker = new ReleasePackageAuthorizationChecker();
-		authorizationChecker.currentSecurityContext = new CurrentSecurityContext();
+		authorizationChecker.setCurrentSecurityContext(new CurrentSecurityContext());
 		authorizationChecker.userMembershipAccessor = userMembershipAccessor;
 		authorizationChecker.userStandingCalculator = userStandingCalculator;
 		

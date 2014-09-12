@@ -1,11 +1,10 @@
-package ca.intelliware.ihtsdo.mlds.web.rest;
+package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.ObjectUtils;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
 import com.google.common.base.Objects;
 
@@ -78,5 +77,9 @@ public class AuthorizationChecker {
 			return;
 		}
 		failCheck("User not authorized to manage Affiliate");
+	}
+	
+	public void setCurrentSecurityContext(CurrentSecurityContext currentSecurityContext) {
+		this.currentSecurityContext = currentSecurityContext;
 	}
 }
