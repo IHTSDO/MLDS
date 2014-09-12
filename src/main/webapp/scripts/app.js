@@ -79,7 +79,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/usageReportReview/:usageReportId', {
+                .when('/usageReportsReview/:usageReportId', {
                     templateUrl: 'views/admin/usageReportReview.html',
                     controller: 'UsageReportReviewController',
                     access: {
