@@ -72,26 +72,45 @@
 								<th>Hospital Name</th>
 								<th>Started to Use</th>
 								<th>Ceased Use</th>
+								<th>Sub-Licence Type</th>
 								<th>Note</th>
 							</tr>
 							<tr ng-repeat="institution in countryUsage.entries">
 								<td>{{institution.name}}</td>
 								<td>{{institution.startDate | date}}</td>
 								<td>{{institution.endDate | date}}</td>
+								<td>{{institution.sublicenceType | enum:'subLicenceType.'}}</td>
 								<td>{{institution.note}}</td>
 							</tr>
 						</table>
 					</div>
 					<div class="row">
 						<div class="country-footer">
-							<div class="col-xs-8 col-sm-8  col-md-8 col-lg-8">
-								<p>
-									<strong>Practices: </strong> <span class="label label-default">{{countryUsage.count.practices | number}}</span>
-								</p>
-							</div>
+							<div class="col-xs-6">
+	              <p>
+	              	<strong>Data Analysis Practices: </strong> 
+	              	<span class="label label-default">{{countryUsage.count.analysisPractices | number}}</span>
+	              </p>
+	            </div>
+	            <div class="col-xs-6">
+	              <p>
+	              	<strong>Data Creation Practices: </strong> 
+	              	<span class="label label-default">{{countryUsage.count.creationPractices | number}}</span>
+	              </p>
+	            </div>
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary" ng-show="usageReport.context.otherActivities">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+       		Other Activities
+       	</h4>
+      </div>
+			<div class="panel-body" class="panel-collapse collapse in">
+				<p>{{usageReport.context.otherActivities}}</p>
 			</div>
 		</div>
 		
