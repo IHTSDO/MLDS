@@ -1,28 +1,29 @@
-<div class="panel panel-default dashboard"
-	ng-controller="UsageReportsTableController">
+<div class="panel panel-default dashboard">
 	<div class="panel-heading">
 		<span class="pull-right">
-			<button class="btn btn-success btn-xs" ng-if="$root.Session.isAdmin()"
+			<button class="btn btn-success btn-xs" ng-if="$root.Session.isUser() || $root.Session.isAdmin()"
 				ng-click="usageReportsUtils.openAddUsageReportModal($parent.affiliate)"><i class="fa fa-plus"></i> New Report</button>
 		</span>
-		<h3 class="panel-title">Usage Reports</h3>
+		<h3 class="panel-title">Usage Reports
+		<button ng-click="viewUsageReports()" ng-show="showViewAll" class="btn btn-link btn-xs">View All <i class="fa fa-angle-double-right"></i></button>
+		</h3>
 	</div>
 	<div class="table-responsive">
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
 					<th>Report Date</th>
-					<th>Usage Type</th>
-					<th>Approval State</th>
-					<th>Countries</th>
+					<th ng-show="showAllColumns">Usage Type</th>
+					<th ng-show="showAllColumns">Approval State</th>
+					<th ng-show="showAllColumns">Countries</th>
 					<th>Hospitals</th>
 					<th>Practices</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-click="usageReportsUtils.goToUsageReport(usageReport)"
-					ng-class="{highlight:usageReportsUtils.isUsageReportWaitingForApplicant(usageReport), 'text-muted':usageReport.effectiveTo}"
-					ng-repeat="usageReport in $parent.affiliate.commercialUsages | orderBy:['-startDate', isActiveUsageReport, '-effectiveTo']">
+					ng-class="{highlight:usageReportsUtils.isUsageReportWaitingForApplicant(usageReport)}"
+					ng-repeat="usageReport in affiliate.commercialUsages | orderBy:['-startDate', isActiveUsageReport, '-effectiveTo']">
 					<td ng-class="{'text-muted':usageReport.effectiveTo !== null}">
 						<span class="btn-link"> 
 							<span ng-show="usageReport.effectiveTo" class="text-muted">
@@ -41,17 +42,17 @@
 							</span>
 						</span>
 					</td>
-					<td>
+					<td ng-show="showAllColumns">
 						<span class="btn-link" ><span ng-class="{'text-muted':usageReport.effectiveTo}">
 							{{ usageReport.type | enum:'affiliate.type.'}}
 						</span></span>
 					</td>
-					<td>
+					<td ng-show="showAllColumns">
 						<span class="btn-link"><span ng-class="{'text-muted':usageReport.effectiveTo}">
 							{{ usageReport.approvalState | enum:'approval.state.'}}
 						</span></span>
 					</td>
-					<td>
+					<td ng-show="showAllColumns">
 						<span class="btn-link"><span ng-class="{'text-muted':usageReport.effectiveTo}">
 							{{usageReportsUtils.usageReportCountries(usageReport)}}
 						</span></span>
