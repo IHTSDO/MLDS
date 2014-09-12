@@ -12,6 +12,10 @@ angular.module('MLDS').controller('UsageReportReviewController',
 		$scope.usageByCountry = {};
 		$scope.usageByCountryList = [];
 		
+		$scope.goBackToPrevious = function() {
+			$window.history.back();	
+		};
+		
 		function lookupUsageByCountryOrNull(country) {
 			var countryCode = country.isoCode2;
 			return $scope.usageByCountry[countryCode];
