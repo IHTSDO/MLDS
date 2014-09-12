@@ -45,6 +45,8 @@ import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
+import ca.intelliware.ihtsdo.mlds.service.ApprovalTransition;
+import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
@@ -79,6 +81,7 @@ public class ApplicationResource {
 	@Resource ObjectMapper objectMapper;
 	@Resource UserMembershipAccessor userMembershipAccessor;
 	@Resource MemberRepository memberRepository;
+	@Resource CommercialUsageService commercialUsageService;
 
 	@RequestMapping(value="api/applications")
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
@@ -263,6 +266,12 @@ public class ApplicationResource {
 		affiliateRepository.save(affiliate);
 		
 		applicationAuditEvents.logApprovalStateChange(application);
+		
+		if (application.getCommercialUsage() != null 
+				&& !Objects.equal(application.getCommercialUsage().getType(), AffiliateType.COMMERCIAL)
+				&& Objects.equal(application.getCommercialUsage().getApprovalState(), ApprovalState.NOT_SUBMITTED)) {
+			commercialUsageService.transitionCommercialUsageApproval(application.getCommercialUsage(), ApprovalTransition.SUBMIT);
+		}
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}

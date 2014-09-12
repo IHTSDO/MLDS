@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.AuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.UserStandingCalculator;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
