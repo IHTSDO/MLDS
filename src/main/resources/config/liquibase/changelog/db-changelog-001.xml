@@ -1238,4 +1238,11 @@
     	</addColumn>
     </changeSet>
     
+    <changeSet id="MLDS-343-4" author="AC">
+    	<comment>add other activites notes to commercial_usage</comment>
+    	<addColumn tableName="commercial_usage" >
+    		<column name="other_activities" type="TEXT"/>
+    	</addColumn>
+    </changeSet>
+    
 </databaseChangeLog>
