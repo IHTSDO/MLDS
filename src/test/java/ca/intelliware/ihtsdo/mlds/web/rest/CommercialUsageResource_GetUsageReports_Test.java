@@ -87,6 +87,7 @@ public class CommercialUsageResource_GetUsageReports_Test {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].note").value("Test Note"))
+                .andExpect(jsonPath("$[0].countries[0].practices").value(5))
                 .andExpect(jsonPath("$[0].countries[0].analysisPractices").value(3))
                 .andExpect(jsonPath("$[0].countries[0].creationPractices").value(2))
                 .andExpect(jsonPath("$[0].entries[0].name").value("Test Name"))
