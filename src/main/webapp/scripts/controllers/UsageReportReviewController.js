@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('UsageReportReviewController',
-		['$scope', '$routeParams', '$location', '$log', '$parse', '$window', 'CommercialUsageService',
-    function ($scope, $routeParams, $location, $log, $parse, $window, CommercialUsageService) {
+		['$scope', '$routeParams', '$location', '$log', '$parse', '$window', 'CommercialUsageService', 'AffiliateService',
+    function ($scope, $routeParams, $location, $log, $parse, $window, CommercialUsageService, AffiliateService) {
 			
 		var usageReportId = $routeParams.usageReportId;
 		
@@ -51,6 +51,12 @@ angular.module('MLDS').controller('UsageReportReviewController',
 					$scope.usageReport = result.data;
 					$scope.affiliate = result.data.affiliate;
 					
+					// We must download a fully populated affiliate
+					AffiliateService.affiliate($scope.affiliate.affiliateId)
+						.then(function(result) {
+							$scope.affiliate = result.data;
+						});
+										
 					$scope.usageReport.countries.forEach(function(usageCount) {
 						var countrySection = lookupUsageByCountryOrCreate(usageCount.country);
 						countrySection.count = usageCount;
