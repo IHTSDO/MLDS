@@ -3,7 +3,6 @@
 angular.module('MLDS').controller('AdminUsageReportsController',
 		['$scope', '$log', 'CommercialUsageService', 'UsageReportsService', 'StandingStateUtils',
     function ($scope, $log, CommercialUsageService,UsageReportsService, StandingStateUtils) {
-			$log.log('AdminUsageReportsController');
 			
 			$scope.usageReportsUtils = UsageReportsService;
 			
