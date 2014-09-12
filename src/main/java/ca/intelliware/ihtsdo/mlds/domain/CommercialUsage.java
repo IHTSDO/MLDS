@@ -67,9 +67,6 @@ public class CommercialUsage extends BaseEntity {
 	//@Type(type="jodatimeInstant")
 	private Instant submitted = null;
 
-	@Column(name="other_activities")
-	String otherActivities;
-	
 	@JsonProperty("entries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	Set<CommercialUsageEntry> usage = Sets.newHashSet();
@@ -203,13 +200,4 @@ public class CommercialUsage extends BaseEntity {
 	public void setEffectiveTo(Instant effectiveTo) {
 		this.effectiveTo = effectiveTo;
 	}
-
-	public String getOtherActivities() {
-		return otherActivities;
-	}
-
-	public void setOtherActivities(String otherActivities) {
-		this.otherActivities = otherActivities;
-	}
-
 }
