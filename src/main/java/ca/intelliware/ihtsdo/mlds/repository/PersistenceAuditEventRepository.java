@@ -21,4 +21,8 @@ import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
     List<PersistentAuditEvent> findByDates(Instant fromDate, Instant toDate);
     
     List<PersistentAuditEvent> findByAuditEventType(String auditEventType);
+
+	List<PersistentAuditEvent> findByAffiliateId(Long affiliateId);
+
+	List<PersistentAuditEvent> findByApplicationId(Long applicationId);
 }

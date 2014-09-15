@@ -1,0 +1,140 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+			<span class="pull-right btn btn-link" ng-click="goBackToPrevious()">Back to Review Usage Reports</span>
+			<h1>Review Usage Report</h1>
+		</div>
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-8">
+		<div class="panel panel-primary" >
+      <div class="panel-heading">
+        <h4 class="panel-title">
+       		Licence Usage
+       		<span class="pull-right">
+       			<span ng-show="usageReport.approvalState === 'RESUBMITTED'" class="label label-default"> {{usageReport.approvalState|enum:'approval.state.'}}</span>
+       			{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM yyyy'}}
+       		</span>
+       	</h4>
+      </div>
+      
+			<div class="panel-body" collapse="collapsePanel.usage"
+				class="panel-collapse collapse in">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<strong>Licence Type: </strong><span> {{usageReport.type | enum:'affiliate.type.'}}</span>
+					</li>
+					<li class="list-group-item">
+						<strong>Implementation Status: </strong><span> {{usageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</span>
+					</li>
+					<li class="list-group-item">
+						<label>Current Usage:</label>
+						<p>{{usageReport.context.currentUsage}}</p>
+					</li>
+					<li class="list-group-item">
+						<label>Planned Usage:</label>
+						<p>{{usageReport.context.plannedUsage}}</p>
+					</li>
+					<li class="list-group-item">
+						<label>Purpose:</label>
+					<p>{{usageReport.context.purpose}}</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="panel panel-primary" ng-show="usageReport.type == 'INDIVIDUAL'">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+       		Countries in Use
+       	</h4>
+      </div>
+			<div class="panel-body" class="panel-collapse collapse in">
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="countryUsage in usageReport.countries">{{countryUsage.country.commonName}}</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="panel panel-primary" ng-show="usageReport.type == 'COMMERCIAL'">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+       		Sublicensed Institutions
+       	</h4>
+      </div>
+			<div class="panel-body" class="panel-collapse collapse in">
+				<div class="country-listing" ng-repeat="countryUsage in usageByCountryList">
+					<div class="row">
+						<div class="country-heading">
+							<div class="col-xs-8 col-sm-6 col-md-4 col-lg-6">
+								<h3 class="country-title">{{countryUsage.country.commonName}}</h3>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<table class="table table-striped">
+							<tr>
+								<th>Hospital Name</th>
+								<th>Started to Use</th>
+								<th>Ceased Use</th>
+								<th>Sub-Licence Type</th>
+								<th>Note</th>
+							</tr>
+							<tr ng-repeat="institution in countryUsage.entries">
+								<td>{{institution.name}}</td>
+								<td>{{institution.startDate | date}}</td>
+								<td>{{institution.endDate | date}}</td>
+								<td>{{institution.sublicenceType | enum:'sublicenceType.'}}</td>
+								<td>{{institution.note}}</td>
+							</tr>
+						</table>
+					</div>
+					<div class="row">
+						<div class="country-footer">
+							<div class="col-xs-6">
+	              <p>
+	              	<strong>Data Analysis Practices: </strong> 
+	              	<span class="label label-default">{{countryUsage.count.analysisPractices | number}}</span>
+	              </p>
+	            </div>
+	            <div class="col-xs-6">
+	              <p>
+	              	<strong>Data Creation Practices: </strong> 
+	              	<span class="label label-default">{{countryUsage.count.creationPractices | number}}</span>
+	              </p>
+	            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary" ng-show="usageReport.context.otherActivities">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+       		Other Activities
+       	</h4>
+      </div>
+			<div class="panel-body" class="panel-collapse collapse in">
+				<p>{{usageReport.context.otherActivities}}</p>
+			</div>
+		</div>
+		
+		<div ng-include src="'views/usageReportsTable.html'" ng-controller="UsageReportsTableController"></div>
+		
+	</div>
+	
+	
+	
+	<div class="col-md-4">
+		<div ng-include src="'views/affiliateDetailsSummary.html'"></div>
+		
+		<div>
+			<a class="btn btn-warning btn-block" ng-click="reviewedUsageReport()">
+				Mark Usage Report as Reviewed 
+			</a>
+		</div>
+	</div>
+	
+</div>

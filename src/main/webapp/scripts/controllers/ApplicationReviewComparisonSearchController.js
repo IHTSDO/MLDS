@@ -8,12 +8,24 @@ mldsApp.controller('ApplicationReviewComparisonSearchController', [
 			$scope.showComparisonAffiliate = false; // start with search box showing
 			
 			$scope.getAffiliatesMatching = function getAffiliatesMatching(text) {
-				return AffiliateService.affiliatesResource.query({q:text}).$promise;
+				var notSelfPredicate = function (affiliate) {
+					return $scope.originalAffiliate === null 
+						|| affiliate.affiliateId !== $scope.originalAffiliate.affiliateId;
+				};
+				return AffiliateService.affiliatesResource.query({q:text}).$promise
+					.then(function(foundAffiliates) {
+					return _.filter(foundAffiliates, notSelfPredicate);
+				});
 			};
 			
-			$scope.selectComparisonAffiliate = function(affiliate) {
+			$scope.selectComparisonAffiliate = function selectComparisonAffiliate(affiliate) {
 				$scope.showComparisonAffiliate = true;
 				$scope.application = $scope.comparisonAffiliate.application;
+				$scope.standingState = $scope.comparisonAffiliate.standingState;
 				$log.log(affiliate, $scope.comparisonAffiliate);
+			};
+			
+			$scope.setOriginalAffiliate = function setOriginalAffiliate(affiliate) {
+				$scope.originalAffiliate = affiliate;
 			};
 		} ]);

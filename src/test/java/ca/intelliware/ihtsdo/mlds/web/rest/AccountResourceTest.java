@@ -24,6 +24,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Authority;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
 
@@ -41,6 +42,8 @@ public class AccountResourceTest {
     private UserMembershipAccessor userMembershipAccessor;
 
     private MockMvc restUserMockMvc;
+    
+    private SecurityContextSetup securityContextSetup = new SecurityContextSetup();
     
     @Before
     public void setup() {
@@ -79,6 +82,8 @@ public class AccountResourceTest {
 
     @Test
     public void testGetExistingAccount() throws Exception {
+    	securityContextSetup.asAffiliateUser();
+    	
         Set<Authority> authorities = new HashSet<>();
         Authority authority = new Authority();
         authority.setName(AuthoritiesConstants.USER);
@@ -104,14 +109,5 @@ public class AccountResourceTest {
                 .andExpect(jsonPath("$.roles").value(AuthoritiesConstants.USER))
                 .andExpect(jsonPath("$.member.key").value("IHTSDO"))
                 ;
-    }
-
-    @Test
-    public void testGetUnknownAccount() throws Exception {
-        when(userService.getUserWithAuthorities()).thenReturn(null);
-
-        restUserMockMvc.perform(get("/app/rest/account")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isInternalServerError());
     }
 }

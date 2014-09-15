@@ -3,7 +3,7 @@
 		<div class="page-header">
 			<span class="pull-right"><a href="#/affiliates">Back to Affiliate Management</a></span>
 			<h1>
-				{{(affiliateDetails.organizationName) ? affiliateDetails.organizationName : affiliateDetails.firstName + ' ' + affiliateDetails.lastName}}
+				{{(affiliate.affiliateDetails.organizationName) ? affiliate.affiliateDetails.organizationName : affiliate.affiliateDetails.firstName + ' ' + affiliate.affiliateDetails.lastName}}
 			</h1>
 		</div>
 	</div>
@@ -29,77 +29,10 @@
 			</div>
 			<p><strong>Affiliate No:</strong> {{affiliate.affiliateId}}</p>
 			<hr>
+			<div ng-include src="'views/affiliateDetailsSummary.html'"></div>
 			<div class="row">
-				<div class="col-sm-12 col-md-12 col-lg-12"> 
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<div class="status">
-								<span class="pull-right btn-sm btn-success" ng-show="isEditable" ng-click="editAffiliate()">Edit Contact Info</span>
-								<h4 class="panel-title">
-									Affiliate Summary
-								</h4>
-							</div>
-						</div>
-						<div class="panel-collapse collapse in">
-							<div class="panel-body">
-								<h4>Usage Type:</h4>
-				  			<ul class="list-group">
-				  				<li class="list-group-item"><strong>Type:</strong> {{affiliate.affiliateDetails.type | enum:'affiliate.type.'}}</li>
-				  				<li class="list-group-item">
-				  					<strong>Subtype:</strong> {{affiliate.affiliateDetails.subType | enum:'affiliate.subType.'}}
-				  					<span ng-show="affiliate.affiliateDetails.type == 'OTHER'">{{affiliate.affiliateDetails.otherText}}</span>
-			  					</li>
-				  				<li class="list-group-item"><strong>Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</li>
-				  			</ul>
-				
-				  			<h4>Contact Information:</h4>
-				  			<ul class="list-group">
-				  				<li class="list-group-item"><strong>Name:</strong> {{affiliateDetails.firstName}} {{affiliateDetails.lastName}}</li>
-				  				<li class="list-group-item"><strong>Email:</strong> {{affiliateDetails.email}}</li>
-				  				<li class="list-group-item"><strong>Landline Phone Number:</strong> {{affiliateDetails.landlineNumber}} <span ng-show="affiliateform.extension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
-				  				<li class="list-group-item"><strong>Mobile Phone Number:</strong> {{affiliateDetails.mobileNumber}}</li>
-				  			</ul>
-				
-				  			<ul class="list-group" ng-show="affiliateform.type=='INDIVIDUAL'">
-				  				<li class="list-group-item"><strong>Address:</strong> {{affiliateDetails.address.street}}</li>
-				  				<li class="list-group-item"><strong>City:</strong> {{affiliateDetails.address.city}}</li>
-				  				<li class="list-group-item"><strong>Post Code:</strong> {{affiliateDetails.address.post}}</li>
-				  				<li class="list-group-item"><strong>Country:</strong> {{affiliateDetails.address.country.commonName}}</li>
-				  			</ul>
-				
-				  			<ul class="list-group" ng-show="affiliateform.type!='INDIVIDUAL'">
-				  				<h4>Organization:</h4>
-				  				<li class="list-group-item"><strong>Organization Name:</strong> {{affiliateDetails.organizationName}}</li>
-				  				<li class="list-group-item"><strong>Organization Type:</strong>
-				  					<span ng-show="affiliateDetails.organizationType=='OTHER'">{{affiliateDetails.organizationTypeOther}}</span>
-				  					<span ng-show="affiliateDetails.organizationType!='OTHER'">{{affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
-				 					</li>
-				  				<li class="list-group-item"><strong>Address:</strong> {{affiliateDetails.address.street}}</li>
-				  				<li class="list-group-item"><strong>City:</strong> {{affiliateDetails.address.city}}</li>
-				  				<li class="list-group-item"><strong>Post Code:</strong> {{affiliateDetails.address.post}}</li>
-				  				<li class="list-group-item"><strong>Country:</strong> {{affiliateDetails.address.country.commonName}}</li>
-				  				<li class="list-group-item"><strong>Phone Number:</strong> {{affiliateDetails.landlineNumber}} <span ng-show="affiliateform.affiliateDetailsextension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
-				  				<li class="list-group-item"><strong>Alternate Email:</strong> {{affiliateDetails.alternateEmail}}</li>
-				  				<li class="list-group-item" ng-show="affiliateform.type=='COMMERCIAL'"><strong>Third Email:</strong> {{affiliateDetails.thirdEmail}}</li>
-				  				<li class="list-group-item" ng-show="affiliateform.type=='OTHER'"><strong>Other:</strong>{{affiliate.application.otherText}}</li>
-				  			</ul>
-				
-				
-				  			<ul class="list-group" ng-show="affiliateform.type=='COMMERCIAL'">
-				  				<h4>Billing Address</h4>
-				  				<li class="list-group-item"><strong>Address:</strong> {{affiliateDetails.billingAddress.street}}</li>
-				  				<li class="list-group-item"><strong>City:</strong> {{affiliateDetails.billingAddress.city}}</li>
-									<li class="list-group-item"><strong>Post Code:</strong> {{affiliateDetails.billingAddress.post}}</li>
-									<li class="list-group-item"><strong>Country:</strong> {{affiliateDetails.billingAddress.country.commonName}}</li>
-				  			</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12 col-md-12 col-lg-12"
-					ng-include="'views/usageReportsTable.html'">
+				<div class="col-sm-12"
+					ng-include="'views/usageReportsTable.html'" ng-controller="UsageReportsTableController">
 				</div>
 			</div> 
 		</div>
@@ -122,7 +55,7 @@
 
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h4 class="panel-title">Applications</h4>
+				<h4 class="panel-title">Application History</h4>
 			</div>
 			<div class="panel-collapse collapse in">
 				<div class="panel-body">
@@ -145,6 +78,11 @@
 		</div>
 	</div>
 </div>
-
+<div class="row">
+	<div class="col-sm-12">
+		<h3>Account Activity</h3>
+		<div ng-include="'views/auditsEmbed.html'"></div>
+	</div>
+</div>
 
 

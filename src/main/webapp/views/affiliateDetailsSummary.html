@@ -1,0 +1,77 @@
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12"> 
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="status">
+					<span class="pull-right btn-sm btn-success" ng-show="isEditable" ng-click="editAffiliate()">Edit Contact Info</span>
+					<h4 class="panel-title">
+						Affiliate Summary
+					</h4>
+				</div>
+			</div>
+			<div class="panel-collapse collapse in">
+				<div class="panel-body">
+					<h4>Usage Type:</h4>
+	  			<ul class="list-group">
+	  				<li class="list-group-item"><strong>Type:</strong> {{affiliate.affiliateDetails.type | enum:'affiliate.type.'}}</li>
+	  				<li class="list-group-item">
+	  					<strong>Subtype:</strong> {{affiliate.affiliateDetails.subType | enum:'affiliate.subType.'}}
+	  					<span ng-show="affiliate.affiliateDetails.type == 'OTHER'">{{affiliate.affiliateDetails.otherText}}</span>
+  					</li>
+	  				<li class="list-group-item"><strong>Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</li>
+	  				<li class="list-group-item"><strong>Account Standing:</strong>
+	  					{{affiliate.standingState | enum:'affiliate.standingState.'}}
+	  					<span class="text-warning" ng-show="standingStateUtils.isWarningCategory(affiliate.standingState)"><i class="fa fa-exclamation-circle"></i></span>
+	  					<span class="text-danger" ng-show="standingStateUtils.isDangerCategory(affiliate.standingState)"><i class="fa fa-exclamation-circle"></i></span>
+	  					<span class="pull-right" ng-show="isEditable">
+	  						<span class="btn-sm btn-success" ng-show="!standingStateUtils.isApplying(affiliate.standingState) && !standingStateUtils.isRejected(affiliate.standingState)" ng-click="changeStanding()">Edit Account Standing</span>
+	  						<span class="btn-sm btn-default" ng-show="standingStateUtils.isApplying(affiliate.standingState) || standingStateUtils.isRejected(affiliate.standingState)" ng-disabled="true">Edit Account Standing</span>
+	  					</span>
+	  				</li>
+	  			</ul>
+	
+	  			<h4>Contact Information:</h4>
+	  			<ul class="list-group">
+	  				<li class="list-group-item"><strong>Name:</strong> {{affiliate.affiliateDetails.firstName}} {{affiliate.affiliateDetails.lastName}}</li>
+	  				<li class="list-group-item"><strong>Email:</strong> {{affiliate.affiliateDetails.email}}</li>
+	  				<li class="list-group-item" ng-show="affiliate.affiliateDetails.type=='INDIVIDUAL'"><strong>Alternate Email:</strong> {{affiliate.affiliateDetails.alternateEmail}}</li>
+	  				<li class="list-group-item" ng-show="affiliate.affiliateDetails.type=='INDIVIDUAL' && affiliate.affiliateDetails.thirdEmail"><strong>Third Email:</strong> {{affiliate.affiliateDetails.thirdEmail}}</li>
+	  				<li class="list-group-item"><strong>Landline Phone Number:</strong> {{affiliate.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.extension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
+	  				<li class="list-group-item"><strong>Mobile Phone Number:</strong> {{affiliate.affiliateDetails.mobileNumber}}</li>
+	  			</ul>
+	
+	  			<ul class="list-group" ng-show="affiliate.affiliateDetails.type=='INDIVIDUAL'">
+	  				<li class="list-group-item"><strong>Address:</strong> {{affiliate.affiliateDetails.address.street}}</li>
+	  				<li class="list-group-item"><strong>City:</strong> {{affiliate.affiliateDetails.address.city}}</li>
+	  				<li class="list-group-item"><strong>Post Code:</strong> {{affiliate.affiliateDetails.address.post}}</li>
+	  				<li class="list-group-item"><strong>Country:</strong> {{affiliate.affiliateDetails.address.country.commonName}}</li>
+	  			</ul>
+	
+	  			<ul class="list-group" ng-show="affiliate.affiliateDetails.type!='INDIVIDUAL'">
+	  				<h4>Organization:</h4>
+	  				<li class="list-group-item"><strong>Organization Name:</strong> {{affiliate.affiliateDetails.organizationName}}</li>
+	  				<li class="list-group-item"><strong>Organization Type:</strong>
+	  					<span ng-show="affiliate.affiliateDetails.organizationType=='OTHER'">{{affiliate.affiliateDetails.organizationTypeOther}}</span>
+	  					<span ng-show="affiliate.affiliateDetails.organizationType!='OTHER'">{{affiliate.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
+	 					</li>
+	  				<li class="list-group-item"><strong>Address:</strong> {{affiliate.affiliateDetails.address.street}}</li>
+	  				<li class="list-group-item"><strong>City:</strong> {{affiliate.affiliateDetails.address.city}}</li>
+	  				<li class="list-group-item"><strong>Post Code:</strong> {{affiliate.affiliateDetails.address.post}}</li>
+	  				<li class="list-group-item"><strong>Country:</strong> {{affiliate.affiliateDetails.address.country.commonName}}</li>
+	  				<li class="list-group-item"><strong>Phone Number:</strong> {{affiliate.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.affiliateDetailsextension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
+	  				<li class="list-group-item" ng-show="affiliate.affiliateDetails=='OTHER'"><strong>Other:</strong>{{affiliate.affiliate.application.otherText}}</li>
+	  			</ul>
+	
+	
+	  			<ul class="list-group" ng-show="affiliate.affiliateDetails.type=='COMMERCIAL'">
+	  				<h4>Billing Address</h4>
+	  				<li class="list-group-item"><strong>Address:</strong> {{affiliate.affiliateDetails.billingAddress.street}}</li>
+	  				<li class="list-group-item"><strong>City:</strong> {{affiliate.affiliateDetails.billingAddress.city}}</li>
+						<li class="list-group-item"><strong>Post Code:</strong> {{affiliate.affiliateDetails.billingAddress.post}}</li>
+						<li class="list-group-item"><strong>Country:</strong> {{affiliate.affiliateDetails.billingAddress.country.commonName}}</li>
+	  			</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -3,7 +3,7 @@
 /* App Module */
 
 var mldsApp = angular.module('MLDS', ['http-auth-interceptor', 'tmh.dynamicLocale',
-    'ngResource', 'ngRoute', 'ngCookies', 'mldsAppUtils', 'pascalprecht.translate', 'truncate', 'ui.bootstrap', 'infinite-scroll']);
+    'ngResource', 'ngRoute', 'ngCookies', 'ngSanitize', 'mldsAppUtils', 'pascalprecht.translate', 'truncate', 'ui.bootstrap', 'infinite-scroll']);
 
 mldsApp
     .config(['$routeProvider', '$httpProvider', '$translateProvider',  'tmhDynamicLocaleProvider', 'USER_ROLES',
@@ -64,6 +64,26 @@ mldsApp
                     controller: 'UsageReportsController',
                     access: {
                         authorizedRoles: [USER_ROLES.user]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/usageReportsReview', {
+                    templateUrl: 'views/admin/usageReportsReview.html',
+                    controller: 'AdminUsageReportsController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/usageReportsReview/:usageReportId', {
+                    templateUrl: 'views/admin/usageReportReview.html',
+                    controller: 'UsageReportReviewController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
@@ -236,9 +256,9 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/affiliates', {
-                    templateUrl: 'views/admin/affiliates.html',
-                    controller: 'AffiliatesController',
+                .when('/affiliateManagement', {
+                    templateUrl: 'views/admin/affiliateManagement.html',
+                    controller: 'AffiliateManagementController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
@@ -246,7 +266,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/affiliates/:affiliateId', {
+                .when('/affiliateManagement/:affiliateId', {
                     templateUrl: 'views/admin/affiliateSummary.html',
                     controller: 'AffiliateSummaryController',
                     access: {
@@ -256,7 +276,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/affiliates/:affiliateId/edit', {
+                .when('/affiliateManagement/:affiliateId/edit', {
                     templateUrl: 'views/admin/editAffiliate.html',
                     controller: 'EditAffiliateController',
                     access: {
@@ -296,14 +316,14 @@ mldsApp
                         lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     },
                     access: {
-                        authorizedRoles: USER_ROLES.staffOrAdmin
+                        authorizedRoles: [USER_ROLES.admin]
                     }
                 })
                 .when('/activityLog', {
                     templateUrl: 'views/admin/activityLogs.html',
                     controller: 'ActivityLogsController',
                     access: {
-                        authorizedRoles: USER_ROLES.staffOrAdmin
+                        authorizedRoles: [USER_ROLES.admin]
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]

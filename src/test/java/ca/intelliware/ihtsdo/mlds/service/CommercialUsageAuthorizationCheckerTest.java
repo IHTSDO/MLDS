@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web.rest;
+package ca.intelliware.ihtsdo.mlds.service;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,8 +14,9 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuthorizationChecker;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommercialUsageAuthorizationCheckerTest {
@@ -48,7 +49,7 @@ public class CommercialUsageAuthorizationCheckerTest {
     	authorizationChecker.commercialUsageEntryRepository = commercialUsageEntryRepository;
     	authorizationChecker.commercialUsageCountRepository = commercialUsageCountryRepository;
         
-    	authorizationChecker.currentSecurityContext = new CurrentSecurityContext();
+    	authorizationChecker.setCurrentSecurityContext(new CurrentSecurityContext());
     }
 
     /////////////////////////////////////////////////////////////////////////////

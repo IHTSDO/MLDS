@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 angular.module('MLDS')
 .factory('UsageReportsService', [ '$location', '$log', '$modal', 'AffiliateService', 'ApprovalStateUtils',
@@ -42,13 +42,17 @@ angular.module('MLDS')
 		$location.path('/usageReports/usageLog/'+encodeURIComponent(usageReport.commercialUsageId));
 	};
 	
+	service.goToReviewUsageReport = function(usageReport) {
+		$location.path('/usageReportsReview/'+encodeURIComponent(usageReport.commercialUsageId));
+	};
+	
 	service.affiliateIsCommercial = function(affiliate) {
 		return AffiliateService.affiliateIsCommercial(affiliate);
 	};
 	
 	service.anySubmittedUsageReports = function(affiliate) {
 		return _.some(affiliate.commercialUsages, function(usageReport) {
-			return usageReport.approvalState !== 'NOT_SUBMITTED';
+			return !ApprovalStateUtils.isWaitingForApplicant(usageReport.approvalState) && !usageReport.effectiveTo;
 		});
 	};
 

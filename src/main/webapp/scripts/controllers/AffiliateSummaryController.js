@@ -9,19 +9,34 @@ mldsApp.controller('AffiliateSummaryController', [
 		'Session',
 		'AffiliateService',
 		'ApplicationUtilsService',
-		function($scope, $log, $location, $modal, $routeParams, Session, AffiliateService, ApplicationUtilsService) {
+		'AuditsService',
+		'StandingStateUtils',
+		function($scope, $log, $location, $modal, $routeParams, Session, AffiliateService, ApplicationUtilsService, AuditsService, StandingStateUtils) {
 			
 			var affiliateId = $routeParams.affiliateId && parseInt($routeParams.affiliateId, 10);
 			
 			$scope.alerts = [];
 			$scope.affiliate = {};
-			$scope.affiliateDetails = {};
 			$scope.approved = false;
 			$scope.isApplicationApproved = ApplicationUtilsService.isApplicationApproved;
+			$scope.audits = [];
+			
+			$scope.standingStateUtils = StandingStateUtils; 
 
 			$scope.alerts = [];
 			$scope.submitting = false;
 
+			function loadAffiliateAudits(affiliateId) {
+	          	AuditsService.findByAffiliateId(affiliateId)
+            	.then(function(result) {
+            		$scope.audits = result;
+            	})
+    			["catch"](function(message) {
+    				$scope.alerts.push({type: 'danger', msg: 'Network request failure retrieving audit logs, please try again later.'});
+    				$log.log('Failed to update audit list: '+message);
+    			});
+	        }
+			
 			function loadAffiliate() {
 				var queryPromise = AffiliateService.affiliate(affiliateId);
 				
@@ -29,8 +44,7 @@ mldsApp.controller('AffiliateSummaryController', [
 					$scope.affiliate = affiliate;
 					$scope.approved = $scope.isApplicationApproved(affiliate.application);
 					$scope.isEditable = Session.isAdmin() || (Session.member.key == affiliate.application.member.key);
-					
-					$scope.affiliateDetails = (affiliate.affiliateDetails) ? affiliate.affiliateDetails : affiliate.application.affiliateDetails;
+					loadAffiliateAudits(affiliate.affiliateId);
 				});
 					
 			}
@@ -38,17 +52,44 @@ mldsApp.controller('AffiliateSummaryController', [
 			loadAffiliate(); 
 			
 			$scope.editAffiliate = function editAffiliate() {
-				$location.path('/affiliates/' + affiliateId + '/edit')
+				$location.path('/affiliateManagement/' + affiliateId + '/edit');
+			};
+			
+			$scope.changeStanding = function changeStanding() {
+				if ($scope.standingStateUtils.isApplying($scope.affiliate.standingState)) {
+					return;
+				}
+				
+				var modalInstance = $modal.open({
+        			templateUrl: 'views/admin/editAffiliateStandingModal.html',
+        			controller: 'EditAffiliateStandingModalController',
+        			size:'lg',
+        			resolve: {
+        				affiliate: function() {
+        					return angular.copy($scope.affiliate);
+        				}
+        			}
+        		});
+        		modalInstance.result.then(function (updatedApplication) {
+        			loadAffiliate();
+    		    });
+
 			};
 			
 			$scope.viewApplication = function viewApplication(application) {
-        		var modalInstance = $modal.open({
-        			templateUrl: 'views/admin/applicationSummaryModal.html',
+        		$modal.open({
+        			templateUrl: 'views/applicationSummaryModal.html',
         			controller: 'ApplicationSummaryModalController',
         			size:'lg',
         			resolve: {
         				application: function() {
         					return application;
+        				},
+        				audits: function() {
+        					var match = ''+application.applicationId;
+        					return _.filter($scope.audits, function(audit) {
+        						return audit && audit.data && audit.data['application.applicationId'] === match;
+        					});
         				}
         			}
         		});

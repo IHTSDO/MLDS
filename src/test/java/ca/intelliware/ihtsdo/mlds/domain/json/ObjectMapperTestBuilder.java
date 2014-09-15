@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 
 import ca.intelliware.ihtsdo.mlds.config.JacksonConfigurer;
 import ca.intelliware.ihtsdo.mlds.domain.json.MLDSJacksonModule;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;

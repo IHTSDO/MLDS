@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codahale.metrics.annotation.Timed;
+
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
@@ -30,31 +32,44 @@ import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 public class AuditResource {
 
     @Inject
-    private AuditEventService auditEventService;
+    AuditEventService auditEventService;
 
-    public static final String FILTER_AUDIT_EVENT_TYPE = "auditEventType eq '(\\w+)'";
-    public static final String FILTER_AUDIT_EVENT_DATE_BETWEEN = "auditEventDate ge '(.*)' and auditEventDate le '(.*)'";
+    public static final String FILTER_BY_AUDIT_EVENT_TYPE = "auditEventType eq '(\\w+)'";
+    public static final String FILTER_BY_AFFILIATE_ID = "affiliateId eq '(\\w+)'";
+    public static final String FILTER_BY_APPLICATION_ID = "applicationId eq '(\\w+)'";
+    public static final String FILTER_BY_AUDIT_EVENT_DATE_BETWEEN = "auditEventDate ge '(.*)' and auditEventDate le '(.*)'";
     
     @RequestMapping(value = Routes.AUDITS,
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
     public @ResponseBody ResponseEntity<List<AuditEvent>> findByFilter(@RequestParam(value="$filter",required = false) String filter) {
     	if (StringUtils.isBlank(filter)) {
     		return new ResponseEntity<List<AuditEvent>>(auditEventService.findAll(), HttpStatus.OK);
     	}
-    	Matcher auditEventTypeMatcher = Pattern.compile(FILTER_AUDIT_EVENT_TYPE).matcher(filter);
+    	Matcher auditEventTypeMatcher = Pattern.compile(FILTER_BY_AUDIT_EVENT_TYPE).matcher(filter);
     	if (auditEventTypeMatcher.matches()) {
     		String auditEventType = auditEventTypeMatcher.group(1);
     		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByAuditEventType(auditEventType), HttpStatus.OK);
     	}
-    	Matcher auditEventDateBetweenMatcher = Pattern.compile(FILTER_AUDIT_EVENT_DATE_BETWEEN).matcher(filter);
+    	Matcher affiliateIdMatcher = Pattern.compile(FILTER_BY_AFFILIATE_ID).matcher(filter);
+    	if (affiliateIdMatcher.matches()) {
+    		Long affiliateId = Long.parseLong(affiliateIdMatcher.group(1));
+    		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByAffiliateId(affiliateId), HttpStatus.OK);
+    	}
+    	Matcher applicationIdMatcher = Pattern.compile(FILTER_BY_APPLICATION_ID).matcher(filter);
+    	if (applicationIdMatcher.matches()) {
+    		Long applicationId = Long.parseLong(applicationIdMatcher.group(1));
+    		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByApplicationId(applicationId), HttpStatus.OK);
+    	}
+    	Matcher auditEventDateBetweenMatcher = Pattern.compile(FILTER_BY_AUDIT_EVENT_DATE_BETWEEN).matcher(filter);
     	if (auditEventDateBetweenMatcher.matches()) {
     		Instant fromDate = Instant.parse(auditEventDateBetweenMatcher.group(1), ISODateTimeFormat.date());
     		Instant toDate = Instant.parse(auditEventDateBetweenMatcher.group(2), ISODateTimeFormat.date());
     		return new ResponseEntity<List<AuditEvent>>(auditEventService.findByDates(fromDate, toDate), HttpStatus.OK);
     	}
-    	//FIXME support more kinds of audit event filters...
+    	//TODO support more kinds of audit event filters...
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

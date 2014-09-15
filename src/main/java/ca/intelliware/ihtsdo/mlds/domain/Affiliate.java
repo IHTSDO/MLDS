@@ -39,7 +39,7 @@ public class Affiliate extends BaseEntity {
 	@Fields({ @Field(name="ALL"), @Field()})
 	Long affiliateId;
 
-	//@Type(type="jodatimeInstant")
+	//@Type(type="jodatimeInstant")Member homeMember;
 	Instant created = Instant.now();
 
 	@Enumerated(EnumType.STRING)
@@ -62,6 +62,7 @@ public class Affiliate extends BaseEntity {
 	@JsonIgnoreProperties({"affiliate"})
 	@OneToOne()
 	@JoinColumn(name="application_id")
+	@IndexedEmbedded(prefix="")
 	PrimaryApplication application;
 
 	@JsonIgnoreProperties({"affiliate"})
@@ -81,6 +82,10 @@ public class Affiliate extends BaseEntity {
 	@Column(name="notes_internal")
 	String notesInternal;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name="standing_state")
+	StandingState standingState = StandingState.APPLYING;
+	
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
 		
@@ -184,5 +189,13 @@ public class Affiliate extends BaseEntity {
 
 	public void setNotesInternal(String notesInternal) {
 		this.notesInternal = notesInternal;
+	}
+
+	public StandingState getStandingState() {
+		return standingState;
+	}
+
+	public void setStandingState(StandingState standingState) {
+		this.standingState = standingState;
 	}
 }

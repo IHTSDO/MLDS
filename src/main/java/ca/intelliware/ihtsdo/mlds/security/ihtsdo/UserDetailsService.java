@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.security;
+package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,8 +15,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.UserNotActivatedException;
 
 /**
  * Authenticate a user from the database.
@@ -28,6 +30,9 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     @Inject
     private UserRepository userRepository;
+    
+    @Inject
+    private UserStandingCalculator userStandingCalculator;
 
     @Override
     @Transactional
@@ -35,7 +40,7 @@ public class UserDetailsService implements org.springframework.security.core.use
         log.debug("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase();
 
-        User userFromDatabase = userRepository.findOne(lowercaseLogin);
+        User userFromDatabase = userRepository.findByLoginIgnoreCase(lowercaseLogin);
         if (userFromDatabase == null) {
             throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
         } else if (!userFromDatabase.getActivated()) {
@@ -48,7 +53,11 @@ public class UserDetailsService implements org.springframework.security.core.use
             grantedAuthorities.add(grantedAuthority);
         }
 
-        return new org.springframework.security.core.userdetails.User(lowercaseLogin, userFromDatabase.getPassword(),
+        StandingState standingState = userStandingCalculator.getUserAffiliateStanding(login);
+        boolean enabled = standingState == null || standingState.canLogin();
+        
+		return new org.springframework.security.core.userdetails.User(lowercaseLogin, userFromDatabase.getPassword(),
+        		enabled , true, true, true, 
                 grantedAuthorities);
     }
 }

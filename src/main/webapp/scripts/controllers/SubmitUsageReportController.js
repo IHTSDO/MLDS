@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 'usageByCountryList', 'UserAffiliateService', 
-                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport, usageByCountryList, UserAffiliateService) {
+angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$modalInstance',  '$log', '$location', 'CommercialUsageService', 'commercialUsageReport', 'usageByCountryList', 'UserAffiliateService', 'Session', 
+                                                       	function($scope, $modalInstance, $log, $location, CommercialUsageService, commercialUsageReport, usageByCountryList, UserAffiliateService, Session) {
 	$scope.attemptedSubmit = false;
 	$scope.submitting = false;
 	$scope.alerts = [];
@@ -15,8 +15,13 @@ angular.module('MLDS').controller('SubmitUsageReportController', ['$scope', '$mo
 		
 		CommercialUsageService.submitUsageReport($scope.commercialUsageReport)
 			.then(function(result) {
-				UserAffiliateService.refreshAffiliate();
-				$location.path('/dashboard');
+				if (Session.isAdmin()) {
+					$location.path('/affiliateManagement/' + commercialUsageReport.affiliate.affiliateId);
+				} else {
+					UserAffiliateService.refreshAffiliate();
+					$location.path('/dashboard');
+				}
+				
 				$modalInstance.close(result);
 			})
 			["catch"](function(message) {

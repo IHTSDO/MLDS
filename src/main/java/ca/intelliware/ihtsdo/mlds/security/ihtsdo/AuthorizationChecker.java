@@ -1,17 +1,15 @@
-package ca.intelliware.ihtsdo.mlds.web.rest;
+package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.ObjectUtils;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
 
 import com.google.common.base.Objects;
 
 /**
  * Provide access check helpers for our rest controllers.
- * FIXME MLDS-23
  */
 public class AuthorizationChecker {
 
@@ -22,9 +20,12 @@ public class AuthorizationChecker {
 		return currentSecurityContext.isStaffOrAdmin();
 	}
 	
-	// FIXME MLDS-256 MB inline this?
-	public String getCurrentUserName() {
-		return currentSecurityContext.getCurrentUserName();
+	protected boolean isAdmin() {
+		return currentSecurityContext.isAdmin();
+	}
+	
+	protected boolean isUser() {
+		return currentSecurityContext.isUser();
 	}
 	
 	protected void failCheck(String description) {
@@ -40,7 +41,6 @@ public class AuthorizationChecker {
 
 	protected void checkCurrentUserIsUser(String username) {
 		if (! ObjectUtils.equals(currentSecurityContext.getCurrentUserName(), username)) {
-			//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
 			failCheck("User not authorized to access Affiliate");
 		}
 	}
@@ -77,5 +77,9 @@ public class AuthorizationChecker {
 			return;
 		}
 		failCheck("User not authorized to manage Affiliate");
+	}
+	
+	public void setCurrentSecurityContext(CurrentSecurityContext currentSecurityContext) {
+		this.currentSecurityContext = currentSecurityContext;
 	}
 }

@@ -11,7 +11,6 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -26,12 +25,15 @@ import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliateImportAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
@@ -50,7 +52,10 @@ public class AffiliateResourceTest {
     
     @Mock
     private AffiliateAuditEvents affiliateAuditEvents;
-    
+
+    @Mock
+    private AffiliateImportAuditEvents affiliateImportAuditEvents;
+
     @Mock
     private AffiliatesExporterService affiliatesExporterService;
 
@@ -81,6 +86,7 @@ public class AffiliateResourceTest {
         affiliateResource.affiliatesImportGenerator = affiliatesImportGenerator;
         affiliateResource.userRepository = userRepository;
         affiliateResource.sessionService = sessionService;
+        affiliateResource.affiliateImportAuditEvents = affiliateImportAuditEvents;
         affiliateResource.currentSecurityContext = new CurrentSecurityContext();
 
         securityContextSetup.asAdmin();
@@ -146,7 +152,6 @@ public class AffiliateResourceTest {
                 .andExpect(jsonPath("$.address.street").value("Updated Street"))
                 ;
     	
-    	Mockito.verify(affiliateDetailsRepository).save(Mockito.any(AffiliateDetails.class));
     }
 
     @Test
@@ -155,7 +160,7 @@ public class AffiliateResourceTest {
     	user.setLogin("Original Login");
     	user.setFirstName("Original FirstName");
     	user.setLastName("Original LastName");
-    	when(userRepository.findOne("user@email.com")).thenReturn(user);
+    	when(userRepository.findByLoginIgnoreCase("user@email.com")).thenReturn(user);
     	
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.getAffiliateDetails().setEmail("user@email.com");
@@ -163,19 +168,18 @@ public class AffiliateResourceTest {
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
     			.contentType(MediaType.APPLICATION_JSON)
-    			.content("{ \"email\":\"ignore@email.com\", \"firstName\": \"Updated FirstName\", \"lastName\": \"Updated LastName\", \"address\": { \"street\":\"Updated Street\" }, \"billingAddress\": {} }")
+    			.content("{ \"email\":\"new@email.com\", \"firstName\": \"Updated FirstName\", \"lastName\": \"Updated LastName\", \"address\": { \"street\":\"Updated Street\" }, \"billingAddress\": {} }")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 ;
     	
-		ArgumentCaptor<User> savedUser = ArgumentCaptor.forClass(User.class);
-    	Mockito.verify(userRepository).save(savedUser.capture());
     	
-    	Assert.assertEquals("Updated FirstName", savedUser.getValue().getFirstName());
-    	Assert.assertEquals("Updated LastName", savedUser.getValue().getLastName());
+    	Assert.assertEquals("Updated FirstName", user.getFirstName());
+    	Assert.assertEquals("Updated LastName", user.getLastName());
     	
-    	Assert.assertEquals("Original Login", savedUser.getValue().getLogin());
+    	// FIXME MLDS-540 who can change the login?  What notifications do we need?
+    	Assert.assertEquals("new@email.com", user.getLogin());
     }
 
     @Test
@@ -300,7 +304,7 @@ public class AffiliateResourceTest {
 	}
 
 	@Test
-	public void updateAffiliateShouldUpdateSaveWithSafeFields() throws Exception {
+	public void updateAffiliateShouldUpdateSaveWithNotesField() throws Exception {
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.setNotesInternal("Original Notes");
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
@@ -318,7 +322,57 @@ public class AffiliateResourceTest {
 	}
 
 	@Test
-	public void updateAffiliateShouldAuditLog() throws Exception {
+	public void updateAffiliateShouldUpdateSaveWithStandingStateField() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setStandingState(StandingState.IN_GOOD_STANDING);
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"standingState\": \"DEACTIVATED\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.standingState").value("DEACTIVATED"))
+                ;
+    	
+    	Mockito.verify(affiliateRepository).save(Mockito.any(Affiliate.class));
+	}
+
+	@Test
+	public void updateAffiliateShouldIgnoreBlankStandingState() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setStandingState(StandingState.IN_GOOD_STANDING);
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"standingState\": null }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.standingState").value("IN_GOOD_STANDING"))
+                ;
+    	
+    	Mockito.verify(affiliateRepository).save(Mockito.any(Affiliate.class));
+	}
+
+	@Test
+	public void updateAffiliateShouldFailWhenChangingStandingStateFromApplying() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setStandingState(StandingState.APPLYING);
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"standingState\": \"IN_GOOD_STANDING\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict())
+                ;
+	}
+
+	@Test
+	public void updateAffiliateShouldAuditLogWithAffiliateUpdate() throws Exception {
     	Affiliate affiliate = createBlankAffiliate();
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
@@ -331,6 +385,40 @@ public class AffiliateResourceTest {
                 ;
     	
     	Mockito.verify(affiliateAuditEvents).logUpdateOfAffiliate(Mockito.any(Affiliate.class));
+	}
+
+	@Test
+	public void updateAffiliateShouldAuditLogWithStandingStateChangeWhenChanged() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setStandingState(StandingState.IN_GOOD_STANDING);
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"standingState\": \"DEACTIVATED\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                ;
+    	
+    	Mockito.verify(affiliateAuditEvents).logStandingStateChange(Mockito.any(Affiliate.class));
+	}
+
+	@Test
+	public void updateAffiliateShouldSkipStandingStateAuditLogWhenUnchanged() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setStandingState(StandingState.APPLYING);
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
+    			.contentType(MediaType.APPLICATION_JSON)
+    			.content("{ \"standingState\": \"APPLYING\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                ;
+    	
+    	Mockito.verify(affiliateAuditEvents, Mockito.never()).logStandingStateChange(Mockito.any(Affiliate.class));
 	}
 
 	@Test

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', 
-                                                 		function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams){
+angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 'ApprovalStateUtils', 
+                                                 		function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location, ApprovalStateUtils){
 	$scope.collapsePanel = {};
 	
 	$scope.usageLogForm = {};
@@ -25,9 +25,9 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 	
 	$scope.readOnly = false;
 	$scope.commercialType = false;
+	$scope.isActiveUsage = true;
 	
-	//FIXME: To change when staff/admin can edit usage
-	$scope.isAffiliateUser = true;
+	$scope.isEditable = true;
 	
 	//FIXME apparently not recommended to share controller state through scope
 	$scope.canSubmit = $scope.$parent.usageLogCanSubmit;
@@ -121,9 +121,9 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 		$scope.availableCountries = [];
 		$scope.currentCountries = [];
 		$scope.commercialUsageReport = usageReport;
-		//FIXME: To change when staff/admin can edit usage
-		$scope.isAffiliateUser = !Session.isStaffOrAdmin();
-		$scope.readOnly = $scope.isAffiliateUser ? usageReport.approvalState !== 'NOT_SUBMITTED' : true;
+		$scope.isActiveUsage = !usageReport.effectiveTo;
+		$scope.isEditable = Session.isUser() || Session.isAdmin(); //Only Admin or User can edit
+		$scope.readOnly = $scope.isEditable ? !ApprovalStateUtils.isWaitingForApplicant(usageReport.approvalState) : true;
 		$scope.commercialType = usageReport.type === 'COMMERCIAL';
 		
 		usageReport.countries.forEach(function(usageCount) {
@@ -187,7 +187,8 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 				$scope.geographicAdding += 1;
 				CommercialUsageService.addUsageCount($scope.commercialUsageReport, 
 						{
-						practices: 0,
+						analysisPractices: 0,
+						creationPractices: 0,
 						country: country
 				}, {skipBroadcast: true})
 				.then(function() {
@@ -388,6 +389,14 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 				}
 			}
 		});
+		
+		modalInstance.result
+		.then(function(result) {
+			if(result.data && result.data.commercialUsageId) {
+				$location.path('/usageReports/usageLog/'+ result.data.commercialUsageId);
+			}
+	});
+
 	};
 	
 	$scope.institutionDateRangeOutsidePeriod = function(institution) {

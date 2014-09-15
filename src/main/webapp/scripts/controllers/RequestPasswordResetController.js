@@ -6,12 +6,10 @@ angular.module('MLDS').controller('RequestPasswordResetController',
 			$scope.passwordResetData = {};
 			$scope.alerts = [];
 			
-			$scope.closeAlert = function(index) {
-			    $scope.alerts.splice(index, 1);
-			  };
-			
 			$scope.requestResetEmail = function requestResetEmail() {
 				$log.log('submit ', $scope.passwordResetData.email);
+				$scope.alerts = [];
+				
         		if ($scope.passwordResetForm.$invalid) {
         			$scope.passwordResetForm.attempted = true;
         			return;

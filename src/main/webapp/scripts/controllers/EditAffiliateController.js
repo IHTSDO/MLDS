@@ -58,7 +58,7 @@ mldsApp.controller('EditAffiliateController', [
 	    			.success(function(result) {
 	    				$scope.affiliateDetails = result.data;
 	    				$scope.submitting = false;
-	    				$location.path('/affiliates/'+ affiliateId);
+	    				$location.path('/affiliateManagement/'+ affiliateId);
 	    				/* FIXME MB introduce an alerts service, put the alerts on the root scope, and prune 
 	    				 * dismissed alerts on route change
 	    				 */
@@ -73,7 +73,7 @@ mldsApp.controller('EditAffiliateController', [
 	        };
 	        
 	        $scope.cancel = function() {
-	        	$location.path('/affiliates/'+ affiliateId);
+	        	$location.path('/affiliateManagement/'+ affiliateId);
 	        };
 			
 		} ]);
