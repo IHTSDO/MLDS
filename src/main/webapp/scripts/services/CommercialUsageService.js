@@ -47,7 +47,7 @@ angular.module('MLDS')
 		};
 
 		service.getSubmittedUsageReports = function() {			
-			return $http.get('/app/rest/commercialUsages/?$filter='+encodeURIComponent('approvalState/submitted eq true'));
+			return $http.get('/app/rest/commercialUsages/?$filter='+encodeURIComponent('approvalState/submitted eq true or approvalState/resubmitted eq true'));
 		};
 		
 		service.createUsageReport = function(affiliateId, startDate, endDate) {

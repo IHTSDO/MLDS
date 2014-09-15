@@ -19,5 +19,7 @@ public interface CommercialUsageRepository extends JpaRepository<CommercialUsage
     List<CommercialUsage> findActiveByMostRecentPeriod(Affiliate affiliate);
     
     Collection<CommercialUsage> findByApprovalStateIn(Collection<ApprovalState> approvalState);
+    
+    Collection<CommercialUsage> findByApprovalStateInAndEffectiveToIsNull(Collection<ApprovalState> approvalState);
 
 }
