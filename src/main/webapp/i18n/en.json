@@ -400,7 +400,7 @@
                     "maxlength": "Your login cannot be longer than 50 characters"
                 },
                 "country": {
-                	"notMLDS": "The country identified is currently not registered. Please contact the appropriate representative from your country <a href=\"{{link}}\">here</a>. If you are still encountering difficulties please contact the IHTSDO at info@ihtsdo.org"
+                	"notMLDS": "Applications for use of SNOMED CT in your country of residence must be made to the appropriate representative from your country - <a href=\"{{link}}\">here</a>. If you wish to apply for a public good use of SNOMED CT in an other country, or wish to make other inquiries please contact the IHTSDO at info@ihtsdo.org"
                 }
             },
             "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
