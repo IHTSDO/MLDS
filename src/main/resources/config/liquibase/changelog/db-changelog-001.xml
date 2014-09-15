@@ -1256,6 +1256,7 @@
 		<dropForeignKeyConstraint baseTableName="T_PERSISTENT_TOKEN" constraintName="fk_user_persistent_token"/>
 		<dropForeignKeyConstraint baseTableName="RELEASE_PACKAGE" constraintName="FK_package_t_user"/>
 		<dropForeignKeyConstraint baseTableName="RELEASE_VERSION" constraintName="FK_release_version_t_user"/>
+		
     	<dropPrimaryKey tableName="T_USER" constraintName="pk_t_user"/>
     	<addColumn tableName="T_USER">
             <column name="user_id" type="bigint"/>
@@ -1273,9 +1274,12 @@
     	<sql>
     		update t_user_authority
     		set user_id = u.user_id
-    		from t_user_authority as ua 
-    		JOIN t_user as u ON u.login = ua.login 
+    		from t_user as u 
+    		where u.login = t_user_authority.login 
     	</sql>
+    	<dropPrimaryKey tableName="T_USER_AUTHORITY"/>
+    	<addPrimaryKey tableName="T_USER_AUTHORITY" columnNames="user_id,name"/>
+    	<dropColumn tableName="T_USER_AUTHORITY" columnName="login"/>
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="T_USER_AUTHORITY"
                                  constraintName="fk_user_id"
@@ -1288,8 +1292,8 @@
     	<sql>
     		update T_PERSISTENT_TOKEN
     		set user_id = u.user_id
-    		from T_PERSISTENT_TOKEN as pt 
-    		JOIN t_user as u ON u.login = pt.user_login 
+    		from t_user as u 
+    		where u.login = T_PERSISTENT_TOKEN.user_login 
     	</sql>
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="T_PERSISTENT_TOKEN"
