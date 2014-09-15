@@ -235,7 +235,11 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER})
 	@Timed
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
-		PrimaryApplication application = findOrStartInitialApplication();
+		PrimaryApplication application = (PrimaryApplication) applicationRepository.findOne(applicationId);
+		if (application == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
         application = saveApplicationFields(request,application);
 		authorizationChecker.checkCanAccessApplication(application);
 		
@@ -251,14 +255,7 @@ public class ApplicationResource {
 		application.setSubmittedAt(Instant.now());
 		applicationRepository.save(application);
 		
-		//FIXME should be a different trigger and way to connect applications with affiliate
-		List<Affiliate> affiliates = affiliateRepository.findByCreator(application.getUsername());
-		Affiliate affiliate = new Affiliate();
-		
-		//FIXME only supporting 1 affiliate for now
-		if (affiliates.size() > 0) {
-			affiliate = affiliates.get(0);
-		}
+		Affiliate affiliate = application.getAffiliate();
 		affiliate.setCreator(application.getUsername());
 		affiliate.setApplication(application);
 		affiliate.setType(application.getType());
@@ -284,8 +281,13 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER})
 	@Timed
 	public @ResponseBody ResponseEntity<Application> saveApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
-        Application application = findOrStartInitialApplication();
+		Application application = applicationRepository.findOne(applicationId);
+		if (application == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
         application = saveApplicationFields(request,application);
+        authorizationChecker.checkCanAccessApplication(application);
+        
         ApprovalState preApprovalState = application.getApprovalState();
 		// Mark application as not submitted
 		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)) {
@@ -363,17 +365,6 @@ public class ApplicationResource {
 		return affiliateDetails.getAddress().getCountry().getMember();
 	}
 
-	private PrimaryApplication findOrStartInitialApplication() {
-		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
-		PrimaryApplication application = new PrimaryApplication();
-		
-		if (applications.size() > 0) {
-			// FIXME MLDS-308 is this OK?
-			application = (PrimaryApplication) applications.get(0);
-		}
-		return application;
-	}
-	
 	private void createAffiliateDetails(JsonNode affiliateDetailsJsonNode, JsonNode addressJsonNode, JsonNode billingJsonNode, AffiliateDetails affiliateDetails) {
 		if (affiliateDetails == null) {
 			affiliateDetails = new AffiliateDetails();
