@@ -7,7 +7,6 @@
         <th ng-click="predicate = 'data.message'; reverse=!reverse">{{'audits.table.header.data' | translate}}</th>
     </tr>
     </thead>
-
     <tr ng-repeat="audit in audits | filter:filter | orderBy:predicate:reverse" ng-hide="audit.filtered">
         <td><span>{{audit.timestamp| date:'medium'}}</span></td>
         <td><small>{{audit.principal}}</small></td>
