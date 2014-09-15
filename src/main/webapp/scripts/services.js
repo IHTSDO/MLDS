@@ -72,7 +72,6 @@ mldsApp.factory('AuditsService', ['$http', '$log',
 		function findFilteredAudits(filter) {
             var promise = $http.get('/app/rest/audits' + (filter?'?$filter='+encodeURIComponent(filter):''))
 	       		.then(function (response) {
-	       			$log.log(response.data);
 	       			return _.chain(response.data)
 	       				.sortBy('timestamp')
 	       				.reverse()
