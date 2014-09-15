@@ -1244,5 +1244,9 @@
     		<column name="other_activities" type="TEXT"/>
     	</addColumn>
     </changeSet>
-    
+
+    <changeSet id="MLDS-666-1" author="DGJ">
+    	<comment>Commercial usage entry start date should be optional</comment>
+    	<dropNotNullConstraint tableName="commercial_usage_entry" columnName="start_date"/>
+    </changeSet>    
 </databaseChangeLog>
