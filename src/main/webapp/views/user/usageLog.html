@@ -144,9 +144,9 @@
 							<td>{{institution.startDate | date}}</td>
 							<td>{{institution.endDate | date}}
 								<span ng-show="institutionDateRangeOutsidePeriod(institution)">
-									<a href="#" tooltip-placement="top" tooltip="Consider removing this hospital as it ceased use prior to the current declaration period">
+									<span tooltip-placement="top" tooltip="Consider removing this hospital as it ceased use prior to the current declaration period">
 										<span class="label label-warning">Outdated</span>
-									</a>
+									</span>
 								</span>
 							</td>
 							<td>{{institution.sublicenceType | enum:'sublicenceType.'}}</td>

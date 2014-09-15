@@ -33,7 +33,7 @@ public class CommercialUsageEntry extends BaseEntity {
 	
 	String note;
 	
-	@Column(name="start_date", nullable=false)
+	@Column(name="start_date")
 	LocalDate startDate;
 	
 	@Column(name="end_date")
