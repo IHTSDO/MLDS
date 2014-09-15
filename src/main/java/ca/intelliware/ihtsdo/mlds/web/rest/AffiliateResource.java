@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
+import javax.transaction.Transactional;
 
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
@@ -56,6 +57,7 @@ import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 
 @RestController
 public class AffiliateResource {
@@ -287,12 +289,14 @@ public class AffiliateResource {
     	return new ResponseEntity<AffiliateDetails>(affiliate.getAffiliateDetails(), HttpStatus.OK);
     }
 
+	@SuppressWarnings("unchecked")
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @RequestMapping(value = Routes.AFFILIATE_DETAIL,
     		method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-    public @ResponseBody ResponseEntity<AffiliateDetails> updateAffiliateDetail(@PathVariable Long affiliateId, @RequestBody AffiliateDetails body) {
+	@Transactional
+    public @ResponseBody ResponseEntity<?> updateAffiliateDetail(@PathVariable Long affiliateId, @RequestBody AffiliateDetails body) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
     	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
     	if (affiliate == null) {
@@ -309,14 +313,25 @@ public class AffiliateResource {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
     	}
     	
-    	copyAffiliateDetailsFields(affiliateDetails, body);
-    	affiliateDetailsRepository.save(affiliateDetails);
+    	String originalEmail = affiliateDetails.getEmail();
+    	String newEmail = body.getEmail();
+		boolean emailChanged = !Objects.equal(newEmail, originalEmail);
+    	if (emailChanged) {
+    		if (!currentSecurityContext.isStaffOrAdmin()) {
+        		return new ResponseEntity<>("Users may not change their primary email address",HttpStatus.FORBIDDEN);
+    		}
+    		if (Strings.isNullOrEmpty(newEmail)) {
+        		return new ResponseEntity<>("Primary email address (email) is a required field",HttpStatus.BAD_REQUEST);
+    		}
+    		affiliate.setCreator(newEmail);
+    	}
     	
-    	User user = userRepository.findByLoginIgnoreCase(affiliateDetails.getEmail());
+    	User user = userRepository.findByLoginIgnoreCase(originalEmail);
     	if (user != null) {
     		copyAffiliateDetailsNameFieldsToUser(user, body);
-    		userRepository.save(user);
     	}
+    	
+    	copyAffiliateDetailsFields(affiliateDetails, body);
     	
     	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate);
     	
@@ -325,17 +340,20 @@ public class AffiliateResource {
 
 	private void copyAffiliateDetailsFields(AffiliateDetails affiliateDetails, AffiliateDetails body) {
 		copyAddressFieldsWithoutCountry(affiliateDetails.getAddress(), body.getAddress());
-    	affiliateDetails.setAlternateEmail(body.getAlternateEmail());
     	copyAddressFields(affiliateDetails.getBillingAddress(), body.getBillingAddress());
-    	// Can not update: email (validation and uniqueness challenges)
     	affiliateDetails.setFirstName(body.getFirstName());
     	affiliateDetails.setLandlineExtension(body.getLandlineExtension());
     	affiliateDetails.setLandlineNumber(body.getLandlineNumber());
     	affiliateDetails.setLastName(body.getLastName());
     	affiliateDetails.setMobileNumber(body.getMobileNumber());
+    	
+    	affiliateDetails.setAlternateEmail(body.getAlternateEmail());
     	affiliateDetails.setThirdEmail(body.getThirdEmail());
     	
-    	if (currentSecurityContext.isAdmin()) {
+    	affiliateDetails.setEmail(body.getEmail());
+    	
+		if (currentSecurityContext.isAdmin()) {
+        	
 	    	affiliateDetails.setType(body.getType());
 	    	affiliateDetails.setOtherText(body.getOtherText());
 	    	affiliateDetails.setSubType(body.getSubType());
@@ -357,5 +375,7 @@ public class AffiliateResource {
 	private void copyAffiliateDetailsNameFieldsToUser(User user, AffiliateDetails body) {
     	user.setFirstName(body.getFirstName());
     	user.setLastName(body.getLastName());
+		user.setEmail(body.getEmail());
+		user.setLogin(body.getEmail());
 	}
 }

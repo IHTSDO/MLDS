@@ -11,7 +11,6 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -153,7 +152,6 @@ public class AffiliateResourceTest {
                 .andExpect(jsonPath("$.address.street").value("Updated Street"))
                 ;
     	
-    	Mockito.verify(affiliateDetailsRepository).save(Mockito.any(AffiliateDetails.class));
     }
 
     @Test
@@ -170,19 +168,18 @@ public class AffiliateResourceTest {
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
     			.contentType(MediaType.APPLICATION_JSON)
-    			.content("{ \"email\":\"ignore@email.com\", \"firstName\": \"Updated FirstName\", \"lastName\": \"Updated LastName\", \"address\": { \"street\":\"Updated Street\" }, \"billingAddress\": {} }")
+    			.content("{ \"email\":\"new@email.com\", \"firstName\": \"Updated FirstName\", \"lastName\": \"Updated LastName\", \"address\": { \"street\":\"Updated Street\" }, \"billingAddress\": {} }")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 ;
     	
-		ArgumentCaptor<User> savedUser = ArgumentCaptor.forClass(User.class);
-    	Mockito.verify(userRepository).save(savedUser.capture());
     	
-    	Assert.assertEquals("Updated FirstName", savedUser.getValue().getFirstName());
-    	Assert.assertEquals("Updated LastName", savedUser.getValue().getLastName());
+    	Assert.assertEquals("Updated FirstName", user.getFirstName());
+    	Assert.assertEquals("Updated LastName", user.getLastName());
     	
-    	Assert.assertEquals("Original Login", savedUser.getValue().getLogin());
+    	// FIXME MLDS-540 who can change the login?  What notifications do we need?
+    	Assert.assertEquals("new@email.com", user.getLogin());
     }
 
     @Test
