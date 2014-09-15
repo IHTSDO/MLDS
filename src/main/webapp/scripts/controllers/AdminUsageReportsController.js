@@ -21,6 +21,7 @@ angular.module('MLDS').controller('AdminUsageReportsController',
 			loadUsageReports();
 			
 			$scope.affiliateDetails = function(usageReport) {
+				$log.log(usageReport);
 				if (!usageReport || !usageReport.affiliate) {
 					return {};
 				}
