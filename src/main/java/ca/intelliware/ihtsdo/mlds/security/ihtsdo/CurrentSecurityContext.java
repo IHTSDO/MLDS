@@ -98,5 +98,9 @@ public class CurrentSecurityContext {
 			return result;
 		}
 	}
+
+	public void logout() {
+		SecurityContextHolder.getContext().setAuthentication(null);
+	}
 	
 }

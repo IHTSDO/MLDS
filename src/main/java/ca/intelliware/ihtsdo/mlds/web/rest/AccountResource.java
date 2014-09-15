@@ -267,6 +267,9 @@ public class AccountResource {
         	if (userInfo != null) {
                 userDto = createUserDtoFromRemoteUserInfo(userInfo);
         	} else {
+        		// We must be in a very odd state.  Maybe the admin changed our login id.
+        		// Let's logout so the user can refresh and recover.
+        		currentSecurityContext.logout();
             	return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         	}
         }
