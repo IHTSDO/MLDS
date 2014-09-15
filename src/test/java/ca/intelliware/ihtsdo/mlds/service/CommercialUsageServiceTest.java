@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
+import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;
@@ -59,14 +60,19 @@ public class CommercialUsageServiceTest {
 			commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.SUBMIT);
 			Assert.fail();
 		} catch (IllegalStateException e) {
-			Assert.assertThat(e.getMessage(), Matchers.containsString("Unsupported approval transition"));
+			Assert.assertThat(e.getMessage(), matchUnsupportedApprovalTransactionException());
 		}
 		
 		Assert.assertEquals("commercial usage unchanged", ApprovalState.APPROVED, commercialUsage.getApprovalState());
 	}
+
+
+	private Matcher<String> matchUnsupportedApprovalTransactionException() {
+		return Matchers.containsString("Unsupported approval transition");
+	}
 	
 	@Test
-	public void transitionCommercialUsageApprovalShouldTransitionToSubmittedOnSubmit() throws Exception {
+	public void transitionCommercialUsageApprovalShouldTransitionNotSubmittedToSubmittedOnSubmit() throws Exception {
 		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.NOT_SUBMITTED);
 		
 		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.SUBMIT);
@@ -76,16 +82,30 @@ public class CommercialUsageServiceTest {
 	}
 
 	@Test
-	public void transitionCommercialUsageApprovalShouldTransitionToNotSubmittedOnRetract() throws Exception {
-		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.APPROVED);
-
-		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.RETRACT);
+	public void transitionCommercialUsageApprovalShouldTransitionChangeRequestedToResubmittedOnSubmit() throws Exception {
+		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.CHANGE_REQUESTED);
 		
-		Assert.assertThat(result.getApprovalState(), Matchers.equalTo(ApprovalState.NOT_SUBMITTED));
+		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.SUBMIT);
+		
+		Assert.assertThat(result.getApprovalState(), Matchers.equalTo(ApprovalState.RESUBMITTED));
+		Assert.assertThat(result.getCommercialUsageId(), Matchers.equalTo(2L));
 	}
 
 	@Test
-	public void transitionCommercialUsageApprovalShouldCreateNewUsageOnRetract() throws Exception {
+	public void transitionCommercialUsageApprovalShouldFailWhenRetractingPreviouslyRetractedUsage() throws Exception {
+		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.APPROVED);
+		commercialUsage.setEffectiveTo(Instant.now());
+		
+		try {
+			commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.RETRACT);
+			Assert.fail();
+		} catch (IllegalStateException e) {
+			Assert.assertThat(e.getMessage(), matchUnsupportedApprovalTransactionException());
+		}
+	}
+
+	@Test
+	public void transitionCommercialUsageApprovalShouldCreateNewUsageOnRetractInChangeRequestedState() throws Exception {
 		final CommercialUsage originalCommercialUsage = withCommercialUsage(2L, ApprovalState.APPROVED);
 		final long postResetterId = 123;
 
@@ -95,9 +115,11 @@ public class CommercialUsageServiceTest {
 		
 		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(originalCommercialUsage, ApprovalTransition.RETRACT);
 		
-		Assert.assertThat(result.getApprovalState(), Matchers.equalTo(ApprovalState.NOT_SUBMITTED));
+		// New commercial usage
+		Assert.assertThat(result.getApprovalState(), Matchers.equalTo(ApprovalState.CHANGE_REQUESTED));
 		Assert.assertThat(result.getCommercialUsageId(), Matchers.equalTo(123L));
 		
+		// Original commercial usage
 		Assert.assertEquals(ApprovalState.APPROVED, originalCommercialUsage.getApprovalState());
 		Assert.assertThat(originalCommercialUsage.getEffectiveTo(), org.hamcrest.Matchers.notNullValue(Instant.class));
 	}
@@ -132,7 +154,7 @@ public class CommercialUsageServiceTest {
 	}
 
 	@Test
-	public void transitionCommercialUsageApprovalShouldTransitionToApprovedOnReviewed() throws Exception {
+	public void transitionCommercialUsageApprovalShouldTransitionSubmittedToApprovedOnReviewed() throws Exception {
 		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.SUBMITTED);
 		
 		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.REVIEWED);
@@ -140,6 +162,29 @@ public class CommercialUsageServiceTest {
 		Assert.assertThat(result.getApprovalState(), Matchers.equalTo(ApprovalState.APPROVED));
 	}
 
+	@Test
+	public void transitionCommercialUsageApprovalShouldFailWhenReviewingInactiveUsage() throws Exception {
+		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.SUBMITTED);
+		commercialUsage.setEffectiveTo(Instant.now());
+		
+		try {
+			commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.REVIEWED);
+			Assert.fail();
+		} catch (IllegalStateException e) {
+			Assert.assertThat(e.getMessage(), matchUnsupportedApprovalTransactionException());
+		}
+	}
+
+	@Test
+	public void transitionCommercialUsageApprovalShouldTransitionResubmittedToApprovedOnReviewed() throws Exception {
+		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.RESUBMITTED);
+		
+		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.REVIEWED);
+		
+		Assert.assertThat(result.getApprovalState(), Matchers.equalTo(ApprovalState.APPROVED));
+	}
+
+	
 	private CommercialUsage withCommercialUsage(long commercialUsageId, ApprovalState approvalState) {
 		Affiliate affiliate = new Affiliate(1L);
 		CommercialUsage commercialUsage = new CommercialUsage(commercialUsageId, affiliate);

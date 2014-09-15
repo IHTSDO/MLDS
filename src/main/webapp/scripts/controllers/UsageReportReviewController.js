@@ -12,6 +12,9 @@ angular.module('MLDS').controller('UsageReportReviewController',
 		$scope.usageByCountry = {};
 		$scope.usageByCountryList = [];
 		
+		$scope.alerts = [];
+		$scope.submitting = false;
+
 		$scope.goBackToPrevious = function() {
 			$window.history.back();	
 		};
@@ -81,13 +84,19 @@ angular.module('MLDS').controller('UsageReportReviewController',
 		findUsageReport(usageReportId);
 		
 		$scope.reviewedUsageReport = function reviewedUsageReport() {
+			$scope.alerts.splice(0, $scope.alerts.length);
+			$scope.submitting = true;
+
 			CommercialUsageService.reviewUsageReport($scope.usageReport)
 				.then(function(result) {
 					$log.log(result);
 					$location.path('/usageReportsReview');
+					$scope.submitting = false;
 				})
 				["catch"](function(message) {
 					$log.log("failed to update usage report: "+message.statusText);
+					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+					$scope.submitting = false;
 				});
 		};
 		

@@ -4,6 +4,7 @@
 			<span class="pull-right btn btn-link" ng-click="goBackToPrevious()">Back to Review Usage Reports</span>
 			<h1>Review Usage Report</h1>
 		</div>
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	</div>
 </div>
 <div class="row">
@@ -11,9 +12,14 @@
 		<div class="panel panel-primary" >
       <div class="panel-heading">
         <h4 class="panel-title">
-       		Licence Usage<span class="pull-right">{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM yyyy'}}</span>
+       		Licence Usage
+       		<span class="pull-right">
+       			<span ng-show="usageReport.approvalState === 'RESUBMITTED'" class="label label-default"> {{usageReport.approvalState|enum:'approval.state.'}}</span>
+       			{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM yyyy'}}
+       		</span>
        	</h4>
       </div>
+      
 			<div class="panel-body" collapse="collapsePanel.usage"
 				class="panel-collapse collapse in">
 				<ul class="list-group">
@@ -125,7 +131,9 @@
 		<div ng-include src="'views/affiliateDetailsSummary.html'"></div>
 		
 		<div>
-			<a class="btn btn-warning btn-block" ng-click="reviewedUsageReport()">Mark Usage Report as Reviewed</a>
+			<a class="btn btn-warning btn-block" ng-click="reviewedUsageReport()">
+				Mark Usage Report as Reviewed 
+			</a>
 		</div>
 	</div>
 	

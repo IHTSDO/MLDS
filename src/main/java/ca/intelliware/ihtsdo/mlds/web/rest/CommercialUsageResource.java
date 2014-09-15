@@ -46,6 +46,8 @@ import com.google.common.collect.Lists;
 @RestController
 public class CommercialUsageResource {
 	
+	private static final String FILTER_ACTIVE_APPROVAL_STATE_SUBMITTED_OR_RESUBMITTED = "approvalState/submitted eq true or approvalState/resubmitted eq true";
+
 	@Resource
 	CommercialUsageRepository commercialUsageRepository;
 	
@@ -96,8 +98,8 @@ public class CommercialUsageResource {
     	if (filter == null) {
     		usageReports = commercialUsageRepository.findAll();
     	} else {
-    		if (Objects.equal(filter, "approvalState/submitted eq true")) {
-    			usageReports = commercialUsageRepository.findByApprovalStateIn(Lists.newArrayList(ApprovalState.SUBMITTED));
+    		if (Objects.equal(filter, FILTER_ACTIVE_APPROVAL_STATE_SUBMITTED_OR_RESUBMITTED)) {
+    			usageReports = commercialUsageRepository.findByApprovalStateInAndEffectiveToIsNull(Lists.newArrayList(ApprovalState.SUBMITTED, ApprovalState.RESUBMITTED));
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
