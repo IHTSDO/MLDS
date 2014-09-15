@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
+import javax.transaction.Transactional;
 
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
@@ -36,6 +37,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
@@ -43,7 +45,9 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateSearchRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliateImportAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
@@ -51,7 +55,9 @@ import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImporterSer
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
+import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 
 @RestController
 public class AffiliateResource {
@@ -72,7 +78,10 @@ public class AffiliateResource {
 
 	@Resource
 	AffiliateAuditEvents affiliateAuditEvents;
-	
+
+	@Resource
+	AffiliateImportAuditEvents affiliateImportAuditEvents;
+
 	@Resource
 	AffiliatesImporterService affiliatesImporterService; 
 
@@ -102,6 +111,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliates(
     		@RequestParam String q,
     		@RequestParam(value="$page", defaultValue="0", required=false) Integer page,
@@ -153,6 +163,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATE,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<Affiliate> getAffiliate(@PathVariable long affiliateId) {
 		Affiliate affiliate = affiliateRepository.findOne(affiliateId);
 		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
@@ -162,6 +173,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATE,
     		method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<Affiliate> updateAffiliate(@PathVariable Long affiliateId, @RequestBody Affiliate body) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
     	if (affiliate == null) {
@@ -169,7 +181,19 @@ public class AffiliateResource {
     	}
     	applicationAuthorizationChecker.checkCanManageAffiliate(affiliate);
     	
+    	StandingState originalStanding = affiliate.getStandingState();
+    	
     	copyAffiliateFields(affiliate, body);
+    	
+    	if (! Objects.equal(originalStanding, affiliate.getStandingState())) {
+    		if (Objects.equal(originalStanding, StandingState.APPLYING)
+    				|| Objects.equal(originalStanding, StandingState.REJECTED)) {
+    			return new ResponseEntity<>(HttpStatus.CONFLICT);
+    		} else {
+    			affiliateAuditEvents.logStandingStateChange(affiliate);
+    		}
+    	}
+
     	affiliateRepository.save(affiliate);
     	
     	affiliateAuditEvents.logUpdateOfAffiliate(affiliate);
@@ -179,12 +203,16 @@ public class AffiliateResource {
 
 	private void copyAffiliateFields(Affiliate affiliate, Affiliate body) {
 		affiliate.setNotesInternal(body.getNotesInternal());
+		if (body.getStandingState() != null) {
+			affiliate.setStandingState(body.getStandingState());
+		}
 	}
 
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATES_ME,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesMe() {
     	String username = sessionService.getUsernameOrNull();
     	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
@@ -194,6 +222,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_CREATOR,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesForUser(@PathVariable String username) {
     	applicationAuthorizationChecker.checkCanAccessAffiliate(username);
     	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
@@ -204,6 +233,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_CSV,
     		method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<ImportResult> importAffiliates( @RequestParam("file") MultipartFile file) throws IOException {
 		if (file.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -211,7 +241,7 @@ public class AffiliateResource {
 		//FIXME Is this correct that we are assuming UTF8?
 		String content = IOUtils.toString(file.getInputStream(),  Charsets.UTF_8);
 		ImportResult importResult = affiliatesImporterService.importFromCSV(content);
-		affiliateAuditEvents.logImport(importResult);
+		affiliateImportAuditEvents.logImport(importResult);
     	HttpStatus httpStatus = importResult.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
 		return new ResponseEntity<ImportResult>(importResult, httpStatus);
     }
@@ -220,6 +250,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_CSV,
     		method = RequestMethod.GET,
             produces = "application/csv;charset=UTF-8")
+	@Timed
     public @ResponseBody ResponseEntity<String> exportAffiliates(@RequestParam(value="generate",required = false) Integer generateRows) throws IOException {
 		//FIXME DGJ Introduce parameter to generate phoney data until we can add an application start
 		String result;
@@ -228,7 +259,7 @@ public class AffiliateResource {
 		} else {
 			result = affiliatesImportGenerator.generateFile(generateRows);
 		}
-		affiliateAuditEvents.logExport();
+		affiliateImportAuditEvents.logExport();
 		return new ResponseEntity<String>(result, HttpStatus.OK);
     }
 	
@@ -237,6 +268,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATES_CSV_SPEC,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<AffiliatesImportSpec> getAffiliatesImportSpec() throws IOException {
 		AffiliatesImportSpec result = affiliatesExporterService.exportSpec();
 		return new ResponseEntity<AffiliatesImportSpec>(result, HttpStatus.OK);
@@ -247,6 +279,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATE_DETAIL,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
     public @ResponseBody ResponseEntity<AffiliateDetails> updateAffiliateDetail(@PathVariable Long affiliateId) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
     	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
@@ -256,11 +289,14 @@ public class AffiliateResource {
     	return new ResponseEntity<AffiliateDetails>(affiliate.getAffiliateDetails(), HttpStatus.OK);
     }
 
+	@SuppressWarnings("unchecked")
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @RequestMapping(value = Routes.AFFILIATE_DETAIL,
     		method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<AffiliateDetails> updateAffiliateDetail(@PathVariable Long affiliateId, @RequestBody AffiliateDetails body) {
+	@Timed
+	@Transactional
+    public @ResponseBody ResponseEntity<?> updateAffiliateDetail(@PathVariable Long affiliateId, @RequestBody AffiliateDetails body) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
     	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
     	if (affiliate == null) {
@@ -277,14 +313,25 @@ public class AffiliateResource {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
     	}
     	
-    	copyAffiliateDetailsFields(affiliateDetails, body);
-    	affiliateDetailsRepository.save(affiliateDetails);
+    	String originalEmail = affiliateDetails.getEmail();
+    	String newEmail = body.getEmail();
+		boolean emailChanged = !Objects.equal(newEmail, originalEmail);
+    	if (emailChanged) {
+    		if (!currentSecurityContext.isStaffOrAdmin()) {
+        		return new ResponseEntity<>("Users may not change their primary email address",HttpStatus.FORBIDDEN);
+    		}
+    		if (Strings.isNullOrEmpty(newEmail)) {
+        		return new ResponseEntity<>("Primary email address (email) is a required field",HttpStatus.BAD_REQUEST);
+    		}
+    		affiliate.setCreator(newEmail);
+    	}
     	
-    	User user = userRepository.findOne(affiliateDetails.getEmail());
+    	User user = userRepository.findByLoginIgnoreCase(originalEmail);
     	if (user != null) {
     		copyAffiliateDetailsNameFieldsToUser(user, body);
-    		userRepository.save(user);
     	}
+    	
+    	copyAffiliateDetailsFields(affiliateDetails, body);
     	
     	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate);
     	
@@ -293,17 +340,20 @@ public class AffiliateResource {
 
 	private void copyAffiliateDetailsFields(AffiliateDetails affiliateDetails, AffiliateDetails body) {
 		copyAddressFieldsWithoutCountry(affiliateDetails.getAddress(), body.getAddress());
-    	affiliateDetails.setAlternateEmail(body.getAlternateEmail());
     	copyAddressFields(affiliateDetails.getBillingAddress(), body.getBillingAddress());
-    	// Can not update: email (validation and uniqueness challenges)
     	affiliateDetails.setFirstName(body.getFirstName());
     	affiliateDetails.setLandlineExtension(body.getLandlineExtension());
     	affiliateDetails.setLandlineNumber(body.getLandlineNumber());
     	affiliateDetails.setLastName(body.getLastName());
     	affiliateDetails.setMobileNumber(body.getMobileNumber());
+    	
+    	affiliateDetails.setAlternateEmail(body.getAlternateEmail());
     	affiliateDetails.setThirdEmail(body.getThirdEmail());
     	
-    	if (currentSecurityContext.isAdmin()) {
+    	affiliateDetails.setEmail(body.getEmail());
+    	
+		if (currentSecurityContext.isAdmin()) {
+        	
 	    	affiliateDetails.setType(body.getType());
 	    	affiliateDetails.setOtherText(body.getOtherText());
 	    	affiliateDetails.setSubType(body.getSubType());
@@ -325,5 +375,7 @@ public class AffiliateResource {
 	private void copyAffiliateDetailsNameFieldsToUser(User user, AffiliateDetails body) {
     	user.setFirstName(body.getFirstName());
     	user.setLastName(body.getLastName());
+		user.setEmail(body.getEmail());
+		user.setLogin(body.getEmail());
 	}
 }

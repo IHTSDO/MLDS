@@ -15,6 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.ImportApplication;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
@@ -51,7 +53,7 @@ public class AffiliatesImporterServiceTest {
 	public void firstRunCreatesAffiliate() throws Exception {
 		// setup
 		setField(fields,"organizationName", "Our Name");
-		LineRecord record = new LineRecord(1, fields.toArray(new String[0]), false);
+		LineRecord record = new LineRecord(1, fields, false);
 		
 		// execution
 		affiliatesImporterService.processLineRecord(record, new ImportResult());
@@ -65,7 +67,7 @@ public class AffiliatesImporterServiceTest {
 	public void secondRunUpdatesAffiliateDetails() throws Exception {
 		// setup
 		setField(fields,"organizationName", "Our Name");
-		LineRecord record = new LineRecord(1, fields.toArray(new String[0]), false);
+		LineRecord record = new LineRecord(1, fields, false);
 		
 		// execution #1
 		affiliatesImporterService.processLineRecord(record, new ImportResult());
@@ -75,7 +77,7 @@ public class AffiliatesImporterServiceTest {
 		
 		// execution #2
 		setField(fields,"organizationName", "Our New Name");
-		LineRecord record2 = new LineRecord(1, fields.toArray(new String[0]), false);
+		LineRecord record2 = new LineRecord(1, fields, false);
 		
 		affiliatesImporterService.processLineRecord(record2, new ImportResult());
 
@@ -88,7 +90,7 @@ public class AffiliatesImporterServiceTest {
 	@Test
 	public void updateAddsAnImportApplicationAsLog() throws Exception {
 		setField(fields,"organizationName", "Our Name");
-		LineRecord record = new LineRecord(1, fields.toArray(new String[0]), false);
+		LineRecord record = new LineRecord(1, fields, false);
 		
 		// execution #1
 		affiliatesImporterService.processLineRecord(record, new ImportResult());
@@ -97,7 +99,7 @@ public class AffiliatesImporterServiceTest {
 		
 		// execution #2
 		setField(fields,"organizationName", "Our New Name");
-		LineRecord record2 = new LineRecord(1, fields.toArray(new String[0]), false);
+		LineRecord record2 = new LineRecord(1, fields, false);
 		
 		affiliatesImporterService.processLineRecord(record2, new ImportResult());
 
@@ -111,7 +113,22 @@ public class AffiliatesImporterServiceTest {
 		
 		Assert.assertEquals("Our New Name", importApplications.iterator().next().getAffiliateDetails().getOrganizationName());
 	}
-	
+
+	@Test
+	public void shouldCreateNotSubmittedUsageOnInitialImport() throws Exception {
+		// setup
+		setField(fields,"organizationName", "Our Name");
+		LineRecord record = new LineRecord(1, fields, false);
+		
+		// execution
+		affiliatesImporterService.processLineRecord(record, new ImportResult());
+		
+		Affiliate foundAffiliate = affiliateRepository.findByImportKeyAndHomeMember("XXX_Test", sweden);
+		Assert.assertEquals("should have created commercial usage", 1, foundAffiliate.getCommercialUsages().size());
+		CommercialUsage usage = foundAffiliate.getCommercialUsages().iterator().next();
+		Assert.assertEquals(ApprovalState.NOT_SUBMITTED, usage.getApprovalState());
+	}
+
 	private void setField(List<String> fields, final String columnName, String value) {
 		fields.set(columnIndexFor(columnName), value);
 	}

@@ -93,14 +93,14 @@ public class AffiliatesImportGeneratorTest {
 	public void generateValueForTelephoneNumber() {
 		fieldMapping.columnName = "someNumber";
 		String value = fixture.generateValue(fieldMapping, 1, context);
-		assertEquals(value, "+1 416 939 0001");
+		assertEquals("+1 416 709 0001", value);
 	}
 
 	@Test
 	public void generateValueForTelephoneExtension() {
 		fieldMapping.columnName = "someExtension";
 		String value = fixture.generateValue(fieldMapping, 1, context);
-		assertEquals(value, "941");
+		assertEquals("707", value);
 	}
 
 	@Test

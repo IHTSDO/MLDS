@@ -14,7 +14,7 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
-import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -34,7 +34,10 @@ public class AffiliateJsonTest {
 		usage = new CommercialUsage(55L,affiliate);
 		affiliate.addCommercialUsage(usage);
 		usage.addEntry(new CommercialUsageEntry(22,usage));
-		usage.addCount(new CommercialUsageCountry(23,usage));
+		CommercialUsageCountry country = new CommercialUsageCountry(23,usage);
+		country.setAnalysisPractices(5);
+		country.setCreationPractices(3);
+		usage.addCount(country);
 	}
 	
 	@Before

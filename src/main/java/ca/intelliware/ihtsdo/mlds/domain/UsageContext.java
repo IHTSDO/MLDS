@@ -17,6 +17,9 @@ public class UsageContext {
 	@Column(name="implementation_status")
 	String implementationStatus;
 	
+	@Column(name="other_activities")
+	String otherActivities;
+	
 	public String getCurrentUsage() {
 		return currentUsage;
 	}
@@ -43,6 +46,14 @@ public class UsageContext {
 
 	public String getImplementationStatus() {
 		return implementationStatus;
+	}
+
+	public String getOtherActivities() {
+		return otherActivities;
+	}
+
+	public void setOtherActivities(String otherActivities) {
+		this.otherActivities = otherActivities;
 	}
 
 }

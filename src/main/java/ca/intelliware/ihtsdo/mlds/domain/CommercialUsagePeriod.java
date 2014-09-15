@@ -7,6 +7,10 @@ public class CommercialUsagePeriod {
 	LocalDate endDate;
 	String description;
 	
+	public CommercialUsagePeriod() {
+		
+	}
+	
 	public String getDescription() {
 		return description;
 	}

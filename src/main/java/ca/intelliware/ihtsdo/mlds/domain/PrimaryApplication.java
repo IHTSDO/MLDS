@@ -66,5 +66,10 @@ public class PrimaryApplication extends Application{
 	public void setCommercialUsage(CommercialUsage commercialUsage) {
 		this.commercialUsage = commercialUsage;
 	}
+	
+	@Override
+	public ApplicationType getApplicationType() {
+		return Application.ApplicationType.PRIMARY;
+	}
 
 }

@@ -17,13 +17,14 @@ public class ApplicationApprovedEmailSender {
 	@Resource TemplateEvaluator templateEvaluator;
 	@Resource ClientLinkBuilder clientLinkBuilder;
 
-	public void sendApplicationApprovalEmail(User user, String memberKey) {
+	public void sendApplicationApprovalEmail(User user, String memberKey, long affiliateId) {
 		final Locale locale = Locale.forLanguageTag(user.getLangKey());
 		Map<String, Object> variables = Maps.newHashMap();
+		variables.put(EmailVariables.AFFILIATE_ID, affiliateId);
 		variables.put(EmailVariables.USER, user);
 		variables.put(EmailVariables.MEMBERKEY, memberKey);
 		variables.put(EmailVariables.LOGIN_URL, clientLinkBuilder.buildLoginLink());
-		variables.put(EmailVariables.VIEW_PACKAGES_URL, clientLinkBuilder.buildViewPackagesLink());
+		variables.put(EmailVariables.VIEW_PACKAGES_URL, clientLinkBuilder.buildViewReleasesLink());
 		String content = templateEvaluator.evaluateTemplate("applicationApprovedEmail", locale, variables);
 		String subject = templateEvaluator.getTitleFor("applicationApproved", locale);
 		

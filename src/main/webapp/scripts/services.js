@@ -67,28 +67,33 @@ mldsApp.factory('LogsService', ['$resource',
         });
     }]);
 
-mldsApp.factory('AuditsService', ['$http',
-    function ($http) {
+mldsApp.factory('AuditsService', ['$http', '$log', 
+    function ($http, $log) {
+		function findFilteredAudits(filter) {
+            var promise = $http.get('/app/rest/audits' + (filter?'?$filter='+encodeURIComponent(filter):''))
+	       		.then(function (response) {
+	       			return _.chain(response.data)
+	       				.sortBy('timestamp')
+	       				.reverse()
+	       				.value();
+	        });
+	        return promise;
+		}
         return {
             findAll: function() {
-                var promise = $http.get('/app/rest/audits').then(function (response) {
-                    return response.data;
-                });
-                return promise;
+            	return findFilteredAudits();
             },
             findByDates: function(fromDate, toDate) {
-                var promise = $http.get('/app/rest/audits?$filter='+encodeURIComponent('auditEventDate ge \''+fromDate+'\' and auditEventDate le \''+toDate+'\''))
-               		.then(function (response) {
-               			return response.data;
-                });
-                return promise;
+            	return findFilteredAudits('auditEventDate ge \''+fromDate+'\' and auditEventDate le \''+toDate+'\'');
             },
             findByAuditEventType: function(auditEventType) {
-                var promise = $http.get('/app/rest/audits?$filter='+encodeURIComponent('auditEventType eq \''+auditEventType+'\''))
-                	.then(function (response) {
-                		return response.data;
-                });
-                return promise;
+            	return findFilteredAudits('auditEventType eq \''+auditEventType+'\'');
+            },
+            findByAffiliateId: function(affiliateId) {
+            	return findFilteredAudits('affiliateId eq \''+affiliateId+'\'');
+            },
+            findByApplicationId: function(applicationId) {
+            	return findFilteredAudits('applicationId eq \''+applicationId+'\'');
             }
         };
     }]);

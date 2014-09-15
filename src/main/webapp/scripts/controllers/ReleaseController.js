@@ -23,8 +23,14 @@ angular.module('MLDS').controller('ReleaseController',
 		if (releasePackageId) {
 			PackagesService.get({releasePackageId: releasePackageId})
 			.$promise.then(function(result) {
+				if (PackageUtilsService.isReleasePackageInactive(result)) {
+					$log.log('Selected ReleasePackage is inactive');
+					$scope.goToReleaseManagement();
+				} 
+				
 				$scope.packageEntity = result;
 				$scope.isEditableReleasePackage = PackageUtilsService.isEditableReleasePackage(result);
+				$scope.isRemovableReleasePackage = PackageUtilsService.isRemovableReleasePackage(result);
 				})
 					["catch"](function(message) {
 						//FIXME how to handle errors + not present
@@ -90,6 +96,25 @@ angular.module('MLDS').controller('ReleaseController',
             });
         modalInstance.result.then(function(updatedReleasePackage) {
         	$scope.packageEntity = updatedReleasePackage;
+        });
+    };
+    
+    $scope.removeReleasePackage = function() {
+        var modalInstance = $modal.open({
+              templateUrl: 'views/admin/removeReleaseModal.html',
+              controller: 'RemoveReleaseModalController',
+              scope: $scope,
+              size: 'sm',
+              backdrop: 'static',
+              resolve: {
+                releasePackage: function() {
+                	// FIXME not sure about copy - needed to support modal cancel or network failure
+                	return angular.copy($scope.packageEntity);
+                }
+              }
+            });
+        modalInstance.result.then(function() {
+        	$scope.goToReleaseManagement();
         });
     };
     

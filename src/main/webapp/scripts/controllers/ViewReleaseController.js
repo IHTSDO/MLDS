@@ -2,8 +2,8 @@
 
 angular.module('MLDS')
     .controller('ViewReleaseController', 
-    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location', '$log', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService',
-          function($scope, $routeParams, PackagesService, PackageUtilsService, $location, $log, UserAffiliateService, ApplicationUtilsService, MemberService){
+    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location', '$log', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService', 'StandingStateUtils',
+          function($scope, $routeParams, PackagesService, PackageUtilsService, $location, $log, UserAffiliateService, ApplicationUtilsService, MemberService, StandingStateUtils){
     	
 	var releasePackageId = $routeParams.releasePackageId && parseInt($routeParams.releasePackageId, 10);
 	
@@ -17,6 +17,7 @@ angular.module('MLDS')
 		MemberService.getMemberLicence(memberKey);
 	};
 	
+	$scope.isMembershipInGoodStanding = false;
 	$scope.isMembershipApproved = false;
 	$scope.isMembershipIncomplete = false;
 	$scope.isMembershipUnstarted = false;
@@ -45,7 +46,9 @@ angular.module('MLDS')
 		
 	var initReleasePackageState = function initReleasePackageState(releasePackage) {
 		UserAffiliateService.promise.then(function() {
+			$scope.isAccountDeactivated = StandingStateUtils.isDeactivated(UserAffiliateService.affiliate.standingState); 
 			$scope.isMembershipApproved = UserAffiliateService.isMembershipApproved(releasePackage.member);
+			$scope.isMembershipInGoodStanding = $scope.isMembershipApproved && !$scope.isAccountDeactivated;
 			$scope.isMembershipIncomplete = UserAffiliateService.isMembershipIncomplete(releasePackage.member);
 			$scope.isMembershipUnstarted = UserAffiliateService.isMembershipNotStarted(releasePackage.member);
 			$scope.isPrimaryApplicationApproved = ApplicationUtilsService.isApplicationApproved(UserAffiliateService.affiliate.application);

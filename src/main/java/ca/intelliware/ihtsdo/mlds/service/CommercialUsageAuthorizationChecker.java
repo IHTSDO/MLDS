@@ -1,4 +1,4 @@
-package ca.intelliware.ihtsdo.mlds.web.rest;
+package ca.intelliware.ihtsdo.mlds.service;
 
 import javax.annotation.Resource;
 
@@ -12,6 +12,7 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.AuthorizationChecker;
 
 @Service
 public class CommercialUsageAuthorizationChecker extends AuthorizationChecker {
@@ -72,4 +73,12 @@ public class CommercialUsageAuthorizationChecker extends AuthorizationChecker {
 		}
 	}
 
+	public void checkCanReviewUsageReports() {
+		if (isAdmin()) {
+			return;
+		} else {
+			failCheck("user does not have permissions to review usage reports.");
+		}
+		
+	}
 }

@@ -3,9 +3,14 @@
   <h3 class="modal-title">Start Extension Application Process</h3>
 </div>
 <div class="modal-body">
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
   <p>Are you want to apply for this SNOMED Extension?</p>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="$dismiss()">No</button>
-	<button class="btn btn-success" ng-click="$close()">Yes</button>
+	<button class="btn btn-success" ng-click="ok()" ng-disabled="submitting">
+		Yes
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
 </div>

@@ -90,7 +90,7 @@ public class UserService {
     }
 
     public void updateUserInformation(String firstName, String lastName, String email) {
-        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        User currentUser = userRepository.findByLoginIgnoreCase(SecurityUtils.getCurrentLogin());
         currentUser.setFirstName(firstName);
         currentUser.setLastName(lastName);
         currentUser.setEmail(email);
@@ -98,7 +98,7 @@ public class UserService {
     }
 
     public void changePassword(String password) {
-        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        User currentUser = userRepository.findByLoginIgnoreCase(SecurityUtils.getCurrentLogin());
         changePassword(currentUser, password);
     }
 
@@ -110,7 +110,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User getUserWithAuthorities() {
-        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        User currentUser = userRepository.findByLoginIgnoreCase(SecurityUtils.getCurrentLogin());
         if (currentUser != null) {
         	currentUser.getAuthorities().size(); // eagerly load the association
         }

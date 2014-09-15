@@ -13,8 +13,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
-import ca.intelliware.ihtsdo.mlds.security.SecurityContextSetup;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.UserStandingCalculator;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -22,6 +23,9 @@ public class ReleasePackageAuthorizationCheckerTest {
 	
 	@Mock
 	private UserMembershipAccessor userMembershipAccessor;
+	
+	@Mock
+	private UserStandingCalculator userStandingCalculator;
 
 	ReleasePackageAuthorizationChecker authorizationChecker;
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
@@ -35,8 +39,9 @@ public class ReleasePackageAuthorizationCheckerTest {
 	@Before
 	public void setUp() {
 		authorizationChecker = new ReleasePackageAuthorizationChecker();
-		authorizationChecker.currentSecurityContext = new CurrentSecurityContext();
+		authorizationChecker.setCurrentSecurityContext(new CurrentSecurityContext());
 		authorizationChecker.userMembershipAccessor = userMembershipAccessor;
+		authorizationChecker.userStandingCalculator = userStandingCalculator;
 		
 		sweden = new Member("SE", 1);
 		ihtsdo = new Member("IHTSDO", 2);
@@ -171,6 +176,40 @@ public class ReleasePackageAuthorizationCheckerTest {
 		
 
 		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(false);
+		
+		securityContextSetup.asAffiliateUser();
+		
+		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
+	}
+
+	@Test(expected=IllegalStateException.class)
+	public void userCannotDownloadApprovedPackageVersionWhenAccountDeactivated() {
+		ReleasePackage releasePackage = new ReleasePackage(1L);
+		releasePackage.setMember(ihtsdo);
+		ReleaseVersion onlineIhtsdoVersion = new ReleaseVersion(2L);
+		releasePackage.addReleaseVersion(onlineIhtsdoVersion);
+		onlineIhtsdoVersion.setOnline(true);
+
+		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
+		
+		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeactivated()).thenReturn(true);
+		
+		securityContextSetup.asAffiliateUser();
+		
+		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
+	}
+
+	@Test(expected=IllegalStateException.class)
+	public void userCannotDownloadApprovedPackageVersionWhenAccountDeregistered() {
+		ReleasePackage releasePackage = new ReleasePackage(1L);
+		releasePackage.setMember(ihtsdo);
+		ReleaseVersion onlineIhtsdoVersion = new ReleaseVersion(2L);
+		releasePackage.addReleaseVersion(onlineIhtsdoVersion);
+		onlineIhtsdoVersion.setOnline(true);
+
+		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
+		
+		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeregistered()).thenReturn(true);
 		
 		securityContextSetup.asAffiliateUser();
 		

@@ -2,6 +2,8 @@ package ca.intelliware.ihtsdo.mlds.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,7 +33,7 @@ public class CommercialUsageEntry extends BaseEntity {
 	
 	String note;
 	
-	@Column(name="start_date", nullable=false)
+	@Column(name="start_date")
 	LocalDate startDate;
 	
 	@Column(name="end_date")
@@ -41,6 +43,10 @@ public class CommercialUsageEntry extends BaseEntity {
 	Country country;
 	
 	Instant created = Instant.now();
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="sublicence_type")
+	SublicenceType sublicenceType = SublicenceType.DATA_ANALYSIS_SYSTEM;
 	
 	public CommercialUsageEntry() {
 		
@@ -95,5 +101,13 @@ public class CommercialUsageEntry extends BaseEntity {
 	@Override
 	protected Object getPK() {
 		return commercialUsageEntryId;
+	}
+
+	public SublicenceType getSublicenceType() {
+		return sublicenceType;
+	}
+
+	public void setSublicenceType(SublicenceType sublicenceType) {
+		this.sublicenceType = sublicenceType;
 	}
 }

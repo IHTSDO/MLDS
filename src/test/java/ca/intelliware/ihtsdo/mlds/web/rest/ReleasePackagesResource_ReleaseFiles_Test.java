@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -14,12 +16,16 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.util.NestedServletException;
 
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
+import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 public class ReleasePackagesResource_ReleaseFiles_Test {
 
@@ -45,6 +51,9 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
 	
 	@Mock
 	UriDownloader uriDownloader;
+	
+	@Mock
+	UserMembershipAccessor userMembershipAccessor;
 
 	ReleasePackagesResource releasePackagesResource;
 
@@ -61,6 +70,7 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
         releasePackagesResource.currentSecurityContext = currentSecurityContext;
         releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
         releasePackagesResource.uriDownloader = uriDownloader;
+        releasePackagesResource.userMembershipAccessor = userMembershipAccessor;
 
         this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releasePackagesResource).build();
     }
@@ -93,6 +103,27 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-		Mockito.verify(releasePackageAuditEvents).logDownload(Mockito.any(ReleaseFile.class), Mockito.anyInt());
+		Mockito.verify(releasePackageAuditEvents).logDownload(Mockito.any(ReleaseFile.class), Mockito.anyInt(), Mockito.any(Affiliate.class));
 	}
+	
+	@Test
+	public void downloadReleaseFileShouldFailIfCheckDenied() throws Exception {
+		ReleaseFile releaseFile = withReleaseFileWithIdOf(3L);
+		releaseFile.setDownloadUrl("http://test.com/file");
+		
+		Mockito.doThrow(new IllegalStateException("ACCOUNT DEACTIVATED")).when(authorizationChecker).checkCanDownloadReleaseVersion(Mockito.any(ReleaseVersion.class));
+
+		try {
+			restReleasePackagesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
+					.contentType(MediaType.APPLICATION_JSON)
+	                .accept(MediaType.APPLICATION_JSON))
+	                .andExpect(status().is5xxServerError());
+			Assert.fail();
+        } catch (NestedServletException e) {
+        	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("ACCOUNT DEACTIVATED"));
+        }
+		
+		Mockito.verify(uriDownloader, Mockito.never()).download(Mockito.eq("http://test.com/file"), Mockito.any(HttpServletRequest.class), Mockito.any(HttpServletResponse.class));
+	}
+
 }

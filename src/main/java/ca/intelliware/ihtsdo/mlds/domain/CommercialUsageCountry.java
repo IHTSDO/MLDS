@@ -31,8 +31,14 @@ public class CommercialUsageCountry extends BaseEntity {
 
 	Instant created = Instant.now();
 	
-	Integer practices = 0;
-
+	String notes;
+	
+	@Column(name="analysis_practices")
+	Integer analysisPractices = 0;
+	
+	@Column(name="creation_practices")
+	Integer creationPractices = 0;
+	
 	public CommercialUsageCountry() {
 		
 	}
@@ -55,21 +61,50 @@ public class CommercialUsageCountry extends BaseEntity {
 		return country;
 	}
 
-	public Integer getPractices() {
-		return practices;
-	}
-	
-	public void setPractices(Integer practices) {
-		this.practices = practices;
-	}
-
 	public CommercialUsage getCommercialUsage() {
 		return commercialUsage;
 	}
-
+	
+	public Integer getPractices() {
+		return analysisPractices + creationPractices;
+	}
+	
+	/**
+	 * Stub to allow Jackson to deserizalize our synthetic "practices" property.
+	 * @param dummy
+	 */
+	@Deprecated
+	public void setPractices(Integer dummy) {
+		// do nothing.
+	}
+	
 	@Override
 	protected Object getPK() {
 		return commercialUsageCountId;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public Integer getAnalysisPractices() {
+		return analysisPractices;
+	}
+
+	public void setAnalysisPractices(int analysisPractices) {
+		this.analysisPractices = analysisPractices;
+	}
+
+	public Integer getCreationPractices() {
+		return creationPractices;
+	}
+
+	public void setCreationPractices(int creationPractices) {
+		this.creationPractices = creationPractices;
 	}
 
 }

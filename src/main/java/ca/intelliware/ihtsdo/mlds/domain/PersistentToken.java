@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -59,6 +60,7 @@ public class PersistentToken implements Serializable {
 
     @JsonIgnore
     @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
 
     public String getSeries() {

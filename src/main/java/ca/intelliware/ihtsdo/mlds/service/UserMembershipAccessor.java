@@ -11,6 +11,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
 import com.google.common.collect.Lists;
 
@@ -56,7 +57,7 @@ public class UserMembershipAccessor {
 		}
 	}
 
-	private Affiliate getAffiliate() {
+	public Affiliate getAffiliate() {
 		List<Affiliate> affiliates = affiliateRepository.findByCreator(currentSecurityContext.getCurrentUserName());
 		if (affiliates.size() > 0) {
 			return affiliates.get(0);

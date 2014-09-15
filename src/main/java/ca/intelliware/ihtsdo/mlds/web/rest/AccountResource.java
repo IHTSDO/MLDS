@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +57,10 @@ import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAdaptor;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
@@ -120,6 +127,11 @@ public class AccountResource {
 	@Resource
 	UserMembershipAccessor userMembershipAccessor;
 	
+	@Resource
+	HttpAuthAdaptor httpAuthAdaptor;
+	
+	CurrentSecurityContext currentSecurityContext = new CurrentSecurityContext();
+
     /**
      * POST  /rest/register -> register the user.
      */
@@ -131,7 +143,7 @@ public class AccountResource {
     @RolesAllowed({ AuthoritiesConstants.ANONYMOUS })
     public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO, HttpServletRequest request,
                                              HttpServletResponse response) {
-        User user = userRepository.findOne(userDTO.getLogin());
+        User user = userRepository.findByLoginIgnoreCase(userDTO.getLogin());
         if (user != null) {
         	String passwordResetToken = passwordResetService.createTokenForUser(user);
 			duplicateRegistrationEmailSender.sendDuplicateRegistrationEmail(user,passwordResetToken );
@@ -197,7 +209,6 @@ public class AccountResource {
         	
         	affiliateAuditEvents.logCreationOf(affiliate);
         	
-        	
         	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
                     userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey(), false);
@@ -238,38 +249,79 @@ public class AccountResource {
 
     /**
      * GET  /rest/account -> get the current user.
+     * @throws IOException 
+     * @throws ClientProtocolException 
      */
     @RequestMapping(value = "/rest/account",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-    public ResponseEntity<UserDTO> getAccount() {
+    public ResponseEntity<UserDTO> getAccount() throws ClientProtocolException, IOException {
+    	final UserDTO userDto;
         User user = userService.getUserWithAuthorities();
-        if (user == null) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        if (user != null) {
+        	userDto = createUserDtoFromUser(user);
+        } else {
+        	CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserInfo(currentSecurityContext.getCurrentUserName());
+        	if (userInfo != null) {
+                userDto = createUserDtoFromRemoteUserInfo(userInfo);
+        	} else {
+        		// We must be in a very odd state.  Maybe the admin changed our login id.
+        		// Let's logout so the user can refresh and recover.
+        		currentSecurityContext.logout();
+            	return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        	}
         }
-        List<String> roles = new ArrayList<>();
-        for (Authority authority : user.getAuthorities()) {
-            roles.add(authority.getName());
-        }
+        
+		return new ResponseEntity<>(userDto,HttpStatus.OK);
+    }
+	private UserDTO createUserDtoFromRemoteUserInfo(CentralAuthUserInfo userInfo) {
+		Member member = userMembershipAccessor.getMemberAssociatedWithUser();
+		
+		List<String> roles = currentSecurityContext.getRolesList();
+		
+		UserDTO userDto = new UserDTO(
+				userInfo.getName(),
+				"XX",
+				userInfo.getGivenName(),
+				userInfo.getSurname(),
+				userInfo.getEmail(),
+				"en", // The central service doesn't have a language preference.
+			    roles,
+			    null,
+			    member
+				);
+		return userDto;
+	}
+    
+	private UserDTO createUserDtoFromUser(User user) {
+		Set<Authority> authorities = user.getAuthorities();
+		List<String> roles = rolesFromAuthorities(authorities);
         
         Member member = userMembershipAccessor.getMemberAssociatedWithUser();
         
-        return new ResponseEntity<>(
-            new UserDTO(
-                user.getLogin(),
-                user.getPassword(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getLangKey(),
-                roles,
-                null,
-                member
-                ),
-            HttpStatus.OK);
-    }
+        UserDTO userDto = new UserDTO(
+		    user.getLogin(),
+		    "XXX",
+		    user.getFirstName(),
+		    user.getLastName(),
+		    user.getEmail(),
+		    user.getLangKey(),
+		    roles,
+		    null,
+		    member
+		    );
+		return userDto;
+	}
+	
+	private List<String> rolesFromAuthorities(Set<Authority> authorities) {
+		List<String> roles = new ArrayList<>();
+		for (Authority authority : authorities) {
+            roles.add(authority.getName());
+        }
+		return roles;
+	}
 
     /**
      * POST  /rest/account -> update the current user information.
@@ -308,7 +360,7 @@ public class AccountResource {
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public ResponseEntity<List<PersistentToken>> getCurrentSessions() {
-        User user = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        User user = userRepository.findByLoginIgnoreCase(SecurityUtils.getCurrentLogin());
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -336,7 +388,7 @@ public class AccountResource {
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
         String decodedSeries = URLDecoder.decode(series, "UTF-8");
-        User user = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        User user = userRepository.findByLoginIgnoreCase(SecurityUtils.getCurrentLogin());
         List<PersistentToken> persistentTokens = persistentTokenRepository.findByUser(user);
         for (PersistentToken persistentToken : persistentTokens) {
             if (StringUtils.equals(persistentToken.getSeries(), decodedSeries)) {
@@ -359,9 +411,10 @@ public class AccountResource {
     
     @RequestMapping(value = "/rest/account/create", method = RequestMethod.POST)
     @RolesAllowed({AuthoritiesConstants.ADMIN})
+    @Timed
     public ResponseEntity<?> createLogin(@RequestBody Affiliate body, HttpServletRequest request, HttpServletResponse response) {
     	Affiliate affiliate = affiliateRepository.findOne(body.getAffiliateId());
-    	User user = userRepository.findOne(body.getAffiliateDetails().getEmail());
+    	User user = userRepository.findByLoginIgnoreCase(body.getAffiliateDetails().getEmail());
     	
     	if (user != null) {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);

@@ -1,6 +1,11 @@
-package ca.intelliware.ihtsdo.mlds.service;
+package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang.Validate;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,16 +14,24 @@ import org.springframework.stereotype.Service;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 
+import com.google.common.collect.Lists;
+
 @Service
 public class CurrentSecurityContext {
 
 	public String getCurrentUserName() {
-		SecurityContext securityContext = SecurityContextHolder.getContext();
-		if (securityContext.getAuthentication() != null) {
-			return securityContext.getAuthentication().getName();
+		Authentication authentication = getAuthentication();
+		if (authentication != null) {
+			return authentication.getName();
 		} else {
 			return "MISSING PRINCIPAL";
 		}
+	}
+
+	private Authentication getAuthentication() {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		Authentication authentication = securityContext.getAuthentication();
+		return authentication;
 	}
 
 	public boolean isAdmin() {
@@ -58,7 +71,7 @@ public class CurrentSecurityContext {
 		if (isAdmin()) {
 			return Member.KEY_IHTSDO;
 		} else if (isStaff()) {
-			for (GrantedAuthority authority : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+			for (GrantedAuthority authority : getAuthentication().getAuthorities()) {
 				String a = authority.getAuthority();
 				if (a.startsWith(AuthoritiesConstants.STAFF) &&
 					!a.equals(AuthoritiesConstants.STAFF)) {
@@ -67,6 +80,27 @@ public class CurrentSecurityContext {
 			}
 		}
 		throw new IllegalStateException("User does not represent member");
+	}
+
+	public RemoteUserDetails getRemoteUserDetails() {
+		RemoteUserDetails remoteUserDetails =  (RemoteUserDetails) getAuthentication().getPrincipal();
+		return remoteUserDetails;
+	}
+
+	public List<String> getRolesList() {
+		if (!getAuthentication().isAuthenticated()) {
+			return Arrays.asList();
+		} else {
+			ArrayList<String> result = Lists.newArrayList();
+			for (GrantedAuthority grantedAuthority : getAuthentication().getAuthorities()) {
+				result.add(grantedAuthority.getAuthority());
+			}
+			return result;
+		}
+	}
+
+	public void logout() {
+		SecurityContextHolder.getContext().setAuthentication(null);
 	}
 	
 }
