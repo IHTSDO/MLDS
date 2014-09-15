@@ -165,42 +165,51 @@ mldsApp.controller('LogsController', ['$scope', 'resolvedLogs', 'LogsService',
             LogsService.changeLevel({name: name, level: level}, function () {
                 $scope.loggers = LogsService.findAll();
             });
-        }
+        };
     }]);
 
 mldsApp.controller('ActivityLogsController', ['$scope', '$translate', '$filter', 'AuditsService',
     function ($scope, $translate, $filter, AuditsService) {
-        $scope.onChangeDate = function() {
-            AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function(data){
-                $scope.audits = data;
-            });
-        };
+		$scope.submitting = false;
+		
+		function loadActivity() {
+			$scope.submitting = true;
+			AuditsService.findByDates($scope.fromDate, $scope.toDate)
+			.then(function(data){
+				$scope.audits = data;
+				$scope.submitting = false;
+			})
+			["catch"](function(message) {
+				$scope.submitting = false;
+			});
+			
+		}
+		
+		function toDateFilter(m) {
+			return $filter('date')(m.toDate(), "yyyy-MM-dd");
+		}
+		
+        $scope.onChangeDate = loadActivity;
 
         // Date picker configuration
         $scope.today = function() {
             // Today + 1 day - needed if the current day must be included
-            var today = new Date();
-            var tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate()+1); // create new increased date
+            $scope.fromDate = toDateFilter(moment());
+            $scope.toDate = toDateFilter(moment().add(1, 'days'));
+        };
 
-            $scope.toDate = $filter('date')(tomorrow, "yyyy-MM-dd");
+        $scope.previousWeek = function() {
+            $scope.fromDate = toDateFilter(moment().subtract(1, 'weeks'));
+            $scope.toDate = toDateFilter(moment().add(1, 'days'));
         };
 
         $scope.previousMonth = function() {
-            var fromDate = new Date();
-            if (fromDate.getMonth() == 0) {
-                fromDate = new Date(fromDate.getFullYear() - 1, 0, fromDate.getDate());
-            } else {
-                fromDate = new Date(fromDate.getFullYear(), fromDate.getMonth() - 1, fromDate.getDate());
-            }
-
-            $scope.fromDate = $filter('date')(fromDate, "yyyy-MM-dd");
+            $scope.fromDate = toDateFilter(moment().subtract(1, 'months'));
+            $scope.toDate = toDateFilter(moment().add(1, 'days'));
         };
 
-        $scope.today();
-        $scope.previousMonth();
+        $scope.previousWeek();
         
-        AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function(data){
-            $scope.audits = data;
-        });
+        loadActivity();
     }]);
 

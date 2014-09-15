@@ -1,7 +1,7 @@
 <div ng-switch="application.applicationType">
 	<div class="panel panel-primary" ng-switch-when="EXTENSION">
 	  <div class="panel-heading">
-	    <h3 class="panel-title">Extension Application Info</h3>
+	    <h3 class="panel-title">{{application.member.key | enum:'global.member.'}} Extension Application Info</h3>
 	  </div>
 	  <div class="panel-body">
 		  <p><strong>Reason:</strong> {{application.reason}}</p>
@@ -13,20 +13,21 @@
 	    <h3 class="panel-title">Affiliate Info</h3>
 	  </div>
 	  <div class="panel-body">
-	    <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
+	      <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
 		    <span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{application.affiliateDetails.organizationTypeOther}}</span>
 		    <span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{application.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
 		  </p>
 		  <p ng-switch-when="PRIMARY"><strong>Use Type:</strong> {{application.type | enum:'affiliate.type.'}}</p>
-		  <p ng-switch-when="EXTENSION"><strong>Use Type:</strong> {{application.affiliate.type | enum:'affiliate.type.'}}</p>
+		  <p ng-switch-when="EXTENSION"><strong>Use Type:</strong> {{application.affiliateDetails.type | enum:'affiliate.type.'}}</p>
 		  <p ng-switch-when="PRIMARY"><strong>Use Subtype:</strong> {{application.subType | enum:'affiliate.subType.'}}</p>
 		  <p ng-switch-when="PRIMARY"><strong>Type of Agreement:</strong> {{application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</p>
+		  <p ng-show="standingState"><strong>Account Standing:</strong> {{standingState | enum:'affiliate.standingState.'}}</p>
 		</div>
 	</div>
 	
 	<div class="panel panel-primary" ng-show="application.type!='INDIVIDUAL'">
 	  <div class="panel-heading">
-	    <h3 class="panel-title">Affiliate Information:</h3>
+	    <h3 class="panel-title">Affiliate Information</h3>
 	  </div>
 	  <div class="panel-body application-review">
 	    <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Name:</strong> {{application.affiliateDetails.organizationName}}</p>
@@ -36,7 +37,7 @@
 	    <p><strong>Country:</strong> {{application.affiliateDetails.address.country.commonName}}</p>
 	    <p><strong>Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.contactextension">ext: {{application.affiliateDetails.landlineExtension}}</span></p>
 	    <p><strong>Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
-	    <p ng-show="application.type=='COMMERCIAL'"><strong>Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
+	    <p ng-show="application.affiliateDetails.thirdEmail"><strong>Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
 	    <p ng-show="application.type=='OTHER'"><strong>Other:</strong>{{application.otherText}}</p>
 	  </div>
 	</div>
@@ -48,6 +49,8 @@
 	  <div class="panel-body application-review">
 	    <p><strong>Name:</strong> {{application.affiliateDetails.firstName}} {{application.affiliateDetails.lastName}}</p>
 	    <p><strong>Email:</strong> {{application.affiliateDetails.email}}</p>
+	    <p ng-show="application.type=='INDIVIDUAL'"><strong>Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
+	    <p ng-show="application.type=='INDIVIDUAL' && application.affiliateDetails.thirdEmail"><strong>Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
 	    <p><strong>Landline Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.extension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></p>
 	    <p><strong>Mobile Phone Number:</strong> {{application.affiliateDetails.mobileNumber}}</p>
 	  </div>
@@ -96,16 +99,19 @@
 	    </div>
 	    <div>
 	      <strong>Implementation Status:</strong>
-	     <p> {{application.commercialUsage.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</p>
-	      <div ng-show="application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
-	       <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
-	       <p><strong>Practices:</strong> {{countryRecord.practices}} </p>
-	       <p><strong>Institutions:</strong> 
-	         <span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
-	          {{entry.name}}<span ng-show="!$last">,</span>
-	        </span>
-	      </div>
+	     	<p>{{application.commercialUsage.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</p>
 	    </div>
+      <div ng-show="application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
+      	<strong>Sub-licence Usage:</strong>
+       <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
+       <p><strong>Practices:</strong> {{countryRecord.practices}} </p>
+       <p ng-show="commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2].length > 0">
+       	<strong>Institutions:</strong> 
+         <span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
+          {{entry.name}}<span ng-show="!$last">,</span>
+        </span>
+       </p>
+      </div>
 	    <div ng-show="application.type!='COMMERCIAL'">
 		    <p><strong>Countries:</strong>
 		     <span ng-repeat="countryRecord in usageCountryCountslist">
@@ -113,6 +119,20 @@
 		      </span>
 		   	</p>
 	 		</div>
+     	<div ng-show="application.commercialUsage.context.otherActivities">
+     		<strong>Other Activities:</strong>
+     		<p>{{application.commercialUsage.context.otherActivities}}</p>
+   		</div>
 	  </div>
 	</div>
+	
+	<div class="panel panel-primary" ng-show="audits && audits.length > 0">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Application Activity</h3>
+	  </div>
+	  <div class="panel-body application-review">
+		<div ng-include="'views/auditsEmbed.html'"></div>
+	  </div>
+	</div>
+	
 </div>

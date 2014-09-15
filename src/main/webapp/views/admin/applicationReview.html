@@ -28,7 +28,7 @@
 		</div>
 	</div>
 	<div class="col-md-4 well-inactive" ng-switch="application.applicationType">
-		<div ng-controller="ApplicationReviewComparisonSearchController" ng-switch-when="PRIMARY">
+		<div ng-init="setOriginalAffiliate(application.affiliate)" ng-controller="ApplicationReviewComparisonSearchController" ng-switch-when="PRIMARY">
 			<div>
 				<!-- Search block -->
 				<script type="text/ng-template" id="views/admin/applicationReviewAffiliateSearchTemplate.html">
@@ -38,7 +38,8 @@
 				{{match.model.application.affiliateDetails.address.street}}<br>
 				{{match.model.application.affiliateDetails.address.city}}, {{match.model.application.affiliateDetails.address.country.commonName}} <br>
 				<strong>Usage Type:</strong> {{match.model.application.type | enum:'affiliate.type.'}} - {{match.model.application.subType | enum:'affiliate.subType.'}}<br>
-				<strong>Type of Agreement:</strong> {{match.model.application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}
+				<strong>Type of Agreement:</strong> {{match.model.application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}<br>
+				<strong>Account Standing:</strong> {{match.model.standingState | enum:'affiliate.standingState.'}}
 				</address>
 				</div>
 				</script>
@@ -70,6 +71,9 @@
 				</div>
 				<div class="form-group">
 					<label>Staff Notes</label>
+					<button class="btn btn-success btn-xs pull-right" ng-show="!isActionDisabled" ng-disabled="isActionDisabled">
+						Save
+					</button>
 					<textarea class="form-control" rows="10" required name="notesInternal" ng-model="application.notesInternal" ng-disabled="isNoteReadOnly" auto-submit></textarea>
 				</div>
 			</form>
@@ -84,6 +88,3 @@
 
 	</div>
 </div>
-
-
-

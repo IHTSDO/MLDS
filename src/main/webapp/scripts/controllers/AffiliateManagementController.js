@@ -1,6 +1,6 @@
 'use strict';
 
-mldsApp.controller('AffiliatesController', [
+mldsApp.controller('AffiliateManagementController', [
 		'$scope',
 		'$log',
 		'$location',
@@ -15,6 +15,7 @@ mldsApp.controller('AffiliatesController', [
 			$scope.affiliates = [];
 			$scope.showAllAffiliates = 0;
 			$scope.homeMember = Session.member || {member: 'NONE'};
+			$scope.isAdmin = Session.isAdmin();
 			$scope.downloadingAffiliates = false;
 			$scope.query = '';
 			$scope.page = 0;
@@ -27,7 +28,6 @@ mldsApp.controller('AffiliatesController', [
 				}
 				$scope.downloadingAffiliates = true;
 				$scope.alerts = [];
-				//$log.log("wanting existing "+$scope.affiliates.length+" page="+$scope.page);
 				AffiliateService.filterAffiliates($scope.query, $scope.page, 50, $scope.showAllAffiliates==1?null:$scope.homeMember)
 					.then(function(response) {
 						//$log.log("...appending "+response.data.length+" to existing "+$scope.affiliates.length+" page="+$scope.page);
@@ -66,7 +66,7 @@ mldsApp.controller('AffiliatesController', [
 			};
 			
 			$scope.viewAffiliate = function viewAffiliate(affiliateId) {
-				$location.path('/affiliates/' + affiliateId);
+				$location.path('/affiliateManagement/' + affiliateId);
 			};
 			
 			
@@ -79,6 +79,9 @@ mldsApp.controller('AffiliatesController', [
         			resolve: {
         				application: function() {
         					return application;
+        				},
+        				audits: function() {
+        					return [];
         				}
         			}
         		});

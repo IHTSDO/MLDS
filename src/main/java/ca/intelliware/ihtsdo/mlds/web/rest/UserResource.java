@@ -34,6 +34,7 @@ public class UserResource {
     		method = RequestMethod.GET,
     		produces = "application/json")
     @RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @Timed
     public @ResponseBody Iterable<User> getUsers() {
     	log.debug("Rest request to get all Users");
     	return userRepository.findAll();
@@ -49,7 +50,7 @@ public class UserResource {
     @RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public User getUser(@PathVariable String login, HttpServletResponse response) {
         log.debug("REST request to get User : {}", login);
-        User user = userRepository.findOne(login);
+        User user = userRepository.findByLoginIgnoreCase(login);
         if (user == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }

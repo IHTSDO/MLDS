@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.codahale.metrics.annotation.Timed;
+
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklist;
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistRespository;
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
@@ -27,12 +29,14 @@ public class DomainBlacklistResource {
 	
 	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	@RequestMapping(value="api/domain-blacklist")
+	@Timed
 	public @ResponseBody Iterable<DomainBlacklist> getDomainBlacklist() {
 		return domainBlacklistRespository.findAll();
 	}
 	
 	@RolesAllowed({ AuthoritiesConstants.ADMIN })
 	@RequestMapping(value="api/domain-blacklist/create", method=RequestMethod.POST)
+	@Timed
 	public Object addDomainToBlacklist(@RequestParam String domain) {
 		
 		DomainBlacklist newDomain = new DomainBlacklist();
@@ -46,6 +50,7 @@ public class DomainBlacklistResource {
 	
 	@RolesAllowed({ AuthoritiesConstants.ADMIN })
 	@RequestMapping(value="api/domain-blacklist/remove", method=RequestMethod.POST)
+	@Timed
 	public Object removeDomainFromBlacklist(@RequestParam String domain) {
 		domainBlacklistRespository.delete(domainBlacklistRespository.findByDomainname(domain));
 		return new ResponseEntity<>(HttpStatus.OK);

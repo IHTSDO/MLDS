@@ -19,6 +19,8 @@ angular.module('MLDS')
 		};
 
 		function serializeCommercialCount(count) {
+			$log.log('count', count);
+			
 			return count;
 		};
 
@@ -44,6 +46,9 @@ angular.module('MLDS')
 			return $http.get('/app/rest/affiliates/'+affiliateId+'/commercialUsages');
 		};
 
+		service.getSubmittedUsageReports = function() {			
+			return $http.get('/app/rest/commercialUsages/?$filter='+encodeURIComponent('approvalState/submitted eq true or approvalState/resubmitted eq true'));
+		};
 		
 		service.createUsageReport = function(affiliateId, startDate, endDate) {
 			return $http.post('/app/rest/affiliates/'+affiliateId+'/commercialUsages',
@@ -130,7 +135,7 @@ angular.module('MLDS')
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
-
+		
 		service.retractUsageReport = function(usageReport, options) {
 			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
 					{
@@ -141,6 +146,14 @@ angular.module('MLDS')
 			return httpPromise;
 		};
 
+		service.reviewUsageReport = function(usageReport) {
+			return $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
+					{
+						transition: 'REVIEWED'
+					}
+				);
+		};
+		
 		function generateRangeEntry(start, end) {
 			return {
 				description: ''+start.format('MMM')+' - '+end.format('MMM YYYY'),
@@ -149,10 +162,10 @@ angular.module('MLDS')
 			};
 		};
 		
-		service.generateRanges = function generateRanges() {
+		
+		function biannaulPeriods(periods) {
 			var ranges = [];
 			var date = moment().local();
-			var periods = 6;
 			for (var i = 0; i < periods; i++) {
 				var isFirstHalfOfYear = date.isBefore(date.clone().month(6).startOf('month'));
 				if (isFirstHalfOfYear) {
@@ -167,6 +180,29 @@ angular.module('MLDS')
 				date = date.clone().subtract(2, 'months');
 			}
 			return ranges;
+		};
+		
+		function annualPeriods(periods) {
+			var ranges = [];
+			var date = moment().local();
+			
+			for (var i = 0; i < periods; i++) {
+				date = date.startOf('year');
+				var end = date.clone().endOf('year');
+				ranges.push(generateRangeEntry(date, end));
+				
+				date = date.clone().subtract(2, 'months');
+			}
+			
+			return ranges;
+		};
+		
+		service.generateRanges = function generateRanges() {
+			var periods = 6;
+			
+			//return biannaulPeriods(periods);
+			
+			return annualPeriods(periods);
 		};
 		
 		

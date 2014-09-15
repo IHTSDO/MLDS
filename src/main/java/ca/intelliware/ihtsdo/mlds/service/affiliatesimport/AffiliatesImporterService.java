@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -30,6 +31,7 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 
 @Service
 @Transactional
@@ -39,6 +41,8 @@ public class AffiliatesImporterService {
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource AffiliateDetailsRepository affiliateDetailsRepository;
 	@Resource CommercialUsageRepository commercialUsageRepository;
+	@Resource AffiliateAuditEvents affiliateAuditEvents;
+
 	
 	@Resource AffiliatesMapper affiliatesMapper;
 	
@@ -122,6 +126,8 @@ public class AffiliatesImporterService {
 		applicationRepository.save(importApplication);
 		affiliate.addApplication(importApplication);
 		
+		affiliateAuditEvents.logUpdateByImport(affiliate);
+		
 		return importApplication;
 	}
 
@@ -143,6 +149,8 @@ public class AffiliatesImporterService {
 		
 		Affiliate affiliate = createAffiliate(record, application, affiliateDetails);
 		affiliate = affiliateRepository.save(affiliate);
+		
+		affiliateAuditEvents.logCreationByImport(affiliate);
 		
 		return application;
 	}
@@ -170,7 +178,7 @@ public class AffiliatesImporterService {
 		UsageContext usageContext = new UsageContext();
 		populateWithAll(usageContext, record, UsageContext.class);
 		commercialUsage.setContext(usageContext);
-		commercialUsage.setApprovalState(ApprovalState.APPROVED);
+		commercialUsage.setApprovalState(ApprovalState.NOT_SUBMITTED);
 		commercialUsage.setType(affiliateType);
 		return commercialUsage;
 	}
@@ -216,7 +224,7 @@ public class AffiliatesImporterService {
 		List<String> lines = IOUtils.readLines(new StringReader(contents));
 		boolean headerFound = false;
 		for (String line : lines) {
-			String[] fields = parseLine(line);
+			List<String> fields = parseLine(line);
 			LineRecord record = new LineRecord(records.size() + 1, fields, StringUtils.isBlank(line));
 			if (!headerFound && !record.isBlank) {
 				record.header = true;
@@ -227,12 +235,12 @@ public class AffiliatesImporterService {
 		return records;
 	}
 
-	private String[] parseLine(String line) {
+	private List<String> parseLine(String line) {
 		String[] elements = line.split(AffiliateFileFormat.COLUMN_SEPARATOR_REGEX, -1);
 		for (int i = 0; i < elements.length; i++) {
 			elements[i] = StringUtils.trimToEmpty(elements[i]);
 		}
-		return elements;
+		return Arrays.asList(elements);
 	}
 	
 

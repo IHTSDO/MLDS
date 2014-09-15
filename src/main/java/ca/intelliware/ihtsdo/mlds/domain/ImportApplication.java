@@ -7,4 +7,9 @@ import javax.persistence.Entity;
 @DiscriminatorValue("IMPORT")
 public class ImportApplication extends PrimaryApplication {
 
+	@Override
+	public ApplicationType getApplicationType() {
+		return Application.ApplicationType.IMPORT;
+	}
+
 }

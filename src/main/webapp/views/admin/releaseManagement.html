@@ -4,7 +4,7 @@
 			<button class="btn btn-success pull-right" ng-click="addReleasePackage()"><i class="fa fa-plus"></i> Add Release</button>
 			<h2>Release Management</h2>
 			
-			<div>
+			<div ng-if="isAdmin">
 				<span>Show releases for: </span>
 				<select ng-model="utils.showAllMembers">
 					<option value="" selected="selected">{{Session.member.key | enum:'global.member.'}}</option>

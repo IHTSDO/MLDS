@@ -139,7 +139,9 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 	}
 
 	private int hashOfColumnName(FieldMapping fieldMapping) {
-		return Math.abs(fieldMapping.columnName.hashCode());
+		// Work around Math.abs() broken behaviour for Integer.MIN_VALUE
+		// http://findbugs.blogspot.ca/2006/09/is-mathabs-broken.html
+		return fieldMapping.columnName.hashCode() & Integer.MAX_VALUE;
 	}
 	
 	private String generateEmail(FieldMapping fieldMapping, int i, GeneratorContext context) {

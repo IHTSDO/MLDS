@@ -1,16 +1,27 @@
 <div>
-		<div class="alert alert-warning">Work In Progress</div>
-    <h2>Activity Logs</h2>
+    <h2>Activity Log</h2>
 
     <div class="row">
         <div class="col-md-5">
             <h4 translate="audits.filter.title">Filter by date</h4>
+        </div>
+    </div>
+    <div class="row">
+    	<div class="col-md-5">
             <p class="input-group">
                 <span class="input-group-addon" translate="audits.filter.from">from</span>
                 <input type="date" class="input-sm form-control" name="start" ng-model="fromDate" ng-change="onChangeDate()" required/>
                 <span class="input-group-addon" translate="audits.filter.to">to</span>
                 <input type="date" class="input-sm form-control" name="end" ng-model="toDate" ng-change="onChangeDate()" required/>
             </p>
+        </div>
+        <div class="col-md-5">
+              <div class="input-group" ng-show="submitting">
+                <p class="help-block">
+                	Loading..
+		       		<i class="fa fa-spinner"></i>
+		       </p>
+		      </div>
         </div>
     </div>
 

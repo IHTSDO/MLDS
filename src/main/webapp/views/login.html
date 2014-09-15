@@ -2,8 +2,7 @@
   <div class="col-md-3"></div>
     <div class="col-md-6 login">
         <h1 translate="login.title">Authentication</h1>
-        <div class="alert alert-danger" ng-show="authenticationError" translate="login.messages.error.authentication">
-          <strong>Authentication failed!</strong> Please check your credentials and try again.
+        <div class="alert alert-danger" ng-show="authenticationError" ng-bind-html="authenticationErrorMessageKey | translate">
         </div>
 
         <form class="form" role="form">
@@ -23,7 +22,10 @@
               </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" translate="login.form.button">Authenticate</button>
+          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()">
+          	<span translate="login.form.button">Authenticate</span>
+          	<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+          </button>
         </form>
       <hr>
       <div>

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +35,7 @@ public class EnumValueConverterTest {
 	public void setUp() {
 		fixture = new EnumValueConverter(SomeEnum.class);
 		
-		lineRecord = new LineRecord(1, new String[]{"field"}, false);
+		lineRecord = new LineRecord(1, Arrays.asList("field"), false);
 		fieldMapping = new FieldMapping(2, "columnName", null, null, null);
 		result = new ImportResult();
 	}

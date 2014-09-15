@@ -5,6 +5,10 @@ angular.module('MLDS').factory('PackageUtilsService',
 		  function($resource, $q, $log, $location, $modal, Session, UserRegistrationService, MemberService, UserAffiliateService) {
 			var service = {};
 			
+			service.isReleasePackageInactive = function isReleasePackageInactive(packageEntity) {
+				return (packageEntity.inactiveAt) ? true : false;
+			};
+			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
 	        	for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
 	        		if (packageEntity.releaseVersions[i].online) {
@@ -78,6 +82,10 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		return Session.isAdmin() || memberMatches;
 	    	};
 	    	
+	    	service.isRemovableReleasePackage = function isRemovableReleasePackage(releasePackage) {
+	    		return !service.isPackagePublished(releasePackage);
+	    	};
+	    	
 	    	service.isReleasePackageMatchingMember = function isReleasePackageMatchingMember(releasePackage) {
 	    		var userMember = Session.member;
 	    		var memberMatches = angular.equals(userMember, releasePackage.member);
@@ -92,25 +100,23 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    		
 	    		var modalInstance = $modal.open({
 	    		      templateUrl: 'views/user/startExtensionApplicationModal.html',
-	    		      size: 'sm'
+	    		      controller: 'StartExtensionApplicationModalController',
+	    		      size: 'sm',
+	    		      backdrop: 'static',
+	    		    	  resolve: {
+								releasePackage: function() {
+									return releasePackage;
+								}
+							}
 	    		    });
 	    		
-	    		modalInstance.result.then(function () {
-	    			UserRegistrationService.createExtensionApplication(releasePackage.member)
-		    			.then(function(result) {
-		    				UserAffiliateService.refreshAffiliate();
-		    				if(result.data && result.data.applicationId) {
-		    					$location.path('/extensionApplication/'+ result.data.applicationId);
-		    				}
-		    			})
-		    			["catch"](function(message) {
-		    				// FIXME: Should we show a global alert of some kind?
-		    				$log.log(message);
-		    			});
-    		    }, function () {
-    		    	//$log.info('Modal dismissed');
-    		    });
-	    		
+				modalInstance.result
+					.then(function(result) {
+						UserAffiliateService.refreshAffiliate();
+		    			if(result.data && result.data.applicationId) {
+		    				$location.path('/extensionApplication/'+ result.data.applicationId);
+		    			}
+		    	});
 	    	};
 	    	
 			return service;

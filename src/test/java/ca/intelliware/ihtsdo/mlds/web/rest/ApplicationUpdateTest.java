@@ -30,12 +30,16 @@ public class ApplicationUpdateTest {
 	
 	@Mock
 	ApplicationRepository applicationRepository;
+	
+	@Mock
+	ApplicationAuditEvents applicationAuditEvents;
 
 	@Before
 	public void setup() {
 
 		ApplicationResource applicationResource = new ApplicationResource();
 		applicationResource.applicationRepository = applicationRepository;
+		applicationResource.applicationAuditEvents = applicationAuditEvents;
 		applicationResource.objectMapper = new ObjectMapper();
 		applicationResource.applicationService = new ApplicationService();
 

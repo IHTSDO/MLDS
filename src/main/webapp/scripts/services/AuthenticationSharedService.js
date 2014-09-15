@@ -1,7 +1,7 @@
 'use strict';
 
-mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authService', 'Session', 'Account',
-    function ($rootScope, $http, authService, Session, Account) {
+mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', '$log', 'authService', 'Session', 'Account', 'ApplicationErrorCodeExtractor', 
+    function ($rootScope, $http, $log, authService, Session, Account, ApplicationErrorCodeExtractor) {
         return {
             login: function (param) {
                 var data = $.param({ 
@@ -10,21 +10,37 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', 'authServ
                 	_spring_security_remember_me : param.rememberMe
             	});
                 
-                $http.post('app/authentication', data, {
+                var httpPromise = $http.post('app/authentication', data, {
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
                     ignoreAuthModule: 'ignoreAuthModule'
-                }).success(function (data, status, headers, config) {
+                });
+                
+                httpPromise.success(function (data, status, headers, config) {
                     Account.get(function(data) {
                         Session.create(data.login, data.firstName, data.lastName, data.email, data.roles, data.member);
                         $rootScope.account = Session;
                         authService.loginConfirmed(data);
                     });
                 }).error(function (data, status, headers, config) {
+                	$log.log('in error path', data.message);
+                    var errorCode = ApplicationErrorCodeExtractor(data.message);
+                    var messageKey = null;
+                    if (errorCode) {
+                    	messageKey = {
+                    		'MLDS_ERR_AUTH_NO_PERMISSIONS' : 'login.messages.error.noPermissions',
+                    		'MLDS_ERR_AUTH_BAD_PASSWORD' : 'login.messages.error.authentication',
+                    		'MLDS_ERR_AUTH_DEREGISTERED' : 'login.messages.error.deregistered',
+                    		'MLDS_ERR_AUTH_SYSTEM' : 'global.messages.error.server'
+                    	}[errorCode];
+                    }
                     $rootScope.authenticationError = true;
+                    $rootScope.authenticationErrorMessageKey = messageKey?messageKey:'login.messages.error.authentication';
+                    
                     Session.invalidate();
                 });
+                return httpPromise;
             },
             valid: function (authorizedRoles) {
 

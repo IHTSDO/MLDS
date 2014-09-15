@@ -26,11 +26,13 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateSubType;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
+import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.domain.json.ApplicationCollection;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
@@ -40,12 +42,17 @@ import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
+import ca.intelliware.ihtsdo.mlds.service.ApprovalTransition;
+import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
+import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
+import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -64,6 +71,7 @@ public class ApplicationResource {
 	@Resource ApplicationApprovedEmailSender applicationApprovedEmailSender;
 	@Resource UserRepository userRepository;
 	@Resource ApplicationAuditEvents applicationAuditEvents;
+	@Resource AffiliateAuditEvents affiliateAuditEvents;
 	@Resource ApplicationAuthorizationChecker authorizationChecker;
 	@Resource CountryRepository countryRepository;
 	@Resource AffiliateDetailsRepository affiliateDetailsRepository;
@@ -73,9 +81,11 @@ public class ApplicationResource {
 	@Resource ObjectMapper objectMapper;
 	@Resource UserMembershipAccessor userMembershipAccessor;
 	@Resource MemberRepository memberRepository;
+	@Resource CommercialUsageService commercialUsageService;
 
 	@RequestMapping(value="api/applications")
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Timed
 	public @ResponseBody Iterable<Application> getApplications() {
 		return applicationRepository.findAll();
 	}
@@ -84,6 +94,7 @@ public class ApplicationResource {
 			method=RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Timed
 	public @ResponseBody ResponseEntity<Application> approveApplication(@PathVariable long applicationId, @RequestBody String approvalStateString) throws CloneNotSupportedException {
 		//FIXME why cant this be the body type?
 		ApprovalState approvalState = ApprovalState.valueOf(approvalStateString);
@@ -102,36 +113,56 @@ public class ApplicationResource {
 			application.setCompletedAt(Instant.now());
 		}
 		
-		
-		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
-			List<Affiliate> affiliates = affiliateRepository.findByCreator(application.getUsername());
-			
-			if (affiliates.size() > 0) {
-				Affiliate affiliate = affiliates.get(0);
-				AffiliateDetails affiliateDetails = (AffiliateDetails) application.getAffiliateDetails().clone(); 
-				
-				affiliateDetailsResetter.detach(affiliateDetails);
-				
-				affiliateDetails = affiliateDetailsRepository.save(affiliateDetails);
-				affiliate.setAffiliateDetails(affiliateDetails);
-				affiliateRepository.save(affiliate);
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
+		Affiliate affiliate = findAffiliateByUsername(application.getUsername());
+		if (affiliate == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
+		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
+			AffiliateDetails affiliateDetails = (AffiliateDetails) application.getAffiliateDetails().clone(); 
+			
+			affiliateDetailsResetter.detach(affiliateDetails);
+			
+			affiliateDetails = affiliateDetailsRepository.save(affiliateDetails);
+			affiliate.setAffiliateDetails(affiliateDetails);
+			affiliateRepository.save(affiliate);
+		}
 		
+		//FIXME MLDS-314 not sure where this code should be
+		if (Objects.equal(application.getApplicationType(), ApplicationType.PRIMARY)) {
+			StandingState newState = null;
+			if (Objects.equal(application.getApprovalState(), ApprovalState.APPROVED)) {
+				newState = StandingState.IN_GOOD_STANDING;
+			} else if (Objects.equal(application.getApprovalState(), ApprovalState.REJECTED)) {
+				newState = StandingState.REJECTED;
+			}
+			if (Objects.equal(affiliate.getStandingState(), StandingState.APPLYING) && newState != null) {
+				affiliate.setStandingState(newState);
+				affiliateRepository.save(affiliate);
+				affiliateAuditEvents.logStandingStateChange(affiliate);
+			}
+		}
 		
 		applicationRepository.save(application);
 		
 		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
 			User user = userRepository.getUserByEmail(application.getAffiliateDetails().getEmail());
-			applicationApprovedEmailSender.sendApplicationApprovalEmail(user, application.getMember().getKey());
+			applicationApprovedEmailSender.sendApplicationApprovalEmail(user, application.getMember().getKey(), affiliate.getAffiliateId());
 		}
 		
 		applicationAuditEvents.logApprovalStateChange(application);
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
+	}
+
+	private Affiliate findAffiliateByUsername(String username) {
+		Affiliate affiliate = null;
+		List<Affiliate> affiliates = affiliateRepository.findByCreator(username);
+		
+		if (affiliates.size() > 0) {
+			affiliate = affiliates.get(0);
+		}
+		return affiliate;
 	}
 	
 	
@@ -139,6 +170,7 @@ public class ApplicationResource {
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Timed
 	public @ResponseBody ResponseEntity<ApplicationCollection> getApplications(@RequestParam(value="$filter") String filter){
 		Iterable<Application> applications;
 		if (filter == null) {
@@ -158,6 +190,7 @@ public class ApplicationResource {
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Timed
 	public  @ResponseBody ResponseEntity<Application> getApplication(@PathVariable long applicationId){
 		Application application = applicationRepository.findOne(applicationId);
 		if (application == null) {
@@ -171,6 +204,7 @@ public class ApplicationResource {
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
+	@Timed
 	public  @ResponseBody ResponseEntity<Application> getApplicationForMe(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		if (applications.size() > 0) {
@@ -184,6 +218,7 @@ public class ApplicationResource {
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
+	@Timed
 	public @ResponseBody ResponseEntity<Application> getUserApplication(){
 		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
 		if (applications.size() > 0) {
@@ -198,8 +233,13 @@ public class ApplicationResource {
 			method=RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
+	@Timed
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
-		PrimaryApplication application = findOrStartInitialApplication();
+		PrimaryApplication application = (PrimaryApplication) applicationRepository.findOne(applicationId);
+		if (application == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
         application = saveApplicationFields(request,application);
 		authorizationChecker.checkCanAccessApplication(application);
 		
@@ -215,21 +255,20 @@ public class ApplicationResource {
 		application.setSubmittedAt(Instant.now());
 		applicationRepository.save(application);
 		
-		applicationAuditEvents.logApprovalStateChange(application);
-		
-		//FIXME should be a different trigger and way to connect applications with affiliate
-		List<Affiliate> affiliates = affiliateRepository.findByCreator(application.getUsername());
-		Affiliate affiliate = new Affiliate();
-		
-		//FIXME only supporting 1 affiliate for now
-		if (affiliates.size() > 0) {
-			affiliate = affiliates.get(0);
-		}
+		Affiliate affiliate = application.getAffiliate();
 		affiliate.setCreator(application.getUsername());
 		affiliate.setApplication(application);
 		affiliate.setType(application.getType());
 		affiliate.setHomeMember(application.getMember());
 		affiliateRepository.save(affiliate);
+		
+		applicationAuditEvents.logApprovalStateChange(application);
+		
+		if (application.getCommercialUsage() != null 
+				&& !Objects.equal(application.getCommercialUsage().getType(), AffiliateType.COMMERCIAL)
+				&& Objects.equal(application.getCommercialUsage().getApprovalState(), ApprovalState.NOT_SUBMITTED)) {
+			commercialUsageService.transitionCommercialUsageApproval(application.getCommercialUsage(), ApprovalTransition.SUBMIT);
+		}
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}
@@ -240,9 +279,15 @@ public class ApplicationResource {
 			method=RequestMethod.PUT,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER})
+	@Timed
 	public @ResponseBody ResponseEntity<Application> saveApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
-        Application application = findOrStartInitialApplication();
+		Application application = applicationRepository.findOne(applicationId);
+		if (application == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
         application = saveApplicationFields(request,application);
+        authorizationChecker.checkCanAccessApplication(application);
+        
         ApprovalState preApprovalState = application.getApprovalState();
 		// Mark application as not submitted
 		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)) {
@@ -265,6 +310,7 @@ public class ApplicationResource {
 			method=RequestMethod.PUT,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody String notesInternal) {
 		Application application = applicationRepository.findOne(applicationId);
 		if (application == null) {
@@ -319,17 +365,6 @@ public class ApplicationResource {
 		return affiliateDetails.getAddress().getCountry().getMember();
 	}
 
-	private PrimaryApplication findOrStartInitialApplication() {
-		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
-		PrimaryApplication application = new PrimaryApplication();
-		
-		if (applications.size() > 0) {
-			// FIXME MLDS-308 is this OK?
-			application = (PrimaryApplication) applications.get(0);
-		}
-		return application;
-	}
-	
 	private void createAffiliateDetails(JsonNode affiliateDetailsJsonNode, JsonNode addressJsonNode, JsonNode billingJsonNode, AffiliateDetails affiliateDetails) {
 		if (affiliateDetails == null) {
 			affiliateDetails = new AffiliateDetails();
@@ -423,12 +458,16 @@ public class ApplicationResource {
 			method=RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Timed
 	public ResponseEntity<Application> createApplication(@RequestBody CreateApplicationDTO requestBody) {
+		authorizationChecker.checkCanCreateApplication(requestBody);
 		
 		// FIXME MLDS-308 it is an error to try to create an extension application without a target member.
 		Member member = (requestBody.getMemberKey() != null) ?  memberRepository.findOneByKey(requestBody.getMemberKey()) : userMembershipAccessor.getMemberAssociatedWithUser();
 		
 		Application application = applicationService.startNewApplication(requestBody.getApplicationType(), member);
+		
+		applicationAuditEvents.logCreationOf(application);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(routeLinkBuilder.toURLWithKeyValues(Routes.APPLICATION, "applicationId", application.getApplicationId()));
@@ -441,12 +480,15 @@ public class ApplicationResource {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Transactional
+	@Timed
 	public ResponseEntity<?> updateApplication(@PathVariable long applicationId, @RequestBody ObjectNode requestBody) throws IOException {
 		Application original = applicationRepository.findOne(applicationId);
 		Application updatedApplication = constructUpdatedApplication(requestBody, original);
 		
 		try {
 			applicationService.doUpdate(original, updatedApplication);
+			
+			applicationAuditEvents.logApprovalStateChange(updatedApplication);
 		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<String>("Forbidden change to application:" + e.getMessage(), HttpStatus.CONFLICT);
 		}

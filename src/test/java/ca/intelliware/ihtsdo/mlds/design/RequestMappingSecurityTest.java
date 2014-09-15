@@ -46,6 +46,7 @@ public class RequestMappingSecurityTest {
 		allowedRoleLists.add(Arrays.asList(AuthoritiesConstants.ADMIN_ONLY));
 		allowedRoleLists.add(Arrays.asList(AuthoritiesConstants.USER_ONLY));
 		allowedRoleLists.add(Arrays.asList(AuthoritiesConstants.UNAUTHENTICATED));
+		allowedRoleLists.add(Arrays.asList(AuthoritiesConstants.USER_OR_ADMIN));
 		
 		ControllerMethodTraversal controllerMethodTraversal = new ControllerMethodTraversal();
 		controllerMethodTraversal.visitClasses(new MethodVisitor() {

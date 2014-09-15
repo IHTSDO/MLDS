@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.json.InternalPrivacyFilter;
 import ca.intelliware.ihtsdo.mlds.domain.json.MLDSJacksonModule;
-import ca.intelliware.ihtsdo.mlds.service.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;

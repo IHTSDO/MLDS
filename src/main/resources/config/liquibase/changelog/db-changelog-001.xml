@@ -1169,4 +1169,137 @@
     	<comment>Drop not-null constraint to support import</comment>
     	<dropNotNullConstraint tableName="affiliate_details" columnName="agreement_type"/>
     </changeSet>
+    
+    <changeSet id="MLDS-322-1" author="DGJ">
+		<comment>Add commercial usage entity references to audit log</comment>
+		<addColumn tableName="t_persistent_audit_event">
+    		<column name="commercial_usage_id" type="bigint">
+    			<constraints foreignKeyName="FK_t_persistent_audit_event_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
+    		</column>
+		</addColumn>
+    </changeSet>
+    
+    <changeSet id="MLDS-314-1" author="DGJ" >
+    	<comment>Add affiliate standing state</comment>
+    	<addColumn tableName="affiliate">
+    		<column name="standing_state" type="VARCHAR(255)" value="APPLYING"/>
+    	</addColumn>
+    	<!--  based initial values on the primary application outcome -->
+    	<sql>
+    		UPDATE affiliate
+    		SET standing_state='APPLYING'
+    	</sql>
+    	<sql>
+    		UPDATE affiliate a
+    		SET standing_state='REJECTED'
+    		FROM application app
+    		WHERE a.affiliate_id = app.affiliate_id AND 
+    			app.application_type='PRIMARY' AND
+    			app.approval_state='REJECTED'
+    	</sql>
+    	<sql>
+    		UPDATE affiliate a
+    		SET standing_state='IN_GOOD_STANDING'
+    		FROM application app
+    		WHERE a.affiliate_id = app.affiliate_id AND 
+    			app.application_type='PRIMARY' AND
+    			app.approval_state='APPROVED'
+    	</sql>
+    	<addNotNullConstraint tableName="affiliate" columnName="standing_state"/>
+    </changeSet>
+
+		<changeSet id="MLDS-307-1" author="DGJ" >
+    	<comment>Add effectiveTo marker for usages</comment>
+    	<addColumn tableName="commercial_usage">
+    		<column name="effective_to" type="timestamp"/>
+    	</addColumn>
+    </changeSet>
+    
+    <changeSet id="MLDS-343" author="AC">
+    	<comment>Add sublicense type to hospital</comment>
+    	<addColumn tableName="commercial_usage_entry" >
+    		<column name="sublicence_type" type="VARCHAR(255)" value="DATA_ANALYSIS_SYSTEM"></column>
+    	</addColumn>
+    	<addNotNullConstraint tableName="commercial_usage_entry" columnName="sublicence_type"/>
+    </changeSet>
+    
+    <changeSet id="MLDS-343-2" author="AC">
+    	<comment>split practices into separate fields</comment>
+    	<addColumn tableName="commercial_usage_count" >
+    		<column name="creation_practices" type="int" value="0"></column>
+    	</addColumn>
+    	<renameColumn tableName="commercial_usage_count" oldColumnName="practices" newColumnName="analysis_practices"/>
+    </changeSet>
+    
+    <changeSet id="MLDS-343-3" author="AC">
+    	<comment>adding notes to commercial usage count</comment>
+    	<addColumn tableName="commercial_usage_count" >
+    		<column name="notes" type="TEXT"/>
+    	</addColumn>
+    </changeSet>
+    
+    <changeSet id="MLDS-343-4" author="AC">
+    	<comment>add other activites notes to commercial_usage</comment>
+    	<addColumn tableName="commercial_usage" >
+    		<column name="other_activities" type="TEXT"/>
+    	</addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-666-1" author="DGJ">
+    	<comment>Commercial usage entry start date should be optional</comment>
+    	<dropNotNullConstraint tableName="commercial_usage_entry" columnName="start_date"/>
+    </changeSet>
+        
+    <changeSet id="MLDS-540" author="MB">
+    	<comment>Introduce sequence pk to T_USER so login can be easily edited</comment>
+		<dropForeignKeyConstraint baseTableName="T_USER_AUTHORITY" constraintName="fk_user_login"/>
+		<dropForeignKeyConstraint baseTableName="T_PERSISTENT_TOKEN" constraintName="fk_user_persistent_token"/>
+		<dropForeignKeyConstraint baseTableName="RELEASE_PACKAGE" constraintName="FK_package_t_user"/>
+		<dropForeignKeyConstraint baseTableName="RELEASE_VERSION" constraintName="FK_release_version_t_user"/>
+		
+    	<dropPrimaryKey tableName="T_USER" constraintName="pk_t_user"/>
+    	<addColumn tableName="T_USER">
+            <column name="user_id" type="bigint"/>
+    	</addColumn>
+    	<sql>
+    		update t_user
+    		set user_id = nextval('hibernate_sequence')
+    	</sql>
+    	<addNotNullConstraint tableName="T_USER" columnName="user_id"/>
+    	<addPrimaryKey tableName="T_USER" columnNames="user_id"/>
+    	
+    	<addColumn tableName="T_USER_AUTHORITY">
+            <column name="user_id" type="bigint"/>
+    	</addColumn>
+    	<sql>
+    		update t_user_authority
+    		set user_id = u.user_id
+    		from t_user as u 
+    		where u.login = t_user_authority.login 
+    	</sql>
+    	<dropPrimaryKey tableName="T_USER_AUTHORITY"/>
+    	<addPrimaryKey tableName="T_USER_AUTHORITY" columnNames="user_id,name"/>
+    	<dropColumn tableName="T_USER_AUTHORITY" columnName="login"/>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="T_USER_AUTHORITY"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="T_USER"/>
+                                 
+    	<addColumn tableName="T_PERSISTENT_TOKEN">
+            <column name="user_id" type="bigint"/>
+    	</addColumn>
+    	<sql>
+    		update T_PERSISTENT_TOKEN
+    		set user_id = u.user_id
+    		from t_user as u 
+    		where u.login = T_PERSISTENT_TOKEN.user_login 
+    	</sql>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="T_PERSISTENT_TOKEN"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="T_USER"/>
+                                 
+    </changeSet>
 </databaseChangeLog>

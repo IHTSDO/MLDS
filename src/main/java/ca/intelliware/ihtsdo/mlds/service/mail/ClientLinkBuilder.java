@@ -16,8 +16,8 @@ public class ClientLinkBuilder {
 		return templateEvaluator.getUrlBase() + "#/login";
 	}
 	
-	public String buildViewPackagesLink() {
-		return templateEvaluator.getUrlBase() + "#/viewPackages";
+	public String buildViewReleasesLink() {
+		return templateEvaluator.getUrlBase() + "#/viewReleases";
 	}
 	
 }

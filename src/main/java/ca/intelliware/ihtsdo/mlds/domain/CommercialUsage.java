@@ -21,6 +21,7 @@ import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Sets;
 
@@ -34,7 +35,7 @@ public class CommercialUsage extends BaseEntity {
 
 	// the parent
 	//FIXME review dependency graph!
-	@JsonIgnore
+	@JsonIgnoreProperties({"application", "applications", "commercialUsages"})
 	@ManyToOne
 	@JoinColumn(name="affiliate_id")
 	Affiliate affiliate;
@@ -56,6 +57,9 @@ public class CommercialUsage extends BaseEntity {
 	private ApprovalState approvalState;
 	
 	private String note;
+	
+	@Column(name="effective_to")
+	private Instant effectiveTo;
 
 	@Embedded
 	UsageContext context;
@@ -63,8 +67,6 @@ public class CommercialUsage extends BaseEntity {
 	//@Type(type="jodatimeInstant")
 	private Instant submitted = null;
 
-	
-	
 	@JsonProperty("entries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	Set<CommercialUsageEntry> usage = Sets.newHashSet();
@@ -191,4 +193,16 @@ public class CommercialUsage extends BaseEntity {
 		return commercialUsageId;
 	}
 
+	public Instant getEffectiveTo() {
+		return effectiveTo;
+	}
+
+	public void setEffectiveTo(Instant effectiveTo) {
+		this.effectiveTo = effectiveTo;
+	}
+	
+	@JsonIgnore
+	public boolean isActive() {
+		return getEffectiveTo() == null;
+	}
 }

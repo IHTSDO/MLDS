@@ -2,13 +2,15 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService', 'PackageUtilsService', 'MemberService', 'PackagesService',
-          function ($scope, $log, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService, PackageUtilsService, MemberService, PackagesService) {
+        [ '$scope', '$log', '$modal', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService', 'PackageUtilsService', 'MemberService', 'PackagesService', 'StandingStateUtils',
+          function ($scope, $log, $modal, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService, PackageUtilsService, MemberService, PackagesService, StandingStateUtils) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
         	$scope.packageUtils = PackageUtilsService;
+        	$scope.usageReportsUtils = UsageReportsService;
+        	$scope.standingStateUtils = StandingStateUtils;
         	
         	$scope.affiliate = UserAffiliateService.affiliate;
         	$scope.approvedReleasePackagesByMember = [];
@@ -19,13 +21,14 @@ angular.module('MLDS')
     		};
         	
         	UserAffiliateService.promise.then(function() {
+        		loadReleasePackages();
+        		
         		if (ApplicationUtilsService.isApplicationWaitingForApplicant(UserAffiliateService.affiliate.application)) {
         			$location.path('/affiliateRegistration');
         			return;
         		}
         	});
 
-        	loadReleasePackages();
         	
         	$scope.isApplicationPending = function(application) {
         		return ApplicationUtilsService.isApplicationPending(application);
@@ -38,7 +41,7 @@ angular.module('MLDS')
         	$scope.isApplicationApproved = function(application) {
         		return ApplicationUtilsService.isApplicationApproved(application);
         	};
-
+        	
         	function loadReleasePackages() {
         		PackagesService.query().$promise
         			.then(function(releasePackages) {
@@ -50,8 +53,13 @@ angular.module('MLDS')
         							member: MemberService.membersByKey[memberKey], 
         							packages: packages};})
         					.value();
-        				$scope.approvedReleasePackagesByMember = _.filter(releasePackagesByMember, function(memberRelease) {return UserAffiliateService.isMembershipApproved(memberRelease.member);});
-        				$scope.notApprovedReleasePackagesByMember = _.filter(releasePackagesByMember, function(memberRelease) {return ! UserAffiliateService.isMembershipApproved(memberRelease.member);});
+        				if (StandingStateUtils.isDeactivated($scope.affiliate.standingState)) {
+        					$scope.approvedReleasePackagesByMember = [];
+        					$scope.notApprovedReleasePackagesByMember = releasePackagesByMember;
+        				} else {
+	        				$scope.approvedReleasePackagesByMember = _.filter(releasePackagesByMember, function(memberRelease) {return UserAffiliateService.isMembershipApproved(memberRelease.member);});
+	        				$scope.notApprovedReleasePackagesByMember = _.filter(releasePackagesByMember, function(memberRelease) {return ! UserAffiliateService.isMembershipApproved(memberRelease.member);});
+        				}
         			})
         			["catch"](function(message) {
         				//FIXME failed to load release packages
@@ -76,6 +84,22 @@ angular.module('MLDS')
         	$scope.goToViewPackagePage = function goToViewPackagePage(releasePackageId) {
         		$location.path('/viewReleases/viewRelease/'+ releasePackageId);
         	};
+        	
+        	$scope.viewApplication = function viewApplication(application) {
+        		var modalInstance = $modal.open({
+        			templateUrl: 'views/applicationSummaryModal.html',
+        			controller: 'ApplicationSummaryModalController',
+        			size:'lg',
+        			resolve: {
+        				application: function() {
+        					return application;
+        				},
+        				audits: function() {
+        					return [];
+        				}
+        			}
+        		});
+			};
 
         }
     ]);

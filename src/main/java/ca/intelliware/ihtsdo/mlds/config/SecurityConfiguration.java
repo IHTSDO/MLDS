@@ -22,6 +22,7 @@ import ca.intelliware.ihtsdo.mlds.security.AjaxAuthenticationSuccessHandler;
 import ca.intelliware.ihtsdo.mlds.security.AjaxLogoutSuccessHandler;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.Http401UnauthorizedEntryPoint;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAuthenticationProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -47,6 +48,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Inject
     private RememberMeServices rememberMeServices;
+    
+    @Inject
+    private HttpAuthAuthenticationProvider httpAuthAuthenticationProvider;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -58,6 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth
             .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
+        auth.authenticationProvider(httpAuthAuthenticationProvider);
     }
 
     @Override
