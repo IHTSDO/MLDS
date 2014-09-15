@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 
-                                                 		function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location){
+angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 'ApprovalStateUtils', 
+                                                 		function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location, ApprovalStateUtils){
 	$scope.collapsePanel = {};
 	
 	$scope.usageLogForm = {};
@@ -25,6 +25,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 	
 	$scope.readOnly = false;
 	$scope.commercialType = false;
+	$scope.isActiveUsage = true;
 	
 	$scope.isEditable = true;
 	
@@ -120,8 +121,9 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 		$scope.availableCountries = [];
 		$scope.currentCountries = [];
 		$scope.commercialUsageReport = usageReport;
+		$scope.isActiveUsage = !usageReport.effectiveTo;
 		$scope.isEditable = Session.isUser() || Session.isAdmin(); //Only Admin or User can edit
-		$scope.readOnly = $scope.isEditable ? usageReport.approvalState !== 'NOT_SUBMITTED' : true;
+		$scope.readOnly = $scope.isEditable ? !ApprovalStateUtils.isWaitingForApplicant(usageReport.approvalState) : true;
 		$scope.commercialType = usageReport.type === 'COMMERCIAL';
 		
 		usageReport.countries.forEach(function(usageCount) {

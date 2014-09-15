@@ -200,4 +200,9 @@ public class CommercialUsage extends BaseEntity {
 	public void setEffectiveTo(Instant effectiveTo) {
 		this.effectiveTo = effectiveTo;
 	}
+	
+	@JsonIgnore
+	public boolean isActive() {
+		return getEffectiveTo() == null;
+	}
 }
