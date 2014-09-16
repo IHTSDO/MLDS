@@ -352,8 +352,7 @@ public class AffiliateResource {
     	
     	affiliateDetails.setEmail(body.getEmail());
     	
-		if (currentSecurityContext.isAdmin()) {
-        	
+		if (currentSecurityContext.isStaffOrAdmin()) {
 	    	affiliateDetails.setType(body.getType());
 	    	affiliateDetails.setOtherText(body.getOtherText());
 	    	affiliateDetails.setSubType(body.getSubType());
