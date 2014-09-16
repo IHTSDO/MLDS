@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
@@ -48,6 +49,7 @@ public abstract class Application extends BaseEntity {
 	@JsonIgnoreProperties({"application", "applications"})
 	@ManyToOne
 	@JoinColumn(name="affiliate_id")
+	@ContainedIn
 	Affiliate affiliate;
 
 	String username;

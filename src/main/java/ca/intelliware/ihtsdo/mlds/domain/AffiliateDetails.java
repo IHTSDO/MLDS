@@ -59,9 +59,17 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	String email;
 	
 	@Column(name="alternate_email")
+	@Fields({ 
+		@Field(name="ALL"),  // the default analyzer splits on @ 
+		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
+		})
 	String alternateEmail;
 	
 	@Column(name="third_email")
+	@Fields({ 
+		@Field(name="ALL"),  // the default analyzer splits on @ 
+		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
+		})
 	String thirdEmail;
 	
 	@Column(name="landline_number")

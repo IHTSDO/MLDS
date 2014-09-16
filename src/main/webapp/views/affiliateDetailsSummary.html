@@ -59,6 +59,8 @@
 	  				<li class="list-group-item"><strong>Post Code:</strong> {{affiliate.affiliateDetails.address.post}}</li>
 	  				<li class="list-group-item"><strong>Country:</strong> {{affiliate.affiliateDetails.address.country.commonName}}</li>
 	  				<li class="list-group-item"><strong>Phone Number:</strong> {{affiliate.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.affiliateDetailsextension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
+	  				<li class="list-group-item"><strong>Alternate Email:</strong> {{affiliate.affiliateDetails.alternateEmail}}</li>
+	  				<li class="list-group-item" ng-show="affiliate.affiliateDetails.thirdEmail"><strong>Third Email:</strong> {{affiliate.affiliateDetails.thirdEmail}}</li>
 	  				<li class="list-group-item" ng-show="affiliate.affiliateDetails=='OTHER'"><strong>Other:</strong>{{affiliate.affiliate.application.otherText}}</li>
 	  			</ul>
 	
