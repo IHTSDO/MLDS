@@ -28,7 +28,7 @@ spring:
 
     mail:
         baseUrl: http://localhost:8080
-        from: mlds@mailinator.com
+        from: ihtsdo-mlds@intelliware.com
         host: mail.intware.com
         port: 25
         user:
