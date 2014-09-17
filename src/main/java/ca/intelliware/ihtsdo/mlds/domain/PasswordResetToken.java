@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,6 +24,7 @@ public class PasswordResetToken implements Serializable {
     private String passwordResetTokenId = UUID.randomUUID().toString();
 
     @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
     
     private Instant created = Instant.now();
