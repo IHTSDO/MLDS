@@ -52,6 +52,7 @@ public class MailService {
     @PostConstruct
     public void init() {
         this.from = env.getProperty("spring.mail.from");
+        log.debug("Confgured From address: {}", from);
     }
 
     @Async
