@@ -30,10 +30,10 @@
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
 		
-			<div class="panel panel-primary" ng-show="$root.Session.isAdmin()">
+			<div class="panel panel-primary" ng-show="$root.Session.isStaffOrAdmin()">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						Superadmin Editable
+						Admin Editable
 					</h4>
 				</div>
 				<div class="panel-collapse collapse in">
@@ -325,12 +325,24 @@
 						Organization
 					</h4>
 				</div>
+				
 				<div class="panel-collapse collapse in">
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="form-group" ng-show="!$root.Session.isStaffOrAdmin()">
 									<label>Organization Name:</label> <span>{{affiliateDetails.organizationName}}</span>
+								</div>
+								<div class="form-group" ng-show="$root.Session.isStaffOrAdmin()">
+									<label>Organization Name:</label>  <input class="form-control"
+											name="organizationName"
+											placeholder="Org name"
+											ng-required="type!='INDIVIDUAL'"
+											ng-model="affiliateDetails.organizationName"
+											ng-disabled="readOnly">
+										<p
+											ng-show="form.organizationName.$error.required && form.attempted"
+											class="help-block">Required field.</p>
 								</div>
 							</div>
 						</div>

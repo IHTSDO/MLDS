@@ -10,7 +10,8 @@ mldsApp.controller('EditAffiliateController', [
 		'Session',
 		'AffiliateService',
 		'ApplicationUtilsService',
-		function($scope, $log, $location, $modal, $routeParams, $timeout, Session, AffiliateService, ApplicationUtilsService) {
+		'CountryService',
+		function($scope, $log, $location, $modal, $routeParams, $timeout, Session, AffiliateService, ApplicationUtilsService, CountryService) {
 			
 			var affiliateId = $routeParams.affiliateId && parseInt($routeParams.affiliateId, 10);
 			
@@ -20,6 +21,7 @@ mldsApp.controller('EditAffiliateController', [
 			$scope.approved = false;
 			$scope.readOnly = false;
 			$scope.type;
+	        $scope.availableCountries = CountryService.countries;
 
 	    	$scope.agreementTypeOptions = ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD'];
 	    	

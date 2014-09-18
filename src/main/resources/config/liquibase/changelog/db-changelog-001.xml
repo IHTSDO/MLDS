@@ -1302,4 +1302,31 @@
                                  referencedTableName="T_USER"/>
                                  
     </changeSet>
+    
+    <changeSet id="MLDS-540-1" author="MB">
+    	<comment>Extend user_id sequence change to password_reset table</comment>
+    	<addColumn tableName="password_reset_token">
+            <column name="user_id" type="bigint"/>
+    	</addColumn>
+    	<sql>
+    		update password_reset_token
+    		set user_id = u.user_id
+    		from t_user as u 
+    		where u.login = user_login 
+    	</sql>
+    	<addNotNullConstraint tableName="password_reset_token" columnName="user_id"/>
+    	<dropColumn tableName="password_reset_token" columnName="user_login"/>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="password_reset_token"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="T_USER"/>
+                                 
+    	<dropColumn tableName="T_PERSISTENT_TOKEN" columnName="user_login"/>
+   	</changeSet>
+   	
+    <changeSet id="MLDS-668" author="MB">
+    	<comment>Allow longer keys in audit data to hold "original." items</comment>
+    	<modifyDataType tableName="t_persistent_audit_event_data" columnName="name" newDataType="VARCHAR(255)"/>
+    </changeSet>
 </databaseChangeLog>
