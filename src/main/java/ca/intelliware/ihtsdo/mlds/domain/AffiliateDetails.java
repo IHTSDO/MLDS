@@ -33,6 +33,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Enumerated(EnumType.STRING)
 	AffiliateType type;
 
+	/** text for "Other" AffiliateType */
 	@Column(name = "other_text")
 	String otherText;
 	
@@ -239,6 +240,8 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	public AffiliateDetails copyNoId() {
 		AffiliateDetails detailsCopy = (AffiliateDetails) clone();
 		detailsCopy.setAffiliateDetailsId(null);
+		detailsCopy.setAddress((MailingAddress) address.clone());
+		detailsCopy.setBillingAddress((MailingAddress) billingAddress.clone());
 		return detailsCopy;
 	}
 
@@ -273,6 +276,4 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	public void setAgreementType(AgreementType agreementType) {
 		this.agreementType = agreementType;
 	}
-
-
 }
