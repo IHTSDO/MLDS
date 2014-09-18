@@ -54,14 +54,84 @@
             	{{audit.data['usage.approvalState'] | enum:'approval.state.'}}
             </span>
             
-            <span ng-if="audit.data['affiliate.affiliateDetails.firstName']"><strong>First Name:</strong> {{audit.data['affiliate.affiliateDetails.firstName']}}</span>
-            <span ng-if="audit.data['affiliate.affiliateDetails.lastName']"><strong>Last Name:</strong> {{audit.data['affiliate.affiliateDetails.lastName']}}</span>
-            <span ng-if="audit.data['affiliate.affiliateDetails.landlineNumber'] || audit.data['affiliate.affiliateDetails.landlineExtension']"><strong>Landline:</strong> {{audit.data['affiliate.affiliateDetails.landlineNumber']}} <span ng-show="audit.data['affiliate.affiliateDetails.landlineExtension']">ext: {{audit.data['affiliate.affiliateDetails.landlineExtension']}}</span></span>
-            <span ng-if="audit.data['affiliate.affiliateDetails.mobileNumber']"><strong>Mobile:</strong> {{audit.data['affiliate.affiliateDetails.mobileNumber']}}</span>
-            <span ng-if="audit.data['affiliate.affiliateDetails.address.street'] || audit.data['affiliate.affiliateDetails.address.city'] || audit.data['affiliate.affiliateDetails.address.post']"><strong>Address:</strong> {{audit.data['affiliate.affiliateDetails.address.street']}}, {{audit.data['affiliate.affiliateDetails.address.city']}}, {{audit.data['affiliate.affiliateDetails.address.post']}}</span>
-            <span ng-if="audit.data['affiliate.affiliateDetails.billingAddress.street'] || audit.data['affiliate.affiliateDetails.billingAddress.city'] || audit.data['affiliate.affiliateDetails.billingAddress.post'] || audit.data['affiliate.affiliateDetails.billingAddress.country']"><strong>Billing:</strong> {{audit.data['affiliate.affiliateDetails.billingAddress.street']}}, {{audit.data['affiliate.affiliateDetails.billingAddress.city']}}, {{audit.data['affiliate.affiliateDetails.billingAddress.post']}}<span ng-show="audit.data['affiliate.affiliateDetails.billingAddress.country']">, {{audit.data['affiliate.affiliateDetails.billingAddress.country'] | enum:'global.country.'}}</span></span>
-            <span ng-if="audit.data['affiliate.affiliateDetails.alternateEmail']"><strong>Alternative Email:</strong> {{audit.data['affiliate.affiliateDetails.alternateEmail']}}</span>
-            <span ng-if="audit.data['affiliate.affiliateDetails.thirdEmail']"><strong>Third Email:</strong> {{audit.data['affiliate.affiliateDetails.thirdEmail']}}</span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.type'] || audit.data['affiliate.affiliateDetails.otherText']">
+            	<strong>Affiliate Type:</strong> {{audit.data['affiliate.affiliateDetails.type'] | enum:'affiliate.type.'}} {{audit.data['affiliate.affiliateDetails.otherText']}}
+            	<s>{{audit.data['originial.affiliate.affiliateDetails.type'] | enum:'affiliate.type.'}} {{audit.data['originial.affiliate.affiliateDetails.otherText']}}</s>
+            	</span>
+            
+            <span ng-if="audit.data['affiliate.affiliateDetails.subType']">
+            	<strong>Sub-type:</strong> {{audit.data['affiliate.affiliateDetails.subType'] | enum:'affiliate.subType.'}}
+            	<s> {{audit.data['original.affiliate.affiliateDetails.subType'] | enum:'affiliate.subType.'}} </s>
+           	</span>
+            
+            <span ng-if="audit.data['affiliate.affiliateDetails.agreementType']">
+            	<strong>Agreement Type:</strong>
+            		{{audit.data['affiliate.affiliateDetails.agreementType'] | enum:'affiliate.agreementType.'}}
+           		<s> {{audit.data['original.affiliate.affiliateDetails.agreementType'] | enum:'affiliate.agreementType.'}} </s>
+       		</span>
+            
+            <span ng-if="audit.data['affiliate.affiliateDetails.organizationType'] || audit.data['affiliate.affiliateDetails.organizationTypeOther']">
+            	<strong>Agreement Type:</strong>
+            		{{audit.data['affiliate.affiliateDetails.organizationType'] | enum:'affiliate.organizationType.'}} audit.data['affiliate.affiliateDetails.organizationTypeOther']
+           		<s> {{audit.data['original.affiliate.affiliateDetails.organizationType'] | enum:'affiliate.organizationType.'}} audit.data['original.affiliate.affiliateDetails.organizationTypeOther']</s>
+       		</span>
+            
+            <span ng-if="audit.data['affiliate.affiliateDetails.organizationName']">
+            	<strong>Organization Name:</strong>
+            		{{audit.data['affiliate.affiliateDetails.organizationName']}}
+	            <s> {{audit.data['original.affiliate.affiliateDetails.organizationName']}} </s>
+           	</span>
+           	
+            <span ng-if="audit.data['affiliate.affiliateDetails.firstName']">
+            	<strong>First Name:</strong>
+            		{{audit.data['affiliate.affiliateDetails.firstName']}}
+	            <s> {{audit.data['original.affiliate.affiliateDetails.firstName']}} </s>
+           	</span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.lastName']">
+            	<strong>Last Name:</strong>
+            		{{audit.data['affiliate.affiliateDetails.lastName']}}
+            	<s> {{audit.data['original.affiliate.affiliateDetails.lastName']}} </s>
+           	</span>
+            
+            <span ng-if="audit.data['affiliate.affiliateDetails.email']">
+            	<strong>Email:</strong>
+            		{{audit.data['affiliate.affiliateDetails.email']}}
+            	<s> {{audit.data['original.affiliate.affiliateDetails.email']}} </s>
+           	</span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.alternateEmail']">
+            	<strong>Alternative Email:</strong>
+            		{{audit.data['affiliate.affiliateDetails.alternateEmail']}}
+            	<s> {{audit.data['original.affiliate.affiliateDetails.alternateEmail']}} </s>
+           	</span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.thirdEmail']">
+            	<strong>Third Email:</strong>
+            		{{audit.data['affiliate.affiliateDetails.thirdEmail']}}
+            	<s> {{audit.data['original.affiliate.affiliateDetails.thirdEmail']}} </s>
+           	</span>
+
+            <span ng-if="audit.data['affiliate.affiliateDetails.landlineNumber'] || audit.data['affiliate.affiliateDetails.landlineExtension']">
+            	<strong>Landline:</strong>
+            		{{audit.data['affiliate.affiliateDetails.landlineNumber']}} <span ng-show="audit.data['affiliate.affiliateDetails.landlineExtension']">ext: {{audit.data['affiliate.affiliateDetails.landlineExtension']}}</span>
+            	<s> {{audit.data['original.affiliate.affiliateDetails.landlineNumber']}} <span ng-show="audit.data['original.affiliate.affiliateDetails.landlineExtension']">ext: {{audit.data['original.affiliate.affiliateDetails.landlineExtension']}}</span>
+            	</s>
+           	</span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.mobileNumber']">
+            	<strong>Mobile:</strong>
+            		{{audit.data['affiliate.affiliateDetails.mobileNumber']}}
+            	<s> {{audit.data['original.affiliate.affiliateDetails.mobileNumber']}} </s>
+           	</span>
+
+            <span ng-if="audit.data['affiliate.affiliateDetails.address.street'] || audit.data['affiliate.affiliateDetails.address.city'] || audit.data['affiliate.affiliateDetails.address.post']">
+            	<strong>Address:</strong> 
+            		{{audit.data['affiliate.affiliateDetails.address.street']}}, {{audit.data['affiliate.affiliateDetails.address.city']}}, {{audit.data['affiliate.affiliateDetails.address.post']}}
+            	<s>	{{audit.data['original.affiliate.affiliateDetails.address.street']}}, {{audit.data['original.affiliate.affiliateDetails.address.city']}}, {{audit.data['original.affiliate.affiliateDetails.address.post']}} </s>
+           	</span>
+            <span ng-if="audit.data['affiliate.affiliateDetails.billingAddress.street'] || audit.data['affiliate.affiliateDetails.billingAddress.city'] || audit.data['affiliate.affiliateDetails.billingAddress.post'] || audit.data['affiliate.affiliateDetails.billingAddress.country']">
+            	<strong>Billing:</strong>
+            		{{audit.data['affiliate.affiliateDetails.billingAddress.street']}}, {{audit.data['affiliate.affiliateDetails.billingAddress.city']}}, {{audit.data['affiliate.affiliateDetails.billingAddress.post']}}<span ng-show="audit.data['affiliate.affiliateDetails.billingAddress.country']">, {{audit.data['affiliate.affiliateDetails.billingAddress.country'] | enum:'global.country.'}}</span>
+           		<s>	{{audit.data['original.affiliate.affiliateDetails.billingAddress.street']}}, {{audit.data['original.affiliate.affiliateDetails.billingAddress.city']}}, {{audit.data['original.affiliate.affiliateDetails.billingAddress.post']}}<span ng-show="audit.data['original.affiliate.affiliateDetails.billingAddress.country']">, {{audit.data['original.affiliate.affiliateDetails.billingAddress.country'] | enum:'global.country.'}}</span></s>
+           	</span>
+            
         </td>
     </tr>
 </table>
