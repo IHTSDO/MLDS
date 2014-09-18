@@ -39,13 +39,11 @@ public class Affiliate extends BaseEntity {
 	@Fields({ @Field(name="ALL"), @Field()})
 	Long affiliateId;
 
-	//@Type(type="jodatimeInstant")Member homeMember;
 	Instant created = Instant.now();
 
 	@Enumerated(EnumType.STRING)
 	AffiliateType type;
 	
-	//FIXME username of user
 	String creator;
 	
 	@Column(name="import_key")

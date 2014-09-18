@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.Country;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 
 @Service
@@ -75,35 +75,24 @@ public class AffiliateAuditEvents {
 		logEvent(eventType, affiliate, auditData);
 	}
 
-	public void logUpdateOfAffiliateDetails(Affiliate affiliate) {
-		logDetailsUpdate(EVENT_AFFILIATEDETAILS_UPDATED, affiliate);
+	public void logUpdateOfAffiliateDetails(Affiliate affiliate, AffiliateDetails newDetails) {
+		logDetailsUpdate(EVENT_AFFILIATEDETAILS_UPDATED, affiliate, newDetails);
 	}
 
-	private void logDetailsUpdate(String eventType, Affiliate affiliate) {
-		Map<String, String> auditData = createAffiliateDetailsData(affiliate);
+	private void logDetailsUpdate(String eventType, Affiliate affiliate, AffiliateDetails newDetails) {
+		Map<String, String> auditData = createAffiliateDetailsData(affiliate, newDetails);
 		logEvent(eventType, affiliate, auditData);
 	}
 
-	private Map<String, String> createAffiliateDetailsData(Affiliate affiliate) {
+	private Map<String, String> createAffiliateDetailsData(Affiliate affiliate, AffiliateDetails newDetails) {
 		Map<String,String> auditData = createAffiliateData(affiliate);
-    	auditData.put("affiliate.affiliateDetails.firstName", affiliate.getAffiliateDetails().getFirstName());
-    	auditData.put("affiliate.affiliateDetails.lastName", affiliate.getAffiliateDetails().getLastName());
-    	auditData.put("affiliate.affiliateDetails.landlineNumber", affiliate.getAffiliateDetails().getLandlineNumber());
-    	auditData.put("affiliate.affiliateDetails.landlineExtension", affiliate.getAffiliateDetails().getLandlineExtension());
-    	auditData.put("affiliate.affiliateDetails.mobileNumber", affiliate.getAffiliateDetails().getMobileNumber());
-    	auditData.put("affiliate.affiliateDetails.address.street", affiliate.getAffiliateDetails().getAddress().getStreet());
-    	auditData.put("affiliate.affiliateDetails.address.city", affiliate.getAffiliateDetails().getAddress().getCity());
-    	auditData.put("affiliate.affiliateDetails.address.post", affiliate.getAffiliateDetails().getAddress().getPost());
-    	auditData.put("affiliate.affiliateDetails.billingAddress.street", affiliate.getAffiliateDetails().getBillingAddress().getStreet());
-    	auditData.put("affiliate.affiliateDetails.billingAddress.city", affiliate.getAffiliateDetails().getBillingAddress().getCity());
-    	auditData.put("affiliate.affiliateDetails.billingAddress.post", affiliate.getAffiliateDetails().getBillingAddress().getPost());
-    	Country billingCountry = affiliate.getAffiliateDetails().getBillingAddress().getCountry();
-    	if (billingCountry != null) {
-    		auditData.put("affiliate.affiliateDetails.billingAddress.country", billingCountry.getIsoCode2());
-    	}
-    	auditData.put("affiliate.affiliateDetails.alternateEmail", affiliate.getAffiliateDetails().getAlternateEmail());
-    	auditData.put("affiliate.affiliateDetails.thirdEmail", affiliate.getAffiliateDetails().getThirdEmail());
+		
+    	AffiliateDetailsDifferenceCalculator affiliateDetailsDifferenceCalculator = new AffiliateDetailsDifferenceCalculator();
+		affiliateDetailsDifferenceCalculator.calculateDifferences(affiliate.getAffiliateDetails(), newDetails);
+		affiliateDetailsDifferenceCalculator.addDifferencesTo(auditData);
+		
 		return auditData;
 	}
+
 	
 }

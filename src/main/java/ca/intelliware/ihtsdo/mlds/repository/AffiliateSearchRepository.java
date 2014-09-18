@@ -37,6 +37,10 @@ public class AffiliateSearchRepository {
 	EntityManager entityManager;
 	
 	PageableUtil pageableUtil = new PageableUtil();
+	
+	public void reindex(Affiliate a) {
+		getFullTextEntityManager().index(a);
+	}
 
 	public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, Pageable pageable) {
 		

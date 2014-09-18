@@ -8,24 +8,48 @@ endpoints.jolokia.enabled: false
 # security configuration (this key should be unique for your application, and kept secret)
 jhipster.security.rememberme.key: mlds
 
+server:
+    port: 8080
+
+
 async:
     corePoolSize: 2
     maxPoolSize: 50
     queueCapacity: 10000
 
 spring:
+
+    datasource:
+        dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
+        url: jdbc:postgresql:mlds
+        databaseName: mlds
+        serverName: localhost
+        username: mlds
+        password: password
+
     jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        database: POSTGRESQL
+        show_sql: false
         openInView: true
         generate-ddl: false
         hibernate:
             ddl-auto: none
             naming-strategy: org.springframework.boot.orm.jpa.SpringNamingStrategy
         properties:
+            hibernate.cache.use_second_level_cache: true
+            hibernate.cache.use_query_cache: false
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+            hibernate.generate_statistics: true
             hibernate.search.default.directory_provider: ram
+# for debugging            
+#            hibernate.search.default.directory_provider: filesystem
+            hibernate.search.default.indexBase: ./target/lucene
 
     mail:
-        host: localhost
+        baseUrl: http://localhost:8080
+        from: mlds@mailinator.com
+        host: mail.intware.com
         port: 25
         user:
         password:
@@ -35,6 +59,10 @@ spring:
 
     messageSource:
         cacheSeconds: 1
+    thymeleaf:
+        mode: XHTML
+        cache: false
+
 
 webauth:
     url: https://usermanagement.ihtsdotools.org/security-web/query/

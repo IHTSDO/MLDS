@@ -1,45 +1,11 @@
-server:
-    port: 8080
-
 spring:
     profiles: dev
     
-    datasource:
-        dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
-        url: jdbc:postgresql:mlds
-        databaseName: mlds
-        serverName: localhost
-        username: mlds
-        password: password
-
     jpa:
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
-        database: POSTGRESQL
-        show_sql: false
         properties:
-            hibernate.cache.use_second_level_cache: true
-            hibernate.cache.use_query_cache: false
-            hibernate.generate_statistics: true
-            hibernate.search.default.directory_provider: ram
 # for debugging            
 #            hibernate.search.default.directory_provider: filesystem
             hibernate.search.default.indexBase: ./target/lucene
-
-
-    mail:
-        baseUrl: http://localhost:8080
-        from: mlds@mailinator.com
-        host: mail.intware.com
-        port: 25
-        user:
-        password:
-        protocol: smtp
-        tls: false
-        auth: false
-
-    thymeleaf:
-        mode: XHTML
-        cache: false
 
 metrics:
     jmx.enabled: true

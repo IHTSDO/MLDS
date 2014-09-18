@@ -8,7 +8,7 @@ import org.hibernate.search.annotations.Fields;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 @Embeddable
-public class MailingAddress {
+public class MailingAddress implements Cloneable {
 
 	@Fields({ @Field(name="ALL"), @Field()})
 	String street;
@@ -47,4 +47,12 @@ public class MailingAddress {
 		this.country = country;
 	}
 	
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			// we support clone
+			throw new RuntimeException(e);
+		}
+	}
 }
