@@ -53,31 +53,37 @@ public class AffiliateDetailsDifferenceCalculator {
 	}
 	
 	private void fillAffiliateDetails(Map<String, String> auditData, AffiliateDetails originalAffiliateDetails) {
-		auditData.put("affiliate.affiliateDetails.type", originalAffiliateDetails.getType().toString());
-		auditData.put("affiliate.affiliateDetails.otherText", originalAffiliateDetails.getOtherText());
+		safePut(auditData, "affiliate.affiliateDetails.type", originalAffiliateDetails.getType());
+		safePut(auditData, "affiliate.affiliateDetails.otherText", originalAffiliateDetails.getOtherText());
 		
-		auditData.put("affiliate.affiliateDetails.subType", originalAffiliateDetails.getSubType().toString());
+		safePut(auditData, "affiliate.affiliateDetails.subType", originalAffiliateDetails.getSubType());
 		
-		auditData.put("affiliate.affiliateDetails.agreementType", originalAffiliateDetails.getAgreementType().toString());
+		safePut(auditData, "affiliate.affiliateDetails.agreementType", originalAffiliateDetails.getAgreementType());
 		
-		auditData.put("affiliate.affiliateDetails.organizationType", originalAffiliateDetails.getOrganizationType().toString());
-		auditData.put("affiliate.affiliateDetails.organizationTypeOther", originalAffiliateDetails.getOrganizationTypeOther());
+		safePut(auditData, "affiliate.affiliateDetails.organizationType", originalAffiliateDetails.getOrganizationType());
+		safePut(auditData, "affiliate.affiliateDetails.organizationTypeOther", originalAffiliateDetails.getOrganizationTypeOther());
 		
-		auditData.put("affiliate.affiliateDetails.organizationName", originalAffiliateDetails.getOrganizationName());
+		safePut(auditData, "affiliate.affiliateDetails.organizationName", originalAffiliateDetails.getOrganizationName());
 		
-		auditData.put("affiliate.affiliateDetails.firstName", originalAffiliateDetails.getFirstName());
-    	auditData.put("affiliate.affiliateDetails.lastName", originalAffiliateDetails.getLastName());
+		safePut(auditData, "affiliate.affiliateDetails.firstName", originalAffiliateDetails.getFirstName());
+    	safePut(auditData, "affiliate.affiliateDetails.lastName", originalAffiliateDetails.getLastName());
     	
-    	auditData.put("affiliate.affiliateDetails.email", originalAffiliateDetails.getEmail());
-    	auditData.put("affiliate.affiliateDetails.alternateEmail", originalAffiliateDetails.getAlternateEmail());
-    	auditData.put("affiliate.affiliateDetails.thirdEmail", originalAffiliateDetails.getThirdEmail());
+    	safePut(auditData, "affiliate.affiliateDetails.email", originalAffiliateDetails.getEmail());
+    	safePut(auditData, "affiliate.affiliateDetails.alternateEmail", originalAffiliateDetails.getAlternateEmail());
+    	safePut(auditData, "affiliate.affiliateDetails.thirdEmail", originalAffiliateDetails.getThirdEmail());
     	
-    	auditData.put("affiliate.affiliateDetails.landlineNumber", originalAffiliateDetails.getLandlineNumber());
-    	auditData.put("affiliate.affiliateDetails.landlineExtension", originalAffiliateDetails.getLandlineExtension());
-    	auditData.put("affiliate.affiliateDetails.mobileNumber", originalAffiliateDetails.getMobileNumber());
+    	safePut(auditData, "affiliate.affiliateDetails.landlineNumber", originalAffiliateDetails.getLandlineNumber());
+    	safePut(auditData, "affiliate.affiliateDetails.landlineExtension", originalAffiliateDetails.getLandlineExtension());
+    	safePut(auditData, "affiliate.affiliateDetails.mobileNumber", originalAffiliateDetails.getMobileNumber());
     	
     	putAddressData(auditData, "affiliate.affiliateDetails.address.", originalAffiliateDetails.getAddress());
     	putAddressData(auditData, "affiliate.affiliateDetails.billingAddress.", originalAffiliateDetails.getBillingAddress());
+	}
+
+	private void safePut(Map<String, String> auditData, String key, Object object) {
+		if (object != null) {
+			auditData.put(key, object.toString());
+		}
 	}
 
 	private void putAddressData(Map<String, String> auditData, String addressPropertyPrefix, MailingAddress address) {
