@@ -29,6 +29,7 @@ import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateSearchRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
@@ -46,6 +47,9 @@ public class AffiliateResourceTest {
 
     @Mock
     private AffiliateRepository affiliateRepository;
+    
+    @Mock
+    private AffiliateSearchRepository affiliateSearchRepository;
     
     @Mock
     private AffiliateDetailsRepository affiliateDetailsRepository;
@@ -80,6 +84,7 @@ public class AffiliateResourceTest {
         
         affiliateResource.affiliateDetailsRepository = affiliateDetailsRepository;
         affiliateResource.affiliateRepository = affiliateRepository;
+        affiliateResource.affiliateSearchRepository = affiliateSearchRepository;
         affiliateResource.applicationAuthorizationChecker = applicationAuthorizationChecker;
         affiliateResource.affiliateAuditEvents = affiliateAuditEvents;
         affiliateResource.affiliatesExporterService = affiliatesExporterService;

@@ -331,9 +331,10 @@ public class AffiliateResource {
     		copyAffiliateDetailsNameFieldsToUser(user, body);
     	}
     	
+    	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate,body);
     	copyAffiliateDetailsFields(affiliateDetails, body);
     	
-    	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate);
+    	affiliateSearchRepository.reindex(affiliate);
     	
     	return new ResponseEntity<AffiliateDetails>(affiliateDetails, HttpStatus.OK);
     }
@@ -352,8 +353,7 @@ public class AffiliateResource {
     	
     	affiliateDetails.setEmail(body.getEmail());
     	
-		if (currentSecurityContext.isAdmin()) {
-        	
+		if (currentSecurityContext.isStaffOrAdmin()) {
 	    	affiliateDetails.setType(body.getType());
 	    	affiliateDetails.setOtherText(body.getOtherText());
 	    	affiliateDetails.setSubType(body.getSubType());
