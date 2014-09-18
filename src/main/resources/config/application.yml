@@ -18,6 +18,7 @@ async:
     queueCapacity: 10000
 
 spring:
+
     datasource:
         dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
         url: jdbc:postgresql:mlds
