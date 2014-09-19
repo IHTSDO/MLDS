@@ -1329,4 +1329,49 @@
     	<comment>Allow longer keys in audit data to hold "original." items</comment>
     	<modifyDataType tableName="t_persistent_audit_event_data" columnName="name" newDataType="VARCHAR(255)"/>
     </changeSet>
+    
+    <changeSet id="MLDS-681-1" author="MB">
+    	<comment>Better blob support for pdf handling</comment>
+    	<createProcedure >
+    	create or replace function blob_write(lbytea bytea) returns oid volatile as $f$
+   declare
+      loid oid;
+      lfd integer;
+      lsize integer;
+begin
+   if(lbytea is null) then
+      return null;
+   end if;
+ 
+   loid := lo_create(0);
+   lfd := lo_open(loid,131072);
+   lsize := lowrite(lfd,lbytea);
+   perform lo_close(lfd);
+   return loid;
+end;
+$f$ language plpgsql; 
+    	</createProcedure>
+    </changeSet>
+
+	<changeSet id="MLDS-681-2" author="MB">
+		<comment>Re-load IHTSDO license -- it was corrupt.</comment>
+		<createTable tableName="tmpblob">
+			<column name="content" type="bytea" />
+			<column name="o" type="oid" />
+		</createTable>
+		<insert tableName="tmpblob">
+			<column name="content"
+				valueBlobFile="../../../config/Ihtsdo_AffiliateLicenceAgreement_v11.pdf" />
+		</insert>
+		<sql>
+			update tmpblob
+			set o = blob_write(content);
+		</sql>
+		<sql>
+			update file
+			set content = (select o from tmpblob)
+			where filename = 'Ihtsdo_AffiliateLicenceAgreement_v11.pdf'
+		</sql>
+		 <dropTable tableName="tmpblob" />
+	</changeSet>
 </databaseChangeLog>
