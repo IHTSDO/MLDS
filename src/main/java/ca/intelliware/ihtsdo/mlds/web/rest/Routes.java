@@ -181,4 +181,8 @@ public class Routes {
 	 */
 	public static final String APPLICATION_REGISTRATION = "/app/rest/applications/{applicationId}/registration";
 
+	/**
+	 * - get our version info
+	 */
+	public static final String VERSION = "/app/rest/version";
 }
