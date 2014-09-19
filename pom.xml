@@ -451,8 +451,15 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/*.pdf</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
 				<includes>
-					<include>**/*</include>
+					<include>**/*.pdf</include>
 				</includes>
 			</resource>
 		</resources>
