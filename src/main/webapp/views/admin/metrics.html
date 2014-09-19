@@ -7,10 +7,13 @@
 
 <h3 translate="metrics.health.title">Health Checks</h3>
 <div id="healthCheck" class="row">
+    <div class="col-md-3">
+        <div class="alert alert-success"><strong >Version info:</strong> <span maven-version>OK</span></div>
+    </div>
     <div class="col-md-3" ng-show="healthCheck.database.healthy">
         <div class="alert alert-success"><strong translate="metrics.health.database">Database: </strong>OK</div>
     </div>
-    <div class="col-md-4" ng-show="!healthCheck.database.healthy">
+    <div class="col-md-3" ng-show="!healthCheck.database.healthy">
         <div class="alert alert-danger">
             <strong translate="metrics.health.database">Database: </strong>{{healthCheck.database.message}}
             <span ng-show="healthCheck.email.exception">
@@ -32,7 +35,7 @@
     <div class="col-md-3" ng-show="healthCheck.email.healthy" >
         <div class="alert alert-success"><strong translate="metrics.health.email">Email: </strong>OK</div>
     </div>
-    <div class="col-md-4" ng-show="!healthCheck.email.healthy">
+    <div class="col-md-3" ng-show="!healthCheck.email.healthy">
         <div class="alert alert-danger">
             <strong translate="metrics.health.email">Email: </strong>{{healthCheck.email.message}}
             <span ng-show="healthCheck.email.exception">
