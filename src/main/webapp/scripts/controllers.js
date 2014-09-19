@@ -12,7 +12,7 @@ mldsApp.controller('MainController', ['$scope', '$rootScope', 'Session', '$log',
 		};
 		//$log.log(Session.promise);
 		$rootScope.Session = Session;
-		
+
 //		Session.promise
 //			.then(function() {
 //				if (Session.isStaffOrAdmin()) {
