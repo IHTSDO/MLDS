@@ -9,7 +9,7 @@ angular.module('MLDS').directive(
 				link : function(scope, element, attrs) {
 					$http.get("/app/rest/version").success(function(versionInfo) {
 						$log.log('mavenVersion', versionInfo);
-						element.text(JSON.stringify(versionInfo));
+						element.text(versionInfo.version);
 					});
 				}
 			};
