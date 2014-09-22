@@ -375,8 +375,17 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .otherwise({
+                .when('/landing', {
                     templateUrl: 'views/landingPage.html',
+                    controller: 'MainController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .otherwise({
                     controller: 'MainController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
