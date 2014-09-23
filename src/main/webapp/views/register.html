@@ -151,10 +151,12 @@
                 </div>
 				<div class="checkbox form-group">
 					<label><input ng-model="user.tos" name="tos" type="checkbox" required="" />
-					<small class="muted" translate="register.form.tos">Agree to our <a href="/tos.html" target="_blank">terms of
-					service</a>.</small></label>
+					<small class="muted" translate="register.form.tos">
+						Agree to our 
+						<a href="/tos.html" target="_blank">Terms and Conditions</a>.
+					</small></label>
 					<div ng-show="createUserForm.tos.$error.required && createUserForm.attempted">
-						<div class="help-block">Required field.</div>
+						<div class="help-block">You must agree to the IHTSDO Terms and Conditions to continue.</div>
 					</div>
 					
 				</div>
