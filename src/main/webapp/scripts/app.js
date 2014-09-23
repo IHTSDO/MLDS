@@ -477,6 +477,6 @@ mldsApp
 
                 // Call when the user logs out
                 $rootScope.$on('event:auth-loginCancelled', function() {
-                    $location.path('');
+                    $location.path('/login');
                 });
         }]);
