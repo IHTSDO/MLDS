@@ -153,10 +153,7 @@ mldsApp
                 	controller: 'ResetPasswordController',
                 	access: {
                 		authorizedRoles: [USER_ROLES.all]
-                	},
-                    resolve: {
-                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
-                    }
+                	}
                 })
                 .when('/sessions', {
                     templateUrl: 'views/sessions.html',
@@ -377,32 +374,22 @@ mldsApp
                 })
                 .when('/landing', {
                     templateUrl: 'views/landingPage.html',
-                    controller: 'MainController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
-                    },
-                    resolve: {
-                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/', {
                 	templateUrl: 'views/loading.html',
-                	controller: 'MainController',
+                	controller: 'LandingRedirectController',
                 	access: {
                 		authorizedRoles: [USER_ROLES.all]
-                	},
-                	resolve: {
-                		lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                 	}
                 })
                 .otherwise({
                 	templateUrl: 'views/loading.html',
-                    controller: 'MainController',
+                    controller: 'LandingRedirectController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
-                    },
-                    resolve: {
-                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 });
 
@@ -444,6 +431,7 @@ mldsApp
         .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
             function($rootScope, $location, $http, $log, AuthenticationSharedService, Session, USER_ROLES) {
                 $rootScope.$on('$routeChangeStart', function (event, next) {
+                	$log.log('in $routeChangeStart', event, next, $location.path(), window.location.hash);
                     $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
                     $rootScope.userRoles = USER_ROLES;
                     AuthenticationSharedService.valid(next.access.authorizedRoles);
