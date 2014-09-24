@@ -2,7 +2,8 @@
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12"> 
 		<div class="page-header">
-			<h1>Releases and Extensions</h1>
+			<h1>Releases and Extensions available for Registered Users</h1>
+			<p ng-show="!$root.authenticated">Click <a href="#/register">Register</a> to Start Application Process</p>
 		</div>
 	</div>
 </div>
@@ -68,6 +69,7 @@
 						</div>
 						<div class="col-lg-11" >
 							<h4 class="version">{{version.name}}</h4>
+							<!-- Removed for MLDS-690
 							<ul class="list-unstyled">
 							  <li ng-repeat="releaseFile in version.releaseFiles">
 									<i class="fa fa-file"></i>
@@ -79,6 +81,7 @@
 									</span>
 								</li>
 							</ul>
+							 -->
 						</div>
 						
 					</div>

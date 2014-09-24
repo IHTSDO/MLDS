@@ -389,7 +389,7 @@
         "welcome": "Welcome to IHTSDO-MLDS",
         "subwelcome": "The gateway to access SNOMED CT Orientation",
         "form": {
-        	"tos": "Agree to our <a href=\"/tos.html\" target=\"_blank\">terms of service</a>.",
+        	"tos": "Agree to our <a href=\"/tos.html\" target=\"_blank\">Terms and Conditions</a>.",
             "button": "Start Regististration"
         },
         "messages": {

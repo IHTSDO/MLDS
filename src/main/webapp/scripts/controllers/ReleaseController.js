@@ -163,7 +163,7 @@ angular.module('MLDS').controller('ReleaseController',
   	      	templateUrl: 'views/admin/takeOnlineModal.html',
   	      	controller: 'TakeOnlineModalController',
   	      	scope: $scope,
-  	      	size: 'sm',
+  	      	size: 'lg',
   	      	backdrop: 'static',
   	      	resolve: {
               releasePackage: function() { return angular.copy($scope.packageEntity); },

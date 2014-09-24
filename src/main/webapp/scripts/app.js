@@ -385,7 +385,18 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                .when('/', {
+                	templateUrl: 'views/loading.html',
+                	controller: 'MainController',
+                	access: {
+                		authorizedRoles: [USER_ROLES.all]
+                	},
+                	resolve: {
+                		lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                	}
+                })
                 .otherwise({
+                	templateUrl: 'views/loading.html',
                     controller: 'MainController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
@@ -457,6 +468,7 @@ mldsApp
                     
                     if ($location.path() !== "/" && 
                     		$location.path() !== "" && 
+                    		$location.path() !== "/landing" &&
                     		$location.path() !== "/register" &&
                     		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
@@ -477,6 +489,6 @@ mldsApp
 
                 // Call when the user logs out
                 $rootScope.$on('event:auth-loginCancelled', function() {
-                    $location.path('');
+                    $location.path('/login');
                 });
         }]);
