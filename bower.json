@@ -28,7 +28,8 @@
     "moment": "~2.7.0",
     "placeholders": "~3.0.2",
     "intl-tel-input": "~2.0.6",
-    "ngInfiniteScroll": "~1.0.0"
+    "ngInfiniteScroll": "~1.0.0",
+    "font-awesome": "~4.2.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.13",
