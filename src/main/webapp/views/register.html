@@ -107,6 +107,38 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label translate="register.form.confirmemail">E-mail 2</label>
+                    <input type="email" class="form-control" name="confirmemail" placeholder="{{'global.form.email.placeholder' | translate}}"
+                           ng-model="registerAccount.confirmemail"
+                           ng-minlength=5 ng-maxlength=100
+                           required
+                           match="registerAccount.email">
+                    <div ng-show="createUserForm.attempted && createUserForm.confirmemail.$invalid">
+                        <div class="help-block"
+                               ng-show="createUserForm.confirmemail.$error.required" translate="global.messages.validate.email.required">
+                            Your e-mail is required.
+                        </div>
+                        <div class="help-block"
+                               ng-show="createUserForm.confirmemail.$error.email" translate="global.messages.validate.email.invalid">
+                            Your e-mail is invalid.
+                        </div>
+                        <div class="help-block"
+                               ng-show="createUserForm.confirmemail.$error.minlength" translate="global.messages.validate.email.minlength">
+                            Your e-mail is required to be at least 5 characters
+                        </div>
+                        <div class="help-block"
+                               ng-show="createUserForm.confirmemail.$error.maxlength" 
+                               translate="global.messages.validate.email.maxlength">
+                            Your e-mail cannot be longer than 100 characters
+                        </div>
+		                <div class="help-block"
+		                       ng-show="createUserForm.confirmemail.$error.match && !createUserForm.confirmemail.$error.required  && !createUserForm.confirmemail.$error.minlength && !createUserForm.confirmemail.$error.maxlength"
+		                       >
+		                    Your email confirmation does not match your email
+		                </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label translate="global.form.newpassword">New password</label>
                     <input type="password" class="form-control" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
                            ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>

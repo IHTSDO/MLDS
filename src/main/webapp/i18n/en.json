@@ -390,7 +390,8 @@
         "subwelcome": "The gateway to access SNOMED CT Orientation",
         "form": {
         	"tos": "Agree to our <a href=\"/tos.html\" target=\"_blank\">Terms and Conditions</a>.",
-            "button": "Start Regististration"
+            "button": "Start Regististration",
+            "confirmemail": "E-mail (confirm)"
         },
         "messages": {
             "validate": {
