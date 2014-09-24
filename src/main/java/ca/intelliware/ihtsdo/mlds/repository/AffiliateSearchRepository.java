@@ -137,7 +137,19 @@ public class AffiliateSearchRepository {
 					.createQuery());
 			bool.should(queryBuilder.keyword()
 					.wildcard()
+					.onField("address.ALL").matching(token+"*")
+					.createQuery());
+			bool.should(queryBuilder.keyword()
+					.wildcard()
 					.onField("address.country.commonName").matching(token+"*")
+					.createQuery());
+			bool.should(queryBuilder.keyword()
+					.wildcard()
+					.onField("billingAddress.ALL").matching(token+"*")
+					.createQuery());
+			bool.should(queryBuilder.keyword()
+					.wildcard()
+					.onField("billingAddress.country.commonName").matching(token+"*")
 					.createQuery());
 			bool.should(queryBuilder.keyword()
 					.wildcard()

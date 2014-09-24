@@ -2,10 +2,13 @@ package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 
+@JsonIgnoreProperties({"confirmemail"})
 public class UserDTO {
 
     private String login;
