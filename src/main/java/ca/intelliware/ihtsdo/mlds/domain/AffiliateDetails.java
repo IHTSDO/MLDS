@@ -17,8 +17,12 @@ import javax.persistence.Table;
 import org.apache.lucene.analysis.standard.UAX29URLEmailAnalyzer;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Fields;
 import org.hibernate.search.annotations.IndexedEmbedded;
+
+import ca.intelliware.ihtsdo.mlds.search.AffiliateTypeFieldBridge;
+import ca.intelliware.ihtsdo.mlds.search.OrganizationTypeFieldBridge;
 
 
 @Entity
@@ -31,6 +35,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
     Long affiliateDetailsId;
 
 	@Enumerated(EnumType.STRING)
+	@Field(name="ALL",bridge=@FieldBridge(impl=AffiliateTypeFieldBridge.class))
 	AffiliateType type;
 
 	/** text for "Other" AffiliateType */
@@ -82,6 +87,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="organization_type")
+	@Field(name="ALL",bridge=@FieldBridge(impl=OrganizationTypeFieldBridge.class))
 	OrganizationType organizationType;
 	
 	@Column(name="organization_type_other")

@@ -27,7 +27,7 @@
 						<th>Files</th>
 						<th>Date Released</th>
 						<th>
-							
+							<i class="fa fa-cog"></i>
 						</th>
 					</tr>
 				</thead>
@@ -68,23 +68,14 @@
 	<table class="table table-striped table-bordered table-hover" ng-repeat="releaseVersion in versions.offline">
 				<thead>
 					<tr>
-						<th class="col-sm-1">Version</th>
-						<th class="col-sm-5">Description</th>
-						<th class="col-sm-3">Files <button class="btn btn-success btn-xs pull-right" ng-click="addReleaseFile(releaseVersion)" ng-hide="releaseVersion.publishedAt || !isEditableReleasePackage">
+						<th class="col-sm-2">Version</th>
+						<th class="col-sm-6">Description</th>
+						<th class="col-sm-2">Files <button class="btn btn-success btn-xs pull-right" ng-click="addReleaseFile(releaseVersion)" ng-hide="releaseVersion.publishedAt || !isEditableReleasePackage">
 						<i class="fa fa-plus"></i> Add File
 					</button></th>
 						<th class="col-sm-2">Date Released</th>
-						<th class="col-sm-1">
-							<div class="dropdown pull-right" ng-show="isEditableReleasePackage">
-								<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
-									<li><a ng-click="takeOnlineModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Publish Online</a></li>
-									<li><a ng-click="deleteVersionModal(releaseVersion)"><i class="fa fa-times"></i> Delete</a></li>
-								</ul>
-							</div>
+						<th >
+							<i class="fa fa-cog"></i>
 						</th>
 					</tr>
 				</thead>
@@ -101,7 +92,18 @@
 						</span>
 					</td>
 					<td>{{releaseVersion.createdAt | date:'medium'}}</td>
-					<td></td>
+					<td>						
+							<div class="dropdown pull-right" ng-show="isEditableReleasePackage">
+								<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
+									<li><a ng-click="takeOnlineModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Publish Online</a></li>
+									<li><a ng-click="deleteVersionModal(releaseVersion)"><i class="fa fa-times"></i> Delete</a></li>
+								</ul>
+							</div>
+					</td>
 				</tr>
 
 			</tbody>

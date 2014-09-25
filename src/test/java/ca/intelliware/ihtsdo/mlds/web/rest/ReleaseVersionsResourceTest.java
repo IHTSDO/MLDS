@@ -23,7 +23,7 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
-public class ReleasePackagesResource_ReleaseVersions_Test {
+public class ReleaseVersionsResourceTest {
 
     private MockMvc restReleasePackagesResource;
 
@@ -45,21 +45,21 @@ public class ReleasePackagesResource_ReleaseVersions_Test {
 	@Mock
 	ReleasePackageAuditEvents releasePackageAuditEvents;
 
-	ReleasePackagesResource releasePackagesResource;
+	ReleaseVersionsResource releaseVersionsResource;
 
 	@Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         
-        releasePackagesResource = new ReleasePackagesResource();
+        releaseVersionsResource = new ReleaseVersionsResource();
         
-        releasePackagesResource.releasePackageRepository = releasePackageRepository;
-        releasePackagesResource.releaseVersionRepository = releaseVersionRepository;
-        releasePackagesResource.authorizationChecker = authorizationChecker;
-        releasePackagesResource.currentSecurityContext = currentSecurityContext;
-        releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
+        releaseVersionsResource.releasePackageRepository = releasePackageRepository;
+        releaseVersionsResource.releaseVersionRepository = releaseVersionRepository;
+        releaseVersionsResource.authorizationChecker = authorizationChecker;
+        releaseVersionsResource.currentSecurityContext = currentSecurityContext;
+        releaseVersionsResource.releasePackageAuditEvents = releasePackageAuditEvents;
 
-        this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releasePackagesResource).build();
+        this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releaseVersionsResource).build();
     }
 
 	@Test
