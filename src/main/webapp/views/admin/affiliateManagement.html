@@ -43,7 +43,7 @@
 						<td>{{affiliate.affiliateId}}</td>
 						<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
 						<td>{{affiliate.standingState | enum:'affiliate.standingState.'}}</td>
-						<td>{{affiliate.application.type | enum:'affiliate.type.'}} - {{affiliate.application.subType | enum:'affiliate.subType.'}} {{affiliate.affiliateDetails.otherText}}</td>
+						<td>{{affiliateActiveDetails(affiliate).type | enum:'affiliate.type.'}} - {{affiliateActiveDetails(affiliate).subType | enum:'affiliate.subType.'}} {{affiliateActiveDetails(affiliate).otherText}}</td>
 						<td>{{affiliateActiveDetails(affiliate).address.country.commonName}}</td>
 						<td>{{affiliate.homeMember.key}}</td>
 						<td><a href="mailto:{{affiliate.affiliateDetails.email}}">{{affiliateActiveDetails(affiliate).email}}</a></td>
