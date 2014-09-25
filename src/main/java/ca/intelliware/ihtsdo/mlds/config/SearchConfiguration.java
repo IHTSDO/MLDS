@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 
+import ca.intelliware.ihtsdo.mlds.search.AngularTranslateService;
+
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.JdkFutureAdapters;
@@ -27,6 +29,9 @@ public class SearchConfiguration {
 	
 	/** Make sure our db migrations are up-to-date before we try to use Hibernate to rebuild the index */
 	@Resource SpringLiquibase liqubaseDependency;
+	
+	/** Used by FieldBridges, so must be configured before the index run */
+	@Resource AngularTranslateService angularTranslateService;
 	
 	@PostConstruct
 	public void recreateIndex() throws Exception {
