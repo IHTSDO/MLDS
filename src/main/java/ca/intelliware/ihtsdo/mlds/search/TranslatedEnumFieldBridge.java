@@ -15,10 +15,13 @@ abstract public class TranslatedEnumFieldBridge implements StringBridge {
 	
 	@Override
 	public String objectToString(Object object) {
-		// dumb injection to get around broken aspectJ @config
+		if (object == null) {
+			return null;
+		}
 		Enum<?> affiliateType = (Enum<?>) object;
 		String path = getBundleKeyPrefix() + affiliateType.name();
-		return AngularTranslateService.getInstance().lookup(Locale.ENGLISH,path);
+		AngularTranslateService translateInstance = AngularTranslateService.getInstance();
+		return translateInstance.lookup(Locale.ENGLISH,path);
 	}
 
 	abstract protected String getBundleKeyPrefix();
