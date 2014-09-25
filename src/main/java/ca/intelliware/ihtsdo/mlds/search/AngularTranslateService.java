@@ -28,7 +28,7 @@ public class AngularTranslateService {
 	ServletContext servletContext;
 	
 	@Resource
-	ObjectMapper objectMapper;
+	ObjectMapper objectMapper = new ObjectMapper();
 	
 	Map<String,TreeNode> loaded = Maps.newHashMap();
 
@@ -70,7 +70,8 @@ public class AngularTranslateService {
 	private TreeNode loadBundle(String language) {
 		URL resource;
 		try {
-			resource = servletContext.getResource("i18n/" + language + ".json");
+			String resourcePath = "/i18n/" + language + ".json";
+			resource = servletContext.getResource(resourcePath);
 			if (resource == null) {
 				return null;
 			}
@@ -82,6 +83,10 @@ public class AngularTranslateService {
 		} catch (IOException e) {
 			throw new RuntimeException("Misconfigured or unsupported language", e);
 		}
+	}
+
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
 	}
 
 }

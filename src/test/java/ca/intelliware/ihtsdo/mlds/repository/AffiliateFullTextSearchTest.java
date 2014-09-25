@@ -29,6 +29,7 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.search.AngularTranslateServiceSetup;
 
 import com.google.common.collect.Lists;
 
@@ -61,6 +62,11 @@ public class AffiliateFullTextSearchTest {
 		}
 	}
 
+	@Before
+	public void setupTranslations() {
+		new AngularTranslateServiceSetup().setup();
+	}
+	
 	@Test
 	public void findAffiliateByFirstName() throws Exception {
 		long ourInstance = System.currentTimeMillis();
