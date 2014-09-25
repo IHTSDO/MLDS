@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
+import javax.transaction.Transactional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,6 +41,7 @@ public class PasswordResetResource {
     		produces = MediaType.APPLICATION_JSON_VALUE)
 	@PermitAll
 	@Timed
+	@Transactional
 	public ResponseEntity<String> requestPasswordReset(@RequestBody Map<String,Object> params) {
 		String emailAddress = (String) params.get("email");
 		if (Strings.isNullOrEmpty(emailAddress)) {
@@ -52,6 +54,10 @@ public class PasswordResetResource {
 		}
 		
 		final String tokenKey = passwordResetService.createTokenForUser(user);
+		
+		// Activate the user.  If the activation email is lost, reset password is the obvious thing to try.
+		// Let's let them in.  Otherwise, they're lost forever.
+		user.setActivated(true);
 		
 		passwordResetEmailSender.sendPasswordResetEmail(user, tokenKey);
 		
