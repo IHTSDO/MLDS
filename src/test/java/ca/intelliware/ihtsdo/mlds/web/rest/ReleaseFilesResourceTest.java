@@ -27,9 +27,9 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
-public class ReleasePackagesResource_ReleaseFiles_Test {
+public class ReleaseFilesResourceTest {
 
-    private MockMvc restReleasePackagesResource;
+    private MockMvc restReleaseFilesResource;
 
 	@Mock
 	ReleasePackageRepository releasePackageRepository;
@@ -55,24 +55,22 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
 	@Mock
 	UserMembershipAccessor userMembershipAccessor;
 
-	ReleasePackagesResource releasePackagesResource;
+	ReleaseFilesResource releaseFilesResource;
 
 	@Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         
-        releasePackagesResource = new ReleasePackagesResource();
+        releaseFilesResource = new ReleaseFilesResource();
         
-        releasePackagesResource.releasePackageRepository = releasePackageRepository;
-        releasePackagesResource.releaseVersionRepository = releaseVersionRepository;
-        releasePackagesResource.releaseFileRepository = releaseFileRepository;
-        releasePackagesResource.authorizationChecker = authorizationChecker;
-        releasePackagesResource.currentSecurityContext = currentSecurityContext;
-        releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
-        releasePackagesResource.uriDownloader = uriDownloader;
-        releasePackagesResource.userMembershipAccessor = userMembershipAccessor;
+        releaseFilesResource.releaseVersionRepository = releaseVersionRepository;
+        releaseFilesResource.releaseFileRepository = releaseFileRepository;
+        releaseFilesResource.authorizationChecker = authorizationChecker;
+        releaseFilesResource.releasePackageAuditEvents = releasePackageAuditEvents;
+        releaseFilesResource.uriDownloader = uriDownloader;
+        releaseFilesResource.userMembershipAccessor = userMembershipAccessor;
 
-        this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releasePackagesResource).build();
+        this.restReleaseFilesResource = MockMvcBuilders.standaloneSetup(releaseFilesResource).build();
     }
 
 	@Test
@@ -80,7 +78,7 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
 		ReleaseFile releaseFile = withReleaseFileWithIdOf(3L);
 		releaseFile.setDownloadUrl("http://test.com/file");
 
-		restReleasePackagesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
+		restReleaseFilesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
 				.contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -98,7 +96,7 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
 	public void downloadReleaseFileShouldLogToAudit() throws Exception {
 		withReleaseFileWithIdOf(3L);
 		
-		restReleasePackagesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
+		restReleaseFilesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
 				.contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -114,7 +112,7 @@ public class ReleasePackagesResource_ReleaseFiles_Test {
 		Mockito.doThrow(new IllegalStateException("ACCOUNT DEACTIVATED")).when(authorizationChecker).checkCanDownloadReleaseVersion(Mockito.any(ReleaseVersion.class));
 
 		try {
-			restReleasePackagesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
+			restReleaseFilesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
 					.contentType(MediaType.APPLICATION_JSON)
 	                .accept(MediaType.APPLICATION_JSON))
 	                .andExpect(status().is5xxServerError());
