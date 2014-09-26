@@ -12,6 +12,7 @@ server:
     port: 8080
 
 
+# For mail sending
 async:
     corePoolSize: 2
     maxPoolSize: 50

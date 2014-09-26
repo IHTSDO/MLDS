@@ -37,7 +37,7 @@
 					<div id="collapseIndividual" collapse="collapsePanel.type"
 						class="panel-collapse collapse in">
 						<div class="panel-body">
-							<h4>How will you be using the extension? FIXME COPY</h4>
+							<h4>Please describe why you would like access to this extension.</h4>
 							<div class="form-group">
 								<label>Purpose of Use:</label>
 								<textarea class="form-control" rows="10" cols="135" required name="reason" ng-disabled="readOnly" ng-minlength="3" ng-model="extensionForm.reason"></textarea>
@@ -55,7 +55,6 @@
 						<h3 class="panel-title">{{extensionForm.member.key | enum:'global.member.'}} Extension Agreement</h3>
 					</div>
 					<div class="panel-body">
-						<p class="bg-warning text-warning">Extension licence abstract -- explain importance of terms. Describe reporting and possible $$$ obligations! FIXME - copy</p>
 						<p>
 							<a ng-click="viewLicence(extensionForm.member.key)"
 								target="_blank" class="btn btn-default btn-block">{{extensionForm.member.key | enum:'global.member.'}} Extension Licence</a>
