@@ -35,7 +35,7 @@ public class DatabaseHealthCheckIndicator extends HealthCheckIndicator {
         queries.put("Microsoft SQL Server", "SELECT 1");
     }
 
-    private static String DEFAULT_QUERY = "SELECT 'Hello'";
+    private final static String DEFAULT_QUERY = "SELECT 'Hello'";
 
     private JdbcTemplate jdbcTemplate;
     private String query = null;
