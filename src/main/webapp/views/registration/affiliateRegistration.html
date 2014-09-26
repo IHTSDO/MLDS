@@ -20,13 +20,13 @@
           </div>
           <div class="panel-collapse collapse in">
             <div class="panel-body">
-              <h4>How will you be using the standard? FIXME COPY</h4>
+              <h4>Please select the conditions that the product will be used under:</h4>
               <div class="form-group">
-                <label>Type:</label> <select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.subType = ''; affiliateTypeChanged()" required="">
-                  <option value="COMMERCIAL">Commercial</option>
-                  <option value="ACADEMIC">Academic</option>
-                  <option value="OTHER">Other</option>
-                  <option value="INDIVIDUAL">Individual</option>
+                <label>Usage Type:</label> <select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.subType = ''; affiliateTypeChanged()" required="">
+                  <option value="COMMERCIAL">Commercial - Developer, Vender or Terminology provider</option>
+                  <option value="ACADEMIC">Academic - for internal use within an Organization. (Educational, Research, Development or Healthcare Provider)</option>
+                  <option value="OTHER">Other - Use not stated in other options</option>
+                  <option value="INDIVIDUAL">Individual - Personal, Educational or Research</option>
                 </select>
                 <p ng-show="affiliateApplicationForm.type.$error.required && affiliateApplicationForm.attempted" class="help-block">
                   Usage type field is required.
@@ -80,12 +80,12 @@
         <div class="panel panel-primary applicant">
           <div class="panel-heading">
             <h4 class="panel-title">
-            	<span> Home Country FIXME COPY</span>
+            	<span>Home Country</span>
             </h4>
           </div>
           <div class="panel-collapse collapse in">
             <div class="panel-body">
-              <h4>What is your home country? FIXME COPY</h4>
+              <h4>Please state the country(s)  that will use this product</h4>
               <div class="form-group">
                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.country" required="" name="country" placeholder="Country"
                    		typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit> 
@@ -540,9 +540,6 @@
           </h3>
         </div>
         <div class="panel-body">
-          <p class="bg-warning text-warning">
-            Licence abstract -- explain importance of terms. Describe reporting and possible $$$ obligations! FIXME - copy
-          </p>
           <p>
             <a ng-click="viewLicence(affiliateform.affiliateDetails.address.country.member.key)" target="_blank" class="btn btn-default btn-block">SNOMED Licence</a>
           </p>
