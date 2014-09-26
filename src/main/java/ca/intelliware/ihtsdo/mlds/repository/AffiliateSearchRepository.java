@@ -123,7 +123,6 @@ public class AffiliateSearchRepository {
 					.createQuery();
 			bool.should(allKeywordQuery);
 		} catch (EmptyQueryException e) {
-			System.out.println(e);
 			// ignore it, and allow the full query since we have a limit.
 		}
 

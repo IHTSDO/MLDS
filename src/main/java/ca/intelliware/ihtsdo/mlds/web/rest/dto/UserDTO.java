@@ -47,7 +47,7 @@ public class UserDTO {
         this.email = email;
         this.langKey = langKey;
         this.roles = roles;
-        this.setInitialUsagePeriod(submissionPeriod);
+        this.initialUsagePeriod = submissionPeriod;
         this.member = staffOrAdminMember;
     }
 
