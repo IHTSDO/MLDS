@@ -1,0 +1,17 @@
+Walkthrough notes
+- open a text file in docs
+- dev setup
+- build
+- Startup
+- config
+- liquibase
+- Application
+- Resource classes
+- angular bootstrap
+
+- auth - db + remote
+
+- auth checker
+
+- search
+
