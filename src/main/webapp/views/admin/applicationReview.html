@@ -12,7 +12,7 @@
 			You can view applications submitted to other Member Registration Centres, but you cannot process them.
 		</div>
 		<div class="alert alert-warning" ng-show="showNonPendingAlert && !showNonMemberAlert">
-			You can view applications with the {{application.approvalState | enum:'approval.state.'}} status, but you cannot process them. FIXME
+			You can view applications with the Change Requested Status but they cannot be processed until approved.
 		</div>
 
 		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>

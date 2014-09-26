@@ -5,7 +5,7 @@
 <div class="modal-body">
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   
-  <p>Retract Instructions -- FIXME copy Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nulla dolor, suscipit ac leo id, pretium pellentesque mauris. Sed semper lorem eget neque molestie placerat.</p>
+  <p>Retract Instructions - Are you sure you want to re-tract this report? You will return to the same usage report to edit and re-submit. For a new time period you must submit a new declaration report.</p>
   
   <p><strong>Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</strong></p>
 </div>
