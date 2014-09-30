@@ -1,5 +1,8 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Bean to wrap json response from https://usermanagement.ihtsdotools.org/security-web/query/users/Bob
@@ -14,7 +17,10 @@ package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
  * 	"token":"411f228b-7e48-4449-8432-8f7416692be9"
  * }
  */
-public class CentralAuthUserInfo {
+@JsonIgnoreProperties(ignoreUnknown=true)
+public class CentralAuthUserInfo implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	static enum Status {
 		ENABLED, DISABLED;
 	}
