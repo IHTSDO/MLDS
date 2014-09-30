@@ -1,7 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
-import java.io.Serializable;
-
 
 /**
  * Bean to wrap json response from https://usermanagement.ihtsdotools.org/security-web/query/users/Bob
@@ -12,12 +10,11 @@ import java.io.Serializable;
  * 	"givenName":"Bob",
  * 	"middleName":"the",
  * 	"surname":"Bobbin",
+ *      "parentDir":"OTF Users",
  * 	"token":"411f228b-7e48-4449-8432-8f7416692be9"
  * }
  */
-public class CentralAuthUserInfo implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+public class CentralAuthUserInfo {
 	static enum Status {
 		ENABLED, DISABLED;
 	}
@@ -28,6 +25,7 @@ public class CentralAuthUserInfo implements Serializable {
 	String middleName;
 	String surname;
 	String token;
+	String parentDir;
 	
 	public String getName() {
 		return name;
@@ -70,5 +68,11 @@ public class CentralAuthUserInfo implements Serializable {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public String getParentDir() {
+		return parentDir;
+	}
+	public void setParentDir(String parentDir) {
+		this.parentDir = parentDir;
 	}
 }
