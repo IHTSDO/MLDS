@@ -125,7 +125,7 @@
                     <label>Alternate Email:</label> 
                     <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" required="" name="contactAlternateEmail" 
                     	ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit ng-maxlength="100" 
-                    	unique="{{[affiliateform.affiliateDetails.wmail, affiliateform.affiliateDetails.thirdEmail]}}">
+                    	unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.thirdEmail]}}">
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.contactAlternateEmail.$error.required" class="help-block">
                         Required field.
