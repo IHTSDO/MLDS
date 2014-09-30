@@ -1,9 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Bean to wrap json response
  * {"perms":[{"app":"Release","role":"Manager","member":"UK"}]}
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class CentralAuthUserPermission {
 	String app;
 	String role;
