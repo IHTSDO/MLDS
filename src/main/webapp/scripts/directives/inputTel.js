@@ -12,6 +12,7 @@ angular.module('MLDS').directive('input', function() {
               ngModel.$setViewValue(inputValue);
             }      
             element.intlTelInput({
+            	preferredCountries:[]
             });
             element.on('focus blur keyup change', function() {
                 scope.$apply(read);
