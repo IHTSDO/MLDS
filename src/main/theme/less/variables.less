@@ -6,11 +6,11 @@
 //== Colors
 //
 
-@blue:			 #4372aa;
+@blue:			 #00a7e1;
 @dark-blue:      #384042;
 @light-blue:     #04ADD8;
-@green:			 #77c548;
-@orange:		 #fac567;
+@green:			 #3cb878;
+@orange:		 #f26c4f;
 @red: 	 		 #f74e4d;
 @cloud:			 #EDEDED;
 @purple: 		 #960D3C;
@@ -27,7 +27,7 @@
 @gray-light:             lighten(#000, 60%);   // #999
 @gray-lighter:           lighten(#000, 93.5%); // #eee
 
-@brand-primary:         @purple;
+@brand-primary:         @blue;
 @brand-success:         @green;
 @brand-info:            @light-blue;
 @brand-warning:         @orange;
@@ -54,33 +54,33 @@
 //
 //## Font, line-height, and color for body text, headings, and more.
 @font-face {
-    font-family: 'cabinbold';
-    src: url('fonts/cabin-bold-webfont.eot');
-    src: url('fonts/cabin-bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/cabin-bold-webfont.woff') format('woff'),
-         url('fonts/cabin-bold-webfont.ttf') format('truetype'),
-         url('fonts/cabin-bold-webfont.svg#cabinbold') format('svg');
+    font-family: 'robotobold';
+    src: url('fonts/Roboto-Bold-webfont.eot');
+    src: url('fonts/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Roboto-Bold-webfont.woff') format('woff'),
+         url('fonts/Roboto-Bold-webfont.ttf') format('truetype'),
+         url('fonts/Roboto-Bold-webfont.svg#robotobold') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
-    font-family: 'cabinmedium';
-    src: url('fonts/cabin-medium-webfont.eot');
-    src: url('fonts/cabin-medium-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/cabin-medium-webfont.woff') format('woff'),
-         url('fonts/cabin-medium-webfont.ttf') format('truetype'),
-         url('fonts/cabin-medium-webfont.svg#cabinmedium') format('svg');
+   font-family: 'robotomedium';
+    src: url('fonts/Roboto-Medium-webfont.eot');
+    src: url('fonts/Roboto-Medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Roboto-Medium-webfont.woff') format('woff'),
+         url('fonts/Roboto-Medium-webfont.ttf') format('truetype'),
+         url('fonts/Roboto-Medium-webfont.svg#robotomedium') format('svg');
     font-weight: normal;
     font-style: normal;
 
 }
 @font-face {
-    font-family: 'cabinregular';
-    src: url('fonts/cabin-regular-webfont.eot');
-    src: url('fonts/cabin-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/cabin-regular-webfont.woff') format('woff'),
-         url('fonts/cabin-regular-webfont.ttf') format('truetype'),
-         url('fonts/cabin-regular-webfont.svg#cabinregular') format('svg');
+        font-family: 'robotoregular';
+    src: url('fonts/Roboto-Regular-webfont.eot');
+    src: url('fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Roboto-Regular-webfont.woff') format('woff'),
+         url('fonts/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('fonts/Roboto-Regular-webfont.svg#robotoregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -107,7 +107,7 @@
 @line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
 
 //** By default, this inherits from the `<body>`.
-@headings-font-family:   "cabinmedium";
+@headings-font-family:   "robotomedium";
 @headings-font-weight:    500;
 @headings-line-height:    1.1;
 @headings-color:          darken(@blue, 10%);	
@@ -188,12 +188,12 @@
 @btn-default-border:             transparent;
 
 @btn-primary-color:              #fff;
-@btn-primary-bg:                 @purple;
-@btn-primary-border:             darken(@purple, 5%);
+@btn-primary-bg:                 @brand-primary;
+@btn-primary-border:             darken(@brand-primary, 5%);
 
-@btn-success-color:              #fff;
-@btn-success-bg:                 @brand-success;
-@btn-success-border:             darken(@btn-success-bg, 5%);
+@btn-success-color:              @green;
+@btn-success-bg:                 @white;
+@btn-success-border:             darken(@green, 5%);
 
 @btn-info-color:                 #fff;
 @btn-info-bg:                    @brand-info;
@@ -385,8 +385,8 @@
 
 // Navbar links
 @navbar-default-link-color:                darken(@blue, 6.5%);
-@navbar-default-link-hover-color:          #fff;
-@navbar-default-link-hover-bg:             @brand-primary;
+@navbar-default-link-hover-color:          @gray-dark;
+@navbar-default-link-hover-bg:             @gray-lighter;
 @navbar-default-link-active-color:         #555;
 @navbar-default-link-active-bg:            lighten(#C0CADD, 6.5%);
 @navbar-default-link-disabled-color:       #ccc;
