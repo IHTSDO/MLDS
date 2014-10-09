@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
 
 @Service
 public class AffiliateMembershipCalculator {
@@ -25,17 +27,17 @@ public class AffiliateMembershipCalculator {
 		Set<Member> members = new HashSet<Member>();
 		for (Application application : affiliate.getApplications()) {
 			if (Objects.equal(application.getApprovalState(), ApprovalState.APPROVED)) {
-				members.add(actingMembership(application));
+				Iterables.addAll(members, actingMemberships(application));
 			}
 		}
 		return members;
 	}
 
-	private Member actingMembership(Application application) {
+	private Iterable<Member> actingMemberships(Application application) {
 		if (Objects.equal(application.getApplicationType(), Application.ApplicationType.PRIMARY)) {
-			return memberRepository.findOneByKey(Member.KEY_IHTSDO);
+			return Arrays.asList(memberRepository.findOneByKey(Member.KEY_IHTSDO),application.getMember());
 		} else {
-			return application.getMember();
+			return Arrays.asList(application.getMember());
 		}
 	}
 }
