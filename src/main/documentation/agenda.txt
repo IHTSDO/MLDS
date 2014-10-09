@@ -1,7 +1,12 @@
 Walkthrough notes
-- open a text file in docs
-- dev setup
-- build
+
+data management
+- country list
+- members
+- user local/remote
+- local user: active flag
+
+DB
 - Startup
 - config
 - liquibase
@@ -10,8 +15,6 @@ Walkthrough notes
 - angular bootstrap
 
 - auth - db + remote
-
 - auth checker
 
 - search
-
