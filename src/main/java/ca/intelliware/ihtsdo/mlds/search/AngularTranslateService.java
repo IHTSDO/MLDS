@@ -37,8 +37,15 @@ public class AngularTranslateService {
 	}
 	
 	public AngularTranslateService() {
-		// record ourselves as a singleton instance for non-spring beans to use
-		instance = this;
+		setSingletonInstance(this);
+	}
+
+	/** 
+	 * record ourselves as a singleton instance for non-spring beans to use.
+	 * @see TranslatedEnumFieldBridge
+	 * */ 
+	private static void setSingletonInstance(AngularTranslateService angularTranslateService) {
+		instance = angularTranslateService;
 	}
 
 	public String lookup(Locale locale, String path) {
