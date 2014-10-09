@@ -86,12 +86,12 @@ public class AffiliateMembershipCalculatorTest {
     }
 
     @Test
-    public void acceptedMembershipsShouldUseIhtsdoForPrimary() {
+    public void acceptedMembershipsShouldIncludeIhtsdoForPrimary() {
     	withPrimaryApplication(france, ApprovalState.APPROVED);
     	
     	Set<Member> result = affiliateMembershipCalculator.acceptedMemberships(affiliate);
     	
-    	Assert.assertThat(result, Matchers.contains(ihtsdo));
+    	Assert.assertThat(result, Matchers.contains(ihtsdo, france));
     }
 
     private Application withPrimaryApplication(Member member, ApprovalState approvalState) {

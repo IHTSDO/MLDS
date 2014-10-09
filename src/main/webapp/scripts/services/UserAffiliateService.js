@@ -26,6 +26,8 @@ angular.module('MLDS')
 	$rootScope.$on('event:auth-loginCancelled', loadUserAffiliate);
 
 	var initializeMemberships = function initializeMemberships() {
+		var primaryApplicationMembers;
+		
 		// Including memberships from extension applications only as IHTSDO is always primary application
 		service.approvedMemberships = _.chain(service.affiliate.applications)
 			.filter(ApplicationUtilsService.isExtensionApplication)
@@ -40,10 +42,14 @@ angular.module('MLDS')
 
 		// Include IHTSDO international membership from primary application
 		if (service.affiliate.application) {
+			primaryApplicationMembers = [MemberService.ihtsdoMember];
+			if (service.affiliate.application.member && !MemberService.isMemberEqual(service.affiliate.application.member, MemberService.ihtsdoMember)) {
+				primaryApplicationMembers.push(service.affiliate.application.member);
+			}
 			if (ApplicationUtilsService.isApplicationApproved(service.affiliate.application)) {
-				service.approvedMemberships.push(MemberService.ihtsdoMember);
+				service.approvedMemberships = service.approvedMemberships.concat(primaryApplicationMembers);
 			} else if (ApplicationUtilsService.isApplicationIncomplete(service.affiliate.application)) {
-				service.incompleteMemberships.push(MemberService.ihtsdoMember);
+				service.incompleteMemberships = service.incompleteMemberships.concat(primaryApplicationMembers);
 			}
 		}
 	};
