@@ -24,9 +24,9 @@ import ca.intelliware.ihtsdo.mlds.security.UserNotActivatedException;
  * Authenticate a user from the database.
  */
 @Component("userDetailsService")
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class DBUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
+    private final Logger log = LoggerFactory.getLogger(DBUserDetailsService.class);
 
     @Inject
     private UserRepository userRepository;

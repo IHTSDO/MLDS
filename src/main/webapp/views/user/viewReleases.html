@@ -38,7 +38,7 @@
 								<span class="btn-sm btn-warning pull-right" ng-show="isAccountDeactivated">Account Deactivated</span>
 							</div>
 							<div ng-show="!isAccountDeactivated">
-								<span class="btn-sm btn-warning pull-right" ng-show="isPrimaryApplicationWaitingForApplicant">Primary application is needs attention</span>
+								<span class="btn-sm btn-warning pull-right" ng-show="isPrimaryApplicationWaitingForApplicant">Primary application needs attention</span>
 								<span class="btn-sm btn-warning pull-right" ng-show="!isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved">Primary application is being processed</span>
 								<button class="btn-sm btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved && !isIHTSDOPackage" ng-click="utils.openExtensionApplication(releasePackage)">			
 									Apply for extension

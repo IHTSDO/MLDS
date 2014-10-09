@@ -3,29 +3,8 @@ package ca.intelliware.ihtsdo.mlds.service;
 import java.util.HashSet;
 import java.util.Map;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-
-import org.apache.lucene.analysis.standard.UAX29URLEmailAnalyzer;
-import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Fields;
-import org.hibernate.search.annotations.IndexedEmbedded;
-
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateSubType;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
-import ca.intelliware.ihtsdo.mlds.domain.AgreementType;
-import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
-import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
