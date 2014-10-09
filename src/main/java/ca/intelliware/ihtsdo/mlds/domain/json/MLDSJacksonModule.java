@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 
 public class MLDSJacksonModule extends SimpleModule {
 	final EntityManager em;
-	final CurrentSecurityContext currentSecurityContext;
+	final transient CurrentSecurityContext currentSecurityContext;
 	private static final long serialVersionUID = 1L;
 
 	public MLDSJacksonModule(EntityManager em, CurrentSecurityContext securityConext) {

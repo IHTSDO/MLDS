@@ -102,7 +102,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
         }
 
         @PostConstruct
-        private void init() {
+        protected void init() {
             Boolean graphiteEnabled = propertyResolver.getProperty(PROP_GRAPHITE_ENABLED, Boolean.class, false);
             if (graphiteEnabled) {
                 log.info("Initializing Metrics Graphite reporting");
