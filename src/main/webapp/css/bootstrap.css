@@ -1,21 +1,21 @@
 @font-face {
-  font-family: 'cabinbold';
-  src: url('fonts/cabin-bold-webfont.eot');
-  src: url('fonts/cabin-bold-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/cabin-bold-webfont.woff') format('woff'), url('fonts/cabin-bold-webfont.ttf') format('truetype'), url('fonts/cabin-bold-webfont.svg#cabinbold') format('svg');
+  font-family: 'robotobold';
+  src: url('fonts/Roboto-Bold-webfont.eot');
+  src: url('fonts/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/Roboto-Bold-webfont.woff') format('woff'), url('fonts/Roboto-Bold-webfont.ttf') format('truetype'), url('fonts/Roboto-Bold-webfont.svg#robotobold') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'cabinmedium';
-  src: url('fonts/cabin-medium-webfont.eot');
-  src: url('fonts/cabin-medium-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/cabin-medium-webfont.woff') format('woff'), url('fonts/cabin-medium-webfont.ttf') format('truetype'), url('fonts/cabin-medium-webfont.svg#cabinmedium') format('svg');
+  font-family: 'robotomedium';
+  src: url('fonts/Roboto-Medium-webfont.eot');
+  src: url('fonts/Roboto-Medium-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/Roboto-Medium-webfont.woff') format('woff'), url('fonts/Roboto-Medium-webfont.ttf') format('truetype'), url('fonts/Roboto-Medium-webfont.svg#robotomedium') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'cabinregular';
-  src: url('fonts/cabin-regular-webfont.eot');
-  src: url('fonts/cabin-regular-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/cabin-regular-webfont.woff') format('woff'), url('fonts/cabin-regular-webfont.ttf') format('truetype'), url('fonts/cabin-regular-webfont.svg#cabinregular') format('svg');
+  font-family: 'robotoregular';
+  src: url('fonts/Roboto-Regular-webfont.eot');
+  src: url('fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/Roboto-Regular-webfont.woff') format('woff'), url('fonts/Roboto-Regular-webfont.ttf') format('truetype'), url('fonts/Roboto-Regular-webfont.svg#robotoregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -289,7 +289,7 @@ html {
   position: relative;
 }
 body {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "robotoregular", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
@@ -382,10 +382,10 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "cabinmedium";
+  font-family: 'robotobold';
   font-weight: 500;
   line-height: 1.1;
-  color: #355985;
+  color: #000000;
 }
 h1 small,
 h2 small,
@@ -522,10 +522,10 @@ cite {
   color: #999999;
 }
 .text-primary {
-  color: #960d3c;
+  color: #4372aa;
 }
 a.text-primary:hover {
-  color: #670929;
+  color: #355985;
 }
 .text-success {
   color: #468847;
@@ -553,11 +553,11 @@ a.text-danger:hover {
 }
 .bg-primary {
   color: #fff;
-  background-color: #960d3c;
+  background-color: #4372aa;
   padding: 15px;
 }
 a.bg-primary:hover {
-  background-color: #670929;
+  background-color: #355985;
 }
 .bg-success {
   background-color: #dff0d8;
@@ -2024,12 +2024,11 @@ select[multiple].input-lg {
   vertical-align: middle;
   cursor: pointer;
   background-image: none;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   white-space: nowrap;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
-  border-radius: 4px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -2106,18 +2105,18 @@ fieldset[disabled] .btn-default.active {
   background-color: #555555;
 }
 .btn-primary {
-  color: #ffffff;
-  background-color: #960d3c;
-  border-color: #7f0b33;
+  color: #4372aa;
+  background-color: #ffffff;
+  border-color: #4372aa;
 }
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
-  color: #ffffff;
-  background-color: #700a2d;
-  border-color: #46061c;
+  color: #4372aa;
+  background-color: #ebebeb;
+  border-color: #32557e;
 }
 .btn-primary:active,
 .btn-primary.active,
@@ -2139,26 +2138,26 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-  background-color: #960d3c;
-  border-color: #7f0b33;
+  background-color: #ffffff;
+  border-color: #4372aa;
 }
 .btn-primary .badge {
-  color: #960d3c;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: #4372aa;
 }
 .btn-success {
-  color: #ffffff;
-  background-color: #77c548;
-  border-color: #6ab93b;
+  color: #77c548;
+  background-color: #ffffff;
+  border-color: #77c548;
 }
 .btn-success:hover,
 .btn-success:focus,
 .btn-success:active,
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
-  color: #ffffff;
-  background-color: #63ad37;
-  border-color: #4f8a2c;
+  color: #77c548;
+  background-color: #ebebeb;
+  border-color: #5b9e32;
 }
 .btn-success:active,
 .btn-success.active,
@@ -2180,15 +2179,15 @@ fieldset[disabled] .btn-success:active,
 .btn-success.disabled.active,
 .btn-success[disabled].active,
 fieldset[disabled] .btn-success.active {
-  background-color: #77c548;
-  border-color: #6ab93b;
+  background-color: #ffffff;
+  border-color: #77c548;
 }
 .btn-success .badge {
-  color: #77c548;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: #77c548;
 }
 .btn-info {
-  color: #ffffff;
+  color: #4372aa;
   background-color: #04add8;
   border-color: #0499bf;
 }
@@ -2197,7 +2196,7 @@ fieldset[disabled] .btn-success.active {
 .btn-info:active,
 .btn-info.active,
 .open .dropdown-toggle.btn-info {
-  color: #ffffff;
+  color: #4372aa;
   background-color: #038db0;
   border-color: #026983;
 }
@@ -2226,7 +2225,7 @@ fieldset[disabled] .btn-info.active {
 }
 .btn-info .badge {
   color: #04add8;
-  background-color: #ffffff;
+  background-color: #4372aa;
 }
 .btn-warning {
   color: #b37406;
@@ -2348,21 +2347,18 @@ fieldset[disabled] .btn-link:focus {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
-  border-radius: 6px;
 }
 .btn-sm,
 .btn-group-sm > .btn {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
-  border-radius: 3px;
 }
 .btn-xs,
 .btn-group-xs > .btn {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
-  border-radius: 3px;
 }
 .btn-block {
   display: block;
@@ -3966,29 +3962,33 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #ffffff;
 }
 .navbar-default .navbar-brand {
-  color: #3a6292;
+  color: #4372aa;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #2b4a6e;
+  color: #355985;
   background-color: transparent;
 }
 .navbar-default .navbar-text {
-  color: #960d3c;
+  color: #4372aa;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #3a6292;
+  color: #4372aa;
+  height: 66px;
+  line-height: 3;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #ffffff;
-  background-color: #960d3c;
+  color: #555555;
+  background-color: #eeeeee;
+  border-left: 1px solid #999999;
+  border-right: 1px solid #999999;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #555555;
-  background-color: #d6dce9;
+  background-color: #999999;
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
@@ -4013,23 +4013,23 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  background-color: #d6dce9;
+  background-color: #999999;
   color: #555555;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #3a6292;
+    color: #4372aa;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #ffffff;
-    background-color: #960d3c;
+    color: #555555;
+    background-color: #eeeeee;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #555555;
-    background-color: #d6dce9;
+    background-color: #999999;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -4039,10 +4039,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default .navbar-link {
-  color: #3a6292;
+  color: #4372aa;
 }
 .navbar-default .navbar-link:hover {
-  color: #ffffff;
+  color: #555555;
 }
 .navbar-inverse {
   background-color: #384042;
@@ -4199,8 +4199,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .pagination > .active > span:focus {
   z-index: 2;
   color: #ffffff;
-  background-color: #960d3c;
-  border-color: #960d3c;
+  background-color: #4372aa;
+  border-color: #4372aa;
   cursor: default;
 }
 .pagination > .disabled > span,
@@ -4315,13 +4315,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #808080;
 }
 .label-primary {
-  background-color: #960d3c;
+  background-color: #4372aa;
   letter-spacing: 0.0683em;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "robotoregular", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 .label-primary[href]:hover,
 .label-primary[href]:focus {
-  background-color: #670929;
+  background-color: #355985;
 }
 .label-success {
   background-color: #77c548;
@@ -4568,7 +4568,7 @@ a.thumbnail.active {
   line-height: 20px;
   color: #ffffff;
   text-align: center;
-  background-color: #960d3c;
+  background-color: #4372aa;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
@@ -5988,7 +5988,7 @@ a.tooltip span {
   border-radius: 6px;
 }
 #main-content {
-  border-top: 2px solid #960d3c;
+  border-top: 2px solid #4372aa;
   background-color: #f5f5f5;
 }
 .form-welcome {
