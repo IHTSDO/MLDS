@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
