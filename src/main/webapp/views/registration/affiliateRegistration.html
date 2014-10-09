@@ -183,7 +183,8 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <input class="form-control" type="tel" required="" name="contactPhone" ng-max-length="255" 
-                    	ng-model="affiliateform.affiliateDetails.landlineNumber" auto-submit>
+                    	ng-model="affiliateform.affiliateDetails.landlineNumber" auto-submit
+                    	tel-country-model="affiliateform.affiliateDetails.address.country.isoCode2">
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.contactPhone.$error.required" class="help-block">
                         Required field.
@@ -200,7 +201,8 @@
                 <div class="col-md-2">
                   <div class="form-group">
                     <input class="form-control col-md-2" placeholder="Extension" name="contactExtension" ng-maxlength="255"
-                    	ng-model="affiliateform.affiliateDetails.landlineExtension" auto-submit>
+                    	ng-model="affiliateform.affiliateDetails.landlineExtension" auto-submit
+                    	tel-country-model="affiliateform.affiliateDetails.address.country.isoCode2">
                    	<p ng-show="affiliateApplicationForm.contactExtension.$error.maxLength" class="help-block">
 		                  Input value is too long.
 		                </p>
@@ -216,7 +218,8 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <input class="form-control" type="tel" name="mobilePhone" ng-maxlength="255"
-                    	ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.mobileNumber" auto-submit>
+                    	ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.mobileNumber" auto-submit
+                    	tel-country-model="affiliateform.affiliateDetails.address.country.isoCode2">
                     <div ng-show="affiliateApplicationForm.attempted">
                       <p ng-show="affiliateApplicationForm.mobilePhone.$error.required" class="help-block">
                         Required field.

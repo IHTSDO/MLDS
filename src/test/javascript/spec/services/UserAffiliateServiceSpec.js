@@ -96,7 +96,7 @@ describe('UserAffiliateService Tests ', function () {
     		expect(UserAffiliateService.incompleteMemberships).toEqual([franceMember, swedenMember]);
     	});
     	
-    	it('should confer ihtsdo approved membership with primary application to a territory', function() {
+    	it('should confer ihtsdo and territorial approved membership with primary application to a territory', function() {
     		var primary = {
 	            	   approvalState: 'APPROVED',
 	            	   applicationType: 'PRIMARY',
@@ -109,7 +109,7 @@ describe('UserAffiliateService Tests ', function () {
     		};
     		UserAffiliateService.setAffiliate(affiliate);
     		
-    		expect(UserAffiliateService.approvedMemberships).toEqual([ihtsdoMember]);
+    		expect(UserAffiliateService.approvedMemberships).toEqual([ihtsdoMember, swedenMember]);
     		expect(UserAffiliateService.incompleteMemberships).toEqual([]);
     	});
 
@@ -127,10 +127,10 @@ describe('UserAffiliateService Tests ', function () {
     		UserAffiliateService.setAffiliate(affiliate);
     		
     		expect(UserAffiliateService.approvedMemberships).toEqual([]);
-    		expect(UserAffiliateService.incompleteMemberships).toEqual([ihtsdoMember]);
+    		expect(UserAffiliateService.incompleteMemberships).toEqual([ihtsdoMember, swedenMember]);
     	});
     	
-    	it('should confer ihtsdo incomplete membership if only have territory membership', function() {
+    	it('should confer ihtsdo complete membership if only have territory membership', function() {
     		var primary = {
 	            	   approvalState: 'APPROVED',
 	            	   applicationType: 'PRIMARY',
@@ -139,18 +139,13 @@ describe('UserAffiliateService Tests ', function () {
     		affiliate = {
 				application:primary,
     			applications: [
-    			               primary,
-    			               {
-    			            	   approvalState: 'SUBMITTED',
-    			            	   applicationType: 'EXTENSION',
-    			            	   member: swedenMember
-    			               },
+    			               primary
     			               ]	
     		};
     		UserAffiliateService.setAffiliate(affiliate);
     		
-    		expect(UserAffiliateService.approvedMemberships).toEqual([ihtsdoMember]);
-    		expect(UserAffiliateService.incompleteMemberships).toEqual([swedenMember]);
+    		expect(UserAffiliateService.approvedMemberships).toEqual([ihtsdoMember,swedenMember]);
+    		expect(UserAffiliateService.incompleteMemberships).toEqual([]);
     	});
 
     	it('should be ignore REJECTED applications', function() {
