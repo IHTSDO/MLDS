@@ -4,13 +4,11 @@ MLDS
 Member Licensing &amp; Distribution Service
 
 
-##Development Environment Setup
+##Developer Environment Setup
 
-Please refer to [Development Setup](src/main/documentation/dev-setup.md "Dev-Setup")
+Please refer to [Developer Setup](src/main/documentation/Developer-setup.md)
+
+## Building and deploying
+Please refer to [Build/deploy](src/main/documentation/Build-deploy.md)
 
 ## Authentication
-Please refer to [Stormpath Authentication](Stormpaths.md)
-
-##Theme
-
-Please refer to [Theme](http://htmlpreview.github.com/?src/main/theme/theme/.html)
