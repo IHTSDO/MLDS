@@ -13,6 +13,7 @@
 
 // Panel contents
 .panel-body {
+  border:1px solid @gray-lighter;
   padding: @panel-body-padding;
   &:extend(.clearfix all);
 }
@@ -51,7 +52,10 @@
 .panel-footer {
   padding: 10px 15px;
   background-color: @panel-footer-bg;
-  border-top: 1px solid @panel-inner-border;
+   border-right:1px solid @light-blue;
+   border-left:1px solid @gray-lighter;
+   border-top:1px solid @gray-light;
+  border-bottom:1px solid @gray-lighter;
   .border-bottom-radius((@panel-border-radius - 1));
 }
 
