@@ -3,7 +3,6 @@ package ca.intelliware.ihtsdo.mlds.config;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
@@ -16,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.json.InternalPrivacyFilter;
 import ca.intelliware.ihtsdo.mlds.domain.json.MLDSJacksonModule;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
 import com.fasterxml.jackson.databind.Module;
@@ -35,8 +35,8 @@ public class JacksonConfigurer {
 	private HttpMapperProperties properties = new HttpMapperProperties();
 
 	@Bean
-	public Module mldsModule(final EntityManager em, CurrentSecurityContext securityContext) {
-		SimpleModule mldsModule = new MLDSJacksonModule(em, securityContext);
+	public Module mldsModule(final MemberRepository memberRepository, CurrentSecurityContext securityContext) {
+		SimpleModule mldsModule = new MLDSJacksonModule(memberRepository, securityContext);
 		
 		return mldsModule;
 	}
