@@ -70,7 +70,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Applications</h3>
   </div>
-  <div class="table-responsive">
+  <div class="table-responsive user-dashboard-item">
     <table class="table table-striped">
       <thead> 
         <tr>
@@ -156,7 +156,7 @@
 	  <h3>{{memberReleases.packages[0].member.key | enum:'global.member.'}} <button class="btn-sm btn-link" ng-click="viewLicence(memberReleases.packages[0].member.key)">View Licence</button></h3>
 	</div>
 	<div class="col-md-4" ng-repeat="releasePackage in memberReleases.packages | orderBy:packageUtils.getLatestPublishedDate:true | filter: packageUtils.isPackagePublished">
-		<div class="well package" ng-repeat="releaseVersion in releasePackage.releaseVersions" ng-show="packageUtils.isVersionOnline(releaseVersion) && packageUtils.isLatestVersion(releaseVersion, releasePackage.releaseVersions)">
+		<div class="well dashboard-well package" ng-repeat="releaseVersion in releasePackage.releaseVersions" ng-show="packageUtils.isVersionOnline(releaseVersion) && packageUtils.isLatestVersion(releaseVersion, releasePackage.releaseVersions)">
 		    <h3 ng-click="goToViewPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}  </h3>
 		    <p>Current: {{releaseVersion.publishedAt | date:'medium'}}</p>
 		    <p ng-repeat="releaseFile in releaseVersion.releaseFiles | orderBy: 'label'">

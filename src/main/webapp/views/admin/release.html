@@ -1,8 +1,7 @@
 <div class="row">
 		<button ng-click="goToReleaseManagement()" type="button" class="btn btn-link"><i class="fa fa-angle-double-left"></i> Back to Release Management</button>		
 
-<div class="well">
-	<div class="col-lg-10">
+	<div class="col-md-10">
 		
 			<h2>{{packageEntity.name}} 
 				<a class="btn btn-default btn-sm"  ng-click="editReleasePackage()" ng-show="isEditableReleasePackage"><i class="fa fa-pencil"></i> Edit</a>
@@ -58,7 +57,7 @@
 		</table>
 </div>
 
-	<div class="col-lg-10">
+	<div class="col-md-10">
 		<div class="alert alert-warning" ng-show="versions.online.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no online version of this release.</div>
 	</div>
 
@@ -112,11 +111,10 @@
 
 
 	</div>
-	<div class="col-lg-10">
+	<div class="col-md-10">
 		<div class="alert alert-warning" ng-show="versions.offline.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline versions of this release.</div>
 	</div>
 </div>
 
-</div>
 <button ng-click="goToReleaseManagement()" type="button" class="btn btn-link  pull-right">Back to Release Management</button>
 </div>
