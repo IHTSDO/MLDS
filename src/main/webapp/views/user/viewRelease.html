@@ -12,10 +12,11 @@
 			<header>	
 				<h3>{{releaseVersion.name}}</h3>
 				<p>{{releaseVersion.description}}</p>
+				<span><strong>Published On:</strong> {{releaseVersion.publishedAt | date: 'longDate'}}</span>
 			</header>
-			<div class="footer">
+			<div class="panel-footer">
 				<div class="col-md-2">
-					<h4><span class="label label-success">Current:</span> </h4>
+					<span class="version-title">Version:</span>
 				</div>
 				<div class="col-md-6">
 					<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
@@ -47,7 +48,7 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-10">
+	<div class="col-md-10">
 	<button ng-click="goToViewPackages()" type="button" class="btn btn-link">Back to view all available releases</button>
 	</div>
 </div>

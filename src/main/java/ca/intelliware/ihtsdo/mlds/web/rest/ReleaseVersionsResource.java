@@ -112,6 +112,7 @@ public class ReleaseVersionsResource {
     	releaseVersion.setName(body.getName());
     	releaseVersion.setDescription(body.getDescription());
     	releaseVersion.setOnline(body.isOnline());
+    	releaseVersion.setPublishedAt(body.getPublishedAt());
     	
     	if (!Objects.equal(preOnline, releaseVersion.isOnline())) {
     		if (releaseVersion.isOnline()) {

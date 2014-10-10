@@ -14,8 +14,6 @@ import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.UserStandingCalculator;
-import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationAuthorizationChecker;
-import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationResource;
 import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationResource.CreateApplicationDTO;
 
 @RunWith(MockitoJUnitRunner.class)

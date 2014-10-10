@@ -7,12 +7,15 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import ca.intelliware.ihtsdo.mlds.domain.json.ObjectMapperTestBuilder;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public class MockMvcJacksonTestSupport {
+	public MemberRepository memberRepository;
+	
     public static class WebMvcConfigurationSupportSpy extends WebMvcConfigurationSupport {
     	
     	public List<HttpMessageConverter<?>> getDefaultHttpMessageConverters() {
@@ -21,7 +24,6 @@ public class MockMvcJacksonTestSupport {
 			return messageConverters;
 		}
     }
-    
 
     public HttpMessageConverter<?>[] getConfiguredMessageConverters() {
 		List<HttpMessageConverter<?>> messageConverters = 
@@ -39,6 +41,6 @@ public class MockMvcJacksonTestSupport {
 						messageConverters, 
 						Predicates.instanceOf(MappingJackson2HttpMessageConverter.class));
 		
-		jacksonMapper.setObjectMapper(new ObjectMapperTestBuilder().buildObjectMapper());
+		jacksonMapper.setObjectMapper(new ObjectMapperTestBuilder(memberRepository).buildObjectMapper());
 	}
 }

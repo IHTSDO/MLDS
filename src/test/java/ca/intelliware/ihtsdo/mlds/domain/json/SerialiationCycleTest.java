@@ -17,7 +17,7 @@ public class SerialiationCycleTest {
 
 	@Before
 	public void configureJackson() {
-		objectMapper = new ObjectMapperTestBuilder().buildObjectMapper();
+		objectMapper = new ObjectMapperTestBuilder(null).buildObjectMapper();
 	}
 
 	@Test

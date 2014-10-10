@@ -70,7 +70,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Applications</h3>
   </div>
-  <div class="table-responsive">
+  <div class="table-responsive user-dashboard-item">
     <table class="table table-striped">
       <thead> 
         <tr>
@@ -96,7 +96,7 @@
           			<i class="fa fa-eye"></i> View
           		</a>
           	</span>
-						<a class="btn-sm btn-primary"
+						<a class="btn-link"
 							ng-click="viewApplication(application)" ng-if="application.applicationType === 'PRIMARY'">
 								<i class="fa fa-eye"></i> View
 						</a>
@@ -145,7 +145,7 @@
   <div class="col-lg-12">
 	  <div class="page-header">
 	    <h1>
-	     Release Packages <a href="#/viewReleases"class="btn btn-link">View All <i class="fa fa-angle-double-right"></i></a>
+	     My Release Packages <a href="#/viewReleases"class="btn btn-link">View All <i class="fa fa-angle-double-right"></i></a>
 	   </h1> 
 	 </div>
 	</div>
@@ -156,9 +156,9 @@
 	  <h3>{{memberReleases.packages[0].member.key | enum:'global.member.'}} <button class="btn-sm btn-link" ng-click="viewLicence(memberReleases.packages[0].member.key)">View Licence</button></h3>
 	</div>
 	<div class="col-md-4" ng-repeat="releasePackage in memberReleases.packages | orderBy:packageUtils.getLatestPublishedDate:true | filter: packageUtils.isPackagePublished">
-		<div class="well package" ng-repeat="releaseVersion in releasePackage.releaseVersions" ng-show="packageUtils.isVersionOnline(releaseVersion) && packageUtils.isLatestVersion(releaseVersion, releasePackage.releaseVersions)">
+		<div class="well dashboard-well package" ng-repeat="releaseVersion in releasePackage.releaseVersions" ng-show="packageUtils.isVersionOnline(releaseVersion) && packageUtils.isLatestVersion(releaseVersion, releasePackage.releaseVersions)">
 		    <h3 ng-click="goToViewPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}  </h3>
-		    <p>Current: {{releaseVersion.publishedAt | date:'medium'}}</p>
+		    <p>Current: {{releaseVersion.publishedAt | date:'longDate'}}</p>
 		    <p ng-repeat="releaseFile in releaseVersion.releaseFiles | orderBy: 'label'">
 		 		<i class="fa fa-file"></i>  <a class="btn btn-link" href="{{releaseFile.clientDownloadUrl}}">{{releaseFile.label}}</a>
 		 	</p>

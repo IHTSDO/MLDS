@@ -7,33 +7,36 @@
 .panel {
   margin-bottom: @line-height-computed;
   background-color: @panel-bg;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   border-radius: @panel-border-radius;
 }
 
 // Panel contents
 .panel-body {
+  border:1px solid @gray-lighter;
   padding: @panel-body-padding;
   &:extend(.clearfix all);
 }
 
 // Optional heading
 .panel-heading {
-  padding: 10px 15px;
-  border-bottom: 1px solid transparent;
+  padding: 15px 0;
+  border-bottom: 4px solid @light-blue;
+
   .border-top-radius((@panel-border-radius - 1));
 
   > .dropdown .dropdown-toggle {
     color: inherit;
   }
-}
+ }
 
 // Within heading, strip any `h*` tag of its default margins for spacing.
 .panel-title {
   margin-top: 0;
   margin-bottom: 0;
   font-size: ceil((@font-size-base * 1.325));
-  color: inherit;
+  color: @brand-primary;
+  font-family: "Oxygen",sans-serif;
 
   > a {
     color: inherit;
@@ -41,7 +44,7 @@
     text-decoration: none;
   }
   a:hover{
-    color: @orange;
+    color: @light-blue;
   }
 }
 
@@ -49,7 +52,10 @@
 .panel-footer {
   padding: 10px 15px;
   background-color: @panel-footer-bg;
-  border-top: 1px solid @panel-inner-border;
+   border-right:1px solid @light-blue;
+   border-left:1px solid @gray-lighter;
+   border-top:1px solid @gray-light;
+  border-bottom:1px solid @gray-lighter;
   .border-bottom-radius((@panel-border-radius - 1));
 }
 
@@ -216,7 +222,6 @@
 		  &:focus {
 		    color:  @white;
 		    text-decoration: none;
-			background-color: darken(@panel-default-heading-bg, 10%);
 		}
 
     
