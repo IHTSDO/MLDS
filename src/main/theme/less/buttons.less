@@ -29,7 +29,8 @@
 
   &:hover,
   &:focus {
-    color: @brand-primary;
+    color: @link-hover-color;
+    border-bottom: 2px solid @link-hover-color;
     text-decoration: none;
   }
 
@@ -129,8 +130,8 @@
   &:hover,
   &:focus {
     color: @link-hover-color;
-    text-decoration: underline;
-    background-color: transparent;
+    border-bottom: 2px solid @link-hover-color;
+    text-decoration: none;
   }
   &[disabled],
   fieldset[disabled] & {
@@ -141,7 +142,6 @@
     }
   }
 }
-
 
 // Button Sizes
 // --------------------------------------------------
