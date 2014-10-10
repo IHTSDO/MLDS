@@ -62,7 +62,7 @@ angular.module('MLDS').controller('ReleaseController',
       modalInstance.result.then(loadReleasePackage);
 	};
 	
-	$scope.editReleaseVersion = function addReleaseVersion(selectedReleaseVersion) {
+	$scope.editReleaseVersion = function editReleaseVersion(selectedReleaseVersion) {
         var modalInstance = $modal.open({
             templateUrl: 'views/admin/addEditReleaseVersionModal.html', // FM
             controller: 'AddEditReleaseVersionModalController', // FM
@@ -71,7 +71,6 @@ angular.module('MLDS').controller('ReleaseController',
             backdrop: 'static',
             resolve: {
               releasePackage: function() {
-              	// FIXME not sure about copy - needed to support modal cancel or network failure
               	return angular.copy($scope.packageEntity);
               },
               releaseVersion: function() { return angular.copy(selectedReleaseVersion); }

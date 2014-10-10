@@ -1,13 +1,17 @@
 'use strict';
 
-angular.module('MLDS').controller('AddReleaseModalController', ['$scope', '$log', '$modalInstance', '$location', 'PackagesService', 
-    function ($scope, $log, $modalInstance, $location, PackagesService) {
-		$scope.releasePackage = {};
+angular.module('MLDS').controller('AddReleaseModalController', 
+		['$scope', '$log', '$modalInstance', '$location', 'PackagesService', 'MemberService', 'Session',
+    function ($scope, $log, $modalInstance, $location, PackagesService,  MemberService, Session) {
+		$scope.releasePackage = {
+			member : Session.member
+		};
 		
 		$scope.submitAttempted = false;
 		$scope.submitting = false;
 		$scope.alerts = [];
-		
+		$scope.members = MemberService.members;
+
 		$scope.ok = function() {
 			$scope.submitAttempted = true;
 			$scope.submitting = true;

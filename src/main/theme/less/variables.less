@@ -7,11 +7,11 @@
 //
 
 @blue:			 #00a7e1;
-@dark-blue:      #384042;
-@light-blue:     #04ADD8;
+@light-blue:     #8dccdc;
+@dark-blue:		 #09465B;
 @green:			 #3cb878;
 @orange:		 #f26c4f;
-@red: 	 		 #f74e4d;
+@red: 	 		 #f26c4f;
 @cloud:			 #EDEDED;
 @purple: 		 #960D3C;
 
@@ -52,6 +52,10 @@
 
 //== Typography
 //
+@import url(http://fonts.googleapis.com/css?family=Oxygen);
+@font-face{
+	@import url(http://fonts.googleapis.com/css?family=Oxygen);
+}
 //## Font, line-height, and color for body text, headings, and more.
 @font-face {
     font-family: 'robotobold';
@@ -64,19 +68,19 @@
     font-style: normal;
 }
 @font-face {
-   font-family: 'robotomedium';
-    src: url('fonts/Roboto-Medium-webfont.eot');
-    src: url('fonts/Roboto-Medium-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/Roboto-Medium-webfont.woff') format('woff'),
-         url('fonts/Roboto-Medium-webfont.ttf') format('truetype'),
-         url('fonts/Roboto-Medium-webfont.svg#robotomedium') format('svg');
+      font-family: 'robotomedium';
+    src: url('Roboto-Medium-webfont.eot');
+    src: url('Roboto-Medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Roboto-Medium-webfont.woff') format('woff'),
+         url('Roboto-Medium-webfont.ttf') format('truetype'),
+         url('Roboto-Medium-webfont.svg#robotomedium') format('svg');
     font-weight: normal;
     font-style: normal;
 
 }
 @font-face {
-        font-family: 'robotoregular';
-    src: url('fonts/Roboto-Regular-webfont.eot');
+       font-family: 'robotoregular';
+           src: url('fonts/Roboto-Regular-webfont.eot');
     src: url('fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
          url('fonts/Roboto-Regular-webfont.woff') format('woff'),
          url('fonts/Roboto-Regular-webfont.ttf') format('truetype'),
@@ -84,7 +88,7 @@
     font-weight: normal;
     font-style: normal;
 }
-@font-family-sans-serif:  "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+@font-family-sans-serif:  "robotoregular", Helvetica, Arial, "Lucida Grande", sans-serif;
 @font-family-serif:       Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -107,12 +111,12 @@
 @line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
 
 //** By default, this inherits from the `<body>`.
-@headings-font-family:   "robotomedium";
+@headings-font-family:    "Oxygen",sans-serif;
 @headings-font-weight:    500;
 @headings-line-height:    1.1;
-@headings-color:          darken(@blue, 10%);	
+@headings-color:          @black;	
 
-@landing-page:   "cabinbold";
+@landing-page:   "robotoregular";
 
 //-- Iconography
 //
@@ -130,20 +134,21 @@
 @padding-base-horizontal:   12px;
 
 @padding-large-vertical:    10px;
-@padding-large-horizontal:  16px;
+@padding-large-horizontal:  66px;
 
 @padding-small-vertical:    5px;
 @padding-small-horizontal:  10px;
 
 @padding-xs-vertical:       1px;
-@padding-xs-horizontal:     5px;
+@padding-xs-horizontal:     8px;
 
 @line-height-large:         1.33;
 @line-height-small:         1.5;
 
 @border-radius-base:        4px;
-@border-radius-large:       6px;
-@border-radius-small:       3px;
+@border-radius-large:       12px;
+@border-radius-small:       8px;
+@border-radius-xsmall:      3px;
 
 //** Global color for active items (e.g., navs or dropdowns).
 @component-active-color:    #fff;
@@ -174,7 +179,7 @@
 @table-bg-active:               @table-bg-hover;
 
 //** Border color for table and cell borders.
-@table-border-color:            darken(@cloud, 5%);
+@table-border-color:             #EBEBEB;
 
 
 //== Buttons
@@ -183,29 +188,31 @@
 
 @btn-font-weight:                normal;
 
-@btn-default-color:              @gray;
-@btn-default-bg:                 darken(@cloud, 20%);
+@btn-default-color:              @blue;
+@btn-default-bg:                 @white;
 @btn-default-border:             transparent;
 
-@btn-primary-color:              #fff;
-@btn-primary-bg:                 @brand-primary;
-@btn-primary-border:             darken(@brand-primary, 5%);
+
+@btn-primary-color:              @brand-primary;
+@btn-primary-bg:                 @white;
+@btn-primary-border:             @brand-primary;
 
 @btn-success-color:              @green;
 @btn-success-bg:                 @white;
-@btn-success-border:             darken(@green, 5%);
+@btn-success-border:             @green;
 
-@btn-info-color:                 #fff;
-@btn-info-bg:                    @brand-info;
-@btn-info-border:                darken(@btn-info-bg, 5%);
 
-@btn-warning-color:              darken(@orange, 33%);
-@btn-warning-bg:                 lighten(@orange, 10%);
-@btn-warning-border:             darken(@btn-warning-bg, 5%);
+@btn-info-color:                 @brand-info;
+@btn-info-bg:                    @white;
+@btn-info-border:                @brand-info;
 
-@btn-danger-color:               #fff;
-@btn-danger-bg:                  @brand-danger;
-@btn-danger-border:              darken(@btn-danger-bg, 5%);
+@btn-warning-color:              @orange;
+@btn-warning-bg:                 @white;
+@btn-warning-border:             @orange;
+
+@btn-danger-color:               darken(@brand-danger, 5%);
+@btn-danger-bg:                  lighten(@brand-danger, 30%);
+@btn-danger-border:              transparent;
 
 @btn-link-disabled-color:        @gray-light;
 
@@ -384,11 +391,11 @@
 @navbar-default-border:            darken(@navbar-default-bg, 6.5%);
 
 // Navbar links
-@navbar-default-link-color:                darken(@blue, 6.5%);
+@navbar-default-link-color:                @brand-primary;
 @navbar-default-link-hover-color:          @gray-dark;
 @navbar-default-link-hover-bg:             @gray-lighter;
-@navbar-default-link-active-color:         #555;
-@navbar-default-link-active-bg:            lighten(#C0CADD, 6.5%);
+@navbar-default-link-active-color:         @gray-dark;
+@navbar-default-link-active-bg:            @gray-lighter;
 @navbar-default-link-disabled-color:       #ccc;
 @navbar-default-link-disabled-bg:          transparent;
 
@@ -512,21 +519,21 @@
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-@state-success-text:             #468847;
-@state-success-bg:               #dff0d8;
-@state-success-border:           darken(spin(@state-success-bg, -10), 5%);
+@state-success-text:             @brand-success;
+@state-success-bg:               @white;
+@state-success-border:           @brand-success;
 
-@state-info-text:                #3a87ad;
-@state-info-bg:                  #d9edf7;
-@state-info-border:              darken(spin(@state-info-bg, -10), 7%);
+@state-info-text:                @brand-info;
+@state-info-bg:                  @white;
+@state-info-border:              @brand-info;
 
-@state-warning-text:             darken(@orange, 33%);
-@state-warning-bg:               lighten(@orange, 18%);
-@state-warning-border:           darken(spin(@state-warning-bg, -10), 5%);
+@state-warning-text:             @brand-warning;
+@state-warning-bg:               @white;
+@state-warning-border:           @brand-warning;
 
-@state-danger-text:              darken(@brand-danger, 18%);
-@state-danger-bg:                @brand-danger;
-@state-danger-border:            darken(spin(@state-danger-bg, -10), 5%);
+@state-danger-text:              @brand-danger;
+@state-danger-bg:                @white;
+@state-danger-border:            @brand-warning;
 
 
 //== Tooltips
@@ -653,7 +660,7 @@
 @alert-warning-border:        @state-warning-border;
 
 @alert-danger-bg:             @white;
-@alert-danger-text:           darken(@brand-danger, 18%);
+@alert-danger-text:           @brand-danger;
 @alert-danger-border:         @brand-danger;
 
 @alert-welcome-bg:             @cloud;
@@ -718,13 +725,13 @@
 @panel-inner-border:          #ddd;
 @panel-footer-bg:             #f5f5f5;
 
-@panel-default-text:          darken(@blue, 10%);
-@panel-default-border:        darken(@cloud, 10%);
-@panel-default-heading-bg:    lighten(@cloud, 5%);
+@panel-default-text:          @brand-primary;
+@panel-default-border:        none;
+@panel-default-heading-bg:    @white;
 
-@panel-primary-text:          @white;
-@panel-primary-border:        darken(@cloud, 10%);
-@panel-primary-heading-bg:    darken(@light-blue, 10%);
+@panel-primary-text:          @gray;
+@panel-primary-border:        transparent;
+@panel-primary-heading-bg:    @white;
 
 @panel-success-text:          @state-success-text;
 @panel-success-border:        @state-success-border;

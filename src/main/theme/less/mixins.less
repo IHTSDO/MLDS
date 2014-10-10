@@ -500,6 +500,7 @@
   color: @color;
   background-color: @background;
   border-color: @border;
+  border-top-left-radius: 10px;
 
   &:hover,
   &:focus,
@@ -508,7 +509,7 @@
   .open .dropdown-toggle& {
     color: @color;
     background-color: darken(@background, 8%);
-        border-color: darken(@border, 12%);
+    border-color: darken(@border, 12%);
   }
   &:active,
   &.active,
@@ -540,7 +541,6 @@
   padding: @padding-vertical @padding-horizontal;
   font-size: @font-size;
   line-height: @line-height;
-  border-top-left-radius: 12px;
 }
 
 // Pagination

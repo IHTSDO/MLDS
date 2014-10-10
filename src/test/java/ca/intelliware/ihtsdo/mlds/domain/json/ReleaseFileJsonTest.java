@@ -23,7 +23,7 @@ public class ReleaseFileJsonTest {
 
 	@Before
 	public void configureJackson() {
-		objectMapper = new ObjectMapperTestBuilder().buildObjectMapper();
+		objectMapper = new ObjectMapperTestBuilder(null).buildObjectMapper();
 	}
 	
 	@Before
