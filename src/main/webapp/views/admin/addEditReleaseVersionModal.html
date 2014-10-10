@@ -8,13 +8,21 @@
 
       <div class="form-group">
           <label>Name</label> 
-          <input class="form-control" placeholder="Enter Version Name" name="name" ng-model="releaseVersion.name" ng-required="true">
+          <input class="form-control" placeholder="Enter Version Name" 
+          	name="name" ng-model="releaseVersion.name" ng-required="true">
           <span ng-show="formPackageVersion.name.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
       <div class="form-group">
           <label>Description</label> 
-          <textarea class="form-control" rows="3" placeholder="Enter Version Description" name="description" ng-model="releaseVersion.description" ng-required="true"></textarea>
+          <textarea class="form-control" rows="3" placeholder="Enter Version Description" 
+          	name="description" ng-model="releaseVersion.description" ng-required="true"></textarea>
           <span ng-show="formPackageVersion.description.$error.required && submitAttempted" class="help-block">Required Field</span>
+      </div>
+      <div class="form-group">
+          <label>Release Date</label> 
+          <input class="form-control input-sm" type="date" 
+          	name="publishedAt" ng-model="releaseVersion.publishedAt" ng-required="true"></input>
+          <span ng-show="formPackageVersion.publishedAt.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
 	</form>
  	
