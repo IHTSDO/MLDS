@@ -29,7 +29,7 @@
 
   &:hover,
   &:focus {
-    color: @btn-default-color;
+    color: @brand-primary;
     text-decoration: none;
   }
 
@@ -56,6 +56,11 @@
 
 .btn-default {
   .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
+  &:hover,
+  &:focus {
+    color: @brand-primary;
+    background-color: @brand-primary;
+  }
 }
 .btn-primary {
   .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
@@ -128,9 +133,11 @@
 .btn-sm {
   // line-height: ensure proper height of button next to small input
   .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+  border-radius: 6;
 }
 .btn-xs {
   .button-size(@padding-xs-vertical; @padding-xs-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+   border-radius: 3;
 }
 
 

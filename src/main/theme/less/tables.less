@@ -9,7 +9,9 @@ table {
 }
 th {
   text-align: left;
-  background-color: @gray-lighter;
+  font-family: 'Oxygen', sans-serif;
+  background-color: @white;
+  font-size: 137.5%;
 }
 
 
@@ -36,7 +38,7 @@ th {
   // Bottom align for column headings
   > thead > tr > th {
     vertical-align: bottom;
-    border-bottom: 2px solid @table-border-color;
+    border-bottom: 4px solid @light-blue;
   }
   // Remove top border from thead by default
   > caption + thead,
@@ -110,7 +112,7 @@ th {
   > tbody > tr:nth-child(odd) {
     > td,
     > th {
-      background-color: @table-bg-accent;
+    
     }
   }
 }
@@ -129,6 +131,11 @@ th {
   }
 }
 
+.table {
+	> tbody > tr:hover {
+		background-color: @table-bg-accent;
+	}
+}
 
 // Table cell sizing
 //
