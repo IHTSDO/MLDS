@@ -51,6 +51,14 @@ public class Member extends BaseEntity {
 		return key;
 	}
 
+	/**
+	 * Setter for Jackson
+	 * @param key
+	 */
+	public void setKey(String key) {
+		this.key = key;
+	}
+	
 	public Instant getCreatedAt() {
 		return createdAt;
 	}
