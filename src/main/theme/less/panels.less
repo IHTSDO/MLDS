@@ -28,10 +28,7 @@
   > .dropdown .dropdown-toggle {
     color: inherit;
   }
-  &hover{
-	  color: red;
-  }
-}
+ }
 
 // Within heading, strip any `h*` tag of its default margins for spacing.
 .panel-title {
@@ -247,7 +244,7 @@
 
 }
 .panel-primary {
-  .panel-variant( @panel-primary-text; @panel-primary-heading-bg; @panel-default-border);
+  .panel-variant(@panel-primary-border; @panel-primary-text; @panel-primary-heading-bg; @panel-primary-border);
 }
 .panel-success {
   .panel-variant(@panel-success-border; @panel-success-text; @panel-success-heading-bg; @panel-success-border);
