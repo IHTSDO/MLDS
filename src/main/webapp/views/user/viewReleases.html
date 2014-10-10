@@ -65,7 +65,7 @@
 			 		<div class="row" ng-repeat="version in releasePackage.releaseVersions | filter: utils.isVersionOnline"
 						ng-show="utils.isLatestVersion(version, (releasePackage.releaseVersions | filter: utils.isVersionOnline))">
 						<div class="col-lg-1">
-							<div class="btn btn-success btn-sm">Current: </div>
+							<div class="current">Current: </div>
 						</div>
 						<div class="col-lg-11" >
 							<h4 class="version">{{version.name}}</h4>

@@ -19,14 +19,14 @@
 //--------------------
 
 .landing{
-	background-color: @dark-blue;
+	background-color: @light-blue;
 }
 .main-login{
 	padding: 30px 10px 20px;
 	background-color: rgba(245, 245, 245, 0.6);
 	h1{
 		font-family: @landing-page;	
-		color: @dark-blue;
+		color: @light-blue;
 	}
 }
 
@@ -234,12 +234,13 @@
 }
 
 .current{
-	background-color: @green;
-	width: 100px;
+	background-color: @white;
+	width: 70px;
 	height: 30px;
-	color: @white;
-	padding: 4px 20px;
-	margin-top: 10px;
+	color: @green;
+	border: 1px solid @green;
+	padding: 4px 10px;
+	margin: 10px 10px 0;
 	border-radius: @border-radius-small;
 	text-align: center;
 	font-weight: @btn-font-weight;
@@ -331,7 +332,7 @@
 	padding: 20px;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: @dark-blue;
+	background-color: @light-blue;
 	border-right: 1px solid #EEE;
 
 	a{
@@ -343,7 +344,7 @@
     margin-left: -20px;
     margin-right: -21px;
     > li{
-    	border-bottom: 1px solid darken(@dark-blue, 1.5%);	
+    	border-bottom: 1px solid darken(@light-blue, 1.5%);	
     }
     .active{
     	background-color: @light-blue;
