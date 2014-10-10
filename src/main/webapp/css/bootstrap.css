@@ -3999,14 +3999,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > li > a:focus {
   color: #333333;
   background-color: #eeeeee;
-  border-left: 1px solid #999999;
-  border-right: 1px solid #999999;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #333333;
   background-color: #eeeeee;
+  border-left: 1px solid #999999;
+  border-right: 1px solid #999999;
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
@@ -6247,13 +6247,14 @@ a.tooltip span {
   color: #212121;
 }
 footer {
-  background-color: #384042;
-  color: #eeeeee;
+  background-color: #ffffff;
+  color: #555555;
   height: 60px;
   padding-top: 20px;
   position: absolute;
   bottom: -60px;
   width: 100%;
+  border-top: 1px solid #eeeeee;
 }
 footer[role=admin] {
   background-color: #eeeeee;
