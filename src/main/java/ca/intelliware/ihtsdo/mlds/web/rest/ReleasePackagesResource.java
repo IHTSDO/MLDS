@@ -101,7 +101,11 @@ public class ReleasePackagesResource {
     	authorizationChecker.checkCanCreateReleasePackages();
     	
     	releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
-    	releasePackage.setMember(userMembershipAccessor.getMemberAssociatedWithUser());
+    	
+    	// MLDS-740 - Allow Admin to specify the member
+    	if (releasePackage.getMember() == null || !currentSecurityContext.isAdmin()) {
+    		releasePackage.setMember(userMembershipAccessor.getMemberAssociatedWithUser());
+    	}
     	
     	releasePackageRepository.save(releasePackage);
 

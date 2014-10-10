@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Assert;
@@ -7,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -18,10 +20,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -44,13 +48,21 @@ public class ReleasePackagesResourceTest {
     @Mock
     private UserMembershipAccessor userMembershipAccessor;
 	
-	@Mock
-	CurrentSecurityContext currentSecurityContext;
+	CurrentSecurityContext currentSecurityContext = new CurrentSecurityContext();
 
 	@Mock
 	ReleasePackageAuditEvents releasePackageAuditEvents;
-
+	
+	@Mock
+	MemberRepository memberRepository;
+	
+	@Captor
+	ArgumentCaptor<ReleasePackage> releasePacakgeCaptor;
+	
 	ReleasePackagesResource releasePackagesResource;
+
+	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
+
 
 	@Before
     public void setup() {
@@ -64,9 +76,11 @@ public class ReleasePackagesResourceTest {
         
         Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(new Member("IHTSDO", 1));
 
-        this.restReleasePackagesResource = MockMvcBuilders
+        MockMvcJacksonTestSupport mockMvcJacksonTestSupport = new MockMvcJacksonTestSupport();
+        mockMvcJacksonTestSupport.memberRepository = memberRepository;
+		this.restReleasePackagesResource = MockMvcBuilders
         		.standaloneSetup(releasePackagesResource)
-        		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
+        		.setMessageConverters(mockMvcJacksonTestSupport.getConfiguredMessageConverters())
         		.build();
     }
 
@@ -81,6 +95,55 @@ public class ReleasePackagesResourceTest {
 		Mockito.verify(releasePackageRepository).save(Mockito.any(ReleasePackage.class));
 	}
 
+	@Test
+	public void testReleasePackageCreateIgnoresBodyMemberAndAttachesPackageToUserMember() throws Exception {
+        Member userMember = new Member("SE", 1);
+		Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(userMember);
+        
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"name\": \"name\", \"description\": \"description\", \"member\": { \"key\": \"DK\" } }")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+		
+		Mockito.verify(releasePackageRepository).save(releasePacakgeCaptor.capture());
+		assertEquals(releasePacakgeCaptor.getValue().getMember(), userMember);
+	}
+	
+	@Test
+	public void testReleasePackageCreateUsesBodyMemberForAdmin() throws Exception {
+		Member userMember = new Member("SE", 1);
+		Member bodyMember = new Member("DK", 2);
+		Mockito.stub(memberRepository.findOneByKey("DK")).toReturn(bodyMember);
+		Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(userMember);
+		securityContextSetup.asAdmin();
+		
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"name\": \"name\", \"description\": \"description\", \"member\": { \"key\": \"DK\"} }")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+		
+		Mockito.verify(releasePackageRepository).save(releasePacakgeCaptor.capture());
+		assertEquals(bodyMember, releasePacakgeCaptor.getValue().getMember());
+	}
+	
+	@Test
+	public void testReleasePackageCreateDefaultsMemberForAdminIfNotInBody() throws Exception {
+		Member userMember = new Member("XX", 1);
+		Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(userMember);
+		securityContextSetup.asAdmin();
+		
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"name\": \"name\", \"description\": \"description\"}")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+		
+		Mockito.verify(releasePackageRepository).save(releasePacakgeCaptor.capture());
+		assertEquals(releasePacakgeCaptor.getValue().getMember(), userMember);
+	}
+	
 	@Test
 	public void testReleasePackageLogsAuditEvent() throws Exception {
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
