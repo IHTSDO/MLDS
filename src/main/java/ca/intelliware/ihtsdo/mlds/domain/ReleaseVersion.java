@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
+import org.joda.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
@@ -46,7 +47,7 @@ public class ReleaseVersion extends BaseEntity {
 	boolean online;
 
 	@Column(name="published_at")
-	Instant publishedAt;
+	LocalDate publishedAt;
 	
 	@OneToMany(mappedBy="releaseVersion")
 	Set<ReleaseFile> releaseFiles = Sets.newHashSet();
@@ -102,7 +103,7 @@ public class ReleaseVersion extends BaseEntity {
 		this.description = description;
 	}
 
-	public Instant getPublishedAt() {
+	public LocalDate getPublishedAt() {
 		return publishedAt;
 	}
 
@@ -125,8 +126,8 @@ public class ReleaseVersion extends BaseEntity {
 	}
 
 	public void setOnline(boolean online) {
-		if (online) {
-			this.publishedAt = new Instant();
+		if (online && publishedAt == null) {
+			this.publishedAt = new LocalDate();
 		}
 		
 		this.online = online;
@@ -139,6 +140,10 @@ public class ReleaseVersion extends BaseEntity {
 
 	public void setReleaseFiles(Set<ReleaseFile> releaseFiles) {
 		this.releaseFiles = releaseFiles;
+	}
+
+	public void setPublishedAt(LocalDate publishedAt2) {
+		publishedAt = publishedAt2;
 	}
 
 }
