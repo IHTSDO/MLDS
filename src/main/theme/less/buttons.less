@@ -29,9 +29,8 @@
 
   &:hover,
   &:focus {
-    color: @btn-default-color;
-    text-decoration: none;
-  }
+    color: @link-hover-color;
+   }
 
   &:active,
   &.active {
@@ -59,22 +58,47 @@
 }
 .btn-primary {
   .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+   &:hover,
+  &:focus {
+    color: @white;
+    background-color: @brand-primary;
+  }
 }
 // Success appears as green
 .btn-success {
   .button-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
+   &:hover,
+  &:focus {
+    color: @white;
+    background-color: @brand-success;
+  }
 }
 // Info appears as blue-green
 .btn-info {
   .button-variant(@btn-info-color; @btn-info-bg; @btn-info-border);
+   &:hover,
+  &:focus {
+    color: @white;
+    background-color: @brand-info;
+  }
 }
 // Warning appears as orange
 .btn-warning {
   .button-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
+   &:hover,
+  &:focus {
+    color: @white;
+    background-color: @brand-warning;
+  }
 }
 // Danger and error appear as red
 .btn-danger {
   .button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
+ &:hover,
+  &:focus {
+    color: @white;
+    background-color: @brand-danger;
+  }
 }
 
 
@@ -103,9 +127,9 @@
   }
   &:hover,
   &:focus {
-    color: @link-hover-color;
+     color: @link-hover-color;
     text-decoration: underline;
-    background-color: transparent;
+    cursor: pointer;
   }
   &[disabled],
   fieldset[disabled] & {
@@ -117,7 +141,6 @@
   }
 }
 
-
 // Button Sizes
 // --------------------------------------------------
 
@@ -128,9 +151,11 @@
 .btn-sm {
   // line-height: ensure proper height of button next to small input
   .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+  
 }
 .btn-xs {
-  .button-size(@padding-xs-vertical; @padding-xs-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+  .button-size(@padding-xs-vertical; @padding-xs-horizontal; @font-size-small; @line-height-small; @border-radius-xsmall);
+  border-radius: 6;
 }
 
 

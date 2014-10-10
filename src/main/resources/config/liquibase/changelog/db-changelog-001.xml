@@ -1393,4 +1393,9 @@ $f$ language plpgsql;
 				  login in ('system','anonymousUser','admin','user','staff','sweden'))
 		</sql>
 	</changeSet>
+	
+	<changeSet id="MLDS-729" author="MB">
+		<comment>Making published_at editable - change from timestamp to calendar dat to better match usage</comment>
+		<modifyDataType tableName="release_version" columnName="published_at" newDataType="date"/>
+	</changeSet>
 </databaseChangeLog>

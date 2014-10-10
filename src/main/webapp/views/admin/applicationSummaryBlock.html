@@ -1,5 +1,5 @@
 <div ng-switch="application.applicationType">
-	<div class="panel panel-primary" ng-switch-when="EXTENSION">
+	<div class="panel panel-default" ng-switch-when="EXTENSION">
 	  <div class="panel-heading">
 	    <h3 class="panel-title">{{application.member.key | enum:'global.member.'}} Extension Application Info</h3>
 	  </div>
@@ -8,7 +8,7 @@
 		</div>
 	</div>
 	
-	<div class="panel panel-primary">
+	<div class="panel panel-default">
 	  <div class="panel-heading">
 	    <h3 class="panel-title">Affiliate Info</h3>
 	  </div>
@@ -25,7 +25,7 @@
 		</div>
 	</div>
 	
-	<div class="panel panel-primary" ng-show="application.type!='INDIVIDUAL'">
+	<div class="panel panel-default" ng-show="application.type!='INDIVIDUAL'">
 	  <div class="panel-heading">
 	    <h3 class="panel-title">Affiliate Information</h3>
 	  </div>
@@ -42,7 +42,7 @@
 	  </div>
 	</div>
 	
-	<div class="panel panel-primary">
+	<div class="panel panel-default">
 	  <div class="panel-heading">
 	    <h3 class="panel-title">Affiliate User Information</h3>
 	  </div>
@@ -56,7 +56,7 @@
 	  </div>
 	</div>
 	
-	<div class="panel panel-primary"  ng-show="application.type=='INDIVIDUAL'">
+	<div class="panel panel-default"  ng-show="application.type=='INDIVIDUAL'">
 	  <div class="panel-heading">
 	    <h3 class="panel-title">Affiliate Address</h3>
 	  </div>
@@ -68,7 +68,7 @@
 	  </div>
 	</div>
 	
-	<div class="panel panel-primary" ng-show="application.type=='COMMERCIAL'">
+	<div class="panel panel-default" ng-show="application.type=='COMMERCIAL'">
 	  <div class="panel-heading">
 	    <h3 class="panel-title">Affiliate Billing Information</h3>
 	  </div>
@@ -80,7 +80,7 @@
 	 </div>
 	</div>
 	
-	<div class="panel panel-primary" ng-switch-when="PRIMARY">
+	<div class="panel panel-default" ng-switch-when="PRIMARY">
 	  <div class="panel-heading">
 	    <h3 class="panel-title">Usage Context Information</h3>
 	  </div>
@@ -126,7 +126,7 @@
 	  </div>
 	</div>
 	
-	<div class="panel panel-primary" ng-show="audits && audits.length > 0">
+	<div class="panel panel-default" ng-show="audits && audits.length > 0">
 	  <div class="panel-heading">
 	    <h3 class="panel-title">Application Activity</h3>
 	  </div>

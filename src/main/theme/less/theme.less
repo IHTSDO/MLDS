@@ -19,14 +19,14 @@
 //--------------------
 
 .landing{
-	background-color: @dark-blue;
+	background-color: @light-blue;
 }
 .main-login{
 	padding: 30px 10px 20px;
 	background-color: rgba(245, 245, 245, 0.6);
 	h1{
 		font-family: @landing-page;	
-		color: @dark-blue;
+		color: @light-blue;
 	}
 }
 
@@ -45,7 +45,9 @@
 	border-radius: @border-radius-large;
 }
 
-
+#welcome{
+	border-bottom: 4px solid @brand-info;
+}
 #main-content{
 	border-top:2px solid @brand-primary;
 	background-color: lighten(@cloud, 3%);
@@ -213,6 +215,10 @@
 		margin-top: 5px;
 	}
 }
+.user-dashboard-item{
+	height: 250px;
+	overflow-y: auto;
+}
 
 //
 // Package Management
@@ -229,14 +235,26 @@
 
 .current{
 	background-color: @green;
-	width: 100px;
+	width: 70px;
 	height: 30px;
 	color: @white;
-	padding: 4px 20px;
-	margin-top: 10px;
-	border-radius: @border-radius-small;
+	border: 1px solid darken(@green,5%);
+	padding: 4px 10px;
+	margin: 10px 10px 0;
+	 border-top-left-radius: 12px;
 	text-align: center;
 	font-weight: @btn-font-weight;
+}
+
+.version-title{
+	color: @dark-blue;
+	font-weight: bold;
+	padding-top: 10px;
+}
+
+.well .panel-footer{
+	overflow: hidden;
+	border-right:none;
 }
 .panel-heading .caret{
 	color: @black;
@@ -244,6 +262,11 @@
 .status{
 	padding-bottom:10px;
 }
+.dropdown-menu ul{
+	position: absolute;
+	z-index: 9999;
+}
+
 //
 // Application Review
 // --------------------------------------------------
@@ -332,7 +355,7 @@
     margin-left: -20px;
     margin-right: -21px;
     > li{
-    	border-bottom: 1px solid darken(@dark-blue, 1.5%);	
+    	border-bottom: 1px solid darken(@gray, 1.5%);	
     }
     .active{
     	background-color: @light-blue;
@@ -348,13 +371,19 @@
 // Footer
 // --------------------------------------------------
 footer{
-	background-color: @dark-blue;
-	color: @gray-lighter;
+	background-color: @white;
+	color: @gray;
 	height: 60px;
 	padding-top: 20px;
 	position: absolute;
 	bottom: -60px;
 	width: 100%;
+	border-top:1px solid @gray-lighter;
+	
+a{
+	color: @gray;
+	font-size: smaller;
+}
 }
 footer[role=admin]{
 	background-color: @gray-lighter;
@@ -367,4 +396,4 @@ footer[role=admin]{
 	a{
 		color: @gray-darker;
 	}
-}
+}	
