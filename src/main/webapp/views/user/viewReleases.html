@@ -64,12 +64,12 @@
 			  <div class="panel-footer">
 			 		<div class="row" ng-repeat="version in releasePackage.releaseVersions | filter: utils.isVersionOnline"
 						ng-show="utils.isLatestVersion(version, (releasePackage.releaseVersions | filter: utils.isVersionOnline))">
-						<div class="col-md-2">
-							<div class="current">Version: </div>
+						<div class="col-md-1">
+							<div class="version-title">Version: </div>
 						</div>
 						<div class="col-md-10" >
 							<h4 class="version">{{version.name}}</h4>
-							<span><strong>Published On:</strong> {{version.publishedAt | date: 'longDate'}}</span>
+							<span>{{version.publishedAt | date: 'longDate'}}</span>
 							<!-- Removed for MLDS-690
 							<ul class="list-unstyled">
 							  <li ng-repeat="releaseFile in version.releaseFiles">
