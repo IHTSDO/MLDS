@@ -3,8 +3,6 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
-
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,22 +18,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.util.NestedServletException;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
 import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
-import ca.intelliware.ihtsdo.mlds.domain.StandingState;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
-import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
-import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
-import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationResource.CreateApplicationDTO;
 
