@@ -2,7 +2,7 @@ package ca.intelliware.ihtsdo.mlds.domain;
 
 import java.io.IOException;
 
-import javax.persistence.EntityManager;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,10 +12,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class MemberJsonDeserializer extends
 		JsonDeserializer<Member> {
-	private final EntityManager em;
+	MemberRepository memberRepository;
 
-	public MemberJsonDeserializer(EntityManager em) {
-		this.em = em;
+	public MemberJsonDeserializer(MemberRepository memberRepository) {
+		this.memberRepository = memberRepository;
 	}
 
 	@Override
@@ -23,10 +23,7 @@ public class MemberJsonDeserializer extends
 			throws IOException, JsonProcessingException {
 		JsonNode node = jp.getCodec().readTree(jp);
 		String key = node.get("key").textValue();
-		Member result = (Member) em
-				.createQuery("from Member where key = :key")
-				.setParameter("key", key)
-				.getSingleResult();
+		Member result = memberRepository.findOneByKey(key);
 		return result;
 	}
 }
