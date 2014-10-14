@@ -91,7 +91,7 @@ public class AffiliateMembershipCalculatorTest {
     	
     	Set<Member> result = affiliateMembershipCalculator.acceptedMemberships(affiliate);
     	
-    	Assert.assertThat(result, Matchers.contains(ihtsdo, france));
+    	Assert.assertThat(result, Matchers.containsInAnyOrder(ihtsdo, france));
     }
 
     private Application withPrimaryApplication(Member member, ApprovalState approvalState) {
