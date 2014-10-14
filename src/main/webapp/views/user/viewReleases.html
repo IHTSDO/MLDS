@@ -30,7 +30,7 @@
 	</div>
 	<div class="row" ng-repeat="releasePackage in memberReleases.packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished" ng-controller="ViewReleaseController">
 		<div class="col-sm-12 col-md-12 col-lg-12"> 
-			<div class="panel panel-default">	
+			<div class="panel panel-default release-package">	
 				<div class="panel-heading">	
 					<div ng-class="{'status text-muted': !isMembershipInGoodStanding}">
 						<div ng-show="$root.authenticated">
@@ -65,7 +65,7 @@
 			 		<div class="row" ng-repeat="version in releasePackage.releaseVersions | filter: utils.isVersionOnline"
 						ng-show="utils.isLatestVersion(version, (releasePackage.releaseVersions | filter: utils.isVersionOnline))">
 						<div class="col-md-1">
-							<div class="version-title">Version: </div>
+							<div class="version-title">Versions: </div>
 						</div>
 						<div class="col-md-10" >
 							<h4 class="version">{{version.name}}</h4>
