@@ -202,7 +202,8 @@
 // Dashboard
 // --------------------------------------------------
 .dashboard{
-	min-height: 250px;
+	height: 380px;	
+	margin-bottom: 20px;
 }
 .user-info{
 	background-color: lighten(@gray-lighter, 4%);
@@ -267,6 +268,23 @@
 	z-index: 9999;
 }
 
+.release-package{
+	margin-bottom: 40px;
+	
+	.panel-heading{
+		padding-bottom: 3px;
+	}
+	.panel-body{
+		height: 160px;
+		padding: 20px 15px 5px;
+		overflow-y: scroll;
+	}
+	.panel-footer{
+		height: 120px;
+		overflow-y: scroll;
+		padding: 5px 15px;
+	}
+}
 //
 // Application Review
 // --------------------------------------------------
@@ -343,7 +361,7 @@
 	padding: 20px;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: @dark-blue;
+	background-color:darken( @dark-blue, 15%);
 	border-right: 1px solid #EEE;
 
 	a{
