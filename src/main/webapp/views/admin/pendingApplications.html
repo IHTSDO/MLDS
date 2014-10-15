@@ -27,7 +27,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="application in applications | filter:applicationSearch | orderBy:orderByField:reverseSort" ng-switch="application.applicationType">
+					<tr ng-repeat="application in applications | filter:applicationSearch | orderBy:orderByField:reverseSort" ng-switch="application.applicationType" ng-click="goToApplication(application)">
 									
 					<td>{{application.submittedAt | date}}</td>
 					<td>{{application.approvalState | enum:'approval.state.'}}</td>
@@ -42,7 +42,7 @@
 					<td ng-switch-when="EXTENSION">{{application.affiliate.type | enum:'affiliate.type.'}}</td>
 					<td ng-switch-when="EXTENSION">{{application.affiliate.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</td>
 					
-					<td> <a class="btn btn-primary btn-sm" ng-click="goToApplication(application)"><i class="fa fa-pencil"></i> Review</a></td>
+					<td> <a class="btn btn-primary btn-sm" ><i class="fa fa-pencil"></i> Review</a></td>
 				</tr>
 				</tbody>
 			</table>
