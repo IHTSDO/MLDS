@@ -289,22 +289,35 @@
 // Application Review
 // --------------------------------------------------
 //
+.search-results{
+
+.muted{
+	border: 1px solid @gray-light;
+	padding: 10px 0;
+	background-color: @white;
+}
+.search-close{
+	padding: 10px;
+	background-color: @gray-light;
+    height: 40px;
+    margin: 10px 0 0;
+    padding: 10px;
+}
+.panel-body{
+	border: none;
+}
+.panel-title{
+	margin-left: 5px;
+}
+.application-audit{
+	margin-left: -10px;
+}
 .applicant-info{
 	border-top:2px solid @light-blue;
 	padding: 20px 10px 0;
 	overflow: hidden;
 	margin-bottom: 10px;
 	background-color: @white;
-}
-.application-title{
-	margin-top: 0px;
-	margin-bottom: 0px;
-	font-size: 19px;
-	color: @blue;
-	font-family: Oxygen,sans-serif;
-	.label{
-		font-weight: normal;
-	}
 }
 .application-review{
 	p{
@@ -313,21 +326,14 @@
 		border-bottom: 1px solid @hr-border;
 		margin: 0;
 	}
-
+	
 	p:last-child{
 		border-bottom: none;
 	}
-	
 }
-.search-results{
-	.muted{
-		border: 1px solid @gray-light;
-		padding: 10px 0;
-		background-color: @white;
-	}
-	h4{
-		margin-top: 0;
-	}
+h4{
+	margin-top: 0;
+}
 
 }
 .application-status{
