@@ -13,8 +13,6 @@
     "angular-translate": "~2.1.x",
     "angular-translate-loader-static-files": "2.0.0",
     "angular-translate-storage-cookie": "2.0.0",
-    "bootstrap-sass": "twbs/bootstrap-sass#~3.1.1",
-    "bootstrap": "~3.0.0",
     "css3-mediaqueries-js": "*",
     "es5-shim": "~2.0.8",
     "html5shiv": "~3.7.0",
