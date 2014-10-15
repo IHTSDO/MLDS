@@ -4,32 +4,12 @@ server:
 spring:
     profiles: prod
     
-    datasource:
-        dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
-        url: 
-        databaseName: mlds
-        serverName: localhost
-        username: mlds
-        password:
-
     jpa:
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
-        database: POSTGRESQL
         show_sql: false
         properties:
             hibernate.cache.use_second_level_cache: true
-            hibernate.cache.use_query_cache: false
+            hibernate.cache.use_query_cache: true
             hibernate.generate_statistics: false
-            hibernate.search.default.directory_provider: filesystem
-            hibernate.search.default.indexBase: /var/opt/mlds/lucene
-
-    mail:
-        baseUrl: http://localhost:8080
-
-    thymeleaf:
-        mode: XHTML
-        cache: true
-
 
 metrics:
     jmx.enabled: true
