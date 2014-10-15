@@ -738,12 +738,19 @@
 			<name>IHTSDO Public Nexus Snapshots</name>
 			<url>https://maven.ihtsdotools.org/content/repositories/snapshots/</url>
 		</snapshotRepository>
-	<!-- 
-		<repository>
-			<id>ihtsdo-iwd</id>
-			<name>IHTSDO Intelliware Releases</name>
-			<url>http://fsnexus.intware.com:8086/nexus/content/repositories/ihtsdo/</url>
-		</repository>
-	 -->
 	</distributionManagement>
+	<scm>
+		<url>https://github.com/IHTSDO/MLDS</url>
+		<connection>https://github.com/IHTSDO/MLDS.git</connection>
+		<tag>develop</tag>
+		<developerConnection>https://github.com/IHTSDO/MLDS.git</developerConnection>
+	</scm>
+	<issueManagement>
+		<system>Jira</system>
+		<url>https://jira.ihtsdotools.org/browse/MLDS</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://ihtsdo-hg.intware.com:8080/job/MLDS%20develop%20branch/</url>
+	</ciManagement>
 </project>
