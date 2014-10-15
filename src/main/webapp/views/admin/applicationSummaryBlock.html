@@ -8,11 +8,11 @@
 		</div>
 	</div>
 	
-	<div class="application">
-	  <div class="application-heading">
-	    <h3 class="application-title">Affiliate Info</h3>
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Affiliate Info</h3>
 	  </div>
-	  <div class="application-review">
+	  <div class="panel-body">
 	      <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
 		    <span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{application.affiliateDetails.organizationTypeOther}}</span>
 		    <span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{application.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
@@ -25,11 +25,11 @@
 		</div>
 	</div>
 	
-	<div class="application" ng-show="application.type!='INDIVIDUAL'">
-	  <div class="application-heading">
-	    <h3 class="application-title">Affiliate Information</h3>
+	<div class="panel panel-default" ng-show="application.type!='INDIVIDUAL'">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Affiliate Information</h3>
 	  </div>
-	  <div class="application-review">
+	  <div class="panel-body application-review">
 	    <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Name:</strong> {{application.affiliateDetails.organizationName}}</p>
 	    <p><strong>Address:</strong> {{application.affiliateDetails.address.street}}</p>
 	    <p><strong>City:</strong> {{application.affiliateDetails.address.city}}</p>
@@ -42,11 +42,11 @@
 	  </div>
 	</div>
 	
-	<div class="application">
-	  <div class="application-heading">
-	    <h3 class="application-title">Affiliate User Information</h3>
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Affiliate User Information</h3>
 	  </div>
-	  <div class="application-review">
+	  <div class="panel-body application-review">
 	    <p><strong>Name:</strong> {{application.affiliateDetails.firstName}} {{application.affiliateDetails.lastName}}</p>
 	    <p><strong>Email:</strong> {{application.affiliateDetails.email}}</p>
 	    <p ng-show="application.type=='INDIVIDUAL'"><strong>Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
@@ -56,11 +56,11 @@
 	  </div>
 	</div>
 	
-	<div class="application"  ng-show="application.type=='INDIVIDUAL'">
-	  <div class="application-review-heading">
-	    <h3 class="application-title">Affiliate Address</h3>
+	<div class="panel panel-default"  ng-show="application.type=='INDIVIDUAL'">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Affiliate Address</h3>
 	  </div>
-	  <div class="application-review">
+	  <div class="panel-body application-review">
 	    <p><strong>Address:</strong> {{application.affiliateDetails.address.street}}</p>
 	    <p><strong>City:</strong> {{application.affiliateDetails.address.city}}</p>
 	    <p><strong>Post Code:</strong> {{application.affiliateDetails.address.post}}</p>
@@ -68,11 +68,11 @@
 	  </div>
 	</div>
 	
-	<div class="application" ng-show="application.type=='COMMERCIAL'">
-	  <div class="application-heading">
-	    <h3 class="application-title">Affiliate Billing Information</h3>
+	<div class="panel panel-default" ng-show="application.type=='COMMERCIAL'">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Affiliate Billing Information</h3>
 	  </div>
-	  <div class="application-review">
+	  <div class="panel-body application-review">
 	   <p><strong>Address:</strong> {{application.affiliateDetails.billingAddress.street}}</p>
 	   <p><strong>City:</strong> {{application.affiliateDetails.billingAddress.city}}</p>
 	   <p><strong>Post Code:</strong> {{application.affiliateDetails.billingAddress.post}}</p>
@@ -80,11 +80,11 @@
 	 </div>
 	</div>
 	
-	<div class="application" ng-switch-when="PRIMARY">
-	  <div class="application-heading">
-	    <h3 class="application-title">Usage Context Information</h3>
+	<div class="panel panel-default" ng-switch-when="PRIMARY">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Usage Context Information</h3>
 	  </div>
-	  <div class="application-review">
+	  <div class="panel-body application-review">
 	    <div>
 	      <strong>Licence Usage:</strong>
 	      <p class="list-group-item-text">{{application.commercialUsage.context.currentUsage}}</p>
@@ -126,12 +126,12 @@
 	  </div>
 	</div>
 	
-	<div class="application" ng-show="audits && audits.length > 0">
-	  <div class="application-heading">
-	    <h3 class="application-title">Application Activity</h3>
+	<div class="panel panel-default" ng-show="audits && audits.length > 0">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Application Activity</h3>
 	  </div>
-	  <div class="application-review">
-		<div ng-include="'views/auditsEmbed.html'"></div>
+	  <div class="panel-body application-review">
+		<div class="application-audit" ng-include="'views/auditsEmbed.html'"></div>
 	  </div>
 	</div>
 	
