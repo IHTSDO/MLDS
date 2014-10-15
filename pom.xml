@@ -71,9 +71,6 @@
 								<fileset>
 									<directory>.tmp</directory>
 								</fileset>
-								<fileset>
-									<directory>node_modules</directory>
-								</fileset>
 							</filesets>
 						</configuration>
 					</plugin>
@@ -81,6 +78,7 @@
 						<groupId>org.springframework.boot</groupId>
 						<artifactId>spring-boot-maven-plugin</artifactId>
 						<configuration>
+							<mainClass>ca.intelliware.ihtsdo.mlds.Application</mainClass>
 							<arguments>
 								<argument>--spring.profiles.active=prod</argument>
 							</arguments>
