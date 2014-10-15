@@ -28,6 +28,9 @@
 		</profile>
 		<profile>
 			<id>prod</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<!-- Spring profile to use -->
 				<spring.profiles.active>prod</spring.profiles.active>
