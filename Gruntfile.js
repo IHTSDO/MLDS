@@ -26,7 +26,7 @@ module.exports = function (grunt) {
       //},
     styles: {
         files: ['src/main/webapp/styles/**/*.css'],
-        tasks: ['copy:styles', 'autoprefixer']
+        tasks: ['copy:styles']
       },
     livereload: {
         options: {
@@ -38,17 +38,6 @@ module.exports = function (grunt) {
           '{.tmp/,}src/main/webapp/scripts/**/*.js',
           'src/main/webapp/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
         ]
-      }
-    },
-    autoprefixer: {
-      options: ['last 1 version'],
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '**/*.css',
-          dest: '.tmp/styles/'
-        }]
       }
     },
     connect: {
@@ -369,7 +358,6 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'concurrent:server',
-      'autoprefixer',
       'configureProxies',
       'connect:livereload',
       'watch'
@@ -379,7 +367,6 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
-    'autoprefixer',
     'connect:test',
     'karma'
   ]);
@@ -388,7 +375,6 @@ module.exports = function (grunt) {
     'clean:dist',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
     'concat',
     'copy:dist',
     'ngmin',
