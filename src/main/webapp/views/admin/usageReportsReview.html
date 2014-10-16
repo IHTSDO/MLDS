@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="page-header">
-			<h1>Review Usage Reports</h1>
+			<h2>Review Usage Reports</h2>
 		</div>
 		<div class="table-responsive">
 			<table class="table table-striped table-hover">
@@ -20,7 +20,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="usageReport in usageReports | orderBy:orderByField:reverseSort">
+					<tr ng-repeat="usageReport in usageReports | orderBy:orderByField:reverseSort"  ng-click="usageReportsUtils.goToReviewUsageReport(usageReport)">
 					<td>{{affiliateDetails(usageReport).organizationName ? affiliateDetails(usageReport).organizationName : affiliateDetails(usageReport).firstName + ' ' + affiliateDetails(usageReport).lastName}}</td>
 					<td>{{usageReport.submitted | date}}</td>
 					<td>{{usageReport.approvalState | enum:'approval.state.'}}</td>
@@ -32,7 +32,7 @@
 					<td>{{usageReportsUtils.usageReportHospitals(usageReport)}}</td>
 					<td>{{usageReportsUtils.usageReportPractices(usageReport)}}</td>
 					
-					<td> <a class="btn btn-primary btn-sm" ng-click="usageReportsUtils.goToReviewUsageReport(usageReport)"><i class="fa fa-pencil"></i> Review</a></td>
+					<td> <a class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> Review</a></td>
 				</tr>
 				</tbody>
 			</table>
