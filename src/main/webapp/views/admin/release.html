@@ -3,10 +3,11 @@
 
 	<div class="col-md-12">
 		
-			<h2>{{packageEntity.name}} 
+			<h2>{{packageEntity.name}} - {{packageEntity.member.key | enum:'global.member.'}}
 				<a class="btn btn-default btn-sm"  ng-click="editReleasePackage()" ng-show="isEditableReleasePackage"><i class="fa fa-pencil"></i> Edit</a>
 				<a class="btn btn-danger btn-sm"  ng-click="removeReleasePackage()" ng-show="isEditableReleasePackage && isRemovableReleasePackage"><i class="fa fa-times"></i> Delete</a>
 			</h2>
+			
 			<p>{{packageEntity.description}}</p>
 	
 	</div>
