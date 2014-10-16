@@ -430,6 +430,8 @@ mldsApp
         }])
         .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
             function($rootScope, $location, $http, $log, AuthenticationSharedService, Session, USER_ROLES) {
+        		$log.log('app.js startup');
+        		
                 $rootScope.$on('$routeChangeStart', function (event, next) {
                 	$log.log('in $routeChangeStart', event, next, $location.path(), window.location.hash);
                     $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
