@@ -1,10 +1,5 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
-<!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +8,7 @@
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.tmp) styles/main.css -->
-  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="styles/bootstrap.css">
   <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css">
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="styles/famfamfam-flags.css">
@@ -44,7 +39,7 @@
  	<div ng-if="$root.Session.isStaffOrAdmin()" class="container-fluid" >
 		<div class="row">
 		    <div class="col-md-2" ng-include src="'views/sideNav.html'"></div>
-        	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 nav-space" ng-view="" autoscroll="true"></div>
+        	<div class="col-md-9 col-md-offset-2 nav-space" ng-view="" autoscroll="true"></div>
 	        <div ng-include src="'views/adminFooter.html'"></div>
 	    </div>
   </div>
@@ -67,10 +62,10 @@
   <script src="bower_components/underscore/underscore.js"></script>
   <script src="bower_components/intl-tel-input/build/js/intlTelInput.js" charset="UTF-8"></script>
   <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+  <script src="scripts/app.js"></script>
   <script src="scripts/http-auth-interceptor.js"></script>
   <script src="scripts/truncate.js"></script>
   <script src="scripts/utils.js"></script>
-  <script src="scripts/app.js"></script>
   <script src="scripts/controllers.js"></script>
   <script src="scripts/controllers/ActivationController.js"></script>
   <script src="scripts/controllers/AddInstitutionController.js"></script>

@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="page-header">
-			<span class="pull-right"><a href="#/pendingApplications">Back to Pending Applications</a></span>
+			<span><a href="#/pendingApplications"><i class="fa fa-angle-double-left"></i>  Back to Pending Applications</a></span>
 			<h1>{{application.applicationType | enum:'application.applicationType.'}} Application Review</h1>
 		</div>
 	</div>
@@ -56,8 +56,8 @@
 				</div>
 			</div>
 			<div class="search-results" ng-show="showComparisonAffiliate">
-				<h4 >&nbsp<button class="close btn-close" ng-click="showComparisonAffiliate = false"><i class="fa fa-times"></i></button>
-				</h4>
+				<div class="search-close"><button class="close btn-close" ng-click="showComparisonAffiliate = false"><i class="fa fa-times"></i></button>
+				</div>
 				<div class="muted" ng-include="'views/admin/applicationSummaryBlock.html'"></div>
 
 			</div>

@@ -26,7 +26,7 @@ module.exports = function (grunt) {
       //},
     styles: {
         files: ['src/main/webapp/styles/**/*.css'],
-        tasks: ['copy:styles', 'autoprefixer']
+        tasks: ['copy:styles']
       },
     livereload: {
         options: {
@@ -38,17 +38,6 @@ module.exports = function (grunt) {
           '{.tmp/,}src/main/webapp/scripts/**/*.js',
           'src/main/webapp/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
         ]
-      }
-    },
-    autoprefixer: {
-      options: ['last 1 version'],
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '**/*.css',
-          dest: '.tmp/styles/'
-        }]
       }
     },
     connect: {
@@ -169,13 +158,13 @@ module.exports = function (grunt) {
       options: {
         //sassDir: 'src/main/scss',
         cssDir: 'src/main/webapp/styles',
-        generatedImagesDir: '.tmp/images/generated',
-        imagesDir: 'src/main/webapp/images',
+        //generatedImagesDir: '.tmp/images/generated',
+        //imagesDir: 'src/main/webapp/images',
         javascriptsDir: 'src/main/webapp/scripts',
         fontsDir: 'src/main/webapp/styles/fonts',
         importPath: 'src/main/webapp/bower_components',
-        httpImagesPath: '/images',
-        httpGeneratedImagesPath: '/images/generated',
+        //httpImagesPath: '/images',
+        //httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
         relativeAssets: false
       },
@@ -197,7 +186,7 @@ module.exports = function (grunt) {
           src: [
             '<%= yeoman.dist %>/scripts/**/*.js',
             '<%= yeoman.dist %>/styles/**/*.css',
-            '<%= yeoman.dist %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
+            //'<%= yeoman.dist %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yeoman.dist %>/fonts/*'
           ]
         }
@@ -216,26 +205,27 @@ module.exports = function (grunt) {
         dirs: ['<%= yeoman.dist %>']
       }
     },
-    imagemin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: 'src/main/webapp/images',
-          src: '**/*.{jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '{,*/}*.{png,jpg,jpeg}'
-          dest: '<%= yeoman.dist %>/images'
-        }]
-      }
-    },
-    svgmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: 'src/main/webapp/images',
-          src: '**/*.svg',
-          dest: '<%= yeoman.dist %>/images'
-        }]
-      }
-    },
+    
+//    imagemin: {
+//      dist: {
+//        files: [{
+//          expand: true,
+//          cwd: 'src/main/webapp/images',
+//          src: '**/*.{png,jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '{,*/}*.{png,jpg,jpeg}'
+//          dest: '<%= yeoman.dist %>/images'
+//        }]
+//      }
+//    },
+//    svgmin: {
+//      dist: {
+//        files: [{
+//          expand: true,
+//          cwd: 'src/main/webapp/images',
+//          src: '**/*.svg',
+//          dest: '<%= yeoman.dist %>/images'
+//        }]
+//      }
+//    },
     cssmin: {
       // By default, your `index.html` <!-- Usemin Block --> will take care of
       // minification. This option is pre-configured if you do not wish to use
@@ -265,7 +255,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: 'src/main/webapp',
-          src: ['*.html', 'views/*.html'],
+          src: ['*.html', 'views/**/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -281,7 +271,8 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
-            'images/**/*.{png,gif,webp}',
+            'images/**/*.{png,gif,jpeg,jpg,webp}',
+            'styles/fonts/*',
             'fonts/*'
           ]
         }, {
@@ -312,8 +303,8 @@ module.exports = function (grunt) {
       dist: [
         'compass:dist',
         'copy:styles',
-        'imagemin',
-        'svgmin',
+        //'imagemin',
+        //'svgmin',
         'htmlmin'
       ]
     },
@@ -367,7 +358,6 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'concurrent:server',
-      'autoprefixer',
       'configureProxies',
       'connect:livereload',
       'watch'
@@ -377,7 +367,6 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
-    'autoprefixer',
     'connect:test',
     'karma'
   ]);
@@ -386,7 +375,6 @@ module.exports = function (grunt) {
     'clean:dist',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
     'concat',
     'copy:dist',
     'ngmin',
