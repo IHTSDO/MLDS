@@ -31,9 +31,10 @@
 						<li><a ng-click="editReleasePackage(package)">Edit</a></li>
 					</ul>
 				</div>
-				<h3 class="panel-title"> <a ng-click="goToPackage(package)">{{package.name}}</a></h3>
+				<h3 class="panel-title"> <a ng-click="goToPackage(package)">{{package.name}} - {{package.member.key | enum:'global.member.'}}</a></h3>
 			</div>
 			<div class="panel-body">
+				
 				<p>{{package.description}}</p>
 			</div>
 			<div class="panel-footer" ng-repeat="version in package.releaseVersions | filter: utils.isVersionOnline" ng-show="utils.isLatestVersion(version, (package.releaseVersions | filter: utils.isVersionOnline))">
@@ -71,7 +72,7 @@
 							<li><a ng-click="deleteReleasePackage(package)">Remove</a></li>
 						</ul>
 					</div>
-					<h4 class="panel-title"><a ng-click="goToPackage(package)"> {{package.name}}</a></h4>
+					<h4 class="panel-title"><a ng-click="goToPackage(package)"> {{package.name}} - {{package.member.key | enum:'global.member.'}}</a></a></h4>
 				</div>
 				<div class="panel-body">
 					<p>{{package.description}}</p>
