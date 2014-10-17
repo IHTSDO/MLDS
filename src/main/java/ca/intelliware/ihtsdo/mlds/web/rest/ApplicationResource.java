@@ -386,7 +386,8 @@ public class ApplicationResource {
 			affiliateDetails.setOrganizationType(OrganizationType.valueOf(getStringField(affiliateDetailsJsonNode, "organizationType")));
 		}
 		
-		affiliateDetails.setAgreementType(AgreementType.valueOf(getStringField(affiliateDetailsJsonNode, "agreementType")));
+		String agreementTypeString = getStringField(affiliateDetailsJsonNode, "agreementType");
+		affiliateDetails.setAgreementType(Strings.isNullOrEmpty(agreementTypeString)?null:AgreementType.valueOf(agreementTypeString));
 		MailingAddress mailingAddress = new MailingAddress();
 		
 		mailingAddress.setStreet(getStringField(addressJsonNode, "street"));
