@@ -44,9 +44,10 @@
 									Apply for extension
 								</button>
 								<span class="btn-sm btn-warning pull-right" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant && isPrimaryApplicationApproved && !isIHTSDOPackage">Application being processed</span>
-								<span class="btn-sm btn-warning pull-right" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant && !isIHTSDOPackage">
-									Application in progress, 
-									<span ng-click="goToExtensionApplication()" class="btn-sm btn-link">click to continue application.</span>
+								<span class="btn btn-sm btn-warning pull-right" 
+									ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant && !isIHTSDOPackage"
+									ng-click="goToExtensionApplication()">
+									Application in progress, click to continue application
 								</span>
 							</div>
 						</div>
