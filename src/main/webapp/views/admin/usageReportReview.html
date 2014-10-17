@@ -110,31 +110,33 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-default" ng-show="usageReport.context.otherActivities">
+		<div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
        		Other Activities
        	</h4>
       </div>
 			<div class="panel-body" class="panel-collapse collapse in">
-				<p>{{usageReport.context.otherActivities}}</p>
+				<p>{{usageReport.context.otherActivities || 'N/A'}}</p>
 			</div>
 		</div>
-		
-		<div ng-include src="'views/usageReportsTable.html'" ng-controller="UsageReportsTableController"></div>
 		
 	</div>
 	
 	
 	
 	<div class="col-md-4">
-		<div ng-include src="'views/affiliateDetailsSummary.html'"></div>
 		
 		<div>
-			<a class="btn btn-warning btn-block" ng-click="reviewedUsageReport()">
+			<a class="btn btn-success btn-block" ng-click="reviewedUsageReport()">
 				Mark Usage Report as Reviewed 
 			</a>
+			<a class="btn btn-warning btn-block" ng-click="retractUsageReport()">
+				Retract Usage Report 
+			</a>
 		</div>
+		
+		<div ng-include src="'views/affiliateDetailsSummary.html'"></div>
 	</div>
 	
 </div>
