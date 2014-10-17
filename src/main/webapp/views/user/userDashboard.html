@@ -171,6 +171,6 @@
 	 	<h3>Other Available Releases</h3>
 	 </div>
 	<div ng-repeat="memberReleases in notApprovedReleasePackagesByMember | orderBy: releasePackageOrderBy">
-		<a href="#/viewReleases"class="btn btn-link">{{memberReleases.packages[0].member.key | enum:'global.member.'}}</a>
+		<a href="#/viewReleases?scrollTo={{'section-'+memberReleases.packages[0].member.key}}"class="btn btn-link">{{memberReleases.packages[0].member.key | enum:'global.member.'}}</a>
 	</div>
 </div>
