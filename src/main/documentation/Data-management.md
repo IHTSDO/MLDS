@@ -37,3 +37,8 @@ E.g. To update the system to recognize Andora as a member:
     WHERE iso_code_2 = 'AD';
     
 Separately, the administrative interface is used to configure the member's participation in the MLDS system, use the administrative UI.  See the "National Registration List", and the "License T&C" tabs.
+
+The system also has translations for the member name in two places.  Each must be updated:
+
+- [The web front end translations](../../../src/main/webapp/i18n/en.json)
+- [The server-side translations for email](../../../src/main/resources/mails/messages/messages_en.properties)
