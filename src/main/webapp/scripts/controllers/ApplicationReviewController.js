@@ -59,7 +59,6 @@ mldsApp.controller('ApplicationReviewController', [
 						}
 						
 						if (!ApplicationUtilsService.isApplicationPending(application)) {
-							 $scope.isActionDisabled = true;
 							 $scope.showNonPendingAlert = true;
 						}
 						
