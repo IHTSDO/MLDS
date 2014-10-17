@@ -57,6 +57,29 @@ angular.module('MLDS')
 	};
 
 	
+	
+	service.retractUsageReport = function(commercialUsageReport) {
+		var modalInstance = $modal.open({
+			templateUrl: 'views/user/retractUsageReportModal.html',
+			controller: 'RetractUsageReportController',
+			size:'sm',
+			backdrop: 'static',
+			resolve: {
+				commercialUsageReport: function() {
+					return commercialUsageReport;
+				}
+			}
+		});
+		
+		modalInstance.result
+		.then(function(result) {
+			if(result.data && result.data.commercialUsageId) {
+				$location.path('/usageReports/usageLog/'+ result.data.commercialUsageId);
+			}
+		});
+
+	};
+	
 	return service;
 }]);
 
