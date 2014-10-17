@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('UsageReportReviewController',
-		['$scope', '$routeParams', '$location', '$log', '$parse', '$window', 'CommercialUsageService', 'AffiliateService',
-    function ($scope, $routeParams, $location, $log, $parse, $window, CommercialUsageService, AffiliateService) {
+		['$scope', '$routeParams', '$location', '$log', '$parse', '$window', 'CommercialUsageService', 'AffiliateService', 'UsageReportsService',
+    function ($scope, $routeParams, $location, $log, $parse, $window, CommercialUsageService, AffiliateService, UsageReportsService) {
 			
 		var usageReportId = $routeParams.usageReportId;
 		
@@ -99,6 +99,10 @@ angular.module('MLDS').controller('UsageReportReviewController',
 					$scope.submitting = false;
 				});
 		};
+		
+		$scope.retractUsageReport = function() {
+			UsageReportsService.retractUsageReport($scope.usageReport);
+		}
 		
     }]);
 
