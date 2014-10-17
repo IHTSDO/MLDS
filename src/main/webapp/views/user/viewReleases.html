@@ -21,7 +21,7 @@
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<div>
-				<h2>
+				<h2 id="{{'section-'+memberReleases.packages[0].member.key}}">
 					{{memberReleases.packages[0].member.key | enum:'global.member.'}} 
 					<a class="btn-sm btn-link" ng-click="viewLicence(memberReleases.packages[0].member.key)">View Licence</a>
 				</h2>
@@ -44,49 +44,21 @@
 									Apply for extension
 								</button>
 								<span class="btn-sm btn-warning pull-right" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant && isPrimaryApplicationApproved && !isIHTSDOPackage">Application being processed</span>
-								<span class="btn-sm btn-warning pull-right" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant && !isIHTSDOPackage">
-									Application in progress, 
-									<span ng-click="goToExtensionApplication()" class="btn-sm btn-link">click to continue application.</span>
+								<span class="btn btn-sm btn-warning pull-right" 
+									ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant && !isIHTSDOPackage"
+									ng-click="goToExtensionApplication()">
+									Application in progress, click to continue application
 								</span>
 							</div>
 						</div>
-						<div ng-show="isMembershipInGoodStanding">
-							<a class="panel-title" ng-click="goToViewPackagePage(releasePackage.releasePackageId)" ng-disabled="!isMembershipInGoodStanding">{{releasePackage.name}}</a>
-						</div>
-						<div ng-show="!isMembershipInGoodStanding">
-							<h3 class="panel-title">{{releasePackage.name}}</h3>
+						<div>
+							<h3 class="panel-title" ng-click="goToViewPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}</h3>
 						</div>
 					</div>
 				</div>
 			  <div class="panel-body">
 			   {{releasePackage.description}}
 			  </div>
-			  <div class="panel-footer">
-			 		<div class="row" ng-repeat="version in releasePackage.releaseVersions | filter: utils.isVersionOnline"
-						ng-show="utils.isLatestVersion(version, (releasePackage.releaseVersions | filter: utils.isVersionOnline))">
-						<div class="col-md-1">
-							<div class="version-title">Versions: </div>
-						</div>
-						<div class="col-md-10" >
-							<h4 class="version">{{version.name}}</h4>
-							<span>{{version.publishedAt | date: 'longDate'}}</span>
-							<!-- Removed for MLDS-690
-							<ul class="list-unstyled">
-							  <li ng-repeat="releaseFile in version.releaseFiles">
-									<i class="fa fa-file"></i>
-									<span ng-show="releaseFile.clientDownloadUrl && isMembershipInGoodStanding">
-										<a href="{{releaseFile.clientDownloadUrl}}" class="btn btn-link" target="_blank">{{releaseFile.label}}</a>
-									</span>
-									<span ng-show="!(releaseFile.clientDownloadUrl && isMembershipInGoodStanding)">
-										{{releaseFile.label}}
-									</span>
-								</li>
-							</ul>
-							 -->
-						</div>
-						
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>

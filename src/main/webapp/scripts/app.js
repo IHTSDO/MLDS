@@ -428,6 +428,15 @@ mldsApp
             //$httpProvider.responseInterceptors.push(delayHandlerFactory);
             
         }])
+        .run(['$rootScope', '$location', '$anchorScroll', '$routeParams', '$log', '$timeout',
+              function($rootScope, $location, $anchorScroll, $routeParams,$log, $timeout) {
+		  $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
+		    $timeout(function(){
+		    	$location.hash($routeParams.scrollTo);
+		    	$anchorScroll();  
+		    });
+		  });
+		}])
         .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
             function($rootScope, $location, $http, $log, AuthenticationSharedService, Session, USER_ROLES) {
         		$log.log('app.js startup');

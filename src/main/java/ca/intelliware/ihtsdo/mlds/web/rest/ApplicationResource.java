@@ -27,6 +27,7 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateSubType;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
+import ca.intelliware.ihtsdo.mlds.domain.AgreementType;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
@@ -385,6 +386,8 @@ public class ApplicationResource {
 			affiliateDetails.setOrganizationType(OrganizationType.valueOf(getStringField(affiliateDetailsJsonNode, "organizationType")));
 		}
 		
+		String agreementTypeString = getStringField(affiliateDetailsJsonNode, "agreementType");
+		affiliateDetails.setAgreementType(Strings.isNullOrEmpty(agreementTypeString)?null:AgreementType.valueOf(agreementTypeString));
 		MailingAddress mailingAddress = new MailingAddress();
 		
 		mailingAddress.setStreet(getStringField(addressJsonNode, "street"));

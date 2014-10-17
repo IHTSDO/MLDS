@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 'ApprovalStateUtils', 
-                                                 		function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location, ApprovalStateUtils){
+angular.module('MLDS').controller('EmbeddableUsageLogController',
+		['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 'ApprovalStateUtils', 'UsageReportsService', 
+        function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location, ApprovalStateUtils, UsageReportsService){
 	$scope.collapsePanel = {};
 	
 	$scope.usageLogForm = {};
@@ -378,27 +379,9 @@ angular.module('MLDS').controller('EmbeddableUsageLogController', ['$scope', '$l
 	};
 
 	$scope.retractUsageReport = function() {
-		var modalInstance = $modal.open({
-			templateUrl: 'views/user/retractUsageReportModal.html',
-			controller: 'RetractUsageReportController',
-			size:'sm',
-			backdrop: 'static',
-			resolve: {
-				commercialUsageReport: function() {
-					return $scope.commercialUsageReport;
-				}
-			}
-		});
-		
-		modalInstance.result
-		.then(function(result) {
-			if(result.data && result.data.commercialUsageId) {
-				$location.path('/usageReports/usageLog/'+ result.data.commercialUsageId);
-			}
-	});
+		UsageReportsService.retractUsageReport($scope.commercialUsageReport);
+	}
 
-	};
-	
 	$scope.institutionDateRangeOutsidePeriod = function(institution) {
 		if (institution.startDate && institution.endDate) {
 			var date = new Date(institution.endDate);
