@@ -50,11 +50,8 @@
 								</span>
 							</div>
 						</div>
-						<div ng-show="isMembershipInGoodStanding">
-							<a class="panel-title" ng-click="goToViewPackagePage(releasePackage.releasePackageId)" ng-disabled="!isMembershipInGoodStanding">{{releasePackage.name}}</a>
-						</div>
-						<div ng-show="!isMembershipInGoodStanding">
-							<h3 class="panel-title">{{releasePackage.name}}</h3>
+						<div>
+							<h3 class="panel-title" ng-click="goToViewPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}</h3>
 						</div>
 					</div>
 				</div>
