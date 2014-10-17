@@ -11,7 +11,14 @@ angular.module('MLDS').controller('LandingRedirectController',
       				if (Session.isStaffOrAdmin()) {
       					$location.path('/pendingApplications').replace();		
       				} else if (Session.isUser()) {
-      					$location.path('/dashboard').replace();
+      		        	UserAffiliateService.promise.then(function() {
+      		        		if (ApplicationUtilsService.isApplicationWaitingForApplicant(UserAffiliateService.affiliate.application)) {
+      		        			$location.path('/affiliateRegistration');
+      		        		} else {
+	      		        		$location.path('/dashboard').replace();
+      		        		}
+      		        	});
+      					
       				} else {
       					$location.path('/landing').replace();
       				}

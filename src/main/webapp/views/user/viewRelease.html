@@ -7,18 +7,47 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-8">
+	<div class="col-md-12">
 		<div class="panel panel-default release-package package" ng-repeat="releaseVersion in releaseVersions.online">
-			<div class="panel-heading">	
-				<header>	
-					<h3>{{releaseVersion.name}}</h3>
-				</header>
+			<div class="panel-heading status">
+				<div class="status">
+					<!-- Warnings and action invitations -->
+					<a class="btn btn-sm btn-success pull-right" href="#/login"
+						ng-show="!$root.authenticated">
+						Login to download
+					</a>
+					<span class="btn-sm btn-warning pull-right"
+						ng-show="$root.authenticated && isAccountDeactivated">
+						Account Deactivated
+					</span>
+					<span class="btn-sm btn-warning pull-right"
+						ng-show="$root.authenticated && !isAccountDeactivated && !isPrimaryApplicationApproved">
+						Primary application is being processed
+					</span>
+					<button class="btn btn-sm btn-success pull-right"
+						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipUnstarted"
+						ng-click="utils.openExtensionApplication(releasePackage)">
+							Apply for extension
+					</button>
+					<span class="btn-sm btn-warning pull-right"
+						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && !isApplicationWaitingForApplicant">
+						Application being processed
+					</span>
+					<button class="btn btn-sm btn-warning pull-right"
+						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && isApplicationWaitingForApplicant"
+						ng-click="goToExtensionApplication()" >
+						Application needs attention, click to continue application
+					</button>
+					
+					<h3 class="panel-title">{{releaseVersion.name}}</h3>
+				</div>
 			</div>
 			<div class="panel-body">
 				<p>{{releaseVersion.description}}</p>
 					<span><strong>Published On:</strong> {{releaseVersion.publishedAt | date: 'longDate'}}</span>
 			</div>
 			<div class="panel-footer">
+				<div class="row">
 				<div class="col-md-2">
 					<span class="version-title">File:</span>
 				</div>
@@ -26,25 +55,7 @@
 					<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
 						<i class="fa fa-file"></i> <a href="{{releaseFile.clientDownloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding" target="_blank">{{releaseFile.label}}</a>
 					</p>
-					<a class="btn btn-success pull-right" ng-show="!$root.authenticated" href="#/login">
-						Login to download
-					</a>
 				</div>
-				<div class="pull-right" ng-show="$root.authenticated">
-					<div ng-show="isAccountDeactivated">
-						<span class="btn-sm btn-warning pull-right" ng-show="isAccountDeactivated">Account Deactivated</span>
-					</div>
-					<div ng-show="!isAccountDeactivated">
-						<span class="alert alert-warning" ng-show="!isPrimaryApplicationApproved">Primary application is being processed</span>
-						<button class="btn btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved && !isIHTSDOPackage" ng-click="utils.openExtensionApplication(releasePackage)">			
-							Apply for extension
-						</button>
-						<span class="alert alert-warning" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant && isPrimaryApplicationApproved && !isIHTSDOPackage">Application being processed</span>
-						<span class="alert alert-warning" ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant && !isIHTSDOPackage">
-							Application being updated, 
-							<span ng-click="goToExtensionApplication()" class="btn btn-link">click to view application.</span>
-						</span>
-					</div>
 				</div>
 			</div>
 		</div>

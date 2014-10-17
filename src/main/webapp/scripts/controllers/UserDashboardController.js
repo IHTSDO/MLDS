@@ -42,12 +42,21 @@ angular.module('MLDS')
         		return ApplicationUtilsService.isApplicationApproved(application);
         	};
         	
+        	// Affiliates under members are shown the IHTSDO International packages as belonging to their member
+        	function getEffectivePackageMemberKey(releasePackage) {
+        		var packageMemberKey = releasePackage.member.key;
+        		if (packageMemberKey == 'IHTSDO') {
+        			return UserAffiliateService.affiliate.application.member.key
+        		}
+        		return packageMemberKey;
+        	}
+        	
         	function loadReleasePackages() {
         		PackagesService.query().$promise
         			.then(function(releasePackages) {
         				var releasePackagesByMember = _.chain(releasePackages)
         					.filter(PackageUtilsService.isPackagePublished)
-        					.groupBy(function(value) {return value.member.key;})
+        					.groupBy(getEffectivePackageMemberKey)
         					.map(function(packages, memberKey) {
         						return {
         							member: MemberService.membersByKey[memberKey], 
