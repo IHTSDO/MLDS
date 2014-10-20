@@ -9,10 +9,11 @@ To run Maven, we need:
 - Maven
 - NodeJS: apt-get install nodejs (or nodejs-legacy, depending on os version).  Make sure that "node --version" returns something > 10.10
 - ruby: apt-get install ruby
+- compass: apt-get install ruby-compass
 - bower: npm install -g bower
 - grunt: npm install -g grunt-cli
 
-The war file is modified during the build to embed the Tomcat web server, and turns the war into an self-contained executable jar file by the spring-boot-maven-plugin (see [pom.xml](../../../pom.xml) )
+The war file is modified during the build by the spring-boot-maven-plugin to embed the Tomcat web server.  This turns the war into an self-contained executable jar file  (see [pom.xml](../../../pom.xml) )
 
 Releases are produced using the jgitflow plugin, implementing the [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) process.
 
