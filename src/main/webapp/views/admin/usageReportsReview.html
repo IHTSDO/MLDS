@@ -21,7 +21,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="usageReport in usageReports | orderBy:orderByField:reverseSort"  ng-click="usageReportsUtils.goToReviewUsageReport(usageReport)">
-					<td>{{affiliateDetails(usageReport).organizationName ? affiliateDetails(usageReport).organizationName : affiliateDetails(usageReport).firstName + ' ' + affiliateDetails(usageReport).lastName}}</td>
+					<td>{{usageReport.affiliate.application.affiliateDetails.organizationName ? usageReport.affiliate.application.affiliateDetails.organizationName : usageReport.affiliate.affiliateDetails.firstName + ' ' + usageReport.affiliate.affiliateDetails.lastName}}</td>
 					<td>{{usageReport.submitted | date}}</td>
 					<td>{{usageReport.approvalState | enum:'approval.state.'}}</td>
 					<td>{{usageReport.type | enum:'affiliate.type.'}}</td>
