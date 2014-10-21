@@ -25,9 +25,9 @@ import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateSubType;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
+import ca.intelliware.ihtsdo.mlds.domain.AgreementType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
-import ca.intelliware.ihtsdo.mlds.domain.AgreementType;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
@@ -261,6 +261,13 @@ public class ApplicationResource {
 		affiliate.setApplication(application);
 		affiliate.setType(application.getType());
 		affiliate.setHomeMember(application.getMember());
+		
+		{
+			AffiliateDetails affiliateDetails = (AffiliateDetails) application.getAffiliateDetails().clone();
+			affiliateDetailsResetter.detach(affiliateDetails);
+			affiliate.setAffiliateDetails(affiliateDetails);
+		}
+
 		affiliateRepository.save(affiliate);
 		
 		applicationAuditEvents.logApprovalStateChange(application);
