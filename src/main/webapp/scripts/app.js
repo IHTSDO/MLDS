@@ -428,6 +428,12 @@ mldsApp
             //$httpProvider.responseInterceptors.push(delayHandlerFactory);
             
         }])
+        .run(['datepickerConfig', function(datepickerConfig){
+        	// change default date config to ISO8601 and Euro Monday weeks.
+        	datepickerConfig.format="yyyy-MM-dd";
+        	datepickerConfig.startingDay=1;
+        	datepickerConfig.formatYear='yy';
+        }])
         .run(['$rootScope', '$location', '$anchorScroll', '$routeParams', '$log', '$timeout',
               function($rootScope, $location, $anchorScroll, $routeParams,$log, $timeout) {
 		  $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
