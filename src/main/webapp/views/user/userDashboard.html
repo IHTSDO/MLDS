@@ -160,11 +160,8 @@
 			ng-repeat="releaseVersion in releasePackage.releaseVersions" 
 			ng-show="packageUtils.isVersionOnline(releaseVersion) && packageUtils.isLatestVersion(releaseVersion, releasePackage.releaseVersions)">
 			
-		    <h3 ng-click="goToViewPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}  </h3>
+		    <h3 ><a href="#/viewReleases/viewRelease/{{releasePackage.releasePackageId}}">{{releasePackage.name}}  </a></h3>
 		    <p>Current: {{releaseVersion.publishedAt | date:'longDate'}}</p>
-		    <p ng-repeat="releaseFile in releaseVersion.releaseFiles | orderBy: 'label'">
-		 		<i class="fa fa-file"></i>  <a class="btn btn-link" href="{{releaseFile.clientDownloadUrl}}">{{releaseFile.label}}</a>
-		 	</p>
 		</div>
 	</div>
 </div>

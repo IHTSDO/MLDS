@@ -84,7 +84,7 @@
 					<td>{{releaseVersion.description}}</td>
 					<td>
 						<p>
-							<button class="btn btn-success btn-xs" ng-click="addReleaseFile(releaseVersion)" ng-hide="releaseVersion.publishedAt || !isEditableReleasePackage">
+							<button class="btn btn-success btn-xs" ng-click="addReleaseFile(releaseVersion)" ng-hide="!isEditableReleasePackage">
 								<i class="fa fa-plus"></i> Add File
 							</button>
 						</p>
@@ -93,7 +93,7 @@
 								<i class="fa fa-file"></i>
 								<a href="{{releaseFile.downloadUrl}}" target="_blank">{{releaseFile.label}}</a> 
 								<button class="btn btn-danger btn-xs pull-right" 
-									ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="releaseVersion.publishedAt || !isEditableReleasePackage">
+									ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-times"></i> Remove
 								</button>
 							</p>
