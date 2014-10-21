@@ -458,11 +458,7 @@ mldsApp
                 $rootScope.$on('event:auth-loginConfirmed', function(data) {
                     $rootScope.authenticated = true;
                     if ($location.path() === "/login") {
-                    	if (AuthenticationSharedService.isAuthorized(USER_ROLES.staffOrAdmin)) {
-                    		$location.path('/pendingApplications').replace();                    		
-                    	} else {
-                    		$location.path('/dashboard').replace();
-                    	}
+                    	$location.path('/'); // redirect landing page                    		
                     }
                 });
 
