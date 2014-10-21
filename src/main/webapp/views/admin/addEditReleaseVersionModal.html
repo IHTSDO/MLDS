@@ -18,10 +18,15 @@
           	name="description" ng-model="releaseVersion.description" ng-required="true"></textarea>
           <span ng-show="formPackageVersion.description.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
-      <div class="form-group">
-          <label>Release Date</label> 
-          <input class="form-control input-sm" type="date" 
-          	name="publishedAt" ng-model="releaseVersion.publishedAt"></input>
+      <div class="form-group datepicker">
+          <label>Release Date</label>
+          <div class="input-group datepicker col-md-3">
+          	<input class="form-control" type="text"
+          		datepicker-popup="yyyy-MM-dd" 
+          		is-open="dateOpen['publishedAt']" close-text="Close" 
+          		name="publishedAt" ng-model="releaseVersion.publishedAt"></input>
+       		<span class="input-group-addon" ng-click="openDate($event, 'publishedAt')"><i class="fa fa-calendar"></i></span>
+   			</div>
           <span ng-show="formPackageVersion.publishedAt.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
 	</form>
