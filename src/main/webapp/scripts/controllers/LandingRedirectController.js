@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('LandingRedirectController', 
-		['$scope', '$rootScope', 'Session', '$log', '$location', '$route', 'AuthenticationSharedService',
-         function ($scope, $rootScope, Session, $log, $location, $route, AuthenticationSharedService) {
+		['$scope', '$rootScope', 'Session', '$log', '$location', '$route', 'AuthenticationSharedService', 'UserAffiliateService', 'ApplicationUtilsService',
+         function ($scope, $rootScope, Session, $log, $location, $route, AuthenticationSharedService, UserAffiliateService, ApplicationUtilsService) {
 			$log.log('LandingRedirectController starting', $location.path(), $route.current, window.location.hash)
 
       		Session.promise
