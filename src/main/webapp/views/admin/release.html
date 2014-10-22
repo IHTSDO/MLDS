@@ -4,7 +4,7 @@
 	<div class="col-md-12">
 		
 			<h2>{{packageEntity.name}} - {{packageEntity.member.key | enum:'global.member.'}}
-				<a class="btn btn-default btn-sm"  ng-click="editReleasePackage()" ng-show="isEditableReleasePackage"><i class="fa fa-pencil"></i> Edit</a>
+				<a class="btn btn-primary"  ng-click="editReleasePackage()" ng-show="isEditableReleasePackage"><i class="fa fa-pencil"></i> Edit</a>
 				<button class="btn btn-success" ng-click="addReleaseVersion()" ng-show="isEditableReleasePackage"><i class="fa fa-plus"></i> Add Version</button>
 				<a class="btn btn-danger btn-sm"  ng-click="removeReleasePackage()" ng-show="isEditableReleasePackage && isRemovableReleasePackage"><i class="fa fa-times"></i> Delete</a>
 			</h2>
