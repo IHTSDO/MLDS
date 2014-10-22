@@ -17,10 +17,13 @@ import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.Validate;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Fields;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
+
+import ca.intelliware.ihtsdo.mlds.search.StandingStateFieldBridge;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -80,6 +83,7 @@ public class Affiliate extends BaseEntity {
 	@Column(name="notes_internal")
 	String notesInternal;
 
+	@Field(name="ALL",bridge=@FieldBridge(impl=StandingStateFieldBridge.class))
 	@Enumerated(EnumType.STRING)
 	@Column(name="standing_state")
 	StandingState standingState = StandingState.APPLYING;

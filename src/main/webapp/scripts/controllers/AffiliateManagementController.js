@@ -34,6 +34,9 @@ mldsApp.controller('AffiliateManagementController', [
 						_.each(response.data, function(a) {
 							$scope.affiliates.push(a);
 						});
+						if (_.size($scope.affiliates) > 0) {
+							$scope.noResults = false;
+						}
 						$scope.page = $scope.page + 1;
 						$scope.downloadingAffiliates = false;
 					})
@@ -48,6 +51,7 @@ mldsApp.controller('AffiliateManagementController', [
 				//Force clear - note loadMoreAffiliates works on alias
 				$scope.affiliates = [];
 				$scope.page = 0;
+				$scope.noResults = true;
 				
 				loadMoreAffiliates();
 			}
