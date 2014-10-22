@@ -52,9 +52,9 @@
 					<span class="version-title">File:</span>
 				</div>
 				<div class="col-md-6">
-					<p ng-repeat="releaseFile in releaseVersion.releaseFiles">
+					<span class="file-download" ng-repeat="releaseFile in releaseVersion.releaseFiles">
 						<i class="fa fa-file"></i> <a href="{{releaseFile.clientDownloadUrl}}" class="btn btn-link" ng-disabled="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding" target="_blank">{{releaseFile.label}}</a>
-					</p>
+					</span>
 				</div>
 				</div>
 			</div>
