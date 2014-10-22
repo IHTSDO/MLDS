@@ -164,6 +164,9 @@ public class ReleasePackagesResource {
     	
     	releasePackage.setName(body.getName());
     	releasePackage.setDescription(body.getDescription());
+    	if (currentSecurityContext.isAdmin()) {
+    		releasePackage.setMember(body.getMember());
+    	}
     	
     	releasePackageRepository.save(releasePackage);
     	
