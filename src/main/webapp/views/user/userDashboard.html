@@ -89,10 +89,10 @@
           </td>
           <td>
           	<span ng-if="application.applicationType === 'EXTENSION'">
-          		<a ng-if="isApplicationWaitingForApplicant(application)" href="#/extensionApplication/{{application.applicationId}}" class="btn-warning btn-sm">
+          		<a ng-if="isApplicationWaitingForApplicant(application)" href="#/extensionApplication/{{application.applicationId}}" class="btn btn-warning btn-sm">
           			<i class="fa fa-edit"></i> Edit
           		</a>
-          		<a ng-if="!isApplicationWaitingForApplicant(application)"ng-click="viewApplication(application)" class="btn-primary btn-sm">
+          		<a ng-if="!isApplicationWaitingForApplicant(application)"ng-click="viewApplication(application)" class="btn btn-primary btn-sm">
           			<i class="fa fa-eye"></i> View
           		</a>
           	</span>
