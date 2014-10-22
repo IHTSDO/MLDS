@@ -49,7 +49,7 @@
 						>
 						Primary application needs attention
 					</a>
-					<span class="btn-sm btn-warning pull-right"
+					<span class="alert-danger-flag pull-right"
 						ng-show="$root.authenticated && !isAccountDeactivated && !isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved">
 						Primary application is being processed
 					</span>
@@ -58,7 +58,7 @@
 						ng-click="utils.openExtensionApplication(releasePackage)">
 							Apply for extension
 					</button>
-					<span class="btn-sm btn-warning pull-right"
+					<span class="alert-danger-flag pull-right"
 						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && !isApplicationWaitingForApplicant">
 						Application being processed
 					</span>
