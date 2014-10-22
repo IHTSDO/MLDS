@@ -156,7 +156,7 @@
 							<td>{{institution.note}}</td>
 							<td>
 								<div class="btn-group" dropdown ng-hide="readOnly">
-									<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-pencil"></i> Edit</button>
+									<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-pencil"></i> Edit</button>
 									<ul class="dropdown-menu" role="menu">
 										<li><a ng-click="editInstitutionModal(institution, countryUsage.country)">Edit Hospital</a></li>
 										<li class="divider"></li>
@@ -182,7 +182,7 @@
               </p>
             </div>
             <div class="col-xs-4 col-sm-4  col-md-4 col-lg-4">
-              <button ng-hide="readOnly" type="button" class="btn btn-default btn-xs pull-right" ng-click="editCountModal(countryUsage.count)"> <i class="fa fa-pencil"></i> Add Practices</button>
+              <button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountModal(countryUsage.count)"> <i class="fa fa-plus"></i> Add Practices</button>
             </div>
           </div>
         </div>

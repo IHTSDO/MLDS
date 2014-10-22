@@ -30,12 +30,16 @@
            <td>{{country.excludeRegistration}}</td>
            <td>{{country.alternateRegistrationUrl}}</td>
            <td>
-             <button type="submit" ng-click="update(country.isoCode2)" class="btn btn-default btn-xs">
+	           <div>
+             <button type="submit" ng-click="update(country.isoCode2)" class="btn btn-primary btn-xs">
                <i class="fa fa-pencil"></i> Edit
              </button>
+             </div>
+            <div class="space">
              <button type="submit" ng-click="delete(country.isoCode2)" class="btn btn-danger btn-xs">
                <i class="fa fa-times"></i> Delete
              </button>
+             </div>
            </td>
          </tr>
        </tbody>
