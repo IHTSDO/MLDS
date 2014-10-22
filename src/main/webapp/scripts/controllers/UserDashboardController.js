@@ -2,8 +2,8 @@
 
 angular.module('MLDS')
     .controller('UserDashboardController',
-        [ '$scope', '$log', '$modal', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService', 'PackageUtilsService', 'MemberService', 'PackagesService', 'StandingStateUtils',
-          function ($scope, $log, $modal, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService, PackageUtilsService, MemberService, PackagesService, StandingStateUtils) {
+        [ '$scope', '$log', '$modal', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService', 'PackageUtilsService', 'MemberService', 'PackagesService', 'StandingStateUtils','MemberPackageService',
+          function ($scope, $log, $modal, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService, PackageUtilsService, MemberService, PackagesService, StandingStateUtils, MemberPackageService) {
         	
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
@@ -89,7 +89,7 @@ angular.module('MLDS')
         		$location.path('/usageReports');        		
         	};
         	
-        	$scope.releasePackageOrderBy = UserAffiliateService.releasePackageOrderBy;
+        	$scope.releasePackageOrderBy = MemberPackageService.orderBy;
         	
         	$scope.goToViewPackagePage = function goToViewPackagePage(releasePackageId) {
         		$location.path('/viewReleases/viewRelease/'+ releasePackageId);
