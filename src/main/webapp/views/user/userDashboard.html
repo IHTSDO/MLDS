@@ -151,17 +151,24 @@
 	</div>
 </div>
 
-<div class="row" ng-repeat="memberReleases in approvedReleasePackagesByMember | orderBy: releasePackageOrderBy">
-	 <div class="col-lg-12">
-	  <h3>{{memberReleases.member.key | enum:'global.member.'}} <button class="btn-sm btn-link" ng-click="viewLicence(memberReleases.packages[0].member.key)">View Licence</button></h3>
-	</div>
-	<div class="col-md-4" ng-repeat="releasePackage in memberReleases.packages | orderBy:packageUtils.getLatestPublishedDate:true | filter: packageUtils.isPackagePublished">
-		<div class="well dashboard-well package" 
-			ng-repeat="releaseVersion in releasePackage.releaseVersions" 
-			ng-show="packageUtils.isVersionOnline(releaseVersion) && packageUtils.isLatestVersion(releaseVersion, releasePackage.releaseVersions)">
-			
-		    <h3 ><a href="#/viewReleases/viewRelease/{{releasePackage.releasePackageId}}">{{releasePackage.name}}  </a></h3>
-		    <p>Current: {{releaseVersion.publishedAt | date:'longDate'}}</p>
+<div class="row" >
+	<div class="col-lg-4" ng-repeat="memberReleases in approvedReleasePackagesByMember | orderBy: releasePackageOrderBy">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+			<h3 class="panel-title"> {{memberReleases.member.key | enum:'global.member.'}}
+				<button class="btn-sm btn-link"
+					ng-click="viewLicence(memberReleases.packages[0].member.key)">View
+					Licence</button>
+			</h3>
+		</div>
+			<table class="table table-striped">
+				<tr
+					ng-repeat="releasePackage in memberReleases.packages | orderBy:packageUtils.getLatestPublishedDate:true | filter: packageUtils.isPackagePublished">
+					<td><a
+						href="#/viewReleases/viewRelease/{{releasePackage.releasePackageId}}">{{releasePackage.name}}
+					</a></td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </div>
