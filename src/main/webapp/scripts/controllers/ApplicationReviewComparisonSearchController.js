@@ -14,7 +14,7 @@ mldsApp.controller('ApplicationReviewComparisonSearchController', [
 				};
 				return AffiliateService.affiliatesResource.query({q:text}).$promise
 					.then(function(foundAffiliates) {
-					return _.filter(foundAffiliates, notSelfPredicate);
+					return _.first(_.filter(foundAffiliates, notSelfPredicate),10);
 				});
 			};
 			
