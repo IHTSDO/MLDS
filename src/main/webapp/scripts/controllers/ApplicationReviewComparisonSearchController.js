@@ -23,7 +23,6 @@ mldsApp.controller('ApplicationReviewComparisonSearchController', [
 				$scope.application = $scope.comparisonAffiliate.application;
 				$scope.standingState = $scope.comparisonAffiliate.standingState;
 				$scope.audits = [];
-				$log.log(affiliate, $scope.comparisonAffiliate);
 			};
 			
 			$scope.setOriginalAffiliate = function setOriginalAffiliate(affiliate) {
