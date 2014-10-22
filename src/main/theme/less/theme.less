@@ -69,6 +69,7 @@
 	left: 30px;
 }
 
+
 // Terms of Service
 //--------------------
 .masthead{
@@ -235,16 +236,12 @@
 }
 
 .current{
-	background-color: @green;
-	width: 70px;
-	height: 30px;
-	color: @white;
-	border: 1px solid darken(@green,5%);
-	padding: 4px 10px;
-	margin: 10px 10px 0;
-	 border-top-left-radius: 12px;
+	color: @green;
+	font-weight: bold;
+	padding-top: 10px;
 	text-align: center;
 	font-weight: @btn-font-weight;
+	cursor: none;
 }
 
 .version-title{
@@ -403,7 +400,7 @@ footer{
 	height: 60px;
 	padding-top: 20px;
 	position: absolute;
-	bottom: -60px;
+	bottom: 0;
 	width: 100%;
 	border-top:1px solid @gray-lighter;
 	
@@ -425,4 +422,18 @@ footer[role=admin]{
 	}
 }	
 
+//
+// Misc
+// --------------------------------------------------
+.btn-space{
+	position:relative;
+	bottom:10px;
+}
 
+.file-download{
+	a{
+		position: relative;
+		bottom:25px;
+		left: 5px;
+	}
+}

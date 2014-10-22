@@ -178,9 +178,9 @@ public class AccountResource {
         	application.setAffiliateDetails(affiliateDetails);
         	
         	//set a default type for application to create affiliate and usagelog
-        	affiliateDetails.setType(AffiliateType.COMMERCIAL);
         	affiliate.setCreator(userDTO.getLogin());
-        	affiliate.setType(AffiliateType.COMMERCIAL);
+        	// MLDS-719 don't default type affiliateDetails.setType(AffiliateType.COMMERCIAL);
+        	//affiliate.setType(AffiliateType.COMMERCIAL);
         	
         	Validate.notNull(userDTO.getCountry(), "Country is mandatory");
         	Member member = userDTO.getCountry().getMember();

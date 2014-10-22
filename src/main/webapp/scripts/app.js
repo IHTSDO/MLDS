@@ -207,7 +207,9 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     },
                     resolve: {
-                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}],
+                    	membersLoaded:['MemberService', function(MemberService){return MemberService.ready;}],
+                    	releasePackagesQueryResult: ['PackagesService', function(PackagesService){return PackagesService.query().$promise;}]
                     }
                 })
                 .when('/viewReleases/viewRelease/:releasePackageId', {
@@ -434,15 +436,6 @@ mldsApp
         	datepickerConfig.startingDay=1;
         	datepickerConfig.formatYear='yy';
         }])
-        .run(['$rootScope', '$location', '$anchorScroll', '$routeParams', '$log', '$timeout',
-              function($rootScope, $location, $anchorScroll, $routeParams,$log, $timeout) {
-		  $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
-		    $timeout(function(){
-		    	$location.hash($routeParams.scrollTo);
-		    	$anchorScroll();  
-		    });
-		  });
-		}])
         .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
             function($rootScope, $location, $http, $log, AuthenticationSharedService, Session, USER_ROLES) {
         		$log.log('app.js startup');

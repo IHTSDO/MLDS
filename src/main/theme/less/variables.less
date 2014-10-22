@@ -179,7 +179,7 @@
 @table-bg-active:               @table-bg-hover;
 
 //** Border color for table and cell borders.
-@table-border-color:             #EBEBEB;
+@table-border-color:             @gray-dark;
 
 
 //== Buttons
@@ -206,13 +206,13 @@
 @btn-info-bg:                    @white;
 @btn-info-border:                @brand-info;
 
-@btn-warning-color:              @orange;
-@btn-warning-bg:                 @white;
-@btn-warning-border:             @orange;
+@btn-warning-color:              @brand-danger;
+@btn-warning-bg:                 lighten(@brand-danger, 30%);
+@btn-warning-border:             @brand-danger;
 
 @btn-danger-color:               darken(@brand-danger, 5%);
 @btn-danger-bg:                  lighten(@brand-danger, 30%);
-@btn-danger-border:              transparent;
+@btn-danger-border:              @brand-danger;
 
 @btn-link-disabled-color:        @gray-light;
 
@@ -531,8 +531,8 @@
 @state-warning-bg:               @white;
 @state-warning-border:           @brand-warning;
 
-@state-danger-text:              @brand-danger;
-@state-danger-bg:                @white;
+@state-danger-text:              @brand-warning;
+@state-danger-bg:                lighten(@brand-danger, 70%);
 @state-danger-border:            @brand-warning;
 
 
@@ -695,7 +695,7 @@
 //** Background color on `.list-group-item`
 @list-group-bg:                 #fff;
 //** `.list-group-item` border color
-@list-group-border:             #ddd;
+@list-group-border:            @gray-dark;
 //** List group border radius
 @list-group-border-radius:      @border-radius-base;
 
