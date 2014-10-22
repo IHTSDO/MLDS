@@ -2,8 +2,8 @@
 
 angular.module('MLDS')
     .controller('ViewReleasesController', 
-    		['$scope', '$log', 'PackageUtilsService', '$location', 'MemberService', 'UserAffiliateService','releasePackagesQueryResult',
-           function ($scope, $log, PackageUtilsService, $location, MemberService, UserAffiliateService, releasePackagesQueryResult) {
+    		['$scope', '$log', 'PackageUtilsService', '$location', 'MemberService', 'UserAffiliateService','releasePackagesQueryResult', 'MemberPackageService',
+           function ($scope, $log, PackageUtilsService, $location, MemberService, UserAffiliateService, releasePackagesQueryResult, MemberPackageService) {
 			
 	$scope.utils = PackageUtilsService;
 	$scope.releasePackagesByMember = [];
@@ -19,7 +19,7 @@ angular.module('MLDS')
 		$location.path('/viewReleases/viewRelease/'+ releasePackageId);
 	};
 	
-	$scope.releasePackageOrderBy = UserAffiliateService.releasePackageOrderBy; 
+	$scope.releasePackageOrderBy = MemberPackageService.orderBy; 
 
 	var releasePackages = releasePackagesQueryResult;
 				$scope.releasePackagesByMember = _.chain(releasePackages)
