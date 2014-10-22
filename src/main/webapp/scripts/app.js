@@ -208,6 +208,7 @@ mldsApp
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}],
+                    	membersLoaded:['MemberService', function(MemberService){return MemberService.ready;}],
                     	releasePackagesQueryResult: ['PackagesService', function(PackagesService){return PackagesService.query().$promise;}]
                     }
                 })
