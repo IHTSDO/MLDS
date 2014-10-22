@@ -21,9 +21,9 @@
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<div>
-				<h2 id="{{'section-'+memberReleases.packages[0].member.key}}">
-					{{memberReleases.packages[0].member.key | enum:'global.member.'}} 
-					<a class="btn-sm btn-link" ng-click="viewLicence(memberReleases.packages[0].member.key)">View Licence</a>
+				<h2 id="{{'section-'+memberReleases.member.key}}">
+					{{memberReleases.member.key | enum:'global.member.'}} 
+					<a class="btn btn-sm btn-link" ng-click="viewLicence(memberReleases.packages[0].member.key)">View Licence</a>
 				</h2>
 			</div>
 		</div>
@@ -33,24 +33,40 @@
 			<div class="panel panel-default release-package">	
 				<div class="panel-heading">	
 					<div ng-class="{'status text-muted': !isMembershipInGoodStanding}">
-						<div ng-show="$root.authenticated">
-							<div ng-show="isAccountDeactivated">
-								<span class="btn-sm btn-warning pull-right" ng-show="isAccountDeactivated">Account Deactivated</span>
-							</div>
-							<div ng-show="!isAccountDeactivated">
-								<span class="btn-sm btn-warning pull-right" ng-show="isPrimaryApplicationWaitingForApplicant">Primary application needs attention</span>
-								<span class="btn-sm btn-warning pull-right" ng-show="!isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved">Primary application is being processed</span>
-								<button class="btn-sm btn-success pull-right" ng-show="isMembershipUnstarted && isPrimaryApplicationApproved && !isIHTSDOPackage" ng-click="utils.openExtensionApplication(releasePackage)">			
-									Apply for extension
-								</button>
-								<span class="btn-sm btn-warning pull-right" ng-show="isMembershipIncomplete && !isApplicationWaitingForApplicant && isPrimaryApplicationApproved && !isIHTSDOPackage">Application being processed</span>
-								<span class="btn btn-sm btn-warning pull-right" 
-									ng-show="isMembershipIncomplete && isApplicationWaitingForApplicant && !isIHTSDOPackage"
-									ng-click="goToExtensionApplication()">
-									Application in progress, click to continue application
-								</span>
-							</div>
-						</div>
+						
+					<!-- Warnings and action invitations -->
+					<a class="btn btn-sm btn-success pull-right" href="#/login"
+						ng-show="!$root.authenticated">
+						Login to download
+					</a>
+					<span class="btn-sm btn-warning pull-right"
+						ng-show="$root.authenticated && isAccountDeactivated">
+						Account Deactivated
+					</span>
+					<a class="btn btn-sm btn-warning pull-right"
+						href="#/affiliateRegistration"
+						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationWaitingForApplicant"
+						>
+						Primary application needs attention
+					</a>
+					<span class="alert-danger-flag pull-right"
+						ng-show="$root.authenticated && !isAccountDeactivated && !isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved">
+						Primary application is being processed
+					</span>
+					<button class="btn btn-sm btn-success pull-right"
+						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipUnstarted"
+						ng-click="utils.openExtensionApplication(releasePackage)">
+							Apply for extension
+					</button>
+					<span class="alert-danger-flag pull-right"
+						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && !isApplicationWaitingForApplicant">
+						Application being processed
+					</span>
+					<button class="btn btn-sm btn-warning pull-right"
+						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && isApplicationWaitingForApplicant"
+						ng-click="goToExtensionApplication()" >
+						Application needs attention, click to continue application
+					</button>
 						<div>
 							<h3 class="panel-title" ng-click="goToViewPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}</h3>
 						</div>
