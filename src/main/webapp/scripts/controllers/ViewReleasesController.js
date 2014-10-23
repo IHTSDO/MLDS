@@ -19,7 +19,7 @@ angular.module('MLDS')
 		$location.path('/viewReleases/viewRelease/'+ releasePackageId);
 	};
 	
-	$scope.releasePackageOrderBy = MemberPackageService.orderBy; 
+	$scope.releasePackageOrderBy = MemberPackageService.orderByJustName; 
 
 	var releasePackages = releasePackagesQueryResult;
 				$scope.releasePackagesByMember = _.chain(releasePackages)
