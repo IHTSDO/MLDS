@@ -60,6 +60,7 @@ public class AffiliateFullTextSearchTest {
 		for (int i = 0; i < 10; i++) {
 			affiliates.add(makeAffiliate());
 		}
+		new AngularTranslateServiceSetup().setup();
 	}
 
 	@Before
