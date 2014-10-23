@@ -82,7 +82,10 @@
       </thead>
       <tbody> 
         <tr ng-repeat="application in affiliate.applications | orderBy: [orderByApprovalState, orderByApplicationType]">
-          <td>{{application.applicationType | enum:'application.applicationType.'}}</td>
+          <td>
+          	{{application.applicationType | enum:'application.applicationType.'}}
+          	<span ng-if="application.applicationType === 'EXTENSION'">({{application.member.key | enum:'global.member.'}})</span>
+       	  </td>
           <td>{{(application.completedAt || application.submittedAt) | date:'shortDate' }}</td>
           <td ng-class="{'text-warning':isApplicationPending(application), 'text-danger':isApplicationWaitingForApplicant(application)}">
          		<strong>{{application.approvalState | enum:'approval.state.'}}</strong>
@@ -155,11 +158,7 @@
 	<div class="col-lg-4" ng-repeat="memberReleases in approvedReleasePackagesByMember | orderBy: releasePackageOrderBy">
 		<div class="panel panel-default">
 		  <div class="panel-heading">
-			<h3 class="panel-title"> {{memberReleases.member.key | enum:'global.member.'}}
-				<button class="btn-sm btn-link"
-					ng-click="viewLicence(memberReleases.packages[0].member.key)">View
-					Licence</button>
-			</h3>
+			<h3 class="panel-title"> {{memberReleases.member.key | enum:'global.member.'}}</h3>
 		</div>
 			<table class="table table-striped">
 				<tr

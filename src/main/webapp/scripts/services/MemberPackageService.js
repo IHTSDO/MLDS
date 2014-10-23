@@ -20,6 +20,8 @@ angular.module('MLDS')
 	};
 	
 	return {
-		orderBy:[orderIhtsdo, orderApprovedMemberships, orderIncompleteMemberships, orderMemberName]
+		orderBy:[orderIhtsdo, orderApprovedMemberships, orderIncompleteMemberships, orderMemberName],
+		orderByJustName:[orderIhtsdo, orderMemberName]
+		
 	};
 }]);
