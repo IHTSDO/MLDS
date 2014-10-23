@@ -1,6 +1,9 @@
 //
 // IHTSDO Theme
 // --------------------------------------------------
+div[role=main]{
+	padding-bottom: 20px;
+}
 .brand{
 	font-size: 16px;
 	line-height: 20px;
@@ -15,6 +18,8 @@
 .space{
 	margin-top: 10px;
 }
+
+
 // Landing Page
 //--------------------
 
@@ -222,6 +227,9 @@
 	overflow-y: auto;
 }
 
+.dashboard-height{
+	height: 56px;
+}
 //
 // Package Management
 // --------------------------------------------------
@@ -241,7 +249,6 @@
 	padding-top: 10px;
 	text-align: center;
 	font-weight: @btn-font-weight;
-	cursor: none;
 }
 
 .version-title{
@@ -266,7 +273,7 @@
 }
 
 .release-package{
-	margin-bottom: 40px;
+	margin-bottom: 15px;
 	
 	.panel-heading{
 		padding-bottom: 3px;
@@ -274,6 +281,13 @@
 	.panel-footer{
 		padding: 5px 15px;
 	}
+}
+.release-header{
+	margin-top: 54px;
+}
+.release-divider{
+	margin: 60px 0 0;
+	border-bottom: 1px solid @page-header-border-color;
 }
 //
 // Application Review
@@ -428,4 +442,19 @@ footer[role=admin]{
 .btn-space{
 	position:relative;
 	bottom:10px;
+}
+
+.panel-heading h2{
+	cursor: default;
+}
+
+[ng-click]{
+	cursor: pointer;
+}
+.panel-title span{
+	color: @link-color;
+	&:hover{
+		color: @link-hover-color;
+		text-decoration: underline;
+}
 }
