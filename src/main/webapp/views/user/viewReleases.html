@@ -11,16 +11,17 @@
 <div ng-repeat="memberReleases in releasePackagesByMember | orderBy: releasePackageOrderBy">
 	<div class="row" ng-show="$index === 1">
 		<div class="col-sm-12 col-md-12 col-lg-12">
-			<hr>
+			<div class="release-divider">
 			<h2>Member Country Releases</h2>
 			<p>If the country you're looking for is not in this list, please refer to the <a href="http://www.ihtsdo.org/">IHTSDO website</a>
 			for release download information.</p>  
+		</div>
 		</div>
 	</div>
 		
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
-			<div>
+			<div class="release-header">
 				<h2 id="{{'section-'+memberReleases.member.key}}">
 					{{memberReleases.member.key | enum:'global.member.'}} 
 					<a class="btn btn-sm btn-link" ng-click="viewLicence(memberReleases.packages[0].member.key)">View Licence</a>
