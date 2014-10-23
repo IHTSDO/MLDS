@@ -460,7 +460,7 @@
         },
         "messages": {
             "error":  "<strong>An error has occured!</strong> The password could not be changed.",
-            "success": "<strong>Password changed!</strong>",
+            "success": "<strong>Password changed!</strong>  Continue to <a href='#/contactInfo'>Account Information</a>",
             "expired": "<strong>The reset link has expired or was invalid.</strong> <a href='#/requestPasswordReset'>Request another reset</a>"
         }
     },
