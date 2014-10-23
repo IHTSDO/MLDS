@@ -61,7 +61,7 @@
   .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
    &:hover,
   &:focus {
-    color: @white;
+     color: @white !important;
     background-color: @brand-primary;
   }
 }
@@ -70,7 +70,7 @@
   .button-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
    &:hover,
   &:focus {
-    color: @white;
+    color: @white !important;
     background-color: @brand-success;
   }
 }
@@ -79,7 +79,7 @@
   .button-variant(@btn-info-color; @btn-info-bg; @btn-info-border);
    &:hover,
   &:focus {
-    color: @white;
+ color: @white !important;
     background-color: @brand-info;
   }
 }
@@ -88,7 +88,7 @@
   .button-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
    &:hover,
   &:focus {
-    color: @white;
+    color: @white !important;
     background-color: @brand-warning;
   }
 }
@@ -97,8 +97,8 @@
   .button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
  &:hover,
   &:focus {
-    color: @white;
-    background-color: @brand-danger;
+    color: @white; color: @white !important;
+        background-color: @brand-danger;
   }
 }
 
