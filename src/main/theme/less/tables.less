@@ -7,17 +7,6 @@ table {
   max-width: 100%;
   background-color: @table-bg;
 }
-th {
-  text-align: left;
-  font-family: 'Oxygen', sans-serif;
-  background-color: @white;
-  font-weight: 400;
-  border-right: 5px solid white;
-}
-tr{
-   border-bottom: 1px solid @table-border-color;
-}
-
 
 // Baseline styles
 
@@ -44,7 +33,19 @@ tr{
     vertical-align: bottom;
     border-bottom: 4px solid @table-border-color;
     padding-right: 5px;
+    text-align: left;
+    font-family: 'Oxygen', sans-serif;
+    background-color: @white;
+    font-weight: 400;
+    border-right: 5px solid white;
   }
+  th:last-child{
+    border-right: none;
+  }
+  tr{
+   border-bottom: 1px solid @table-border-color;
+	}
+
   // Remove top border from thead by default
   > caption + thead,
   > colgroup + thead,
