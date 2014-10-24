@@ -98,8 +98,8 @@
 	      <p>{{application.commercialUsage.context.purpose}}</p>
 	    </div>
 	    <div>
-	      <strong>Implementation Status:</strong>
-	     	<p>{{application.commercialUsage.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</p>
+	      <p><strong>Implementation Status:</strong>
+	     	{{application.commercialUsage.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</p>
 	    </div>
       <div ng-show="application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
       	<strong>Sub-licence Usage:</strong>
