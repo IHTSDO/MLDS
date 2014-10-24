@@ -3,7 +3,10 @@
 	<div class="col-sm-12 col-md-12 col-lg-12"> 
 		<div class="page-header">
 			<h1>Releases available for Registered Users</h1>
-			<p ng-show="!$root.authenticated">Click <a href="#/register">Register</a> to Start Application Process</p>
+			<p ng-show="!$root.authenticated">
+				<a href="#/login">Log in</a> to download
+				 or click <a href="#/register">register</a> 
+				 to start application process.
 		</div>
 	</div>
 </div>
@@ -36,10 +39,6 @@
 					<div ng-class="{'status text-muted': !isMembershipInGoodStanding}">
 						
 					<!-- Warnings and action invitations -->
-					<a class="btn btn-sm btn-success pull-right" href="#/login"
-						ng-show="!$root.authenticated">
-						Login to download
-					</a>
 					<span class="btn-sm btn-warning pull-right"
 						ng-show="$root.authenticated && isAccountDeactivated">
 						Account Deactivated
