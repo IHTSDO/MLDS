@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,11 +24,14 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
+import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import ca.intelliware.ihtsdo.mlds.web.filter.CachingHttpHeadersFilter;
 import ca.intelliware.ihtsdo.mlds.web.filter.StaticResourcesProductionFilter;
@@ -54,7 +58,10 @@ public class WebConfigurer implements ServletContextInitializer {
     @Inject
     private MetricRegistry metricRegistry;
     
-    
+    @Inject
+    ApplicationContext applicationContext;
+
+  
     /**
      * Wire up the Jackson serialization for Jodatime 
      * @return
@@ -203,4 +210,24 @@ public class WebConfigurer implements ServletContextInitializer {
         metricsAdminServlet.setLoadOnStartup(2);
     }
 
+    @Bean
+    public SimpleUrlHandlerMapping myFaviconHandlerMapping()
+    {
+        SimpleUrlHandlerMapping mapping = new SimpleUrlHandlerMapping();
+        mapping.setOrder(Integer.MIN_VALUE);
+        mapping.setUrlMap(Collections.singletonMap("/favicon.ico",
+            myFaviconRequestHandler()));
+        return mapping;
+    }
+
+    @Bean
+    protected ResourceHttpRequestHandler myFaviconRequestHandler()
+    {
+        ResourceHttpRequestHandler requestHandler =
+            new ResourceHttpRequestHandler();
+        requestHandler.setLocations(Arrays
+            .<Resource> asList(applicationContext.getResource("/")));
+        requestHandler.setCacheSeconds(0);
+        return requestHandler;
+    }
 }
