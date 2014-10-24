@@ -163,7 +163,7 @@
 			<table class="table table-striped">
 				<tr
 					ng-repeat="releasePackage in memberReleases.packages | orderBy:packageUtils.getLatestPublishedDate:true | filter: packageUtils.isPackagePublished">
-					<td><a
+					<td class="break-text"><a
 						href="#/viewReleases/viewRelease/{{releasePackage.releasePackageId}}">{{releasePackage.name}}
 					</a></td>
 				</tr>

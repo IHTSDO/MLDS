@@ -20,10 +20,6 @@
 			<div class="panel-heading status">
 				<div class="status">
 					<!-- Warnings and action invitations -->
-					<a class="btn btn-sm btn-success pull-right" href="#/login"
-						ng-show="!$root.authenticated">
-						Login to download
-					</a>
 					<span class="btn-sm btn-warning pull-right"
 						ng-show="$root.authenticated && isAccountDeactivated">
 						Account Deactivated
@@ -54,7 +50,8 @@
 				<p>{{releaseVersion.description}}</p>
 					<span><strong>Published On:</strong> {{releaseVersion.publishedAt | date: 'longDate'}}</span>
 			</div>
-			<div class="panel-footer">
+			<div class="panel-footer"
+				ng-show="$root.authenticated">
 				<div class="row">
 				<div class="col-md-2">
 					<span class="version-title">File:</span>
