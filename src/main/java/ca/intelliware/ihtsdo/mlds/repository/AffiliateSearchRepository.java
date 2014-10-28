@@ -31,6 +31,8 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
  */
 @Service
 public class AffiliateSearchRepository {
+	private static final String FIELD_ALL = "ALL";
+
 	static final Logger LOG = LoggerFactory.getLogger(AffiliateSearchRepository.class);
 	
 	@Resource
@@ -119,7 +121,7 @@ public class AffiliateSearchRepository {
 		try {
 			// We're letting the default analyzer tokenize the main query for the ALL field
 			Query allKeywordQuery = queryBuilder.keyword()
-					.onField("ALL").matching(q)
+					.onField(FIELD_ALL).ignoreFieldBridge().matching(q)
 					.createQuery();
 			bool.should(allKeywordQuery);
 		} catch (EmptyQueryException e) {
@@ -132,15 +134,15 @@ public class AffiliateSearchRepository {
 		for (String token : tokens) {
 			bool.should(queryBuilder.keyword()
 					.wildcard()
-					.onField("ALL").matching(token+"*")
+					.onField(FIELD_ALL).ignoreFieldBridge().matching(token+"*")
 					.createQuery());
 			bool.should(queryBuilder.keyword()
 					.wildcard()
-					.onField("address.ALL").matching(token+"*")
+					.onField("address.ALL").ignoreFieldBridge().matching(token+"*")
 					.createQuery());
 			bool.should(queryBuilder.keyword()
 					.wildcard()
-					.onField("address.country.commonName").matching(token+"*")
+					.onField("address.country.commonName").ignoreFieldBridge().matching(token+"*")
 					.createQuery());
 			bool.should(queryBuilder.keyword()
 					.wildcard()
