@@ -22,11 +22,15 @@ abstract public class TranslatedEnumFieldBridge implements StringBridge {
 		if (object == null) {
 			return null;
 		}
-		log.error("objectToString() {} {}", object.getClass().getName(), object);
-		Enum<?> affiliateType = (Enum<?>) object;
-		String path = getBundleKeyPrefix() + affiliateType.name();
-		AngularTranslateService translateInstance = AngularTranslateService.getInstance();
-		return translateInstance.lookup(Locale.ENGLISH,path);
+		if (object instanceof Enum<?>) {
+			Enum<?> affiliateType = (Enum<?>) object;
+			String path = getBundleKeyPrefix() + affiliateType.name();
+			AngularTranslateService translateInstance = AngularTranslateService.getInstance();
+			return translateInstance.lookup(Locale.ENGLISH,path);
+		} else {
+			log.error("objectToString() {} {}", object.getClass().getName(), object);
+			return null;
+		}
 	}
 
 	abstract protected String getBundleKeyPrefix();
