@@ -58,9 +58,14 @@
 				</div>
 				<div class="col-md-10">
 					<div ng-repeat="releaseFile in releaseVersion.releaseFiles">
-						<i class="fa fa-file pull-left"></i>
+						<i class="fa fa-file"></i>
+						<button class="btn btn-link disabled no-padding" disabled="disabled" 
+							ng-show="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding">
+							{{releaseFile.label}}
+						</button>
+						
 						<a href="{{releaseFile.clientDownloadUrl}}" 
-							ng-disabled="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding" 
+							ng-hide="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding" 
 							target="_blank">
 							{{releaseFile.label}}
 						</a>
