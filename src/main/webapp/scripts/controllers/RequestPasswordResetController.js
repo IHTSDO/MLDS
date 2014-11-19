@@ -5,6 +5,7 @@ angular.module('MLDS').controller('RequestPasswordResetController',
         function($scope, $log, $http) {
 			$scope.passwordResetData = {};
 			$scope.alerts = [];
+			$scope.resetProcessStarted = false;
 			
 			$scope.requestResetEmail = function requestResetEmail() {
 				$log.log('submit ', $scope.passwordResetData.email);
@@ -21,6 +22,7 @@ angular.module('MLDS').controller('RequestPasswordResetController',
         			})
         			.then(function(data){
         				$scope.alerts.push({ type: 'success', msg: 'Password reset process started, please check your email.' });
+        				$scope.resetProcessStarted = true;
         			});
 			};
 			
