@@ -7,11 +7,15 @@
                 <strong>Registration saved!</strong> Please check your email for confirmation.
             </div>
 
-            <div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
+            <div class="alert alert-danger" ng-show="error.general" translate="register.messages.error.fail">
                 <strong>Registration failed!</strong> Please check your input and try again.
             </div>
+            
+            <div class="alert alert-danger" ng-show="error.onBlocklist" translate="register.messages.error.blocklist">
+                <strong>Registration failed!</strong> Email domain used is not allowed.
+            </div>
 
-            <div class="alert alert-danger" ng-show="errorUserExists" translate="register.messages.error.userexists">
+            <div class="alert alert-danger" ng-show="error.userExists" translate="register.messages.error.userexists">
                 <strong>Login name already registered!</strong> Please choose another one.
             </div>
 
