@@ -57,7 +57,7 @@
   				<li class="list-group-item"><strong>Planned Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.plannedUsage}}</li>
   				<li class="list-group-item"><strong>Purpose:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.purpose}}</li>
   				<li class="list-group-item"><strong>Implementation Status:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</li>
-  				<li class="list-group-item" ng-show="affiliateform.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
+  				<li class="list-group-item" ng-repeat="countryRecord in usageCountryCountslist">
   					<strong>Country:</strong> {{countryRecord.country.commonName}}<br>
  						<strong>Practices:</strong> {{countryRecord.practices}}
   				  <span ng-show="commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2].length > 0">
@@ -67,11 +67,6 @@
 	  						{{entry.name}}<span ng-show="!$last">,</span>
 	 						</span><br>
   				  </span>
- 					</li>
- 					<li class="list-group-item" ng-show="affiliateform.type!='COMMERCIAL'"><strong>Countries:</strong>
- 						<span ng-repeat="countryRecord in usageCountryCountslist">
-  						{{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
- 						</span><br>
  					</li>
  					<li class="list-group-item"><strong>Other Activities:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.otherActivities}}</li>
  				</ul>
