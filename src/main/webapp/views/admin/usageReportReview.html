@@ -45,20 +45,7 @@
 			</div>
 		</div>
 		
-		<div class="panel panel-default" ng-show="usageReport.type == 'INDIVIDUAL'">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-       		Countries in Use
-       	</h4>
-      </div>
-			<div class="panel-body" class="panel-collapse collapse in">
-				<ul class="list-group">
-					<li class="list-group-item" ng-repeat="countryUsage in usageReport.countries">{{countryUsage.country.commonName}}</li>
-				</ul>
-			</div>
-		</div>
-		
-		<div class="panel panel-default" ng-show="usageReport.type == 'COMMERCIAL'">
+		<div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
        		Sublicensed Institutions
