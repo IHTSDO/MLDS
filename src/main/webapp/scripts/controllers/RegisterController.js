@@ -5,8 +5,7 @@ angular.module('MLDS').controller('RegisterController', ['$scope', '$translate',
 		$scope.availableCountries = CountryService.countries;
 		
         $scope.success = null;
-        $scope.error = null;
-        $scope.errorUserExists = null;
+        $scope.error = {};
         $scope.registerAccount = {};
         $scope.confirmPassword = null;
         
@@ -37,19 +36,18 @@ angular.module('MLDS').controller('RegisterController', ['$scope', '$translate',
             CommercialUsageService.generateRanges()[0];
             Register.save($scope.registerAccount,
                 function (value, responseHeaders) {
-                    $scope.error = null;
-                    $scope.errorUserExists = null;
+                    $scope.error = {};
                     $scope.success = 'OK';
                     $location.path('/emailVerification');
                 },
                 function (httpResponse) {
                     $scope.success = null;
                     if (httpResponse.status === 304) {
-                        $scope.error = null;
-                        $scope.errorUserExists = "ERROR";
+                        $scope.error = {userExists: 'ERROR'};
+                    } else if (httpResponse.status === 406) {
+                    	$scope.error = {onBlocklist: 'ERROR'};
                     } else {
-                        $scope.error = "ERROR";
-                        $scope.errorUserExists = null;
+                    	$scope.error = {general: 'ERROR'};
                     }
                 });
         };

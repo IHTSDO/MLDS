@@ -77,7 +77,7 @@ public class AngularTranslateService {
 	private TreeNode loadBundle(String language) {
 		URL resource;
 		try {
-			String resourcePath = "/i18n/" + language + ".json";
+			String resourcePath = "i18n/" + language + ".json";
 			resource = servletContext.getResource(resourcePath);
 			if (resource == null) {
 				return null;
