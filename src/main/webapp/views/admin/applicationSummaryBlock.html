@@ -68,7 +68,7 @@
 	  </div>
 	</div>
 	
-	<div class="panel panel-default" ng-show="application.type=='COMMERCIAL'">
+	<div class="panel panel-default">
 	  <div class="panel-heading">
 	    <h3 class="panel-title">Affiliate Billing Information</h3>
 	  </div>
@@ -101,7 +101,7 @@
 	      <p><strong>Implementation Status:</strong>
 	     	{{application.commercialUsage.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</p>
 	    </div>
-      <div ng-show="application.type=='COMMERCIAL'" ng-repeat="countryRecord in usageCountryCountslist">
+      <div ng-repeat="countryRecord in usageCountryCountslist">
       	<strong>Sub-licence Usage:</strong>
        <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
        <p><strong>Practices:</strong> {{countryRecord.practices}} </p>
@@ -111,14 +111,7 @@
           {{entry.name}}<span ng-show="!$last">,</span>
         </span>
        </p>
-      </div>
-	    <div ng-show="application.type!='COMMERCIAL'">
-		    <p><strong>Countries:</strong>
-		     <span ng-repeat="countryRecord in usageCountryCountslist">
-		      {{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
-		      </span>
-		   	</p>
-	 		</div>
+      </div>	    
      	<div ng-show="application.commercialUsage.context.otherActivities">
      		<strong>Other Activities:</strong>
      		<p>{{application.commercialUsage.context.otherActivities}}</p>
