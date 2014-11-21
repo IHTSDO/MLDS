@@ -312,6 +312,84 @@
 									</div>
 								</div>
 							</div>
+							
+							<hr>
+						<!-- Start Billing Fields -->
+						<div class="row" ng-show="!$root.Session.isStaffOrAdmin()">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Use Address as Billing Address</label> <input name="use" type="checkbox" ng-change="copyAddress()" ng-model="isSameAddress">
+                </div>
+              </div>
+            </div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Billing Address:</label> <input class="form-control"
+										name="billingAddressStreet" placeholder="Address" ng-required="type=='INDIVIDUAL'"
+										ng-model="affiliateDetails.billingAddress.street"
+										ng-disabled="readOnly || isSameAddress">
+									<p
+										ng-show="form.billingAddressStreet.$error.required && form.attempted"
+										class="help-block">Required field.</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<label>City:</label>
+							</div>
+							<div class="col-md-3">
+								<label>Post Code:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<input class="form-control" name="billingAddressCity"
+										placeholder="City" ng-required="type=='INDIVIDUAL'"
+										ng-model="affiliateDetails.billingAddress.city"
+										ng-disabled="readOnly || isSameAddress">
+									<p
+										ng-show="form.billingAddressCity.$error.required && form.attempted"
+										class="help-block">Required field.</p>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<input class="form-control" type="text"
+										ng-model="affiliateDetails.billingAddress.post"
+										name="billingAddressPost" ng-required="type=='INDIVIDUAL'" ng-maxlength="25"
+										placeholder="Post Code" ng-disabled="readOnly || isSameAddress">
+									<p
+										ng-show="form.billingAddressPost.$error.required && form.attempted"
+										class="help-block">Required field.</p>
+									<p
+										ng-show="form.billingAddressPost.$error.maxlength"
+										class="help-block">Post Code is too long.</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Country:</label>
+									<input class="form-control" type="text"
+										ng-model="affiliateDetails.billingAddress.country"
+										name="billingAddressCountry" ng-required="type=='INDIVIDUAL'"
+										placeholder="Country"
+										typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
+										typeahead-editable="false"
+										ng-disabled="readOnly || isSameAddress">
+									<p
+										ng-show="form.billingAddressCountry.$error.required && form.attempted"
+										class="help-block">Required field.</p>
+									<p ng-show="form.billingAddressCountry.$error.editable" class="help-block">Unrecognized country</p>
+								</div>
+							</div>
+						</div>
+						<!-- End Billing Fields -->
+							
 						</div>
 					</div>
 				</div>
@@ -400,6 +478,7 @@
 							</div>
 						</div>
 						<hr>
+						<!-- Start Billing Fields -->
 						<div class="row" ng-show="!$root.Session.isStaffOrAdmin()">
               <div class="col-md-6">
                 <div class="form-group">
@@ -407,72 +486,69 @@
                 </div>
               </div>
             </div>
-						<div ng-show="type=='COMMERCIAL'">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Billing Address:</label> <input class="form-control"
-											name="billingAddressStreet" placeholder="Address"
-											ng-required="type=='COMMERCIAL'"
-											ng-model="affiliateDetails.billingAddress.street"
-											ng-disabled="readOnly || isSameAddress">
-										<p
-											ng-show="form.billingAddressStreet.$error.required && form.attempted"
-											class="help-block">Required field.</p>
-									</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Billing Address:</label> <input class="form-control"
+										name="billingAddressStreet" placeholder="Address" ng-required="type!='INDIVIDUAL'"
+										ng-model="affiliateDetails.billingAddress.street"
+										ng-disabled="readOnly || isSameAddress">
+									<p
+										ng-show="form.billingAddressStreet.$error.required && form.attempted"
+										class="help-block">Required field.</p>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-3">
-									<label>City:</label>
-								</div>
-								<div class="col-md-3">
-									<label>Post Code:</label>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<label>City:</label>
+							</div>
+							<div class="col-md-3">
+								<label>Post Code:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<input class="form-control" name="billingAddressCity"
+										placeholder="City" ng-required="type!='INDIVIDUAL'"
+										ng-model="affiliateDetails.billingAddress.city"
+										ng-disabled="readOnly || isSameAddress">
+									<p
+										ng-show="form.billingAddressCity.$error.required && form.attempted"
+										class="help-block">Required field.</p>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-3">
-									<div class="form-group">
-										<input class="form-control" name="billingAddressCity"
-											placeholder="City" ng-required="type=='COMMERCIAL'"
-											ng-model="affiliateDetails.billingAddress.city"
-											ng-disabled="readOnly || isSameAddress">
-										<p
-											ng-show="form.billingAddressCity.$error.required && form.attempted"
-											class="help-block">Required field.</p>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="form-group">
-										<input class="form-control" type="text"
-											ng-model="affiliateDetails.billingAddress.post"
-											name="billingAddressPost" ng-required="type=='COMMERCIAL'" ng-maxlength="25"
-											placeholder="Post Code" ng-disabled="readOnly || isSameAddress">
-										<p
-											ng-show="form.billingAddressPost.$error.required && form.attempted"
-											class="help-block">Required field.</p>
-										<p
-											ng-show="form.billingAddressPost.$error.maxlength"
-											class="help-block">Post Code is too long.</p>
-									</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<input class="form-control" type="text"
+										ng-model="affiliateDetails.billingAddress.post"
+										name="billingAddressPost" ng-required="type!='INDIVIDUAL'" ng-maxlength="25"
+										placeholder="Post Code" ng-disabled="readOnly || isSameAddress">
+									<p
+										ng-show="form.billingAddressPost.$error.required && form.attempted"
+										class="help-block">Required field.</p>
+									<p
+										ng-show="form.billingAddressPost.$error.maxlength"
+										class="help-block">Post Code is too long.</p>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Country:</label>
-										<input class="form-control" type="text"
-											ng-model="affiliateDetails.billingAddress.country"
-											name="billingAddressCountry" ng-required="type=='COMMERCIAL'"
-											placeholder="Country"
-											typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
-											typeahead-editable="false"
-											ng-disabled="readOnly || isSameAddress">
-										<p
-											ng-show="form.billingAddressCountry.$error.required && form.attempted"
-											class="help-block">Required field.</p>
-										<p ng-show="form.billingAddressCountry.$error.editable" class="help-block">Unrecognized country</p>
-									</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Country:</label>
+									<input class="form-control" type="text"
+										ng-model="affiliateDetails.billingAddress.country"
+										name="billingAddressCountry" ng-required="type!='INDIVIDUAL'"
+										placeholder="Country"
+										typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
+										typeahead-editable="false"
+										ng-disabled="readOnly || isSameAddress">
+									<p
+										ng-show="form.billingAddressCountry.$error.required && form.attempted"
+										class="help-block">Required field.</p>
+									<p ng-show="form.billingAddressCountry.$error.editable" class="help-block">Unrecognized country</p>
 								</div>
 							</div>
 						</div>

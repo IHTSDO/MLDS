@@ -48,7 +48,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 			})
 			["catch"](function(message) {
 				//FIXME
-				$log.log('Failed commercialUsageUpdated');
+				$log.error('Failed commercialUsageUpdated');
 			});
 
 	}
@@ -60,7 +60,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 			CommercialUsageService.updateUsageReportType($scope.commercialUsageReport)
 			["catch"](function(message) {
 				//FIXME
-				$log.log('Failed to put usage type');
+				$log.error('Failed to put usage type');
 			});
 			
 		}
@@ -75,7 +75,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 			})
 			["catch"](function(message) {
 				//FIXME
-				$log.log('Failed to get initial usage log by param');
+				$log.error('Failed to get initial usage log by param');
 			});
 	}
 	
@@ -157,7 +157,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		CommercialUsageService.updateUsageReportContext($scope.commercialUsageReport, {skipBroadcast: true})
 			["catch"](function(message) {
 				//FIXME
-				$log.log('Failed to put usage context');
+				$log.error('Failed to put usage context');
 			});
 	};
 	
