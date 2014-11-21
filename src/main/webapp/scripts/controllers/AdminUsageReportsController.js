@@ -1,15 +1,26 @@
 'use strict';
 
 angular.module('MLDS').controller('AdminUsageReportsController',
-		['$scope', '$log', 'CommercialUsageService', 'UsageReportsService', 'StandingStateUtils',
-    function ($scope, $log, CommercialUsageService,UsageReportsService, StandingStateUtils) {
+		['$scope', '$log', 'CommercialUsageService', 'UsageReportsService', 'StandingStateUtils', 'Session',
+    function ($scope, $log, CommercialUsageService,UsageReportsService, StandingStateUtils, Session) {
 			
 			$scope.usageReportsUtils = UsageReportsService;
+			$scope.isAdmin = Session.isAdmin();
 			
 			$scope.usageReports = [];
 			
 			$scope.orderByField = 'submitted';
 			$scope.reverseSort = false;
+			
+			var memberKey = Session.member && Session.member.key || 'NONE';
+			$scope.reportSearch = function() {
+				return (function(report) {
+					if ($scope.isAdmin){
+						return true;
+					}
+					return report.affiliate.homeMember.key === memberKey;
+				});
+			};
 			
 			function loadUsageReports(){
 				CommercialUsageService.getSubmittedUsageReports()

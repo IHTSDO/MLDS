@@ -74,7 +74,7 @@ public class CommercialUsageAuthorizationChecker extends AuthorizationChecker {
 	}
 
 	public void checkCanReviewUsageReports() {
-		if (isAdmin()) {
+		if (isStaffOrAdmin()) {
 			return;
 		} else {
 			failCheck("user does not have permissions to review usage reports.");
