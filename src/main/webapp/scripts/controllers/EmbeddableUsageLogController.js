@@ -73,7 +73,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 //	}
 	
 	function addHomeCountryIfNotSelected() {
-		var homeCountry = $scope.commercialUsageReport.affiliate.affiliateDetails.address.country;
+		var homeCountry = ($scope.commercialUsageReport.affiliate.affiliateDetails) ? $scope.commercialUsageReport.affiliate.affiliateDetails.address.country :$scope.affiliateform.affiliateDetails.address.country; 
 		
 		if($scope.canAddSelectedCountries([homeCountry.isoCode2])) {
 			$scope.addSelectedCountries([homeCountry.isoCode2]);
