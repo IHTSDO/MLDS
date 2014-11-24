@@ -66,11 +66,27 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		}
 	}
 	
+//	function isHomeCountry(countryCode) {
+//		var homeCountry = $scope.commercialUsageReport.affiliate.affiliateDetails.address.country;
+//		
+//		return homeCountry.isoCode2 === countryCode; 
+//	}
+	
+	function addHomeCountryIfNotSelected() {
+		var homeCountry = $scope.commercialUsageReport.affiliate.affiliateDetails.address.country;
+		
+		if($scope.canAddSelectedCountries([homeCountry.isoCode2])) {
+			$scope.addSelectedCountries([homeCountry.isoCode2]);
+		};
+		
+	}
+	
 	function loadParentsUsageReport() {
 		//FIXME apparently not recommended to share controller state through scope
 		$scope.$parent.usageReportReady
 			.then(function(usageReport) {
 				$scope.commercialUsageReport = usageReport;
+				addHomeCountryIfNotSelected();
 				updateFromUsageReport(usageReport);
 			})
 			["catch"](function(message) {
