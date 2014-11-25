@@ -21,7 +21,7 @@
 				<h4>Started to Use</h4>
 				<div class="input-group datepicker">
 					<input type="text" class="form-control" name="startDate" ng-model="institution.startDate"
-						datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
+						datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions"  ng-required="true"
 						is-open="datepickers.startDate" close-text="Close"/> 
 					<span class="input-group-addon" ng-click="open($event, 'startDate')"><i class="fa fa-calendar"></i></span>
 				</div>
