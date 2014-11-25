@@ -20,7 +20,7 @@ public class ApplicationApprovedEmailSender {
 	public void sendApplicationApprovalEmail(User user, String memberKey, long affiliateId) {
 		final Locale locale = Locale.forLanguageTag(user.getLangKey());
 		Map<String, Object> variables = Maps.newHashMap();
-		variables.put(EmailVariables.AFFILIATE_ID, affiliateId);
+		variables.put(EmailVariables.AFFILIATE_ID, Long.toString(affiliateId));
 		variables.put(EmailVariables.USER, user);
 		variables.put(EmailVariables.MEMBERKEY, memberKey);
 		variables.put(EmailVariables.LOGIN_URL, clientLinkBuilder.buildLoginLink());

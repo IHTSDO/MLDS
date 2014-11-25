@@ -57,6 +57,10 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
     				if (checkAddresses($scope.affiliateDetails, $scope.affiliateDetails.billingAddress)) {
     					$scope.isSameAddress = true;
     				}
+    				
+    				if (!$scope.approved) {
+    					$scope.readOnly = true;
+    				}
         		})
     			["catch"](function(message) {
     				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
