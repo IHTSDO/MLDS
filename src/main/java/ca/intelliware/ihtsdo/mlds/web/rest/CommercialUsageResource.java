@@ -91,7 +91,7 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORTS_ALL,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({ AuthoritiesConstants.ADMIN, AuthoritiesConstants.STAFF })
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @Timed
     public @ResponseBody ResponseEntity<Collection<CommercialUsage>> getAllUsageReports(@RequestParam(value="$filter") String filter) {
     	Collection<CommercialUsage> usageReports = null;
@@ -230,7 +230,7 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.USAGE_REPORT_APPROVAL,
     		method = RequestMethod.POST,
     		produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN, AuthoritiesConstants.STAFF })
+    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
     public @ResponseBody ResponseEntity<CommercialUsage> transitionCommercialUsageApproval(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageApprovalTransitionMessage applyTransition) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
