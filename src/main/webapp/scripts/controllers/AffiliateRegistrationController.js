@@ -92,22 +92,17 @@ mldsApp.controller('AffiliateRegistrationController',
         	
         	$scope.copyAddress = function() {
         		if($scope.isSameAddress) {
-        			$scope.affiliateform.affiliateDetails.billingAddress = {};
-        			$scope.affiliateform.affiliateDetails.billingAddress.street = $scope.affiliateform.affiliateDetails.address.street;
-        			$scope.affiliateform.affiliateDetails.billingAddress.city = $scope.affiliateform.affiliateDetails.address.city;
-        			$scope.affiliateform.affiliateDetails.billingAddress.post = $scope.affiliateform.affiliateDetails.address.post;
-        			$scope.affiliateform.affiliateDetails.billingAddress.country = $scope.affiliateform.affiliateDetails.address.country;
+        			$scope.affiliateform.affiliateDetails.billingAddress = angular.copy($scope.affiliateform.affiliateDetails.address);
         		};
         	};
         	
         	$scope.$watch('affiliateform.type',function(newValue,oldValue) {
-        		console.log('type changed ', newValue, oldValue);
         		if (oldValue) {
-            		$scope.affiliateform.subType = '';
+        			$scope.affiliateform.subType = '';
             		$scope.affiliateform.otherText = '';
-            		$scope.$broadcast(Events.affiliateTypeUpdated, $scope.affiliateform.type);
             		$scope.saveApplication();
         		}
+        		$scope.$broadcast(Events.affiliateTypeUpdated, $scope.affiliateform.type);
         	});
         	
         	$scope.collapsePanel = {};

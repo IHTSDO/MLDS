@@ -73,7 +73,7 @@ mldsApp
                     templateUrl: 'views/admin/usageReportsReview.html',
                     controller: 'AdminUsageReportsController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
@@ -83,7 +83,7 @@ mldsApp
                     templateUrl: 'views/admin/usageReportReview.html',
                     controller: 'UsageReportReviewController',
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: USER_ROLES.staffOrAdmin
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
