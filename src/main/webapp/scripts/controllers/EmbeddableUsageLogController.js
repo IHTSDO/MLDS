@@ -48,7 +48,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 			})
 			["catch"](function(message) {
 				//FIXME
-				$log.log('Failed commercialUsageUpdated');
+				$log.error('Failed commercialUsageUpdated');
 			});
 
 	}
@@ -60,10 +60,25 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 			CommercialUsageService.updateUsageReportType($scope.commercialUsageReport)
 			["catch"](function(message) {
 				//FIXME
-				$log.log('Failed to put usage type');
+				$log.error('Failed to put usage type');
 			});
 			
 		}
+	}
+	
+//	function isHomeCountry(countryCode) {
+//		var homeCountry = $scope.commercialUsageReport.affiliate.affiliateDetails.address.country;
+//		
+//		return homeCountry.isoCode2 === countryCode; 
+//	}
+	
+	function addHomeCountryIfNotSelected() {
+		var homeCountry = ($scope.commercialUsageReport.affiliate.affiliateDetails) ? $scope.commercialUsageReport.affiliate.affiliateDetails.address.country :$scope.affiliateform.affiliateDetails.address.country; 
+		
+		if($scope.canAddSelectedCountries([homeCountry.isoCode2])) {
+			$scope.addSelectedCountries([homeCountry.isoCode2]);
+		};
+		
 	}
 	
 	function loadParentsUsageReport() {
@@ -71,11 +86,12 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		$scope.$parent.usageReportReady
 			.then(function(usageReport) {
 				$scope.commercialUsageReport = usageReport;
+				addHomeCountryIfNotSelected();
 				updateFromUsageReport(usageReport);
 			})
 			["catch"](function(message) {
 				//FIXME
-				$log.log('Failed to get initial usage log by param');
+				$log.error('Failed to get initial usage log by param');
 			});
 	}
 	
@@ -157,7 +173,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		CommercialUsageService.updateUsageReportContext($scope.commercialUsageReport, {skipBroadcast: true})
 			["catch"](function(message) {
 				//FIXME
-				$log.log('Failed to put usage context');
+				$log.error('Failed to put usage context');
 			});
 	};
 	
