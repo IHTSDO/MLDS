@@ -19,6 +19,9 @@ mldsApp.controller('AffiliateSummaryController', [
 			$scope.affiliate = {};
 			$scope.approved = false;
 			$scope.isApplicationApproved = ApplicationUtilsService.isApplicationApproved;
+			$scope.isApplicationPending = ApplicationUtilsService.isApplicationPending;
+			$scope.isApplicationWaitingForApplicant =  ApplicationUtilsService.isApplicationWaitingForApplicant;
+			
 			$scope.audits = [];
 			
 			$scope.standingStateUtils = StandingStateUtils; 
