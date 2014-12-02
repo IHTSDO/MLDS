@@ -86,8 +86,8 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		$scope.$parent.usageReportReady
 			.then(function(usageReport) {
 				$scope.commercialUsageReport = usageReport;
-				addHomeCountryIfNotSelected();
 				updateFromUsageReport(usageReport);
+				addHomeCountryIfNotSelected();
 			})
 			["catch"](function(message) {
 				//FIXME
