@@ -44,18 +44,7 @@ mldsApp.controller('AffiliateRegistrationController',
         	$scope.affiliateform.affiliateDetails.billingAddress = {};
         	$scope.affiliateform.organization = {};
         	
-            $scope.$watch('affiliateform.affiliateDetails.address.country', validateHomeCountry);
-
-            function validateHomeCountry(newValue){
-            	var country = newValue;
-            	if (newValue && _.isString(newValue)) {
-            		country = _.findWhere(CountryService.countries, {'commonName':newValue});
-            	}
-            	var excludedCountry = country && country.excludeRegistration;
-            	$scope.affiliateApplicationForm.country.$setValidity('excluded',!excludedCountry);
-            }
-
-        	$scope.saveApplication = function() {
+            $scope.saveApplication = function() {
     			UserRegistrationService.saveApplication($scope.affiliateform, $scope.applicationId);
         	};
         	

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('EmbeddableUsageLogController',
-		['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 'ApprovalStateUtils', 'UsageReportsService', 
-        function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location, ApprovalStateUtils, UsageReportsService){
+		['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 'ApprovalStateUtils', 'UsageReportsService', 'StandingStateUtils', 
+        function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location, ApprovalStateUtils, UsageReportsService, StandingStateUtils){
 	$scope.collapsePanel = {};
 	
 	$scope.usageLogForm = {};
@@ -29,6 +29,8 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 	$scope.isActiveUsage = true;
 	
 	$scope.isEditable = true;
+	
+	$scope.homeCountry = null;
 	
 	//FIXME apparently not recommended to share controller state through scope
 	$scope.canSubmit = $scope.$parent.usageLogCanSubmit;
@@ -62,23 +64,15 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				//FIXME
 				$log.error('Failed to put usage type');
 			});
-			
 		}
 	}
 	
-//	function isHomeCountry(countryCode) {
-//		var homeCountry = $scope.commercialUsageReport.affiliate.affiliateDetails.address.country;
-//		
-//		return homeCountry.isoCode2 === countryCode; 
-//	}
-	
 	function addHomeCountryIfNotSelected() {
-		var homeCountry = ($scope.commercialUsageReport.affiliate.affiliateDetails) ? $scope.commercialUsageReport.affiliate.affiliateDetails.address.country :$scope.affiliateform.affiliateDetails.address.country; 
-		
-		if($scope.canAddSelectedCountries([homeCountry.isoCode2])) {
-			$scope.addSelectedCountries([homeCountry.isoCode2]);
-		};
-		
+		if ($scope.homeCountry) {
+			if($scope.canAddSelectedCountries([$scope.homeCountry.isoCode2])) {
+				$scope.addSelectedCountries([$scope.homeCountry.isoCode2]);
+			};
+		}
 	}
 	
 	function loadParentsUsageReport() {
@@ -86,7 +80,6 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		$scope.$parent.usageReportReady
 			.then(function(usageReport) {
 				$scope.commercialUsageReport = usageReport;
-				addHomeCountryIfNotSelected();
 				updateFromUsageReport(usageReport);
 			})
 			["catch"](function(message) {
@@ -142,6 +135,10 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		$scope.isEditable = Session.isUser() || Session.isAdmin(); //Only Admin or User can edit
 		$scope.readOnly = $scope.isEditable ? !ApprovalStateUtils.isWaitingForApplicant(usageReport.approvalState) : true;
 		$scope.commercialType = usageReport.type === 'COMMERCIAL';
+		$scope.isAffiliateApplying = Session.isUser() && usageReport.affiliate && StandingStateUtils.isApplying(usageReport.affiliate.standingState) && $scope.$parent.usageReportRegistration;
+		
+		var previousHomeCountry = $scope.homeCountry;
+		$scope.homeCountry = (usageReport.affiliate.affiliateDetails) ? usageReport.affiliate.affiliateDetails.address.country : $scope.affiliateform.affiliateDetails.address.country;
 		
 		usageReport.countries.forEach(function(usageCount) {
 			var countrySection = lookupUsageByCountryOrCreate(usageCount.country);
@@ -160,6 +157,11 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		sortByNameProperty($scope.availableCountries, 'commonName');
 		sortByNameProperty($scope.usageByCountryList, 'country.commonName');
 		sortByNameProperty($scope.currentCountries, 'commonName');
+		
+		//FIXME some strange timing about registration setting form Country - work out how to remove this workaround
+		if (!previousHomeCountry && $scope.homeCountry) {
+			addHomeCountryIfNotSelected();
+		} 
 	};
 	
 	
