@@ -73,42 +73,17 @@
 										class="help-block">Required field.</p>
 								</div>
 							</div>
-						</div>
+						
+							<input class="form-control" type="hidden" ng-model="affiliateform.affiliateDetails.address.country" name="country" placeholder="Country" auto-submit> 
+          	</div>
           </div>
         </div>
-        
-        <div class="panel panel-default applicant" ng-show="affiliateform.type">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-            	<span>Home Country</span>
-            </h4>
-          </div>
-          <div class="panel-collapse collapse in">
-            <div class="panel-body">
-              <h4>Please state the country(s)  that will use this product</h4>
-              <div class="form-group">
-                   <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.country" required="" name="country" placeholder="Country"
-                   		typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit> 
-                      <p ng-show="affiliateApplicationForm.country.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                        Required field.
-                      </p>
-						<p class="help-block"
-			 				ng-show="affiliateApplicationForm.country.$error.excluded" 
-			 				translate="register.messages.validate.country.notMLDS" translate-values="{link:affiliateform.affiliateDetails.address.country.alternateRegistrationUrl}">
-			 				  This IHTSDO member country is excluded. Please <a href="{{affiliateform.affiliateDetails.address.country.alternateRegistrationUrl}}">see</a>
-			  				</p>
-  				        </div>
-            <div class="form-group">
-            	<label>Member:</label> <span ng-show="affiliateform.affiliateDetails.address.country.member">{{affiliateform.affiliateDetails.address.country.member.key | enum:'global.member.'}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-        
+            
         <div class="panel panel-default" ng-show="affiliateform.type">
           <div class="panel-heading">
             <h4 class="panel-title">
               Contact Information
+              <small ng-show="affiliateform.type === 'INDIVIDUAL'">Member: {{affiliateform.affiliateDetails.address.country.member.key | enum:'global.member.'}}</small>
             </h4>
           </div>
           <div class="panel-collapse collapse in">
@@ -374,6 +349,7 @@
           <div class="panel-heading">
             <h4 class="panel-title">
               Organization
+              <small>Member: {{affiliateform.affiliateDetails.address.country.member.key | enum:'global.member.'}}</small>
             </h4>
           </div>
           <div class="panel-collapse collapse in">
