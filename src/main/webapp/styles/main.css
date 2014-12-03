@@ -6,6 +6,11 @@
     padding: 0;
 }
 
+.panel-heading p {
+	color: #333;
+	margin-top: 10px;
+}
+
 /* start Password strength bar style */
 ul#strength {
     display:inline;

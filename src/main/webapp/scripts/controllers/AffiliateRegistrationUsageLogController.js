@@ -9,6 +9,7 @@ mldsApp.controller('AffiliateRegistrationUsageLogController',
         	// For use by EmbeddableUsageLogController
         	$scope.usageLogCanSubmit = false;
         	$scope.usageReportReady = usageReportDefer.promise;
+        	$scope.usageReportRegistration = true;
         	
         	loadApplicationUsageReport();
         	

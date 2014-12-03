@@ -14,8 +14,10 @@
 		<div class="panel panel-default" >
 	      <div class="panel-heading">
 	        <h4 class="panel-title">
-	        	Licence Usage<span class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</span>
-	        	</h4>
+	        	Licence Usage
+	        	<span class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</span>
+	        </h4>
+	        <p ng-show="isAffiliateApplying">Please fill out any known usage information at this time, you will be asked to confirm usage once your application is approved.</p>
 	      </div>
 	      <div class="panel-body panel-collapse collapse in">
 	       <ng-form name="usageForm" novalidate bs-validation >
