@@ -1403,4 +1403,13 @@ $f$ language plpgsql;
     	<comment>Remove Sublicence type from commercial usage entry</comment>
     	<dropColumn tableName="commercial_usage_entry" columnName="sublicence_type"/>
     </changeSet>
+
+    <changeSet id="MLDS-857-2" author="DGJ">
+    	<comment>Replace sub-practices fields with single practice</comment>
+    	<addColumn tableName="commercial_usage_count" >
+    		<column name="snomed_practices" type="int" value="0"></column>
+    	</addColumn>
+    	<dropColumn tableName="commercial_usage_count" columnName="analysis_practices"/>
+    	<dropColumn tableName="commercial_usage_count" columnName="creation_practices"/>
+    </changeSet>
 </databaseChangeLog>

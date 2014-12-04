@@ -33,11 +33,8 @@ public class CommercialUsageCountry extends BaseEntity {
 	
 	String notes;
 	
-	@Column(name="analysis_practices")
-	Integer analysisPractices = 0;
-	
-	@Column(name="creation_practices")
-	Integer creationPractices = 0;
+	@Column(name="snomed_practices")
+	Integer snomedPractices = 0;
 	
 	public CommercialUsageCountry() {
 		
@@ -64,20 +61,7 @@ public class CommercialUsageCountry extends BaseEntity {
 	public CommercialUsage getCommercialUsage() {
 		return commercialUsage;
 	}
-	
-	public Integer getPractices() {
-		return analysisPractices + creationPractices;
-	}
-	
-	/**
-	 * Stub to allow Jackson to deserizalize our synthetic "practices" property.
-	 * @param dummy
-	 */
-	@Deprecated
-	public void setPractices(Integer dummy) {
-		// do nothing.
-	}
-	
+		
 	@Override
 	protected Object getPK() {
 		return commercialUsageCountId;
@@ -91,20 +75,11 @@ public class CommercialUsageCountry extends BaseEntity {
 		this.notes = notes;
 	}
 
-	public Integer getAnalysisPractices() {
-		return analysisPractices;
+	public Integer getSnomedPractices() {
+		return snomedPractices;
 	}
 
-	public void setAnalysisPractices(int analysisPractices) {
-		this.analysisPractices = analysisPractices;
+	public void setSnomedPractices(int snomedPractices) {
+		this.snomedPractices = snomedPractices;
 	}
-
-	public Integer getCreationPractices() {
-		return creationPractices;
-	}
-
-	public void setCreationPractices(int creationPractices) {
-		this.creationPractices = creationPractices;
-	}
-
 }
