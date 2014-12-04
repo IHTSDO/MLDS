@@ -309,7 +309,6 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/deleteInstitutionModal.html',
 			controller: 'DeleteInstitutionController',
-			size:'sm',
 			backdrop: 'static',
 			resolve: {
 				institution: function() {
