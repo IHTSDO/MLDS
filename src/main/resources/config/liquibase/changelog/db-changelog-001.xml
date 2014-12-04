@@ -1398,4 +1398,9 @@ $f$ language plpgsql;
 		<comment>Making published_at editable - change from timestamp to calendar dat to better match usage</comment>
 		<modifyDataType tableName="release_version" columnName="published_at" newDataType="date"/>
 	</changeSet>
+
+    <changeSet id="MLDS-857-1" author="DGJ">
+    	<comment>Remove Sublicence type from commercial usage entry</comment>
+    	<dropColumn tableName="commercial_usage_entry" columnName="sublicence_type"/>
+    </changeSet>
 </databaseChangeLog>

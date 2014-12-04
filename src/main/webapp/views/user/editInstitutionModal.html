@@ -42,21 +42,7 @@
 				<span ng-show="formInstitution.endDate.$error.dateAfter && attemptedSubmit" class="help-block">Date before Started to Use date</span>
 			</div>
 		</div>
-		<hr>
-		
-		<div class="row">
-      <div class="form-group">
-        <div class="col-md-6">
-          <label>Sub-Licence Types</label>
-          <select class="form-control" name="type" ng-model="institution.sublicenceType" ng-required="true"
-          	ng-options="type | enum:'sublicenceType.' for type in sublicenceTypes"
-          	>
-          </select>
-          <span ng-show="formInstitution.type.$error.required && submitAttempted" class="help-block">Required Field</span>
-        </div>
-      </div>
-    </div>
-    
+		    
     <hr>
     <div class="row">
 		<div class="col-md-8 form-group">
