@@ -105,7 +105,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 					country: country,
 					entries: [],
 					count: {
-						practices: 0,
+						snomedPractices: 0,
 						country: country
 					}
 			};
@@ -206,8 +206,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				$scope.geographicAdding += 1;
 				CommercialUsageService.addUsageCount($scope.commercialUsageReport, 
 						{
-						analysisPractices: 0,
-						creationPractices: 0,
+						snomedPractices: 0,
 						country: country
 				}, {skipBroadcast: true})
 				.then(function() {
@@ -363,7 +362,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 					
 				},
 				practicesCount: function() {
-					return count.practices;
+					return count.snomedPractices;
 					
 				}
 

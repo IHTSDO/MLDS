@@ -32,7 +32,7 @@ angular.module('MLDS').controller('UsageReportReviewController',
 						country: country,
 						entries: [],
 						count: {
-							practices: 0,
+							snomedPractices: 0,
 							country: country
 						}
 				};

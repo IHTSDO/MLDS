@@ -1,6 +1,6 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-  <h3 class="modal-title">Add Practices</h3>
+  <h3 class="modal-title">Add/Edit Practices</h3>
 </div>
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
@@ -8,20 +8,12 @@
 	
 	<form name="formCount" bs-validation novalidate>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
 	      <div class="form-group">
-          <label>Data Analysis Practices</label> 
-          <input type="number" min="0" class="form-control" name="analysisPractices" ng-model="count.analysisPractices" ng-required="true">
-          <span ng-show="formCount.analysisPractices.$error.required && submitAttempted" class="help-block">Required Field</span>
-          <span ng-show="formCount.analysisPractices.$error.number && submitAttempted" class="help-block">Not a valid number</span>
-        </div>
-      </div>
-      <div class="col-md-6">
-	      <div class="form-group">
-          <label>Data Creation Practices</label> 
-          <input type="number" min="0" class="form-control" name="creationPractices" ng-model="count.creationPractices" ng-required="true">
-          <span ng-show="formCount.creationPractices.$error.required && submitAttempted" class="help-block">Required Field</span>
-          <span ng-show="formCount.creationPractices.$error.number && submitAttempted" class="help-block">Not a valid number</span>
+          <label>Please add the number of practices using SNOMED</label> 
+          <input type="number" min="0" class="form-control" name="snomedPractices" ng-model="count.snomedPractices" ng-required="true">
+          <span ng-show="formCount.snomedPractices.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formCount.snomedPractices.$error.number && submitAttempted" class="help-block">Not a valid number</span>
         </div>
       </div>
     </div>

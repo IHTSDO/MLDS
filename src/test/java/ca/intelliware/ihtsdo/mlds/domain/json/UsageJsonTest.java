@@ -1,7 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.domain.json;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.IOException;
 
 import org.junit.Before;
@@ -14,7 +12,6 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class UsageJsonTest {
@@ -28,8 +25,7 @@ public class UsageJsonTest {
 		usage = new CommercialUsage(55L,null);
 		usage.addEntry(new CommercialUsageEntry(22,usage));
 		country = new CommercialUsageCountry(23,usage);
-		country.setAnalysisPractices(5);
-		country.setCreationPractices(3);
+		country.setSnomedPractices(5);
 		usage.addCount(country);
 	}
 	
@@ -44,14 +40,4 @@ public class UsageJsonTest {
 		String jsonOutput = objectMapper.writeValueAsString(usage);
 		objectMapper.readValue(jsonOutput, CommercialUsage.class);
 	}
-	
-	@Test
-	public void countryHasSyntheticPracticesProperty() throws JsonParseException, JsonMappingException, IOException {
-		
-		String jsonOutput = objectMapper.writeValueAsString(country);
-		JsonNode tree = objectMapper.readTree(jsonOutput);
-		assertNotNull(tree.get("practices"));
-		
-	}
-	
 }
