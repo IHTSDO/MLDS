@@ -44,10 +44,6 @@ public class CommercialUsageEntry extends BaseEntity {
 	
 	Instant created = Instant.now();
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name="sublicence_type")
-	SublicenceType sublicenceType = SublicenceType.DATA_ANALYSIS_SYSTEM;
-	
 	public CommercialUsageEntry() {
 		
 	}
@@ -101,13 +97,5 @@ public class CommercialUsageEntry extends BaseEntity {
 	@Override
 	protected Object getPK() {
 		return commercialUsageEntryId;
-	}
-
-	public SublicenceType getSublicenceType() {
-		return sublicenceType;
-	}
-
-	public void setSublicenceType(SublicenceType sublicenceType) {
-		this.sublicenceType = sublicenceType;
 	}
 }

@@ -66,14 +66,12 @@
 								<th>Name</th>
 								<th>Started to Use</th>
 								<th>Ceased Use</th>
-								<th>Sub-Licence Type</th>
 								<th>Note</th>
 							</tr>
 							<tr ng-repeat="institution in countryUsage.entries">
 								<td>{{institution.name}}</td>
 								<td>{{institution.startDate | date}}</td>
 								<td>{{institution.endDate | date}}</td>
-								<td>{{institution.sublicenceType | enum:'sublicenceType.'}}</td>
 								<td>{{institution.note}}</td>
 							</tr>
 						</table>
