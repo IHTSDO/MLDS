@@ -89,7 +89,7 @@
              </div>
            </div>
            <div class="col-sx-4 col-md-4 col-lg-6">
-           	<h4>Home Country: <span>{{homeCountry.commonName}}</h4>
+           	<h4>Home Country: <span>{{homeCountry.commonName}}</span></h4>
            </div>
            
 				</form>
@@ -113,7 +113,7 @@
                           </div>
                          <div class="col-xs-4 col-sm-6  col-md-8 col-lg-6" ng-hide="readOnly">
                           <div class="form-group pull-right">
-                            <a class="btn btn-success btn-xs" ng-click="addInstitutionModal(countryUsage.country)"><i class="fa fa-plus"></i> Add Hospital</a>
+                            <a class="btn btn-success btn-xs" ng-click="addInstitutionModal(countryUsage.country)"><i class="fa fa-plus"></i> Add Hospital/Institution</a>
                             <a class="btn btn-danger btn-xs" ng-click="removeCountryModal(countryUsage.count)"><i class="fa fa-times"></i> Remove Country</a>
                           </div>
                         </div>
@@ -122,7 +122,7 @@
 					<div class="row">
 					<table class="table table-striped">
 						<tr>
-							<th>Hospital Name</th>
+							<th>Name</th>
 							<th>Started to Use</th>
 							<th>Ceased Use</th>
 							<th>Sub-Licence Type</th>
@@ -145,10 +145,10 @@
 							<td>
 								<div class="btn-group" dropdown ng-hide="readOnly">
 									<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-pencil"></i> Edit</button>
-									<ul class="dropdown-menu" role="menu">
-										<li><a ng-click="editInstitutionModal(institution, countryUsage.country)">Edit Hospital</a></li>
+									<ul class="dropdown-menu dropdown-menu-right" role="menu">
+										<li><a ng-click="editInstitutionModal(institution, countryUsage.country)">Edit Hospital/Institution</a></li>
 										<li class="divider"></li>
-										<li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)">Remove Hospital</a></li>
+										<li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)">Remove Hospital/Institution</a></li>
 									</ul>
 								</div>
 							</td>
