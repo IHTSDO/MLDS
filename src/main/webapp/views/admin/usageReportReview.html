@@ -63,16 +63,16 @@
 					<div class="row">
 						<table class="table table-striped">
 							<tr>
-								<th>Name</th>
-								<th>Started to Use</th>
-								<th>Ceased Use</th>
-								<th>Note</th>
+								<th class="text-left col-md-3">Name</th>
+								<th class="text-left col-md-2">Started to Use</th>
+								<th class="text-left col-md-2">Ceased Use</th>
+								<th class="text-left col-md-5">Note</th>
 							</tr>
 							<tr ng-repeat="institution in countryUsage.entries">
-								<td>{{institution.name}}</td>
-								<td>{{institution.startDate | date}}</td>
-								<td>{{institution.endDate | date}}</td>
-								<td>{{institution.note}}</td>
+								<td class="col-md-3">{{institution.name}}</td>
+								<td class="col-md-2">{{institution.startDate | date}}</td>
+								<td class="col-md-2">{{institution.endDate | date}}</td>
+								<td class="col-md-5">{{institution.note}}</td>
 							</tr>
 						</table>
 					</div>

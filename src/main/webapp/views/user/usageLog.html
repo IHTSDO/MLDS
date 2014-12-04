@@ -122,25 +122,25 @@
 					<div class="row">
 					<table class="table table-striped">
 						<tr>
-							<th>Name</th>
-							<th>Started to Use</th>
-							<th>Ceased Use</th>
-							<th>Note</th>
-							<th></th>
+							<th class="text-left col-md-2">Name</th>
+							<th class="text-left col-md-2">Started to Use</th>
+							<th class="text-left col-md-2">Ceased Use</th>
+							<th class="text-left col-md-5">Note</th>
+							<th class="col-md-1"></th>
 						</tr>
 
 						<tr ng-repeat="institution in countryUsage.entries">
-							<td>{{institution.name}}</td>
-							<td>{{institution.startDate | date}}</td>
-							<td>{{institution.endDate | date}}
+							<td class="col-md-2">{{institution.name}}</td>
+							<td class="col-md-2">{{institution.startDate | date}}</td>
+							<td class="col-md-2">{{institution.endDate | date}}
 								<span ng-show="institutionDateRangeOutsidePeriod(institution)">
 									<span tooltip-placement="top" tooltip="Consider removing this hospital as it ceased use prior to the current declaration period">
 										<span class="label label-warning">Outdated</span>
 									</span>
 								</span>
 							</td>
-							<td>{{institution.note}}</td>
-							<td>
+							<td class="col-md-5">{{institution.note}}</td>
+							<td class="col-md-1">
 								<div class="btn-group" dropdown ng-hide="readOnly">
 									<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-pencil"></i> Edit</button>
 									<ul class="dropdown-menu dropdown-menu-right" role="menu">
