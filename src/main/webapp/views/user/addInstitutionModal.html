@@ -41,20 +41,6 @@
 			</div>
 		</div>
 		
-		<div class="row">
-      <div class="form-group">
-        <div class="col-md-6">
-          <label>Sub-Licence Types</label>
-          <select class="form-control" name="type" ng-model="institution.sublicenceType" ng-required="true"
-          	ng-options="type | enum:'sublicenceType.' for type in sublicenceTypes"
-          	>
-          </select>
-          <span ng-show="formInstitution.type.$error.required && submitAttempted" class="help-block">Required Field</span>
-        </div>
-      </div>
-    </div>
-    <hr>
-    
     <hr>
     <div class="row">
 		<div class="col-md-8 form-group">
