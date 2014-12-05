@@ -178,17 +178,13 @@
 				</div>
         <div class="row">
           <div class="country-footer">
-            <div class="col-xs-12">
+            <div class="col-xs-2">
               <p>
               	<strong>Practices: </strong> 
               	<span class="label label-default">{{countryUsage.count.snomedPractices | number}}</span>
               </p>
             </div>
-          </div>
-        </div>
-        <div class="row" ng-show="countryUsage.count.notes">
-          <div class="country-footer">
-            <div class="col-xs-12">
+            <div class="col-xs-10" ng-show="countryUsage.count.notes">
              	<label>Notes: </label> 
               <p>
               	{{countryUsage.count.notes}}
@@ -211,7 +207,7 @@
           <div class="country-footer">
             <div class="col-xs-12">
              	<p><strong>Hospitals providing staff to practices:</strong> <span class="label label-default">{{countryUsage.count.hospitalsStaffingPractices | number}}</span></p> 
-             	<p><strong>Data Creation Systems: Independent practices:</strong> <span class="label label-default">{{countryUsage.count.dataCreationPracticesNotPartOfHospital | number}}</span> <strong>Non-practices:</strong> <span class="label label-default">{{countryUsage.count.nonPracticeDataCreationSystems | number}}</span></p> 
+             	<p><strong>Data Creation Systems: Independent practices:</strong> <span class="label label-default">{{countryUsage.count.dataCreationPracticesNotPartOfHospital | number}}</span> <strong>Hospitals/Institutions:</strong> <span class="label label-default">{{countryUsage.count.nonPracticeDataCreationSystems | number}}</span></p> 
              	<p><strong>Data Analysis Systems: Systems:</strong> <span class="label label-default">{{countryUsage.count.deployedDataAnalysisSystems | number}}</span> <strong>Data:</strong> <span class="label label-default">{{countryUsage.count.databasesPerDeployment | number}}</span></p> 
             </div>
           </div>
