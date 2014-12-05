@@ -37,8 +37,8 @@
 								<i class="fa fa-exclamation-circle"></i>
 							</span>
 							<span ng-class="{'text-muted':usageReport.effectiveTo}">
-								{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM'}}
-								{{usageReport.startDate | date : 'yyyy'}}
+								{{usageReport.startDate | date : 'yyyy'}}-{{usageReport.startDate | date : 'MM'}} - {{usageReport.endDate | date : 'yyyy'}}-{{usageReport.endDate | date : 'MM'}}
+								
 							</span>
 						</span>
 					</td>
