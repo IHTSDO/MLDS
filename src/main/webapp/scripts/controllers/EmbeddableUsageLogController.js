@@ -106,6 +106,11 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 					entries: [],
 					count: {
 						snomedPractices: 0,
+						hospitalsStaffingPractices: 0,
+						dataCreationPracticesNotPartOfHospital: 0,
+						nonPracticeDataCreationSystems: 0,
+						deployedDataAnalysisSystems: 0,
+						databasesPerDeployment: 0,
 						country: country
 					}
 			};
@@ -207,6 +212,11 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				CommercialUsageService.addUsageCount($scope.commercialUsageReport, 
 						{
 						snomedPractices: 0,
+						hospitalsStaffingPractices: 0,
+						dataCreationPracticesNotPartOfHospital: 0,
+						nonPracticeDataCreationSystems: 0,
+						deployedDataAnalysisSystems: 0,
+						databasesPerDeployment: 0,
 						country: country
 				}, {skipBroadcast: true})
 				.then(function() {
@@ -337,6 +347,35 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				},
 				usageReport: function() {
 					return $scope.commercialUsageReport;
+				}
+			}
+		});
+		
+	};
+
+	$scope.editCountDataAalysisModal = function(count, country) {
+		var modalInstance = $modal.open({
+			templateUrl: 'views/user/editCountDataAnalysisModal.html',
+			controller: 'EditCountDataAnalysisController',
+			backdrop: 'static',
+			resolve: {
+				count: function() {
+					return angular.copy(count);
+				},
+				country: function() {
+					return country;
+				},
+				usageReport: function() {
+					return $scope.commercialUsageReport;
+				},
+				hospitalsCount: function() {
+					var countrySection = lookupUsageByCountryOrCreate(count.country);
+					return countrySection.entries.length;
+					
+				},
+				practicesCount: function() {
+					return count.snomedPractices;
+					
 				}
 			}
 		});

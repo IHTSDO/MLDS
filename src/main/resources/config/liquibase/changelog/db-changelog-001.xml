@@ -1412,4 +1412,23 @@ $f$ language plpgsql;
     	<dropColumn tableName="commercial_usage_count" columnName="analysis_practices"/>
     	<dropColumn tableName="commercial_usage_count" columnName="creation_practices"/>
     </changeSet>
+
+    <changeSet id="MLDS-857-4" author="DGJ">
+    	<comment>Add data analysis capture for country</comment>
+    	<addColumn tableName="commercial_usage_count" >
+    		<column name="hospitals_staffing_practices" type="int" value="0"></column>
+    	</addColumn>
+    	<addColumn tableName="commercial_usage_count" >
+    		<column name="data_creation_practices_not_part_of_hospital" type="int" value="0"></column>
+    	</addColumn>
+    	<addColumn tableName="commercial_usage_count" >
+    		<column name="non_practice_data_creation_systems" type="int" value="0"></column>
+    	</addColumn>
+    	<addColumn tableName="commercial_usage_count" >
+    		<column name="deployed_data_analysis_systems" type="int" value="0"></column>
+    	</addColumn>
+    	<addColumn tableName="commercial_usage_count" >
+    		<column name="databases_per_deployment" type="int" value="0"></column>
+    	</addColumn>
+    </changeSet>    
 </databaseChangeLog>
