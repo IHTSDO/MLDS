@@ -450,10 +450,10 @@ footer[role=admin]{
 	cursor: default;
 }
 
-[ng-click]{
+[ng-click]:not([modal-window]){
 	cursor: pointer;
 }
-.panel-title span{
+.panel-title .panel-title-link {
 	color: @link-color;
 	&:hover{
 		color: @link-hover-color;
