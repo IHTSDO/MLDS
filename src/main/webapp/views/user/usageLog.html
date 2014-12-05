@@ -113,11 +113,23 @@
                           </div>
                          <div class="col-xs-4 col-sm-6  col-md-8 col-lg-6" ng-hide="readOnly">
                           <div class="form-group pull-right">
-                            <a class="btn btn-success btn-xs" ng-click="addInstitutionModal(countryUsage.country)"><i class="fa fa-plus"></i> Add Hospital/Institution</a>
                             <a class="btn btn-danger btn-xs" ng-click="removeCountryModal(countryUsage.count)"><i class="fa fa-times"></i> Remove Country</a>
                           </div>
                         </div>
                   </div>
+					</div>
+					<div class="country-section">
+						<hr>
+						<div class="row">
+							<div class="col-xs-8">
+								<h4>Hospital(s)/Institution(s)</h4>
+							</div>
+							<div class="col-xs-4" ng-hide="readOnly">
+	              <div class="form-group pull-right">
+	                <a class="btn btn-success btn-xs" ng-click="addInstitutionModal(countryUsage.country)"><i class="fa fa-plus"></i> Add Hospital/Institution</a>
+	              </div>
+							</div>
+						</div>
 					</div>
 					<div class="row">
 					<table class="table table-striped">
@@ -153,16 +165,24 @@
 						</tr>
 					</table>
 				</div>
+				<div class="country-section">
+					<hr>
+					<div class="row">
+						<div class="col-xs-8">
+							<h4>Practice(s)</h4>
+						</div>
+						<div class="col-xs-4">
+              <button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountModal(countryUsage.count)"> <i class="fa fa-plus"></i> Add/Edit Practices</button>
+						</div>
+					</div>
+				</div>
         <div class="row">
           <div class="country-footer">
-            <div class="col-xs-8">
+            <div class="col-xs-12">
               <p>
               	<strong>Practices: </strong> 
               	<span class="label label-default">{{countryUsage.count.snomedPractices | number}}</span>
               </p>
-            </div>
-            <div class="col-xs-4">
-              <button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountModal(countryUsage.count)"> <i class="fa fa-plus"></i> Add/Edit Practices</button>
             </div>
           </div>
         </div>
@@ -176,16 +196,24 @@
             </div>
           </div>
         </div>
+				<div class="country-section">
+					<hr>
+					<div class="row">
+						<div class="col-xs-8">
+							<h4>Data Analysis</h4>
+						</div>
+						<div class="col-xs-4">
+              <button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountDataAalysisModal(countryUsage.count)"> <i class="fa fa-pencil"></i> Edit</button>
+						</div>
+					</div>
+				</div>
         <div class="row">
           <div class="country-footer">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
              	<p>How many Hospitals provide staff to stated Practices? <span class="label label-default">{{countryUsage.count.hospitalsStaffingPractices | number}}</span></p> 
              	<p>How many Practices are using Data Creation Systems and are NOT part of a Hospital organization? <span class="label label-default">{{countryUsage.count.dataCreationPracticesNotPartOfHospital | number}}</span></p> 
              	<p>How many Hospitals or other Institutions are using data creation systems and cannot be defined as Practices under the definition of the license? <span class="label label-default">{{countryUsage.count.nonPracticeDataCreationSystems | number}}</span></p> 
              	<p>How many Data Analysis Systems have you deployed in this region and how many databases are there per deployment? Systems: <span class="label label-default">{{countryUsage.count.deployedDataAnalysisSystems | number}}</span> Databases: <span class="label label-default">{{countryUsage.count.databasesPerDeployment | number}}</span></p> 
-            </div>
-            <div class="col-xs-2">
-              <button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountDataAalysisModal(countryUsage.count)"> <i class="fa fa-pencil"></i> Edit</button>
             </div>
           </div>
         </div>
