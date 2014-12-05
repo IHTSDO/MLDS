@@ -33,6 +33,11 @@ angular.module('MLDS').controller('UsageReportReviewController',
 						entries: [],
 						count: {
 							snomedPractices: 0,
+							hospitalsStaffingPractices: 0,
+							dataCreationPracticesNotPartOfHospital: 0,
+							nonPracticeDataCreationSystems: 0,
+							deployedDataAnalysisSystems: 0,
+							databasesPerDeployment: 0,
 							country: country
 						}
 				};
