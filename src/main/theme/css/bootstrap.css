@@ -6028,8 +6028,11 @@ button.close {
   position: relative;
   bottom: 10px;
 }
+.country-section hr {
+  border-top-width: 3px;
+}
+
 .country-footer {
-  background-color: #eeeeee;
   overflow: hidden;
   padding-top: 8px;
 }
