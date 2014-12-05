@@ -44,7 +44,7 @@
 					</div>
 						<div class="col-lg-10">
 						<h4 class="version">{{version.name}} </h4>
-						<span><strong>Published On:</strong> {{version.publishedAt | date: 'longDate'}}</span>
+						<span><strong>Published On:</strong> {{version.publishedAt | date: 'yyyy-MM-dd'}}</span>
 						<p class="download-files" ng-repeat="file in version.releaseFiles"><a href="{{file.downloadUrl}}" target="_blank">{{file.label}}</a></p>
 					</div>
 				</div>

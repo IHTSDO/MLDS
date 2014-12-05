@@ -41,7 +41,7 @@
 							<p><i class="fa fa-file"> </i><a href="{{packageFile.downloadUrl}}" target="_blank"> {{packageFile.label}}</a></p>
 						</div>
 					</td>
-					<td class="col-sm-2">{{releaseVersion.publishedAt | date:'longDate'}}</td>
+					<td class="col-sm-2">{{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</td>
 					<td>
 						<div class="dropdown pull-right" ng-show="isEditableReleasePackage">
 								<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
@@ -99,7 +99,7 @@
 							</p>
 						</span>
 					</td>
-					<td>{{releaseVersion.publishedAt | date:'longDate'}}</td>
+					<td>{{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</td>
 					<td>						
 							<div class="dropdown pull-right" ng-show="isEditableReleasePackage">
 								<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
