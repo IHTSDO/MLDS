@@ -17,6 +17,7 @@ public class ApplicationAuditEvents {
 
 	public static final String EVENT_APPLICATION_CREATED = "APPLICATION_CREATED";
 	public static final String EVENT_APPLICATION_APPROVAL_STATE_CHANGED = "APPLICATION_APPROVAL_STATE_CHANGED";
+	private static final String EVENT_APPLICATION_DELETED = "APPLICATION_DELETED";
 
 	@Resource
 	AuditEventService auditEventService;
@@ -38,6 +39,11 @@ public class ApplicationAuditEvents {
 		logEvent(application, EVENT_APPLICATION_CREATED, auditData);
 	}
 	
+	public void logDeletionOf(Application application) {
+		Map<String, String> auditData = createAuditData(application);
+		logEvent(application, EVENT_APPLICATION_DELETED, auditData);
+	}
+	
 	public void logApprovalStateChange(Application application) {
 		Map<String, String> auditData = createAuditData(application);
 		auditData.put("application.approvalState", ""+application.getApprovalState());
@@ -52,4 +58,5 @@ public class ApplicationAuditEvents {
     	}
     	auditEventService.logAuditableEvent(auditEvent);
 	}
+
 }

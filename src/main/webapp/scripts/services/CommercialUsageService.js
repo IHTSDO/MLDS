@@ -156,7 +156,7 @@ angular.module('MLDS')
 		
 		function generateRangeEntry(start, end) {
 			return {
-				description: ''+start.format('MMM')+' - '+end.format('MMM YYYY'),
+				description: ''+start.format('YYYY-MM')+' - '+end.format('YYYY-MM'),
 				startDate: start.toDate(),
 				endDate: end.toDate()
 			};
