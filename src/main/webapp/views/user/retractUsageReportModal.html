@@ -7,7 +7,7 @@
   
   <p>Retract Instructions - Are you sure you want to re-tract this report? You will return to the same usage report to edit and re-submit. For a new time period you must submit a new declaration report.</p>
   
-  <p><strong>Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</strong></p>
+  <p><strong>Declaration for {{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}}</strong></p>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>

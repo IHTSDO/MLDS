@@ -7,7 +7,7 @@
 			  <p class="bg-info" ng-switch-when="true">
 			  	<span class="pull-right" id="retractBtn" ng-show="isActiveUsage"><button ng-disabled="!readOnly" ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration </button></span>
 			  	<span class="pull-right" ng-hide="isActiveUsage"><span class="label label-default">Usage Report Superseded</span></span>
-				<strong>Commercial Usage for: {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}} was submitted: {{commercialUsageReport.submitted | date }} </strong>
+				<strong>Commercial Usage for: {{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}} was submitted: {{commercialUsageReport.submitted | date: 'yyyy-MM-dd' }} </strong>
 			</p>
 		</div>
 	
@@ -15,7 +15,7 @@
 	      <div class="panel-heading">
 	        <h4 class="panel-title">
 	        	Licence Usage
-	        	<span class="pull-right">{{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</span>
+	        	<span class="pull-right">{{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}}</span>
 	        </h4>
 	        <p ng-show="isAffiliateApplying">Please fill out any known usage information at this time, you will be asked to confirm usage once your application is approved.</p>
 	      </div>
@@ -143,8 +143,8 @@
 
 						<tr ng-repeat="institution in countryUsage.entries">
 							<td class="col-md-2">{{institution.name}}</td>
-							<td class="col-md-2">{{institution.startDate | date}}</td>
-							<td class="col-md-2">{{institution.endDate | date}}
+							<td class="col-md-2">{{institution.startDate | date: 'yyyy-MM-dd'}}</td>
+							<td class="col-md-2">{{institution.endDate | date: 'yyyy-MM-dd'}}
 								<span ng-show="institutionDateRangeOutsidePeriod(institution)">
 									<span tooltip-placement="top" tooltip="Consider removing this hospital as it ceased use prior to the current declaration period">
 										<span class="label label-warning">Outdated</span>
@@ -240,7 +240,7 @@
 <div class="row">
 	<div class="col-xs-offset-1 col-sm-offset-0 col-md-offset-0 col-md-12">
 		<div class="submit-usage" ng-hide="readOnly || !canSubmit">
-			<button ng-click="submitUsageReport(usageForm)" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</button> 
+			<button ng-click="submitUsageReport(usageForm)" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211; {{commercialUsageReport.endDate | date : 'yyyy-MM'}}</button> 
 			<div ng-show="usageForm.attempted" class="has-error">
 				<p ng-show="usageForm.$invalid" class="help-block">Please fix the errors listed above.</p>
 			</div>

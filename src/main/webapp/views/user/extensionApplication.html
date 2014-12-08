@@ -26,7 +26,7 @@
 </div>
 
 
-<form name="extensionApplicationForm" novalidate bs-validation ng-submit="submit()">
+<form name="extensionApplicationForm" novalidate bs-validation>
 	<div class="row">
 		<div class="col-sx-12 col-md-12">
 			<div>
@@ -64,7 +64,8 @@
 	            <span ng-show="extensionApplicationForm.snoMedTC.$error.required && extensionApplicationForm.attempted" class="help-block">You must agree to the terms and conditions of the SNOMED CT Licence in order to register, which also indicates potential fees that be required.</span></label>
 	          </p>
 						<div class="panel-footer" ng-show="!readOnly">
-							<input type="submit" class="btn btn-muted btn-success" ng-disabled="readOnly" value="Apply"/>
+							<button class="btn btn-muted btn-danger pull-right" ng-hide="readOnly" ng-click="cancelApplication()">Cancel</button>
+							<button class="btn btn-muted btn-success" ng-click="submit()" ng-disabled="readOnly">Apply</button>
 							<div ng-show="extensionApplicationForm.attempted"
 								class="has-error">
 								<p ng-show="extensionApplicationForm.$invalid"

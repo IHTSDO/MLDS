@@ -67,6 +67,10 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 			// Let's move to using this one
 			updateApplication: function (application) {
 				return $http.post('/app/rest/applications/'+encodeURIComponent(application.applicationId), application);
+			},
+			
+			deleteApplication: function (applicationId) { 
+				return $http['delete']('/app/rest/applications/'+encodeURIComponent(applicationId));
 			}
 			
 		};

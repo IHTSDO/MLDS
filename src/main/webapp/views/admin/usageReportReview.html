@@ -15,7 +15,7 @@
        		Licence Usage
        		<span class="pull-right">
        			<span ng-show="usageReport.approvalState === 'RESUBMITTED'" class="label label-default"> {{usageReport.approvalState|enum:'approval.state.'}}</span>
-       			{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM yyyy'}}
+       			{{usageReport.startDate | date : 'yyyy-MM'}} &#8211 {{usageReport.endDate | date : 'yyyy-MM'}}
        		</span>
        	</h4>
       </div>
@@ -78,8 +78,8 @@
 							</tr>
 							<tr ng-repeat="institution in countryUsage.entries">
 								<td class="col-md-3">{{institution.name}}</td>
-								<td class="col-md-2">{{institution.startDate | date}}</td>
-								<td class="col-md-2">{{institution.endDate | date}}</td>
+								<td class="col-md-2">{{institution.startDate | date: 'yyyy-MM-dd'}}</td>
+								<td class="col-md-2">{{institution.endDate | date: 'yyyy-MM-dd'}}</td>
 								<td class="col-md-5">{{institution.note}}</td>
 							</tr>
 						</table>
@@ -123,10 +123,9 @@
 			    <div class="row">
 			      <div class="country-footer">
 			        <div class="col-xs-12">
-			         	<p>How many Hospitals provide staff to stated Practices? <span class="label label-default">{{countryUsage.count.hospitalsStaffingPractices | number}}</span></p> 
-			         	<p>How many Practices are using Data Creation Systems and are NOT part of a Hospital organization? <span class="label label-default">{{countryUsage.count.dataCreationPracticesNotPartOfHospital | number}}</span></p> 
-			         	<p>How many Hospitals or other Institutions are using data creation systems and cannot be defined as Practices under the definition of the license? <span class="label label-default">{{countryUsage.count.nonPracticeDataCreationSystems | number}}</span></p> 
-			         	<p>How many Data Analysis Systems have you deployed in this region and how many databases are there per deployment? Systems: <span class="label label-default">{{countryUsage.count.deployedDataAnalysisSystems | number}}</span> Data: <span class="label label-default">{{countryUsage.count.databasesPerDeployment | number}}</span></p> 
+		             	<p><strong>Hospitals providing staff to practices:</strong> <span class="label label-default">{{countryUsage.count.hospitalsStaffingPractices | number}}</span></p> 
+		             	<p><strong>Data Creation Systems: Independent practices:</strong> <span class="label label-default">{{countryUsage.count.dataCreationPracticesNotPartOfHospital | number}}</span> <strong>Hospitals/Institutions:</strong> <span class="label label-default">{{countryUsage.count.nonPracticeDataCreationSystems | number}}</span></p> 
+		             	<p><strong>Data Analysis Systems: Systems:</strong> <span class="label label-default">{{countryUsage.count.deployedDataAnalysisSystems | number}}</span> <strong>Data:</strong> <span class="label label-default">{{countryUsage.count.databasesPerDeployment | number}}</span></p> 
 			        </div>
 			      </div>
 			    </div>
