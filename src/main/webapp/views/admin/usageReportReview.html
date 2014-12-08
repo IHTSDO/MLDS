@@ -15,7 +15,7 @@
        		Licence Usage
        		<span class="pull-right">
        			<span ng-show="usageReport.approvalState === 'RESUBMITTED'" class="label label-default"> {{usageReport.approvalState|enum:'approval.state.'}}</span>
-       			{{usageReport.startDate | date : 'MMM'}} - {{usageReport.endDate | date : 'MMM yyyy'}}
+       			{{usageReport.startDate | date : 'yyyy-MM'}} &#8211 {{usageReport.endDate | date : 'yyyy-MM'}}
        		</span>
        	</h4>
       </div>
@@ -78,8 +78,8 @@
 							</tr>
 							<tr ng-repeat="institution in countryUsage.entries">
 								<td class="col-md-3">{{institution.name}}</td>
-								<td class="col-md-2">{{institution.startDate | date}}</td>
-								<td class="col-md-2">{{institution.endDate | date}}</td>
+								<td class="col-md-2">{{institution.startDate | date: 'yyyy-MM-dd'}}</td>
+								<td class="col-md-2">{{institution.endDate | date: 'yyyy-MM-dd'}}</td>
 								<td class="col-md-5">{{institution.note}}</td>
 							</tr>
 						</table>
