@@ -77,8 +77,7 @@ public class CommercialUsageResource_GetUsageReports_Test {
 		CommercialUsage commercialUsage = new CommercialUsage(2L, affiliate);
 		commercialUsage.setNote("Test Note");
 		CommercialUsageCountry commercialUsageCountry = new CommercialUsageCountry(3L, commercialUsage);
-		commercialUsageCountry.setAnalysisPractices(3);
-		commercialUsageCountry.setCreationPractices(2);
+		commercialUsageCountry.setSnomedPractices(3);
 		CommercialUsageEntry commercialUsageEntry = new CommercialUsageEntry(4L, commercialUsage);
 		commercialUsageEntry.setName("Test Name");
 		affiliate.addCommercialUsage(commercialUsage);
@@ -89,9 +88,7 @@ public class CommercialUsageResource_GetUsageReports_Test {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].note").value("Test Note"))
-                .andExpect(jsonPath("$[0].countries[0].practices").value(5))
-                .andExpect(jsonPath("$[0].countries[0].analysisPractices").value(3))
-                .andExpect(jsonPath("$[0].countries[0].creationPractices").value(2))
+                .andExpect(jsonPath("$[0].countries[0].snomedPractices").value(3))
                 .andExpect(jsonPath("$[0].entries[0].name").value("Test Name"))
                 ;
 

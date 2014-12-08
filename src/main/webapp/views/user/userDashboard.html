@@ -86,7 +86,7 @@
           	{{application.applicationType | enum:'application.applicationType.'}}
           	<span ng-if="application.applicationType === 'EXTENSION'">({{application.member.key | enum:'global.member.'}})</span>
        	  </td>
-          <td>{{(application.completedAt || application.submittedAt) | date:'shortDate' }}</td>
+          <td>{{(application.completedAt || application.submittedAt) | date:'yyyy-MM-dd' }}</td>
           <td ng-class="{'text-warning':isApplicationPending(application), 'text-danger':isApplicationWaitingForApplicant(application)}">
          		<strong>{{application.approvalState | enum:'approval.state.'}}</strong>
           </td>

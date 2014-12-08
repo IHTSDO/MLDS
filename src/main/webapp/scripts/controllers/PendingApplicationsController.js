@@ -59,7 +59,7 @@ angular.module('MLDS').controller('PendingApplicationsController', [
 					}
 					if (usage.countries) {
 						count += usage.countries.reduce(function(total, c) {
-		        			return total + (c.practices || 0);
+		        			return total + (c.snomedPractices || 0);
 		        		}, 0);
 					}
 					return count;

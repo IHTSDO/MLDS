@@ -33,11 +33,26 @@ public class CommercialUsageCountry extends BaseEntity {
 	
 	String notes;
 	
-	@Column(name="analysis_practices")
-	Integer analysisPractices = 0;
+	@Column(name="snomed_practices")
+	Integer snomedPractices = 0;
 	
-	@Column(name="creation_practices")
-	Integer creationPractices = 0;
+	
+	// Data Analysis
+	
+	@Column(name="hospitals_staffing_practices")
+	Integer hospitalsStaffingPractices = 0;
+	
+	@Column(name="data_creation_practices_not_part_of_hospital")
+	Integer dataCreationPracticesNotPartOfHospital = 0;
+	
+	@Column(name="non_practice_data_creation_systems")
+	Integer nonPracticeDataCreationSystems = 0;
+	
+	@Column(name="deployed_data_analysis_systems")
+	Integer deployedDataAnalysisSystems = 0;
+	
+	@Column(name="databases_per_deployment")
+	Integer databasesPerDeployment = 0;
 	
 	public CommercialUsageCountry() {
 		
@@ -64,20 +79,7 @@ public class CommercialUsageCountry extends BaseEntity {
 	public CommercialUsage getCommercialUsage() {
 		return commercialUsage;
 	}
-	
-	public Integer getPractices() {
-		return analysisPractices + creationPractices;
-	}
-	
-	/**
-	 * Stub to allow Jackson to deserizalize our synthetic "practices" property.
-	 * @param dummy
-	 */
-	@Deprecated
-	public void setPractices(Integer dummy) {
-		// do nothing.
-	}
-	
+		
 	@Override
 	protected Object getPK() {
 		return commercialUsageCountId;
@@ -91,20 +93,51 @@ public class CommercialUsageCountry extends BaseEntity {
 		this.notes = notes;
 	}
 
-	public Integer getAnalysisPractices() {
-		return analysisPractices;
+	public Integer getSnomedPractices() {
+		return snomedPractices;
 	}
 
-	public void setAnalysisPractices(int analysisPractices) {
-		this.analysisPractices = analysisPractices;
+	public void setSnomedPractices(int snomedPractices) {
+		this.snomedPractices = snomedPractices;
 	}
 
-	public Integer getCreationPractices() {
-		return creationPractices;
+	public Integer getHospitalsStaffingPractices() {
+		return hospitalsStaffingPractices;
 	}
 
-	public void setCreationPractices(int creationPractices) {
-		this.creationPractices = creationPractices;
+	public void setHospitalsStaffingPractices(Integer hospitalsStaffingPractices) {
+		this.hospitalsStaffingPractices = hospitalsStaffingPractices;
 	}
 
+	public Integer getDataCreationPracticesNotPartOfHospital() {
+		return dataCreationPracticesNotPartOfHospital;
+	}
+
+	public void setDataCreationPracticesNotPartOfHospital(Integer dataCreationPracticesNotPartOfHospital) {
+		this.dataCreationPracticesNotPartOfHospital = dataCreationPracticesNotPartOfHospital;
+	}
+
+	public Integer getNonPracticeDataCreationSystems() {
+		return nonPracticeDataCreationSystems;
+	}
+
+	public void setNonPracticeDataCreationSystems(Integer nonPracticeDataCreationSystems) {
+		this.nonPracticeDataCreationSystems = nonPracticeDataCreationSystems;
+	}
+
+	public Integer getDeployedDataAnalysisSystems() {
+		return deployedDataAnalysisSystems;
+	}
+
+	public void setDeployedDataAnalysisSystems(Integer deployedDataAnalysisSystems) {
+		this.deployedDataAnalysisSystems = deployedDataAnalysisSystems;
+	}
+
+	public Integer getDatabasesPerDeployment() {
+		return databasesPerDeployment;
+	}
+
+	public void setDatabasesPerDeployment(Integer databasesPerDeployment) {
+		this.databasesPerDeployment = databasesPerDeployment;
+	}
 }
