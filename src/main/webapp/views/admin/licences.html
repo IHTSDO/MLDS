@@ -11,7 +11,7 @@
     	<tbody>
     		<tr ng-repeat="member in members | orderBy: canAccess : true">
     			<td>{{member.key}}</td>
-    			<td>{{member.licence.lastUpdated | date: 'mediumDate'}}</td>
+    			<td>{{member.licence.lastUpdated | date: 'yyyy-MM-dd'}}</td>
     			<td>
     				<button class="btn btn-primary" ng-click="viewLicence(member.key)"><i class="fa fa-file-o"></i> Download Licence</button>
     				<button class="btn btn-success" ng-show="canAccess(member)" ng-click="editLicence(member)"><i class="fa fa-edit"></i> Edit Licence</button>

@@ -65,7 +65,7 @@
 							<div class="row">
 								<div class="col-xs-4 no-padding">
 									<strong>{{application.applicationType | enum:'application.applicationType.'}}</strong><br>
-									<small>{{application.submittedAt | date:short }}</small>
+									<small>{{application.submittedAt | date: 'yyyy-MM-dd' }}</small>
 								</div>
 								<div class="col-xs-2 no-padding" ng-class="{'text-warning':isApplicationPending(application), 'text-danger':isApplicationWaitingForApplicant(application)}" style="margin-top: 0.5em;">
 									<strong>{{application.approvalState | enum:'approval.state.'}}</strong>

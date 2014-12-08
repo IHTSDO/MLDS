@@ -1,0 +1,87 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+  <h3 class="modal-title">Edit Data Analysis</h3>
+</div>
+<div class="modal-body">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	<h3>{{count.country.commonName}}</h3>
+	<div class="row">
+		<div class="col-md-6">
+			<p>Hospitals/Institutions: <strong>{{hospitalsCount | number}}</strong></p>
+		</div>
+		<div class="col-md-6">
+			 <p>Practices: <strong>{{practicesCount | number}}</strong></p>
+		</div>
+	</div>
+	
+	<form name="formCount" bs-validation novalidate>
+		<hr>
+    <div class="row">
+      <div class="col-md-12">
+	      <div class="form-group">
+          <label>How many Hospitals provide staff to stated Practices?</label> 
+          <input type="number" min="0" class="form-control" name="hospitalsStaffingPractices" ng-model="count.hospitalsStaffingPractices" ng-required="true">
+          <span ng-show="formCount.hospitalsStaffingPractices.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formCount.hospitalsStaffingPractices.$error.number && submitAttempted" class="help-block">Not a valid number</span>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+	      <div class="form-group">
+          <label>How many Practices are using Data Creation Systems and are NOT part of a Hospital organization?</label> 
+          <input type="number" min="0" class="form-control" name="dataCreationPracticesNotPartOfHospital" ng-model="count.dataCreationPracticesNotPartOfHospital" ng-required="true">
+          <span ng-show="formCount.dataCreationPracticesNotPartOfHospital.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formCount.dataCreationPracticesNotPartOfHospital.$error.number && submitAttempted" class="help-block">Not a valid number</span>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+	      <div class="form-group">
+          <label>How many Hospitals or other Institutions are using data creation systems and cannot be defined as Practices under the definition of the license?</label> 
+          <input type="number" min="0" class="form-control" name="nonPracticeDataCreationSystems" ng-model="count.nonPracticeDataCreationSystems" ng-required="true">
+          <span ng-show="formCount.nonPracticeDataCreationSystems.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formCount.nonPracticeDataCreationSystems.$error.number && submitAttempted" class="help-block">Not a valid number</span>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+	      <div class="form-group">
+          <label>How many Data Analysis Systems have you deployed in this region and how many databases are there per deployment?</label>
+         </div>
+        </div>
+       </div>
+       <div class="row">
+      <div class="col-md-2">
+      	<label>Systems:</label>
+      	</div>
+      	<div class="col-md-4"> 
+          <input type="number" min="0" class="form-control" name="deployedDataAnalysisSystems" ng-model="count.deployedDataAnalysisSystems" ng-required="true">
+          <span ng-show="formCount.deployedDataAnalysisSystems.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formCount.deployedDataAnalysisSystems.$error.number && submitAttempted" class="help-block">Not a valid number</span>
+          </div>
+         <div class="col-md-2">
+         	<label>Data:</label>
+         </div>
+         <div class="col-md-4">
+          <input type="number" min="0" class="form-control" name="databasesPerDeployment" ng-model="count.databasesPerDeployment" ng-required="true">
+          <span ng-show="formCount.databasesPerDeployment.$error.required && submitAttempted" class="help-block">Required Field</span>
+          <span ng-show="formCount.databasesPerDeployment.$error.number && submitAttempted" class="help-block">Not a valid number</span>
+        </div>
+      </div>
+    </div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-success" ng-show="formCount.$invalid" ng-click="submitAttempted = true">Update</button>
+	<button class="btn btn-success" ng-show="!formCount.$invalid" ng-click="updateCount()">
+		Update
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
+</div>

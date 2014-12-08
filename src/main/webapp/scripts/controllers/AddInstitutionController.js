@@ -11,8 +11,6 @@ angular.module('MLDS').controller('AddInstitutionController', ['$scope', '$modal
 	$scope.institution.startDate = null;
 	$scope.institution.country = country;
 	
-	$scope.sublicenceTypes = ['DATA_ANALYSIS_SYSTEM', 'DATA_CREATION_SYSTEM'];
-	
 	//TODO: AC rename(if needed) and fill in guts to submit new institution
 	$scope.add = function(){
 		$scope.submitting = true;
