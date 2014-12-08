@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('ExtensionApplicationController', 
-		['$scope', '$location', '$log', '$routeParams', 'UserRegistrationService', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService',
-           	function($scope, $location, $log, $routeParams, UserRegistrationService, UserAffiliateService, ApplicationUtilsService, MemberService) {
+		['$scope', '$location', '$log', '$modal', '$routeParams', 'UserRegistrationService', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService', 
+           	function($scope, $location, $log, $modal, $routeParams, UserRegistrationService, UserAffiliateService, ApplicationUtilsService, MemberService) {
 	
 	var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
 	
@@ -48,5 +48,28 @@ angular.module('MLDS').controller('ExtensionApplicationController',
 			});
 	};
 		
+	$scope.cancelApplication = function() {
+		$log.info('Cancel Application');
+		
+		var modalInstance = $modal.open({
+	      templateUrl: 'views/user/DeleteExtensionApplication.html',
+	      size: 'sm'
+	    });
+
+	    modalInstance.result.then(function () {
+	    	$log.info('Deleting Application: ', applicationId);
+	    	UserRegistrationService.deleteApplication(applicationId)
+	    		.then(function(result) {
+	    			$log.info('Application was successfully removed');
+	    			UserAffiliateService.refreshAffiliate();
+	    			$location.path('/dashboard');
+	    		}, function(error){
+	    			$log.error('Application could not be deleted');
+	    		});
+	    		
+	    }, function () {
+	    });
+		
+	};
 
 }]);

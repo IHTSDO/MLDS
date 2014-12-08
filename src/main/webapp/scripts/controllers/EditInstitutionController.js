@@ -39,6 +39,12 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 	    endDate: false
 	};
 	
+	$scope.dateOptions = {
+			formatYear: 'yyyy',
+			startingDay: 1,
+			format: 'yyyy-MM-dd'
+		};
+
 	$scope.open = function($event, datepickerName) {
 		$event.preventDefault();
 		$event.stopPropagation();
