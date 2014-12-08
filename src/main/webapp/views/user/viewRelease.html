@@ -48,7 +48,7 @@
 			</div>
 			<div class="panel-body">
 				<p>{{releaseVersion.description}}</p>
-					<span><strong>Published On:</strong> {{releaseVersion.publishedAt | date: 'longDate'}}</span>
+					<span><strong>Published On:</strong> {{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</span>
 			</div>
 			<div class="panel-footer"
 				ng-show="$root.authenticated">

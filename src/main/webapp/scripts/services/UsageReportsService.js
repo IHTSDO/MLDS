@@ -16,7 +16,7 @@ angular.module('MLDS')
 
 	service.usageReportPractices = function(usageReport) {
 		return usageReport.countries.reduce(function(total, count) {
-			return total + (count.practices || 0);
+			return total + (count.snomedPractices || 0);
 		}, 0);
 	};
 	

@@ -105,7 +105,12 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 					country: country,
 					entries: [],
 					count: {
-						practices: 0,
+						snomedPractices: 0,
+						hospitalsStaffingPractices: 0,
+						dataCreationPracticesNotPartOfHospital: 0,
+						nonPracticeDataCreationSystems: 0,
+						deployedDataAnalysisSystems: 0,
+						databasesPerDeployment: 0,
 						country: country
 					}
 			};
@@ -206,8 +211,12 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				$scope.geographicAdding += 1;
 				CommercialUsageService.addUsageCount($scope.commercialUsageReport, 
 						{
-						analysisPractices: 0,
-						creationPractices: 0,
+						snomedPractices: 0,
+						hospitalsStaffingPractices: 0,
+						dataCreationPracticesNotPartOfHospital: 0,
+						nonPracticeDataCreationSystems: 0,
+						deployedDataAnalysisSystems: 0,
+						databasesPerDeployment: 0,
 						country: country
 				}, {skipBroadcast: true})
 				.then(function() {
@@ -309,7 +318,6 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/deleteInstitutionModal.html',
 			controller: 'DeleteInstitutionController',
-			size:'sm',
 			backdrop: 'static',
 			resolve: {
 				institution: function() {
@@ -345,6 +353,35 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		
 	};
 
+	$scope.editCountDataAalysisModal = function(count, country) {
+		var modalInstance = $modal.open({
+			templateUrl: 'views/user/editCountDataAnalysisModal.html',
+			controller: 'EditCountDataAnalysisController',
+			backdrop: 'static',
+			resolve: {
+				count: function() {
+					return angular.copy(count);
+				},
+				country: function() {
+					return country;
+				},
+				usageReport: function() {
+					return $scope.commercialUsageReport;
+				},
+				hospitalsCount: function() {
+					var countrySection = lookupUsageByCountryOrCreate(count.country);
+					return countrySection.entries.length;
+					
+				},
+				practicesCount: function() {
+					return count.snomedPractices;
+					
+				}
+			}
+		});
+		
+	};
+
 	$scope.removeCountryModal = function(count) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/removeCountryModal.html',
@@ -364,7 +401,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 					
 				},
 				practicesCount: function() {
-					return count.practices;
+					return count.snomedPractices;
 					
 				}
 

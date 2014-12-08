@@ -104,9 +104,9 @@
       <div ng-repeat="countryRecord in usageCountryCountslist">
       	<strong>Sub-licence Usage:</strong>
        <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
-       <p><strong>Practices:</strong> {{countryRecord.practices}} </p>
+       <p><strong>Practices:</strong> {{countryRecord.snomedPractices | number}} </p>
        <p ng-show="commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2].length > 0">
-       	<strong>Institutions:</strong> 
+       	<strong>Hospitals/Institutions:</strong>
          <span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
           {{entry.name}}<span ng-show="!$last">,</span>
         </span>

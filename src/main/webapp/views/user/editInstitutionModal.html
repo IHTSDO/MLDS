@@ -1,6 +1,6 @@
 <div class="modal-header">
    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-  <h3 class="modal-title">Edit Hospital</h3>
+  <h3 class="modal-title">Edit Hospital/Institution</h3>
 </div>
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
@@ -10,8 +10,8 @@
     <div class="row">
       <div class="form-group">
         <div class="col-md-6">
-          <label>Hospital Name</label> 
-          <input class="form-control" placeholder="Enter Institution Name" name="name" ng-model="institution.name" ng-required="true">
+          <label>Hospital/Institution Name</label> 
+          <input class="form-control" placeholder="Enter Institution/Institution Name" name="name" ng-model="institution.name" ng-required="true">
           <span ng-show="formInstitution.name.$error.required && attemptedSubmit" class="help-block">Required Field</span>
         </div>
       </div>
@@ -42,21 +42,7 @@
 				<span ng-show="formInstitution.endDate.$error.dateAfter && attemptedSubmit" class="help-block">Date before Started to Use date</span>
 			</div>
 		</div>
-		<hr>
-		
-		<div class="row">
-      <div class="form-group">
-        <div class="col-md-6">
-          <label>Sub-Licence Types</label>
-          <select class="form-control" name="type" ng-model="institution.sublicenceType" ng-required="true"
-          	ng-options="type | enum:'sublicenceType.' for type in sublicenceTypes"
-          	>
-          </select>
-          <span ng-show="formInstitution.type.$error.required && submitAttempted" class="help-block">Required Field</span>
-        </div>
-      </div>
-    </div>
-    
+		    
     <hr>
     <div class="row">
 		<div class="col-md-8 form-group">

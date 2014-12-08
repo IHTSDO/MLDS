@@ -14,8 +14,6 @@ angular.module('MLDS').controller('EditInstitutionController', ['$scope', '$moda
 		$modalInstance.dismiss();
 	};
 	
-	$scope.sublicenceTypes = ['DATA_ANALYSIS_SYSTEM', 'DATA_CREATION_SYSTEM'];
-	
 	$scope.updateInstitution = function() {
 		$scope.submitting = true;
 		$scope.alerts.splice(0, $scope.alerts.length);

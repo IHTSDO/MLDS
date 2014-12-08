@@ -89,7 +89,7 @@
              </div>
            </div>
            <div class="col-sx-4 col-md-4 col-lg-6">
-           	<h4>Home Country: <span>{{homeCountry.commonName}}</h4>
+           	<h4>Home Country: <span>{{homeCountry.commonName}}</span></h4>
            </div>
            
 				</form>
@@ -113,74 +113,102 @@
                           </div>
                          <div class="col-xs-4 col-sm-6  col-md-8 col-lg-6" ng-hide="readOnly">
                           <div class="form-group pull-right">
-                            <a class="btn btn-success btn-xs" ng-click="addInstitutionModal(countryUsage.country)"><i class="fa fa-plus"></i> Add Hospital</a>
                             <a class="btn btn-danger btn-xs" ng-click="removeCountryModal(countryUsage.count)"><i class="fa fa-times"></i> Remove Country</a>
                           </div>
                         </div>
                   </div>
 					</div>
+					<div class="country-section">
+						<hr>
+						<div class="row">
+							<div class="col-xs-8">
+								<h4>Hospital(s)/Institution(s)</h4>
+							</div>
+							<div class="col-xs-4" ng-hide="readOnly">
+	              <div class="form-group pull-right">
+	                <a class="btn btn-success btn-xs" ng-click="addInstitutionModal(countryUsage.country)"><i class="fa fa-plus"></i> Add Hospital/Institution</a>
+	              </div>
+							</div>
+						</div>
+					</div>
 					<div class="row">
 					<table class="table table-striped">
 						<tr>
-							<th>Hospital Name</th>
-							<th>Started to Use</th>
-							<th>Ceased Use</th>
-							<th>Sub-Licence Type</th>
-							<th>Note</th>
-							<th></th>
+							<th class="text-left col-md-2">Name</th>
+							<th class="text-left col-md-2">Started to Use</th>
+							<th class="text-left col-md-2">Ceased Use</th>
+							<th class="text-left col-md-5">Note</th>
+							<th class="col-md-1"></th>
 						</tr>
 
 						<tr ng-repeat="institution in countryUsage.entries">
-							<td>{{institution.name}}</td>
-							<td>{{institution.startDate | date}}</td>
-							<td>{{institution.endDate | date}}
+							<td class="col-md-2">{{institution.name}}</td>
+							<td class="col-md-2">{{institution.startDate | date}}</td>
+							<td class="col-md-2">{{institution.endDate | date}}
 								<span ng-show="institutionDateRangeOutsidePeriod(institution)">
 									<span tooltip-placement="top" tooltip="Consider removing this hospital as it ceased use prior to the current declaration period">
 										<span class="label label-warning">Outdated</span>
 									</span>
 								</span>
 							</td>
-							<td>{{institution.sublicenceType | enum:'sublicenceType.'}}</td>
-							<td>{{institution.note}}</td>
-							<td>
+							<td class="col-md-5">{{institution.note}}</td>
+							<td class="col-md-1">
 								<div class="btn-group" dropdown ng-hide="readOnly">
 									<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-pencil"></i> Edit</button>
-									<ul class="dropdown-menu" role="menu">
-										<li><a ng-click="editInstitutionModal(institution, countryUsage.country)">Edit Hospital</a></li>
+									<ul class="dropdown-menu dropdown-menu-right" role="menu">
+										<li><a ng-click="editInstitutionModal(institution, countryUsage.country)">Edit Hospital/Institution</a></li>
 										<li class="divider"></li>
-										<li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)">Remove Hospital</a></li>
+										<li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)">Remove Hospital/Institution</a></li>
 									</ul>
 								</div>
 							</td>
 						</tr>
 					</table>
 				</div>
+				<div class="country-section">
+					<hr>
+					<div class="row">
+						<div class="col-xs-8">
+							<h4>Practice(s)</h4>
+						</div>
+						<div class="col-xs-4">
+              <button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountModal(countryUsage.count)"> <i class="fa fa-pencil"></i> Edit Practices</button>
+						</div>
+					</div>
+				</div>
         <div class="row">
           <div class="country-footer">
-            <div class="col-xs-4 col-sm-4  col-md-4 col-lg-4">
+            <div class="col-xs-2">
               <p>
-              	<strong>Data Analysis Practices: </strong> 
-              	<span class="label label-default">{{countryUsage.count.analysisPractices | number}}</span>
+              	<strong>Practices: </strong> 
+              	<span class="label label-default">{{countryUsage.count.snomedPractices | number}}</span>
               </p>
             </div>
-            <div class="col-xs-4 col-sm-4  col-md-4 col-lg-4">
-              <p>
-              	<strong>Data Creation Practices: </strong> 
-              	<span class="label label-default">{{countryUsage.count.creationPractices | number}}</span>
-              </p>
-            </div>
-            <div class="col-xs-4 col-sm-4  col-md-4 col-lg-4">
-              <button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountModal(countryUsage.count)"> <i class="fa fa-plus"></i> Add Practices</button>
-            </div>
-          </div>
-        </div>
-        <div class="row" ng-show="countryUsage.count.notes">
-          <div class="country-footer">
-            <div class="col-xs-12 col-sm-12  col-md-12 col-lg-12">
+            <div class="col-xs-10" ng-show="countryUsage.count.notes">
              	<label>Notes: </label> 
               <p>
               	{{countryUsage.count.notes}}
               </p>
+            </div>
+          </div>
+        </div>
+				<div class="country-section">
+					<hr>
+					<div class="row">
+						<div class="col-xs-8">
+							<h4>Data Analysis</h4>
+						</div>
+						<div class="col-xs-4">
+              <button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountDataAalysisModal(countryUsage.count)"> <i class="fa fa-pencil"></i> Edit Data Analysis</button>
+						</div>
+					</div>
+				</div>
+        <div class="row">
+          <div class="country-footer">
+            <div class="col-xs-12">
+             	<p><strong>Hospitals providing staff to practices:</strong> <span class="label label-default">{{countryUsage.count.hospitalsStaffingPractices | number}}</span></p> 
+             	<p><strong>Data Creation Systems: Independent practices:</strong> <span class="label label-default">{{countryUsage.count.dataCreationPracticesNotPartOfHospital | number}}</span> <strong>Hospitals/Institutions:</strong> <span class="label label-default">{{countryUsage.count.nonPracticeDataCreationSystems | number}}</span></p> 
+             	<p><strong>Data Analysis Systems: Systems:</strong> <span class="label label-default">{{countryUsage.count.deployedDataAnalysisSystems | number}}</span> <strong>Data:</strong> <span class="label label-default">{{countryUsage.count.databasesPerDeployment | number}}</span></p> 
             </div>
           </div>
         </div>

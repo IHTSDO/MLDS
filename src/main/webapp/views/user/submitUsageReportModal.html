@@ -22,23 +22,17 @@
   				<li class="list-group-item"><strong>Planned Usage:</strong> {{commercialUsageReport.context.plannedUsage}}</li>
   				<li class="list-group-item"><strong>Purpose:</strong> {{commercialUsageReport.context.purpose}}</li>
   				<li class="list-group-item"><strong>Implementation Status:</strong> {{commercialUsageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</li>
-  				<li class="list-group-item" ng-show="commercialUsageReport.type=='COMMERCIAL'" ng-repeat="countryRecord in usageByCountryList">
+  				<li class="list-group-item" ng-repeat="countryRecord in usageByCountryList">
   					<strong>Country:</strong> {{countryRecord.country.commonName}}<br>
- 						<strong>Practices:</strong> {{countryRecord.count.analysisPractices + countryRecord.count.creationPractices}}
+ 						<strong>Practices:</strong> {{countryRecord.count.snomedPractices | number}}
  						<span ng-show="countryRecord.entries">
  							<br>
-	 				  	<strong>Hospitals:</strong>
+	 				  	<strong>Hospitals/Institutions:</strong>
 	  					<span ng-repeat="entry in countryRecord.entries">
 	  						{{entry.name}}<span ng-show="!$last">,</span>
 	 						</span>
  						</span>
  				</li>
- 				<li class="list-group-item" ng-show="commercialUsageReport.type!='COMMERCIAL'">
- 					<strong>Countries:</strong>
-					<span ng-repeat="countryRecord in usageByCountryList">
-						{{countryRecord.country.commonName}}<span ng-show="!$last">,</span>
-					</span><br>
-				</li>
 				<li class="list-group-item" ng-show="commercialUsageReport.context.otherActivities">
  					<strong>Other Activities:</strong> {{commercialUsageReport.context.otherActivities}}
 				</li>
