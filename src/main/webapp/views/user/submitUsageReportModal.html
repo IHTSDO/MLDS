@@ -11,7 +11,7 @@
   			<h4>Declaration:</h4>
   			<ul class="list-group">
           <li class="list-group-item list-group-item-default"><strong>Usage:</strong></li>
-  				<li class="list-group-item"><strong>Period:</strong> {{commercialUsageReport.startDate | date : 'MMM'}} - {{commercialUsageReport.endDate | date : 'MMM yyyy'}}</li>
+  				<li class="list-group-item"><strong>Period:</strong> {{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}}</li>
   				<li class="list-group-item"><strong>Licence Type:</strong> {{commercialUsageReport.type | enum:'affiliate.type.'}}</li>
   			</ul>
 
