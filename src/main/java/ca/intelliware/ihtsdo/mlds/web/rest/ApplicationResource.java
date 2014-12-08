@@ -506,6 +506,25 @@ public class ApplicationResource {
 		return new ResponseEntity<Application>(original, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = Routes.APPLICATION, 
+			method=RequestMethod.DELETE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Transactional
+	@Timed
+	public ResponseEntity<?> deleteApplication(@PathVariable long applicationId) throws IOException {
+		Application application = applicationRepository.findOne(applicationId);
+		
+		if (!application.getApplicationType().equals(ApplicationType.EXTENSION)){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		applicationRepository.delete(applicationId);
+		applicationAuditEvents.logDeletionOf(application);
+		return new ResponseEntity<Application>(HttpStatus.OK);
+	}
+	
+	
 	/**
 	 * Verify that the requestBody has the same applicationType, or default it to the original type
 	 * @param requestBody
