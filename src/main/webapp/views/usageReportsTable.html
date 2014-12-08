@@ -1,5 +1,5 @@
-<div class="panel panel-default dashboard">
-	<div class="panel-heading dashboard-height">
+<div class="panel panel-default" ng-class="{'dashboard': showingUserDashboardWidgets}">
+	<div class="panel-heading" ng-class="{'dashboard-height': showingUserDashboardWidgets}">
 		<span class="pull-right">
 			<button class="btn btn-success btn-xs" ng-if="$root.Session.isUser() || $root.Session.isAdmin()"
 				ng-click="usageReportsUtils.openAddUsageReportModal($parent.affiliate)"><i class="fa fa-plus"></i> New Report</button>
