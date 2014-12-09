@@ -152,12 +152,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 	
 	@Test
 	public void userCanDownloadApprovedPackageVersion() {
-		ReleasePackage releasePackage = new ReleasePackage(1L);
-		releasePackage.setMember(ihtsdo);
-		ReleaseVersion onlineIhtsdoVersion = new ReleaseVersion(2L);
-		releasePackage.addReleaseVersion(onlineIhtsdoVersion);
-		onlineIhtsdoVersion.setOnline(true);
-		
+		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
 		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
 		
@@ -166,14 +161,18 @@ public class ReleasePackageAuthorizationCheckerTest {
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
-	@Test(expected=IllegalStateException.class)
-	public void userCannotDownloadUnapprovedPackageVersion() {
+	private ReleaseVersion withOnlineIhtsdoReleasePackageVersion() {
 		ReleasePackage releasePackage = new ReleasePackage(1L);
 		releasePackage.setMember(ihtsdo);
 		ReleaseVersion onlineIhtsdoVersion = new ReleaseVersion(2L);
 		releasePackage.addReleaseVersion(onlineIhtsdoVersion);
 		onlineIhtsdoVersion.setOnline(true);
-		
+		return onlineIhtsdoVersion;
+	}
+
+	@Test(expected=IllegalStateException.class)
+	public void userCannotDownloadUnapprovedPackageVersion() {
+		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
 		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(false);
 		
@@ -184,11 +183,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 
 	@Test(expected=IllegalStateException.class)
 	public void userCannotDownloadApprovedPackageVersionWhenAccountDeactivated() {
-		ReleasePackage releasePackage = new ReleasePackage(1L);
-		releasePackage.setMember(ihtsdo);
-		ReleaseVersion onlineIhtsdoVersion = new ReleaseVersion(2L);
-		releasePackage.addReleaseVersion(onlineIhtsdoVersion);
-		onlineIhtsdoVersion.setOnline(true);
+		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
 		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
 		
@@ -201,15 +196,24 @@ public class ReleasePackageAuthorizationCheckerTest {
 
 	@Test(expected=IllegalStateException.class)
 	public void userCannotDownloadApprovedPackageVersionWhenAccountDeregistered() {
-		ReleasePackage releasePackage = new ReleasePackage(1L);
-		releasePackage.setMember(ihtsdo);
-		ReleaseVersion onlineIhtsdoVersion = new ReleaseVersion(2L);
-		releasePackage.addReleaseVersion(onlineIhtsdoVersion);
-		onlineIhtsdoVersion.setOnline(true);
+		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
 		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
 		
 		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeregistered()).thenReturn(true);
+		
+		securityContextSetup.asAffiliateUser();
+		
+		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
+	}
+
+	@Test(expected=IllegalStateException.class)
+	public void userCannotDownloadApprovedPackageVersionWhenAccountPendingInvoice() {
+		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
+
+		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
+		
+		Mockito.when(userStandingCalculator.isLoggedInUserAffiliatePendingInvoice()).thenReturn(true);
 		
 		securityContextSetup.asAffiliateUser();
 		
