@@ -93,7 +93,6 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         };
         
         $scope.cancel = function() {
-        	//FIXME $route.reload wasnt clearing out scope state - is there a better way?
-        	window.location.reload();
+       		$location.path('/dashboard');
         };
     }]);
