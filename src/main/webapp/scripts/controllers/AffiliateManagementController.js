@@ -13,16 +13,19 @@ mldsApp.controller('AffiliateManagementController', [
 				PackagesService, AffiliateService) {
 
 			$scope.affiliates = [];
-			$scope.showAllAffiliates = 0;
+			$scope.showAllAffiliates = AffiliateService.showAllAffiliates ? AffiliateService.showAllAffiliates : 0;
 			$scope.homeMember = Session.member || {member: 'NONE'};
 			$scope.isAdmin = Session.isAdmin();
 			$scope.downloadingAffiliates = false;
-			$scope.query = '';
+			$scope.query = AffiliateService.affiliateQuery ? AffiliateService.affiliateQuery : '';
 			$scope.page = 0;
 
-			$scope.alerts = [];
+			$scope.alerts = [];						
 
 			function loadMoreAffiliates() {
+				AffiliateService.affiliateQuery = $scope.query;
+				AffiliateService.showAllAffiliates = $scope.showAllAffiliates;
+				
 				if ($scope.downloadingAffiliates) {
 					return;
 				}
