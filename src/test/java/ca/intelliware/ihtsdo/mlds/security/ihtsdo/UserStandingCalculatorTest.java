@@ -98,4 +98,13 @@ public class UserStandingCalculatorTest {
     	
     	Assert.assertThat(isPendingInvoice, Matchers.equalTo(true));
     }
+
+    @Test
+    public void shouldReturnDeregisteredForAffiliate() {
+    	withAffiliateInStandingState(StandingState.DEREGISTERED);
+    	
+    	boolean isDerigestered = userStandingCalculator.isLoggedInUserAffiliateDeregistered();
+    	
+    	Assert.assertThat(isDerigestered, Matchers.equalTo(true));
+    }
 }
