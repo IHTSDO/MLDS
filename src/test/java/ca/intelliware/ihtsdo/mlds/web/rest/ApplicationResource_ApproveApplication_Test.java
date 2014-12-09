@@ -103,14 +103,14 @@ public class ApplicationResource_ApproveApplication_Test {
 
 	
 	@Test
-	public void approveApplicationShouldPromoteStandingToGoodForAcceptedPrimaryApplicationAndLogChange() throws Exception {
+	public void approveApplicationShouldPromoteStandingToPendingInvoiceForAcceptedPrimaryApplicationAndLogChange() throws Exception {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING);
 		withExistingSwedishPrimaryApplication(1L);
 		
 		postApproveApplication(1L, "APPROVED")
 				.andExpect(status().isOk());
 		
-		Assert.assertEquals(StandingState.IN_GOOD_STANDING, affiliate.getStandingState());
+		Assert.assertEquals(StandingState.PENDING_INVOICE, affiliate.getStandingState());
 		Mockito.verify(affiliateAuditEvents).logStandingStateChange(Mockito.any(Affiliate.class));
 	}
 

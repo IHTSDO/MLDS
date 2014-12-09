@@ -46,9 +46,10 @@ angular.module('MLDS')
 		
 	var initReleasePackageState = function initReleasePackageState(releasePackage) {
 		UserAffiliateService.promise.then(function() {
-			$scope.isAccountDeactivated = StandingStateUtils.isDeactivated(UserAffiliateService.affiliate.standingState); 
+			$scope.isAccountDeactivated = StandingStateUtils.isDeactivated(UserAffiliateService.affiliate.standingState);
+			$scope.isPendingInvoice = StandingStateUtils.isPendingInvoice(UserAffiliateService.affiliate.standingState);
 			$scope.isMembershipApproved = UserAffiliateService.isMembershipApproved(releasePackage.member);
-			$scope.isMembershipInGoodStanding = $scope.isMembershipApproved && !$scope.isAccountDeactivated;
+			$scope.isMembershipInGoodStanding = $scope.isMembershipApproved && !$scope.isAccountDeactivated && !$scope.isPendingInvoice;
 			$scope.isMembershipIncomplete = UserAffiliateService.isMembershipIncomplete(releasePackage.member);
 			$scope.isMembershipUnstarted = UserAffiliateService.isMembershipNotStarted(releasePackage.member);
 			$scope.isPrimaryApplicationApproved = ApplicationUtilsService.isApplicationApproved(UserAffiliateService.affiliate.application);

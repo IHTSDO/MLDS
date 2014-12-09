@@ -29,6 +29,10 @@ public class UserStandingCalculator {
 		return Objects.equal(getLoggedInUserAffiliateStanding(), StandingState.DEREGISTERED);
 	}
 
+	public boolean isLoggedInUserAffiliatePendingInvoice() {
+		return Objects.equal(getLoggedInUserAffiliateStanding(), StandingState.PENDING_INVOICE);
+	}
+
 	public StandingState getLoggedInUserAffiliateStanding() {
 		return getUserAffiliateStanding(currentSecurityContext.getCurrentUserName());
 	}

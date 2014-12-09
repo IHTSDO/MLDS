@@ -691,7 +691,9 @@
 			"DEACTIVATED":"Deactivated",
 			
 			"DEREGISTRATION_PENDING":"Deregistration Pending",
-			"DEREGISTERED":"Deregistered"
+			"DEREGISTERED":"Deregistered",
+			
+			"PENDING_INVOICE":"Pending Invoice"
 		}
     },
     "approval": {
