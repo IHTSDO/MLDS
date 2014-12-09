@@ -10,7 +10,9 @@ describe('StandingStateUtils Tests ', function () {
 	            	'DEACTIVATED',
 	            	
 	            	'DEREGISTRATION_PENDING',
-	            	'DEREGISTERED'];
+	            	'DEREGISTERED',
+	            	
+	            	'PENDING_INVOICE'];
 	
     beforeEach(module('MLDS'));
     
@@ -46,7 +48,7 @@ describe('StandingStateUtils Tests ', function () {
     		expectTruthyFor(StandingStateUtils.isSuccessCategory, ['IN_GOOD_STANDING']);
     	});
     	it('should be able to test isWarningCategory', function() {
-    		expectTruthyFor(StandingStateUtils.isWarningCategory, ['APPLYING', 'DEACTIVATION_PENDING', 'DEREGISTRATION_PENDING']);
+    		expectTruthyFor(StandingStateUtils.isWarningCategory, ['APPLYING', 'PENDING_INVOICE', 'DEACTIVATION_PENDING', 'DEREGISTRATION_PENDING']);
     	});
     	it('should be able to test isDangerCategory', function() {
     		expectTruthyFor(StandingStateUtils.isDangerCategory, ['REJECTED', 'DEACTIVATED', 'DEREGISTERED']);

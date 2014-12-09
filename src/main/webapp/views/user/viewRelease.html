@@ -20,9 +20,13 @@
 			<div class="panel-heading status">
 				<div class="status">
 					<!-- Warnings and action invitations -->
-					<span class="btn-sm btn-warning pull-right"
+					<span class="alert-danger-flag pull-right"
 						ng-show="$root.authenticated && isAccountDeactivated">
 						Account Deactivated
+					</span>
+					<span class="alert-danger-flag pull-right"
+						ng-show="$root.authenticated && isPendingInvoice && isMembershipApproved">
+						Pending Invoice
 					</span>
 					<span class="alert-danger-flag pull-right"
 						ng-show="$root.authenticated && !isAccountDeactivated && !isPrimaryApplicationApproved">

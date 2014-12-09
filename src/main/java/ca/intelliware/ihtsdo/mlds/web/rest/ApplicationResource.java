@@ -131,14 +131,14 @@ public class ApplicationResource {
 		
 		//FIXME MLDS-314 not sure where this code should be
 		if (Objects.equal(application.getApplicationType(), ApplicationType.PRIMARY)) {
-			StandingState newState = null;
+			StandingState newStandingState = null;
 			if (Objects.equal(application.getApprovalState(), ApprovalState.APPROVED)) {
-				newState = StandingState.IN_GOOD_STANDING;
+				newStandingState = StandingState.PENDING_INVOICE;
 			} else if (Objects.equal(application.getApprovalState(), ApprovalState.REJECTED)) {
-				newState = StandingState.REJECTED;
+				newStandingState = StandingState.REJECTED;
 			}
-			if (Objects.equal(affiliate.getStandingState(), StandingState.APPLYING) && newState != null) {
-				affiliate.setStandingState(newState);
+			if (Objects.equal(affiliate.getStandingState(), StandingState.APPLYING) && newStandingState != null) {
+				affiliate.setStandingState(newStandingState);
 				affiliateRepository.save(affiliate);
 				affiliateAuditEvents.logStandingStateChange(affiliate);
 			}
