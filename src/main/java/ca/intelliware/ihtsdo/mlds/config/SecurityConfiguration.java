@@ -95,6 +95,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordParameter("j_password")
                 .permitAll()
                 .and()
+            .httpBasic()
+            	.and()
             .logout()
                 .logoutUrl("/app/logout")
                 .logoutSuccessHandler(ajaxLogoutSuccessHandler)
