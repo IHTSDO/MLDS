@@ -10,7 +10,9 @@ public enum StandingState {
 	DEACTIVATED,
 	
 	DEREGISTRATION_PENDING,
-	DEREGISTERED;
+	DEREGISTERED,
+	
+	PENDING_INVOICE;
 	
 	public boolean canLogin() {
 		return this != DEREGISTERED; 

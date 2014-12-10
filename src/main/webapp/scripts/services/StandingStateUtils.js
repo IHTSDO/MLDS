@@ -28,12 +28,17 @@ mldsApp.factory('StandingStateUtils', [function(){
 			return (standingState === 'DEREGISTRATION_PENDING');
 		};
 
+		service.isPendingInvoice = function isPendingInvoice(standingState) {
+			return (standingState === 'PENDING_INVOICE');
+		};
+
 		service.isSuccessCategory = function isSuccessCategory(standingState) {
 			return (standingState === 'IN_GOOD_STANDING');
 		};
 
 		service.isWarningCategory = function isWarningCategory(standingState) {
 			return (standingState === 'APPLYING'
+					|| standingState == 'PENDING_INVOICE'
 					|| standingState === 'DEACTIVATION_PENDING'
 					|| standingState === 'DEREGISTRATION_PENDING');
 		};
