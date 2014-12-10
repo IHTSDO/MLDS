@@ -80,7 +80,6 @@ angular.module('MLDS')
 		return affiliate && ApplicationUtilsService.isApplicationApproved(affiliate.application);
 	};
 
-	
 	return service;
 }]);
 
