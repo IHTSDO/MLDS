@@ -1,7 +1,8 @@
-package ca.intelliware.ihtsdo.mlds.domain;
+package ca.intelliware.ihtsdo.mlds.domain.json;
 
 import java.io.IOException;
 
+import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 
 import com.fasterxml.jackson.core.JsonParser;

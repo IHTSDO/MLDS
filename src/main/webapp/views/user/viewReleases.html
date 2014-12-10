@@ -39,9 +39,13 @@
 					<div ng-class="{'status text-muted': !isMembershipInGoodStanding}">
 						
 					<!-- Warnings and action invitations -->
-					<span class="btn-sm btn-warning pull-right"
+					<span class="alert-danger-flag pull-right"
 						ng-show="$root.authenticated && isAccountDeactivated">
 						Account Deactivated
+					</span>
+					<span class="alert-danger-flag pull-right"
+						ng-show="$root.authenticated && isPendingInvoice && isMembershipApproved">
+						Pending Invoice
 					</span>
 					<a class="btn btn-sm btn-warning pull-right"
 						href="#/affiliateRegistration"

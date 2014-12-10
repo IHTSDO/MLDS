@@ -48,6 +48,7 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 		} else if (releaseVersion.isOnline() 
 				&& !userStandingCalculator.isLoggedInUserAffiliateDeactivated()
 				&& !userStandingCalculator.isLoggedInUserAffiliateDeregistered()
+				&& !userStandingCalculator.isLoggedInUserAffiliatePendingInvoice()
 				&& userMembershipAccessor.isAffiliateMemberApplicationAccepted(releaseVersion.getReleasePackage().getMember())) {
 			return;
 		}

@@ -34,6 +34,15 @@
     </div>
   </div>
 
+  <div class="row" ng-show="standingStateUtils.isPendingInvoice(affiliate.standingState)">
+    <div class="col-sm-12">
+      <div class="alert alert-danger space" role="alert">
+        <div><strong>Account Pending Invoice</strong></div>
+        <p>Your account has a pending invoice. Release package downloads have been suspended. Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
+      </div>
+    </div>
+  </div>
+
   <div class="row" ng-show="standingStateUtils.isDeactivationPending(affiliate.standingState)">
     <div class="col-sm-12">
       <div class="alert alert-danger space" role="alert">
