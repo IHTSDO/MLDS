@@ -444,7 +444,9 @@ mldsApp
                 	$log.log('in $routeChangeStart', event, next, $location.path(), window.location.hash);
                     $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
                     $rootScope.userRoles = USER_ROLES;
-                    AuthenticationSharedService.valid(next.access.authorizedRoles);
+                    if (next.access && next.access.authorizedRoles) {
+                    	AuthenticationSharedService.valid(next.access.authorizedRoles);
+                    }
                 });
 
                 // Call when the the client is confirmed
