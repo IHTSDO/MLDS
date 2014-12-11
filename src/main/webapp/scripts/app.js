@@ -436,8 +436,8 @@ mldsApp
         	datepickerConfig.startingDay=1;
         	datepickerConfig.formatYear='yy';
         }])
-        .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES',
-            function($rootScope, $location, $http, $log, AuthenticationSharedService, Session, USER_ROLES) {
+        .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES', 'LandingRedirectService',
+            function($rootScope, $location, $http, $log, AuthenticationSharedService, Session, USER_ROLES, LandingRedirectService) {
         		$log.log('app.js startup');
         		
                 $rootScope.$on('$routeChangeStart', function (event, next) {
@@ -451,7 +451,8 @@ mldsApp
                 $rootScope.$on('event:auth-loginConfirmed', function(data) {
                     $rootScope.authenticated = true;
                     if ($location.path() === "/login") {
-                    	$location.path('/'); // redirect landing page                    		
+                    	LandingRedirectService.redirect(Session);
+                    	//$location.path('/'); // redirect landing page                    		
                     }
                 });
 
