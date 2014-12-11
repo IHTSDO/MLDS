@@ -11,7 +11,11 @@ public class MemberDTO {
 
     Instant createdAt;
 
-    FileDTO licence; 
+    FileDTO licence;
+    
+    private String licenceName;
+    
+    private String licenceVersion;
 
     public MemberDTO() {
     }
@@ -20,6 +24,8 @@ public class MemberDTO {
     	this.memberId = member.getMemberId();
     	this.key = member.getKey();
     	this.createdAt = member.getCreatedAt();
+    	this.licenceName = member.getLicenceName();
+    	this.licenceVersion = member.getLicenceVersion();
     	if (member.getLicense() != null) {
     		this.licence = new FileDTO(member.getLicense());
     	}
@@ -39,5 +45,21 @@ public class MemberDTO {
 
 	public FileDTO getLicence() {
 		return licence;
+	}
+
+	public String getLicenceName() {
+		return licenceName;
+	}
+
+	public void setLicenceName(String licenceName) {
+		this.licenceName = licenceName;
+	}
+
+	public String getLicenceVersion() {
+		return licenceVersion;
+	}
+
+	public void setLicenceVersion(String licenceVersion) {
+		this.licenceVersion = licenceVersion;
 	}
 }
