@@ -10,76 +10,99 @@
 	</h3>
 </div>
 <div class="modal-body">
-
+	<div class="row">
+		<div class="col-xs-12">
   			<h4>Usage Type:</h4>
   			<ul class="list-group">
-  				<li class="list-group-item"><strong>Type:</strong> {{affiliateform.type | enum:'affiliate.type.'}}</li>
-  				<li class="list-group-item"><strong>Subtype:</strong> {{affiliateform.subType | enum:'affiliate.subType.'}} {{affiliateform.otherText}}</li>
-  				<li class="list-group-item"><strong>Agreement Type:</strong> {{affiliateform.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</li>
+  				<li class="list-group-item-light"><strong>Type:</strong> {{affiliateform.type | enum:'affiliate.type.'}}</li>
+  				<li class="list-group-item-light"><strong>Subtype:</strong> {{affiliateform.subType | enum:'affiliate.subType.'}} {{affiliateform.otherText}}</li>
+  				<li class="list-group-item-light"><strong>Agreement Type:</strong> {{affiliateform.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</li>
   			</ul>
-
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
   			<h4>Contact Information:</h4>
   			<ul class="list-group">
-  				<li class="list-group-item"><strong>Name:</strong> {{affiliateform.affiliateDetails.firstName}} {{affiliateform.affiliateDetails.lastName}}</li>
-  				<li class="list-group-item"><strong>Email:</strong> {{affiliateform.affiliateDetails.email}}</li>
-  				<li class="list-group-item"><strong>Landline Phone Number:</strong> {{affiliateform.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.extension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
-  				<li class="list-group-item"><strong>Mobile Phone Number:</strong> {{affiliateform.affiliateDetails.mobileNumber}}</li>
+  				<li class="list-group-item-light"><strong>Name:</strong> {{affiliateform.affiliateDetails.firstName}} {{affiliateform.affiliateDetails.lastName}}</li>
+  				<li class="list-group-item-light"><strong>Email:</strong> {{affiliateform.affiliateDetails.email}}</li>
+  				<li class="list-group-item-light"><strong>Landline Phone Number:</strong> {{affiliateform.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.extension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
+  				<li class="list-group-item-light"><strong>Mobile Phone Number:</strong> {{affiliateform.affiliateDetails.mobileNumber}}</li>
   			</ul>
 
   			<ul class="list-group" ng-show="affiliateform.type=='INDIVIDUAL'">
-  				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.affiliateDetails.address.street}}</li>
-  				<li class="list-group-item"><strong>City:</strong> {{affiliateform.affiliateDetails.address.city}}</li>
-  				<li class="list-group-item"><strong>Post Code:</strong> {{affiliateform.affiliateDetails.address.post}}</li>
-  				<li class="list-group-item"><strong>Country:</strong> {{affiliateform.affiliateDetails.address.country.commonName}}</li>
+  				<li class="list-group-item-light"><strong>Address:</strong> {{affiliateform.affiliateDetails.address.street}}</li>
+  				<li class="list-group-item-light"><strong>City:</strong> {{affiliateform.affiliateDetails.address.city}}</li>
+  				<li class="list-group-item-light"><strong>Post Code:</strong> {{affiliateform.affiliateDetails.address.post}}</li>
+  				<li class="list-group-item-light"><strong>Country:</strong> {{affiliateform.affiliateDetails.address.country.commonName}}</li>
   			</ul>
-
+  			  <ul class="list-group" ng-show="affiliateform.type!='INDIVIDUAL'">
+  				<h4>Billing Address:</h4>
+  				<li class="list-group-item-light"><strong>Address:</strong> {{affiliateform.affiliateDetails.billingAddress.street}}</li>
+  				<li class="list-group-item-light"><strong>City:</strong> {{affiliateform.affiliateDetails.billingAddress.city}}</li>
+					<li class="list-group-item-light"><strong>Post Code:</strong> {{affiliateform.affiliateDetails.billingAddress.post}}</li>
+					<li class="list-group-item-light"><strong>Country:</strong> {{affiliateform.affiliateDetails.billingAddress.country.commonName}}</li>
+  			</ul>
+  			
+		</div>
+		<div class="col-xs-6">
   			<ul class="list-group" ng-show="affiliateform.type!='INDIVIDUAL'">
   				<h4>Organization:</h4>
-  				<li class="list-group-item"><strong>Organization Name:</strong> {{affiliateform.affiliateDetails.organizationName}}</li>
-  				<li class="list-group-item"><strong>Organization Type:</strong>
+  				<li class="list-group-item-light"><strong>Organization Name:</strong> {{affiliateform.affiliateDetails.organizationName}}</li>
+  				<li class="list-group-item-light"><strong>Organization Type:</strong>
   					<span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{affiliateform.affiliateDetails.organizationTypeOther}}</span>
   					<span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{affiliateform.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
  					</li>
-  				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.affiliateDetails.address.street}}</li>
-  				<li class="list-group-item"><strong>City:</strong> {{affiliateform.affiliateDetails.address.city}}</li>
-  				<li class="list-group-item"><strong>Post Code:</strong> {{affiliateform.affiliateDetails.address.post}}</li>
-  				<li class="list-group-item"><strong>Country:</strong> {{affiliateform.affiliateDetails.address.country.commonName}}</li>
-  				<li class="list-group-item"><strong>Phone Number:</strong> {{affiliateform.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.affiliateDetailsextension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
-  				<li class="list-group-item"><strong>Alternate Email:</strong> {{affiliateform.affiliateDetails.alternateEmail}}</li>
-  				<li class="list-group-item" ng-show="affiliateform.type=='COMMERCIAL'"><strong>Third Email:</strong> {{affiliateform.affiliateDetails.thirdEmail}}</li>
-  				<li class="list-group-item" ng-show="affiliateform.type=='OTHER'"><strong>Other:</strong>{{otherText}}</li>
+  				<li class="list-group-item-light"><strong>Address:</strong> {{affiliateform.affiliateDetails.address.street}}</li>
+  				<li class="list-group-item-light"><strong>City:</strong> {{affiliateform.affiliateDetails.address.city}}</li>
+  				<li class="list-group-item-light"><strong>Post Code:</strong> {{affiliateform.affiliateDetails.address.post}}</li>
+  				<li class="list-group-item-light"><strong>Country:</strong> {{affiliateform.affiliateDetails.address.country.commonName}}</li>
+  				<li class="list-group-item-light"><strong>Phone Number:</strong> {{affiliateform.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.affiliateDetailsextension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
+  				<li class="list-group-item-light"><strong>Alternate Email:</strong> {{affiliateform.affiliateDetails.alternateEmail}}</li>
+  				<li class="list-group-item-light" ng-show="affiliateform.type=='COMMERCIAL'"><strong>Third Email:</strong> {{affiliateform.affiliateDetails.thirdEmail}}</li>
+  				<li class="list-group-item-light" ng-show="affiliateform.type=='OTHER'"><strong>Other:</strong>{{otherText}}</li>
   			</ul>
-
-
-  			<ul class="list-group">
-  				<h4>Billing Address</h4>
-  				<li class="list-group-item"><strong>Address:</strong> {{affiliateform.affiliateDetails.billingAddress.street}}</li>
-  				<li class="list-group-item"><strong>City:</strong> {{affiliateform.affiliateDetails.billingAddress.city}}</li>
-					<li class="list-group-item"><strong>Post Code:</strong> {{affiliateform.affiliateDetails.billingAddress.post}}</li>
-					<li class="list-group-item"><strong>Country:</strong> {{affiliateform.affiliateDetails.billingAddress.country.commonName}}</li>
+  			<ul class="list-group" ng-show="affiliateform.type=='INDIVIDUAL'">
+  				<h4>Billing Address:</h4>
+  				<li class="list-group-item-light"><strong>Address:</strong> {{affiliateform.affiliateDetails.billingAddress.street}}</li>
+  				<li class="list-group-item-light"><strong>City:</strong> {{affiliateform.affiliateDetails.billingAddress.city}}</li>
+					<li class="list-group-item-light"><strong>Post Code:</strong> {{affiliateform.affiliateDetails.billingAddress.post}}</li>
+					<li class="list-group-item-light"><strong>Country:</strong> {{affiliateform.affiliateDetails.billingAddress.country.commonName}}</li>
   			</ul>
-
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
   			<ul class="list-group" >
   				<h4>Usage:</h4>
-  				<li class="list-group-item"><strong>Current Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.currentUsage}}</li>
-  				<li class="list-group-item"><strong>Planned Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.plannedUsage}}</li>
-  				<li class="list-group-item"><strong>Purpose:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.purpose}}</li>
-  				<li class="list-group-item"><strong>Implementation Status:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</li>
-  				<li class="list-group-item" ng-repeat="countryRecord in usageCountryCountslist">
-  					<strong>Country:</strong> {{countryRecord.country.commonName}}<br>
- 						<strong>Practices:</strong> {{countryRecord.snomedPractices | number}}
-  				  <span ng-show="commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2].length > 0">
-  				  	<br>
-	  				  <strong>Hospitals/Institutions:</strong>
-	  					<span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
-	  						{{entry.name}}<span ng-show="!$last">,</span>
-	 						</span><br>
-  				  </span>
- 					</li>
- 					<li class="list-group-item"><strong>Other Activities:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.otherActivities}}</li>
- 				</ul>
-  		  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  				<li class="list-group-item-light"><strong>Current Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.currentUsage}}</li>
+  				<li class="list-group-item-light"><strong>Planned Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.plannedUsage}}</li>
+  				<li class="list-group-item-light"><strong>Purpose:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.purpose}}</li>
+  				<li class="list-group-item-light"><strong>Implementation Status:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</li>
+				<li class="list-group-item-light"><strong>Other Activities:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.otherActivities}}</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row" ng-repeat="pair in usageCountryCountsPairs">
+		<div class=" col-xs-6" ng-repeat="countryRecord in pair">
+<!-- 			<div class="space"> -->
+			<ul class="list-group">
+			<li class="list-group-item-light">
+			<strong>Country:</strong> {{countryRecord.country.commonName}}<br>
+			<strong>Practices:</strong> {{countryRecord.snomedPractices | number}}
+			  <span ng-show="commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2].length > 0">
+			  	<br>
+				  <strong>Hospitals/Institutions:</strong>
+					<span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
+						{{entry.name}}<span ng-show="!$last">,</span>
+					</span><br>
+			  </span>
+			</li>
+			</ul>
+			</div>
+	</div>
 
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 </div>
 
 <div class="modal-footer">
