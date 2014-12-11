@@ -43,8 +43,8 @@
  	<div ng-if="$root.Session.isStaffOrAdmin()" class="container-fluid" >
 		<div class="row">
 		    <div class="col-md-2" ng-include src="'views/sideNav.html'"></div>
-        	<div class="col-md-9 col-md-offset-2 nav-space" ng-view="" autoscroll="true"></div>
-	        <div ng-include src="'views/adminFooter.html'"></div>
+       	<div class="col-md-9 col-md-offset-2 nav-space" ng-view="" autoscroll="true"></div>
+        <div ng-include src="'views/adminFooter.html'"></div>
 	    </div>
   </div>
 
@@ -147,6 +147,7 @@
   <script src="scripts/services/CommercialUsageService.js"></script>
   <script src="scripts/services/MemberService.js"></script>
   <script src="scripts/services/MemberPackageService.js"></script>
+  <script src="scripts/services/LandingRedirectService.js"></script>
   <script src="scripts/services/LookupCollector.js"></script>
   <script src="scripts/services/Register.js"></script>
   <script src="scripts/services/ReleaseFilesService.js"></script>
