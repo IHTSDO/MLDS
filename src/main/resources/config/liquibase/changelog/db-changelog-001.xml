@@ -1430,5 +1430,16 @@ $f$ language plpgsql;
     	<addColumn tableName="commercial_usage_count" >
     		<column name="databases_per_deployment" type="int" value="0"></column>
     	</addColumn>
-    </changeSet>    
+    </changeSet>
+    
+    <changeSet id="MLDS-706-1" author="DGJ">
+    	<comment>Add name and version fields for member terms and conditions</comment>
+    	<addColumn tableName="member" >
+    		<column name="licence_name" type="VARCHAR(255)"></column>
+    	</addColumn>
+    	<addColumn tableName="member" >
+    		<column name="licence_version" type="VARCHAR(255)"></column>
+    	</addColumn>
+    </changeSet>
+        
 </databaseChangeLog>
