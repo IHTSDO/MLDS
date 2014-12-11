@@ -2,21 +2,27 @@
 
 describe('Services Tests ', function () {
 
-    beforeEach(module('MLDS'));
+	var mockLandingRedirectService = {};
+	
+    beforeEach(module('MLDS', function ($provide){
+    	$provide.value('LandingRedirectService', mockLandingRedirectService);
+    }));
 
     describe('AuthenticationSharedService', function () {
         var serviceTested,
             httpBackend,
             authServiceSpied;
 
-        beforeEach(inject(function($httpBackend, AuthenticationSharedService, authService) {
-            serviceTested = AuthenticationSharedService;
-            httpBackend = $httpBackend;
-            authServiceSpied = authService;
-            //Request on app init
-            httpBackend.expectGET('i18n/en.json').respond(200, '');
-        }));
-        //make sure no expectations were missed in your tests.
+        beforeEach(
+			inject(function($httpBackend, AuthenticationSharedService, authService, LandingRedirectService) {
+	            serviceTested = AuthenticationSharedService;
+	            httpBackend = $httpBackend;
+	            authServiceSpied = authService;
+	            //Request on app init
+	            httpBackend.expectGET('i18n/en.json').respond(200, '');
+	        })
+        );
+        
         //(e.g. expectGET or expectPOST)
         afterEach(function() {
             httpBackend.verifyNoOutstandingExpectation();
@@ -48,8 +54,8 @@ describe('Services Tests ', function () {
     describe('AuditsService', function () {
         var serviceTested,
             httpBackend;
-
-        beforeEach(inject(function($httpBackend, AuditsService, authService) {
+        
+        beforeEach(inject(function($httpBackend, AuditsService, authService, LandingRedirectService) {
             serviceTested = AuditsService;
             httpBackend = $httpBackend;
             //Request on app init
