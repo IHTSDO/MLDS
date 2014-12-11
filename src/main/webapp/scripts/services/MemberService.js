@@ -55,9 +55,11 @@ angular.module('MLDS')
 			$window.open('/app/rest/members/' + encodeURIComponent(memberKey) + '/licence', '_blank');
 		};
 		
-		service.updateMemberLicence = function updateMemberLicence(memberKey, memberLicenceFile) {
+		service.updateMemberLicence = function updateMemberLicence(memberKey, memberLicenceFile, licenceName, licenceVersion) {
 			var formData = new FormData();
 	        formData.append('file', memberLicenceFile);
+	        formData.append('licenceName', licenceName);
+	        formData.append('licenceVersion', licenceVersion);
 	        var promise = $http.post('/app/rest/members/' + encodeURIComponent(memberKey) + '/licence', formData, {
 	            transformRequest: angular.identity,
 	            headers: {'Content-Type': undefined}
