@@ -489,7 +489,7 @@
     }
   },
   "metrics": {
-    "title": "Application Metrics",
+    "title": "System Metrics",
     "refresh.button": "Refresh",
     "health": {
       "title": "Heath checks",
@@ -724,5 +724,5 @@
 			"email": "Email",
 			"review": "Review"
   	}
-  }
+  }  
 }

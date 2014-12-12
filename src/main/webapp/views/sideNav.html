@@ -1,8 +1,23 @@
 <div id="sideNav" class="sidebar" location-aware-nav>
   <ul class="nav nav-sidebar">
-    <li><a href="#/pendingApplications"><i class="fa fa-tasks"></i> Pending Applications</a></li>
-    <li><a href="#/affiliateManagement"><i class="fa fa-users"></i> Affiliate Management</a></li>
-    <li><a href="#/releaseManagement"><i class="fa fa-cube"></i> Release Management</a></li>
+    <li>
+		<a href="#/pendingApplications">
+			<i class="fa fa-tasks"></i> 
+			<span translate="pendingApplications.title">Pending Applications</span>
+		</a>
+	</li>
+    <li>
+		<a href="#/affiliateManagement">
+			<i class="fa fa-users"></i> 
+			<span>Affiliate Management</span>
+		</a>
+	</li>
+    <li>
+		<a href="#/releaseManagement">
+			<i class="fa fa-cube"></i> 
+			<span>Release Management<span>
+		</a>
+	</li>
     <li><a href="#/usageReportsReview"><i class="fa fa-file-text"></i> Review Usage Reports</a></li>
     <li><a href="#/licences"><i class="fa fa-gavel"></i> Licence T&C</a></li>
   </ul>
@@ -13,7 +28,12 @@
     <li><a href="#/countries"><i class="fa fa-flag-o"></i> National Registration List</a></li>
   </ul>
   <ul class="nav nav-sidebar" ng-show="$root.Session.isAdmin()">
-    <li><a href="#/metrics"><i class="fa fa-exchange"></i> System Metrics</a></li>
+    <li>
+		<a href="#/metrics">
+			<i class="fa fa-exchange"></i> 
+			<span translate="metrics.title">System Metrics</span>
+		</a>
+	</li>
     <li><a href="#/logs"><i class="fa fa-navicon"></i> System Loggers</a></li>
   </ul>
   <ul class="nav nav-sidebar">
