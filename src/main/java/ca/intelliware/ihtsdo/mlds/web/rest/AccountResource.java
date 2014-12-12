@@ -39,7 +39,6 @@ import org.thymeleaf.util.Validate;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.Authority;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
@@ -91,7 +90,7 @@ public class AccountResource {
     private SpringTemplateEngine templateEngine;
 
     @Inject
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Inject
     private UserService userService;
@@ -99,13 +98,11 @@ public class AccountResource {
     @Inject
     private PersistentTokenRepository persistentTokenRepository;
 
-    @Inject
-    private MailService mailService;
+    @Inject MailService mailService;
     
     @Resource DuplicateRegistrationEmailSender duplicateRegistrationEmailSender;
     
-    @Inject
-	private DomainBlacklistService domainBlacklistService;
+    @Inject DomainBlacklistService domainBlacklistService;
     
     @Resource
 	AffiliateRepository affiliateRepository;
@@ -134,6 +131,7 @@ public class AccountResource {
 
     /**
      * POST  /rest/register -> register the user.
+     * @throws IOException 
      */
     @RequestMapping(value = "/rest/register",
             method = RequestMethod.POST,
@@ -142,82 +140,87 @@ public class AccountResource {
     //FIXME: JH-add account to stormpath wrapper
     @RolesAllowed({ AuthoritiesConstants.ANONYMOUS })
     public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO, HttpServletRequest request,
-                                             HttpServletResponse response) {
+                                             HttpServletResponse response) throws IOException {
         User user = userRepository.findByLoginIgnoreCase(userDTO.getLogin());
         if (user != null) {
         	String passwordResetToken = passwordResetService.createTokenForUser(user);
 			duplicateRegistrationEmailSender.sendDuplicateRegistrationEmail(user,passwordResetToken );
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        } else if (domainBlacklistService.isDomainBlacklisted(userDTO.getEmail())) {
+    		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        } else if (httpAuthAdaptor.getUserInfo(userDTO.getLogin()) != null) {
+        	// Admin/Stormpath registered account - do not allow local duplicate
+    		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         } else {
-        	if (domainBlacklistService.isDomainBlacklisted(userDTO.getEmail())) {
-        		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        	}
-        	
-        	List<Application> applications = applicationRepository.findByUsernameIgnoreCase(userDTO.getLogin());
-        	List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(userDTO.getLogin());
-        	PrimaryApplication application = new PrimaryApplication();
-        	Affiliate affiliate = new Affiliate();
-        	AffiliateDetails affiliateDetails = new AffiliateDetails();
-        	MailingAddress mailingAddress = new MailingAddress();
-        	
-        	if (applications.size() > 0) {
-        		// FIXME MLDS-308 can we assume the first one is the primary?
-        		application = (PrimaryApplication) applications.get(0);
-        	}
-        	
-        	if (affiliates.size() > 0) {
-        		affiliate = affiliates.get(0);
-        	}
-        	        	
-        	application.setUsername(userDTO.getLogin());
-        	affiliateDetails.setFirstName(userDTO.getFirstName());
-        	affiliateDetails.setLastName(userDTO.getLastName());
-        	affiliateDetails.setEmail(userDTO.getEmail());
-        	mailingAddress.setCountry(userDTO.getCountry());
-        	affiliateDetails.setAddress(mailingAddress);
-        	application.setAffiliateDetails(affiliateDetails);
-        	
-        	//set a default type for application to create affiliate and usagelog
-        	affiliate.setCreator(userDTO.getLogin());
-        	// MLDS-719 don't default type affiliateDetails.setType(AffiliateType.COMMERCIAL);
-        	//affiliate.setType(AffiliateType.COMMERCIAL);
-        	
-        	Validate.notNull(userDTO.getCountry(), "Country is mandatory");
-        	Member member = userDTO.getCountry().getMember();
-        	Validate.notNull(member, "Country must have a responsible member");
-        	application.setMember(member);
-        	affiliate.setHomeMember(member);
-        	
-        	affiliateRepository.save(affiliate);
-        	affiliateDetailsRepository.save(affiliateDetails);
-
-        	applicationRepository.save(application);
-        	
-        	affiliate.setApplication(application);
-        	affiliateRepository.save(affiliate);
-        	
-        	CommercialUsage commercialUsage = new CommercialUsage();
-	    	commercialUsage.setType(affiliate.getType());
-        	
-        	commercialUsageResetter.detachAndReset(commercialUsage, userDTO.getInitialUsagePeriod().getStartDate(), userDTO.getInitialUsagePeriod().getEndDate());
-        	
-        	commercialUsage = commercialUsageRepository.save(commercialUsage);
-        	
-        	affiliate.addCommercialUsage(commercialUsage);
-        	
-        	application.setCommercialUsage(commercialUsage);
-        	
-        	affiliateAuditEvents.logCreationOf(affiliate);
-        	
-        	//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
-            user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
-                    userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey(), false);
-            final Locale locale = Locale.forLanguageTag(user.getLangKey());
-            String content = createHtmlContentFromTemplate(user, locale, request, response);
-            mailService.sendActivationEmail(user.getEmail(), content, locale);
+        	createUserAccount(userDTO, request, response);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
+    
+	private void createUserAccount(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response) {
+		List<Application> applications = applicationRepository.findByUsernameIgnoreCase(userDTO.getLogin());
+		List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(userDTO.getLogin());
+		PrimaryApplication application = new PrimaryApplication();
+		Affiliate affiliate = new Affiliate();
+		AffiliateDetails affiliateDetails = new AffiliateDetails();
+		MailingAddress mailingAddress = new MailingAddress();
+		
+		if (applications.size() > 0) {
+			// FIXME MLDS-308 can we assume the first one is the primary?
+			application = (PrimaryApplication) applications.get(0);
+		}
+		
+		if (affiliates.size() > 0) {
+			affiliate = affiliates.get(0);
+		}
+		        	
+		application.setUsername(userDTO.getLogin());
+		affiliateDetails.setFirstName(userDTO.getFirstName());
+		affiliateDetails.setLastName(userDTO.getLastName());
+		affiliateDetails.setEmail(userDTO.getEmail());
+		mailingAddress.setCountry(userDTO.getCountry());
+		affiliateDetails.setAddress(mailingAddress);
+		application.setAffiliateDetails(affiliateDetails);
+		
+		//set a default type for application to create affiliate and usagelog
+		affiliate.setCreator(userDTO.getLogin());
+		// MLDS-719 don't default type affiliateDetails.setType(AffiliateType.COMMERCIAL);
+		//affiliate.setType(AffiliateType.COMMERCIAL);
+		
+		Validate.notNull(userDTO.getCountry(), "Country is mandatory");
+		Member member = userDTO.getCountry().getMember();
+		Validate.notNull(member, "Country must have a responsible member");
+		application.setMember(member);
+		affiliate.setHomeMember(member);
+		
+		affiliateRepository.save(affiliate);
+		affiliateDetailsRepository.save(affiliateDetails);
+
+		applicationRepository.save(application);
+		
+		affiliate.setApplication(application);
+		affiliateRepository.save(affiliate);
+		
+		CommercialUsage commercialUsage = new CommercialUsage();
+		commercialUsage.setType(affiliate.getType());
+		
+		commercialUsageResetter.detachAndReset(commercialUsage, userDTO.getInitialUsagePeriod().getStartDate(), userDTO.getInitialUsagePeriod().getEndDate());
+		
+		commercialUsage = commercialUsageRepository.save(commercialUsage);
+		
+		affiliate.addCommercialUsage(commercialUsage);
+		
+		application.setCommercialUsage(commercialUsage);
+		
+		affiliateAuditEvents.logCreationOf(affiliate);
+		
+		//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
+		User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
+		        userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey(), false);
+		final Locale locale = Locale.forLanguageTag(user.getLangKey());
+		String content = createHtmlContentFromTemplate(user, locale, request, response);
+		mailService.sendActivationEmail(user.getEmail(), content, locale);
+	}
     /**
      * GET  /rest/activate -> activate the registered user.
      */
