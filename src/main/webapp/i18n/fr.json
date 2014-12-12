@@ -489,7 +489,7 @@
     }
   },
   "metrics":{
-    "title":"Metricsapplication",
+    "title":"Metrics Système",
     "refresh.button":"Refresh",
     "health":{
       "title":"contrôlesdeHeath",
@@ -517,9 +517,9 @@
           "id":"Id:",
           "blockedtime":"TimeBloqué",
           "blockedcount":"comteBloqué",
-          "waitedtime":"AttenduTime",
+          "waitedtime":"Attendu Time",
           "waitedcount":"comteattendu",
-          "lockname":"NomLock",
+          "lockname":"Nom Lock",
           "stacktrace":"Stacktrace",
           "show":"Show",
           "hide":"Masquer"
@@ -533,7 +533,7 @@
         "scavengetime":"Scavengetemps"
       },
       "http":{
-        "title":"requêtesHTTP(événementsparseconde)",
+        "title":"requêtes HTTP(événementsparseconde)",
         "active":"demandesactives:",
         "total":"Nombretotaldedemandes:",
         "table":{
@@ -552,7 +552,7 @@
     "servicesstats":{
       "title":"lesstatistiquesdesservices(tempsenmillisecondes)",
       "table":{
-        "name":"Nomduservice",
+        "name":"Nom du service",
         "count":"Count",
         "mean":"moyenne",
         "min":"Min",
