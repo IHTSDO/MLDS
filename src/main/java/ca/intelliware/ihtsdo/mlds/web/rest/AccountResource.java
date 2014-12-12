@@ -153,8 +153,8 @@ public class AccountResource {
         		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         	}
         	
-        	List<Application> applications = applicationRepository.findByUsername(userDTO.getLogin());
-        	List<Affiliate> affiliates = affiliateRepository.findByCreator(userDTO.getLogin());
+        	List<Application> applications = applicationRepository.findByUsernameIgnoreCase(userDTO.getLogin());
+        	List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(userDTO.getLogin());
         	PrimaryApplication application = new PrimaryApplication();
         	Affiliate affiliate = new Affiliate();
         	AffiliateDetails affiliateDetails = new AffiliateDetails();

@@ -48,7 +48,7 @@ public class PasswordResetResource {
 			return new ResponseEntity<>("no email provided", HttpStatus.BAD_REQUEST);
 		}
 		
-		final User user = userRepository.getUserByEmail(emailAddress);
+		final User user = userRepository.getUserByEmailIgnoreCase(emailAddress);
 		if (user == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

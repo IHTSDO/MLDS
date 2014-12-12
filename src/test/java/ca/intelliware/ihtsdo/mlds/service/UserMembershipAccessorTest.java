@@ -84,7 +84,7 @@ public class UserMembershipAccessorTest {
     public void shouldReturnMemberForAffiliateBasedOnAffiliateHomeMember() {
     	Affiliate affiliate = new Affiliate();
     	affiliate.setHomeMember(sweden);
-    	Mockito.when(affiliateRepository.findByCreator("user")).thenReturn(Lists.newArrayList(affiliate));
+    	Mockito.when(affiliateRepository.findByCreatorIgnoreCase("user")).thenReturn(Lists.newArrayList(affiliate));
     	
     	securityContextSetup.asAffiliateUser();
     	
@@ -107,7 +107,7 @@ public class UserMembershipAccessorTest {
     	Affiliate affiliate = new Affiliate();
     	//Note that in this scenario the sweeden extension has not been accepted yet...
     	affiliate.setHomeMember(sweden);
-    	Mockito.when(affiliateRepository.findByCreator("user")).thenReturn(Lists.newArrayList(affiliate));
+    	Mockito.when(affiliateRepository.findByCreatorIgnoreCase("user")).thenReturn(Lists.newArrayList(affiliate));
     	
     	Mockito.when(affiliateMembershipCalculator.acceptedMemberships(affiliate)).thenReturn(Sets.newHashSet(ihtsdo));
     	
@@ -123,7 +123,7 @@ public class UserMembershipAccessorTest {
     	Affiliate affiliate = new Affiliate();
     	//Note that in this scenario the sweeden extension has not been accepted yet...
     	affiliate.setHomeMember(sweden);
-    	Mockito.when(affiliateRepository.findByCreator("user")).thenReturn(Lists.newArrayList(affiliate));
+    	Mockito.when(affiliateRepository.findByCreatorIgnoreCase("user")).thenReturn(Lists.newArrayList(affiliate));
     	
     	Mockito.when(affiliateMembershipCalculator.acceptedMemberships(affiliate)).thenReturn(Sets.newHashSet(ihtsdo));
     	

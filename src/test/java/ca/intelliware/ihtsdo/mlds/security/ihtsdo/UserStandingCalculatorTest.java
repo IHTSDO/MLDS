@@ -44,7 +44,7 @@ public class UserStandingCalculatorTest {
     public void shouldReturnStandingForAffiliate() {
     	Affiliate affiliate = new Affiliate();
     	affiliate.setStandingState(StandingState.IN_GOOD_STANDING);
-    	Mockito.when(affiliateRepository.findByCreator("user")).thenReturn(Lists.newArrayList(affiliate));
+    	Mockito.when(affiliateRepository.findByCreatorIgnoreCase("user")).thenReturn(Lists.newArrayList(affiliate));
 
     	securityContextSetup.asAffiliateUser();
     	
@@ -55,7 +55,7 @@ public class UserStandingCalculatorTest {
 
     @Test
     public void shouldReturnNullStandingForStaff() {
-    	Mockito.when(affiliateRepository.findByCreator("IHTSDO")).thenReturn(Lists.<Affiliate>newArrayList());
+    	Mockito.when(affiliateRepository.findByCreatorIgnoreCase("IHTSDO")).thenReturn(Lists.<Affiliate>newArrayList());
 
     	securityContextSetup.asIHTSDOStaff();
     	
@@ -76,7 +76,7 @@ public class UserStandingCalculatorTest {
 	private void withAffiliateInStandingState(StandingState standingState) {
 		Affiliate affiliate = new Affiliate();
 		affiliate.setStandingState(standingState);
-    	Mockito.when(affiliateRepository.findByCreator("user")).thenReturn(Lists.newArrayList(affiliate));
+    	Mockito.when(affiliateRepository.findByCreatorIgnoreCase("user")).thenReturn(Lists.newArrayList(affiliate));
 
     	securityContextSetup.asAffiliateUser();
 	}

@@ -147,7 +147,7 @@ public class ApplicationResource {
 		applicationRepository.save(application);
 		
 		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
-			User user = userRepository.getUserByEmail(application.getAffiliateDetails().getEmail());
+			User user = userRepository.getUserByEmailIgnoreCase(application.getAffiliateDetails().getEmail());
 			applicationApprovedEmailSender.sendApplicationApprovalEmail(user, application.getMember().getKey(), affiliate.getAffiliateId());
 		}
 		
@@ -158,7 +158,7 @@ public class ApplicationResource {
 
 	private Affiliate findAffiliateByUsername(String username) {
 		Affiliate affiliate = null;
-		List<Affiliate> affiliates = affiliateRepository.findByCreator(username);
+		List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(username);
 		
 		if (affiliates.size() > 0) {
 			affiliate = affiliates.get(0);
@@ -207,7 +207,7 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER})
 	@Timed
 	public  @ResponseBody ResponseEntity<Application> getApplicationForMe(){
-		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
+		List<Application> applications = applicationRepository.findByUsernameIgnoreCase(sessionService.getUsernameOrNull());
 		if (applications.size() > 0) {
 			return new ResponseEntity<Application>(applications.get(0), HttpStatus.OK);
 		}
@@ -221,7 +221,7 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER})
 	@Timed
 	public @ResponseBody ResponseEntity<Application> getUserApplication(){
-		List<Application> applications = applicationRepository.findByUsername(sessionService.getUsernameOrNull());
+		List<Application> applications = applicationRepository.findByUsernameIgnoreCase(sessionService.getUsernameOrNull());
 		if (applications.size() > 0) {
 			return new ResponseEntity<Application>(applications.get(0), HttpStatus.OK);
 		}
