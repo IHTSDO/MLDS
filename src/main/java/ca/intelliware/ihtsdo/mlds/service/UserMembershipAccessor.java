@@ -58,7 +58,7 @@ public class UserMembershipAccessor {
 	}
 
 	public Affiliate getAffiliate() {
-		List<Affiliate> affiliates = affiliateRepository.findByCreator(currentSecurityContext.getCurrentUserName());
+		List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(currentSecurityContext.getCurrentUserName());
 		if (affiliates.size() > 0) {
 			return affiliates.get(0);
 		}

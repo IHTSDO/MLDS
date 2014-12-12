@@ -60,7 +60,7 @@ public class PasswordResetResourceTest {
 
 	@Test
 	public void requestPasswordResetShouldFailIfEmailNotRegistered() throws Exception {
-		Mockito.when(userRepository.getUserByEmail("unknown@email.com")).thenReturn(null);
+		Mockito.when(userRepository.getUserByEmailIgnoreCase("unknown@email.com")).thenReturn(null);
 		
 		restPasswordResetResource.perform(MockMvcRequestBuilders.post(Routes.PASSWORD_RESET)
 				.content("{\"email\": \"unknown@email.com\"}")
@@ -73,7 +73,7 @@ public class PasswordResetResourceTest {
 
 	@Test
 	public void requestPasswordResetShouldTriggerResetEmailForKnownEmail() throws Exception {
-		Mockito.when(userRepository.getUserByEmail("test@email.com")).thenReturn(new User());
+		Mockito.when(userRepository.getUserByEmailIgnoreCase("test@email.com")).thenReturn(new User());
 		
 		Mockito.when(passwordResetService.createTokenForUser(Mockito.any(User.class))).thenReturn("TEST-TOKEN");
 		
