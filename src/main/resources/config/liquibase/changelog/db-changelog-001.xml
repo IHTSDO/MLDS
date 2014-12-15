@@ -1441,5 +1441,17 @@ $f$ language plpgsql;
     		<column name="licence_version" type="VARCHAR(255)"></column>
     	</addColumn>
     </changeSet>
+
+    <changeSet id="MLDS-738-1" author="DGJ">
+    	<comment>Add name and logo file to member</comment>
+    	<addColumn tableName="member" >
+    		<column name="name" type="VARCHAR(255)"></column>
+    	</addColumn>
+    <addColumn tableName="member">
+    	<column name="logo_file" type="INT8">
+    		<constraints foreignKeyName="logo_file" referencedTableName="file" referencedColumnNames="file_id"/>
+    	</column>
+    </addColumn>
+    </changeSet>
         
 </databaseChangeLog>

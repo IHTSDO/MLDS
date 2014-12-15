@@ -42,6 +42,14 @@ public class Member extends BaseEntity {
     @Column(name="licence_version")
     String licenceVersion;
     
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="logo_file")
+	private
+    File logoFile;    
+    
+    private String name;
+    
 	public Member() {}
 	
 	public Member(String key, long memberId) {
@@ -105,6 +113,23 @@ public class Member extends BaseEntity {
 
 	public void setLicenceVersion(String licenceVersion) {
 		this.licenceVersion = licenceVersion;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@JsonIgnore
+	public File getLogo() {
+		return logoFile;
+	}
+
+	public void setLogo(File logoFile) {
+		this.logoFile = logoFile;
 	}
     
 }

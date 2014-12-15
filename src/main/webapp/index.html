@@ -33,14 +33,14 @@
 <body ng-app="MLDS" ng-controller="MainController">
   <div class="development"></div>
   
-  <div ng-include src="$root.Session.isStaffOrAdmin()?'views/fixedTopNav.html':'views/topNav.html'" class="navigation"></div>
-
   <div ng-if="!$root.Session.isStaffOrAdmin()">
+	<div ng-controller="TopNavController" ng-include src="'views/topNav.html'" class="navigation"></div>
    	<div ng-view="" autoscroll="true" class="container" role="main"></div>
     <div ng-include src="'views/footer.html'"></div>
   </div>
 
  	<div ng-if="$root.Session.isStaffOrAdmin()" class="container-fluid" >
+		<div ng-include src="'views/fixedTopNav.html'" class="navigation"></div>
 		<div class="row">
 		    <div class="col-md-2" ng-include src="'views/sideNav.html'"></div>
        	<div class="col-md-9 col-md-offset-2 nav-space" ng-view="" autoscroll="true"></div>
@@ -97,6 +97,7 @@
   <script src="scripts/controllers/EditInstitutionController.js"></script>
   <script src="scripts/controllers/EditLicenceController.js"></script>
   <script src="scripts/controllers/EditLicenceConfirmController.js"></script>
+  <script src="scripts/controllers/EditMemberController.js"></script>
   <script src="scripts/controllers/ExtensionApplicationController.js"></script>
   <script src="scripts/controllers/DeleteInstitutionController.js"></script>
   <script src="scripts/controllers/DeletePackageModalController.js"></script>
@@ -125,6 +126,7 @@
   <script src="scripts/controllers/RejectApplicationModalController.js"></script>
   <script src="scripts/controllers/RequestPasswordResetController.js"></script>
   <script src="scripts/controllers/ResetPasswordController.js"></script>
+  <script src="scripts/controllers/TopNavController.js"></script>
   <script src="scripts/controllers/UserListController.js"></script>
   <script src="scripts/controllers/UserDashboardController.js"></script>
   <script src="scripts/controllers/UsageReportsController.js"></script>
