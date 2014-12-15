@@ -158,7 +158,7 @@ public class ApplicationResource_ApproveApplication_Test {
 	private Affiliate withAffiliate(StandingState existingStandingState) {
 		Affiliate affiliate = new Affiliate(2L);
 		affiliate.setStandingState(existingStandingState);
-		Mockito.when(affiliateRepository.findByCreator(Mockito.anyString())).thenReturn(Arrays.asList(affiliate));
+		Mockito.when(affiliateRepository.findByCreatorIgnoreCase(Mockito.anyString())).thenReturn(Arrays.asList(affiliate));
 		return affiliate;
 	}
 

@@ -47,7 +47,7 @@ public class UserStandingCalculator {
 	}
 	
 	private Affiliate getAffiliate(String currentUserName) {
-		List<Affiliate> affiliates = affiliateRepository.findByCreator(currentUserName);
+		List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(currentUserName);
 		if (affiliates.size() > 0) {
 			return affiliates.get(0);
 		}
