@@ -238,7 +238,7 @@ public class ApplicationResource_SubmitApplication_Test {
 		affiliate.setStandingState(existingStandingState);
 		affiliate.setAffiliateDetails(new AffiliateDetails());
 		affiliate.setType(affiliateType);
-		Mockito.when(affiliateRepository.findByCreator(Mockito.anyString())).thenReturn(Arrays.asList(affiliate));
+		Mockito.when(affiliateRepository.findByCreatorIgnoreCase(Mockito.anyString())).thenReturn(Arrays.asList(affiliate));
 		return affiliate;
 	}
 

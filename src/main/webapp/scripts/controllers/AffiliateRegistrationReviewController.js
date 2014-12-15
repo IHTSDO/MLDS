@@ -8,6 +8,7 @@ mldsApp.controller('AffiliateRegistrationReviewController',
         	$scope.submitting = false;
         	$scope.alerts = [];
         	
+        	
         	// FIXME MB this should be on the CommercialUsageService??
 			$scope.commercialUsageInstitutionsByCountry = _.groupBy(CommercialUsageService.currentCommercialUsageReport.entries, 
     				function(entry){ return entry.country.isoCode2;});
@@ -16,9 +17,27 @@ mldsApp.controller('AffiliateRegistrationReviewController',
 					return entry.name.toLowerCase();
 					});
 			});
+			
+        	
+        	
+        	
 			$scope.usageCountryCountslist = _.sortBy(CommercialUsageService.currentCommercialUsageReport.countries, function(count) {
 				return count.country.commonName.toLowerCase();
 			});
+			
+			$scope.usageCountryCountsPairs = [];
+			var tempPair = [];
+			_.each($scope.usageCountryCountslist, function(entry) {
+				tempPair.push(entry);
+				if (tempPair.length >= 2) {
+					$scope.usageCountryCountsPairs.push(tempPair);
+					tempPair = [];
+				}
+			});
+			if (tempPair.length >= 1) {
+				$scope.usageCountryCountsPairs.push(tempPair);					
+			}
+			
         	
     		$scope.ok = function() {
     			$log.log('AffiliateRegistrationController submit()', $scope.affiliateform);

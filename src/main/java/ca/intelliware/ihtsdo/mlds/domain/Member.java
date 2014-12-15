@@ -36,6 +36,12 @@ public class Member extends BaseEntity {
 	@JoinColumn(name="licence_file")
     File licenceFile;
     
+    @Column(name="licence_name")
+    String licenceName;
+    
+    @Column(name="licence_version")
+    String licenceVersion;
+    
 	public Member() {}
 	
 	public Member(String key, long memberId) {
@@ -83,6 +89,22 @@ public class Member extends BaseEntity {
 			.append("key", key)
 			.append("memberId", memberId)
 			.toString();
+	}
+
+	public String getLicenceName() {
+		return licenceName;
+	}
+
+	public void setLicenceName(String licenceName) {
+		this.licenceName = licenceName;
+	}
+
+	public String getLicenceVersion() {
+		return licenceVersion;
+	}
+
+	public void setLicenceVersion(String licenceVersion) {
+		this.licenceVersion = licenceVersion;
 	}
     
 }

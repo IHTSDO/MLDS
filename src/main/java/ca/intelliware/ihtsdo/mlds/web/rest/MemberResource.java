@@ -93,19 +93,28 @@ public class MemberResource {
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Transactional
 	@Timed
-    public ResponseEntity<?> updateMemberLicense(@PathVariable String memberKey, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<?> updateMemberLicense(@PathVariable String memberKey, @RequestParam(value="file", required = false) MultipartFile multipartFile, @RequestParam("licenceName") String licenceName, @RequestParam("licenceVersion") String licenceVersion) throws IOException {
 		Member member = memberRepository.findOneByKey(memberKey);
 
-		File licenseFile = new File();
+		if (multipartFile != null && !multipartFile.isEmpty()) {
+			updateLicenceFile(multipartFile, member);
+		}
+
+		member.setLicenceName(licenceName);
+		member.setLicenceVersion(licenceVersion);
 		
+		memberRepository.save(member);
+
+		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
+	}
+
+	private void updateLicenceFile(MultipartFile multipartFile, Member member) throws IOException {
+		File licenseFile = new File();
+
 		if (member.getLicense() != null) {
 			entityManager.detach(member.getLicense());
 		}
 
-		if (multipartFile == null || multipartFile.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
 		Blob blob = blobHelper.createBlobFrom(multipartFile);
 		licenseFile.setContent(blob);
 		licenseFile.setCreator(sessionService.getUsernameOrNull());
@@ -115,9 +124,6 @@ public class MemberResource {
 
 		fileRepository.save(licenseFile);
 		member.setLicense(licenseFile);
-		memberRepository.save(member);
-
-		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
 	}
 
 }

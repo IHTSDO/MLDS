@@ -11,7 +11,7 @@ import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 
 @Repository
 public interface ApplicationRepository extends PagingAndSortingRepository<Application, Long> {
-	List<Application> findByUsername(String username);
+	List<Application> findByUsernameIgnoreCase(String username);
 	
 	Iterable<Application> findByApprovalStateIn(Collection<ApprovalState> approvalState);
 }

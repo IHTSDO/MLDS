@@ -11,6 +11,13 @@
 	margin-top: 10px;
 }
 
+.list-group-item-light {
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+	background-color: #FFF;
+}
+
 /* start Password strength bar style */
 ul#strength {
     display:inline;
