@@ -8,26 +8,19 @@
         <p th:text="#{email.greeting(${user.firstName + ' ' + user.lastName})}">
             Dear user,
         </p>
-        <p th:text="#{applicationApproved.text1(#{${memberKey}})}">
-            You application to IHTSDO has been approved.  You are now licensed to use
-            our resources.  Login below. 
+        <p th:text="#{applicationApproved.text(#{${memberKey}})}">
+            You application for using SNOMED CT has been approved, your affiliate number is X. 
+            Your license which includes the ability to download SNOMED CT will be activated upon receiving payment. 
+            You can view your Account Standing by logging into your MLDS account and looking in the Account Information section on your Dashboard view.
         </p>
         <p>
             <a th:href="@{${loginUrl}}"
                th:text="#{duplicateRegistration.loginLinkLabel}">Login</a>
-        </p>
-        <p th:text="#{applicationApproved.affiliateId(${affiliateId})}"></p>
-        <p th:text="#{applicationApproved.text2}">
-        		You now have access to download  SNOMED CT, to view available packages follow the link below.
-        </p>
-        <p>
-        	<a th:href="@{${viewPackagesUrl}}"
-               th:text="#{applicationApproved.viewPackagesLabel}">View Packages</a>
-        </p>
+        </p>        
         <p>
             <span th:text="#{email.close}">Regards, </span>
             <br/>
-            <em th:text="#{email.signature}">IHTSDO.</em>
+            <em th:text="#{email.signature}">IHTSDO-MLDS</em>
         </p>
     </body>
 </html>

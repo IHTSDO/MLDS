@@ -12,7 +12,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 
 public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
-	List<Affiliate> findByCreator(String userName);
+	List<Affiliate> findByCreatorIgnoreCase(String userName);
 
 	@Query(value="SELECT l.* from affiliate l JOIN affiliate_details b on b.affiliate_details_id = l.affiliate_details_id "
 			+ "where lower(b.first_name) like '%' || ?1 || '%' "

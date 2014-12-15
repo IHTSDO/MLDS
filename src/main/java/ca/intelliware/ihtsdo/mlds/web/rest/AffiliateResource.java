@@ -215,7 +215,7 @@ public class AffiliateResource {
 	@Timed
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesMe() {
     	String username = sessionService.getUsernameOrNull();
-    	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
+    	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreatorIgnoreCase(username), HttpStatus.OK);
     }
 
 	@RolesAllowed({AuthoritiesConstants.USER})
@@ -225,7 +225,7 @@ public class AffiliateResource {
 	@Timed
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesForUser(@PathVariable String username) {
     	applicationAuthorizationChecker.checkCanAccessAffiliate(username);
-    	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreator(username), HttpStatus.OK);
+    	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreatorIgnoreCase(username), HttpStatus.OK);
     }
 	
 	

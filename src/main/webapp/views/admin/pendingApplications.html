@@ -1,12 +1,12 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="page-header">
-			<h2>Pending Applications</h2>
+			<h2 translate="pendingApplications.title">Pending Applications</h2>
 			<div ng-show="isAdmin">
 				<span>Show: </span>
 				<select ng-model="showAllApplications">
-					<option value="0" selected="selected">My Pending Applications</option>
-					<option value="1">All Applications</option>
+					<option value="0" selected="selected" translate="pendingApplications.show.myApplications">My Pending Applications</option>
+					<option value="1" translate="pendingApplications.show.allApplications">All Applications</option>
 				</select>
 			</div>
 		</div>
@@ -15,15 +15,33 @@
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Affiliate Name</th>
-						<th><a ng-click="orderByField='applicationType'; reverseSort = !reverseSort">Application Type <span ng-show="orderByField == 'applicationType'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span></a></th>
-						<th>Agreement Type</th>
-						<th>Use Type</th>
-						<th width="100px"><a ng-click="orderByField='submittedAt'; reverseSort = !reverseSort">Date Submitted <span ng-show="orderByField == 'submittedAt'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span></a></th>
-						<th><a ng-click="orderByField='approvalState'; reverseSort = !reverseSort">Status <span ng-show="orderByField == 'approvalState'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span></a></th>
-						<th>Home Country</th>
-						<th>Member</th>
-						<th>Email</th>
+						<th translate="pendingApplications.table.affiliateName">Affiliate Name</th>
+						<th>
+							<a ng-click="orderByField='applicationType'; reverseSort = !reverseSort">
+								<span translate="pendingApplications.table.applicationType">Application Type</span>
+								<span ng-show="orderByField == 'applicationType'">
+									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+								</span>
+							</a>
+						</th>
+						<th translate="pendingApplications.table.agreementType">Agreement Type</th>
+						<th translate="pendingApplications.table.usageType">Use Type</th>
+						<th width="100px">
+							<a ng-click="orderByField='submittedAt'; reverseSort = !reverseSort">
+								<span translate="pendingApplications.table.dateSubmitted">Date Submitted </span>
+								<span ng-show="orderByField == 'submittedAt'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+							</a>
+						</th>
+						<th>
+							<a ng-click="orderByField='approvalState'; reverseSort = !reverseSort">
+								<span translate="pendingApplications.table.status">Status </span>
+								<span ng-show="orderByField == 'approvalState'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+							</a>
+						</th>
+						<th translate="pendingApplications.table.homeCountry">Home Country</th>
+						<th translate="pendingApplications.table.member">Member</th>
+						<th translate="pendingApplications.table.email">Email</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -45,7 +63,11 @@
 					<td><a href="mailto:{{affiliate.affiliateDetails.email}}">{{application.affiliateDetails.email}}</a></td>
 					
 					
-					<td> <a class="btn btn-primary btn-sm" ><i class="fa fa-pencil"></i> Review</a></td>
+					<td>
+						<a class="btn btn-primary btn-sm" ><i class="fa fa-pencil"></i> 
+							<span translate="pendingApplications.table.review">Review</span>
+						</a>
+					</td>
 				</tr>
 				</tbody>
 			</table>

@@ -41,7 +41,7 @@ public class ApplicationService {
 		
 		if (applicationType.equals(ApplicationType.EXTENSION)){
 			// FIXME MLDS-308 MB should the affiliate be passed in?
-			List<Affiliate> affiliates = affiliateRepository.findByCreator(sessionService.getUsernameOrNull());
+			List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(sessionService.getUsernameOrNull());
 			Affiliate affiliate = affiliates.get(0);
 			affiliate.addApplication(application);
 			AffiliateDetails detailsCopy = affiliate.getAffiliateDetails().copyNoId();

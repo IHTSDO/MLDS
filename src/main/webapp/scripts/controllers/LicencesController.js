@@ -5,7 +5,7 @@ angular.module('MLDS').controller('LicencesController',
 		 function ($scope, $log, $modal, MemberService, Session) {
 		$scope.members = MemberService.members;
 		$scope.canAccess = function(member) {
-			return member.key === Session.member.key;
+			return Session.isAdmin || member.key === Session.member.key;
 		};
 		
 		$scope.viewLicence = function (memberKey) {

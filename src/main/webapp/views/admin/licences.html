@@ -1,19 +1,23 @@
 <div class="page-header">
-    <h2>Licence T&C</h2>
+    <h2>Licence Terms &amp; Conditions</h2>
     <table class="table table-striped">
     	<thead>
     		<tr>
     			<th>Member</th>
-    			<th>Last Updated</th>
+    			<th>Name</th>
+    			<th>Version</th>
+    			<th>Last Uploaded</th>
     			<th>Actions</th>
     		</tr>
     	</thead>
     	<tbody>
-    		<tr ng-repeat="member in members | orderBy: canAccess : true">
+    		<tr ng-repeat="member in members | filter: canAccess">
     			<td>{{member.key}}</td>
+    			<td>{{member.licenceName}}</td>
+    			<td>{{member.licenceVersion}}</td>
     			<td>{{member.licence.lastUpdated | date: 'yyyy-MM-dd'}}</td>
     			<td>
-    				<button class="btn btn-primary" ng-click="viewLicence(member.key)"><i class="fa fa-file-o"></i> Download Licence</button>
+    				<button class="btn btn-primary" ng-click="viewLicence(member.key)"><i class="fa fa-file-o"></i> View Licence</button>
     				<button class="btn btn-success" ng-show="canAccess(member)" ng-click="editLicence(member)"><i class="fa fa-edit"></i> Edit Licence</button>
     			</td>
     		</tr>

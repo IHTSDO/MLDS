@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     List<User> findNotActivatedUsersByCreationDateBefore(LocalDate localDate);
 
 
-	User getUserByEmail(String emailAddress);
+	User getUserByEmailIgnoreCase(String emailAddress);
 
 
 	User findByLoginIgnoreCase(String login);

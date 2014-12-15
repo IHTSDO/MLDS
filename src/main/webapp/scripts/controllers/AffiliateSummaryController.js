@@ -28,6 +28,8 @@ mldsApp.controller('AffiliateSummaryController', [
 
 			$scope.alerts = [];
 			$scope.submitting = false;
+			
+			$scope.loading = true;
 
 			function loadAffiliateAudits(affiliateId) {
 	          	AuditsService.findByAffiliateId(affiliateId)
@@ -41,9 +43,11 @@ mldsApp.controller('AffiliateSummaryController', [
 	        }
 			
 			function loadAffiliate() {
+				
 				var queryPromise = AffiliateService.affiliate(affiliateId);
 				
 				queryPromise.success(function(affiliate) {
+					$scope.loading = false;
 					$scope.affiliate = affiliate;
 					$scope.approved = $scope.isApplicationApproved(affiliate.application);
 					$scope.isEditable = Session.isAdmin() || (Session.member.key == affiliate.application.member.key);

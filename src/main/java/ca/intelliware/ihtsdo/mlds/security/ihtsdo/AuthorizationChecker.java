@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 
@@ -40,7 +41,7 @@ public class AuthorizationChecker {
 	}
 
 	protected void checkCurrentUserIsUser(String username) {
-		if (! ObjectUtils.equals(currentSecurityContext.getCurrentUserName(), username)) {
+		if (! StringUtils.equalsIgnoreCase(currentSecurityContext.getCurrentUserName(), username)) {
 			failCheck("User not authorized to access Affiliate");
 		}
 	}
