@@ -6,16 +6,15 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 
 public class MemberDTO {
 	Long memberId;
-
     String key;
-
     Instant createdAt;
 
     FileDTO licence;
+    String licenceName;
+    String licenceVersion;
     
-    private String licenceName;
-    
-    private String licenceVersion;
+    private String name;
+    private FileDTO logo;
 
     public MemberDTO() {
     }
@@ -28,6 +27,10 @@ public class MemberDTO {
     	this.licenceVersion = member.getLicenceVersion();
     	if (member.getLicense() != null) {
     		this.licence = new FileDTO(member.getLicense());
+    	}
+    	this.name = member.getName();
+    	if (member.getLogo() != null) {
+    		this.logo = new FileDTO(member.getLogo());
     	}
     }
     
@@ -51,15 +54,15 @@ public class MemberDTO {
 		return licenceName;
 	}
 
-	public void setLicenceName(String licenceName) {
-		this.licenceName = licenceName;
-	}
-
 	public String getLicenceVersion() {
 		return licenceVersion;
 	}
 
-	public void setLicenceVersion(String licenceVersion) {
-		this.licenceVersion = licenceVersion;
+	public String getName() {
+		return name;
+	}
+
+	public FileDTO getLogo() {
+		return logo;
 	}
 }

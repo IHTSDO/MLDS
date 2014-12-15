@@ -54,7 +54,15 @@ angular.module('MLDS')
 		service.getMemberLicence = function getMemberLicence(memberKey) {
 			$window.open('/app/rest/members/' + encodeURIComponent(memberKey) + '/licence', '_blank');
 		};
-		
+
+		service.getMemberLogoUrl = function getMemberLogoUrl(memberKey) {
+			return '/app/rest/members/' + encodeURIComponent(memberKey) + '/logo';
+		};
+
+		service.openMemberLogo = function openMemberLogo(memberKey) {
+			$window.open(service.getMemberLogoUrl(memberKey), '_blank');
+		};
+
 		service.updateMemberLicence = function updateMemberLicence(memberKey, memberLicenceFile, licenceName, licenceVersion) {
 			var formData = new FormData();
 	        formData.append('file', memberLicenceFile);
@@ -69,7 +77,21 @@ angular.module('MLDS')
 	        });
 	        return promise;
 		};
-		
+
+		service.updateMemberBrand = function updateMemberLicence(memberKey, memberLogoFile, name) {
+			var formData = new FormData();
+	        formData.append('file', memberLogoFile);
+	        formData.append('name', name);
+	        var promise = $http.post('/app/rest/members/' + encodeURIComponent(memberKey) + '/brand', formData, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        });
+	        promise.then(function(result) {
+	        	updateMemberEntry(result.data);
+	        });
+	        return promise;
+		};
+
 		return service;
 		
 	}]);

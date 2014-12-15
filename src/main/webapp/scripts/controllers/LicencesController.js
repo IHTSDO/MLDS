@@ -21,11 +21,29 @@ angular.module('MLDS').controller('LicencesController',
                 backdrop: 'static',
                 resolve: {
                   member: function() {
-                  	//FIXME not sure about copy - needed to support modal cancel or network failure
                   	return angular.copy(member);
                   }
                 }
               });
 		};
-    }]);
+
+		$scope.viewLogo = function (memberKey) {
+			MemberService.openMemberLogo(memberKey);
+		};
+
+		$scope.editMember = function editMember(member) {
+			var modalInstance = $modal.open({
+                templateUrl: 'views/admin/editMember.html',
+                controller: 'EditMemberController',
+                scope: $scope,
+                size: 'lg',
+                backdrop: 'static',
+                resolve: {
+                  member: function() {
+                  	return angular.copy(member);
+                  }
+                }
+              });
+		};
+	}]);
 
