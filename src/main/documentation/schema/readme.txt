@@ -13,3 +13,10 @@ Some notes:
 * "commercial_usage" et. al. should be more properly named "usage", etc.
 
 * "affiliate_details" is the implementation to allow applications to capture snapshots of the affiliate state at points-in-time.
+
+
+To generate a new ddl dump:
+
+    pg_dump -U mlds mlds -s > mlds.ddl
+
+    
