@@ -65,7 +65,7 @@ public class MemberResource {
     	return memberDTOs;
     }
     
-    @RequestMapping(value = Routes.MEMBER_LICENCE,
+    @RequestMapping(value = Routes.MEMBER_LICENSE,
             method = RequestMethod.GET)
     @PermitAll
     @Transactional
@@ -101,14 +101,14 @@ public class MemberResource {
 		return new ResponseEntity<org.springframework.core.io.Resource>(contents, httpHeaders, HttpStatus.OK);
 	}
     
-    @RequestMapping(value = Routes.MEMBER_LICENCE,
+    @RequestMapping(value = Routes.MEMBER_LICENSE,
             method = RequestMethod.POST,
     		headers = "content-type=multipart/*",
             produces = "application/json")
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Transactional
 	@Timed
-    public ResponseEntity<?> updateMemberLicense(@PathVariable String memberKey, @RequestParam(value="file", required = false) MultipartFile multipartFile, @RequestParam("licenceName") String licenceName, @RequestParam("licenceVersion") String licenceVersion) throws IOException {
+    public ResponseEntity<?> updateMemberLicense(@PathVariable String memberKey, @RequestParam(value="file", required = false) MultipartFile multipartFile, @RequestParam("licenseName") String licenseName, @RequestParam("licenseVersion") String licenseVersion) throws IOException {
 		Member member = memberRepository.findOneByKey(memberKey);
 
 		if (multipartFile != null && !multipartFile.isEmpty()) {
@@ -116,8 +116,8 @@ public class MemberResource {
 			member.setLicense(licenseFile);
 		}
 
-		member.setLicenceName(licenceName);
-		member.setLicenceVersion(licenceVersion);
+		member.setLicenseName(licenseName);
+		member.setLicenseVersion(licenseVersion);
 		
 		memberRepository.save(member);
 

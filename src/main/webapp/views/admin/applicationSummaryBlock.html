@@ -86,7 +86,7 @@
 	  </div>
 	  <div class="panel-body application-review">
 	    <div>
-	      <strong>Licence Usage:</strong>
+	      <strong>License Usage:</strong>
 	      <p class="list-group-item-text">{{application.commercialUsage.context.currentUsage}}</p>
 	    </div>
 	    <div>
@@ -102,7 +102,7 @@
 	     	{{application.commercialUsage.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</p>
 	    </div>
       <div ng-repeat="countryRecord in usageCountryCountslist">
-      	<strong>Sub-licence Usage:</strong>
+      	<strong>Sub-license Usage:</strong>
        <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
        <p><strong>Practices:</strong> {{countryRecord.snomedPractices | number}} </p>
        <p ng-show="commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2].length > 0">
