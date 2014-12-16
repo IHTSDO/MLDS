@@ -9,9 +9,9 @@ public class MemberDTO {
     String key;
     Instant createdAt;
 
-    FileDTO licence;
-    String licenceName;
-    String licenceVersion;
+    FileDTO license;
+    String licenseName;
+    String licenseVersion;
     
     private String name;
     private FileDTO logo;
@@ -23,10 +23,10 @@ public class MemberDTO {
     	this.memberId = member.getMemberId();
     	this.key = member.getKey();
     	this.createdAt = member.getCreatedAt();
-    	this.licenceName = member.getLicenceName();
-    	this.licenceVersion = member.getLicenceVersion();
+    	this.licenseName = member.getLicenseName();
+    	this.licenseVersion = member.getLicenseVersion();
     	if (member.getLicense() != null) {
-    		this.licence = new FileDTO(member.getLicense());
+    		this.license = new FileDTO(member.getLicense());
     	}
     	this.name = member.getName();
     	if (member.getLogo() != null) {
@@ -46,16 +46,16 @@ public class MemberDTO {
 		return createdAt;
 	}
 
-	public FileDTO getLicence() {
-		return licence;
+	public FileDTO getLicense() {
+		return license;
 	}
 
-	public String getLicenceName() {
-		return licenceName;
+	public String getLicenseName() {
+		return licenseName;
 	}
 
-	public String getLicenceVersion() {
-		return licenceVersion;
+	public String getLicenseVersion() {
+		return licenseVersion;
 	}
 
 	public String getName() {

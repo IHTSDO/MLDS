@@ -56,12 +56,12 @@
 					</div>
 					<div class="panel-body">
 						<p>
-							<a ng-click="viewLicence(extensionForm.member.key)"
-								target="_blank" class="btn btn-default btn-block">{{extensionForm.member.key | enum:'global.member.'}} Extension Licence</a>
+							<a ng-click="viewLicense(extensionForm.member.key)"
+								target="_blank" class="btn btn-default btn-block">{{extensionForm.member.key | enum:'global.member.'}} Extension License</a>
 						</p>
 						<p class="form-group">
-	            <label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="snoMedTC" ng-checked="readOnly" ng-disabled="readOnly"> I agree to the licence 
-	            <span ng-show="extensionApplicationForm.snoMedTC.$error.required && extensionApplicationForm.attempted" class="help-block">You must agree to the terms and conditions of the SNOMED CT Licence in order to register, which also indicates potential fees that be required.</span></label>
+	            <label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="snoMedTC" ng-checked="readOnly" ng-disabled="readOnly"> I agree to the license 
+	            <span ng-show="extensionApplicationForm.snoMedTC.$error.required && extensionApplicationForm.attempted" class="help-block">You must agree to the terms and conditions of the SNOMED CT License in order to register, which also indicates potential fees that be required.</span></label>
 	          </p>
 						<div class="panel-footer" ng-show="!readOnly">
 							<button class="btn btn-muted btn-danger pull-right" ng-hide="readOnly" ng-click="cancelApplication()">Cancel</button>

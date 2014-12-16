@@ -360,7 +360,7 @@ public class ApplicationResource {
 			}
 			primaryApplication.getAffiliateDetails().setOtherText(getStringField(request, "otherText"));
 			
-			primaryApplication.setSnoMedLicence(Boolean.parseBoolean(getStringField(request, "snoMedTC")));
+			primaryApplication.setSnoMedLicense(Boolean.parseBoolean(getStringField(request, "snoMedTC")));
 		}
 		
 		return application;
