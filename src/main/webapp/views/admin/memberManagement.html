@@ -5,24 +5,27 @@
     		<tr>
     			<th>Member</th>
     			<th>Name</th>
+    			<th></th>
     			<th>Licence</th>
     			<th>Version</th>
     			<th>Last Uploaded</th>
-    			<th>Actions</th>
+    			<th></th>
     		</tr>
     	</thead>
     	<tbody>
     		<tr ng-repeat="member in members | filter: canAccess">
     			<td>{{member.key}}</td>
     			<td>{{member.name}}</td>
+    			<td>
+    				<button class="btn btn-primary" ng-click="viewLogo(member.key)" ng-disabled="{{!member.logo}}"><i class="fa fa-image"></i> View Logo</button>
+    				<button class="btn btn-success" ng-show="canAccess(member)" ng-click="editMember(member)"><i class="fa fa-edit"></i> Edit Branding</button>
+    			</td>
     			<td>{{member.licenceName}}</td>
     			<td>{{member.licenceVersion}}</td>
     			<td>{{member.licence.lastUpdated | date: 'yyyy-MM-dd'}}</td>
     			<td>
-    				<button class="btn btn-primary" ng-click="viewLicence(member.key)"><i class="fa fa-file-o"></i> View Licence</button>
+    				<button class="btn btn-primary" ng-click="viewLicence(member.key)"><i class="fa fa-gavel"></i> View Licence</button>
     				<button class="btn btn-success" ng-show="canAccess(member)" ng-click="editLicence(member)"><i class="fa fa-edit"></i> Edit Licence</button>
-    				<button class="btn btn-primary" ng-click="viewLogo(member.key)" ng-disabled="{{!member.logo}}"><i class="fa fa-file-o"></i> View Logo</button>
-    				<button class="btn btn-success" ng-show="canAccess(member)" ng-click="editMember(member)"><i class="fa fa-edit"></i> Edit Member</button>
     			</td>
     		</tr>
     	</tbody>
