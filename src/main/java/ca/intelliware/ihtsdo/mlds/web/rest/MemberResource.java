@@ -77,16 +77,15 @@ public class MemberResource {
     }
 
 	private ResponseEntity<?> downloadFile(HttpServletRequest request, File file) throws SQLException, IOException {
-		if(file == null) {
+		if (file == null) {
     		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    	}
-
-		long ifModifiedSince = request.getDateHeader("If-Modified-Since");
-		if (file != null && file.getLastUpdated() != null && ifModifiedSince != -1) {
-			if ((file.getLastUpdated().getMillis() / 1000 * 1000) <= ifModifiedSince) {
+    	} else if (file.getLastUpdated() != null) {
+    		long ifModifiedSince = request.getDateHeader("If-Modified-Since");
+    		long lastUpdatedSecondsFloor = file.getLastUpdated().getMillis() / 1000 * 1000;
+			if (ifModifiedSince != -1 && lastUpdatedSecondsFloor <= ifModifiedSince) {
 				return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-			}
-		}
+    		}
+    	}
 		
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.valueOf(file.getMimetype()));
