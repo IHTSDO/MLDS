@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('LicencesController',
+angular.module('MLDS').controller('MemberManagementController',
 		['$scope', '$log', '$modal', 'MemberService', 'Session', 
 		 function ($scope, $log, $modal, MemberService, Session) {
 		$scope.members = MemberService.members;
