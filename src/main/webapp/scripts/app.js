@@ -285,9 +285,9 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                .when('/licences', {
-                    templateUrl: 'views/admin/licences.html',
-                    controller: 'LicencesController',
+                .when('/memberManagement', {
+                    templateUrl: 'views/admin/memberManagement.html',
+                    controller: 'MemberManagementController',
                     access: {
                         authorizedRoles: USER_ROLES.staffOrAdmin
                     },
