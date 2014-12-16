@@ -8,14 +8,14 @@ angular.module('MLDS').controller('MemberManagementController',
 			return Session.isAdmin || member.key === Session.member.key;
 		};
 		
-		$scope.viewLicence = function (memberKey) {
-			MemberService.getMemberLicence(memberKey);
+		$scope.viewLicense = function (memberKey) {
+			MemberService.getMemberLicense(memberKey);
 		};
 		
-		$scope.editLicence = function editLicence(member) {
+		$scope.editLicense = function editLicense(member) {
 			var modalInstance = $modal.open({
-                templateUrl: 'views/admin/editLicence.html',
-                controller: 'EditLicenceController',
+                templateUrl: 'views/admin/editLicense.html',
+                controller: 'EditLicenseController',
                 scope: $scope,
                 size: 'lg',
                 backdrop: 'static',

@@ -1,21 +1,21 @@
 'use strict';
 
-angular.module('MLDS').controller('EditLicenceController',
+angular.module('MLDS').controller('EditLicenseController',
 		['$scope', '$log', '$modal', 'MemberService', 'Session', 'member',
     function ($scope, $log, $modal, MemberService, Session, member) {
 		$scope.currentMember = angular.copy(member);
 		$scope.member = member;
 		
-		$scope.memberLicenceForm = {};
+		$scope.memberLicenseForm = {};
 		$scope.submitStatus = {notSubmitted: true};
 		
-		$scope.memberLicenceForm.submit = function submit() {
-            var file = $scope.memberLicenceForm.file;
+		$scope.memberLicenseForm.submit = function submit() {
+            var file = $scope.memberLicenseForm.file;
 			
             if (file) {
             	confirmUpload();
             } else {
-            	updateMemberLicence();
+            	updateMemberLicense();
             }
 		};
 		
@@ -25,8 +25,8 @@ angular.module('MLDS').controller('EditLicenceController',
 		  
 		  function confirmUpload() {
 				var modalInstance = $modal.open({
-	                templateUrl: 'views/admin/editLicenceConfirmModal.html',
-	                controller: 'EditLicenceConfirmController',
+	                templateUrl: 'views/admin/editLicenseConfirmModal.html',
+	                controller: 'EditLicenseConfirmController',
 	                scope: $scope,
 	                backdrop: 'static',
 	                resolve: {
@@ -35,18 +35,18 @@ angular.module('MLDS').controller('EditLicenceController',
 	                  }
 	                }
 	              });
-				modalInstance.result.then(updateMemberLicence);
+				modalInstance.result.then(updateMemberLicense);
 
 		  }
 		  
-		  function updateMemberLicence() {
+		  function updateMemberLicense() {
 				$scope.alerts = [];
-	            var file = $scope.memberLicenceForm.file;
+	            var file = $scope.memberLicenseForm.file;
 	            $scope.submitStatus = {submitting: true};
 	
-	            MemberService.updateMemberLicence(member.key, file, member.licenceName || '', member.licenceVersion || '')
+	            MemberService.updateMemberLicense(member.key, file, member.licenseName || '', member.licenseVersion || '')
 				.then(function(result) {
-					var message = file ? 'New licence has been uploaded.' : 'Licence name and version updated.';
+					var message = file ? 'New license has been uploaded.' : 'License name and version updated.';
 	        		$scope.alerts.push({type: 'success', msg: message});
 	        		$scope.submitStatus = {submitSuccessful: true};
 	        	})

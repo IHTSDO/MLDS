@@ -14,7 +14,7 @@
 		<div class="panel panel-default" >
 	      <div class="panel-heading">
 	        <h4 class="panel-title">
-	        	Licence Usage
+	        	License Usage
 	        	<span class="pull-right">{{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}}</span>
 	        </h4>
 	        <p ng-show="isAffiliateApplying">Please fill out any known usage information at this time, you will be asked to confirm usage once your application is approved.</p>
@@ -22,7 +22,7 @@
 	      <div class="panel-body panel-collapse collapse in">
 	       <ng-form name="usageForm" novalidate bs-validation >
 	                 <div class="form-group" ng-init="affilliateControllerSharedBucket.usageForm = usageForm">
-	                    <label>Licence Type: </label> <span>{{commercialUsageReport.type | enum:'affiliate.type.'}}</span>
+	                    <label>License Type: </label> <span>{{commercialUsageReport.type | enum:'affiliate.type.'}}</span>
 	                  </div>
 	                  <div class="form-group">
 	                    <label>Current Usage:</label>

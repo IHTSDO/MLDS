@@ -4,8 +4,8 @@
 </div>
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	<p>Are you sure you want to replace the current licence <strong>{{currentMember.licenceName}}</strong> <strong>{{currentMember.licenceVersion}}</strong> for <strong>{{currentMember.key | enum:'global.member.'}}</strong> 
-	with the uploaded licence file?</p>
+	<p>Are you sure you want to replace the current license <strong>{{currentMember.licenseName}}</strong> <strong>{{currentMember.licenseVersion}}</strong> for <strong>{{currentMember.key | enum:'global.member.'}}</strong> 
+	with the uploaded license file?</p>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-link" ng-click="$dismiss()" ng-disabled="submitting">Cancel</button>

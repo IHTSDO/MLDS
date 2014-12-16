@@ -9,7 +9,7 @@ public class Routes {
 	public static final String MEMBERS = "/app/rest/members";
 	
 	// FIXME MLDS-309 spelling
-	public static final String MEMBER_LICENCE = "/app/rest/members/{memberKey}/licence";
+	public static final String MEMBER_LICENSE = "/app/rest/members/{memberKey}/license";
 	
 	public static final String MEMBER_LOGO = "/app/rest/members/{memberKey}/logo";
 	public static final String MEMBER_BRAND = "/app/rest/members/{memberKey}/brand";

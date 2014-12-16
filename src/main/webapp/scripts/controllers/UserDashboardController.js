@@ -17,8 +17,8 @@ angular.module('MLDS')
         	$scope.notApprovedReleasePackagesByMember = [];
         	$scope.showingUserDashboardWidgets = true;
 
-        	$scope.viewLicence = function (memberKey) {
-    			MemberService.getMemberLicence(memberKey);
+        	$scope.viewLicense = function (memberKey) {
+    			MemberService.getMemberLicense(memberKey);
     		};
         	
         	UserAffiliateService.promise.then(function() {

@@ -1453,5 +1453,12 @@ $f$ language plpgsql;
     	</column>
     </addColumn>
     </changeSet>
+
+    <changeSet id="MLDS-863-1" author="DGJ">
+    	<comment>Consistent spelling of license</comment>
+    	<renameColumn tableName="member" oldColumnName="licence_file" newColumnName="license_file"/>
+    	<renameColumn tableName="member" oldColumnName="licence_name" newColumnName="license_name"/>
+    	<renameColumn tableName="member" oldColumnName="licence_version" newColumnName="license_version"/>
+    </changeSet>
         
 </databaseChangeLog>

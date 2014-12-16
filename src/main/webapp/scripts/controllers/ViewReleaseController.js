@@ -13,8 +13,8 @@ angular.module('MLDS')
 		};
 	$scope.releasePackage = $scope.releasePackage || {releaseVersions:[]};
 	
-	$scope.viewLicence = function (memberKey) {
-		MemberService.getMemberLicence(memberKey);
+	$scope.viewLicense = function (memberKey) {
+		MemberService.getMemberLicense(memberKey);
 	};
 	
 	$scope.isMembershipInGoodStanding = false;
