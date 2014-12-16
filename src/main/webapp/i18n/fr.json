@@ -683,7 +683,15 @@
       "REJECTED":"Refusé",
       "DEACTIVATION_PENDING":"désactivationenattente",
       "DEACTIVATED":"Désactivé",
-      "DEREGISTRATION_PENDING":"Radiationattente",
+      "DEREGISTERED":"radiée",
+      "PENDING_INVOICE":"Enattentedefacture"
+    },
+    "standingStateWithExplanation":{
+      "APPLYING":"Application",
+      "IN_GOOD_STANDING":"enrègle",
+      "REJECTED":"Refusé",
+      "DEACTIVATION_PENDING":"désactivationenattente",
+      "DEACTIVATED":"Désactivé",
       "DEREGISTERED":"radiée",
       "PENDING_INVOICE":"Enattentedefacture"
     }

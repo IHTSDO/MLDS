@@ -683,9 +683,17 @@
       "REJECTED": "Declined",
       "DEACTIVATION_PENDING": "Deactivation Pending",
       "DEACTIVATED": "Deactivated",
-      "DEREGISTRATION_PENDING": "Deregistration Pending",
       "DEREGISTERED": "Deregistered",
       "PENDING_INVOICE": "Pending Invoice"
+    },
+    "standingStateWithExplanation": {
+      "APPLYING": "Applying",
+      "IN_GOOD_STANDING": "In Good Standing - Approved full access, Account Paid, No Payment Required or Account Issue Resolved",
+      "REJECTED": "Declined",
+      "DEACTIVATION_PENDING": "Deactivation Pending - Access to Account Only, No Download Capability",
+      "DEACTIVATED": "Deactivated - Access to Account Only, No Download Capability",
+      "DEREGISTERED": "Deregistered – No Access to MLDS Account",
+      "PENDING_INVOICE": "Pending Invoice – Access to Account only, Payment Outstanding"
     }
   },
   "approval": {
