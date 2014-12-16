@@ -342,7 +342,9 @@ CREATE TABLE member (
     created_at timestamp with time zone,
     licence_file bigint,
     licence_name character varying(255),
-    licence_version character varying(255)
+    licence_version character varying(255),
+    name character varying(255),
+    logo_file bigint
 );
 
 
@@ -915,6 +917,14 @@ ALTER TABLE ONLY t_persistent_token
 
 ALTER TABLE ONLY password_reset_token
     ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES t_user(user_id);
+
+
+--
+-- Name: logo_file; Type: FK CONSTRAINT; Schema: public; Owner: mlds
+--
+
+ALTER TABLE ONLY member
+    ADD CONSTRAINT logo_file FOREIGN KEY (logo_file) REFERENCES file(file_id);
 
 
 --
