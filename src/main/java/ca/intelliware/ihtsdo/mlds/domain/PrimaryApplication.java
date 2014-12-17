@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 public class PrimaryApplication extends Application{
 
 	boolean snomedlicense;
+	
 	@ManyToOne
 	@JoinColumn(name = "commercial_usage_id")
 	CommercialUsage commercialUsage;
@@ -51,12 +52,12 @@ public class PrimaryApplication extends Application{
 		// ignore
 	}
 
-	public boolean isSnoMedLicence() {
+	public boolean isSnoMedLicense() {
 		return snomedlicense;
 	}
 
-	public void setSnoMedLicence(boolean snoMedLicence) {
-		this.snomedlicense = snoMedLicence;
+	public void setSnoMedLicense(boolean snoMedLicense) {
+		this.snomedlicense = snoMedLicense;
 	}
 
 	public CommercialUsage getCommercialUsage() {

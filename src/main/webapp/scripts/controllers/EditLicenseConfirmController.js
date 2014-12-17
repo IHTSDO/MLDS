@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('EditLicenceConfirmController', ['$scope', '$log', '$modalInstance', '$location', 'currentMember', 
+angular.module('MLDS').controller('EditLicenseConfirmController', ['$scope', '$log', '$modalInstance', '$location', 'currentMember', 
     function ($scope, $log, $modalInstance, $location, currentMember) {
 		$scope.currentMember = currentMember;
 		

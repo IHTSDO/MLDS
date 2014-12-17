@@ -14,12 +14,11 @@
 		<select class="form-control input-md" name="standingState" ng-model="affiliate.standingState" ng-required="true">
 			<!-- exclude APPLYING as system controlled state -->
 			<!-- exclude REJECTED as system controlled state -->
-			<option value="IN_GOOD_STANDING"  translate="affiliate.standingState.IN_GOOD_STANDING">In Good Standing</option>
-			<option value="PENDING_INVOICE"  translate="affiliate.standingState.PENDING_INVOICE">Pending Invoice</option>
-			<option value="DEACTIVATION_PENDING"  translate="affiliate.standingState.DEACTIVATION_PENDING">Deactivation Pending</option>
-			<option value="DEACTIVATED" translate="affiliate.standingState.DEACTIVATED">Deactivated</option>
-			<option value="DEREGISTRATION_PENDING" translate="affiliate.standingState.DEREGISTRATION_PENDING">Deregistration Pending</option>
-			<option value="DEREGISTERED" translate="affiliate.standingState.DEREGISTERED">Deregistered</option>
+			<option value="IN_GOOD_STANDING"  translate="affiliate.standingStateWithExplanation.IN_GOOD_STANDING">In Good Standing - Approved full access, Account Paid, No Payment Required or Account Issue Resolved</option>
+			<option value="PENDING_INVOICE"  translate="affiliate.standingStateWithExplanation.PENDING_INVOICE">Pending Invoice - Access to Account only, Payment Outstanding</option>
+			<option value="DEACTIVATION_PENDING"  translate="affiliate.standingStateWithExplanation.DEACTIVATION_PENDING">Deactivation Pending - Access to Account Only, No Download Capability</option>
+			<option value="DEACTIVATED" translate="affiliate.standingStateWithExplanation.DEACTIVATED">Deactivated - Access to Account Only, No Download Capability</option>
+			<option value="DEREGISTERED" translate="affiliate.standingStateWithExplanation.DEREGISTERED">Deregistered – No Access to MLDS Account</option>
         </select>
         <span ng-show="formStanding.standingState.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>

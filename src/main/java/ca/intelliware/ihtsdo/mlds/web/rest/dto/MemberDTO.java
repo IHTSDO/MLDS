@@ -6,16 +6,15 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 
 public class MemberDTO {
 	Long memberId;
-
     String key;
-
     Instant createdAt;
 
-    FileDTO licence;
+    FileDTO license;
+    String licenseName;
+    String licenseVersion;
     
-    private String licenceName;
-    
-    private String licenceVersion;
+    private String name;
+    private FileDTO logo;
 
     public MemberDTO() {
     }
@@ -24,10 +23,14 @@ public class MemberDTO {
     	this.memberId = member.getMemberId();
     	this.key = member.getKey();
     	this.createdAt = member.getCreatedAt();
-    	this.licenceName = member.getLicenceName();
-    	this.licenceVersion = member.getLicenceVersion();
+    	this.licenseName = member.getLicenseName();
+    	this.licenseVersion = member.getLicenseVersion();
     	if (member.getLicense() != null) {
-    		this.licence = new FileDTO(member.getLicense());
+    		this.license = new FileDTO(member.getLicense());
+    	}
+    	this.name = member.getName();
+    	if (member.getLogo() != null) {
+    		this.logo = new FileDTO(member.getLogo());
     	}
     }
     
@@ -43,23 +46,23 @@ public class MemberDTO {
 		return createdAt;
 	}
 
-	public FileDTO getLicence() {
-		return licence;
+	public FileDTO getLicense() {
+		return license;
 	}
 
-	public String getLicenceName() {
-		return licenceName;
+	public String getLicenseName() {
+		return licenseName;
 	}
 
-	public void setLicenceName(String licenceName) {
-		this.licenceName = licenceName;
+	public String getLicenseVersion() {
+		return licenseVersion;
 	}
 
-	public String getLicenceVersion() {
-		return licenceVersion;
+	public String getName() {
+		return name;
 	}
 
-	public void setLicenceVersion(String licenceVersion) {
-		this.licenceVersion = licenceVersion;
+	public FileDTO getLogo() {
+		return logo;
 	}
 }
