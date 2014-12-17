@@ -8,7 +8,7 @@
         <p th:text="#{email.greeting(${user.firstName + ' ' + user.lastName})}">
             Dear user,
         </p>
-        <p th:text="#{applicationApproved.text(#{${memberKey}})}">
+        <p th:text="#{applicationApproved.text(${affiliateId})}">
             You application for using SNOMED CT has been approved, your affiliate number is X. 
             Your license which includes the ability to download SNOMED CT will be activated upon receiving payment. 
             You can view your Account Standing by logging into your MLDS account and looking in the Account Information section on your Dashboard view.
