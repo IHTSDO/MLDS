@@ -55,8 +55,8 @@ angular.module('MLDS')
 			$window.open('/app/rest/members/' + encodeURIComponent(memberKey) + '/license', '_blank');
 		};
 
-		service.getMemberLogoUrl = function getMemberLogoUrl(memberKey) {
-			return '/app/rest/members/' + encodeURIComponent(memberKey) + '/logo';
+		service.getMemberLogoUrl = function getMemberLogoUrl(memberKey, force) {
+			return '/app/rest/members/' + encodeURIComponent(memberKey) + '/logo' + (force ? '?_='+Date.now():'');
 		};
 
 		service.openMemberLogo = function openMemberLogo(memberKey) {

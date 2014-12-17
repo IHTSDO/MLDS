@@ -17,7 +17,7 @@
     			<td>{{member.key}}</td>
     			<td>{{member.name}}</td>
     			<td>
-    				<button class="btn btn-primary" ng-click="viewLogo(member.key)" ng-disabled="{{!member.logo}}"><i class="fa fa-image"></i> View Logo</button>
+    				<button class="btn btn-primary" ng-click="viewBranding(member)"><i class="fa fa-image"></i> View Branding</button>
     				<button class="btn btn-success" ng-show="canAccess(member)" ng-click="editMember(member)"><i class="fa fa-edit"></i> Edit Branding</button>
     			</td>
     			<td>{{member.licenseName}}</td>

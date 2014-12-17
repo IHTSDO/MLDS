@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('MemberManagementController',
-		['$scope', '$log', '$modal', 'MemberService', 'Session', 
-		 function ($scope, $log, $modal, MemberService, Session) {
+		['$scope', '$log', '$modal', '$location', 'MemberService', 'Session', 
+		 function ($scope, $log, $modal, $location, MemberService, Session) {
 		$scope.members = MemberService.members;
 		$scope.canAccess = function(member) {
 			return Session.isAdmin || member.key === Session.member.key;
@@ -29,6 +29,10 @@ angular.module('MLDS').controller('MemberManagementController',
 
 		$scope.viewLogo = function (memberKey) {
 			MemberService.openMemberLogo(memberKey);
+		};
+
+		$scope.viewBranding = function (member) {
+			$location.path('/memberManagement/' + member.key+'/branding');
 		};
 
 		$scope.editMember = function editMember(member) {

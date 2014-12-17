@@ -1,0 +1,82 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">	
+			<span><a href="#/memberManagement"><i class="fa fa-angle-double-left"></i> Back to Member Management</a></span>
+		
+		    <h2>Affiliate Branding: {{member.key | enum:'global.member.'}}</h2>
+		 </div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		Member branding as seen by affialite users: 
+	</div>
+</div>
+
+<div class="row branding-showcase space">
+	<div class="col-xs-12">
+		<!--  Difficult to directly include topNav.html due to active links 
+		<div ng-init="disabled = true" ng-include src="'views/topNav.html'" class="navigation"></div>
+		-->
+		
+		<nav class="navbar navbar-default">
+		    <div class="container">
+		      <div class="navbar-header">
+		        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+		          <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+		        </button>
+		        	<span ng-show="memberLogo">
+		        		<img class="img-responsive" src="{{memberLogo}}" alt="member-logo">
+		        	</span>
+		        	<span ng-hide="memberLogo">
+		        		<img class="img-responsive" src="images/logo.png" alt="ihtsdo-logo">
+		        	</span>
+		        <div ng-show="memberName" ng-bind="memberName" class="brand"></div>
+		      </div>
+		      <div class="collapse navbar-collapse" id="navbar-collapse" >
+		        <ul id="topNav" location-aware-nav class="nav navbar-nav navbar-right">
+		          <li>
+		          	<a><span translate="global.menu.dashboard">Dashboard</span></a>
+		          </li>
+		          
+		          <li><a><span translate="global.menu.usageReports">Usage Reports</span></a></li>
+		          
+		          <li><a><span translate="global.menu.releasePackages">Release Packages</span></a></li>
+		          
+		          <li class="dropdown pointer" >
+		          	<a>
+			          	<span><i class="fa fa-user"></i> {{$root.Session.firstName}} {{$root.Session.lastName}} </span> 
+			          	<b class="caret"></b>
+		          	</a>
+		          </li>
+		        </ul>
+		      </div>
+			</div>
+		</nav>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-header">	
+				    <h2>Example Page</h2>
+				 </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pharetra sapien quis libero feugiat tristique. Morbi accumsan, tellus vel interdum pretium, leo massa pretium tellus, id vestibulum ligula libero nec nibh. Morbi diam erat, mattis vel viverra eget, ornare vitae lectus. Suspendisse potenti. Cras id neque enim. Curabitur eu nibh sem. Nam vulputate, diam non porttitor vehicula, tellus lorem eleifend arcu, quis volutpat metus leo vitae odio. Nulla facilisi. Duis sit amet mi mauris. Morbi quis lectus quis nunc dictum accumsan. Vivamus vulputate id risus vitae mattis. Aliquam viverra fringilla dignissim. 
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<hr>
+
+<div class="row">
+	<div class="col-xs-12">
+		<span><a href="#/memberManagement"><i class="fa fa-angle-double-left"></i> Back to Member Management</a></span>
+	</div>
+</div>

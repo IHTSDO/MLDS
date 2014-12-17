@@ -295,6 +295,16 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                .when('/memberManagement/:memberKey/branding', {
+                    templateUrl: 'views/admin/showMemberBranding.html',
+                    controller: 'ShowMemberBrandingController',
+                    access: {
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
                 .when('/metrics', {
                     templateUrl: 'views/admin/metrics.html',
                     controller: 'MetricsController',
