@@ -11,8 +11,8 @@ angular.module('MLDS')
 	
 	$scope.isMembershipApproved = UserAffiliateService.isMembershipApproved;
 	
-	$scope.viewLicence = function (memberKey) {
-		MemberService.getMemberLicence(memberKey);
+	$scope.viewLicense = function (memberKey) {
+		MemberService.getMemberLicense(memberKey);
 	};
 	
 	$scope.goToViewPackagePage = function goToViewPackagePage(releasePackageId) {

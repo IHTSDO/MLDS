@@ -30,7 +30,7 @@ Most administrative activities can be accomplished via the user interface.  One 
 E.g. To update the system to recognize Andora as a member:
 
 	INSERT INTO member(
-            member_id, key, created_at, licence_file)
+            member_id, key, created_at, license_file)
     VALUES (nextval('hibernate_sequence'), 'AD', now(), null);
     UPDATE country
     SET member_id = (SELECT member_id from member where key = 'AD)

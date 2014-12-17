@@ -33,14 +33,22 @@ public class Member extends BaseEntity {
     
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="licence_file")
-    File licenceFile;
+	@JoinColumn(name="license_file")
+    File licenseFile;
     
-    @Column(name="licence_name")
-    String licenceName;
+    @Column(name="license_name")
+    String licenseName;
     
-    @Column(name="licence_version")
-    String licenceVersion;
+    @Column(name="license_version")
+    String licenseVersion;
+    
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="logo_file")
+	private
+    File logoFile;    
+    
+    private String name;
     
 	public Member() {}
 	
@@ -76,11 +84,11 @@ public class Member extends BaseEntity {
 
 	@JsonIgnore
 	public File getLicense() {
-		return licenceFile;
+		return licenseFile;
 	}
 
 	public void setLicense(File license) {
-		this.licenceFile = license;
+		this.licenseFile = license;
 	}
 
 	@Override
@@ -91,20 +99,37 @@ public class Member extends BaseEntity {
 			.toString();
 	}
 
-	public String getLicenceName() {
-		return licenceName;
+	public String getLicenseName() {
+		return licenseName;
 	}
 
-	public void setLicenceName(String licenceName) {
-		this.licenceName = licenceName;
+	public void setLicenseName(String licenseName) {
+		this.licenseName = licenseName;
 	}
 
-	public String getLicenceVersion() {
-		return licenceVersion;
+	public String getLicenseVersion() {
+		return licenseVersion;
 	}
 
-	public void setLicenceVersion(String licenceVersion) {
-		this.licenceVersion = licenceVersion;
+	public void setLicenseVersion(String licenseVersion) {
+		this.licenseVersion = licenseVersion;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@JsonIgnore
+	public File getLogo() {
+		return logoFile;
+	}
+
+	public void setLogo(File logoFile) {
+		this.logoFile = logoFile;
 	}
     
 }

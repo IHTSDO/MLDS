@@ -24,10 +24,6 @@ mldsApp.factory('StandingStateUtils', [function(){
 			return (standingState === 'DEACTIVATION_PENDING');
 		};
 
-		service.isDeregistrationPending = function isDeregistrationPending(standingState) {
-			return (standingState === 'DEREGISTRATION_PENDING');
-		};
-
 		service.isPendingInvoice = function isPendingInvoice(standingState) {
 			return (standingState === 'PENDING_INVOICE');
 		};
@@ -39,8 +35,7 @@ mldsApp.factory('StandingStateUtils', [function(){
 		service.isWarningCategory = function isWarningCategory(standingState) {
 			return (standingState === 'APPLYING'
 					|| standingState == 'PENDING_INVOICE'
-					|| standingState === 'DEACTIVATION_PENDING'
-					|| standingState === 'DEREGISTRATION_PENDING');
+					|| standingState === 'DEACTIVATION_PENDING');
 		};
 
 		service.isDangerCategory = function isDangerCategory(standingState) {

@@ -1,13 +1,13 @@
-  <div class="row" ng-hide="usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED'">
+  <div class="row" ng-hide="(usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED' || loading">
     <div class="col-sm-12">
       <div class="alert alert-danger space" role="alert">
         <div><strong>Usage Declaration Required</strong></div>
-        <p>Your application has been approved and your preliminary usage declaration has been saved. However, please be advised that you will need to submit your final usage declaration for the year by January 15th next to keep your affiliate licence in good standing.</p>
+        <p>Your preliminary usage declaration has been saved. However, please be advised that you will need to submit your final usage declaration for the year by January 15th next to keep your affiliate license in good standing.</p>
       </div>
     </div>
   </div>
 
-  <div class="row space" ng-show="affiliate.application.approvalState === 'CHANGE_REQUESTED'">
+  <div class="row space" ng-show="affiliate.application.approvalState === 'CHANGE_REQUESTED' && !loading">
     <div class="col-sm-12">
       <div class="alert alert-warning" role="alert">
         <div><strong>Affiliate Registration Requires Change</strong></div>
@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div class="row" ng-show="standingStateUtils.isRejected(affiliate.standingState)">
+  <div class="row" ng-show="standingStateUtils.isRejected(affiliate.standingState) && !loading">
     <div class="col-sm-12">
       <div class="alert alert-danger" role="alert">
         <div><strong>Affiliate Registration Declined</strong></div>
@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div class="row" ng-show="standingStateUtils.isDeactivated(affiliate.standingState)">
+  <div class="row" ng-show="standingStateUtils.isDeactivated(affiliate.standingState) && !loading">
     <div class="col-sm-12">
       <div class="alert alert-danger space" role="alert">
         <div><strong>Account Deactivated</strong></div>
@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  <div class="row" ng-show="standingStateUtils.isPendingInvoice(affiliate.standingState)">
+  <div class="row" ng-show="standingStateUtils.isPendingInvoice(affiliate.standingState) && !loading">
     <div class="col-sm-12">
       <div class="alert alert-danger space" role="alert">
         <div><strong>Account Pending Invoice</strong></div>
@@ -43,20 +43,11 @@
     </div>
   </div>
 
-  <div class="row" ng-show="standingStateUtils.isDeactivationPending(affiliate.standingState)">
+  <div class="row" ng-show="standingStateUtils.isDeactivationPending(affiliate.standingState) && !loading">
     <div class="col-sm-12">
       <div class="alert alert-danger space" role="alert">
         <div><strong>Account Deactivation Pending</strong></div>
         <p>Your account is scheduled to be Deactivated.  Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
-      </div>
-    </div>
-  </div>
-
-<div class="row" ng-show="standingStateUtils.isDeregistrationPending(affiliate.standingState)">
-    <div class="col-sm-12">
-      <div class="alert alert-danger space" role="alert">
-        <div><strong>Account Deregistration Pending</strong></div>
-        <p>Your account is scheduled to be Deregistered.  Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
       </div>
     </div>
   </div>

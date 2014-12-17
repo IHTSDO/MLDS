@@ -113,7 +113,7 @@ public class AffiliateResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliates(
-    		@RequestParam String q,
+    		@RequestParam(required=false) String q,
     		@RequestParam(value="$page", defaultValue="0", required=false) Integer page,
     		@RequestParam(value="$pageSize", defaultValue="50", required=false) Integer pageSize,
     		@RequestParam(value="$filter", required=false) String filter) {

@@ -1441,5 +1441,33 @@ $f$ language plpgsql;
     		<column name="licence_version" type="VARCHAR(255)"></column>
     	</addColumn>
     </changeSet>
+
+    <changeSet id="MLDS-738-1" author="DGJ">
+    	<comment>Add name and logo file to member</comment>
+    	<addColumn tableName="member" >
+    		<column name="name" type="VARCHAR(255)"></column>
+    	</addColumn>
+    <addColumn tableName="member">
+    	<column name="logo_file" type="INT8">
+    		<constraints foreignKeyName="logo_file" referencedTableName="file" referencedColumnNames="file_id"/>
+    	</column>
+    </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-863-1" author="DGJ">
+    	<comment>Consistent spelling of license</comment>
+    	<renameColumn tableName="member" oldColumnName="licence_file" newColumnName="license_file"/>
+    	<renameColumn tableName="member" oldColumnName="licence_name" newColumnName="license_name"/>
+    	<renameColumn tableName="member" oldColumnName="licence_version" newColumnName="license_version"/>
+    </changeSet>
+
+    <changeSet id="MLDS-868-1" author="DGJ">
+    	<comment>Remove DEREGISTRATION_PENDING standing state</comment>
+    	<sql>
+			update affiliate
+			set standing_state = 'IN_GOOD_STANDING'
+			where standing_state = 'DEREGISTRATION_PENDING'
+    	</sql>
+    </changeSet>
         
 </databaseChangeLog>

@@ -5,6 +5,7 @@ angular.module('MLDS')
         [ '$scope', '$log', '$modal', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService', 'PackageUtilsService', 'MemberService', 'PackagesService', 'StandingStateUtils','MemberPackageService',
           function ($scope, $log, $modal, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService, PackageUtilsService, MemberService, PackagesService, StandingStateUtils, MemberPackageService) {
         	
+        	$scope.loading = true;
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
@@ -17,11 +18,12 @@ angular.module('MLDS')
         	$scope.notApprovedReleasePackagesByMember = [];
         	$scope.showingUserDashboardWidgets = true;
 
-        	$scope.viewLicence = function (memberKey) {
-    			MemberService.getMemberLicence(memberKey);
+        	$scope.viewLicense = function (memberKey) {
+    			MemberService.getMemberLicense(memberKey);
     		};
         	
         	UserAffiliateService.promise.then(function() {
+        		$scope.loading = false;
         		loadReleasePackages();
         		
         		if (ApplicationUtilsService.isApplicationWaitingForApplicant(UserAffiliateService.affiliate.application)) {

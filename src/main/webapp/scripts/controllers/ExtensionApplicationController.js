@@ -11,8 +11,8 @@ angular.module('MLDS').controller('ExtensionApplicationController',
 	$scope.isApplicationWaitingForApplicant = false;
 	$scope.isApplicationRejected = false;
 	
-	$scope.viewLicence = function (memberKey) {
-		MemberService.getMemberLicence(memberKey);
+	$scope.viewLicense = function (memberKey) {
+		MemberService.getMemberLicense(memberKey);
 	};
 	
 	UserRegistrationService.getApplicationById(applicationId)

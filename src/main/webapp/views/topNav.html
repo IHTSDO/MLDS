@@ -4,8 +4,15 @@
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
           <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
         </button>
-        <a href="#" ng-href="{{authenticated?'#/dashboard':'#'}}" ><img class="img-responsive" src="images/logo.png" alt="ihtsdo-logo"></a>
-        <div ng-show="Session.member" ng-bind="Session.member.key | enum:'global.member.'" class="brand"></div>
+        <a href="#" ng-href="{{authenticated?'#/dashboard':'#'}}"">
+        	<span ng-show="memberLogo">
+        		<img class="img-responsive" src="{{memberLogo}}" alt="member-logo">
+        	</span>
+        	<span ng-hide="memberLogo">
+        		<img class="img-responsive" src="images/logo.png" alt="ihtsdo-logo">
+        	</span>
+        </a>
+        <div ng-bind="memberName" class="brand"></div>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse" >
         <ul id="topNav" location-aware-nav class="nav navbar-nav navbar-right">

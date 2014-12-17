@@ -1,0 +1,26 @@
+<div class="modal-header">
+   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+     <h3 class="modal-title">Edit {{member.key | enum:'global.member.'}} Branding</h3>
+ </div>
+ <div class="modal-body">
+ 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert> 
+ 	<form>
+ 		 <div class="form-group">
+          <label>Member Name</label> 
+          <input class="form-control" placeholder="Enter Member Name" name="memberName" ng-model="member.name" ng-disabled="submitStatus.submitSuccessful">
+      	</div>
+ 		<div class="form-group">
+	  		<label>Logo Image File</label>
+	  		<input type="file" file-model="memberBrandForm.file" accept="image/*"  ng-disabled="submitStatus.submitSuccessful"/>
+	  		<p class="help-block">Logo images should be no larger than 320px wide and 142px tall, and preferably have a transparent background.</p>
+ 		</div>
+ 	</form>
+ </div>
+ <div class="modal-footer">
+     <button class="btn btn-link" ng-click="$dismiss()">Cancel</button>
+     <button class="btn btn-success" ng-disabled="submitStatus.submitting" ng-hide="submitStatus.submitSuccessful" ng-click="memberBrandForm.submit()">
+				Update
+				<span ng-show="submitStatus.submitting"><i class="fa fa-spinner"></i></span>
+     </button>
+     <button class="btn btn-success" ng-click="$close()" ng-show="submitStatus.submitSuccessful">Close</button>
+ </div>

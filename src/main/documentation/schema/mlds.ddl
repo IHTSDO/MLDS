@@ -340,9 +340,11 @@ CREATE TABLE member (
     member_id bigint NOT NULL,
     key character varying(255) NOT NULL,
     created_at timestamp with time zone,
-    licence_file bigint,
-    licence_name character varying(255),
-    licence_version character varying(255)
+    license_file bigint,
+    license_name character varying(255),
+    license_version character varying(255),
+    name character varying(255),
+    logo_file bigint
 );
 
 
@@ -918,11 +920,19 @@ ALTER TABLE ONLY password_reset_token
 
 
 --
+-- Name: logo_file; Type: FK CONSTRAINT; Schema: public; Owner: mlds
+--
+
+ALTER TABLE ONLY member
+    ADD CONSTRAINT logo_file FOREIGN KEY (logo_file) REFERENCES file(file_id);
+
+
+--
 -- Name: member_file; Type: FK CONSTRAINT; Schema: public; Owner: mlds
 --
 
 ALTER TABLE ONLY member
-    ADD CONSTRAINT member_file FOREIGN KEY (licence_file) REFERENCES file(file_id);
+    ADD CONSTRAINT member_file FOREIGN KEY (license_file) REFERENCES file(file_id);
 
 
 --
