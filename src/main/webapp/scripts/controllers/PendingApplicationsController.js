@@ -52,7 +52,7 @@ angular.module('MLDS').controller('PendingApplicationsController', [
 				$location.path('/applicationReview/'+encodeURIComponent(application.applicationId));
 			};
 			
-			$scope.totalSublicences = function(usage) {
+			$scope.totalSublicenses = function(usage) {
 					var count = 0;
 					if (usage.entries) {
 						count += usage.entries.length;

@@ -26,8 +26,8 @@ mldsApp.controller('AffiliateRegistrationController',
         	
         	loadApplication();
         	
-        	$scope.viewLicence = function (memberKey) {
-    			MemberService.getMemberLicence(memberKey);
+        	$scope.viewLicense = function (memberKey) {
+    			MemberService.getMemberLicense(memberKey);
     		};
         	
         	$scope.approvalState = {};

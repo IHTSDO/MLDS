@@ -12,7 +12,7 @@
 		<div class="panel panel-default" >
       <div class="panel-heading">
         <h4 class="panel-title">
-       		Licence Usage
+       		License Usage
        		<span class="pull-right">
        			<span ng-show="usageReport.approvalState === 'RESUBMITTED'" class="label label-default"> {{usageReport.approvalState|enum:'approval.state.'}}</span>
        			{{usageReport.startDate | date : 'yyyy-MM'}} &#8211 {{usageReport.endDate | date : 'yyyy-MM'}}
@@ -24,7 +24,7 @@
 				class="panel-collapse collapse in">
 				<ul class="list-group">
 					<li class="list-group-item">
-						<strong>Licence Type: </strong><span> {{usageReport.type | enum:'affiliate.type.'}}</span>
+						<strong>License Type: </strong><span> {{usageReport.type | enum:'affiliate.type.'}}</span>
 					</li>
 					<li class="list-group-item">
 						<strong>Implementation Status: </strong><span> {{usageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</span>

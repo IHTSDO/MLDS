@@ -18,6 +18,13 @@
 	background-color: #FFF;
 }
 
+.branding-showcase {
+	border: 4px solid #E5E5E5;
+}
+.branding-showcase .container {
+	width: 100%;	
+}
+
 /* start Password strength bar style */
 ul#strength {
     display:inline;

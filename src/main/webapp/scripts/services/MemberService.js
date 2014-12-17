@@ -51,16 +51,24 @@ angular.module('MLDS')
 			return a && b && a.key === b.key;
 		};
 		
-		service.getMemberLicence = function getMemberLicence(memberKey) {
-			$window.open('/app/rest/members/' + encodeURIComponent(memberKey) + '/licence', '_blank');
+		service.getMemberLicense = function getMemberLicense(memberKey) {
+			$window.open('/app/rest/members/' + encodeURIComponent(memberKey) + '/license', '_blank');
 		};
-		
-		service.updateMemberLicence = function updateMemberLicence(memberKey, memberLicenceFile, licenceName, licenceVersion) {
+
+		service.getMemberLogoUrl = function getMemberLogoUrl(memberKey, force) {
+			return '/app/rest/members/' + encodeURIComponent(memberKey) + '/logo' + (force ? '?_='+Date.now():'');
+		};
+
+		service.openMemberLogo = function openMemberLogo(memberKey) {
+			$window.open(service.getMemberLogoUrl(memberKey), '_blank');
+		};
+
+		service.updateMemberLicense = function updateMemberLicense(memberKey, memberLicenseFile, licenseName, licenseVersion) {
 			var formData = new FormData();
-	        formData.append('file', memberLicenceFile);
-	        formData.append('licenceName', licenceName);
-	        formData.append('licenceVersion', licenceVersion);
-	        var promise = $http.post('/app/rest/members/' + encodeURIComponent(memberKey) + '/licence', formData, {
+	        formData.append('file', memberLicenseFile);
+	        formData.append('licenseName', licenseName);
+	        formData.append('licenseVersion', licenseVersion);
+	        var promise = $http.post('/app/rest/members/' + encodeURIComponent(memberKey) + '/license', formData, {
 	            transformRequest: angular.identity,
 	            headers: {'Content-Type': undefined}
 	        });
@@ -69,7 +77,21 @@ angular.module('MLDS')
 	        });
 	        return promise;
 		};
-		
+
+		service.updateMemberBrand = function updateMemberLicense(memberKey, memberLogoFile, name) {
+			var formData = new FormData();
+	        formData.append('file', memberLogoFile);
+	        formData.append('name', name);
+	        var promise = $http.post('/app/rest/members/' + encodeURIComponent(memberKey) + '/brand', formData, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        });
+	        promise.then(function(result) {
+	        	updateMemberEntry(result.data);
+	        });
+	        return promise;
+		};
+
 		return service;
 		
 	}]);
