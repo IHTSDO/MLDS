@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
 import org.springframework.http.HttpHeaders;
@@ -172,9 +173,9 @@ public class ApplicationResource {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Timed
-	public @ResponseBody ResponseEntity<ApplicationCollection> getApplications(@RequestParam(value="$filter") String filter){
+	public @ResponseBody ResponseEntity<ApplicationCollection> getApplications(@RequestParam(value="$filter", required=false) String filter){
 		Iterable<Application> applications;
-		if (filter == null) {
+		if (StringUtils.isBlank(filter)) {
 			applications = applicationRepository.findAll();
 		} else {
 			// Limited OData implementation - expand or use real OData library in the future
