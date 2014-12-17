@@ -7,11 +7,11 @@
  	<form>
  		 <div class="form-group">
           <label>Member Name</label> 
-          <input class="form-control" placeholder="Enter Member Name" name="memberName" ng-model="member.name">
+          <input class="form-control" placeholder="Enter Member Name" name="memberName" ng-model="member.name" ng-disabled="submitStatus.submitSuccessful">
       	</div>
  		<div class="form-group">
 	  		<label>Logo Image File</label>
-	  		<input type="file" file-model="memberBrandForm.file" accept="image/*"/>
+	  		<input type="file" file-model="memberBrandForm.file" accept="image/*"  ng-disabled="submitStatus.submitSuccessful"/>
 	  		<p class="help-block">Logo images should be no larger than 320px wide and 142px tall, and preferably have a transparent background.</p>
  		</div>
  	</form>
