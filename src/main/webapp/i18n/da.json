@@ -89,7 +89,7 @@
     "activate": {
         "title": "Activation",
         "messages": {
-            "success": "<strong>Your user has been activated.</strong>,
+            "success": "<strong>Your user has been activated.</strong>",
             "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up."
         }
     },
