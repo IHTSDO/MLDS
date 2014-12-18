@@ -390,6 +390,13 @@
 	      	"body":"Please use the registration form to sign up. If you are still encountering difficulties please contact support."
 	      }
 	    }
+	  },
+	  "applicationSummaryModal": {
+	  		"title":"Application Summary",
+	  		"form": {
+	  			"cancel":"Cancel",
+	  			"ok":"Ok"
+	  		}
 	  }
 	},
   "register": {
