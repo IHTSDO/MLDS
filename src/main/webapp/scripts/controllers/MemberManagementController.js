@@ -35,6 +35,9 @@ angular.module('MLDS').controller('MemberManagementController',
 			$location.path('/memberManagement/' + member.key+'/branding');
 		};
 
+		$scope.landingPage = function landingPage(member) {
+			return MemberService.getMemberLandingPage(member);
+		};
 		$scope.editMember = function editMember(member) {
 			var modalInstance = $modal.open({
                 templateUrl: 'views/admin/editMember.html',
