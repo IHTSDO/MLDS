@@ -390,6 +390,16 @@ mldsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+                .when('/landing/:memberKey', {
+                    templateUrl: 'views/landingPage.html',
+                    controller: 'MemberLandingPageController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
                 .when('/', {
                 	templateUrl: 'views/loading.html',
                 	controller: 'LandingRedirectController',

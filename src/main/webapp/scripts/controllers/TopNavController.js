@@ -7,25 +7,36 @@ angular.module('MLDS').controller('TopNavController',
 		$scope.memberName = '';
 		$scope.memberLogo = '';
 		
-		$scope.$watch('Session.member', function(memberKey) {
+		$scope.$watch('Session.member', handleWatch);
+		$rootScope.$watch('memberLanding', handleWatch);
+
+		function handleWatch() {
 			if (Session.member) {
-				MemberService.ready.then(function() {
-					$scope.memberName = Session.member ? $filter('enum')(Session.member.key, 'global.member.') : '';
-					$scope.memberLogo = '';
-					var member = MemberService.membersByKey[Session.member.key];
-					if (member && member.name) {
-						$scope.memberName = member.name;
-					}
-					if (member && member.logo) {
-						$scope.memberLogo = MemberService.getMemberLogoUrl(member.key);
-					}
-					$scope.memberReady = true;
-				});
+				updateFromMember(Session.member);
+			} else if ($rootScope.memberLanding) {
+				updateFromMember($rootScope.memberLanding);
 			} else {
 				$scope.memberReady = false;
 				$scope.memberName = '';
 				$scope.memberLogo = '';
 			}
-		});
+	
+		}
+		
+		function updateFromMember(sessionMember) {
+			MemberService.ready.then(function() {
+				$scope.memberName = sessionMember ? $filter('enum')(sessionMember.key, 'global.member.') : '';
+				$scope.memberLogo = '';
+				var member = MemberService.membersByKey[sessionMember.key];
+				if (member && member.name) {
+					$scope.memberName = member.name;
+				}
+				if (member && member.logo) {
+					$scope.memberLogo = MemberService.getMemberLogoUrl(member.key);
+				}
+				$scope.memberReady = true;
+			});
+
+		}
     }]);
 
