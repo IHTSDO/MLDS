@@ -377,13 +377,21 @@
     "title": "MLDS-Logout",
     "subtitle": "We are logging your out of your session."
   },
-  "activate": {
-    "title": "Activation",
-    "messages": {
-      "success": "<strong>User account has been created.</strong> The system will take you to continue your registration process in a few moments. If you are not redirected automatically please <a href=\"#/usageReports\">click here.</a>",
-      "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up. If you are still encountering difficulties please contact support."
-    }
-  },
+  "views": {
+	  "activate": {
+	    "title": "Activation",
+	    "messages": {
+	      "success": {
+	      	"title":"User account has been created.",
+	      	"body":"The system will take you to continue your registration process in a few moments. If you are not redirected automatically please {{linkbegin}}click here.{{linkend}}"
+	      },
+	      "error": {
+	      	"title":"Your user could not be activated.",
+	      	"body":"Please use the registration form to sign up. If you are still encountering difficulties please contact support."
+	      }
+	    }
+	  }
+	},
   "register": {
     "title": "Register",
     "welcome": "Welcome to IHTSDO-MLDS",
