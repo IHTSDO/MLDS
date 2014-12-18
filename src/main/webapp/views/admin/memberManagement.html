@@ -6,7 +6,6 @@
     			<th>Member</th>
     			<th>Name</th>
     			<th>Public Landing Page</th>
-    			<th></th>
     			<th>License</th>
     			<th>Version</th>
     			<th>Last Uploaded</th>
@@ -18,16 +17,20 @@
     			<td>{{member.key}}</td>
     			<td>{{member.name}}</td>
     			<td>{{landingPage(member)}}</td>
-    			<td>
-    				<button class="btn btn-primary" ng-click="viewBranding(member)"><i class="fa fa-image"></i> Branding</button>
-    				<button class="btn btn-success" ng-show="canAccess(member)" ng-click="editMember(member)"><i class="fa fa-edit"></i> Edit</button>
-    			</td>
     			<td>{{member.licenseName}}</td>
     			<td>{{member.licenseVersion}}</td>
     			<td>{{member.license.lastUpdated | date: 'yyyy-MM-dd'}}</td>
     			<td>
-    				<button class="btn btn-primary" ng-click="viewLicense(member.key)"><i class="fa fa-gavel"></i> License</button>
-    				<button class="btn btn-success" ng-show="canAccess(member)" ng-click="editLicense(member)"><i class="fa fa-edit"></i> Edit</button>
+					<div class="btn-group" dropdown>
+						<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-pencil"></i> Edit</button>
+						<ul class="dropdown-menu dropdown-menu-right" role="menu">
+		    				<li><a ng-click="viewBranding(member)"><i class="fa fa-image"></i> View Branding</a></li>
+		    				<li><a ng-show="canAccess(member)" ng-click="editMember(member)"><i class="fa fa-edit"></i> Edit Branding</a></li>
+							<li class="divider"></li>
+							<li><a ng-click="viewLicense(member.key)"><i class="fa fa-gavel"></i> View License</a></li>
+    						<li><a ng-show="canAccess(member)" ng-click="editLicense(member)"><i class="fa fa-edit"></i> Edit License</a></li>
+						</ul>
+					</div>
     			</td>
     		</tr>
     	</tbody>
