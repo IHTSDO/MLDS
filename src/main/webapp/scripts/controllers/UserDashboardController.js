@@ -5,6 +5,7 @@ angular.module('MLDS')
         [ '$scope', '$log', '$modal', '$location', 'AffiliateService', 'Session', 'ApplicationUtilsService', 'UsageReportsService', 'UserAffiliateService', 'PackageUtilsService', 'MemberService', 'PackagesService', 'StandingStateUtils','MemberPackageService',
           function ($scope, $log, $modal, $location, AffiliateService, Session, ApplicationUtilsService, UsageReportsService, UserAffiliateService, PackageUtilsService, MemberService, PackagesService, StandingStateUtils, MemberPackageService) {
         	
+        	$scope.loading = true;
         	$scope.firstName = Session.firstName;
         	$scope.lastName = Session.lastName;
 
@@ -22,6 +23,7 @@ angular.module('MLDS')
     		};
         	
         	UserAffiliateService.promise.then(function() {
+        		$scope.loading = false;
         		loadReleasePackages();
         		
         		if (ApplicationUtilsService.isApplicationWaitingForApplicant(UserAffiliateService.affiliate.application)) {
