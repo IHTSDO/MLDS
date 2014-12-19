@@ -8,7 +8,7 @@
 	</div>
 </div>
 
-<form id="form" name="form" role="form" novalidate ng-submit="save()" bs-validation="">
+<form id="form" name="form" role="form" novalidate  bs-validation>
 	<div class="row" ng-hide="approved">
 		<div class="col-sm-12 col-md-12 col-lg-12"> 
 			<div class="alert alert-warning">
@@ -656,7 +656,10 @@
 
 			<div class="form-group">
 				<div>
-					<button type="submit" class="btn btn-success" ng-disabled="readOnly" ng-hide="readOnly">
+					<button class="btn btn-success" ng-show="!readOnly && form.$invalid" ng-click="form.attempted = true">
+						<span translate="views.contactInfo.form.save">Save</span>
+					</button>
+					<button class="btn btn-success" ng-hide="readOnly || form.$invalid"  ng-disabled="readOnly || form.$invalid" ng-click="save()">
 						<span translate="views.contactInfo.form.save">Save</span>
 						<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
 					</button>
