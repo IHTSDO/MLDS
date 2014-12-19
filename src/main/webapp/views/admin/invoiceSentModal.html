@@ -1,0 +1,14 @@
+<div class="modal-header">
+   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+  <h3 class="modal-title">Send Invoice</h3>
+</div>
+<div class="modal-body">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	<p>Send invoice to affiliate using the following email: <a href="mailto:{{affiliate.affiliateDetails.email}}">{{affiliate.affiliateDetails.email}}</a></p>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-link" ng-click="$dismiss()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-warning" ng-disabled="submitting" ng-click="$close()">
+		Mark as Invoice Sent
+	</button>
+</div>

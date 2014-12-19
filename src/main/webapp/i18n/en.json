@@ -330,7 +330,7 @@
       "ZM": "Zambia",
       "ZW": "Zimbabwe"
     },
-    "form": {
+    "form": {    		
       "username": "Login",
       "username.placeholder": "Your login",
       "name.placeholder": "Your name",
@@ -377,13 +377,126 @@
     "title": "MLDS-Logout",
     "subtitle": "We are logging your out of your session."
   },
-  "activate": {
-    "title": "Activation",
-    "messages": {
-      "success": "<strong>User account has been created.</strong> The system will take you to continue your registration process in a few moments. If you are not redirected automatically please <a href=\"#/usageReports\">click here.</a>",
-      "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up. If you are still encountering difficulties please contact support."
-    }
-  },
+  "views": {
+	  "activate": {
+	    "title": "Activation",
+	    "messages": {
+	      "success": {
+	      	"title":"User account has been created.",
+	      	"body":"The system will take you to continue your registration process in a few moments. If you are not redirected automatically please {{linkbegin}}click here.{{linkend}}"
+	      },
+	      "error": {
+	      	"title":"Your user could not be activated.",
+	      	"body":"Please use the registration form to sign up. If you are still encountering difficulties please contact support."
+	      }
+	    }
+	  },
+	  "applicationSummaryModal": {
+	  		"title":"Application Summary",
+	  		"form": {
+	  			"cancel":"Cancel",
+	  			"ok":"Ok"
+	  		}
+	  },
+	  "contactInfo": {
+	  	"title": "Account Information",
+	  	"messages": {
+	  		"notApproved": {
+	  			"title":"Registration not approved yet",
+	  			"body":"You can only modify the contact information for an affiliate once the registration request has been approved."
+	  		}
+	  	},
+	  	"form": {
+	  		"save":"Save",
+	  		"cancel":"Cancel",
+	  		"fixErrorsAbove":"Please fix the errors listed above."
+	  	},
+	  	"admin": {
+	  		"title": "Admin Editable",
+	  		"other": {
+	  			"label":"Other:",
+	  			"placeholder":"Other",
+	  			"required": "Other field is required."
+	  		},
+	  		"subtype": {
+	  			"label":"Subtype:",
+	  			"required":"Subtype field is required."
+	  		},
+	  		"usageType": {
+	  			"label": "Type:",
+	  			"required":"Usage type field is required."
+	  		},
+	  		"agreementType": {
+	  			"label":"Type of Agreement:"
+	  		}
+	  	},
+	  	"contact": {
+	  		"title":"Contact Information",
+	  		"firstName": {
+	  			"label":"First Name:",
+	  			"placeholder":"John"
+	  		},
+	  		"lastName": {
+	  			"label":"Last Name:",
+	  			"placeholder":"Smith"
+	  		},
+	  		"email": {
+	  			"label":"Email:",
+	  			"placeholder":"JohnSmith@OrganizationABC.com",
+	  			"uniqueness":"Email Addresses need to be unique.",
+	  			"invalid":"Invalid Email Address."
+	  		},
+	  		"alternativeEmail": {
+	  			"label":"Alternate Email:",
+	  			"placeholder":"alternative@email.com"
+	  		},
+	  		"thirdEmail": {
+	  			"label":"Third Email:"
+	  		},
+	  		"landline": {
+	  			"label":"Landline Phone Number:",
+	  			"invalid": "Invalid Phone Number."
+	  		},
+	  		"landlineExtension": {
+	  			"label":"Extension:"
+	  		},
+	  		"mobile": {
+	  			"label":"Mobile Phone Number:"
+	  		},
+	  		"address": {
+	  			"label":"Address",
+	  			"placeholder":"123 Somewhere Avenue"
+	  		},
+	  		"city": {
+	  			"label":"City:",
+	  			"placeholder":"City"
+	  		},
+	  		"postcode": {
+	  			"label":"Post Code:",
+	  			"placeholder":"Post Code",
+	  			"tooLong":"Post Code is too long."
+	  		},
+	  		"country": {
+	  			"label":"Country:",
+	  			"placeholder":"Country",
+	  			"unrecognized":"Unrecognized country."
+	  		},
+	  		"billingAddress": {
+	  			"label":"Billing Address:",
+	  			"placeholder":"Address",
+	  			"sameAsAddress":"Use Address as Billing Address",
+	  			"useOrganizationAddress":"Use Organization Address as Billing Address"
+	  		}
+	  	},
+	  	"organization": {
+	  		"title":"Organization",
+	  		"name": {
+	  			"label":"Organization Name:",
+	  			"placeholder":"Org name"
+	  		}
+	  	}
+	  }
+	},
   "register": {
     "title": "Register",
     "welcome": "Welcome to IHTSDO-MLDS",
@@ -684,7 +797,8 @@
       "DEACTIVATION_PENDING": "Deactivation Pending",
       "DEACTIVATED": "Deactivated",
       "DEREGISTERED": "Deregistered",
-      "PENDING_INVOICE": "Pending Invoice"
+      "PENDING_INVOICE": "Pending Invoice",
+      "INVOICE_SENT": "Invoice Sent"
     },
     "standingStateWithExplanation": {
       "APPLYING": "Applying",
@@ -693,7 +807,8 @@
       "DEACTIVATION_PENDING": "Deactivation Pending - Access to Account Only, No Download Capability",
       "DEACTIVATED": "Deactivated - Access to Account Only, No Download Capability",
       "DEREGISTERED": "Deregistered – No Access to MLDS Account",
-      "PENDING_INVOICE": "Pending Invoice – Access to Account only, Payment Outstanding"
+      "PENDING_INVOICE": "Pending Invoice – Access to Account only, Payment Outstanding",
+      "INVOICE_SENT": "Invoice Sent - Access to Account only, Payment Outstanding"
     }
   },
   "approval": {
@@ -732,5 +847,8 @@
 			"email": "Email",
 			"review": "Review"
   	}
-  }  
+  },
+	"form": {
+		"requiredField":"Required field."    	
+	}
 }

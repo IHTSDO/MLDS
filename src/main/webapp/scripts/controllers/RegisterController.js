@@ -1,13 +1,15 @@
 'use strict';
 
-angular.module('MLDS').controller('RegisterController', ['$scope', '$translate', 'Register', '$location', '$log', 'CommercialUsageService','CountryService',
-    function ($scope, $translate, Register, $location, $log, CommercialUsageService,CountryService) {
+angular.module('MLDS').controller('RegisterController', ['$rootScope', '$scope', '$translate', 'Register', '$location', '$log', 'CommercialUsageService','CountryService', 'Session', 'MemberService',
+    function ($rootScope, $scope, $translate, Register, $location, $log, CommercialUsageService, CountryService, Session, MemberService) {
 		$scope.availableCountries = CountryService.countries;
 		
         $scope.success = null;
         $scope.error = {};
         $scope.registerAccount = {};
         $scope.confirmPassword = null;
+        
+        initFromMemberLanding();
         
         // bind the display name to our country object.
         $scope.$watch('countryCommonName', function(newValue){
@@ -51,4 +53,13 @@ angular.module('MLDS').controller('RegisterController', ['$scope', '$translate',
                     }
                 });
         };
+        
+        function initFromMemberLanding() {
+        	if ($rootScope.memberLanding && $rootScope.memberLanding.key) {
+        		CountryService.ready.then(function() {
+        			var country = CountryService.countriesByIsoCode2[$rootScope.memberLanding.key];
+        			$scope.countryCommonName = country.commonName;
+        		});
+        	}
+        }
     }]);

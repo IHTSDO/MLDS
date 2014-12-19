@@ -11,7 +11,8 @@ public enum StandingState {
 	
 	DEREGISTERED,
 	
-	PENDING_INVOICE;
+	PENDING_INVOICE,
+	INVOICE_SENT;
 	
 	public boolean canLogin() {
 		return this != DEREGISTERED; 
