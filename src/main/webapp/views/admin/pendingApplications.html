@@ -48,7 +48,7 @@
 				<tbody>
 					<tr ng-repeat="application in applications | filter:applicationSearch | orderBy:orderByField:reverseSort" ng-switch="application.applicationType" ng-click="goToApplication(application)">
 									
-					<td>{{application.affiliateDetails.organizationName ? application.affiliateDetails.organizationName : application.affiliateDetails.firstName + ' '+application.affiliateDetails.lastName}}</td>
+					<td>{{application.affiliateDetails.firstName + ' '+application.affiliateDetails.lastName}}</td>
 					<td>{{application.applicationType | enum:'application.applicationType.'}}</td>
 					<td ng-switch-when="PRIMARY">{{application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</td>
 					<td ng-switch-when="EXTENSION">{{application.affiliate.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</td>
