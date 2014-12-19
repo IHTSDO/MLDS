@@ -45,7 +45,7 @@
 				<tbody infinite-scroll="nextPage()" infinite-scroll-distance="1" infinite-scroll-disabled="downloadingAffiliates">
 					<tr ng-click="viewAffiliate(affiliate.affiliateId)" ng-repeat="affiliate in affiliates">
 						<td>{{affiliate.affiliateId}}</td>
-						<td>{{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
+						<td>{{affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
 						<td>{{affiliateActiveDetails(affiliate).type | enum:'affiliate.type.'}} - {{affiliateActiveDetails(affiliate).subType | enum:'affiliate.subType.'}} {{affiliateActiveDetails(affiliate).otherText}}</td>
 						<td>{{affiliate.standingState | enum:'affiliate.standingState.'}}</td>
 						<td>{{affiliateActiveDetails(affiliate).address.country.commonName}}</td>
