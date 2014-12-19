@@ -1,4 +1,4 @@
-  <div class="row" ng-hide="(usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED' || loading">
+  <div class="row" ng-hide="usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED' || loading">
     <div class="col-sm-12">
       <div class="alert alert-danger space" role="alert">
         <div><strong>Usage Declaration Required</strong></div>
