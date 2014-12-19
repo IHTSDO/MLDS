@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('MemberService', ['$http', '$log', '$q', '$window', function($http, $log, $q, $window){
+.factory('MemberService', ['$http', '$log', '$q', '$window', '$location', function($http, $log, $q, $window, $location){
 	
 		var membersListQ = 
 			$http.get('/app/rest/members')
@@ -62,6 +62,17 @@ angular.module('MLDS')
 		service.openMemberLogo = function openMemberLogo(memberKey) {
 			$window.open(service.getMemberLogoUrl(memberKey), '_blank');
 		};
+		
+		service.getMemberLandingPage = function getMemberLandingPage(member) {
+			var url = $location.absUrl();
+			var hashIndex = url.indexOf('#');
+			if (hashIndex != -1) {
+				url = url.slice(0, hashIndex+1);
+				
+			}
+			url += '/landing/'+member.key;
+			return url;
+		};
 
 		service.updateMemberLicense = function updateMemberLicense(memberKey, memberLicenseFile, licenseName, licenseVersion) {
 			var formData = new FormData();
@@ -91,7 +102,7 @@ angular.module('MLDS')
 	        });
 	        return promise;
 		};
-
+		
 		return service;
 		
 	}]);

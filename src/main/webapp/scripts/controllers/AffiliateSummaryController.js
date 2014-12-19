@@ -31,6 +31,18 @@ mldsApp.controller('AffiliateSummaryController', [
 			
 			$scope.loading = true;
 
+			$scope.invoiceSent = function() {
+				var modalInstance = $modal.open({
+        			templateUrl: 'views/admin/invoiceSentModal.html',
+        			size:'sm',
+        			scope: $scope
+        		});
+        		modalInstance.result.then(function () {
+        			$scope.affiliate.standingState = "INVOICE_SENT";
+        			$scope.submit();
+    		    });
+			};
+			
 			function loadAffiliateAudits(affiliateId) {
 	          	AuditsService.findByAffiliateId(affiliateId)
             	.then(function(result) {
@@ -63,6 +75,7 @@ mldsApp.controller('AffiliateSummaryController', [
 			};
 			
 			$scope.changeStanding = function changeStanding() {
+				// FIXME: should the button be just disabled?
 				if ($scope.standingStateUtils.isApplying($scope.affiliate.standingState)) {
 					return;
 				}
