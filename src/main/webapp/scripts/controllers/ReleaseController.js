@@ -187,7 +187,21 @@ angular.module('MLDS').controller('ReleaseController',
     	modalInstance.result.then(loadReleasePackage);
     };
     
-    
+    $scope.updateLicense = function() {
+    	$log.log('Update License');
+    	var modalInstance = $modal.open({
+  	      	templateUrl: 'views/admin/releasePackageLicenseModal.html',
+  	      	controller: 'ReleasePackageLicenseController',
+  	      	scope: $scope,
+  	      	size: 'lg',
+  	      	backdrop: 'static',
+  	      	resolve: {
+              releasePackage: function() { return angular.copy($scope.packageEntity); }
+            }
+  	    });
+    	modalInstance.result.then();
+    };
+        
     $scope.goToReleaseManagement = function() {
     	$location.path('/releaseManagement');
     };
