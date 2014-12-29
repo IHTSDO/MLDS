@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('ReleasePackageLicenseController',
-		['$scope', '$log', '$modal', '$http', 'Session', 'releasePackage',
-    function ($scope, $log, $modal, $http, Session, releasePackage) {
+		['$scope', '$log', '$modal', '$http', 'Session', 'ReleasePackageService', 'releasePackage',
+    function ($scope, $log, $modal, $http, Session, ReleasePackageService, releasePackage) {
 		$scope.releasePackage = releasePackage;
 		
 		$scope.licenseForm = {};
@@ -36,26 +36,19 @@ angular.module('MLDS').controller('ReleasePackageLicenseController',
 		  
 		function updateReleasePackageLicense() {
 			$scope.alerts = [];
-            var file = $scope.licenseForm.file;
-            $scope.submitStatus = {submitting: true};
-
-            var formData = new FormData();
-	        formData.append('file', file);
-	        
-	        console.log(releasePackage);
-	        
-	        $http.post('/app/rest/releasePackages/' + encodeURIComponent(releasePackage.releasePackageId) + '/license', formData, {
-	            transformRequest: angular.identity,
-	            headers: {'Content-Type': undefined}
-	        }).then(function(result) {
-        		$scope.alerts.push({type: 'success', msg: 'New license has been uploaded.'});
-        		$scope.submitStatus = {submitSuccessful: true};
-	        })
-	        ["catch"](function(message) {
-				$log.log(message);
-				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later. ['+ message.statusText+']'});
-				$scope.submitStatus = {notSubmitted: true};
-			});;
-		  }
+			$scope.submitStatus = {submitting: true};
+			
+			ReleasePackageService.updateReleaseLicense(releasePackage.releasePackageId, $scope.licenseForm.file)
+				.then(function(result) {
+	        		$scope.alerts.push({type: 'success', msg: 'New license has been uploaded.'});
+	        		$scope.submitStatus = {submitSuccessful: true};
+		        })
+		        ["catch"](function(message) {
+					$log.log(message);
+					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later. ['+ message.statusText+']'});
+					$scope.submitStatus = {notSubmitted: true};
+				});
+		}
+		
     }]);
 
