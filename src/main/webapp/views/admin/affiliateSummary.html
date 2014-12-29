@@ -56,6 +56,10 @@
 			</div>
 		</form>
 
+		<div>
+			<a class="btn btn-primary btn-block" ng-disabled="standingStateUtils.isInvoiceSent(affiliate.standingState)" ng-click="invoiceSent()">Invoice</a>
+		</div>
+
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">Application History</h4>
