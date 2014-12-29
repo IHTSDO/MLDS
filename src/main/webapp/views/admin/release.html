@@ -3,12 +3,22 @@
 
 	<div class="col-md-12">
 		
-			<h2>{{packageEntity.name}} - {{packageEntity.member.key | enum:'global.member.'}}
-				<button class="btn btn-primary"  ng-click="editReleasePackage()" ng-show="isEditableReleasePackage"><i class="fa fa-pencil"></i> Edit</button>
-				<button class="btn btn-info" ng-click="updateLicense()" ng-show="isEditableReleasePackage"><i class="fa fa-gavel"></i> Update License</button> 
-				<button class="btn btn-success" ng-click="addReleaseVersion()" ng-show="isEditableReleasePackage"><i class="fa fa-plus"></i> Add Version</button>
-				<button class="btn btn-danger btn-sm" ng-click="removeReleasePackage()" ng-show="isEditableReleasePackage && isRemovableReleasePackage"><i class="fa fa-times"></i> Delete</button>
-			</h2>
+			<div>
+				<div class="btn-group pull-right" dropdown ng-show="isEditableReleasePackage">
+					<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-pencil"></i> Edit</button>
+					<ul class="dropdown-menu dropdown-menu-right" role="menu">
+	   				<li><a ng-click="editReleasePackage()"><i class="fa fa-edit"></i> Edit Package</a></li>
+						<li class="divider"></li>
+						<li><a ng-click="viewLicense()"><i class="fa fa-gavel"></i> View License</a></li>
+							<li><a ng-click="updateLicense()"><i class="fa fa-edit"></i> Edit License</a></li>
+							<li class="divider"></li>
+							<li><a ng-click="addReleaseVersion()"><i class="fa fa-plus"></i> Add Version</a></li>
+							<li ng-show="isEditableReleasePackage && isRemovableReleasePackage" class="divider"></li>
+							<li ng-show="isEditableReleasePackage && isRemovableReleasePackage"><a ng-click="removeReleasePackage()"><i class="fa fa-times"></i> Delete</a></li>
+					</ul>
+				</div>
+				<h2>{{packageEntity.name}} - {{packageEntity.member.key | enum:'global.member.'}}</h2>
+			</div>
 			
 			<p>{{packageEntity.description}}</p>
 	
