@@ -2,6 +2,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.io.IOException;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
@@ -10,9 +11,13 @@ import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.commons.io.IOUtils;
 import org.joda.time.Instant;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -217,6 +222,41 @@ public class ReleasePackagesResource {
     	return new ResponseEntity<>(HttpStatus.OK);
     }
 
+	@RequestMapping(value = Routes.RELEASE_PACKAGE_LICENSE,
+            method = RequestMethod.GET)
+    @PermitAll
+    @Transactional
+    @Timed
+    public ResponseEntity<?> getReleasePackageLicense(@PathVariable long releasePackageId, HttpServletRequest request) throws SQLException, IOException {
+    	File license = releasePackageRepository.findOne(releasePackageId).getLicenceFile();
+    	
+    	return downloadFile(request, license);
+    }
+	
+	private ResponseEntity<?> downloadFile(HttpServletRequest request, File file) throws SQLException, IOException {
+		if (file == null) {
+    		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    	} else if (file.getLastUpdated() != null) {
+    		long ifModifiedSince = request.getDateHeader("If-Modified-Since");
+    		long lastUpdatedSecondsFloor = file.getLastUpdated().getMillis() / 1000 * 1000;
+			if (ifModifiedSince != -1 && lastUpdatedSecondsFloor <= ifModifiedSince) {
+				return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    		}
+    	}
+		
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.valueOf(file.getMimetype()));
+		httpHeaders.setContentLength(file.getContent().length());
+		httpHeaders.setContentDispositionFormData("file", file.getFilename());
+		if (file.getLastUpdated() != null) {
+			httpHeaders.setLastModified(file.getLastUpdated().getMillis());
+		}
+    	
+    	byte[] byteArray = IOUtils.toByteArray(file.getContent().getBinaryStream());
+    	org.springframework.core.io.Resource contents = new ByteArrayResource(byteArray);
+		return new ResponseEntity<org.springframework.core.io.Resource>(contents, httpHeaders, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = Routes.RELEASE_PACKAGE_LICENSE,
             method = RequestMethod.POST,
     		headers = "content-type=multipart/*",

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('ReleaseController', 
-		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService', 'ReleaseFilesService', 'PackageUtilsService',
-		 function($scope, $log, $routeParams, $location, $modal, PackagesService, ReleaseFilesService, PackageUtilsService) {
+		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService', 'ReleaseFilesService', 'PackageUtilsService', 'ReleasePackageService',
+		 function($scope, $log, $routeParams, $location, $modal, PackagesService, ReleaseFilesService, PackageUtilsService, ReleasePackageService) {
 
 	$scope.versions = {
 			online: [],
@@ -201,6 +201,10 @@ angular.module('MLDS').controller('ReleaseController',
   	    });
     	modalInstance.result.then();
     };
+    
+    $scope.viewLicense = function() {
+		ReleasePackageService.getReleaseLicense($scope.packageEntity.releasePackageId);
+	};
         
     $scope.goToReleaseManagement = function() {
     	$location.path('/releaseManagement');
