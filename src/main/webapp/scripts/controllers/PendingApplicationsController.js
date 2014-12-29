@@ -13,7 +13,7 @@ angular.module('MLDS').controller('PendingApplicationsController', [
 				PackagesService, AffiliateService) {
 
 			$scope.applications = [];
-			$scope.showAllApplications = 0;
+			$scope.showAllApplications = UserRegistrationService.pendingApplicationsFilter.showAllApplications ? UserRegistrationService.pendingApplicationsFilter.showAllApplications : 0;
 			$scope.isAdmin = Session.isAdmin();
 			$scope.homeMember = Session.member || {member: 'NONE'};
 
@@ -22,11 +22,15 @@ angular.module('MLDS').controller('PendingApplicationsController', [
 			$scope.loadReset = false;
 			$scope.noResults = false;
 
-			$scope.orderByField = 'submittedAt';
-			$scope.reverseSort = false;
+			$scope.orderByField = UserRegistrationService.pendingApplicationsFilter.orderByField ? UserRegistrationService.pendingApplicationsFilter.orderByField : 'submittedAt';
+			$scope.reverseSort = UserRegistrationService.pendingApplicationsFilter.reverseSort ? UserRegistrationService.pendingApplicationsFilter.reverseSort : false;
 
 			function rememberVisualState() {
-				//TODO implement
+				var store = UserRegistrationService.pendingApplicationsFilter;
+				
+				store.showAllApplications = $scope.showAllApplications;
+				store.orderByField = $scope.orderByField;
+				store.reverseSort = $scope.reverseSort;
 			}
 			
 			function loadMoreApplications() {

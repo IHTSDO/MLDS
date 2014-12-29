@@ -6,6 +6,8 @@ angular.module('MLDS')
 
 	var service = {};
 	
+	service.affiliatesFilter = {};
+	
 	service.affiliatesResource = $resource('/app/rest/affiliates');
 
 	service.allAffiliates = function(q) {
