@@ -9,8 +9,9 @@ mldsApp.controller('AffiliateManagementController', [
 		'DomainBlacklistService',
 		'PackagesService',
 		'AffiliateService',
+		'StandingStateUtils',
 		function($scope, $log, $location, $modal, Session, DomainBlacklistService,
-				PackagesService, AffiliateService) {
+				PackagesService, AffiliateService, StandingStateUtils) {
 
 			$scope.affiliates = [];
 			$scope.showAllAffiliates = AffiliateService.showAllAffiliates ? AffiliateService.showAllAffiliates : 0;
@@ -19,6 +20,14 @@ mldsApp.controller('AffiliateManagementController', [
 			$scope.downloadingAffiliates = false;
 			$scope.query = AffiliateService.affiliateQuery ? AffiliateService.affiliateQuery : '';
 			$scope.page = 0;
+			
+			$scope.orderByField = 'standingState';
+			$scope.reverseSort = false;
+
+			$scope.standingStateFilter = null;
+			
+			$scope.canSort = true;
+			$scope.standingStateOptions = StandingStateUtils.options();
 
 			$scope.alerts = [];						
 
@@ -31,7 +40,7 @@ mldsApp.controller('AffiliateManagementController', [
 				}
 				$scope.downloadingAffiliates = true;
 				$scope.alerts = [];
-				AffiliateService.filterAffiliates($scope.query, $scope.page, 50, $scope.showAllAffiliates==1?null:$scope.homeMember)
+				AffiliateService.filterAffiliates($scope.query, $scope.page, 50, $scope.showAllAffiliates==1?null:$scope.homeMember, $scope.standingStateFilter,$scope.orderByField, $scope.reverseSort)
 					.then(function(response) {
 						//$log.log("...appending "+response.data.length+" to existing "+$scope.affiliates.length+" page="+$scope.page);
 						_.each(response.data, function(a) {
@@ -55,12 +64,24 @@ mldsApp.controller('AffiliateManagementController', [
 				$scope.affiliates = [];
 				$scope.page = 0;
 				$scope.noResults = true;
+				$scope.canSort = !$scope.query;
 				
 				loadMoreAffiliates();
 			}
 
+			$scope.toggleField = function(fieldName) {
+				if ($scope.orderByField !== fieldName) {
+					$scope.reverseSort = false;
+				} else {
+					$scope.reverseSort = !$scope.reverseSort;
+				}
+				$scope.orderByField = fieldName; 
+				loadAffiliates();
+			};
+			
 			$scope.$watch('showAllAffiliates', loadAffiliates);
 			$scope.$watch('query', loadAffiliates);
+			$scope.$watch('standingStateFilter', loadAffiliates);
 						
 			$scope.nextPage = function() {
 				return loadMoreAffiliates();
