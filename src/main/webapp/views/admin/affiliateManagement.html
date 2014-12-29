@@ -1,7 +1,13 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="page-header">
-			<h2>Affiliate Management</h2>
+			<h2>
+				<span>Affiliate Management</span>
+				<button class="btn btn-primary pull-right" type="button" ng-csv="generateCsv()" lazy-load="true" csv-header="['No.', 'Affiliate Name', 'Agreement Type', 'Standing', 'Home Country', 'Member', 'Email']" filename="affiliates.csv">
+					<i class="fa fa-download"></i> Export as CSV
+					<span ng-show="generatingCsv" ><i class="fa fa-spinner fa-spin"></i></span>
+				</button>
+			</h2>
 			<div ng-show="isAdmin">
 				<span>Show: </span>
 				<select ng-model="showAllAffiliates">
@@ -155,7 +161,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<div ng-show="downloadingAffiliates" class="text-center"><i class="fa fa-spinner"></i> Loading data...</div>
+			<div ng-show="downloadingAffiliates" class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading data...</div>
 			<div ng-show="noResults && !downloadingAffiliates">No results.</div>
 	</div>
 </div>
