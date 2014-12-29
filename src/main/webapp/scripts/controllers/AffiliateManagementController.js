@@ -5,12 +5,13 @@ mldsApp.controller('AffiliateManagementController', [
 		'$log',
 		'$location',
 		'$modal',
+		'$parse',
 		'Session',
 		'DomainBlacklistService',
 		'PackagesService',
 		'AffiliateService',
 		'StandingStateUtils',
-		function($scope, $log, $location, $modal, Session, DomainBlacklistService,
+		function($scope, $log, $location, $modal, $parse, Session, DomainBlacklistService,
 				PackagesService, AffiliateService, StandingStateUtils) {
 
 			$scope.affiliates = [];
@@ -29,7 +30,9 @@ mldsApp.controller('AffiliateManagementController', [
 			$scope.canSort = true;
 			$scope.standingStateOptions = StandingStateUtils.options();
 
-			$scope.alerts = [];						
+			$scope.alerts = [];
+			
+			$scope.generatingCsv = false;
 
 			function rememberVisualState() {
 				AffiliateService.affiliatesFilter.affiliateQuery = $scope.query;
@@ -136,4 +139,39 @@ mldsApp.controller('AffiliateManagementController', [
         			}
         		});
 			};
+
+			$scope.generateCsv = function() {
+				$scope.generatingCsv = true;
+				return AffiliateService.filterAffiliates($scope.query, 0, 999999999, $scope.showAllAffiliates==1?null:$scope.homeMember, $scope.standingStateFilter,$scope.orderByField, $scope.reverseSort)
+					.then(function(response) {
+						var expressions = [
+						    $parse("affiliate.affiliateId"),
+						    $parse("affiliateActiveDetails.firstName + ' '+affiliateActiveDetails.lastName"),
+						    $parse("((affiliateActiveDetails.type | enum:'affiliate.type.')||'') + ' - '+((affiliateActiveDetails.subType | enum:'affiliate.subType.')||'') + ' '+ (affiliateActiveDetails.otherText||'')"),
+						    $parse("affiliate.standingState | enum:'affiliate.standingState.'"),
+						    $parse("affiliateActiveDetails.address.country.commonName||''"),
+						    $parse("affiliate.homeMember.key"),
+						    $parse("affiliateActiveDetails.email")
+						];
+						var result = [];
+						_.each(response.data, function(affiliate) {
+							var row = [];
+							_.each(expressions, function(expression) {
+								row.push(expression({
+									'affiliate': affiliate,
+									'affiliateActiveDetails': $scope.affiliateActiveDetails(affiliate)
+									}));
+							});
+							result.push(row);
+						});
+						$scope.generatingCsv = false;
+						return result;
+					})
+					["catch"](function(message) {
+						$scope.generatingCsv = false;
+						$log.log("csv generation failure: "+message);
+						$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+					});
+			};
+
 		} ]);
