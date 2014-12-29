@@ -797,7 +797,8 @@
       "DEACTIVATION_PENDING": "Deactivation Pending",
       "DEACTIVATED": "Deactivated",
       "DEREGISTERED": "Deregistered",
-      "PENDING_INVOICE": "Pending Invoice"
+      "PENDING_INVOICE": "Pending Invoice",
+      "INVOICE_SENT": "Invoice Sent"
     },
     "standingStateWithExplanation": {
       "APPLYING": "Applying",
@@ -806,7 +807,8 @@
       "DEACTIVATION_PENDING": "Deactivation Pending - Access to Account Only, No Download Capability",
       "DEACTIVATED": "Deactivated - Access to Account Only, No Download Capability",
       "DEREGISTERED": "Deregistered – No Access to MLDS Account",
-      "PENDING_INVOICE": "Pending Invoice – Access to Account only, Payment Outstanding"
+      "PENDING_INVOICE": "Pending Invoice – Access to Account only, Payment Outstanding",
+      "INVOICE_SENT": "Invoice Sent - Access to Account only, Payment Outstanding"
     }
   },
   "approval": {

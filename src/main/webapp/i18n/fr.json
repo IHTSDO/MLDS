@@ -684,7 +684,8 @@
       "DEACTIVATION_PENDING":"désactivationenattente",
       "DEACTIVATED":"Désactivé",
       "DEREGISTERED":"radiée",
-      "PENDING_INVOICE":"Enattentedefacture"
+      "PENDING_INVOICE":"Enattente defacture",
+      "INVOICE_SENT": "Invoice Sent FR"
     },
     "standingStateWithExplanation":{
       "APPLYING":"Application",
@@ -694,6 +695,7 @@
       "DEACTIVATED":"Désactivé",
       "DEREGISTERED":"radiée",
       "PENDING_INVOICE":"Enattentedefacture"
+      "INVOICE_SENT": "Invoice Sent FR"
     }
   },
   "approval":{
