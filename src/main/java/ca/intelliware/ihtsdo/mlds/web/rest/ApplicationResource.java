@@ -1,7 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
@@ -10,6 +15,11 @@ import javax.transaction.Transactional;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.joda.time.Instant;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -167,25 +177,77 @@ public class ApplicationResource {
 		return affiliate;
 	}
 	
+	private static final String FILTER_PENDING = "approvalState/pending eq true";
+	public static final String FILTER_HOME_MEMBER = "homeMember eq '(\\w+)'";
 	
 	@RequestMapping(value = Routes.APPLICATIONS, 
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Timed
-	public @ResponseBody ResponseEntity<ApplicationCollection> getApplications(@RequestParam(value="$filter", required=false) String filter){
-		Iterable<Application> applications;
-		if (StringUtils.isBlank(filter)) {
-			applications = applicationRepository.findAll();
+	public @ResponseBody ResponseEntity<ApplicationCollection> getApplications(
+    		@RequestParam(value="$page", defaultValue="0", required=false) Integer page,
+    		@RequestParam(value="$pageSize", defaultValue="50", required=false) Integer pageSize,
+    		@RequestParam(value="$orderby", required=false) String orderby,
+			@RequestParam(value="$filter", required=false) List<String> filters) {
+		
+		Page<Application> applications;
+		Sort sort = createApplicationsSort(orderby);
+		PageRequest pageRequest = new PageRequest(page, pageSize, sort);
+		Member member = null;
+		List<ApprovalState> approvalStates = null; 
+
+		if (filters == null || filters.size() == 0 || StringUtils.isBlank(filters.get(0))) {
+			applications = applicationRepository.findAll(pageRequest);
 		} else {
-			// Limited OData implementation - expand or use real OData library in the future
-			if (Objects.equal(filter, "approvalState/pending eq true")) {
-				applications = applicationRepository.findByApprovalStateIn(Lists.newArrayList(ApprovalState.SUBMITTED, ApprovalState.RESUBMITTED, ApprovalState.REVIEW_REQUESTED, ApprovalState.CHANGE_REQUESTED));
-			} else {
+			for (String filter : filters) {
+				Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
+				if (homeMemberMatcher.matches()) {
+					String homeMember = homeMemberMatcher.group(1);
+					member = memberRepository.findOneByKey(homeMember);
+					continue;
+				}
+				Matcher pendingMatcher = Pattern.compile(FILTER_PENDING).matcher(filter);
+				if (pendingMatcher.matches()) {
+					approvalStates = Lists.newArrayList(ApprovalState.SUBMITTED, ApprovalState.RESUBMITTED, ApprovalState.REVIEW_REQUESTED, ApprovalState.CHANGE_REQUESTED);
+					continue;
+				}
+				//FIXME Limited OData implementation - expand or use real OData library in the future
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}			
+			
+			if (member != null) {
+				if (approvalStates != null) {
+					applications = applicationRepository.findByApprovalStateInAndMember(approvalStates, member, pageRequest);
+				} else {
+					applications = applicationRepository.findByMember(member, pageRequest);
+				}
+			} else {
+				applications = applicationRepository.findByApprovalStateIn(approvalStates, pageRequest);
 			}
 		}
 		return new ResponseEntity<ApplicationCollection>(new ApplicationCollection(applications), HttpStatus.OK);
+	}
+
+	private static final Map<String,List<String>> ORDER_BY_FIELD_MAPPINGS = new HashMap<String,List<String>>();
+	static {
+		ORDER_BY_FIELD_MAPPINGS.put("applicationId", Arrays.asList("applicationId"));
+		ORDER_BY_FIELD_MAPPINGS.put("affiliateName", Arrays.asList("affiliateDetails.firstName", "affiliateDetails.lastName"));
+		ORDER_BY_FIELD_MAPPINGS.put("applicationType", Arrays.asList("applicationTypeValue"));
+		ORDER_BY_FIELD_MAPPINGS.put("agreementType", Arrays.asList("affiliateDetails.agreementType", "affiliate.affiliateDetails.agreementType"));
+		ORDER_BY_FIELD_MAPPINGS.put("useType", Arrays.asList("affiliateDetails.type", "affiliateDetails.subType"));
+		ORDER_BY_FIELD_MAPPINGS.put("submittedAt", Arrays.asList("submittedAt"));
+		ORDER_BY_FIELD_MAPPINGS.put("approvalState", Arrays.asList("approvalState"));
+		ORDER_BY_FIELD_MAPPINGS.put("country", Arrays.asList("affiliateDetails.address.country.commonName"));
+		ORDER_BY_FIELD_MAPPINGS.put("member", Arrays.asList("member.key"));
+		ORDER_BY_FIELD_MAPPINGS.put("email", Arrays.asList("affiliateDetails.email"));
+	}
+
+	private Sort createApplicationsSort(String orderby) {
+		Sort defaultSort = new Sort(
+				new Order(Direction.ASC, "applicationId")
+			);
+		return new SortBuilder().createSort(orderby, ORDER_BY_FIELD_MAPPINGS, defaultSort);
 	}
 
 	@RequestMapping(value = Routes.APPLICATION, 

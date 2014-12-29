@@ -112,7 +112,6 @@ public class AffiliateResource {
 	
 	public static final String FILTER_HOME_MEMBER = "homeMember eq '(\\w+)'";
 	public static final String FILTER_STANDING = "standingState eq '(\\w+)'";
-	public static final String ORDER_BY = "([\\w/]+) ?(asc|desc)?";
 	
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.AFFILIATES,
@@ -190,32 +189,6 @@ public class AffiliateResource {
 	}
 
 	private Sort createAffiliatesSort(String orderby) {
-		Sort sort = null;
-		if (StringUtils.isNotBlank(orderby)) {
-	    	Matcher matcher = Pattern.compile(ORDER_BY).matcher(orderby);
-	    	if (matcher.matches()) {
-	    		String matched = matcher.group(1);
-	    		List<String> fields = ORDER_BY_FIELD_MAPPINGS.get(matched);
-	    		if (fields.isEmpty()) {
-	    			//FIXME should ensure 400 bad request 
-	    			throw new IllegalArgumentException("Unknown orderby field");
-	    		}
-	    		Direction direction = Direction.ASC;
-	    		String directionString = matcher.group(2);
-	    		if ("desc".equalsIgnoreCase(directionString)) {
-	    			direction = Direction.DESC;
-	    		}
-	    		List<Order> orders = new ArrayList<Order>();
-	    		for (String field : fields) {
-					orders.add(new Order(direction, field));
-				}
-	    		sort = new Sort(orders);
-	    			
-	    	} else {
-	    		//FIXME should ensure 400 bad request 
-	    		throw new IllegalArgumentException("Could not parse orderby");
-	    	}
-		}
 		Sort defaultSort = new Sort(
 //				new Order(Direction.ASC, "affiliateDetails.organizationName"),
 //				new Order(Direction.ASC, "affiliateDetails.firstName"),
@@ -225,12 +198,7 @@ public class AffiliateResource {
 //				new Order(Direction.ASC, "application.affiliateDetails.lastName"),
 				new Order(Direction.ASC, "affiliateId")
 				);
-		if (sort != null) {
-			sort = sort.and(defaultSort);
-		} else {
-			sort = defaultSort;
-		}
-		return sort;
+		return new SortBuilder().createSort(orderby, ORDER_BY_FIELD_MAPPINGS, defaultSort);
 	}
 	
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
