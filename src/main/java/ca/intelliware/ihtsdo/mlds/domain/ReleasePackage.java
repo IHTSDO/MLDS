@@ -5,11 +5,13 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.Validate;
@@ -48,6 +50,11 @@ public class ReleasePackage extends BaseEntity {
 	String name;
 	
 	String description;
+	
+	@JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="licence_file")
+	private File licenceFile;  
 	
 	@OneToMany(mappedBy="releasePackage")
 	Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
@@ -122,6 +129,15 @@ public class ReleasePackage extends BaseEntity {
 	
 	public void setMember(Member member) {
 		this.member = member;
+	}
+
+	@JsonIgnore
+	public File getLicenceFile() {
+		return licenceFile;
+	}
+
+	public void setLicenceFile(File licenceFile) {
+		this.licenceFile = licenceFile;
 	}
 	
 }
