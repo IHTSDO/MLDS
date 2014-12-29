@@ -21,8 +21,21 @@
     <hr>
 	</div>
 	<div class="col-sm-2">
-  	<button class="btn btn-info btn-muted" ng-click="query = ''">Clear</button>
-  </div>
+  		<button class="btn btn-info btn-muted" ng-click="query = ''">Clear</button>
+  	</div>
+  	<div class="col-sm-2 text-right">
+  		Standing State:
+  	</div>
+  	<div class="col-sm-2">
+		<select class="form-control input-md"
+       		name="standingStateFilter"
+			required
+			ng-model="standingStateFilter"
+			ng-options="standingState | enum:'affiliate.standingState.' for standingState in standingStateOptions"
+			>
+			<option>
+		</select>
+  	</div>
 </div>
 
 <div class="row">
@@ -32,13 +45,104 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>No.</th>
-						<th>Affiliate Name</th>
-						<th>Agreement Type</th>
-						<th>Standing</th>
-						<th>Home Country</th>
-						<th>Member</th>
-						<th>Email</th>
+						<th>
+							<span ng-show="canSort">
+								<a ng-click="toggleField('affiliateId')">
+									No.
+									<span ng-show="orderByField == 'affiliateId'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								No.
+							</span>
+						</th>
+						<th>
+							<span ng-show="canSort">
+								<a ng-click="toggleField('name')">
+									Affiliate Name
+									<span ng-show="orderByField == 'name'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								Affiliate Name
+							</span>
+						</th>
+						<th>
+							<span ng-show="canSort">
+								<a ng-click="toggleField('agreementType')">
+									Agreement Type
+									<span ng-show="orderByField == 'agreementType'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								Agreement Type
+							</span>
+						</th>
+						<th>
+							<span ng-show="canSort">
+								<a ng-click="toggleField('standingState')">
+									Standing
+									<span ng-show="orderByField == 'standingState'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								Standing
+							</span>
+						</th>
+						<th>
+							<span ng-show="canSort">
+								<a ng-click="toggleField('homeCountry')">
+									Home Country
+									<span ng-show="orderByField == 'homeCountry'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								Home Country
+							</span>
+						</th>
+						<th>
+							<span ng-show="canSort">
+								<a ng-click="toggleField('member')">
+									Member
+									<span ng-show="orderByField == 'member'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								Member
+							</span>
+						</th>
+						<th>
+							<span ng-show="canSort">
+								<a ng-click="toggleField('email')">
+									Email
+									<span ng-show="orderByField == 'email'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								Email
+							</span>
+						</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -56,6 +160,6 @@
 				</tbody>
 			</table>
 			<div ng-show='downloadingAffiliates' class="text-center"><i class="fa fa-spinner"></i> Loading data...</div>
-			<div ng-show='noResults'>No results.</div>
+			<div ng-show='noResults && !downloadingAffiliates'>No results.</div>
 	</div>
 </div>
