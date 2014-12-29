@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import java.io.IOException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
@@ -7,7 +9,10 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
+import org.joda.time.Instant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +20,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import ca.intelliware.ihtsdo.mlds.domain.File;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
+import ca.intelliware.ihtsdo.mlds.repository.BlobHelper;
+import ca.intelliware.ihtsdo.mlds.repository.FileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
+import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.collect.Sets;
@@ -31,6 +42,11 @@ import com.google.common.collect.Sets;
 @RestController
 public class ReleasePackagesResource {
 
+	@Resource EntityManager entityManager;
+	@Resource BlobHelper blobHelper;
+	@Resource FileRepository fileRepository;
+	@Resource SessionService sessionService;
+	
 	@Resource
 	ReleasePackageRepository releasePackageRepository;
 
@@ -201,5 +217,44 @@ public class ReleasePackagesResource {
     	return new ResponseEntity<>(HttpStatus.OK);
     }
 
+	@RequestMapping(value = Routes.RELEASE_PACKAGE_LICENSE,
+            method = RequestMethod.POST,
+    		headers = "content-type=multipart/*",
+            produces = "application/json")
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Transactional
+	@Timed
+    public ResponseEntity<?> updateReleasePackageLicense(@PathVariable long releasePackageId, @RequestParam(value="file", required = false) MultipartFile multipartFile) throws IOException {
+		ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
+    	if (releasePackage == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
 
+		if (multipartFile != null && !multipartFile.isEmpty()) {
+			File licenseFile = updateFile(multipartFile, releasePackage.getLicenceFile());
+			releasePackage.setLicenceFile(licenseFile);
+		}
+
+		releasePackageRepository.save(releasePackage);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	private File updateFile(MultipartFile multipartFile, File existingFile) throws IOException {
+		File newFile = new File();
+
+		if (existingFile != null) {
+			entityManager.detach(existingFile);
+		}
+
+		Blob blob = blobHelper.createBlobFrom(multipartFile);
+		newFile.setContent(blob);
+		newFile.setCreator(sessionService.getUsernameOrNull());
+		newFile.setFilename(multipartFile.getOriginalFilename());
+		newFile.setMimetype(multipartFile.getContentType());
+		newFile.setLastUpdated(Instant.now());
+
+		fileRepository.save(newFile);
+		return newFile;
+	}
 }
