@@ -68,11 +68,17 @@
 							{{releaseFile.label}}
 						</button>
 						
-						<a href="{{releaseFile.clientDownloadUrl}}" 
-							ng-hide="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding" 
-							target="_blank">
+<!-- 						<a href="{{releaseFile.clientDownloadUrl}}"  -->
+<!-- 							ng-hide="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding"  -->
+<!-- 							target="_blank"> -->
+<!-- 							{{releaseFile.label}} -->
+<!-- 						</a> -->
+						
+						<button class="btn btn-link" ng-hide="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding"
+							ng-click="downloadReleaseFile(releaseFile.clientDownloadUrl)">
 							{{releaseFile.label}}
-						</a>
+						</button>
+						
 					</div>
 				</div>
 				</div>

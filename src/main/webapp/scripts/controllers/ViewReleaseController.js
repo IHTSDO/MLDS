@@ -2,8 +2,8 @@
 
 angular.module('MLDS')
     .controller('ViewReleaseController', 
-    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location', '$log', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService', 'StandingStateUtils',
-          function($scope, $routeParams, PackagesService, PackageUtilsService, $location, $log, UserAffiliateService, ApplicationUtilsService, MemberService, StandingStateUtils){
+    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location', '$log', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService', 'StandingStateUtils', '$modal', 'ReleasePackageService', '$window',
+          function($scope, $routeParams, PackagesService, PackageUtilsService, $location, $log, UserAffiliateService, ApplicationUtilsService, MemberService, StandingStateUtils, $modal, ReleasePackageService, $window) {
     	
 	var releasePackageId = $routeParams.releasePackageId && parseInt($routeParams.releasePackageId, 10);
 	
@@ -83,7 +83,7 @@ angular.module('MLDS')
 			});
 		} else {
 			$scope.goToViewPackages();
-		};
+		}
 	};
 
 	loadReleasePackage();
@@ -92,6 +92,22 @@ angular.module('MLDS')
 		$location.path('/viewReleases');
 	};
 		
+	$scope.viewReleaseLicense = function() {
+		ReleasePackageService.getReleaseLicense(releasePackageId);
+	};
+	
+	$scope.downloadReleaseFile = function(downloadUrl) {
+		var modalInstance = $modal.open({
+	      templateUrl: 'views/user/reviewReleaseLicenseModal.html',
+	      size: 'lg',
+	      scope: $scope
+	    });
+	
+	    modalInstance.result.then(function () {
+	    	$window.open(downloadUrl, '_blank');
+	    });
+	};
+	
 }]);
 
 
