@@ -21,19 +21,26 @@ mldsApp.controller('AffiliateManagementController', [
 			$scope.query = AffiliateService.affiliateQuery ? AffiliateService.affiliateQuery : '';
 			$scope.page = 0;
 			
-			$scope.orderByField = 'standingState';
-			$scope.reverseSort = false;
+			$scope.orderByField = AffiliateService.orderByField ? AffiliateService.orderByField : 'standingState';
+			$scope.reverseSort = AffiliateService.reverseSort ? AffiliateService.reverseSort : false;
 
-			$scope.standingStateFilter = null;
+			$scope.standingStateFilter = AffiliateService.standingStateFilter ? AffiliateService.standingStateFilter : null;
 			
 			$scope.canSort = true;
 			$scope.standingStateOptions = StandingStateUtils.options();
 
 			$scope.alerts = [];						
 
-			function loadMoreAffiliates() {
+			function rememberVisualState() {
 				AffiliateService.affiliateQuery = $scope.query;
 				AffiliateService.showAllAffiliates = $scope.showAllAffiliates;
+				AffiliateService.orderByField = $scope.orderByField;
+				AffiliateService.reverseSort = $scope.reverseSort;
+				AffiliateService.standingStateFilter = $scope.standingStateFilter;
+			}
+			
+			function loadMoreAffiliates() {
+				rememberVisualState();
 				
 				if ($scope.downloadingAffiliates) {
 					return;
@@ -68,6 +75,11 @@ mldsApp.controller('AffiliateManagementController', [
 				
 				loadMoreAffiliates();
 			}
+			
+			$scope.clearSearch = function() {
+				$scope.standingStateFilter = null;
+				$scope.query = '';
+			};
 
 			$scope.toggleField = function(fieldName) {
 				if ($scope.orderByField !== fieldName) {
