@@ -14,17 +14,17 @@ mldsApp.controller('AffiliateManagementController', [
 				PackagesService, AffiliateService, StandingStateUtils) {
 
 			$scope.affiliates = [];
-			$scope.showAllAffiliates = AffiliateService.showAllAffiliates ? AffiliateService.showAllAffiliates : 0;
+			$scope.showAllAffiliates = AffiliateService.affiliatesFilter.showAllAffiliates ? AffiliateService.affiliatesFilter.showAllAffiliates : 0;
 			$scope.homeMember = Session.member || {member: 'NONE'};
 			$scope.isAdmin = Session.isAdmin();
 			$scope.downloadingAffiliates = false;
-			$scope.query = AffiliateService.affiliateQuery ? AffiliateService.affiliateQuery : '';
+			$scope.query = AffiliateService.affiliatesFilter.affiliateQuery ? AffiliateService.affiliatesFilter.affiliateQuery : '';
 			$scope.page = 0;
 			
-			$scope.orderByField = AffiliateService.orderByField ? AffiliateService.orderByField : 'standingState';
-			$scope.reverseSort = AffiliateService.reverseSort ? AffiliateService.reverseSort : false;
+			$scope.orderByField = AffiliateService.affiliatesFilter.orderByField ? AffiliateService.affiliatesFilter.orderByField : 'standingState';
+			$scope.reverseSort = AffiliateService.affiliatesFilter.reverseSort ? AffiliateService.affiliatesFilter.reverseSort : false;
 
-			$scope.standingStateFilter = AffiliateService.standingStateFilter ? AffiliateService.standingStateFilter : null;
+			$scope.standingStateFilter = AffiliateService.affiliatesFilter.standingStateFilter ? AffiliateService.affiliatesFilter.standingStateFilter : null;
 			
 			$scope.canSort = true;
 			$scope.standingStateOptions = StandingStateUtils.options();
@@ -32,11 +32,11 @@ mldsApp.controller('AffiliateManagementController', [
 			$scope.alerts = [];						
 
 			function rememberVisualState() {
-				AffiliateService.affiliateQuery = $scope.query;
-				AffiliateService.showAllAffiliates = $scope.showAllAffiliates;
-				AffiliateService.orderByField = $scope.orderByField;
-				AffiliateService.reverseSort = $scope.reverseSort;
-				AffiliateService.standingStateFilter = $scope.standingStateFilter;
+				AffiliateService.affiliatesFilter.affiliateQuery = $scope.query;
+				AffiliateService.affiliatesFilter.showAllAffiliates = $scope.showAllAffiliates;
+				AffiliateService.affiliatesFilter.orderByField = $scope.orderByField;
+				AffiliateService.affiliatesFilter.reverseSort = $scope.reverseSort;
+				AffiliateService.affiliatesFilter.standingStateFilter = $scope.standingStateFilter;
 			}
 			
 			function loadMoreAffiliates() {
