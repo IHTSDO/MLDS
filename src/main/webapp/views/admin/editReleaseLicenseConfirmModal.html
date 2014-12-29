@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+  <h3 class="modal-title">Replace Terms &amp; Conditions</h3>
+</div>
+<div class="modal-body">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	<p>Are you sure you want to replace the current license file with the uploaded license file?</p>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-link" ng-click="$dismiss()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-success" ng-click="$close('ok')">
+		<i class="fa fa-upload"></i>
+		Upload and Replace
+		<span ng-show="submitting"><i class="fa fa-spinner"></i></span>
+	</button>
+</div>
