@@ -12,8 +12,14 @@ angular.module('MLDS')
 		return $http.get('/app/rest/affiliates?q='+encodeURIComponent(q));
 	};
 	
-	service.filterAffiliates = function(q, page, pageSize, member) {
-		return $http.get('/app/rest/affiliates?q='+encodeURIComponent(q)+'&$page='+encodeURIComponent(page)+'&$pageSize='+encodeURIComponent(pageSize)+(member?'&$filter='+encodeURIComponent('homeMember eq \''+member.key+'\''):''));
+	service.filterAffiliates = function(q, page, pageSize, member, standingState, orderBy, reverseSort) {
+		return $http.get('/app/rest/affiliates?q='+encodeURIComponent(q)+
+				'&$page='+encodeURIComponent(page)+
+				'&$pageSize='+encodeURIComponent(pageSize)+
+				(member?'&$filter='+encodeURIComponent('homeMember eq \''+member.key+'\''):'')+
+				(orderBy?'&$orderby='+encodeURIComponent(orderBy)+(reverseSort?' desc':''):'')+
+				(standingState?'&$filter='+encodeURIComponent('standingState eq \''+standingState+'\''):'')
+				);
 	};
 
 	service.myAffiliate = function() {

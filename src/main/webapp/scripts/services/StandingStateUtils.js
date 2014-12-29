@@ -3,6 +3,10 @@
 mldsApp.factory('StandingStateUtils', [function(){
 
 		var service = {};
+		
+		service.options = function() {
+			return ['APPLYING', 'REJECTED', 'IN_GOOD_STANDING', 'DEACTIVATED', 'DEACTIVATION_PENDING', 'PENDING_INVOICE', 'DEREGISTERED'];
+		};
 
 		service.isApplying = function isApplying(standingState) {
 			return (standingState === 'APPLYING');
