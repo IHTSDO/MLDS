@@ -32,6 +32,17 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				return $http.get('/app/rest/applications?$filter='+encodeURIComponent('approvalState/pending eq true'));
 			},
 
+			filterPendingApplications: function(q, page, pageSize, member, orderBy, reverseSort) {
+				return $http.get('/app/rest/applications?'+
+						/* q */
+						'$filter='+encodeURIComponent('approvalState/pending eq true')+
+						'&$page='+encodeURIComponent(page)+
+						'&$pageSize='+encodeURIComponent(pageSize)+
+						(member?'&$filter='+encodeURIComponent('homeMember eq \''+member.key+'\''):'')+
+						(orderBy?'&$orderby='+encodeURIComponent(orderBy)+(reverseSort?' desc':''):'')
+						);
+			},
+
 			getApplicationById: function(applicationId) {
 				return $http.get('/app/rest/applications/'+encodeURIComponent(applicationId));
 			},
