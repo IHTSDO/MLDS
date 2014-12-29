@@ -1469,5 +1469,14 @@ $f$ language plpgsql;
 			where standing_state = 'DEREGISTRATION_PENDING'
     	</sql>
     </changeSet>
+    
+    <changeSet id="MLDS-864-1" author="AC">
+    	<comment>Add licence file to Release Package</comment>
+    	<addColumn tableName="release_package">
+    		<column name="licence_file" type="INT8">
+    			<constraints foreignKeyName="licence_file" referencedTableName="file" referencedColumnNames="file_id"/>
+    		</column>
+    	</addColumn>
+    </changeSet>
         
 </databaseChangeLog>
