@@ -1,7 +1,13 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="page-header">
-			<h2 translate="pendingApplications.title">Pending Applications</h2>
+			<h2>
+				<span translate="pendingApplications.title">Pending Applications</span>
+				<button class="btn btn-primary pull-right" type="button" ng-csv="generateCsv()" lazy-load="true" csv-header="['No.', 'Affiliate Name', 'Application Type', 'Agreement Type', 'Use Type', 'Date Submitted', 'Status', 'Country', 'Member', 'Email']" filename="pending-applications.csv">
+					<i class="fa fa-download"></i> Export as CSV
+					<span ng-show="generatingCsv" ><i class="fa fa-spinner fa-spin"></i></span>
+				</button>
+			</h2>
 			<div ng-show="isAdmin">
 				<span>Show: </span>
 				<select ng-model="showAllApplications">
@@ -83,7 +89,7 @@
 						</th>
 						<th class="col-md-1">
 							<a ng-click="toggleField('country')">
-								<span translate="pendingApplications.table.homeCountry">Home Country</span>
+								<span translate="pendingApplications.table.homeCountry">Country</span>
 								<span ng-show="orderByField == 'country'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
@@ -128,7 +134,7 @@
 					<td class="col-md-1">{{application.affiliateDetails.address.country.commonName}}</td>
 					<td class="col-md-1">{{application.member.key | enum:'global.member.'}}</td>
 					<td class="col-md-1">
-						<a href="mailto:{{affiliate.affiliateDetails.email}}">{{application.affiliateDetails.email}}</a>
+						<a href="mailto:{{application.affiliateDetails.email}}">{{application.affiliateDetails.email}}</a>
 					</td>
 					
 					<td class="col-md-1">
@@ -139,7 +145,7 @@
 				</tr>
 				</tbody>
 			</table>
-			<div ng-show="downloadingApplications" class="text-center"><i class="fa fa-spinner"></i> Loading data...</div>
+			<div ng-show="downloadingApplications" class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading data...</div>
 			<div ng-show="noResults && !downloadingApplications">No results.</div>
 			
 		</div>

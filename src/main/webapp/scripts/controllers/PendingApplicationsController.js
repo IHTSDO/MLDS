@@ -4,12 +4,13 @@ angular.module('MLDS').controller('PendingApplicationsController', [
 		'$scope',
 		'$log',
 		'$location',
+		'$parse',
 		'Session',
 		'UserRegistrationService',
 		'DomainBlacklistService',
 		'PackagesService',
 		'AffiliateService',
-		function($scope, $log, $location, Session, UserRegistrationService, DomainBlacklistService,
+		function($scope, $log, $location, $parse, Session, UserRegistrationService, DomainBlacklistService,
 				PackagesService, AffiliateService) {
 
 			$scope.applications = [];
@@ -24,6 +25,8 @@ angular.module('MLDS').controller('PendingApplicationsController', [
 
 			$scope.orderByField = UserRegistrationService.pendingApplicationsFilter.orderByField ? UserRegistrationService.pendingApplicationsFilter.orderByField : 'submittedAt';
 			$scope.reverseSort = UserRegistrationService.pendingApplicationsFilter.reverseSort ? UserRegistrationService.pendingApplicationsFilter.reverseSort : false;
+
+			$scope.generatingCsv = false;
 
 			function rememberVisualState() {
 				var store = UserRegistrationService.pendingApplicationsFilter;
@@ -116,4 +119,43 @@ angular.module('MLDS').controller('PendingApplicationsController', [
 					}
 					return count;
 			};
+			
+			$scope.generateCsv = function() {
+				$scope.generatingCsv = true;
+				return UserRegistrationService.filterPendingApplications($scope.query, 0, 999999999, $scope.showAllApplications==1?null:$scope.homeMember, $scope.orderByField, $scope.reverseSort)
+					.then(function(response) {
+						var expressions = [
+						    $parse("application.applicationId"),
+						    $parse("application.affiliateDetails.firstName + ' '+application.affiliateDetails.lastName"),
+						    $parse("application.applicationType | enum:'application.applicationType.'"),
+						    $parse("isPrimary ? ((application.affiliateDetails.agreementType | enum:'affiliate.agreementType.')||'') : ((application.affiliate.affiliateDetails.agreementType | enum:'affiliate.agreementType.')||'')"),
+						    $parse("isPrimary ? (((application.type | enum:'affiliate.type.')||'') + ' - '+ ((application.subType | enum:'affiliate.subType.')||'')) : ((application.affiliate.type | enum:'affiliate.type.')||'')"),
+						    $parse("application.submittedAt | date: 'yyyy-MM-dd'"),
+						    $parse("application.approvalState | enum:'approval.state.'"),
+						    $parse("(application.affiliateDetails.address.country.commonName)||''"),
+						    $parse("(application.member.key | enum:'global.member.')||''"),
+						    $parse("application.affiliateDetails.email")
+						];
+						var result = [];
+						_.each(response.data, function(application) {
+							var row = [];
+							_.each(expressions, function(expression) {
+								row.push(expression({
+									'application':application,
+									'isPrimary': application.applicationType === 'PRIMARY',
+									'isExtension': application.applicationType === 'EXTENSION'
+									}));
+							});
+							result.push(row);
+						});
+						$scope.generatingCsv = false;
+						return result;
+					})
+					["catch"](function(message) {
+						$scope.generatingCsv = false;
+						$log.log("csv generation failure: "+message);
+						$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+					});
+			};
+			
 		} ]);
