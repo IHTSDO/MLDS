@@ -43,8 +43,10 @@ mldsApp.controller('AffiliateManagementController', [
 				rememberVisualState();
 				
 				if ($scope.downloadingAffiliates) {
+					// If a loadAffiliates (loadReset === true) had been called then need to redownload once the current download is complete
 					return;
 				}
+				$scope.loadReset = false;
 				$scope.downloadingAffiliates = true;
 				$scope.alerts = [];
 				AffiliateService.filterAffiliates($scope.query, $scope.page, 50, $scope.showAllAffiliates==1?null:$scope.homeMember, $scope.standingStateFilter,$scope.orderByField, $scope.reverseSort)
@@ -58,11 +60,17 @@ mldsApp.controller('AffiliateManagementController', [
 						}
 						$scope.page = $scope.page + 1;
 						$scope.downloadingAffiliates = false;
+						if ($scope.loadReset) {
+							loadAffiliates();
+						}
 					})
 					["catch"](function(message) {
 						$scope.downloadingAffiliates = false;
 						$log.log("affiliates download failure: "+message);
 						$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+						if ($scope.loadReset) {
+							loadAffiliates();
+						}
 					});
 			}
 			
@@ -72,6 +80,8 @@ mldsApp.controller('AffiliateManagementController', [
 				$scope.page = 0;
 				$scope.noResults = true;
 				$scope.canSort = !$scope.query;
+				
+				$scope.loadReset = true;
 				
 				loadMoreAffiliates();
 			}
