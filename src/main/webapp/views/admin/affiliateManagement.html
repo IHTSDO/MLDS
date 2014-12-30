@@ -80,24 +80,26 @@
 							</span>
 						</th>
 						<th class="col-md-2">
-							<select class="form-control input-sm"
-					       		name="standingStateFilter"
-								required
-								ng-model="standingStateFilter"
-								ng-options="standingState | enum:'affiliate.standingState.' for standingState in standingStateOptions"
-								>
-								<option>
-							</select>
-							<br>
-							<span ng-show="canSort">
-								<a ng-click="toggleField('standingState')">
-									Standing
-									<span ng-show="orderByField == 'standingState'">
+							<span class="btn-group" dropdown  ng-show="canSort">
+					      <a href class="dropdown-toggle" data-toggle="dropdown">
+					        Standing
+					        <span ng-show="orderByField == 'standingState'">
 										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
 									</span>
-								</a>
-							</span>
+					      </a>
+					      <ul class="dropdown-menu">
+					      	<li><button class="btn btn-link btn-muted" ng-click="toggleField('standingState', false)"><i class="fa fa-sort-alpha-asc"></i> Sort A to Z</button></li>
+					      	<li><button class="btn btn-link btn-muted" ng-click="toggleField('standingState', true)"><i class="fa fa-sort-alpha-desc"></i> Sort Z to A</button></li>
+					      	<li class="divider"></li>
+					        <li ng-repeat="standingState in standingStateOptions" >
+					          <button class="btn btn-link btn-muted" ng-click="filterStandingState(standingState)" ng-class="{selected: standingStateFilter === standingState}">
+					          	{{standingState | enum:'affiliate.standingState.'}}
+				          	</button>
+					        </li>
+					      </ul>
+					    </span>
+					    
 							<span ng-hide="canSort">
 								Standing
 							</span>
