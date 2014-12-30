@@ -94,19 +94,28 @@ mldsApp.controller('AffiliateManagementController', [
 				$scope.query = '';
 			};
 
-			$scope.toggleField = function(fieldName) {
+			$scope.toggleField = function(fieldName, isDescendingOrder) {
 				if ($scope.orderByField !== fieldName) {
 					$scope.reverseSort = false;
 				} else {
 					$scope.reverseSort = !$scope.reverseSort;
 				}
+				
+				if (typeof(isDescendingOrder) !== 'undefined') {
+					$scope.reverseSort = isDescendingOrder;
+				}
+				
 				$scope.orderByField = fieldName; 
+				loadAffiliates();
+			};
+			
+			$scope.filterStandingState = function(state) {
+				$scope.standingStateFilter = state;
 				loadAffiliates();
 			};
 			
 			$scope.$watch('showAllAffiliates', loadAffiliates);
 			$scope.$watch('query', loadAffiliates);
-			$scope.$watch('standingStateFilter', loadAffiliates);
 						
 			$scope.nextPage = function() {
 				return loadMoreAffiliates();
