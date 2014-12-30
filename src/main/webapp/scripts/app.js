@@ -458,10 +458,10 @@ mldsApp
         }])
         .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES', 'LandingRedirectService',
             function($rootScope, $location, $http, $log, AuthenticationSharedService, Session, USER_ROLES, LandingRedirectService) {
-        		$log.log('app.js startup');
+        		//$log.log('app.js startup');
         		
                 $rootScope.$on('$routeChangeStart', function (event, next) {
-                	$log.log('in $routeChangeStart', event, next, $location.path(), window.location.hash);
+                	//$log.log('in $routeChangeStart', event, next, $location.path(), window.location.hash);
                     $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
                     $rootScope.userRoles = USER_ROLES;
                     if (next.access && next.access.authorizedRoles) {
