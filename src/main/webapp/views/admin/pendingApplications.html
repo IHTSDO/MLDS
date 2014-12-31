@@ -26,6 +26,7 @@
 						<th class="col-md-1">
 							<a ng-click="toggleField('applicationId')">
 								No.
+								<span ng-hide="orderByField == 'applicationId'"><i class="fa fa-sort"></i></span>
 								<span ng-show="orderByField == 'applicationId'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
@@ -35,6 +36,7 @@
 						<th class="col-md-2">
 							<a ng-click="toggleField('affiliateName')">
 								<span translate="pendingApplications.table.affiliateName">Affiliate Name</span>
+								<span ng-hide="orderByField == 'affiliateName'"><i class="fa fa-sort"></i></span>
 								<span ng-show="orderByField == 'affiliateName'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
@@ -44,6 +46,7 @@
 						<th class="col-md-1">
 							<a ng-click="toggleField('applicationType')">
 								<span translate="pendingApplications.table.applicationType">Application Type</span>
+								<span ng-hide="orderByField == 'applicationType'"><i class="fa fa-sort"></i></span>
 								<span ng-show="orderByField == 'applicationType'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
@@ -53,6 +56,7 @@
 						<th class="col-md-1">
 							<a ng-click="toggleField('agreementType')">
 								<span translate="pendingApplications.table.agreementType">Agreement Type</span>
+								<span ng-hide="orderByField == 'agreementType'"><i class="fa fa-sort"></i></span>
 								<span ng-show="orderByField == 'agreementType'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
@@ -62,6 +66,7 @@
 						<th class="col-md-1">
 							<a ng-click="toggleField('useType')">
 								<span translate="pendingApplications.table.useType">Use Type</span>
+								<span ng-hide="orderByField == 'useType'"><i class="fa fa-sort"></i></span>
 								<span ng-show="orderByField == 'useType'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
@@ -72,6 +77,7 @@
 						<th class="col-md-1">
 							<a ng-click="toggleField('submittedAt')">
 								<span translate="pendingApplications.table.dateSubmitted">Date Submitted</span>
+								<span ng-hide="orderByField == 'submittedAt'"><i class="fa fa-sort"></i></span>
 								<span ng-show="orderByField == 'submittedAt'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
@@ -81,6 +87,7 @@
 						<th class="col-md-1">
 							<a ng-click="toggleField('approvalState')">
 								<span translate="pendingApplications.table.status">Status </span>
+								<span ng-hide="orderByField == 'approvalState'"><i class="fa fa-sort"></i></span>
 								<span ng-show="orderByField == 'approvalState'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
@@ -90,6 +97,7 @@
 						<th class="col-md-1">
 							<a ng-click="toggleField('country')">
 								<span translate="pendingApplications.table.homeCountry">Country</span>
+								<span ng-hide="orderByField == 'country'"><i class="fa fa-sort"></i></span>
 								<span ng-show="orderByField == 'country'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
@@ -99,6 +107,7 @@
 						<th class="col-md-1">
 							<a ng-click="toggleField('member')">
 								<span  translate="pendingApplications.table.member">Member</span>
+								<span ng-hide="orderByField == 'member'"><i class="fa fa-sort"></i></span>
 								<span ng-show="orderByField == 'member'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
@@ -108,6 +117,7 @@
 						<th class="col-md-1">
 							<a ng-click="toggleField('email')">
 								<span translate="pendingApplications.table.email">Email</span>
+								<span ng-hide="orderByField == 'email'"><i class="fa fa-sort"></i></span>
 								<span ng-show="orderByField == 'email'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
