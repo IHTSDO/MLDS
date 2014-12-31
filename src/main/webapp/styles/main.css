@@ -18,11 +18,23 @@
 	background-color: #FFF;
 }
 
+.selected {
+	font-weight: bold;
+}
+
 .branding-showcase {
 	border: 4px solid #E5E5E5;
 }
 .branding-showcase .container {
 	width: 100%;	
+}
+
+.dropdown-menu .btn-link {
+	color: inherit;
+}
+
+.dropdown-menu .btn-link:hover {
+	text-decoration: none;
 }
 
 /* start Password strength bar style */

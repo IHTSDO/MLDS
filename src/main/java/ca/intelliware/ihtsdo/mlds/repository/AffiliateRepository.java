@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.repository;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 
 public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 	List<Affiliate> findByCreatorIgnoreCase(String userName);
@@ -41,4 +43,8 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 	Page<Affiliate> findByTextQuery(@Param("q") String q, Pageable pageable);
 
 	Page<Affiliate> findByHomeMember(Member homeMember, Pageable pageable);
+
+	Page<Affiliate> findByHomeMemberAndStandingState(Member homeMember, StandingState standingState, Pageable pageable);
+
+	Page<Affiliate> findByStandingState(StandingState standingState, Pageable pageable);
 }

@@ -50,7 +50,7 @@ mldsApp.controller('AffiliateSummaryController', [
             	})
     			["catch"](function(message) {
     				$scope.alerts.push({type: 'danger', msg: 'Network request failure retrieving audit logs, please try again later.'});
-    				$log.log('Failed to update audit list: '+message);
+    				$log.error('Failed to update audit list: '+message);
     			});
 	        }
 			
@@ -135,7 +135,7 @@ mldsApp.controller('AffiliateSummaryController', [
 			
 			$scope.createLogin = function createLogin(){
 				if (!$scope.affiliate.affiliateDetails.email) {
-					$log.log('no email!');
+					$log.error('no email!');
 					createLoginModal({noEmail: 'true'});
 					return;
 				}
@@ -146,12 +146,12 @@ mldsApp.controller('AffiliateSummaryController', [
 			function requestLoginCreation() {
 				AffiliateService.createLogin($scope.affiliate)
 				.success(function(result) {
-					$log.log('login created');
+					//$log.log('login created');
 					$scope.alerts.push({type: 'success', msg: 'Login has been successfully created for user.'});
 					loadAffiliate();
 				})
 				.error(function(result) {
-					$log.log('error open modal');
+					$log.error('error open modal');
 					createLoginModal({duplicateEmail: 'true'});
 				});
 			};

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('ReleaseController', 
-		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService', 'ReleaseFilesService', 'PackageUtilsService',
-		 function($scope, $log, $routeParams, $location, $modal, PackagesService, ReleaseFilesService, PackageUtilsService) {
+		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService', 'ReleaseFilesService', 'PackageUtilsService', 'ReleasePackageService',
+		 function($scope, $log, $routeParams, $location, $modal, PackagesService, ReleaseFilesService, PackageUtilsService, ReleasePackageService) {
 
 	$scope.versions = {
 			online: [],
@@ -18,13 +18,13 @@ angular.module('MLDS').controller('ReleaseController',
 	
 			
 	var releasePackageId = $routeParams.packageId && parseInt($routeParams.packageId, 10);
-	$log.log('releasePackageId', releasePackageId);
+	//$log.log('releasePackageId', releasePackageId);
 	var loadReleasePackage = function loadReleasePackage() {
 		if (releasePackageId) {
 			PackagesService.get({releasePackageId: releasePackageId})
 			.$promise.then(function(result) {
 				if (PackageUtilsService.isReleasePackageInactive(result)) {
-					$log.log('Selected ReleasePackage is inactive');
+					$log.info('Selected ReleasePackage is inactive');
 					$scope.goToReleaseManagement();
 				} 
 				
@@ -34,7 +34,7 @@ angular.module('MLDS').controller('ReleaseController',
 				})
 					["catch"](function(message) {
 						//FIXME how to handle errors + not present
-						$log.log('ReleasePackage not found');
+						$log.error('ReleasePackage not found');
 						$scope.goToReleaseManagement();
 					});
 		} else {
@@ -187,7 +187,25 @@ angular.module('MLDS').controller('ReleaseController',
     	modalInstance.result.then(loadReleasePackage);
     };
     
+    $scope.updateLicense = function() {
+    	$log.log('Update License');
+    	var modalInstance = $modal.open({
+  	      	templateUrl: 'views/admin/releasePackageLicenseModal.html',
+  	      	controller: 'ReleasePackageLicenseController',
+  	      	scope: $scope,
+  	      	size: 'lg',
+  	      	backdrop: 'static',
+  	      	resolve: {
+              releasePackage: function() { return angular.copy($scope.packageEntity); }
+            }
+  	    });
+    	modalInstance.result.then();
+    };
     
+    $scope.viewLicense = function() {
+		ReleasePackageService.getReleaseLicense($scope.packageEntity.releasePackageId);
+	};
+        
     $scope.goToReleaseManagement = function() {
     	$location.path('/releaseManagement');
     };

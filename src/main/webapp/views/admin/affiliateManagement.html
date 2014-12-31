@@ -1,7 +1,13 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="page-header">
-			<h2>Affiliate Management</h2>
+			<h2>
+				<span>Affiliate Management</span>
+				<button class="btn btn-primary pull-right" type="button" ng-csv="generateCsv()" lazy-load="true" csv-header="['No.', 'Affiliate Name', 'Agreement Type', 'Standing', 'Home Country', 'Member', 'Email']" filename="affiliates.csv">
+					<i class="fa fa-download"></i> Export as CSV
+					<span ng-show="generatingCsv" ><i class="fa fa-spinner fa-spin"></i></span>
+				</button>
+			</h2>
 			<div ng-show="isAdmin">
 				<span>Show: </span>
 				<select ng-model="showAllAffiliates">
@@ -21,41 +27,150 @@
     <hr>
 	</div>
 	<div class="col-sm-2">
-  	<button class="btn btn-info btn-muted" ng-click="query = ''">Clear</button>
-  </div>
+  		<button class="btn btn-info btn-muted" ng-click="clearSearch()">Clear</button>
+  	</div>
 </div>
 
 <div class="row">
 	<div class="col-sm-12">
-		  <div ng-show='!noResults && query'>Search results</div>
 		  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>No.</th>
-						<th>Affiliate Name</th>
-						<th>Agreement Type</th>
-						<th>Standing</th>
-						<th>Home Country</th>
-						<th>Member</th>
-						<th>Email</th>
-						<th></th>
+						<th class="col-md-1">
+							<span ng-show="canSort">
+								<a ng-click="toggleField('affiliateId')">
+									No.
+									<span ng-hide="orderByField == 'affiliateId'"><i class="fa fa-sort"></i></span>
+									<span ng-show="orderByField == 'affiliateId'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								No.
+							</span>
+						</th>
+						<th class="col-md-2">
+							<span ng-show="canSort">
+								<a ng-click="toggleField('name')">
+									Affiliate Name
+									<span ng-hide="orderByField == 'name'"><i class="fa fa-sort"></i></span>
+									<span ng-show="orderByField == 'name'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								Affiliate Name
+							</span>
+						</th>
+						<th class="col-md-2">
+							<span ng-show="canSort">
+								<a ng-click="toggleField('agreementType')">
+									Agreement Type
+									<span ng-hide="orderByField == 'agreementType'"><i class="fa fa-sort"></i></span>
+									<span ng-show="orderByField == 'agreementType'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								Agreement Type
+							</span>
+						</th>
+						<th class="col-md-2">
+							<span class="btn-group" dropdown  ng-show="canSort">
+					      <a href class="dropdown-toggle" data-toggle="dropdown">
+					        Standing<span ng-show="standingStateFilter">: {{standingStateFilter | enum:'affiliate.standingState.'}}</span> 
+					        <span ng-hide="orderByField == 'standingState'"><i class="fa fa-sort"></i></span>
+					        <span ng-show="orderByField == 'standingState'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+					      </a>
+					      <ul class="dropdown-menu">
+					      	<li><button class="btn btn-link btn-muted" ng-click="toggleField('standingState', false)"><i class="fa fa-sort-alpha-asc"></i> Sort A to Z</button></li>
+					      	<li><button class="btn btn-link btn-muted" ng-click="toggleField('standingState', true)"><i class="fa fa-sort-alpha-desc"></i> Sort Z to A</button></li>
+					      	<li class="divider"></li>
+					        <li ng-repeat="standingState in standingStateOptions" >
+					          <button class="btn btn-link btn-muted" ng-click="filterStandingState(standingState)" ng-class="{selected: standingStateFilter === standingState}">
+					          	{{standingState | enum:'affiliate.standingState.'}}
+				          	</button>
+					        </li>
+					      </ul>
+					    </span>
+					    
+							<span ng-hide="canSort">
+								Standing
+							</span>
+							
+						</th>
+						<th class="col-md-1">
+							<span ng-show="canSort">
+								<a ng-click="toggleField('homeCountry')">
+									Home Country
+									<span ng-hide="orderByField == 'homeCountry'"><i class="fa fa-sort"></i></span>
+									<span ng-show="orderByField == 'homeCountry'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								Home Country
+							</span>
+						</th>
+						<th class="col-md-1">
+							<span ng-show="canSort">
+								<a ng-click="toggleField('member')">
+									Member
+									<span ng-hide="orderByField == 'member'"><i class="fa fa-sort"></i></span>
+									<span ng-show="orderByField == 'member'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								Member
+							</span>
+						</th>
+						<th class="col-md-2">
+							<span ng-show="canSort">
+								<a ng-click="toggleField('email')">
+									Email
+									<span ng-hide="orderByField == 'email'"><i class="fa fa-sort"></i></span>
+									<span ng-show="orderByField == 'email'">
+										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+									</span>
+								</a>
+							</span>
+							<span ng-hide="canSort">
+								Email
+							</span>
+						</th>
+						<th class="col-md-1"></th>
 					</tr>
 				</thead>
 				<tbody infinite-scroll="nextPage()" infinite-scroll-distance="1" infinite-scroll-disabled="downloadingAffiliates">
 					<tr ng-click="viewAffiliate(affiliate.affiliateId)" ng-repeat="affiliate in affiliates">
-						<td>{{affiliate.affiliateId}}</td>
-						<td>{{affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
-						<td>{{affiliateActiveDetails(affiliate).type | enum:'affiliate.type.'}} - {{affiliateActiveDetails(affiliate).subType | enum:'affiliate.subType.'}} {{affiliateActiveDetails(affiliate).otherText}}</td>
-						<td>{{affiliate.standingState | enum:'affiliate.standingState.'}}</td>
-						<td>{{affiliateActiveDetails(affiliate).address.country.commonName}}</td>
-						<td>{{affiliate.homeMember.key}}</td>
-						<td><a href="mailto:{{affiliate.affiliateDetails.email}}">{{affiliateActiveDetails(affiliate).email}}</a></td>
-						<td> <a class="btn btn-primary btn-sm" ng-click="viewAffiliate(affiliate.affiliateId)"><i class="fa fa-eye"></i> View Affiliate</a></td>
+						<td class="col-md-1">{{affiliate.affiliateId}}</td>
+						<td class="col-md-2">{{affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</td>
+						<td class="col-md-2">{{affiliateActiveDetails(affiliate).type | enum:'affiliate.type.'}} - {{affiliateActiveDetails(affiliate).subType | enum:'affiliate.subType.'}} {{affiliateActiveDetails(affiliate).otherText}}</td>
+						<td class="col-md-2">{{affiliate.standingState | enum:'affiliate.standingState.'}}</td>
+						<td class="col-md-1">{{affiliateActiveDetails(affiliate).address.country.commonName}}</td>
+						<td class="col-md-1">{{affiliate.homeMember.key}}</td>
+						<td class="col-md-2"><a href="mailto:{{affiliate.affiliateDetails.email}}">{{affiliateActiveDetails(affiliate).email}}</a></td>
+						<td class="col-md-1"><a class="btn btn-primary btn-sm" ng-click="viewAffiliate(affiliate.affiliateId)"><i class="fa fa-eye"></i> View</a></td>
 					</tr>
 				</tbody>
 			</table>
-			<div ng-show='downloadingAffiliates' class="text-center"><i class="fa fa-spinner"></i> Loading data...</div>
-			<div ng-show='noResults'>No results.</div>
+			<div ng-show="downloadingAffiliates" class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading data...</div>
+			<div ng-show="noResults && !downloadingAffiliates">No results.</div>
 	</div>
 </div>

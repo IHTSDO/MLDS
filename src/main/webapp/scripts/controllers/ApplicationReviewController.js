@@ -38,16 +38,16 @@ mldsApp.controller('ApplicationReviewController', [
             	})
     			["catch"](function(message) {
     				$scope.alerts.push({type: 'danger', msg: 'Network request failure retrieving audit logs, please try again later.'});
-    				$log.log('Failed to update audit list: '+message);
+    				$log.error('Failed to update audit list: '+message);
     			});
 	        }
 
 			function loadApplication() {
-				$log.log("load application...");
+				//$log.log("load application...");
 				var queryPromise = UserRegistrationService.getApplicationById(applicationId);
 
 				queryPromise.success(function(application) {
-						$log.log("getapplicationbyid.... success");
+						//$log.log("getapplicationbyid.... success");
 						//$log.log('loadApplication', application);
 						$scope.application = application;
 						
@@ -80,7 +80,7 @@ mldsApp.controller('ApplicationReviewController', [
 								return count.country.commonName.toLowerCase();
 							});
 						}
-						$log.log("getapplicatiobyid... success end");
+						//$log.log("getapplicatiobyid... success end");
 				});
 			}
 

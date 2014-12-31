@@ -81,6 +81,10 @@ public abstract class Application extends BaseEntity {
 	@JoinColumn(name="member_id")
     Member member;
 
+	@Column(name="application_type", insertable=false, updatable=false)
+	String applicationTypeValue;
+
+	
 	public Application() {
 		
 	}
@@ -185,4 +189,10 @@ public abstract class Application extends BaseEntity {
 	
 	@JsonIgnore
 	public abstract ApplicationType getApplicationType();
+	
+	@JsonIgnore
+	public String getApplicationTypeValue() {
+		return applicationTypeValue;
+	};
+
 }

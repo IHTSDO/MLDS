@@ -29,6 +29,7 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/underscore/underscore.js',
             'src/main/webapp/bower_components/intl-tel-input/build/js/intlTelInput.js',
             'src/main/webapp/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
+            'src/main/webapp/bower_components/ng-csv/build/ng-csv.js',
             'src/main/webapp/scripts/*.js',
             'src/main/webapp/scripts/**/*.js',
             'src/test/javascript/**/!(karma.conf).js'

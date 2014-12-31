@@ -8,12 +8,42 @@
 				<thead>
 					<tr>
 						<th>Affiliate Name</th>
-						<th><a ng-click="orderByField='submitted'; reverseSort = !reverseSort">Date Submitted <span ng-show="orderByField == 'submitted'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span></a></th>
-						<th><a ng-click="orderByField='approvalState'; reverseSort = !reverseSort">Status <span ng-show="orderByField == 'approvalState'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span></a></th>
-						<th><a ng-click="orderByField='type'; reverseSort = !reverseSort">Type <span ng-show="orderByField == 'type'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span></a></th>
+						<th>
+							<a ng-click="orderByField='submitted'; reverseSort = !reverseSort">
+								Date Submitted
+								<span ng-hide="orderByField == 'submitted'"><i class="fa fa-sort"></i></span> 
+								<span ng-show="orderByField == 'submitted'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+							</a>
+						</th>
+						<th>
+							<a ng-click="orderByField='approvalState'; reverseSort = !reverseSort">
+								Status
+								<span ng-hide="orderByField == 'approvalState'"><i class="fa fa-sort"></i></span> 
+								<span ng-show="orderByField == 'approvalState'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+							</a>
+						</th>
+						<th>
+							<a ng-click="orderByField='type'; reverseSort = !reverseSort">
+								Type 
+								<span ng-hide="orderByField == 'type'"><i class="fa fa-sort"></i></span>
+								<span ng-show="orderByField == 'type'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+							</a>
+						</th>
 						<th>Implementation Status</th>
-						<th>Start Date</th>
-						<th>End Date</th>
+						<th>
+							<a ng-click="orderByField='startDate'; reverseSort = !reverseSort">
+								Start Date 
+								<span ng-hide="orderByField == 'startDate'"><i class="fa fa-sort"></i></span>
+								<span ng-show="orderByField == 'startDate'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+							</a>
+						</th>
+						<th>
+							<a ng-click="orderByField='endDate'; reverseSort = !reverseSort">
+								End Date
+								<span ng-hide="orderByField == 'endDate'"><i class="fa fa-sort"></i></span> 
+								<span ng-show="orderByField == 'endDate'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+							</a>
+						</th>
 						<th>Hospitals</th>
 						<th>Practices</th>
 						<th></th>
@@ -21,11 +51,10 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="usageReport in usageReports | orderBy:orderByField:reverseSort | filter:reportSearch()"  ng-click="usageReportsUtils.goToReviewUsageReport(usageReport)">
-					<td>{{usageReport.affiliate.application.affiliateDetails.organizationName ? usageReport.affiliate.application.affiliateDetails.organizationName : usageReport.affiliate.affiliateDetails.firstName + ' ' + usageReport.affiliate.affiliateDetails.lastName}}</td>
+					<td>{{usageReport.affiliate.affiliateDetails.firstName + ' ' + usageReport.affiliate.affiliateDetails.lastName}}</td>
 					<td>{{usageReport.submitted | date: 'yyyy-MM-dd'}}</td>
 					<td>{{usageReport.approvalState | enum:'approval.state.'}}</td>
 					<td>{{usageReport.type | enum:'affiliate.type.'}}</td>
-					
 					<td>{{usageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</td>
 					<td>{{usageReport.startDate}}</td>
 					<td>{{usageReport.endDate}}</td>

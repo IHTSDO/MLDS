@@ -111,7 +111,8 @@ public class Routes {
 	 * - PUT
 	 * - DELETE
 	 */
-	public static final String RELEASE_PACKAGE = "/app/rest/releasePackages/{releasePackageId}"; 
+	public static final String RELEASE_PACKAGE = "/app/rest/releasePackages/{releasePackageId}";
+	public static final String RELEASE_PACKAGE_LICENSE = "/app/rest/releasePackages/{releasePackageId}/license"; 
 
 	/**
 	 * control endpoint for release version within package:
