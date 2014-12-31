@@ -371,6 +371,8 @@ public class ApplicationResource {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 		
+		application.getAffiliate().setAffiliateDetails(application.getAffiliateDetails());
+		
 		applicationRepository.save(application);
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
