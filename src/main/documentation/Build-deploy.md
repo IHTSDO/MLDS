@@ -22,6 +22,8 @@ Releases are produced using the jgitflow plugin, implementing the [Gitflow](http
 	mvn jgitflow:release-finish
 	git push
 
+Note that the release-finish step takes a while to upload.
+
 Once the application is packaged as an executable war file, we then generate a Debian installable .deb file using the jdeb plugin.  The contents and config for this are in the pom.xml xml and in the [src/main/deb](../deb) folder.
 
 Releases are published to the [IHTSDO Maven Nexus Repository](https://maven.ihtsdotools.org) using the normal deploy processes.  If you wish to publish a snapshot version (e.g for a nightly deploy), run
