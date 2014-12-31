@@ -3,7 +3,7 @@
 /* App Module */
 
 var mldsApp = angular.module('MLDS', ['http-auth-interceptor', 'tmh.dynamicLocale',
-    'ngResource', 'ngRoute', 'ngCookies', 'ngSanitize', 'mldsAppUtils', 'pascalprecht.translate', 'truncate', 'ui.bootstrap', 'infinite-scroll']);
+    'ngResource', 'ngRoute', 'ngCookies', 'ngSanitize', 'mldsAppUtils', 'pascalprecht.translate', 'truncate', 'ui.bootstrap', 'infinite-scroll', 'ngCsv']);
 
 mldsApp
     .config(['$routeProvider', '$httpProvider', '$translateProvider',  'tmhDynamicLocaleProvider', 'USER_ROLES',
@@ -458,10 +458,10 @@ mldsApp
         }])
         .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES', 'LandingRedirectService',
             function($rootScope, $location, $http, $log, AuthenticationSharedService, Session, USER_ROLES, LandingRedirectService) {
-        		$log.log('app.js startup');
+        		//$log.log('app.js startup');
         		
                 $rootScope.$on('$routeChangeStart', function (event, next) {
-                	$log.log('in $routeChangeStart', event, next, $location.path(), window.location.hash);
+                	//$log.log('in $routeChangeStart', event, next, $location.path(), window.location.hash);
                     $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
                     $rootScope.userRoles = USER_ROLES;
                     if (next.access && next.access.authorizedRoles) {

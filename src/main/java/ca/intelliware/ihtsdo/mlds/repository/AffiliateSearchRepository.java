@@ -13,6 +13,7 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.BooleanJunction;
+import org.hibernate.search.query.dsl.MustJunction;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 
 /**
  * Turn on trace level logging to get lucene score and explain info on query.
@@ -44,26 +46,8 @@ public class AffiliateSearchRepository {
 		getFullTextEntityManager().index(a);
 	}
 
-	public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, Pageable pageable) {
-		
-		QueryBuilder queryBuilder = getSearchFactory().buildQueryBuilder()
-				.forEntity(Affiliate.class).get();
-		
-		
-		Query textQuery = buildWildcardQueryForTokens(queryBuilder, q);
-		
-		Query query;
-		if (homeMember ==null) {
-			query = textQuery;
-		} else {
-			Query homeMemberQuery = buildQueryMatchingHomeMember(queryBuilder, homeMember);
-			
-			query = queryBuilder
-					.bool()
-					.must(textQuery)
-					.must(homeMemberQuery)
-					.createQuery();
-		}
+	public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, StandingState standingState, Pageable pageable) {
+		Query query = buildQuery(q, homeMember, standingState);
 		
 		FullTextQuery ftQuery = getFullTextEntityManager().createFullTextQuery(query, Affiliate.class);
 		
@@ -78,6 +62,31 @@ public class AffiliateSearchRepository {
 		LOG.debug("Found {} results for query: {}", ftQuery.getResultSize(), q);
 		
 		return new PageImpl<>(resultList, pageable, ftQuery.getResultSize());
+	}
+
+	private Query buildQuery(String q, Member homeMember, StandingState standingState) {
+		QueryBuilder queryBuilder = getSearchFactory().buildQueryBuilder()
+				.forEntity(Affiliate.class).get();
+		
+		Query textQuery = buildWildcardQueryForTokens(queryBuilder, q);
+		
+		if (homeMember == null && standingState == null) {
+			return textQuery;
+		} else {
+			MustJunction building = queryBuilder
+					.bool()
+					.must(textQuery);
+			
+			if (homeMember != null) {
+				Query homeMemberQuery = buildQueryMatchingHomeMember(queryBuilder, homeMember);
+				building = building.must(homeMemberQuery);
+			}
+			if (standingState != null) {
+				Query standingStateQuery = buildQueryMatchingStandingState(queryBuilder, standingState);
+				building = building.must(standingStateQuery);
+			}
+			return building.createQuery();
+		}
 	}
 
 	private SearchFactory getSearchFactory() {
@@ -111,6 +120,13 @@ public class AffiliateSearchRepository {
 				.onField("homeMember").matching(homeMember.getKey())
 				.createQuery();
 		return homeMemberQuery;
+	}
+
+	Query buildQueryMatchingStandingState(QueryBuilder queryBuilder, StandingState standingState) {
+		Query standingStateQuery = queryBuilder.keyword()
+				.onField("standingState").matching(standingState)
+				.createQuery();
+		return standingStateQuery;
 	}
 
 	Query buildWildcardQueryForTokens(QueryBuilder queryBuilder, String q) {

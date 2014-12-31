@@ -389,7 +389,8 @@ CREATE TABLE release_package (
     name character varying(255),
     description text,
     inactive_at timestamp with time zone,
-    member_id bigint NOT NULL
+    member_id bigint NOT NULL,
+    licence_file bigint
 );
 
 
@@ -917,6 +918,14 @@ ALTER TABLE ONLY t_persistent_token
 
 ALTER TABLE ONLY password_reset_token
     ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES t_user(user_id);
+
+
+--
+-- Name: licence_file; Type: FK CONSTRAINT; Schema: public; Owner: mlds
+--
+
+ALTER TABLE ONLY release_package
+    ADD CONSTRAINT licence_file FOREIGN KEY (licence_file) REFERENCES file(file_id);
 
 
 --
