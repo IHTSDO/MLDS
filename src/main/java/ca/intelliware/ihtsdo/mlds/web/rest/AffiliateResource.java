@@ -180,12 +180,12 @@ public class AffiliateResource {
 	static {
 		//FIXME using both the affiliateDetails and the application.affiliateDetails causes discrepancies in the order and text shown on the front end. Perhaps we should keep affiliateDetails up to date with primary application affiliateDetail updates?
 		ORDER_BY_FIELD_MAPPINGS.put("affiliateId", Arrays.asList("affiliateId"));
-		ORDER_BY_FIELD_MAPPINGS.put("name", Arrays.asList("application.affiliateDetails.firstName", "application.affiliateDetails.lastName", "affiliateDetails.firstName", "affiliateDetails.lastName"));
-		ORDER_BY_FIELD_MAPPINGS.put("agreementType", Arrays.asList("application.affiliateDetails.type", "application.affiliateDetails.subType", "affiliateDetails.type", "affiliateDetails.subType"));
+		ORDER_BY_FIELD_MAPPINGS.put("name", Arrays.asList("affiliateDetails.firstName", "affiliateDetails.lastName"));
+		ORDER_BY_FIELD_MAPPINGS.put("agreementType", Arrays.asList("affiliateDetails.type", "affiliateDetails.subType"));
 		ORDER_BY_FIELD_MAPPINGS.put("standingState", Arrays.asList("standingState"));
-		ORDER_BY_FIELD_MAPPINGS.put("homeCountry", Arrays.asList("application.affiliateDetails.address.country.commonName", "affiliateDetails.address.country.commonName"));
+		ORDER_BY_FIELD_MAPPINGS.put("homeCountry", Arrays.asList("affiliateDetails.address.country.commonName"));
 		ORDER_BY_FIELD_MAPPINGS.put("member", Arrays.asList("homeMember.key"));
-		ORDER_BY_FIELD_MAPPINGS.put("email", Arrays.asList("application.affiliateDetails.email", "affiliateDetails.email"));
+		ORDER_BY_FIELD_MAPPINGS.put("email", Arrays.asList("affiliateDetails.email"));
 	}
 
 	private Sort createAffiliatesSort(String orderby) {
