@@ -1,7 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -106,6 +111,7 @@ public class AffiliateResource {
 	public static final int DEFAULT_PAGE_SIZE = 50;
 	
 	public static final String FILTER_HOME_MEMBER = "homeMember eq '(\\w+)'";
+	public static final String FILTER_STANDING = "standingState eq '(\\w+)'";
 	
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.AFFILIATES,
@@ -116,48 +122,84 @@ public class AffiliateResource {
     		@RequestParam(required=false) String q,
     		@RequestParam(value="$page", defaultValue="0", required=false) Integer page,
     		@RequestParam(value="$pageSize", defaultValue="50", required=false) Integer pageSize,
-    		@RequestParam(value="$filter", required=false) String filter) {
+    		@RequestParam(value="$filter", required=false) List<String> filters,
+    		@RequestParam(value="$orderby", required=false) String orderby) {
 		Page<Affiliate> affiliates;
-		Sort sort = new Sort(
-				new Order(Direction.ASC, "affiliateDetails.organizationName"),
-				new Order(Direction.ASC, "affiliateDetails.firstName"),
-				new Order(Direction.ASC, "affiliateDetails.lastName"),
-				new Order(Direction.ASC, "application.affiliateDetails.organizationName"),
-				new Order(Direction.ASC, "application.affiliateDetails.firstName"),
-				new Order(Direction.ASC, "application.affiliateDetails.lastName"),
-				new Order(Direction.ASC, "affiliateId")
-				);
+		Sort sort = createAffiliatesSort(orderby);
 		PageRequest pageRequest = new PageRequest(page, pageSize, sort);
 		Member member = null;
+		StandingState standingState = null;
 		
-		if (StringUtils.isBlank(filter)) {
+		if (filters == null || filters.size() == 0 || StringUtils.isBlank(filters.get(0))) {
     		if (StringUtils.isBlank(q)) {
     			affiliates = affiliateRepository.findAll(pageRequest);
     		} else {
     			affiliates = affiliateRepository.findByTextQuery(q.toLowerCase(), pageRequest);
     		}
 		} else {
-	    	Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
-	    	if (homeMemberMatcher.matches()) {
-	    		String homeMember = homeMemberMatcher.group(1);
-	    		member = memberRepository.findOneByKey(homeMember);
-	    	} else {
-	        	//FIXME support more kinds of filters...
-	    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			for (String filter : filters) {
+				Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
+				if (homeMemberMatcher.matches()) {
+					String homeMember = homeMemberMatcher.group(1);
+					member = memberRepository.findOneByKey(homeMember);
+					continue;
+				}
+				Matcher standingStateMatcher = Pattern.compile(FILTER_STANDING).matcher(filter);
+				if (standingStateMatcher.matches()) {
+					String standingStateString = standingStateMatcher.group(1);
+					standingState = StandingState.valueOf(standingStateString);
+					continue;
+				}
+				//FIXME support more kinds of filters...
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
 		
 		if (!StringUtils.isBlank(q)) {
-			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, pageRequest) ;
+			//Note that sorting in the pageRequest is not currently respected by lucene
+			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, pageRequest) ;
 		} else {
 			if (member == null) {
-				affiliates = affiliateRepository.findAll(pageRequest);
+				if (standingState == null) {
+					affiliates = affiliateRepository.findAll(pageRequest);
+				} else {
+					affiliates = affiliateRepository.findByStandingState(standingState, pageRequest);
+				}
 			} else {
-				affiliates = affiliateRepository.findByHomeMember(member, pageRequest);
+				if (standingState == null) {
+					affiliates = affiliateRepository.findByHomeMember(member, pageRequest);
+				} else {
+					affiliates = affiliateRepository.findByHomeMemberAndStandingState(member, standingState, pageRequest);
+				}
 			}
     	}
 		return new ResponseEntity<Collection<Affiliate>>(affiliates.getContent(), HttpStatus.OK);
     }
+	
+	private static final Map<String,List<String>> ORDER_BY_FIELD_MAPPINGS = new HashMap<String,List<String>>();
+	static {
+		//FIXME using both the affiliateDetails and the application.affiliateDetails causes discrepancies in the order and text shown on the front end. Perhaps we should keep affiliateDetails up to date with primary application affiliateDetail updates?
+		ORDER_BY_FIELD_MAPPINGS.put("affiliateId", Arrays.asList("affiliateId"));
+		ORDER_BY_FIELD_MAPPINGS.put("name", Arrays.asList("affiliateDetails.firstName", "affiliateDetails.lastName"));
+		ORDER_BY_FIELD_MAPPINGS.put("agreementType", Arrays.asList("affiliateDetails.type", "affiliateDetails.subType"));
+		ORDER_BY_FIELD_MAPPINGS.put("standingState", Arrays.asList("standingState"));
+		ORDER_BY_FIELD_MAPPINGS.put("homeCountry", Arrays.asList("affiliateDetails.address.country.commonName"));
+		ORDER_BY_FIELD_MAPPINGS.put("member", Arrays.asList("homeMember.key"));
+		ORDER_BY_FIELD_MAPPINGS.put("email", Arrays.asList("affiliateDetails.email"));
+	}
+
+	private Sort createAffiliatesSort(String orderby) {
+		Sort defaultSort = new Sort(
+//				new Order(Direction.ASC, "affiliateDetails.organizationName"),
+//				new Order(Direction.ASC, "affiliateDetails.firstName"),
+//				new Order(Direction.ASC, "affiliateDetails.lastName"),
+//				new Order(Direction.ASC, "application.affiliateDetails.organizationName"),
+//				new Order(Direction.ASC, "application.affiliateDetails.firstName"),
+//				new Order(Direction.ASC, "application.affiliateDetails.lastName"),
+				new Order(Direction.ASC, "affiliateId")
+				);
+		return new SortBuilder().createSort(orderby, ORDER_BY_FIELD_MAPPINGS, defaultSort);
+	}
 	
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.AFFILIATE,

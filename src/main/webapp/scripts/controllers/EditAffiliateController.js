@@ -22,6 +22,7 @@ mldsApp.controller('EditAffiliateController', [
 			$scope.readOnly = false;
 			$scope.type;
 	        $scope.availableCountries = CountryService.countries;
+	        $scope.loading = true;
 
 	    	$scope.agreementTypeOptions = ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD'];
 	    	
@@ -34,6 +35,7 @@ mldsApp.controller('EditAffiliateController', [
 					$scope.isEditable = Session.isAdmin() || (Session.member.key == affiliate.application.member.key);
 					$scope.readOnly = !ApplicationUtilsService.isApplicationApproved(affiliate.application) || !$scope.isEditable;
 					$scope.type = affiliate.type;
+					$scope.loading = false;
 					
 					if (affiliate.affiliateDetails) {
 						$scope.affiliateDetails = affiliate.affiliateDetails;

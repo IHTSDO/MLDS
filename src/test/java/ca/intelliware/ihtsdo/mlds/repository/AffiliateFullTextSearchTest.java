@@ -29,6 +29,7 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.search.AngularTranslateServiceSetup;
 
 import com.google.common.collect.Lists;
@@ -186,7 +187,7 @@ public class AffiliateFullTextSearchTest {
 		affiliates.get(4).getAffiliateDetails().setEmail("fred22@exampleZZZ.com");
 		flush();
 		
-		List<Affiliate> resultList = search("fred22@exampleZZZ.com", ihtsdo);
+		List<Affiliate> resultList = search("fred22@exampleZZZ.com", ihtsdo, null);
 		
 		assertThat(resultList.size(), is(1));
 		assertThat(resultList, contains(affiliates.get(4)));
@@ -204,11 +205,11 @@ public class AffiliateFullTextSearchTest {
 	}
 	
 	private List<Affiliate> search(String query) {
-		return search(query, null);
+		return search(query, null, null);
 	}
 
-	private List<Affiliate> search(String query, Member member) {
-		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),member,new PageRequest(0, 50)).getContent();
+	private List<Affiliate> search(String query, Member member, StandingState standingState) {
+		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),member,standingState,new PageRequest(0, 50)).getContent();
 		return resultList;
 	}
 

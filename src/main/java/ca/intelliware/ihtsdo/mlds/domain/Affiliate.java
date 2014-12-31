@@ -83,7 +83,10 @@ public class Affiliate extends BaseEntity {
 	@Column(name="notes_internal")
 	String notesInternal;
 
-	@Field(name="ALL",bridge=@FieldBridge(impl=StandingStateFieldBridge.class))
+	@Fields({
+		@Field(name="standingState",bridge=@FieldBridge(impl=StandingStateFieldBridge.class)),
+		@Field(name="ALL",bridge=@FieldBridge(impl=StandingStateFieldBridge.class))
+	})
 	@Enumerated(EnumType.STRING)
 	@Column(name="standing_state")
 	StandingState standingState = StandingState.APPLYING;

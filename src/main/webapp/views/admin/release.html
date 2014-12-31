@@ -3,11 +3,22 @@
 
 	<div class="col-md-12">
 		
-			<h2>{{packageEntity.name}} - {{packageEntity.member.key | enum:'global.member.'}}
-				<a class="btn btn-primary"  ng-click="editReleasePackage()" ng-show="isEditableReleasePackage"><i class="fa fa-pencil"></i> Edit</a>
-				<button class="btn btn-success" ng-click="addReleaseVersion()" ng-show="isEditableReleasePackage"><i class="fa fa-plus"></i> Add Version</button>
-				<a class="btn btn-danger btn-sm"  ng-click="removeReleasePackage()" ng-show="isEditableReleasePackage && isRemovableReleasePackage"><i class="fa fa-times"></i> Delete</a>
-			</h2>
+			<div>
+				<div class="btn-group pull-right" dropdown ng-show="isEditableReleasePackage">
+					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Edit  <i class="caret"></i></button>
+					<ul class="dropdown-menu dropdown-menu-right" role="menu">
+	   				<li><a ng-click="editReleasePackage()"><i class="fa fa-edit"></i> Edit Package</a></li>
+						<li class="divider"></li>
+						<li><a ng-click="viewLicense()"><i class="fa fa-gavel"></i> View License</a></li>
+							<li><a ng-click="updateLicense()"><i class="fa fa-edit"></i> Edit License</a></li>
+							<li class="divider"></li>
+							<li><a ng-click="addReleaseVersion()"><i class="fa fa-plus"></i> Add Version</a></li>
+							<li ng-show="isEditableReleasePackage && isRemovableReleasePackage" class="divider"></li>
+							<li ng-show="isEditableReleasePackage && isRemovableReleasePackage"><a ng-click="removeReleasePackage()"><i class="fa fa-times"></i> Delete</a></li>
+					</ul>
+				</div>
+				<h2>{{packageEntity.name}} - {{packageEntity.member.key | enum:'global.member.'}}</h2>
+			</div>
 			
 			<p>{{packageEntity.description}}</p>
 	
@@ -64,7 +75,7 @@
 
 	<div class="col-lg-12">
 		<h3>Offline Versions</h3>
-<p>Set one or more versions of a release to public view by selecting publish online" from the drop down menu. Set one or more versions online to move this release to public view. </p>
+<p>Set one or more versions of a release to public view by selecting "Publish Online" from the drop down menu. Set one or more versions online to move this release to public view. </p>
 	<table class="table table-striped" >
 				<thead>
 					<tr>

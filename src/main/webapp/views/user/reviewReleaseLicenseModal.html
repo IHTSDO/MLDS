@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h3 class="modal-title">Release Package License</h3>
+</div>
+<div class="modal-body">
+	<p>Please review the following license and accept them before downloading the release package:</p>
+	<button ng-click="viewReleaseLicense()" class="btn btn-muted btn-default btn-block">
+		{{releasePackage.name}} License
+	</button>
+	<label>
+		<input type="checkbox" ng-model="isLicenseAccepted" value="1"> I agree to the license.		
+	</label>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-muted btn-success" ng-click="$close()" ng-disabled="!isLicenseAccepted">Download</button>
+    <button class="btn btn-muted btn-link pull-left" ng-click="$dismiss()">Cancel</button>
+</div>
