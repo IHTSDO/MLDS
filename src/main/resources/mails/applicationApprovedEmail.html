@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
     <head>
         <title th:text="#{applicationApproved.title}">IHTSDO-MLDS Application Approved</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
+
     <body>
         <p th:text="#{email.greeting(${user.firstName + ' ' + user.lastName})}">
             Dear user,
         </p>
         <p th:text="#{applicationApproved.text(${affiliateId})}">
-            You application for using SNOMED CT has been approved, your affiliate number is X. 
-            Your license which includes the ability to download SNOMED CT will be activated upon receiving payment. 
-            You can view your Account Standing by logging into your MLDS account and looking in the Account Information section on your Dashboard view.
+            You application for using SNOMED CT has been approved, your affiliate number is X.
+            <br>
+            <br> If applicable, you will be sent an invoice based upon your use of SNOMED CT. Once the invoice has been paid, you will be able to download SNOMED CT.
+            <br>
+            <br> You can view your Account Standing by logging into your MLDS account and looking in the Account Information section on your Dashboard view.
         </p>
         <p>
-            <a th:href="@{${loginUrl}}"
-               th:text="#{duplicateRegistration.loginLinkLabel}">Login</a>
-        </p>        
+            <a th:href="@{${loginUrl}}" th:text="#{duplicateRegistration.loginLinkLabel}">Login</a>
+        </p>
         <p>
             <span th:text="#{email.close}">Regards, </span>
             <br/>
             <em th:text="#{email.signature}">IHTSDO-MLDS</em>
         </p>
     </body>
+
 </html>
