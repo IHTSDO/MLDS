@@ -1,6 +1,26 @@
 <footer role="admin">
- 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
- 		<p class="pull-left">&copy; IHTSDO 2014</p>
-    	<a class="btn btn-link pull-right" target="_blank" href="/tos.html">Terms of Service</a>
-     </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+        <p class="pull-left">&copy; IHTSDO 2015</p>
+        <a class="btn btn-link pull-right" target="_blank" href="/tos.html">Terms of Service</a>
+        <a class="btn btn-link pull-right" href="http://www.iubenda.com/api/privacy-policy/104809">Privacy Policy</a>
+
+        <script type="text/javascript">
+            (function(w, d) {
+                var loader = function() {
+                    var s = d.createElement("script"),
+                        tag = d.getElementsByTagName("script")[0];
+                    s.src = "//cdn.iubenda.com/iubenda.js";
+                    tag.parentNode.insertBefore(s, tag);
+                };
+                if (w.addEventListener) {
+                    w.addEventListener("load", loader, false);
+                } else if (w.attachEvent) {
+                    w.attachEvent("onload", loader);
+                } else {
+                    w.onload = loader;
+                }
+            })(window, document);
+        </script>
+
+    </div>
 </footer>
