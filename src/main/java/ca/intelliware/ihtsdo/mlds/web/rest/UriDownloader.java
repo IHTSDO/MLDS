@@ -22,8 +22,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UriDownloader {
 
-    private static final String HEADER_CONTENT_DISPOSITION = "Content-Disposition";
-    
+	private static final String HEADER_CONTENT_DISPOSITION = "Content-Disposition";
+
 	private final Logger log = LoggerFactory.getLogger(UriDownloader.class);
 
 	public int download(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) {
@@ -31,22 +31,22 @@ public class UriDownloader {
 			CloseableHttpClient httpClient = createHttpClient();
 			try {
 				HttpGet hostingRequest = new HttpGet(downloadUrl);
-		    	copyClientHeadersToHostingRequest(clientRequest, hostingRequest);
-		    	CloseableHttpResponse hostingResponse = httpClient.execute(hostingRequest);
-		    	try {
-		    		int statusCode = hostingResponse.getStatusLine().getStatusCode();
-		    		if (statusCode >= 200 && statusCode < 300 || statusCode == HttpStatus.SC_NOT_MODIFIED) {
-				    	copyHostingHeadersToClientResponse(hostingResponse, clientResponse);
-				    	setContentDispositionIfMissing(hostingResponse, clientResponse, downloadUrl);
-				    	HttpEntity hostingEntity = hostingResponse.getEntity();
-				    	hostingEntity.writeTo(clientResponse.getOutputStream());
-			    	} else {
-			    		clientResponse.sendError(statusCode);
-			    	}
-		    		return statusCode;
-		    	} finally {
-		    		hostingResponse.close();
-		    	}
+				copyClientHeadersToHostingRequest(clientRequest, hostingRequest);
+				CloseableHttpResponse hostingResponse = httpClient.execute(hostingRequest);
+				try {
+					int statusCode = hostingResponse.getStatusLine().getStatusCode();
+					if (statusCode >= 200 && statusCode < 300 || statusCode == HttpStatus.SC_NOT_MODIFIED) {
+						copyHostingHeadersToClientResponse(hostingResponse, clientResponse);
+						setContentDispositionIfMissing(hostingResponse, clientResponse, downloadUrl);
+						HttpEntity hostingEntity = hostingResponse.getEntity();
+						hostingEntity.writeTo(clientResponse.getOutputStream());
+					} else {
+						clientResponse.sendError(statusCode);
+					}
+					return statusCode;
+				} finally {
+					hostingResponse.close();
+				}
 			} finally {
 				httpClient.close();
 			}
