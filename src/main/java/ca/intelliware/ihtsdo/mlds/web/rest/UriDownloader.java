@@ -81,6 +81,7 @@ public class UriDownloader {
 
 	public int downloadS3(S3Location s3Location, String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse)
 			throws IOException {
+		log.debug("Attempting to download {} from S3", s3Location.toString());
 		FileHelper s3Helper = new FileHelper(s3Location.bucket, s3Client);
 		InputStream fileContents = s3Helper.getFileStream(s3Location.filePath);
 		if (fileContents != null) {
@@ -90,12 +91,13 @@ public class UriDownloader {
 			clientResponse.setHeader("Content-Disposition", "attachment;filename=" + fileName);
 			StreamUtils.copy(fileContents, clientResponse.getOutputStream());
 		} else {
-			clientResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			clientResponse.sendError(HttpStatus.SC_NOT_FOUND);
 		}
 		return clientResponse.getStatus();
 	}
 
 	public int downloadHTTP(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) {
+		log.debug("Attempting to download {} via HTTP", downloadUrl);
 		try {
 			CloseableHttpClient httpClient = createHttpClient();
 			try {
@@ -205,6 +207,10 @@ public class UriDownloader {
 
 		public void setFilePath(String filePath) {
 			this.filePath = filePath;
+		}
+
+		public String toString() {
+			return bucket + ":" + filePath;
 		}
 	}
 
