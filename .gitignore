@@ -20,8 +20,3 @@ src/main/webapp/bower_components/jquery/speed/
 src/main/webapp/bower_components/placeholders/test/
 
 
-config.properties
-go.sh
-src/main/java/ca/intelliware/ihtsdo/mlds/config/S3ClientConfiguration.java
-src/test/java/ca/intelliware/ihtsdo/mlds/web/rest/UriDownloaderTest.java
-.gitignore
