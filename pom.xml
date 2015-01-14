@@ -448,7 +448,7 @@
 		<dependency>
 			<groupId>org.ihtsdo.otf.common</groupId>
 			<artifactId>otf-common</artifactId>
-			<version>0.0.4-SNAPSHOT</version>
+			<version>0.0.4</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring-beans</artifactId>
