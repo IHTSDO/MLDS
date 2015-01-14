@@ -67,6 +67,9 @@
       	  <alert ng-repeat="alert in geographicAlerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
         <p>
           <strong>Select the non-member countries in which SNOMED CT will be used.</strong>
+		  <br>If an IHTSDO Member Country is listed in sublicensed institutions below, please remove the country from that list.
+		</p>
+	</strong>
         </p>
          <form name="usageLogCountries">
            <div class="col-sx-4 col-md-4 col-lg-6" ng-hide="readOnly">
@@ -106,9 +109,6 @@
 				<div ng-show="usageByCountryList.length == 0 && !readOnly">A country needs to be selected before entering Sublicensed Institutions.</div>
 				<div ng-show="usageByCountryList.length == 0 && readOnly">No countries have been selected.</div>
 				<div class="country-listing" ng-repeat="countryUsage in usageByCountryList">
-				<p>
-					<strong>If an IHTSDO Member Country is listed, please remove the country from the list</strong>
-				</p>
 
             <div class="row">
                     <div class="country-heading">
