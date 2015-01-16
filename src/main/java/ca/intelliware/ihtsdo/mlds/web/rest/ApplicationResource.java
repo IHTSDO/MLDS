@@ -336,7 +336,6 @@ public class ApplicationResource {
 		applicationAuditEvents.logApprovalStateChange(application);
 		
 		if (application.getCommercialUsage() != null 
-				&& !Objects.equal(application.getCommercialUsage().getType(), AffiliateType.COMMERCIAL)
 				&& Objects.equal(application.getCommercialUsage().getApprovalState(), ApprovalState.NOT_SUBMITTED)) {
 			commercialUsageService.transitionCommercialUsageApproval(application.getCommercialUsage(), ApprovalTransition.SUBMIT);
 		}
