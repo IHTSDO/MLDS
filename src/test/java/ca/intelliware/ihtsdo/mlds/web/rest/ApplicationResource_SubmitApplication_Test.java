@@ -187,19 +187,6 @@ public class ApplicationResource_SubmitApplication_Test {
 	}
 
 	@Test
-	public void submitApplicationShouldNotTransitionApprovalForCommercialSubmission() throws Exception {
-		Affiliate affiliate = withAffiliate(StandingState.APPLYING, AffiliateType.COMMERCIAL);
-		PrimaryApplication application = withExistingSwedishPrimaryApplication(1L, affiliate);
-		application.setApprovalState(ApprovalState.NOT_SUBMITTED);
-		application.getCommercialUsage().setApprovalState(ApprovalState.NOT_SUBMITTED);
-
-		postSubmitApplication(1L, applicationRequestBody())
-			.andExpect(status().isOk());
-
-		Mockito.verify(commercialUsageService, Mockito.never()).transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class), Mockito.any(ApprovalTransition.class));
-	}
-
-	@Test
 	public void submitApplicationShouldNotTransitionApprovalForAlreadySubmittedSubmission() throws Exception {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING, AffiliateType.ACADEMIC);
 		PrimaryApplication application = withExistingSwedishPrimaryApplication(1L, affiliate);
