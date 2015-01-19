@@ -53,8 +53,8 @@ public class CommercialUsage extends BaseEntity {
 	LocalDate endDate;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="approval_state")
-	private ApprovalState approvalState;
+	@Column(name = "state")
+	private UsageReportState state;
 	
 	private String note;
 	
@@ -156,12 +156,12 @@ public class CommercialUsage extends BaseEntity {
 		this.submitted = submitted;
 	}
 
-	public ApprovalState getApprovalState() {
-		return approvalState;
+	public UsageReportState getState() {
+		return state;
 	}
 
-	public void setApprovalState(ApprovalState approvalState) {
-		this.approvalState = approvalState;
+	public void setState(UsageReportState state) {
+		this.state = state;
 	}
 
 	public void setCommercialUsageId(Long commercialUsageId) {

@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 import org.joda.time.Instant;
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 
@@ -19,28 +19,45 @@ public class CommercialUsageService {
 	@Resource CommercialUsageAuthorizationChecker authorizationChecker;
 	@Resource CommercialUsageAuditEvents commercialUsageAuditEvents;
 
-	public CommercialUsage transitionCommercialUsageApproval(CommercialUsage commercialUsage, ApprovalTransition transition) {
+	public CommercialUsage transitionCommercialUsageApproval(CommercialUsage commercialUsage, UsageReportTransition transition) {
     	// FIXME Extract out to "workflow" handler
-    	if (ApprovalState.NOT_SUBMITTED.equals(commercialUsage.getApprovalState()) && ApprovalTransition.SUBMIT.equals(transition)  && commercialUsage.isActive()) {
+		if (UsageReportState.NOT_SUBMITTED.equals(commercialUsage.getState()) && UsageReportTransition.SUBMIT.equals(transition)
+				&& commercialUsage.isActive()) {
     		commercialUsage = submitUsage(commercialUsage);
-    	} else if (ApprovalState.CHANGE_REQUESTED.equals(commercialUsage.getApprovalState()) && ApprovalTransition.SUBMIT.equals(transition)  && commercialUsage.isActive()) {
+		} else if (UsageReportState.CHANGE_REQUESTED.equals(commercialUsage.getState()) && UsageReportTransition.SUBMIT.equals(transition)
+				&& commercialUsage.isActive()) {
         	commercialUsage = resubmitUsage(commercialUsage);
-    	} else if ((ApprovalState.SUBMITTED.equals(commercialUsage.getApprovalState()) || ApprovalState.RESUBMITTED.equals(commercialUsage.getApprovalState()) || ApprovalState.APPROVED.equals(commercialUsage.getApprovalState())) && ApprovalTransition.RETRACT.equals(transition) && commercialUsage.isActive()) {
+		} else if ((UsageReportState.SUBMITTED.equals(commercialUsage.getState())
+					|| UsageReportState.RESUBMITTED.equals(commercialUsage.getState()) 
+					|| UsageReportState.PENDING_INVOICE	.equals(commercialUsage.getState())
+					|| UsageReportState.INVOICE_SENT.equals(commercialUsage.getState())
+					|| UsageReportState.PAID.equals(commercialUsage.getState())
+				   ) 
+					&& UsageReportTransition.RETRACT.equals(transition) && commercialUsage.isActive()) {
     		commercialUsage = retractUsage(commercialUsage);
-    	} else if ((ApprovalState.SUBMITTED.equals(commercialUsage.getApprovalState()) || ApprovalState.RESUBMITTED.equals(commercialUsage.getApprovalState())) && ApprovalTransition.REVIEWED.equals(transition)  && commercialUsage.isActive()) {
-    		commercialUsage = reviewedUsage(commercialUsage);
+		} else if ((UsageReportState.SUBMITTED.equals(commercialUsage.getState()) || UsageReportState.RESUBMITTED.equals(commercialUsage
+				.getState())) && UsageReportTransition.PENDING_INVOICE.equals(transition) && commercialUsage.isActive()) {
+    		commercialUsage = setState(commercialUsage, UsageReportState.PENDING_INVOICE);
+    	} else if (UsageReportState.PENDING_INVOICE.equals(commercialUsage.getState()) 
+    				&& UsageReportTransition.INVOICE_SENT.equals(transition) 
+    				&& commercialUsage.isActive()) {
+    		commercialUsage = setState(commercialUsage, UsageReportState.INVOICE_SENT);
+    	} else if (UsageReportState.INVOICE_SENT.equals(commercialUsage.getState()) 
+    				&& UsageReportTransition.PAID.equals(transition) 
+    				&& commercialUsage.isActive()) {
+			commercialUsage = setState(commercialUsage, UsageReportState.PAID);
     	} else {
-    		throw new IllegalStateException("Unsupported approval transition");
+			throw new IllegalStateException("Unsupported usage report transition of" + transition.name() + " while in state " + commercialUsage.getState().name());
     	}
         
-    	commercialUsageAuditEvents.logApprovalStateChange(commercialUsage);
+		commercialUsageAuditEvents.logUsageReportStateChange(commercialUsage);
     	
     	return commercialUsage;
 	}
 
-	private CommercialUsage reviewedUsage(CommercialUsage commercialUsage) {
+	private CommercialUsage setState(CommercialUsage commercialUsage, UsageReportState newState) {
 		authorizationChecker.checkCanReviewUsageReports();
-		commercialUsage.setApprovalState(ApprovalState.APPROVED);
+		commercialUsage.setState(newState);
 		commercialUsage = commercialUsageRepository.save(commercialUsage);
 		return commercialUsage;
 	}
@@ -51,20 +68,20 @@ public class CommercialUsageService {
 		commercialUsage = commercialUsageRepository.saveAndFlush(commercialUsage);
 		// Create duplicate usage to replace original and become the active one
 		commercialUsageResetter.detachAndReset(commercialUsage, commercialUsage.getStartDate(), commercialUsage.getEndDate());
-		commercialUsage.setApprovalState(ApprovalState.CHANGE_REQUESTED);
+		commercialUsage.setState(UsageReportState.CHANGE_REQUESTED);
 		commercialUsage = commercialUsageRepository.save(commercialUsage);
 		return commercialUsage;
 	}
 
 	private CommercialUsage submitUsage(CommercialUsage commercialUsage) {
-		commercialUsage.setApprovalState(ApprovalState.SUBMITTED);
+		commercialUsage.setState(UsageReportState.SUBMITTED);
 		commercialUsage.setSubmitted(Instant.now());
 		commercialUsage = commercialUsageRepository.save(commercialUsage);
 		return commercialUsage;
 	}
 
 	private CommercialUsage resubmitUsage(CommercialUsage commercialUsage) {
-		commercialUsage.setApprovalState(ApprovalState.RESUBMITTED);
+		commercialUsage.setState(UsageReportState.RESUBMITTED);
 		commercialUsage.setSubmitted(Instant.now());
 		commercialUsage = commercialUsageRepository.save(commercialUsage);
 		return commercialUsage;

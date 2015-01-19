@@ -16,7 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 
@@ -54,50 +54,50 @@ public class CommercialUsageServiceTest {
 	
 	@Test
 	public void transitionCommercialUsageApprovalShouldFailForUnsupportedTransitions() throws Exception {
-		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.APPROVED);
+		CommercialUsage commercialUsage = withCommercialUsage(2L, UsageReportState.PENDING_INVOICE);
 		
 		try {
-			commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.SUBMIT);
+			commercialUsageService.transitionCommercialUsageApproval(commercialUsage, UsageReportTransition.SUBMIT);
 			Assert.fail();
 		} catch (IllegalStateException e) {
 			Assert.assertThat(e.getMessage(), matchUnsupportedApprovalTransactionException());
 		}
 		
-		Assert.assertEquals("commercial usage unchanged", ApprovalState.APPROVED, commercialUsage.getApprovalState());
+		Assert.assertEquals("commercial usage unchanged", UsageReportState.PENDING_INVOICE, commercialUsage.getState());
 	}
 
 
 	private Matcher<String> matchUnsupportedApprovalTransactionException() {
-		return Matchers.containsString("Unsupported approval transition");
+		return Matchers.containsString("Unsupported usage report");
 	}
 	
 	@Test
 	public void transitionCommercialUsageApprovalShouldTransitionNotSubmittedToSubmittedOnSubmit() throws Exception {
-		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.NOT_SUBMITTED);
+		CommercialUsage commercialUsage = withCommercialUsage(2L, UsageReportState.NOT_SUBMITTED);
 		
-		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.SUBMIT);
+		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, UsageReportTransition.SUBMIT);
 		
-		Assert.assertThat(result.getApprovalState(), Matchers.equalTo(ApprovalState.SUBMITTED));
+		Assert.assertThat(result.getState(), Matchers.equalTo(UsageReportState.SUBMITTED));
 		Assert.assertThat(result.getCommercialUsageId(), Matchers.equalTo(2L));
 	}
 
 	@Test
 	public void transitionCommercialUsageApprovalShouldTransitionChangeRequestedToResubmittedOnSubmit() throws Exception {
-		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.CHANGE_REQUESTED);
+		CommercialUsage commercialUsage = withCommercialUsage(2L, UsageReportState.CHANGE_REQUESTED);
 		
-		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.SUBMIT);
+		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, UsageReportTransition.SUBMIT);
 		
-		Assert.assertThat(result.getApprovalState(), Matchers.equalTo(ApprovalState.RESUBMITTED));
+		Assert.assertThat(result.getState(), Matchers.equalTo(UsageReportState.RESUBMITTED));
 		Assert.assertThat(result.getCommercialUsageId(), Matchers.equalTo(2L));
 	}
 
 	@Test
 	public void transitionCommercialUsageApprovalShouldFailWhenRetractingPreviouslyRetractedUsage() throws Exception {
-		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.APPROVED);
+		CommercialUsage commercialUsage = withCommercialUsage(2L, UsageReportState.PENDING_INVOICE);
 		commercialUsage.setEffectiveTo(Instant.now());
 		
 		try {
-			commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.RETRACT);
+			commercialUsageService.transitionCommercialUsageApproval(commercialUsage, UsageReportTransition.RETRACT);
 			Assert.fail();
 		} catch (IllegalStateException e) {
 			Assert.assertThat(e.getMessage(), matchUnsupportedApprovalTransactionException());
@@ -106,21 +106,22 @@ public class CommercialUsageServiceTest {
 
 	@Test
 	public void transitionCommercialUsageApprovalShouldCreateNewUsageOnRetractInChangeRequestedState() throws Exception {
-		final CommercialUsage originalCommercialUsage = withCommercialUsage(2L, ApprovalState.APPROVED);
+		final CommercialUsage originalCommercialUsage = withCommercialUsage(2L, UsageReportState.PENDING_INVOICE);
 		final long postResetterId = 123;
 
 		// Note that this is working with the mocked commercialUsageResetter
 		Mockito.when(commercialUsageRepository.save(Mockito.any(CommercialUsage.class))).thenAnswer(duplicateCommercialUsage(postResetterId));
 		Mockito.when(commercialUsageRepository.saveAndFlush(Mockito.any(CommercialUsage.class))).thenAnswer(duplicateCommercialUsage(postResetterId));
 		
-		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(originalCommercialUsage, ApprovalTransition.RETRACT);
+		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(originalCommercialUsage,
+				UsageReportTransition.RETRACT);
 		
 		// New commercial usage
-		Assert.assertThat(result.getApprovalState(), Matchers.equalTo(ApprovalState.CHANGE_REQUESTED));
+		Assert.assertThat(result.getState(), Matchers.equalTo(UsageReportState.CHANGE_REQUESTED));
 		Assert.assertThat(result.getCommercialUsageId(), Matchers.equalTo(123L));
 		
 		// Original commercial usage
-		Assert.assertEquals(ApprovalState.APPROVED, originalCommercialUsage.getApprovalState());
+		Assert.assertEquals(UsageReportState.PENDING_INVOICE, originalCommercialUsage.getState());
 		Assert.assertThat(originalCommercialUsage.getEffectiveTo(), org.hamcrest.Matchers.notNullValue(Instant.class));
 	}
 
@@ -134,7 +135,7 @@ public class CommercialUsageServiceTest {
 						commercialUsage.getCommercialUsageId() != null ? commercialUsage.getCommercialUsageId() : postResetterId, 
 						commercialUsage.getAffiliate());
 				
-				savedDuplicate.setApprovalState(commercialUsage.getApprovalState());
+				savedDuplicate.setState(commercialUsage.getState());
 				return savedDuplicate;
 			}
 		};
@@ -147,7 +148,7 @@ public class CommercialUsageServiceTest {
 				//Act as reset and save...
 				CommercialUsage usage = (CommercialUsage) invocation.getArguments()[0];
 				usage.setCommercialUsageId(null);
-				usage.setApprovalState(ApprovalState.NOT_SUBMITTED);
+				usage.setState(UsageReportState.NOT_SUBMITTED);
 				return null;
 			}
 		}).when(commercialUsageResetter).detachAndReset(Mockito.any(CommercialUsage.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class));
@@ -155,20 +156,21 @@ public class CommercialUsageServiceTest {
 
 	@Test
 	public void transitionCommercialUsageApprovalShouldTransitionSubmittedToApprovedOnReviewed() throws Exception {
-		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.SUBMITTED);
+		CommercialUsage commercialUsage = withCommercialUsage(2L, UsageReportState.SUBMITTED);
 		
-		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.REVIEWED);
+		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage,
+				UsageReportTransition.PENDING_INVOICE);
 		
-		Assert.assertThat(result.getApprovalState(), Matchers.equalTo(ApprovalState.APPROVED));
+		Assert.assertThat(result.getState(), Matchers.equalTo(UsageReportState.PENDING_INVOICE));
 	}
 
 	@Test
 	public void transitionCommercialUsageApprovalShouldFailWhenReviewingInactiveUsage() throws Exception {
-		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.SUBMITTED);
+		CommercialUsage commercialUsage = withCommercialUsage(2L, UsageReportState.SUBMITTED);
 		commercialUsage.setEffectiveTo(Instant.now());
 		
 		try {
-			commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.REVIEWED);
+			commercialUsageService.transitionCommercialUsageApproval(commercialUsage, UsageReportTransition.PENDING_INVOICE);
 			Assert.fail();
 		} catch (IllegalStateException e) {
 			Assert.assertThat(e.getMessage(), matchUnsupportedApprovalTransactionException());
@@ -177,18 +179,19 @@ public class CommercialUsageServiceTest {
 
 	@Test
 	public void transitionCommercialUsageApprovalShouldTransitionResubmittedToApprovedOnReviewed() throws Exception {
-		CommercialUsage commercialUsage = withCommercialUsage(2L, ApprovalState.RESUBMITTED);
+		CommercialUsage commercialUsage = withCommercialUsage(2L, UsageReportState.RESUBMITTED);
 		
-		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, ApprovalTransition.REVIEWED);
+		CommercialUsage result = commercialUsageService.transitionCommercialUsageApproval(commercialUsage,
+				UsageReportTransition.PENDING_INVOICE);
 		
-		Assert.assertThat(result.getApprovalState(), Matchers.equalTo(ApprovalState.APPROVED));
+		Assert.assertThat(result.getState(), Matchers.equalTo(UsageReportState.PENDING_INVOICE));
 	}
 
 	
-	private CommercialUsage withCommercialUsage(long commercialUsageId, ApprovalState approvalState) {
+	private CommercialUsage withCommercialUsage(long commercialUsageId, UsageReportState approvalState) {
 		Affiliate affiliate = new Affiliate(1L);
 		CommercialUsage commercialUsage = new CommercialUsage(commercialUsageId, affiliate);
-		commercialUsage.setApprovalState(approvalState);
+		commercialUsage.setState(approvalState);
 		Mockito.when(commercialUsageRepository.findOne(commercialUsageId)).thenReturn(commercialUsage);
 		return commercialUsage;
 	}

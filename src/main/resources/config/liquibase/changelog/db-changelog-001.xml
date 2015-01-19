@@ -1478,5 +1478,19 @@ $f$ language plpgsql;
     		</column>
     	</addColumn>
     </changeSet>
+    
+    <changeSet id="MLDS-880" author="PGW">
+    	<comment>Usage Reports to have own set of statuses</comment>
+    	<renameColumn tableName="commercial_usage" oldColumnName="approval_state" newColumnName="state"/>
+    </changeSet>
+
+    <changeSet id="MLDS-880-2" author="PGW">
+		<update tableName="commercial_usage">
+			<column name="state" value='PENDING_INVOICE'/>
+			<where>state='APPROVED'</where>
+    	</update>
+    </changeSet>
+        
+
         
 </databaseChangeLog>
