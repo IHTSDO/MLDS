@@ -16,10 +16,10 @@
 							</a>
 						</th>
 						<th>
-							<a ng-click="orderByField='approvalState'; reverseSort = !reverseSort">
+							<a ng-click="orderByField='state'; reverseSort = !reverseSort">
 								Status
-								<span ng-hide="orderByField == 'approvalState'"><i class="fa fa-sort"></i></span> 
-								<span ng-show="orderByField == 'approvalState'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+								<span ng-hide="orderByField == 'state'"><i class="fa fa-sort"></i></span> 
+								<span ng-show="orderByField == 'state'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
 							</a>
 						</th>
 						<th>
@@ -53,7 +53,7 @@
 					<tr ng-repeat="usageReport in usageReports | orderBy:orderByField:reverseSort | filter:reportSearch()"  ng-click="usageReportsUtils.goToReviewUsageReport(usageReport)">
 					<td>{{usageReport.affiliate.affiliateDetails.firstName + ' ' + usageReport.affiliate.affiliateDetails.lastName}}</td>
 					<td>{{usageReport.submitted | date: 'yyyy-MM-dd'}}</td>
-					<td>{{usageReport.approvalState | enum:'approval.state.'}}</td>
+					<td>{{usageReport.state | enum:'usageReport.state.'}}</td>
 					<td>{{usageReport.type | enum:'affiliate.type.'}}</td>
 					<td>{{usageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</td>
 					<td>{{usageReport.startDate}}</td>

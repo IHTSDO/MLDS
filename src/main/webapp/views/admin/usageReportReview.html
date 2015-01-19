@@ -14,7 +14,7 @@
         <h4 class="panel-title">
        		License Usage
        		<span class="pull-right">
-       			<span ng-show="usageReport.approvalState === 'RESUBMITTED'" class="label label-default"> {{usageReport.approvalState|enum:'approval.state.'}}</span>
+       			<span class="label label-default"> {{usageReport.state|enum:'usageReport.state.'}}</span>
        			{{usageReport.startDate | date : 'yyyy-MM'}} &#8211 {{usageReport.endDate | date : 'yyyy-MM'}}
        		</span>
        	</h4>
@@ -151,8 +151,14 @@
 	<div class="col-md-4">
 		
 		<div>
-			<a class="btn btn-success btn-block" ng-click="reviewedUsageReport()">
-				Mark Usage Report as Reviewed 
+			<a ng-show="usageReportsUtils.isSubmitted(usageReport)" class="btn btn-success btn-block" ng-click="updateUsageReport('PENDING_INVOICE')">
+				Mark as Pending Invoice 
+			</a>
+			<a ng-show="usageReportsUtils.isPendingInvoice(usageReport)" class="btn btn-success btn-block" ng-click="updateUsageReport('INVOICE_SENT')">
+				Mark as Invoice Sent 
+			</a>
+			<a ng-show="usageReportsUtils.isInvoiceSent(usageReport)" class="btn btn-success btn-block" ng-click="updateUsageReport('PAID')">
+				Mark as Paid 
 			</a>
 			<a class="btn btn-warning btn-block" ng-click="retractUsageReport()">
 				Retract Usage Report 

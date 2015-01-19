@@ -45,6 +45,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.OrganizationType;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.StandingState;
+import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.domain.json.ApplicationCollection;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
@@ -59,6 +60,7 @@ import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
 import ca.intelliware.ihtsdo.mlds.service.ApprovalTransition;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
+import ca.intelliware.ihtsdo.mlds.service.UsageReportTransition;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
@@ -336,8 +338,8 @@ public class ApplicationResource {
 		applicationAuditEvents.logApprovalStateChange(application);
 		
 		if (application.getCommercialUsage() != null 
-				&& Objects.equal(application.getCommercialUsage().getApprovalState(), ApprovalState.NOT_SUBMITTED)) {
-			commercialUsageService.transitionCommercialUsageApproval(application.getCommercialUsage(), ApprovalTransition.SUBMIT);
+				&& Objects.equal(application.getCommercialUsage().getState(), UsageReportState.NOT_SUBMITTED)) {
+			commercialUsageService.transitionCommercialUsageApproval(application.getCommercialUsage(), UsageReportTransition.SUBMIT);
 		}
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);

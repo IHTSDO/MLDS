@@ -21,6 +21,7 @@ import org.springframework.web.util.NestedServletException;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
+import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.service.ApprovalTransition;
@@ -28,6 +29,7 @@ import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
+import ca.intelliware.ihtsdo.mlds.service.UsageReportTransition;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
@@ -73,21 +75,25 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
 	
 	@Test
 	public void transitionCommercialUsageApprovalShouldPerformTransition() throws Exception {
-		withCommercialUsage(2L, ApprovalState.NOT_SUBMITTED);
+		withCommercialUsage(2L, UsageReportState.NOT_SUBMITTED);
 		
-		CommercialUsage transformedCommercialUsage = createCommercialUsage(2L, ApprovalState.SUBMITTED);
-		Mockito.when(commercialUsageService.transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class), Mockito.eq(ApprovalTransition.SUBMIT))).thenReturn(transformedCommercialUsage );
+		CommercialUsage transformedCommercialUsage = createCommercialUsage(2L, UsageReportState.SUBMITTED);
+		Mockito.when(
+				commercialUsageService.transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class),
+						Mockito.eq(UsageReportTransition.SUBMIT))).thenReturn(transformedCommercialUsage);
 		
 		postTransitionCommercialUsageApproval(2L, ApprovalTransition.SUBMIT)
 			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.approvalState").value("SUBMITTED"));
+			.andExpect(jsonPath("$.state").value("SUBMITTED"));
 	}
 
 	@Test
 	public void transitionCommercialUsageApprovalShouldFailForUnsupportedTransitions() throws Exception {
-		withCommercialUsage(2L, ApprovalState.NOT_SUBMITTED);
+		withCommercialUsage(2L, UsageReportState.NOT_SUBMITTED);
 		
-		Mockito.when(commercialUsageService.transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class), Mockito.eq(ApprovalTransition.SUBMIT))).thenThrow(new IllegalStateException("UNSUPPORTED TRANSITION"));
+		Mockito.when(
+				commercialUsageService.transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class),
+						Mockito.eq(UsageReportTransition.SUBMIT))).thenThrow(new IllegalStateException("UNSUPPORTED TRANSITION"));
 		
 		try {
 			postTransitionCommercialUsageApproval(2L, ApprovalTransition.SUBMIT)
@@ -98,16 +104,16 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
 		}
 	}
 
-	private CommercialUsage withCommercialUsage(long commercialUsageId, ApprovalState approvalState) {
-		CommercialUsage commercialUsage = createCommercialUsage(commercialUsageId, approvalState);
+	private CommercialUsage withCommercialUsage(long commercialUsageId, UsageReportState state) {
+		CommercialUsage commercialUsage = createCommercialUsage(commercialUsageId, state);
 		Mockito.when(commercialUsageRepository.findOne(commercialUsageId)).thenReturn(commercialUsage);
 		return commercialUsage;
 	}
 
 
-	private CommercialUsage createCommercialUsage(long commercialUsageId, ApprovalState approvalState) {
+	private CommercialUsage createCommercialUsage(long commercialUsageId, UsageReportState state) {
 		CommercialUsage commercialUsage = new CommercialUsage(commercialUsageId, affiliate);
-		commercialUsage.setApprovalState(approvalState);
+		commercialUsage.setState(state);
 		return commercialUsage;
 	}
 
