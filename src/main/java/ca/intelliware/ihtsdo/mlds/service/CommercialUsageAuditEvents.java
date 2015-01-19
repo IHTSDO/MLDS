@@ -34,9 +34,9 @@ public class CommercialUsageAuditEvents {
 		logEvent(usage, EVENT_USAGE_CREATED, auditData);
 	}
 	
-	public void logApprovalStateChange(CommercialUsage usage) {
+	public void logUsageReportStateChange(CommercialUsage usage) {
 		Map<String, String> auditData = createAuditData(usage);
-		auditData.put("usage.approvalState", ""+usage.getApprovalState());
+		auditData.put("usage.approvalState", ""+usage.getState());
 		logEvent(usage, EVENT_USAGE_APPROVAL_STATE_CHANGED, auditData);
 	}
 

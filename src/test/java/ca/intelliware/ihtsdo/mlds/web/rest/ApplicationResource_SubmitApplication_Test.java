@@ -28,6 +28,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.StandingState;
+import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
@@ -39,6 +40,7 @@ import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
 import ca.intelliware.ihtsdo.mlds.service.ApprovalTransition;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
+import ca.intelliware.ihtsdo.mlds.service.UsageReportTransition;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
@@ -117,7 +119,7 @@ public class ApplicationResource_SubmitApplication_Test {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING, AffiliateType.ACADEMIC);
 		PrimaryApplication application = withExistingSwedishPrimaryApplication(1L, affiliate);
 		application.setApprovalState(ApprovalState.NOT_SUBMITTED);
-		application.getCommercialUsage().setApprovalState(ApprovalState.NOT_SUBMITTED);
+		application.getCommercialUsage().setState(UsageReportState.NOT_SUBMITTED);
 		
 		Mockito.doThrow(new IllegalStateException("NO_ACCESS")).when(applicationAuthorizationChecker).checkCanAccessApplication(Mockito.any(Application.class));
 
@@ -136,7 +138,7 @@ public class ApplicationResource_SubmitApplication_Test {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING, AffiliateType.ACADEMIC);
 		PrimaryApplication application = withExistingSwedishPrimaryApplication(1L, affiliate);
 		application.setApprovalState(ApprovalState.NOT_SUBMITTED);
-		application.getCommercialUsage().setApprovalState(ApprovalState.NOT_SUBMITTED);
+		application.getCommercialUsage().setState(UsageReportState.NOT_SUBMITTED);
 
 		postSubmitApplication(1L, applicationRequestBody())
 			.andExpect(status().isOk());
@@ -149,7 +151,7 @@ public class ApplicationResource_SubmitApplication_Test {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING, AffiliateType.ACADEMIC);
 		PrimaryApplication application = withExistingSwedishPrimaryApplication(1L, affiliate);
 		application.setApprovalState(ApprovalState.SUBMITTED);
-		application.getCommercialUsage().setApprovalState(ApprovalState.SUBMITTED);
+		application.getCommercialUsage().setState(UsageReportState.SUBMITTED);
 
 		postSubmitApplication(1L, applicationRequestBody())
 			.andExpect(status().isConflict());
@@ -160,7 +162,7 @@ public class ApplicationResource_SubmitApplication_Test {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING, AffiliateType.ACADEMIC);
 		PrimaryApplication application = withExistingSwedishPrimaryApplication(1L, affiliate);
 		application.setApprovalState(ApprovalState.NOT_SUBMITTED);
-		application.getCommercialUsage().setApprovalState(ApprovalState.NOT_SUBMITTED);
+		application.getCommercialUsage().setState(UsageReportState.NOT_SUBMITTED);
 
 		postSubmitApplication(1L, applicationRequestBody())
 			.andExpect(status().isOk());
@@ -178,12 +180,13 @@ public class ApplicationResource_SubmitApplication_Test {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING, AffiliateType.ACADEMIC);
 		PrimaryApplication application = withExistingSwedishPrimaryApplication(1L, affiliate);
 		application.setApprovalState(ApprovalState.NOT_SUBMITTED);
-		application.getCommercialUsage().setApprovalState(ApprovalState.NOT_SUBMITTED);
+		application.getCommercialUsage().setState(UsageReportState.NOT_SUBMITTED);
 
 		postSubmitApplication(1L, applicationRequestBody())
 			.andExpect(status().isOk());
 
-		Mockito.verify(commercialUsageService).transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class), Mockito.eq(ApprovalTransition.SUBMIT));
+		Mockito.verify(commercialUsageService).transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class),
+				Mockito.eq(UsageReportTransition.SUBMIT));
 	}
 
 	@Test
@@ -191,12 +194,13 @@ public class ApplicationResource_SubmitApplication_Test {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING, AffiliateType.ACADEMIC);
 		PrimaryApplication application = withExistingSwedishPrimaryApplication(1L, affiliate);
 		application.setApprovalState(ApprovalState.CHANGE_REQUESTED);
-		application.getCommercialUsage().setApprovalState(ApprovalState.SUBMITTED);
+		application.getCommercialUsage().setState(UsageReportState.SUBMITTED);
 
 		postSubmitApplication(1L, applicationRequestBody())
 			.andExpect(status().isOk());
 
-		Mockito.verify(commercialUsageService, Mockito.never()).transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class), Mockito.any(ApprovalTransition.class));
+		Mockito.verify(commercialUsageService, Mockito.never()).transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class),
+				Mockito.any(UsageReportTransition.class));
 	}
 
 	private ResultActions postSubmitApplication(long primaryApplicationId, String updatedApprovalState) throws Exception {

@@ -694,19 +694,32 @@
       "DEACTIVATION_PENDING":"désactivationenattente",
       "DEACTIVATED":"Désactivé",
       "DEREGISTERED":"radiée",
-      "PENDING_INVOICE":"Enattentedefacture"
-      "INVOICE_SENT": "Invoice Sent FR"
+      "PENDING_INVOICE":"En attente defacture"
+      "INVOICE_SENT": "Facture envoié"
     }
   },
   "approval":{
     "state":{
       "NOT_SUBMITTED":"nonsoumise",
-      "CHANGE_REQUESTED":"changementdemandé",
+      "CHANGE_REQUESTED":"changement demandé",
       "SUBMITTED":"soumis",
-      "RESUBMITTED":"présentéedenouveau",
-      "REVIEW_REQUESTED":"Examendemandée",
+      "RESUBMITTED":"présentée denouveau",
+      "REVIEW_REQUESTED":"Examen demandée",
       "APPROVED":"Approuvé",
       "REJECTED":"Refusé"
+    }
+  },
+  "usageReport": {
+    "state": {
+      "NOT_SUBMITTED": "Nonsoumise",
+      "CHANGE_REQUESTED": "changement demandé",
+      "SUBMITTED": "Soumis",
+      "RESUBMITTED": "Présentée denouveau",
+      "REVIEW_REQUESTED": "Examen demandée",
+      "PENDING_INVOICE": "En attente defacture",
+      "INVOICE_SENT": "Facture envoié",
+      "PAID": "Enrègle",
+      "REJECTED": "Refusé"
     }
   },
   "application":{
