@@ -39,7 +39,7 @@ done
 
 if [ -z "${skipBuild}" ]
 then
-	mvn clean install -DskipTests -P dev
+	mvn clean install 
 fi
 
 #export JPDA_ADDRESS=8000
