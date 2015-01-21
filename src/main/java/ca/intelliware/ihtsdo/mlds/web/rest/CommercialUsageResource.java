@@ -368,17 +368,26 @@ public class CommercialUsageResource {
     		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN })
     @Timed
-    public @ResponseBody ResponseEntity<CommercialUsageCountry> addCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageCountry newCountValue) {
+	public @ResponseBody
+	ResponseEntity<?> addCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId,
+			@RequestBody CommercialUsageCountry newCountValue) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
-    	
-    	commercialUsageCountryRepository.save(newCountValue);
     	
     	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
     	if (commercialUsage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
 
-    	commercialUsage.addCount(newCountValue);
+		// MLDS-889 We're seeing duplicate country counts being created which I'm guessing happens when they come in without a primary key
+		// but already exist in the database. I'll also sync this block, in case we're looking at double clicking.
+		synchronized (commercialUsage) {
+			// If this new Value is not known as already being in the database, check if we have anything for the same country
+			if (newCountValue.getCommercialUsageCountId() == null && commercialUsage.exists(newCountValue)) {
+				return new ResponseEntity<String>("Country already exists for this usage report.", HttpStatus.CONFLICT);
+			}
+			commercialUsageCountryRepository.save(newCountValue);
+			commercialUsage.addCount(newCountValue);
+		}
         
         HttpHeaders headers = new HttpHeaders();
         // FIXME flush and get ids back
@@ -388,7 +397,12 @@ public class CommercialUsageResource {
 		return responseEntity;
     }
     
-    @RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
+	private void synchronize() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })

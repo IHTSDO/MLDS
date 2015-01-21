@@ -129,7 +129,14 @@ public class CommercialUsage extends BaseEntity {
 		Validate.notNull(newCountryValue.commercialUsageCountId);
 		
 		if (newCountryValue.commercialUsage != null) {
-			newCountryValue.commercialUsage.countries.remove(newCountryValue);
+			//Not sure why we're asking the incoming object for a reference to 'this'
+			//Think I'll blow up if the two aren't one and the same object
+			if (newCountryValue.commercialUsage.commercialUsageId != this.commercialUsageId) {
+				throw new IllegalArgumentException("Object owner incompatibility between commercial usage object "
+						+ newCountryValue.commercialUsage.commercialUsageId + " and " + this.commercialUsageId);
+			}
+			//newCountryValue.commercialUsage.countries.remove(newCountryValue);
+			countries.remove(newCountryValue);
 		}
 		newCountryValue.commercialUsage = this;
 		countries.add(newCountryValue);
@@ -204,5 +211,16 @@ public class CommercialUsage extends BaseEntity {
 	@JsonIgnore
 	public boolean isActive() {
 		return getEffectiveTo() == null;
+	}
+
+	public boolean exists(CommercialUsageCountry newCountValue) {
+		// Does this usage report have a country count for this country?
+		String newCode = newCountValue.getCountry().getIsoCode2();
+		for (CommercialUsageCountry countryCount : countries) {
+			if (countryCount.getCountry().getIsoCode2().equalsIgnoreCase(newCode)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
