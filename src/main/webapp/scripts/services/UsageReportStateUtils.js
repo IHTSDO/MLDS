@@ -6,6 +6,12 @@ mldsApp.factory('UsageReportStateUtils', [function(){
 	//	REVIEW_REQUESTED,PAID,REJECTED
 
 		var service = {};
+		
+		service.isWaitingForApplicant = function isWaitingForApplicant(usageState) {
+			return (!usageState
+				|| usageState === 'NOT_SUBMITTED'
+				|| usageState === 'CHANGE_REQUESTED');
+		};
 
 		service.isInvoiceSent = function isInvoiceSent(usageState) {
 			return (usageState === 'INVOICE_SENT');
