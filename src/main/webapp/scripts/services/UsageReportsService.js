@@ -60,7 +60,7 @@ angular.module('MLDS')
 	
 	service.anySubmittedUsageReports = function(affiliate) {
 		return _.some(affiliate.commercialUsages, function(usageReport) {
-			return !UsageReportStateUtils.isWaitingForApplicant(usageReport.approvalState) && !usageReport.effectiveTo;
+			return !UsageReportStateUtils.isWaitingForApplicant(usageReport.state) && !usageReport.effectiveTo;
 		});
 	};
 

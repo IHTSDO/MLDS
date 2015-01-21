@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('EmbeddableUsageLogController',
-		['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 'ApprovalStateUtils', 'UsageReportsService', 'StandingStateUtils', 
-        function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location, ApprovalStateUtils, UsageReportsService, StandingStateUtils){
+		['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 'UsageReportStateUtils', 'UsageReportsService', 'StandingStateUtils', 
+        function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location, UsageReportStateUtils, UsageReportsService, StandingStateUtils){
 	$scope.collapsePanel = {};
 	
 	$scope.usageLogForm = {};
@@ -138,7 +138,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		$scope.commercialUsageReport = usageReport;
 		$scope.isActiveUsage = !usageReport.effectiveTo;
 		$scope.isEditable = Session.isUser() || Session.isAdmin(); //Only Admin or User can edit
-		$scope.readOnly = $scope.isEditable ? !ApprovalStateUtils.isWaitingForApplicant(usageReport.approvalState) : true;
+		$scope.readOnly = $scope.isEditable ? !UsageReportStateUtils.isWaitingForApplicant(usageReport.state) : true;
 		$scope.commercialType = usageReport.type === 'COMMERCIAL';
 		$scope.isAffiliateApplying = Session.isUser() && usageReport.affiliate && StandingStateUtils.isApplying(usageReport.affiliate.standingState) && $scope.$parent.usageReportRegistration;
 		
