@@ -14,6 +14,8 @@ angular.module('MLDS').controller('UsageReportReviewController',
 		
 		$scope.alerts = [];
 		$scope.submitting = false;
+		
+		$scope.usageReportsUtils = UsageReportsService;
 
 		$scope.goBackToPrevious = function() {
 			$window.history.back();	
@@ -88,11 +90,11 @@ angular.module('MLDS').controller('UsageReportReviewController',
 		
 		findUsageReport(usageReportId);
 		
-		$scope.reviewedUsageReport = function reviewedUsageReport() {
+		$scope.updateUsageReport = function updateUsageReport(newState) {
 			$scope.alerts.splice(0, $scope.alerts.length);
 			$scope.submitting = true;
 
-			CommercialUsageService.reviewUsageReport($scope.usageReport)
+			CommercialUsageService.updateUsageReport($scope.usageReport, newState)
 				.then(function(result) {
 					$log.log(result);
 					$location.path('/usageReportsReview');

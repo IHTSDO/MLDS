@@ -7,10 +7,10 @@ import javax.transaction.Transactional;
 import org.joda.time.LocalDate;
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
+import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 
 /**
  * Reset a persisted CommercialUsageReport and its CommercialUsageEntries
@@ -30,7 +30,7 @@ public class CommercialUsageResetter {
 		
     	commercialUsage.setStartDate(startDate);
     	commercialUsage.setEndDate(endDate);
-    	commercialUsage.setApprovalState(ApprovalState.NOT_SUBMITTED);
+		commercialUsage.setState(UsageReportState.NOT_SUBMITTED);
     	commercialUsage.setSubmitted(null);
     	commercialUsage.setEffectiveTo(null);
 	}
