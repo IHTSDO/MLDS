@@ -14,7 +14,7 @@
 				<tr>
 					<th>Report Date</th>
 					<th ng-show="showAllColumns">Usage Type</th>
-					<th ng-show="showAllColumns">Approval State</th>
+					<th ng-show="showAllColumns">State</th>
 					<th ng-show="showAllColumns">Countries</th>
 					<th>Hospitals</th>
 					<th>Practices</th>
@@ -49,7 +49,7 @@
 					</td>
 					<td ng-show="showAllColumns">
 						<span class="btn-link"><span ng-class="{'text-muted':usageReport.effectiveTo}">
-							{{ usageReport.approvalState | enum:'approval.state.'}}
+							{{ usageReport.state | enum:'usageReport.state.'}}
 						</span></span>
 					</td>
 					<td ng-show="showAllColumns">

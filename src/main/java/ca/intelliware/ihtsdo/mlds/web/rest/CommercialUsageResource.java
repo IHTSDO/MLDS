@@ -28,6 +28,7 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
+import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
@@ -38,6 +39,7 @@ import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
+import ca.intelliware.ihtsdo.mlds.service.UsageReportTransition;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Objects;
@@ -46,7 +48,7 @@ import com.google.common.collect.Lists;
 @RestController
 public class CommercialUsageResource {
 	
-	private static final String FILTER_ACTIVE_APPROVAL_STATE_SUBMITTED_OR_RESUBMITTED = "approvalState/submitted eq true or approvalState/resubmitted eq true";
+	private static final String FILTER_STATE_SUBMITTED = "approvalState/not submitted eq false";
 
 	@Resource
 	CommercialUsageRepository commercialUsageRepository;
@@ -98,8 +100,8 @@ public class CommercialUsageResource {
     	if (filter == null) {
     		usageReports = commercialUsageRepository.findAll();
     	} else {
-    		if (Objects.equal(filter, FILTER_ACTIVE_APPROVAL_STATE_SUBMITTED_OR_RESUBMITTED)) {
-    			usageReports = commercialUsageRepository.findByApprovalStateInAndEffectiveToIsNull(Lists.newArrayList(ApprovalState.SUBMITTED, ApprovalState.RESUBMITTED));
+			if (Objects.equal(filter, FILTER_STATE_SUBMITTED)) {
+				usageReports = commercialUsageRepository.findByNotStateAndEffectiveToIsNull(UsageReportState.NOT_SUBMITTED);
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
@@ -108,12 +110,14 @@ public class CommercialUsageResource {
     	return new ResponseEntity<Collection<CommercialUsage>>(usageReports, HttpStatus.OK);
     }
        
-    public static class CommercialUsageApprovalTransitionMessage {
-    	ApprovalTransition transition;
-    	public ApprovalTransition getTransition() {
+	public static class CommercialUsageTransitionMessage {
+		UsageReportTransition transition;
+
+		public UsageReportTransition getTransition() {
     		return transition;
     	}
-    	public void setTransition(ApprovalTransition transition) {
+
+		public void setTransition(UsageReportTransition transition) {
     		this.transition = transition;
     	}
     }
@@ -232,7 +236,9 @@ public class CommercialUsageResource {
     		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
-    public @ResponseBody ResponseEntity<CommercialUsage> transitionCommercialUsageApproval(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageApprovalTransitionMessage applyTransition) {
+	public @ResponseBody
+	ResponseEntity<CommercialUsage> transitionCommercialUsageApproval(@PathVariable("commercialUsageId") long commercialUsageId,
+			@RequestBody CommercialUsageTransitionMessage applyTransition) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
     	
     	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
@@ -362,17 +368,26 @@ public class CommercialUsageResource {
     		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN })
     @Timed
-    public @ResponseBody ResponseEntity<CommercialUsageCountry> addCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @RequestBody CommercialUsageCountry newCountValue) {
+	public @ResponseBody
+	ResponseEntity<?> addCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId,
+			@RequestBody CommercialUsageCountry newCountValue) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
-    	
-    	commercialUsageCountryRepository.save(newCountValue);
     	
     	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
     	if (commercialUsage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
 
-    	commercialUsage.addCount(newCountValue);
+		// MLDS-889 We're seeing duplicate country counts being created which I'm guessing happens when they come in without a primary key
+		// but already exist in the database. I'll also sync this block, in case we're looking at double clicking.
+		synchronized (commercialUsage) {
+			// If this new Value is not known as already being in the database, check if we have anything for the same country
+			if (newCountValue.getCommercialUsageCountId() == null && commercialUsage.exists(newCountValue)) {
+				return new ResponseEntity<String>("Country already exists for this usage report.", HttpStatus.CONFLICT);
+			}
+			commercialUsageCountryRepository.save(newCountValue);
+			commercialUsage.addCount(newCountValue);
+		}
         
         HttpHeaders headers = new HttpHeaders();
         // FIXME flush and get ids back
@@ -382,7 +397,12 @@ public class CommercialUsageResource {
 		return responseEntity;
     }
     
-    @RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
+	private void synchronize() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@RequestMapping(value = Routes.USAGE_REPORT_COUNTRY,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })

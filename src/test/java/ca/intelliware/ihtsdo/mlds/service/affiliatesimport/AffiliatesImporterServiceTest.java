@@ -19,6 +19,7 @@ import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.ImportApplication;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 
@@ -126,7 +127,7 @@ public class AffiliatesImporterServiceTest {
 		Affiliate foundAffiliate = affiliateRepository.findByImportKeyAndHomeMember("XXX_Test", sweden);
 		Assert.assertEquals("should have created commercial usage", 1, foundAffiliate.getCommercialUsages().size());
 		CommercialUsage usage = foundAffiliate.getCommercialUsages().iterator().next();
-		Assert.assertEquals(ApprovalState.NOT_SUBMITTED, usage.getApprovalState());
+		Assert.assertEquals(UsageReportState.NOT_SUBMITTED, usage.getState());
 	}
 
 	private void setField(List<String> fields, final String columnName, String value) {
