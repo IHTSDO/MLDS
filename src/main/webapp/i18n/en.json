@@ -822,6 +822,19 @@
       "REJECTED": "Declined"
     }
   },
+  "usageReport": {
+    "state": {
+      "NOT_SUBMITTED": "Not Submitted",
+      "CHANGE_REQUESTED": "Change Requested",
+      "SUBMITTED": "Submitted",
+      "RESUBMITTED": "Resubmitted",
+      "REVIEW_REQUESTED": "Review Requested",
+      "PENDING_INVOICE": "Pending Invoice",
+      "INVOICE_SENT": "Invoice Sent",
+      "PAID": "Paid",
+      "REJECTED": "Declined"
+    }
+  },
   "application": {
     "applicationType": {
       "PRIMARY": "Primary",

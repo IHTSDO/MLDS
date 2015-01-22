@@ -3,7 +3,7 @@
 	<groupId>org.ihtsdo.mlds</groupId>
 	<artifactId>mlds</artifactId>
 	<packaging>war</packaging>
-	<version>0.1.50</version>
+	<version>0.1.51</version>
 	<name>ihtsdo-mlds Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
@@ -12,6 +12,13 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.0.2.RELEASE</version>
 	</parent>
+	
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 
 	<profiles>
 		<profile>
@@ -483,8 +490,7 @@
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<enableSshAgent>true</enableSshAgent>
-					<useReleaseProfile>false</useReleaseProfile><!-- no need for source or javadoc -->
-					<noDeploy>false</noDeploy><!--  turn off nexus deploy until we have accounts -->
+					<noDeploy>true</noDeploy>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -673,6 +679,19 @@
 								</data>
 							</dataSet>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+					<id>download-licenses</id>
+					<goals>
+						<goal>download-licenses</goal>
+					</goals>
 					</execution>
 				</executions>
 			</plugin>

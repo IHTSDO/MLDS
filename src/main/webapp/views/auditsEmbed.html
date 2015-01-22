@@ -50,9 +50,9 @@
             <span ng-if="audit.data['usage.type']"><i class="fa fa-file-text"></i> <strong>Usage:</strong> {{audit.data['usage.type'] | enum:'affiliate.type.'}}</span>
             <span ng-if="audit.data['usage.commercialUsageId']"><strong>No:</strong> {{audit.data['usage.commercialUsageId']}}</span>
             <span ng-if="audit.data['usage.period.start'] || audit.data['usage.period.end']"><strong>Period:</strong> {{audit.data['usage.period.start']}} &#8211 {{audit.data['usage.period.end']}}</span>
-            <span ng-if="audit.data['usage.approvalState']"><strong>Approval State:</strong>
-            	<span ng-show="audit.data['usage.approvalState'] === 'APPROVED'" class="text-success"><span class="glyphicon glyphicon-ok"></span></span> 
-            	{{audit.data['usage.approvalState'] | enum:'approval.state.'}}
+            <span ng-if="audit.data['usage.state']"><strong>State:</strong>
+            	<span ng-show="audit.data['usage.approvalState'] === 'PAID'" class="text-success"><span class="glyphicon glyphicon-ok"></span></span> 
+            	{{audit.data['usage.state'] | enum:'usageReport.state.'}}
             </span>
             
             <span ng-if="audit.data['affiliate.affiliateDetails.type'] || audit.data['affiliate.affiliateDetails.otherText']">

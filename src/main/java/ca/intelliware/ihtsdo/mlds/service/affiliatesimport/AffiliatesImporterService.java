@@ -27,6 +27,7 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
+import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
@@ -178,7 +179,7 @@ public class AffiliatesImporterService {
 		UsageContext usageContext = new UsageContext();
 		populateWithAll(usageContext, record, UsageContext.class);
 		commercialUsage.setContext(usageContext);
-		commercialUsage.setApprovalState(ApprovalState.NOT_SUBMITTED);
+		commercialUsage.setState(UsageReportState.NOT_SUBMITTED);
 		commercialUsage.setType(affiliateType);
 		return commercialUsage;
 	}

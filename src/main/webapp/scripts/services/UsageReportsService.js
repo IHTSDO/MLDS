@@ -1,8 +1,8 @@
  'use strict';
 
 angular.module('MLDS')
-.factory('UsageReportsService', [ '$location', '$log', '$modal', 'AffiliateService', 'ApprovalStateUtils',
-                                    function($location, $log, $modal, AffiliateService, ApprovalStateUtils){
+.factory('UsageReportsService', [ '$location', '$log', '$modal', 'AffiliateService', 'UsageReportStateUtils',
+                                    function($location, $log, $modal, AffiliateService, UsageReportStateUtils){
 
 	var service = {};
 	
@@ -20,8 +20,16 @@ angular.module('MLDS')
 		}, 0);
 	};
 	
-	service.isUsageReportWaitingForApplicant = function(usageReport) {
-		return ApprovalStateUtils.isWaitingForApplicant(usageReport.approvalState);
+	service.isInvoiceSent = function(usageReport) {
+		return UsageReportStateUtils.isInvoiceSent(usageReport.state);
+	};
+	
+	service.isPendingInvoice = function(usageReport) {
+		return UsageReportStateUtils.isPendingInvoice(usageReport.state);
+	};
+	
+	service.isSubmitted = function(usageReport) {
+		return UsageReportStateUtils.isSubmitted(usageReport.state);
 	};
 
 	service.openAddUsageReportModal = function(affiliate) {
@@ -52,7 +60,7 @@ angular.module('MLDS')
 	
 	service.anySubmittedUsageReports = function(affiliate) {
 		return _.some(affiliate.commercialUsages, function(usageReport) {
-			return !ApprovalStateUtils.isWaitingForApplicant(usageReport.approvalState) && !usageReport.effectiveTo;
+			return !UsageReportStateUtils.isWaitingForApplicant(usageReport.state) && !usageReport.effectiveTo;
 		});
 	};
 

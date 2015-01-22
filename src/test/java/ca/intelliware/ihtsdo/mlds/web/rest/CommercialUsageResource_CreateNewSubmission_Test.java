@@ -27,6 +27,7 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
+import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuditEvents;
@@ -119,7 +120,7 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 	public void createNewSubmissionShouldReturnExistingUsageWithMatchingPeriod() throws Exception {
 		CommercialUsagePeriod usagePeriod = withUsagePeriod("2014-01-01", "2014-06-30");
 		CommercialUsage commercialUsage = new CommercialUsage(2L, affiliate);
-		commercialUsage.setApprovalState(ApprovalState.SUBMITTED);
+		commercialUsage.setState(UsageReportState.SUBMITTED);
 		
 		Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList(commercialUsage));
 		
@@ -136,7 +137,7 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 		otherCommercialUsage.setStartDate(LocalDate.parse("2014-07-01"));
 		otherCommercialUsage.setEndDate(LocalDate.parse("2014-12-31"));
 		otherCommercialUsage.setType(AffiliateType.COMMERCIAL);
-		otherCommercialUsage.setApprovalState(ApprovalState.SUBMITTED);
+		otherCommercialUsage.setState(UsageReportState.SUBMITTED);
 
 		Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
 		
@@ -194,7 +195,7 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 				usage.setCommercialUsageId(null);
 				usage.setStartDate((LocalDate) invocation.getArguments()[1]);
 				usage.setEndDate((LocalDate) invocation.getArguments()[2]);
-				usage.setApprovalState(ApprovalState.NOT_SUBMITTED);
+				usage.setState(UsageReportState.NOT_SUBMITTED);
 				usage.setEffectiveTo(null);
 				return null;
 			}
