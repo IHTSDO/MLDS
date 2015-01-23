@@ -1,13 +1,15 @@
-#Before running, take a full database backup with
-#sudo -u mlds  pg_dump mlds > dev_mlds_20150121.sql
+/*
+Before running, take a full database backup with
+sudo -u mlds  pg_dump mlds > dev_mlds_20150121.sql
 
-#The run this script with 
-#sudo -u mlds psql < mlds-889-remove-duplicate-country-counts.sql
+The run this script with 
+sudo -u mlds psql < mlds-889-remove-duplicate-country-counts.sql
 
-#Expected results:
-#SELECT 67
-#SELECT 17
-#DELETE 17
+Expected results:
+SELECT 67
+SELECT 17
+DELETE 17
+*/
 
 create table mlds_889_usage_count_backup
 as 
