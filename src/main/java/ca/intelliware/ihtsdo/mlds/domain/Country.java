@@ -25,7 +25,7 @@ public class Country extends BaseEntity {
     @Column(name="common_name")
     private String commonName;
     
-    private boolean excludeRegistration;
+    private boolean excludeUsage;
     
     private String alternateRegistrationUrl;
     
@@ -56,12 +56,12 @@ public class Country extends BaseEntity {
 		return commonName;
 	}
 
-	public boolean isExcludeRegistration() {
-		return excludeRegistration;
+	public boolean isExcludeUsage() {
+		return excludeUsage;
 	}
 
-	public void setExcludeRegistration(boolean excludeRegistration) {
-		this.excludeRegistration = excludeRegistration;
+	public void setExcludeUsage(boolean excludeUsage) {
+		this.excludeUsage = excludeUsage;
 	}
 
 	public String getAlternateRegistrationUrl() {
