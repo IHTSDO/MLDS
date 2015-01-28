@@ -15,7 +15,9 @@ angular.module('MLDS').controller('RegisterController', ['$rootScope', '$scope',
         $scope.$watch('countryCommonName', function(newValue){
         	var country = _.findWhere(CountryService.countries, {'commonName':newValue});
         	$scope.registerAccount.country = country;
-        	var excludedCountry = country && country.excludeRegistration;
+        	//var excludedCountry = country && country.excludeRegistration;
+        	//MLDS-785 there are no excluded countries
+        	var excludedCountry = false;
         	$scope.createUserForm.country.$setValidity('excluded',!excludedCountry);
         });
         

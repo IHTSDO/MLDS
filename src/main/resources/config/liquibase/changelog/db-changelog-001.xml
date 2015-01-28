@@ -1490,7 +1490,9 @@ $f$ language plpgsql;
 			<where>state='APPROVED'</where>
     	</update>
     </changeSet>
-        
 
-        
+    <changeSet id="MLDS-875" author="PGW">
+    	<comment>Repurposing excludeRegistration to excludeUsage as all countries can now register</comment>
+    	<renameColumn tableName="country" oldColumnName="exclude_registration" newColumnName="exclude_usage"/>
+    </changeSet>
 </databaseChangeLog>

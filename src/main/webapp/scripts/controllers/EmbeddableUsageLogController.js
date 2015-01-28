@@ -194,7 +194,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		var canAdd = false;
 		countryCodes.forEach(function(countryCode) {
 			var addCountry = countryFromCode(countryCode);
-			if (addCountry && !isCountryAlreadyPresent(addCountry)) {
+			if (addCountry && !isCountryAlreadyPresent(addCountry) && !addCountry.excludeUsage) {
 				canAdd = true;
 			}
 		});

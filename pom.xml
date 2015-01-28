@@ -3,7 +3,7 @@
 	<groupId>org.ihtsdo.mlds</groupId>
 	<artifactId>mlds</artifactId>
 	<packaging>war</packaging>
-	<version>0.1.51</version>
+	<version>0.1.52</version>
 	<name>ihtsdo-mlds Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
@@ -455,7 +455,7 @@
 		<dependency>
 			<groupId>org.ihtsdo.otf.common</groupId>
 			<artifactId>otf-common</artifactId>
-			<version>0.0.4</version>
+			<version>0.0.5</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring-beans</artifactId>
