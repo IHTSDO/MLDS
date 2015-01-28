@@ -352,9 +352,16 @@ public class CommercialUsageResource {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
     	
+		CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+		if (commercialUsageCountry == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
     	commercialUsageCountryRepository.delete(commercialUsageCountId);
     	
-    	List<CommercialUsageEntry> entries = commercialUsageEntryRepository.findByCountry(commercialUsageCountry.getCountry());
+		// Yes delete usage from this country, but only for the current usage report!
+		List<CommercialUsageEntry> entries = commercialUsageEntryRepository.findByCountryAndCommercialUsage(
+				commercialUsageCountry.getCountry(), commercialUsage);
     	for (CommercialUsageEntry commercialUsageEntry : entries) {
 			commercialUsageEntryRepository.delete(commercialUsageEntry);
 		}
