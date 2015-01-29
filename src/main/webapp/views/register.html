@@ -30,9 +30,9 @@
                   ng-submit="register()">
 
 								<div class="form-group">
-									<label>Country of residence</label>
+									<label translate="settings.form.countryOfResidence">Country of residence</label>
 									<input class="form-control" type="text" name="country" autofocus=""  autocomplete="off" 
-										placeholder="Country of residence"
+										placeholder="{{'settings.form.countryOfResidence.placeholder' | translate}}"
 										ng-model="countryCommonName" 
 										required=""
 										typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"

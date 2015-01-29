@@ -1,751 +1,925 @@
 {
-  "global":{
-    "title":"MLDS",
-    "browsehappy":"Youareusingan<strong>outdated</strong>browser.Please<ahref=\"http://browsehappy.com/?locale=en\">upgradeyourbrowser</a>toimproveyourexperience.",
-    "menu":{
-      "home":"Home",
-      "account":{
-        "main":"Compte",
-        "contactInfo":"Coordonnées",
-        "password":"Motdepasse",
-        "sessions":"sessions",
-        "tracker":"trackerutilisateur",
-        "metrics":"métriques",
-        "logs":"logs",
-        "audits":"Audits",
-        "login":"Connexion",
-        "logout":"Déconnexion",
-        "apidocs":"API",
-        "register":"Seinscrire",
-        "affiliates":"Affiliés",
-        "dashboard":"tableaudebord"
-      },
-      "dashboard":"tableaudebord",
-      "usageReports":"lesrapportsd'utilisation",
-      "releasePackages":"Lescolisdesortie",
-      "affiliate":{
-        "accountInformation":"Informationsducompte",
-        "changePassword":"ChangePassword",
-        "logout":"Déconnexion"
-      },
-      "staff":{
-        "dashboard":"tableaudebord",
-        "pendingApplications":"lesdemandeseninstance",
-        "usageReports":"lesrapportsd'utilisation",
-        "affiliteUserManagement":"affiliationGestiondesutilisateurs",
-        "activityLog":"Journald'activité",
-        "packageManagement":"Gestiondespaquetages",
-        "licenseTC":"LicenseTetC",
-        "reportsExtracts":"RapportsetExtraits",
-        "logout":"Déconnexion"
-      },
-      "admin":{
-        "importAffiliateRecords":"importationaffiliationRecords",
-        "manageBlacklist":"GérerBlacklist",
-        "nationalRegistrationList":"Listenationaled'inscription"
-      },
-      "language":"Langue"
-    },
-    "language":{
-      "da":"danois",
-      "en":"English",
-      "fr":"Français",
-      "de":"allemand",
-      "pl":"Polonais",
-      "ru":"russe"
-    },
-    "member":{
-      "IHTSDO":"IHTSDO",
-      "AU":"Australie",
-      "BE":"Belgique",
-      "BN":"Brunei",
-      "CA":"Canada",
-      "CL":"Chili",
-      "CZ":"Républiquetchèque",
-      "DK":"leDanemark",
-      "EE":"Estonie",
-      "HK":"HongKong,Chine",
-      "IS":"Islande",
-      "IN":"l'Inde",
-      "IL":"Israël",
-      "LT":"Lituanie",
-      "MY":"laMalaisie",
-      "MT":"Malte",
-      "NL":"Pays-Bas",
-      "NZ":"Nouvelle-Zélande",
-      "PL":"Pologne",
-      "PT":"Portugal",
-      "SG":"Singapour",
-      "SK":"Républiqueslovaque",
-      "SI":"RépubliquedeSlovénie",
-      "ES":"Espagne",
-      "SE":"Suède",
-      "GB":"Royaume-Uni",
-      "US":"États-Unis",
-      "UY":"Uruguay"
-    },
-    "country":{
-      "AC":"Ascension",
-      "AD":"Andorra",
-      "AE":"Emiratsarabesunis",
-      "AF":"Afghanistan",
-      "AG":"Antigua-et-Barbuda",
-      "AI":"Anguilla",
-      "AL":"Albanie",
-      "AM":"L'Arménie",
-      "AN":"Antillesnéerlandaises",
-      "AO":"Angola",
-      "AQ":"Territoireaustraliendel'Antarctique",
-      "AR":"Argentine",
-      "AS":"AmericanSamoa",
-      "AT":"Autriche",
-      "AU":"Australie",
-      "AW":"Aruba",
-      "AX":"Aland",
-      "AZ":"Azerbaïdjan",
-      "BA":"LaBosnie-Herzégovine",
-      "BB":"laBarbade",
-      "BD":"Bangladesh",
-      "BE":"Belgique",
-      "BF":"BurkinaFaso",
-      "BG":"Bulgarie",
-      "BH":"Bahreïn",
-      "BI":"Burundi",
-      "BJ":"Bénin",
-      "BM":"Bermudes",
-      "BN":"Brunei",
-      "BO":"laBolivie",
-      "BR":"Brésil",
-      "BS":"Bahamas",
-      "BT":"Bhoutan",
-      "BV":"l'îleBouvet",
-      "BW":"LeBotswana",
-      "BY":"Biélorussie",
-      "BZ":"Belize",
-      "CA":"Canada",
-      "CC":"Cocos(Keeling)",
-      "CD":"Congo,(CongoKinshasa)",
-      "CF":"Républiquecentrafricaine",
-      "CG":"Congo,(CongoBrazzaville)",
-      "CH":"laSuisse",
-      "CI":"Côted'Ivoire(Côte-d'Ivoire)",
-      "CK":"îlesCook",
-      "CL":"Chili",
-      "CM":"Cameroun",
-      "CN":"LaChine,Républiquepopulairede",
-      "CO":"Colombie",
-      "CR":"CostaRica",
-      "CU":"Cuba",
-      "CV":"CapVert",
-      "CX":"ChristmasIsland",
-      "CY":"Chypre",
-      "CZ":"Républiquetchèque",
-      "DE":"Allemagne",
-      "DJ":"Djibouti",
-      "DK":"leDanemark",
-      "DM":"Dominique",
-      "DO":"Républiquedominicaine",
-      "DZ":"Algérie",
-      "EC":"Equateur",
-      "EE":"Estonie",
-      "EG":"l'Égypte",
-      "ER":"l'Erythrée",
-      "ES":"Espagne",
-      "ET":"l'Ethiopie",
-      "FI":"Finlande",
-      "FJ":"Fidji",
-      "FK":"îlesFalkland(Malvinas)",
-      "FM":"Micronésie",
-      "FO":"ÎlesFéroé",
-      "FR":"France",
-      "GA":"Gabon",
-      "GB":"Royaume-Uni",
-      "GD":"Grenade",
-      "GE":"Georgia",
-      "GF":"Guyanefrançaise",
-      "GG":"Guernsey",
-      "GH":"LeGhana",
-      "GI":"Gibraltar",
-      "GL":"Groenland",
-      "GM":"Gambie",
-      "GN":"Guinée",
-      "GP":"Guadeloupe",
-      "GQ":"laGuinéeéquatoriale",
-      "GR":"Grèce",
-      "GS":"laGéorgieduSudetîlesSandwichduSud",
-      "GT":"Guatemala",
-      "GU":"Guam",
-      "GW":"laGuinée-Bissau",
-      "GY":"Guyane",
-      "HK":"HongKong",
-      "HM":"îlesHeardetMcDonald",
-      "HN":"Honduras",
-      "HR":"Croatie",
-      "HT":"Haïti",
-      "HU":"Hongrie",
-      "ID":"Indonésie",
-      "IE":"Irlande",
-      "IL":"Israël",
-      "IM":"IsleofMan",
-      "IN":"l'Inde",
-      "IO":"Territoirebritanniquedel'océanIndien",
-      "IQ":"l'Irak",
-      "IR":"l'Iran",
-      "IS":"Islande",
-      "IT":"Italie",
-      "JE":"Jersey",
-      "JM":"Jamaica",
-      "JO":"Jordanie",
-      "JP":"Japon",
-      "KE":"Kenya",
-      "KG":"Kirghizistan",
-      "KH":"leCambodge",
-      "KI":"Kiribati",
-      "KM":"Comores",
-      "KN":"Saint-Kitts-et-Nevis",
-      "KP":"CoréeduNord",
-      "KR":"CoréeduSud",
-      "KW":"Koweït",
-      "KY":"îlesCaïmans",
-      "KZ":"Kazakhstan",
-      "LA":"Laos",
-      "LB":"Liban",
-      "LC":"SaintLucia",
-      "LI":"Liechtenstein",
-      "LK":"SriLanka",
-      "LR":"Liberia",
-      "LS":"Lesotho",
-      "LT":"Lituanie",
-      "LU":"Luxembourg",
-      "LV":"laLettonie",
-      "LY":"laLibye",
-      "MA":"Maroc",
-      "MC":"Monaco",
-      "MD":"Moldova",
-      "ME":"Monténégro",
-      "MG":"Madagascar",
-      "MH":"îlesMarshall",
-      "MK":"Macédoine",
-      "ML":"Mali",
-      "MM":"Myanmar(Birmanie)",
-      "MN":"Mongolie",
-      "MO":"Macao",
-      "MP":"îlesMariannesduNord",
-      "MQ":"Martinique",
-      "MR":"Mauritanie",
-      "MS":"Montserrat",
-      "MT":"Malte",
-      "MU":"Maurice",
-      "MV":"Maldives",
-      "MW":"LeMalawi",
-      "MX":"Mexique",
-      "MY":"laMalaisie",
-      "MZ":"leMozambique",
-      "NA":"Namibie",
-      "NC":"Nouvelle-Calédonie",
-      "NE":"Niger",
-      "NF":"l'îledeNorfolk",
-      "NG":"Nigeria",
-      "NI":"Nicaragua",
-      "NL":"Pays-Bas",
-      "NO":"Norvège",
-      "NP":"Nepal",
-      "NR":"Nauru",
-      "NU":"Nioué",
-      "NZ":"Nouvelle-Zélande",
-      "OM":"Oman",
-      "PA":"Panama",
-      "PE":"Pérou",
-      "PF":"Polynésiefrançaise",
-      "PG":"Papouasie-Nouvelle-Guinée",
-      "PH":"Philippines",
-      "PK":"Pakistan",
-      "PL":"Pologne",
-      "PM":"Saint-Pierre-et-Miquelon",
-      "PN":"IlesPitcairn",
-      "PR":"PuertoRico",
-      "PT":"Portugal",
-      "PW":"Palau",
-      "PY":"LeParaguay",
-      "QA":"Qatar",
-      "RE":"Réunion",
-      "RO":"Roumanie",
-      "RS":"Serbie",
-      "RU":"laRussie",
-      "RW":"Rwanda",
-      "SA":"l'Arabiesaoudite",
-      "SB":"îlesSalomon",
-      "SC":"Seychelles",
-      "SD":"Soudan",
-      "SE":"Suède",
-      "SG":"Singapour",
-      "SH":"SaintHelena",
-      "SI":"laSlovénie",
-      "SJ":"Svalbard",
-      "SK":"Slovaquie",
-      "SL":"SierraLeone",
-      "SM":"SanMarino",
-      "SN":"Sénégal",
-      "SO":"Somalie",
-      "SR":"Suriname",
-      "ST":"SaoToméetPrincipe",
-      "SV":"ElSalvador",
-      "SY":"laSyrie",
-      "SZ":"Swaziland",
-      "TA":"TristandaCunha",
-      "TC":"îlesTurquesetCaïques",
-      "TD":"Tchad",
-      "TF":"FrançaisTerresaustralesetantarctiques",
-      "TG":"Togo",
-      "TH":"Thaïlande",
-      "TJ":"Tadjikistan",
-      "TK":"Tokélaou",
-      "TL":"Timor-Leste(Timororiental)",
-      "TM":"Turkménistan",
-      "TN":"Tunisie",
-      "TO":"Tonga",
-      "TR":"Turquie",
-      "TT":"Trinité-et-Tobago",
-      "TV":"Tuvalu",
-      "TW":"LaChine,Républiquede(Taiwan)",
-      "TZ":"Tanzanie",
-      "UA":"Ukraine",
-      "UG":"l'Ouganda",
-      "UM":"WakeIsland",
-      "US":"États-Unis",
-      "UY":"Uruguay",
-      "UZ":"l'Ouzbékistan",
-      "VA":"CitéduVatican",
-      "VC":"Saint-Vincent-et-lesGrenadines",
-      "VE":"Venezuela",
-      "VG":"ÎlesViergesbritanniques",
-      "VI":"ÎlesViergesaméricaines",
-      "VN":"Vietnam",
-      "VU":"Vanuatu",
-      "WF":"WallisetFutuna",
-      "WS":"Samoa",
-      "YE":"Yémen",
-      "YT":"Mayotte",
-      "ZA":"AfriqueduSud",
-      "ZM":"LaZambie",
-      "ZW":"Zimbabwe"
-    },
-    "form":{
-      "username":"Connexion",
-      "username.placeholder":"Votrelogin",
-      "name.placeholder":"Votrenom",
-      "newpassword":"Nouveaumotdepasse",
-      "newpassword.placeholder":"Nouveaumotdepasse",
-      "confirmpassword":"Nouvelleconfirmationdemotdepasse",
-      "confirmpassword.placeholder":"Confirmezlenouveaumotdepasse",
-      "email":"E-mail",
-      "email.placeholder":"Votreadressee-mail",
-      "country":"Paysderésidence"
-    },
-    "messages":{
-      "info":{
-        "authenticated":"Ifyouwantto<ahref=\"#/login\">authenticate</a>,youcantrythedefaultaccounts:<br/>-Admnistrator(login=\"admin\"andpassword=\"admin\")<br/>-User(login=\"user\"andpassword=\"user\").",
-        "register":"Vousneavezpasencoredecompte<ahref=\"#/register\">Enregistrerunnouveaucompte</a>?"
-      },
-      "error":{
-        "dontmatch":"Lemotdepasseetsaconfirmationnecorrespondentpas!",
-        "server":"UneerreurestsurvenueRépétitionl'actionpeutréussir."
-      },
-      "validate":{
-        "newpassword":{
-          "required":"Votremotdepasseestnécessaire.",
-          "minlength":"Votremotdepasseestnécessairepourêtreaumoins5caractères",
-          "maxlength":"Votremotdepassenepeutpasêtrepluslongque50caractères",
-          "strength":"laforcedumotdepasse:"
-        },
-        "confirmpassword":{
-          "required":"Votremotdepassedeconfirmationestnécessaire.",
-          "minlength":"Votremotdepassedeconfirmationestnécessairepourêtreaumoins5caractères",
-          "maxlength":"Votremotdepassedeconfirmationnepeutpasêtreplusde50caractères",
-          "match":"Votreconfirmationdemotdepassenecorrespondpasaumotdepasse"
-        },
-        "email":{
-          "required":"Votree-mailestnécessaire.",
-          "invalid":"Votree-mailneestpasvalide.",
-          "minlength":"Votree-mailestnécessairepourêtreaumoins1caractère",
-          "maxlength":"Votree-mailnepeutpasêtrepluslongque50caractères"
-        }
-      }
-    }
-  },
-  "logout":{
-    "title":"MLDS-Déconnexion",
-    "subtitle":"Noussommesl'enregistrementdevotredevotresession."
-  },
-  "activate":{
-    "title":"activation",
-    "messages":{
-      "success":"<strong>Useraccounthasbeencreated.FR</strong>",
-      "error":"<strong>Yourusercouldnotbeactivated.FR</strong>"
-    }
-  },
-  "register":{
-    "title":"Inscription",
-    "welcome":"BienvenueàIHTSDO-MLDS",
-    "subwelcome":"LapasserellepouraccéderSNOMEDCTOrientation",
-    "form":{
-      "tos":"accepteznos<ahref=\"/tos.html\"target=\"_blank\">Conditions</a>.",
-      "button":"Lancerenregistrement",
-      "confirmemail":"E-mail(confirmer)"
-    },
-    "messages":{
-      "validate":{
-        "login":{
-          "required":"Votreconnexionestrequise.",
-          "minlength":"Votreconnexionestnécessairepourêtreaumoins1caractère",
-          "maxlength":"Votreconnexionnepeutpasêtrepluslongque50caractères"
-        },
-        "country":{
-          "notMLDS":"Applicationspourl'utilisationdelaSNOMEDCTdansvotrepaysderésidencedoiventêtrefaitesaureprésentantappropriédevotrepays-<ahref=\"{{link}}\"target=\"_blank\">ici</a>.SivoussouhaitezpostulerpourunbonaccordpublicàutiliserlaSNOMEDCTdansunautrepays,ousivoussouhaitezfaired'autresdemandesderenseignementsseilvousplaîtcontacterl'IHTSDOau<ahref=\"mailto:info@ihtsdo.org\">infos@ihtsdo.org</a>"
-        }
-      },
-      "success":"<strong>Inscriptionsauvé</strong>Seilvousplaîtvérifiervotree-maildeconfirmation!.",
-      "error":{
-        "fail":"<strong>Echecdel'enregistrement</strong>Seilvousplaîtréessayerplustard.",
-        "userexists":"<strong>Unutilisateuradéjàenregistréaveccetteadresseemail</strong>Vouliez-vousdire<ahref='#/login'>connecter</a>.?",
-        "blocklist":"Grâceànosstratégiesinformatiquesnoussommesincapablesdetraiterl'adressemailindiquéeSeilvousplaîtcontacter<ahref=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a>pourplusd'assistance."
-      }
-    }
-  },
-  "login":{
-    "title":"Connexion",
-    "form":{
-      "password":"Motdepasse",
-      "password.placeholder":"Votremotdepasse",
-      "rememberme":"RememberMe",
-      "button":"Connexion"
-    },
-    "messages":{
-      "error":{
-        "authentication":"<strong>L'authentificationaéchoué</strong>Seilvousplaîtvérifiervosinformationsd'identificationetessayezànouveaulesmotsdepassesontsensiblesàlacasse!",
-        "deregistered":"<strong>L'authentificationaéchoué</strong>CecompteaétéradiéSeilvousplaîtcontacterlesupport",
-        "noPermissions":"<strong>L'authentificationaéchoué</strong>Nousvousauthentifiés,maisvotrecompten'apasaccèsàcetteapplication,ouestmalconfiguréSeilvousplaîtcontacterlesupport!"
-      }
-    }
-  },
-  "settings":{
-    "title":"ContactInfopour[<b>{{username}}</b>]",
-    "form":{
-      "firstname":"Prénom",
-      "firstname.placeholder":"Votreprénom",
-      "lastname":"Nom",
-      "lastname.placeholder":"Votrenom",
-      "button":"Enregistrer"
-    },
-    "messages":{
-      "error":"<strong>Uneerreurestsurvenue</strong>Paramètresnepouvaientpasêtresauvés!",
-      "success":"<strong>Paramètressauvé</strong>!",
-      "validate":{
-        "firstname":{
-          "required":"Votreprénomestnécessaire.",
-          "minlength":"Votreprénomdoitêtred'aumoins1caractère",
-          "maxlength":"Votreprénomnepeutpasêtrepluslongque50caractères"
-        },
-        "lastname":{
-          "required":"Votrenomestnécessaire.",
-          "minlength":"Votrenomestnécessairepourêtreaumoins1caractère",
-          "maxlength":"Votrenomnepeutpasêtrepluslongque50caractères"
-        }
-      }
-    }
-  },
-  "password":{
-    "title":"Motdepassepournomd'utilisateur{{}}",
-    "form":{
-      "button":"Enregistrer"
-    },
-    "messages":{
-      "error":"<strong>Uneerreurestsurvenue</strong>Lemotdepassen'apaspuêtrechangé.",
-      "success":"<strong>Motdepassemodifié</strong><aContinuerinformationhref='#/contactInfo'>compte</a>",
-      "expired":"<strong>Lelienderéinitialisationaexpiréouneétaitpasvalide</strong><ahref='#/requestPasswordReset'>Demanderuneautreréinitialisation</a>."
-    }
-  },
-  "sessions":{
-    "title":"Lessessionsactivespour[<b>{{username}}</b>]",
-    "table":{
-      "ipaddress":"adresseIP",
-      "useragent":"UserAgent",
-      "date":"Date",
-      "button":"Invalider"
-    },
-    "messages":{
-      "success":"<strong>Sessioninvalidé</strong>!",
-      "error":"<strong>Uneerreurestsurvenue</strong>Lasessionnepouvaitpasêtreinvalidé!."
-    }
-  },
-  "tracker":{
-    "title":"lesactivitésdesutilisateursentempsréel",
-    "table":{
-      "userlogin":"Utilisateur",
-      "ipaddress":"AdresseIP",
-      "userAgent":"UserAgent",
-      "page":"page",
-      "time":"Time"
-    }
-  },
-  "metrics":{
-    "title":"Metrics Système",
-    "refresh.button":"Refresh",
-    "health":{
-      "title":"contrôlesdeHeath",
-      "database":"Basededonnées:",
-      "email":"Email:",
-      "stacktrace":"Stacktrace"
-    },
-    "jvm":{
-      "title":"JVMMetrics",
-      "memory":{
-        "title":"Mémoire",
-        "total":"Mémoiretotale",
-        "heap":"HeapMemory",
-        "nonheap":"non-HeapMemory"
-      },
-      "threads":{
-        "title":"Threads",
-        "all":"Tout",
-        "runnable":"Runnable",
-        "timedwaiting":"attenteTempo",
-        "waiting":"Waiting",
-        "blocked":"Bloqué",
-        "dump":{
-          "title":"Threadsbenne",
-          "id":"Id:",
-          "blockedtime":"TimeBloqué",
-          "blockedcount":"comteBloqué",
-          "waitedtime":"Attendu Time",
-          "waitedcount":"comteattendu",
-          "lockname":"Nom Lock",
-          "stacktrace":"Stacktrace",
-          "show":"Show",
-          "hide":"Masquer"
-        }
-      },
-      "gc":{
-        "title":"collectionsd'ordures",
-        "marksweepcount":"Marknombredebalayage",
-        "marksweeptime":"Marktempsdebalayage",
-        "scavengecount":"Scavengecount",
-        "scavengetime":"Scavengetemps"
-      },
-      "http":{
-        "title":"requêtes HTTP(événementsparseconde)",
-        "active":"demandesactives:",
-        "total":"Nombretotaldedemandes:",
-        "table":{
-          "code":"Code",
-          "count":"Count",
-          "mean":"moyenne",
-          "average":"Moyenne"
-        },
-        "code":{
-          "ok":"Ok",
-          "notfound":"Pastrouvé",
-          "servererror":"ServerError"
-        }
-      }
-    },
-    "servicesstats":{
-      "title":"lesstatistiquesdesservices(tempsenmillisecondes)",
-      "table":{
-        "name":"Nom du service",
-        "count":"Count",
-        "mean":"moyenne",
-        "min":"Min",
-        "max":"Max",
-        "p50":"p50",
-        "p75":"p75",
-        "p95":"p95",
-        "p99":"p99"
-      }
-    },
-    "ehcache":{
-      "title":"statistiques",
-      "cachename":"nomCache",
-      "objects":"objets",
-      "hits":"hits",
-      "misses":"Misses",
-      "evictioncount":"compted'expulsion",
-      "mean":"Meanobtenirdutemps(ms)"
-    }
-  },
-  "logs":{
-    "title":"Journaux",
-    "nbloggers":"Ilya{{total}}bûcherons.",
-    "filter":"Filtre",
-    "table":{
-      "name":"Nom",
-      "level":"Niveau"
-    }
-  },
-  "audits":{
-    "title":"Audits",
-    "filter":{
-      "title":"Filtrezparjour",
-      "from":"àpartirde",
-      "to":"à",
-      "button":{
-        "weeks":"semaines",
-        "today":"aujourd'hui",
-        "clear":"clair",
-        "close":"fermer"
-      }
-    },
-    "table":{
-      "header":{
-        "principal":"Utilisateur",
-        "date":"Date(locale)",
-        "status":"État",
-        "data":"donnéessupplémentaires"
-      },
-      "data":{
-        "remoteAddress":"Adresseàdistance:"
-      }
-    },
-    "type":{
-      "AUTHORIZATION_FAILURE":"L'échecd'autorisation",
-      "AUTHENTICATION_SUCCESS":"Autorisationsuccès",
-      "AUTHENTICATION_FAILURE":"échecd'authentification",
-      "AFFILIATE_CREATED":"Crééaffiliation",
-      "AFFILIATE_CREATED_BY_IMPORT":"affiliationCrééàpartird'importation",
-      "AFFILIATE_UPDATED":"Miseàjourd'affiliation",
-      "AFFILIATE_UPDATED_BY_IMPORT":"Miseàjouràpartird'affiliationImporter",
-      "AFFILIATEDETAILS_UPDATED":"affiliationDétailsMiseàjour",
-      "AFFILIATE_EXPORT":"affiliationBatchExport",
-      "AFFILIATE_IMPORT":"affiliationimportationparlots",
-      "AFFILIATE_LOGIN_CREATED":"ConnexionaffiliéCréé",
-      "AFFILIATE_STANDING_STATE_CHANGED":"affiliationÉtatpermanentChanged",
-      "APPLICATION_CREATED":"Applicationcréée",
-      "APPLICATION_APPROVAL_STATE_CHANGED":"Étatd'approbationdesdemandesachangé",
-      "APPLICATION_DELETED":"Applicationsupprimé",
-      "RELEASE_FILE_CREATED":"FichierdesortieCréé",
-      "RELEASE_FILE_DELETED":"Fichierdesortiesupprimé",
-      "RELEASE_FILE_DOWNLOADED":"FichierdesortieTéléchargé",
-      "RELEASE_PACKAGE_DELETED":"ReleasePackagesupprimé",
-      "RELEASE_PACKAGE_CREATED":"ReleasePackageCréé",
-      "RELEASE_VERSION_TAKEN_OFFLINE":"ReleaseVersionhorsligne",
-      "RELEASE_VERSION_TAKEN_ONLINE":"ReleaseVersionPrisenligne",
-      "RELEASE_VERSION_CREATED":"ReleaseVersionCréé",
-      "RELEASE_VERSION_DELETED":"ReleaseVersionsupprimé",
-      "USAGE_CREATED":"UtilisationCréé",
-      "USAGE_APPROVAL_STATE_CHANGED":"Etatd'utilisationdel'approbationachangé"
-    }
-  },
-  "errors":{
-    "403":"Vousn'êtespasautoriséàaccéderàlapage.",
-    "title":"lapaged'erreur!"
-  },
-  "footer":"Ceestvotrepieddepage",
-  "affiliate":{
-    "title":"affiliation",
-    "type":{
-      "title":"Type",
-      "COMMERCIAL":"Commercial",
-      "ACADEMIC":"académique",
-      "OTHER":"Autre",
-      "INDIVIDUAL":"Individual"
-    },
-    "subType":{
-      "DEVELOPER":"développeur",
-      "DEVELOPMENT":"développement",
-      "EDUCATIONAL":"l'éducation",
-      "HEALTHCAREPROVIDER":"fournisseurdesoinsdesanté",
-      "PERSONAL":"Personnel",
-      "RESEARCH":"Recherche",
-      "VENDOR":"vendeur"
-    },
-    "agreementType":{
-      "AFFILIATE_NORMAL":"affiliation-Normal",
-      "AFFILIATE_RESEARCH":"affiliation-larecherche",
-      "AFFILIATE_PUBLIC_GOOD":"affiliation-bienpublic"
-    },
-    "organizationType":{
-      "PUBLIC_HEALTH_ORGANIZATION":"Organisationdelasantépublique",
-      "PRIVATE_HEALTH_ORGANIZATION":"Organisationdelasantéprivée",
-      "RESEARCH_AND_DEVELOPMENT_ORGANIZATION":"Organisationderechercheetdedéveloppement",
-      "HEALTHERCARE_APPLICATION_DEVELOPER":"DéveloppeurHealthcareApplication",
-      "GENERAL_PRACTITIONER_PRACTICE":"Médecingénéralistepratique",
-      "EDUCATIONAL_INSTITUTE":"EducationalInstitute",
-      "OTHER":"Autres"
-    },
-    "implementationStatus":{
-      "IMPLEMENTED":"Live/Miseenœuvre",
-      "DEVELOPMENT":"Encours/développement",
-      "PLANNING":"DansÉtapedelaplanification"
-    },
-    "standingState":{
-      "APPLYING":"Application",
-      "IN_GOOD_STANDING":"enrègle",
-      "REJECTED":"Refusé",
-      "DEACTIVATION_PENDING":"désactivationenattente",
-      "DEACTIVATED":"Désactivé",
-      "DEREGISTERED":"radiée",
-      "PENDING_INVOICE":"Enattente defacture",
-      "INVOICE_SENT": "Invoice Sent FR"
-    },
-    "standingStateWithExplanation":{
-      "APPLYING":"Application",
-      "IN_GOOD_STANDING":"enrègle",
-      "REJECTED":"Refusé",
-      "DEACTIVATION_PENDING":"désactivationenattente",
-      "DEACTIVATED":"Désactivé",
-      "DEREGISTERED":"radiée",
-      "PENDING_INVOICE":"En attente defacture"
-      "INVOICE_SENT": "Facture envoié"
-    }
-  },
-  "approval":{
-    "state":{
-      "NOT_SUBMITTED":"nonsoumise",
-      "CHANGE_REQUESTED":"changement demandé",
-      "SUBMITTED":"soumis",
-      "RESUBMITTED":"présentée denouveau",
-      "REVIEW_REQUESTED":"Examen demandée",
-      "APPROVED":"Approuvé",
-      "REJECTED":"Refusé"
-    }
-  },
-  "usageReport": {
-    "state": {
-      "NOT_SUBMITTED": "Nonsoumise",
-      "CHANGE_REQUESTED": "changement demandé",
-      "SUBMITTED": "Soumis",
-      "RESUBMITTED": "Présentée denouveau",
-      "REVIEW_REQUESTED": "Examen demandée",
-      "PENDING_INVOICE": "En attente defacture",
-      "INVOICE_SENT": "Facture envoié",
-      "PAID": "Enrègle",
-      "REJECTED": "Refusé"
-    }
-  },
-  "application":{
-    "applicationType":{
-      "PRIMARY":"primaire",
-      "EXTENSION":"Extension",
-      "IMPORT":"Importer"
-    }
-  },
-  "pendingApplications": {
-  	"title": "Demandes en instance",
-  	"show": {  		
-  		"myApplications": "Mes demandes en attente",
-  		"allApplications": "Toutes les requêtes pendantes"
-  	},
-  	"table": {
-			"affiliateName": "Nom d'affiliation",
-			"applicationType": "Type de demande",
-			"agreementType": "Type d'accord",
-			"useType": "Type d'utilisation",
-			"dateSubmitted": "Date de soumission",
-			"status": "Status",
-			"homeCountry": "Pays",
-			"member": "Membre",
-			"email": "Email",
-			"review": "L'avis"
-  	}
-  }
+	"global":{
+		"title":"MLDS",
+		"browsehappy":"You are using an <strong>outdated</strong>browser.Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a>toimprove your experience.",
+		"menu":{
+			"home":"Home",
+			"account":{
+				"main":"Compte",
+				"contactInfo":"Coordonnées",
+				"password":"Mot de passe",
+				"sessions":"sessions",
+				"tracker":"tracker utilisateur",
+				"metrics":"métriques",
+				"logs":"logs",
+				"audits":"Audits",
+				"login":"Connexion",
+				"logout":"Déconnexion",
+				"apidocs":"API",
+				"register":"Inscription",
+				"affiliates":"Affiliés",
+				"dashboard":"table au debord"
+			},
+			"dashboard":"table au debord",
+			"usageReports":"les rapports d'utilisation",
+			"releasePackages":"Package publié",
+			"affiliate":{
+				"accountInformation":"Informations du compte",
+				"changePassword":"Change Password",
+				"logout":"Déconnexion"
+			},
+			"staff":{
+				"dashboard":"table audebord",
+				"pendingApplications":"les demandes en instance",
+				"usageReports":"les rapports d'utilisation",
+				"affiliteUserManagement":"affiliation Gestion des utilisateurs",
+				"activityLog":"Journald'activité",
+				"packageManagement":"Gestion des paquetages",
+				"licenseTC":"License T et C",
+				"reportsExtracts":"Rapports et Extraits",
+				"logout":"Déconnexion"
+			},
+			"admin":{
+				"importAffiliateRecords":"importation affiliation Records",
+				"manageBlacklist":"Gérer Blacklist",
+				"nationalRegistrationList":"Liste nationale d'inscription"
+			},
+			"language":"Langue"
+		},
+		"language":{
+			"da":"Danois",
+			"en":"English",
+			"fr":"Français",
+			"de":"Allemand",
+			"pl":"Polonais",
+			"ru":"Russe"
+		},
+		"member":{
+			"IHTSDO":"IHTSDO",
+			"AU":"Australie",
+			"BE":"Belgique",
+			"BN":"Brunei",
+			"CA":"Canada",
+			"CL":"Chili",
+			"CZ":"République tchèque",
+			"DK":"le Danemark",
+			"EE":"Estonie",
+			"HK":"Hong Kong",
+			"IS":"Islande",
+			"IN":"l'Inde",
+			"IL":"Israël",
+			"LT":"Lituanie",
+			"MY":"la Malaisie",
+			"MT":"Malte",
+			"NL":"Pays-Bas",
+			"NZ":"Nouvelle-Zélande",
+			"PL":"Pologne",
+			"PT":"Portugal",
+			"SG":"Singapour",
+			"SK":"Républiques lovaque",
+			"SI":"République de Slovénie",
+			"ES":"Espagne",
+			"SE":"Suède",
+			"GB":"Royaume-Uni",
+			"US":"États-Unis",
+			"UY":"Uruguay"
+		},
+		"country":{
+			"AC":"Ascension",
+			"AD":"Andorra",
+			"AE":"Emiratsarabesunis",
+			"AF":"Afghanistan",
+			"AG":"Antigua-et-Barbuda",
+			"AI":"Anguilla",
+			"AL":"Albanie",
+			"AM":"L'Arménie",
+			"AN":"Antillesnéerlandaises",
+			"AO":"Angola",
+			"AQ":"Territoireaustraliendel'Antarctique",
+			"AR":"Argentine",
+			"AS":"AmericanSamoa",
+			"AT":"Autriche",
+			"AU":"Australie",
+			"AW":"Aruba",
+			"AX":"Aland",
+			"AZ":"Azerbaïdjan",
+			"BA":"LaBosnie-Herzégovine",
+			"BB":"laBarbade",
+			"BD":"Bangladesh",
+			"BE":"Belgique",
+			"BF":"BurkinaFaso",
+			"BG":"Bulgarie",
+			"BH":"Bahreïn",
+			"BI":"Burundi",
+			"BJ":"Bénin",
+			"BM":"Bermudes",
+			"BN":"Brunei",
+			"BO":"la Bolivie",
+			"BR":"Brésil",
+			"BS":"Bahamas",
+			"BT":"Bhoutan",
+			"BV":"l'île Bouvet",
+			"BW":"Le Botswana",
+			"BY":"Biélorussie",
+			"BZ":"Belize",
+			"CA":"Canada",
+			"CC":"Cocos (Keeling)",
+			"CD":"Congo (CongoKinshasa)",
+			"CF":"Républiquecentrafricaine",
+			"CG":"Congo (CongoBrazzaville)",
+			"CH":"laSuisse",
+			"CI":"Côte-d'Ivoire",
+			"CK":"îlesCook",
+			"CL":"Chili",
+			"CM":"Cameroun",
+			"CN":"République populaire de la Chine",
+			"CO":"Colombie",
+			"CR":"CostaRica",
+			"CU":"Cuba",
+			"CV":"CapVert",
+			"CX":"Christmas Island",
+			"CY":"Chypre",
+			"CZ":"République tchèque",
+			"DE":"Allemagne",
+			"DJ":"Djibouti",
+			"DK":"leDanemark",
+			"DM":"Dominique",
+			"DO":"République dominicaine",
+			"DZ":"Algérie",
+			"EC":"Equateur",
+			"EE":"Estonie",
+			"EG":"l'Égypte",
+			"ER":"l'Erythrée",
+			"ES":"Espagne",
+			"ET":"l'Ethiopie",
+			"FI":"Finlande",
+			"FJ":"Fidji",
+			"FK":"îles Falkland",
+			"FM":"Micronésie",
+			"FO":"Îles Féroé",
+			"FR":"France",
+			"GA":"Gabon",
+			"GB":"Royaume-Uni",
+			"GD":"Grenade",
+			"GE":"Georgia",
+			"GF":"Guyane française",
+			"GG":"Guernsey",
+			"GH":"LeGhana",
+			"GI":"Gibraltar",
+			"GL":"Groenland",
+			"GM":"Gambie",
+			"GN":"Guinée",
+			"GP":"Guadeloupe",
+			"GQ":"la Guinée équatoriale",
+			"GR":"Grèce",
+			"GS":"la Géorgie du Sud et îles Sandwich du Sud",
+			"GT":"Guatemala",
+			"GU":"Guam",
+			"GW":"la Guinée-Bissau",
+			"GY":"Guyane",
+			"HK":"Hong Kong",
+			"HM":"îles Hearde tMcDonald",
+			"HN":"Honduras",
+			"HR":"Croatie",
+			"HT":"Haïti",
+			"HU":"Hongrie",
+			"ID":"Indonésie",
+			"IE":"Irlande",
+			"IL":"Israël",
+			"IM":"IsleofMan",
+			"IN":"l'Inde",
+			"IO":"Territoire britannique de l'océan Indien",
+			"IQ":"l'Irak",
+			"IR":"l'Iran",
+			"IS":"Islande",
+			"IT":"Italie",
+			"JE":"Jersey",
+			"JM":"Jamaica",
+			"JO":"Jordanie",
+			"JP":"Japon",
+			"KE":"Kenya",
+			"KG":"Kirghizistan",
+			"KH":"leCambodge",
+			"KI":"Kiribati",
+			"KM":"Comores",
+			"KN":"Saint-Kitts-et-Nevis",
+			"KP":"Corée du Nord",
+			"KR":"Corée du Sud",
+			"KW":"Koweït",
+			"KY":"îles Caïmans",
+			"KZ":"Kazakhstan",
+			"LA":"Laos",
+			"LB":"Liban",
+			"LC":"SaintLucia",
+			"LI":"Liechtenstein",
+			"LK":"SriLanka",
+			"LR":"Liberia",
+			"LS":"Lesotho",
+			"LT":"Lituanie",
+			"LU":"Luxembourg",
+			"LV":"laLettonie",
+			"LY":"laLibye",
+			"MA":"Maroc",
+			"MC":"Monaco",
+			"MD":"Moldova",
+			"ME":"Monténégro",
+			"MG":"Madagascar",
+			"MH":"îles Marshall",
+			"MK":"Macédoine",
+			"ML":"Mali",
+			"MM":"Myanmar(Birmanie)",
+			"MN":"Mongolie",
+			"MO":"Macao",
+			"MP":"îles Mariannes du Nord",
+			"MQ":"Martinique",
+			"MR":"Mauritanie",
+			"MS":"Montserrat",
+			"MT":"Malte",
+			"MU":"Maurice",
+			"MV":"Maldives",
+			"MW":"LeMalawi",
+			"MX":"Mexique",
+			"MY":"laMalaisie",
+			"MZ":"leMozambique",
+			"NA":"Namibie",
+			"NC":"Nouvelle-Calédonie",
+			"NE":"Niger",
+			"NF":"l'île de Norfolk",
+			"NG":"Nigeria",
+			"NI":"Nicaragua",
+			"NL":"Pays-Bas",
+			"NO":"Norvège",
+			"NP":"Nepal",
+			"NR":"Nauru",
+			"NU":"Nioué",
+			"NZ":"Nouvelle-Zélande",
+			"OM":"Oman",
+			"PA":"Panama",
+			"PE":"Pérou",
+			"PF":"Polynésie française",
+			"PG":"Papouasie-Nouvelle-Guinée",
+			"PH":"Philippines",
+			"PK":"Pakistan",
+			"PL":"Pologne",
+			"PM":"Saint-Pierre-et-Miquelon",
+			"PN":"IlesPitcairn",
+			"PR":"PuertoRico",
+			"PT":"Portugal",
+			"PW":"Palau",
+			"PY":"LeParaguay",
+			"QA":"Qatar",
+			"RE":"Réunion",
+			"RO":"Roumanie",
+			"RS":"Serbie",
+			"RU":"laRussie",
+			"RW":"Rwanda",
+			"SA":"l'Arabiesaoudite",
+			"SB":"îles Salomon",
+			"SC":"Seychelles",
+			"SD":"Soudan",
+			"SE":"Suède",
+			"SG":"Singapour",
+			"SH":"SaintHelena",
+			"SI":"laSlovénie",
+			"SJ":"Svalbard",
+			"SK":"Slovaquie",
+			"SL":"SierraLeone",
+			"SM":"SanMarino",
+			"SN":"Sénégal",
+			"SO":"Somalie",
+			"SR":"Suriname",
+			"ST":"Sao Toméet Principe",
+			"SV":"El Salvador",
+			"SY":"la Syrie",
+			"SZ":"Swaziland",
+			"TA":"TristandaCunha",
+			"TC":"îles Turqueset Caïques",
+			"TD":"Tchad",
+			"TF":"Français Terres australes et antarctiques",
+			"TG":"Togo",
+			"TH":"Thaïlande",
+			"TJ":"Tadjikistan",
+			"TK":"Tokélaou",
+			"TL":"Timor-Leste(Timororiental)",
+			"TM":"Turkménistan",
+			"TN":"Tunisie",
+			"TO":"Tonga",
+			"TR":"Turquie",
+			"TT":"Trinité-et-Tobago",
+			"TV":"Tuvalu",
+			"TW":"Taiwan",
+			"TZ":"Tanzanie",
+			"UA":"Ukraine",
+			"UG":"l'Ouganda",
+			"UM":"WakeIsland",
+			"US":"États-Unis",
+			"UY":"Uruguay",
+			"UZ":"l'Ouzbékistan",
+			"VA":"Cité du Vatican",
+			"VC":"Saint-Vincent-et-lesGrenadines",
+			"VE":"Venezuela",
+			"VG":"Îles Vierges britanniques",
+			"VI":"Îles Vierges américaines",
+			"VN":"Vietnam",
+			"VU":"Vanuatu",
+			"WF":"Wallis et Futuna",
+			"WS":"Samoa",
+			"YE":"Yémen",
+			"YT":"Mayotte",
+			"ZA":"Afrique du Sud",
+			"ZM":"La Zambie",
+			"ZW":"Zimbabwe"
+		},
+		"form":{
+			"username":"Connexion",
+			"username.placeholder":"Votre login",
+			"name.placeholder":"Votre nom",
+			"newpassword":"Nouveau mot d epasse",
+			"newpassword.placeholder":"Nouveau mot de passe",
+			"confirmpassword":"Nouvelle confirmation de mot de passe",
+			"confirmpassword.placeholder":"Confirmez le nouveau mot de passe",
+			"email":"E-mail",
+			"email.placeholder":"Votre adresse e-mail",
+			"country":"Pays de résidence"
+		},
+		"messages":{
+			"info":{
+				"authenticated":"If you want to <a href=\"#/login\">authenticate</a>,you can try the default accounts:<br/>-Admnistrator(login=\"admin\"andpassword=\"admin\")<br/>-User(login=\"user\"andpassword=\"user\").",
+				"register":"Vous ne avez pas encore de compte <a href=\"#/register\">Enregistrer un nouveau compte</a>?"
+			},
+			"error":{
+				"dontmatch":"Le mot de passe et sa confirmationne correspondent pas!",
+				"server":"Un eerreur est survenue Répétition l'action peut réussir."
+			},
+			"validate":{
+				"newpassword":{
+					"required":"Votre mot de passe est nécessaire.",
+					"minlength":"Votre mot depasse est nécessaire pour être au moins 5caractères",
+					"maxlength":"Votre mot de passe ne peut pas être plus long que 50 caractères",
+					"strength":"la force du mot de passe:"
+				},
+				"confirmpassword":{
+					"required":"Votre mot depasse de confirmation est nécessaire.",
+					"minlength":"Votre mot depasse de confirmation est nécessaire pour être au moins 5 caractères",
+					"maxlength":"Votre mot de passe de confirmation ne peut pas être plus de 50 caractères",
+					"match":"Votre confirmation de mot de passe ne correspond pas aumot de passe"
+				},
+				"email":{
+					"required":"Votre e-mail est nécessaire.",
+					"invalid":"Votre e-mail ne est pas valide.",
+					"minlength":"Votre e-mail est nécessaire pour être aumoins 1 caractère",
+					"maxlength":"Votre e-mail ne peut pas être plus long que 50 caractères"
+				}
+				
+			}
+			
+		},
+		"word":{
+			"or":"ou"
+		}
+	},
+	"logout":{
+		"title":"MLDS-Déconnexion",
+		"subtitle":"Nous sommes l'enregistrement de votre de votre session."
+	},
+	"activate":{
+		"title":"activation",
+		"messages":{
+			"success":"<strong>Compte a été créé.</strong>",
+			"error":"<strong>Votre compte n'a pas pu être activé.</strong>"
+		}
+		
+	},
+	"register":{
+		"title":"Inscription",
+		"welcome":"Bienvenue à IHTSDO-MLDS",
+		"subwelcome":"La passer elle pour accéder SNOMEDCT Orientation",
+		"form":{
+			"tos":"acceptez nos <a href=\"/tos.html\"target=\"_blank\">Conditions</a>.",
+			"button":"Lancer enregistrement",
+			"confirmemail":"E-mail(confirmer)"
+		},
+		"messages":{
+			"validate":{
+				"login":{
+					"required":"Votre connexion est requise.",
+					"minlength":"Votre connexion est nécessaire pour être au moins 1 caractère",
+					"maxlength":"Votre connexion ne peut pas être plus longque 50 caractères"
+				},
+				"country":{
+					"notMLDS":"Applications pour l'utilisation de la SNOMEDCT dans votre pays de résidence doi vent être faites au représentant approprié de votre pays -<a href=\"{{link}}\"target=\"_blank\">ici</a>.SivoussouhaitezpostulerpourunbonaccordpublicàutiliserlaSNOMEDCTdansunautrepays,ousivoussouhaitezfaired'autresdemandesderenseignementsseilvousplaîtcontacterl'IHTSDOau<ahref=\"mailto:info@ihtsdo.org\">infos@ihtsdo.org</a>"
+				}
+				
+			},
+			"success":"<strong>Inscription sauvé </strong>S'il vous plaît vérifier votre e-mail de confirmation!.",
+			"error":{
+				"fail":"<strong>Echec de l'enregistrement</strong>Seilvousplaîtréessayerplustard.",
+				"userexists":"<strong>Unutilisateura déjà enregistré avec cette adresse email</strong>Vouliez-vous dire <a href='#/login'>connecter</a>.?",
+				"blocklist":"Grâce à nos stratégies informatiques nous sommes incapables detraiter l'adress email indiquée.  S'il vous plaît contacter <a href=\"mailto:support@IHTSDO.org\">Support@IHTSDO.org</a>pourplusd'assistance."
+			}
+			
+		},
+		"emailVerification":{
+			"intro":"Nous vous avons envoyé un e-mail.",
+			"detail":"S'il vous plaît ouvrir le courriel que nous venons de vous envoyer pour vérifier votre compte et accéder à la MLDS"
+		},
+		"affiliateRegistration":{
+			"title":"L'Enregistrement d'Affiliation",
+			"usageType":"Type d'Utilisation",
+			"conditions":"S'il vous plaît sélectionnez les conditions dans que le produit sera utilisé"
+		}
+	},
+	"login":{
+		"title":"Connexion",
+		"form":{
+			"password":"Mot de passe",
+			"password.placeholder":"Votre mot de passe",
+			"rememberme":"Rappeler",
+			"button":"Connexion",
+			"forgot":"Mot de passe oublié?"
+		},
+		"messages":{
+			"error":{
+				"authentication":"<strong>L'authentification a échoué</strong>.<br/>S'il vous plaît, vérifier vos informations d'identification et essayez à nouveau les mots de passe sont sensibles à la casse!",
+				"deregistered":"<strong>L'authentification a échoué</strong>.<br/>Ce compte a été radié. S'il vous plaît contacter le support",
+				"noPermissions":"<strong>L'authentification a échoué</strong>.<br/>Nous vous authentifiés, mais votre compte n'a pas accès à cette application, ou est mal configuré. S'il vous plaîtcontacterlesupport!"
+			}
+			
+		}
+		
+	},
+	"settings":{
+		"title":"Contact Info pour[<b>{{username}}</b>]",
+		"form":{
+			"countryOfResidence":"Pays de résidence",
+			"countryOfResidence.placeholder":"Votre pays de résidence",
+			"firstname":"Prénom",
+			"firstname.placeholder":"Votre prénom",
+			"lastname":"Nom",
+			"lastname.placeholder":"Votre nom",
+			"button":"En registrer"
+		},
+		"messages":{
+			"error":"<strong>Une erreur est survenue</strong>Paramètres ne pouvaient pas être sauvés!",
+			"success":"<strong>Paramètres sauvé</strong>!",
+			"validate":{
+				"firstname":{
+					"required":"Votre prénom est nécessaire.",
+					"minlength":"Votre prénom doit être d'au moins 1 caractère",
+					"maxlength":"Votre prénom ne peut pas être plus longque 50 caractères"
+				},
+				"lastname":{
+					"required":"Votre nom est nécessaire.",
+					"minlength":"Votre nom est nécessaire pour être au moins 1 caractère",
+					"maxlength":"Votre nom ne peut pas être plus long que 50caractères"
+				}
+				
+			}
+			
+		}
+		
+	},
+	"password":{
+		"title":"Mot de passe pour nom d'utilisateur{{}}",
+		"form":{
+			"button":"Enregistrer"
+		},
+		"messages":{
+			"error":"<strong>Un eerreur est survenue</strong>Le mot de passe n'a pas pu être changé.",
+			"success":"<strong>Mot de passe modifié</strong> <a href='#/contactInfo'>compte</a>",
+			"expired":"<strong>Lelienderé initialisationa expiré ou ne était pas valide</strong><ahref='#/requestPasswordReset'>Demander une autre réinitialisation</a>."
+		}
+		
+	},
+	"sessions":{
+		"title":"Les session sactives pour[<b>{{username}}</b>]",
+		"table":{
+			"ipaddress":"adresse IP",
+			"useragent":"User Agent",
+			"date":"Date",
+			"button":"Invalider"
+		},
+		"messages":{
+			"success":"<strong>Session invalidé</strong>!",
+			"error":"<strong>Une erreur est survenue</strong>La sessionne pouvait pas être invalidé!."
+		}
+		
+	},
+	"tracker":{
+		"title":"les activités des utilisateurs entemps réel",
+		"table":{
+			"userlogin":"Utilisateur",
+			"ipaddress":"AdresseIP",
+			"userAgent":"UserAgent",
+			"page":"page",
+			"time":"Time"
+		}
+		
+	},
+	"metrics":{
+		"title":"Metrics Système",
+		"refresh.button":"Refresh",
+		"health":{
+			"title":"contrôles de Heath",
+			"database":"Base de données:",
+			"email":"Email:",
+			"stacktrace":"Stack trace"
+		},
+		"jvm":{
+			"title":"JVMMetrics",
+			"memory":{
+				"title":"Mémoire",
+				"total":"Mémoiretotale",
+				"heap":"HeapMemory",
+				"nonheap":"non-HeapMemory"
+			},
+			"threads":{
+				"title":"Threads",
+				"all":"Tout",
+				"runnable":"Runnable",
+				"timedwaiting":"attenteTempo",
+				"waiting":"Waiting",
+				"blocked":"Bloqué",
+				"dump":{
+					"title":"Threadsbenne",
+					"id":"Id:",
+					"blockedtime":"TimeBloqué",
+					"blockedcount":"comteBloqué",
+					"waitedtime":"Attendu Time",
+					"waitedcount":"comteattendu",
+					"lockname":"Nom Lock",
+					"stacktrace":"Stacktrace",
+					"show":"Show",
+					"hide":"Masquer"
+				}
+				
+			},
+			"gc":{
+				"title":"collectionsd'ordures",
+				"marksweepcount":"Marknombredebalayage",
+				"marksweeptime":"Marktempsdebalayage",
+				"scavengecount":"Scavengecount",
+				"scavengetime":"Scavengetemps"
+			},
+			"http":{
+				"title":"requêtes HTTP(événementsparseconde)",
+				"active":"demandesactives:",
+				"total":"Nombretotaldedemandes:",
+				"table":{
+					"code":"Code",
+					"count":"Count",
+					"mean":"moyenne",
+					"average":"Moyenne"
+				},
+				"code":{
+					"ok":"Ok",
+					"notfound":"Pastrouvé",
+					"servererror":"ServerError"
+				}
+				
+			}
+			
+		},
+		"servicesstats":{
+			"title":"les statisti quesdesservices (temps e nmillisecondes)",
+			"table":{
+				"name":"Nom du service",
+				"count":"Count",
+				"mean":"moyenne",
+				"min":"Min",
+				"max":"Max",
+				"p50":"p50",
+				"p75":"p75",
+				"p95":"p95",
+				"p99":"p99"
+			}
+			
+		},
+		"ehcache":{
+			"title":"statistiques",
+			"cachename":"nomCache",
+			"objects":"objets",
+			"hits":"hits",
+			"misses":"Misses",
+			"evictioncount":"compted'expulsion",
+			"mean":"Meanobtenirdutemps(ms)"
+		}
+		
+	},
+	"logs":{
+		"title":"Journaux",
+		"nbloggers":"Ilya{{total}}bûcherons.",
+		"filter":"Filtre",
+		"table":{
+			"name":"Nom",
+			"level":"Niveau"
+		}
+		
+	},
+	"audits":{
+		"title":"Audits",
+		"filter":{
+			"title":"Filtrezparjour",
+			"from":"àpartirde",
+			"to":"à",
+			"button":{
+				"weeks":"semaines",
+				"today":"aujourd'hui",
+				"clear":"clair",
+				"close":"fermer"
+			}
+			
+		},
+		"table":{
+			"header":{
+				"principal":"Utilisateur",
+				"date":"Date(locale)",
+				"status":"État",
+				"data":"donnéessupplémentaires"
+			},
+			"data":{
+				"remoteAddress":"Adresseàdistance:"
+			}
+			
+		},
+		"type":{
+			"AUTHORIZATION_FAILURE":"L'échecd'autorisation",
+			"AUTHENTICATION_SUCCESS":"Autorisationsuccès",
+			"AUTHENTICATION_FAILURE":"échecd'authentification",
+			"AFFILIATE_CREATED":"Crééaffiliation",
+			"AFFILIATE_CREATED_BY_IMPORT":"affiliationCrééàpartird'importation",
+			"AFFILIATE_UPDATED":"Miseàjourd'affiliation",
+			"AFFILIATE_UPDATED_BY_IMPORT":"Miseàjouràpartird'affiliationImporter",
+			"AFFILIATEDETAILS_UPDATED":"affiliationDétailsMiseàjour",
+			"AFFILIATE_EXPORT":"affiliationBatchExport",
+			"AFFILIATE_IMPORT":"affiliationimportationparlots",
+			"AFFILIATE_LOGIN_CREATED":"ConnexionaffiliéCréé",
+			"AFFILIATE_STANDING_STATE_CHANGED":"affiliationÉtatpermanentChanged",
+			"APPLICATION_CREATED":"Applicationcréée",
+			"APPLICATION_APPROVAL_STATE_CHANGED":"Étatd'approbationdesdemandesachangé",
+			"APPLICATION_DELETED":"Applicationsupprimé",
+			"RELEASE_FILE_CREATED":"FichierdesortieCréé",
+			"RELEASE_FILE_DELETED":"Fichierdesortiesupprimé",
+			"RELEASE_FILE_DOWNLOADED":"FichierdesortieTéléchargé",
+			"RELEASE_PACKAGE_DELETED":"ReleasePackagesupprimé",
+			"RELEASE_PACKAGE_CREATED":"Release Package Créé",
+			"RELEASE_VERSION_TAKEN_OFFLINE":"Release Version hors ligne",
+			"RELEASE_VERSION_TAKEN_ONLINE":"Release Version Pris en ligne",
+			"RELEASE_VERSION_CREATED":"Release Version Créé",
+			"RELEASE_VERSION_DELETED":"Release Version supprimé",
+			"USAGE_CREATED":"UtilisationCréé",
+			"USAGE_APPROVAL_STATE_CHANGED":"Etatd'utilisationdel'approbationachangé"
+		}
+		
+	},
+	"errors":{
+		"403":"Vousn'êtes pas autorisé àaccéder à l apage.",
+		"title":"la page d'erreur!"
+	},
+	"footer":"Ce est votre pied de page",
+	"affiliate":{
+		"title":"affiliation",
+		"type":{
+			"title":"Type",
+			"COMMERCIAL":"Commercial",
+			"ACADEMIC":"académique",
+			"OTHER":"Autre",
+			"INDIVIDUAL":"Individual"
+		},
+		"subType":{
+			"DEVELOPER":"développeur",
+			"DEVELOPMENT":"développement",
+			"EDUCATIONAL":"l'éducation",
+			"HEALTHCAREPROVIDER":"fournisseur de soins desanté",
+			"PERSONAL":"Personnel",
+			"RESEARCH":"Recherche",
+			"VENDOR":"vendeur"
+		},
+		"agreementType":{
+			"AFFILIATE_NORMAL":"affiliation - Normal",
+			"AFFILIATE_RESEARCH":"affiliation - la recherche",
+			"AFFILIATE_PUBLIC_GOOD":"affiliation - bien public"
+		},
+		"organizationType":{
+			"PUBLIC_HEALTH_ORGANIZATION":"Organisation de la santé publique",
+			"PRIVATE_HEALTH_ORGANIZATION":"Organisation de la santé privée",
+			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION":"Organisation de recherche et de développement",
+			"HEALTHERCARE_APPLICATION_DEVELOPER":"Développeur Healthcare Application",
+			"GENERAL_PRACTITIONER_PRACTICE":"Médecin généraliste pratique",
+			"EDUCATIONAL_INSTITUTE":"Educational Institute",
+			"OTHER":"Autres"
+		},
+		"implementationStatus":{
+			"IMPLEMENTED":"Live/Miseenœuvre",
+			"DEVELOPMENT":"Encours/développement",
+			"PLANNING":"Dans Étape de la planification"
+		},
+		"standingState":{
+			"APPLYING":"Application",
+			"IN_GOOD_STANDING":"Enrègle",
+			"REJECTED":"Refusé",
+			"DEACTIVATION_PENDING":"Désactivation en attente",
+			"DEACTIVATED":"Désactivé",
+			"DEREGISTERED":"Radiée",
+			"PENDING_INVOICE":"Enattente defacture",
+			"INVOICE_SENT":"Facture envoyée"
+		},
+		"standingStateWithExplanation":{
+			"APPLYING":"Application",
+			"IN_GOOD_STANDING":"Enrègle",
+			"REJECTED":"Refusé",
+			"DEACTIVATION_PENDING":"Désactivation en attente",
+			"DEACTIVATED":"Désactivé",
+			"DEREGISTERED":"Radiée",
+			"PENDING_INVOICE":"En attente defacture",
+			"INVOICE_SENT":"Facture envoyée"
+		}
+		
+	},
+	"approval":{
+		"state":{
+			"NOT_SUBMITTED":"non soumise",
+			"CHANGE_REQUESTED":"Changement demandé",
+			"SUBMITTED":"Soumis",
+			"RESUBMITTED":"Présentée denouveau",
+			"REVIEW_REQUESTED":"Examen demandée",
+			"APPROVED":"Approuvé",
+			"REJECTED":"Refusé"
+		}
+		
+	},
+	"usageReport":{
+		"state":{
+			"NOT_SUBMITTED":"Nonsoumise",
+			"CHANGE_REQUESTED":"Changement demandé",
+			"SUBMITTED":"Soumis",
+			"RESUBMITTED":"Présentée denouveau",
+			"REVIEW_REQUESTED":"Examen demandée",
+			"PENDING_INVOICE":"En attente defacture",
+			"INVOICE_SENT":"Facture envoié",
+			"PAID":"Enrègle",
+			"REJECTED":"Refusé"
+		}
+		
+	},
+	"application":{
+		"applicationType":{
+			"PRIMARY":"Primaire",
+			"EXTENSION":"Extension",
+			"IMPORT":"Importer"
+		}
+		
+	},
+	"pendingApplications":{
+		"title":"Demandes en instance",
+		"show":{
+			"myApplications":"Mes demandes en attente",
+			"allApplications":"Toutes les requêtes pendantes"
+		},
+		"table":{
+			"affiliateName":"Nom d'affiliation",
+			"applicationType":"Type de demande",
+			"agreementType":"Type d'accord",
+			"useType":"Type d'utilisation",
+			"dateSubmitted":"Date de soumission",
+			"status":"Status",
+			"homeCountry":"Pays",
+			"member":"Membre",
+			"email":"Email",
+			"review":"L'avis"
+		}
+		
+	},
+	"views":{
+		"activate":{
+			"title":"Activation",
+			"messages":{
+				"success":{
+					"title":"User account has been created.",
+					"body":"The system will take you to continue your registration process in a few moments. If you are not redirected automatically please {{linkbegin}}click here.{{linkend}}"
+				},
+				"error":{
+					"title":"Your user could not be activated.",
+					"body":"Please use the registration form to sign up. If you are still encountering difficulties please contact support."
+				}
+			}
+		},
+		"applicationSummaryModal":{
+			"title":"Application Summary",
+			"form":{
+				"cancel":"Cancel",
+				"ok":"Ok"
+			}
+		},
+		"contactInfo":{
+			"title":"Account Information",
+			"messages":{
+				"notApproved":{
+					"title":"Registration not approved yet",
+					"body":"You can only modify the contact information for an affiliate once the registration request has been approved."
+				}
+			},
+			"form":{
+				"save":"Save",
+				"cancel":"Cancel",
+				"fixErrorsAbove":"Please fix the errors listed above."
+			},
+			"admin":{
+				"title":"Admin Editable",
+				"other":{
+					"label":"Other:",
+					"placeholder":"Other",
+					"required":"Other field is required."
+				},
+				"subtype":{
+					"label":"Subtype:",
+					"required":"Subtype field is required."
+				},
+				"usageType":{
+					"label":"Type:",
+					"required":"Usage type field is required."
+				},
+				"agreementType":{
+					"label":"Type of Agreement:"
+				}
+			},
+			"contact":{
+				"title":"Contact Information",
+				"firstName":{
+					"label":"First Name:",
+					"placeholder":"John"
+				},
+				"lastName":{
+					"label":"Last Name:",
+					"placeholder":"Smith"
+				},
+				"email":{
+					"label":"Email:",
+					"placeholder":"JohnSmith@OrganizationABC.com",
+					"uniqueness":"Email Addresses need to be unique.",
+					"invalid":"Invalid Email Address."
+				},
+				"alternativeEmail":{
+					"label":"Alternate Email:",
+					"placeholder":"alternative@email.com"
+				},
+				"thirdEmail":{
+					"label":"Third Email:"
+				},
+				"landline":{
+					"label":"Landline Phone Number:",
+					"invalid":"Invalid Phone Number."
+				},
+				"landlineExtension":{
+					"label":"Extension:"
+				},
+				"mobile":{
+					"label":"Mobile Phone Number:"
+				},
+				"address":{
+					"label":"Address",
+					"placeholder":"123 Somewhere Avenue"
+				},
+				"city":{
+					"label":"City:",
+					"placeholder":"City"
+				},
+				"postcode":{
+					"label":"Post Code:",
+					"placeholder":"Post Code",
+					"tooLong":"Post Code is too long."
+				},
+				"country":{
+					"label":"Country:",
+					"placeholder":"Country",
+					"unrecognized":"Unrecognized country."
+				},
+				"billingAddress":{
+					"label":"Billing Address:",
+					"placeholder":"Address",
+					"sameAsAddress":"Use Address as Billing Address",
+					"useOrganizationAddress":"Use Organization Address as Billing Address"
+				}
+			},
+			"organization":{
+				"title":"Organization",
+				"name":{
+					"label":"Organization Name:",
+					"placeholder":"Org name"
+				}
+			}
+		},
+		"landingPage":{
+			"appName":"Licence d'Adhésion et le Service de Distribution",
+			"welcome":"Bienvenue",
+			"purpose":"Ce service est fourni par l'IHTSDO pour les organisations et les particuliers à demander l'utilisation et l'accès à la sortie internationale de SNOMED CT pour une utilisation dans les pays non - membres .",
+			"furtherDetails":"Pour plus de détails , se il vous plaît se référer à la <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO website</a> ou la <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Questions Fréquentes</a>.",
+			"loginHere":"login ici"
+		},
+		"requestPasswordReset":{
+			"title":"Réinitialiser le Mot de Passe",
+			"detail":"Nous vous enverrons un e-mail contenant un link de réinitialisation de mot de passe.",
+			"button":"Réinitialiser le Mot de Passe"
+		}
+	}
 }
