@@ -42,7 +42,10 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 			)
 	Page<Affiliate> findByTextQuery(@Param("q") String q, Pageable pageable);
 
-	Page<Affiliate> findByHomeMember(Member homeMember, Pageable pageable);
+	@Query(value = "SELECT a FROM Affiliate a LEFT JOIN a.applications b" 
+			+ " WHERE a.homeMember = :homeMember "
+			+ " OR b.member = :homeMember ")
+	Page<Affiliate> findByHomeMember(@Param("homeMember") Member homeMember, Pageable pageable);
 
 	Page<Affiliate> findByHomeMemberAndStandingState(Member homeMember, StandingState standingState, Pageable pageable);
 
