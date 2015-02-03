@@ -370,9 +370,7 @@
 					"minlength":"Votre e-mail est nécessaire pour être aumoins 1 caractère",
 					"maxlength":"Votre e-mail ne peut pas être plus long que 50 caractères"
 				}
-				
 			}
-			
 		},
 		"word":{
 			"or":"ou"
@@ -381,14 +379,6 @@
 	"logout":{
 		"title":"MLDS-Déconnexion",
 		"subtitle":"Nous sommes l'enregistrement de votre de votre session."
-	},
-	"activate":{
-		"title":"activation",
-		"messages":{
-			"success":"<strong>Compte a été créé.</strong>",
-			"error":"<strong>Votre compte n'a pas pu être activé.</strong>"
-		}
-		
 	},
 	"register":{
 		"title":"Inscription",
@@ -409,7 +399,6 @@
 				"country":{
 					"notMLDS":"Applications pour l'utilisation de la SNOMEDCT dans votre pays de résidence doi vent être faites au représentant approprié de votre pays -<a href=\"{{link}}\"target=\"_blank\">ici</a>.SivoussouhaitezpostulerpourunbonaccordpublicàutiliserlaSNOMEDCTdansunautrepays,ousivoussouhaitezfaired'autresdemandesderenseignementsseilvousplaîtcontacterl'IHTSDOau<ahref=\"mailto:info@ihtsdo.org\">infos@ihtsdo.org</a>"
 				}
-				
 			},
 			"success":"<strong>Inscription sauvé </strong>S'il vous plaît vérifier votre e-mail de confirmation!.",
 			"error":{
@@ -417,7 +406,6 @@
 				"userexists":"<strong>Unutilisateura déjà enregistré avec cette adresse email</strong>Vouliez-vous dire <a href='#/login'>connecter</a>.?",
 				"blocklist":"Grâce à nos stratégies informatiques nous sommes incapables detraiter l'adress email indiquée.  S'il vous plaît contacter <a href=\"mailto:support@IHTSDO.org\">Support@IHTSDO.org</a>pourplusd'assistance."
 			}
-			
 		},
 		"emailVerification":{
 			"intro":"Nous vous avons envoyé un e-mail.",
@@ -426,7 +414,15 @@
 		"affiliateRegistration":{
 			"title":"L'Enregistrement d'Affiliation",
 			"usageType":"Type d'Utilisation",
-			"conditions":"S'il vous plaît sélectionnez les conditions dans que le produit sera utilisé"
+			"conditions":"S'il vous plaît sélectionnez les conditions dans que le produit sera utilisé",
+			"typeOfAgreement":"Type d'entente",
+			"validation":{
+				"other.required":"Autre champ est obligatoire."
+			},
+			"license.title":"Accord de SNOMED CT",
+			"license":"SNOMED Licence",
+			"license.label":"Je suis d'accord à la licence",
+			"license.error":"Vous devez accepter les termes et conditions de la Licence SNOMED CT afin d'enregistrer, qui indique également les frais potentiels que nécessaires."
 		}
 	},
 	"login":{
@@ -444,9 +440,7 @@
 				"deregistered":"<strong>L'authentification a échoué</strong>.<br/>Ce compte a été radié. S'il vous plaît contacter le support",
 				"noPermissions":"<strong>L'authentification a échoué</strong>.<br/>Nous vous authentifiés, mais votre compte n'a pas accès à cette application, ou est mal configuré. S'il vous plaîtcontacterlesupport!"
 			}
-			
 		}
-		
 	},
 	"settings":{
 		"title":"Contact Info pour[<b>{{username}}</b>]",
@@ -473,11 +467,8 @@
 					"minlength":"Votre nom est nécessaire pour être au moins 1 caractère",
 					"maxlength":"Votre nom ne peut pas être plus long que 50caractères"
 				}
-				
 			}
-			
 		}
-		
 	},
 	"password":{
 		"title":"Mot de passe pour nom d'utilisateur{{}}",
@@ -489,7 +480,6 @@
 			"success":"<strong>Mot de passe modifié</strong> <a href='#/contactInfo'>compte</a>",
 			"expired":"<strong>Lelienderé initialisationa expiré ou ne était pas valide</strong><ahref='#/requestPasswordReset'>Demander une autre réinitialisation</a>."
 		}
-		
 	},
 	"sessions":{
 		"title":"Les session sactives pour[<b>{{username}}</b>]",
@@ -503,7 +493,6 @@
 			"success":"<strong>Session invalidé</strong>!",
 			"error":"<strong>Une erreur est survenue</strong>La sessionne pouvait pas être invalidé!."
 		}
-		
 	},
 	"tracker":{
 		"title":"les activités des utilisateurs entemps réel",
@@ -514,7 +503,6 @@
 			"page":"page",
 			"time":"Time"
 		}
-		
 	},
 	"metrics":{
 		"title":"Metrics Système",
@@ -552,7 +540,6 @@
 					"show":"Show",
 					"hide":"Masquer"
 				}
-				
 			},
 			"gc":{
 				"title":"collectionsd'ordures",
@@ -576,9 +563,7 @@
 					"notfound":"Pastrouvé",
 					"servererror":"ServerError"
 				}
-				
 			}
-			
 		},
 		"servicesstats":{
 			"title":"les statisti quesdesservices (temps e nmillisecondes)",
@@ -593,7 +578,6 @@
 				"p95":"p95",
 				"p99":"p99"
 			}
-			
 		},
 		"ehcache":{
 			"title":"statistiques",
@@ -604,7 +588,6 @@
 			"evictioncount":"compted'expulsion",
 			"mean":"Meanobtenirdutemps(ms)"
 		}
-		
 	},
 	"logs":{
 		"title":"Journaux",
@@ -614,7 +597,6 @@
 			"name":"Nom",
 			"level":"Niveau"
 		}
-		
 	},
 	"audits":{
 		"title":"Audits",
@@ -628,7 +610,6 @@
 				"clear":"clair",
 				"close":"fermer"
 			}
-			
 		},
 		"table":{
 			"header":{
@@ -640,7 +621,6 @@
 			"data":{
 				"remoteAddress":"Adresseàdistance:"
 			}
-			
 		},
 		"type":{
 			"AUTHORIZATION_FAILURE":"L'échecd'autorisation",
@@ -670,7 +650,6 @@
 			"USAGE_CREATED":"UtilisationCréé",
 			"USAGE_APPROVAL_STATE_CHANGED":"Etatd'utilisationdel'approbationachangé"
 		}
-		
 	},
 	"errors":{
 		"403":"Vousn'êtes pas autorisé àaccéder à l apage.",
@@ -682,18 +661,24 @@
 		"type":{
 			"title":"Type",
 			"COMMERCIAL":"Commercial",
-			"ACADEMIC":"académique",
+			"ACADEMIC":"Académique",
 			"OTHER":"Autre",
 			"INDIVIDUAL":"Individual"
 		},
+		"type.extended":{
+			"COMMERCIAL":"Commercial - Développeur, Fournisseur ou Prestataire de Terminologie",
+			"ACADEMIC":"Académique - pour une utilisation interne au sein d'une organisation. ( L'Éducation, la recherche, de développement ou pourvoyeur de soins )",
+			"OTHER":"Autre - Utilisez pas indiqué dans d'autres options",
+			"INDIVIDUAL":"Individual - Personnelles, éducatives ou de recherche"
+		},
 		"subType":{
-			"DEVELOPER":"développeur",
-			"DEVELOPMENT":"développement",
-			"EDUCATIONAL":"l'éducation",
+			"DEVELOPER":"Développeur",
+			"DEVELOPMENT":"Développement",
+			"EDUCATIONAL":"L'éducation",
 			"HEALTHCAREPROVIDER":"fournisseur de soins desanté",
 			"PERSONAL":"Personnel",
 			"RESEARCH":"Recherche",
-			"VENDOR":"vendeur"
+			"VENDOR":"Vendeur"
 		},
 		"agreementType":{
 			"AFFILIATE_NORMAL":"affiliation - Normal",
@@ -734,7 +719,6 @@
 			"PENDING_INVOICE":"En attente defacture",
 			"INVOICE_SENT":"Facture envoyée"
 		}
-		
 	},
 	"approval":{
 		"state":{
@@ -746,7 +730,6 @@
 			"APPROVED":"Approuvé",
 			"REJECTED":"Refusé"
 		}
-		
 	},
 	"usageReport":{
 		"state":{
@@ -760,7 +743,6 @@
 			"PAID":"Enrègle",
 			"REJECTED":"Refusé"
 		}
-		
 	},
 	"application":{
 		"applicationType":{
@@ -768,7 +750,6 @@
 			"EXTENSION":"Extension",
 			"IMPORT":"Importer"
 		}
-		
 	},
 	"pendingApplications":{
 		"title":"Demandes en instance",
@@ -788,18 +769,22 @@
 			"email":"Email",
 			"review":"L'avis"
 		}
-		
+	},
+	"form":{
+		"requiredField":"Champ Obligatoire",
+		"tooLong":"La valeur d'entrée est trop long.", 
+		"pleaseFix":"S'il vous plaît, corriger les erreurs mentionnées ci-dessus." 
 	},
 	"views":{
 		"activate":{
 			"title":"Activation",
 			"messages":{
 				"success":{
-					"title":"User account has been created.",
+					"title":"Compte a été créé.",
 					"body":"The system will take you to continue your registration process in a few moments. If you are not redirected automatically please {{linkbegin}}click here.{{linkend}}"
 				},
 				"error":{
-					"title":"Your user could not be activated.",
+					"title":"Votre compte n'a pas pu être activé.",
 					"body":"Please use the registration form to sign up. If you are still encountering difficulties please contact support."
 				}
 			}
@@ -842,70 +827,79 @@
 				"agreementType":{
 					"label":"Type of Agreement:"
 				}
+				
 			},
 			"contact":{
-				"title":"Contact Information",
+				"title":"Coordonnées",
+				"fullName":{
+					"label":"Nom et Prénom: "
+				},
 				"firstName":{
-					"label":"First Name:",
-					"placeholder":"John"
+					"label":"Prénom:",
+					"placeholder":"Jean"
 				},
 				"lastName":{
-					"label":"Last Name:",
-					"placeholder":"Smith"
+					"label":"Nom de Famille:",
+					"placeholder":"Dupont"
 				},
 				"email":{
 					"label":"Email:",
-					"placeholder":"JohnSmith@OrganizationABC.com",
-					"uniqueness":"Email Addresses need to be unique.",
-					"invalid":"Invalid Email Address."
+					"placeholder":"JeanDupont@OrganizationABC.com",
+					"uniqueness":"Adresses e-mail doivent être uniques.",
+					"invalid":"Adresse email invalide."
 				},
 				"alternativeEmail":{
-					"label":"Alternate Email:",
-					"placeholder":"alternative@email.com"
+					"label":"Autre Adresse E-mail:",
+					"placeholder":"autre@email.com"
 				},
 				"thirdEmail":{
-					"label":"Third Email:"
+					"label":"Troisième Adresse E-mail:"
 				},
 				"landline":{
-					"label":"Landline Phone Number:",
-					"invalid":"Invalid Phone Number."
+					"label":"Téléphone Fixe:",
+					"invalid":"Invalid Numéro de Téléphone."
 				},
 				"landlineExtension":{
-					"label":"Extension:"
+					"label":"L'extension de Téléphone:"
 				},
 				"mobile":{
-					"label":"Mobile Phone Number:"
+					"label":"Numéro de Téléphone Mobile:"
 				},
 				"address":{
-					"label":"Address",
-					"placeholder":"123 Somewhere Avenue"
+					"label":"Adresse",
+					"placeholder":"123 Rue de Quelque Part"
 				},
 				"city":{
-					"label":"City:",
-					"placeholder":"City"
+					"label":"Ville:",
+					"placeholder":"Ville"
 				},
 				"postcode":{
-					"label":"Post Code:",
-					"placeholder":"Post Code",
-					"tooLong":"Post Code is too long."
+					"label":"Code Postal:",
+					"placeholder":"Code Postal",
+					"tooLong":"Code postal est trop long."
 				},
 				"country":{
-					"label":"Country:",
-					"placeholder":"Country",
-					"unrecognized":"Unrecognized country."
+					"label":"Pays:",
+					"placeholder":"Pays",
+					"unrecognized":"Pays non reconnu."
 				},
 				"billingAddress":{
-					"label":"Billing Address:",
-					"placeholder":"Address",
-					"sameAsAddress":"Use Address as Billing Address",
-					"useOrganizationAddress":"Use Organization Address as Billing Address"
+					"label":"Adresse De Facturation:",
+					"country.label":"Pays de Facturation:",
+					"placeholder":"Adresse",
+					"sameAsAddress":"Utilisez Adresse pour Adresse de facturation",
+					"useOrganizationAddress":"Utilisez Adresse d'Organisation pour Adresse de facturation"
 				}
 			},
 			"organization":{
-				"title":"Organization",
+				"title":"Organisation",
 				"name":{
-					"label":"Organization Name:",
-					"placeholder":"Org name"
+					"label":"Nom de l'organisation:",
+					"placeholder":"Nom de l'organisation"
+				},
+				"type":{
+					"label":"Type d'Organisation",
+					"required":"Un type Organisation est nécessaire"
 				}
 			}
 		},
