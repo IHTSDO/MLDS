@@ -1,67 +1,67 @@
 <form novalidate="" name="affiliateApplicationForm" ng-submit="affiliateform.submit()" bs-validation="" id="affiliateApplicationForm">
-  <div class="container">
-	  <div class="row space" ng-show="approvalState === 'CHANGE_REQUESTED'">
-		  <div class="col-sm-12 col-md-12 col-lg-12">
-		  	<div class="alert alert-warning" role="alert">
-		  		<div><strong>Affiliate Registration Needs Change</strong></div>
-		  		<p>Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
-		  	</div>
-		  </div>
+	<div class="container">
+		<div class="row space" ng-show="approvalState === 'CHANGE_REQUESTED'">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="alert alert-warning" role="alert">
+					<div><strong>Affiliate Registration Needs Change</strong></div>
+					<p>Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
+				</div>
+			</div>
 		</div>
-  	<h1 translate="register.affiliateRegistration.title">Affiliate Registration</h1>
-  	<div class="row">
-    <div class="col-sx-12 col-md-12">
-      <div>
-        <div class="panel panel-default applicant">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <span translate="register.affiliateRegistration.usageType"> Usage Type</span>
-            </h4>
-          </div>
-          <div class="panel-collapse collapse in">
-            <div class="panel-body">
-              <h4 translate="register.affiliateRegistration.conditions">Please select the conditions that the product will be used under:</h4>
-              <div class="form-group">
-                <label translate="register.affiliateRegistration.usageType">Usage Type</label>: <select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.subType = ''" required="">
-                  <option value="COMMERCIAL">Commercial - Developer, Vendor or Terminology provider</option>
-                  <option value="ACADEMIC">Academic - for internal use within an Organization. (Educational, Research, Development or Healthcare Provider)</option>
-                  <option value="OTHER">Other - Use not stated in other options</option>
-                  <option value="INDIVIDUAL">Individual - Personal, Educational or Research</option>
-                </select>
-                <p ng-show="affiliateApplicationForm.type.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                  Usage type field is required.
-                </p>
-              </div>
-              <div class="form-group" ng-show="affiliateform.type && affiliateform.type!='OTHER'">
-                <label>Subtype:</label> 
-                <select class="form-control input-md" name="usageSubType" ng-model="affiliateform.subType" ng-required="affiliateform.type!='OTHER'" auto-submit>
-                  <option value="DEVELOPER" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.DEVELOPER">Developer</option>
-                  <option value="DEVELOPMENT" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.DEVELOPMENT">Development</option>
-                  <option value="EDUCATIONAL" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.EDUCATIONAL">Educational</option>
-                  <option value="HEALTHCAREPROVIDER" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.HEALTHCAREPROVIDER">Healthcare Provider</option>
-                  <option value="PERSONAL" ng-show="affiliateform.type=='INDIVIDUAL'" translate="affiliate.subType.PERSONAL">Personal</option>
-                  <option value="RESEARCH" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.RESEARCH">Research</option>
-                  <option value="VENDOR" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.VENDOR">Vendor</option>
-                </select>
-                <p ng-show="affiliateApplicationForm.usageSubType.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                  Subtype field is required.
-                </p>
-              </div>
-              <div class="form-group" ng-show="affiliateform.type=='OTHER'">
-                <label>Other:</label> 
-                <input type="text" class="form-control" placeholder="Other" name="otherText" 
-                	ng-required="affiliateform.type=='OTHER'" ng-model="affiliateform.otherText" ng-maxlength="255" auto-submit>
-                <p ng-show="affiliateApplicationForm.otherText.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                  Other field is required.
-                </p>
-                <p ng-show="affiliateApplicationForm.otherText.$error.maxLength" class="help-block">
-                  Input value is too long.
-                </p>
-              </div>
-              <div class="form-group">
-              	<label>Type of Agreement:</label>
-              	<select class="form-control"
-              		name="agreementType"
+		<h1 translate="register.affiliateRegistration.title">Affiliate Registration</h1>
+		<div class="row">
+	<div class="col-sx-12 col-md-12">
+		<div>
+		<div class="panel panel-default applicant">
+			<div class="panel-heading">
+			<h4 class="panel-title">
+				<span translate="register.affiliateRegistration.usageType"> Usage Type</span>
+			</h4>
+			</div>
+			<div class="panel-collapse collapse in">
+			<div class="panel-body">
+				<h4 translate="register.affiliateRegistration.conditions">Please select the conditions that the product will be used under:</h4>
+				<div class="form-group">
+				<label translate="register.affiliateRegistration.usageType">Usage Type</label>:<select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.subType = ''" required="">
+					<option value="COMMERCIAL" translate="affiliate.type.extended.COMMERCIAL">Commercial - Developer, Vendor or Terminology provider</option>
+					<option value="ACADEMIC" translate="affiliate.type.extended.ACADEMIC">Academic - for internal use within an Organization. (Educational, Research, Development or Healthcare Provider)</option>
+					<option value="OTHER" translate="affiliate.type.extended.OTHER">Other - Use not stated in other options</option>
+					<option value="INDIVIDUAL"	translate="affiliate.type.extended.INDIVIDUAL">Individual - Personal, Educational or Research</option>
+				</select>
+				<p ng-show="affiliateApplicationForm.type.$error.required && affiliateApplicationForm.attempted" class="help-block">
+					Usage type field is required.
+				</p>
+				</div>
+				<div class="form-group" ng-show="affiliateform.type && affiliateform.type!='OTHER'">
+				<label>Subtype:</label> 
+				<select class="form-control input-md" name="usageSubType" ng-model="affiliateform.subType" ng-required="affiliateform.type!='OTHER'" auto-submit>
+					<option value="DEVELOPER" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.DEVELOPER">Developer</option>
+					<option value="DEVELOPMENT" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.DEVELOPMENT">Development</option>
+					<option value="EDUCATIONAL" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.EDUCATIONAL">Educational</option>
+					<option value="HEALTHCAREPROVIDER" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.HEALTHCAREPROVIDER">Healthcare Provider</option>
+					<option value="PERSONAL" ng-show="affiliateform.type=='INDIVIDUAL'" translate="affiliate.subType.PERSONAL">Personal</option>
+					<option value="RESEARCH" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.RESEARCH">Research</option>
+					<option value="VENDOR" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.VENDOR">Vendor</option>
+				</select>
+				<p ng-show="affiliateApplicationForm.usageSubType.$error.required && affiliateApplicationForm.attempted" class="help-block">
+					Subtype field is required.
+				</p>
+				</div>
+				<div class="form-group" ng-show="affiliateform.type=='OTHER'">
+				<label>Other:</label> 
+				<input type="text" class="form-control" placeholder="Other" name="otherText" 
+					ng-required="affiliateform.type=='OTHER'" ng-model="affiliateform.otherText" ng-maxlength="255" auto-submit>
+				<p ng-show="affiliateApplicationForm.otherText.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="register.messages.validate.registration.other.required">
+					Other field is required.
+				</p>
+				<p ng-show="affiliateApplicationForm.otherText.$error.maxLength" class="help-block" translate="form.tooLong">
+					Input value is too long.
+				</p>
+				</div>
+				<div class="form-group">
+					<label translate="register.affiliateRegistration.typeOfAgreement">Type of Agreement:</label>
+					<select class="form-control"
+						name="agreementType"
 									required
 									ng-disabled="readOnly"
 									ng-model="affiliateform.affiliateDetails.agreementType"
@@ -75,542 +75,547 @@
 							</div>
 						
 							<input class="form-control" type="hidden" ng-model="affiliateform.affiliateDetails.address.country" name="country" placeholder="Country" auto-submit> 
-          	</div>
-          </div>
-        </div>
-            
-        <div class="panel panel-default" ng-show="affiliateform.type">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              Contact Information
-              <small ng-show="affiliateform.type === 'INDIVIDUAL'">Member: {{affiliateform.affiliateDetails.address.country.member.key | enum:'global.member.'}}</small>
-            </h4>
-          </div>
-          <div class="panel-collapse collapse in">
-            <div class="panel-body">
-              <div class="row">
-              	<div class="col-md-6">
-	               	<p><label>Name:</label> {{affiliateform.affiliateDetails.firstName + ' ' + affiliateform.affiliateDetails.lastName}}</p>
-	               	<p><label>Email:</label> {{affiliateform.affiliateDetails.email}}</p>
-              	</div>
-              </div>
-              <div class="row" ng-show="affiliateform.type === 'INDIVIDUAL'">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Alternate Email:</label> 
-                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" required="" name="contactAlternateEmail" 
-                    	ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit ng-maxlength="100" 
-                    	unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.thirdEmail]}}">
-                    <div ng-show="affiliateApplicationForm.attempted">
-                      <p ng-show="affiliateApplicationForm.contactAlternateEmail.$error.required" class="help-block">
-                        Required field.
-                      </p>
-                      <p ng-show="!affiliateApplicationForm.contactAlternateEmail.$error.required && affiliateApplicationForm.contactAlternateEmail.$error.email" class="help-block">
-                        Invalid Email Address.
-                      </p>
-                    </div>
-                    <p class="help-block" ng-show="!affiliateApplicationForm.contactAlternateEmail.$error.required
-                    	&& !affiliateApplicationForm.contactAlternateEmail.$error.email 
-                    	&& affiliateApplicationForm.contactAlternateEmail.$error.notUnique ">
-                      Email Addresses need to be unique.
-                    </p>
-                    <p ng-show="affiliateApplicationForm.contactAlternateEmail.$error.maxLength" class="help-block">
-		                  Input value is too long.
-		                </p>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="row" ng-show="affiliateform.type === 'INDIVIDUAL'">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Third Email:</label> 
-                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" name="thirdEmail" 
-                    	ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit ng-maxlength="100"  
-                    	unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
-                    <div ng-show="affiliateApplicationForm.attempted">
-                      <p ng-show="!affiliateApplicationForm.thirdEmail.$error.required && affiliateApplicationForm.thirdEmail.$error.email" class="help-block">
-                        Invalid Email Address.
-                      </p>
-                    </div>
-                    <p class="help-block" 
-                    	ng-show="!affiliateApplicationForm.thirdEmail.$error.required 
-                    		&& !affiliateApplicationForm.thirdEmail.$error.email 
-		                    && affiliateApplicationForm.thirdEmail.$error.notUnique">
-	                      Email Addresses need to be unique.
-                    </p>
-                    <p ng-show="affiliateApplicationForm.thirdEmail.$error.maxLength" class="help-block">
-		                  Input value is too long.
-		                </p>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Landline Phone Number:</label>
-                </div>
-                <div class="col-md-2">
-                  <label>Extension:</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <input class="form-control" type="tel" required="" name="contactPhone" ng-max-length="255" 
-                    	ng-model="affiliateform.affiliateDetails.landlineNumber" auto-submit
-                    	tel-country-model="affiliateform.affiliateDetails.address.country.isoCode2">
-                    <div ng-show="affiliateApplicationForm.attempted">
-                      <p ng-show="affiliateApplicationForm.contactPhone.$error.required" class="help-block">
-                        Required field.
-                      </p>
-                      <p ng-show="!affiliateApplicationForm.contactPhone.$error.required && affiliateApplicationForm.contactPhone.$invalid" class="help-block">
-                        Invalid Phone Number.
-                      </p>
-                    </div>
-                    <p ng-show="affiliateApplicationForm.contactPhone.$error.maxLength" class="help-block">
-		                  Input value is too long.
-		                </p>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="form-group">
-                    <input class="form-control col-md-2" placeholder="Extension" name="contactExtension" ng-maxlength="255"
-                    	ng-model="affiliateform.affiliateDetails.landlineExtension" auto-submit
-                    	tel-country-model="affiliateform.affiliateDetails.address.country.isoCode2">
-                   	<p ng-show="affiliateApplicationForm.contactExtension.$error.maxLength" class="help-block">
-		                  Input value is too long.
-		                </p>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Mobile Phone Number:</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input class="form-control" type="tel" name="mobilePhone" ng-maxlength="255"
-                    	ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.mobileNumber" auto-submit
-                    	tel-country-model="affiliateform.affiliateDetails.address.country.isoCode2">
-                    <div ng-show="affiliateApplicationForm.attempted">
-                      <p ng-show="affiliateApplicationForm.mobilePhone.$error.required" class="help-block">
-                        Required field.
-                      </p>
-                      <p ng-show="!affiliateApplicationForm.mobilePhone.$error.required && affiliateApplicationForm.mobilePhone.$invalid" class="help-block">
-                        Invalid Phone Number.
-                      </p>
-                    </div>
-                    <p ng-show="affiliateApplicationForm.mobilePhone.$error.maxLength" class="help-block">
-		                  Input value is too long.
-		                </p>
-                  </div>
-                </div>
-              </div>
-              <div ng-show="affiliateform.type=='INDIVIDUAL'">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Address:</label>
-                      <input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-maxlength="255" 
-                      	ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.street" auto-submit>
-                      <p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                        Required field.
-                      </p>
-                      <p ng-show="affiliateApplicationForm.address.$error.maxLength" class="help-block">
-			                  Input value is too long.
-			                </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-	                <div class="col-md-3">
-	                  <label>City:</label>
-	                </div>
-	                <div class="col-md-3">
-	                  <label>Post Code:</label>
-	                </div>
-	              </div>
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <input class="form-control" name="city" placeholder="City" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.city" ng-maxlength="255" auto-submit>
-                      <p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block" >
-                        Required field.
-                      </p>
-                      <p ng-show="affiliateApplicationForm.postalCode.$error.maxlength" class="help-block">
-                        Input value is too long.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" name="postalCode" 
-                      	ng-required="affiliateform.type=='INDIVIDUAL'" ng-maxlenth="25" 
-                      	placeholder="Post Code" auto-submit>
-                      <p ng-show="affiliateApplicationForm.postalCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                        Required field.
-                      </p>
-                      <p ng-show="affiliateApplicationForm.postalCode.$error.maxlength" class="help-block">
-                        Input value is too long.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                    	<label>Country:</label> <span>{{affiliateform.affiliateDetails.address.country.commonName}}</span>
-                     </div>
-                  </div>
-                </div>
-                <hr>
-           <!-- START BILLING FIELDS -->
-             <div class="row">
-               <div class="col-md-6">
-                 <div class="form-group">
-                   <label>Use Address as Billing Address</label> <input name="use" type="checkbox" ng-change="copyAddress()" ng-model="isSameAddress">
-                 </div>
-               </div>
-             </div>
-        
-             <div class="row">
-               <div class="col-md-6">
-                 <div class="form-group">
-                   <label>Billing Address:</label> 
-                   <input class="form-control" name="billingAddress" placeholder="Address" ng-maxlength="255" 
-                   	ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.street" auto-submit>
-                   <p ng-show="affiliateApplicationForm.billingAddress.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                     Required field.
-                   </p>
-                   <p ng-show="affiliateApplicationForm.billingAddress.$error.maxlength" class="help-block">
-                     Input value is too long.
-                   </p>
-                 </div>
-               </div>
-             </div>
-             <div class="row">
-               <div class="col-md-3">
-                 <label>City:</label>
-               </div>
-               <div class="col-md-3">
-                 <label>Post Code:</label>
-               </div>
-             </div>
-             <div class="row">
-               <div class="col-md-3">
-                 <div class="form-group">
-                   <input class="form-control" name="billingCity" placeholder="City" ng-maxlength="255" 
-                   	ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.city" auto-submit>
-                   <p ng-show="affiliateApplicationForm.billingCity.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                     Required field.
-                   </p>
-                   <p ng-show="affiliateApplicationForm.billingCity.$error.maxlength" class="help-block">
-                     Input value is too long.
-                   </p>
-                 </div>
-               </div>
-               <div class="col-md-3">
-                 <div class="form-group">
-                   <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.post" name="billingPostCode" 
-                   	ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" ng-maxlength="25" 
-                   	placeholder="Post Code" auto-submit>
-                   <p ng-show="affiliateApplicationForm.billingPostCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                     Required field.
-                   </p>
-                   <p ng-show="affiliateApplicationForm.billingPostCode.$error.maxlength" class="help-block">
-                     Input value is too long.
-                   </p>
-                 </div>
-               </div>
-             </div>
-             <div class="row">
-               <div class="col-md-6">
-                 <div class="form-group">
-                 	<label>Billing Country:</label>
-                   <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry" 
-                   ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Country"
-                   typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
-                   <p ng-show="affiliateApplicationForm.billingCountry.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                     Required field.
-                   </p>
-                 </div>
-               </div>
-             </div>
+				</div>
+			</div>
+		</div>
+			
+		<div class="panel panel-default" ng-show="affiliateform.type">
+			<div class="panel-heading">
+			<h4 class="panel-title">
+				<span translate="views.contactInfo.contact.title">Contact Information</span>
+				<small ng-show="affiliateform.type === 'INDIVIDUAL'">Member: {{affiliateform.affiliateDetails.address.country.member.key | enum:'global.member.'}}</small>
+			</h4>
+			</div>
+			<div class="panel-collapse collapse in">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-6">
+					 	<p><label translate="views.contactInfo.contact.fullName.label">Name:</label> {{affiliateform.affiliateDetails.firstName + ' ' + affiliateform.affiliateDetails.lastName}}</p>
+					 	<p><label translate="views.contactInfo.contact.email.label">Email:</label> {{affiliateform.affiliateDetails.email}}</p>
+					</div>
+				</div>
+				<div class="row" ng-show="affiliateform.type === 'INDIVIDUAL'">
+				<div class="col-md-6">
+					<div class="form-group">
+					<label translate="views.contactInfo.contact.alternativeEmail.label">Alternate Email:</label> 
+					<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" required="" name="contactAlternateEmail" 
+						ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit ng-maxlength="100" 
+						unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.thirdEmail]}}">
+					<div ng-show="affiliateApplicationForm.attempted">
+						<p ng-show="affiliateApplicationForm.contactAlternateEmail.$error.required" class="help-block" translate="form.requiredField">
+							Required field.
+						</p>
+						<p ng-show="!affiliateApplicationForm.contactAlternateEmail.$error.required && affiliateApplicationForm.contactAlternateEmail.$error.email" class="help-block" translate="views.contactInfo.contact.email.invalid">
+							Invalid Email Address.
+						</p>
+					</div>
+					<p class="help-block" ng-show="!affiliateApplicationForm.contactAlternateEmail.$error.required
+						&& !affiliateApplicationForm.contactAlternateEmail.$error.email 
+						&& affiliateApplicationForm.contactAlternateEmail.$error.notUnique "
+					translate="views.contactInfo.contact.email.unique">
+						Email Addresses need to be unique.
+					</p>
+					<p ng-show="affiliateApplicationForm.contactAlternateEmail.$error.maxLength" class="help-block" translate="form.tooLong">
+							Input value is too long.
+					</p>
+					</div>
+				</div>
+				</div>
+				
+				<div class="row" ng-show="affiliateform.type === 'INDIVIDUAL'">
+				<div class="col-md-6">
+					<div class="form-group">
+					<label translate="views.contactInfo.contact.thirdEmail.label">Third Email:</label> 
+					<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" name="thirdEmail" 
+						ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit ng-maxlength="100"	
+						unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
+					<div ng-show="affiliateApplicationForm.attempted">
+						<p ng-show="!affiliateApplicationForm.thirdEmail.$error.required && affiliateApplicationForm.thirdEmail.$error.email" class="help-block" translate="views.contactInfo.contact.email.invalid">
+						Invalid Email Address.
+						</p>
+					</div>
+					<p class="help-block" 
+						ng-show="!affiliateApplicationForm.thirdEmail.$error.required 
+							&& !affiliateApplicationForm.thirdEmail.$error.email 
+							&& affiliateApplicationForm.thirdEmail.$error.notUnique"
+							translate="views.contactInfo.contact.email.unique">
+							Email Addresses needs to be unique.
+					</p>
+					<p ng-show="affiliateApplicationForm.thirdEmail.$error.maxLength" class="help-block" translate="form.tooLong">
+							Input value is too long.
+						</p>
+					</div>
+				</div>
+				</div>
+				
+				<div class="row">
+				<div class="col-md-4">
+					<label translate="views.contactInfo.contact.landline.label">Landline Phone Number:</label>
+				</div>
+				<div class="col-md-2">
+					<label translate="views.contactInfo.contact.landlineExtension.label">Extension:</label>
+				</div>
+				</div>
+				<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+					<input class="form-control" type="tel" required="" name="contactPhone" ng-max-length="255" 
+						ng-model="affiliateform.affiliateDetails.landlineNumber" auto-submit
+						tel-country-model="affiliateform.affiliateDetails.address.country.isoCode2">
+					<div ng-show="affiliateApplicationForm.attempted">
+						<p ng-show="affiliateApplicationForm.contactPhone.$error.required" class="help-block" translate="form.requiredField">
+							Required field.
+						</p>
+						<p ng-show="!affiliateApplicationForm.contactPhone.$error.required && affiliateApplicationForm.contactPhone.$invalid" class="help-block" translate="views.contactInfo.contact.landline.invalid">
+						Invalid Phone Number.
+						</p>
+					</div>
+					<p ng-show="affiliateApplicationForm.contactPhone.$error.maxLength" class="help-block" translate="form.tooLong">
+							Input value is too long.
+						</p>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group">
+					<input class="form-control col-md-2" placeholder="Extension" name="contactExtension" ng-maxlength="255"
+						ng-model="affiliateform.affiliateDetails.landlineExtension" auto-submit
+						tel-country-model="affiliateform.affiliateDetails.address.country.isoCode2">
+					 	<p ng-show="affiliateApplicationForm.contactExtension.$error.maxLength" class="help-block" translate="form.tooLong">
+							Input value is too long.
+						</p>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+				<div class="col-md-6">
+					<label translate="views.contactInfo.contact.mobile.label">Mobile Phone Number:</label>
+				</div>
+				</div>
+				<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+					<input class="form-control" type="tel" name="mobilePhone" ng-maxlength="255"
+						ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.mobileNumber" auto-submit
+						tel-country-model="affiliateform.affiliateDetails.address.country.isoCode2">
+					<div ng-show="affiliateApplicationForm.attempted">
+						<p ng-show="affiliateApplicationForm.mobilePhone.$error.required" class="help-block" translate="form.requiredField">
+						Required field.
+						</p>
+						<p ng-show="!affiliateApplicationForm.mobilePhone.$error.required && affiliateApplicationForm.mobilePhone.$invalid" class="help-block"  translate="views.contactInfo.contact.landline.invalid">
+						Invalid Phone Number.
+						</p>
+					</div>
+					<p ng-show="affiliateApplicationForm.mobilePhone.$error.maxLength" class="help-block"  translate="form.tooLong">
+							Input value is too long.
+						</p>
+					</div>
+				</div>
+				</div>
+				<div ng-show="affiliateform.type=='INDIVIDUAL'">
+				<div class="row">
+					<div class="col-md-6">
+					<div class="form-group">
+						<label translate="views.contactInfo.contact.address.label">Address:</label>
+						<input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-maxlength="255" 
+							ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.street" auto-submit>
+						<p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+						Required field.
+						</p>
+						<p ng-show="affiliateApplicationForm.address.$error.maxLength" class="help-block" translate="form.tooLong">
+								Input value is too long.
+							</p>
+					</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label translate="views.contactInfo.contact.city.label">City:</label>
+					</div>
+					<div class="col-md-3">
+						<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+					</div>
+					</div>
+				<div class="row">
+					<div class="col-md-3">
+					<div class="form-group">
+						<input class="form-control" name="city" placeholder="City" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.city" ng-maxlength="255" auto-submit>
+						<p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+						Required field.
+						</p>
+						<p ng-show="affiliateApplicationForm.postalCode.$error.maxlength" class="help-block" translate="form.tooLong">
+						Input value is too long.
+						</p>
+					</div>
+					</div>
+					<div class="col-md-3">
+					<div class="form-group">
+						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" name="postalCode" 
+							ng-required="affiliateform.type=='INDIVIDUAL'" ng-maxlenth="25" 
+							placeholder="Post Code" auto-submit>
+						<p ng-show="affiliateApplicationForm.postalCode.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+						Required field.
+						</p>
+						<p ng-show="affiliateApplicationForm.postalCode.$error.maxlength" class="help-block" translate="form.tooLong">
+						Input value is too long.
+						</p>
+					</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+					<div class="form-group">
+						<label translate="views.contactInfo.contact.country.label">Country:</label><span>{{affiliateform.affiliateDetails.address.country.commonName}}</span>
+					</div>
+					</div>
+				</div>
+				<hr>
+			<!-- START BILLING FIELDS -->
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label translate="views.contactInfo.contact.billingAddress.sameAsAddress">Use Address as Billing Address</label><input name="use" type="checkbox" ng-change="copyAddress()" ng-model="isSameAddress">
+					</div>
+				</div>
+			</div>
+		
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label translate="views.contactInfo.contact.billingAddress.label">Billing Address:</label> 
+						<input class="form-control" name="billingAddress" placeholder="Address" ng-maxlength="255" 
+						 	ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.street" auto-submit>
+						<p ng-show="affiliateApplicationForm.billingAddress.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+						 Required field.
+						</p>
+						<p ng-show="affiliateApplicationForm.billingAddress.$error.maxlength" class="help-block" translate="form.tooLong">
+						 Input value is too long.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<label translate="views.contactInfo.contact.city.label">City:</label>
+				</div>
+				<div class="col-md-3">
+					<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="form-group">
+						<input class="form-control" name="billingCity" placeholder="City" ng-maxlength="255" 
+						 	ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.city" auto-submit>
+						<p ng-show="affiliateApplicationForm.billingCity.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+						 Required field.
+						</p>
+						<p ng-show="affiliateApplicationForm.billingCity.$error.maxlength" class="help-block" translate="form.tooLong">
+						 Input value is too long.
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.post" name="billingPostCode" 
+						 	ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" ng-maxlength="25" 
+						 	placeholder="Post Code" auto-submit>
+						<p ng-show="affiliateApplicationForm.billingPostCode.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+						 Required field.
+						</p>
+						<p ng-show="affiliateApplicationForm.billingPostCode.$error.maxlength" class="help-block" translate="form.tooLong">
+						 Input value is too long.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+					 	<label translate="views.contactInfo.contact.billingAddress.country.label">Billing Country:</label>
+						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry" 
+						 ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="Country"
+						 typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
+						<p ng-show="affiliateApplicationForm.billingCountry.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+						 Required field.
+						</p>
+					</div>
+				</div>
+			</div>
 					<!-- End Billing Fields -->
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="panel panel-default" ng-show="affiliateform.type && affiliateform.type!='INDIVIDUAL'">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              Organization
-              <small>Member: {{affiliateform.affiliateDetails.address.country.member.key | enum:'global.member.'}}</small>
-            </h4>
-          </div>
-          <div class="panel-collapse collapse in">
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group has-error has-feedback">
-                    <label>Organization Name:</label> 
-                    <input class="form-control" name="organizationName" placeholder="Organization Name" ng-maxlength="255" 
-                    	ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationName" auto-submit>
-                    <p class="help-block" ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted">
-                      Required field.
-                    </p>
-                    <p ng-show="affiliateApplicationForm.organizationName.$error.maxlength" class="help-block">
-                      Input value is too long.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group has-error has-feedback">
-                    <label>Organization Type:</label> 
-                     <select class="form-control" name="organizationType" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationType" auto-submit>
-                    	<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{organizationType | enum:'affiliate.organizationType.'}}</option>
-                    </select>
-                    <p class="help-block" ng-show="affiliateApplicationForm.organizationType.$error.required && affiliateApplicationForm.attempted">
-                      Required field.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="row" ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">
-                <div class="col-md-6">
-                  <div class="form-group has-error has-feedback">
-                    <input class="form-control help-block" name="organizationTypeOther" placeholder="Other Organization Type" ng-maxlength="255" 
-                    	ng-required="affiliateApplicationForm.organizationType.type=='Other'" ng-model="affiliateform.affiliateDetails.organizationTypeOther" auto-submit>
-                    <p class="help-block" ng-show="affiliateApplicationForm.organizationTypeOther.$error.required && affiliateApplicationForm.attempted">
-                      An Organization type is required.
-                    </p>
-                    <p ng-show="affiliateApplicationForm.organizationTypeOther.$error.maxlength" class="help-block">
-                      Input value is too long.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Address:</label> 
-                    <input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-change="copyAddress()" 
-                    	required="" ng-model="affiliateform.affiliateDetails.address.street" auto-submit ng-maxlength="255">
-                    <p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                      Required field.
-                    </p>
-                    <p ng-show="affiliateApplicationForm.address.$error.maxlength" class="help-block">
-                      Input value is too long.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-	                <div class="col-md-3">
-	                  <label>City:</label>
-	                </div>
-	                <div class="col-md-3">
-	                  <label>Post Code:</label>
-	                </div>
-	              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <input class="form-control" name="city" placeholder="City" required="" ng-maxlength="255" 
-                    	ng-model="affiliateform.affiliateDetails.address.city" ng-change="copyAddress()" auto-submit>
-                    <p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                      Required field.
-                    </p>
-                    <p ng-show="affiliateApplicationForm.city.$error.maxlength" class="help-block">
-                      Input value is too long.
-                    </p>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" 
-                    	ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type=='COMMERCIAL'"
-                    	ng-maxlength="25" 
-                    	placeholder="Post Code" auto-submit>
-                    <p ng-show="affiliateApplicationForm.postCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                      Required field.
-                    </p>
-                    <p ng-show="affiliateApplicationForm.postCode.$error.maxlength" class="help-block">
-                      Input value is too long.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                  	<label>Country:</label> <span>{{affiliateform.affiliateDetails.address.country.commonName}}</span>
-                  </div>
-                </div>
-              </div>
-                <hr>
-           <!-- START BILLING FIELDS -->
-             <div class="row">
-               <div class="col-md-6">
-                 <div class="form-group">
-                   <label>Use Organization Address as Billing Address</label> <input name="use" type="checkbox" ng-change="copyAddress()" ng-model="isSameAddress">
-                 </div>
-               </div>
-             </div>
-        
-             <div class="row">
-               <div class="col-md-6">
-                 <div class="form-group">
-                   <label>Billing Address:</label> 
-                   <input class="form-control" name="billingAddress" placeholder="Address" ng-maxlength="255" 
-                   	ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.street" auto-submit>
-                   <p ng-show="affiliateApplicationForm.billingAddress.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                     Required field.
-                   </p>
-                   <p ng-show="affiliateApplicationForm.billingAddress.$error.maxlength" class="help-block">
-                     Input value is too long.
-                   </p>
-                 </div>
-               </div>
-             </div>
-             <div class="row">
-               <div class="col-md-3">
-                 <label>City:</label>
-               </div>
-               <div class="col-md-3">
-                 <label>Post Code:</label>
-               </div>
-             </div>
-             <div class="row">
-               <div class="col-md-3">
-                 <div class="form-group">
-                   <input class="form-control" name="billingCity" placeholder="City" ng-maxlength="255" 
-                   	ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.city" auto-submit>
-                   <p ng-show="affiliateApplicationForm.billingCity.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                     Required field.
-                   </p>
-                   <p ng-show="affiliateApplicationForm.billingCity.$error.maxlength" class="help-block">
-                     Input value is too long.
-                   </p>
-                 </div>
-               </div>
-               <div class="col-md-3">
-                 <div class="form-group">
-                   <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.post" name="billingPostCode" 
-                   	ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" ng-maxlength="25" 
-                   	placeholder="Post Code" auto-submit>
-                   <p ng-show="affiliateApplicationForm.billingPostCode.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                     Required field.
-                   </p>
-                   <p ng-show="affiliateApplicationForm.billingPostCode.$error.maxlength" class="help-block">
-                     Input value is too long.
-                   </p>
-                 </div>
-               </div>
-             </div>
-             <div class="row">
-               <div class="col-md-6">
-                 <div class="form-group">
-                 	<label>Billing Country:</label>
-                   <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry" 
-                   ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" placeholder="Country"
-                   typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
-                   <p ng-show="affiliateApplicationForm.billingCountry.$error.required && affiliateApplicationForm.attempted" class="help-block">
-                     Required field.
-                   </p>
-                 </div>
-               </div>
-             </div>
-					<!-- End Billing Fields -->
-					<hr>              
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Alternate Email:</label> 
-                    <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="affiliateform.type!='INDIVIDUAL'" name="alternateEmail" ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.thirdEmail]}}">
-                    <div ng-show="affiliateApplicationForm.attempted">
-                      <p ng-show="affiliateApplicationForm.alternateEmail.$error.required" class="help-block">
-                        Required field.
-                      </p>
-                      <p ng-show="!affiliateApplicationForm.alternateEmail.$error.required && affiliateApplicationForm.alternateEmail.$error.email" class="help-block">
-                        Invalid Email Address.
-                      </p>
-                    </div>
-                    <p class="help-block"
-                    	ng-show="!affiliateApplicationForm.alternateEmail.$error.required
-                    		&& !affiliateApplicationForm.alternateEmail.$error.email
-                    		&& affiliateApplicationForm.alternateEmail.$error.notUnique">
-                      Email Addresses need to be unique.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Third Email:</label> <input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" name="thirdEmail" ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
-                    <div ng-show="affiliateApplicationForm.attempted">
-                      <p ng-show="!affiliateApplicationForm.thirdEmail.$error.required && affiliateApplicationForm.thirdEmail.$error.email" class="help-block">
-                        Invalid Email Address.
-                      </p>
-                    </div>
-                    <p class="help-block" 
-                    	ng-show="!affiliateApplicationForm.thirdEmail.$error.required 
-                    		&& !affiliateApplicationForm.thirdEmail.$error.email 
-		                    && affiliateApplicationForm.thirdEmail.$error.notUnique">
-	                      Email Addresses need to be unique.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="row" ng-show="affiliateform.type=='OTHER'">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Other</label> 
-                    <textarea class="form-control" rows="4" name="otherText" ng-model="affiliateform.other.textArea" auto-submit></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div ng-show="affiliateform.type"
-      	ng-controller="AffiliateRegistrationUsageLogController" 
-      	ng-include="'views/user/affiliateRegistrationUsageLog.html'">
-      </div>
-      
-      
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            SNOMED CT Agreement
-          </h3>
-        </div>
-        <div class="panel-body">
-          <p>
-            <a ng-click="viewLicense(affiliateform.affiliateDetails.address.country.member.key)" target="_blank" class="btn btn-default btn-block">SNOMED License</a>
-          </p>
-          <p class="form-group">
-            <label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="affiliateform.snoMedTC"> I agree to the license 
-            <span ng-show="affiliateApplicationForm.snoMedTC.$error.required && affiliateApplicationForm.attempted" class="help-block">You must agree to the terms and conditions of the SNOMED CT License in order to register, which also indicates potential fees that be required.</span></label>
-          </p>
-          <div class="panel-footer">
-            <button type="button" class="btn btn-muted btn-success" ng-click="openReviewModal(affiliateform)">Register</button>
-            <div ng-show="affiliateApplicationForm.attempted" class="has-error">
-							<p ng-show="affiliateApplicationForm.$invalid" class="help-block">Please fix the errors listed above.</p>
+				</div>
+			</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default" ng-show="affiliateform.type && affiliateform.type!='INDIVIDUAL'">
+			<div class="panel-heading">
+			<h4 class="panel-title">
+				<span translate="views.contactInfo.organization.title">Organization</span>
+				<small>Member: {{affiliateform.affiliateDetails.address.country.member.key | enum:'global.member.'}}</small>
+			</h4>
+			</div>
+			<div class="panel-collapse collapse in">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group has-error has-feedback">
+							<label translate="views.contactInfo.organization.name.label">Organization Name:</label> 
+							<input class="form-control" name="organizationName" placeholder="{{ views.contactInfo.organization.name.placeholder | translate}}" ng-maxlength="255" 
+								ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationName" auto-submit>
+							<p class="help-block" ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted" translate="form.requiredField">
+								Required field.
+							</p>
+							<p ng-show="affiliateApplicationForm.organizationName.$error.maxlength" class="help-block" translate="form.tooLong">
+								Input value is too long.
+							</p>
 						</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group has-error has-feedback">
+							<label translate="views.contactInfo.organization.type.label">Organization Type:</label> 
+							<select class="form-control" name="organizationType" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationType" auto-submit>
+								<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{organizationType | enum:'affiliate.organizationType.'}}</option>
+							</select>
+							<p class="help-block" ng-show="affiliateApplicationForm.organizationType.$error.required && affiliateApplicationForm.attempted" translate="form.requiredField">
+								Required field.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">
+				<div class="col-md-6">
+					<div class="form-group has-error has-feedback">
+					<input class="form-control help-block" name="organizationTypeOther" placeholder="Other Organization Type" ng-maxlength="255" 
+						ng-required="affiliateApplicationForm.organizationType.type=='Other'" ng-model="affiliateform.affiliateDetails.organizationTypeOther" auto-submit>
+					<p class="help-block" ng-show="affiliateApplicationForm.organizationTypeOther.$error.required && affiliateApplicationForm.attempted">
+						An Organization type is required.
+					</p>
+					<p ng-show="affiliateApplicationForm.organizationTypeOther.$error.maxlength" class="help-block">
+						Input value is too long.
+					</p>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+					<label translate="views.contactInfo.contact.address.label">Address:</label> 
+					<input class="form-control" name="address" placeholder="123 Somewhere Avenue" ng-change="copyAddress()" 
+						required="" ng-model="affiliateform.affiliateDetails.address.street" auto-submit ng-maxlength="255">
+					<p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block">
+						Required field.
+					</p>
+					<p ng-show="affiliateApplicationForm.address.$error.maxlength" class="help-block">
+						Input value is too long.
+					</p>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label translate="views.contactInfo.contact.city.label">City:</label>
+					</div>
+					<div class="col-md-3">
+						<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+					</div>
+					</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+						<input class="form-control" name="city" placeholder="City" required="" ng-maxlength="255" 
+							ng-model="affiliateform.affiliateDetails.address.city" ng-change="copyAddress()" auto-submit>
+						<p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+							Required field.
+						</p>
+						<p ng-show="affiliateApplicationForm.city.$error.maxlength" class="help-block" translate="form.tooLong">
+							Input value is too long.
+						</p>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" 
+							ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type=='COMMERCIAL'"
+							ng-maxlength="25" 
+							placeholder="Post Code" auto-submit>
+						<p ng-show="affiliateApplicationForm.postCode.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+							Required field.
+						</p>
+						<p ng-show="affiliateApplicationForm.postCode.$error.maxlength" class="help-block" translate="form.tooLong">
+							Input value is too long.
+						</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label translate="views.contactInfo.contact.country.label">Country:</label><span>{{affiliateform.affiliateDetails.address.country.commonName}}</span>
+						</div>
+					</div>
+				</div>
+				<hr>
+			<!-- START BILLING FIELDS -->
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label translate="views.contactInfo.contact.billingAddress.useOrganizationAddress">Use Organization Address as Billing Address</label><input name="use" type="checkbox" ng-change="copyAddress()" ng-model="isSameAddress">
+					</div>
+				</div>
+			</div>
+		
+			<div class="row">
+				<div class="col-md-6">
+				<div class="form-group">
+					<label translate="views.contactInfo.contact.billingAddress.label">Billing Address:</label> 
+					<input class="form-control" name="billingAddress" placeholder="Address" ng-maxlength="255" 
+					 	ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.street" auto-submit>
+					<p ng-show="affiliateApplicationForm.billingAddress.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+					 Required field.
+					</p>
+					<p ng-show="affiliateApplicationForm.billingAddress.$error.maxlength" class="help-block" translate="form.tooLong">
+					 Input value is too long.
+					</p>
+				</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<label translate="views.contactInfo.contact.city.label">City:</label>
+				</div>
+				<div class="col-md-3">
+					<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+				<div class="form-group">
+					<input class="form-control" name="billingCity" placeholder="City" ng-maxlength="255" 
+					 	ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.city" auto-submit>
+					<p ng-show="affiliateApplicationForm.billingCity.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+					 Required field.
+					</p>
+					<p ng-show="affiliateApplicationForm.billingCity.$error.maxlength" class="help-block" translate="form.tooLong">
+					 Input value is too long.
+					</p>
+				</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.post" name="billingPostCode" 
+						 	ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" ng-maxlength="25" 
+						 	placeholder="Post Code" auto-submit>
+						<p ng-show="affiliateApplicationForm.billingPostCode.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+						 Required field.
+						</p>
+						<p ng-show="affiliateApplicationForm.billingPostCode.$error.maxlength" class="help-block" translate="form.tooLong">
+						 Input value is too long.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label translate="views.contactInfo.contact.billingAddress.country.label">Billing Country:</label>
+						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry" 
+						 ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" placeholder="Country"
+						 typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
+						<p ng-show="affiliateApplicationForm.billingCountry.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
+						 Required field.
+						</p>
+					</div>
+				</div>
+			</div>
+					<!-- End Billing Fields -->
+					<hr>				
+				<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label translate="views.contactInfo.contact.alternativeEmail.label">Alternate Email:</label> 
+						<input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" ng-required="affiliateform.type!='INDIVIDUAL'" name="alternateEmail" ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.thirdEmail]}}">
+						<div ng-show="affiliateApplicationForm.attempted">
+							<p ng-show="affiliateApplicationForm.alternateEmail.$error.required" class="help-block" translate="form.requiredField">
+							Required field.
+							</p>
+							<p ng-show="!affiliateApplicationForm.alternateEmail.$error.required && affiliateApplicationForm.alternateEmail.$error.email" class="help-block">
+							Invalid Email Address.
+							</p>
+						</div>
+						<p class="help-block"
+							ng-show="!affiliateApplicationForm.alternateEmail.$error.required
+								&& !affiliateApplicationForm.alternateEmail.$error.email
+								&& affiliateApplicationForm.alternateEmail.$error.notUnique"
+								translate="views.contactInfo.contact.email.unique">
+							Email Addresses need to be unique.
+						</p>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label translate="views.contactInfo.contact.thirdEmail.label">Third Email:</label>
+							<input class="form-control" type="email" placeholder="JohnSmith@OrganizationABC.com" name="thirdEmail" ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
+							<div ng-show="affiliateApplicationForm.attempted">
+								<p ng-show="!affiliateApplicationForm.thirdEmail.$error.required && affiliateApplicationForm.thirdEmail.$error.email" class="help-block" translate="views.contactInfo.contact.email.invalid">
+								Invalid Email Address.
+								</p>
+							</div>
+							<p class="help-block" 
+								ng-show="!affiliateApplicationForm.thirdEmail.$error.required 
+									&& !affiliateApplicationForm.thirdEmail.$error.email 
+									&& affiliateApplicationForm.thirdEmail.$error.notUnique"
+									translate="views.contactInfo.contact.email.unique">
+									Email Addresses need to be unique.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-show="affiliateform.type=='OTHER'">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label translate="affiliate.type.OTHER">Other</label> 
+							<textarea class="form-control" rows="4" name="otherText" ng-model="affiliateform.other.textArea" auto-submit></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+
+		<div ng-show="affiliateform.type"
+			ng-controller="AffiliateRegistrationUsageLogController" 
+			ng-include="'views/user/affiliateRegistrationUsageLog.html'">
+		</div>
+		
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title" translate="register.affiliateRegistration.license.title">
+					SNOMED CT Agreement
+				</h3>
+			</div>
+			<div class="panel-body">
+				<p>
+					<a ng-click="viewLicense(affiliateform.affiliateDetails.address.country.member.key)" target="_blank" class="btn btn-default btn-block"  translate="register.affiliateRegistration.license">SNOMED License</a>
+				</p>
+				<p class="form-group">
+					<label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="affiliateform.snoMedTC"> <span translate="register.affiliateRegistration.license.label" >I agree to the license </span>
+					<span ng-show="affiliateApplicationForm.snoMedTC.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="register.affiliateRegistration.license.error">You must agree to the terms and conditions of the SNOMED CT License in order to register, which also indicates potential fees that be required.</span></label>
+				</p>
+				<div class="panel-footer">
+					<button type="button" class="btn btn-muted btn-success" ng-click="openReviewModal(affiliateform)" translate="register.form.button">Register</button>
+					<div ng-show="affiliateApplicationForm.attempted" class="has-error">
+						<p ng-show="affiliateApplicationForm.$invalid" class="help-block" translate="form.pleaseFix">Please fix the errors listed above.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
 </form><!-- /container -->

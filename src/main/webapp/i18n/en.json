@@ -412,9 +412,17 @@
 			"detail":"Please open the email we have just sent you to verify your account and get access to the MLDS"
 		},
 		"affiliateRegistration":{
-			"title":"Affiliate Registration L'enregistrement d'affiliation",
+			"title":"Affiliate Registration",
 			"usageType":"Usage Type",
-			"conditions":"Please select the conditions that the product will be used under"
+			"conditions":"Please select the conditions that the product will be used under",
+			"typeOfAgreement":"Type of Agreement",
+			"validation":{
+				"other.required":"Other field is required."
+			},
+			"license.title":"SNOMED CT Agreement",
+			"license":"SNOMED License",
+			"license.label":"I agree to the license",
+			"license.error":"You must agree to the terms and conditions of the SNOMED CT License in order to register, which also indicates potential fees that be required."
 		}
 	},
 	"login":{
@@ -657,6 +665,12 @@
 			"OTHER":"Other",
 			"INDIVIDUAL":"Individual"
 		},
+		"type.extended":{
+			"COMMERCIAL":"Commercial - Developer, Vendor or Terminology provider",
+			"ACADEMIC":"Academic - for internal use within an Organization. (Educational, Research, Development or Healthcare Provider)",
+			"OTHER":"Other - Use not stated in other options",
+			"INDIVIDUAL":"Individual - Personal, Educational or Research"
+		},
 		"subType":{
 			"DEVELOPER":"Developer",
 			"DEVELOPMENT":"Development",
@@ -757,7 +771,9 @@
 		}
 	},
 	"form":{
-		"requiredField":"Required field."
+		"requiredField":"Required field.",
+		"tooLong":"Input value is too long.", 
+		"pleaseFix":"Please fix the errors listed above."
 	},
 	"views":{
 		"activate":{
@@ -814,6 +830,9 @@
 			},
 			"contact":{
 				"title":"Contact Information",
+				"fullName":{
+					"label":"Name:"
+				},
 				"firstName":{
 					"label":"First Name:",
 					"placeholder":"John"
@@ -825,7 +844,7 @@
 				"email":{
 					"label":"Email:",
 					"placeholder":"JohnSmith@OrganizationABC.com",
-					"uniqueness":"Email Addresses need to be unique.",
+					"uniqueness":"Email Addresses needs to be unique.",
 					"invalid":"Invalid Email Address."
 				},
 				"alternativeEmail":{
@@ -865,6 +884,7 @@
 				},
 				"billingAddress":{
 					"label":"Billing Address:",
+					"country.label":"Billing Country:",
 					"placeholder":"Address",
 					"sameAsAddress":"Use Address as Billing Address",
 					"useOrganizationAddress":"Use Organization Address as Billing Address"
@@ -875,6 +895,10 @@
 				"name":{
 					"label":"Organization Name:",
 					"placeholder":"Org name"
+				},
+				"type":{
+					"label":"Organization Type",
+					"required":"An Organization type is required"
 				}
 			}
 		},
