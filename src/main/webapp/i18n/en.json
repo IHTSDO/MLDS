@@ -373,7 +373,16 @@
 			}
 		},
 		"word":{
-			"or":"or"
+			"or":"or",
+			"add":"Add",
+			"edit":"Edit",
+			"name":"Name",
+			"cancel":"Cancel",
+			"note":"Note",
+			"close":"close",
+			"delete":"Remove",
+			"update":"Update",
+			"from":"from"
 		}
 	},
 	"logout":{
@@ -859,7 +868,8 @@
 					"invalid":"Invalid Phone Number."
 				},
 				"landlineExtension":{
-					"label":"Extension:"
+					"label":"Extension:",
+					"placeholder":"Extension"
 				},
 				"mobile":{
 					"label":"Mobile Phone Number:"
@@ -897,8 +907,9 @@
 					"placeholder":"Org name"
 				},
 				"type":{
-					"label":"Organization Type",
-					"required":"An Organization type is required"
+					"label":"Organization Type:",
+					"required":"An Organization type is required",
+					"placeholder":"Other Organization Type"
 				}
 			}
 		},
@@ -913,6 +924,55 @@
 			"title":"Password Reset",
 			"detail":"We will send you an email containing a link to a password reset form.",
 			"button":"Request Password Reset"
+		},
+		"usageLog":{
+			"title":"Submitted Usage Report",
+			"subTitle":"License Usage",
+			"usageFor":"Usage For",
+			"pleaseFill":"Please fill out any known usage information at this time, you will be asked to confirm usage once your application is approved.",
+			"licenseType":"License Type: ",
+			"currentUsage":"Current Usage: ",
+			"plannedUsage":"Planned Usage: ",
+			"purpose":"Purpose:",
+			"impStatus":"Implementation Status:",
+			"countries":{
+				"title":"Countries in Use",
+				"subTitle":"Select the non-member countries in which SNOMED CT will be used.",
+				"label":"List of Countries",
+				"search":"Search Countries",
+				"homeCountry":"Home Country:",
+				"button":"Add Country"
+			},
+			"institutions":{
+				"title":"Sublicensed Institutions",
+				"selectFirst":"A country needs to be selected before entering Sublicensed Institutions.",
+				"noneSelected":"No countries have been selected.",
+				"deleteCountry":"Remove Country",
+				"hospAndInst":"Hospital/Institution",
+				"hospAndInst.plural":"Hospital(s)/Institution(s)",
+				"started":"Started to Use",
+				"finished":"Ceased Use",
+				"practices.title":"Practice(s)",
+				"practices":"Practices",
+				"dataAnalysis":{
+					"title":"Data Analysis",
+					"staff":"Hospitals providing staff to practices",
+					"dataCreation":"Data Creation Systems",
+					"independent":"Independent Practices",
+					"dataAnalysis":"Data Analysis Systems",
+					"systems":"Systems",
+					"data":"Data"
+				},
+				"modal":{
+					"subtitle":"Hospital/Institution Name",
+					"placeholder":"Enter Hospital/Institution Name",
+					"dateBefore":"Date before Started to Use date",
+					"sure":"Are you sure you want to remove"
+				}
+			},
+			"otherActivies":"Other Activities",
+			"notificationRequired":"Affiliates are required to notify IHTSDO prior to engaging in any activities that do not fall within the existing categories at which time the IHTSDO will determine the appropriate Fee Structure for the activity in question.",
+			"pleaseDescribe":"Please describe activity below."
 		}
 	}
 }

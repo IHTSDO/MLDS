@@ -87,7 +87,7 @@
 		"country":{
 			"AC":"Ascension",
 			"AD":"Andorra",
-			"AE":"Emiratsarabesunis",
+			"AE":"Emirats Arabes unis",
 			"AF":"Afghanistan",
 			"AG":"Antigua-et-Barbuda",
 			"AI":"Anguilla",
@@ -95,7 +95,7 @@
 			"AM":"L'Arménie",
 			"AN":"Antillesnéerlandaises",
 			"AO":"Angola",
-			"AQ":"Territoireaustraliendel'Antarctique",
+			"AQ":"Territoire Australien del'Antarctique",
 			"AR":"Argentine",
 			"AS":"AmericanSamoa",
 			"AT":"Autriche",
@@ -103,8 +103,8 @@
 			"AW":"Aruba",
 			"AX":"Aland",
 			"AZ":"Azerbaïdjan",
-			"BA":"LaBosnie-Herzégovine",
-			"BB":"laBarbade",
+			"BA":"La Bosnie-Herzégovine",
+			"BB":"la Barbade",
 			"BD":"Bangladesh",
 			"BE":"Belgique",
 			"BF":"BurkinaFaso",
@@ -125,7 +125,7 @@
 			"CA":"Canada",
 			"CC":"Cocos (Keeling)",
 			"CD":"Congo (CongoKinshasa)",
-			"CF":"Républiquecentrafricaine",
+			"CF":"République centr africaine",
 			"CG":"Congo (CongoBrazzaville)",
 			"CH":"laSuisse",
 			"CI":"Côte-d'Ivoire",
@@ -186,9 +186,9 @@
 			"ID":"Indonésie",
 			"IE":"Irlande",
 			"IL":"Israël",
-			"IM":"IsleofMan",
+			"IM":"Isle of Man",
 			"IN":"l'Inde",
-			"IO":"Territoire britannique de l'océan Indien",
+			"IO":"Territoire Britannique de l'Océan Indien",
 			"IQ":"l'Irak",
 			"IR":"l'Iran",
 			"IS":"Islande",
@@ -237,10 +237,10 @@
 			"MT":"Malte",
 			"MU":"Maurice",
 			"MV":"Maldives",
-			"MW":"LeMalawi",
+			"MW":"Le Malawi",
 			"MX":"Mexique",
-			"MY":"laMalaisie",
-			"MZ":"leMozambique",
+			"MY":"la Malaisie",
+			"MZ":"le Mozambique",
 			"NA":"Namibie",
 			"NC":"Nouvelle-Calédonie",
 			"NE":"Niger",
@@ -262,18 +262,18 @@
 			"PK":"Pakistan",
 			"PL":"Pologne",
 			"PM":"Saint-Pierre-et-Miquelon",
-			"PN":"IlesPitcairn",
+			"PN":"Iles Pitcairn",
 			"PR":"PuertoRico",
 			"PT":"Portugal",
 			"PW":"Palau",
-			"PY":"LeParaguay",
+			"PY":"Le Paraguay",
 			"QA":"Qatar",
 			"RE":"Réunion",
 			"RO":"Roumanie",
 			"RS":"Serbie",
 			"RU":"laRussie",
 			"RW":"Rwanda",
-			"SA":"l'Arabiesaoudite",
+			"SA":"l'Arabie saoudite",
 			"SB":"îles Salomon",
 			"SC":"Seychelles",
 			"SD":"Soudan",
@@ -283,8 +283,8 @@
 			"SI":"laSlovénie",
 			"SJ":"Svalbard",
 			"SK":"Slovaquie",
-			"SL":"SierraLeone",
-			"SM":"SanMarino",
+			"SL":"Sierra Leone",
+			"SM":"San Marino",
 			"SN":"Sénégal",
 			"SO":"Somalie",
 			"SR":"Suriname",
@@ -295,12 +295,12 @@
 			"TA":"TristandaCunha",
 			"TC":"îles Turqueset Caïques",
 			"TD":"Tchad",
-			"TF":"Français Terres australes et antarctiques",
+			"TF":"Français Terres Australes et Antarctiques",
 			"TG":"Togo",
 			"TH":"Thaïlande",
 			"TJ":"Tadjikistan",
 			"TK":"Tokélaou",
-			"TL":"Timor-Leste(Timororiental)",
+			"TL":"Timor-Leste (Timor oriental)",
 			"TM":"Turkménistan",
 			"TN":"Tunisie",
 			"TO":"Tonga",
@@ -316,10 +316,10 @@
 			"UY":"Uruguay",
 			"UZ":"l'Ouzbékistan",
 			"VA":"Cité du Vatican",
-			"VC":"Saint-Vincent-et-lesGrenadines",
+			"VC":"Saint-Vincent-et-les Grenadines",
 			"VE":"Venezuela",
-			"VG":"Îles Vierges britanniques",
-			"VI":"Îles Vierges américaines",
+			"VG":"Îles Vierges Britanniques",
+			"VI":"Îles Vierges Américaines",
 			"VN":"Vietnam",
 			"VU":"Vanuatu",
 			"WF":"Wallis et Futuna",
@@ -373,7 +373,16 @@
 			}
 		},
 		"word":{
-			"or":"ou"
+			"or":"ou",
+			"add":"Ajouter",
+			"edit":"Modifier",
+			"name":"Nom",
+			"cancel":"Annuler",
+			"note":"Remarque",
+			"close":"Fermer",
+			"delete":"Supprimer",
+			"update":"Mettre à Jour",
+			"from":"de"
 		}
 	},
 	"logout":{
@@ -860,10 +869,12 @@
 					"invalid":"Invalid Numéro de Téléphone."
 				},
 				"landlineExtension":{
-					"label":"L'extension de Téléphone:"
+					"label":"L'extension de Téléphone:",
+					"placeholder":"L'extension"
 				},
 				"mobile":{
-					"label":"Numéro de Téléphone Mobile:"
+					"label":"Numéro de Téléphone Mobile:",
+					"placeholder":"Numéro"
 				},
 				"address":{
 					"label":"Adresse",
@@ -898,8 +909,9 @@
 					"placeholder":"Nom de l'organisation"
 				},
 				"type":{
-					"label":"Type d'Organisation",
-					"required":"Un type Organisation est nécessaire"
+					"label":"Type d'Organisation:",
+					"required":"Un type Organisation est nécessaire",
+					"placeholder":"Autre Type d'Organisation"
 				}
 			}
 		},
@@ -914,6 +926,56 @@
 			"title":"Réinitialiser le Mot de Passe",
 			"detail":"Nous vous enverrons un e-mail contenant un link de réinitialisation de mot de passe.",
 			"button":"Réinitialiser le Mot de Passe"
+		},
+		"usageLog":{
+			"title":"Soumis rapport d'utilisation",
+			"subTitle":"L'Utilisation des Licences",
+			"usageFor":"Utilisation pour",
+			"pleaseFill":"S'il vous plaît remplir toute information d'utilisation connue à ce jour, vous serez invité à confirmer l'utilisation une fois que votre demande est approuvée.",
+			"licenseType":"Type de Licence: ",
+			"currentUsage":"Utilisation Maintenant: ",
+			"plannedUsage":"Utilisation Prévue: ",
+			"purpose":"But:",
+			"impStatus":"Implementation Status:",
+			"countries":{
+				"title":"Pays en Utilisation",
+				"subTitle":"Sélectionnez les pays non-membres dans lesquels SNOMED CT sera utilisé.",
+				"label":"Liste des Pays",
+				"search":"Recherche de Pays",
+				"homeCountry":"Pays d'Origine:",
+				"button":"Ajouter Pays"
+			},
+			"institutions":{
+				"title":"Institutions Sous-Licenciés",
+				"selectFirst":"Un pays doit être sélectionnée avant d'entrer dans les institutions sous-licence.",
+				"noneSelected":"Aucun pays n'a été sélectionné.",
+				"deleteCountry":"Supprimer Pays:",
+				"hospAndInst":"Hôpital/Institution",
+				"hospAndInst.plural":"Hôpital(aux)/Institution(s)",
+				"started":"Debut d'Utilisation",
+				"finished":"Fin d'Utilisation",
+				"note":"Remarque",
+				"practices.title":"Pratiques Générale(s)",
+				"practices":"Pratiques Générale",
+				"dataAnalysis":{
+					"title":"L'Analyse des Données",
+					"staff":"Les hôpitaux qui dispensent le personnel à des pratiques",
+					"dataCreation":"Systèmes de création de données",
+					"independent":"Pratiques Indépendant",
+					"dataAnalysis":"Systèmes d'analyse de données",
+					"systems":"Systèmes",
+					"data":"Données"
+				},
+				"modal":{
+					"subtitle":"Nom de Hôpital/Institution",
+					"placeholder":"Entrer le Nom de l'Hôpital/Institution",
+					"dateBefore":"Date avant debut d'Utilisez",
+					"sure":"Etes-vous sûr que vous voulez supprimer"
+				}
+			},
+			"otherActivies":"Autres Activités",
+			"notificationRequired":"Les affiliés sont tenus de notifier IHTSDO avant de se engager dans des activités qui ne entrent pas dans les catégories existantes au moment où l' IHTSDO va déterminer la structure de frais appropriés pour l'activité en question.",
+			"pleaseDescribe":"S'il vous plaît décrire l'activité ci-dessous."
 		}
 	}
 }

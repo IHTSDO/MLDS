@@ -1,55 +1,56 @@
 <div class="row" ng-switch="isEditable">
 	<div class="col-md-12">
 		<div class="usage-log" ng-show="readOnly">
-			<h4>Submitted Usage Report</h4>
+			<h4 translate="views.usageLog.title">Submitted Usage Report</h4>
 			<hr>
 			<p class="bg-info" ng-switch-when="true">
 				<span class="pull-right" id="retractBtn" ng-show="isActiveUsage"><button ng-disabled="!readOnly" ng-click="retractUsageReport()" class="btn btn-danger">Retract Declaration</button></span>
 				<span class="pull-right" ng-hide="isActiveUsage"><span class="label label-default">Usage Report Superseded</span></span>
-				<strong>Commercial Usage for: {{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}} was submitted: {{commercialUsageReport.submitted | date: 'yyyy-MM-dd' }}</strong>
+				<strong><span translate="views.useLog.usageFor">Usage for</span>: {{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}} was submitted: {{commercialUsageReport.submitted | date: 'yyyy-MM-dd' }}</strong>
 			</p>
 		</div>
 
 		<div class="panel panel-default" >
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					License Usage
+					<span translate="views.usageLog.subTitle">License Usage</span>
 					<span class="pull-right">{{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}}</span>
 				</h4>
-			<p ng-show="isAffiliateApplying">Please fill out any known usage information at this time, you will be asked to confirm usage once your application is approved.</p>
+			<p ng-show="isAffiliateApplying" translate="views.usageLog.pleaseFill">Please fill out any known usage information at this time, you will be asked to confirm usage once your application is approved.</p>
 			</div>
 			<div class="panel-body panel-collapse collapse in">
 				<ng-form name="usageForm" novalidate bs-validation >
 					<div class="form-group" ng-init="affilliateControllerSharedBucket.usageForm = usageForm">
-						<label>License Type:</label><span>{{commercialUsageReport.type | enum:'affiliate.type.'}}</span>
+						<label translate="views.usageLog.licenseType">License Type: </label>
+						<span>{{commercialUsageReport.type | enum:'affiliate.type.'}}</span>
 					</div>
 					<div class="form-group">
-						<label>Current Usage:</label>
+						<label translate="views.usageLog.currentUsage">Current Usage: </label>
 						<textarea class="form-control" rows="3" required ng-disabled="readOnly" name="currentUsage" ng-model="commercialUsageReport.context.currentUsage" auto-submit></textarea>
 						<div ng-show="usageForm.attempted">
 							<p ng-show="usageForm.currentUsage.$error.required" class="help-block">Required field.</p>
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Planned Usage:</label>
+						<label translate="views.usageLog.plannedUsage">Planned Usage:</label>
 						<textarea class="form-control" rows="3" required	ng-disabled="readOnly" name="plannedUsage" ng-model="commercialUsageReport.context.plannedUsage" auto-submit></textarea>
 						<div ng-show="usageForm.attempted">
-							<p ng-show="usageForm.plannedUsage.$error.required" class="help-block">Required field.</p>
+							<p ng-show="usageForm.plannedUsage.$error.required" class="help-block" translate="form.requiredField">Required field.</p>
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Purpose:</label>
-						<textarea class="form-control" rows="3" required	ng-disabled="readOnly" name="purpose" ng-model="commercialUsageReport.context.purpose" auto-submit></textarea>
+						<label  translate="views.usageLog.purpose">Purpose:</label>
+						<textarea class="form-control" rows="3" required ng-disabled="readOnly" name="purpose" ng-model="commercialUsageReport.context.purpose" auto-submit></textarea>
 						<div ng-show="usageForm.attempted">
-							<p ng-show="usageForm.purpose.$error.required" class="help-block">Required field.</p>
+							<p ng-show="usageForm.purpose.$error.required" class="help-block" translate="form.requiredField">Required field.</p>
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Implementation Status:</label>
-						<select name="implementationStatus" class="form-control" required ng-disabled="readOnly" ng-model="commercialUsageReport.context.implementationStatus" ng-options="status | enum:'affiliate.implementationStatus.' for status in implementationStatusOptions"	auto-submit>
+						<label translate="views.usageLog.impStatus">Implementation Status:</label>
+						<select name="implementationStatus" class="form-control" required ng-disabled="readOnly" ng-model="commercialUsageReport.context.implementationStatus" ng-options="status | enum:'affiliate.implementationStatus.' for status in implementationStatusOptions" auto-submit>
 						</select>
 						<div ng-show="usageForm.attempted">
-							<p ng-show="usageForm.implementationStatus.$error.required" class="help-block">Required field.</p>
+							<p ng-show="usageForm.implementationStatus.$error.required" class="help-block" translate="form.requiredField">Required field.</p>
 						</div>
 					</div>
 				</ng-form>
@@ -58,86 +59,83 @@
 
 	<div class="panel panel-default"	ng-hide="readOnly && commercialType">
 		<div class="panel-heading">
-			<h4 class="panel-title">
-				Countries in Use
-			</h4>
+			<h4 class="panel-title" translate="views.usageLog.countries.title">Countries in Use</h4>
 		</div>
 		<div class="panel-body panel-collapse collapse in">
 			<alert ng-repeat="alert in geographicAlerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 		<p>
-			<strong>Select the non-member countries in which SNOMED CT will be used.</strong>
+			<strong translate="views.usageLog.countries.subTitle">Select the non-member countries in which SNOMED CT will be used.</strong>
 		</p>
 		<form name="usageLogCountries">
 			<div class="col-sx-4 col-md-4 col-lg-6" ng-hide="readOnly">
-			<h4>List of Countries</h4>
-			<div class="selectpicker">
-				<div class="input-group">
-				<input class="form-control" type="search" ng-model="q" placeholder="Search Countries" /><span class="input-group-addon"><span class="fa fa-search"></span></span>
+				<h4 translate="views.usageLog.countries.label">List of Countries</h4>
+				<div class="selectpicker">
+					<div class="input-group">
+					<input class="form-control" type="search" ng-model="q" placeholder="{{ 'views.usageLog.countries.search' | translate }}" /><span class="input-group-addon"><span class="fa fa-search"></span></span>
+					</div>
+					<div class="form-group">
+					<select name="countries" multiple ng-model="selectedCountryCodesToAdd" class="form-control">
+						<option ng-repeat="country in availableCountries | filter:{excludeUsage:false} | filter:q" value="{{country.isoCode2}}">{{'global.country.' + country.isoCode2 | translate}}</option>
+					</select>
+					</div>
+					<div class="form-group">
+						<button class="btn btn-success" ng-disabled="!canAddSelectedCountries(selectedCountryCodesToAdd)" ng-click="addSelectedCountries(selectedCountryCodesToAdd)">
+							<i class="fa fa-plus"></i> 
+							<span translate="views.usageLog.countries.button">Add Country</span>
+							<span ng-show="geographicAdding"><i class="fa fa-spinner fa-spin"></i></span>
+						</button>
+					</div>
 				</div>
-				<div class="form-group">
-				<select name="countries" multiple ng-model="selectedCountryCodesToAdd" class="form-control">
-					<option ng-repeat="country in availableCountries | filter:{excludeUsage:false} | filter:q" value="{{country.isoCode2}}">{{country.commonName}}</option>
-				</select>
-				</div>
-				<div class="form-group">
-				 	<button class="btn btn-success" ng-disabled="!canAddSelectedCountries(selectedCountryCodesToAdd)" ng-click="addSelectedCountries(selectedCountryCodesToAdd)">
-				 		<i class="fa fa-plus"></i> Add Country
-				 		<span ng-show="geographicAdding"><i class="fa fa-spinner fa-spin"></i></span>
-				 	</button>
-				</div>
-			</div>
 			</div>
 			<div class="col-sx-4 col-md-4 col-lg-6">
-			 	<h4>Home Country:<span>{{homeCountry.commonName}}</span></h4>
+				<h4><span translate="views.usageLog.countries.homeCountry">Home Country:</span> {{homeCountry.commonName}}</h4>
 			</div>
 
-				</form>
+		</form>
 		</div>
 	</div>
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h4 class="panel-title">
-					Sublicensed Institutions
-				</h4>
+				<h4 class="panel-title" translate="views.usageLog.institutions.title">Sublicensed Institutions </h4>
 			</div>
 			<div class="panel-body" >
-				<div ng-show="usageByCountryList.length == 0 && !readOnly">A country needs to be selected before entering Sublicensed Institutions.</div>
-				<div ng-show="usageByCountryList.length == 0 && readOnly">No countries have been selected.</div>
+				<div ng-show="usageByCountryList.length == 0 && !readOnly" translate="views.usageLog.institutions.selectFirst">A country needs to be selected before entering Sublicensed Institutions.</div>
+				<div ng-show="usageByCountryList.length == 0 && readOnly" translate="views.usageLog.institutions.noneSelected">No countries have been selected.</div>
 				<div class="country-listing" ng-repeat="countryUsage in usageByCountryList">
 
 			<div class="row">
-					<div class="country-heading">
-							<div class="col-xs-8 col-sm-6 col-md-4 col-lg-6">
-							<h3 class="country-title">{{countryUsage.country.commonName}}</h3>
-							</div>
-						<div class="col-xs-4 col-sm-6	col-md-8 col-lg-6" ng-hide="readOnly">
-							<div class="form-group pull-right">
-							<a class="btn btn-danger btn-xs" ng-click="removeCountryModal(countryUsage.count)"><i class="fa fa-times"></i> Remove Country</a>
+				<div class="country-heading">
+					<div class="col-xs-8 col-sm-6 col-md-4 col-lg-6">
+						<h3 class="country-title">{{'global.country.' + countryUsage.country.isoCode2 | translate}}</h3>
+					</div>
+					<div class="col-xs-4 col-sm-6	col-md-8 col-lg-6" ng-hide="readOnly">
+						<div class="form-group pull-right">
+						<a class="btn btn-danger btn-xs" ng-click="removeCountryModal(countryUsage.count)"><i class="fa fa-times"></i> <span translate="views.usageLog.institutions.deleteCountry">Remove Country</span></a>
 							</div>
 						</div>
 					</div>
-					</div>
-					<div class="country-section">
+				</div>
+				<div class="country-section">
 						<hr>
 						<div class="row">
 							<div class="col-xs-8">
-								<h4>Hospital(s)/Institution(s)</h4>
+								<h4 translate="views.usageLog.institutions.hospAndInst.plural">Hospital(s)/Institution(s)</h4>
 							</div>
 							<div class="col-xs-4" ng-hide="readOnly">
-					<div class="form-group pull-right">
-					<a class="btn btn-success btn-xs" ng-click="addInstitutionModal(countryUsage.country)"><i class="fa fa-plus"></i> Add Hospital/Institution</a>
-					</div>
+								<div class="form-group pull-right">
+									<a class="btn btn-success btn-xs" ng-click="addInstitutionModal(countryUsage.country)"><i class="fa fa-plus"></i> <span translate="global.word.add">Add</span> <span translate="views.usageLog.institutions.hospAndInst">Hospital/Institution</span></a>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 					<table class="table table-striped">
 						<tr>
-							<th class="text-left col-md-2">Name</th>
-							<th class="text-left col-md-2">Started to Use</th>
-							<th class="text-left col-md-2">Ceased Use</th>
-							<th class="text-left col-md-5">Note</th>
+							<th class="text-left col-md-2" translate="global.word.name">Name</th>
+							<th class="text-left col-md-2" translate="views.usageLog.institutions.started">Started to Use</th>
+							<th class="text-left col-md-2" translate="views.usageLog.institutions.finished">Ceased Use</th>
+							<th class="text-left col-md-5" translate="global.word.note">Note</th>
 							<th class="col-md-1"></th>
 						</tr>
 
@@ -154,11 +152,11 @@
 							<td class="col-md-5">{{institution.note}}</td>
 							<td class="col-md-1">
 								<div class="btn-group" dropdown ng-hide="readOnly">
-									<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><i class="fa fa-pencil"></i> Edit</button>
+									<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><i class="fa fa-pencil"></i> <span translate="global.word.edit">Edit</span></button>
 									<ul class="dropdown-menu dropdown-menu-right" role="menu">
-										<li><a ng-click="editInstitutionModal(institution, countryUsage.country)">Edit Hospital/Institution</a></li>
+										<li><a ng-click="editInstitutionModal(institution, countryUsage.country)"><span translate="global.word.edit">Edit</span> <span translate="views.usageLog.institutions.hospAndInst">Hospital/Institution</span></a></li>
 										<li class="divider"></li>
-										<li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)">Remove Hospital/Institution</a></li>
+										<li><a ng-click="deleteInstitutionModal(institution, countryUsage.country)"><span translate="global.word.delete">Remove</span> <span translate="views.usageLog.institutions.hospAndInst">Hospital/Institution</span></a></li>
 									</ul>
 								</div>
 							</td>
@@ -169,46 +167,46 @@
 					<hr>
 					<div class="row">
 						<div class="col-xs-8">
-							<h4>Practice(s)</h4>
+							<h4 translate="views.usageLog.institutions.practices.title">Practice(s)</h4>
 						</div>
 						<div class="col-xs-4">
-				<button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountModal(countryUsage.count)"><i class="fa fa-pencil"></i> Edit Practices</button>
+							<button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountModal(countryUsage.count)"><i class="fa fa-pencil"></i> <span translate="global.word.edit">Edit</span> <span translate="views.usageLog.institutions.practices">Practices</span></button>
 						</div>
 					</div>
 				</div>
 		<div class="row">
 			<div class="country-footer">
-			<div class="col-xs-2">
-				<p>
-					<strong>Practices:</strong>
-					<span class="label label-default">{{countryUsage.count.snomedPractices | number}}</span>
-				</p>
-			</div>
-			<div class="col-xs-10" ng-show="countryUsage.count.notes">
-				<label>Notes:</label>
-				<p>
-					{{countryUsage.count.notes}}
-				</p>
-			</div>
+				<div class="col-xs-2">
+					<p>
+						<strong><span translate="views.usageLog.institutions.practices">Practices</span>:</strong>
+						<span class="label label-default">{{countryUsage.count.snomedPractices | number}}</span>
+					</p>
+				</div>
+				<div class="col-xs-10" ng-show="countryUsage.count.notes">
+					<label>Notes:</label>
+					<p>
+						{{countryUsage.count.notes}}
+					</p>
+				</div>
 			</div>
 		</div>
-				<div class="country-section">
-					<hr>
-					<div class="row">
-						<div class="col-xs-8">
-							<h4>Data Analysis</h4>
-						</div>
-						<div class="col-xs-4">
-				<button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountDataAalysisModal(countryUsage.count)"><i class="fa fa-pencil"></i> Edit Data Analysis</button>
-						</div>
-					</div>
+		<div class="country-section">
+			<hr>
+			<div class="row">
+				<div class="col-xs-8">
+					<h4 translate="views.usageLog.institutions.dataAnalysis.title">Data Analysis</h4>
 				</div>
+				<div class="col-xs-4">
+					<button ng-hide="readOnly" type="button" class="btn btn-primary btn-xs pull-right" ng-click="editCountDataAalysisModal(countryUsage.count)"><i class="fa fa-pencil"></i> <span translate="global.word.edit">Edit</span> <span translate="views.usageLog.institutions.dataAnalysis.title">Data Analysis</span></button>
+				</div>
+			</div>
+		</div>
 			<div class="row">
 				<div class="country-footer">
 					<div class="col-xs-12">
-						<p><strong>Hospitals providing staff to practices:</strong><span class="label label-default">{{countryUsage.count.hospitalsStaffingPractices | number}}</span></p>
-						<p><strong>Data Creation Systems: Independent practices:</strong><span class="label label-default">{{countryUsage.count.dataCreationPracticesNotPartOfHospital | number}}</span><strong>Hospitals/Institutions:</strong><span class="label label-default">{{countryUsage.count.nonPracticeDataCreationSystems | number}}</span></p>
-						<p><strong>Data Analysis Systems: Systems: </strong><span class="label label-default">{{countryUsage.count.deployedDataAnalysisSystems | number}}</span><strong>Data:</strong><span class="label label-default">{{countryUsage.count.databasesPerDeployment | number}}</span></p>
+						<p><strong translate="views.usageLog.institutions.dataAnalysis.staff">Hospitals providing staff to practices</strong>: <span class="label label-default">{{countryUsage.count.hospitalsStaffingPractices | number}}</span></p>
+						<p><strong translate="views.usageLog.institutions.dataAnalysis.dataCreation">Data Creation Systems</strong>: <strong translate="views.usageLog.institutions.dataAnalysis.independent">Independent practices</strong>: <span class="label label-default">{{countryUsage.count.dataCreationPracticesNotPartOfHospital | number}}</span> <strong translate="views.usageLog.institutions.hospAndInst.plural">Hospitals/Institutions:</strong><span class="label label-default">{{countryUsage.count.nonPracticeDataCreationSystems | number}}</span></p>
+						<p><strong translate="views.usageLog.institutions.dataAnalysis.dataAnalysis">Data Analysis Systems</strong>: <strong translate="views.usageLog.institutions.dataAnalysis.systems">Systems</strong>:  <span class="label label-default">{{countryUsage.count.deployedDataAnalysisSystems | number}}</span> <strong translate="views.usageLog.institutions.dataAnalysis.data">Data</strong>: <span class="label label-default">{{countryUsage.count.databasesPerDeployment | number}}</span></p>
 					</div>
 				</div>
 			</div>
@@ -218,14 +216,12 @@
 	</div>
 	<div class="panel panel-default" ng-show="commercialType">
 		<div class="panel-heading">
-			<h4 class="panel-title">
-				Other Activities
-			</h4>
+			<h4 class="panel-title" translate="views.usageLog.otherActivies">Other Activities</h4>
 		</div>
 		<div class="panel-body" >
 			<ng-form name="usageForm" novalidate bs-validation >
-				<p>Affiliates are required to notify IHTSDO prior to engaging in any activities that do not fall within the existing categories at which time the IHTSDO will determine the appropriate Fee Structure for the activity in question.</p>
-				<p>Please describe activity below.</p>
+				<p translate="views.usageLog.notificationRequired">Affiliates are required to notify IHTSDO prior to engaging in any activities that do not fall within the existing categories at which time the IHTSDO will determine the appropriate Fee Structure for the activity in question.</p>
+				<p translate="views.usageLog.pleaseDescribe">Please describe activity below.</p>
 				<div class="form-group">
 					<textarea rows="4" class="form-control" name="otherActivities" ng-model="commercialUsageReport.context.otherActivities" ng-disabled="readOnly" auto-submit></textarea>
 				</div>
@@ -242,7 +238,7 @@
 		<div class="submit-usage" ng-hide="readOnly || !canSubmit">
 			<button ng-click="submitUsageReport(usageForm)" type="button" class="btn btn-success btn-large">Submit Declaration for {{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211; {{commercialUsageReport.endDate | date : 'yyyy-MM'}}</button>
 			<div ng-show="usageForm.attempted" class="has-error">
-				<p ng-show="usageForm.$invalid" class="help-block">Please fix the errors listed above.</p>
+				<p ng-show="usageForm.$invalid" class="help-block" translate="form.pleaseFix">Please fix the errors listed above.</p>
 			</div>
 		</div>
 	</div>
