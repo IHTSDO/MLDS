@@ -1,62 +1,62 @@
 <div class="modal-header">
-	 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-  <h3 class="modal-title">Add Hospital/Institution</h3>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+	<h3 class="modal-title"><span translate="global.word.add">Add</span> <span translate="views.usageLog.institutions.hospAndInst">Hospital/Institution</span></h3>
 </div>
 <div class="modal-body">
-  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-  <h3>{{country.commonName}}</h3>
-  <form name="formInstitution" bs-validation>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-md-6">
-          <label>Hospital/Institution Name</label> 
-          <input class="form-control" placeholder="Enter Hospital/Institution Name" name="name" ng-model="institution.name" ng-required="true">
-          <span ng-show="formInstitution.name.$error.required && submitAttempted" class="help-block">Required Field</span>
-        </div>
-      </div>
-    </div>
-    <hr>
-    <div class="row">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	<h3>{{'global.country.' + country.isoCode2 | translate}}</h3>
+	<form name="formInstitution" bs-validation>
+	<div class="row">
+		<div class="form-group">
+		<div class="col-md-6">
+			<label translate="views.usageLog.institutions.modal.subtitle">Translate Me - Hospital/Institution Name</label> 
+			<input class="form-control" placeholder="{{ 'views.usageLog.institutions.modal.placeholder' | translate }}" name="name" ng-model="institution.name" ng-required="true">
+			<span ng-show="formInstitution.name.$error.required && submitAttempted" class="help-block" translate="form.requiredField">Required Field</span>
+		</div>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
 			<div class="col-md-4 form-group">
-				<h4>Started to Use</h4>
+				<h4 translate="views.usageLog.institutions.started">Started to Use</h4>
 				<div class="input-group datepicker">
 					<input type="text" class="form-control" name="startDate" ng-model="institution.startDate"
-						datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions"  ng-required="true"
-						is-open="datepickers.startDate" close-text="Close"/> 
+						datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions"	ng-required="true"
+						is-open="datepickers.startDate" close-text="{{ 'global.word.close' | translate }}"/> 
 					<span class="input-group-addon" ng-click="open($event, 'startDate')"><i class="fa fa-calendar"></i></span>
 				</div>
-				<span ng-show="formInstitution.startDate.$error.required && submitAttempted" class="help-block">Required Field</span>
+				<span ng-show="formInstitution.startDate.$error.required && submitAttempted" class="help-block" translate="form.requiredField">Required Field</span>
 			</div>
 	
 			<div class="col-md-4 form-group">
-				<h4>Ceased Use</h4>
+				<h4 translate="views.usageLog.institutions.finished">Ceased Use</h4>
 				<div class="input-group datepicker">
 					<input type="text" class="form-control" name="endDate" ng-model="institution.endDate" ng-required="false"
 						datepicker-popup="{{dateOptions.format}}" datepicker-options="dateOptions" 
-						is-open="datepickers.endDate" close-text="Close"
+						is-open="datepickers.endDate" close-text="{{ 'global.word.close' | translate }}"
 						date-after-validation="{{institution.startDate}}"/> 
 					<span class="input-group-addon" ng-click="open($event, 'endDate')"><i class="fa fa-calendar"></i></span>
 				</div>
-				<span ng-show="formInstitution.endDate.$error.dateAfter && submitAttempted" class="help-block">Date before Started to Use date</span>
+				<span ng-show="formInstitution.endDate.$error.dateAfter && submitAttempted" class="help-block" translate="views.usageLog.institutions.modal.dateBefore">Date before Started to Use date</span>
 			</div>
 		</div>
 		
-    <hr>
-    <div class="row">
+	<hr>
+	<div class="row">
 		<div class="col-md-8 form-group">
-			<label>Note</label>
+			<label translate="global.word.note">Note</label>
 			<textarea class="form-control" rows="4" name="note" ng-model="institution.note"></textarea>
 		</div>
 	</div>
-   </form>
+	</form>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting" translate="global.word.cancel">Cancel</button>
 	
-	<button class="btn btn-success" ng-show="formInstitution.$invalid" ng-click="submitAttempted = true"><i class="fa fa-plus"></i> Add</button>
+	<button class="btn btn-success" ng-show="formInstitution.$invalid" ng-click="submitAttempted = true"><i class="fa fa-plus"></i> <span translate="global.word.add">Add</span></button>
 	<button class="btn btn-success" ng-click="add()" ng-show="!formInstitution.$invalid" ng-disabled="submitting">
 		<i class="fa fa-plus"></i>
-		Add
+		<span translate="global.word.add">Add</span>
 		<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
 	</button>
 </div>
