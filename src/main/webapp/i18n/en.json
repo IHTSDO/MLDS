@@ -382,7 +382,8 @@
 			"close":"close",
 			"delete":"Remove",
 			"update":"Update",
-			"from":"from"
+			"from":"from",
+			"submit":"Submit"
 		}
 	},
 	"logout":{
@@ -432,6 +433,10 @@
 			"license":"SNOMED License",
 			"license.label":"I agree to the license",
 			"license.error":"You must agree to the terms and conditions of the SNOMED CT License in order to register, which also indicates potential fees that be required."
+		},
+		"affiliateRegistrationReview":{
+			"title":"Review Application",
+			"editApp":"Edit Application"
 		}
 	},
 	"login":{
@@ -835,7 +840,7 @@
 					"required":"Usage type field is required."
 				},
 				"agreementType":{
-					"label":"Type of Agreement:"
+					"label":"Agreement Type:"
 				}
 			},
 			"contact":{
@@ -866,10 +871,12 @@
 				},
 				"landline":{
 					"label":"Landline Phone Number:",
+					"short":"Phone Number:",
 					"invalid":"Invalid Phone Number."
 				},
 				"landlineExtension":{
 					"label":"Extension:",
+					"short":"Ext:",
 					"placeholder":"Extension"
 				},
 				"mobile":{
@@ -914,6 +921,11 @@
 				}
 			}
 		},
+		"footer":{
+			"tos":"Terms of Service",
+			"pp":"Privacy Policy",
+			"contact":"Contact Us"
+		},
 		"landingPage":{
 			"appName":"Membership License and Distribution Service",
 			"welcome":"Welcome",
@@ -928,6 +940,7 @@
 		},
 		"usageLog":{
 			"title":"Submitted Usage Report",
+			"usage":"Usage:",
 			"subTitle":"License Usage",
 			"usageFor":"Usage For",
 			"pleaseFill":"Please fill out any known usage information at this time, you will be asked to confirm usage once your application is approved.",
@@ -979,7 +992,7 @@
 					"addPractices":"Please add the number of practices using SNOMED"
 				}
 			},
-			"otherActivies":"Other Activities",
+			"otherActivities":"Other Activities",
 			"notificationRequired":"Affiliates are required to notify IHTSDO prior to engaging in any activities that do not fall within the existing categories at which time the IHTSDO will determine the appropriate Fee Structure for the activity in question.",
 			"pleaseDescribe":"Please describe activity below."
 		}
