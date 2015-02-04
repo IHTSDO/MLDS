@@ -13,6 +13,10 @@ To run Maven, we need:
 - bower: npm install -g bower
 - grunt: npm install -g grunt-cli
 
+Note:  If JHipster tell you it requires at least JDK 1.7 and you think you have that already, then check what's actually being used 
+by typing 
+	mvn -version
+If maven is using the wrong version of java, then you might want to set the JAVA_HOME environmental variable in your ~/.bash_profile file.
 
 The war file is modified during the build by the spring-boot-maven-plugin to embed the Tomcat web server.  This turns the war into an self-contained executable jar file  (see [pom.xml](../../../pom.xml) )
 
