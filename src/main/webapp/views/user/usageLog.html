@@ -120,7 +120,7 @@
 						<hr>
 						<div class="row">
 							<div class="col-xs-8">
-								<h4 translate="views.usageLog.institutions.hospAndInst.plural">Hospital(s)/Institution(s)</h4>
+								<h4 translate="views.usageLog.institutions.hospAndInst.title">Hospital(s)/Institution(s)</h4>
 							</div>
 							<div class="col-xs-4" ng-hide="readOnly">
 								<div class="form-group pull-right">
@@ -205,14 +205,18 @@
 				<div class="country-footer">
 					<div class="col-xs-12">
 						<p><strong translate="views.usageLog.institutions.dataAnalysis.staff">Hospitals providing staff to practices</strong>: <span class="label label-default">{{countryUsage.count.hospitalsStaffingPractices | number}}</span></p>
-						<p><strong translate="views.usageLog.institutions.dataAnalysis.dataCreation">Data Creation Systems</strong>: <strong translate="views.usageLog.institutions.dataAnalysis.independent">Independent practices</strong>: <span class="label label-default">{{countryUsage.count.dataCreationPracticesNotPartOfHospital | number}}</span> <strong translate="views.usageLog.institutions.hospAndInst.plural">Hospitals/Institutions:</strong><span class="label label-default">{{countryUsage.count.nonPracticeDataCreationSystems | number}}</span></p>
-						<p><strong translate="views.usageLog.institutions.dataAnalysis.dataAnalysis">Data Analysis Systems</strong>: <strong translate="views.usageLog.institutions.dataAnalysis.systems">Systems</strong>:  <span class="label label-default">{{countryUsage.count.deployedDataAnalysisSystems | number}}</span> <strong translate="views.usageLog.institutions.dataAnalysis.data">Data</strong>: <span class="label label-default">{{countryUsage.count.databasesPerDeployment | number}}</span></p>
+						<p><strong translate="views.usageLog.institutions.dataAnalysis.dataCreation">Data Creation Systems</strong>: 
+							<strong translate="views.usageLog.institutions.dataAnalysis.independent">Independent practices</strong>: <span class="label label-default">{{countryUsage.count.dataCreationPracticesNotPartOfHospital | number}}</span> 
+							<strong translate="views.usageLog.institutions.hospAndInst.plural">Hospitals/Institutions</strong>: <span class="label label-default">{{countryUsage.count.nonPracticeDataCreationSystems | number}}</span>
+						</p>
+						<p><strong translate="views.usageLog.institutions.dataAnalysis.dataAnalysis">Data Analysis Systems</strong>: <strong translate="views.usageLog.institutions.dataAnalysis.systems">Systems</strong>:  <span class="label label-default">{{countryUsage.count.deployedDataAnalysisSystems | number}}</span> 
+							<strong translate="views.usageLog.institutions.dataAnalysis.data">Data</strong>: <span class="label label-default">{{countryUsage.count.databasesPerDeployment | number}}</span>
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		</div>
+	</div>
 	</div>
 	<div class="panel panel-default" ng-show="commercialType">
 		<div class="panel-heading">
