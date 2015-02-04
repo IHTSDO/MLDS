@@ -782,6 +782,7 @@
 	"form":{
 		"requiredField":"Required field.",
 		"tooLong":"Input value is too long.", 
+		"invalidNumber":"Not a valid number",
 		"pleaseFix":"Please fix the errors listed above."
 	},
 	"views":{
@@ -947,9 +948,11 @@
 				"title":"Sublicensed Institutions",
 				"selectFirst":"A country needs to be selected before entering Sublicensed Institutions.",
 				"noneSelected":"No countries have been selected.",
+				"country":"Country",
 				"deleteCountry":"Remove Country",
 				"hospAndInst":"Hospital/Institution",
-				"hospAndInst.plural":"Hospital(s)/Institution(s)",
+				"hospAndInst.title":"Hospital(s)/Institution(s)",
+				"hospAndInst.plural":"Hospitals/Institutions",
 				"started":"Started to Use",
 				"finished":"Ceased Use",
 				"practices.title":"Practice(s)",
@@ -961,13 +964,19 @@
 					"independent":"Independent Practices",
 					"dataAnalysis":"Data Analysis Systems",
 					"systems":"Systems",
-					"data":"Data"
+					"data":"Data",
+					"provideStaff":"How many Hospitals provide staff to stated Practices?",
+					"usingDCSNotHosp":"How many Practices are using Data Creation Systems and are NOT part of a Hospital organization?",
+					"usingDCSNotPract":"How many Hospitals or other Institutions are using data creation systems and cannot be defined as Practices under the definition of the license?",
+					"howManyDAS":"How many Data Analysis Systems have you deployed in this region and how many databases are there per deployment?"
 				},
 				"modal":{
 					"subtitle":"Hospital/Institution Name",
 					"placeholder":"Enter Hospital/Institution Name",
 					"dateBefore":"Date before Started to Use date",
-					"sure":"Are you sure you want to remove"
+					"sure":"Are you sure you want to remove",
+					"andEntries":"and its associated entries?",
+					"addPractices":"Please add the number of practices using SNOMED"
 				}
 			},
 			"otherActivies":"Other Activities",

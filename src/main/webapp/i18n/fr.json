@@ -782,6 +782,7 @@
 	"form":{
 		"requiredField":"Champ Obligatoire",
 		"tooLong":"La valeur d'entrée est trop long.", 
+		"invalidNumber":"Ce ne est pas un numéro valide",
 		"pleaseFix":"S'il vous plaît, corriger les erreurs mentionnées ci-dessus." 
 	},
 	"views":{
@@ -949,9 +950,11 @@
 				"title":"Institutions Sous-Licenciés",
 				"selectFirst":"Un pays doit être sélectionnée avant d'entrer dans les institutions sous-licence.",
 				"noneSelected":"Aucun pays n'a été sélectionné.",
+				"country":"Pays",
 				"deleteCountry":"Supprimer Pays:",
 				"hospAndInst":"Hôpital/Institution",
-				"hospAndInst.plural":"Hôpital(aux)/Institution(s)",
+				"hospAndInst.title":"Hôpital(aux)/Institution(s)",
+				"hospAndInst.plural":"Hôpitaux/Institutions",
 				"started":"Debut d'Utilisation",
 				"finished":"Fin d'Utilisation",
 				"note":"Remarque",
@@ -964,13 +967,19 @@
 					"independent":"Pratiques Indépendant",
 					"dataAnalysis":"Systèmes d'analyse de données",
 					"systems":"Systèmes",
-					"data":"Données"
+					"data":"Données",
+					"provideStaff":"Combien d'hôpitaux fournir du personnel pour les pratiques énoncés?",
+					"usingDCSNotHosp":"Combien de pratiques utilisent des systèmes de création de données et ne font pas partie d'une organisation de l'hôpital?",
+					"usingDCSNotPract":"Combien d'hôpitaux ou d'autres institutions sont en utilisant des systèmes de création de données et ne peut pas être défini comme pratiques dans la définition de la licence?",
+					"howManyDAS":"Combien de l'analyse des systèmes de données avez-vous déployé dans cette région et combien de bases de données sont là par déploiement?"
 				},
 				"modal":{
 					"subtitle":"Nom de Hôpital/Institution",
 					"placeholder":"Entrer le Nom de l'Hôpital/Institution",
 					"dateBefore":"Date avant debut d'Utilisez",
-					"sure":"Etes-vous sûr que vous voulez supprimer"
+					"sure":"Etes-vous sûr que vous voulez supprimer",
+					"andEntries":"et son entrées associé?",
+					"addPractices":"S'il vous plaît ajouter le nombre de pratiques utilisant SNOMED"
 				}
 			},
 			"otherActivies":"Autres Activités",
