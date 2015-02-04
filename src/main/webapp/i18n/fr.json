@@ -382,7 +382,8 @@
 			"close":"Fermer",
 			"delete":"Supprimer",
 			"update":"Mettre à Jour",
-			"from":"de"
+			"from":"de",
+			"submit":"Soumettre"
 		}
 	},
 	"logout":{
@@ -432,6 +433,10 @@
 			"license":"SNOMED Licence",
 			"license.label":"Je suis d'accord à la licence",
 			"license.error":"Vous devez accepter les termes et conditions de la Licence SNOMED CT afin d'enregistrer, qui indique également les frais potentiels que nécessaires."
+		},
+		"affiliateRegistrationReview":{
+			"title":"Examen de la Demande",
+			"editApp":"Modifier l'Application"
 		}
 	},
 	"login":{
@@ -835,7 +840,7 @@
 					"required":"Usage type field is required."
 				},
 				"agreementType":{
-					"label":"Type of Agreement:"
+					"label":"Agreement Type:"
 				}
 				
 			},
@@ -867,10 +872,12 @@
 				},
 				"landline":{
 					"label":"Téléphone Fixe:",
+					"short":"Téléphone:",
 					"invalid":"Invalid Numéro de Téléphone."
 				},
 				"landlineExtension":{
 					"label":"L'extension de Téléphone:",
+					"short":"Ext:",
 					"placeholder":"L'extension"
 				},
 				"mobile":{
@@ -916,6 +923,11 @@
 				}
 			}
 		},
+		"footer":{
+			"tos":"Conditions d'Utilisation",
+			"pp":"Politique de Confidentialité",
+			"contact":"Contactez-Nous"
+		},
 		"landingPage":{
 			"appName":"Licence d'Adhésion et le Service de Distribution",
 			"welcome":"Bienvenue",
@@ -931,6 +943,7 @@
 		"usageLog":{
 			"title":"Soumis rapport d'utilisation",
 			"subTitle":"L'Utilisation des Licences",
+			"usage":"Utilisation:",
 			"usageFor":"Utilisation pour",
 			"pleaseFill":"S'il vous plaît remplir toute information d'utilisation connue à ce jour, vous serez invité à confirmer l'utilisation une fois que votre demande est approuvée.",
 			"licenseType":"Type de Licence: ",
