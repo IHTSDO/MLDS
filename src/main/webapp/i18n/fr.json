@@ -20,11 +20,12 @@
 				"affiliates":"Affiliés",
 				"dashboard":"table au debord"
 			},
-			"dashboard":"table au debord",
-			"usageReports":"les rapports d'utilisation",
+			"dashboard":"Table au Debord",
+			"usageReports":"Les Rapports d'Utilisation",
+			"applications":"Applications",
 			"releasePackages":"Package publié",
 			"affiliate":{
-				"accountInformation":"Informations du compte",
+				"accountInformation":"Informations du Compte",
 				"changePassword":"Change Password",
 				"logout":"Déconnexion"
 			},
@@ -383,7 +384,9 @@
 			"delete":"Supprimer",
 			"update":"Mettre à Jour",
 			"from":"de",
-			"submit":"Soumettre"
+			"submit":"Soumettre",
+			"welcome":"Bienvenue",
+			"viewAll":"Voir Tous"
 		}
 	},
 	"logout":{
@@ -930,7 +933,6 @@
 		},
 		"landingPage":{
 			"appName":"Licence d'Adhésion et le Service de Distribution",
-			"welcome":"Bienvenue",
 			"purpose":"Ce service est fourni par l'IHTSDO pour les organisations et les particuliers à demander l'utilisation et l'accès à la sortie internationale de SNOMED CT pour une utilisation dans les pays non - membres .",
 			"furtherDetails":"Pour plus de détails , se il vous plaît se référer à la <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO website</a> ou la <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Questions Fréquentes</a>.",
 			"loginHere":"login ici"
@@ -995,9 +997,32 @@
 					"addPractices":"S'il vous plaît ajouter le nombre de pratiques utilisant SNOMED"
 				}
 			},
-			"otherActivies":"Autres Activités",
+			"otherActivities":"Autres Activités",
 			"notificationRequired":"Les affiliés sont tenus de notifier IHTSDO avant de se engager dans des activités qui ne entrent pas dans les catégories existantes au moment où l' IHTSDO va déterminer la structure de frais appropriés pour l'activité en question.",
 			"pleaseDescribe":"S'il vous plaît décrire l'activité ci-dessous."
+		},
+		"usageReports":{
+			"reportDate":"Date du Rapport",
+			"hospitals":"Hôpitaux",
+			"usageType":"Type d'Utilisation",
+			"countries":"Pays",
+			"newReport":"Nouveau Rapport"
+		},
+		"userDashboard":{
+			"warning":{
+				"required.title":"Déclaration de Utilisation Requise",
+				"required.msg":"Votre déclaration préliminaire d'utilisation a été enregistré. Toutefois, s'il vous plaît noter que vous devrez soumettre votre déclaration d' utilisation finale pour l'année en cours avant le 15 Janvier. S'il vous plaît noter que tous les rapports des années précédentes d'utilisation doivent être soumises afin de télécharger SNOMED CT.",
+				"change.title":"Inscription Affilié Nécessite un Changement",
+				"change.msg":"Votre inscription d'affiliation doit être mis à jour avant de pouvoir traiter. S'il vous plaît voir courriel concernant les changements nécessaires pour l'achèvement de votre inscription.",
+				"declined.title":"Inscription Affilié Refusée",
+				"declined.msg":"Votre inscription d'affiliation a été refusée. S'il vous plaît voir courriel concernant les détails de la décision .",
+				"deactivated.title":"Compte Désactivé",
+				"deactivated.msg":"Votre compte a été désactivé. Téléchargements de paquets de sortie et des applications d'extension ont été suspendues. S'il vous plaît contacter <a href=\"mailto:mlds@ihtsdo.org\"> mlds@ihtsdo.org </a> pour résoudre le problème.",
+				"iPending.title":"Compte Attente Facture",
+				"iPending.msg":"Votre compte a une facture en cours. Paquet de sortie téléchargements ont été suspendues. S'il vous plaît contacter <a href=\"mailto:mlds@ihtsdo.org\"> mlds@ihtsdo.org </a> pour résoudre le problème.",
+				"dPending.title":"Compte Désactivation Attente",
+				"dPending.msg":"Votre compte est prévu pour être Désactivé. S'il vous plaît contacter <a href=\"mailto:mlds@ihtsdo.org\"> mlds@ihtsdo.org </a> pour résoudre le problème."
+			}
 		}
 	}
 }

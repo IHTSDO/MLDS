@@ -22,6 +22,7 @@
 			},
 			"dashboard":"Dashboard",
 			"usageReports":"Usage Reports",
+			"applications":"Applications",
 			"releasePackages":"Release Packages",
 			"affiliate":{
 				"accountInformation":"Account Information",
@@ -383,7 +384,10 @@
 			"delete":"Remove",
 			"update":"Update",
 			"from":"from",
-			"submit":"Submit"
+			"submit":"Submit",
+			"welcome":"Welcome",
+			"viewAll":"View All",
+			"state":"La Situation"
 		}
 	},
 	"logout":{
@@ -928,7 +932,6 @@
 		},
 		"landingPage":{
 			"appName":"Membership License and Distribution Service",
-			"welcome":"Welcome",
 			"purpose":"This service is provided by IHTSDO for organizations and individuals to request use and access to the International Release of SNOMED CT for use in non-Member countries.",
 			"furtherDetails":"For further details, please refer to the <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO website</a> or the <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>.",
 			"loginHere":"login here"
@@ -995,6 +998,29 @@
 			"otherActivities":"Other Activities",
 			"notificationRequired":"Affiliates are required to notify IHTSDO prior to engaging in any activities that do not fall within the existing categories at which time the IHTSDO will determine the appropriate Fee Structure for the activity in question.",
 			"pleaseDescribe":"Please describe activity below."
+		},
+		"usageReports":{
+			"reportDate":"Report Date",
+			"hospitals":"Hospitals",
+			"usageType":"Usage Type",
+			"countries":"Countries",
+			"newReport":"New Report"
+		},
+		"userDashboard":{
+			"warning":{
+				"required.title":"Usage Declaration Required",
+				"required.msg":"Your preliminary usage declaration has been saved. However, please be advised that you will need to submit your final usage declaration for the current year by January 15th. Please note all previous years usage reports must be submitted in order to download SNOMED CT.",
+				"change.title":"Affiliate Registration Requires Change",
+				"change.msg":"Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.",
+				"declined.title":"Affiliate Registration Declined",
+				"declined.msg":"Your affiliate registration has been declined. Please see email regarding the details of the decision.",
+				"deactivated.title":"Account Deactivated",
+				"deactivated.msg":"Your account has been Deactivated. Release package downloads and Extension applications have been suspended. Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue.",
+				"iPending.title":"Account Pending Invoice",
+				"iPending.msg":"Your account has a pending invoice. Release package downloads have been suspended. Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue.",
+				"dPending.title":"Account Deactivation Pending",
+				"dPending.msg":"Your account is scheduled to be Deactivated.  Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue."
+			}
 		}
 	}
 }
