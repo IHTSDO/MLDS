@@ -385,9 +385,14 @@
 			"update":"Update",
 			"from":"from",
 			"submit":"Submit",
+			"save":"Save",
 			"welcome":"Welcome",
+			"view":"View",
 			"viewAll":"View All",
-			"state":"La Situation"
+			"state":"State",
+			"status":"Status",
+			"type":"Type",
+			"date":"Date"
 		}
 	},
 	"logout":{
@@ -504,7 +509,6 @@
 		"table":{
 			"ipaddress":"IP address",
 			"useragent":"User Agent",
-			"date":"Date",
 			"button":"Invalidate"
 		},
 		"messages":{
@@ -781,7 +785,6 @@
 			"agreementType":"Agreement Type",
 			"useType":"Use Type",
 			"dateSubmitted":"Date Submitted",
-			"status":"Status",
 			"homeCountry":"Home Country",
 			"member":"Member",
 			"email":"Email",
@@ -823,11 +826,6 @@
 					"body":"You can only modify the contact information for an affiliate once the registration request has been approved."
 				}
 			},
-			"form":{
-				"save":"Save",
-				"cancel":"Cancel",
-				"fixErrorsAbove":"Please fix the errors listed above."
-			},
 			"admin":{
 				"title":"Admin Editable",
 				"other":{
@@ -845,6 +843,9 @@
 				},
 				"agreementType":{
 					"label":"Agreement Type:"
+				},
+				"accountStanding":{
+					"label":"Account Standing:"
 				}
 			},
 			"contact":{
@@ -1007,6 +1008,10 @@
 			"newReport":"New Report"
 		},
 		"userDashboard":{
+			"affiliateNo.label":"Affiliate No:",
+			"edit":"Edit Affiliate Application",
+			"myPackages":"My Release Packages",
+			"otherPackages":"Other Available Releases",
 			"warning":{
 				"required.title":"Usage Declaration Required",
 				"required.msg":"Your preliminary usage declaration has been saved. However, please be advised that you will need to submit your final usage declaration for the current year by January 15th. Please note all previous years usage reports must be submitted in order to download SNOMED CT.",

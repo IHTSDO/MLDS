@@ -23,7 +23,7 @@
 			"dashboard":"Table au Debord",
 			"usageReports":"Les Rapports d'Utilisation",
 			"applications":"Applications",
-			"releasePackages":"Package publié",
+			"releasePackages":"Package Publié",
 			"affiliate":{
 				"accountInformation":"Informations du Compte",
 				"changePassword":"Change Password",
@@ -385,8 +385,14 @@
 			"update":"Mettre à Jour",
 			"from":"de",
 			"submit":"Soumettre",
+			"save":"Enregistrer",
 			"welcome":"Bienvenue",
-			"viewAll":"Voir Tous"
+			"view":"Voir",
+			"viewAll":"Voir Tous",
+			"state":"La Situation",
+			"status":"Status",
+			"type":"Type",
+			"date":"La Date"
 		}
 	},
 	"logout":{
@@ -780,7 +786,6 @@
 			"agreementType":"Type d'accord",
 			"useType":"Type d'utilisation",
 			"dateSubmitted":"Date de soumission",
-			"status":"Status",
 			"homeCountry":"Pays",
 			"member":"Membre",
 			"email":"Email",
@@ -815,17 +820,12 @@
 			}
 		},
 		"contactInfo":{
-			"title":"Account Information",
+			"title":"Informations sur le Compte",
 			"messages":{
 				"notApproved":{
-					"title":"Registration not approved yet",
-					"body":"You can only modify the contact information for an affiliate once the registration request has been approved."
+					"title":"Inscription pas encore approuvé",
+					"body":"Vous ne pouvez modifier les informations de contact pour un affilié fois la demande d'enregistrement a été approuvé."
 				}
-			},
-			"form":{
-				"save":"Save",
-				"cancel":"Cancel",
-				"fixErrorsAbove":"Please fix the errors listed above."
 			},
 			"admin":{
 				"title":"Admin Editable",
@@ -844,8 +844,10 @@
 				},
 				"agreementType":{
 					"label":"Agreement Type:"
+				},
+				"accountStanding":{
+					"label":"Statut du Compte:"
 				}
-				
 			},
 			"contact":{
 				"title":"Coordonnées",
@@ -1009,6 +1011,10 @@
 			"newReport":"Nouveau Rapport"
 		},
 		"userDashboard":{
+			"affiliateNo.label":"Nombre d'Affiliation:",
+			"edit":"Modifier Demande d'Affiliation",
+			"myPackages":"Mes Packages Publié",
+			"otherPackages":"Les Autre Packages Publié",
 			"warning":{
 				"required.title":"Déclaration de Utilisation Requise",
 				"required.msg":"Votre déclaration préliminaire d'utilisation a été enregistré. Toutefois, s'il vous plaît noter que vous devrez soumettre votre déclaration d' utilisation finale pour l'année en cours avant le 15 Janvier. S'il vous plaît noter que tous les rapports des années précédentes d'utilisation doivent être soumises afin de télécharger SNOMED CT.",

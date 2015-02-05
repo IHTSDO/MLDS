@@ -2,7 +2,7 @@
 	<div class="panel-heading" ng-class="{'dashboard-height': showingUserDashboardWidgets}">
 		<span class="pull-right">
 			<button class="btn btn-success btn-xs" ng-if="$root.Session.isUser() || $root.Session.isAdmin()"
-				ng-click="usageReportsUtils.openAddUsageReportModal($parent.affiliate)"><i class="fa fa-plus"></i> New Report</button>
+				ng-click="usageReportsUtils.openAddUsageReportModal($parent.affiliate)"><i class="fa fa-plus"></i> <span translate="views.usageReports.newReport">New Report</span></button>
 		</span>
 		<h3 class="panel-title"><span translate="global.menu.usageReports">Usage Reports</span>
 		<button ng-click="viewUsageReports()" ng-show="showViewAll" class="btn btn-link btn-xs"><span translate="global.word.viewAll">View All</span> <i class="fa fa-angle-double-right"></i></button>
@@ -14,7 +14,7 @@
 				<tr>
 					<th translate="views.usageReports.reportDate">Report Date</th>
 					<th translate="views.usageReports.usageType" ng-show="showAllColumns">Usage Type</th>
-					<th trasnlate="global.word.state" ng-show="showAllColumns">State</th>
+					<th trasnlate="global.word.status" ng-show="showAllColumns">Status</th>
 					<th translate="views.usageReports.countries" ng-show="showAllColumns">Countries</th>
 					<th translate="views.usageReports.hospitals">Hospitals</th>
 					<th translate="views.usageLog.institutions.practices">Practices</th>

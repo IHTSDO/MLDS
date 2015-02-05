@@ -657,20 +657,20 @@
 			<div class="form-group">
 				<div>
 					<button class="btn btn-success" ng-show="!readOnly && form.$invalid" ng-click="form.attempted = true">
-						<span translate="views.contactInfo.form.save">Save</span>
+						<span translate="global.word.save">Save</span>
 					</button>
 					<button class="btn btn-success" ng-hide="readOnly || form.$invalid"  ng-disabled="readOnly || form.$invalid" ng-click="save()">
-						<span translate="views.contactInfo.form.save">Save</span>
+						<span translate="global.word.save">Save</span>
 						<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
 					</button>
 					<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting" 
-						translate="views.contactInfo.form.cancel">
+						translate="global.word.cancel">
 						Cancel
 					</button>
 				</div>
 
 				<div ng-show="form.attempted" class="has-error">
-					<p ng-show="form.$invalid" class="help-block" translate="views.contactInfo.form.fixErrorsAbove">
+					<p ng-show="form.$invalid" class="help-block" translate="form.pleaseFix">
 						Please fix the errors listed above.
 					</p>
 				</div>
