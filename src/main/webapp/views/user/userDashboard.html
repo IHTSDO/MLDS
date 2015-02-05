@@ -1,62 +1,62 @@
-	<div class="row" ng-hide="usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED' || loading">
-		<div class="col-sm-12">
-			<div class="alert alert-danger space" role="alert">
-			<div><strong>Usage Declaration Required</strong></div>
-			<p>Your preliminary usage declaration has been saved. However, please be advised that you will need to submit your final usage declaration for the current year by January 15th. Please note all previous years usage reports must be submitted in order to download SNOMED CT.</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="row space" ng-show="affiliate.application.approvalState === 'CHANGE_REQUESTED' && !loading">
-		<div class="col-sm-12">
-			<div class="alert alert-warning" role="alert">
-			<div><strong>Affiliate Registration Requires Change</strong></div>
-			<p>Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="row" ng-show="standingStateUtils.isRejected(affiliate.standingState) && !loading">
-		<div class="col-sm-12">
-			<div class="alert alert-danger" role="alert">
-			<div><strong>Affiliate Registration Declined</strong></div>
-			<p>Your affiliate registration has been declined. Please see email regarding the details of the decision.</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="row" ng-show="standingStateUtils.isDeactivated(affiliate.standingState) && !loading">
-		<div class="col-sm-12">
-			<div class="alert alert-danger space" role="alert">
-			<div><strong>Account Deactivated</strong></div>
-			<p>Your account has been Deactivated. Release package downloads and Extension applications have been suspended. Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="row" ng-show="standingStateUtils.isPendingInvoice(affiliate.standingState) && !loading">
-		<div class="col-sm-12">
-			<div class="alert alert-danger space" role="alert">
-			<div><strong>Account Pending Invoice</strong></div>
-			<p>Your account has a pending invoice. Release package downloads have been suspended. Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="row" ng-show="standingStateUtils.isDeactivationPending(affiliate.standingState) && !loading">
-		<div class="col-sm-12">
-			<div class="alert alert-danger space" role="alert">
-			<div><strong>Account Deactivation Pending</strong></div>
-			<p>Your account is scheduled to be Deactivated.	Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
+<div class="row" ng-hide="usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED' || loading">
 	<div class="col-sm-12">
-	 <div class="page-header">
-		<h1>Welcome {{firstName}} {{lastName}}</h1> 
+		<div class="alert alert-danger space" role="alert">
+			<div><strong translate="views.userDashboard.warning.required.title">Usage Declaration Required</strong></div>
+			<p translate="views.userDashboard.warning.required.msg">Your preliminary usage declaration has been saved. However, please be advised that you will need to submit your final usage declaration for the current year by January 15th. Please note all previous years usage reports must be submitted in order to download SNOMED CT.</p>
+		</div>
 	</div>
+</div>
+
+<div class="row space" ng-show="affiliate.application.approvalState === 'CHANGE_REQUESTED' && !loading">
+	<div class="col-sm-12">
+		<div class="alert alert-warning" role="alert">
+			<div><strong translate="views.userDashboard.warning.required.change">Affiliate Registration Requires Change</strong></div>
+			<p translate="views.userDashboard.warning.required.msg">Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-show="standingStateUtils.isRejected(affiliate.standingState) && !loading">
+	<div class="col-sm-12">
+		<div class="alert alert-danger" role="alert">
+			<div><strong translate="views.userDashboard.warning.declined.title">Affiliate Registration Declined</strong></div>
+			<p translate="views.userDashboard.warning.declined.msg">Your affiliate registration has been declined. Please see email regarding the details of the decision.</p>
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-show="standingStateUtils.isDeactivated(affiliate.standingState) && !loading">
+	<div class="col-sm-12">
+		<div class="alert alert-danger space" role="alert">
+			<div><strong translate="views.userDashboard.warning.deactivated.title">Account Deactivated</strong></div>
+			<p translate="views.userDashboard.warning.deactivated.msg">Your account has been Deactivated. Release package downloads and Extension applications have been suspended. Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-show="standingStateUtils.isPendingInvoice(affiliate.standingState) && !loading">
+	<div class="col-sm-12">
+		<div class="alert alert-danger space" role="alert">
+			<div><strong translate="views.userDashboard.warning.iPending.title">Account Pending Invoice</strong></div>
+			<p translate="views.userDashboard.warning.iPending.msg">Your account has a pending invoice. Release package downloads have been suspended. Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-show="standingStateUtils.isDeactivationPending(affiliate.standingState) && !loading">
+	<div class="col-sm-12">
+		<div class="alert alert-danger space" role="alert">
+			<div><strong translate="views.userDashboard.warning.dPending.title">Account Deactivation Pending</strong></div>
+			<p translate="views.userDashboard.warning.dPending.msg">Your account is scheduled to be Deactivated.	Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="page-header">
+			<h1><span translate="global.word.welcome">Welcome</span> {{firstName}} {{lastName}}</h1> 
+		</div>
 	</div>
 </div>
 
