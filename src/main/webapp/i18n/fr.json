@@ -509,7 +509,6 @@
 		"table":{
 			"ipaddress":"adresse IP",
 			"useragent":"User Agent",
-			"date":"Date",
 			"button":"Invalider"
 		},
 		"messages":{
@@ -791,6 +790,33 @@
 			"email":"Email",
 			"review":"L'avis"
 		}
+	},
+	"affiliateManagement":{
+		"title":"Gestion d'affiliation"
+	},
+	"releaseManagement":{
+		"title":"Gestion de sortie"
+	},
+	"reviewUsageReports":{
+		"title":"Examiner les rapports d' utilisation"
+	},
+    "memberManagement":{
+		"title":"Gestion des membres"
+	},
+    "activityLog":{
+		"title":"journal d'activité"
+	},
+    "importAffiliateRecords":{
+		"title":"Affilié importation dossiers"
+	},
+    "manageBlocklist":{
+		"title":"gérer Bloquer liste"
+	},
+    "nationalRegistrationList":{
+		"title":"La liste nationale d'inscription"
+	},
+    "systemLoggers":{
+		"title":"système Bûcherons"
 	},
 	"form":{
 		"requiredField":"Champ Obligatoire",
