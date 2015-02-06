@@ -384,6 +384,7 @@
 			"delete":"Supprimer",
 			"update":"Mettre à Jour",
 			"from":"de",
+			"ok":"OK",
 			"submit":"Soumettre",
 			"save":"Enregistrer",
 			"welcome":"Bienvenue",
@@ -392,7 +393,8 @@
 			"state":"La Situation",
 			"status":"Status",
 			"type":"Type",
-			"date":"La Date"
+			"date":"La Date",
+			"user":"Le Utilisateur"
 		}
 	},
 	"logout":{
@@ -435,6 +437,7 @@
 			"usageType":"Type d'Utilisation",
 			"conditions":"S'il vous plaît sélectionnez les conditions dans que le produit sera utilisé",
 			"typeOfAgreement":"Type d'entente",
+			"typeOfAgreement.label":"Type d'Entente:",
 			"validation":{
 				"other.required":"Autre champ est obligatoire."
 			},
@@ -572,8 +575,8 @@
 			},
 			"http":{
 				"title":"requêtes HTTP(événementsparseconde)",
-				"active":"demandesactives:",
-				"total":"Nombretotaldedemandes:",
+				"active":"demandes actives:",
+				"total":"Nombre Total de Demandes:",
 				"table":{
 					"code":"Code",
 					"count":"Count",
@@ -674,12 +677,12 @@
 		}
 	},
 	"errors":{
-		"403":"Vousn'êtes pas autorisé àaccéder à l apage.",
+		"403":"Vous n'êtes pas Autorisé àaccéder à la Page.",
 		"title":"la page d'erreur!"
 	},
-	"footer":"Ce est votre pied de page",
+	"footer":"Ce est votre Pied de page",
 	"affiliate":{
-		"title":"affiliation",
+		"title":"Affiliation",
 		"type":{
 			"title":"Type",
 			"COMMERCIAL":"Commercial",
@@ -703,23 +706,23 @@
 			"VENDOR":"Vendeur"
 		},
 		"agreementType":{
-			"AFFILIATE_NORMAL":"affiliation - Normal",
-			"AFFILIATE_RESEARCH":"affiliation - la recherche",
-			"AFFILIATE_PUBLIC_GOOD":"affiliation - bien public"
+			"AFFILIATE_NORMAL":"Affiliation - Normal",
+			"AFFILIATE_RESEARCH":"Affiliation - La Recherche",
+			"AFFILIATE_PUBLIC_GOOD":"Affiliation - Bien Public"
 		},
 		"organizationType":{
-			"PUBLIC_HEALTH_ORGANIZATION":"Organisation de la santé publique",
-			"PRIVATE_HEALTH_ORGANIZATION":"Organisation de la santé privée",
-			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION":"Organisation de recherche et de développement",
+			"PUBLIC_HEALTH_ORGANIZATION":"Organisation de la Santé Publique",
+			"PRIVATE_HEALTH_ORGANIZATION":"Organisation de la Santé Privée",
+			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION":"Organisation de Recherche et de Développement",
 			"HEALTHERCARE_APPLICATION_DEVELOPER":"Développeur Healthcare Application",
-			"GENERAL_PRACTITIONER_PRACTICE":"Médecin généraliste pratique",
+			"GENERAL_PRACTITIONER_PRACTICE":"Médecin Généraliste Pratique",
 			"EDUCATIONAL_INSTITUTE":"Educational Institute",
 			"OTHER":"Autres"
 		},
 		"implementationStatus":{
 			"IMPLEMENTED":"Live/Miseenœuvre",
 			"DEVELOPMENT":"Encours/développement",
-			"PLANNING":"Dans Étape de la planification"
+			"PLANNING":"Dans Étape de la Planification"
 		},
 		"standingState":{
 			"APPLYING":"Application",
@@ -744,11 +747,11 @@
 	},
 	"approval":{
 		"state":{
-			"NOT_SUBMITTED":"non soumise",
-			"CHANGE_REQUESTED":"Changement demandé",
+			"NOT_SUBMITTED":"Non Soumise",
+			"CHANGE_REQUESTED":"Changement Demandé",
 			"SUBMITTED":"Soumis",
-			"RESUBMITTED":"Présentée denouveau",
-			"REVIEW_REQUESTED":"Examen demandée",
+			"RESUBMITTED":"Présentée Denouveau",
+			"REVIEW_REQUESTED":"Examen Demandée",
 			"APPROVED":"Approuvé",
 			"REJECTED":"Refusé"
 		}
@@ -756,12 +759,12 @@
 	"usageReport":{
 		"state":{
 			"NOT_SUBMITTED":"Nonsoumise",
-			"CHANGE_REQUESTED":"Changement demandé",
+			"CHANGE_REQUESTED":"Changement Demandé",
 			"SUBMITTED":"Soumis",
-			"RESUBMITTED":"Présentée denouveau",
-			"REVIEW_REQUESTED":"Examen demandée",
-			"PENDING_INVOICE":"En attente defacture",
-			"INVOICE_SENT":"Facture envoié",
+			"RESUBMITTED":"Présentée Denouveau",
+			"REVIEW_REQUESTED":"Examen Demandée",
+			"PENDING_INVOICE":"En attente de Facture",
+			"INVOICE_SENT":"Facture Envoié",
 			"PAID":"Enrègle",
 			"REJECTED":"Refusé"
 		}
@@ -774,14 +777,14 @@
 		}
 	},
 	"pendingApplications":{
-		"title":"Demandes en instance",
+		"title":"Demandes en Instance",
 		"show":{
-			"myApplications":"Mes demandes en attente",
+			"myApplications":"Mes Demandes en Attente",
 			"allApplications":"Toutes les requêtes pendantes"
 		},
 		"table":{
 			"affiliateName":"Nom d'affiliation",
-			"applicationType":"Type de demande",
+			"applicationType":"Type de Demande",
 			"agreementType":"Type d'accord",
 			"useType":"Type d'utilisation",
 			"dateSubmitted":"Date de soumission",
@@ -838,12 +841,18 @@
 				}
 			}
 		},
-		"applicationSummaryModal":{
-			"title":"Application Summary",
-			"form":{
-				"cancel":"Cancel",
-				"ok":"Ok"
-			}
+		"applicationSummary":{
+			"title":"Sommaire de la Demande",
+			"ext.title":"Extension Application Info",
+			"reason.label":"Raison:",
+			"affiliateInfo":"Info d'Filiale",
+			"affiliateInformation":"Information d'Filiale",
+			"useType.label":"Type d'Utilisation:",
+			"useSubType.label":"Sous-Type d'Utilisation:",
+			"billingInfo":"Informations de Facturation",
+			"context":"Contexte d'Utilisation",
+			"subLicence.label":"Sous-licence Utilisation:",
+			"applicationActivity":"Activité des Applications"
 		},
 		"contactInfo":{
 			"title":"Informations sur le Compte",
@@ -916,7 +925,8 @@
 					"placeholder":"Numéro"
 				},
 				"address":{
-					"label":"Adresse",
+					"title":"Adresse",
+					"label":"Adresse:",
 					"placeholder":"123 Rue de Quelque Part"
 				},
 				"city":{
@@ -972,6 +982,7 @@
 		},
 		"usageLog":{
 			"title":"Soumis rapport d'utilisation",
+			"retract":"Rentrer Déclaration",
 			"subTitle":"L'Utilisation des Licences",
 			"usage":"Utilisation:",
 			"usageFor":"Utilisation pour",
@@ -998,11 +1009,13 @@
 				"hospAndInst":"Hôpital/Institution",
 				"hospAndInst.title":"Hôpital(aux)/Institution(s)",
 				"hospAndInst.plural":"Hôpitaux/Institutions",
+				"hospAndInst.label":"Hôpitaux/Institutions:",
 				"started":"Debut d'Utilisation",
 				"finished":"Fin d'Utilisation",
 				"note":"Remarque",
 				"practices.title":"Pratiques Générale(s)",
 				"practices":"Pratiques Générale",
+				"practices.label":"Pratiques Générale:",
 				"dataAnalysis":{
 					"title":"L'Analyse des Données",
 					"staff":"Les hôpitaux qui dispensent le personnel à des pratiques",
