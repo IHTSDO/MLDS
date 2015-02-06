@@ -791,6 +791,33 @@
 			"review":"Review"
 		}
 	},
+	"affiliateManagement":{
+		"title":"Affiliate Management"
+	},
+	"releaseManagement":{
+		"title":"Release Management"
+	},
+	"reviewUsageReports":{
+		"title":"Review Usage Reports"
+	},
+    "memberManagement":{
+		"title":"Member Management"
+	},
+    "activityLog":{
+		"title":"Activity Log"
+	},
+    "importAffiliateRecords":{
+		"title":"Import Affiliate Records"
+	},
+    "manageBlocklist":{
+		"title":"Manage Blocklist"
+	},
+    "nationalRegistrationList":{
+		"title":"National Registration List"
+	},
+    "systemLoggers":{
+		"title":"System Loggers"
+	},
 	"form":{
 		"requiredField":"Required field.",
 		"tooLong":"Input value is too long.", 
