@@ -1,16 +1,15 @@
 <div class="modal-header">
-     <h3 class="modal-title" translate="views.applicationSummaryModal.title">Application Summary</h3>
- </div>
- <div class="modal-body">
-  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-
+	<h3 class="modal-title" translate="views.applicationSummary.title">Application Summary</h3>
+</div>
+<div class="modal-body">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	<div ng-include="'views/admin/applicationSummaryBlock.html'"></div> 	
- </div>
- <div class="modal-footer">
-     <button class="btn btn-secondary btn-link" ng-click="$dismiss()" translate="views.applicationSummaryModal.form.cancel">
-     	Cancel
-     </button>
-     <button class="btn btn-success" ng-click="$close()" ng-disabled="submitting" translate="views.applicationSummaryModal.form.ok">
-     	Ok
-   	</button>
- </div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-secondary btn-link" ng-click="$dismiss()">
+		<span translate="global.word.cancel">Cancel</span>
+	</button>
+	<button class="btn btn-success" ng-click="$close()" ng-disabled="submitting">
+		<span translate="global.word.ok">OK</span>
+	</button>
+</div>
