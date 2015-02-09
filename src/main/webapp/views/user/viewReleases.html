@@ -2,8 +2,8 @@
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12"> 
 		<div class="page-header">
-			<h1>Releases available for Registered Users</h1>
-			<p ng-show="!$root.authenticated">
+			<h1 translate="views.releases.title">Releases available for Registered Users</h1>
+			<p ng-show="!$root.authenticated" translate="views.releases.noAuth">
 				<a href="#/login">Log in</a> to download
 				 or click <a href="#/register">register</a> 
 				 to start application process.
@@ -15,9 +15,9 @@
 	<div class="row" ng-show="$index === 1">
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<div class="release-divider">
-			<h2>Member Countries</h2>
-			<p>If the country you're looking for is not in this list, please refer to the <a href="http://www.ihtsdo.org/">IHTSDO website</a>
-			for release download information.</p>  
+			<h2 translate="views.releases.memberCountries">Member Countries</h2>
+			<p translate="views.releases.countryIsMissing">If the country you're looking for is not in this list, please refer to the <a href="http://www.ihtsdo.org/">IHTSDO website</a>
+			for release download information.</p>	
 		</div>
 		</div>
 	</div>
@@ -40,35 +40,41 @@
 						
 					<!-- Warnings and action invitations -->
 					<span class="alert-danger-flag pull-right"
-						ng-show="$root.authenticated && isAccountDeactivated">
+						ng-show="$root.authenticated && isAccountDeactivated"
+						translate="views.releases.warning.deactivated">
 						Account Deactivated
 					</span>
 					<span class="alert-danger-flag pull-right"
-						ng-show="$root.authenticated && isPendingInvoice && isMembershipApproved">
+						ng-show="$root.authenticated && isPendingInvoice && isMembershipApproved"
+						translate="views.releases.warning.pending">
 						Pending Invoice
 					</span>
 					<a class="btn btn-sm btn-warning pull-right"
 						href="#/affiliateRegistration"
 						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationWaitingForApplicant"
-						>
+						translate="views.releases.warning.pAttention">
 						Primary application needs attention
 					</a>
 					<span class="alert-danger-flag pull-right"
-						ng-show="$root.authenticated && !isAccountDeactivated && !isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved">
+						ng-show="$root.authenticated && !isAccountDeactivated && !isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved"
+						translate="views.releases.warning.pProcessed">
 						Primary application is being processed
 					</span>
 					<button class="btn btn-sm btn-success pull-right"
 						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipUnstarted"
-						ng-click="utils.openExtensionApplication(releasePackage)">
+						ng-click="utils.openExtensionApplication(releasePackage)"
+						translate="views.releases.warning.apply">
 							Apply for extension
 					</button>
 					<span class="alert-danger-flag pull-right"
-						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && !isApplicationWaitingForApplicant">
+						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && !isApplicationWaitingForApplicant"
+						translate="views.releases.warning.aProcessed">
 						Application being processed
 					</span>
 					<button class="btn btn-sm btn-warning pull-right"
 						ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && isApplicationWaitingForApplicant"
-						ng-click="goToExtensionApplication()" >
+						ng-click="goToExtensionApplication()" 
+						translate="views.releases.warning.aAttention">
 						Application needs attention, click to continue application
 					</button>
 						<div>
@@ -76,9 +82,9 @@
 						</div>
 					</div>
 				</div>
-			  <div class="panel-body">
-			   {{releasePackage.description}}
-			  </div>
+				<div class="panel-body">
+					{{releasePackage.description}}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -86,6 +92,6 @@
 
 <div ng-show="releasePackagesByMember.length == 0">
 	<div class="alert alert-warning">
-		<i class="fa fa-exclamation-circle"></i> There are currently no release packages available.
+		<i class="fa fa-exclamation-circle"></i> <span translate="views.releases.notAvailable">There are currently no release packages available.</span>
 	</div>
 </div>
