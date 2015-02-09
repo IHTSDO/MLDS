@@ -119,14 +119,14 @@
 	<ul class="list-group" >
 		<li class="list-group-item"><strong translate="views.userDashboard.affiliateNo.label">Affiliate No:</strong> {{affiliate.affiliateId}}</li>
 		<li class="list-group-item" ng-show="standingStateUtils.wasApproved(affiliate.standingState)">
-			<strong translate="views.contactInfo.admin.usagetype.label">Type:</strong> {{affiliate.affiliateDetails.type | enum:'affiliate.type.'}}
+			<strong translate="views.contactInfo.admin.usageType.name.label">Type:</strong> {{affiliate.affiliateDetails.type | enum:'affiliate.type.'}}
 		</li>
 		<li class="list-group-item" ng-show="standingStateUtils.wasApproved(affiliate.standingState)">
-			<strong translate="views.contactInfo.admin.subtype.label">Subtype:</strong> {{affiliate.affiliateDetails.subType | enum:'affiliate.subType.'}}
+			<strong translate="views.contactInfo.admin.subtype.name.label">Subtype:</strong> {{affiliate.affiliateDetails.subType | enum:'affiliate.subType.'}}
 			<span ng-show="affiliate.affiliateDetails.type == 'OTHER'">{{affiliate.affiliateDetails.otherText}}</span>
 		</li>
 		<li class="list-group-item" ng-show="standingStateUtils.wasApproved(affiliate.standingState)">
-			<strong translate="views.contactInfo.admin.agreementType.label">Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType |	enum:'affiliate.agreementType.'}}
+			<strong translate="views.contactInfo.admin.agreementType.name.label">Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType |	enum:'affiliate.agreementType.'}}
 		</li>
 	</ul>
 	<span class="alert alert-success btn-block" ng-show="standingStateUtils.isSuccessCategory(affiliate.standingState)">

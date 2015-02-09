@@ -31,13 +31,13 @@
 			</div>
 			<div class="panel-body application-review">
 			<p><strong translate="views.contactInfo.organization.name.label">Organization Name:</strong> {{application.affiliateDetails.organizationName}}</p>
-			<p><strong translate="views.contactInfo.contact.address.label">Address:</strong> {{application.affiliateDetails.address.street}}</p>
-			<p><strong translate="views.contactInfo.contact.city.label">City:</strong> {{application.affiliateDetails.address.city}}</p>
-			<p><strong translate="views.contactInfo.contact.postcode.label">Post Code:</strong> {{application.affiliateDetails.address.post}}</p>
-			<p><strong translate="views.contactInfo.contact.country.label">Country:</strong> {{application.affiliateDetails.address.country.commonName}}</p>
+			<p><strong translate="views.contactInfo.contact.address.name.label">Address:</strong> {{application.affiliateDetails.address.street}}</p>
+			<p><strong translate="views.contactInfo.contact.city.name.label">City:</strong> {{application.affiliateDetails.address.city}}</p>
+			<p><strong translate="views.contactInfo.contact.postcode.name.label">Post Code:</strong> {{application.affiliateDetails.address.post}}</p>
+			<p><strong translate="views.contactInfo.contact.country.name.label">Country:</strong> {{application.affiliateDetails.address.country.commonName}}</p>
 			<p><strong translate="views.contactInfo.contact.landline.short">Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.contactextension">ext: {{application.affiliateDetails.landlineExtension}}</span></p>
 			<p><strong translate="views.contactInfo.contact.alternativeEmail.label">Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
-			<p ng-show="application.affiliateDetails.thirdEmail"><strong  translate="views.contactInfo.contact.thirdEmail.label">Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
+			<p ng-show="application.affiliateDetails.thirdEmail"><strong translate="views.contactInfo.contact.thirdEmail.label">Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
 			<p ng-show="application.type=='OTHER'"><strong translate="views.contactInfo.admin.other.label">Other:</strong>{{application.otherText}}</p>
 		</div>
 	</div>
@@ -48,14 +48,14 @@
 		</div>
 		<div class="panel-body application-review">
 			<p><strong translate="views.contactInfo.contact.fullName.label">Name:</strong> {{application.affiliateDetails.firstName}} {{application.affiliateDetails.lastName}}</p>
-			<p><strong translate="views.contactInfo.contact.email.label">Email:</strong> {{application.affiliateDetails.email}}</p>
+			<p><strong translate="views.contactInfo.contact.email.name.label">Email:</strong> {{application.affiliateDetails.email}}</p>
 			<p ng-show="application.type=='INDIVIDUAL'"><strong translate="views.contactInfo.contact.alternateEmail.label">Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
 			<p ng-show="application.type=='INDIVIDUAL' && application.affiliateDetails.thirdEmail"><strong translate="views.contactInfo.contact.thirdEmail.label">Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
 			<p>
-				<strong translate="views.contactInfo.contact.landline.label">Landline Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} 
+				<strong translate="views.contactInfo.contact.landline.name.label">Landline Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} 
 				<span ng-show="affiliateform.extension"><span translate="views.contactInfo.contact.landlineExtension.short">ext:</span> {{affiliateform.affiliateDetails.landlineExtension}}</span>
 			</p>
-			<p><strong translate="views.contactInfo.contact.mobile.label">Mobile Phone Number:</strong> {{application.affiliateDetails.mobileNumber}}</p>
+			<p><strong translate="views.contactInfo.contact.mobile.name.label">Mobile Phone Number:</strong> {{application.affiliateDetails.mobileNumber}}</p>
 		</div>
 	</div>
 	
@@ -76,10 +76,10 @@
 			<h3 class="panel-title" translate="views.applicationSummary.billingInfo">Billing Information</h3>
 		</div>
 			<div class="panel-body application-review">
-			<p><strong translate="views.contactInfo.contact.address.label">Address:</strong> {{application.affiliateDetails.billingAddress.street}}</p>
-			<p><strong translate="views.contactInfo.contact.city.label">City:</strong> {{application.affiliateDetails.billingAddress.city}}</p>
-			<p><strong translate="views.contactInfo.contact.postcode.label">Post Code:</strong> {{application.affiliateDetails.billingAddress.post}}</p>
-			<p><strong translate="views.contactInfo.contact.country.label">Country:</strong> {{application.affiliateDetails.billingAddress.country.commonName}}</p>
+			<p><strong translate="views.contactInfo.contact.address.name.label">Address:</strong> {{application.affiliateDetails.billingAddress.street}}</p>
+			<p><strong translate="views.contactInfo.contact.city.name.label">City:</strong> {{application.affiliateDetails.billingAddress.city}}</p>
+			<p><strong translate="views.contactInfo.contact.postcode.name.label">Post Code:</strong> {{application.affiliateDetails.billingAddress.post}}</p>
+			<p><strong translate="views.contactInfo.contact.country.name.label">Country:</strong> {{application.affiliateDetails.billingAddress.country.commonName}}</p>
 		</div>
 	</div>
 	
@@ -89,16 +89,16 @@
 		</div>
 		<div class="panel-body application-review">
 			<div>
-				<p><strong translate="views.usageLog.currentUsage">Current Usage:</strong> {{application.commercialUsage.context.currentUsage}}</p>
+				<p><strong translate="views.usageLog.currentUsage.label">Current Usage:</strong> {{application.commercialUsage.context.currentUsage}}</p>
 			</div>
 			<div>
-				<p><strong translate="views.usageLog.plannedUsage">Planned Usage:</strong> {{application.commercialUsage.context.plannedUsage}}</p>
+				<p><strong translate="views.usageLog.plannedUsage.label">Planned Usage:</strong> {{application.commercialUsage.context.plannedUsage}}</p>
 			</div>
 			<div>
-				<p><strong translate="views.usageLog.purpose">Purpose:</strong> {{application.commercialUsage.context.purpose}}</p>
+				<p><strong translate="views.usageLog.purpose.label">Purpose:</strong> {{application.commercialUsage.context.purpose}}</p>
 			</div>
 			<div>
-				<p><strong translate="views.usageLog.impStatus">Implementation Status:</strong>
+				<p><strong translate="views.usageLog.impStatus.label">Implementation Status:</strong>
 				{{application.commercialUsage.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</p>
 			</div>
 			<div ng-repeat="countryRecord in usageCountryCountslist">

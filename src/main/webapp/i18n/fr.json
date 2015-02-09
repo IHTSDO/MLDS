@@ -8,19 +8,20 @@
 				"main":"Compte",
 				"contactInfo":"Coordonnées",
 				"password":"Mot de passe",
-				"sessions":"sessions",
-				"tracker":"tracker utilisateur",
-				"metrics":"métriques",
-				"logs":"logs",
+				"sessions":"Sessions",
+				"tracker":"Tracker Utilisateur",
+				"metrics":"Métriques",
+				"logs":"Logs",
 				"audits":"Audits",
 				"login":"Connexion",
 				"logout":"Déconnexion",
 				"apidocs":"API",
 				"register":"Inscription",
 				"affiliates":"Affiliés",
-				"dashboard":"table au debord"
+				"dashboard":"Table au Debord"
 			},
 			"dashboard":"Table au Debord",
+			"help":"Aidez-Moi",
 			"usageReports":"Les Rapports d'Utilisation",
 			"applications":"Applications",
 			"releasePackages":"Package Publié",
@@ -30,20 +31,20 @@
 				"logout":"Déconnexion"
 			},
 			"staff":{
-				"dashboard":"table audebord",
+				"dashboard":"Table au Debord",
 				"pendingApplications":"les demandes en instance",
-				"usageReports":"les rapports d'utilisation",
-				"affiliteUserManagement":"affiliation Gestion des utilisateurs",
-				"activityLog":"Journald'activité",
+				"usageReports":"Les Rapports d'Utilisation",
+				"affiliteUserManagement":"Affiliation Gestion des Utilisateurs",
+				"activityLog":"Journal d'Activité",
 				"packageManagement":"Gestion des paquetages",
 				"licenseTC":"License T et C",
 				"reportsExtracts":"Rapports et Extraits",
 				"logout":"Déconnexion"
 			},
 			"admin":{
-				"importAffiliateRecords":"importation affiliation Records",
+				"importAffiliateRecords":"Importation Affiliation Records",
 				"manageBlacklist":"Gérer Blacklist",
-				"nationalRegistrationList":"Liste nationale d'inscription"
+				"nationalRegistrationList":"Liste Nationale d'Inscription"
 			},
 			"language":"Langue"
 		},
@@ -380,6 +381,7 @@
 			"name":"Nom",
 			"cancel":"Annuler",
 			"note":"Remarque",
+			"notes":"Remarques",
 			"close":"Fermer",
 			"delete":"Supprimer",
 			"update":"Mettre à Jour",
@@ -436,8 +438,7 @@
 			"title":"L'Enregistrement d'Affiliation",
 			"usageType":"Type d'Utilisation",
 			"conditions":"S'il vous plaît sélectionnez les conditions dans que le produit sera utilisé",
-			"typeOfAgreement":"Type d'entente",
-			"typeOfAgreement.label":"Type d'Entente:",
+			"typeOfAgreement":"Type d'Entente",
 			"validation":{
 				"other.required":"Autre champ est obligatoire."
 			},
@@ -534,8 +535,8 @@
 		"refresh.button":"Refresh",
 		"health":{
 			"title":"contrôles de Heath",
-			"database":"Base de données:",
-			"email":"Email:",
+			"database":"Base de données",
+			"email":"Email",
 			"stacktrace":"Stack trace"
 		},
 		"jvm":{
@@ -555,7 +556,7 @@
 				"blocked":"Bloqué",
 				"dump":{
 					"title":"Threadsbenne",
-					"id":"Id:",
+					"id":"Id",
 					"blockedtime":"TimeBloqué",
 					"blockedcount":"comteBloqué",
 					"waitedtime":"Attendu Time",
@@ -575,8 +576,8 @@
 			},
 			"http":{
 				"title":"requêtes HTTP(événementsparseconde)",
-				"active":"demandes actives:",
-				"total":"Nombre Total de Demandes:",
+				"active":"demandes actives",
+				"total":"Nombre Total de Demandes",
 				"table":{
 					"code":"Code",
 					"count":"Count",
@@ -844,14 +845,14 @@
 		"applicationSummary":{
 			"title":"Sommaire de la Demande",
 			"ext.title":"Extension Application Info",
-			"reason.label":"Raison:",
+			"reason":"Raison",
 			"affiliateInfo":"Info d'Filiale",
 			"affiliateInformation":"Information d'Filiale",
-			"useType.label":"Type d'Utilisation:",
-			"useSubType.label":"Sous-Type d'Utilisation:",
+			"useType":"Type d'Utilisation",
+			"useSubType":"Sous-Type d'Utilisation",
 			"billingInfo":"Informations de Facturation",
 			"context":"Contexte d'Utilisation",
-			"subLicence.label":"Sous-licence Utilisation:",
+			"subLicence":"Sous-licence Utilisation",
 			"applicationActivity":"Activité des Applications"
 		},
 		"contactInfo":{
@@ -880,15 +881,11 @@
 				"agreementType":{
 					"name":"Agreement Type"
 				},
-				"accountStanding":{
-					"name":"Statut du Compte"
-				}
+				"accountStanding":"Statut du Compte"
 			},
 			"contact":{
 				"title":"Coordonnées",
-				"fullName":{
-					"name":"Nom et Prénom"
-				},
+				"fullName":"Nom et Prénom",
 				"firstName":{
 					"name":"Prénom",
 					"placeholder":"Jean"
@@ -907,17 +904,15 @@
 					"name":"Autre Adresse E-mail",
 					"placeholder":"autre@email.com"
 				},
-				"thirdEmail":{
-					"name":"Troisième Adresse E-mail"
-				},
+				"thirdEmail":"Troisième Adresse E-mail",
 				"landline":{
 					"name":"Téléphone Fixe",
-					"short":"Téléphone:",
+					"short":"Téléphone",
 					"invalid":"Invalid Numéro de Téléphone."
 				},
 				"landlineExtension":{
 					"name":"L'extension de Téléphone",
-					"short":"Ext:",
+					"short":"Ext",
 					"placeholder":"L'extension"
 				},
 				"mobile":{
@@ -984,20 +979,20 @@
 			"title":"Soumis rapport d'utilisation",
 			"retract":"Rentrer Déclaration",
 			"subTitle":"L'Utilisation des Licences",
-			"usage":"Utilisation:",
+			"usage":"Utilisation",
 			"usageFor":"Utilisation pour",
 			"pleaseFill":"S'il vous plaît remplir toute information d'utilisation connue à ce jour, vous serez invité à confirmer l'utilisation une fois que votre demande est approuvée.",
-			"licenseType":"Type de Licence: ",
-			"currentUsage":"Utilisation Maintenant: ",
-			"plannedUsage":"Utilisation Prévue: ",
-			"purpose":"But:",
-			"impStatus":"Implementation Status:",
+			"licenseType":"Type de Licence",
+			"currentUsage":"Utilisation Maintenant",
+			"plannedUsage":"Utilisation Prévue",
+			"purpose":"But",
+			"impStatus":"Implementation Status",
 			"countries":{
 				"title":"Pays en Utilisation",
 				"subTitle":"Sélectionnez les pays non-membres dans lesquels SNOMED CT sera utilisé.",
 				"list":"Liste des Pays",
 				"search":"Recherche de Pays",
-				"homeCountry":"Pays d'Origine:",
+				"homeCountry":"Pays d'Origine",
 				"button":"Ajouter Pays"
 			},
 			"institutions":{
@@ -1005,17 +1000,15 @@
 				"selectFirst":"Un pays doit être sélectionnée avant d'entrer dans les institutions sous-licence.",
 				"noneSelected":"Aucun pays n'a été sélectionné.",
 				"country":"Pays",
-				"deleteCountry":"Supprimer Pays:",
+				"deleteCountry":"Supprimer Pays",
 				"hospAndInst":"Hôpital/Institution",
 				"hospAndInst.title":"Hôpital(aux)/Institution(s)",
 				"hospAndInst.plural":"Hôpitaux/Institutions",
-				"hospAndInst.label":"Hôpitaux/Institutions:",
 				"started":"Debut d'Utilisation",
 				"finished":"Fin d'Utilisation",
 				"note":"Remarque",
 				"practices.title":"Pratiques Générale(s)",
 				"practices":"Pratiques Générale",
-				"practices.label":"Pratiques Générale:",
 				"dataAnalysis":{
 					"title":"L'Analyse des Données",
 					"staff":"Les hôpitaux qui dispensent le personnel à des pratiques",

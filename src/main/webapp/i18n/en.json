@@ -21,6 +21,7 @@
 				"dashboard":"Dashboard"
 			},
 			"dashboard":"Dashboard",
+			"help":"Help",
 			"usageReports":"Usage Reports",
 			"applications":"Applications",
 			"releasePackages":"Release Packages",
@@ -380,6 +381,7 @@
 			"name":"Name",
 			"cancel":"Cancel",
 			"note":"Note",
+			"notes":"Notes",
 			"close":"close",
 			"delete":"Remove",
 			"update":"Update",
@@ -437,7 +439,6 @@
 			"usageType":"Usage Type",
 			"conditions":"Please select the conditions that the product will be used under",
 			"typeOfAgreement":"Type of Agreement",
-			"typeOfAgreement.label":"Type of Agreement:",
 			"validation":{
 				"other.required":"Other field is required."
 			},
@@ -534,8 +535,8 @@
 		"refresh.button":"Refresh",
 		"health":{
 			"title":"Heath checks",
-			"database":"Database: ",
-			"email":"Email: ",
+			"database":"Database",
+			"email":"Email",
 			"stacktrace":"Stacktrace"
 		},
 		"jvm":{
@@ -555,7 +556,7 @@
 				"blocked":"Blocked",
 				"dump":{
 					"title":"Threads dump",
-					"id":"Id: ",
+					"id":"Id",
 					"blockedtime":"Blocked Time",
 					"blockedcount":"Blocked Count",
 					"waitedtime":"Waited Time",
@@ -575,8 +576,8 @@
 			},
 			"http":{
 				"title":"HTTP requests (events per second)",
-				"active":"Active requests:",
-				"total":"Total requests:",
+				"active":"Active requests",
+				"total":"Total requests",
 				"table":{
 					"code":"Code",
 					"count":"Count",
@@ -844,14 +845,14 @@
 		"applicationSummary":{
 			"title":"Application Summary",
 			"ext.title":"Extension Application Info",
-			"reason.label":"Reason:",
+			"reason":"Reason",
 			"affiliateInfo":"Affiliate Info",
 			"affiliateInformation":"Affiliate Information",
-			"useType.label":"Use Type:",
-			"useSubType.label":"Use SubType:",
-			"BillingInfo":"Billing Information",
+			"useType":"Use Type",
+			"useSubType":"Use SubType",
+			"billingInfo":"Billing Information",
 			"context":"Usage Context Information",
-			"subLicence.label":"Sub-license Usage:",
+			"subLicence":"Sub-license Usage",
 			"applicationActivity":"Application Activity"
 		},
 		"contactInfo":{
@@ -880,15 +881,11 @@
 				"agreementType":{
 					"name":"Agreement Type"
 				},
-				"accountStanding":{
-					"name":"Account Standing"
-				}
+				"accountStanding":"Account Standing"
 			},
 			"contact":{
 				"title":"Contact Information",
-				"fullName":{
-					"name":"Name"
-				},
+				"fullName":"Name",
 				"firstName":{
 					"name":"First Name",
 					"placeholder":"John"
@@ -907,21 +904,20 @@
 					"name":"Alternate Email",
 					"placeholder":"alternative@email.com"
 				},
-				"thirdEmail":{
-					"name":"Third Email"
-				},
+				"thirdEmail":"Third Email",
 				"landline":{
 					"name":"Landline Phone Number",
-					"short":"Phone Number:",
+					"short":"Phone Number",
 					"invalid":"Invalid Phone Number."
 				},
 				"landlineExtension":{
 					"name":"Extension",
-					"short":"Ext:",
+					"short":"Ext",
 					"placeholder":"Extension"
 				},
 				"mobile":{
-					"name":"Mobile Phone Number"
+					"name":"Mobile Phone Number",
+					"placeholder":"number"
 				},
 				"address":{
 					"title":"Address",
@@ -982,21 +978,21 @@
 		"usageLog":{
 			"title":"Submitted Usage Report",
 			"retract":"Retract Declaration",
-			"usage":"Usage:",
+			"usage":"Usage",
 			"subTitle":"License Usage",
 			"usageFor":"Usage For",
 			"pleaseFill":"Please fill out any known usage information at this time, you will be asked to confirm usage once your application is approved.",
-			"licenseType":"License Type: ",
-			"currentUsage":"Current Usage: ",
-			"plannedUsage":"Planned Usage: ",
-			"purpose":"Purpose:",
-			"impStatus":"Implementation Status:",
+			"licenseType":"License Type",
+			"currentUsage":"Current Usage",
+			"plannedUsage":"Planned Usage",
+			"purpose":"Purpose",
+			"impStatus":"Implementation Status",
 			"countries":{
 				"title":"Countries in Use",
 				"subTitle":"Select the non-member countries in which SNOMED CT will be used.",
 				"list":"List of Countries",
 				"search":"Search Countries",
-				"homeCountry":"Home Country:",
+				"homeCountry":"Home Country",
 				"button":"Add Country"
 			},
 			"institutions":{
@@ -1008,12 +1004,10 @@
 				"hospAndInst":"Hospital/Institution",
 				"hospAndInst.title":"Hospital(s)/Institution(s)",
 				"hospAndInst.plural":"Hospitals/Institutions",
-				"hospAndInst.label":"Hospitals/Institutions:",
 				"started":"Started to Use",
 				"finished":"Ceased Use",
 				"practices.title":"Practice(s)",
 				"practices":"Practices",
-				"practices.label":"Practices:",
 				"dataAnalysis":{
 					"title":"Data Analysis",
 					"staff":"Hospitals providing staff to practices",
@@ -1037,7 +1031,6 @@
 				}
 			},
 			"otherActivities":"Other Activities",
-			"otherActivities.label":"Other Activities:",
 			"notificationRequired":"Affiliates are required to notify IHTSDO prior to engaging in any activities that do not fall within the existing categories at which time the IHTSDO will determine the appropriate Fee Structure for the activity in question.",
 			"pleaseDescribe":"Please describe activity below."
 		},
