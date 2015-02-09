@@ -1,40 +1,38 @@
 <div class="modal-header">
-   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-     <h3 class="modal-title">Edit Affiliate Account Standing</h3>
- </div>
- <div class="modal-body">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+	<h3 class="modal-title">Edit Affiliate Account Standing</h3>
+</div>
+<div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-
- 	  <form name="formStanding" bs-validation>
-      <div class="form-group">
-        <label>Affiliate: {{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</label> 
-      </div>
-      <div class="form-group">
-        <label>Account Standing:</label>
+	<form name="formStanding" bs-validation>
+	<div class="form-group">
+		<label>Affiliate: {{affiliateActiveDetails(affiliate).organizationName ? affiliateActiveDetails(affiliate).organizationName : affiliateActiveDetails(affiliate).firstName + ' '+affiliateActiveDetails(affiliate).lastName}}</label> 
+	</div>
+	<div class="form-group">
+		<label>Account Standing:</label>
 		<select class="form-control input-md" name="standingState" ng-model="affiliate.standingState" ng-required="true">
 			<!-- exclude APPLYING as system controlled state -->
 			<!-- exclude REJECTED as system controlled state -->
-			<option value="IN_GOOD_STANDING"  translate="affiliate.standingStateWithExplanation.IN_GOOD_STANDING">In Good Standing - Approved full access, Account Paid, No Payment Required or Account Issue Resolved</option>
-			<option value="PENDING_INVOICE"  translate="affiliate.standingStateWithExplanation.PENDING_INVOICE">Pending Invoice - Access to Account only, Payment Outstanding</option>
-			<option value="INVOICE_SENT"  translate="affiliate.standingStateWithExplanation.INVOICE_SENT">Invoice Sent - Access to Account only, Payment Outstanding</option>
-			<option value="DEACTIVATION_PENDING"  translate="affiliate.standingStateWithExplanation.DEACTIVATION_PENDING">Deactivation Pending - Access to Account Only, No Download Capability</option>
+			<option value="IN_GOOD_STANDING"	translate="affiliate.standingStateWithExplanation.IN_GOOD_STANDING">In Good Standing - Approved full access, Account Paid, No Payment Required or Account Issue Resolved</option>
+			<option value="PENDING_INVOICE"	translate="affiliate.standingStateWithExplanation.PENDING_INVOICE">Pending Invoice - Access to Account only, Payment Outstanding</option>
+			<option value="INVOICE_SENT"	translate="affiliate.standingStateWithExplanation.INVOICE_SENT">Invoice Sent - Access to Account only, Payment Outstanding</option>
+			<option value="DEACTIVATION_PENDING"	translate="affiliate.standingStateWithExplanation.DEACTIVATION_PENDING">Deactivation Pending - Access to Account Only, No Download Capability</option>
 			<option value="DEACTIVATED" translate="affiliate.standingStateWithExplanation.DEACTIVATED">Deactivated - Access to Account Only, No Download Capability</option>
 			<option value="DEREGISTERED" translate="affiliate.standingStateWithExplanation.DEREGISTERED">Deregistered – No Access to MLDS Account</option>
-        </select>
-        <span ng-show="formStanding.standingState.$error.required && submitAttempted" class="help-block">Required Field</span>
-      </div>
-      <div class="form-group">
-      	<p>Send reason for change, if necessary, to <a href="mailto:{{affiliateActiveDetails(affiliate).email}}">{{affiliateActiveDetails(affiliate).email}}</a></p>
-      
-      </div>
+		</select>
+		<span ng-show="formStanding.standingState.$error.required && submitAttempted" class="help-block">Required Field</span>
+	</div>
+	<div class="form-group">
+		<p>Send reason for change, if necessary, to <a href="mailto:{{affiliateActiveDetails(affiliate).email}}">{{affiliateActiveDetails(affiliate).email}}</a></p>
+	</div>
 	</form>
- 	
- </div>
- <div class="modal-footer">
-     <button class="btn btn-secondary btn-link" ng-click="$dismiss()">Cancel</button>
-     <button class="btn btn-success" ng-show="formStanding.$invalid" ng-click="submitAttempted = true">Update</button>
-     <button class="btn btn-success" ng-hide="formStanding.$invalid" ng-click="ok(formStanding)" ng-disabled="submitting">
-     	Update
-     	<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
-     </button>
- </div>
+	
+</div>
+<div class="modal-footer">
+	<button class="btn btn-secondary btn-link" ng-click="$dismiss()">Cancel</button>
+	<button class="btn btn-success" ng-show="formStanding.$invalid" ng-click="submitAttempted = true">Update</button>
+	<button class="btn btn-success" ng-hide="formStanding.$invalid" ng-click="ok(formStanding)" ng-disabled="submitting">
+		Update
+		<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
+	</button>
+</div>

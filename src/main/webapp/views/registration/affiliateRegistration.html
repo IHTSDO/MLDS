@@ -22,44 +22,44 @@
 			<div class="panel-body">
 				<h4 translate="register.affiliateRegistration.conditions">Please select the conditions that the product will be used under:</h4>
 				<div class="form-group">
-				<label translate="register.affiliateRegistration.usageType">Usage Type</label>:<select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.subType = ''" required="">
-					<option value="COMMERCIAL" translate="affiliate.type.extended.COMMERCIAL">Commercial - Developer, Vendor or Terminology provider</option>
-					<option value="ACADEMIC" translate="affiliate.type.extended.ACADEMIC">Academic - for internal use within an Organization. (Educational, Research, Development or Healthcare Provider)</option>
-					<option value="OTHER" translate="affiliate.type.extended.OTHER">Other - Use not stated in other options</option>
-					<option value="INDIVIDUAL"	translate="affiliate.type.extended.INDIVIDUAL">Individual - Personal, Educational or Research</option>
-				</select>
-				<p ng-show="affiliateApplicationForm.type.$error.required && affiliateApplicationForm.attempted" class="help-block">
-					Usage type field is required.
-				</p>
+					<label translate="register.affiliateRegistration.usageType.label">Usage Type: </label><select class="form-control input-md" name="type" ng-model="affiliateform.type" ng-change="affiliateform.subType = ''" required="">
+						<option value="COMMERCIAL" translate="affiliate.type.extended.COMMERCIAL">Commercial - Developer, Vendor or Terminology provider</option>
+						<option value="ACADEMIC" translate="affiliate.type.extended.ACADEMIC">Academic - for internal use within an Organization. (Educational, Research, Development or Healthcare Provider)</option>
+						<option value="OTHER" translate="affiliate.type.extended.OTHER">Other - Use not stated in other options</option>
+						<option value="INDIVIDUAL"	translate="affiliate.type.extended.INDIVIDUAL">Individual - Personal, Educational or Research</option>
+					</select>
+					<p ng-show="affiliateApplicationForm.type.$error.required && affiliateApplicationForm.attempted" class="help-block">
+						Usage type field is required.
+					</p>
 				</div>
 				<div class="form-group" ng-show="affiliateform.type && affiliateform.type!='OTHER'">
-				<label>Subtype:</label> 
-				<select class="form-control input-md" name="usageSubType" ng-model="affiliateform.subType" ng-required="affiliateform.type!='OTHER'" auto-submit>
-					<option value="DEVELOPER" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.DEVELOPER">Developer</option>
-					<option value="DEVELOPMENT" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.DEVELOPMENT">Development</option>
-					<option value="EDUCATIONAL" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.EDUCATIONAL">Educational</option>
-					<option value="HEALTHCAREPROVIDER" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.HEALTHCAREPROVIDER">Healthcare Provider</option>
-					<option value="PERSONAL" ng-show="affiliateform.type=='INDIVIDUAL'" translate="affiliate.subType.PERSONAL">Personal</option>
-					<option value="RESEARCH" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.RESEARCH">Research</option>
-					<option value="VENDOR" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.VENDOR">Vendor</option>
-				</select>
-				<p ng-show="affiliateApplicationForm.usageSubType.$error.required && affiliateApplicationForm.attempted" class="help-block">
-					Subtype field is required.
-				</p>
+					<label translate="views.contactInfo.admin.subType.label">Subtype:</label> 
+					<select class="form-control input-md" name="usageSubType" ng-model="affiliateform.subType" ng-required="affiliateform.type!='OTHER'" auto-submit>
+						<option value="DEVELOPER" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.DEVELOPER">Developer</option>
+						<option value="DEVELOPMENT" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.DEVELOPMENT">Development</option>
+						<option value="EDUCATIONAL" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.EDUCATIONAL">Educational</option>
+						<option value="HEALTHCAREPROVIDER" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.HEALTHCAREPROVIDER">Healthcare Provider</option>
+						<option value="PERSONAL" ng-show="affiliateform.type=='INDIVIDUAL'" translate="affiliate.subType.PERSONAL">Personal</option>
+						<option value="RESEARCH" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.RESEARCH">Research</option>
+						<option value="VENDOR" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.VENDOR">Vendor</option>
+					</select>
+					<p ng-show="affiliateApplicationForm.usageSubType.$error.required && affiliateApplicationForm.attempted" class="help-block">
+						Subtype field is required.
+					</p>
 				</div>
 				<div class="form-group" ng-show="affiliateform.type=='OTHER'">
-				<label>Other:</label> 
-				<input type="text" class="form-control" placeholder="{{ 'views.contactInfo.admin.other.placeholder' | translate }}" name="otherText" 
-					ng-required="affiliateform.type=='OTHER'" ng-model="affiliateform.otherText" ng-maxlength="255" auto-submit>
-				<p ng-show="affiliateApplicationForm.otherText.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="register.messages.validate.registration.other.required">
-					Other field is required.
-				</p>
-				<p ng-show="affiliateApplicationForm.otherText.$error.maxLength" class="help-block" translate="form.tooLong">
-					Input value is too long.
-				</p>
+					<label translate="views.contactInfo.admin.other.label">Other:</label> 
+					<input type="text" class="form-control" placeholder="{{ 'views.contactInfo.admin.other.placeholder' | translate }}" name="otherText" 
+						ng-required="affiliateform.type=='OTHER'" ng-model="affiliateform.otherText" ng-maxlength="255" auto-submit>
+					<p ng-show="affiliateApplicationForm.otherText.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="register.messages.validate.registration.other.required">
+						Other field is required.
+					</p>
+					<p ng-show="affiliateApplicationForm.otherText.$error.maxLength" class="help-block" translate="form.tooLong">
+						Input value is too long.
+					</p>
 				</div>
 				<div class="form-group">
-					<label translate="register.affiliateRegistration.typeOfAgreement">Type of Agreement:</label>
+					<label translate="register.affiliateRegistration.typeOfAgreement.label">Type of Agreement:</label>
 					<select class="form-control"
 						name="agreementType"
 									required
@@ -90,7 +90,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-6">
-					 	<p><label translate="views.contactInfo.contact.fullName.name.label">Name:</label> {{affiliateform.affiliateDetails.firstName + ' ' + affiliateform.affiliateDetails.lastName}}</p>
+					 	<p><label translate="views.contactInfo.contact.fullName.label">Name:</label> {{affiliateform.affiliateDetails.firstName + ' ' + affiliateform.affiliateDetails.lastName}}</p>
 					 	<p><label translate="views.contactInfo.contact.email.name.label">Email:</label> {{affiliateform.affiliateDetails.email}}</p>
 					</div>
 				</div>
