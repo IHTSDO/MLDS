@@ -443,7 +443,7 @@
 			},
 			"license.title":"SNOMED CT Agreement",
 			"license":"SNOMED License",
-			"license.label":"I agree to the license",
+			"license.confirm":"I agree to the license",
 			"license.error":"You must agree to the terms and conditions of the SNOMED CT License in order to register, which also indicates potential fees that be required."
 		},
 		"affiliateRegistrationReview":{
@@ -865,86 +865,86 @@
 			"admin":{
 				"title":"Admin Editable",
 				"other":{
-					"label":"Other:",
+					"name":"Other",
 					"placeholder":"Other",
 					"required":"Other field is required."
 				},
 				"subtype":{
-					"label":"Subtype:",
+					"name":"Subtype",
 					"required":"Subtype field is required."
 				},
 				"usageType":{
-					"label":"Type:",
+					"name":"Type",
 					"required":"Usage type field is required."
 				},
 				"agreementType":{
-					"label":"Agreement Type:"
+					"name":"Agreement Type"
 				},
 				"accountStanding":{
-					"label":"Account Standing:"
+					"name":"Account Standing"
 				}
 			},
 			"contact":{
 				"title":"Contact Information",
 				"fullName":{
-					"label":"Name:"
+					"name":"Name"
 				},
 				"firstName":{
-					"label":"First Name:",
+					"name":"First Name",
 					"placeholder":"John"
 				},
 				"lastName":{
-					"label":"Last Name:",
+					"name":"Last Name",
 					"placeholder":"Smith"
 				},
 				"email":{
-					"label":"Email:",
+					"name":"Email",
 					"placeholder":"JohnSmith@OrganizationABC.com",
 					"uniqueness":"Email Addresses needs to be unique.",
 					"invalid":"Invalid Email Address."
 				},
 				"alternativeEmail":{
-					"label":"Alternate Email:",
+					"name":"Alternate Email",
 					"placeholder":"alternative@email.com"
 				},
 				"thirdEmail":{
-					"label":"Third Email:"
+					"name":"Third Email"
 				},
 				"landline":{
-					"label":"Landline Phone Number:",
+					"name":"Landline Phone Number",
 					"short":"Phone Number:",
 					"invalid":"Invalid Phone Number."
 				},
 				"landlineExtension":{
-					"label":"Extension:",
+					"name":"Extension",
 					"short":"Ext:",
 					"placeholder":"Extension"
 				},
 				"mobile":{
-					"label":"Mobile Phone Number:"
+					"name":"Mobile Phone Number"
 				},
 				"address":{
 					"title":"Address",
-					"label":"Address:",
+					"name":"Address",
 					"placeholder":"123 Somewhere Avenue"
 				},
 				"city":{
-					"label":"City:",
+					"name":"City",
 					"placeholder":"City"
 				},
 				"postcode":{
-					"label":"Post Code:",
+					"name":"Post Code",
 					"placeholder":"Post Code",
 					"tooLong":"Post Code is too long."
 				},
 				"country":{
-					"label":"Country:",
+					"name":"Country",
 					"placeholder":"Country",
 					"unrecognized":"Unrecognized country."
 				},
 				"billingAddress":{
-					"label":"Billing Address:",
-					"country.label":"Billing Country:",
+					"name":"Billing Address",
+					"country":"Billing Country",
 					"placeholder":"Address",
 					"sameAsAddress":"Use Address as Billing Address",
 					"useOrganizationAddress":"Use Organization Address as Billing Address"
@@ -953,11 +953,11 @@
 			"organization":{
 				"title":"Organization",
 				"name":{
-					"label":"Organization Name:",
+					"name":"Organization Name",
 					"placeholder":"Org name"
 				},
 				"type":{
-					"label":"Organization Type:",
+					"name":"Organization Type",
 					"required":"An Organization type is required",
 					"placeholder":"Other Organization Type"
 				}
@@ -994,7 +994,7 @@
 			"countries":{
 				"title":"Countries in Use",
 				"subTitle":"Select the non-member countries in which SNOMED CT will be used.",
-				"label":"List of Countries",
+				"list":"List of Countries",
 				"search":"Search Countries",
 				"homeCountry":"Home Country:",
 				"button":"Add Country"
@@ -1049,7 +1049,7 @@
 			"newReport":"New Report"
 		},
 		"userDashboard":{
-			"affiliateNo.label":"Affiliate No:",
+			"affiliateNo":"Affiliate No",
 			"edit":"Edit Affiliate Application",
 			"myPackages":"My Release Packages",
 			"otherPackages":"Other Available Releases",

@@ -710,12 +710,18 @@ angular.module('pascalprecht.translate').directive('translate', [
         var translateValuesExist = tAttr.translateValues ? tAttr.translateValues : undefined;
         var translateInterpolation = tAttr.translateInterpolation ? tAttr.translateInterpolation : undefined;
         var translateValueExist = tElement[0].outerHTML.match(/translate-value-+/i);
+        var label = false;
         return function linkFn(scope, iElement, iAttr) {
           scope.interpolateParams = {};
           iAttr.$observe('translate', function (translationId) {
             if (angular.equals(translationId, '') || !angular.isDefined(translationId)) {
               scope.translationId = $interpolate(iElement.text().replace(/^\s+|\s+$/g, ''))(scope.$parent);
             } else {
+                if(translationId.indexOf('.label') != -1){
+                    var index = translationId.lastIndexOf('.label');
+                    translationId = translationId.substring(0, index);
+                    label = true;
+                   }
               scope.translationId = translationId;
             }
           });
@@ -755,6 +761,9 @@ angular.module('pascalprecht.translate').directive('translate', [
                   var unwatch = scope.$watch('translationId', function (value) {
                       if (scope.translationId && value) {
                         $translate(value, {}, translateInterpolation).then(function (translation) {
+                            if(label === true){
+                                translation = translation + ': ';   
+                            }
                           applyElementContent(translation, scope);
                           unwatch();
                         }, function (translationId) {

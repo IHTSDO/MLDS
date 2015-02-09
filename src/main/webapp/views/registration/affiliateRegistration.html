@@ -90,14 +90,14 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-6">
-					 	<p><label translate="views.contactInfo.contact.fullName.label">Name:</label> {{affiliateform.affiliateDetails.firstName + ' ' + affiliateform.affiliateDetails.lastName}}</p>
-					 	<p><label translate="views.contactInfo.contact.email.label">Email:</label> {{affiliateform.affiliateDetails.email}}</p>
+					 	<p><label translate="views.contactInfo.contact.fullName.name.label">Name:</label> {{affiliateform.affiliateDetails.firstName + ' ' + affiliateform.affiliateDetails.lastName}}</p>
+					 	<p><label translate="views.contactInfo.contact.email.name.label">Email:</label> {{affiliateform.affiliateDetails.email}}</p>
 					</div>
 				</div>
 				<div class="row" ng-show="affiliateform.type === 'INDIVIDUAL'">
 				<div class="col-md-6">
 					<div class="form-group">
-					<label translate="views.contactInfo.contact.alternativeEmail.label">Alternate Email:</label> 
+					<label translate="views.contactInfo.contact.alternativeEmail.name.label">Alternate Email:</label> 
 					<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" required="" name="contactAlternateEmail" 
 						ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit ng-maxlength="100" 
 						unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.thirdEmail]}}">
@@ -125,7 +125,7 @@
 				<div class="row" ng-show="affiliateform.type === 'INDIVIDUAL'">
 				<div class="col-md-6">
 					<div class="form-group">
-					<label translate="views.contactInfo.contact.thirdEmail.label">Third Email:</label> 
+					<label translate="views.contactInfo.contact.thirdEmail.name.label">Third Email:</label> 
 					<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" name="thirdEmail" 
 						ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit ng-maxlength="100"	
 						unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
@@ -150,10 +150,10 @@
 				
 				<div class="row">
 				<div class="col-md-4">
-					<label translate="views.contactInfo.contact.landline.label">Landline Phone Number:</label>
+					<label translate="views.contactInfo.contact.landline.name.label">Landline Phone Number:</label>
 				</div>
 				<div class="col-md-2">
-					<label translate="views.contactInfo.contact.landlineExtension.label">Extension:</label>
+					<label translate="views.contactInfo.contact.landlineExtension.name.label">Extension:</label>
 				</div>
 				</div>
 				<div class="row">
@@ -188,7 +188,7 @@
 				</div>
 				<div class="row">
 				<div class="col-md-6">
-					<label translate="views.contactInfo.contact.mobile.label">Mobile Phone Number:</label>
+					<label translate="views.contactInfo.contact.mobile.name.label">Mobile Phone Number:</label>
 				</div>
 				</div>
 				<div class="row">
@@ -215,7 +215,7 @@
 				<div class="row">
 					<div class="col-md-6">
 					<div class="form-group">
-						<label translate="views.contactInfo.contact.address.label">Address:</label>
+						<label translate="views.contactInfo.contact.address.name.label">Address:</label>
 						<input class="form-control" name="address" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-maxlength="255" 
 							ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.street" auto-submit>
 						<p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
@@ -229,10 +229,10 @@
 				</div>
 				<div class="row">
 					<div class="col-md-3">
-						<label translate="views.contactInfo.contact.city.label">City:</label>
+						<label translate="views.contactInfo.contact.city.name.label">City:</label>
 					</div>
 					<div class="col-md-3">
-						<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+						<label translate="views.contactInfo.contact.postcode.name.label">Post Code:</label>
 					</div>
 					</div>
 				<div class="row">
@@ -264,7 +264,7 @@
 				<div class="row">
 					<div class="col-md-6">
 					<div class="form-group">
-						<label translate="views.contactInfo.contact.country.label">Country:</label><span>{{affiliateform.affiliateDetails.address.country.commonName}}</span>
+						<label translate="views.contactInfo.contact.country.name.label">Country:</label><span>{{affiliateform.affiliateDetails.address.country.commonName}}</span>
 					</div>
 					</div>
 				</div>
@@ -281,7 +281,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label translate="views.contactInfo.contact.billingAddress.label">Billing Address:</label> 
+						<label translate="views.contactInfo.contact.billingAddress.name.label">Billing Address:</label> 
 						<input class="form-control" name="billingAddress" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-maxlength="255" 
 						 	ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.street" auto-submit>
 						<p ng-show="affiliateApplicationForm.billingAddress.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
@@ -295,10 +295,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3">
-					<label translate="views.contactInfo.contact.city.label">City:</label>
+					<label translate="views.contactInfo.contact.city.name.label">City:</label>
 				</div>
 				<div class="col-md-3">
-					<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+					<label translate="views.contactInfo.contact.postcode.name.label">Post Code:</label>
 				</div>
 			</div>
 			<div class="row">
@@ -331,7 +331,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-					 	<label translate="views.contactInfo.contact.billingAddress.country.label">Billing Country:</label>
+					 	<label translate="views.contactInfo.contact.billingAddress.country.name.label">Billing Country:</label>
 						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry" 
 						 ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="{{ 'views.contactInfo.contact.country.placeholder' | translate }}"
 						 typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
@@ -359,7 +359,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group has-error has-feedback">
-							<label translate="views.contactInfo.organization.name.label">Organization Name:</label> 
+							<label translate="views.contactInfo.organization.name.name.label">Organization Name:</label> 
 							<input class="form-control" name="organizationName" placeholder="{{ views.contactInfo.organization.name.placeholder | translate}}" ng-maxlength="255" 
 								ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationName" auto-submit>
 							<p class="help-block" ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted" translate="form.requiredField">
@@ -374,7 +374,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group has-error has-feedback">
-							<label translate="views.contactInfo.organization.type.label">Organization Type:</label> 
+							<label translate="views.contactInfo.organization.type.name.label">Organization Type:</label> 
 							<select class="form-control" name="organizationType" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationType" auto-submit>
 								<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{organizationType | enum:'affiliate.organizationType.'}}</option>
 							</select>
@@ -401,7 +401,7 @@
 				<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-					<label translate="views.contactInfo.contact.address.label">Address:</label> 
+					<label translate="views.contactInfo.contact.address.name.label">Address:</label> 
 					<input class="form-control" name="address" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-change="copyAddress()" 
 						required="" ng-model="affiliateform.affiliateDetails.address.street" auto-submit ng-maxlength="255">
 					<p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
@@ -415,10 +415,10 @@
 				</div>
 				<div class="row">
 					<div class="col-md-3">
-						<label translate="views.contactInfo.contact.city.label">City:</label>
+						<label translate="views.contactInfo.contact.city.name.label">City:</label>
 					</div>
 					<div class="col-md-3">
-						<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+						<label translate="views.contactInfo.contact.postcode.name.label">Post Code:</label>
 					</div>
 					</div>
 				<div class="row">
@@ -452,7 +452,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label translate="views.contactInfo.contact.country.label">Country:</label><span>{{affiliateform.affiliateDetails.address.country.commonName}}</span>
+							<label translate="views.contactInfo.contact.country.name.label">Country:</label><span>{{affiliateform.affiliateDetails.address.country.commonName}}</span>
 						</div>
 					</div>
 				</div>
@@ -469,7 +469,7 @@
 			<div class="row">
 				<div class="col-md-6">
 				<div class="form-group">
-					<label translate="views.contactInfo.contact.billingAddress.label">Billing Address:</label> 
+					<label translate="views.contactInfo.contact.billingAddress.name.label">Billing Address:</label> 
 					<input class="form-control" name="billingAddress" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-maxlength="255" 
 					 	ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.street" auto-submit>
 					<p ng-show="affiliateApplicationForm.billingAddress.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
@@ -483,10 +483,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3">
-					<label translate="views.contactInfo.contact.city.label">City:</label>
+					<label translate="views.contactInfo.contact.city.name.label">City:</label>
 				</div>
 				<div class="col-md-3">
-					<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+					<label translate="views.contactInfo.contact.postcode.name.label">Post Code:</label>
 				</div>
 			</div>
 			<div class="row">
@@ -519,7 +519,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label translate="views.contactInfo.contact.billingAddress.country.label">Billing Country:</label>
+						<label translate="views.contactInfo.contact.billingAddress.country.name.label">Billing Country:</label>
 						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry" 
 						 ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" placeholder="{{ 'views.contactInfo.contact.country.placeholder' | translate }}"
 						 typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
@@ -534,7 +534,7 @@
 				<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label translate="views.contactInfo.contact.alternativeEmail.label">Alternate Email:</label> 
+						<label translate="views.contactInfo.contact.alternativeEmail.name.label">Alternate Email:</label> 
 						<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" ng-required="affiliateform.type!='INDIVIDUAL'" name="alternateEmail" ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.thirdEmail]}}">
 						<div ng-show="affiliateApplicationForm.attempted">
 							<p ng-show="affiliateApplicationForm.alternateEmail.$error.required" class="help-block" translate="form.requiredField">
@@ -557,7 +557,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label translate="views.contactInfo.contact.thirdEmail.label">Third Email:</label>
+							<label translate="views.contactInfo.contact.thirdEmail.name.label">Third Email:</label>
 							<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" name="thirdEmail" ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
 							<div ng-show="affiliateApplicationForm.attempted">
 								<p ng-show="!affiliateApplicationForm.thirdEmail.$error.required && affiliateApplicationForm.thirdEmail.$error.email" class="help-block" translate="views.contactInfo.contact.email.invalid">
@@ -604,7 +604,7 @@
 					<a ng-click="viewLicense(affiliateform.affiliateDetails.address.country.member.key)" target="_blank" class="btn btn-default btn-block"  translate="register.affiliateRegistration.license">SNOMED License</a>
 				</p>
 				<p class="form-group">
-					<label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="affiliateform.snoMedTC"> <span translate="register.affiliateRegistration.license.label" >I agree to the license </span>
+					<label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="affiliateform.snoMedTC"> <span translate="register.affiliateRegistration.license.confirm" >I agree to the license </span>
 					<span ng-show="affiliateApplicationForm.snoMedTC.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="register.affiliateRegistration.license.error">You must agree to the terms and conditions of the SNOMED CT License in order to register, which also indicates potential fees that be required.</span></label>
 				</p>
 				<div class="panel-footer">
