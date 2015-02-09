@@ -970,6 +970,22 @@
 			"furtherDetails":"Pour plus de détails , se il vous plaît se référer à la <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO website</a> ou la <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Questions Fréquentes</a>.",
 			"loginHere":"login ici"
 		},
+		"releases":{
+			"title":"Versions Disponibles pour les Utilisateurs Enregistrés",
+			"noAuth":"<a href=\"#/login\">s'identifier</a> pour télécharger ou cliquez sur <a href=\"#/register\">enregistrer</a> pour commencer le processus de demande.",
+			"memberCountries":"Pays Membres",
+			"countryIsMissing":"Si le pays que vous cherchez ne est pas dans cette liste, s'il vous plaît se référer à la <a href=\"http://www.ihtsdo.org/\"> IHTSDO site </a> des informations de presse de téléchargement.",
+			"notAvailable":"Il n'y a aucune versions disponibles",
+			"warning":{
+				"deactivated":"Compte Désactivé",
+				"pending":"Facture en Attente",
+				"pAttention":"Application primaire a besoin d'attention",
+				"pProcessed":"Application principale est en cours",
+				"apply":"Demande de 'Extension'",
+				"aProcessed":"Application est en cours",
+				"aAttention":"Application a besoin d'attention, cliquer pour continuer l'application"
+			}
+		},
 		"requestPasswordReset":{
 			"title":"Réinitialiser le Mot de Passe",
 			"detail":"Nous vous enverrons un e-mail contenant un link de réinitialisation de mot de passe.",
