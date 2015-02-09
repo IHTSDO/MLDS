@@ -970,6 +970,22 @@
 			"furtherDetails":"For further details, please refer to the <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO website</a> or the <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>.",
 			"loginHere":"login here"
 		},
+		"releases":{
+			"title":"Releases available for Registered Users",
+			"noAuth":"<a href=\"#/login\">Log in</a> to download or click <a href=\"#/register\">register</a> to start application process.",
+			"memberCountries":"Member Countries",
+			"countryIsMissing":"If the country you're looking for is not in this list, please refer to the <a href=\"http://www.ihtsdo.org/\">IHTSDO website</a> for release download information.",
+			"notAvailable":"There are currently no release packages available",
+			"warning":{
+				"deactivated":"Account Deactivated",
+				"pending":"Pending Invoice",
+				"pAttention":"Primary application needs attention",
+				"pProcessed":"Primary application is being processed",
+				"apply":"Apply for extension",
+				"aProcessed":"Application being processed",
+				"aAttention":"Application needs attention, click to continue application"
+			}
+		},
 		"requestPasswordReset":{
 			"title":"Password Reset",
 			"detail":"We will send you an email containing a link to a password reset form.",
