@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.search;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -9,6 +10,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,6 +25,9 @@ import com.google.common.collect.Maps;
  */
 @Service
 public class AngularTranslateService {
+
+	final Logger log = LoggerFactory.getLogger(AngularTranslateService.class);
+
 	private static AngularTranslateService instance;
 
 	@Resource
@@ -79,8 +85,15 @@ public class AngularTranslateService {
 		try {
 			String resourcePath = "i18n/" + language + ".json";
 			resource = servletContext.getResource(resourcePath);
+
+			// Where are we looking, for info?
+			// String contextPath = servletContext.getRealPath(File.separator); -- gave null
+			String contextPath = servletContext.getContextPath();
 			if (resource == null) {
+				log.warn("Failed to find " + resourcePath + " while searching " + contextPath);
 				return null;
+			} else {
+				log.info("Successfully located Hibernate Translations at " + contextPath + File.separator + resourcePath);
 			}
 			return objectMapper.readTree(resource);
 		} catch (MalformedURLException e) {
