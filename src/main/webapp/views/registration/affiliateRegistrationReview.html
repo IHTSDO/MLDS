@@ -12,7 +12,7 @@
 <div class="modal-body">
 	<div class="row">
 		<div class="col-xs-12">
-				<h4><span translate="register.affiliateRegistration.usageType">Usage Type</span>:</h4>
+				<h4><span translate="register.affiliateRegistration.usageType.label">Usage Type:</span></h4>
 				<ul class="list-group">
 					<li class="list-group-item-light"><strong translate="views.contactInfo.admin.usageType.label">Type:</strong> {{affiliateform.type | enum:'affiliate.type.'}}</li>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.admin.subtype.label">Subtype:</strong> {{affiliateform.subType | enum:'affiliate.subType.'}} {{affiliateform.otherText}}</li>
@@ -63,7 +63,7 @@
 					<li class="list-group-item-light" ng-show="affiliateform.type=='OTHER'"><strong translate="views.contactInfo.admin.other.label">Other:</strong>{{otherText}}</li>
 				</ul>
 				<ul class="list-group" ng-show="affiliateform.type=='INDIVIDUAL'">
-					<h4>Billing Address:</h4>
+					<h4 translate="views.contactInfo.contact.billingAddress.name.label">Billing Address:</h4>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.address.label">Address:</strong> {{affiliateform.affiliateDetails.billingAddress.street}}</li>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.city.label">City:</strong> {{affiliateform.affiliateDetails.billingAddress.city}}</li>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.postcode.label">Post Code:</strong> {{affiliateform.affiliateDetails.billingAddress.post}}</li>
@@ -74,12 +74,12 @@
 	<div class="row">
 		<div class="col-xs-12">
 				<ul class="list-group" >
-					<h4 translate="views.usageLog.usage">Usage:</h4>
-					<li class="list-group-item-light"><strong translate="views.usageLog.currentUsage">Current Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.currentUsage}}</li>
-					<li class="list-group-item-light"><strong translate="views.usageLog.plannedUsage">Planned Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.plannedUsage}}</li>
-					<li class="list-group-item-light"><strong translate="views.usageLog.purpose">Purpose:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.purpose}}</li>
-					<li class="list-group-item-light"><strong translate="views.usageLog.impStatus">Implementation Status:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</li>
-				<li class="list-group-item-light"><strong translate="views.usageLog.otherActivities">Other Activities</strong>: {{CommercialUsageService.currentCommercialUsageReport.context.otherActivities}}</li>
+					<h4 translate="views.usageLog.usage.label">Usage</h4>
+					<li class="list-group-item-light"><strong translate="views.usageLog.currentUsage.label">Current Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.currentUsage}}</li>
+					<li class="list-group-item-light"><strong translate="views.usageLog.plannedUsage.label">Planned Usage:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.plannedUsage}}</li>
+					<li class="list-group-item-light"><strong translate="views.usageLog.purpose.label">Purpose:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.purpose}}</li>
+					<li class="list-group-item-light"><strong translate="views.usageLog.impStatus.label">Implementation Status:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</li>
+				<li class="list-group-item-light"><strong translate="views.usageLog.otherActivities.label">Other Activities:</strong> {{CommercialUsageService.currentCommercialUsageReport.context.otherActivities}}</li>
 			</ul>
 		</div>
 	</div>
@@ -88,10 +88,10 @@
 			<ul class="list-group">
 			<li class="list-group-item-light">
 			<strong translate="views.contactInfo.contact.country.label">Country:</strong> {{'global.country.' + countryRecord.country.isoCode2 | translate}} <br>
-			<strong translate="views.usageLog.institutions.practices">Practices</strong>: {{countryRecord.snomedPractices | number}}
+			<strong translate="views.usageLog.institutions.practices.label">Practices:</strong> {{countryRecord.snomedPractices | number}}
 				<span ng-show="commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2].length > 0">
 					<br>
-					<strong translate="views.usageLog.institutions.hospAndInst.plural">Hospitals/Institutions</strong>:
+					<strong translate="views.usageLog.institutions.hospAndInst.plural.label">Hospitals/Institutions:</strong>
 					<span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
 						{{entry.name}}<span ng-show="!$last">,</span>
 					</span><br>

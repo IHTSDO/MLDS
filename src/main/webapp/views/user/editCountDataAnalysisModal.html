@@ -7,10 +7,10 @@
 	<h3>{{'global.country.' + count.country.isoCode2 | translate}}</h3>
 	<div class="row">
 		<div class="col-md-6">
-			<p><span translate="views.usageLog.institutions.hospAndInst.plural">Hospitals/Institutions</span>: <strong>{{hospitalsCount | number}}</strong></p>
+			<p><span translate="views.usageLog.institutions.hospAndInst.plural.label">Hospitals/Institutions:</span> <strong>{{hospitalsCount | number}}</strong></p>
 		</div>
 		<div class="col-md-6">
-			<p><span translate="views.usageLog.institutions.practices">Practices</span>: <strong>{{practicesCount | number}}</strong></p>
+			<p><span translate="views.usageLog.institutions.practices.label">Practices:</span> <strong>{{practicesCount | number}}</strong></p>
 		</div>
 	</div>
 	
@@ -58,7 +58,7 @@
 		</div>
 		<div class="row">
 		<div class="col-md-2">
-			<label><span translate="views.usageLog.institutions.dataAnalysis.systems">Systems</span>:</label>
+			<label><span translate="views.usageLog.institutions.dataAnalysis.systems.label">Systems:</span></label>
 			</div>
 			<div class="col-md-4"> 
 			<input type="number" min="0" class="form-control" name="deployedDataAnalysisSystems" ng-model="count.deployedDataAnalysisSystems" ng-required="true">
@@ -66,7 +66,7 @@
 			<span ng-show="formCount.deployedDataAnalysisSystems.$error.number && submitAttempted" class="help-block" translate="form.invalidNumber">Not a valid number</span>
 			</div>
 		<div class="col-md-2">
-			<label><span translate="views.usageLog.institutions.dataAnalysis.data">Data</span>:</label>
+			<label><span translate="views.usageLog.institutions.dataAnalysis.data.label">Data:</span></label>
 		</div>
 		<div class="col-md-4">
 			<input type="number" min="0" class="form-control" name="databasesPerDeployment" ng-model="count.databasesPerDeployment" ng-required="true">

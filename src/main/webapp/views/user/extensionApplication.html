@@ -1,28 +1,28 @@
 <div class="row space" ng-show="extensionForm.approvalState === 'CHANGE_REQUESTED'">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-  	<div class="alert alert-warning" role="alert">
-  		<div><strong>Extension Registration Needs Change</strong></div>
-  		<p>Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
-  	</div>
-  </div>
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="alert alert-warning" role="alert">
+			<div><strong>Extension Registration Needs Change</strong></div>
+			<p>Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
+		</div>
+	</div>
 </div>
 
 <div class="row space" ng-show="isApplicationRejected">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-  	<div class="alert alert-danger" role="alert">
-  		<div><strong>Extension Registration Rejected</strong></div>
-  		<p>Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
-  	</div>
-  </div>
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="alert alert-danger" role="alert">
+			<div><strong>Extension Registration Rejected</strong></div>
+			<p>Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
+		</div>
+	</div>
 </div>
 
 <div class="row space" ng-show="isApplicationApproved">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-  	<div class="alert alert-success" role="alert">
-  		<div><strong>Extension Registration Approved</strong></div>
-  		<p>Your application has been approved.</p>
-  	</div>
-  </div>
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="alert alert-success" role="alert">
+			<div><strong>Extension Registration Approved</strong></div>
+			<p>Your application has been approved.</p>
+		</div>
+	</div>
 </div>
 
 
@@ -60,9 +60,9 @@
 								target="_blank" class="btn btn-default btn-block">{{extensionForm.member.key | enum:'global.member.'}} Extension License</a>
 						</p>
 						<p class="form-group">
-	            <label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="snoMedTC" ng-checked="readOnly" ng-disabled="readOnly"> I agree to the license 
-	            <span ng-show="extensionApplicationForm.snoMedTC.$error.required && extensionApplicationForm.attempted" class="help-block">You must agree to the terms and conditions of the SNOMED CT License in order to register, which also indicates potential fees that be required.</span></label>
-	          </p>
+							<label><input required="" type="checkbox" name="snoMedTC" required="" ng-model="snoMedTC" ng-checked="readOnly" ng-disabled="readOnly"> I agree to the license 
+							<span ng-show="extensionApplicationForm.snoMedTC.$error.required && extensionApplicationForm.attempted" class="help-block">You must agree to the terms and conditions of the SNOMED CT License in order to register, which also indicates potential fees that be required.</span></label>
+						</p>
 						<div class="panel-footer" ng-show="!readOnly">
 							<button class="btn btn-muted btn-danger pull-right" ng-hide="readOnly" ng-click="cancelApplication()">Cancel</button>
 							<button class="btn btn-muted btn-success" ng-click="submit()" ng-disabled="readOnly">Apply</button>

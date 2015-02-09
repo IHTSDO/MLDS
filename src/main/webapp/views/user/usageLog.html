@@ -32,21 +32,21 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label translate="views.usageLog.plannedUsage">Planned Usage:</label>
+						<label translate="views.usageLog.plannedUsage.label">Planned Usage:</label>
 						<textarea class="form-control" rows="3" required	ng-disabled="readOnly" name="plannedUsage" ng-model="commercialUsageReport.context.plannedUsage" auto-submit></textarea>
 						<div ng-show="usageForm.attempted">
 							<p ng-show="usageForm.plannedUsage.$error.required" class="help-block" translate="form.requiredField">Required field.</p>
 						</div>
 					</div>
 					<div class="form-group">
-						<label  translate="views.usageLog.purpose">Purpose:</label>
+						<label  translate="views.usageLog.purpose.label">Purpose:</label>
 						<textarea class="form-control" rows="3" required ng-disabled="readOnly" name="purpose" ng-model="commercialUsageReport.context.purpose" auto-submit></textarea>
 						<div ng-show="usageForm.attempted">
 							<p ng-show="usageForm.purpose.$error.required" class="help-block" translate="form.requiredField">Required field.</p>
 						</div>
 					</div>
 					<div class="form-group">
-						<label translate="views.usageLog.impStatus">Implementation Status:</label>
+						<label translate="views.usageLog.impStatus.label">Implementation Status:</label>
 						<select name="implementationStatus" class="form-control" required ng-disabled="readOnly" ng-model="commercialUsageReport.context.implementationStatus" ng-options="status | enum:'affiliate.implementationStatus.' for status in implementationStatusOptions" auto-submit>
 						</select>
 						<div ng-show="usageForm.attempted">
@@ -88,7 +88,7 @@
 				</div>
 			</div>
 			<div class="col-sx-4 col-md-4 col-lg-6">
-				<h4><span translate="views.usageLog.countries.homeCountry">Home Country:</span> {{homeCountry.commonName}}</h4>
+				<h4><span translate="views.usageLog.countries.homeCountry.label">Home Country:</span> {{homeCountry.commonName}}</h4>
 			</div>
 
 		</form>
@@ -178,12 +178,12 @@
 			<div class="country-footer">
 				<div class="col-xs-2">
 					<p>
-						<strong><span translate="views.usageLog.institutions.practices">Practices</span>:</strong>
+						<strong><span translate="views.usageLog.institutions.practices.label">Practices:</span></strong>
 						<span class="label label-default">{{countryUsage.count.snomedPractices | number}}</span>
 					</p>
 				</div>
 				<div class="col-xs-10" ng-show="countryUsage.count.notes">
-					<label>Notes:</label>
+					<label translate="global.word.notes.label">Notes:</label>
 					<p>
 						{{countryUsage.count.notes}}
 					</p>
