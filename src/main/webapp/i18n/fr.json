@@ -443,7 +443,7 @@
 			},
 			"license.title":"Accord de SNOMED CT",
 			"license":"SNOMED Licence",
-			"license.label":"Je suis d'accord à la licence",
+			"license.confirm":"Je suis d'accord à la licence",
 			"license.error":"Vous devez accepter les termes et conditions de la Licence SNOMED CT afin d'enregistrer, qui indique également les frais potentiels que nécessaires."
 		},
 		"affiliateRegistrationReview":{
@@ -865,87 +865,87 @@
 			"admin":{
 				"title":"Admin Editable",
 				"other":{
-					"label":"Other:",
+					"name":"Other",
 					"placeholder":"Other",
 					"required":"Other field is required."
 				},
 				"subtype":{
-					"label":"Subtype:",
+					"name":"Subtype",
 					"required":"Subtype field is required."
 				},
 				"usageType":{
-					"label":"Type:",
+					"name":"Type",
 					"required":"Usage type field is required."
 				},
 				"agreementType":{
-					"label":"Agreement Type:"
+					"name":"Agreement Type"
 				},
 				"accountStanding":{
-					"label":"Statut du Compte:"
+					"name":"Statut du Compte"
 				}
 			},
 			"contact":{
 				"title":"Coordonnées",
 				"fullName":{
-					"label":"Nom et Prénom: "
+					"name":"Nom et Prénom"
 				},
 				"firstName":{
-					"label":"Prénom:",
+					"name":"Prénom",
 					"placeholder":"Jean"
 				},
 				"lastName":{
-					"label":"Nom de Famille:",
+					"name":"Nom de Famille",
 					"placeholder":"Dupont"
 				},
 				"email":{
-					"label":"Email:",
+					"name":"Email",
 					"placeholder":"JeanDupont@OrganizationABC.com",
 					"uniqueness":"Adresses e-mail doivent être uniques.",
 					"invalid":"Adresse email invalide."
 				},
 				"alternativeEmail":{
-					"label":"Autre Adresse E-mail:",
+					"name":"Autre Adresse E-mail",
 					"placeholder":"autre@email.com"
 				},
 				"thirdEmail":{
-					"label":"Troisième Adresse E-mail:"
+					"name":"Troisième Adresse E-mail"
 				},
 				"landline":{
-					"label":"Téléphone Fixe:",
+					"name":"Téléphone Fixe",
 					"short":"Téléphone:",
 					"invalid":"Invalid Numéro de Téléphone."
 				},
 				"landlineExtension":{
-					"label":"L'extension de Téléphone:",
+					"name":"L'extension de Téléphone",
 					"short":"Ext:",
 					"placeholder":"L'extension"
 				},
 				"mobile":{
-					"label":"Numéro de Téléphone Mobile:",
+					"name":"Numéro de Téléphone Mobile",
 					"placeholder":"Numéro"
 				},
 				"address":{
 					"title":"Adresse",
-					"label":"Adresse:",
+					"name":"Adresse",
 					"placeholder":"123 Rue de Quelque Part"
 				},
 				"city":{
-					"label":"Ville:",
+					"name":"Ville",
 					"placeholder":"Ville"
 				},
 				"postcode":{
-					"label":"Code Postal:",
+					"name":"Code Postal",
 					"placeholder":"Code Postal",
 					"tooLong":"Code postal est trop long."
 				},
 				"country":{
-					"label":"Pays:",
+					"name":"Pays",
 					"placeholder":"Pays",
 					"unrecognized":"Pays non reconnu."
 				},
 				"billingAddress":{
-					"label":"Adresse De Facturation:",
-					"country.label":"Pays de Facturation:",
+					"name":"Adresse De Facturation",
+					"country":"Pays de Facturation",
 					"placeholder":"Adresse",
 					"sameAsAddress":"Utilisez Adresse pour Adresse de facturation",
 					"useOrganizationAddress":"Utilisez Adresse d'Organisation pour Adresse de facturation"
@@ -954,11 +954,11 @@
 			"organization":{
 				"title":"Organisation",
 				"name":{
-					"label":"Nom de l'organisation:",
+					"name":"Nom de l'organisation",
 					"placeholder":"Nom de l'organisation"
 				},
 				"type":{
-					"label":"Type d'Organisation:",
+					"name":"Type d'Organisation",
 					"required":"Un type Organisation est nécessaire",
 					"placeholder":"Autre Type d'Organisation"
 				}
@@ -995,7 +995,7 @@
 			"countries":{
 				"title":"Pays en Utilisation",
 				"subTitle":"Sélectionnez les pays non-membres dans lesquels SNOMED CT sera utilisé.",
-				"label":"Liste des Pays",
+				"list":"Liste des Pays",
 				"search":"Recherche de Pays",
 				"homeCountry":"Pays d'Origine:",
 				"button":"Ajouter Pays"
@@ -1050,7 +1050,7 @@
 			"newReport":"Nouveau Rapport"
 		},
 		"userDashboard":{
-			"affiliateNo.label":"Nombre d'Affiliation:",
+			"affiliateNo":"Nombre d'Affiliation",
 			"edit":"Modifier Demande d'Affiliation",
 			"myPackages":"Mes Packages Publié",
 			"otherPackages":"Les Autre Packages Publié",

@@ -41,7 +41,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label translate="views.contactInfo.admin.usageType.label">Type:</label>
+									<label translate="views.contactInfo.admin.usageType.name.label">Type:</label>
 									<select class="form-control input-md" name="type" required="" 
 										ng-model="affiliateDetails.type"
 										ng-change="affiliateDetails.subType = null; affiliateDetails.otherText = null"
@@ -59,7 +59,7 @@
 
 								<div class="form-group" 
 									ng-show="affiliateDetails.type=='OTHER'">
-									<label translate="views.contactInfo.admin.other.label">Other:</label>
+									<label translate="views.contactInfo.admin.other.name.label">Other:</label>
 									<input type="text" class="form-control" placeholder="{{'views.contactInfo.admin.other.placeholder' | translate}}" name="otherText"
 										ng-required="affiliateDetails.type=='OTHER'"
 										ng-model="affiliateDetails.otherText">
@@ -72,7 +72,7 @@
 
 								<div class="form-group" 
 									ng-show="affiliateDetails.type && affiliateDetails.type != 'OTHER'">
-									<label translate="views.contactInfo.admin.subtype.label">Subtype:</label>
+									<label translate="views.contactInfo.admin.subtype.name.label">Subtype:</label>
 										<select class="form-control input-md" name="usageSubType" ng-model="affiliateDetails.subType" ng-required="affiliate.type!='OTHER'">
 											<!-- TODO MB can we share the options with affiliateRegistration.html? -->
 											<option value="DEVELOPER" ng-show="affiliateDetails.type=='COMMERCIAL'" translate="affiliate.subType.DEVELOPER">Developer</option>
@@ -92,7 +92,7 @@
 								</div>
 								
 								<div class="form-group">
-									<label translate="views.contactInfo.admin.agreementType.label">Type of Agreement:</label>
+									<label translate="views.contactInfo.admin.agreementType.name.label">Type of Agreement:</label>
 									<select class="form-control input-md"
 					              		name="agreementType"
 										required
@@ -126,7 +126,7 @@
 							<div class="col-md-6">
 
 								<div class="form-group">
-									<label translate="views.contactInfo.contact.firstName.label">First Name:</label>
+									<label translate="views.contactInfo.contact.firstName.name.label">First Name:</label>
 									<input class="form-control"
 										placeholder="{{'views.contactInfo.contact.firstName.placeholder'|translate}}" required="" name="firstName"
 										ng-model="affiliateDetails.firstName" ng-disabled="readOnly">
@@ -134,7 +134,7 @@
 										class="help-block" translate="form.requiredField">Required field.</p>
 								</div>
 								<div class="form-group">
-									<label translate="views.contactInfo.contact.lastName.label">Last Name:</label> <input class="form-control"
+									<label translate="views.contactInfo.contact.lastName.name.label">Last Name:</label> <input class="form-control"
 										placeholder="{{'views.contactInfo.contact.lastName.placeholder'|translate}}" required="" name="lastName"
 										ng-model="affiliateDetails.lastName" ng-disabled="readOnly">
 									<p ng-show="form.lastName.$error.required && form.attempted"
@@ -146,11 +146,11 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group" ng-show="!$root.Session.isStaffOrAdmin()">
-									<label translate="views.contactInfo.contact.email.label">Email:</label>
+									<label translate="views.contactInfo.contact.email.name.label">Email:</label>
 									<span>{{affiliateDetails.email}}</span> 
 								</div>
 								<div class="form-group" ng-show="$root.Session.isStaffOrAdmin()">
-									<label translate="views.contactInfo.contact.email.label">Email:</label>
+									<label translate="views.contactInfo.contact.email.name.label">Email:</label>
 										<input class="form-control" type="email" placeholder="{{'views.contactInfo.contact.email.placeholder'|translate}}"
 										name="email" ng-required="true" 
 										ng-model="affiliateDetails.email" ng-disabled="readOnly"
@@ -174,7 +174,7 @@
 						<div class="row" ng-show="type=='INDIVIDUAL'">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label translate="views.contactInfo.contact.alternativeEmail.label">Alternate Email:</label> <input class="form-control"
+									<label translate="views.contactInfo.contact.alternativeEmail.name.label">Alternate Email:</label> <input class="form-control"
 										type="email" placeholder="{{'views.contactInfo.contact.email.placeholder'|translate}}"
 										ng-required="type!='INDIVIDUAL'" name="alternateEmail"
 										ng-model="affiliateDetails.alternateEmail" ng-disabled="readOnly"
@@ -197,7 +197,7 @@
 						<div class="row" ng-show="type=='INDIVIDUAL'">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label translate="views.contactInfo.contact.thirdEmail.label">Third Email:</label> <input class="form-control"
+									<label translate="views.contactInfo.contact.thirdEmail.name.label">Third Email:</label> <input class="form-control"
 										type="email" placeholder="{{'views.contactInfo.contact.email.placeholder'|translate}}"
 										name="thirdEmail"
 										ng-model="affiliateDetails.thirdEmail" ng-disabled="readOnly"
@@ -218,10 +218,10 @@
 
 						<div class="row">
 							<div class="col-md-4">
-								<label translate="views.contactInfo.contact.landline.label">Landline Phone Number:</label>
+								<label translate="views.contactInfo.contact.landline.name.label">Landline Phone Number:</label>
 							</div>
 							<div class="col-md-2">
-								<label translate="views.contactInfo.contact.landlineExtension.label">Extension:</label>
+								<label translate="views.contactInfo.contact.landlineExtension.name.label">Extension:</label>
 							</div>
 						</div>
 						<div class="row">
@@ -250,7 +250,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<label translate="views.contactInfo.contact.mobile.label">Mobile Phone Number:</label>
+								<label translate="views.contactInfo.contact.mobile.name.label">Mobile Phone Number:</label>
 							</div>
 						</div>
 						<div class="row">
@@ -275,7 +275,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label translate="views.contactInfo.contact.address.label">Address</label> 
+										<label translate="views.contactInfo.contact.address.name.label">Address</label> 
 										<input class="form-control"
 											name="addressStreetIndividual"
 											placeholder="{{'views.contactInfo.contact.address.placeholder'|translate}}"
@@ -290,10 +290,10 @@
 							</div>
 							<div class="row">
 								<div class="col-md-3">
-									<label translate="views.contactInfo.contact.city.label">City:</label>
+									<label translate="views.contactInfo.contact.city.name.label">City:</label>
 								</div>
 								<div class="col-md-3">
-									<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+									<label translate="views.contactInfo.contact.postcode.name.label">Post Code:</label>
 								</div>
 							</div>
 							<div class="row">
@@ -328,7 +328,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label translate="views.contactInfo.contact.country.label">Country:</label> 
+										<label translate="views.contactInfo.contact.country.name.label">Country:</label> 
 										<span>{{affiliateDetails.address.country.commonName}}</span>
 									</div>
 								</div>
@@ -347,7 +347,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label translate="views.contactInfo.contact.billingAddress.label">Billing Address:</label> 
+									<label translate="views.contactInfo.contact.billingAddress.name.label">Billing Address:</label> 
 									<input class="form-control"
 										name="billingAddressStreet" placeholder="{{'views.contactInfo.contact.billingAddress.placeholder'|translate}}" ng-required="type=='INDIVIDUAL'"
 										ng-model="affiliateDetails.billingAddress.street"
@@ -360,10 +360,10 @@
 						</div>
 						<div class="row">
 							<div class="col-md-3">
-								<label translate="views.contactInfo.contact.city.label">City:</label>
+								<label translate="views.contactInfo.contact.city.name.label">City:</label>
 							</div>
 							<div class="col-md-3">
-								<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+								<label translate="views.contactInfo.contact.postcode.name.label">Post Code:</label>
 							</div>
 						</div>
 						<div class="row">
@@ -397,7 +397,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label  translate="views.contactInfo.contact.country.label">Country:</label>
+									<label  translate="views.contactInfo.contact.country.name.label">Country:</label>
 									<input class="form-control" type="text"
 										ng-model="affiliateDetails.billingAddress.country"
 										name="billingAddressCountry" ng-required="type=='INDIVIDUAL'"
@@ -436,11 +436,11 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group" ng-show="!$root.Session.isStaffOrAdmin()">
-									<label translate="views.contactInfo.organization.name.label">Organization Name:</label> 
+									<label translate="views.contactInfo.organization.name.name.label">Organization Name:</label> 
 									<span>{{affiliateDetails.organizationName}}</span>
 								</div>
 								<div class="form-group" ng-show="$root.Session.isStaffOrAdmin()">
-									<label translate="views.contactInfo.organization.name.label">Organization Name:</label>  
+									<label translate="views.contactInfo.organization.name.name.label">Organization Name:</label>  
 									<input class="form-control"
 											name="organizationName"
 											placeholder="{{'views.contactInfo.organization.name.placeholder'|translate}}"
@@ -458,7 +458,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label translate="views.contactInfo.contact.address.label">Address:</label> 
+									<label translate="views.contactInfo.contact.address.name.label">Address:</label> 
 									<input class="form-control"
 										name="addressStreet" placeholder="{{'views.contactInfo.contact.address.placeholder'|translate}}"
 										ng-required="type!='INDIVIDUAL'" ng-model="affiliateDetails.address.street"
@@ -472,10 +472,10 @@
 						</div>
 						<div class="row">
 							<div class="col-md-3">
-								<label translate="views.contactInfo.contact.city.label">City:</label>
+								<label translate="views.contactInfo.contact.city.name.label">City:</label>
 							</div>
 							<div class="col-md-3">
-								<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+								<label translate="views.contactInfo.contact.postcode.name.label">Post Code:</label>
 							</div>
 						</div>
 						<div class="row">
@@ -510,7 +510,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label translate="views.contactInfo.contact.country.label">Country:</label> 
+									<label translate="views.contactInfo.contact.country.name.label">Country:</label> 
 									<span>{{affiliateDetails.address.country.commonName}}</span>
 								</div>
 							</div>
@@ -528,7 +528,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label translate="views.contactInfo.contact.billingAddress.label">Billing Address:</label> 
+									<label translate="views.contactInfo.contact.billingAddress.name.label">Billing Address:</label> 
 									<input class="form-control"
 										name="billingAddressStreet" placeholder="{{'views.contactInfo.contact.billingAddress.placeholder'|translate}}" ng-required="type!='INDIVIDUAL'"
 										ng-model="affiliateDetails.billingAddress.street"
@@ -542,10 +542,10 @@
 						</div>
 						<div class="row">
 							<div class="col-md-3">
-								<label translate="views.contactInfo.contact.city.label">City:</label>
+								<label translate="views.contactInfo.contact.city.name.label">City:</label>
 							</div>
 							<div class="col-md-3">
-								<label translate="views.contactInfo.contact.postcode.label">Post Code:</label>
+								<label translate="views.contactInfo.contact.postcode.name.label">Post Code:</label>
 							</div>
 						</div>
 						<div class="row">
@@ -605,7 +605,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label translate="views.contactInfo.contact.alternativeEmail.label">Alternate Email:</label>
+									<label translate="views.contactInfo.contact.alternativeEmail.name.label">Alternate Email:</label>
 									<input class="form-control"
 										type="email" placeholder="{{'views.contactInfo.contact.email.placeholder'|translate}}"
 										ng-required="type!='INDIVIDUAL'" name="{{'views.contactInfo.contact.alternativeEmail.placeholder'|translate}}"
@@ -630,7 +630,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label  translate="views.contactInfo.contact.thirdEmail.label">Third Email:</label> 
+									<label  translate="views.contactInfo.contact.thirdEmail.name.label">Third Email:</label> 
 									<input class="form-control"
 										type="email" placeholder="{{'views.contactInfo.contact.email.placeholder'|translate}}"
 										name="thirdEmail"
