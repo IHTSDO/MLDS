@@ -49,7 +49,7 @@
 				<ul class="list-group" ng-show="affiliateform.type!='INDIVIDUAL'">
 					<h4 translate="views.contactInfo.organization.title">Organization:</h4>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.organization.name.label">Organization Name:</strong> {{affiliateform.affiliateDetails.organizationName}}</li>
-					<li class="list-group-item-light"><strong translate="views.contactInfo.organization.type.label">Organization Type:</strong>
+					<li class="list-group-item-light"><strong translate="views.contactInfo.organization.type.name.label">Organization Type:</strong>
 						<span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{affiliateform.affiliateDetails.organizationTypeOther}}</span>
 						<span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{affiliateform.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
  					</li>
@@ -58,7 +58,7 @@
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.postcode.label">Post Code:</strong> {{affiliateform.affiliateDetails.address.post}}</li>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.country.label">Country:</strong> {{affiliateform.affiliateDetails.address.country.commonName}}</li>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.landline.short">Phone Number:</strong> {{affiliateform.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.affiliateDetailsextension" ><span  translate="views.contactInfo.contact.landlineExtension.short">ext:</span> {{affiliateform.affiliateDetails.landlineExtension}}</span></li>
-					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.alternativeEmail.label">Alternate Email:</strong> {{affiliateform.affiliateDetails.alternateEmail}}</li>
+					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.alternativeEmail.name.label">Alternate Email:</strong> {{affiliateform.affiliateDetails.alternateEmail}}</li>
 					<li class="list-group-item-light" ng-show="affiliateform.type=='COMMERCIAL'"><strong translate="views.contactInfo.contact.thirdEmail.label">Third Email:</strong> {{affiliateform.affiliateDetails.thirdEmail}}</li>
 					<li class="list-group-item-light" ng-show="affiliateform.type=='OTHER'"><strong translate="views.contactInfo.admin.other.label">Other:</strong>{{otherText}}</li>
 				</ul>
