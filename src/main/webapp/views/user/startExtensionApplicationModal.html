@@ -1,16 +1,15 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-  <h3 class="modal-title">Start Extension Application Process</h3>
+	<h3 class="modal-title" translate="views.extensionApplication.title">Start Extension Application Process</h3>
 </div>
 <div class="modal-body">
-  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-
-  <p>Are you sure you want to apply for this Extension?</p>
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	<p translate="views.extensionApplication.sure">Are you sure you want to apply for this Extension?</p>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-link" ng-click="$dismiss()">No</button>
+	<button class="btn btn-link" ng-click="$dismiss()" translate="global.word.no">No</button>
 	<button class="btn btn-success" ng-click="ok()" ng-disabled="submitting">
-		Yes
+		<span  translate="global.word.yes">Yes</span>
 		<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
 	</button>
 </div>

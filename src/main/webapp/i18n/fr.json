@@ -396,7 +396,10 @@
 			"status":"Status",
 			"type":"Type",
 			"date":"La Date",
-			"user":"Le Utilisateur"
+			"user":"Le Utilisateur",
+			"yes":"Oui",
+			"no":"Non",
+			"apply":"Appliquer"
 		}
 	},
 	"logout":{
@@ -957,6 +960,31 @@
 					"required":"Un type Organisation est nécessaire",
 					"placeholder":"Autre Type d'Organisation"
 				}
+			}
+		},
+		"extensionApplication":{
+			"title":"Lancer Processus Application Extension",
+			"sure":"Etes-vous sûr que vous voulez appliquer pour cette extension ?",
+			"form":{
+				"title":"Extension Formulaire de Demande",
+				"why":"S'il vous plaît expliquer pourquoi vous voulez l'accès à cette extension.",
+				"purpose":"But de l'Emploi",
+				"error":"Raison doit être plus."
+			},
+			"agreement":"Accord de Extension",
+			"license":"Licence d'Extension",
+			"warning":{
+				"change":"Inscription d'Extension besoin de changement",
+				"change.detail":"Votre inscription d'extension doit être mis à jour avant de pouvoir traiter. S'il vous plaît voir courriel concernant les changements nécessaires pour la finition de votre inscription.",
+				"rejected":"Enregistrement d'Extension Rejeté",
+				"rejected.detail":"Votre inscription d'extension doit être mis à jour avant de pouvoir traiter. S'il vous plaît voir courriel concernant les changements nécessaires pour terminer votre inscription.",
+				"approved":"Inscription d'Extension Approuvé",
+				"approved.detail":"Votre demande a été approuvée."
+			},
+			"delete":{
+				"title":"Annuler Application",
+				"sure":"Etes-vous sûr que vous voulez annuler cette demande?",
+				"sure.detail":"Cela permettra de vous faire perdre toutes les informations enregistrées sur cette demande."
 			}
 		},
 		"footer":{
