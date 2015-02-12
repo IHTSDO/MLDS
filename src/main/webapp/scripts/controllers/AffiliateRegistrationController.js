@@ -1,9 +1,20 @@
 'use strict';
 
 mldsApp.controller('AffiliateRegistrationController',
-        [ '$scope', '$log', 'UserRegistrationService', '$location', 'CountryService', '$modal', 'Session', 'Events', 'ApplicationUtilsService', 'MemberService',
-          function ($scope, $log, UserRegistrationService, $location, CountryService, $modal, Session, Events, ApplicationUtilsService, MemberService) {
+        [ '$scope', '$log', 'UserRegistrationService', '$http', '$location', 'CountryService', '$modal', 'Session', 'Events', 'ApplicationUtilsService', 'MemberService',
+          function ($scope, $log, UserRegistrationService, $http, $location, CountryService, $modal, Session, Events, ApplicationUtilsService, MemberService) {
         	
+            $scope.billingHide = false;
+            var loadJson = $http.get('/i18n/en.json');
+            $scope.copyAddressMember = function(global, member) {
+        		if(global.member.hasOwnProperty(member)) {
+                    
+        			$scope.affiliateform.affiliateDetails.billingAddress = angular.copy($scope.affiliateform.affiliateDetails.address);
+                    $scope.billingHide = true;
+                    $scope.isSameAddress = true;
+        		};
+        	};
+              
         	var loadApplication = function() {
         		var queryPromise =  UserRegistrationService.getApplication();
         		
@@ -21,8 +32,17 @@ mldsApp.controller('AffiliateRegistrationController',
     					$location.path('/dashboard');
     					return;
     				}
+                    $scope.loadJson();
         		});
+                
         	};
+            
+              $scope.loadJson = function(){
+                loadJson.success(function(data) {
+                    
+                    $scope.copyAddressMember(data.global, $scope.affiliateform.affiliateDetails.address.country.isoCode2);
+                });
+              }
         	
         	loadApplication();
         	
@@ -78,7 +98,7 @@ mldsApp.controller('AffiliateRegistrationController',
         		}
         		return false;
         	};
-        	
+              
         	$scope.copyAddress = function() {
         		if($scope.isSameAddress) {
         			$scope.affiliateform.affiliateDetails.billingAddress = angular.copy($scope.affiliateform.affiliateDetails.address);

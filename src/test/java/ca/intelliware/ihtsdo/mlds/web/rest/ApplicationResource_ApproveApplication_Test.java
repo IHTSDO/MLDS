@@ -76,34 +76,35 @@ public class ApplicationResource_ApproveApplication_Test {
 	
 	@Before
 	public void setup() {
-        MockitoAnnotations.initMocks(this);
-        
-        applicationResource = new ApplicationResource();
-        
-        applicationResource.applicationRepository = applicationRepository;
-        applicationResource.applicationAuditEvents = applicationAuditEvents;
-        applicationResource.authorizationChecker = applicationAuthorizationChecker;
-        applicationResource.applicationService = applicationService;
-        applicationResource.memberRepository = memberRepository;
-        applicationResource.affiliateRepository = affiliateRepository;
-        applicationResource.affiliateDetailsRepository = affiliateDetailsRepository;
-        applicationResource.affiliateDetailsResetter = affiliateDetailsResetter;
-        applicationResource.affiliateAuditEvents = affiliateAuditEvents;
-        applicationResource.userRepository = userRepository;
-        applicationResource.applicationApprovedEmailSender = applicationApprovedEmailSender;
-        
-        applicationResource.routeLinkBuilder = new RouteLinkBuilder();
+		MockitoAnnotations.initMocks(this);
 
-        this.mockMvc = MockMvcBuilders.standaloneSetup(applicationResource).build();
+		applicationResource = new ApplicationResource();
+
+		applicationResource.applicationRepository = applicationRepository;
+		applicationResource.applicationAuditEvents = applicationAuditEvents;
+		applicationResource.authorizationChecker = applicationAuthorizationChecker;
+		applicationResource.applicationService = applicationService;
+		applicationResource.memberRepository = memberRepository;
+		applicationResource.affiliateRepository = affiliateRepository;
+		applicationResource.affiliateDetailsRepository = affiliateDetailsRepository;
+		applicationResource.affiliateDetailsResetter = affiliateDetailsResetter;
+		applicationResource.affiliateAuditEvents = affiliateAuditEvents;
+		applicationResource.userRepository = userRepository;
+		applicationResource.applicationApprovedEmailSender = applicationApprovedEmailSender;
+
+		applicationResource.routeLinkBuilder = new RouteLinkBuilder();
+
+		this.mockMvc = MockMvcBuilders.standaloneSetup(applicationResource).build();
 
 		sweden = new Member("SE", 1);
 		Mockito.when(memberRepository.findOneByKey("SE")).thenReturn(sweden);
-
 	}
 
 	
 	@Test
-	public void approveApplicationShouldPromoteStandingToPendingInvoiceForAcceptedPrimaryApplicationAndLogChange() throws Exception {
+	public void approveApplicationShouldPromoteStandingToPendingInvoiceForAcceptedPrimaryApplicationAndLogChange_IF_IHTSDO()
+			throws Exception {
+		Mockito.when(applicationAuthorizationChecker.isAdmin()).thenReturn(true);
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING);
 		withExistingSwedishPrimaryApplication(1L);
 		
@@ -111,6 +112,19 @@ public class ApplicationResource_ApproveApplication_Test {
 				.andExpect(status().isOk());
 		
 		Assert.assertEquals(StandingState.PENDING_INVOICE, affiliate.getStandingState());
+		Mockito.verify(affiliateAuditEvents).logStandingStateChange(Mockito.any(Affiliate.class));
+	}
+
+	@Test
+	public void approveApplicationShouldPromoteStandingToGoodStandingForAcceptedPrimaryApplicationAndLogChange_IF_NOT_IHTSDO()
+			throws Exception {
+		Mockito.when(applicationAuthorizationChecker.isAdmin()).thenReturn(false);
+		Affiliate affiliate = withAffiliate(StandingState.APPLYING);
+		withExistingSwedishPrimaryApplication(1L);
+
+		postApproveApplication(1L, "APPROVED").andExpect(status().isOk());
+
+		Assert.assertEquals(StandingState.IN_GOOD_STANDING, affiliate.getStandingState());
 		Mockito.verify(affiliateAuditEvents).logStandingStateChange(Mockito.any(Affiliate.class));
 	}
 

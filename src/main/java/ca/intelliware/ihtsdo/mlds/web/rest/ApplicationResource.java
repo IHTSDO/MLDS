@@ -146,7 +146,13 @@ public class ApplicationResource {
 		if (Objects.equal(application.getApplicationType(), ApplicationType.PRIMARY)) {
 			StandingState newStandingState = null;
 			if (Objects.equal(application.getApprovalState(), ApprovalState.APPROVED)) {
-				newStandingState = StandingState.PENDING_INVOICE;
+				// MLDS-902 When the authorizing user is a member (ie not IHTSDO) then the account standing
+				// state should transition to "In Good Standing"
+				if (authorizationChecker.isAdmin()) {
+					newStandingState = StandingState.PENDING_INVOICE;
+				} else {
+					newStandingState = StandingState.IN_GOOD_STANDING;
+				}
 			} else if (Objects.equal(application.getApprovalState(), ApprovalState.REJECTED)) {
 				newStandingState = StandingState.REJECTED;
 			}

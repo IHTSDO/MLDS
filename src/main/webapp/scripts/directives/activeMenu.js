@@ -12,9 +12,9 @@ angular.module('MLDS')
                 }, function(selectedLanguage) {
                     if (language === selectedLanguage) {
                         tmhDynamicLocale.set(language);
-                        element.addClass('active');
+                        element.parent().parent().removeClass('open');
                     } else {
-                        element.removeClass('active');
+                        element.parent().parent().removeClass('open');
                     }
                 });
             }

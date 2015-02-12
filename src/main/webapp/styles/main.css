@@ -59,3 +59,32 @@ ul#strength {
     width:20px;
 }
 /* end Password strength bar style */
+
+/*Overrides for Bootstrap accordion for viewReleases page. Standard accordion styles have been used for styling elsewhere.
+Actual accordion wrapped in id="accordion-override" div. */
+#accordion-override .panel-heading {
+        margin-left:10px;
+        padding:5px;
+    }
+#accordion-override .inner-heading{
+        margin-left:0px;
+        padding:5px;
+        padding-left:0px;
+    }
+#accordion-override .panel{
+    border: 1px solid #eee;
+}
+#accordion-override .panel-body{
+    border: none;
+    border-top:1px solid #eee;
+}
+
+#accordion-override .glyphicon-chevron-right{
+   margin-right:10px;
+   margin-top:2px; 
+}
+#accordion-override .glyphicon-chevron-down{
+   margin-right:10px;
+   margin-top:2px; 
+}
+/*Overrides end*/
