@@ -1019,6 +1019,21 @@
 			"detail":"We will send you an email containing a link to a password reset form.",
 			"button":"Request Password Reset"
 		},
+		"usage":{
+			"title":"Usage Log",
+			"instructions":"Please complete your usage declaration for the time period selected.",
+			"modal":{
+				"title":"Create Usage Declaration",
+				"instructions":"Please complete your usage declaration for all time periods. Please include reports for past and current use.",
+				"period":"Declaration Period"
+			},
+			"submit":{
+				"title":"Submit Usage Declaration",
+				"instructions":"Please check and ensure your usage declaration show below is correct before submitting.",
+				"declarationForPeriod":"Declaration for Period",
+				"button":"Submit Declaration"
+			}
+		},
 		"usageLog":{
 			"title":"Submitted Usage Report",
 			"retract":"Retract Declaration",
@@ -1076,7 +1091,8 @@
 			},
 			"otherActivities":"Other Activities",
 			"notificationRequired":"Affiliates are required to notify IHTSDO prior to engaging in any activities that do not fall within the existing categories at which time the IHTSDO will determine the appropriate Fee Structure for the activity in question.",
-			"pleaseDescribe":"Please describe activity below."
+			"pleaseDescribe":"Please describe activity below.",
+			"submitFor":"Submit Declaration for"
 		},
 		"usageReports":{
 			"reportDate":"Report Date",
