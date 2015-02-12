@@ -399,7 +399,8 @@
 			"user":"User",
 			"yes":"Yes",
 			"no":"No",
-			"apply":"Apply"
+			"apply":"Apply",
+			"back":"Back"
 		}
 	},
 	"logout":{
@@ -881,9 +882,7 @@
 					"name":"Type",
 					"required":"Usage type field is required."
 				},
-				"agreementType":{
-					"name":"Agreement Type"
-				},
+				"agreementType":"Agreement Type",
 				"accountStanding":"Account Standing"
 			},
 			"contact":{

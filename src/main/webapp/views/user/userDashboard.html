@@ -126,7 +126,7 @@
 			<span ng-show="affiliate.affiliateDetails.type == 'OTHER'">{{affiliate.affiliateDetails.otherText}}</span>
 		</li>
 		<li class="list-group-item" ng-show="standingStateUtils.wasApproved(affiliate.standingState)">
-			<strong translate="views.contactInfo.admin.agreementType.name.label">Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType |	enum:'affiliate.agreementType.'}}
+			<strong translate="views.contactInfo.admin.agreementType.label">Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType |	enum:'affiliate.agreementType.'}}
 		</li>
 	</ul>
 	<span class="alert alert-success btn-block" ng-show="standingStateUtils.isSuccessCategory(affiliate.standingState)">

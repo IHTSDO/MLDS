@@ -48,7 +48,7 @@
 					</p>
 				</div>
 				<div class="form-group" ng-show="affiliateform.type=='OTHER'">
-					<label translate="views.contactInfo.admin.other.label">Other:</label> 
+					<label translate="views.contactInfo.admin.other.name.label">Other:</label> 
 					<input type="text" class="form-control" placeholder="{{ 'views.contactInfo.admin.other.placeholder' | translate }}" name="otherText" 
 						ng-required="affiliateform.type=='OTHER'" ng-model="affiliateform.otherText" ng-maxlength="255" auto-submit>
 					<p ng-show="affiliateApplicationForm.otherText.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="register.messages.validate.registration.other.required">
@@ -125,7 +125,7 @@
 				<div class="row" ng-show="affiliateform.type === 'INDIVIDUAL'">
 				<div class="col-md-6">
 					<div class="form-group">
-					<label translate="views.contactInfo.contact.thirdEmail.name.label">Third Email:</label> 
+					<label translate="views.contactInfo.contact.thirdEmail.label">Third Email:</label> 
 					<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" name="thirdEmail" 
 						ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit ng-maxlength="100"	
 						unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
@@ -561,7 +561,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label translate="views.contactInfo.contact.thirdEmail.name.label">Third Email:</label>
+							<label translate="views.contactInfo.contact.thirdEmail.label">Third Email:</label>
 							<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" name="thirdEmail" ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
 							<div ng-show="affiliateApplicationForm.attempted">
 								<p ng-show="!affiliateApplicationForm.thirdEmail.$error.required && affiliateApplicationForm.thirdEmail.$error.email" class="help-block" translate="views.contactInfo.contact.email.invalid">
