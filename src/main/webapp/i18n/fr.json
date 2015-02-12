@@ -399,7 +399,8 @@
 			"user":"Le Utilisateur",
 			"yes":"Oui",
 			"no":"Non",
-			"apply":"Appliquer"
+			"apply":"Appliquer",
+			"back":"Retourner"
 		}
 	},
 	"logout":{
@@ -837,11 +838,11 @@
 			"messages":{
 				"success":{
 					"title":"Compte a été créé.",
-					"body":"The system will take you to continue your registration process in a few moments. If you are not redirected automatically please {{linkbegin}}click here.{{linkend}}"
+					"body":"Le système vous amène à poursuivre votre processus d'enregistrement dans quelques instants. Si vous n'êtes pas redirigé automatiquement, s'il vous plaît {{linkbegin}}cliquez ici.{{linkend}}"
 				},
 				"error":{
 					"title":"Votre compte n'a pas pu être activé.",
-					"body":"Please use the registration form to sign up. If you are still encountering difficulties please contact support."
+					"body":"S'il vous plaît utiliser le formulaire d'inscription pour vous inscrire . Si vous rencontrez toujours des difficultés s'il vous plaît contacter le support."
 				}
 			}
 		},
@@ -869,21 +870,19 @@
 			"admin":{
 				"title":"Admin Editable",
 				"other":{
-					"name":"Other",
-					"placeholder":"Other",
-					"required":"Other field is required."
+					"name":"Autre",
+					"placeholder":"Autre",
+					"required":"Champ 'Autre' est obligatoire."
 				},
 				"subtype":{
-					"name":"Subtype",
-					"required":"Subtype field is required."
+					"name":"Sous-Type",
+					"required":"Champ 'Sous-Type' est obligatoire."
 				},
 				"usageType":{
 					"name":"Type",
-					"required":"Usage type field is required."
+					"required":"Champ 'Type' est obligatoire."
 				},
-				"agreementType":{
-					"name":"Agreement Type"
-				},
+				"agreementType":"Type d'Accord",
 				"accountStanding":"Statut du Compte"
 			},
 			"contact":{
