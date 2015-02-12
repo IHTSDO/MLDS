@@ -15,7 +15,7 @@
           <textarea class="form-control" rows="3" placeholder="Enter Release Description" name="description" ng-model="releasePackage.description" ng-required="true"></textarea>
           <span ng-show="formPackage.description.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
-      <div class="form-group" ng-show="Session.isAdmin">
+      <div class="form-group" ng-show="$root.Session.isAdmin()">
           <label>Member</label>
           <select class="form-control" name="member" 
           	ng-model="releasePackage.member" ng-options="m as (m.key | enum:'global.member.') for m in members track by m.key">

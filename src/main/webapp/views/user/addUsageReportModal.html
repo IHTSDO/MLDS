@@ -1,30 +1,29 @@
 <div class="modal-header">
-   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-  <h3 class="modal-title">Create Usage Declaration</h3>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+	<h3 class="modal-title" translate="views.usage.modal.title">Create Usage Declaration</h3>
 </div>
 <div class="modal-body">
-  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-  
-  <p>Please complete your usage declaration for all time periods. Please include reports for past and current use.</p>
-  
-  <form name="addRange" bs-validation>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-md-6">
-          <label>Declaration Period</label>
-          <select ng-model="selectedRange" ngRequired  ng-options="range.description for range in ranges"></select> 
-        </div>
-      </div>
-    </div>
-   </form>
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	
+	<p translate="views.usage.modal.instructions">Please complete your usage declaration for all time periods. Please include reports for past and current use.</p>
+	
+	<form name="addRange" bs-validation>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-md-6">
+					<label translate="views.usage.modal.period">Declaration Period</label>
+					<select ng-model="selectedRange" ngRequired	ng-options="range.description for range in ranges"></select> 
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
-	
-	<button class="btn btn-success" ng-show="addRange.$invalid" ng-click="addRange.submitAttempted = true"><i class="fa fa-plus"></i> Add</button>
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting" translate="global.word.cancel">Cancel</button>
+	<button class="btn btn-success" ng-show="addRange.$invalid" ng-click="addRange.submitAttempted = true"><i class="fa fa-plus"></i> <span translate="global.word.add">Add</span></button>
 	<button class="btn btn-success" ng-click="add(selectedRange)" ng-show="!addRange.$invalid" ng-disabled="submitting">
 		<i class="fa fa-plus"></i>
-		Add
+		<span translate="global.word.add">Add</span>
 		<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
 	</button>
 </div>

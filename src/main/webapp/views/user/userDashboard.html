@@ -1,142 +1,141 @@
-  <div class="row" ng-hide="usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED' || loading">
-    <div class="col-sm-12">
-      <div class="alert alert-danger space" role="alert">
-        <div><strong>Usage Declaration Required</strong></div>
-        <p>Your preliminary usage declaration has been saved. However, please be advised that you will need to submit your final usage declaration for the current year by January 15th. Please note all previous years usage reports must be submitted in order to download SNOMED CT.</p>
-      </div>
-    </div>
-  </div>
+<div class="row" ng-hide="usageReportsUtils.anySubmittedUsageReports(affiliate) || affiliate.application.approvalState === 'REJECTED' || loading">
+	<div class="col-sm-12">
+		<div class="alert alert-danger space" role="alert">
+			<div><strong translate="views.userDashboard.warning.required.title">Usage Declaration Required</strong></div>
+			<p translate="views.userDashboard.warning.required.msg">Your preliminary usage declaration has been saved. However, please be advised that you will need to submit your final usage declaration for the current year by January 15th. Please note all previous years usage reports must be submitted in order to download SNOMED CT.</p>
+		</div>
+	</div>
+</div>
 
-  <div class="row space" ng-show="affiliate.application.approvalState === 'CHANGE_REQUESTED' && !loading">
-    <div class="col-sm-12">
-      <div class="alert alert-warning" role="alert">
-        <div><strong>Affiliate Registration Requires Change</strong></div>
-        <p>Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
-      </div>
-    </div>
-  </div>
+<div class="row space" ng-show="affiliate.application.approvalState === 'CHANGE_REQUESTED' && !loading">
+	<div class="col-sm-12">
+		<div class="alert alert-warning" role="alert">
+			<div><strong translate="views.userDashboard.warning.required.change">Affiliate Registration Requires Change</strong></div>
+			<p translate="views.userDashboard.warning.required.msg">Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.</p>
+		</div>
+	</div>
+</div>
 
-  <div class="row" ng-show="standingStateUtils.isRejected(affiliate.standingState) && !loading">
-    <div class="col-sm-12">
-      <div class="alert alert-danger" role="alert">
-        <div><strong>Affiliate Registration Declined</strong></div>
-        <p>Your affiliate registration has been declined. Please see email regarding the details of the decision.</p>
-      </div>
-    </div>
-  </div>
+<div class="row" ng-show="standingStateUtils.isRejected(affiliate.standingState) && !loading">
+	<div class="col-sm-12">
+		<div class="alert alert-danger" role="alert">
+			<div><strong translate="views.userDashboard.warning.declined.title">Affiliate Registration Declined</strong></div>
+			<p translate="views.userDashboard.warning.declined.msg">Your affiliate registration has been declined. Please see email regarding the details of the decision.</p>
+		</div>
+	</div>
+</div>
 
-  <div class="row" ng-show="standingStateUtils.isDeactivated(affiliate.standingState) && !loading">
-    <div class="col-sm-12">
-      <div class="alert alert-danger space" role="alert">
-        <div><strong>Account Deactivated</strong></div>
-        <p>Your account has been Deactivated. Release package downloads and Extension applications have been suspended. Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
-      </div>
-    </div>
-  </div>
+<div class="row" ng-show="standingStateUtils.isDeactivated(affiliate.standingState) && !loading">
+	<div class="col-sm-12">
+		<div class="alert alert-danger space" role="alert">
+			<div><strong translate="views.userDashboard.warning.deactivated.title">Account Deactivated</strong></div>
+			<p translate="views.userDashboard.warning.deactivated.msg">Your account has been Deactivated. Release package downloads and Extension applications have been suspended. Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
+		</div>
+	</div>
+</div>
 
-  <div class="row" ng-show="standingStateUtils.isPendingInvoice(affiliate.standingState) && !loading">
-    <div class="col-sm-12">
-      <div class="alert alert-danger space" role="alert">
-        <div><strong>Account Pending Invoice</strong></div>
-        <p>Your account has a pending invoice. Release package downloads have been suspended. Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
-      </div>
-    </div>
-  </div>
+<div class="row" ng-show="standingStateUtils.isPendingInvoice(affiliate.standingState) && !loading">
+	<div class="col-sm-12">
+		<div class="alert alert-danger space" role="alert">
+			<div><strong translate="views.userDashboard.warning.iPending.title">Account Pending Invoice</strong></div>
+			<p translate="views.userDashboard.warning.iPending.msg">Your account has a pending invoice. Release package downloads have been suspended. Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
+		</div>
+	</div>
+</div>
 
-  <div class="row" ng-show="standingStateUtils.isDeactivationPending(affiliate.standingState) && !loading">
-    <div class="col-sm-12">
-      <div class="alert alert-danger space" role="alert">
-        <div><strong>Account Deactivation Pending</strong></div>
-        <p>Your account is scheduled to be Deactivated.  Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-     <div class="page-header">
-      <h1>Welcome {{firstName}} {{lastName}}</h1> 
-    </div>
-  </div>
+<div class="row" ng-show="standingStateUtils.isDeactivationPending(affiliate.standingState) && !loading">
+	<div class="col-sm-12">
+		<div class="alert alert-danger space" role="alert">
+			<div><strong translate="views.userDashboard.warning.dPending.title">Account Deactivation Pending</strong></div>
+			<p translate="views.userDashboard.warning.dPending.msg">Your account is scheduled to be Deactivated.	Please contact <a href="mailto:mlds@ihtsdo.org">mlds@ihtsdo.org</a>. to resolve the issue.</p>
+		</div>
+	</div>
 </div>
 
 <div class="row">
-  <div class="col-lg-4"
-  	ng-controller="UsageReportsTableController" ng-include="'views/usageReportsTable.html'" ng-init="setShowAllColumns(false); setShowViewAll(true)">
-  </div>
-  <div class="col-lg-4">
+	<div class="col-sm-12">
+		<div class="page-header">
+			<h1><span translate="global.word.welcome">Welcome</span> {{firstName}} {{lastName}}</h1> 
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-4"
+		ng-controller="UsageReportsTableController" ng-include="'views/usageReportsTable.html'" ng-init="setShowAllColumns(false); setShowViewAll(true)">
+	</div>
+	<div class="col-lg-4">
 
 <div class="panel panel-default dashboard">
-  <div class="panel-heading">
-    <h3 class="panel-title">Applications</h3>
-  </div>
-  <div class="table-responsive user-dashboard-item">
-    <table class="table table-striped">
-      <thead> 
-        <tr>
-          <th>Type</th>
-          <th>Date</th>
-          <th>Status</th>
-          <th>View</th>
-        </tr>
-      </thead>
-      <tbody> 
-        <tr ng-repeat="application in affiliate.applications | orderBy: [orderByApprovalState, orderByApplicationType]">
-          <td>
-          	{{application.applicationType | enum:'application.applicationType.'}}
-          	<span ng-if="application.applicationType === 'EXTENSION'">({{application.member.key | enum:'global.member.'}})</span>
-       	  </td>
-          <td>{{(application.completedAt || application.submittedAt) | date:'yyyy-MM-dd' }}</td>
-          <td ng-class="{'text-warning':isApplicationPending(application), 'text-danger':isApplicationWaitingForApplicant(application)}">
-         		<strong>{{application.approvalState | enum:'approval.state.'}}</strong>
-          </td>
-          <td>
-          	<span ng-if="application.applicationType === 'EXTENSION'">
-          		<a ng-if="isApplicationWaitingForApplicant(application)" href="#/extensionApplication/{{application.applicationId}}" class="btn btn-warning btn-sm">
-          			<i class="fa fa-edit"></i> Edit
-          		</a>
-          		<a ng-if="!isApplicationWaitingForApplicant(application)"ng-click="viewApplication(application)" class="btn btn-primary btn-sm">
-          			<i class="fa fa-eye"></i> View
-          		</a>
-          	</span>
-						<a class="btn btn-primary btn-sm"
-							ng-click="viewApplication(application)" ng-if="application.applicationType === 'PRIMARY'">
-								<i class="fa fa-eye"></i> View
-						</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+	<div class="panel-heading">
+	<h3 class="panel-title" translate="global.menu.applications">Applications</h3>
+	</div>
+	<div class="table-responsive user-dashboard-item">
+	<table class="table table-striped">
+		<thead> 
+		<tr>
+			<th translate="global.word.type">Type</th>
+			<th translate="global.word.date">Date</th>
+			<th translate="global.word.status">Status</th>
+			<th translate="global.word.view">View</th>
+		</tr>
+		</thead>
+		<tbody> 
+		<tr ng-repeat="application in affiliate.applications | orderBy: [orderByApprovalState, orderByApplicationType]">
+			<td>
+				{{application.applicationType | enum:'application.applicationType.'}}
+				<span ng-if="application.applicationType === 'EXTENSION'">({{application.member.key | enum:'global.member.'}})</span>
+				</td>
+			<td>{{(application.completedAt || application.submittedAt) | date:'yyyy-MM-dd' }}</td>
+			<td ng-class="{'text-warning':isApplicationPending(application), 'text-danger':isApplicationWaitingForApplicant(application)}">
+				<strong>{{application.approvalState | enum:'approval.state.'}}</strong>
+			</td>
+			<td>
+				<span ng-if="application.applicationType === 'EXTENSION'">
+					<a ng-if="isApplicationWaitingForApplicant(application)" href="#/extensionApplication/{{application.applicationId}}" class="btn btn-warning btn-sm">
+						<i class="fa fa-edit"></i> <span translate="global.word.edit">Edit</span>
+					</a>
+					<a ng-if="!isApplicationWaitingForApplicant(application)"ng-click="viewApplication(application)" class="btn btn-primary btn-sm">
+						<i class="fa fa-eye"></i> <span translate="global.word.edit">View</span>
+					</a>
+				</span>
+				<a class="btn btn-primary btn-sm" ng-click="viewApplication(application)" ng-if="application.applicationType === 'PRIMARY'">
+					<i class="fa fa-eye"></i> <span translate="global.word.edit">View</span>
+				</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
 </div>
 </div>
-  <div class="col-lg-4">
-    <div class="panel panel-default dashboard">
-  <div class="panel-heading">
-    <h3 class="panel-title">Account Information</h3>
-       <a ng-show="isApplicationWaitingForApplicant(affiliate.application)" class="btn btn-default" href="#/affiliateRegistration">Edit Affiliate Application</a>
-  </div>
-  <div class="panel-body">
+	<div class="col-lg-4">
+	<div class="panel panel-default dashboard">
+	<div class="panel-heading">
+	<h3 class="panel-title" translate="views.contactInfo.title">Account Information</h3>
+		<a ng-show="isApplicationWaitingForApplicant(affiliate.application)" class="btn btn-default" href="#/affiliateRegistration" translate="views.userDashboard.edit">Edit Affiliate Application</a>
+	</div>
+	<div class="panel-body">
 	<ul class="list-group" >
-		<li class="list-group-item"><strong>Affiliate No:</strong> {{affiliate.affiliateId}}</li>
+		<li class="list-group-item"><strong translate="views.userDashboard.affiliateNo.label">Affiliate No:</strong> {{affiliate.affiliateId}}</li>
 		<li class="list-group-item" ng-show="standingStateUtils.wasApproved(affiliate.standingState)">
-			<strong>Type:</strong> {{affiliate.affiliateDetails.type | enum:'affiliate.type.'}}
+			<strong translate="views.contactInfo.admin.usageType.name.label">Type:</strong> {{affiliate.affiliateDetails.type | enum:'affiliate.type.'}}
 		</li>
 		<li class="list-group-item" ng-show="standingStateUtils.wasApproved(affiliate.standingState)">
-			<strong>Subtype:</strong> {{affiliate.affiliateDetails.subType | enum:'affiliate.subType.'}}
+			<strong translate="views.contactInfo.admin.subtype.name.label">Subtype:</strong> {{affiliate.affiliateDetails.subType | enum:'affiliate.subType.'}}
 			<span ng-show="affiliate.affiliateDetails.type == 'OTHER'">{{affiliate.affiliateDetails.otherText}}</span>
 		</li>
 		<li class="list-group-item" ng-show="standingStateUtils.wasApproved(affiliate.standingState)">
-			<strong>Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType |  enum:'affiliate.agreementType.'}}
+			<strong translate="views.contactInfo.admin.agreementType.label">Agreement Type:</strong> {{affiliate.affiliateDetails.agreementType |	enum:'affiliate.agreementType.'}}
 		</li>
 	</ul>
-    <span class="alert alert-success btn-block" ng-show="standingStateUtils.isSuccessCategory(affiliate.standingState)">
-      <strong>Account Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</span>
-    <span class="alert alert-warning btn-block" ng-show="standingStateUtils.isWarningCategory(affiliate.standingState)">
-      <strong>Account Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</span>
-    <span class="alert alert-danger btn-block" ng-show="standingStateUtils.isDangerCategory(affiliate.standingState)">
-      <strong>Account Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</span>
-  </div>
+	<span class="alert alert-success btn-block" ng-show="standingStateUtils.isSuccessCategory(affiliate.standingState)">
+		<strong translate="views.contactInfo.admin.accountStanding.label">Account Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</span>
+	<span class="alert alert-warning btn-block" ng-show="standingStateUtils.isWarningCategory(affiliate.standingState)">
+		<strong translate="views.contactInfo.admin.accountStanding.label">Account Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</span>
+	<span class="alert alert-danger btn-block" ng-show="standingStateUtils.isDangerCategory(affiliate.standingState)">
+		<strong translate="views.contactInfo.admin.accountStanding.label">Account Standing:</strong> {{affiliate.standingState | enum:'affiliate.standingState.'}}</span>
+	</div>
 </div>
 
 </div>
@@ -145,27 +144,30 @@
 
 
 <div class="row">
-  <div class="col-lg-12">
-	  <div class="page-header">
-	    <h1>
-	     My Release Packages <a href="#/viewReleases"class="btn btn-link">View All <i class="fa fa-angle-double-right"></i></a>
-	   </h1> 
-	 </div>
+	<div class="col-lg-12">
+		<div class="page-header">
+			<h1>
+				<span translate="views.userDashboard.myPackages">My Release Packages </span>
+				<a href="#/viewReleases"class="btn btn-link">
+					<span translate="global.word.viewAll">View All</span> 
+					<i class="fa fa-angle-double-right"></i>
+				</a>
+			</h1> 
+		</div>
 	</div>
 </div>
 
 <div class="row" >
 	<div class="col-lg-4" ng-repeat="memberReleases in approvedReleasePackagesByMember | orderBy: releasePackageOrderBy">
 		<div class="panel panel-default">
-		  <div class="panel-heading">
-			<h3 class="panel-title"> {{memberReleases.member.key | enum:'global.member.'}}</h3>
-		</div>
+			<div class="panel-heading">
+				<h3 class="panel-title"> {{memberReleases.member.key | enum:'global.member.'}}</h3>
+			</div>
 			<table class="table table-striped">
-				<tr
-					ng-repeat="releasePackage in memberReleases.packages | orderBy:packageUtils.getLatestPublishedDate:true | filter: packageUtils.isPackagePublished">
-					<td class="break-text"><a
-						href="#/viewReleases/viewRelease/{{releasePackage.releasePackageId}}">{{releasePackage.name}}
-					</a></td>
+				<tr ng-repeat="releasePackage in memberReleases.packages | orderBy:packageUtils.getLatestPublishedDate:true | filter: packageUtils.isPackagePublished">
+					<td class="break-text">
+						<a href="#/viewReleases/viewRelease/{{releasePackage.releasePackageId}}">{{releasePackage.name}}</a>
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -173,9 +175,9 @@
 </div>
 
 <div class="row" ng-show="notApprovedReleasePackagesByMember" ng-show="notApprovedReleasePackagesByMember">
-	 <div class="col-lg-12">
-	 	<h3>Other Available Releases</h3>
-	 </div>
+	<div class="col-lg-12">
+		<h3 translate="views.userDashboard.otherPackages">>Other Available Releases</h3>
+	</div>
 	<div ng-repeat="memberReleases in notApprovedReleasePackagesByMember | orderBy: releasePackageOrderBy">
 		<a ng-href="#/viewReleases#{{'section-'+memberReleases.packages[0].member.key}}"class="btn btn-link">{{memberReleases.packages[0].member.key | enum:'global.member.'}}</a>
 	</div>

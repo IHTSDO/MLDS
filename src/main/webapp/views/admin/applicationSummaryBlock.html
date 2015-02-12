@@ -1,131 +1,130 @@
 <div ng-switch="application.applicationType">
 	<div class="panel panel-default" ng-switch-when="EXTENSION">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">{{application.member.key | enum:'global.member.'}} Extension Application Info</h3>
-	  </div>
-	  <div class="panel-body">
-		  <p><strong>Reason:</strong> {{application.reason}}</p>
+		<div class="panel-heading">
+			<h3 class="panel-title">{{application.member.key | enum:'global.member.'}} <span translate="views.applicationSummary.ext.title">Extension Application Info</span></h3>
+		</div>
+		<div class="panel-body">
+			<p><strong translate="views.applicationSummary.reason.label">Reason:</strong> {{application.reason}}</p>
 		</div>
 	</div>
 	
 	<div class="panel panel-default">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">Affiliate Info</h3>
-	  </div>
-	  <div class="panel-body">
-	      <p ng-show="application.type!='INDIVIDUAL'"><strong>Organization Type:</strong>
-		    <span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{application.affiliateDetails.organizationTypeOther}}</span>
-		    <span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{application.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
-		  </p>
-		  <p ng-switch-when="PRIMARY"><strong>Use Type:</strong> {{application.type | enum:'affiliate.type.'}}</p>
-		  <p ng-switch-when="EXTENSION"><strong>Use Type:</strong> {{application.affiliateDetails.type | enum:'affiliate.type.'}}</p>
-		  <p ng-switch-when="PRIMARY"><strong>Use Subtype:</strong> {{application.subType | enum:'affiliate.subType.'}}</p>
-		  <p ng-switch-when="PRIMARY"><strong>Type of Agreement:</strong> {{application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</p>
-		  <p ng-show="standingState"><strong>Account Standing:</strong> {{standingState | enum:'affiliate.standingState.'}}</p>
-		</div>
+		<div class="panel-heading">
+			<h3 class="panel-title" translate="pendingApplications.table.applicationType">Application Type</h3>
+			</div>
+			<div class="panel-body">
+				<p ng-show="application.type!='INDIVIDUAL'"><strong translate="views.contactInfo.organization.type.name.label">Organization Type:</strong>
+					<span ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">{{application.affiliateDetails.organizationTypeOther}}</span>
+					<span ng-show="affiliateform.affiliateDetails.organizationType!='OTHER'">{{application.affiliateDetails.organizationType | enum:'affiliate.organizationType.'}}</span> 
+				</p>
+				<p ng-switch-when="PRIMARY"><strong translate="views.applicationSummary.useType.label">Use Type:</strong> {{application.type | enum:'affiliate.type.'}}</p>
+				<p ng-switch-when="EXTENSION"><strong translate="views.applicationSummary.useType.label">Use Type:</strong> {{application.affiliateDetails.type | enum:'affiliate.type.'}}</p>
+				<p ng-switch-when="PRIMARY"><strong translate="views.applicationSummary.useSubType.label">Use Subtype:</strong> {{application.subType | enum:'affiliate.subType.'}}</p>
+				<p ng-switch-when="PRIMARY"><strong translate="register.affiliateRegistration.typeOfAgreement.label">Type of Agreement:</strong> {{application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</p>
+				<p ng-show="standingState"><strong translate="views.contactInfo.admin.accountStanding.label">Account Standing:</strong> {{standingState | enum:'affiliate.standingState.'}}</p>
+			</div>
 	</div>
 	
 	<div class="panel panel-default" ng-show="application.type!='INDIVIDUAL'">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">Affiliate Information</h3>
-	  </div>
-	  <div class="panel-body application-review">
-	    <p><strong>Organization Name:</strong> {{application.affiliateDetails.organizationName}}</p>
-	    <p><strong>Address:</strong> {{application.affiliateDetails.address.street}}</p>
-	    <p><strong>City:</strong> {{application.affiliateDetails.address.city}}</p>
-	    <p><strong>Post Code:</strong> {{application.affiliateDetails.address.post}}</p>
-	    <p><strong>Country:</strong> {{application.affiliateDetails.address.country.commonName}}</p>
-	    <p><strong>Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.contactextension">ext: {{application.affiliateDetails.landlineExtension}}</span></p>
-	    <p><strong>Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
-	    <p ng-show="application.affiliateDetails.thirdEmail"><strong>Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
-	    <p ng-show="application.type=='OTHER'"><strong>Other:</strong>{{application.otherText}}</p>
-	  </div>
+		<div class="panel-heading">
+			<h3 class="panel-title" translate="views.contactInfo.organization.title">Organization</h3>
+			</div>
+			<div class="panel-body application-review">
+			<p><strong translate="views.contactInfo.organization.name.label">Organization Name:</strong> {{application.affiliateDetails.organizationName}}</p>
+			<p><strong translate="views.contactInfo.contact.address.name.label">Address:</strong> {{application.affiliateDetails.address.street}}</p>
+			<p><strong translate="views.contactInfo.contact.city.name.label">City:</strong> {{application.affiliateDetails.address.city}}</p>
+			<p><strong translate="views.contactInfo.contact.postcode.name.label">Post Code:</strong> {{application.affiliateDetails.address.post}}</p>
+			<p><strong translate="views.contactInfo.contact.country.name.label">Country:</strong> {{application.affiliateDetails.address.country.commonName}}</p>
+			<p><strong translate="views.contactInfo.contact.landline.short">Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.contactextension">ext: {{application.affiliateDetails.landlineExtension}}</span></p>
+			<p><strong translate="views.contactInfo.contact.alternativeEmail.name.label">Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
+			<p ng-show="application.affiliateDetails.thirdEmail"><strong translate="views.contactInfo.contact.thirdEmail.label">Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
+			<p ng-show="application.type=='OTHER'"><strong translate="views.contactInfo.admin.other.name.label">Other:</strong>{{application.otherText}}</p>
+		</div>
 	</div>
 	
 	<div class="panel panel-default">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">Affiliate User Information</h3>
-	  </div>
-	  <div class="panel-body application-review">
-	    <p><strong>Name:</strong> {{application.affiliateDetails.firstName}} {{application.affiliateDetails.lastName}}</p>
-	    <p><strong>Email:</strong> {{application.affiliateDetails.email}}</p>
-	    <p ng-show="application.type=='INDIVIDUAL'"><strong>Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
-	    <p ng-show="application.type=='INDIVIDUAL' && application.affiliateDetails.thirdEmail"><strong>Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
-	    <p><strong>Landline Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} <span ng-show="affiliateform.extension">ext: {{affiliateform.affiliateDetails.landlineExtension}}</span></p>
-	    <p><strong>Mobile Phone Number:</strong> {{application.affiliateDetails.mobileNumber}}</p>
-	  </div>
+		<div class="panel-heading">
+			<h3 class="panel-title" translate="global.word.user">User</h3>
+		</div>
+		<div class="panel-body application-review">
+			<p><strong translate="views.contactInfo.contact.fullName.label">Name:</strong> {{application.affiliateDetails.firstName}} {{application.affiliateDetails.lastName}}</p>
+			<p><strong translate="views.contactInfo.contact.email.name.label">Email:</strong> {{application.affiliateDetails.email}}</p>
+			<p ng-show="application.type=='INDIVIDUAL'"><strong translate="views.contactInfo.contact.alternateEmail.label">Alternate Email:</strong> {{application.affiliateDetails.alternateEmail}}</p>
+			<p ng-show="application.type=='INDIVIDUAL' && application.affiliateDetails.thirdEmail"><strong translate="views.contactInfo.contact.thirdEmail.label">Third Email:</strong> {{application.affiliateDetails.thirdEmail}}</p>
+			<p>
+				<strong translate="views.contactInfo.contact.landline.name.label">Landline Phone Number:</strong> {{application.affiliateDetails.landlineNumber}} 
+				<span ng-show="affiliateform.extension"><span translate="views.contactInfo.contact.landlineExtension.short">ext:</span> {{affiliateform.affiliateDetails.landlineExtension}}</span>
+			</p>
+			<p><strong translate="views.contactInfo.contact.mobile.name.label">Mobile Phone Number:</strong> {{application.affiliateDetails.mobileNumber}}</p>
+		</div>
 	</div>
 	
-	<div class="panel panel-default"  ng-show="application.type=='INDIVIDUAL'">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">Affiliate Address</h3>
-	  </div>
-	  <div class="panel-body application-review">
-	    <p><strong>Address:</strong> {{application.affiliateDetails.address.street}}</p>
-	    <p><strong>City:</strong> {{application.affiliateDetails.address.city}}</p>
-	    <p><strong>Post Code:</strong> {{application.affiliateDetails.address.post}}</p>
-	    <p><strong>Country:</strong> {{application.affiliateDetails.address.country.commonName}}</p>
-	  </div>
+	<div class="panel panel-default" ng-show="application.type=='INDIVIDUAL'">
+		<div class="panel-heading">
+			<h3 class="panel-title" translate="views.contactInfo.contact.address.title">Address</h3>
+		</div>
+		<div class="panel-body application-review">
+			<p><strong translate="views.contactInfo.contact.address.name.label">Address:</strong> {{application.affiliateDetails.address.street}}</p>
+			<p><strong translate="views.contactInfo.contact.city.name.label">City:</strong> {{application.affiliateDetails.address.city}}</p>
+			<p><strong translate="views.contactInfo.contact.postcode.name.label">Post Code:</strong> {{application.affiliateDetails.address.post}}</p>
+			<p><strong translate="views.contactInfo.contact.country.name.label">Country:</strong> {{application.affiliateDetails.address.country.commonName}}</p>
+		</div>
 	</div>
 	
 	<div class="panel panel-default">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">Affiliate Billing Information</h3>
-	  </div>
-	  <div class="panel-body application-review">
-	   <p><strong>Address:</strong> {{application.affiliateDetails.billingAddress.street}}</p>
-	   <p><strong>City:</strong> {{application.affiliateDetails.billingAddress.city}}</p>
-	   <p><strong>Post Code:</strong> {{application.affiliateDetails.billingAddress.post}}</p>
-	   <p><strong>Country:</strong> {{application.affiliateDetails.billingAddress.country.commonName}}</p>
-	 </div>
+		<div class="panel-heading">
+			<h3 class="panel-title" translate="views.applicationSummary.billingInfo">Billing Information</h3>
+		</div>
+			<div class="panel-body application-review">
+			<p><strong translate="views.contactInfo.contact.address.name.label">Address:</strong> {{application.affiliateDetails.billingAddress.street}}</p>
+			<p><strong translate="views.contactInfo.contact.city.name.label">City:</strong> {{application.affiliateDetails.billingAddress.city}}</p>
+			<p><strong translate="views.contactInfo.contact.postcode.name.label">Post Code:</strong> {{application.affiliateDetails.billingAddress.post}}</p>
+			<p><strong translate="views.contactInfo.contact.country.name.label">Country:</strong> {{application.affiliateDetails.billingAddress.country.commonName}}</p>
+		</div>
 	</div>
 	
 	<div class="panel panel-default" ng-switch-when="PRIMARY">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">Usage Context Information</h3>
-	  </div>
-	  <div class="panel-body application-review">
-	    <div>
-	      <strong>License Usage:</strong>
-	      <p class="list-group-item-text">{{application.commercialUsage.context.currentUsage}}</p>
-	    </div>
-	    <div>
-	      <strong>Planned Future Use:</strong> 
-	      <p>{{application.commercialUsage.context.plannedUsage}}</p>
-	    </div>
-	    <div>
-	      <strong>Purpose:</strong> 
-	      <p>{{application.commercialUsage.context.purpose}}</p>
-	    </div>
-	    <div>
-	      <p><strong>Implementation Status:</strong>
-	     	{{application.commercialUsage.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</p>
-	    </div>
-      <div ng-repeat="countryRecord in usageCountryCountslist">
-      	<strong>Sub-license Usage:</strong>
-       <p><strong>Country:</strong> {{countryRecord.country.commonName}} </p>
-       <p><strong>Practices:</strong> {{countryRecord.snomedPractices | number}} </p>
-       <p ng-show="commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2].length > 0">
-       	<strong>Hospitals/Institutions:</strong>
-         <span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
-          {{entry.name}}<span ng-show="!$last">,</span>
-        </span>
-       </p>
-      </div>	    
-     	<div ng-show="application.commercialUsage.context.otherActivities">
-     		<strong>Other Activities:</strong>
-     		<p>{{application.commercialUsage.context.otherActivities}}</p>
-   		</div>
-	  </div>
+		<div class="panel-heading">
+			<h3 class="panel-title" translate="views.applicationSummary.context">Usage Context Information</h3>
+		</div>
+		<div class="panel-body application-review">
+			<div>
+				<p><strong translate="views.usageLog.currentUsage.label">Current Usage:</strong> {{application.commercialUsage.context.currentUsage}}</p>
+			</div>
+			<div>
+				<p><strong translate="views.usageLog.plannedUsage.label">Planned Usage:</strong> {{application.commercialUsage.context.plannedUsage}}</p>
+			</div>
+			<div>
+				<p><strong translate="views.usageLog.purpose.label">Purpose:</strong> {{application.commercialUsage.context.purpose}}</p>
+			</div>
+			<div>
+				<p><strong translate="views.usageLog.impStatus.label">Implementation Status:</strong>
+				{{application.commercialUsage.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</p>
+			</div>
+			<div ng-repeat="countryRecord in usageCountryCountslist">
+				<strong translate="views.applicationSummary.subLicence.label">Sub-license Usage:</strong>
+			<p><strong translate="views.contactInfo.contact.country.name.label">Country:</strong> {{'global.country.' + countryRecord.country.isoCode2 | translate}} </p>
+			<p><strong translate="views.usageLog.institutions.practices.label">Practices:</strong> {{countryRecord.snomedPractices | number}} </p>
+			<p ng-show="commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2].length > 0">
+				<strong translate="views.usageLog.institutions.hospAndInst.label">Hospitals/Institutions:</strong>
+				<span ng-repeat="entry in commercialUsageInstitutionsByCountry[countryRecord.country.isoCode2]">
+				{{entry.name}}<span ng-show="!$last">,</span>
+				</span>
+			</p>
+		</div>		
+		<div ng-show="application.commercialUsage.context.otherActivities">
+			<strong translate="views.usageLog.otherActivities.label">Other Activities:</strong>
+			<p>{{application.commercialUsage.context.otherActivities}}</p>
+			</div>
+		</div>
 	</div>
 	
 	<div class="panel panel-default" ng-show="audits && audits.length > 0">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">Application Activity</h3>
-	  </div>
-	  <div class="panel-body application-review">
-		<div class="application-audit" ng-include="'views/auditsEmbed.html'"></div>
-	  </div>
+		<div class="panel-heading">
+			<h3 class="panel-title" translate="views.applicationSummary.applicationActivity">Application Activity</h3>
+		</div>
+		<div class="panel-body application-review">
+			<div class="application-audit" ng-include="'views/auditsEmbed.html'"></div>
+		</div>
 	</div>
-	
 </div>

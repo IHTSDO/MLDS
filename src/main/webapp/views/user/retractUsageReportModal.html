@@ -1,19 +1,19 @@
 <div class="modal-header">
-   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-  <h3 class="modal-title">Retract Usage Declaration</h3>
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+	<h3 class="modal-title" translate="views.usage.retract.title">Retract Usage Declaration</h3>
 </div>
 <div class="modal-body">
-  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-  
-  <p>Retract Instructions - Are you sure you want to re-tract this report? You will return to the same usage report to edit and re-submit. For a new time period you must submit a new declaration report.</p>
-  
-  <p><strong>Declaration for {{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}}</strong></p>
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	
+	<p translate="views.usage.retract.instructions">Are you sure you want to re-tract this report? You will return to the same usage report to edit and re-submit. For a new time period you must submit a new declaration report.</p>
+	
+	<p><strong><span translate="views.usage.submit.declarationForPeriod">Declaration for Period</span> {{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}}</strong></p>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting" translate="global.word.cancel">Cancel</button>
 	
 	<button class="btn btn-danger" ng-click="retract()"ng-disabled="submitting">
-		Retract Declaration
+		<span translate="views.usage.retract.button">Retract Declaration</span>
 		<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
 	</button>
 </div>

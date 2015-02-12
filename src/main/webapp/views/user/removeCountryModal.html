@@ -1,26 +1,26 @@
 <div class="modal-header">
-   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-  <h3 class="modal-title">Remove Country</h3>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+	<h3 class="modal-title" translate="views.usageLog.institutions.removeCountry">Remove Country</h3>
 </div>
 <div class="modal-body">
-  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-  
-  <p>Are you sure you want to remove <strong>{{count.country.commonName}}</strong> and its associated entries?</p>
-  
-  <dl class="dl-horizontal">
-  	<dt>Country</dt>
-  	<dd>{{count.country.commonName}}</dd>
-  	<dt>Hospitals/Institutions</dt>
-  	<dd>{{hospitalsCount | number}}</dd>
-  	<dt>Practices</dt>
-  	<dd>{{practicesCount | number}}</dd>
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	
+	<p><span translate="views.usageLog.institutions.modal.sure">Are you sure you want to remove</span> <strong>{{'global.country.' + count.country.isoCode2 | translate}}</strong> <span translate="views.usageLog.institutions.modal.andEntries"></span >and its associated entries?</p>
+	
+	<dl class="dl-horizontal">
+		<dt translate="views.usageLog.institutions.country">Country</dt>
+		<dd>{{count.country.commonName}}</dd>
+		<dt translate="views.usageLog.institutions.hospAndInst.plural">Hospitals/Institutions</dt>
+		<dd>{{hospitalsCount | number}}</dd>
+		<dt translate="views.usageLog.institutions.practices">Practices</dt>
+		<dd>{{practicesCount | number}}</dd>
 	</dl>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting" translate="global.word.cancel">Cancel</button>
 	
 	<button class="btn btn-danger" ng-click="submit()"ng-disabled="submitting">
-		Remove
+		<span translate="global.word.delete">Remove</span>
 		<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
 	</button>
 </div>
