@@ -20,8 +20,8 @@ public class AuthorizationChecker {
 	protected boolean isStaffOrAdmin() {
 		return currentSecurityContext.isStaffOrAdmin();
 	}
-	
-	protected boolean isAdmin() {
+
+	public boolean isAdmin() {
 		return currentSecurityContext.isAdmin();
 	}
 	

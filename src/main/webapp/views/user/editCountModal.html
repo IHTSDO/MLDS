@@ -1,38 +1,38 @@
 <div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-  <h3 class="modal-title">Edit Practices</h3>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+	<h3 class="modal-title"><span translate="global.word.edit">Edit</span> <span translate="views.usageLog.institutions.practices">Practices</span></h3>
 </div>
 <div class="modal-body">
 	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	  <h3>{{count.country.commonName}}</h3>
+		<h3>{{'global.country.' + count.country.isoCode2 | translate}}</h3>
 	
 	<form name="formCount" bs-validation novalidate>
-    <div class="row">
-      <div class="col-md-12">
-	      <div class="form-group">
-          <label>Please add the number of practices using SNOMED</label> 
-          <input type="number" min="0" class="form-control" name="snomedPractices" ng-model="count.snomedPractices" ng-required="true">
-          <span ng-show="formCount.snomedPractices.$error.required && submitAttempted" class="help-block">Required Field</span>
-          <span ng-show="formCount.snomedPractices.$error.number && submitAttempted" class="help-block">Not a valid number</span>
-        </div>
-      </div>
-    </div>
-    <hr>
-    <div class="row">
-    	<div class="col-md-12">
-    		<div class="form-group">
-    			<label>Notes</label>
-    			<textarea class="form-control" rows="3" ng-model="count.notes" ></textarea>
-    		</div>
-    	</div>
-    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+			<label translate="views.usageLog.institutions.modal.addPractices">Please add the number of practices using SNOMED</label> 
+			<input type="number" min="0" class="form-control" name="snomedPractices" ng-model="count.snomedPractices" ng-required="true">
+			<span ng-show="formCount.snomedPractices.$error.required && submitAttempted" class="help-block" translate="form.requiredField">Required Field</span>
+			<span ng-show="formCount.snomedPractices.$error.number && submitAttempted" class="help-block" translate="form.invalidNumber">Not a valid number</span>
+		</div>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label><span translate="global.word.note">Note</span></label>
+				<textarea class="form-control" rows="3" ng-model="count.notes" ></textarea>
+			</div>
+		</div>
+	</div>
 	</form>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Cancel</button>
-	<button class="btn btn-success" ng-show="formCount.$invalid" ng-click="submitAttempted = true">Update</button>
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting" translate="global.word.cancel">Cancel</button>
+	<button class="btn btn-success" ng-show="formCount.$invalid" ng-click="submitAttempted = true" translate="global.word.update">Update</button>
 	<button class="btn btn-success" ng-show="!formCount.$invalid" ng-click="updateCount()">
-		Update
+		<span translate="global.word.update">Update</span>
 		<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
 	</button>
 </div>

@@ -1,50 +1,43 @@
 <div class="modal-header">
-   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
-  <h3 class="modal-title">Submit Usage Declaration</h3>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+	<h3 class="modal-title" translate="views.usage.submit.title">Submit Usage Declaration</h3>
 </div>
 
 <div class="modal-body">
-  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-  
-  <p>Please complete your usage declaration for all time periods. Please include reports for past and current use.</p>
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	
+	<p translate="views.usage.submit.instructions">Please check and ensure your usage declaration show below is correct before submitting.</p>
 
-  			<h4>Declaration:</h4>
-  			<ul class="list-group">
-          <li class="list-group-item list-group-item-default"><strong>Usage:</strong></li>
-  				<li class="list-group-item"><strong>Period:</strong> {{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}}</li>
-  				<li class="list-group-item"><strong>License Type:</strong> {{commercialUsageReport.type | enum:'affiliate.type.'}}</li>
-  			</ul>
-
-  			
-  			<ul class="list-group" >
-           <li class="list-group-item list-group-item-"><strong>Usage:</strong></li>
-  				<li class="list-group-item"><strong>Current Usage:</strong> {{commercialUsageReport.context.currentUsage}}</li>
-  				<li class="list-group-item"><strong>Planned Usage:</strong> {{commercialUsageReport.context.plannedUsage}}</li>
-  				<li class="list-group-item"><strong>Purpose:</strong> {{commercialUsageReport.context.purpose}}</li>
-  				<li class="list-group-item"><strong>Implementation Status:</strong> {{commercialUsageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</li>
-  				<li class="list-group-item" ng-repeat="countryRecord in usageByCountryList">
-  					<strong>Country:</strong> {{countryRecord.country.commonName}}<br>
- 						<strong>Practices:</strong> {{countryRecord.count.snomedPractices | number}}
- 						<span ng-show="countryRecord.entries">
- 							<br>
-	 				  	<strong>Hospitals/Institutions:</strong>
-	  					<span ng-repeat="entry in countryRecord.entries">
-	  						{{entry.name}}<span ng-show="!$last">,</span>
-	 						</span>
- 						</span>
- 				</li>
-				<li class="list-group-item" ng-show="commercialUsageReport.context.otherActivities">
- 					<strong>Other Activities:</strong> {{commercialUsageReport.context.otherActivities}}
-				</li>
-			</ul>
-
+	<h4><span translate="views.usage.submit.title">Declaration for Period</span> {{commercialUsageReport.startDate | date : 'yyyy-MM'}} &#8211 {{commercialUsageReport.endDate | date : 'yyyy-MM'}} :</h4>
+	<ul class="list-group">
+		<li class="list-group-item list-group-item-default"><strong translate="views.usageLog.usage.label">Usage:</strong></li>
+		<li class="list-group-item"><strong translate="views.usageLog.licenseType.label">License Type:</strong> {{commercialUsageReport.type | enum:'affiliate.type.'}}</li>
+		<li class="list-group-item"><strong translate="views.usageLog.currentUsage.label">Current Usage:</strong> {{commercialUsageReport.context.currentUsage}}</li>
+		<li class="list-group-item"><strong translate="views.usageLog.plannedUsage.label">Planned Usage:</strong> {{commercialUsageReport.context.plannedUsage}}</li>
+		<li class="list-group-item"><strong translate="views.usageLog.purpose.label">Purpose:</strong> {{commercialUsageReport.context.purpose}}</li>
+		<li class="list-group-item"><strong translate="views.usageLog.impStatus.label">Implementation Status:</strong> {{commercialUsageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</li>
+		<li class="list-group-item" ng-repeat="countryRecord in usageByCountryList">
+			<strong translate="views.usageLog.institutions.country.label">Country:</strong> {{countryRecord.country.commonName}}<br>
+			<strong translate="views.usageLog.institutions.practices.label">Practices:</strong> {{countryRecord.count.snomedPractices | number}}
+			<span ng-show="countryRecord.entries">
+				<br>
+				<strong translate="views.usageLog.institutions.hospAndInst.plural.label">Hospitals/Institutions:</strong>
+				<span ng-repeat="entry in countryRecord.entries">
+					{{entry.name}}<span ng-show="!$last">,</span>
+				</span>
+			</span>
+		</li>
+		<li class="list-group-item" ng-show="commercialUsageReport.context.otherActivities">
+			<strong translate="views.usageLog.otherActivities.label">Other Activities:</strong> {{commercialUsageReport.context.otherActivities}}
+		</li>
+	</ul>
 </div>
 
 <div class="modal-footer">
-	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting">Edit</button>
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting" translate="global.word.edit">Edit</button>
 	
-	<button class="btn btn-success" ng-click="submit()"ng-disabled="submitting">
-		Submit Declaration
+	<button class="btn btn-success" ng-click="submit()" ng-disabled="submitting">
+		<span translate="views.usage.submit.button">Submit Declaration</span>
 		<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
 	</button>
 </div>

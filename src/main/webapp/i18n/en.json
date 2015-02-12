@@ -1,867 +1,1129 @@
 {
-  "global": {
-    "title": "mlds",
-    "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
-    "menu": {
-      "home": "Home",
-      "account": {
-        "main": "Account",
-        "contactInfo": "Contact Info",
-        "password": "Password",
-        "sessions": "Sessions",
-        "tracker": "User tracker",
-        "metrics": "Metrics",
-        "logs": "Logs",
-        "audits": "Audits",
-        "login": "Login",
-        "logout": "Log out",
-        "apidocs": "API",
-        "register": "Register",
-        "affiliates": "Affiliates",
-        "dashboard": "Dashboard"
-      },
-      "dashboard": "Dashboard",
-      "usageReports": "Usage Reports",
-      "releasePackages": "Release Packages",
-      "affiliate": {
-        "accountInformation": "Account Information",
-        "changePassword": "Change Password",
-        "logout": "Logout"
-      },
-      "staff": {
-        "dashboard": "Dashboard",
-        "pendingApplications": "Pending Applications",
-        "usageReports": "Usage Reports",
-        "affiliteUserManagement": "Affiliate User Management",
-        "activityLog": "Activity Log",
-        "packageManagement": "Package Management",
-        "licenseTC": "License T and C",
-        "reportsExtracts": "Reports and Extracts",
-        "logout": "Logout"
-      },
-      "admin": {
-        "importAffiliateRecords": "Import Affiliate Records",
-        "manageBlacklist": "Manage Blacklist",
-        "nationalRegistrationList": "National Registration List"
-      },
-      "language": "Language"
-    },
-    "language": {
-      "da": "Danish",
-      "en": "English",
-      "fr": "French",
-      "de": "German",
-      "pl": "Polish",
-      "ru": "Russian"
-    },
-    "member": {
-      "IHTSDO": "IHTSDO",
-      "AU": "Australia",
-      "BE": "Belgium",
-      "BN": "Brunei",
-      "CA": "Canada",
-      "CL": "Chile",
-      "CZ": "Czech Republic",
-      "DK": "Denmark",
-      "EE": "Estonia",
-      "HK": "Hong Kong, China",
-      "IS": "Iceland",
-      "IN": "India",
-      "IL": "Israel",
-      "LT": "Lithuania",
-      "MY": "Malaysia",
-      "MT": "Malta",
-      "NL": "Netherlands",
-      "NZ": "New Zealand",
-      "PL": "Poland",
-      "PT": "Portugal",
-      "SG": "Singapore",
-      "SK": "Slovak Republic",
-      "SI": "Republic of Slovenia",
-      "ES": "Spain",
-      "SE": "Sweden",
-      "GB": "United Kingdom",
-      "US": "United States",
-      "UY": "Uruguay"
-    },
-    "country": {
-      "AC": "Ascension",
-      "AD": "Andorra",
-      "AE": "United Arab Emirates",
-      "AF": "Afghanistan",
-      "AG": "Antigua and Barbuda",
-      "AI": "Anguilla",
-      "AL": "Albania",
-      "AM": "Armenia",
-      "AN": "Netherlands Antilles",
-      "AO": "Angola",
-      "AQ": "Australian Antarctic Territory",
-      "AR": "Argentina",
-      "AS": "American Samoa",
-      "AT": "Austria",
-      "AU": "Australia",
-      "AW": "Aruba",
-      "AX": "Aland",
-      "AZ": "Azerbaijan",
-      "BA": "Bosnia and Herzegovina",
-      "BB": "Barbados",
-      "BD": "Bangladesh",
-      "BE": "Belgium",
-      "BF": "Burkina Faso",
-      "BG": "Bulgaria",
-      "BH": "Bahrain",
-      "BI": "Burundi",
-      "BJ": "Benin",
-      "BM": "Bermuda",
-      "BN": "Brunei",
-      "BO": "Bolivia",
-      "BR": "Brazil",
-      "BS": "Bahamas, The",
-      "BT": "Bhutan",
-      "BV": "Bouvet Island",
-      "BW": "Botswana",
-      "BY": "Belarus",
-      "BZ": "Belize",
-      "CA": "Canada",
-      "CC": "Cocos (Keeling) Islands",
-      "CD": "Congo, (Congo Kinshasa)",
-      "CF": "Central African Republic",
-      "CG": "Congo, (Congo Brazzaville)",
-      "CH": "Switzerland",
-      "CI": "Cote d'Ivoire (Ivory Coast)",
-      "CK": "Cook Islands",
-      "CL": "Chile",
-      "CM": "Cameroon",
-      "CN": "China, People's Republic of",
-      "CO": "Colombia",
-      "CR": "Costa Rica",
-      "CU": "Cuba",
-      "CV": "Cape Verde",
-      "CX": "Christmas Island",
-      "CY": "Cyprus",
-      "CZ": "Czech Republic",
-      "DE": "Germany",
-      "DJ": "Djibouti",
-      "DK": "Denmark",
-      "DM": "Dominica",
-      "DO": "Dominican Republic",
-      "DZ": "Algeria",
-      "EC": "Ecuador",
-      "EE": "Estonia",
-      "EG": "Egypt",
-      "ER": "Eritrea",
-      "ES": "Spain",
-      "ET": "Ethiopia",
-      "FI": "Finland",
-      "FJ": "Fiji",
-      "FK": "Falkland Islands (Islas Malvinas)",
-      "FM": "Micronesia",
-      "FO": "Faroe Islands",
-      "FR": "France",
-      "GA": "Gabon",
-      "GB": "United Kingdom",
-      "GD": "Grenada",
-      "GE": "Georgia",
-      "GF": "French Guiana",
-      "GG": "Guernsey",
-      "GH": "Ghana",
-      "GI": "Gibraltar",
-      "GL": "Greenland",
-      "GM": "Gambia, The",
-      "GN": "Guinea",
-      "GP": "Guadeloupe",
-      "GQ": "Equatorial Guinea",
-      "GR": "Greece",
-      "GS": "South Georgia & South Sandwich Islands",
-      "GT": "Guatemala",
-      "GU": "Guam",
-      "GW": "Guinea-Bissau",
-      "GY": "Guyana",
-      "HK": "Hong Kong",
-      "HM": "Heard Island and McDonald Islands",
-      "HN": "Honduras",
-      "HR": "Croatia",
-      "HT": "Haiti",
-      "HU": "Hungary",
-      "ID": "Indonesia",
-      "IE": "Ireland",
-      "IL": "Israel",
-      "IM": "Isle of Man",
-      "IN": "India",
-      "IO": "British Indian Ocean Territory",
-      "IQ": "Iraq",
-      "IR": "Iran",
-      "IS": "Iceland",
-      "IT": "Italy",
-      "JE": "Jersey",
-      "JM": "Jamaica",
-      "JO": "Jordan",
-      "JP": "Japan",
-      "KE": "Kenya",
-      "KG": "Kyrgyzstan",
-      "KH": "Cambodia",
-      "KI": "Kiribati",
-      "KM": "Comoros",
-      "KN": "Saint Kitts and Nevis",
-      "KP": "Korea, North",
-      "KR": "Korea, South",
-      "KW": "Kuwait",
-      "KY": "Cayman Islands",
-      "KZ": "Kazakhstan",
-      "LA": "Laos",
-      "LB": "Lebanon",
-      "LC": "Saint Lucia",
-      "LI": "Liechtenstein",
-      "LK": "Sri Lanka",
-      "LR": "Liberia",
-      "LS": "Lesotho",
-      "LT": "Lithuania",
-      "LU": "Luxembourg",
-      "LV": "Latvia",
-      "LY": "Libya",
-      "MA": "Morocco",
-      "MC": "Monaco",
-      "MD": "Moldova",
-      "ME": "Montenegro",
-      "MG": "Madagascar",
-      "MH": "Marshall Islands",
-      "MK": "Macedonia",
-      "ML": "Mali",
-      "MM": "Myanmar (Burma)",
-      "MN": "Mongolia",
-      "MO": "Macau",
-      "MP": "Northern Mariana Islands",
-      "MQ": "Martinique",
-      "MR": "Mauritania",
-      "MS": "Montserrat",
-      "MT": "Malta",
-      "MU": "Mauritius",
-      "MV": "Maldives",
-      "MW": "Malawi",
-      "MX": "Mexico",
-      "MY": "Malaysia",
-      "MZ": "Mozambique",
-      "NA": "Namibia",
-      "NC": "New Caledonia",
-      "NE": "Niger",
-      "NF": "Norfolk Island",
-      "NG": "Nigeria",
-      "NI": "Nicaragua",
-      "NL": "Netherlands",
-      "NO": "Norway",
-      "NP": "Nepal",
-      "NR": "Nauru",
-      "NU": "Niue",
-      "NZ": "New Zealand",
-      "OM": "Oman",
-      "PA": "Panama",
-      "PE": "Peru",
-      "PF": "French Polynesia",
-      "PG": "Papua New Guinea",
-      "PH": "Philippines",
-      "PK": "Pakistan",
-      "PL": "Poland",
-      "PM": "Saint Pierre and Miquelon",
-      "PN": "Pitcairn Islands",
-      "PR": "Puerto Rico",
-      "PT": "Portugal",
-      "PW": "Palau",
-      "PY": "Paraguay",
-      "QA": "Qatar",
-      "RE": "Reunion",
-      "RO": "Romania",
-      "RS": "Serbia",
-      "RU": "Russia",
-      "RW": "Rwanda",
-      "SA": "Saudi Arabia",
-      "SB": "Solomon Islands",
-      "SC": "Seychelles",
-      "SD": "Sudan",
-      "SE": "Sweden",
-      "SG": "Singapore",
-      "SH": "Saint Helena",
-      "SI": "Slovenia",
-      "SJ": "Svalbard",
-      "SK": "Slovakia",
-      "SL": "Sierra Leone",
-      "SM": "San Marino",
-      "SN": "Senegal",
-      "SO": "Somalia",
-      "SR": "Suriname",
-      "ST": "Sao Tome and Principe",
-      "SV": "El Salvador",
-      "SY": "Syria",
-      "SZ": "Swaziland",
-      "TA": "Tristan da Cunha",
-      "TC": "Turks and Caicos Islands",
-      "TD": "Chad",
-      "TF": "French Southern and Antarctic Lands",
-      "TG": "Togo",
-      "TH": "Thailand",
-      "TJ": "Tajikistan",
-      "TK": "Tokelau",
-      "TL": "Timor-Leste (East Timor)",
-      "TM": "Turkmenistan",
-      "TN": "Tunisia",
-      "TO": "Tonga",
-      "TR": "Turkey",
-      "TT": "Trinidad and Tobago",
-      "TV": "Tuvalu",
-      "TW": "China, Republic of (Taiwan)",
-      "TZ": "Tanzania",
-      "UA": "Ukraine",
-      "UG": "Uganda",
-      "UM": "Wake Island",
-      "US": "United States",
-      "UY": "Uruguay",
-      "UZ": "Uzbekistan",
-      "VA": "Vatican City",
-      "VC": "Saint Vincent and the Grenadines",
-      "VE": "Venezuela",
-      "VG": "British Virgin Islands",
-      "VI": "U.S. Virgin Islands",
-      "VN": "Vietnam",
-      "VU": "Vanuatu",
-      "WF": "Wallis and Futuna",
-      "WS": "Samoa",
-      "YE": "Yemen",
-      "YT": "Mayotte",
-      "ZA": "South Africa",
-      "ZM": "Zambia",
-      "ZW": "Zimbabwe"
-    },
-    "form": {    		
-      "username": "Login",
-      "username.placeholder": "Your login",
-      "name.placeholder": "Your name",
-      "newpassword": "New password",
-      "newpassword.placeholder": "New password",
-      "confirmpassword": "New password confirmation",
-      "confirmpassword.placeholder": "Confirm the new password",
-      "email": "E-mail",
-      "email.placeholder": "Your e-mail address",
-      "country": "Country of residence"
-    },
-    "messages": {
-      "info": {
-        "authenticated": "If you want to <a href=\"#/login\">authenticate</a>, you can try the default accounts:<br/>- Admnistrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\").",
-        "register": "You don't have an account yet? <a href=\"#/register\">Register a new account</a>"
-      },
-      "error": {
-        "dontmatch": "The password and its confirmation do not match!",
-        "server": "An error occurred.  Repeating the action may succeed."
-      },
-      "validate": {
-        "newpassword": {
-          "required": "Your password is required.",
-          "minlength": "Your password is required to be at least 5 characters",
-          "maxlength": "Your password cannot be longer than 50 characters",
-          "strength": "Password strength:"
-        },
-        "confirmpassword": {
-          "required": "Your confirmation password is required.",
-          "minlength": "Your confirmation password is required to be at least 5 characters",
-          "maxlength": "Your confirmation password cannot be longer than 50 characters",
-          "match": "Your password confirmation does not match the password"
-        },
-        "email": {
-          "required": "Your e-mail is required.",
-          "invalid": "Your e-mail is invalid.",
-          "minlength": "Your e-mail is required to be at least 1 character",
-          "maxlength": "Your e-mail cannot be longer than 50 characters"
-        }
-      }
-    }
-  },
-  "logout": {
-    "title": "MLDS-Logout",
-    "subtitle": "We are logging your out of your session."
-  },
-  "views": {
-	  "activate": {
-	    "title": "Activation",
-	    "messages": {
-	      "success": {
-	      	"title":"User account has been created.",
-	      	"body":"The system will take you to continue your registration process in a few moments. If you are not redirected automatically please {{linkbegin}}click here.{{linkend}}"
-	      },
-	      "error": {
-	      	"title":"Your user could not be activated.",
-	      	"body":"Please use the registration form to sign up. If you are still encountering difficulties please contact support."
-	      }
-	    }
-	  },
-	  "applicationSummaryModal": {
-	  		"title":"Application Summary",
-	  		"form": {
-	  			"cancel":"Cancel",
-	  			"ok":"Ok"
-	  		}
-	  },
-	  "contactInfo": {
-	  	"title": "Account Information",
-	  	"messages": {
-	  		"notApproved": {
-	  			"title":"Registration not approved yet",
-	  			"body":"You can only modify the contact information for an affiliate once the registration request has been approved."
-	  		}
-	  	},
-	  	"form": {
-	  		"save":"Save",
-	  		"cancel":"Cancel",
-	  		"fixErrorsAbove":"Please fix the errors listed above."
-	  	},
-	  	"admin": {
-	  		"title": "Admin Editable",
-	  		"other": {
-	  			"label":"Other:",
-	  			"placeholder":"Other",
-	  			"required": "Other field is required."
-	  		},
-	  		"subtype": {
-	  			"label":"Subtype:",
-	  			"required":"Subtype field is required."
-	  		},
-	  		"usageType": {
-	  			"label": "Type:",
-	  			"required":"Usage type field is required."
-	  		},
-	  		"agreementType": {
-	  			"label":"Type of Agreement:"
-	  		}
-	  	},
-	  	"contact": {
-	  		"title":"Contact Information",
-	  		"firstName": {
-	  			"label":"First Name:",
-	  			"placeholder":"John"
-	  		},
-	  		"lastName": {
-	  			"label":"Last Name:",
-	  			"placeholder":"Smith"
-	  		},
-	  		"email": {
-	  			"label":"Email:",
-	  			"placeholder":"JohnSmith@OrganizationABC.com",
-	  			"uniqueness":"Email Addresses need to be unique.",
-	  			"invalid":"Invalid Email Address."
-	  		},
-	  		"alternativeEmail": {
-	  			"label":"Alternate Email:",
-	  			"placeholder":"alternative@email.com"
-	  		},
-	  		"thirdEmail": {
-	  			"label":"Third Email:"
-	  		},
-	  		"landline": {
-	  			"label":"Landline Phone Number:",
-	  			"invalid": "Invalid Phone Number."
-	  		},
-	  		"landlineExtension": {
-	  			"label":"Extension:"
-	  		},
-	  		"mobile": {
-	  			"label":"Mobile Phone Number:"
-	  		},
-	  		"address": {
-	  			"label":"Address",
-	  			"placeholder":"123 Somewhere Avenue"
-	  		},
-	  		"city": {
-	  			"label":"City:",
-	  			"placeholder":"City"
-	  		},
-	  		"postcode": {
-	  			"label":"Post Code:",
-	  			"placeholder":"Post Code",
-	  			"tooLong":"Post Code is too long."
-	  		},
-	  		"country": {
-	  			"label":"Country:",
-	  			"placeholder":"Country",
-	  			"unrecognized":"Unrecognized country."
-	  		},
-	  		"billingAddress": {
-	  			"label":"Billing Address:",
-	  			"placeholder":"Address",
-	  			"sameAsAddress":"Use Address as Billing Address",
-	  			"useOrganizationAddress":"Use Organization Address as Billing Address"
-	  		}
-	  	},
-	  	"organization": {
-	  		"title":"Organization",
-	  		"name": {
-	  			"label":"Organization Name:",
-	  			"placeholder":"Org name"
-	  		}
-	  	}
-	  }
+	"global":{
+		"title":"mlds",
+		"browsehappy":"You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
+		"menu":{
+			"home":"Home",
+			"account":{
+				"main":"Account",
+				"contactInfo":"Contact Info",
+				"password":"Password",
+				"sessions":"Sessions",
+				"tracker":"User tracker",
+				"metrics":"Metrics",
+				"logs":"Logs",
+				"audits":"Audits",
+				"login":"Login",
+				"logout":"Log out",
+				"apidocs":"API",
+				"register":"Register",
+				"affiliates":"Affiliates",
+				"dashboard":"Dashboard"
+			},
+			"dashboard":"Dashboard",
+			"help":"Help",
+			"usageReports":"Usage Reports",
+			"applications":"Applications",
+			"releasePackages":"Release Packages",
+			"affiliate":{
+				"accountInformation":"Account Information",
+				"changePassword":"Change Password",
+				"logout":"Logout"
+			},
+			"staff":{
+				"dashboard":"Dashboard",
+				"pendingApplications":"Pending Applications",
+				"usageReports":"Usage Reports",
+				"affiliteUserManagement":"Affiliate User Management",
+				"activityLog":"Activity Log",
+				"packageManagement":"Package Management",
+				"licenseTC":"License T and C",
+				"reportsExtracts":"Reports and Extracts",
+				"logout":"Logout"
+			},
+			"admin":{
+				"importAffiliateRecords":"Import Affiliate Records",
+				"manageBlacklist":"Manage Blacklist",
+				"nationalRegistrationList":"National Registration List"
+			},
+			"language":"Language"
+		},
+		"language":{
+			"da":"Danish",
+			"en":"English",
+			"fr":"French",
+			"de":"German",
+			"pl":"Polish",
+			"ru":"Russian"
+		},
+		"member":{
+			"IHTSDO":"IHTSDO",
+			"AU":"Australia",
+			"BE":"Belgium",
+			"BN":"Brunei",
+			"CA":"Canada",
+			"CL":"Chile",
+			"CZ":"Czech Republic",
+			"DK":"Denmark",
+			"EE":"Estonia",
+			"HK":"Hong Kong, China",
+			"IS":"Iceland",
+			"IN":"India",
+			"IL":"Israel",
+			"LT":"Lithuania",
+			"MY":"Malaysia",
+			"MT":"Malta",
+			"NL":"Netherlands",
+			"NZ":"New Zealand",
+			"PL":"Poland",
+			"PT":"Portugal",
+			"SG":"Singapore",
+			"SK":"Slovak Republic",
+			"SI":"Republic of Slovenia",
+			"ES":"Spain",
+			"SE":"Sweden",
+			"GB":"United Kingdom",
+			"US":"United States",
+			"UY":"Uruguay"
+		},
+		"country":{
+			"AC":"Ascension",
+			"AD":"Andorra",
+			"AE":"United Arab Emirates",
+			"AF":"Afghanistan",
+			"AG":"Antigua and Barbuda",
+			"AI":"Anguilla",
+			"AL":"Albania",
+			"AM":"Armenia",
+			"AN":"Netherlands Antilles",
+			"AO":"Angola",
+			"AQ":"Australian Antarctic Territory",
+			"AR":"Argentina",
+			"AS":"American Samoa",
+			"AT":"Austria",
+			"AU":"Australia",
+			"AW":"Aruba",
+			"AX":"Aland",
+			"AZ":"Azerbaijan",
+			"BA":"Bosnia and Herzegovina",
+			"BB":"Barbados",
+			"BD":"Bangladesh",
+			"BE":"Belgium",
+			"BF":"Burkina Faso",
+			"BG":"Bulgaria",
+			"BH":"Bahrain",
+			"BI":"Burundi",
+			"BJ":"Benin",
+			"BM":"Bermuda",
+			"BN":"Brunei",
+			"BO":"Bolivia",
+			"BR":"Brazil",
+			"BS":"Bahamas, The",
+			"BT":"Bhutan",
+			"BV":"Bouvet Island",
+			"BW":"Botswana",
+			"BY":"Belarus",
+			"BZ":"Belize",
+			"CA":"Canada",
+			"CC":"Cocos (Keeling) Islands",
+			"CD":"Congo, (Congo Kinshasa)",
+			"CF":"Central African Republic",
+			"CG":"Congo, (Congo Brazzaville)",
+			"CH":"Switzerland",
+			"CI":"Cote d'Ivoire (Ivory Coast)",
+			"CK":"Cook Islands",
+			"CL":"Chile",
+			"CM":"Cameroon",
+			"CN":"China, People's Republic of",
+			"CO":"Colombia",
+			"CR":"Costa Rica",
+			"CU":"Cuba",
+			"CV":"Cape Verde",
+			"CX":"Christmas Island",
+			"CY":"Cyprus",
+			"CZ":"Czech Republic",
+			"DE":"Germany",
+			"DJ":"Djibouti",
+			"DK":"Denmark",
+			"DM":"Dominica",
+			"DO":"Dominican Republic",
+			"DZ":"Algeria",
+			"EC":"Ecuador",
+			"EE":"Estonia",
+			"EG":"Egypt",
+			"ER":"Eritrea",
+			"ES":"Spain",
+			"ET":"Ethiopia",
+			"FI":"Finland",
+			"FJ":"Fiji",
+			"FK":"Falkland Islands (Islas Malvinas)",
+			"FM":"Micronesia",
+			"FO":"Faroe Islands",
+			"FR":"France",
+			"GA":"Gabon",
+			"GB":"United Kingdom",
+			"GD":"Grenada",
+			"GE":"Georgia",
+			"GF":"French Guiana",
+			"GG":"Guernsey",
+			"GH":"Ghana",
+			"GI":"Gibraltar",
+			"GL":"Greenland",
+			"GM":"Gambia, The",
+			"GN":"Guinea",
+			"GP":"Guadeloupe",
+			"GQ":"Equatorial Guinea",
+			"GR":"Greece",
+			"GS":"South Georgia & South Sandwich Islands",
+			"GT":"Guatemala",
+			"GU":"Guam",
+			"GW":"Guinea-Bissau",
+			"GY":"Guyana",
+			"HK":"Hong Kong",
+			"HM":"Heard Island and McDonald Islands",
+			"HN":"Honduras",
+			"HR":"Croatia",
+			"HT":"Haiti",
+			"HU":"Hungary",
+			"ID":"Indonesia",
+			"IE":"Ireland",
+			"IL":"Israel",
+			"IM":"Isle of Man",
+			"IN":"India",
+			"IO":"British Indian Ocean Territory",
+			"IQ":"Iraq",
+			"IR":"Iran",
+			"IS":"Iceland",
+			"IT":"Italy",
+			"JE":"Jersey",
+			"JM":"Jamaica",
+			"JO":"Jordan",
+			"JP":"Japan",
+			"KE":"Kenya",
+			"KG":"Kyrgyzstan",
+			"KH":"Cambodia",
+			"KI":"Kiribati",
+			"KM":"Comoros",
+			"KN":"Saint Kitts and Nevis",
+			"KP":"Korea, North",
+			"KR":"Korea, South",
+			"KW":"Kuwait",
+			"KY":"Cayman Islands",
+			"KZ":"Kazakhstan",
+			"LA":"Laos",
+			"LB":"Lebanon",
+			"LC":"Saint Lucia",
+			"LI":"Liechtenstein",
+			"LK":"Sri Lanka",
+			"LR":"Liberia",
+			"LS":"Lesotho",
+			"LT":"Lithuania",
+			"LU":"Luxembourg",
+			"LV":"Latvia",
+			"LY":"Libya",
+			"MA":"Morocco",
+			"MC":"Monaco",
+			"MD":"Moldova",
+			"ME":"Montenegro",
+			"MG":"Madagascar",
+			"MH":"Marshall Islands",
+			"MK":"Macedonia",
+			"ML":"Mali",
+			"MM":"Myanmar (Burma)",
+			"MN":"Mongolia",
+			"MO":"Macau",
+			"MP":"Northern Mariana Islands",
+			"MQ":"Martinique",
+			"MR":"Mauritania",
+			"MS":"Montserrat",
+			"MT":"Malta",
+			"MU":"Mauritius",
+			"MV":"Maldives",
+			"MW":"Malawi",
+			"MX":"Mexico",
+			"MY":"Malaysia",
+			"MZ":"Mozambique",
+			"NA":"Namibia",
+			"NC":"New Caledonia",
+			"NE":"Niger",
+			"NF":"Norfolk Island",
+			"NG":"Nigeria",
+			"NI":"Nicaragua",
+			"NL":"Netherlands",
+			"NO":"Norway",
+			"NP":"Nepal",
+			"NR":"Nauru",
+			"NU":"Niue",
+			"NZ":"New Zealand",
+			"OM":"Oman",
+			"PA":"Panama",
+			"PE":"Peru",
+			"PF":"French Polynesia",
+			"PG":"Papua New Guinea",
+			"PH":"Philippines",
+			"PK":"Pakistan",
+			"PL":"Poland",
+			"PM":"Saint Pierre and Miquelon",
+			"PN":"Pitcairn Islands",
+			"PR":"Puerto Rico",
+			"PT":"Portugal",
+			"PW":"Palau",
+			"PY":"Paraguay",
+			"QA":"Qatar",
+			"RE":"Reunion",
+			"RO":"Romania",
+			"RS":"Serbia",
+			"RU":"Russia",
+			"RW":"Rwanda",
+			"SA":"Saudi Arabia",
+			"SB":"Solomon Islands",
+			"SC":"Seychelles",
+			"SD":"Sudan",
+			"SE":"Sweden",
+			"SG":"Singapore",
+			"SH":"Saint Helena",
+			"SI":"Slovenia",
+			"SJ":"Svalbard",
+			"SK":"Slovakia",
+			"SL":"Sierra Leone",
+			"SM":"San Marino",
+			"SN":"Senegal",
+			"SO":"Somalia",
+			"SR":"Suriname",
+			"ST":"Sao Tome and Principe",
+			"SV":"El Salvador",
+			"SY":"Syria",
+			"SZ":"Swaziland",
+			"TA":"Tristan da Cunha",
+			"TC":"Turks and Caicos Islands",
+			"TD":"Chad",
+			"TF":"French Southern and Antarctic Lands",
+			"TG":"Togo",
+			"TH":"Thailand",
+			"TJ":"Tajikistan",
+			"TK":"Tokelau",
+			"TL":"Timor-Leste (East Timor)",
+			"TM":"Turkmenistan",
+			"TN":"Tunisia",
+			"TO":"Tonga",
+			"TR":"Turkey",
+			"TT":"Trinidad and Tobago",
+			"TV":"Tuvalu",
+			"TW":"China, Republic of (Taiwan)",
+			"TZ":"Tanzania",
+			"UA":"Ukraine",
+			"UG":"Uganda",
+			"UM":"Wake Island",
+			"US":"United States",
+			"UY":"Uruguay",
+			"UZ":"Uzbekistan",
+			"VA":"Vatican City",
+			"VC":"Saint Vincent and the Grenadines",
+			"VE":"Venezuela",
+			"VG":"British Virgin Islands",
+			"VI":"U.S. Virgin Islands",
+			"VN":"Vietnam",
+			"VU":"Vanuatu",
+			"WF":"Wallis and Futuna",
+			"WS":"Samoa",
+			"YE":"Yemen",
+			"YT":"Mayotte",
+			"ZA":"South Africa",
+			"ZM":"Zambia",
+			"ZW":"Zimbabwe"
+		},
+		"form":{
+			"username":"Login",
+			"username.placeholder":"Your login",
+			"name.placeholder":"Your name",
+			"newpassword":"New password",
+			"newpassword.placeholder":"New password",
+			"confirmpassword":"New password confirmation",
+			"confirmpassword.placeholder":"Confirm the new password",
+			"email":"E-mail",
+			"email.placeholder":"Your e-mail address",
+			"country":"Country of residence"
+		},
+		"messages":{
+			"info":{
+				"authenticated":"If you want to <a href=\"#/login\">authenticate</a>, you can try the default accounts:<br/>- Admnistrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\").",
+				"register":"You don't have an account yet? <a href=\"#/register\">Register a new account</a>"
+			},
+			"error":{
+				"dontmatch":"The password and its confirmation do not match!",
+				"server":"An error occurred.  Repeating the action may succeed."
+			},
+			"validate":{
+				"newpassword":{
+					"required":"Your password is required.",
+					"minlength":"Your password is required to be at least 5 characters",
+					"maxlength":"Your password cannot be longer than 50 characters",
+					"strength":"Password strength:"
+				},
+				"confirmpassword":{
+					"required":"Your confirmation password is required.",
+					"minlength":"Your confirmation password is required to be at least 5 characters",
+					"maxlength":"Your confirmation password cannot be longer than 50 characters",
+					"match":"Your password confirmation does not match the password"
+				},
+				"email":{
+					"required":"Your e-mail is required.",
+					"invalid":"Your e-mail is invalid.",
+					"minlength":"Your e-mail is required to be at least 1 character",
+					"maxlength":"Your e-mail cannot be longer than 50 characters"
+				}
+			}
+		},
+		"word":{
+			"or":"or",
+			"add":"Add",
+			"edit":"Edit",
+			"name":"Name",
+			"cancel":"Cancel",
+			"note":"Note",
+			"notes":"Notes",
+			"close":"close",
+			"delete":"Remove",
+			"update":"Update",
+			"from":"from",
+			"ok":"OK",
+			"submit":"Submit",
+			"save":"Save",
+			"welcome":"Welcome",
+			"view":"View",
+			"viewAll":"View All",
+			"state":"State",
+			"status":"Status",
+			"type":"Type",
+			"date":"Date",
+			"user":"User",
+			"yes":"Yes",
+			"no":"No",
+			"apply":"Apply",
+			"back":"Back"
+		}
 	},
-  "register": {
-    "title": "Register",
-    "welcome": "Welcome to IHTSDO-MLDS",
-    "subwelcome": "The gateway to access SNOMED CT Orientation",
-    "form": {
-      "tos": "Agree to our <a href=\"/tos.html\" target=\"_blank\">Terms and Conditions</a>.",
-      "button": "Start Registration",
-      "confirmemail": "E-mail (confirm)"
-    },
-    "messages": {
-      "validate": {
-        "login": {
-          "required": "Your login is required.",
-          "minlength": "Your login is required to be at least 1 character",
-          "maxlength": "Your login cannot be longer than 50 characters"
-        },
-        "country": {
-          "notMLDS": "Applications for use of SNOMED CT in your country of residence must be made to the appropriate representative from your country - <a href=\"{{link}}\" target=\"_blank\">here</a>. If you wish to apply for a Public Good agreement to use SNOMED CT in another country, or wish to make other inquiries please contact the IHTSDO at <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
-        }
-      },
-      "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
-      "error": {
-        "fail": "<strong>Registration failed!</strong> Please try again later.",
-        "userexists": "<strong>A user has already registered with that email address.</strong> Did you mean to <a href='#/login'>login</a>?",
-        "blocklist": "Due to our IT policies we are unable to process the entered email address. Please contact <a href=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a> for further assistance."
-      }
-    }
-  },
-  "login": {
-    "title": "Login",
-    "form": {
-      "password": "Password",
-      "password.placeholder": "Your password",
-      "rememberme": "Remember Me",
-      "button": "Login"
-    },
-    "messages": {
-      "error": {
-        "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again. Passwords are case sensitive.",
-        "deregistered": "<strong>Authentication failed!</strong> This account has been deregistered.  Please contact support.",
-        "noPermissions": "<strong>Authentication failed!</strong> We authenticated you, but your account has no access to this application, or is misconfigured.  Please contact support."
-      }
-    }
-  },
-  "settings": {
-    "title": "Contact Info for [<b>{{username}}</b>]",
-    "form": {
-      "firstname": "First Name",
-      "firstname.placeholder": "Your first name",
-      "lastname": "Last Name",
-      "lastname.placeholder": "Your last name",
-      "button": "Save"
-    },
-    "messages": {
-      "error": "<strong>An error has occured!</strong> Settings could not be saved.",
-      "success": "<strong>Settings saved!</strong>",
-      "validate": {
-        "firstname": {
-          "required": "Your first name is required.",
-          "minlength": "Your first name is required to be at least 1 character",
-          "maxlength": "Your first name cannot be longer than 50 characters"
-        },
-        "lastname": {
-          "required": "Your last name is required.",
-          "minlength": "Your last name is required to be at least 1 character",
-          "maxlength": "Your last name cannot be longer than 50 characters"
-        }
-      }
-    }
-  },
-  "password": {
-    "title": "Password for {{username}}",
-    "form": {
-      "button": "Save"
-    },
-    "messages": {
-      "error": "<strong>An error has occured!</strong> The password could not be changed.",
-      "success": "<strong>Password changed!</strong>  Continue to <a href='#/contactInfo'>Account Information</a>",
-      "expired": "<strong>The reset link has expired or was invalid.</strong> <a href='#/requestPasswordReset'>Request another reset</a>"
-    }
-  },
-  "sessions": {
-    "title": "Active sessions for [<b>{{username}}</b>]",
-    "table": {
-      "ipaddress": "IP address",
-      "useragent": "User Agent",
-      "date": "Date",
-      "button": "Invalidate"
-    },
-    "messages": {
-      "success": "<strong>Session invalidated!</strong>",
-      "error": "<strong>An error has occured!</strong> The session could not be invalidated."
-    }
-  },
-  "tracker": {
-    "title": "Real-time user activities",
-    "table": {
-      "userlogin": "User",
-      "ipaddress": "IP Address",
-      "userAgent": "User agent",
-      "page": "Current page",
-      "time": "Time"
-    }
-  },
-  "metrics": {
-    "title": "System Metrics",
-    "refresh.button": "Refresh",
-    "health": {
-      "title": "Heath checks",
-      "database": "Database: ",
-      "email": "Email: ",
-      "stacktrace": "Stacktrace"
-    },
-    "jvm": {
-      "title": "JVM Metrics",
-      "memory": {
-        "title": "Memory",
-        "total": "Total Memory",
-        "heap": "Heap Memory",
-        "nonheap": "Non-Heap Memory"
-      },
-      "threads": {
-        "title": "Threads",
-        "all": "All",
-        "runnable": "Runnable",
-        "timedwaiting": "Timed waiting",
-        "waiting": "Waiting",
-        "blocked": "Blocked",
-        "dump": {
-          "title": "Threads dump",
-          "id": "Id: ",
-          "blockedtime": "Blocked Time",
-          "blockedcount": "Blocked Count",
-          "waitedtime": "Waited Time",
-          "waitedcount": "Waited Count",
-          "lockname": "Lock name",
-          "stacktrace": "Stacktrace",
-          "show": "Show",
-          "hide": "Hide"
-        }
-      },
-      "gc": {
-        "title": "Garbage collections",
-        "marksweepcount": "Mark Sweep count",
-        "marksweeptime": "Mark Sweep time",
-        "scavengecount": "Scavenge count",
-        "scavengetime": "Scavenge time"
-      },
-      "http": {
-        "title": "HTTP requests (events per second)",
-        "active": "Active requests:",
-        "total": "Total requests:",
-        "table": {
-          "code": "Code",
-          "count": "Count",
-          "mean": "Mean",
-          "average": "Average"
-        },
-        "code": {
-          "ok": "Ok",
-          "notfound": "Not found",
-          "servererror": "Server Error"
-        }
-      }
-    },
-    "servicesstats": {
-      "title": "Services statistics (time in millisecond)",
-      "table": {
-        "name": "Service name",
-        "count": "Count",
-        "mean": "Mean",
-        "min": "Min",
-        "max": "Max",
-        "p50": "p50",
-        "p75": "p75",
-        "p95": "p95",
-        "p99": "p99"
-      }
-    },
-    "ehcache": {
-      "title": "Ehcache statistics",
-      "cachename": "Cache name",
-      "objects": "Objects",
-      "hits": "Hits",
-      "misses": "Misses",
-      "evictioncount": "Eviction count",
-      "mean": "Mean get time (ms)"
-    }
-  },
-  "logs": {
-    "title": "Logs",
-    "nbloggers": "There are {{ total }} loggers.",
-    "filter": "Filter",
-    "table": {
-      "name": "Name",
-      "level": "Level"
-    }
-  },
-  "audits": {
-    "title": "Audits",
-    "filter": {
-      "title": "Filter per date",
-      "from": "from",
-      "to": "to",
-      "button": {
-        "weeks": "Weeks",
-        "today": "today",
-        "clear": "clear",
-        "close": "close"
-      }
-    },
-    "table": {
-      "header": {
-        "principal": "User",
-        "date": "Date (Local)",
-        "status": "State",
-        "data": "Extra data"
-      },
-      "data": {
-        "remoteAddress": "Remote Address:"
-      }
-    },
-    "type": {
-      "AUTHORIZATION_FAILURE": "Authorization Failure",
-      "AUTHENTICATION_SUCCESS": "Authorization Success",
-      "AUTHENTICATION_FAILURE": "Authentication Failure",
-      "AFFILIATE_CREATED": "Affiliate Created",
-      "AFFILIATE_CREATED_BY_IMPORT": "Affiliate Created from Import",
-      "AFFILIATE_UPDATED": "Affiliate Updated",
-      "AFFILIATE_UPDATED_BY_IMPORT": "Affiliate Updated from Import",
-      "AFFILIATEDETAILS_UPDATED": "Affiliate Details Updated",
-      "AFFILIATE_EXPORT": "Affiliate Batch Export",
-      "AFFILIATE_IMPORT": "Affiliate Batch Import",
-      "AFFILIATE_LOGIN_CREATED": "Affiliate Login Created",
-      "AFFILIATE_STANDING_STATE_CHANGED": "Affiliate Standing State Changed",
-      "APPLICATION_CREATED": "Application Created",
-      "APPLICATION_APPROVAL_STATE_CHANGED": "Application Approval State Changed",
-      "APPLICATION_DELETED": "Application Deleted",
-      "RELEASE_FILE_CREATED": "Release File Created",
-      "RELEASE_FILE_DELETED": "Release File Deleted",
-      "RELEASE_FILE_DOWNLOADED": "Release File Downloaded",
-      "RELEASE_PACKAGE_DELETED": "Release Package Deleted",
-      "RELEASE_PACKAGE_CREATED": "Release Package Created",
-      "RELEASE_VERSION_TAKEN_OFFLINE": "Release Version Taken Offline",
-      "RELEASE_VERSION_TAKEN_ONLINE": "Release Version Taken Online",
-      "RELEASE_VERSION_CREATED": "Release Version Created",
-      "RELEASE_VERSION_DELETED": "Release Version Deleted",
-      "USAGE_CREATED": "Usage Created",
-      "USAGE_APPROVAL_STATE_CHANGED": "Usage Approval State Changed"
-    }
-  },
-  "errors": {
-    "title": "Error page!",
-    "403": "You are not authorized to access the page."
-  },
-  "footer": "This is your footer",
-  "affiliate": {
-    "title": "Affiliate",
-    "type": {
-      "title": "Type",
-      "COMMERCIAL": "Commercial",
-      "ACADEMIC": "Academic",
-      "OTHER": "Other",
-      "INDIVIDUAL": "Individual"
-    },
-    "subType": {
-      "DEVELOPER": "Developer",
-      "DEVELOPMENT": "Development",
-      "EDUCATIONAL": "Educational",
-      "HEALTHCAREPROVIDER": "Healthcare Provider",
-      "PERSONAL": "Personal",
-      "RESEARCH": "Research",
-      "VENDOR": "Vendor"
-    },
-    "agreementType": {
-      "AFFILIATE_NORMAL": "Affiliate - Normal",
-      "AFFILIATE_RESEARCH": "Affiliate - Research",
-      "AFFILIATE_PUBLIC_GOOD": "Affiliate - Public Good"
-    },
-    "organizationType": {
-      "PUBLIC_HEALTH_ORGANIZATION": "Public Health Organization",
-      "PRIVATE_HEALTH_ORGANIZATION": "Private Health Organization",
-      "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Research and Development Organization",
-      "HEALTHERCARE_APPLICATION_DEVELOPER": "Healthcare Application Developer",
-      "GENERAL_PRACTITIONER_PRACTICE": "General Practitioner Practice",
-      "EDUCATIONAL_INSTITUTE": "Educational Institute",
-      "OTHER": "Other"
-    },
-    "implementationStatus": {
-      "IMPLEMENTED": "Live/Implemented",
-      "DEVELOPMENT": "In Progress/Development",
-      "PLANNING": "In Planning Stage"
-    },
-    "standingState": {
-      "APPLYING": "Applying",
-      "IN_GOOD_STANDING": "In Good Standing",
-      "REJECTED": "Declined",
-      "DEACTIVATION_PENDING": "Deactivation Pending",
-      "DEACTIVATED": "Deactivated",
-      "DEREGISTERED": "Deregistered",
-      "PENDING_INVOICE": "Pending Invoice",
-      "INVOICE_SENT": "Invoice Sent"
-    },
-    "standingStateWithExplanation": {
-      "APPLYING": "Applying",
-      "IN_GOOD_STANDING": "In Good Standing - Approved full access, Account Paid, No Payment Required or Account Issue Resolved",
-      "REJECTED": "Declined",
-      "DEACTIVATION_PENDING": "Deactivation Pending - Access to Account Only, No Download Capability",
-      "DEACTIVATED": "Deactivated - Access to Account Only, No Download Capability",
-      "DEREGISTERED": "Deregistered – No Access to MLDS Account",
-      "PENDING_INVOICE": "Pending Invoice – Access to Account only, Payment Outstanding",
-      "INVOICE_SENT": "Invoice Sent - Access to Account only, Payment Outstanding"
-    }
-  },
-  "approval": {
-    "state": {
-      "NOT_SUBMITTED": "Not Submitted",
-      "CHANGE_REQUESTED": "Change Requested",
-      "SUBMITTED": "Submitted",
-      "RESUBMITTED": "Resubmitted",
-      "REVIEW_REQUESTED": "Review Requested",
-      "APPROVED": "Approved",
-      "REJECTED": "Declined"
-    }
-  },
-  "usageReport": {
-    "state": {
-      "NOT_SUBMITTED": "Not Submitted",
-      "CHANGE_REQUESTED": "Change Requested",
-      "SUBMITTED": "Submitted",
-      "RESUBMITTED": "Resubmitted",
-      "REVIEW_REQUESTED": "Review Requested",
-      "PENDING_INVOICE": "Pending Invoice",
-      "INVOICE_SENT": "Invoice Sent",
-      "PAID": "Paid",
-      "REJECTED": "Declined"
-    }
-  },
-  "application": {
-    "applicationType": {
-      "PRIMARY": "Primary",
-      "EXTENSION": "Extension",
-      "IMPORT": "Import"
-    }
-  },
-  "pendingApplications": {
-  	"title": "Pending Applications",
-  	"show": {  		
-  		"myApplications": "My Pending Applications",
-  		"allApplications": "All Pending Applications"
-  	},
-  	"table": {
-			"affiliateName": "Affiliate Name",
-			"applicationType": "Application Type",
-			"agreementType": "Agreement Type",
-			"useType": "Use Type",
-			"dateSubmitted": "Date Submitted",
-			"status": "Status",
-			"homeCountry": "Home Country",
-			"member": "Member",
-			"email": "Email",
-			"review": "Review"
-  	}
-  },
-	"form": {
-		"requiredField":"Required field."    	
+	"logout":{
+		"title":"MLDS-Logout",
+		"subtitle":"We are logging your out of your session."
+	},
+	"register":{
+		"title":"Register",
+		"welcome":"Welcome to IHTSDO-MLDS",
+		"subwelcome":"The gateway to access SNOMED CT Orientation",
+		"form":{
+			"tos":"Agree to our <a href=\"/tos.html\" target=\"_blank\">Terms and Conditions</a>.",
+			"button":"Start Registration",
+			"confirmemail":"E-mail (confirm)"
+		},
+		"messages":{
+			"validate":{
+				"login":{
+					"required":"Your login is required.",
+					"minlength":"Your login is required to be at least 1 character",
+					"maxlength":"Your login cannot be longer than 50 characters"
+				},
+				"country":{
+					"notMLDS":"Applications for use of SNOMED CT in your country of residence must be made to the appropriate representative from your country - <a href=\"{{link}}\" target=\"_blank\">here</a>. If you wish to apply for a Public Good agreement to use SNOMED CT in another country, or wish to make other inquiries please contact the IHTSDO at <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+				}
+			},
+			"success":"<strong>Registration saved!</strong> Please check your email for confirmation.",
+			"error":{
+				"fail":"<strong>Registration failed!</strong> Please try again later.",
+				"userexists":"<strong>A user has already registered with that email address.</strong> Did you mean to <a href='#/login'>login</a>?",
+				"blocklist":"Due to our IT policies we are unable to process the entered email address. Please contact <a href=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a> for further assistance."
+			}
+		},
+		"emailVerification":{
+			"intro":"We've sent you an email.",
+			"detail":"Please open the email we have just sent you to verify your account and get access to the MLDS"
+		},
+		"affiliateRegistration":{
+			"title":"Affiliate Registration",
+			"usageType":"Usage Type",
+			"conditions":"Please select the conditions that the product will be used under",
+			"typeOfAgreement":"Type of Agreement",
+			"validation":{
+				"other.required":"Other field is required."
+			},
+			"license.title":"SNOMED CT Agreement",
+			"license":"SNOMED License",
+			"license.confirm":"I agree to the license",
+			"license.error":"You must agree to the terms and conditions of the SNOMED CT License in order to register, which also indicates potential fees that be required."
+		},
+		"affiliateRegistrationReview":{
+			"title":"Review Application",
+			"editApp":"Edit Application"
+		}
+	},
+	"login":{
+		"title":"Login",
+		"form":{
+			"password":"Password",
+			"password.placeholder":"Your password",
+			"rememberme":"Remember Me",
+			"button":"Login",
+			"forgot":"Forgot your password?"
+		},
+		"messages":{
+			"error":{
+				"authentication":"<strong>Authentication failed!</strong> Please check your credentials and try again. Passwords are case sensitive.",
+				"deregistered":"<strong>Authentication failed!</strong> This account has been deregistered.  Please contact support.",
+				"noPermissions":"<strong>Authentication failed!</strong> We authenticated you, but your account has no access to this application, or is misconfigured.  Please contact support."
+			}
+		}
+	},
+	"settings":{
+		"title":"Contact Info for [<b>{{username}}</b>]",
+		"form":{
+			"countryOfResidence":"Country of Residence",
+			"countryOfResidence.placeholder":"Your country of residence",
+			"firstname":"First Name",
+			"firstname.placeholder":"Your first name",
+			"lastname":"Last Name",
+			"lastname.placeholder":"Your last name",
+			"button":"Save"
+		},
+		"messages":{
+			"error":"<strong>An error has occured!</strong> Settings could not be saved.",
+			"success":"<strong>Settings saved!</strong>",
+			"validate":{
+				"firstname":{
+					"required":"Your first name is required.",
+					"minlength":"Your first name is required to be at least 1 character",
+					"maxlength":"Your first name cannot be longer than 50 characters"
+				},
+				"lastname":{
+					"required":"Your last name is required.",
+					"minlength":"Your last name is required to be at least 1 character",
+					"maxlength":"Your last name cannot be longer than 50 characters"
+				}
+			}
+		}
+	},
+	"password":{
+		"title":"Password for {{username}}",
+		"form":{
+			"button":"Save"
+		},
+		"messages":{
+			"error":"<strong>An error has occured!</strong> The password could not be changed.",
+			"success":"<strong>Password changed!</strong>  Continue to <a href='#/contactInfo'>Account Information</a>",
+			"expired":"<strong>The reset link has expired or was invalid.</strong> <a href='#/requestPasswordReset'>Request another reset</a>"
+		}
+	},
+	"sessions":{
+		"title":"Active sessions for [<b>{{username}}</b>]",
+		"table":{
+			"ipaddress":"IP address",
+			"useragent":"User Agent",
+			"button":"Invalidate"
+		},
+		"messages":{
+			"success":"<strong>Session invalidated!</strong>",
+			"error":"<strong>An error has occured!</strong> The session could not be invalidated."
+		}
+	},
+	"tracker":{
+		"title":"Real-time user activities",
+		"table":{
+			"userlogin":"User",
+			"ipaddress":"IP Address",
+			"userAgent":"User agent",
+			"page":"Current page",
+			"time":"Time"
+		}
+	},
+	"metrics":{
+		"title":"System Metrics",
+		"refresh.button":"Refresh",
+		"health":{
+			"title":"Heath checks",
+			"database":"Database",
+			"email":"Email",
+			"stacktrace":"Stacktrace"
+		},
+		"jvm":{
+			"title":"JVM Metrics",
+			"memory":{
+				"title":"Memory",
+				"total":"Total Memory",
+				"heap":"Heap Memory",
+				"nonheap":"Non-Heap Memory"
+			},
+			"threads":{
+				"title":"Threads",
+				"all":"All",
+				"runnable":"Runnable",
+				"timedwaiting":"Timed waiting",
+				"waiting":"Waiting",
+				"blocked":"Blocked",
+				"dump":{
+					"title":"Threads dump",
+					"id":"Id",
+					"blockedtime":"Blocked Time",
+					"blockedcount":"Blocked Count",
+					"waitedtime":"Waited Time",
+					"waitedcount":"Waited Count",
+					"lockname":"Lock name",
+					"stacktrace":"Stacktrace",
+					"show":"Show",
+					"hide":"Hide"
+				}
+			},
+			"gc":{
+				"title":"Garbage collections",
+				"marksweepcount":"Mark Sweep count",
+				"marksweeptime":"Mark Sweep time",
+				"scavengecount":"Scavenge count",
+				"scavengetime":"Scavenge time"
+			},
+			"http":{
+				"title":"HTTP requests (events per second)",
+				"active":"Active requests",
+				"total":"Total requests",
+				"table":{
+					"code":"Code",
+					"count":"Count",
+					"mean":"Mean",
+					"average":"Average"
+				},
+				"code":{
+					"ok":"Ok",
+					"notfound":"Not found",
+					"servererror":"Server Error"
+				}
+			}
+		},
+		"servicesstats":{
+			"title":"Services statistics (time in millisecond)",
+			"table":{
+				"name":"Service name",
+				"count":"Count",
+				"mean":"Mean",
+				"min":"Min",
+				"max":"Max",
+				"p50":"p50",
+				"p75":"p75",
+				"p95":"p95",
+				"p99":"p99"
+			}
+		},
+		"ehcache":{
+			"title":"Ehcache statistics",
+			"cachename":"Cache name",
+			"objects":"Objects",
+			"hits":"Hits",
+			"misses":"Misses",
+			"evictioncount":"Eviction count",
+			"mean":"Mean get time (ms)"
+		}
+	},
+	"logs":{
+		"title":"Logs",
+		"nbloggers":"There are {{ total }} loggers.",
+		"filter":"Filter",
+		"table":{
+			"name":"Name",
+			"level":"Level"
+		}
+	},
+	"audits":{
+		"title":"Audits",
+		"filter":{
+			"title":"Filter per date",
+			"from":"from",
+			"to":"to",
+			"button":{
+				"weeks":"Weeks",
+				"today":"today",
+				"clear":"clear",
+				"close":"close"
+			}
+		},
+		"table":{
+			"header":{
+				"principal":"User",
+				"date":"Date (Local)",
+				"status":"State",
+				"data":"Extra data"
+			},
+			"data":{
+				"remoteAddress":"Remote Address:"
+			}
+		},
+		"type":{
+			"AUTHORIZATION_FAILURE":"Authorization Failure",
+			"AUTHENTICATION_SUCCESS":"Authorization Success",
+			"AUTHENTICATION_FAILURE":"Authentication Failure",
+			"AFFILIATE_CREATED":"Affiliate Created",
+			"AFFILIATE_CREATED_BY_IMPORT":"Affiliate Created from Import",
+			"AFFILIATE_UPDATED":"Affiliate Updated",
+			"AFFILIATE_UPDATED_BY_IMPORT":"Affiliate Updated from Import",
+			"AFFILIATEDETAILS_UPDATED":"Affiliate Details Updated",
+			"AFFILIATE_EXPORT":"Affiliate Batch Export",
+			"AFFILIATE_IMPORT":"Affiliate Batch Import",
+			"AFFILIATE_LOGIN_CREATED":"Affiliate Login Created",
+			"AFFILIATE_STANDING_STATE_CHANGED":"Affiliate Standing State Changed",
+			"APPLICATION_CREATED":"Application Created",
+			"APPLICATION_APPROVAL_STATE_CHANGED":"Application Approval State Changed",
+			"APPLICATION_DELETED":"Application Deleted",
+			"RELEASE_FILE_CREATED":"Release File Created",
+			"RELEASE_FILE_DELETED":"Release File Deleted",
+			"RELEASE_FILE_DOWNLOADED":"Release File Downloaded",
+			"RELEASE_PACKAGE_DELETED":"Release Package Deleted",
+			"RELEASE_PACKAGE_CREATED":"Release Package Created",
+			"RELEASE_VERSION_TAKEN_OFFLINE":"Release Version Taken Offline",
+			"RELEASE_VERSION_TAKEN_ONLINE":"Release Version Taken Online",
+			"RELEASE_VERSION_CREATED":"Release Version Created",
+			"RELEASE_VERSION_DELETED":"Release Version Deleted",
+			"USAGE_CREATED":"Usage Created",
+			"USAGE_APPROVAL_STATE_CHANGED":"Usage Approval State Changed"
+		}
+	},
+	"errors":{
+		"title":"Error page!",
+		"403":"You are not authorized to access the page."
+	},
+	"footer":"This is your footer",
+	"affiliate":{
+		"title":"Affiliate",
+		"type":{
+			"title":"Type",
+			"COMMERCIAL":"Commercial",
+			"ACADEMIC":"Academic",
+			"OTHER":"Other",
+			"INDIVIDUAL":"Individual"
+		},
+		"type.extended":{
+			"COMMERCIAL":"Commercial - Developer, Vendor or Terminology provider",
+			"ACADEMIC":"Academic - for internal use within an Organization. (Educational, Research, Development or Healthcare Provider)",
+			"OTHER":"Other - Use not stated in other options",
+			"INDIVIDUAL":"Individual - Personal, Educational or Research"
+		},
+		"subType":{
+			"DEVELOPER":"Developer",
+			"DEVELOPMENT":"Development",
+			"EDUCATIONAL":"Educational",
+			"HEALTHCAREPROVIDER":"Healthcare Provider",
+			"PERSONAL":"Personal",
+			"RESEARCH":"Research",
+			"VENDOR":"Vendor"
+		},
+		"agreementType":{
+			"AFFILIATE_NORMAL":"Affiliate - Normal",
+			"AFFILIATE_RESEARCH":"Affiliate - Research",
+			"AFFILIATE_PUBLIC_GOOD":"Affiliate - Public Good"
+		},
+		"organizationType":{
+			"PUBLIC_HEALTH_ORGANIZATION":"Public Health Organization",
+			"PRIVATE_HEALTH_ORGANIZATION":"Private Health Organization",
+			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION":"Research and Development Organization",
+			"HEALTHERCARE_APPLICATION_DEVELOPER":"Healthcare Application Developer",
+			"GENERAL_PRACTITIONER_PRACTICE":"General Practitioner Practice",
+			"EDUCATIONAL_INSTITUTE":"Educational Institute",
+			"OTHER":"Other"
+		},
+		"implementationStatus":{
+			"IMPLEMENTED":"Live/Implemented",
+			"DEVELOPMENT":"In Progress/Development",
+			"PLANNING":"In Planning Stage"
+		},
+		"standingState":{
+			"APPLYING":"Applying",
+			"IN_GOOD_STANDING":"In Good Standing",
+			"REJECTED":"Declined",
+			"DEACTIVATION_PENDING":"Deactivation Pending",
+			"DEACTIVATED":"Deactivated",
+			"DEREGISTERED":"Deregistered",
+			"PENDING_INVOICE":"Pending Invoice",
+			"INVOICE_SENT":"Invoice Sent"
+		},
+		"standingStateWithExplanation":{
+			"APPLYING":"Applying",
+			"IN_GOOD_STANDING":"In Good Standing - Approved full access, Account Paid, No Payment Required or Account Issue Resolved",
+			"REJECTED":"Declined",
+			"DEACTIVATION_PENDING":"Deactivation Pending - Access to Account Only, No Download Capability",
+			"DEACTIVATED":"Deactivated - Access to Account Only, No Download Capability",
+			"DEREGISTERED":"Deregistered – No Access to MLDS Account",
+			"PENDING_INVOICE":"Pending Invoice – Access to Account only, Payment Outstanding",
+			"INVOICE_SENT":"Invoice Sent - Access to Account only, Payment Outstanding"
+		}
+	},
+	"approval":{
+		"state":{
+			"NOT_SUBMITTED":"Not Submitted",
+			"CHANGE_REQUESTED":"Change Requested",
+			"SUBMITTED":"Submitted",
+			"RESUBMITTED":"Resubmitted",
+			"REVIEW_REQUESTED":"Review Requested",
+			"APPROVED":"Approved",
+			"REJECTED":"Declined"
+		}
+	},
+	"usageReport":{
+		"state":{
+			"NOT_SUBMITTED":"Not Submitted",
+			"CHANGE_REQUESTED":"Change Requested",
+			"SUBMITTED":"Submitted",
+			"RESUBMITTED":"Resubmitted",
+			"REVIEW_REQUESTED":"Review Requested",
+			"PENDING_INVOICE":"Pending Invoice",
+			"INVOICE_SENT":"Invoice Sent",
+			"PAID":"Paid",
+			"REJECTED":"Declined"
+		}
+	},
+	"application":{
+		"applicationType":{
+			"PRIMARY":"Primary",
+			"EXTENSION":"Extension",
+			"IMPORT":"Import"
+		}
+	},
+	"pendingApplications":{
+		"title":"Pending Applications",
+		"show":{
+			"myApplications":"My Pending Applications",
+			"allApplications":"All Pending Applications"
+		},
+		"table":{
+			"affiliateName":"Affiliate Name",
+			"applicationType":"Application Type",
+			"agreementType":"Agreement Type",
+			"useType":"Use Type",
+			"dateSubmitted":"Date Submitted",
+			"homeCountry":"Home Country",
+			"member":"Member",
+			"email":"Email",
+			"review":"Review"
+		}
+	},
+	"affiliateManagement":{
+		"title":"Affiliate Management"
+	},
+	"releaseManagement":{
+		"title":"Release Management"
+	},
+	"reviewUsageReports":{
+		"title":"Review Usage Reports"
+	},
+    "memberManagement":{
+		"title":"Member Management"
+	},
+    "activityLog":{
+		"title":"Activity Log"
+	},
+    "importAffiliateRecords":{
+		"title":"Import Affiliate Records"
+	},
+    "manageBlocklist":{
+		"title":"Manage Blocklist"
+	},
+    "nationalRegistrationList":{
+		"title":"National Registration List"
+	},
+    "systemLoggers":{
+		"title":"System Loggers"
+	},
+	"form":{
+		"requiredField":"Required field.",
+		"tooLong":"Input value is too long.", 
+		"invalidNumber":"Not a valid number",
+		"pleaseFix":"Please fix the errors listed above."
+	},
+	"views":{
+		"activate":{
+			"title":"Activation",
+			"messages":{
+				"success":{
+					"title":"User account has been created.",
+					"body":"The system will take you to continue your registration process in a few moments. If you are not redirected automatically please {{linkbegin}}click here.{{linkend}}"
+				},
+				"error":{
+					"title":"Your user could not be activated.",
+					"body":"Please use the registration form to sign up. If you are still encountering difficulties please contact support."
+				}
+			}
+		},
+		"applicationSummary":{
+			"title":"Application Summary",
+			"ext.title":"Extension Application Info",
+			"reason":"Reason",
+			"affiliateInfo":"Affiliate Info",
+			"affiliateInformation":"Affiliate Information",
+			"useType":"Use Type",
+			"useSubType":"Use SubType",
+			"billingInfo":"Billing Information",
+			"context":"Usage Context Information",
+			"subLicence":"Sub-license Usage",
+			"applicationActivity":"Application Activity"
+		},
+		"contactInfo":{
+			"title":"Account Information",
+			"messages":{
+				"notApproved":{
+					"title":"Registration not approved yet",
+					"body":"You can only modify the contact information for an affiliate once the registration request has been approved."
+				}
+			},
+			"admin":{
+				"title":"Admin Editable",
+				"other":{
+					"name":"Other",
+					"placeholder":"Other",
+					"required":"Other field is required."
+				},
+				"subtype":{
+					"name":"Subtype",
+					"required":"Subtype field is required."
+				},
+				"usageType":{
+					"name":"Type",
+					"required":"Usage type field is required."
+				},
+				"agreementType":"Agreement Type",
+				"accountStanding":"Account Standing"
+			},
+			"contact":{
+				"title":"Contact Information",
+				"fullName":"Name",
+				"firstName":{
+					"name":"First Name",
+					"placeholder":"John"
+				},
+				"lastName":{
+					"name":"Last Name",
+					"placeholder":"Smith"
+				},
+				"email":{
+					"name":"Email",
+					"placeholder":"JohnSmith@OrganizationABC.com",
+					"uniqueness":"Email Addresses needs to be unique.",
+					"invalid":"Invalid Email Address."
+				},
+				"alternativeEmail":{
+					"name":"Alternate Email",
+					"placeholder":"alternative@email.com"
+				},
+				"thirdEmail":"Third Email",
+				"landline":{
+					"name":"Landline Phone Number",
+					"short":"Phone Number",
+					"invalid":"Invalid Phone Number."
+				},
+				"landlineExtension":{
+					"name":"Extension",
+					"short":"Ext",
+					"placeholder":"Extension"
+				},
+				"mobile":{
+					"name":"Mobile Phone Number",
+					"placeholder":"number"
+				},
+				"address":{
+					"title":"Address",
+					"name":"Address",
+					"placeholder":"123 Somewhere Avenue"
+				},
+				"city":{
+					"name":"City",
+					"placeholder":"City"
+				},
+				"postcode":{
+					"name":"Post Code",
+					"placeholder":"Post Code",
+					"tooLong":"Post Code is too long."
+				},
+				"country":{
+					"name":"Country",
+					"placeholder":"Country",
+					"unrecognized":"Unrecognized country."
+				},
+				"billingAddress":{
+					"name":"Billing Address",
+					"country":"Billing Country",
+					"placeholder":"Address",
+					"sameAsAddress":"Use Address as Billing Address",
+					"useOrganizationAddress":"Use Organization Address as Billing Address"
+				}
+			},
+			"organization":{
+				"title":"Organization",
+				"name":{
+					"name":"Organization Name",
+					"placeholder":"Org name"
+				},
+				"type":{
+					"name":"Organization Type",
+					"required":"An Organization type is required",
+					"placeholder":"Other Organization Type"
+				}
+			}
+		},
+		"extensionApplication":{
+			"title":"Start Extension Application Process",
+			"sure":"Are you sure you want to apply for this Extension?",
+			"form":{
+				"title":"Extension Application Form",
+				"why":"Please describe why you would like access to this extension.",
+				"purpose":"Purpose of Use",
+				"error":"Reason needs to be longer."
+			},
+			"agreement":"Extension Agreement",
+			"license":"Extension License",
+			"warning":{
+				"change":"Extension Registration Needs Change",
+				"change.detail":"Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.",
+				"rejected":"Extension Registration Rejected",
+				"rejected.detail":"Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.",
+				"approved":"Extension Registration Approved",
+				"approved.detail":"Your application has been approved."
+			},
+			"delete":{
+				"title":"Cancel Application",
+				"sure":"Are you sure you want to cancel this application?",
+				"sure.detail":"Doing so will cause you to lose all saved information on this application."
+			}
+		},
+		"footer":{
+			"tos":"Terms of Service",
+			"pp":"Privacy Policy",
+			"contact":"Contact Us"
+		},
+		"landingPage":{
+			"appName":"Membership License and Distribution Service",
+			"purpose":"This service is provided by IHTSDO for organizations and individuals to request use and access to the International Release of SNOMED CT for use in non-Member countries.",
+			"furtherDetails":"For further details, please refer to the <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO website</a> or the <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>.",
+			"loginHere":"login here"
+		},
+		"releases":{
+			"title":"Releases available for Registered Users",
+			"noAuth":"<a href=\"#/login\">Log in</a> to download or click <a href=\"#/register\">register</a> to start application process.",
+			"memberCountries":"Member Countries",
+			"countryIsMissing":"If the country you're looking for is not in this list, please refer to the <a href=\"http://www.ihtsdo.org/\">IHTSDO website</a> for release download information.",
+			"notAvailable":"There are currently no release packages available",
+			"warning":{
+				"deactivated":"Account Deactivated",
+				"pending":"Pending Invoice",
+				"pAttention":"Primary application needs attention",
+				"pProcessed":"Primary application is being processed",
+				"apply":"Apply for extension",
+				"aProcessed":"Application being processed",
+				"aAttention":"Application needs attention, click to continue application"
+			}
+		},
+		"requestPasswordReset":{
+			"title":"Password Reset",
+			"detail":"We will send you an email containing a link to a password reset form.",
+			"button":"Request Password Reset"
+		},
+		"usage":{
+			"title":"Usage Log",
+			"instructions":"Please complete your usage declaration for the time period selected.",
+			"modal":{
+				"title":"Create Usage Declaration",
+				"instructions":"Please complete your usage declaration for all time periods. Please include reports for past and current use.",
+				"period":"Declaration Period"
+			},
+			"submit":{
+				"title":"Submit Usage Declaration",
+				"instructions":"Please check and ensure your usage declaration show below is correct before submitting.",
+				"declarationForPeriod":"Declaration for Period",
+				"button":"Submit Declaration"
+			},
+			"retract":{
+				"title":"Retract Usage Declaration",
+				"instructions":"Are you sure you want to re-tract this report? You will return to the same usage report to edit and re-submit. For a new time period you must submit a new declaration report.",
+				"button":"Retract Declaration"
+			}
+		},
+		"usageLog":{
+			"title":"Submitted Usage Report",
+			"retract":"Retract Declaration",
+			"usage":"Usage",
+			"subTitle":"License Usage",
+			"usageFor":"Usage For",
+			"pleaseFill":"Please fill out any known usage information at this time, you will be asked to confirm usage once your application is approved.",
+			"licenseType":"License Type",
+			"currentUsage":"Current Usage",
+			"plannedUsage":"Planned Usage",
+			"purpose":"Purpose",
+			"impStatus":"Implementation Status",
+			"countries":{
+				"title":"Countries in Use",
+				"subTitle":"Select the non-member countries in which SNOMED CT will be used.",
+				"list":"List of Countries",
+				"search":"Search Countries",
+				"homeCountry":"Home Country",
+				"button":"Add Country"
+			},
+			"institutions":{
+				"title":"Sublicensed Institutions",
+				"selectFirst":"A country needs to be selected before entering Sublicensed Institutions.",
+				"noneSelected":"No countries have been selected.",
+				"country":"Country",
+				"deleteCountry":"Remove Country",
+				"hospAndInst":"Hospital/Institution",
+				"hospAndInst.title":"Hospital(s)/Institution(s)",
+				"hospAndInst.plural":"Hospitals/Institutions",
+				"started":"Started to Use",
+				"finished":"Ceased Use",
+				"practices.title":"Practice(s)",
+				"practices":"Practices",
+				"dataAnalysis":{
+					"title":"Data Analysis",
+					"staff":"Hospitals providing staff to practices",
+					"dataCreation":"Data Creation Systems",
+					"independent":"Independent Practices",
+					"dataAnalysis":"Data Analysis Systems",
+					"systems":"Systems",
+					"data":"Data",
+					"provideStaff":"How many Hospitals provide staff to stated Practices?",
+					"usingDCSNotHosp":"How many Practices are using Data Creation Systems and are NOT part of a Hospital organization?",
+					"usingDCSNotPract":"How many Hospitals or other Institutions are using data creation systems and cannot be defined as Practices under the definition of the license?",
+					"howManyDAS":"How many Data Analysis Systems have you deployed in this region and how many databases are there per deployment?"
+				},
+				"modal":{
+					"subtitle":"Hospital/Institution Name",
+					"placeholder":"Enter Hospital/Institution Name",
+					"dateBefore":"Date before Started to Use date",
+					"sure":"Are you sure you want to remove",
+					"andEntries":"and its associated entries?",
+					"addPractices":"Please add the number of practices using SNOMED"
+				}
+			},
+			"otherActivities":"Other Activities",
+			"notificationRequired":"Affiliates are required to notify IHTSDO prior to engaging in any activities that do not fall within the existing categories at which time the IHTSDO will determine the appropriate Fee Structure for the activity in question.",
+			"pleaseDescribe":"Please describe activity below.",
+			"submitFor":"Submit Declaration for"
+		},
+		"usageReports":{
+			"reportDate":"Report Date",
+			"hospitals":"Hospitals",
+			"usageType":"Usage Type",
+			"countries":"Countries",
+			"newReport":"New Report"
+		},
+		"userDashboard":{
+			"affiliateNo":"Affiliate No",
+			"edit":"Edit Affiliate Application",
+			"myPackages":"My Release Packages",
+			"otherPackages":"Other Available Releases",
+			"warning":{
+				"required.title":"Usage Declaration Required",
+				"required.msg":"Your preliminary usage declaration has been saved. However, please be advised that you will need to submit your final usage declaration for the current year by January 15th. Please note all previous years usage reports must be submitted in order to download SNOMED CT.",
+				"change.title":"Affiliate Registration Requires Change",
+				"change.msg":"Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.",
+				"declined.title":"Affiliate Registration Declined",
+				"declined.msg":"Your affiliate registration has been declined. Please see email regarding the details of the decision.",
+				"deactivated.title":"Account Deactivated",
+				"deactivated.msg":"Your account has been Deactivated. Release package downloads and Extension applications have been suspended. Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue.",
+				"iPending.title":"Account Pending Invoice",
+				"iPending.msg":"Your account has a pending invoice. Release package downloads have been suspended. Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue.",
+				"dPending.title":"Account Deactivation Pending",
+				"dPending.msg":"Your account is scheduled to be Deactivated.  Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue."
+			}
+		}
 	}
 }
