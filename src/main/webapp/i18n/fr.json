@@ -1032,6 +1032,11 @@
 				"instructions":"S'il vous plaît vérifier et à assurer votre utilisation déclaration indiqué ci-dessous est correct avant de soumettre.",
 				"declarationForPeriod":"Déclaration pour la Période",
 				"button":"Proposez Déclaration"
+			},
+			"retract":{
+				"title":"Rentrer Déclaration d'Utilisation",
+				"instructions":"Etes-vous sûr que vous voulez ré-voies ce rapport? Vous reviendrez au même rapport d'utilisation d'éditer et de soumettre à nouveau. Pour une nouvelle période de temps, vous devez présenter un nouveau rapport de déclaration.",
+				"button":"Rentrer Déclaration"
 			}
 		},
 		"usageLog":{

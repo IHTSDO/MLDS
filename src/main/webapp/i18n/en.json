@@ -1032,6 +1032,11 @@
 				"instructions":"Please check and ensure your usage declaration show below is correct before submitting.",
 				"declarationForPeriod":"Declaration for Period",
 				"button":"Submit Declaration"
+			},
+			"retract":{
+				"title":"Retract Usage Declaration",
+				"instructions":"Are you sure you want to re-tract this report? You will return to the same usage report to edit and re-submit. For a new time period you must submit a new declaration report.",
+				"button":"Retract Declaration"
 			}
 		},
 		"usageLog":{
