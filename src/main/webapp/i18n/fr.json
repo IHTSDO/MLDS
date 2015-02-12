@@ -1019,8 +1019,23 @@
 			"detail":"Nous vous enverrons un e-mail contenant un link de réinitialisation de mot de passe.",
 			"button":"Réinitialiser le Mot de Passe"
 		},
+		"usage":{
+			"title":"Rapport d'Utilisation",
+			"instructions":"S'il vous plaît compléter votre déclaration d'utilisation pour la période de temps choisie.",
+			"modal":{
+				"title":"Créer Déclaration d'Utilisation",
+				"instructions":"S'il vous plaît compléter votre déclaration d'utilisation pour toutes les périodes. S'il vous plaît inclure les rapports d'utilisation passée et actuelle .",
+				"period":"Période Déclaration"
+			},
+			"submit":{
+				"title":"Proposez Déclaration d'Utilisation",
+				"instructions":"S'il vous plaît vérifier et à assurer votre utilisation déclaration indiqué ci-dessous est correct avant de soumettre.",
+				"declarationForPeriod":"Déclaration pour la Période",
+				"button":"Proposez Déclaration"
+			}
+		},
 		"usageLog":{
-			"title":"Soumis rapport d'utilisation",
+			"title":"Soumis Rapport d'utilisation",
 			"retract":"Rentrer Déclaration",
 			"subTitle":"L'Utilisation des Licences",
 			"usage":"Utilisation",
@@ -1077,7 +1092,8 @@
 			},
 			"otherActivities":"Autres Activités",
 			"notificationRequired":"Les affiliés sont tenus de notifier IHTSDO avant de se engager dans des activités qui ne entrent pas dans les catégories existantes au moment où l' IHTSDO va déterminer la structure de frais appropriés pour l'activité en question.",
-			"pleaseDescribe":"S'il vous plaît décrire l'activité ci-dessous."
+			"pleaseDescribe":"S'il vous plaît décrire l'activité ci-dessous.",
+			"submitFor":"Proposez Déclaration pour"
 		},
 		"usageReports":{
 			"reportDate":"Date du Rapport",
