@@ -502,9 +502,13 @@
 		}
 	},
 	"password":{
-		"title":"Mot de passe pour nom d'utilisateur{{}}",
+		"title":"Mot de passe pour {{account.login}}",
 		"form":{
 			"button":"Enregistrer"
+		},
+		"reset":{
+			"title":"Réinitialiser Mot de Passe",
+			"instructions":"Entrez le nouveau mot de passe ci-dessous."
 		},
 		"messages":{
 			"error":"<strong>Un eerreur est survenue</strong>Le mot de passe n'a pas pu être changé.",
@@ -1016,7 +1020,8 @@
 		"requestPasswordReset":{
 			"title":"Réinitialiser le Mot de Passe",
 			"detail":"Nous vous enverrons un e-mail contenant un link de réinitialisation de mot de passe.",
-			"button":"Réinitialiser le Mot de Passe"
+			"button":"Réinitialiser le Mot de Passe",
+			"back":"Retour à la page de connexion"
 		},
 		"usage":{
 			"title":"Rapport d'Utilisation",
