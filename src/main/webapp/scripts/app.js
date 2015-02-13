@@ -395,9 +395,6 @@ mldsApp
                     controller: 'MemberLandingPageController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
-                    },
-                    resolve: {
-                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/', {
