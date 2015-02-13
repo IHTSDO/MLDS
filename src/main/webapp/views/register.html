@@ -35,7 +35,7 @@
 										placeholder="{{'settings.form.countryOfResidence.placeholder' | translate}}"
 										ng-model="countryCommonName" 
 										required=""
-										typeahead="country.commonName for country in availableCountries | filter:$viewValue | limitTo:8"
+										typeahead="'global.country.' + country.isoCode2 | translate for country in availableCountries | filter:$viewValue | limitTo:8"
 										typeahead-editable="false">
 									
 									<div ng-show="createUserForm.$error">
