@@ -334,8 +334,10 @@
 								</div>
 							</div>
 							
-							<hr>
+							
 						<!-- Start Billing Fields -->
+            <div ng-hide="billingHide">
+                <hr>
 						<div class="row" ng-show="!$root.Session.isStaffOrAdmin()">
               <div class="col-md-6">
                 <div class="form-group">
@@ -415,6 +417,7 @@
 								</div>
 							</div>
 						</div>
+                    </div>
 						<!-- End Billing Fields -->
 							
 						</div>
@@ -515,6 +518,7 @@
 								</div>
 							</div>
 						</div>
+                        <div ng-hide="billingHide">
 						<hr>
 						<!-- Start Billing Fields -->
 						<div class="row" ng-show="!$root.Session.isStaffOrAdmin()">
@@ -600,8 +604,10 @@
 								</div>
 							</div>
 						</div>
+                            <hr>
+                        </div>
 						<!-- End Billing Fields -->
-						<hr>
+						
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
