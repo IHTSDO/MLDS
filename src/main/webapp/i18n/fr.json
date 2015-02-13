@@ -27,7 +27,7 @@
 			"releasePackages":"Package Publié",
 			"affiliate":{
 				"accountInformation":"Informations du Compte",
-				"changePassword":"Change Password",
+				"changePassword":"Changer Le Mot De Passe",
 				"logout":"Déconnexion"
 			},
 			"staff":{
