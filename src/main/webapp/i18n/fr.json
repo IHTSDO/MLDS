@@ -429,8 +429,8 @@
 			},
 			"success":"<strong>Inscription sauvé </strong>S'il vous plaît vérifier votre e-mail de confirmation!.",
 			"error":{
-				"fail":"<strong>Echec de l'enregistrement</strong>Seilvousplaîtréessayerplustard.",
-				"userexists":"<strong>Unutilisateura déjà enregistré avec cette adresse email</strong>Vouliez-vous dire <a href='#/login'>connecter</a>.?",
+				"fail":"<strong>Echec de l'enregistrement.</strong> S'il vous plaît réessayer plus tard.",
+				"userexists":"<strong>Un utilisateur a déjà enregistré avec cette adresse email</strong>Vouliez-vous dire <a href='#/login'>connecter</a>.?",
 				"blocklist":"Grâce à nos stratégies informatiques nous sommes incapables detraiter l'adress email indiquée.  S'il vous plaît contacter <a href=\"mailto:support@IHTSDO.org\">Support@IHTSDO.org</a>pourplusd'assistance."
 			}
 		},
