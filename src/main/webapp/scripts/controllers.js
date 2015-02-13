@@ -6,10 +6,11 @@ mldsApp.controller('AdminController', ['$scope',
     function ($scope) {
     }]);
 
-mldsApp.controller('LanguageController', ['$scope', '$translate',
-    function ($scope, $translate) {
+mldsApp.controller('LanguageController', ['$scope', '$translate', 'CountryService',
+    function ($scope, $translate, CountryService) {
         $scope.changeLanguage = function (languageKey) {
             $translate.use(languageKey);
+            var countries = CountryService.countries;
         };
     }]);
 
