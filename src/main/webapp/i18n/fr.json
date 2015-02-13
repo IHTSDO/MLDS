@@ -502,7 +502,7 @@
 		}
 	},
 	"password":{
-		"title":"Mot de passe pour {{account.login}}",
+		"title":"Mot de passe pour {{username}}",
 		"form":{
 			"button":"Enregistrer"
 		},
