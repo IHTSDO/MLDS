@@ -11,7 +11,7 @@ mldsApp.controller('AffiliateRegistrationController',
                     
         			$scope.affiliateform.affiliateDetails.billingAddress = angular.copy($scope.affiliateform.affiliateDetails.address);
                     $scope.billingHide = true;
-                    $scope.isSameAddress = true;
+                    $scope.$scope.addressOverride = true;
         		};
         	};
               
@@ -100,7 +100,7 @@ mldsApp.controller('AffiliateRegistrationController',
         	};
               
         	$scope.copyAddress = function() {
-        		if($scope.isSameAddress) {
+        		if($scope.isSameAddress || $scope.addressOverride) {
         			$scope.affiliateform.affiliateDetails.billingAddress = angular.copy($scope.affiliateform.affiliateDetails.address);
         		};
         	};
