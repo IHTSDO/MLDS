@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('CountryService', ['$http', '$log', '$q', '$translate', function($http, $log, $q, $translate){
+.service('CountryService', ['$http', '$log', '$q', '$translate', function($http, $log, $q, $translate){
 	
 		var countriesListQ = 
 			$http.get('/app/rest/countries')
