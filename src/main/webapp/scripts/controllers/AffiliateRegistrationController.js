@@ -8,7 +8,6 @@ mldsApp.controller('AffiliateRegistrationController',
             var loadJson = $http.get('/i18n/en.json');
             $scope.copyAddressMember = function(global, member) {
         		if(global.member.hasOwnProperty(member)) {
-                    
         			$scope.affiliateform.affiliateDetails.billingAddress = angular.copy($scope.affiliateform.affiliateDetails.address);
                     $scope.billingHide = true;
                     $scope.$scope.addressOverride = true;
@@ -21,7 +20,6 @@ mldsApp.controller('AffiliateRegistrationController',
         		//FIXME entire page should fail if no existing application...
         		
         		queryPromise.success(function(data) {
-    				$log.log("loadApplication", data);
     				$scope.affiliateform = data;
     				$scope.approvalState = data.approvalState;
     				$scope.applicationId = data.applicationId;
@@ -77,8 +75,6 @@ mldsApp.controller('AffiliateRegistrationController',
         			$scope.affilliateControllerSharedBucket.usageForm.attempted =true;
         			return;
         		}
-        		
-        		$log.log('affiliateForm', affiliateForm);
         		
         		var modalInstance = $modal.open({
         			templateUrl: 'views/registration/affiliateRegistrationReview.html',
