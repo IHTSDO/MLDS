@@ -13,7 +13,7 @@ angular.module('MLDS').controller('ActivationController',
         		$log.log('ok');
                 $scope.error = null;
                 $scope.success = 'OK';
-                $timeout(function() { $location.path('/dashboard'); }, 2000);
+                $timeout(function() { $location.path('/affiliateRegistration/'); }, 2000);
             },
             function (httpResponse) {
             	$log.log('error');

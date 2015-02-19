@@ -22,14 +22,12 @@ angular.module('MLDS').controller('RegisterController', ['$rootScope', '$scope',
         });
         
         $scope.register = function () {
-        	$log.log('register', $scope.registerAccount);
     		if ($scope.createUserForm.$invalid) {
     			$scope.createUserForm.attempted = true;
     			return;
     		}
             $scope.registerAccount.langKey = $translate.use();
             $scope.registerAccount.login = $scope.registerAccount.email;
-            $log.log('initialUsagePeriod', CommercialUsageService.generateRanges());
             
             var initialPeriod = CommercialUsageService.generateRanges()[0];
             $scope.registerAccount.initialUsagePeriod = {
