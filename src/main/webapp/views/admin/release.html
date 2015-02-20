@@ -20,7 +20,7 @@
 				<h2>{{packageEntity.name}} - {{packageEntity.member.key | enum:'global.member.'}}</h2>
 			</div>
 			
-			<p>{{packageEntity.description}}</p>
+			<div ng-bind-html="packageEntity.description"></div>
 	
 	</div>
 
