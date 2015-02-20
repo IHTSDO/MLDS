@@ -35,7 +35,7 @@
 			</div>
 			<div class="panel-body">
 				
-				<p>{{package.description}}</p>
+				<div ng-bind-html="package.description"></div>
 			</div>
 			<div class="panel-footer" ng-repeat="version in package.releaseVersions | filter: utils.isVersionOnline" ng-show="utils.isLatestVersion(version, (package.releaseVersions | filter: utils.isVersionOnline))">
 				<div class="row">
@@ -75,7 +75,7 @@
 					<h4 class="panel-title"><a ng-click="goToPackage(package)"> {{package.name}} - {{package.member.key | enum:'global.member.'}}</a></h4>
 				</div>
 				<div class="panel-body">
-					<p>{{package.description}}</p>
+					<div ng-bind-html="package.description"></div>
 				</div>
 			</div>
 		<div class="alert alert-warning" ng-show="offinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline releases available </div>
