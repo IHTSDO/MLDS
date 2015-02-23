@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<div class="panel-body">
-				<p>{{releaseVersion.description}}</p>
+				<p ng-bind-html="releaseVersion.description"></p>
 					<span><strong>Published On:</strong> {{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</span>
 			</div>
 			<div class="panel-footer"
@@ -64,8 +64,7 @@
 					<div ng-repeat="releaseFile in releaseVersion.releaseFiles">
 						<i class="fa fa-file"></i>
 						<button class="btn btn-link disabled no-padding" disabled="disabled" 
-							ng-show="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding">
-							{{releaseFile.label}}
+							ng-show="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding" ng-bind-html="releaseFile.label">
 						</button>
 						
 <!-- 						<a href="{{releaseFile.clientDownloadUrl}}"  -->
@@ -75,8 +74,7 @@
 <!-- 						</a> -->
 						
 						<button class="btn btn-link" ng-hide="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding"
-							ng-click="downloadReleaseFile(releaseFile.clientDownloadUrl)">
-							{{releaseFile.label}}
+							ng-click="downloadReleaseFile(releaseFile.clientDownloadUrl)" ng-bind-html="releaseFile.label">
 						</button>
 						
 					</div>
