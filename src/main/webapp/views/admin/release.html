@@ -46,7 +46,7 @@
 
 					<tr ng-repeat="releaseVersion in versions.online">
 					<td class="col-sm-2">{{releaseVersion.name}}</td>
-					<td class="col-sm-5">{{releaseVersion.description}}</td>
+					<td class="col-sm-5" ng-bind-html="releaseVersion.description"></td>
 					<td class="col-sm-3">
 						<div ng-repeat="packageFile in releaseVersion.releaseFiles">
 							<p><i class="fa fa-file"> </i><a href="{{packageFile.downloadUrl}}" target="_blank"> {{packageFile.label}}</a></p>
@@ -92,7 +92,7 @@
 
 					<tr ng-repeat="releaseVersion in versions.offline">
 					<td>{{releaseVersion.name}}</td>
-					<td>{{releaseVersion.description}}</td>
+					<td ng-bind-html="releaseVersion.description"></td>
 					<td>
 						<p>
 							<button class="btn btn-success btn-xs" ng-click="addReleaseFile(releaseVersion)" ng-hide="!isEditableReleasePackage">
@@ -102,7 +102,7 @@
 						<span class="release" ng-repeat="releaseFile in releaseVersion.releaseFiles">
 							<p>
 								<i class="fa fa-file"></i>
-								<a href="{{releaseFile.downloadUrl}}" target="_blank">{{releaseFile.label}}</a> 
+								<a href="{{releaseFile.downloadUrl}}" target="_blank" ng-bind-html="releaseFile.label"></a> 
 								<button class="btn btn-danger btn-xs pull-right" 
 									ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-times"></i> Remove

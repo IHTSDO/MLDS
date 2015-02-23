@@ -14,8 +14,7 @@
       </div>
       <div class="form-group">
           <label>Description</label> 
-          <textarea class="form-control" rows="3" placeholder="Enter Version Description" 
-          	name="description" ng-model="releaseVersion.description" ng-required="true"></textarea>
+          <div text-angular name="description" ng-model="releaseVersion.description"></div>
           <span ng-show="formPackageVersion.description.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
       <div class="form-group datepicker">
