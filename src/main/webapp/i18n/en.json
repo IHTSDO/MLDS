@@ -506,6 +506,10 @@
 		"form":{
 			"button":"Save"
 		},
+		"reset":{
+			"title":"Reset Account Password",
+			"instructions":"Enter the new password below."
+		},
 		"messages":{
 			"error":"<strong>An error has occured!</strong> The password could not be changed.",
 			"success":"<strong>Password changed!</strong>  Continue to <a href='#/contactInfo'>Account Information</a>",
@@ -1016,7 +1020,8 @@
 		"requestPasswordReset":{
 			"title":"Password Reset",
 			"detail":"We will send you an email containing a link to a password reset form.",
-			"button":"Request Password Reset"
+			"button":"Request Password Reset",
+			"back":"Go back to login page"
 		},
 		"usage":{
 			"title":"Usage Log",

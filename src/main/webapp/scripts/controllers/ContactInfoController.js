@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$timeout', '$route', '$location', 'Account', 'AffiliateService', 'CountryService',
-    function ($scope, $log, $timeout, $route, $location, Account, AffiliateService, CountryService) {
+angular.module('MLDS').controller('ContactInfoController', ['$scope', '$http', '$log', '$timeout', '$route', '$location', 'Account', 'AffiliateService', 'CountryService',
+    function ($scope, $http, $log, $timeout, $route, $location, Account, AffiliateService, CountryService) {
         $scope.settingsAccount = Account.get();
         $scope.availableCountries = CountryService.countries;
 
@@ -16,6 +16,24 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
         $scope.type = null;
         $scope.approved = true;
         $scope.readOnly = false;
+        
+        $scope.billingHide = false;
+        var loadJson = $http.get('/i18n/en.json');
+        $scope.copyAddressMember = function(global, member) {
+            if(global.member.hasOwnProperty(member)) {
+                $scope.affiliateDetails.billingAddress.street = $scope.affiliateDetails.address.street;
+    			$scope.affiliateDetails.billingAddress.city = $scope.affiliateDetails.address.city;
+    			$scope.affiliateDetails.billingAddress.post = $scope.affiliateDetails.address.post;
+    			$scope.affiliateDetails.billingAddress.country = $scope.affiliateDetails.address.country;
+                $scope.billingHide = true;
+                $scope.$scope.addressOverride = true;
+            };
+        };
+        $scope.loadJson = function(){
+            loadJson.success(function(data) {
+                $scope.copyAddressMember(data.global, $scope.affiliateDetails.address.country.isoCode2);
+            });
+        }
 
         function checkAddresses(a, b) {
     		if( a && b && (a.street != '' && a.street === b.street) 
@@ -28,7 +46,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
     	};
     	
     	$scope.copyAddress = function() {
-    		if($scope.isSameAddress) {
+    		if($scope.isSameAddress || $scope.addressOverride) {
     			$scope.affiliateDetails.billingAddress = {};
     			$scope.affiliateDetails.billingAddress.street = $scope.affiliateDetails.address.street;
     			$scope.affiliateDetails.billingAddress.city = $scope.affiliateDetails.address.city;
@@ -61,6 +79,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$log', '$
     				if (!$scope.approved) {
     					$scope.readOnly = true;
     				}
+                    $scope.loadJson();
         		})
     			["catch"](function(message) {
     				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});

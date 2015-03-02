@@ -4,7 +4,6 @@
  <div class="modal-body">
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
  	  <form name="formPackage" bs-validation>
-
       <div class="form-group">
           <label>Name</label> 
           <input class="form-control" placeholder="Enter Release Name" name="name" ng-model="releasePackage.name" ng-required="true">
@@ -12,7 +11,7 @@
       </div>
       <div class="form-group">
           <label>Description</label> 
-          <textarea class="form-control" rows="3" placeholder="Enter Release Description" name="description" ng-model="releasePackage.description" ng-required="true"></textarea>
+          <div text-angular name="description" ng-model="releasePackage.description"></div>
           <span ng-show="formPackage.description.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
       <div class="form-group" ng-show="$root.Session.isAdmin()">
@@ -23,7 +22,6 @@
       </div>
       </div>
 	</form>
- 	
  </div>
  <div class="modal-footer">
      <button class="btn btn-secondary btn-link" ng-click="$dismiss()">Cancel</button>
