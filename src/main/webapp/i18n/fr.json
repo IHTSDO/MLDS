@@ -1,376 +1,376 @@
 {
 	"global":{
-		"title":"MLDS",
-		"browsehappy":"You are using an <strong>outdated</strong>browser.Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a>toimprove your experience.",
+		"title":"mlds",
+		"browsehappy":"Vous utilisez une version de navigateur <strong>obsolète</strong>. Actualisez <a href=\"http://browsehappy.com/?locale=en\"> votre navigateur</a> pour améliorer vos performances.",
 		"menu":{
-			"home":"Home",
+			"home":"Accueil",
 			"account":{
 				"main":"Compte",
-				"contactInfo":"CoordonnÃ©es",
+				"contactInfo":"Informations de contact",
 				"password":"Mot de passe",
 				"sessions":"Sessions",
-				"tracker":"Tracker Utilisateur",
-				"metrics":"MÃ©triques",
-				"logs":"Logs",
+				"tracker":"Traceur d'utilisateur",
+				"metrics":"Mesures",
+				"logs":"Connexions",
 				"audits":"Audits",
-				"login":"Connexion",
-				"logout":"DÃ©connexion",
+				"login":"Se connecter",
+				"logout":"Déconnecter",
 				"apidocs":"API",
-				"register":"Inscription",
-				"affiliates":"AffiliÃ©s",
-				"dashboard":"Table au Debord"
+				"register":"S'enregistrer",
+				"affiliates":"Affiliés",
+				"dashboard":"Tableau de bord"
 			},
-			"dashboard":"Table au Debord",
-			"help":"Aidez-Moi",
-			"usageReports":"Les Rapports d'Utilisation",
+			"dashboard":"Tableau de bord",
+			"help":"Aide",
+			"usageReports":"Rapports d'utilisation",
 			"applications":"Applications",
-			"releasePackages":"Package PubliÃ©",
+			"releasePackages":"Éditions de logiciel",
 			"affiliate":{
-				"accountInformation":"Informations du Compte",
-				"changePassword":"Changer Le Mot De Passe",
-				"logout":"DÃ©connexion"
+				"accountInformation":"Informations concernant le compte",
+				"changePassword":"Modifier le mot de passe",
+				"logout":"Déconnecter"
 			},
 			"staff":{
-				"dashboard":"Table au Debord",
-				"pendingApplications":"les demandes en instance",
-				"usageReports":"Les Rapports d'Utilisation",
-				"affiliteUserManagement":"Affiliation Gestion des Utilisateurs",
-				"activityLog":"Journal d'ActivitÃ©",
-				"packageManagement":"Gestion des paquetages",
-				"licenseTC":"License T et C",
-				"reportsExtracts":"Rapports et Extraits",
-				"logout":"DÃ©connexion"
+				"dashboard":"Tableau de bord",
+				"pendingApplications":"Applications en cours",
+				"usageReports":"Rapports d'utilisation",
+				"affiliteUserManagement":"Gestion d'utilisateurs affiliés",
+				"activityLog":"Journal d'activité",
+				"packageManagement":"Gestion des logiciels",
+				"licenseTC":"Licence T et C",
+				"reportsExtracts":"Rapports et extraits",
+				"logout":"Déconnecter"
 			},
 			"admin":{
-				"importAffiliateRecords":"Importation Affiliation Records",
-				"manageBlacklist":"GÃ©rer Blacklist",
-				"nationalRegistrationList":"Liste Nationale d'Inscription"
+				"importAffiliateRecords":"Importer dossiers d'affilié",
+				"manageBlacklist":"Gérer la liste noire",
+				"nationalRegistrationList":"Liste d'enregistrement nationale"
 			},
 			"language":"Langue"
 		},
 		"language":{
-			"da":"Danois",
-			"en":"English",
-			"fr":"FranÃ§ais",
-			"de":"Allemand",
-			"pl":"Polonais",
-			"ru":"Russe"
+			"da":"danois",
+			"en":"anglais",
+			"fr":"français",
+			"de":"allemand",
+			"pl":"polonais",
+			"ru":"russe"
 		},
 		"member":{
 			"IHTSDO":"IHTSDO",
-			"AU":"Australie",
-			"BE":"Belgique",
+			"AU":"Australia",
+			"BE":"Belgium",
 			"BN":"Brunei",
 			"CA":"Canada",
-			"CL":"Chili",
-			"CZ":"RÃ©publique tchÃ¨que",
-			"DK":"le Danemark",
-			"EE":"Estonie",
-			"HK":"Hong Kong",
-			"IS":"Islande",
-			"IN":"l'Inde",
-			"IL":"IsraÃ«l",
-			"LT":"Lituanie",
-			"MY":"la Malaisie",
-			"MT":"Malte",
-			"NL":"Pays-Bas",
-			"NZ":"Nouvelle-ZÃ©lande",
-			"PL":"Pologne",
+			"CL":"Chile",
+			"CZ":"Czech Republic",
+			"DK":"Denmark",
+			"EE":"Estonia",
+			"HK":"Hong Kong, China",
+			"IS":"Iceland",
+			"IN":"India",
+			"IL":"Israel",
+			"LT":"Lithuania",
+			"MY":"Malaysia",
+			"MT":"Malta",
+			"NL":"Netherlands",
+			"NZ":"New Zealand",
+			"PL":"Poland",
 			"PT":"Portugal",
-			"SG":"Singapour",
-			"SK":"RÃ©publiques lovaque",
-			"SI":"RÃ©publique de SlovÃ©nie",
-			"ES":"Espagne",
-			"SE":"SuÃ¨de",
-			"GB":"Royaume-Uni",
-			"US":"Ã‰tats-Unis",
+			"SG":"Singapore",
+			"SK":"Slovak Republic",
+			"SI":"Republic of Slovenia",
+			"ES":"Spain",
+			"SE":"Sweden",
+			"GB":"United Kingdom",
+			"US":"United States",
 			"UY":"Uruguay"
 		},
 		"country":{
 			"AC":"Ascension",
 			"AD":"Andorra",
-			"AE":"Emirats Arabes unis",
+			"AE":"United Arab Emirates",
 			"AF":"Afghanistan",
-			"AG":"Antigua-et-Barbuda",
+			"AG":"Antigua and Barbuda",
 			"AI":"Anguilla",
-			"AL":"Albanie",
-			"AM":"L'ArmÃ©nie",
-			"AN":"AntillesnÃ©erlandaises",
+			"AL":"Albania",
+			"AM":"Armenia",
+			"AN":"Netherlands Antilles",
 			"AO":"Angola",
-			"AQ":"Territoire Australien del'Antarctique",
-			"AR":"Argentine",
-			"AS":"AmericanSamoa",
-			"AT":"Autriche",
-			"AU":"Australie",
+			"AQ":"Australian Antarctic Territory",
+			"AR":"Argentina",
+			"AS":"American Samoa",
+			"AT":"Austria",
+			"AU":"Australia",
 			"AW":"Aruba",
 			"AX":"Aland",
-			"AZ":"AzerbaÃ¯djan",
-			"BA":"La Bosnie-HerzÃ©govine",
-			"BB":"la Barbade",
+			"AZ":"Azerbaijan",
+			"BA":"Bosnia and Herzegovina",
+			"BB":"Barbados",
 			"BD":"Bangladesh",
-			"BE":"Belgique",
-			"BF":"BurkinaFaso",
-			"BG":"Bulgarie",
-			"BH":"BahreÃ¯n",
+			"BE":"Belgium",
+			"BF":"Burkina Faso",
+			"BG":"Bulgaria",
+			"BH":"Bahrain",
 			"BI":"Burundi",
-			"BJ":"BÃ©nin",
-			"BM":"Bermudes",
+			"BJ":"Benin",
+			"BM":"Bermuda",
 			"BN":"Brunei",
-			"BO":"la Bolivie",
-			"BR":"BrÃ©sil",
-			"BS":"Bahamas",
-			"BT":"Bhoutan",
-			"BV":"l'Ã®le Bouvet",
-			"BW":"Le Botswana",
-			"BY":"BiÃ©lorussie",
+			"BO":"Bolivia",
+			"BR":"Brazil",
+			"BS":"Bahamas, The",
+			"BT":"Bhutan",
+			"BV":"Bouvet Island",
+			"BW":"Botswana",
+			"BY":"Belarus",
 			"BZ":"Belize",
 			"CA":"Canada",
-			"CC":"Cocos (Keeling)",
-			"CD":"Congo (CongoKinshasa)",
-			"CF":"RÃ©publique centr africaine",
-			"CG":"Congo (CongoBrazzaville)",
-			"CH":"laSuisse",
-			"CI":"CÃ´te-d'Ivoire",
-			"CK":"Ã®lesCook",
-			"CL":"Chili",
-			"CM":"Cameroun",
-			"CN":"RÃ©publique populaire de la Chine",
-			"CO":"Colombie",
-			"CR":"CostaRica",
+			"CC":"Cocos (Keeling) Islands",
+			"CD":"Congo, (Congo Kinshasa)",
+			"CF":"Central African Republic",
+			"CG":"Congo, (Congo Brazzaville)",
+			"CH":"Switzerland",
+			"CI":"Cote d'Ivoire (Ivory Coast)",
+			"CK":"Cook Islands",
+			"CL":"Chile",
+			"CM":"Cameroon",
+			"CN":"China, People's Republic of",
+			"CO":"Colombia",
+			"CR":"Costa Rica",
 			"CU":"Cuba",
-			"CV":"CapVert",
+			"CV":"Cape Verde",
 			"CX":"Christmas Island",
-			"CY":"Chypre",
-			"CZ":"RÃ©publique tchÃ¨que",
-			"DE":"Allemagne",
+			"CY":"Cyprus",
+			"CZ":"Czech Republic",
+			"DE":"Germany",
 			"DJ":"Djibouti",
-			"DK":"leDanemark",
-			"DM":"Dominique",
-			"DO":"RÃ©publique dominicaine",
-			"DZ":"AlgÃ©rie",
-			"EC":"Equateur",
-			"EE":"Estonie",
-			"EG":"l'Ã‰gypte",
-			"ER":"l'ErythrÃ©e",
-			"ES":"Espagne",
-			"ET":"l'Ethiopie",
-			"FI":"Finlande",
-			"FJ":"Fidji",
-			"FK":"Ã®les Falkland",
-			"FM":"MicronÃ©sie",
-			"FO":"ÃŽles FÃ©roÃ©",
+			"DK":"Denmark",
+			"DM":"Dominica",
+			"DO":"Dominican Republic",
+			"DZ":"Algeria",
+			"EC":"Ecuador",
+			"EE":"Estonia",
+			"EG":"Egypt",
+			"ER":"Eritrea",
+			"ES":"Spain",
+			"ET":"Ethiopia",
+			"FI":"Finland",
+			"FJ":"Fiji",
+			"FK":"Falkland Islands (Islas Malvinas)",
+			"FM":"Micronesia",
+			"FO":"Faroe Islands",
 			"FR":"France",
 			"GA":"Gabon",
-			"GB":"Royaume-Uni",
-			"GD":"Grenade",
+			"GB":"United Kingdom",
+			"GD":"Grenada",
 			"GE":"Georgia",
-			"GF":"Guyane franÃ§aise",
+			"GF":"French Guiana",
 			"GG":"Guernsey",
-			"GH":"LeGhana",
+			"GH":"Ghana",
 			"GI":"Gibraltar",
-			"GL":"Groenland",
-			"GM":"Gambie",
-			"GN":"GuinÃ©e",
+			"GL":"Greenland",
+			"GM":"Gambia, The",
+			"GN":"Guinea",
 			"GP":"Guadeloupe",
-			"GQ":"la GuinÃ©e Ã©quatoriale",
-			"GR":"GrÃ¨ce",
-			"GS":"la GÃ©orgie du Sud et Ã®les Sandwich du Sud",
+			"GQ":"Equatorial Guinea",
+			"GR":"Greece",
+			"GS":"South Georgia & South Sandwich Islands",
 			"GT":"Guatemala",
 			"GU":"Guam",
-			"GW":"la GuinÃ©e-Bissau",
-			"GY":"Guyane",
+			"GW":"Guinea-Bissau",
+			"GY":"Guyana",
 			"HK":"Hong Kong",
-			"HM":"Ã®les Hearde tMcDonald",
+			"HM":"Heard Island and McDonald Islands",
 			"HN":"Honduras",
-			"HR":"Croatie",
-			"HT":"HaÃ¯ti",
-			"HU":"Hongrie",
-			"ID":"IndonÃ©sie",
-			"IE":"Irlande",
-			"IL":"IsraÃ«l",
+			"HR":"Croatia",
+			"HT":"Haiti",
+			"HU":"Hungary",
+			"ID":"Indonesia",
+			"IE":"Ireland",
+			"IL":"Israel",
 			"IM":"Isle of Man",
-			"IN":"l'Inde",
-			"IO":"Territoire Britannique de l'OcÃ©an Indien",
-			"IQ":"l'Irak",
-			"IR":"l'Iran",
-			"IS":"Islande",
-			"IT":"Italie",
+			"IN":"India",
+			"IO":"British Indian Ocean Territory",
+			"IQ":"Iraq",
+			"IR":"Iran",
+			"IS":"Iceland",
+			"IT":"Italy",
 			"JE":"Jersey",
 			"JM":"Jamaica",
-			"JO":"Jordanie",
-			"JP":"Japon",
+			"JO":"Jordan",
+			"JP":"Japan",
 			"KE":"Kenya",
-			"KG":"Kirghizistan",
-			"KH":"leCambodge",
+			"KG":"Kyrgyzstan",
+			"KH":"Cambodia",
 			"KI":"Kiribati",
-			"KM":"Comores",
-			"KN":"Saint-Kitts-et-Nevis",
-			"KP":"CorÃ©e du Nord",
-			"KR":"CorÃ©e du Sud",
-			"KW":"KoweÃ¯t",
-			"KY":"Ã®les CaÃ¯mans",
+			"KM":"Comoros",
+			"KN":"Saint Kitts and Nevis",
+			"KP":"Korea, North",
+			"KR":"Korea, South",
+			"KW":"Kuwait",
+			"KY":"Cayman Islands",
 			"KZ":"Kazakhstan",
 			"LA":"Laos",
-			"LB":"Liban",
-			"LC":"SaintLucia",
+			"LB":"Lebanon",
+			"LC":"Saint Lucia",
 			"LI":"Liechtenstein",
-			"LK":"SriLanka",
+			"LK":"Sri Lanka",
 			"LR":"Liberia",
 			"LS":"Lesotho",
-			"LT":"Lituanie",
+			"LT":"Lithuania",
 			"LU":"Luxembourg",
-			"LV":"laLettonie",
-			"LY":"laLibye",
-			"MA":"Maroc",
+			"LV":"Latvia",
+			"LY":"Libya",
+			"MA":"Morocco",
 			"MC":"Monaco",
 			"MD":"Moldova",
-			"ME":"MontÃ©nÃ©gro",
+			"ME":"Montenegro",
 			"MG":"Madagascar",
-			"MH":"Ã®les Marshall",
-			"MK":"MacÃ©doine",
+			"MH":"Marshall Islands",
+			"MK":"Macedonia",
 			"ML":"Mali",
-			"MM":"Myanmar(Birmanie)",
-			"MN":"Mongolie",
-			"MO":"Macao",
-			"MP":"Ã®les Mariannes du Nord",
+			"MM":"Myanmar (Burma)",
+			"MN":"Mongolia",
+			"MO":"Macau",
+			"MP":"Northern Mariana Islands",
 			"MQ":"Martinique",
-			"MR":"Mauritanie",
+			"MR":"Mauritania",
 			"MS":"Montserrat",
-			"MT":"Malte",
-			"MU":"Maurice",
+			"MT":"Malta",
+			"MU":"Mauritius",
 			"MV":"Maldives",
-			"MW":"Le Malawi",
-			"MX":"Mexique",
-			"MY":"la Malaisie",
-			"MZ":"le Mozambique",
-			"NA":"Namibie",
-			"NC":"Nouvelle-CalÃ©donie",
+			"MW":"Malawi",
+			"MX":"Mexico",
+			"MY":"Malaysia",
+			"MZ":"Mozambique",
+			"NA":"Namibia",
+			"NC":"New Caledonia",
 			"NE":"Niger",
-			"NF":"l'Ã®le de Norfolk",
+			"NF":"Norfolk Island",
 			"NG":"Nigeria",
 			"NI":"Nicaragua",
-			"NL":"Pays-Bas",
-			"NO":"NorvÃ¨ge",
+			"NL":"Netherlands",
+			"NO":"Norway",
 			"NP":"Nepal",
 			"NR":"Nauru",
-			"NU":"NiouÃ©",
-			"NZ":"Nouvelle-ZÃ©lande",
+			"NU":"Niue",
+			"NZ":"New Zealand",
 			"OM":"Oman",
 			"PA":"Panama",
-			"PE":"PÃ©rou",
-			"PF":"PolynÃ©sie franÃ§aise",
-			"PG":"Papouasie-Nouvelle-GuinÃ©e",
+			"PE":"Peru",
+			"PF":"French Polynesia",
+			"PG":"Papua New Guinea",
 			"PH":"Philippines",
 			"PK":"Pakistan",
-			"PL":"Pologne",
-			"PM":"Saint-Pierre-et-Miquelon",
-			"PN":"Iles Pitcairn",
-			"PR":"PuertoRico",
+			"PL":"Poland",
+			"PM":"Saint Pierre and Miquelon",
+			"PN":"Pitcairn Islands",
+			"PR":"Puerto Rico",
 			"PT":"Portugal",
 			"PW":"Palau",
-			"PY":"Le Paraguay",
+			"PY":"Paraguay",
 			"QA":"Qatar",
-			"RE":"RÃ©union",
-			"RO":"Roumanie",
-			"RS":"Serbie",
-			"RU":"laRussie",
+			"RE":"Reunion",
+			"RO":"Romania",
+			"RS":"Serbia",
+			"RU":"Russia",
 			"RW":"Rwanda",
-			"SA":"l'Arabie saoudite",
-			"SB":"Ã®les Salomon",
+			"SA":"Saudi Arabia",
+			"SB":"Solomon Islands",
 			"SC":"Seychelles",
-			"SD":"Soudan",
-			"SE":"SuÃ¨de",
-			"SG":"Singapour",
-			"SH":"SaintHelena",
-			"SI":"laSlovÃ©nie",
+			"SD":"Sudan",
+			"SE":"Sweden",
+			"SG":"Singapore",
+			"SH":"Saint Helena",
+			"SI":"Slovenia",
 			"SJ":"Svalbard",
-			"SK":"Slovaquie",
+			"SK":"Slovakia",
 			"SL":"Sierra Leone",
 			"SM":"San Marino",
-			"SN":"SÃ©nÃ©gal",
-			"SO":"Somalie",
+			"SN":"Senegal",
+			"SO":"Somalia",
 			"SR":"Suriname",
-			"ST":"Sao TomÃ©et Principe",
+			"ST":"Sao Tome and Principe",
 			"SV":"El Salvador",
-			"SY":"la Syrie",
+			"SY":"Syria",
 			"SZ":"Swaziland",
-			"TA":"TristandaCunha",
-			"TC":"Ã®les Turqueset CaÃ¯ques",
-			"TD":"Tchad",
-			"TF":"FranÃ§ais Terres Australes et Antarctiques",
+			"TA":"Tristan da Cunha",
+			"TC":"Turks and Caicos Islands",
+			"TD":"Chad",
+			"TF":"French Southern and Antarctic Lands",
 			"TG":"Togo",
-			"TH":"ThaÃ¯lande",
-			"TJ":"Tadjikistan",
-			"TK":"TokÃ©laou",
-			"TL":"Timor-Leste (Timor oriental)",
-			"TM":"TurkmÃ©nistan",
-			"TN":"Tunisie",
+			"TH":"Thailand",
+			"TJ":"Tajikistan",
+			"TK":"Tokelau",
+			"TL":"Timor-Leste (East Timor)",
+			"TM":"Turkmenistan",
+			"TN":"Tunisia",
 			"TO":"Tonga",
-			"TR":"Turquie",
-			"TT":"TrinitÃ©-et-Tobago",
+			"TR":"Turkey",
+			"TT":"Trinidad and Tobago",
 			"TV":"Tuvalu",
-			"TW":"Taiwan",
-			"TZ":"Tanzanie",
+			"TW":"China, Republic of (Taiwan)",
+			"TZ":"Tanzania",
 			"UA":"Ukraine",
-			"UG":"l'Ouganda",
-			"UM":"WakeIsland",
-			"US":"Ã‰tats-Unis",
+			"UG":"Uganda",
+			"UM":"Wake Island",
+			"US":"United States",
 			"UY":"Uruguay",
-			"UZ":"l'OuzbÃ©kistan",
-			"VA":"CitÃ© du Vatican",
-			"VC":"Saint-Vincent-et-les Grenadines",
+			"UZ":"Uzbekistan",
+			"VA":"Vatican City",
+			"VC":"Saint Vincent and the Grenadines",
 			"VE":"Venezuela",
-			"VG":"ÃŽles Vierges Britanniques",
-			"VI":"ÃŽles Vierges AmÃ©ricaines",
+			"VG":"British Virgin Islands",
+			"VI":"U.S. Virgin Islands",
 			"VN":"Vietnam",
 			"VU":"Vanuatu",
-			"WF":"Wallis et Futuna",
+			"WF":"Wallis and Futuna",
 			"WS":"Samoa",
-			"YE":"YÃ©men",
+			"YE":"Yemen",
 			"YT":"Mayotte",
-			"ZA":"Afrique du Sud",
-			"ZM":"La Zambie",
+			"ZA":"South Africa",
+			"ZM":"Zambia",
 			"ZW":"Zimbabwe"
 		},
 		"form":{
-			"username":"Connexion",
-			"username.placeholder":"Votre login",
+			"username":"Identifiant",
+			"username.placeholder":"Votre identifiant",
 			"name.placeholder":"Votre nom",
-			"newpassword":"Nouveau mot d epasse",
+			"newpassword":"Nouveau mot de passe",
 			"newpassword.placeholder":"Nouveau mot de passe",
-			"confirmpassword":"Nouvelle confirmation de mot de passe",
+			"confirmpassword":"Confirmation nouveau mot de passe.",
 			"confirmpassword.placeholder":"Confirmez le nouveau mot de passe",
 			"email":"E-mail",
 			"email.placeholder":"Votre adresse e-mail",
-			"country":"Pays de rÃ©sidence"
+			"country":"Pays de résidence"
 		},
 		"messages":{
 			"info":{
-				"authenticated":"If you want to <a href=\"#/login\">authenticate</a>,you can try the default accounts:<br/>-Admnistrator(login=\"admin\"andpassword=\"admin\")<br/>-User(login=\"user\"andpassword=\"user\").",
-				"register":"Vous ne avez pas encore de compte <a href=\"#/register\">Enregistrer un nouveau compte</a>?"
+				"authenticated":"Si vous souhaitez <a href=\"#/login\">vous identifier</a>, essayez les comptes par défaut:<br/>- Admnistrateur (identifiant=\"admin\" et mot de passe=\"admin\") <br/>- Utilisateur (identifiant=\"user\" et mot de passe=\"user\").",
+				"register":"Vous ne disposez pas encore d'un compte? <a href=\"#/register\">Enregistrez un nouveau compte</a>"
 			},
 			"error":{
-				"dontmatch":"Le mot de passe et sa confirmationne correspondent pas!",
-				"server":"Un eerreur est survenue RÃ©pÃ©tition l'action peut rÃ©ussir."
+				"dontmatch":"Le mot de passe et sa confirmation ne concordent pas!",
+				"server":"Une erreur est survenue.  Répéter l'action peut s'avérer utile."
 			},
 			"validate":{
 				"newpassword":{
-					"required":"Votre mot de passe est nÃ©cessaire.",
-					"minlength":"Votre mot depasse est nÃ©cessaire pour Ãªtre au moins 5caractÃ¨res",
-					"maxlength":"Votre mot de passe ne peut pas Ãªtre plus long que 50 caractÃ¨res",
-					"strength":"la force du mot de passe:"
+					"required":"Mot de passe requis.",
+					"minlength":"Votre mot de passe doit compter au moins 5 caractères.",
+					"maxlength":"Votre mot de passe ne peut excéder 50 caractères.",
+					"strength":"Puissance du mot de passe:"
 				},
 				"confirmpassword":{
-					"required":"Votre mot depasse de confirmation est nÃ©cessaire.",
-					"minlength":"Votre mot depasse de confirmation est nÃ©cessaire pour Ãªtre au moins 5 caractÃ¨res",
-					"maxlength":"Votre mot de passe de confirmation ne peut pas Ãªtre plus de 50 caractÃ¨res",
-					"match":"Votre confirmation de mot de passe ne correspond pas aumot de passe"
+					"required":"Confirmation de mot de passe requise.",
+					"minlength":"Votre mot de passe de confirmation doit compter au moins 5 caractères.",
+					"maxlength":"Votre mot de passe de confirmation ne peut excéder 50 caractères.",
+					"match":"Votre mot de passe de confirmation ne correspond pas à votre mot de passe."
 				},
 				"email":{
-					"required":"Votre e-mail est nÃ©cessaire.",
-					"invalid":"Votre e-mail ne est pas valide.",
-					"minlength":"Votre e-mail est nÃ©cessaire pour Ãªtre aumoins 1 caractÃ¨re",
-					"maxlength":"Votre e-mail ne peut pas Ãªtre plus long que 50 caractÃ¨res"
+					"required":"Adresse e-mail requise.",
+					"invalid":"Votre adresse e-mail n'est pas valide.",
+					"minlength":"Votre adresse e-mail doit compter au moins 1 caractère.",
+					"maxlength":"Votre adresse e-mail ne peut excéder 50 caractères."
 				}
 			}
 		},
@@ -380,123 +380,123 @@
 			"edit":"Modifier",
 			"name":"Nom",
 			"cancel":"Annuler",
-			"note":"Remarque",
-			"notes":"Remarques",
+			"note":"Note",
+			"notes":"Notes",
 			"close":"Fermer",
 			"delete":"Supprimer",
-			"update":"Mettre Ã  Jour",
+			"update":"Actualiser",
 			"from":"de",
 			"ok":"OK",
 			"submit":"Soumettre",
-			"save":"Enregistrer",
+			"save":"Sauvegarder",
 			"welcome":"Bienvenue",
-			"view":"Voir",
-			"viewAll":"Voir Tous",
-			"state":"La Situation",
-			"status":"Status",
+			"view":"Visualiser",
+			"viewAll":"Visualiser tout",
+			"state":"État",
+			"status":"Statut",
 			"type":"Type",
-			"date":"La Date",
-			"user":"Le Utilisateur",
+			"date":"Date",
+			"user":"Utilisateur",
 			"yes":"Oui",
 			"no":"Non",
 			"apply":"Appliquer",
-			"back":"Retourner"
+			"back":"Retour"
 		}
 	},
 	"logout":{
-		"title":"MLDS-DÃ©connexion",
-		"subtitle":"Nous sommes l'enregistrement de votre de votre session."
+		"title":"MLDS-Déconnecter",
+		"subtitle":"Votre session va être clôturée."
 	},
 	"register":{
-		"title":"Inscription",
-		"welcome":"Bienvenue Ã  IHTSDO-MLDS",
-		"subwelcome":"La passer elle pour accÃ©der SNOMEDCT Orientation",
+		"title":"S'enregistrer",
+		"welcome":"Bienvenue sur IHTSDO-MLDS",
+		"subwelcome":"Votre porte d'accès à SNOMED CT Orientation",
 		"form":{
-			"tos":"acceptez nos <a href=\"/tos.html\"target=\"_blank\">Conditions</a>.",
-			"button":"Lancer enregistrement",
-			"confirmemail":"E-mail(confirmer)"
+			"tos":"Veuillez accepter nos <a href=\"/tos.html\" target=\"_blank\">clauses et conditions</a>.",
+			"button":"Commencer l'enregistrement",
+			"confirmemail":"E-mail (confirmer)"
 		},
 		"messages":{
 			"validate":{
 				"login":{
-					"required":"Votre connexion est requise.",
-					"minlength":"Votre connexion est nÃ©cessaire pour Ãªtre au moins 1 caractÃ¨re",
-					"maxlength":"Votre connexion ne peut pas Ãªtre plus longque 50 caractÃ¨res"
+					"required":"Identifiant requis.",
+					"minlength":"Votre identifiant doit compter au moins 1 caractère.",
+					"maxlength":"Votre identifiant ne peut excéder 50 caractères."
 				},
 				"country":{
-					"notMLDS":"Applications pour l'utilisation de la SNOMEDCT dans votre pays de rÃ©sidence doi vent Ãªtre faites au reprÃ©sentant appropriÃ© de votre pays -<a href=\"{{link}}\"target=\"_blank\">ici</a>.SivoussouhaitezpostulerpourunbonaccordpublicÃ utiliserlaSNOMEDCTdansunautrepays,ousivoussouhaitezfaired'autresdemandesderenseignementsseilvousplaÃ®tcontacterl'IHTSDOau<ahref=\"mailto:info@ihtsdo.org\">infos@ihtsdo.org</a>"
+					"notMLDS":"Les demandes d'utilisation de SNOMED CT dans votre pays de résidence doivent être adressées au représentant approprié de votre pays - <a href=\"{{link}}\" target=\"_blank\">dans ce pays-ci</a>. Si vous souhaitez demander un contrat d'utilité publique pour l'utilisation de SNOMED CT dans un autre pays, ou si vous souhaitez d'autres renseignements, contactez IHTSDO à l'adresse <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
 				}
 			},
-			"success":"<strong>Inscription sauvÃ© </strong>S'il vous plaÃ®t vÃ©rifier votre e-mail de confirmation!.",
+			"success":"<strong>Enregistrement sauvegardé!</strong> Consultez vos e-mails pour confirmation.",
 			"error":{
-				"fail":"<strong>Echec de l'enregistrement.</strong> S'il vous plaÃ®t rÃ©essayer plus tard.",
-				"userexists":"<strong>Un utilisateur a dÃ©jÃ  enregistrÃ© avec cette adresse email</strong>Vouliez-vous dire <a href='#/login'>connecter</a>.?",
-				"blocklist":"GrÃ¢ce Ã  nos stratÃ©gies informatiques nous sommes incapables detraiter l'adress email indiquÃ©e.  S'il vous plaÃ®t contacter <a href=\"mailto:support@IHTSDO.org\">Support@IHTSDO.org</a>pourplusd'assistance."
+				"fail":"<strong>L'enregistrement a échoué!</strong> Veuillez réessayer plus tard.",
+				"userexists":"<strong>Un utilisateur est déjà enregistré avec cette adresse e-mail.</strong> Votre intention était-elle <a href='#/login'>"de vous connecter</a>?",
+				"blocklist":"Nos règles de sécurité IT nous empêchent de traiter l'adresse e-mail saisie. Veuillez contacter <a href=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a> pour obtenir de l'aide."
 			}
 		},
 		"emailVerification":{
-			"intro":"Nous vous avons envoyÃ© un e-mail.",
-			"detail":"S'il vous plaÃ®t ouvrir le courriel que nous venons de vous envoyer pour vÃ©rifier votre compte et accÃ©der Ã  la MLDS"
+			"intro":"Nous vous avons envoyé un e-mail.",
+			"detail":"Veuillez ouvrir l'e-mail que nous venons de vous envoyer pour vérifier votre compte et accéder à MLDS."
 		},
 		"affiliateRegistration":{
-			"title":"L'Enregistrement d'Affiliation",
-			"usageType":"Type d'Utilisation",
-			"conditions":"S'il vous plaÃ®t sÃ©lectionnez les conditions dans que le produit sera utilisÃ©",
-			"typeOfAgreement":"Type d'Entente",
+			"title":"Enregistrement d'affilié",
+			"usageType":"Type d'utilisation",
+			"conditions":"Veuillez sélectionner les conditions dans lesquelles le produit sera utilisé.",
+			"typeOfAgreement":"Type de contrat",
 			"validation":{
-				"other.required":"Autre champ est obligatoire."
+				"other.required":"Le champ "Autres" est requis."
 			},
-			"license.title":"Accord de SNOMED CT",
-			"license":"SNOMED Licence",
-			"license.confirm":"Je suis d'accord Ã  la licence",
-			"license.error":"Vous devez accepter les termes et conditions de la Licence SNOMED CT afin d'enregistrer, qui indique Ã©galement les frais potentiels que nÃ©cessaires."
+			"license.title":"Contrat SNOMED CT",
+			"license":"Licence SNOMED",
+			"license.confirm":"J'accepte les conditions de licence.",
+			"license.error":"Pour vous enregistrer, vous devez accepter les clauses et conditions de licence SNOMED CT, qui préciseront également les éventuelles redevances dues."
 		},
 		"affiliateRegistrationReview":{
-			"title":"Examen de la Demande",
-			"editApp":"Modifier l'Application"
+			"title":"Demande de révision",
+			"editApp":"Demande de modification"
 		}
 	},
 	"login":{
-		"title":"Connexion",
+		"title":"Identifiant",
 		"form":{
 			"password":"Mot de passe",
 			"password.placeholder":"Votre mot de passe",
-			"rememberme":"Rappeler",
-			"button":"Connexion",
-			"forgot":"Mot de passe oubliÃ©?"
+			"rememberme":"Se souvenir de ce mot de passe",
+			"button":"Se connecter",
+			"forgot":"Mot de passe oublié?"
 		},
 		"messages":{
 			"error":{
-				"authentication":"<strong>L'authentification a Ã©chouÃ©</strong>.<br/>S'il vous plaÃ®t, vÃ©rifier vos informations d'identification et essayez Ã  nouveau les mots de passe sont sensibles Ã  la casse!",
-				"deregistered":"<strong>L'authentification a Ã©chouÃ©</strong>.<br/>Ce compte a Ã©tÃ© radiÃ©. S'il vous plaÃ®t contacter le support",
-				"noPermissions":"<strong>L'authentification a Ã©chouÃ©</strong>.<br/>Nous vous authentifiÃ©s, mais votre compte n'a pas accÃ¨s Ã  cette application, ou est mal configurÃ©. S'il vous plaÃ®tcontacterlesupport!"
+				"authentication":"<strong>L'authentification a échoué!</strong> Veuillez vérifier vos références et réessayer. Les mots de passe sont sensibles à la casse.",
+				"deregistered":"<strong>L'authentification a échoué!</strong> Ce compte a été désenregistré. Veuillez contacter le support.",
+				"noPermissions":"<strong> L'authentification a échoué!</strong> Nous vous avons authentifié, mais votre compte ne vous donne pas accès à cette application, ou est mal configuré. Veuillez contacter le support."
 			}
 		}
 	},
 	"settings":{
-		"title":"Contact Info pour[<b>{{username}}</b>]",
+		"title":"Infos de contact pour [<b>{{username}}</b>]",
 		"form":{
-			"countryOfResidence":"Pays de rÃ©sidence",
-			"countryOfResidence.placeholder":"Votre pays de rÃ©sidence",
-			"firstname":"PrÃ©nom",
-			"firstname.placeholder":"Votre prÃ©nom",
-			"lastname":"Nom",
-			"lastname.placeholder":"Votre nom",
-			"button":"En registrer"
+			"countryOfResidence":"Pays de résidence",
+			"countryOfResidence.placeholder":"Votre pays de résidence",
+			"firstname":"Prénom",
+			"firstname.placeholder":"Votre prénom",
+			"lastname":"Nom de famille",
+			"lastname.placeholder":"Votre nom de famille",
+			"button":"Sauvegarder"
 		},
 		"messages":{
-			"error":"<strong>Une erreur est survenue</strong>ParamÃ¨tres ne pouvaient pas Ãªtre sauvÃ©s!",
-			"success":"<strong>ParamÃ¨tres sauvÃ©</strong>!",
+			"error":"<strong>Une erreur est survenue!</strong> Vos paramètres n'ont pas pu être enregistrés.",
+			"success":"<strong>Paramètres sauvegardés!</strong>",
 			"validate":{
 				"firstname":{
-					"required":"Votre prÃ©nom est nÃ©cessaire.",
-					"minlength":"Votre prÃ©nom doit Ãªtre d'au moins 1 caractÃ¨re",
-					"maxlength":"Votre prÃ©nom ne peut pas Ãªtre plus longque 50 caractÃ¨res"
+					"required":"Votre prénom est requis.",
+					"minlength":"Votre prénom doit compter au moins 1 caractère.",
+					"maxlength":"Votre prénom ne peut excéder 50 caractères."
 				},
 				"lastname":{
-					"required":"Votre nom est nÃ©cessaire.",
-					"minlength":"Votre nom est nÃ©cessaire pour Ãªtre au moins 1 caractÃ¨re",
-					"maxlength":"Votre nom ne peut pas Ãªtre plus long que 50caractÃ¨res"
+					"required":"Votre nom de famille est requis.",
+					"minlength":"Votre nom de famille doit compter au moins 1 caractère.",
+					"maxlength":" Votre nom de famille ne peut excéder 50 caractères."
 				}
 			}
 		}
@@ -504,107 +504,103 @@
 	"password":{
 		"title":"Mot de passe pour {{username}}",
 		"form":{
-			"button":"Enregistrer"
-		},
-		"reset":{
-			"title":"RÃ©initialiser Mot de Passe",
-			"instructions":"Entrez le nouveau mot de passe ci-dessous."
+			"button":"Sauvegarder"
 		},
 		"messages":{
-			"error":"<strong>Un eerreur est survenue</strong>Le mot de passe n'a pas pu Ãªtre changÃ©.",
-			"success":"<strong>Mot de passe modifiÃ©</strong> <a href='#/contactInfo'>compte</a>",
-			"expired":"<strong>LelienderÃ© initialisationa expirÃ© ou ne Ã©tait pas valide</strong><ahref='#/requestPasswordReset'>Demander une autre rÃ©initialisation</a>."
+			"error":"<strong>Une erreur est survenue!</strong> Le mot de passe n'a pas pu être modifié.",
+			"success":"<strong>Mot de passe modifié!</strong>  Continuez vers <a href='#/contactInfo'>Informations concernant le compte.</a>",
+			"expired":"<strong>Le lien de remise à zéro a expiré ou était invalide.</strong> <a href='#/requestPasswordReset'> Demandez une nouvelle remise à zéro.</a>"
 		}
 	},
 	"sessions":{
-		"title":"Les session sactives pour[<b>{{username}}</b>]",
+		"title":"Sessions actives pour [<b>{{username}}</b>]",
 		"table":{
-			"ipaddress":"adresse IP",
-			"useragent":"User Agent",
+			"ipaddress":"Adresse IP",
+			"useragent":"Agent d'utilisateur",
 			"button":"Invalider"
 		},
 		"messages":{
-			"success":"<strong>Session invalidÃ©</strong>!",
-			"error":"<strong>Une erreur est survenue</strong>La sessionne pouvait pas Ãªtre invalidÃ©!."
+			"success":"<strong>Session invalidée!</strong>",
+			"error":"<strong> Une erreur est survenue!</strong> La session n'a pas pu être invalidée."
 		}
 	},
 	"tracker":{
-		"title":"les activitÃ©s des utilisateurs entemps rÃ©el",
+		"title":"Activités de l'utilisateur en temps réel",
 		"table":{
 			"userlogin":"Utilisateur",
-			"ipaddress":"AdresseIP",
-			"userAgent":"UserAgent",
-			"page":"page",
-			"time":"Time"
+			"ipaddress":"Adresse IP",
+			"userAgent":"Agent d'utilisateur",
+			"page":"Page actuelle",
+			"time":"Heure"
 		}
 	},
 	"metrics":{
-		"title":"Metrics SystÃ¨me",
-		"refresh.button":"Refresh",
+		"title":"Mesures système",
+		"refresh.button":"Rafraîchir",
 		"health":{
-			"title":"contrÃ´les de Heath",
-			"database":"Base de donnÃ©es",
-			"email":"Email",
-			"stacktrace":"Stack trace"
+			"title":"Contrôles de santé",
+			"database":"Base de données",
+			"email":"E-mail",
+			"stacktrace":"Traçage de la pile"
 		},
 		"jvm":{
-			"title":"JVMMetrics",
+			"title":"Mesures JVM",
 			"memory":{
-				"title":"MÃ©moire",
-				"total":"MÃ©moiretotale",
-				"heap":"HeapMemory",
-				"nonheap":"non-HeapMemory"
+				"title":"Mémoire",
+				"total":"Mémoire totale",
+				"heap":"Mémoire de masse",
+				"nonheap":"Mémoire volatile"
 			},
 			"threads":{
-				"title":"Threads",
-				"all":"Tout",
-				"runnable":"Runnable",
-				"timedwaiting":"attenteTempo",
-				"waiting":"Waiting",
-				"blocked":"BloquÃ©",
+				"title":"Fils",
+				"all":"Tous",
+				"runnable":"Exécutables",
+				"timedwaiting":"En attente programmée",
+				"waiting":"En attente",
+				"blocked":"Bloqués",
 				"dump":{
-					"title":"Threadsbenne",
+					"title":"Poubelle des fils",
 					"id":"Id",
-					"blockedtime":"TimeBloquÃ©",
-					"blockedcount":"comteBloquÃ©",
-					"waitedtime":"Attendu Time",
-					"waitedcount":"comteattendu",
-					"lockname":"Nom Lock",
-					"stacktrace":"Stacktrace",
-					"show":"Show",
+					"blockedtime":"Heure de blocage",
+					"blockedcount":"Compteur bloqué",
+					"waitedtime":"Durée de l'attente",
+					"waitedcount":"Compteur mis en attente",
+					"lockname":"Verrouillage du nom",
+					"stacktrace":"Traçage de la pile",
+					"show":"Montrer",
 					"hide":"Masquer"
 				}
 			},
 			"gc":{
-				"title":"collectionsd'ordures",
-				"marksweepcount":"Marknombredebalayage",
-				"marksweeptime":"Marktempsdebalayage",
-				"scavengecount":"Scavengecount",
-				"scavengetime":"Scavengetemps"
+				"title":"Collectes de déchets",
+				"marksweepcount":"Compteur Balayage Marquage",
+				"marksweeptime":"Heure de Balayage Marquage",
+				"scavengecount":"Compteur de récupération",
+				"scavengetime":"Heure de récupération"
 			},
 			"http":{
-				"title":"requÃªtes HTTP(Ã©vÃ©nementsparseconde)",
-				"active":"demandes actives",
-				"total":"Nombre Total de Demandes",
+				"title":"Requêtes HTTP (événements par seconde)",
+				"active":"Requêtes actives",
+				"total":"Total des requêtes",
 				"table":{
 					"code":"Code",
-					"count":"Count",
-					"mean":"moyenne",
+					"count":"Compteur",
+					"mean":"Médiane",
 					"average":"Moyenne"
 				},
 				"code":{
 					"ok":"Ok",
-					"notfound":"PastrouvÃ©",
-					"servererror":"ServerError"
+					"notfound":"Non trouvé",
+					"servererror":"Erreur de serveur"
 				}
 			}
 		},
 		"servicesstats":{
-			"title":"les statisti quesdesservices (temps e nmillisecondes)",
+			"title":"Statistiques des services (temps en millisecondes)",
 			"table":{
 				"name":"Nom du service",
-				"count":"Count",
-				"mean":"moyenne",
+				"count":"Compteur",
+				"mean":"Médiane",
 				"min":"Min",
 				"max":"Max",
 				"p50":"p50",
@@ -614,18 +610,18 @@
 			}
 		},
 		"ehcache":{
-			"title":"statistiques",
-			"cachename":"nomCache",
-			"objects":"objets",
-			"hits":"hits",
-			"misses":"Misses",
-			"evictioncount":"compted'expulsion",
-			"mean":"Meanobtenirdutemps(ms)"
+			"title":"Statistiques ehcache",
+			"cachename":"Nom du cache",
+			"objects":"Objets",
+			"hits":"Réussites",
+			"misses":"Échecs",
+			"evictioncount":"Compteur d'éviction",
+			"mean":"Durée médiane d'obtention (ms)"
 		}
 	},
 	"logs":{
-		"title":"Journaux",
-		"nbloggers":"Ilya{{total}}bÃ»cherons.",
+		"title":"Connexions",
+		"nbloggers":"Il y a {{ total }} personnes connectées.",
 		"filter":"Filtre",
 		"table":{
 			"name":"Nom",
@@ -635,309 +631,309 @@
 	"audits":{
 		"title":"Audits",
 		"filter":{
-			"title":"Filtrezparjour",
-			"from":"Ã partirde",
-			"to":"Ã ",
+			"title":"Filtrer par date",
+			"from":"de",
+			"to":"à",
 			"button":{
-				"weeks":"semaines",
-				"today":"aujourd'hui",
-				"clear":"clair",
-				"close":"fermer"
+				"weeks":"Semaines",
+				"today":"Aujourd'hui",
+				"clear":"Effacer",
+				"close":"Fermer"
 			}
 		},
 		"table":{
 			"header":{
 				"principal":"Utilisateur",
-				"date":"Date(locale)",
-				"status":"Ã‰tat",
-				"data":"donnÃ©essupplÃ©mentaires"
+				"date":"Date (locale)",
+				"status":"État",
+				"data":"Données supplémentaires"
 			},
 			"data":{
-				"remoteAddress":"AdresseÃ distance:"
+				"remoteAddress":"Adresse éloignée:"
 			}
 		},
 		"type":{
-			"AUTHORIZATION_FAILURE":"L'Ã©checd'autorisation",
-			"AUTHENTICATION_SUCCESS":"AutorisationsuccÃ¨s",
-			"AUTHENTICATION_FAILURE":"Ã©checd'authentification",
-			"AFFILIATE_CREATED":"CrÃ©Ã©affiliation",
-			"AFFILIATE_CREATED_BY_IMPORT":"affiliationCrÃ©Ã©Ã partird'importation",
-			"AFFILIATE_UPDATED":"MiseÃ jourd'affiliation",
-			"AFFILIATE_UPDATED_BY_IMPORT":"MiseÃ jourÃ partird'affiliationImporter",
-			"AFFILIATEDETAILS_UPDATED":"affiliationDÃ©tailsMiseÃ jour",
-			"AFFILIATE_EXPORT":"affiliationBatchExport",
-			"AFFILIATE_IMPORT":"affiliationimportationparlots",
-			"AFFILIATE_LOGIN_CREATED":"ConnexionaffiliÃ©CrÃ©Ã©",
-			"AFFILIATE_STANDING_STATE_CHANGED":"affiliationÃ‰tatpermanentChanged",
-			"APPLICATION_CREATED":"ApplicationcrÃ©Ã©e",
-			"APPLICATION_APPROVAL_STATE_CHANGED":"Ã‰tatd'approbationdesdemandesachangÃ©",
-			"APPLICATION_DELETED":"ApplicationsupprimÃ©",
-			"RELEASE_FILE_CREATED":"FichierdesortieCrÃ©Ã©",
-			"RELEASE_FILE_DELETED":"FichierdesortiesupprimÃ©",
-			"RELEASE_FILE_DOWNLOADED":"FichierdesortieTÃ©lÃ©chargÃ©",
-			"RELEASE_PACKAGE_DELETED":"ReleasePackagesupprimÃ©",
-			"RELEASE_PACKAGE_CREATED":"Release Package CrÃ©Ã©",
-			"RELEASE_VERSION_TAKEN_OFFLINE":"Release Version hors ligne",
-			"RELEASE_VERSION_TAKEN_ONLINE":"Release Version Pris en ligne",
-			"RELEASE_VERSION_CREATED":"Release Version CrÃ©Ã©",
-			"RELEASE_VERSION_DELETED":"Release Version supprimÃ©",
-			"USAGE_CREATED":"UtilisationCrÃ©Ã©",
-			"USAGE_APPROVAL_STATE_CHANGED":"Etatd'utilisationdel'approbationachangÃ©"
+			"AUTHORIZATION_FAILURE":"Échec de l'autorisation",
+			"AUTHENTICATION_SUCCESS":"Authentification réussie",
+			"AUTHENTICATION_FAILURE":"Échec de l'authentification",
+			"AFFILIATE_CREATED":"Affilié créé",
+			"AFFILIATE_CREATED_BY_IMPORT":"Affilié créé par importation",
+			"AFFILIATE_UPDATED":"Affilié mis à jour",
+			"AFFILIATE_UPDATED_BY_IMPORT":"Affilié mis à jour par importation",
+			"AFFILIATEDETAILS_UPDATED":"Coordonnées Affilié mises à jour",
+			"AFFILIATE_EXPORT":"Exportation par lots Affilié",
+			"AFFILIATE_IMPORT":"Importation par lots Affilié",
+			"AFFILIATE_LOGIN_CREATED":"Identifiant Affilié créé",
+			"AFFILIATE_STANDING_STATE_CHANGED":"État actuel Affilié modifié",
+			"APPLICATION_CREATED":"Demande créée",
+			"APPLICATION_APPROVAL_STATE_CHANGED":"État d'approbation demande modifié",
+			"APPLICATION_DELETED":"Demande supprimée",
+			"RELEASE_FILE_CREATED":"Fichier d'édition créé",
+			"RELEASE_FILE_DELETED":"Fichier d'édition supprimé",
+			"RELEASE_FILE_DOWNLOADED":"Fichier d'édition téléchargé",
+			"RELEASE_PACKAGE_DELETED":"Édition de logiciel supprimée",
+			"RELEASE_PACKAGE_CREATED":"Édition de logiciel créée",
+			"RELEASE_VERSION_TAKEN_OFFLINE":"Version d'édition mise hors ligne",
+			"RELEASE_VERSION_TAKEN_ONLINE":"Version d'édition mise en ligne",
+			"RELEASE_VERSION_CREATED":"Version d'édition créée",
+			"RELEASE_VERSION_DELETED":"Version d'édition supprimée",
+			"USAGE_CREATED":"Utilisation créée",
+			"USAGE_APPROVAL_STATE_CHANGED":"État d'approbation utilisation modifié"
 		}
 	},
 	"errors":{
-		"403":"Vous n'Ãªtes pas AutorisÃ© Ã accÃ©der Ã  la Page.",
-		"title":"la page d'erreur!"
+		"title":"Erreur sur la page!",
+		"403":"Vous n'êtes pas autorisé à accéder à cette page."
 	},
-	"footer":"Ce est votre Pied de page",
+	"footer":"Voici votre pied de page.",
 	"affiliate":{
-		"title":"Affiliation",
+		"title":"Affilié",
 		"type":{
 			"title":"Type",
 			"COMMERCIAL":"Commercial",
-			"ACADEMIC":"AcadÃ©mique",
+			"ACADEMIC":"Académique",
 			"OTHER":"Autre",
-			"INDIVIDUAL":"Individual"
+			"INDIVIDUAL":"Individuel"
 		},
 		"type.extended":{
-			"COMMERCIAL":"Commercial - DÃ©veloppeur, Fournisseur ou Prestataire de Terminologie",
-			"ACADEMIC":"AcadÃ©mique - pour une utilisation interne au sein d'une organisation. ( L'Ã‰ducation, la recherche, de dÃ©veloppement ou pourvoyeur de soins )",
-			"OTHER":"Autre - Utilisez pas indiquÃ© dans d'autres options",
-			"INDIVIDUAL":"Individual - Personnelles, Ã©ducatives ou de recherche"
+			"COMMERCIAL":"Commercial - Développeur, revendeur ou fournisseur de terminologie",
+			"ACADEMIC":"Académique – Pour utilisation en interne au sein d'une organisation (enseignement, recherche, développement ou prestataire de soins de santé)",
+			"OTHER":"Autre – Utilisation non reprise sous d'autres options",
+			"INDIVIDUAL":"Individuel - Personnel, éducatif ou recherche"
 		},
 		"subType":{
-			"DEVELOPER":"DÃ©veloppeur",
-			"DEVELOPMENT":"DÃ©veloppement",
-			"EDUCATIONAL":"L'Ã©ducation",
-			"HEALTHCAREPROVIDER":"fournisseur de soins desantÃ©",
+			"DEVELOPER":"Développeur",
+			"DEVELOPMENT":"Développement",
+			"EDUCATIONAL":"Enseignement",
+			"HEALTHCAREPROVIDER":"Prestataire de soins de santé",
 			"PERSONAL":"Personnel",
 			"RESEARCH":"Recherche",
-			"VENDOR":"Vendeur"
+			"VENDOR":"Revendeur"
 		},
 		"agreementType":{
-			"AFFILIATE_NORMAL":"Affiliation - Normal",
-			"AFFILIATE_RESEARCH":"Affiliation - La Recherche",
-			"AFFILIATE_PUBLIC_GOOD":"Affiliation - Bien Public"
+			"AFFILIATE_NORMAL":"Affilié - Normal",
+			"AFFILIATE_RESEARCH":"Affilié - Recherche",
+			"AFFILIATE_PUBLIC_GOOD":"Affilié – Utilité publique"
 		},
 		"organizationType":{
-			"PUBLIC_HEALTH_ORGANIZATION":"Organisation de la SantÃ© Publique",
-			"PRIVATE_HEALTH_ORGANIZATION":"Organisation de la SantÃ© PrivÃ©e",
-			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION":"Organisation de Recherche et de DÃ©veloppement",
-			"HEALTHERCARE_APPLICATION_DEVELOPER":"DÃ©veloppeur Healthcare Application",
-			"GENERAL_PRACTITIONER_PRACTICE":"MÃ©decin GÃ©nÃ©raliste Pratique",
-			"EDUCATIONAL_INSTITUTE":"Educational Institute",
-			"OTHER":"Autres"
+			"PUBLIC_HEALTH_ORGANIZATION":"Organisation de santé publique",
+			"PRIVATE_HEALTH_ORGANIZATION":"Organisation de santé privée",
+			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION":"Organisation de recherche et développement",
+			"HEALTHERCARE_APPLICATION_DEVELOPER":"Développeur d'application de soins de santé",
+			"GENERAL_PRACTITIONER_PRACTICE":"Cabinet de médecine générale",
+			"EDUCATIONAL_INSTITUTE":"Établissement d'enseignement",
+			"OTHER":"Autre"
 		},
 		"implementationStatus":{
-			"IMPLEMENTED":"Live/MiseenÅ“uvre",
-			"DEVELOPMENT":"Encours/dÃ©veloppement",
-			"PLANNING":"Dans Ã‰tape de la Planification"
+			"IMPLEMENTED":"En service/Implémenté",
+			"DEVELOPMENT":"En cours/En développement",
+			"PLANNING":"En phase de planification"
 		},
 		"standingState":{
-			"APPLYING":"Application",
-			"IN_GOOD_STANDING":"EnrÃ¨gle",
-			"REJECTED":"RefusÃ©",
-			"DEACTIVATION_PENDING":"DÃ©sactivation en attente",
-			"DEACTIVATED":"DÃ©sactivÃ©",
-			"DEREGISTERED":"RadiÃ©e",
-			"PENDING_INVOICE":"Enattente defacture",
-			"INVOICE_SENT":"Facture envoyÃ©e"
+			"APPLYING":"En demande",
+			"IN_GOOD_STANDING":"En ordre",
+			"REJECTED":"Refusé",
+			"DEACTIVATION_PENDING":"Désactivation imminente",
+			"DEACTIVATED":"Désactivé",
+			"DEREGISTERED":"Désenregistré",
+			"PENDING_INVOICE":"Facture en souffrance",
+			"INVOICE_SENT":"Facture envoyée"
 		},
 		"standingStateWithExplanation":{
-			"APPLYING":"Application",
-			"IN_GOOD_STANDING":"EnrÃ¨gle",
-			"REJECTED":"RefusÃ©",
-			"DEACTIVATION_PENDING":"DÃ©sactivation en attente",
-			"DEACTIVATED":"DÃ©sactivÃ©",
-			"DEREGISTERED":"RadiÃ©e",
-			"PENDING_INVOICE":"En attente defacture",
-			"INVOICE_SENT":"Facture envoyÃ©e"
+			"APPLYING":"En demande",
+			"IN_GOOD_STANDING":"En ordre – Accès complet approuvé, Compte soldé, Aucun paiement requis ou problème de compte résolu",
+			"REJECTED":"Refusé",
+			"DEACTIVATION_PENDING":" Désactivation imminente – Accès au compte uniquement, Aucune capacité de téléchargement",
+			"DEACTIVATED":"Désactivé - Accès au compte uniquement, Aucune capacité de téléchargement",
+			"DEREGISTERED":"Désenregistré – Aucun accès au compte MLDS",
+			"PENDING_INVOICE":"Facture en souffrance – Accès au compte uniquement, Paiement dû",
+			"INVOICE_SENT":"Facture envoyée - Accès au compte uniquement, Paiement dû"
 		}
 	},
 	"approval":{
 		"state":{
-			"NOT_SUBMITTED":"Non Soumise",
-			"CHANGE_REQUESTED":"Changement DemandÃ©",
+			"NOT_SUBMITTED":"Non soumis",
+			"CHANGE_REQUESTED":"Modification demandée",
 			"SUBMITTED":"Soumis",
-			"RESUBMITTED":"PrÃ©sentÃ©e Denouveau",
-			"REVIEW_REQUESTED":"Examen DemandÃ©e",
-			"APPROVED":"ApprouvÃ©",
-			"REJECTED":"RefusÃ©"
+			"RESUBMITTED":"Soumis à nouveau",
+			"REVIEW_REQUESTED":"Révision demandée",
+			"APPROVED":"Approuvé",
+			"REJECTED":"Refusé"
 		}
 	},
 	"usageReport":{
 		"state":{
-			"NOT_SUBMITTED":"Nonsoumise",
-			"CHANGE_REQUESTED":"Changement DemandÃ©",
+			"NOT_SUBMITTED":"Non soumis",
+			"CHANGE_REQUESTED":"Modification demandée",
 			"SUBMITTED":"Soumis",
-			"RESUBMITTED":"PrÃ©sentÃ©e Denouveau",
-			"REVIEW_REQUESTED":"Examen DemandÃ©e",
-			"PENDING_INVOICE":"En attente de Facture",
-			"INVOICE_SENT":"Facture EnvoiÃ©",
-			"PAID":"EnrÃ¨gle",
-			"REJECTED":"RefusÃ©"
+			"RESUBMITTED":"Soumis à nouveau",
+			"REVIEW_REQUESTED":"Révision demandée",
+			"PENDING_INVOICE":"Facture en souffrance",
+			"INVOICE_SENT":"Facture envoyée",
+			"PAID":"Payé",
+			"REJECTED":"Refusé"
 		}
 	},
 	"application":{
 		"applicationType":{
 			"PRIMARY":"Primaire",
 			"EXTENSION":"Extension",
-			"IMPORT":"Importer"
+			"IMPORT":"Importation"
 		}
 	},
 	"pendingApplications":{
-		"title":"Demandes en Instance",
+		"title":"Demandes en instance",
 		"show":{
-			"myApplications":"Mes Demandes en Attente",
-			"allApplications":"Toutes les requÃªtes pendantes"
+			"myApplications":"Mes demandes en instance",
+			"allApplications":"Toutes les demandes en instance"
 		},
 		"table":{
-			"affiliateName":"Nom d'affiliation",
-			"applicationType":"Type de Demande",
-			"agreementType":"Type d'accord",
+			"affiliateName":"Nom de l'affilié",
+			"applicationType":"Type de demande",
+			"agreementType":"Type de contrat",
 			"useType":"Type d'utilisation",
 			"dateSubmitted":"Date de soumission",
-			"homeCountry":"Pays",
+			"homeCountry":"Pays de domicile",
 			"member":"Membre",
-			"email":"Email",
-			"review":"L'avis"
+			"email":"E-mail",
+			"review":"Révision"
 		}
 	},
 	"affiliateManagement":{
-		"title":"Gestion d'affiliation"
+		"title":"Gestion des affiliés"
 	},
 	"releaseManagement":{
-		"title":"Gestion de sortie"
+		"title":"Gestion des éditions"
 	},
 	"reviewUsageReports":{
-		"title":"Examiner les rapports d' utilisation"
+		"title":"Rapports d'utilisation révision"
 	},
     "memberManagement":{
 		"title":"Gestion des membres"
 	},
     "activityLog":{
-		"title":"journal d'activitÃ©"
+		"title":"Journal d'activité"
 	},
     "importAffiliateRecords":{
-		"title":"AffiliÃ© importation dossiers"
+		"title":"Importer dossiers d'affilié"
 	},
     "manageBlocklist":{
-		"title":"gÃ©rer Bloquer liste"
+		"title":"Gérer la liste principale"
 	},
     "nationalRegistrationList":{
-		"title":"La liste nationale d'inscription"
+		"title":"Liste d'enregistrement nationale"
 	},
     "systemLoggers":{
-		"title":"systÃ¨me BÃ»cherons"
+		"title":"Personnes connectées au système"
 	},
 	"form":{
-		"requiredField":"Champ Obligatoire",
-		"tooLong":"La valeur d'entrÃ©e est trop long.", 
-		"invalidNumber":"Ce ne est pas un numÃ©ro valide",
-		"pleaseFix":"S'il vous plaÃ®t, corriger les erreurs mentionnÃ©es ci-dessus." 
+		"requiredField":"Champ obligatoire.",
+		"tooLong":"La valeur introduite est trop longue.", 
+		"invalidNumber":"Numéro non valide",
+		"pleaseFix":"Veuillez remédier aux erreurs ci-dessus."
 	},
 	"views":{
 		"activate":{
 			"title":"Activation",
 			"messages":{
 				"success":{
-					"title":"Compte a Ã©tÃ© crÃ©Ã©.",
-					"body":"Le systÃ¨me vous amÃ¨ne Ã  poursuivre votre processus d'enregistrement dans quelques instants. Si vous n'Ãªtes pas redirigÃ© automatiquement, s'il vous plaÃ®t {{linkbegin}}cliquez ici.{{linkend}}"
+					"title":"Compte d'utilisateur créé",
+					"body":"Le système va vous inviter à poursuivre votre enregistrement dans quelques minutes. Si vous n'êtes pas redirigé automatiquement, {{linkbegin}}cliquez ici.{{linkend}}"
 				},
 				"error":{
-					"title":"Votre compte n'a pas pu Ãªtre activÃ©.",
-					"body":"S'il vous plaÃ®t utiliser le formulaire d'inscription pour vous inscrire . Si vous rencontrez toujours des difficultÃ©s s'il vous plaÃ®t contacter le support."
+					"title":"Votre utilisateur n'a pas pu être activé.",
+					"body":"Utilisez le formulaire d'enregistrer pour vous identifier. Si vous persistez à rencontrer des difficultés, contactez le support."
 				}
 			}
 		},
 		"applicationSummary":{
-			"title":"Sommaire de la Demande",
-			"ext.title":"Extension Application Info",
-			"reason":"Raison",
-			"affiliateInfo":"Info d'Filiale",
-			"affiliateInformation":"Information d'Filiale",
-			"useType":"Type d'Utilisation",
-			"useSubType":"Sous-Type d'Utilisation",
-			"billingInfo":"Informations de Facturation",
-			"context":"Contexte d'Utilisation",
-			"subLicence":"Sous-licence Utilisation",
-			"applicationActivity":"ActivitÃ© des Applications"
+			"title":"Résumé de la demande",
+			"ext.title":"Info demande d'extension",
+			"reason":"Motif",
+			"affiliateInfo":"Info affilié",
+			"affiliateInformation":"Information affilié",
+			"useType":"Type d'utilisation",
+			"useSubType":"Sous-type d'utilisation",
+			"billingInfo":"Information de facturation",
+			"context":"Information contexte d'utilisation",
+			"subLicence":"Utilisation en sous-licence",
+			"applicationActivity":"Activité de la demande"
 		},
 		"contactInfo":{
-			"title":"Informations sur le Compte",
+			"title":"Information concernant le compte",
 			"messages":{
 				"notApproved":{
-					"title":"Inscription pas encore approuvÃ©",
-					"body":"Vous ne pouvez modifier les informations de contact pour un affiliÃ© fois la demande d'enregistrement a Ã©tÃ© approuvÃ©."
+					"title":"Enregistrement non encore approuvé",
+					"body":"Vous ne pouvez modifier les informations de contact relatives à un affilié que lorsque la demande d'enregistrement a été approuvée."
 				}
 			},
 			"admin":{
-				"title":"Admin Editable",
+				"title":"Modifiable par Admin",
 				"other":{
 					"name":"Autre",
 					"placeholder":"Autre",
-					"required":"Champ 'Autre' est obligatoire."
+					"required":"Le champ "Autre" est requis."
 				},
 				"subtype":{
-					"name":"Sous-Type",
-					"required":"Champ 'Sous-Type' est obligatoire."
+					"name":"Subtype",
+					"required":"Le champ "sous-type" est requis."
 				},
 				"usageType":{
 					"name":"Type",
-					"required":"Champ 'Type' est obligatoire."
+					"required":"Le champ "type d'utilisation" est requis."
 				},
-				"agreementType":"Type d'Accord",
-				"accountStanding":"Statut du Compte"
+				"agreementType":"Type de contrat",
+				"accountStanding":"Situation du compte"
 			},
 			"contact":{
-				"title":"CoordonnÃ©es",
-				"fullName":"Nom et PrÃ©nom",
+				"title":"Informations de contact",
+				"fullName":"Nom",
 				"firstName":{
-					"name":"PrÃ©nom",
-					"placeholder":"Jean"
+					"name":"Prénom",
+					"placeholder":"John"
 				},
 				"lastName":{
-					"name":"Nom de Famille",
-					"placeholder":"Dupont"
+					"name":"Nom de famille",
+					"placeholder":"Smith"
 				},
 				"email":{
-					"name":"Email",
-					"placeholder":"JeanDupont@OrganizationABC.com",
-					"uniqueness":"Adresses e-mail doivent Ãªtre uniques.",
-					"invalid":"Adresse email invalide."
+					"name":"E-mail",
+					"placeholder":"JohnSmith@OrganizationABC.com",
+					"uniqueness":"Les adresses e-mail doivent être uniques.",
+					"invalid":"Adresse e-mail invalide."
 				},
 				"alternativeEmail":{
-					"name":"Autre Adresse E-mail",
-					"placeholder":"autre@email.com"
+					"name":"E-mail alternatif",
+					"placeholder":"alternative@email.com"
 				},
-				"thirdEmail":"TroisiÃ¨me Adresse E-mail",
+				"thirdEmail":"Troisième e-mail",
 				"landline":{
-					"name":"TÃ©lÃ©phone Fixe",
-					"short":"TÃ©lÃ©phone",
-					"invalid":"Invalid NumÃ©ro de TÃ©lÃ©phone."
+					"name":"Numéro de téléphone national",
+					"short":"Numéro de téléphone",
+					"invalid":"Numéro de téléphone invalide."
 				},
 				"landlineExtension":{
-					"name":"L'extension de TÃ©lÃ©phone",
+					"name":"Extension",
 					"short":"Ext",
-					"placeholder":"L'extension"
+					"placeholder":"Extension"
 				},
 				"mobile":{
-					"name":"NumÃ©ro de TÃ©lÃ©phone Mobile",
-					"placeholder":"NumÃ©ro"
+					"name":"Numéro de téléphone mobile",
+					"placeholder":"Numéro"
 				},
 				"address":{
 					"title":"Adresse",
 					"name":"Adresse",
-					"placeholder":"123 Rue de Quelque Part"
+					"placeholder":"Avenue de Quelque Part 123"
 				},
 				"city":{
 					"name":"Ville",
 					"placeholder":"Ville"
 				},
 				"postcode":{
-					"name":"Code Postal",
-					"placeholder":"Code Postal",
-					"tooLong":"Code postal est trop long."
+					"name":"Code postal",
+					"placeholder":"Code postal",
+					"tooLong":"Code postal trop long."
 				},
 				"country":{
 					"name":"Pays",
@@ -945,190 +941,188 @@
 					"unrecognized":"Pays non reconnu."
 				},
 				"billingAddress":{
-					"name":"Adresse De Facturation",
-					"country":"Pays de Facturation",
+					"name":"Adresse de facturation",
+					"country":"Pays de facturation",
 					"placeholder":"Adresse",
-					"sameAsAddress":"Utilisez Adresse pour Adresse de facturation",
-					"useOrganizationAddress":"Utilisez Adresse d'Organisation pour Adresse de facturation"
+					"sameAsAddress":"Utiliser l'adresse comme adresse de facturation",
+					"useOrganizationAddress":"Utiliser l'adresse de l'organisation comme adresse de facturation"
 				}
 			},
 			"organization":{
 				"title":"Organisation",
 				"name":{
 					"name":"Nom de l'organisation",
-					"placeholder":"Nom de l'organisation"
+					"placeholder":"Nom org"
 				},
 				"type":{
-					"name":"Type d'Organisation",
-					"required":"Un type Organisation est nÃ©cessaire",
-					"placeholder":"Autre Type d'Organisation"
+					"name":"Type d'organisation",
+					"required":"Un type d'organisation est requis.",
+					"placeholder":"Autre type d'organisation"
 				}
 			}
 		},
 		"extensionApplication":{
-			"title":"Lancer Processus Application Extension",
-			"sure":"Etes-vous sÃ»r que vous voulez appliquer pour cette extension ?",
+			"title":"Lancer processus demande d'extension",
+			"sure":"Êtes-vous sûr de vouloir demander cette extension?",
 			"form":{
-				"title":"Extension Formulaire de Demande",
-				"why":"S'il vous plaÃ®t expliquer pourquoi vous voulez l'accÃ¨s Ã  cette extension.",
-				"purpose":"But de l'Emploi",
-				"error":"Raison doit Ãªtre plus."
+				"title":"Formulaire de demande d'extension",
+				"why":"Veuillez décrire le motif pour lequel vous aimeriez avoir accès à cette extension.",
+				"purpose":"But d'utilisation",
+				"error":"La motivation doit être plus longue."
 			},
-			"agreement":"Accord de Extension",
-			"license":"Licence d'Extension",
+			"agreement":"Contrat d'extension",
+			"license":"License d'extension",
 			"warning":{
-				"change":"Inscription d'Extension besoin de changement",
-				"change.detail":"Votre inscription d'extension doit Ãªtre mis Ã  jour avant de pouvoir traiter. S'il vous plaÃ®t voir courriel concernant les changements nÃ©cessaires pour la finition de votre inscription.",
-				"rejected":"Enregistrement d'Extension RejetÃ©",
-				"rejected.detail":"Votre inscription d'extension doit Ãªtre mis Ã  jour avant de pouvoir traiter. S'il vous plaÃ®t voir courriel concernant les changements nÃ©cessaires pour terminer votre inscription.",
-				"approved":"Inscription d'Extension ApprouvÃ©",
-				"approved.detail":"Votre demande a Ã©tÃ© approuvÃ©e."
+				"change":"L'enregistrement d'extension doit être modifié.",
+				"change.detail":"Votre enregistrement d'extension doit être actualisé avant de pouvoir être traité. Consultez l'e-mail relatif aux modifications nécessaires pour achever votre enregistrement.",
+				"rejected":"Enregistrement d'extension rejeté",
+				"rejected.detail":"Votre enregistrement d'extension doit être actualisé avant de pouvoir être traité. Consultez l'e-mail relatif aux modifications nécessaires pour achever votre enregistrement.",
+				"approved":"Enregistrement d'extension approuvé",
+				"approved.detail":"Votre demande a été approuvée."
 			},
 			"delete":{
-				"title":"Annuler Application",
-				"sure":"Etes-vous sÃ»r que vous voulez annuler cette demande?",
-				"sure.detail":"Cela permettra de vous faire perdre toutes les informations enregistrÃ©es sur cette demande."
+				"title":"Demande d'annulation",
+				"sure":"Êtes-vous sûr de vouloir annuler cette demande?",
+				"sure.detail":"Si vous le faites, vous perdrez toutes les informations sauvegardées concernant cette demande."
 			}
 		},
 		"footer":{
-			"tos":"Conditions d'Utilisation",
-			"pp":"Politique de ConfidentialitÃ©",
-			"contact":"Contactez-Nous"
+			"tos":"Conditions de service",
+			"pp":"Politique de respect de la vie privée",
+			"contact":"Contactez-nous"
 		},
 		"landingPage":{
-			"appName":"Licence d'AdhÃ©sion et le Service de Distribution",
-			"purpose":"Ce service est fourni par l'IHTSDO pour les organisations et les particuliers Ã  demander l'utilisation et l'accÃ¨s Ã  la sortie internationale de SNOMED CT pour une utilisation dans les pays non - membres .",
-			"furtherDetails":"Pour plus de dÃ©tails , se il vous plaÃ®t se rÃ©fÃ©rer Ã  la <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO website</a> ou la <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Questions FrÃ©quentes</a>.",
-			"loginHere":"login ici"
+			"appName":"Licence de membre et service de distribution",
+			"purpose":"Ce service est fourni par IHTSDO afin de permettre à des organisations et individus de demander l'utilisation et l'accès à l'édition internationale de SNOMED CT en vue d'une utilisation dans des pays non membres.",
+			"furtherDetails":"Pour plus d'informations, veuillez consulter le <a href=\"http://www.ihtsdo.org\" target=\"_blank\"> site web d'IHTSDO</a> ou la <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Foire aux questions</a>.",
+			"loginHere":"Connectez-vous ici."
 		},
 		"releases":{
-			"title":"Versions Disponibles pour les Utilisateurs EnregistrÃ©s",
-			"noAuth":"<a href=\"#/login\">s'identifier</a> pour tÃ©lÃ©charger ou cliquez sur <a href=\"#/register\">enregistrer</a> pour commencer le processus de demande.",
-			"memberCountries":"Pays Membres",
-			"countryIsMissing":"Si le pays que vous cherchez ne est pas dans cette liste, s'il vous plaÃ®t se rÃ©fÃ©rer Ã  la <a href=\"http://www.ihtsdo.org/\"> IHTSDO site </a> des informations de presse de tÃ©lÃ©chargement.",
-			"notAvailable":"Il n'y a aucune versions disponibles",
+			"title":"Éditions de logiciel disponibles pour utilisateurs enregistrés",
+			"noAuth":"<a href=\"#/login\">Connectez-vous</a> pour télécharger ou cliquez sur <a href=\"#/register\">S'enregistrer</a> pour lancer le processus de demande.",
+			"memberCountries":"Pays membres",
+			"countryIsMissing":"Si le pays que vous cherchez ne figure pas sur cette liste, consultez le <a href=\"http://www.ihtsdo.org/\">site web d'IHTSDO</a> pour toute information sur le téléchargement d'éditions.",
+			"notAvailable":"Actuellement, aucune édition de logiciel n'est disponible.",
 			"warning":{
-				"deactivated":"Compte DÃ©sactivÃ©",
-				"pending":"Facture en Attente",
-				"pAttention":"Application primaire a besoin d'attention",
-				"pProcessed":"Application principale est en cours",
-				"apply":"Demande de 'Extension'",
-				"aProcessed":"Application est en cours",
-				"aAttention":"Application a besoin d'attention, cliquer pour continuer l'application"
+				"deactivated":"Compte désactivé",
+				"pending":"Facture en souffrance",
+				"pAttention":"La demande primaire nécessite une attention.",
+				"pProcessed":"La demande primaire est en cours de traitement.",
+				"apply":"Demandez une extension.",
+				"aProcessed":"Demande en cours de traitement",
+				"aAttention":"La demande nécessite une attention, cliquez pour poursuivre la demande."
 			}
 		},
 		"requestPasswordReset":{
-			"title":"RÃ©initialiser le Mot de Passe",
-			"detail":"Nous vous enverrons un e-mail contenant un link de rÃ©initialisation de mot de passe.",
-			"button":"RÃ©initialiser le Mot de Passe",
-			"back":"Retour Ã  la page de connexion"
+			"title":"Remise à zéro du mot de passe",
+			"detail":"Nous allons vous envoyer un e-mail contenant un lien vers un formulaire de remise à zéro du mot de passe.",
+			"button":"Demander remise à zéro du mot de passe"
 		},
 		"usage":{
-			"title":"Rapport d'Utilisation",
-			"instructions":"S'il vous plaÃ®t complÃ©ter votre dÃ©claration d'utilisation pour la pÃ©riode de temps choisie.",
+			"title":"Journal d'utilisation",
+			"instructions":"Veuillez compléter votre déclaration d'utilisation pour la période sélectionnée.",
 			"modal":{
-				"title":"CrÃ©er DÃ©claration d'Utilisation",
-				"instructions":"S'il vous plaÃ®t complÃ©ter votre dÃ©claration d'utilisation pour toutes les pÃ©riodes. S'il vous plaÃ®t inclure les rapports d'utilisation passÃ©e et actuelle .",
-				"period":"PÃ©riode DÃ©claration"
+				"title":"Créer déclaration d'utilisation",
+				"instructions":"Veuillez compléter votre déclaration d'utilisation pour toutes les périodes. Veuilez joindre des rapports pour l'utilisation passée et présente.",
+				"period":"Période de déclaration"
 			},
 			"submit":{
-				"title":"Proposez DÃ©claration d'Utilisation",
-				"instructions":"S'il vous plaÃ®t vÃ©rifier et Ã  assurer votre utilisation dÃ©claration indiquÃ© ci-dessous est correct avant de soumettre.",
-				"declarationForPeriod":"DÃ©claration pour la PÃ©riode",
-				"button":"Proposez DÃ©claration"
+				"title":"Soumettre déclaration d'utilisation",
+				"instructions":"Veuillez vérifier votre déclaration d'utilisation affichée ci-dessous et vous assurer qu'elle est correcte avant de la soumettre.",
+				"declarationForPeriod":"Déclaration pour la période",
+				"button":"Soumettre la déclaration"
 			},
 			"retract":{
-				"title":"Rentrer DÃ©claration d'Utilisation",
-				"instructions":"Etes-vous sÃ»r que vous voulez rÃ©-voies ce rapport? Vous reviendrez au mÃªme rapport d'utilisation d'Ã©diter et de soumettre Ã  nouveau. Pour une nouvelle pÃ©riode de temps, vous devez prÃ©senter un nouveau rapport de dÃ©claration.",
-				"button":"Rentrer DÃ©claration"
+				"title":"Retirer déclaration d'utilisation",
+				"instructions":"Êtes-vous sûr de vouloir retirer ce rapport? Vous reviendrez dans le même rapport d'utilisation pour modification et soumission une nouvelle fois. Pour une nouvelle période, vous devez soumettre un nouveau rapport de déclaration.",
+				"button":"Retirer la déclaration"
 			}
 		},
 		"usageLog":{
-			"title":"Soumis Rapport d'utilisation",
-			"retract":"Rentrer DÃ©claration",
-			"subTitle":"L'Utilisation des Licences",
+			"title":"Rapport d'utilisation soumis",
+			"retract":"Retrait de déclaration",
 			"usage":"Utilisation",
-			"usageFor":"Utilisation pour",
-			"pleaseFill":"S'il vous plaÃ®t remplir toute information d'utilisation connue Ã  ce jour, vous serez invitÃ© Ã  confirmer l'utilisation une fois que votre demande est approuvÃ©e.",
-			"licenseType":"Type de Licence",
-			"currentUsage":"Utilisation Maintenant",
-			"plannedUsage":"Utilisation PrÃ©vue",
-			"purpose":"But",
-			"impStatus":"Implementation Status",
+			"subTitle":"Utilisation de licence",
+			"usageFor":"Utilisation en vue de",
+			"pleaseFill":"Veuillez indiquer toute information concernant l'utilisation connue à ce jour, vous serez invité à confirmer l'utilisation lorsque votre demande aura été approuvée.",
+			"licenseType":"Type de licence",
+			"currentUsage":"Utilisation actuelle",
+			"plannedUsage":"Utilisation envisagée",
+			"purpose":"Finalité",
+			"impStatus":"Statut d'implémentation",
 			"countries":{
-				"title":"Pays en Utilisation",
-				"subTitle":"SÃ©lectionnez les pays non-membres dans lesquels SNOMED CT sera utilisÃ©.",
-				"list":"Liste des Pays",
-				"search":"Recherche de Pays",
-				"homeCountry":"Pays d'Origine",
-				"button":"Ajouter Pays"
+				"title":"Pays utilisateurs",
+				"subTitle":"Sélectionnez les pays non membres dans lesquels SNOMED CT sera utilisée.",
+				"list":"Liste de pays",
+				"search":"Chercher pays",
+				"homeCountry":"Pays de domicile",
+				"button":"Ajouter pays"
 			},
 			"institutions":{
-				"title":"Institutions Sous-LicenciÃ©s",
-				"selectFirst":"Un pays doit Ãªtre sÃ©lectionnÃ©e avant d'entrer dans les institutions sous-licence.",
-				"noneSelected":"Aucun pays n'a Ã©tÃ© sÃ©lectionnÃ©.",
+				"title":"Institutions en sous-licence",
+				"selectFirst":"Il faut sélectionner un pays avant d'introduire des institutions en sous-licence.",
+				"noneSelected":"Aucun pays n'a été sélectionné.",
 				"country":"Pays",
-				"deleteCountry":"Supprimer Pays",
-				"hospAndInst":"HÃ´pital/Institution",
-				"hospAndInst.title":"HÃ´pital(aux)/Institution(s)",
-				"hospAndInst.plural":"HÃ´pitaux/Institutions",
-				"started":"Debut d'Utilisation",
-				"finished":"Fin d'Utilisation",
-				"note":"Remarque",
-				"practices.title":"Pratiques GÃ©nÃ©rale(s)",
-				"practices":"Pratiques GÃ©nÃ©rale",
+				"deleteCountry":"Supprimer pays",
+				"hospAndInst":"Hôpital/Institution",
+				"hospAndInst.title":"Hôpital(aux)/Institution(s)",
+				"hospAndInst.plural":"Hôpitaux/Institutions",
+				"started":"Début de l'utilisation",
+				"finished":"Arrêt de l'utilisation",
+				"practices.title":"Cabinet(s)",
+				"practices":"Cabinets",
 				"dataAnalysis":{
-					"title":"L'Analyse des DonnÃ©es",
-					"staff":"Les hÃ´pitaux qui dispensent le personnel Ã  des pratiques",
-					"dataCreation":"SystÃ¨mes de crÃ©ation de donnÃ©es",
-					"independent":"Pratiques IndÃ©pendant",
-					"dataAnalysis":"SystÃ¨mes d'analyse de donnÃ©es",
-					"systems":"SystÃ¨mes",
-					"data":"DonnÃ©es",
-					"provideStaff":"Combien d'hÃ´pitaux fournir du personnel pour les pratiques Ã©noncÃ©s?",
-					"usingDCSNotHosp":"Combien de pratiques utilisent des systÃ¨mes de crÃ©ation de donnÃ©es et ne font pas partie d'une organisation de l'hÃ´pital?",
-					"usingDCSNotPract":"Combien d'hÃ´pitaux ou d'autres institutions sont en utilisant des systÃ¨mes de crÃ©ation de donnÃ©es et ne peut pas Ãªtre dÃ©fini comme pratiques dans la dÃ©finition de la licence?",
-					"howManyDAS":"Combien de l'analyse des systÃ¨mes de donnÃ©es avez-vous dÃ©ployÃ© dans cette rÃ©gion et combien de bases de donnÃ©es sont lÃ  par dÃ©ploiement?"
+					"title":"Analyse des données",
+					"staff":"Hôpitaux fournissant du personnel à des cabinets",
+					"dataCreation":" Systèmes de création de données",
+					"independent":"Cabinets indépendants",
+					"dataAnalysis":"Systèmes d'analyse de données",
+					"systems":"Systèmes",
+					"data":"Données",
+					"provideStaff":"Combien y a-t-il d'hôpitaux qui fournissent du personnel aux cabinets précités?",
+					"usingDCSNotHosp":"Combien de cabinets utilisent-ils des systèmes de création de données SANS faire partie de l'organisation d'un hôpital?",
+					"usingDCSNotPract":"Combien d'hôpitaux ou autres institutions utilisent-ils des systèmes de création de données  sans pouvoir se définir comme des cabinets au sens de la licence?",
+					"howManyDAS":"Combien de systèmes d'analyse de données avez-vous déployé dans cette région et combien de bases de données y a-t-il par déploiement?"
 				},
 				"modal":{
-					"subtitle":"Nom de HÃ´pital/Institution",
-					"placeholder":"Entrer le Nom de l'HÃ´pital/Institution",
-					"dateBefore":"Date avant debut d'Utilisez",
-					"sure":"Etes-vous sÃ»r que vous voulez supprimer",
-					"andEntries":"et son entrÃ©es associÃ©?",
-					"addPractices":"S'il vous plaÃ®t ajouter le nombre de pratiques utilisant SNOMED"
+					"subtitle":"Nom de l'hôpital/institution",
+					"placeholder":"Saisissez le nom de l'hôpital/institution.",
+					"dateBefore":"Date antérieure à celle du début de l'utilisation",
+					"sure":"Êtes-vous sûr de vouloir supprimer ",
+					"andEntries":"et les entrées associées?",
+					"addPractices":"Veuillez ajouter le nombre de cabinets qui utilisent SNOMED."
 				}
 			},
-			"otherActivities":"Autres ActivitÃ©s",
-			"notificationRequired":"Les affiliÃ©s sont tenus de notifier IHTSDO avant de se engager dans des activitÃ©s qui ne entrent pas dans les catÃ©gories existantes au moment oÃ¹ l' IHTSDO va dÃ©terminer la structure de frais appropriÃ©s pour l'activitÃ© en question.",
-			"pleaseDescribe":"S'il vous plaÃ®t dÃ©crire l'activitÃ© ci-dessous.",
-			"submitFor":"Proposez DÃ©claration pour"
+			"otherActivities":"Autres activités",
+			"notificationRequired":"Les affiliés sont tenus d'avertir IHTSDO avant de s'engager dans toute activité qui ne relève pas des catégories existantes et, à ce moment-là, IHTSDO déterminera la structure de redevance appropriée pour l'activité en question.",
+			"pleaseDescribe":"Veuillez décrire l'activité ci-dessous.",
+			"submitFor":"Soumettre la déclaration pour"
 		},
 		"usageReports":{
-			"reportDate":"Date du Rapport",
-			"hospitals":"HÃ´pitaux",
-			"usageType":"Type d'Utilisation",
+			"reportDate":"Date du rapport",
+			"hospitals":"Hôpitaux",
+			"usageType":"Type d'utilisation",
 			"countries":"Pays",
-			"newReport":"Nouveau Rapport"
+			"newReport":"Nouveau rapport"
 		},
 		"userDashboard":{
-			"affiliateNo":"Nombre d'Affiliation",
-			"edit":"Modifier Demande d'Affiliation",
-			"myPackages":"Mes Packages PubliÃ©",
-			"otherPackages":"Les Autre Packages PubliÃ©",
+			"affiliateNo":"N° d'affilié",
+			"edit":"Modifier demande d'affilié",
+			"myPackages":"Mes éditions de logiciel",
+			"otherPackages":"Autres éditions disponibles",
 			"warning":{
-				"required.title":"DÃ©claration de Utilisation Requise",
-				"required.msg":"Votre dÃ©claration prÃ©liminaire d'utilisation a Ã©tÃ© enregistrÃ©. Toutefois, s'il vous plaÃ®t noter que vous devrez soumettre votre dÃ©claration d' utilisation finale pour l'annÃ©e en cours avant le 15 Janvier. S'il vous plaÃ®t noter que tous les rapports des annÃ©es prÃ©cÃ©dentes d'utilisation doivent Ãªtre soumises afin de tÃ©lÃ©charger SNOMED CT.",
-				"change.title":"Inscription AffiliÃ© NÃ©cessite un Changement",
-				"change.msg":"Votre inscription d'affiliation doit Ãªtre mis Ã  jour avant de pouvoir traiter. S'il vous plaÃ®t voir courriel concernant les changements nÃ©cessaires pour l'achÃ¨vement de votre inscription.",
-				"declined.title":"Inscription AffiliÃ© RefusÃ©e",
-				"declined.msg":"Votre inscription d'affiliation a Ã©tÃ© refusÃ©e. S'il vous plaÃ®t voir courriel concernant les dÃ©tails de la dÃ©cision .",
-				"deactivated.title":"Compte DÃ©sactivÃ©",
-				"deactivated.msg":"Votre compte a Ã©tÃ© dÃ©sactivÃ©. TÃ©lÃ©chargements de paquets de sortie et des applications d'extension ont Ã©tÃ© suspendues. S'il vous plaÃ®t contacter <a href=\"mailto:mlds@ihtsdo.org\"> mlds@ihtsdo.org </a> pour rÃ©soudre le problÃ¨me.",
-				"iPending.title":"Compte Attente Facture",
-				"iPending.msg":"Votre compte a une facture en cours. Paquet de sortie tÃ©lÃ©chargements ont Ã©tÃ© suspendues. S'il vous plaÃ®t contacter <a href=\"mailto:mlds@ihtsdo.org\"> mlds@ihtsdo.org </a> pour rÃ©soudre le problÃ¨me.",
-				"dPending.title":"Compte DÃ©sactivation Attente",
-				"dPending.msg":"Votre compte est prÃ©vu pour Ãªtre DÃ©sactivÃ©. S'il vous plaÃ®t contacter <a href=\"mailto:mlds@ihtsdo.org\"> mlds@ihtsdo.org </a> pour rÃ©soudre le problÃ¨me."
+				"required.title":"Déclaration d'utilisation requise",
+				"required.msg":"Votre déclaration préliminaire d'utilisation a été sauvegardée. Cependant, veuillez noter que vous devrez soumettre votre déclaration finale d'utilisation pour l'année en cours au plus tard le 15 janvier. Veuillez noter que tous les rapports d'utilisation d'années antérieures doivent être soumis pour télécharger SNOMED CT.",
+				"change.title":"Votre enregistrement d'affilié doit être modifié.",
+				"change.msg":" Votre enregistrement d'affilié doit être actualisé avant de pouvoir être traité. Consultez l'e-mail relatif aux modifications nécessaires pour achever votre enregistrement.",
+				"declined.title":"Enregistrement d'affilié refusé",
+				"declined.msg":" Votre enregistrement d'affilié a été refusé. Consultez l'e-mail relatif aux détails de la décision.",
+				"deactivated.title":"Compte désactivé",
+				"deactivated.msg":"Votre compte a été désactivé. Les téléchargements d'éditions de logiciel et demandes d'extension ont été suspendus. Veuillez contacter <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> pour résoudre le problème.",
+				"iPending.title":"Compte Facture en souffrance",
+				"iPending.msg":"Votre compte présente une facture en souffrance. Les téléchargements d'éditions de logiciel ont été suspendus. Veuillez contacter <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> pour résoudre le problème.",
+				"dPending.title":"Compte Désactivation imminente",
+				"dPending.msg":"Votre compte est en instance de désactivation. Veuillez contacter <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> pour résoudre le problème."
 			}
 		}
 	}
