@@ -430,7 +430,7 @@
 			"success":"<strong>Enregistrement sauvegardé!</strong> Consultez vos e-mails pour confirmation.",
 			"error":{
 				"fail":"<strong>L'enregistrement a échoué!</strong> Veuillez réessayer plus tard.",
-				"userexists":"<strong>Un utilisateur est déjà enregistré avec cette adresse e-mail.</strong> Votre intention était-elle <a href='#/login'>"de vous connecter</a>?",
+				"userexists":"<strong>Un utilisateur est déjà enregistré avec cette adresse e-mail.</strong> Votre intention était-elle <a href='#/login'>de vous connecter</a>?",
 				"blocklist":"Nos règles de sécurité IT nous empêchent de traiter l'adresse e-mail saisie. Veuillez contacter <a href=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a> pour obtenir de l'aide."
 			}
 		},
@@ -444,7 +444,7 @@
 			"conditions":"Veuillez sélectionner les conditions dans lesquelles le produit sera utilisé.",
 			"typeOfAgreement":"Type de contrat",
 			"validation":{
-				"other.required":"Le champ "Autres" est requis."
+				"other.required":"Le champ 'Autres' est requis."
 			},
 			"license.title":"Contrat SNOMED CT",
 			"license":"Licence SNOMED",
@@ -872,15 +872,15 @@
 				"other":{
 					"name":"Autre",
 					"placeholder":"Autre",
-					"required":"Le champ "Autre" est requis."
+					"required":"Le champ 'Autre' est requis."
 				},
 				"subtype":{
 					"name":"Subtype",
-					"required":"Le champ "sous-type" est requis."
+					"required":"Le champ 'sous-type' est requis."
 				},
 				"usageType":{
 					"name":"Type",
-					"required":"Le champ "type d'utilisation" est requis."
+					"required":"Le champ 'type d'utilisation' est requis."
 				},
 				"agreementType":"Type de contrat",
 				"accountStanding":"Situation du compte"
