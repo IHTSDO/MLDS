@@ -217,7 +217,7 @@
 					<div class="form-group">
 						<label translate="views.contactInfo.contact.address.name.label">Address:</label>
 						<input class="form-control" name="address" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-maxlength="255" 
-							ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.street" auto-submit>
+							ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.street" ng-change="copyAddress()" auto-submit>
 						<p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
 						Required field.
 						</p>
@@ -238,7 +238,7 @@
 				<div class="row">
 					<div class="col-md-3">
 					<div class="form-group">
-						<input class="form-control" name="city" placeholder="{{ 'views.contactInfo.contact.city.placeholder' | translate }}" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.city" ng-maxlength="255" auto-submit>
+						<input class="form-control" name="city" placeholder="{{ 'views.contactInfo.contact.city.placeholder' | translate }}" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.city" ng-change="copyAddress()" ng-maxlength="255" auto-submit>
 						<p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
 						Required field.
 						</p>
@@ -251,7 +251,7 @@
 					<div class="form-group">
 						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" name="postalCode" 
 							ng-required="affiliateform.type=='INDIVIDUAL'" ng-maxlenth="25" 
-							placeholder="{{ 'views.contactInfo.contact.postcode.placeholder' | translate }}" auto-submit>
+							placeholder="{{ 'views.contactInfo.contact.postcode.placeholder' | translate }}" ng-change="copyAddress()" auto-submit>
 						<p ng-show="affiliateApplicationForm.postalCode.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
 						Required field.
 						</p>
@@ -405,7 +405,7 @@
 					<div class="form-group">
 					<label translate="views.contactInfo.contact.address.name.label">Address:</label> 
 					<input class="form-control" name="address" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-change="copyAddress()" 
-						required="" ng-model="affiliateform.affiliateDetails.address.street" auto-submit ng-maxlength="255" ng-change="">
+						required="" ng-model="affiliateform.affiliateDetails.address.street" auto-submit ng-maxlength="255" ng-change="copyAddress()">
 					<p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
 						Required field.
 					</p>
