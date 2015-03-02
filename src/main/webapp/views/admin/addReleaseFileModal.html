@@ -8,7 +8,7 @@
        <div class="col-md-12">
       <div class="form-group">
           <label>Label</label> 
-          <input class="form-control" placeholder="Enter Display Label For File" name="label" ng-model="releaseFile.label" ng-required="true"/>
+          <div text-angular name="description" ng-model="releaseFile.label"></div>
           <span ng-show="formReleaseFile.label.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
       <div class="form-group">

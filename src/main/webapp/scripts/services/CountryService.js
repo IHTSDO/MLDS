@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('CountryService', ['$http', '$log', '$q', function($http, $log, $q){
+.service('CountryService', ['$http', '$log', '$q', '$translate', function($http, $log, $q, $translate){
 	
 		var countriesListQ = 
 			$http.get('/app/rest/countries')
@@ -14,6 +14,9 @@ angular.module('MLDS')
 		
 		countriesListQ.then(function(countries){
 			// append to countries list
+			_.each(countries,function(country) {
+				country.commonName = $translate.instant('global.country.'+country.isoCode2);
+			});
 			Array.prototype.push.apply(service.countries,countries);
 			
 			service.countries.sort(function(a, b) {

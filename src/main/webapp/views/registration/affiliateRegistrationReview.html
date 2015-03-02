@@ -36,7 +36,7 @@
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.postcode.name.label">Post Code:</strong> {{affiliateform.affiliateDetails.address.post}}</li>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.country.name.label">Country:</strong> {{affiliateform.affiliateDetails.address.country.commonName}}</li>
 				</ul>
-					<ul class="list-group" ng-show="affiliateform.type!='INDIVIDUAL'">
+					<ul class="list-group" ng-show="affiliateform.type!='INDIVIDUAL'" ng-hide="billingHide">
 					<h4>Billing Address:</h4>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.address.name.label">Address:</strong> {{affiliateform.affiliateDetails.billingAddress.street}}</li>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.city.name.label">City:</strong> {{affiliateform.affiliateDetails.billingAddress.city}}</li>
@@ -62,7 +62,7 @@
 					<li class="list-group-item-light" ng-show="affiliateform.type=='COMMERCIAL'"><strong translate="views.contactInfo.contact.thirdEmail.label">Third Email:</strong> {{affiliateform.affiliateDetails.thirdEmail}}</li>
 					<li class="list-group-item-light" ng-show="affiliateform.type=='OTHER'"><strong translate="views.contactInfo.admin.other.name.label">Other:</strong>{{otherText}}</li>
 				</ul>
-				<ul class="list-group" ng-show="affiliateform.type=='INDIVIDUAL'">
+				<ul class="list-group" ng-show="affiliateform.type=='INDIVIDUAL'" ng-hide="billingHide">
 					<h4 translate="views.contactInfo.contact.billingAddress.name.label">Billing Address:</h4>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.address.name.label">Address:</strong> {{affiliateform.affiliateDetails.billingAddress.street}}</li>
 					<li class="list-group-item-light"><strong translate="views.contactInfo.contact.city.name.label">City:</strong> {{affiliateform.affiliateDetails.billingAddress.city}}</li>

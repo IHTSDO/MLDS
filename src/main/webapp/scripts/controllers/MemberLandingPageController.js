@@ -3,9 +3,8 @@
 angular.module('MLDS').controller('MemberLandingPageController', 
 		['$scope', '$rootScope', 'Session', '$log', '$routeParams', 'MemberService',
          function ($scope, $rootScope, Session, $log, $routeParams, MemberService) {
-
 			var memberKey = $routeParams.memberKey;
-			
+			console.log(memberKey);
 			MemberService.ready.then(function() {
 				var member = MemberService.membersByKey[memberKey];
 				
@@ -15,6 +14,4 @@ angular.module('MLDS').controller('MemberLandingPageController',
 					$rootScope.memberLanding = member;
 				}
 			});
-
-			
-          }]);
+      }]);
