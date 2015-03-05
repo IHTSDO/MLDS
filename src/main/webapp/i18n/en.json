@@ -53,6 +53,7 @@
 			"en":"English",
 			"fr":"French",
 			"de":"German",
+			"nl":"Dutch",
 			"pl":"Polish",
 			"ru":"Russian"
 		},
@@ -832,7 +833,7 @@
 	},
 	"form":{
 		"requiredField":"Required field.",
-		"tooLong":"Input value is too long.", 
+		"tooLong":"Input value is too long.",
 		"invalidNumber":"Not a valid number",
 		"pleaseFix":"Please fix the errors listed above."
 	},
