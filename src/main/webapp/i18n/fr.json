@@ -53,6 +53,7 @@
 			"en":"anglais",
 			"fr":"français",
 			"de":"allemand",
+			"nl":"néerlandais",
 			"pl":"polonais",
 			"ru":"russe"
 		},
@@ -828,7 +829,7 @@
 	},
 	"form":{
 		"requiredField":"Champ obligatoire.",
-		"tooLong":"La valeur introduite est trop longue.", 
+		"tooLong":"La valeur introduite est trop longue.",
 		"invalidNumber":"Numéro non valide",
 		"pleaseFix":"Veuillez remédier aux erreurs ci-dessus."
 	},
