@@ -53,6 +53,7 @@
 			"en":"Engels",
 			"fr":"Frans",
 			"de":"Duits",
+			"nl":"Nederlands",
 			"pl":"Pools",
 			"ru":"Russisch"
 		},
@@ -505,6 +506,10 @@
 		"title":"Paswoord voor {{username}}",
 		"form":{
 			"button":"Opslaan"
+		},
+		"reset":{
+			"title":"Reset paswoord",
+			"instructions":"Voer het nieuwe wachtwoord hieronder."
 		},
 		"messages":{
 			"error":"<strong>Er is een fout opgetreden!</strong> Het paswoord kon niet gewijzigd worden.",
@@ -992,7 +997,7 @@
 			"contact":"Neem contact op met ons"
 		},
 		"landingPage":{
-			"appName":"Membership License and Distribution Service",
+			"appName":"Membership Licensing and Distribution Service",
 			"purpose":"Deze service wordt verleend door de IHTSDO om organisaties en individuen in staat te stellen om het gebruik van en toegang tot de Internationale Release van SNOMED CT aan te vragen voor gebruik in landen die geen lid zijn.",
 			"furtherDetails":"Voor meer details, zie de <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO-website</a> of de <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Veelgestelde vragen</a>.",
 			"loginHere":"log je hier in"
@@ -1016,6 +1021,7 @@
 		"requestPasswordReset":{
 			"title":"Reset paswoord",
 			"detail":"We zullen je een e-mail sturen met een link naar een formulier om het paswoord te resetten.",
+			"back":"terug",
 			"button":"Vraag een reset van het paswoord aan"
 		},
 		"usage":{
@@ -1066,7 +1072,6 @@
 				"deleteCountry":"Verwijder land",
 				"hospAndInst":"Ziekenhuis/Instelling",
 				"hospAndInst.title":"Ziekenhuis(huizen)/Instelling(en)",
-
 				"hospAndInst.plural":"Ziekenhuizen/Instellingen",
 				"started":"Begindatum gebruik",
 				"finished":"Einddatum gebruik",
@@ -1128,4 +1133,3 @@
 		}
 	}
 }
-
