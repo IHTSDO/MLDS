@@ -507,6 +507,10 @@
 		"form":{
 			"button":"Sauvegarder"
 		},
+		"reset":{
+			"title":"Réinitialiser le mot de passe",
+			"instructions":"Entrez le nouveau mot de passe ci-dessous."
+		},
 		"messages":{
 			"error":"<strong>Une erreur est survenue!</strong> Le mot de passe n'a pas pu être modifié.",
 			"success":"<strong>Mot de passe modifié!</strong>  Continuez vers <a href='#/contactInfo'>Informations concernant le compte.</a>",
@@ -1017,6 +1021,7 @@
 		"requestPasswordReset":{
 			"title":"Remise à zéro du mot de passe",
 			"detail":"Nous allons vous envoyer un e-mail contenant un lien vers un formulaire de remise à zéro du mot de passe.",
+			"back":"Retour à la page de connexion",
 			"button":"Demander remise à zéro du mot de passe"
 		},
 		"usage":{
