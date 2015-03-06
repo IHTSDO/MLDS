@@ -53,7 +53,6 @@
 			"en":"Engels",
 			"fr":"Frans",
 			"de":"Duits",
-			"nl":"Nederlands",
 			"pl":"Pools",
 			"ru":"Russisch"
 		},
@@ -382,7 +381,7 @@
 			"name":"Naam",
 			"cancel":"Annuleren",
 			"note":"Nota",
-			"notes":"Nota�s",
+			"notes":"Nota’s",
 			"close":"Sluiten",
 			"delete":"Verwijderen",
 			"update":"Updaten",
@@ -437,7 +436,7 @@
 		},
 		"emailVerification":{
 			"intro":"We hebben je een e-mail gestuurd.",
-			"detail":"Gelieve de e-mail te openen die we je zopas gestuurd hebben om je account te verifi�ren en toegang te verkrijgen tot MLDS"
+			"detail":"Gelieve de e-mail te openen die we je zopas gestuurd hebben om je account te verifiëren en toegang te verkrijgen tot MLDS"
 		},
 		"affiliateRegistration":{
 			"title":"Registratie geaffilieerde/licentiehouder",
@@ -445,7 +444,7 @@
 			"conditions":"Gelieve te selecteren onder welke omstandigheden het product gebruikt zal worden",
 			"typeOfAgreement":"Type Overeenkomst",
 			"validation":{
-				"other.required":"Het veld �Andere�is vereist."
+				"other.required":"Het veld ‘Andere’is vereist."
 			},
 			"license.title":"SNOMED CT Overeenkomst",
 			"license":"SNOMED Licentie",
@@ -659,9 +658,9 @@
 			"AUTHENTICATION_FAILURE":"Authentificatie niet gelukt",
 			"AFFILIATE_CREATED":"Geaffilieerde/licentiehouder aangemaakt",
 			"AFFILIATE_CREATED_BY_IMPORT":" Geaffilieerde/licentiehouder aangemaakt via Import",
-			"AFFILIATE_UPDATED":" Geaffilieerde/licentiehouder ge�pdatet",
-			"AFFILIATE_UPDATED_BY_IMPORT":" Geaffilieerde/licentiehouder ge�pdatet via Import",
-			"AFFILIATEDETAILS_UPDATED":" Details geaffilieerde/licentiehouder ge�pdatet",
+			"AFFILIATE_UPDATED":" Geaffilieerde/licentiehouder geüpdatet",
+			"AFFILIATE_UPDATED_BY_IMPORT":" Geaffilieerde/licentiehouder geüpdatet via Import",
+			"AFFILIATEDETAILS_UPDATED":" Details geaffilieerde/licentiehouder geüpdatet",
 			"AFFILIATE_EXPORT":"Batch Export geaffilieerde/licentiehouder",
 			"AFFILIATE_IMPORT":"Batch Import geaffilieerde/licentiehouder",
 			"AFFILIATE_LOGIN_CREATED":"Login geaffilieerde/licentiehouder aangemaakt",
@@ -698,8 +697,8 @@
 		},
 		"type.extended":{
 			"COMMERCIAL":"Commercieel - Ontwikkelaar, Verkoper of Leverancier van Terminologie",
-			"ACADEMIC":"Academisch � Voor intern gebruik binnen een Organisatie. (onderwijs, onderzoek,ontwikkeling of gezondheidswerker)",
-			"OTHER":"Andere � Gebruik staat niet vermeld in andere opties",
+			"ACADEMIC":"Academisch – Voor intern gebruik binnen een Organisatie. (onderwijs, onderzoek,ontwikkeling of gezondheidswerker)",
+			"OTHER":"Andere – Gebruik staat niet vermeld in andere opties",
 			"INDIVIDUAL":"Individueel - Persoonlijk, Opvoeding of Onderzoek"
 		},
 		"subType":{
@@ -714,7 +713,7 @@
 		"agreementType":{
 			"AFFILIATE_NORMAL":"Geaffilieerde/licentiehouder - Normaal",
 			"AFFILIATE_RESEARCH":" Geaffilieerde/licentiehouder - Onderzoek",
-			"AFFILIATE_PUBLIC_GOOD":" Geaffilieerde/licentiehouder � Openbaar belang"
+			"AFFILIATE_PUBLIC_GOOD":" Geaffilieerde/licentiehouder – Openbaar belang"
 		},
 		"organizationType":{
 			"PUBLIC_HEALTH_ORGANIZATION":"Openbare gezondheidszorginstelling",
@@ -726,7 +725,7 @@
 			"OTHER":"Andere"
 		},
 		"implementationStatus":{
-			"IMPLEMENTED":"Live/Ge�mplementeerd",
+			"IMPLEMENTED":"Live/Geïmplementeerd",
 			"DEVELOPMENT":"In Progress/Ontwikkeling",
 			"PLANNING":"In planningsfase"
 		},
@@ -742,13 +741,13 @@
 		},
 		"standingStateWithExplanation":{
 			"APPLYING":"Aanvraag ingediend",
-			"IN_GOOD_STANDING":"In orde � Volledige toegang goedgekeurd, Account betaald, Geen betaling vereist of Probleem met de Account opgelost",
+			"IN_GOOD_STANDING":"In orde – Volledige toegang goedgekeurd, Account betaald, Geen betaling vereist of Probleem met de Account opgelost",
 			"REJECTED":"Geweigerd",
-			"DEACTIVATION_PENDING":"Desactivering nakend � Enkel toegang tot de Account, niet mogelijk om te downloaden",
-			"DEACTIVATED":"Gedesactiveerd � Enkel toegang tot de Account, niet mogelijk om te downloaden",
-			"DEREGISTERED":"Gederegistreerd � Geen toegang tot MLDS Account",
-			"PENDING_INVOICE":" Openstaande factuur � Enkel toegang tot Account, Betaling verschuldigd",
-			"INVOICE_SENT":"Factuur opgestuurd � Enkel toegang tot Account, Betaling verschuldigd "
+			"DEACTIVATION_PENDING":"Desactivering nakend – Enkel toegang tot de Account, niet mogelijk om te downloaden",
+			"DEACTIVATED":"Gedesactiveerd – Enkel toegang tot de Account, niet mogelijk om te downloaden",
+			"DEREGISTERED":"Gederegistreerd – Geen toegang tot MLDS Account",
+			"PENDING_INVOICE":" Openstaande factuur – Enkel toegang tot Account, Betaling verschuldigd",
+			"INVOICE_SENT":"Factuur opgestuurd – Enkel toegang tot Account, Betaling verschuldigd "
 		}
 	},
 	"approval":{
@@ -829,7 +828,7 @@
 	},
 	"form":{
 		"requiredField":"Verplicht veld.",
-		"tooLong":"Ingevoerde waarde is te lang.",
+		"tooLong":"Ingevoerde waarde is te lang.", 
 		"invalidNumber":"Geen geldig nummer",
 		"pleaseFix":"Gelieve de bovenstaande fouten te verbeteren."
 	},
@@ -877,11 +876,11 @@
 				},
 				"subtype":{
 					"name":"Subtype",
-					"required":"Het veld �Subtype�is vereist."
+					"required":"Het veld ‘Subtype’is vereist."
 				},
 				"usageType":{
 					"name":"Type",
-					"required":"Het veld �Type gebruik� is vereist."
+					"required":"Het veld ‘Type gebruik’ is vereist."
 				},
 				"agreementType":"Type overeenkomst",
 				"accountStanding":"Toestand van de account"
@@ -975,9 +974,9 @@
 			"license":"Licentie voor Extensie",
 			"warning":{
 				"change":"De registratie van de Extensie moet gewijzigd worden",
-				"change.detail":"De registratie van je Extensie moet ge�pdatet worden alvorens ze behandeld kan worden. Zie de e-mail aangaande de wijzigingen die nodig zijn om je registratie af te ronden.",
+				"change.detail":"De registratie van je Extensie moet geüpdatet worden alvorens ze behandeld kan worden. Zie de e-mail aangaande de wijzigingen die nodig zijn om je registratie af te ronden.",
 				"rejected":"Registratie van Extensie geweigerd",
-				"rejected.detail":"De registratie van je Extensie moet ge�pdatet worden alvorens ze behandeld kan worden. Zie de e-mail aangaande de wijzigingen die nodig zijn om je registratie af te ronden.",
+				"rejected.detail":"De registratie van je Extensie moet geüpdatet worden alvorens ze behandeld kan worden. Zie de e-mail aangaande de wijzigingen die nodig zijn om je registratie af te ronden.",
 				"approved":" Registratie van Extensie goedgekeurd",
 				"approved.detail":"Je aanvraag werd goedgekeurd."
 			},
@@ -1096,7 +1095,7 @@
 				}
 			},
 			"otherActivities":"Andere activiteiten",
-			"notificationRequired":"De geaffilieerden/licentiehouders moeten de IHTSDO op de hoogte brengen alvorens ze activiteiten aanvatten die niet binnen de bestaande categorie�n vallen, waarna de IHTSDO de geschikte structuur van de vergoedingen zal bepalen voor de activiteit in kwestie.",
+			"notificationRequired":"De geaffilieerden/licentiehouders moeten de IHTSDO op de hoogte brengen alvorens ze activiteiten aanvatten die niet binnen de bestaande categorieën vallen, waarna de IHTSDO de geschikte structuur van de vergoedingen zal bepalen voor de activiteit in kwestie.",
 			"pleaseDescribe":"Gelieve de activiteit hieronder te beschrijven.",
 			"submitFor":"Dien de Verklaring in voor"
 		},
@@ -1116,7 +1115,7 @@
 				"required.title":"Gebruiksverklaring vereist",
 				"required.msg":"Je voorlopige gebruiksverklaring werd opgeslagen. Gelieve er wel rekening mee te houden dat je je definitieve gebruiksverklaring voor dit jaar moet indienen tegen 15 januari. We willen erop wijzen dat alle gebruiksrapporten van de vorige jaren ingediend moeten worden om SNOMED CT te downloaden.",
 				"change.title":"Je registratie als geaffilieerde/licentiehouder moet gewijzigd worden",
-				"change.msg":"Je registratie als geaffilieerde/licentiehouder moet ge�pdatet worden voor ze behandeld kan worden. Zie de e-mail in verband met de wijzigingen die nodig zijn om je registratie te vervolledigen.",
+				"change.msg":"Je registratie als geaffilieerde/licentiehouder moet geüpdatet worden voor ze behandeld kan worden. Zie de e-mail in verband met de wijzigingen die nodig zijn om je registratie te vervolledigen.",
 				"declined.title":"Registratie als geaffilieerde/licentiehouder geweigerd",
 				"declined.msg":"Je registratie als geaffilieerde/licentiehouder werd geweigerd. Zie de e-mail met de details over de beslissing.",
 				"deactivated.title":"Account gedesactiveerd",
@@ -1129,3 +1128,4 @@
 		}
 	}
 }
+
