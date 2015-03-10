@@ -1000,7 +1000,10 @@
 			"appName":"Licence de membre et service de distribution",
 			"purpose":"Ce service est fourni par IHTSDO afin de permettre à des organisations et individus de demander l'utilisation et l'accès à l'édition internationale de SNOMED CT en vue d'une utilisation dans des pays non membres.",
 			"furtherDetails":"Pour plus d'informations, veuillez consulter le <a href=\"http://www.ihtsdo.org\" target=\"_blank\"> site web d'IHTSDO</a> ou la <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Foire aux questions</a>.",
-			"loginHere":"Connectez-vous ici."
+			"loginHere":"Connectez-vous ici.",
+			"member.purpose1":"MLDS est un outil utilisé par ",
+			"member.purpose2":" NRC pour gérer la délivrance des licences d'affiliation de la SNOMED CT, y compris de nouvelles applications, les renouvellements et les rapports d'utilisation dans ",
+			"member.purpose3":" et le cas échéant dans les pays non membres."
 		},
 		"releases":{
 			"title":"Éditions de logiciel disponibles pour utilisateurs enregistrés",
