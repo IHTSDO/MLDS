@@ -16,21 +16,21 @@ angular.module('MLDS').controller('MemberLandingPageController',
 			});
 
 			var setLandingText = function () {
-				CountryService.ready.then(function() {
-					var country = CountryService.countriesByIsoCode2[memberKey];
-					var countryCommonName = country.commonName;
-					//If we have a memberKey then set a country specific landing message.   
-					//otherwise we'll use the standard IHTSDO text
-					if ($rootScope.memberLanding == null){
-						$scope.landingText = $translate.instant('views.landingPage.purpose');
-					} else {
+				//If we have a memberKey then set a country specific landing message.   
+				//otherwise we'll use the standard IHTSDO text
+				if (memberKey == null){
+					$scope.landingText = $translate.instant('views.landingPage.purpose');
+				} else {
+					CountryService.ready.then(function() {
+						var country = CountryService.countriesByIsoCode2[memberKey];
+						var countryCommonName = country.commonName;
 						$scope.landingText = 	$translate.instant('views.landingPage.member.purpose1') +
 												$translate.instant('global.country.'+ $rootScope.memberLanding.key) +
 												$translate.instant('views.landingPage.member.purpose2') +
 												$translate.instant('global.country.'+ $rootScope.memberLanding.key) +
 												$translate.instant('views.landingPage.member.purpose3');
-					}
-				})
+					});
+				}
 			}
 			
 			$rootScope.$on('$translateChangeSuccess', function () {
