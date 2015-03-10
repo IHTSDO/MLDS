@@ -385,6 +385,7 @@ mldsApp
                 })
                 .when('/landing', {
                     templateUrl: 'views/landingPage.html',
+                    controller: 'MemberLandingPageController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
                     }
