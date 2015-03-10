@@ -18,17 +18,18 @@ angular.module('MLDS').controller('MemberLandingPageController',
 			var setLandingText = function () {
 				//If we have a memberKey then set a country specific landing message.   
 				//otherwise we'll use the standard IHTSDO text
-				if (memberKey == null){
-					$scope.landingText = $translate.instant('views.landingPage.purpose');
-				} else {
+				$scope.landingText = $translate.instant('views.landingPage.purpose');
+				if (memberKey != null) {
 					CountryService.ready.then(function() {
 						var country = CountryService.countriesByIsoCode2[memberKey];
-						var countryCommonName = country.commonName;
-						$scope.landingText = 	$translate.instant('views.landingPage.member.purpose1') +
-												$translate.instant('global.country.'+ $rootScope.memberLanding.key) +
-												$translate.instant('views.landingPage.member.purpose2') +
-												$translate.instant('global.country.'+ $rootScope.memberLanding.key) +
-												$translate.instant('views.landingPage.member.purpose3');
+						if (country != null) {
+							var countryCommonName = country.commonName;
+							$scope.landingText = 	$translate.instant('views.landingPage.member.purpose1') +
+													$translate.instant('global.country.'+ $rootScope.memberLanding.key) +
+													$translate.instant('views.landingPage.member.purpose2') +
+													$translate.instant('global.country.'+ $rootScope.memberLanding.key) +
+													$translate.instant('views.landingPage.member.purpose3');
+						}
 					});
 				}
 			}
