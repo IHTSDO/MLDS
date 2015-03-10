@@ -1,17 +1,41 @@
 'use strict';
 
 angular.module('MLDS').controller('MemberLandingPageController', 
-		['$scope', '$rootScope', 'Session', '$log', '$routeParams', 'MemberService',
-         function ($scope, $rootScope, Session, $log, $routeParams, MemberService) {
+		['$scope', '$rootScope', 'Session', '$log', '$routeParams', 'MemberService', '$location', '$translate', 'CountryService',
+		function ($scope, $rootScope, Session, $log, $routeParams, MemberService, $location, $translate, CountryService) {
 			var memberKey = $routeParams.memberKey;
-			console.log(memberKey);
+			var langISO = $location.search()['lang'];
+			console.log(memberKey + " with language " + langISO);
+			$translate.use(langISO);
+
 			MemberService.ready.then(function() {
 				var member = MemberService.membersByKey[memberKey];
-				
-				if (member !== null) {
-					// Introduce a new memberLanding variable rather than reuse Session.member as no
-					// authority is conferred by hitting this public page
-					$rootScope.memberLanding = member;
-				}
+				// Introduce a new memberLanding variable rather than reuse Session.member as no
+				// authority is conferred by hitting this public page
+				$rootScope.memberLanding = member;
 			});
-      }]);
+
+			var setLandingText = function () {
+				CountryService.ready.then(function() {
+					var country = CountryService.countriesByIsoCode2[memberKey];
+					var countryCommonName = country.commonName;
+					//If we have a memberKey then set a country specific landing message.   
+					//otherwise we'll use the standard IHTSDO text
+					if ($rootScope.memberLanding == null){
+						$scope.landingText = $translate.instant('views.landingPage.purpose');
+					} else {
+						$scope.landingText = 	$translate.instant('views.landingPage.member.purpose1') +
+												$translate.instant('global.country.'+ $rootScope.memberLanding.key) +
+												$translate.instant('views.landingPage.member.purpose2') +
+												$translate.instant('global.country.'+ $rootScope.memberLanding.key) +
+												$translate.instant('views.landingPage.member.purpose3');
+					}
+				})
+			}
+			
+			$rootScope.$on('$translateChangeSuccess', function () {
+				setLandingText();
+			});
+			
+			setLandingText();
+	}]);
