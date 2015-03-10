@@ -1000,7 +1000,10 @@
 			"appName":"Member Licensing and Distribution Service",
 			"purpose":"Deze service wordt verleend door de IHTSDO om organisaties en individuen in staat te stellen om het gebruik van en toegang tot de Internationale Release van SNOMED CT aan te vragen voor gebruik in landen die geen lid zijn.",
 			"furtherDetails":"Voor meer details, zie de <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO-website</a> of de <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Veelgestelde vragen</a>.",
-			"loginHere":"log je hier in"
+			"loginHere":"log je hier in",
+			"member.purpose1":"[Dutch translation TBC] MLDS is a tool used by ",
+			"member.purpose2":" NRC to manage the Affiliate Licensing of SNOMED CT including new applications, renewals and usage reporting within ",
+			"member.purpose3":" and where relevant in non member countries."
 		},
 		"releases":{
 			"title":"Releases beschikbaar voor geregistreerde gebruikers",
