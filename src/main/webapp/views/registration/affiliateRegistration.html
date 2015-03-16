@@ -439,7 +439,7 @@
 					<div class="col-md-3">
 						<div class="form-group">
 						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" 
-							ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type=='COMMERCIAL'"
+							ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type!='INDIVIDUAL'"
 							ng-maxlength="25" 
 							placeholder="{{ 'views.contactInfo.contact.postcode.placeholder' | translate }}" auto-submit>
 						<p ng-show="affiliateApplicationForm.postCode.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
@@ -613,7 +613,7 @@
 					<span ng-show="affiliateApplicationForm.snoMedTC.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="register.affiliateRegistration.license.error">You must agree to the terms and conditions of the SNOMED CT License in order to register, which also indicates potential fees that be required.</span></label>
 				</p>
 				<div class="panel-footer">
-					<button type="button" class="btn btn-muted btn-success" ng-click="openReviewModal(affiliateform)" translate="register.form.button">Register</button>
+					<button type="button" class="btn btn-muted btn-success" ng-click="openReviewModal(affiliateform)" translate="register.form.button">Start Registration</button>
 					<div ng-show="affiliateApplicationForm.attempted" class="has-error">
 						<p ng-show="affiliateApplicationForm.$invalid" class="help-block" translate="form.pleaseFix">Please fix the errors listed above.</p>
 					</div>
