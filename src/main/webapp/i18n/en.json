@@ -393,6 +393,7 @@
 			"save":"Save",
 			"welcome":"Welcome",
 			"view":"View",
+			"viewlicense":"View License",
 			"viewAll":"View All",
 			"state":"State",
 			"status":"Status",
@@ -402,6 +403,10 @@
 			"yes":"Yes",
 			"no":"No",
 			"apply":"Apply",
+			"download":"Download",
+			"file":"File",
+			"publishedOn":"Published on",
+			"license":"License",
 			"back":"Back"
 		}
 	},
@@ -1012,6 +1017,9 @@
 			"memberCountries":"Member Countries",
 			"countryIsMissing":"If the country you're looking for is not in this list, please refer to the <a href=\"http://www.ihtsdo.org/\">IHTSDO website</a> for release download information.",
 			"notAvailable":"There are currently no release packages available",
+			"releasePackageLicense":"Release Package License",
+			"reviewLicense":"Please review the following license and accept it before downloading the release package:",
+			"agreeToLicense":"I agree to the license",
 			"warning":{
 				"deactivated":"Account Deactivated",
 				"pending":"Pending Invoice",
