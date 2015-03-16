@@ -393,6 +393,7 @@
 			"save":"Opslaan",
 			"welcome":"Welkom",
 			"view":"Bekijken",
+			"viewlicense":"Bekijk licentie",
 			"viewAll":"Alles bekijken",
 			"state":"Staat",
 			"status":"Status",
@@ -402,6 +403,10 @@
 			"yes":"Ja",
 			"no":"Neen",
 			"apply":"Toepassen",
+			"download":"Download",
+			"file":"File",
+			"publishedOn":"Gepubliceerd op",
+			"license":"Licentie",
 			"back":"Terug"
 		}
 	},

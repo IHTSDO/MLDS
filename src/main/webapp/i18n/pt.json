@@ -393,6 +393,7 @@
 			"save":"Salvar",
 			"welcome":"Bem vindo",
 			"view":"Ver",
+			"viewlicense":"Ver licença",
 			"viewAll":"Ver Tudo",
 			"state":"Situação",
 			"status":"Estado",
@@ -402,6 +403,9 @@
 			"yes":"Sim",
 			"no":"Não",
 			"apply":"Aplicar",
+			"download":"Baixar",
+			"publishedOn":"Publicado em",
+			"license":"Licença",
 			"back":"Retroceder"
 		}
 	},
@@ -1012,6 +1016,9 @@
 			"memberCountries":"Países Membros",
 			"countryIsMissing":"Se o país que procura não está nesta lista, por favor consulte o <a href=\"http://www.ihtsdo.org/\">site do IHTSDO</a> para informação sobre o download das distribuições.",
 			"notAvailable":"Atualmente não existem pacotes de distribuição disponíveis",
+			"releasePackageLicense":"Licença de Distribuições",
+			"reviewLicense":"Por favor, reveja a seguinte licença e aceito-o antes de baixar a distribuição:",
+			"agreeToLicense":"Por favor, aceite a licença",
 			"warning":{
 				"deactivated":"Conta Desativada",
 				"pending":"Fatura Pendente",
