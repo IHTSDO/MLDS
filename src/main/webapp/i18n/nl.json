@@ -910,7 +910,7 @@
 				"email":{
 					"name":"E-mail",
 					"placeholder":"JohnSmith@OrganizationABC.com",
-					"uniqueness":"De e-mailadressen moeten uniek zijn.",
+					"unique":"De e-mailadressen moeten uniek zijn.",
 					"invalid":"Ongeldig e-mailadres."
 				},
 				"alternativeEmail":{
