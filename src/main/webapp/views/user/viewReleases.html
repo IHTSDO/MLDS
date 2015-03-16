@@ -96,7 +96,7 @@
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                 <h2 id="{{'section-'+memberReleases.member.key}}">
                     {{memberReleases.member.key | enum:'global.member.'}}
-                    <a class="btn btn-sm btn-link" ng-click="viewLicense(memberReleases.packages[0].member.key)">View License</a>
+                    <a class="btn btn-sm btn-link" ng-click="viewLicense(memberReleases.packages[0].member.key)"><span translate="global.word.viewlicense">View License</span></a>
                 </h2>
             </accordion-heading>
             <div ng-repeat="releasePackage in memberReleases.packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished" ng-controller="ViewReleaseController">
