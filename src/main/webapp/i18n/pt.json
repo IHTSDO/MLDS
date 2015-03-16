@@ -910,7 +910,7 @@
 				"email":{
 					"name":"e-mail",
 					"placeholder":"JoaoSilva@OrganizaçãoABC.com",
-					"uniqueness":"O endereço de e-mail tem de ser único.",
+					"unique":"O endereço de e-mail tem de ser único.",
 					"invalid":" e-mail Inválido."
 				},
 				"alternativeEmail":{
