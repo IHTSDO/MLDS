@@ -23,16 +23,16 @@
 			"dashboard":"Painel de controle",
 			"help":"Ajuda",
 			"usageReports":"Relatórios de utilização",
-			"applications":"Aplicações",
+			"applications":"Candidaturas",
 			"releasePackages":"Ficheiros para distribuição",
 			"affiliate":{
-				"accountInformation": "Informação de conta",
-				"changePassword":"Mudar a palavra passe",
+				"accountInformation": "Informação da conta",
+				"changePassword":"Alterar palavra passe",
 				"logout":"Sair"
 			},
 			"staff":{
 				"dashboard":"Painel de controle",
-				"pendingApplications":"Aplicações pendentes",
+				"pendingApplications":"Candidaturas pendentes",
 				"usageReports":"Relatórios de Utilização",
 				"affiliteUserManagement":"Gestão de Afiliados",
 				"activityLog":"Registo de atividade",
@@ -48,7 +48,7 @@
 			},
 			"language":"Linguagem"
 		},
-		"linguagem":{
+		"language":{
 			"da":"Dinamarquês",
 			"en":"Inglês",
 			"fr":"Francês",
@@ -482,8 +482,8 @@
 			"countryOfResidence.placeholder":"O seu país de residência",
 			"firstname":"Primeiro Nome",
 			"firstname.placeholder":"O seu primeiro nome",
-			"lastname":"Último Nome",
-			"lastname.placeholder":"O seu último nome",
+			"lastname":"Apelido",
+			"lastname.placeholder":"O seu apelido",
 			"button":"Salvar"
 		},
 		"messages":{
@@ -702,8 +702,8 @@
 			"INDIVIDUAL":"Individual"
 		},
 		"type.extended":{
-			"COMMERCIAL":"Comercial - Programador, Fornecedor de Softare ou Fornecedor de Terminologia",
-			"ACADEMIC":"Académico - Para uso interno dentro da Organização. (Educação, Investigação, Promotor ou Prestador de cuidados de saúde)",
+			"COMMERCIAL":"Comercial - Programador, Fornecedor de Software ou Fornecedor de Terminologia",
+			"ACADEMIC":"Académico - Para uso interno dentro de uma Organização. (Educação, Investigação, Prestador de cuidados de saúde)",
 			"OTHER":"Outros - Não especificado nas outras opções",
 			"INDIVIDUAL":"Individual - Pessoal, Educação ou Investigação"
 		},
@@ -725,19 +725,19 @@
 			"PUBLIC_HEALTH_ORGANIZATION":"Organização de Saúde Pública",
 			"PRIVATE_HEALTH_ORGANIZATION":"Organização de Saúde Privada",
 			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION":"Organização de Investigação e Desenvolvimento",
-			"HEALTHERCARE_APPLICATION_DEVELOPER":"Promotor de aplicações ligado aos cuidados de saúde",
-			"GENERAL_PRACTITIONER_PRACTICE":"Consulta de Médico de Família",
+			"HEALTHERCARE_APPLICATION_DEVELOPER":"Fornecedor de software na área da saúde",
+			"GENERAL_PRACTITIONER_PRACTICE":"Consultório de Medicina Geral e Famíliar",
 			"EDUCATIONAL_INSTITUTE":"Instituto de Educação",
 			"OTHER":"Outros"
 		},
 		"implementationStatus":{
 			"IMPLEMENTED":"Implementado",
-			"DEVELOPMENT":"Em Progresso/Desenvolvimento",
-			"PLANNING":"Em Fase de Planeamento"
+			"DEVELOPMENT":"Em progresso/desenvolvimento",
+			"PLANNING":"Em fase de planeamento"
 		},
 		"standingState":{
-			"APPLYING":"A aplicar",
-			"IN_GOOD_STANDING":"Em condições",
+			"APPLYING":"Em curso",
+			"IN_GOOD_STANDING":"Em boas condições",
 			"REJECTED":"Rejeitado",
 			"DEACTIVATION_PENDING":"Desativação pendente",
 			"DEACTIVATED":"Desativado",
@@ -747,7 +747,7 @@
 		},
 		"standingStateWithExplanation":{
 			"APPLYING":"A aplicar",
-			"IN_GOOD_STANDING":"Em condições - Acesso total aprovado, Conta Paga, Nenhum Pagamento Necessário ou Problema Contabilístico Resolvido",
+			"IN_GOOD_STANDING":"Em boas condições - Acesso total aprovado, Conta Paga, Nenhum Pagamento Necessário ou Problema Contabilístico Resolvido",
 			"REJECTED":"Negado",
 			"DEACTIVATION_PENDING":"Desativação Pendente - Apenas tem Acesso à Conta, sem permissão para Download",
 			"DEACTIVATED":"Desativado - Apenas tem Acesso a Conta, sem permissão para Download",
@@ -782,16 +782,16 @@
 	},
 	"application":{
 		"applicationType":{
-			"PRIMARY":"Primário",
+			"PRIMARY":"Primária",
 			"EXTENSION":"Extensão",
 			"IMPORT":"Importar"
 		}
 	},
 	"pendingApplications":{
-		"title":"Aplicações Pendentes",
+		"title":"Candidaturas Pendentes",
 		"show":{
-			"myApplications":"As minhas Aplicações Pendentes",
-			"allApplications":"Todas as Aplicações Pendentes"
+			"myApplications":"As minhas candidaturas Pendentes",
+			"allApplications":"Todas as candidaturas Pendentes"
 		},
 		"table":{
 			"affiliateName":"Nome do Afiliado",
@@ -853,7 +853,7 @@
 			}
 		},
 		"applicationSummary":{
-			"title":"Resumo da Aplicação",
+			"title":"Resumo da Candidatura",
 			"ext.title":"Informação sobre a candidatura a Extensão",
 			"reason":"Razão",
 			"affiliateInfo":"Informação do Afiliado",
@@ -930,7 +930,7 @@
 				"address":{
 					"title":"Morada",
 					"name":"Morada",
-					"placeholder":"123 em qualquer local"
+					"placeholder":"Morada da organização"
 				},
 				"city":{
 					"name":"Cidade",
@@ -1002,9 +1002,9 @@
 			"purpose":"Este serviço é fornecido pelo IHTSDO para organizações e indivíduos poderem solicitar a utilização e o acesso à Versão Internacional do SNOMED CT para uso em países não Membros.",
 			"furtherDetails":"Para mais detalhes, por favor consulte o <a href=\"http://www.ihtsdo.org\" target=\"_blank\">site do IHTSDO</a> ou as <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ's</a>.",
 			"loginHere":"Faça o seu login",
-			"member.purpose1":"MLDS é usada por ",
-			"member.purpose2":" NRC para gerenciar o licenciamento de Afiliada da SNOMED CT incluindo novas aplicações, renovações e relatórios de uso dentro de ",
-			"member.purpose3":" e se necessário, em países não membros."
+			"member.purpose1":"MLDS é usada pelo Centro de Terminologias Clínicas em ",
+			"member.purpose2":" para fazer a gestão do licenciamento do SNOMED CT, incluindo novas candidaturas, renovações e relatórios de uso em ",
+			"member.purpose3":"e se necessário, a países não membros."
 		},
 		"releases":{
 			"title":"Distribuições disponíveis para Utilizadores Registados",
@@ -1015,8 +1015,8 @@
 			"warning":{
 				"deactivated":"Conta Desativada",
 				"pending":"Fatura Pendente",
-				"pAttention":"A primeira candidatura necessita de revisão",
-				"pProcessed":"A primeira candidatura está a ser processada",
+				"pAttention":"A candidatura primária necessita de revisão",
+				"pProcessed":"A candidatura primária está a ser processada",
 				"apply":"Candidate-se à Extensão",
 				"aProcessed":"A Processar candidatura",
 				"aAttention":"A candidatura necessita de revisão, clique para continuar processo de candidatura"
@@ -1054,7 +1054,7 @@
 			"usage":"Utilização",
 			"subTitle":"Licença de Utilização",
 			"usageFor":"Utilização para",
-			"pleaseFill":"Por favor preencha qualquer informção conhecida sobre a utilização. Será contactado para confirmar o tipo de utilização, assim que a sua aplicação for aprovada ",
+			"pleaseFill":"Por favor preencha os campos abaixo com informação mais detalhada sobre a utilização. Será contactado para confirmar o tipo de utilização, assim que a sua candidatura for aprovada ",
 			"licenseType":"Tipo de Licença",
 			"currentUsage":"Utilização atual",
 			"plannedUsage":"Utilização planeada",
@@ -1075,7 +1075,7 @@
 				"country":"País",
 				"deleteCountry":"Remover País",
 				"hospAndInst":"Hospital/Instituição",
-				"hospAndInst.title":"Hospital(is)/Instituição(ões)",
+				"hospAndInst.title":"Hospital/Instituição ",
 				"hospAndInst.plural":"Hospitais/Instituições",
 				"started":"Começou a ser utilizado",
 				"finished":"Suspendeu o uso",
@@ -1089,7 +1089,7 @@
 					"dataAnalysis":"Sistemas de análise de dados",
 					"systems":"Sistemas",
 					"data":"Dados",
-					"provideStaff":"Quantos Hospitais cedem equipas para as Consultórios indicadas?",
+					"provideStaff":"Quantos Hospitais cedem equipas para os Consultórios indicados?",
 					"usingDCSNotHosp":"Quantos consultórios usam Sistemas de Criação de Dados e não fazem parte de uma organização hospitalar?",
 					"usingDCSNotPract":"Quantos Hospitais ou outras Instituições usam sistemas de criação de dados e não podem ser definidos como Consultórios sob a definição da licença?",
 					"howManyDAS":"Quantos Sistemas de Análise de Dados distribuiu nesta região e quantas bases de dados há por distribuição?"
