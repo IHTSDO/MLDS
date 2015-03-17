@@ -16,17 +16,17 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$http', '
         $scope.type = null;
         $scope.approved = true;
         $scope.readOnly = false;
-        
+
         $scope.billingHide = false;
         var loadJson = $http.get('/i18n/en.json');
         $scope.copyAddressMember = function(global, member) {
-            if(global.member.hasOwnProperty(member)) {
+            if ($.inArray(member,CountryService.countriesUsingMLDS) != -1) {
+                $scope.billingHide = true;
+                $scope.addressOverride = true;
                 $scope.affiliateDetails.billingAddress.street = $scope.affiliateDetails.address.street;
     			$scope.affiliateDetails.billingAddress.city = $scope.affiliateDetails.address.city;
     			$scope.affiliateDetails.billingAddress.post = $scope.affiliateDetails.address.post;
     			$scope.affiliateDetails.billingAddress.country = $scope.affiliateDetails.address.country;
-                $scope.billingHide = true;
-                $scope.$scope.addressOverride = true;
             };
         };
         $scope.loadJson = function(){
@@ -36,7 +36,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$http', '
         }
 
         function checkAddresses(a, b) {
-    		if( a && b && (a.street != '' && a.street === b.street) 
+    		if( a && b && (a.street != '' && a.street === b.street)
     				&& (a.city != '' && a.city === b.city)
     				&& (a.country != '' && a.country === b.country)
     				) {
@@ -44,7 +44,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$http', '
     		}
     		return false;
     	};
-    	
+
     	$scope.copyAddress = function() {
     		if($scope.isSameAddress || $scope.addressOverride) {
     			$scope.affiliateDetails.billingAddress = {};
@@ -54,13 +54,13 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$http', '
     			$scope.affiliateDetails.billingAddress.country = $scope.affiliateDetails.address.country;
     		};
     	};
-        
+
         function loadAffiliate() {
         	AffiliateService.myAffiliate()
         		.then(function(result) {
         			var affiliate = result.data;
         			if (affiliate && affiliate.affiliateDetails) {
-        				$scope.affiliateDetails = affiliate.affiliateDetails;        				
+        				$scope.affiliateDetails = affiliate.affiliateDetails;
         			} else if (affiliate && affiliate.application.affiliateDetails) {
         				$scope.affiliateDetails = affiliate.application.affiliateDetails;
         				$scope.readOnly = true;
@@ -75,7 +75,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$http', '
     				if (checkAddresses($scope.affiliateDetails, $scope.affiliateDetails.billingAddress)) {
     					$scope.isSameAddress = true;
     				}
-    				
+
     				if (!$scope.approved) {
     					$scope.readOnly = true;
     				}
@@ -87,9 +87,9 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$http', '
     			});
 
         }
-        
+
         loadAffiliate();
-                
+
         $scope.save = function () {
     		if ($scope.form.$invalid) {
     			$scope.form.attempted = true;
@@ -110,7 +110,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$http', '
 				$scope.submitting = false;
 			});
         };
-        
+
         $scope.cancel = function() {
        		$location.path('/dashboard');
         };
