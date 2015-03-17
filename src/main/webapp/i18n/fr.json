@@ -1019,7 +1019,7 @@
 			"notAvailable":"Actuellement, aucune édition de logiciel n'est disponible.",
 			"releasePackageLicense":"Licence d'Edition",
 			"reviewLicense":"Examiner la licence suivante et l'accepter avant de télécharger l'Edition:",
-			"agreeToLicense":"Veuillez accepter la licence",
+			"agreeToLicense":"J'accepte les conditions de licence",
 			"warning":{
 				"deactivated":"Compte désactivé",
 				"pending":"Facture en souffrance",

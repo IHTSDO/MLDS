@@ -24,7 +24,7 @@
 			"help":"Ajuda",
 			"usageReports":"Relatórios de utilização",
 			"applications":"Candidaturas",
-			"releasePackages":"Ficheiros para distribuição",
+			"releasePackages":"Ficheiros de distribuição",
 			"affiliate":{
 				"accountInformation": "Informação da conta",
 				"changePassword":"Alterar palavra passe",
@@ -514,8 +514,8 @@
 			"button":"Salvar"
 		},
 		"reset":{
-			"title":"Esqueci minha senha",
-			"instructions":"Digite a nova senha abaixo."
+			"title":"Esqueci a minha palavra passe",
+			"instructions":"Digite a nova palavra passe."
 		},
 		"messages":{
 			"error":"<strong>Ocorreu um erro!</strong> A palavra passe não pode ser alterada.",
@@ -675,7 +675,7 @@
 			"AFFILIATE_EXPORT":"Exportação de afiliados por batch",
 			"AFFILIATE_IMPORT":"Importação de afiliados por batch",
 			"AFFILIATE_LOGIN_CREATED":"Login de afiliado criado",
-			"AFFILIATE_STANDING_STATE_CHANGED":"alteração de Estado de afiliado ",
+			"AFFILIATE_STANDING_STATE_CHANGED":"Alteração do Estado de afiliado ",
 			"APPLICATION_CREATED":"Pedido Criado",
 			"APPLICATION_APPROVAL_STATE_CHANGED":"Estado da aprovação de pedido alterado ",
 			"APPLICATION_DELETED":"Pedido eliminado",
@@ -684,7 +684,7 @@
 			"RELEASE_FILE_DOWNLOADED":"Ficheiro de distribuição downloaded",
 			"RELEASE_PACKAGE_DELETED":"Arquivo de distribuição apagado",
 			"RELEASE_PACKAGE_CREATED":"Arquivo de distribuição criado",
-			"RELEASE_VERSION_TAKEN_OFFLINE":"Versão de distribuição tirada do ar",
+			"RELEASE_VERSION_TAKEN_OFFLINE":"Versão de distribuição on line eliminada",
 			"RELEASE_VERSION_TAKEN_ONLINE":"Versão de distribuição online",
 			"RELEASE_VERSION_CREATED":" Versão de distribuição criada",
 			"RELEASE_VERSION_DELETED":"Versão de distribuição apagada",
@@ -744,8 +744,8 @@
 			"APPLYING":"Em curso",
 			"IN_GOOD_STANDING":"Em boas condições",
 			"REJECTED":"Rejeitado",
-			"DEACTIVATION_PENDING":"Desativação pendente",
-			"DEACTIVATED":"Desativado",
+			"DEACTIVATION_PENDING":"Inativação pendente",
+			"DEACTIVATED":"Inativado",
 			"DEREGISTERED": "Não registado",
 			"PENDING_INVOICE":"Fatura pendente",
 			"INVOICE_SENT":"Fatura enviada"
@@ -754,7 +754,7 @@
 			"APPLYING":"A aplicar",
 			"IN_GOOD_STANDING":"Em boas condições - Acesso total aprovado, Conta Paga, Nenhum Pagamento Necessário ou Problema Contabilístico Resolvido",
 			"REJECTED":"Negado",
-			"DEACTIVATION_PENDING":"Desativação Pendente - Apenas tem Acesso à Conta, sem permissão para Download",
+			"DEACTIVATION_PENDING":"Inativação Pendente - Apenas tem Acesso à Conta, sem permissão para Download",
 			"DEACTIVATED":"Desativado - Apenas tem Acesso a Conta, sem permissão para Download",
 			"DEREGISTERED":"Desregistado – Sem Acesso à conta do MLDS",
 			"PENDING_INVOICE":"Fatura pendente – Apenas tem Acesso à Conta, Pagamento Excecional",
@@ -924,7 +924,7 @@
 					"invalid":"Número de Telefone Inválido."
 				},
 				"landlineExtension":{
-					"name":"Extensão",
+					"name":"extensão",
 					"short":"Ext",
 					"placeholder":"Extensão"
 				},
@@ -994,7 +994,7 @@
 			"delete":{
 				"title":"Cancelar candidatura",
 				"sure":"Tem a certeza que quer cancelar esta candidatura?",
-				"sure.detail":"Ao continuar irá perder toda a sua informação salva nesta candidatura."
+				"sure.detail":"Ao continuar irá perder toda a informação guardada nesta candidatura."
 			}
 		},
 		"footer":{
@@ -1004,12 +1004,12 @@
 		},
 		"landingPage":{
 			"appName":"Serviço de Licenciamento e Distribuição aos Países Membros",
-			"purpose":"Este serviço é fornecido pelo IHTSDO para organizações e indivíduos poderem solicitar a utilização e o acesso à Versão Internacional do SNOMED CT para uso em países não Membros.",
+			"purpose":"Este serviço é fornecido pelo IHTSDO para organizações e indivíduos poderem solicitar a utilização e o acesso à Versão Internacional do SNOMED CT, para utilização em países não Membros.",
 			"furtherDetails":"Para mais detalhes, por favor consulte o <a href=\"http://www.ihtsdo.org\" target=\"_blank\">site do IHTSDO</a> ou as <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ's</a>.",
 			"loginHere":"Faça o seu login",
 			"member.purpose1":"MLDS é usada pelo Centro de Terminologias Clínicas em ",
-			"member.purpose2":" para fazer a gestão do licenciamento do SNOMED CT, incluindo novas candidaturas, renovações e relatórios de uso em ",
-			"member.purpose3":" e se necessário, a países não membros."
+			"member.purpose2":" para fazer a gestão do licenciamento do SNOMED CT, incluindo novas candidaturas, renovações e relatórios de utilização em ",
+			"member.purpose3":"e se necessário, a países não membros."
 		},
 		"releases":{
 			"title":"Distribuições disponíveis para Utilizadores Registados",
@@ -1041,18 +1041,18 @@
 			"instructions":"Por favor complete a sua declaração de utilização para o período de tempo selecionado.",
 			"modal":{
 				"title":"Criar uma Declaração de utilização",
-				"instructions": "Por favor complete a sua declaração de utilização para todos os períodos de tempo. Por favor inclua os relatórios da utilização no passado e a atual..",
-				"period":"Declaration Period"
+				"instructions": "Por favor complete a sua declaração de utilização para todos os períodos de tempo. Por favor inclua os relatórios de utilização no passado e também o atual..",
+				"period":"Declaração para o Período "
 			},
 			"submit":{
 				"title":"Submeter a Declaração de Utilização",
 				"instructions":"Por favor verifique e certifique-se que a Declaração de utilização abaixo descrita está correta, antes de a submeter .",
-				"declarationForPeriod":"Declaration para o Período",
+				"declarationForPeriod":"Declaração para o Período",
 				"button":"Submeter Declaração"
 			},
 			"retract":{
 				"title":"Declaração de eliminação da utilização",
-				"instructions":"Tem a certeza que pretende eliminar este relatório? Irá voltar ao mesmo relatório de utilização para editar e re-submeter.Para obter um novo período de tempo, deve submeter um novo relatório de declaração.",
+				"instructions":"Tem a certeza que pretende eliminar este relatório? Irá voltar ao mesmo relatório de utilização para editar e re-submeter. Para obter um novo período de tempo, deve submeter um novo relatório de utilização.",
 				"button":"Declaração de eliminação"
 			}
 		},
@@ -1129,18 +1129,18 @@
 			"myPackages":"Os meus pacotes de distribuição",
 			"otherPackages":"Outras distribuições disponíveis",
 			"warning":{
-				"required.title":"Necessária uma Declaração de Utilizador",
-				"required.msg":"A sua declaração preliminar de utilizador foi gravada. A declaração do utilizador foi guardada. Contudo, note que irá necessitar de submeter a sua declarqação final de utilizador para o ano corrente a partir de Janeiro de 2015. Por favor, note que todos os anos prévios de utilização devem ser submetidos para fazer o download do SNOMED CT.",
+				"required.title":"Necessária uma Declaração de Utilização",
+				"required.msg":"A sua declaração preliminar de utilização foi gravada. A declaração do utilização foi guardada. Contudo, note que irá necessitar de submeter a sua declarqação final de utilizador para o ano corrente a partir de Janeiro de 2015. Por favor, note que todos os anos prévios de utilização devem ser submetidos para fazer o download do SNOMED CT.",
 				"change.title":"O Registo de Afiliado necessita de alteração",
 				"change.msg":"O seu registo de afiliado necessita de ser atualizado antes de ser processado. Por favor, verifique o e-mail relativo às mudanças necessárias antes de completar o seu registo.",
-				"declined.title":"Registo de Afiliado foi negado",
+				"declined.title":"O Registo de Afiliado foi negado",
 				"declined.msg":"O seu registo de afiliado foi negado. Por favor verifique o e-mail relativo aos pormenores da decisão.",
-				"deactivated.title":"Conta desativada",
-				"deactivated.msg":"A sua conta foi desativada. O download dos pacotes de distribuição e candidaturas às Extensões foi suspenso. Por favor, contacte <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> para resolver o problema.",
+				"deactivated.title":"Conta inativada",
+				"deactivated.msg":"A sua conta foi inativada. O download dos pacotes de distribuição e candidaturas às Extensões foi suspenso. Por favor, contacte <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> para resolver o problema.",
 				"iPending.title":"A Fatura da conta está pendente",
 				"iPending.msg":"A sua conta tem uma fatura pendente.O download do pacote de distribuição foi suspenso. Por favor contacte <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> para resolver o problema.",
-				"dPending.title":"A desativação da conta está pendente",
-				"dPending.msg":"A desativação da sua conta está agendada.  Por favor, contacte <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> para resolver o problema."
+				"dPending.title":"A inativação da conta está pendente",
+				"dPending.msg":"A inativação da sua conta está agendada.  Por favor, contacte <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> para resolver o problema."
 			}
 		}
 	}
