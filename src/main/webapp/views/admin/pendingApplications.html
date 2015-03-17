@@ -16,7 +16,7 @@
 				</select>
 			</div>
 		</div>
-		
+
 	  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 
 		<div class="table-responsive">
@@ -72,7 +72,7 @@
 									<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
 								</span>
 							</a>
-						
+
 						</th>
 						<th class="col-md-1">
 							<a ng-click="toggleField('submittedAt')">
@@ -86,7 +86,7 @@
 						</th>
 						<th class="col-md-1">
 							<a ng-click="toggleField('approvalState')">
-								<span translate="global.word.Status">Status </span>
+								<span translate="global.word.status">Status </span>
 								<span ng-hide="orderByField == 'approvalState'"><i class="fa fa-sort"></i></span>
 								<span ng-show="orderByField == 'approvalState'">
 									<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
@@ -130,25 +130,25 @@
 				<tbody infinite-scroll="nextPage()" infinite-scroll-distance="1" infinite-scroll-disabled="downloadingApplications">
 					<tr ng-repeat="application in applications" ng-switch="application.applicationType" ng-click="goToApplication(application)">
 
-					<td class="col-md-1">{{application.applicationId}}</td>									
+					<td class="col-md-1">{{application.applicationId}}</td>
 					<td class="col-md-2">{{application.affiliateDetails.firstName + ' '+application.affiliateDetails.lastName}}</td>
 					<td class="col-md-1">{{application.applicationType | enum:'application.applicationType.'}}</td>
 					<td ng-switch-when="PRIMARY" class="col-md-1">{{application.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</td>
 					<td ng-switch-when="EXTENSION" class="col-md-1">{{application.affiliate.affiliateDetails.agreementType | enum:'affiliate.agreementType.'}}</td>
 					<td ng-switch-when="PRIMARY" class="col-md-1">{{application.type | enum:'affiliate.type.'}} - {{application.subType | enum:'affiliate.subType.'}}</td>
 					<td ng-switch-when="EXTENSION" class="col-md-1">{{application.affiliate.type | enum:'affiliate.type.'}}</td>
-					
+
 					<td class="col-md-1">{{application.submittedAt | date: 'yyyy-MM-dd'}}</td>
 					<td class="col-md-1">{{application.approvalState | enum:'approval.state.'}}</td>
-					
+
 					<td class="col-md-1">{{application.affiliateDetails.address.country.commonName}}</td>
 					<td class="col-md-1">{{application.member.key | enum:'global.member.'}}</td>
 					<td class="col-md-1">
 						<a href="mailto:{{application.affiliateDetails.email}}">{{application.affiliateDetails.email}}</a>
 					</td>
-					
+
 					<td class="col-md-1">
-						<a class="btn btn-primary btn-sm" ><i class="fa fa-pencil"></i> 
+						<a class="btn btn-primary btn-sm" ><i class="fa fa-pencil"></i>
 							<span translate="pendingApplications.table.review">Review</span>
 						</a>
 					</td>
@@ -157,7 +157,7 @@
 			</table>
 			<div ng-show="downloadingApplications" class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading data...</div>
 			<div ng-show="noResults && !downloadingApplications">No results.</div>
-			
+
 		</div>
 	</div>
 </div>

@@ -17,11 +17,11 @@
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/textAngular.css">
   <!-- endbuild -->
-  
-  <script type='text/javascript' src="bower_components/css3-mediaqueries-js/css3-mediaqueries.js"></script>  
+
+  <script type='text/javascript' src="bower_components/css3-mediaqueries-js/css3-mediaqueries.js"></script>
   <script type='text/javascript' src="bower_components/es5-shim/es5-shim.js"></script>
   <script type='text/javascript' src="bower_components/placeholders/build/placeholders.js"></script>
-  
+
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
     <script type='text/javascript' src="bower_components/html5shiv/dist/html5shiv.min.js"></script>
@@ -33,7 +33,7 @@
 </head>
 <body ng-app="MLDS" ng-controller="MainController">
   <div class="development"></div>
-  
+
   <div ng-if="!$root.Session.isStaffOrAdmin()">
 	<div ng-controller="TopNavController" ng-include src="'views/topNav.html'" class="navigation"></div>
    	<div ng-view="" autoscroll="true" class="container" role="main"></div>
@@ -191,10 +191,11 @@
   <script src="scripts/country/service_country.js"></script>
   <!-- endbuild -->
 
-  <!-- Jira feedback widget -->
+  <!-- Jira feedback widget
   <script type="text/javascript"
     src="https://jira.ihtsdotools.org/s/d41d8cd98f00b204e9800998ecf8427e/en_US-v99clk-1988229788/6262/3/1.4.7/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=89d47347"
   ></script>
+  -->
 
 
 	<!-- Google Analytics -->
