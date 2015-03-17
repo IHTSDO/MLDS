@@ -474,7 +474,7 @@
 		},
 		"messages":{
 			"error":{
-				"Authentication":"<strong>A autenticação falhou!</strong> Por favor verifique as suas credenciais e tente de novo. As palavras passe são sensíveis a maiúsculas e minísculas.",
+				"authentication":"<strong>A autenticação falhou!</strong> Por favor verifique as suas credenciais e tente de novo. As palavras passe são sensíveis a maiúsculas e minísculas.",
 				"deregistered":"<strong>A autenticação falhou!</strong> Esta conta foi anulada. Por favor contacte o Suporte.",
 				"noPermissions":"<strong>A autenticação falhou!</strong> Nós procedemos à autenticação, mas a sua conta não permite aceder ao processo de candidatura ou está mal configurada. Por favor, contacte o suporte."
 			}
