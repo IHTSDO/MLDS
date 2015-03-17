@@ -32,6 +32,8 @@ angular.module('MLDS').controller('MemberLandingPageController',
 													$translate.instant('views.landingPage.member.purpose2') +
 													$translate.instant('global.country.'+ $rootScope.memberLanding.key) +
 													$translate.instant('views.landingPage.member.purpose3');
+						} else {
+							$scope.landingText = $translate.instant('views.landingPage.purpose');
 						}
 					});
 				} else {
