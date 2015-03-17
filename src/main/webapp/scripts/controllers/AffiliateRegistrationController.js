@@ -5,12 +5,11 @@ mldsApp.controller('AffiliateRegistrationController',
           function ($scope, $log, UserRegistrationService, $http, $location, CountryService, $modal, Session, Events, ApplicationUtilsService, MemberService) {
         	
             $scope.billingHide = false;
-            var loadJson = $http.get('/i18n/en.json');
-            $scope.copyAddressMember = function(global, member) {
-        		if(global.member.hasOwnProperty(member)) {
-        			$scope.affiliateform.affiliateDetails.billingAddress = angular.copy($scope.affiliateform.affiliateDetails.address);
+            $scope.copyAddressMember = function(member) {
+        		if ($.inArray(member,CountryService.countriesUsingMLDS) != -1) {
                     $scope.billingHide = true;
-                    $scope.$scope.addressOverride = true;
+                    $scope.addressOverride = true;
+                    $scope.copyAddress()
         		};
         	};
               
@@ -24,23 +23,16 @@ mldsApp.controller('AffiliateRegistrationController',
     				$scope.approvalState = data.approvalState;
     				$scope.applicationId = data.applicationId;
     				$scope.isSameAddress = checkAddresses($scope.affiliateform.affiliateDetails.address, $scope.affiliateform.affiliateDetails.billingAddress);
+    				$scope.copyAddressMember($scope.affiliateform.affiliateDetails.address.country.isoCode2);
     				
     				if (!ApplicationUtilsService.isApplicationWaitingForApplicant(data)) {
     					$log.log('Application does not require input from applicant');
     					$location.path('/dashboard');
     					return;
     				}
-                    $scope.loadJson();
         		});
                 
         	};
-            
-              $scope.loadJson = function(){
-                loadJson.success(function(data) {
-                    
-                    $scope.copyAddressMember(data.global, $scope.affiliateform.affiliateDetails.address.country.isoCode2);
-                });
-              }
         	
         	loadApplication();
         	
@@ -69,6 +61,9 @@ mldsApp.controller('AffiliateRegistrationController',
         	$scope.submit = $scope.saveApplication;
         	
         	$scope.openReviewModal = function(affiliateForm) {
+        		//MLDS-914 Need to ensure address has been copied into place if required
+        		$scope.copyAddress();
+        		
         		// Only open review modal when form is valid
         		if ($scope.affiliateApplicationForm.$invalid) {
         			$scope.affiliateApplicationForm.attempted = true;

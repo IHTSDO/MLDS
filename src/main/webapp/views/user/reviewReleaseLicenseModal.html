@@ -1,16 +1,16 @@
 <div class="modal-header">
-	<h3 class="modal-title">Release Package License</h3>
+	<h3 class="modal-title"><span translate="views.releases.releasePackageLicense">Release Package License</span></h3>
 </div>
 <div class="modal-body">
-	<p>Please review the following license and accept them before downloading the release package:</p>
+	<p><span translate="views.releases.reviewLicense">Please review the following license and accept them before downloading the release package:</span></p>
 	<button ng-click="viewReleaseLicense()" class="btn btn-muted btn-default btn-block">
-		{{releasePackage.name}} License
+		{{releasePackage.name}} <span translate="global.word.license">License</span>
 	</button>
 	<label>
-		<input type="checkbox" ng-model="isLicenseAccepted" value="1"> I agree to the license.
+		<input type="checkbox" ng-model="isLicenseAccepted" value="1"> <span translate="views.releases.agreeToLicense">I agree to the license</span>.
 	</label>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-muted btn-success" ng-click="$close()" ng-disabled="!isLicenseAccepted">Download</button>
-	<button class="btn btn-muted btn-link pull-left" ng-click="$dismiss()">Cancel</button>
+	<button class="btn btn-muted btn-success" ng-click="$close()" ng-disabled="!isLicenseAccepted"><span translate="global.word.download">Download</span></button>
+	<button class="btn btn-muted btn-link pull-left" ng-click="$dismiss()"><span translate="global.word.cancel">Cancel</span></button>
 </div>
