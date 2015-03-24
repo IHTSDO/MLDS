@@ -33,7 +33,7 @@
 					</p>
 				</div>
 				<div class="form-group" ng-show="affiliateform.type && affiliateform.type!='OTHER'">
-					<label translate="views.contactInfo.admin.subtype.name.label">Subtype:</label> 
+					<label translate="views.contactInfo.admin.subtype.name.label">Subtype:</label>
 					<select class="form-control input-md" name="usageSubType" ng-model="affiliateform.subType" ng-required="affiliateform.type!='OTHER'" auto-submit>
 						<option value="DEVELOPER" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.DEVELOPER">Developer</option>
 						<option value="DEVELOPMENT" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.DEVELOPMENT">Development</option>
@@ -48,8 +48,8 @@
 					</p>
 				</div>
 				<div class="form-group" ng-show="affiliateform.type=='OTHER'">
-					<label translate="views.contactInfo.admin.other.name.label">Other:</label> 
-					<input type="text" class="form-control" placeholder="{{ 'views.contactInfo.admin.other.placeholder' | translate }}" name="otherText" 
+					<label translate="views.contactInfo.admin.other.name.label">Other:</label>
+					<input type="text" class="form-control" placeholder="{{ 'views.contactInfo.admin.other.placeholder' | translate }}" name="otherText"
 						ng-required="affiliateform.type=='OTHER'" ng-model="affiliateform.otherText" ng-maxlength="255" auto-submit>
 					<p ng-show="affiliateApplicationForm.otherText.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="register.messages.validate.registration.other.required">
 						Other field is required.
@@ -58,7 +58,7 @@
 						Input value is too long.
 					</p>
 				</div>
-				<div class="form-group">
+				<div ng-hide="billingHide" class="form-group">
 					<label translate="register.affiliateRegistration.typeOfAgreement.label">Type of Agreement:</label>
 					<select class="form-control"
 						name="agreementType"
@@ -73,12 +73,12 @@
 										class="help-block" translate="form.requiredField">Required field.</p>
 								</div>
 							</div>
-						
-							<input class="form-control" type="hidden" ng-model="affiliateform.affiliateDetails.address.country" name="country" placeholder="{{ 'views.contactInfo.contact.country.placeholder' | translate }}" auto-submit> 
+
+							<input class="form-control" type="hidden" ng-model="affiliateform.affiliateDetails.address.country" name="country" placeholder="{{ 'views.contactInfo.contact.country.placeholder' | translate }}" auto-submit>
 				</div>
 			</div>
 		</div>
-			
+
 		<div class="panel panel-default" ng-show="affiliateform.type">
 			<div class="panel-heading">
 			<h4 class="panel-title">
@@ -97,9 +97,9 @@
 				<div class="row" ng-show="affiliateform.type === 'INDIVIDUAL'">
 				<div class="col-md-6">
 					<div class="form-group">
-					<label translate="views.contactInfo.contact.alternativeEmail.name.label">Alternate Email:</label> 
-					<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" required="" name="contactAlternateEmail" 
-						ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit ng-maxlength="100" 
+					<label translate="views.contactInfo.contact.alternativeEmail.name.label">Alternate Email:</label>
+					<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" required="" name="contactAlternateEmail"
+						ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit ng-maxlength="100"
 						unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.thirdEmail]}}">
 					<div ng-show="affiliateApplicationForm.attempted">
 						<p ng-show="affiliateApplicationForm.contactAlternateEmail.$error.required" class="help-block" translate="form.requiredField">
@@ -110,7 +110,7 @@
 						</p>
 					</div>
 					<p class="help-block" ng-show="!affiliateApplicationForm.contactAlternateEmail.$error.required
-						&& !affiliateApplicationForm.contactAlternateEmail.$error.email 
+						&& !affiliateApplicationForm.contactAlternateEmail.$error.email
 						&& affiliateApplicationForm.contactAlternateEmail.$error.notUnique "
 					translate="views.contactInfo.contact.email.unique">
 						Email Addresses need to be unique.
@@ -121,22 +121,22 @@
 					</div>
 				</div>
 				</div>
-				
+
 				<div class="row" ng-show="affiliateform.type === 'INDIVIDUAL'">
 				<div class="col-md-6">
 					<div class="form-group">
-					<label translate="views.contactInfo.contact.thirdEmail.label">Third Email:</label> 
-					<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" name="thirdEmail" 
-						ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit ng-maxlength="100"	
+					<label translate="views.contactInfo.contact.thirdEmail.label">Third Email:</label>
+					<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" name="thirdEmail"
+						ng-model="affiliateform.affiliateDetails.thirdEmail" auto-submit ng-maxlength="100"
 						unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.alternateEmail]}}">
 					<div ng-show="affiliateApplicationForm.attempted">
 						<p ng-show="!affiliateApplicationForm.thirdEmail.$error.required && affiliateApplicationForm.thirdEmail.$error.email" class="help-block" translate="views.contactInfo.contact.email.invalid">
 						Invalid Email Address.
 						</p>
 					</div>
-					<p class="help-block" 
-						ng-show="!affiliateApplicationForm.thirdEmail.$error.required 
-							&& !affiliateApplicationForm.thirdEmail.$error.email 
+					<p class="help-block"
+						ng-show="!affiliateApplicationForm.thirdEmail.$error.required
+							&& !affiliateApplicationForm.thirdEmail.$error.email
 							&& affiliateApplicationForm.thirdEmail.$error.notUnique"
 							translate="views.contactInfo.contact.email.unique">
 							Email Addresses needs to be unique.
@@ -147,7 +147,7 @@
 					</div>
 				</div>
 				</div>
-				
+
 				<div class="row">
 				<div class="col-md-4">
 					<label translate="views.contactInfo.contact.landline.name.label">Landline Phone Number:</label>
@@ -159,7 +159,7 @@
 				<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-					<input class="form-control" type="tel" required="" name="contactPhone" ng-max-length="255" 
+					<input class="form-control" type="tel" required="" name="contactPhone" ng-max-length="255"
 						ng-model="affiliateform.affiliateDetails.landlineNumber" auto-submit
 						tel-country-model="affiliateform.affiliateDetails.address.country.isoCode2">
 					<div ng-show="affiliateApplicationForm.attempted">
@@ -216,7 +216,7 @@
 					<div class="col-md-6">
 					<div class="form-group">
 						<label translate="views.contactInfo.contact.address.name.label">Address:</label>
-						<input class="form-control" name="address" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-maxlength="255" 
+						<input class="form-control" name="address" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-maxlength="255"
 							ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.address.street" ng-change="copyAddress()" auto-submit>
 						<p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
 						Required field.
@@ -249,8 +249,8 @@
 					</div>
 					<div class="col-md-3">
 					<div class="form-group">
-						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" name="postalCode" 
-							ng-required="affiliateform.type=='INDIVIDUAL'" ng-maxlenth="25" 
+						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" name="postalCode"
+							ng-required="affiliateform.type=='INDIVIDUAL'" ng-maxlenth="25"
 							placeholder="{{ 'views.contactInfo.contact.postcode.placeholder' | translate }}" ng-change="copyAddress()" auto-submit>
 						<p ng-show="affiliateApplicationForm.postalCode.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
 						Required field.
@@ -282,8 +282,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label translate="views.contactInfo.contact.billingAddress.name.label">Billing Address:</label> 
-                            <input class="form-control" name="billingAddress" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-maxlength="255" 
+                            <label translate="views.contactInfo.contact.billingAddress.name.label">Billing Address:</label>
+                            <input class="form-control" name="billingAddress" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-maxlength="255"
                                 ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.street" auto-submit>
                             <p ng-show="affiliateApplicationForm.billingAddress.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
                              Required field.
@@ -305,7 +305,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input class="form-control" name="billingCity" placeholder="{{ 'views.contactInfo.contact.city.placeholder' | translate }}" ng-maxlength="255" 
+                            <input class="form-control" name="billingCity" placeholder="{{ 'views.contactInfo.contact.city.placeholder' | translate }}" ng-maxlength="255"
                                 ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.city" auto-submit>
                             <p ng-show="affiliateApplicationForm.billingCity.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
                              Required field.
@@ -317,8 +317,8 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.post" name="billingPostCode" 
-                                ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" ng-maxlength="25" 
+                            <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.post" name="billingPostCode"
+                                ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" ng-maxlength="25"
                                 placeholder="{{ 'views.contactInfo.contact.postcode.placeholder' | translate }}" auto-submit>
                             <p ng-show="affiliateApplicationForm.billingPostCode.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
                              Required field.
@@ -333,7 +333,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label translate="views.contactInfo.contact.country.name.label">Country:</label>
-                            <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry" 
+                            <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry"
                              ng-disabled="isSameAddress" ng-required="affiliateform.type=='INDIVIDUAL'" placeholder="{{ 'views.contactInfo.contact.country.placeholder' | translate }}"
                              typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
                             <p ng-show="affiliateApplicationForm.billingCountry.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
@@ -348,7 +348,7 @@
 			</div>
 			</div>
 		</div>
-		
+
 		<div class="panel panel-default" ng-show="affiliateform.type && affiliateform.type!='INDIVIDUAL'">
 			<div class="panel-heading">
 			<h4 class="panel-title">
@@ -361,8 +361,8 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group has-error has-feedback">
-							<label translate="views.contactInfo.organization.name.name.label">Organization Name:</label> 
-							<input class="form-control" name="organizationName" placeholder="{{ views.contactInfo.organization.name.placeholder | translate}}" ng-maxlength="255" 
+							<label translate="views.contactInfo.organization.name.name.label">Organization Name:</label>
+							<input class="form-control" name="organizationName" placeholder="{{ views.contactInfo.organization.name.placeholder | translate}}" ng-maxlength="255"
 								ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationName" auto-submit>
 							<p class="help-block" ng-show="affiliateApplicationForm.organizationName.$error.required && affiliateApplicationForm.attempted" translate="form.requiredField">
 								Required field.
@@ -376,7 +376,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group has-error has-feedback">
-							<label translate="views.contactInfo.organization.type.name.label">Organization Type:</label> 
+							<label translate="views.contactInfo.organization.type.name.label">Organization Type:</label>
 							<select class="form-control" name="organizationType" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.organizationType" auto-submit>
 								<option ng-repeat="organizationType in organizationTypes" value="{{organizationType}}">{{organizationType | enum:'affiliate.organizationType.'}}</option>
 							</select>
@@ -389,7 +389,7 @@
 				<div class="row" ng-show="affiliateform.affiliateDetails.organizationType=='OTHER'">
 				<div class="col-md-6">
 					<div class="form-group has-error has-feedback">
-					<input class="form-control help-block" name="organizationTypeOther" placeholder="{{ 'views.contactInfo.organization.type.placeholder' | translate }}" ng-maxlength="255" 
+					<input class="form-control help-block" name="organizationTypeOther" placeholder="{{ 'views.contactInfo.organization.type.placeholder' | translate }}" ng-maxlength="255"
 						ng-required="affiliateApplicationForm.organizationType.type=='Other'" ng-model="affiliateform.affiliateDetails.organizationTypeOther" auto-submit>
 					<p class="help-block" ng-show="affiliateApplicationForm.organizationTypeOther.$error.required && affiliateApplicationForm.attempted">
 						An Organization type is required.
@@ -403,8 +403,8 @@
 				<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-					<label translate="views.contactInfo.contact.address.name.label">Address:</label> 
-					<input class="form-control" name="address" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-change="copyAddress()" 
+					<label translate="views.contactInfo.contact.address.name.label">Address:</label>
+					<input class="form-control" name="address" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-change="copyAddress()"
 						required="" ng-model="affiliateform.affiliateDetails.address.street" auto-submit ng-maxlength="255" ng-change="copyAddress()">
 					<p ng-show="affiliateApplicationForm.address.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
 						Required field.
@@ -426,7 +426,7 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="form-group">
-						<input class="form-control" name="city" placeholder="{{ 'views.contactInfo.contact.city.placeholder' | translate }}" required="" ng-maxlength="255" 
+						<input class="form-control" name="city" placeholder="{{ 'views.contactInfo.contact.city.placeholder' | translate }}" required="" ng-maxlength="255"
 							ng-model="affiliateform.affiliateDetails.address.city" ng-change="copyAddress()" auto-submit>
 						<p ng-show="affiliateApplicationForm.city.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
 							Required field.
@@ -438,9 +438,9 @@
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">
-						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post" 
+						<input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.address.post"
 							ng-change="copyAddress()" name="postCode" ng-required="affiliateform.type!='INDIVIDUAL'"
-							ng-maxlength="25" 
+							ng-maxlength="25"
 							placeholder="{{ 'views.contactInfo.contact.postcode.placeholder' | translate }}" auto-submit>
 						<p ng-show="affiliateApplicationForm.postCode.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
 							Required field.
@@ -472,8 +472,8 @@
                 <div class="row">
                     <div class="col-md-6">
                     <div class="form-group">
-                        <label translate="views.contactInfo.contact.billingAddress.name.label">Billing Address:</label> 
-                        <input class="form-control" name="billingAddress" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-maxlength="255" 
+                        <label translate="views.contactInfo.contact.billingAddress.name.label">Billing Address:</label>
+                        <input class="form-control" name="billingAddress" placeholder="{{ 'views.contactInfo.contact.address.placeholder' | translate }}" ng-maxlength="255"
                             ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.street" auto-submit>
                         <p ng-show="affiliateApplicationForm.billingAddress.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
                          Required field.
@@ -495,7 +495,7 @@
                 <div class="row">
                     <div class="col-md-3">
                     <div class="form-group">
-                        <input class="form-control" name="billingCity" placeholder="{{ 'views.contactInfo.contact.city.placeholder' | translate }}" ng-maxlength="255" 
+                        <input class="form-control" name="billingCity" placeholder="{{ 'views.contactInfo.contact.city.placeholder' | translate }}" ng-maxlength="255"
                             ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" ng-model="affiliateform.affiliateDetails.billingAddress.city" auto-submit>
                         <p ng-show="affiliateApplicationForm.billingCity.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
                          Required field.
@@ -507,8 +507,8 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.post" name="billingPostCode" 
-                                ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" ng-maxlength="25" 
+                            <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.post" name="billingPostCode"
+                                ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" ng-maxlength="25"
                                 placeholder="{{ 'views.contactInfo.contact.postcode.placeholder' | translate }}" auto-submit>
                             <p ng-show="affiliateApplicationForm.billingPostCode.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
                              Required field.
@@ -523,7 +523,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label translate="views.contactInfo.contact.country.name.label">Country:</label>
-                            <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry" 
+                            <input class="form-control" type="text" ng-model="affiliateform.affiliateDetails.billingAddress.country" name="billingCountry"
                              ng-disabled="isSameAddress" ng-required="affiliateform.type!='INDIVIDUAL'" placeholder="{{ 'views.contactInfo.contact.country.placeholder' | translate }}"
                              typeahead="country as country.commonName for country in availableCountries | filter:$viewValue | limitTo:8" auto-submit>
                             <p ng-show="affiliateApplicationForm.billingCountry.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="form.requiredField">
@@ -535,11 +535,11 @@
                 <hr>
             </div>
 					<!-- End Billing Fields -->
-									
+
 				<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label translate="views.contactInfo.contact.alternativeEmail.name.label">Alternate Email:</label> 
+						<label translate="views.contactInfo.contact.alternativeEmail.name.label">Alternate Email:</label>
 						<input class="form-control" type="email" placeholder="{{ 'views.contactInfo.contact.email.placeholder' | translate }}" ng-required="affiliateform.type!='INDIVIDUAL'" name="alternateEmail" ng-model="affiliateform.affiliateDetails.alternateEmail" auto-submit unique="{{[affiliateform.affiliateDetails.email, affiliateform.affiliateDetails.thirdEmail]}}">
 						<div ng-show="affiliateApplicationForm.attempted">
 							<p ng-show="affiliateApplicationForm.alternateEmail.$error.required" class="help-block" translate="form.requiredField">
@@ -569,9 +569,9 @@
 								Invalid Email Address.
 								</p>
 							</div>
-							<p class="help-block" 
-								ng-show="!affiliateApplicationForm.thirdEmail.$error.required 
-									&& !affiliateApplicationForm.thirdEmail.$error.email 
+							<p class="help-block"
+								ng-show="!affiliateApplicationForm.thirdEmail.$error.required
+									&& !affiliateApplicationForm.thirdEmail.$error.email
 									&& affiliateApplicationForm.thirdEmail.$error.notUnique"
 									translate="views.contactInfo.contact.email.unique">
 									Email Addresses need to be unique.
@@ -582,7 +582,7 @@
 				<div class="row" ng-show="affiliateform.type=='OTHER'">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label translate="affiliate.type.OTHER">Other</label> 
+							<label translate="affiliate.type.OTHER">Other</label>
 							<textarea class="form-control" rows="4" name="otherText" ng-model="affiliateform.other.textArea" auto-submit></textarea>
 						</div>
 					</div>
@@ -593,11 +593,11 @@
 		</div>
 
 		<div ng-show="affiliateform.type"
-			ng-controller="AffiliateRegistrationUsageLogController" 
+			ng-controller="AffiliateRegistrationUsageLogController"
 			ng-include="'views/user/affiliateRegistrationUsageLog.html'">
 		</div>
-		
-		
+
+
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title" translate="register.affiliateRegistration.license.title">
