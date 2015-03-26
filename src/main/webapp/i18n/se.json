@@ -56,7 +56,8 @@
 			"nl":"holländska",
 			"pl":"polska",
 			"pt":"portugisiska",
-			"ru":"ryska"
+			"ru":"ryska",
+			"se":"svenska"
 		},
 		"member":{
 			"IHTSDO":"IHTSDO",
@@ -1009,7 +1010,7 @@
 			"loginHere":"logga in här",
 			"member.purpose1":"MLDS is a tool used by the NRC in ",
 			"member.purpose2":" to manage the Affiliate Licensing of SNOMED CT including new applications, renewals and usage reporting within ",
-			"member.purpose3":" and where relevant in non member countries."
+			"member.purpose3":" and where relevant in non member countries. <br>Add the privacy text here"
 		},
 		"releases":{
 			"title":"Releaser som är tillgängliga för registrerade användare",
