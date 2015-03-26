@@ -1,0 +1,1147 @@
+{
+	"global":{
+		"title":"mlds",
+		"browsehappy":"Du använder en <strong>för gammal</strong> webbläsare. Var god <a href=\"http://browsehappy.com/?locale=en\">uppdatera din webbläsare</a> för att förbättra användningen.",
+		"menu":{
+			"home":"Hem",
+			"account":{
+				"main":"Konto",
+				"contactInfo":"Kontaktinformation",
+				"password":"Lösenord",
+				"sessions":"Sessioner",
+				"tracker":"Användarspårning",
+				"metrics":"Metrik",
+				"logs":"Loggar",
+				"audits":"Revisioner",
+				"login":"Inloggning",
+				"logout":"Logga ut",
+				"apidocs":"API",
+				"register":"Registrera dig",
+				"affiliates":"Licenstagare",
+				"dashboard":"Översikt"
+			},
+			"dashboard":"Översikt",
+			"help":"Hjälp",
+			"usageReports":"Användningsrapporter",
+			"applications":"Ansökningar",
+			"releasePackages":"Releasepaket",
+			"affiliate":{
+				"accountInformation":"Kontoinformation",
+				"changePassword":"Byt lösenord",
+				"logout":"Logga ut"
+			},
+			"staff":{
+				"dashboard":"Översikt",
+				"pendingApplications":"Väntande ansökningar",
+				"usageReports":"Användningsrapporter",
+				"affiliteUserManagement":"Licenstagarhantering",
+				"activityLog":"Aktivitetslogg",
+				"packageManagement":"Pakethantering",
+				"licenseTC":"Användarvillkor",
+				"reportsExtracts":"Rapporter och utdrag",
+				"logout":"Logga ut"
+			},
+			"admin":{
+				"importAffiliateRecords":"Importera licenstagarinformation",
+				"manageBlacklist":"Hantera Blacklist",
+				"nationalRegistrationList":"Nationell registreringslista"
+			},
+			"language":"Språk"
+		},
+		"language":{
+			"da":"danska",
+			"en":"engelska",
+			"fr":"franska",
+			"de":"tyska",
+			"nl":"holländska",
+			"pl":"polska",
+			"pt":"portugisiska",
+			"ru":"ryska"
+		},
+		"member":{
+			"IHTSDO":"IHTSDO",
+			"AU":"Australien",
+			"BE":"Belgien",
+			"BN":"Brunei",
+			"CA":"Kanada",
+			"CL":"Chile",
+			"CZ":"Tjeckien",
+			"DK":"Danmark",
+			"EE":"Estland",
+			"HK":"Hong Kong, Kina",
+			"IS":"Island",
+			"IN":"Indien",
+			"IL":"Israel",
+			"LT":"Litauen",
+			"MY":"Malaysia",
+			"MT":"Malta",
+			"NL":"Nederländerna",
+			"NZ":"Nya Zeeland",
+			"PL":"Polen",
+			"PT":"Portugal",
+			"SG":"Singapore",
+			"SK":"Slovakien",
+			"SI":"Slovenien",
+			"ES":"Spanien",
+			"SE":"Sverige",
+			"GB":"Storbritannien",
+			"US":"USA",
+			"UY":"Uruguay"
+		},
+		"country":{
+			"AC":"Ascension",
+			"AD":"Andorra",
+			"AE":"Förenade Arabemiraten",
+			"AF":"Afghanistan",
+			"AG":"Antigua och Barbuda",
+			"AI":"Anguilla",
+			"AL":"Albanien",
+			"AM":"Armenien",
+			"AN":"Nederländska Antillerna",
+			"AO":"Angola",
+			"AQ":"Australiska Antarktis",
+			"AR":"Argentina",
+			"AS":"Amerikanska Samoa",
+			"AT":"Österrike",
+			"AU":"Australien",
+			"AW":"Aruba",
+			"AX":"Åland",
+			"AZ":"Azerbajdzjan",
+			"BA":"Bosnien och Herzegovina",
+			"BB":"Barbados",
+			"BD":"Bangladesh",
+			"BE":"Belgien",
+			"BF":"Burkina Faso",
+			"BG":"Bulgarien",
+			"BH":"Bahrain",
+			"BI":"Burundi",
+			"BJ":"Benin",
+			"BM":"Bermuda",
+			"BN":"Brunei",
+			"BO":"Bolivia",
+			"BR":"Brasilien",
+			"BS":"Bahamas",
+			"BT":"Bhutan",
+			"BV":"Bouvetön",
+			"BW":"Botswana",
+			"BY":"Vitryssland",
+			"BZ":"Belize",
+			"CA":"Kanada",
+			"CC":"Kokosöarna",
+			"CD":"Kongo-Kinshasa",
+			"CF":"Centralafrikanska republiken",
+			"CG":"Kongo-Brazzaville",
+			"CH":"Schweiz",
+			"CI":"Elfenbenskusten",
+			"CK":"Cooköarna",
+			"CL":"Chile",
+			"CM":"Kamerun",
+			"CN":"Folkrepubliken Kina",
+			"CO":"Colombia",
+			"CR":"Costa Rica",
+			"CU":"Kuba",
+			"CV":"Kap Verde",
+			"CX":"Julön",
+			"CY":"Cypern",
+			"CZ":"Tjeckien",
+			"DE":"Tyskland",
+			"DJ":"Djibouti",
+			"DK":"Danmark",
+			"DM":"Dominica",
+			"DO":"Dominikanska republiken",
+			"DZ":"Algeriet",
+			"EC":"Ecuador",
+			"EE":"Estland",
+			"EG":"Egypten",
+			"ER":"Eritrea",
+			"ES":"Spanien",
+			"ET":"Etiopien",
+			"FI":"Finland",
+			"FJ":"Fiji",
+			"FK":"Falklandsöarna",
+			"FM":"Mikronesien",
+			"FO":"Färöarna",
+			"FR":"Frankrike",
+			"GA":"Gabon",
+			"GB":"Storbritannien",
+			"GD":"Grenada",
+			"GE":"Georgien",
+			"GF":"Franska Guiana",
+			"GG":"Guernsey",
+			"GH":"Ghana",
+			"GI":"Gibraltar",
+			"GL":"Grönland",
+			"GM":"Gambia",
+			"GN":"Guinea",
+			"GP":"Guadeloupe",
+			"GQ":"Ekvatorialguinea",
+			"GR":"Grekland",
+			"GS":"Sydgeorgien och Sydsandwichöarna",
+			"GT":"Guatemala",
+			"GU":"Guam",
+			"GW":"Guinea-Bissau",
+			"GY":"Guyana",
+			"HK":"Hong Kong",
+			"HM":"Heard- och McDonaldöarna",
+			"HN":"Honduras",
+			"HR":"Kroatien",
+			"HT":"Haiti",
+			"HU":"Ungern",
+			"ID":"Indonesien",
+			"IE":"Irland",
+			"IL":"Israel",
+			"IM":"Isle of Man",
+			"IN":"Indien",
+			"IO":"Brittiska territoriet i Indiska oceanen",
+			"IQ":"Irak",
+			"IR":"Iran",
+			"IS":"Island",
+			"IT":"Italien",
+			"JE":"Jersey",
+			"JM":"Jamaica",
+			"JO":"Jordanien",
+			"JP":"Japan",
+			"KE":"Kenya",
+			"KG":"Kirgizistan",
+			"KH":"Kambodja",
+			"KI":"Kiribati",
+			"KM":"Komorerna",
+			"KN":"Saint Kitts och Nevis",
+			"KP":"Nordkorea",
+			"KR":"Sydkorea",
+			"KW":"Kuwait",
+			"KY":"Caymanöarna",
+			"KZ":"Kazakstan",
+			"LA":"Laos",
+			"LB":"Libanon",
+			"LC":"Saint Lucia",
+			"LI":"Liechtenstein",
+			"LK":"Sri Lanka",
+			"LR":"Liberia",
+			"LS":"Lesotho",
+			"LT":"Litauen",
+			"LU":"Luxemburg",
+			"LV":"Lettland",
+			"LY":"Libyen",
+			"MA":"Marocko",
+			"MC":"Monaco",
+			"MD":"Moldavien",
+			"ME":"Montenegro",
+			"MG":"Madagaskar",
+			"MH":"Marshallöarna",
+			"MK":"Makedonien",
+			"ML":"Mali",
+			"MM":"Burma",
+			"MN":"Mongoliet",
+			"MO":"Macao",
+			"MP":"Nordmarianerna",
+			"MQ":"Martinique",
+			"MR":"Mauritanien",
+			"MS":"Montserrat",
+			"MT":"Malta",
+			"MU":"Mauritius",
+			"MV":"Maldiverna",
+			"MW":"Malawi",
+			"MX":"Mexiko",
+			"MY":"Malaysia",
+			"MZ":"Moçambique",
+			"NA":"Namibia",
+			"NC":"Nya Kaledonien",
+			"NE":"Niger",
+			"NF":"Norfolkön",
+			"NG":"Nigeria",
+			"NI":"Nicaragua",
+			"NL":"Nederländerna",
+			"NO":"Norge",
+			"NP":"Nepal",
+			"NR":"Nauru",
+			"NU":"Niue",
+			"NZ":"Nya Zeeland",
+			"OM":"Oman",
+			"PA":"Panama",
+			"PE":"Peru",
+			"PF":"Franska Polynesien",
+			"PG":"Papua New Guinea",
+			"PH":"Filippinerna",
+			"PK":"Pakistan",
+			"PL":"Polen",
+			"PM":"Saint-Pierre och Miquelon",
+			"PN":"Pitcairnöarna",
+			"PR":"Puerto Rico",
+			"PT":"Portugal",
+			"PW":"Palau",
+			"PY":"Paraguay",
+			"QA":"Qatar",
+			"RE":"Réunion",
+			"RO":"Rumänien",
+			"RS":"Serbien",
+			"RU":"Ryssland",
+			"RW":"Rwanda",
+			"SA":"Saudiarabien",
+			"SB":"Salomonöarna",
+			"SC":"Seychellerna",
+			"SD":"Sudan",
+			"SE":"Sverige",
+			"SG":"Singapore",
+			"SH":"Sankta Helena",
+			"SI":"Slovenien",
+			"SJ":"Svalbard",
+			"SK":"Slovakien",
+			"SL":"Sierra Leone",
+			"SM":"San Marino",
+			"SN":"Senegal",
+			"SO":"Somalia",
+			"SR":"Surinam",
+			"ST":"São Tomé och Príncipe",
+			"SV":"El Salvador",
+			"SY":"Syrien",
+			"SZ":"Swaziland",
+			"TA":"Tristan da Cunha",
+			"TC":"Turks- och Caicosöarna",
+			"TD":"Tchad",
+			"TF":"Franska sydterritorierna",
+			"TG":"Togo",
+			"TH":"Thailand",
+			"TJ":"Tadzjikistan",
+			"TK":"Tokelauöarna",
+			"TL":"Östtimor",
+			"TM":"Turkmenistan",
+			"TN":"Tunisien",
+			"TO":"Tonga",
+			"TR":"Turkiet",
+			"TT":"Trinidad och Tobago",
+			"TV":"Tuvalu",
+			"TW":"Taiwan",
+			"TZ":"Tanzania",
+			"UA":"Ukraina",
+			"UG":"Uganda",
+			"UM":"Wake",
+			"US":"USA",
+			"UY":"Uruguay",
+			"UZ":"Uzbekistan",
+			"VA":"Vatikanstaten",
+			"VC":"Saint Vincent och Grenadinerna",
+			"VE":"Venezuela",
+			"VG":"Brittiska Jungfruöarna",
+			"VI":"Amerikanska Jungfruöarna",
+			"VN":"Vietnam",
+			"VU":"Vanuatu",
+			"WF":"Wallis- och Futunaöarna",
+			"WS":"Samoa",
+			"YE":"Jemen",
+			"YT":"Mayotte",
+			"ZA":"Sydafrika",
+			"ZM":"Zambia",
+			"ZW":"Zimbabwe"
+		},
+		"form":{
+			"username":"Logga in",
+			"username.placeholder":"Din inloggning",
+			"name.placeholder":"Ditt namn",
+			"newpassword":"Nytt lösenord",
+			"newpassword.placeholder":"Nytt lösenord",
+			"confirmpassword":"Bekräftelse på nytt lösenord",
+			"confirmpassword.placeholder":"Bekräfta det nya lösenordet",
+			"email":"E-postadress",
+			"email.placeholder":"Din e-postadress",
+			"country":"Hemland"
+		},
+		"messages":{
+			"info":{
+				"authenticated":"Om du vill <a href=\"#/login\">verifiera</a> kan du prova med standardkontona:<br/>- Admnistrator (login=\"admin\" och lösenord=\"admin\") <br/>- User (login=\"user\" och lösenordet=\"user\").",
+				"register":"Har du inte något konto ännu? <a href=\"#/register\">Registrera ett nytt konto</a>"
+			},
+			"error":{
+				"dontmatch":"Lösenordet överensstämmer inte med bekräftelsen!",
+				"server":"Ett fel har inträffat. Det kan fungera om du upprepar åtgärden."
+			},
+			"validate":{
+				"newpassword":{
+					"required":"Du måste ange ditt lösenord.",
+					"minlength":"Ditt lösenord måste vara minst 5 tecken långt",
+					"maxlength":"Ditt lösenord får vara högst 50 tecken långt",
+					"strength":"Lösenordsstyrka:"
+				},
+				"confirmpassword":{
+					"required":"Du måste bekräfta ditt lösenord.",
+					"minlength":"Bekräftelsen måste vara minst 5 tecken lång",
+					"maxlength":"Bekräftelsen får vara högst 50 tecken lång",
+					"match":"Bekräftelse stämmer inte överens med lösenordet"
+				},
+				"email":{
+					"required":"Du måste ange din e-postadress.",
+					"invalid":"Din e-postadress är inte giltig.",
+					"minlength":"Din e-postadress måste vara minst 1 tecken lång",
+					"maxlength":"Din e-postadress får vara högst 50 tecken lång"
+				}
+			}
+		},
+		"word":{
+			"or":"eller",
+			"add":"Lägg till",
+			"edit":"Redigera",
+			"name":"Namn",
+			"cancel":"Avbryt",
+			"note":"Anteckning",
+			"notes":"Anteckningar",
+			"close":"stäng",
+			"delete":"Ta bort",
+			"update":"Uppdatera",
+			"from":"från",
+			"ok":"OK",
+			"submit":"Skicka",
+			"save":"Spara",
+			"welcome":"Välkommen",
+			"view":"Se",
+			"viewlicense":"View License",
+			"viewAll":"Se alla",
+			"state":"Tillstånd",
+			"status":"Status",
+			"type":"Typ",
+			"date":"Datum",
+			"user":"Användare",
+			"yes":"Ja",
+			"no":"Nej",
+			"apply":"Ansök",
+			"download":"Hämta",
+			"file":"Releasefil",
+			"publishedOn":"Published on",
+			"license":"Licens",
+			"back":"Tillbaka"
+		}
+	},
+	"logout":{
+		"title":"Utloggning från Licens- och distributionsportalen",
+		"subtitle":"Vi loggar ut dig från din session."
+	},
+	"register":{
+		"title":"Registrera dig",
+		"welcome":"Välkommen till Licens- och distributionsportalen",
+		"subwelcome":"Här hittar du information om Snomed CT",
+		"form":{
+			"tos":"Godkänn våra <a href=\"/tos.html\" target=\"_blank\">användarvillkor</a>.",
+			"button":"Börja registreringen",
+			"confirmemail":"E-postadress (bekräfta)"
+		},
+		"messages":{
+			"validate":{
+				"login":{
+					"required":"Du måste logga in.",
+					"minlength":"Ditt inloggningsnamn måste vara minst 1 tecken långt",
+					"maxlength":"Ditt inloggningsnamn får vara högst 50 tecken långt"
+				},
+				"country":{
+					"notMLDS":"Ansökningar om att använda Snomed CT i ditt land måste skickas till det nationella releasecentret i ditt land - <a href=\"{{link}}\" target=\"_blank\">här</a>. Om du vill ansöka om ett allmännyttoavtal för att använda Snomed CT i något annat land eller har andra frågor ber vi dig kontakta IHTSDO på <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+				}
+			},
+			"success":"<strong>Registreringen är sparad!</strong> Kontrollera att du har fått en bekräftelse skickad till din e-postadress.",
+			"error":{
+				"fail":"<strong>Registreringen misslyckades!</strong> Försök igen senare.",
+				"userexists":"<strong>En användare har redan registrerat sig med den e-postadressen.</strong> Ville du egentligen <a href='#/logga in'>login</a>?",
+				"blocklist":"På grund av vår it-policy kan vi inte behandla den angivna e-postadressen. Var god kontakta <a href=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a> för att få ytterligare hjälp."
+			}
+		},
+		"emailVerification":{
+			"intro":"Vi har skickat ett meddelande till dig.",
+			"detail":"Öppna det meddelande vi precis har skickat till dig för att bekräfta ditt konto och få tillgång till Licens- och distributionsportalen"
+		},
+		"affiliateRegistration":{
+			"title":"Licenstagarregistrering",
+			"usageType":"Användartyp",
+			"conditions":"Ange förutsättningarna för användningen av Snomed CT",
+			"typeOfAgreement":"Typ av avtal",
+			"validation":{
+				"other.required":"Andra fält måste fyllas i."
+			},
+			"license.title":"Avtal för användning av Snomed CT",
+			"license":"Snomed CT-licens",
+			"license.confirm":"Jag godkänner licensen",
+			"license.error":"Du måste godkänna villkoren i Snomed CT-licensen för att kunna registrera dig. Licensen anger även vilka eventuella avgifter som kan gälla."
+		},
+		"affiliateRegistrationReview":{
+			"title":"Granska ansökan",
+			"editApp":"Redigera ansökan"
+		}
+	},
+	"login":{
+		"title":"Logga in",
+		"form":{
+			"password":"Lösenord",
+			"password.placeholder":"Ditt lösenord",
+			"rememberme":"Kom ihåg mig",
+			"button":"Logga in",
+			"forgot":"Har du glömt ditt lösenord?"
+		},
+		"messages":{
+			"error":{
+				"authentication":"<strong>Verifieringen misslyckades!</strong> Var god kontrollera dina uppgifter och försök igen. Lösenorden är skiftlägeskänsliga.",
+				"deregistered":"<strong> Verifieringen misslyckades!</strong> Det här kontot har avregistrerats. Kontakta supporten.",
+				"noPermissions":"<strong> Verifieringen misslyckades!</strong> Vi har verifierat dig, men ditt konto har inte tillgång till denna applikation eller är felkonfigurerat. Kontakta supporten."
+			}
+		}
+	},
+	"settings":{
+		"title":"Kontaktinformation för [<b>{{username}}</b>]",
+		"form":{
+			"countryOfResidence":"Hemland",
+			"countryOfResidence.placeholder":"Ditt hemland",
+			"firstname":"Förnamn",
+			"firstname.placeholder":"Ditt förnamn",
+			"lastname":"Efternamn",
+			"lastname.placeholder":"Ditt efternamn",
+			"button":"Spara"
+		},
+		"messages":{
+			"error":"<strong>Ett fel har inträffat!</strong> Inställningarna kunde inte sparas.",
+			"success":"<strong>Inställningarna har sparats!</strong>",
+			"validate":{
+				"firstname":{
+					"required":"Du måste ange ditt förnamn.",
+					"minlength":"Ditt förnamn måste vara minst 1 tecken långt",
+					"maxlength":"Ditt förnamn får inte vara längre än 50 tecken"
+				},
+				"lastname":{
+					"required":"Du måste ange ditt efternamn.",
+					"minlength":"Ditt efternamn måste vara minst 1 tecken långt",
+					"maxlength":"Ditt efternamn får inte vara längre än 50 tecken"
+				}
+			}
+		}
+	},
+	"password":{
+		"title":"Lösenord för {{username}}",
+		"form":{
+			"button":"Spara"
+		},
+		"reset":{
+			"title":"Återställ lösenord",
+			"instructions":"Ange det nya lösenordet nedan."
+		},
+		"messages":{
+			"error":"<strong> Ett fel har inträffat!</strong> Lösenordet kunde inte ändras.",
+			"success":"<strong>Lösenordet har ändrats!</strong> Fortsätt till <a href='#/contactInfo'>Kontoinformation</a>",
+			"expired":"<strong>Återställningslänken har gått ut eller är ogiltig.</strong> <a href='#/requestPasswordReset'>Begär ny återställning</a>"
+		}
+	},
+	"sessions":{
+		"title":"Aktiva sessioner för [<b>{{username}}</b>]",
+		"table":{
+			"ipaddress":"IP-adress",
+			"useragent":"Användaragent",
+			"button":"Gör ogiltig"
+		},
+		"messages":{
+			"success":"<strong>Sessionen har avslutats!</strong>",
+			"error":"<strong>Ett fel har inträffat!</strong> Sessionen kunde inte avslutas."
+		}
+	},
+	"tracker":{
+		"title":"Användaraktiviteter i realtid",
+		"table":{
+			"userlogin":"Användare",
+			"ipaddress":"IP-adress",
+			"userAgent":"Användaragent",
+			"page":"Aktuell sida",
+			"time":"Tid"
+		}
+	},
+	"metrics":{
+		"title":"Systemmetrik",
+		"refresh.button":"Uppdatera",
+		"health":{
+			"title":"Hälsokontroller",
+			"database":"Databas",
+			"email":"E-post",
+			"stacktrace":"StackTrace"
+		},
+		"jvm":{
+			"title":"JVM-metrik",
+			"memory":{
+				"title":"Minne",
+				"total":"Total Memory",
+				"heap":"Heap Memory",
+				"nonheap":"Non-Heap Memory"
+			},
+			"threads":{
+				"title":"Trådar",
+				"all":"Alla",
+				"runnable":"Exekverbar",
+				"timedwaiting":"Timed waiting",
+				"waiting":"Väntar",
+				"blocked":"Blocked",
+				"dump":{
+					"title":"Tråddump",
+					"id":"Id",
+					"blockedtime":"Blocked time",
+					"blockedcount":"Blocked Count",
+					"waitedtime":"Waited Time",
+					"waitedcount":"Waited Count",
+					"lockname":"Lock name",
+					"stacktrace":"StackTrace",
+					"show":"Visa",
+					"hide":"Dölj"
+				}
+			},
+			"gc":{
+				"title":"Skräpinsamling",
+				"marksweepcount":"Mark Sweep count",
+				"marksweeptime":"Mark Sweep time",
+				"scavengecount":"Scavenge count",
+				"scavengetime":"Scavenge time"
+			},
+			"http":{
+				"title":"HTTP-förfrågningar (händelser per sekund)",
+				"active":"Aktiva förfrågningar",
+				"total":"Totalt antal förfrågningar",
+				"table":{
+					"code":"Kod",
+					"count":"Antal",
+					"mean":"Median",
+					"average":"Genomsnitt"
+				},
+				"code":{
+					"ok":"OK",
+					"notfound":"Hittades inte",
+					"servererror":"Serverfel"
+				}
+			}
+		},
+		"servicesstats":{
+			"title":"Tjänstestatistik (tid i millisekunder)",
+			"table":{
+				"name":"Tjänstenamn",
+				"count":"Antal",
+				"mean":"Median",
+				"min":"Min",
+				"max":"Max",
+				"p50":"p50",
+				"p75":"p75",
+				"p95":"p95",
+				"p99":"p99"
+			}
+		},
+		"ehcache":{
+			"title":"Ehcache-statistik",
+			"cachename":"Cachenamn",
+			"objects":"Objekt",
+			"hits":"Träffar",
+			"misses":"Missar",
+			"evictioncount":"Eviction count",
+			"mean":"Mean get time (ms)"
+		}
+	},
+	"logs":{
+		"title":"Loggar",
+		"nbloggers":"Det finns {{ total }} loggare.",
+		"filter":"Filter",
+		"table":{
+			"name":"Namn",
+			"level":"Nivå"
+		}
+	},
+	"audits":{
+		"title":"Revisioner",
+		"filter":{
+			"title":"Filter per datum",
+			"from":"från",
+			"to":"till",
+			"button":{
+				"weeks":"Veckor",
+				"today":"idag",
+				"clear":"töm",
+				"close":"stäng"
+			}
+		},
+		"table":{
+			"header":{
+				"principal":"Användare",
+				"date":"Datum (lokalt)",
+				"status":"Tillstånd",
+				"data":"Extra data"
+			},
+			"data":{
+				"remoteAddress":"Remote Address:"
+			}
+		},
+		"type":{
+			"AUTHORIZATION_FAILURE":"Misslyckad auktorisering",
+			"AUTHENTICATION_SUCCESS":"Lyckad verifiering",
+			"AUTHENTICATION_FAILURE":"Misslyckad verifiering",
+			"AFFILIATE_CREATED":"Licenstagare har skapats",
+			"AFFILIATE_CREATED_BY_IMPORT":"Licenstagare har skapats från import",
+			"AFFILIATE_UPDATED":"Licenstagare har uppdaterats",
+			"AFFILIATE_UPDATED_BY_IMPORT":"Licenstagare har uppdaterats från import",
+			"AFFILIATEDETAILS_UPDATED":"Licenstagaruppgifter har uppdaterats",
+			"AFFILIATE_EXPORT":"Batchexport av licenstagare",
+			"AFFILIATE_IMPORT":"Batchimport av licenstagare",
+			"AFFILIATE_LOGIN_CREATED":"Lincenstagarinloggning har skapats",
+			"AFFILIATE_STANDING_STATE_CHANGED":"Licenstagarstatus har ändrats",
+			"APPLICATION_CREATED":"Ansökan har skapats",
+			"APPLICATION_APPROVAL_STATE_CHANGED":"Godkännandestatus för licenstagare har ändrats",
+			"APPLICATION_DELETED":"Ansökan har tagits bort",
+			"RELEASE_FILE_CREATED":"Releasefil har skapats",
+			"RELEASE_FILE_DELETED":"Releasefil har tagits bort",
+			"RELEASE_FILE_DOWNLOADED":"Releasefil har laddats ner",
+			"RELEASE_PACKAGE_DELETED":"Releasepaket har tagits bort",
+			"RELEASE_PACKAGE_CREATED":"Releasepaket har skapats",
+			"RELEASE_VERSION_TAKEN_OFFLINE":"Releaseversion har tagits offline",
+			"RELEASE_VERSION_TAKEN_ONLINE":"Releaseversion har lagts online",
+			"RELEASE_VERSION_CREATED":"Releaseversion har skapats",
+			"RELEASE_VERSION_DELETED":"Releaseversion har tagits bort",
+			"USAGE_CREATED":"Användning har skapats",
+			"USAGE_APPROVAL_STATE_CHANGED":"Godkännandestatus för användning har ändrats"
+		}
+	},
+	"errors":{
+		"title":"Felsida!",
+		"403":"Du är inte behörig att komma åt sidan."
+	},
+	"footer":"Det här är din sidfot",
+	"affiliate":{
+		"title":"Licenstagare",
+		"type":{
+			"title":"Typ",
+			"COMMERCIAL":"Kommersiell",
+			"ACADEMIC":"Akademisk/vårdgivare",
+			"OTHER":"Annan",
+			"INDIVIDUAL":"Individuell"
+		},
+		"type.extended":{
+			"COMMERCIAL":"Kommersiell utvecklare, säljare eller leverantör",
+			"ACADEMIC":"Akademisk för intern användning inom en organisation. (Utbildning, forskning, utveckling eller vårdgivare)",
+			"OTHER":"Annan användning som inte anges i övriga alternativ",
+			"INDIVIDUAL":"Individuell för personligt, utbildnings- eller forskningssyfte"
+		},
+		"subType":{
+			"DEVELOPER":"Utvecklare",
+			"DEVELOPMENT":"Utveckling",
+			"EDUCATIONAL":"Utbildning",
+			"HEALTHCAREPROVIDER":"Vårdgivare",
+			"PERSONAL":"Personlig",
+			"RESEARCH":"Forskning",
+			"VENDOR":"Leverantör"
+		},
+		"agreementType":{
+			"AFFILIATE_NORMAL":"Licenstagare normal",
+			"AFFILIATE_RESEARCH":"Licenstagare forskning",
+			"AFFILIATE_PUBLIC_GOOD":"Licenstagare allmännytta"
+		},
+		"organizationType":{
+			"PUBLIC_HEALTH_ORGANIZATION":"Offentlig vårdgivare",
+			"PRIVATE_HEALTH_ORGANIZATION":"Privat vårdgivare",
+			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION":"Forsknings- och utvecklingsorganisation",
+			"HEALTHERCARE_APPLICATION_DEVELOPER":"Utvecklare av vårdapplikationer",
+			"GENERAL_PRACTITIONER_PRACTICE":"Vårdcentral",
+			"EDUCATIONAL_INSTITUTE":"Utbildningsinstitution",
+			"OTHER":"Annan"
+		},
+		"implementationStatus":{
+			"IMPLEMENTED":"Aktiv/Implementerad",
+			"DEVELOPMENT":"Under utveckling",
+			"PLANNING":"I planeringsstadium"
+		},
+		"standingState":{
+			"APPLYING":"Ansöker",
+			"IN_GOOD_STANDING":"Godkänd",
+			"REJECTED":"Avslagen",
+			"DEACTIVATION_PENDING":"Väntar på avaktivering",
+			"DEACTIVATED":"Avaktiverad",
+			"DEREGISTERED":"Avregistrerad",
+			"PENDING_INVOICE":"Väntar på faktura",
+			"INVOICE_SENT":"Faktura har skickats"
+		},
+		"standingStateWithExplanation":{
+			"APPLYING":"Ansöker",
+			"IN_GOOD_STANDING":"Godkänd. Full tillgång är godkänd, Kontot är betalat, Ingen betalning behövs eller Problemet med konto är löst",
+			"REJECTED":"Avslagen",
+			"DEACTIVATION_PENDING":"Väntar på avaktivering. Endast tillgång till kontot, Ingen nedladdningsmöjlighet",
+			"DEACTIVATED":"Avaktiverad. Endast tillgång till kontot, Ingen nedladdningsmöjlighet",
+			"DEREGISTERED":"Avregistrerad. Ingen tillgång till kontot",
+			"PENDING_INVOICE":"Väntar på faktura. Endast tillgång till kontot, Utestående betalning",
+			"INVOICE_SENT":"Faktura skickad. Endast tillgång till kontot, Utestående betalning"
+		}
+	},
+	"approval":{
+		"state":{
+			"NOT_SUBMITTED":"Ej skickad",
+			"CHANGE_REQUESTED":"Ändring har begärts",
+			"SUBMITTED":"Skickad",
+			"RESUBMITTED":"Skickad på nytt",
+			"REVIEW_REQUESTED":"Granskning har begärts",
+			"APPROVED":"Godkänd",
+			"REJECTED":"Avslagen"
+		}
+	},
+	"usageReport":{
+		"state":{
+			"NOT_SUBMITTED":"Ej skickad",
+			"CHANGE_REQUESTED":"Ändring har begärts",
+			"SUBMITTED":"Skickad",
+			"RESUBMITTED":"Skickad",
+			"REVIEW_REQUESTED":"Granskning har begärts",
+			"PENDING_INVOICE":"Väntar på faktura",
+			"INVOICE_SENT":"Faktura skickad",
+			"PAID":"Betalad",
+			"REJECTED":"Avslagen"
+		}
+	},
+	"application":{
+		"applicationType":{
+			"PRIMARY":"Primär",
+			"EXTENSION":"Förlängning",
+			"IMPORT":"Import"
+		}
+	},
+	"pendingApplications":{
+		"title":"Väntande ansökningar",
+		"show":{
+			"myApplications":"Mina väntande ansökningar",
+			"allApplications":"Alla väntande ansökningar"
+		},
+		"table":{
+			"affiliateName":"Licenstagarnamn",
+			"applicationType":"Ansökningstyp",
+			"agreementType":"Avtalstyp",
+			"useType":"Användningstyp",
+			"dateSubmitted":"Skickad den",
+			"homeCountry":"Hemland",
+			"member":"Medlem",
+			"email":"E-post",
+			"review":"Granskning"
+		}
+	},
+	"affiliateManagement":{
+		"title":"Hantering av licenstagare"
+	},
+	"releaseManagement":{
+		"title":"Releasehantering"
+	},
+	"reviewUsageReports":{
+		"title":"Granska användningsrapporter"
+	},
+    "memberManagement":{
+		"title":"Hantering av medlemmar"
+	},
+    "activityLog":{
+		"title":"Aktivitetslogg"
+	},
+    "importAffiliateRecords":{
+		"title":"Importera licenstagaruppgifter"
+	},
+    "manageBlocklist":{
+		"title":"Administrera Blocklist"
+	},
+    "nationalRegistrationList":{
+		"title":"Nationell registreringslista"
+	},
+    "systemLoggers":{
+		"title":"Systemlogger"
+	},
+	"form":{
+		"requiredField":"Nödvändigt fält.",
+		"tooLong":"Indatavärdet är för långt.", 
+		"invalidNumber":"Inte ett giltigt nummer",
+		"pleaseFix":"Rätta till felen som anges här ovan."
+	},
+	"views":{
+		"activate":{
+			"title":"Aktivering",
+			"messages":{
+				"success":{
+					"title":"Användarkontot har skapats.",
+					"body":"Systemet kommer strax att skicka dig vidare i registreringsprocessen. Om du inte omdirigeras automatiskt kan du {{linkbegin}}klicka här.{{linkend}}"
+				},
+				"error":{
+					"title":"Din användare kunde inte aktiveras.",
+					"body":"Använd registreringsformuläret för att skriva in dig. Om du fortfarande har problem ber vi dig kontakta supporten."
+				}
+			}
+		},
+		"applicationSummary":{
+			"title":"Sammanfattning av ansökan",
+			"ext.title":"Info om förlängning av ansökan",
+			"reason":"Orsak",
+			"affiliateInfo":"Licenstagarinfo",
+			"affiliateInformation":"Licenstagarinformation",
+			"useType":"Användningstyp",
+			"useSubType":"Användningsundertyp",
+			"billingInfo":"Fakturainformation",
+			"context":"Information om användningssammanhang",
+			"subLicence":"Underlicensanvändning",
+			"applicationActivity":"Ansökningsaktivitet"
+		},
+		"contactInfo":{
+			"title":"Kontoinformation",
+			"messages":{
+				"notApproved":{
+					"title":"Registreringen har ännu inte godkänts",
+					"body":"Du kan inte ändra kontaktinformationen för en licenstagare förrän begäran om registrering har godkänts."
+				}
+			},
+			"admin":{
+				"title":"Redigerbar Admin",
+				"other":{
+					"name":"Annat",
+					"placeholder":"Annat",
+					"required":"Fältet Annat måste fyllas i."
+				},
+				"subtype":{
+					"name":"Undertyp",
+					"required":"Fältet Undertyp måste fyllas i."
+				},
+				"usageType":{
+					"name":"Typ",
+					"required":"Fältet Användningstyp måste fyllas i."
+				},
+				"agreementType":"Avtalstyp",
+				"accountStanding":"Kontostatus"
+			},
+			"contact":{
+				"title":"Kontaktinformation",
+				"fullName":"Namn",
+				"firstName":{
+					"name":"Förnamn",
+					"placeholder":"Johan"
+				},
+				"lastName":{
+					"name":"Efternamn",
+					"placeholder":"Svensson"
+				},
+				"email":{
+					"name":"E-postadress",
+					"placeholder":"JohanSvensson@OrganisationABC.se",
+					"uniqueness":"E-postadressen måste vara unik.",
+					"invalid":"Ogiltig e-postadress."
+				},
+				"alternativeEmail":{
+					"name":"Alternativ e-postadress",
+					"placeholder":"alternativ@epost.se"
+				},
+				"thirdEmail":"Tredje e-postadress",
+				"landline":{
+					"name":"Telefonnummer",
+					"short":"Telefon",
+					"invalid":"Ogiltigt telefonnummer."
+				},
+				"landlineExtension":{
+					"name":"Direktnummer",
+					"short":"Dir.nr.",
+					"placeholder":"Direktnummer"
+				},
+				"mobile":{
+					"name":"Mobiltelefon",
+					"placeholder":"nummer"
+				},
+				"address":{
+					"title":"Adress",
+					"name":"Adress",
+					"placeholder":"Storgatan 123"
+				},
+				"city":{
+					"name":"Stad",
+					"placeholder":"Stad"
+				},
+				"postcode":{
+					"name":"Postnummer",
+					"placeholder":"Postnummer",
+					"tooLong":"Postnumret är för långt."
+				},
+				"country":{
+					"name":"Land",
+					"placeholder":"Land",
+					"unrecognized":"Okänt land."
+				},
+				"billingAddress":{
+					"name":"Fakturaadress",
+					"country":"Fakturaland",
+					"placeholder":"Adress",
+					"sameAsAddress":"Använd adressen som fakturaadress",
+					"useOrganizationAddress":"Använd organisationsadressen som fakturaadress"
+				}
+			},
+			"organization":{
+				"title":"Organisation",
+				"name":{
+					"name":"Organisationsnamn",
+					"placeholder":"Org.namn"
+				},
+				"type":{
+					"name":"Organisationstyp",
+					"required":"En organisationstyp måste anges",
+					"placeholder":"Annan organisationstyp"
+				}
+			}
+		},
+		"extensionApplication":{
+			"title":"Starta processen att ansöka om tillgång till en extension",
+			"sure":"Är du säker på att du vill ansöka om tillgång till den här extensionen?",
+			"form":{
+				"title":"Blankett för ansökan om tillgång till en extension",
+				"why":"Förklara varför du vill ha tillgång till den här extensionen.",
+				"purpose":"Syftet med användningen",
+				"error":"Beskrivningen av syftet måste vara längre."
+			},
+			"agreement":"Avtal för extensionen",
+			"license":"Licens för extensionen",
+			"warning":{
+				"change":"Din extensionsansökan måste ändras",
+				"change.detail":"Din extensionsansökan måste uppdateras innan den kan behandlas. Se meddelandet om de ändringar som är nödvändiga för att slutföra registreringen.",
+				"rejected":"Din extensionsansökan avvisades",
+				"rejected.detail":"Din extensionsansökan måste uppdateras innan den kan behandlas. Se meddelandet om de ändringar som är nödvändiga för att slutföra registreringen.",
+				"approved":"Din extensionsansökan har godkänts",
+				"approved.detail":"Din ansökan har godkänts."
+			},
+			"delete":{
+				"title":"Avbryt ansökan",
+				"sure":"Är du säker på att du vill avbryta den här ansökan?",
+				"sure.detail":"Om du gör det kommer du att förlora all sparad information som hör till den här ansökan."
+			}
+		},
+		"footer":{
+			"tos":"Användarvillkor",
+			"pp":"Sekretesspolicy",
+			"contact":"Kontakta oss"
+		},
+		"landingPage":{
+			"appName":"Licens- och distributionsportalen för Snomed CT",
+			"purpose":"Denna portal används av det svenska nationella releasecentret på Socialstyrelsen för att administrera licenser och användningsrapportering för den internationella och svenska releasen av Snomed CT vid användning i Sverige.",
+			"furtherDetails":"Mer information finns på <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO:s webbplats</a> och på webbsidan med <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">vanliga frågor</a>.",
+			"loginHere":"logga in här",
+			"member.purpose1":"MLDS is a tool used by the NRC in ",
+			"member.purpose2":" to manage the Affiliate Licensing of SNOMED CT including new applications, renewals and usage reporting within ",
+			"member.purpose3":" and where relevant in non member countries."
+		},
+		"releases":{
+			"title":"Releaser som är tillgängliga för registrerade användare",
+			"noAuth":"<a href=\"#/login\">Logga in</a> för att ladda ner en release eller klicka på <a href=\"#/register\">registrera</a> för att påbörja ansökningsprocessen.",
+			"memberCountries":"Medlemsländer",
+			"countryIsMissing":"Om det land du letar efter inte finns med i listan kan du gå till <a href=\"http://www.ihtsdo.org/\">IHTSDO:s webbplats</a> för att hitta information om nedladdning av releaser.",
+			"notAvailable":"Det finns för närvarande inga releasepaket tillgängliga",
+			"releasePackageLicense":"Release Package License",
+			"reviewLicense":"Please review the following license and accept it before downloading the release package:",
+			"agreeToLicense":"I agree to the license",
+			"warning":{
+				"deactivated":"Kontot har avaktiverats",
+				"pending":"Väntar på faktura",
+				"pAttention":"Den primära ansökan behöver granskas",
+				"pProcessed":"Den primära ansökan håller på att behandlas",
+				"apply":"Ansök om extension",
+				"aProcessed":"Ansökan håller på att behandlas",
+				"aAttention":"Ansökan behöver granskas, klicka för att fortsätta ansökan"
+			}
+		},
+		"requestPasswordReset":{
+			"title":"Återställning av lösenord",
+			"detail":"Vi kommer att skicka ett meddelande med en länk till ett formulär för återställning av lösenord.",
+			"button":"Begär återställning av lösenord",
+			"back":"Go back to login page"
+		},
+		"usage":{
+			"title":"Användningslogg",
+			"instructions":"Fyll i din användningsrapport för den valda perioden.",
+			"modal":{
+				"title":"Skapa en användningsrapport",
+				"instructions":"Fyll i din användningsrapport för samtliga perioder som är relevanta för dig. Ta med rapporter för både tidigare och nuvarande användning.",
+				"period":"Användningsperiod"
+			},
+			"submit":{
+				"title":"Skicka en användningsrapport",
+				"instructions":"Kontrollera att din användningsrapport här nedan är fullständig innan du skickar den.",
+				"declarationForPeriod":"Rapport för perioden",
+				"button":"Skicka rapport"
+			},
+			"retract":{
+				"title":"Återkalla användningsrapport",
+				"instructions":"Är du säker på att du vill återkalla den här rapporten? Du kommer tillbaka till samma användningsrapport och kan redigera och skicka den på nytt. För en ny period måste du skicka en ny rapport.",
+				"button":"Återkalla rapport"
+			}
+		},
+		"usageLog":{
+			"title":"Skickad användningsrapport",
+			"retract":"Återkalla rapport",
+			"usage":"Användning",
+			"subTitle":"Licensanvändning",
+			"usageFor":"Användning för",
+			"pleaseFill":"Fyll i all känd aktuell användningsinformation. Du kommer att bli tillfrågad om att bekräfta användningen så snart din ansökan har blivit godkänd.",
+			"licenseType":"Licenstyp",
+			"currentUsage":"Aktuell användning",
+			"plannedUsage":"Planerad användning",
+			"purpose":"Syfte",
+			"impStatus":"Implementeringsstatus",
+			"countries":{
+				"title":"Länder där Snomed CT används",
+				"subTitle":"Välj de icke-medlemsländer i vilka Snomed CT kommer att användas.",
+				"list":"Lista över länder",
+				"search":"Sök länder",
+				"homeCountry":"Hemland",
+				"button":"Lägg till land"
+			},
+			"institutions":{
+				"title":"Underlicensierade organisationer/enheter",
+				"selectFirst":"Ett land måste väljas innan du kan skriva in underlicensierade organisationer/enheter.",
+				"noneSelected":"Inga länder har valts.",
+				"country":"Land",
+				"deleteCountry":"Ta bort land",
+				"hospAndInst":"Sjukhus/institution",
+				"hospAndInst.title":"Sjukhus/institution(-er)",
+				"hospAndInst.plural":"Sjukhus/institutioner",
+				"started":"Började använda",
+				"finished":"Slutade använda",
+				"practices.title":"Klinik(-er)",
+				"practices":"Kliniker",
+				"dataAnalysis":{
+					"title":"Dataanalys",
+					"staff":"Sjukhus som förser kliniker med personal",
+					"dataCreation":"Datafångstsystem",
+					"independent":"Självständiga kliniker",
+					"dataAnalysis":"Dataanalyssystem",
+					"systems":"System",
+					"data":"Data",
+					"provideStaff":"Hur många sjukhus förser de angivna klinikerna med personal?",
+					"usingDCSNotHosp":"Hur många kliniker använder datafångstsystem och INTE ingår i en sjukhusorganisation?",
+					"usingDCSNotPract":"Hur många sjukhus eller andra institutioner använder datafångstsystem men kan inte definieras som kliniker enligt definitionen i licensen?",
+					"howManyDAS":"Hur många dataanalyssystem har du distribuerat i den här regionen och hur många databaser finns det per distribuerat system?"
+				},
+				"modal":{
+					"subtitle":"Sjukhusets/institutionens namn",
+					"placeholder":"Skriv in sjukhusets/institutionens namn",
+					"dateBefore":"Datum före användningsstartdatum",
+					"sure":"Är du säker på att du vill ta bort",
+					"andEntries":"och dess tillhörande poster?",
+					"addPractices":"Ange det antal kliniker som använder Snomed CT"
+				}
+			},
+			"otherActivities":"Andra aktiviteter",
+			"notificationRequired":"Licenstagare måste meddela IHTSDO innan man påbörjar några aktiviteter som inte faller inom de nuvarande kategorierna, så att IHTSDO kan fatta beslut om en lämplig avgiftsstruktur för den aktuella aktiviteten.",
+			"pleaseDescribe":"Var god beskriv aktiviteten här nedan.",
+			"submitFor":"Skicka in rapport för"
+		},
+		"usageReports":{
+			"reportDate":"Rapportdatum",
+			"hospitals":"Sjukhus",
+			"usageType":"Användningstyp",
+			"countries":"Länder",
+			"newReport":"Ny rapport"
+		},
+		"userDashboard":{
+			"affiliateNo":"Licenstagarnr",
+			"edit":"Redigera licenstagaransökan",
+			"myPackages":"Mina releasepaket",
+			"otherPackages":"Andra tillgängliga releaser",
+			"warning":{
+				"required.title":"En användningsrapport måste fyllas i",
+				"required.msg":"En preliminär version av din användningsrapport har sparats. Kom dock ihåg att du måste skicka in en slutgiltig rapport för innevarande år senast den 15 januari. Observera att alla föregående års användningsrapporter måste skickas in för att du ska kunna ladda ner Snomed CT.",
+				"change.title":"Licenstagarregistreringen måste ändras",
+				"change.msg":"Din licenstagarregistrering måste updateras innan den kan behandlas. Var god läs meddelandet med de nödvändiga ändringar som måste göras för att slutföra din registrering.",
+				"declined.title":"Licenstagarregistreringen avslogs",
+				"declined.msg":"Din licenstagarregistrering har avslagits. Se meddelandet med närmare uppgifter om beslutet.",
+				"deactivated.title":"Avaktivering av konto",
+				"deactivated.msg":"Ditt konto har avaktiverats. Funktionerna för nedladdning av releasepaket och ansökning om tillgång till extensioner har stängts av. Var god kontakta <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> för att lösa problemet.",
+				"iPending.title":"Kontot har en obetald faktura",
+				"iPending.msg":"Ditt konto har en obetald faktura. Funktionen för nedladdning av releasepaket har stängts av. Kontakta <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> för att lösa problemet.",
+				"dPending.title":"Avaktivering av kontot väntar",
+				"dPending.msg":"Ditt konto kommer att avaktiveras. Kontakta <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> för att lösa problemet."
+			}
+		}
+	}
+}
