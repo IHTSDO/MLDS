@@ -823,7 +823,7 @@
 			"purpose":"Seda teenust pakub IHTSDO asutustele ja isikutele, kes soovivad kasutada SNOMED CT-i rahvusvahelist väljaannet mitte-liikmesriikide territooriumitel.",
 			"furtherDetails":"Edasise informatsiooni saamiseks, pöördu palun <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO veebilehele </a> või <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Korduma Kippuvate Küsimuste lehele</a>.",
 			"loginHere":"Logi sisse",
-			"member.purpose1":"MLDS on kohaliku kontaktpunkti kasutatav tööriist",
+			"member.purpose1":"MLDS on kohaliku kontaktpunkti kasutatav tööriist ",
 			"member.purpose2":" eesmärgiga hallata siduspartnerite litsentsilepinguid ning taotlusi ja kasutamise aruandeid ",
 			"member.purpose3":" ja vajadusel ka mitte-liikmesriikides."
 		},
