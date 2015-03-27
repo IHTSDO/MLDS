@@ -1,0 +1,963 @@
+{
+	"global":{
+		"title":"mlds",
+		"browsehappy":"Kasutad <strong>vananenud</strong> brauserit. Palun <a href=\"http://browsehappy.com/?locale=en\">uuenda oma brauserit</a> parandamaks kasutusmugavust.",
+		"menu":{
+			"home":"Kodu",
+			"account":{
+				"main":"Konto",
+				"contactInfo":"Kontaktandmed",
+				"password":"Salasõna",
+				"sessions":"Seanss",
+				"tracker":"Kasutaja jälgimine",
+				"metrics":"Meetrikud",
+				"logs":"Logid",
+				"audits":"Auditid",
+				"login":"Logi sisse",
+				"logout":"Logi välja",
+				"apidocs":"API",
+				"register":"Registreeri",
+				"affiliates":"Siduspartner",
+				"dashboard":"Töölaud"
+			},
+			"dashboard":"Töölaud",
+			"help":"Abi",
+			"usageReports":"Kasutusaruanded",
+			"applications":"Rakendused",
+			"releasePackages":"Väljaande pakett",
+			"affiliate":{
+				"accountInformation":"Konto andmed",
+				"changePassword":"Muuda salasõna",
+				"logout":"Logi välja"
+			},
+			"language":"Keel"
+		},
+		"language":{
+			"da":"taani keel",
+			"ee":"eesti keel",
+			"en":"inglise keel",
+			"fr":"prantsuse keel",
+			"de":"saksa keel",
+			"nl":"hollandi keel",
+			"pl":"poola keel",
+			"pt":"portugali keel",
+			"ru":"vene keel",
+			"se":"rootsi keel"
+		},
+		"member":{
+			"IHTSDO":"IHTSDO",
+			"AU":"Austraalia",
+			"BE":"Belgia",
+			"BN":"Brunei",
+			"CA":"Kanada",
+			"CL":"Tšiili",
+			"CZ":"Tšehhi",
+			"DK":"Taani",
+			"EE":"Eesti",
+			"HK":"Hong Kong, Hiina",
+			"IS":"Island",
+			"IN":"India",
+			"IL":"Iisrael",
+			"LT":"Leedu",
+			"MY":"Malaisia",
+			"MT":"Malta",
+			"NL":"Holland",
+			"NZ":"Uus-Meremaa",
+			"PL":"Poola",
+			"PT":"Portugal",
+			"SG":"Singapur",
+			"SK":"Slovakkia",
+			"SI":"Sloveenia",
+			"ES":"Hispaania",
+			"SE":"Rootsi",
+			"GB":"Suurbritannia",
+			"US":"Ameerika Ühendriigid",
+			"UY":"Uruguay"		},
+		"country":{
+			"AC":"Ascensioni saar",
+			"AD":"Andorra",
+			"AE":"Araabia Ühendemiraadid",
+			"AF":"Afganistan",
+			"AG":"Antigua ja Barbuda",
+			"AI":"Anguilla",
+			"AL":"Albaania",
+			"AM":"Armeenia",
+			"AN":"Hollandi Antillid",
+			"AO":"Angola",
+			"AQ":"Austraalia Antarktilised alad",
+			"AR":"Argentina",
+			"AS":"Ameerika Samoa",
+			"AT":"Austria",
+			"AU":"Austraalia",
+			"AW":"Aruba",
+			"AX":"Ahvenamaa",
+			"AZ":"Aserbaidžaan",
+			"BA":"Bosnia ja Hertsegoviina",
+			"BB":"Barbados",
+			"BD":"Bangladesh",
+			"BE":"Belgia",
+			"BF":"Burkina Faso",
+			"BG":"Bulgaaria",
+			"BH":"Bahrein",
+			"BI":"Burundi",
+			"BJ":"Benin",
+			"BM":"Bermuda",
+			"BN":"Brunei",
+			"BO":"Boliivia",
+			"BR":"Brasiilia",
+			"BS":"Bahamas",
+			"BT":"Bhutan",
+			"BV":"Bouvet´saar",
+			"BW":"Botswana",
+			"BY":"Valgevene",
+			"BZ":"Belize",
+			"CA":"Kanada",
+			"CC":"Kookossaared",
+			"CD":"Kongo(Kinshasa)",
+			"CF":"Kesk-Aafrika Vabariik",
+			"CG":"Kongo (Brazzaville)",
+			"CH":"Šveits",
+			"CI":"Cote d'Ivoire",
+			"CK":"Cooki saared",
+			"CL":"Tšiili",
+			"CM":"Kamerun",
+			"CN":"Hiina Rahvavabariik",
+			"CO":"Kolumbia",
+			"CR":"Costa Rica",
+			"CU":"Kuuba",
+			"CV":"Cabo Verde",
+			"CX":"Jõulusaar",
+			"CY":"Küpros",
+			"CZ":"Tšehhi",
+			"DE":"Saksamaa",
+			"DJ":"Djibouti",
+			"DK":"Taani",
+			"DM":"Dominica",
+			"DO":"Dominikaani Vabariik",
+			"DZ":"Alžeeria",
+			"EC":"Ecuador",
+			"EE":"Eesti",
+			"EG":"Egiptus",
+			"ER":"Eritrea",
+			"ES":"Hispaania",
+			"ET":"Etioopia",
+			"FI":"Soome",
+			"FJ":"Fidži",
+			"FK":"Falklandi (Malviini) saared",
+			"FM":"Mikroneesia",
+			"FO":"Fääri saared",
+			"FR":"Prantsusmaa",
+			"GA":"Gabon",
+			"GB":"Suurbritannia",
+			"GD":"Grenada",
+			"GE":"Gruusia",
+			"GF":"Prantsuse Guajaana",
+			"GG":"Guernsey",
+			"GH":"Ghana",
+			"GI":"Gibraltar",
+			"GL":"Gröönimaa",
+			"GM":"Gambia",
+			"GN":"Guinea",
+			"GP":"Guadeloupe",
+			"GQ":"Ekvatoriaal-Guinea",
+			"GR":"Kreeka",
+			"GS":"Lõuna-Georgia ja Lõuna-Sandwichi saared",
+			"GT":"Guatemala",
+			"GU":"Guam",
+			"GW":"Guinea-Bissau",
+			"GY":"Guyana",
+			"HK":"Hong Kong",
+			"HM":"Heardi ja McDonaldi saarte ala",
+			"HN":"Honduras",
+			"HR":"Horvaatia",
+			"HT":"Haiti",
+			"HU":"Ungari",
+			"ID":"Indoneesia",
+			"IE":"Iirimaa",
+			"IL":"Iisrael",
+			"IM":"Mani saar ",
+			"IN":"India",
+			"IO":"Briti India ookeani ala",
+			"IQ":"Iraak",
+			"IR":"Iraan",
+			"IS":"Island",
+			"IT":"Itaalia",
+			"JE":"Jersey",
+			"JM":"Jamaica",
+			"JO":"Jordan",
+			"JP":"Jaapan",
+			"KE":"Keenia",
+			"KG":"Kõrgõzstan",
+			"KH":"Kambodža",
+			"KI":"Kiribati",
+			"KM":"Komoorid",
+			"KN":"saint Kitts ja Nevis ",
+			"KP":"Põhja Korea ",
+			"KR":"Lõuna Korea",
+			"KW":"Kuveit",
+			"KY":"Kaimanisaared ",
+			"KZ":"Kasahstan",
+			"LA":"Laos",
+			"LB":"Liibanon",
+			"LC":"Saint Lucia ",
+			"LI":"Liechtenstein",
+			"LK":"Sri Lanka ",
+			"LR":"Libeeria",
+			"LS":"Lesotho",
+			"LT":"Leedu",
+			"LU":"Luksemburg",
+			"LV":"Läti",
+			"LY":"Liibüa",
+			"MA":"Maroko",
+			"MC":"Monaco",
+			"MD":"Moldova",
+			"ME":"Montenegro",
+			"MG":"Madagaskar",
+			"MH":"Marshalli saared ",
+			"MK":"Makedoonia",
+			"ML":"Mali",
+			"MM":"Myanmar (Birma)",
+			"MN":"Mongoolia",
+			"MO":"Aomen",
+			"MP":"Põhja Mariaanid",
+			"MQ":"Martinique",
+			"MR":"Mauritaania",
+			"MS":"Montserrat",
+			"MT":"Malta",
+			"MU":"Mauritius",
+			"MV":"Maldiivid",
+			"MW":"Malawi",
+			"MX":"Mehhiko",
+			"MY":"Malaisia",
+			"MZ":"Mosambiik",
+			"NA":"Namiibia",
+			"NC":"Uus-Kaledoonia",
+			"NE":"Niger",
+			"NF":"Norfolk ",
+			"NG":"Nigeeria",
+			"NI":"Nicaragua",
+			"NL":"Holland",
+			"NO":"Norra",
+			"NP":"Nepal",
+			"NR":"Nauru",
+			"NU":"Niue",
+			"NZ":"Uus-Meremaa ",
+			"OM":"OmaanO",
+			"PA":"Panama",
+			"PE":"Peruu",
+			"PF":"Prantsuse Polüneesia ",
+			"PG":"Paapua Uus-Guinea ",
+			"PH":"Filipiinid",
+			"PK":"Pakistan",
+			"PL":"Poola",
+			"PM":"Saint Pierre ja ",
+			"PN":"Pitcairn ",
+			"PR":"Puerto Rico ",
+			"PT":"Portugal",
+			"PW":"Belau",
+			"PY":"Paraguay",
+			"QA":"Katar",
+			"RE":"Reunion",
+			"RO":"Rumeenia",
+			"RS":"Serbia",
+			"RU":"Venemaa",
+			"RW":"Rwanda",
+			"SA":"Saudi Araabia ",
+			"SB":"Saalomoni saared ",
+			"SC":"Seišellid",
+			"SD":"Sudaan",
+			"SE":"Rootsi",
+			"SG":"Singapur",
+			"SH":"Saint Helena ",
+			"SI":"Sloveenia",
+			"SJ":"Svalbard",
+			"SK":"Slovakkia",
+			"SL":"Sierra Leone ",
+			"SM":"San Marino ",
+			"SN":"Senegal",
+			"SO":"Somaalia",
+			"SR":"Suriname",
+			"ST":"Sao Tome ja Principe ",
+			"SV":"El Salvador ",
+			"SY":"Süüria",
+			"SZ":"Svaasimaa",
+			"TA":"Tristan da Cunha saarestik ",
+			"TC":"Turks ja Caicos ",
+			"TD":"Tšaad",
+			"TF":"Prantsuse Antarktilised ja Lõunaalad",
+			"TG":"Togo",
+			"TH":"Tai",
+			"TJ":"Tadžikistan",
+			"TK":"Tokelau",
+			"TL":"Timor-Leste",
+			"TM":"Türkmenistan",
+			"TN":"Tuneesia",
+			"TO":"Tonga",
+			"TR":"Türgi",
+			"TT":"Trinidad ja Tobago ",
+			"TV":"Tuvalu",
+			"TW":"Hiina Rahvavabariik",
+			"TZ":"Tansaania",
+			"UA":"Ukraina",
+			"UG":"Uganda",
+			"UM":"Wake´i saar ",
+			"US":"Ameerika Ühendriigid ",
+			"UY":"Uruguay",
+			"UZ":"Uzbekistan",
+			"VA":"Vatikan ",
+			"VC":"Saint Vincent ja Grenadiinid",
+			"VE":"Venezuela",
+			"VG":"Briti Neitsisaared",
+			"VI":"USA Neitsisaared",
+			"VN":"Vietnam",
+			"VU":"Vanuatu",
+			"WF":"Wallis ja Futuna",
+			"WS":"Samoa",
+			"YE":"Jeemen",
+			"YT":"Mayotte",
+			"ZA":"Lõuna-Aafrika Vabariik",
+			"ZM":"Sambia",
+			"ZW":"Zimbabwe"
+		},
+		"form":{
+			"username":"Kasutajanimi",
+			"username.placeholder":"Sinu kasutajanimi",
+			"name.placeholder":"Sinu nimi",
+			"newpassword":"Uus salasõna",
+			"newpassword.placeholder":"Uus salasõna",
+			"confirmpassword":"Uue salasõna kordamine",
+			"confirmpassword.placeholder":"Korda uut salasõna",
+			"email":"Meiliaadress",
+			"email.placeholder":"Sinu meiliaadress",
+			"country":"Elukohariik"
+		},
+		"messages":{
+			"info":{
+				"authenticated":"Kui soovid <a href=\"#/login\">autentida</a>, võid proovida vaikekontosid:<br/>- Administraator (kasutajanimi=\"admin\" ja salasõna=\"admin\") <br/>- Kasutaja (kasutajanimi=\"user\" ja salasõna=\"user\").",
+				"register":"Sul ei ole veel kontot? <a href=\"#/register\">Loo uus konto</a>"
+			},
+			"error":{
+				"dontmatch":"Salasõna ja selle kordus ei ühti!",
+				"server":"Viga. Proovi korrata tegevust."
+			},
+			"validate":{
+				"newpassword":{
+					"required":"Salasõna on kohustuslik.",
+					"minlength":"Salasõna pikkus peab olema vähemalt 5 tähemärki",
+					"maxlength":"Salasõna pikkus ei tohi olla üle 50 tähemärgi",
+					"strength":"Salasõna tugevus:"
+				},
+				"confirmpassword":{
+					"required":"Salasõna kordus on kohustuslik.",
+					"minlength":"Salasõna kordus peab olema vähemalt 5 tähemärki",
+					"maxlength":"Salasõna kordus ei tohi olla üle 50 tähemärgi",
+					"match":"Salasõna ja salasõna kordus ei ühti"
+				},
+				"email":{
+					"required":"Meiliaadress on kohustulik.",
+					"invalid":"Meiliaadress on vigane.",
+					"minlength":"Meiliaadressi pikkus peab olema vähemalt 1 tähemärk",
+					"maxlength":"Meiliaadressi pikkus ei tohi olla üle 50 tähemärgi"
+				}
+			}
+		},
+		"word":{
+			"or":"või",
+			"add":"Lisa",
+			"edit":"Muuda",
+			"name":"Nimi",
+			"cancel":"Tühista",
+			"note":"Märkus",
+			"notes":"Märkused",
+			"close":"sulge",
+			"delete":"Eemalda",
+			"update":"Uuenda",
+			"from":"-",
+			"ok":"OK",
+			"submit":"Esita",
+			"save":"Salvesta",
+			"welcome":"Vaata kõiki",
+			"view":"View",
+			"viewlicense":"View License",
+			"viewAll":"View All",
+			"state":"Olek",
+			"status":"Staatus",
+			"type":"Tüüp",
+			"date":"Kuupäev",
+			"user":"Kasutaja",
+			"yes":"Jah",
+			"no":"Ei",
+			"apply":"Rakenda",
+			"download":"Laadi alla",
+			"file":"Fail",
+			"publishedOn":"Publitseeritud",
+			"license":"Litsents",
+			"back":"Tagasi"
+		}
+	},
+	"logout":{
+		"title":"MLDS-Logi välja",
+		"subtitle":"Logime su välja."
+	},
+	"register":{
+		"title":"Registreeri",
+		"welcome":"Tere tulemast IHTSDO-MLDS-i",
+		"subwelcome":"SNOMED CT tutvustus",
+		"form":{
+			"tos":"Nõustu <a href=\"/tos.html\" target=\"_blank\">tingimustega</a>.",
+			"button":"Alusta registreerimist",
+			"confirmemail":"Meiliaadress (korda)"
+		},
+		"messages":{
+			"validate":{
+				"login":{
+					"required":"Kasutajanimi on kohustuslik.",
+					"minlength":"Kasutajanime pikkus peab olema vähemalt 1 tähemärk",
+					"maxlength":"Kasutajanime pikkus ei tohi olla üle 50 tähemärgi"
+				},
+				"country":{
+					"notMLDS":"Kui soovid kasutada SNOMED CT-d oma elukohariigis, tuleb teha taotlus vastava riigi esindajale - <a href=\"{{link}}\" target=\"_blank\">here</a>. Kui soovid SNOMED CT-d kasutada avaliku hüve lepingu raames teises riigis või soovid teha muid järelpärimisi, võta ühendust IHTSDO-ga <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+				}
+			},
+			"success":"<strong>Registreerimine õnnestus!</strong> Palun kontrolli kinnituseks saadetud meili.",
+			"error":{
+				"fail":"<strong>Registreerimine ebaõnnestus!</strong> Palun proovi hiljem uuesti.",
+				"userexists":"<strong>Sellise meiliaadressiga kasutaja on juba registreeritud.</strong> Kas sa soovisid <a href='#/login'>sisse logida</a>?",
+				"blocklist":"Tulenevalt meie IT eeskirjadest, ei suuda me sisestatud meiliaadressi töödelda. Palun võta ühendust kasutajatoega <a href=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a> edasiseks abiks."
+			}
+		},
+		"emailVerification":{
+			"intro":"Sulle saadeti meil.",
+			"detail":"Palun ava sulle saadetud meil, et kinnitada oma konto ning saada ligipääs MLDS-ile"
+		},
+		"affiliateRegistration":{
+			"title":"Siduspartneri registreerimine",
+			"usageType":"Kasutamise liik",
+			"conditions":"Palun vali tingimused, mille alusel toodet kasutatakse",
+			"typeOfAgreement":"Lepingu tüüp",
+			"validation":{
+				"other.required":"Väli Muu on kohustuslik."
+			},
+			"license.title":"SNOMED CT Leping",
+			"license":"SNOMED Litsents",
+			"license.confirm":"Nõustun litsentsiga",
+			"license.error":"Selleks, et registreerida, pead nõustuma SNOMED CT Litsentsi tingimustega, mis viitavad ka võimalikele litsentsitasudele."
+		},
+		"affiliateRegistrationReview":{
+			"title":"Taotluse ülevaatamine",
+			"editApp":"Taoltuse muutmine"
+		}
+	},
+	"login":{
+		"title":"Logi sisse",
+		"form":{
+			"password":"Salasõna",
+			"password.placeholder":"Salasõna",
+			"rememberme":"Jäta mind meede",
+			"button":"Logi sisse",
+			"forgot":"Unustasid salasõna?"
+		},
+		"messages":{
+			"error":{
+				"authentication":"<strong>Autentimine ebaõnnestus!</strong> Palun kontrolli sisestatud andmeid ja proovi uuesti. Salasõnad on suuri-ja väiketähti eristavad.",
+				"deregistered":"<strong>Autentimine ebaõnnestus!</strong> See konto on kustutatud. Palun võta ühendust kasutajatoega.",
+				"noPermissions":"<strong>Autentimine ebaõnnestus!</strong> Kontol ei ole ligipääsu sellele rakendusele. Palun võta ühendust kasutajatoega."
+			}
+		}
+	},
+	"settings":{
+		"title":"Kontaktandmed [<b>{{username}}</b>]",
+		"form":{
+			"countryOfResidence":"Elukohariik",
+			"countryOfResidence.placeholder":"Elukohariik",
+			"firstname":"Eesnimi",
+			"firstname.placeholder":"Eesnimi",
+			"lastname":"Perenimi",
+			"lastname.placeholder":"Perenimi",
+			"button":"Salvesta"
+		},
+		"messages":{
+			"error":"<strong>Viga!</strong> Salvestamine ebaõnnestus.",
+			"success":"<strong>Salvestatud!</strong>",
+			"validate":{
+				"firstname":{
+					"required":"Eesnimi on kohustuslik.",
+					"minlength":"Eesnime pikkus peab olema vähemalt 1 tähemärk",
+					"maxlength":"Eesnime pikkus ei tohi olla üle 50 tähemärgi"
+				},
+				"lastname":{
+					"required":"Perenimi on kohustuslik.",
+					"minlength":"Perenime pikkus peab olema vähemalt 1 tähemärk",
+					"maxlength":"Perenime pikkus ei tohi olla üle 50 tähemärgi"
+				}
+			}
+		}
+	},
+	"password":{
+		"title":"Salasõna{{username}}",
+		"form":{
+			"button":"Salvesta"
+		},
+		"reset":{
+			"title":"Uuenda salasõna",
+			"instructions":"Sisesta uus salasõna."
+		},
+		"messages":{
+			"error":"<strong>Viga!</strong> Salasõna ei muudetud.",
+			"success":"<strong>Salasõna muudetud!</strong>  Jätka <a href='#/contactInfo'>Konto andmetega</a>",
+			"expired":"<strong>Uuendamise link on aegunud või vigane.</strong> <a href='#/requestPasswordReset'>Proovi uuesti</a>"
+		}
+	},
+	"errors":{
+		"title":"Viga!",
+		"403":"Sellele lehele puudub juurdepääs."
+	},
+	"footer":"See on jalus",
+	"affiliate":{
+		"title":"Siduspartner",
+		"type":{
+			"title":"Tüüp",
+			"COMMERCIAL":"Kaubanduslik",
+			"ACADEMIC":"Akadeemiline",
+			"OTHER":"Muu",
+			"INDIVIDUAL":"Isiklik"
+		},
+		"type.extended":{
+			"COMMERCIAL":"Kaubanduslik – arendaja, müüja, terminoloogiateenuse pakkuja",
+			"ACADEMIC":"Akadeemiline – organisatsioonisiseseks kasutamiseks (Tervishoiuteenuse osutamine, õppetöö, teadustöö või arendus)",
+			"OTHER":"Muu – teistes tüüpides klassifitseerimata kasutus",
+			"INDIVIDUAL":"Isiklik – isiklik kasutus õppe- või teadustöö eesmärgil"
+		},
+		"subType":{
+			"DEVELOPER":"Arendaja",
+			"DEVELOPMENT":"Arendus",
+			"EDUCATIONAL":"Õppetöö",
+			"HEALTHCAREPROVIDER":"Tervishoiuteenuse osutaja",
+			"PERSONAL":"Isiklik",
+			"RESEARCH":"Teadustöö",
+			"VENDOR":"Müüja"
+		},
+		"agreementType":{
+			"AFFILIATE_NORMAL":"Siduspartner - tava",
+			"AFFILIATE_RESEARCH":"Siduspartner - teadustöö",
+			"AFFILIATE_PUBLIC_GOOD":"Siduspartner – avalik hüve"
+		},
+		"organizationType":{
+			"PUBLIC_HEALTH_ORGANIZATION":"Riiklik tervishoiuasutus",
+			"PRIVATE_HEALTH_ORGANIZATION":"Eratervishoiuasutus",
+			"RESEARCH_AND_DEVELOPMENT_ORGANIZATION":"Teadus- ja arendusasutus",
+			"HEALTHERCARE_APPLICATION_DEVELOPER":"Tervishoiu rakenduste arendaja",
+			"GENERAL_PRACTITIONER_PRACTICE":"Perearstiasutus",
+			"EDUCATIONAL_INSTITUTE":"Haridusasutus",
+			"OTHER":"Muu"
+		},
+		"implementationStatus":{
+			"IMPLEMENTED":"Täide viidud",
+			"DEVELOPMENT":"Arendamisel",
+			"PLANNING":"Planeerimisjärgus"
+		},
+		"standingState":{
+			"APPLYING":"Rakendamisel",
+			"IN_GOOD_STANDING":"Kõik nõuded täidetud",
+			"REJECTED":"Tagasi lükatud",
+			"DEACTIVATION_PENDING":"Pooleliolev mitteaktiveerimine",
+			"DEACTIVATED":"Mitteaktiveeritud",
+			"DEREGISTERED":"Kustutatud",
+			"PENDING_INVOICE":"Pooleliolev arve",
+			"INVOICE_SENT":"Arve saadetud"
+		},
+		"standingStateWithExplanation":{
+			"APPLYING":"Rakendamisel",
+			"IN_GOOD_STANDING":"Kõik nõuded tädietud – täielik ligipääs heaks kiidetud, võlgnevused puuduvad",
+			"REJECTED":"Tagasi lükatud",
+			"DEACTIVATION_PENDING":"Pooleliolev mitteaktiveerimine – ligipääs kontole olemas, allalaadimise õigus puudub",
+			"DEACTIVATED":"Mitteaktiveeritud – ligipääs kontole olemas, allalaadimise õigus puudub",
+			"DEREGISTERED":"Kustutatud – puudub ligipääs MLDS kontole",
+			"PENDING_INVOICE":"Pooleliolev arve – ligipääs kontole olemas, arve tasumata",
+			"INVOICE_SENT":"Arve saadetud – ligipääs kontole olemas, arve maksmata"
+		}
+	},
+	"approval":{
+		"state":{
+			"NOT_SUBMITTED":"Esitamata",
+			"CHANGE_REQUESTED":"Vajab muudatusi",
+			"SUBMITTED":"Esitatud",
+			"RESUBMITTED":"Taasesitatud",
+			"REVIEW_REQUESTED":"Vajab ülevaatamist",
+			"APPROVED":"Heaks kiidetud",
+			"REJECTED":"Tagasi lükatud"
+		}
+	},
+	"usageReport":{
+		"state":{
+			"NOT_SUBMITTED":"Esitamata",
+			"CHANGE_REQUESTED":"Vajab muudatusi",
+			"SUBMITTED":"Esitatud",
+			"RESUBMITTED":"Taasesitatud",
+			"REVIEW_REQUESTED":"Vajab ülevaatamist",
+			"PENDING_INVOICE":"Pooleliolev arve",
+			"INVOICE_SENT":"Arve saadetud",
+			"PAID":"Makstud",
+			"REJECTED":"Tagasi lükatud"
+		}
+	},
+	"application":{
+		"applicationType":{
+			"PRIMARY":"Esmane registreerimine",
+			"EXTENSION":"Registreerimine laienduse kasutamiseks",
+			"IMPORT":"Import"
+		}
+	},
+	"pendingApplications":{
+		"title":"Pooleliolevad taotlused",
+		"show":{
+			"myApplications":"Minu pooleliolevad taotlused",
+			"allApplications":"Kõik pooleliolevad taotlused"
+		},
+		"table":{
+			"affiliateName":"Siduspartneri nimi",
+			"applicationType":"Taotluse tüüp",
+			"agreementType":"Lepingu tüüp",
+			"useType":"Kasutuse tüüp",
+			"dateSubmitted":"Esitamise kuupäev",
+			"homeCountry":"Riik",
+			"member":"Liige",
+			"email":"Meiliaadress",
+			"review":"Ülevaade"
+		}
+	},
+	"affiliateManagement":{
+		"title":"Siduspartnerite haldamine"
+	},
+	"releaseManagement":{
+		"title":"Väljaannete haldamine"
+	},
+	"reviewUsageReports":{
+		"title":"Kasutusaruannete ülevaade"
+	},
+    "memberManagement":{
+		"title":"Liikmete haldus"
+	},
+    "activityLog":{
+		"title":"Aktiivsuslogi"
+	},
+    "importAffiliateRecords":{
+		"title":"Impordi siduspartneri andmed"
+	},
+    "manageBlocklist":{
+		"title":"Blokeeritute nimekirja haldamine"
+	},
+    "nationalRegistrationList":{
+		"title":"Rahvuslik registreerimise nimekiri"
+	},
+    "systemLoggers":{
+		"title":"Süsteemi logijad"
+	},
+	"form":{
+		"requiredField":"Kohustuslik väli.",
+		"tooLong":"Sisestus on liiga pikk.",
+		"invalidNumber":"Vale number",
+		"pleaseFix":"Palun paranda eelpool loetletud vead."
+	},
+	"views":{
+		"activate":{
+			"title":"Aktiveerimine",
+			"messages":{
+				"success":{
+					"title":"Kasutajakonto on loodud.",
+					"body":"Registreerimise protsess jätkub mõne hetke pärast. Kui automaatne edasisuunamine ei toimi, siis palun vajuta {{linkbegin}} siia.{{linkend}}"
+				},
+				"error":{
+					"title":"Sinu kasutajat ei aktiveeritud.",
+					"body":"Registreerumiseks täida palun ankeet. Probleemide korral võta palun ühendust kasutajatoega."
+				}
+			}
+		},
+		"applicationSummary":{
+			"title":"Taotluse kokkuvõte",
+			"ext.title":"Laienduse kasutamiseks mõeldud taotluse info",
+			"reason":"Põhjus",
+			"affiliateInfo":"Siduspartneri info",
+			"affiliateInformation":"Siduspartneri andmed",
+			"useType":"Kasutuse tüüp",
+			"useSubType":"Kasutuse alatüüp",
+			"billingInfo":"Arveldamise andmed",
+			"context":"Kasutuse andmed",
+			"subLicence":"All-litsentis kasutus",
+			"applicationActivity":"Taotluse aktiivsus"
+		},
+		"contactInfo":{
+			"title":"Konto andmed",
+			"messages":{
+				"notApproved":{
+					"title":"Registreerimine on hetkel kinnitamata",
+					"body":"Registreerimistaotluse kinnitamiseni on võimalus muuta vaid siduspartneri kontaktandmeid."
+				}
+			},
+			"admin":{
+				"title":"Seda saab muuta administraator",
+				"other":{
+					"name":"Muu",
+					"placeholder":"Muu",
+					"required":"Väli Muu on kohustuslik."
+				},
+				"subtype":{
+					"name":"Alatüüp",
+					"required":"Väli Alatüüp on kohustuslik."
+				},
+				"usageType":{
+					"name":"Tüüp",
+					"required":"Väli Kasutuse tüüp on kohustuslik."
+				},
+				"agreementType":"Lepingu tüüp",
+				"accountStanding":"Konto seis"
+			},
+			"contact":{
+				"title":"Kontaktandmed",
+				"fullName":"Nimi",
+				"firstName":{
+					"name":"Eesnimi",
+					"placeholder":"Mati"
+				},
+				"lastName":{
+					"name":"Perenimi",
+					"placeholder":"Maasikas"
+				},
+				"email":{
+					"name":"Meiliaadress",
+					"placeholder":"JohnSmith@OrganizationABC.com",
+					"unique":"Meiliaadress peab olema unikaalne.",
+					"invalid":"Vigane meiliaadress."
+				},
+				"alternativeEmail":{
+					"name":"Alternatiivne meiliaadress",
+					"placeholder":"alternatiivne@email.com"
+				},
+				"thirdEmail":"Kolmas meiliaadress",
+				"landline":{
+					"name":"Lauatelefoni number",
+					"short":"Telefoninumber",
+					"invalid":"Vigane telefoninumber."
+				},
+				"landlineExtension":{
+					"name":"Laiendus",
+					"short":"Laiendus",
+					"placeholder":"Laiendus"
+				},
+				"mobile":{
+					"name":"Mobiiltelefoni number",
+					"placeholder":"number"
+				},
+				"address":{
+					"title":"Aadress",
+					"name":"Aadress",
+					"placeholder":"Tore tänav 123"
+				},
+				"city":{
+					"name":"Linn",
+					"placeholder":"Linn"
+				},
+				"postcode":{
+					"name":"Postiindeks",
+					"placeholder":"Postiindeks",
+					"tooLong":"Postiindeks on liiga pikk."
+				},
+				"country":{
+					"name":"Riik",
+					"placeholder":"Riik",
+					"unrecognized":"Tundmatu riik."
+				},
+				"billingAddress":{
+					"name":"Arve saaja aadress",
+					"country":"Arve saaja riik",
+					"placeholder":"Aadress",
+					"sameAsAddress":"Postiaadress ja arve saaja aadress on samad",
+					"useOrganizationAddress":"Kasuta asutuse aadressi arve saaja aadressina"
+				}
+			},
+			"organization":{
+				"title":"Asutus",
+				"name":{
+					"name":"Asutuse nimi",
+					"placeholder":"Asutuse nimi"
+				},
+				"type":{
+					"name":"Asutuse tüüp",
+					"required":"Asutuse tüüp on kohustuslik",
+					"placeholder":"Muu asutuse tüüp"
+				}
+			}
+		},
+		"extensionApplication":{
+			"title":"Alusta laienduse kasutamise taotlemise protsessi",
+			"sure":"Kas oled kindel, et soovid kasutada just seda laiendust?",
+			"form":{
+				"title":"Laienduse kasutamise taotlemise avaldus",
+				"why":"Palun kirjeld, miks soovid seda laiendust kasutada.",
+				"purpose":"Kasutuse eesmärk",
+				"error":"Põhjus peab olema pikem."
+			},
+			"agreement":"Laienduse leping",
+			"license":"Laienduse litsents",
+			"warning":{
+				"change":"Laienduse kasutamiseks registreerumisel on vaja teha muudatusi",
+				"change.detail":"Sinu registreerimist laienduse kasutamiseks on vaja uuendada. Palun loe saadetud meili, milles on toodud vajalikud muudatused, et registreerumine lõpule viia.",
+				"rejected":"Registreerumine laienduse kasutamiseks on tagasi lükatud",
+				"rejected.detail":"Sinu registreerimist laienduse kasutamiseks on vaja uuendada. Palun loe saadetud meili, milles on toodud vajalikud muudatused, et registreerumine lõpule viia.",
+				"approved":"Registreerumine laienduse kasutamiseks on heaks kiidetud.",
+				"approved.detail":"Taotlus on heaks kiidetud."
+			},
+			"delete":{
+				"title":"Tühista taotlus",
+				"sure":"Kas oled kindel, et soovid tühistada taotluse?",
+				"sure.detail":"Tühistades kaotad kõik sellel taoltusel salvestatud andmed."
+			}
+		},
+		"footer":{
+			"tos":"Tingimused",
+			"pp":"Privaatsuspoliitika",
+			"contact":"Võta meiega ühendust"
+		},
+		"landingPage":{
+			"appName":"Litsentseerimise ja väljaannete jagamise tööriist liikmetele",
+			"purpose":"Seda teenust pakub IHTSDO asutustele ja isikutele, kes soovivad kasutada SNOMED CT-i rahvusvahelist väljaannet mitte-liikmesriikide territooriumitel.",
+			"furtherDetails":"Edasise informatsiooni saamiseks, pöördu palun <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO veebilehele </a> või <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Korduma Kippuvate Küsimuste lehele</a>.",
+			"loginHere":"Logi sisse",
+			"member.purpose1":"MLDS on kohaliku kontaktpunkti kasutatav tööriist",
+			"member.purpose2":" eesmärgiga hallata siduspartnerite litsentsilepinguid ning taotlusi ja kasutamise aruandeid ",
+			"member.purpose3":" ja vajadusel ka mitte-liikmesriikides."
+		},
+		"releases":{
+			"title":"Väljaanded registreeritud kasutajatele.",
+			"noAuth":"<a href=\"#/login\">Logi sisse</a> allalaadimiseks või <a href=\"#/register\">registreeri</a> alustamaks taotlemise protsessi.",
+			"memberCountries":"Liikmesriigid",
+			"countryIsMissing":"Kui riik, mida otsid puudub nimekirjast, pöördu palun <a href=\"http://www.ihtsdo.org/\">IHTSDO website</a> edasiseks informatsiooniks.",
+			"notAvailable":"Hetkel väljaande paketid puuduvad",
+			"releasePackageLicense":"Väljaande paketi litsents",
+			"reviewLicense":"Palun tutvu ja nõustu litsentsi tingimustega enne kui alustad allalaadimist:",
+			"agreeToLicense":"Nõustun litsentsi tingimustega",
+			"warning":{
+				"deactivated":"Konto mitteaktiivne",
+				"pending":"Pooleliolev arve",
+				"pAttention":"Esmane registreerimistaotlus vajab tähelepanu",
+				"pProcessed":"Esmane registreerimistaotlus on läbivaatamisel",
+				"apply":"Taotle laienduse kasutamist",
+				"aProcessed":"Taotlus on läbivaatamisel",
+				"aAttention":"Taoltus vajab tähelepanu, kliki jätkamiseks"
+			}
+		},
+		"requestPasswordReset":{
+			"title":"Salasõna uuendamine",
+			"detail":"Saadame sullE meili salasõna uuendamiseks.",
+			"button":"Taotle salasõna uuendamist",
+			"back":"Mine tagasi sisselogimise lehele"
+		},
+		"usage":{
+			"title":"Kasutuse logi",
+			"instructions":"Palun täida kasutamise aruanne valitud ajavahemiku kohta.",
+			"modal":{
+				"title":"Koosta kasutamise aruanne",
+				"instructions":"Palun lõpeta kasutamise aruanne kõikide ajavahemike kohta. Palun lisa raportid mineviku ja tänase kasutamise osas.",
+				"period":"Aruande periood"
+			},
+			"submit":{
+				"title":"Esita kasutamise aruanne",
+				"instructions":"Palun kontrolli enne esitamist aruandes esitatud andmete õigsust.",
+				"declarationForPeriod":"Aruande periood",
+				"button":"Esita aruanne"
+			},
+			"retract":{
+				"title":"Kasutamise aruande tagasivõtmine.",
+				"instructions":"Kas oled kindel, et soovid seda aruannet tagasi võtta? Sind viiakse tagasi sama aruande juurde, et saaksid seda muuta ja taasesitada. Uue ajavahemiku jaoks pead alustama uut aruannet.",
+				"button":"Võta aruanne tagasi"
+			}
+		},
+		"usageLog":{
+			"title":"Esita kasutamise aruanne",
+			"retract":"Võta aruanne tagasi",
+			"usage":"Kasutus",
+			"subTitle":"Litsentsi kasutus",
+			"usageFor":"Ksautus",
+			"pleaseFill":"Palun sisesta kogu informatsioon kasutamise kohta, mis on käesoleval hetkel teada. Kui taoltus on heaks kiidetud, on vajalik anda kinnitus kasutamise kohta.",
+			"licenseType":"Litsentsi tüüp",
+			"currentUsage":"Praegune kasutus",
+			"plannedUsage":"Planeeritud kasutus",
+			"purpose":"Eesmärk",
+			"impStatus":"Rakendamise seis",
+			"countries":{
+				"title":"Kasutamise riigid",
+				"subTitle":"Vali mitte-liikmesriigid, kus SNOMED CT-d kasutatakse.",
+				"list":"Riikide loend",
+				"search":"Otsi riike",
+				"homeCountry":"Elukohariik",
+				"button":"Lisa riik"
+			},
+			"institutions":{
+				"title":"All-litsenseeritud asutused",
+				"selectFirst":"Enne kui sisestada all-litsenseeritud asutust, tuleb valida riik.",
+				"noneSelected":"Ühetgi riiki pole valitud.",
+				"country":"Riik",
+				"deleteCountry":"Eemalda riik",
+				"hospAndInst":"Haigla/asutus",
+				"hospAndInst.title":"Haigla(d)/asutus(ed)",
+				"hospAndInst.plural":"Haiglad/asutused",
+				"started":"Kasutamise algus",
+				"finished":"Kasutamise lõpp",
+				"practices.title":"Praksis(ed)",
+				"practices":"Prksised",
+				"dataAnalysis":{
+					"title":"Andmeanalüüs",
+					"staff":"Haigla poolt pakutav tööjõud",
+					"dataCreation":"Andmeloomissüsteemida",
+					"independent":"Iseseisvad praksised",
+					"dataAnalysis":"Andmeanalüüsi süsteemida",
+					"systems":"Süsteemida",
+					"data":"Andmed",
+					"provideStaff":"Kui mitu haiglat pakub tööjõudu nimetatud praksistele?",
+					"usingDCSNotHosp":"Kui mitmed praksised kasutavad andmeloomissüsteeme, aga ei kuulu haigla alla?",
+					"usingDCSNotPract":"Kui mitu haiglat ja teist asutust kasutavad andmeloomissüsteeme, kuid ei ole praksised litsentsilepingu mõistes?",
+					"howManyDAS":"Kui mitu andmeanalüüsisüsteemi olete juurutanud antud piirkonnas ja kui mitu andmebaasi ühe juurutamise kohta?"
+				},
+				"modal":{
+					"subtitle":"´Haigla/asutuse nimi",
+					"placeholder":"Sisesta haigla/asutuse nimi",
+					"dateBefore":"Kuupäev enne kasutamise alustamise kuupäeva",
+					"sure":"Kas oled kindel et soovid eemaldada?",
+					"andEntries":"ja seotud sisestused?",
+					"addPractices":"Palun lisa SNOMED-it kasutavate praksiste number"
+				}
+			},
+			"otherActivities":"Muud tegevused",
+			"notificationRequired":"Siduspartner on kohustatud teavitama IHTSDO-t kõikidest nendest tegevustest, mis ei kuulu kokkulepitud kategooriate alla ja millega võib kaasneda võimalik tasu.",
+			"pleaseDescribe":"Palun kirjelda tegevust täpsemalt.",
+			"submitFor":"Esita aruanne"
+		},
+		"usageReports":{
+			"reportDate":"Aruande kuupäev",
+			"hospitals":"Haiglad",
+			"usageType":"Kasutuse tüüp",
+			"countries":"Riigid",
+			"newReport":"Uus aruanne"
+		},
+		"userDashboard":{
+			"affiliateNo":"Siduspartner puudub",
+			"edit":"Muuda siduspartneri taotlust",
+			"myPackages":"Minu väljaande paketid",
+			"otherPackages":"Muud avalikud väljaanded",
+			"warning":{
+				"required.title":"Kasutamise aruanne on kohustuslik",
+				"required.msg":"Sinu esialgne kasutamise aruanne on salvestatud. Pea meeles, et kasutamise aruanne tuleb esitada 15. jaanuariks. NB! SNOMED CT-i uue versiooni allalaadimiseks peavad eelnevate aastate kasutamise aruanded olema esitatud!.",
+				"change.title":"Siduspartneri registreerimisel on vaja teha muudatusi",
+				"change.msg":"Jätkamiseks on vaja registreerimist uuendada. Sulle saadetud meilis on toodud registreerimise lõpetamiseks vajalikud muudatused.",
+				"declined.title":"Siduspartneri registreerimine on tagasi lükatud",
+				"declined.msg":"Sinu registreerimine on tagasi lükatud. Sulle saadeti meil täpsustava infoga.",
+				"deactivated.title":"Konto on mitteaktiivne",
+				"deactivated.msg":"Sinu konto muudeti mitteaktiivseks. Väljaande pakettide allalaadimine ja laienduste kasutamise taotlused on peatatud. Palun võta ühendust <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> probleemi lahedamiseks.",
+				"iPending.title":"Kontoga seotud pooleliolev arve",
+				"iPending.msg":"Sinu kontol on pooleliolev arve. Väljaande paketi allalaadimine on peatatud. Palun võta ühendust <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> probleemi lahendamiseks.",
+				"dPending.title":"Konto pooleliolev deaktiveerimine",
+				"dPending.msg":"Sinu konto muudetakse mitteaktiivseks. Palun võta ühendust <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> probleemi lahendamiseks."
+			}
+		}
+	}
+}
