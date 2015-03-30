@@ -51,6 +51,7 @@
         },
         "language": {
             "da": "danska",
+            "ee": "estniska",
             "en": "engelska",
             "fr": "franska",
             "de": "tyska",
@@ -1009,9 +1010,9 @@
             "purpose": "Denna portal används av det svenska nationella releasecentret på Socialstyrelsen för att administrera licenser och användningsrapportering för den internationella och svenska releasen av Snomed CT vid användning i Sverige.",
             "furtherDetails": "Mer information finns på <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO:s webbplats</a> och på webbsidan med <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">vanliga frågor</a>.",
             "loginHere": "logga in här",
-            "member.purpose1": "Denna portal används av det svenska nationella releasecentret på Socialstyrelsen ",
-            "member.purpose2": " för att administrera licenser och användningsrapportering för den internationella och ",
-            "member.purpose3": " svenska releasen av Snomed CT vid användning i Sverige. I samband med att du registrerar ett konto i portalen godkänner du att informationen du lämnar kan komma att användas på de sätt som anges i integritetspolicyn nedan. Kontaktinformationen sparas tills du avregistreras som användare i portalen."
+            "member.purpose1": "Denna portal används av Socialstyrelsen, som ansvarar för det nationella releasecentret för Snomed CT i ",
+            "member.purpose2": ", för att administrera licenser och användningsrapportering för den internationella och svenska releasen av Snomed CT, vid användning i ",
+            "member.purpose3": ". I samband med att du registrerar ett konto i portalen godkänner du att informationen du lämnar kan komma att användas på de sätt som anges i integritetspolicyn nedan. Kontaktinformationen sparas tills du avregistreras som användare i portalen."
         },
         "releases": {
             "title": "Releaser som är tillgängliga för registrerade användare",
