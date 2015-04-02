@@ -22,6 +22,7 @@
 			},
 			"dashboard":"Dashboard",
 			"help":"Help",
+			"privacyPolicy":"Privacy Policy",
 			"usageReports":"Usage Reports",
 			"applications":"Applications",
 			"releasePackages":"Release Packages",
@@ -50,13 +51,15 @@
 		},
 		"language":{
 			"da":"Danish",
+			"ee":"Estonian",
 			"en":"English",
 			"fr":"French",
 			"de":"German",
 			"nl":"Dutch",
 			"pl":"Polish",
 			"pt":"Portuguese",
-			"ru":"Russian"
+			"ru":"Russian",
+			"se":"Swedish"
 		},
 		"member":{
 			"IHTSDO":"IHTSDO",

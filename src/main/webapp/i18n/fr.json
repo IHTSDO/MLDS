@@ -22,6 +22,7 @@
 			},
 			"dashboard":"Tableau de bord",
 			"help":"Aide",
+			"privacyPolicy":"Politique de confidentialité",
 			"usageReports":"Rapports d'utilisation",
 			"applications":"Applications",
 			"releasePackages":"Éditions de logiciel",
@@ -50,13 +51,15 @@
 		},
 		"language":{
 			"da":"danois",
+			"ee":"estonien",
 			"en":"anglais",
 			"fr":"français",
 			"de":"allemand",
 			"nl":"néerlandais",
 			"pl":"polonais",
 			"pt":"portugais",
-			"ru":"russe"
+			"ru":"russe",
+			"se":"suédois"
 		},
 		"member":{
 			"IHTSDO":"IHTSDO",

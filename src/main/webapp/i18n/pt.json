@@ -22,6 +22,7 @@
 			},
 			"dashboard":"Painel de controle",
 			"help":"Ajuda",
+			"privacyPolicy":"Política De Privacidade",
 			"usageReports":"Relatórios de utilização",
 			"applications":"Candidaturas",
 			"releasePackages":"Ficheiros de distribuição",
@@ -50,13 +51,15 @@
 		},
 		"language":{
 			"da":"Dinamarquês",
+			"ee":"Estoniano",
 			"en":"Inglês",
 			"fr":"Francês",
 			"de":"Alemão",
 			"nl":"Holandês",
 			"pl":"Polaco",
 			"pt":"Português",
-			"ru":"Russo"
+			"ru":"Russo",
+			"se":"Sueco"
 		},
 		"member":{
 			"IHTSDO":"IHTSDO",
