@@ -12,7 +12,7 @@
             Your IHTSDO-MLDS account has been created, please click on the URL below to activate it:
         </p>
         <p>
-            Activate Account: <a th:href="@{|${baseUrl}/#/activate?key=${user.activationKey}|}"
+            <span th:text="#{activation.activateLinkLabel}">Activate Account</span>: <a th:href="@{|${baseUrl}/#/activate?key=${user.activationKey}|}"
                th:text="@{|${baseUrl}/#/activate?key=${user.activationKey}|}"></a>
         </p>
         <p>
