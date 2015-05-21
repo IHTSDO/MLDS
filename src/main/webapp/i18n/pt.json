@@ -53,6 +53,7 @@
 			"da":"Dinamarquês",
 			"ee":"Estoniano",
 			"en":"Inglês",
+			"es":"Espanhol",
 			"fr":"Francês",
 			"de":"Alemão",
 			"nl":"Holandês",
@@ -842,10 +843,10 @@
 	},
 	"form":{
 		"requiredField":"Campo Obrigatório.",
-		"tooLong":"Dados introduzidos demasiado grandes.", 
+		"tooLong":"Dados introduzidos demasiado grandes.",
 		"invalidNumber":"Não é um numero válido",
 		"pleaseFix":"Por favor corrija os erros acima listados."
-	},                
+	},
 	"views":{
 		"activate":{
 			"title":"Ativação",
@@ -1148,4 +1149,3 @@
 		}
 	}
 }
-		
