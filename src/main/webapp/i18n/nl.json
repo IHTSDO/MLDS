@@ -53,6 +53,7 @@
 			"da":"Deens",
 			"ee":"Estlands",
 			"en":"Engels",
+			"es":"Spaans",
 			"fr":"Frans",
 			"de":"Duits",
 			"nl":"Nederlands",
@@ -842,7 +843,7 @@
 	},
 	"form":{
 		"requiredField":"Verplicht veld.",
-		"tooLong":"Ingevoerde waarde is te lang.", 
+		"tooLong":"Ingevoerde waarde is te lang.",
 		"invalidNumber":"Geen geldig nummer",
 		"pleaseFix":"Gelieve de bovenstaande fouten te verbeteren."
 	},
