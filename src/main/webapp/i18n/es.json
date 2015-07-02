@@ -423,7 +423,7 @@
         "welcome": "Bienvenido a IHTSDO-Centro de Servicios de Salud - NRC - Licenciamiento y distribución de SNOMED-CT",
         "subwelcome": "Orientación sobre SNOMED CT ",
         "form": {
-            "tos": "Debe estar de acuerdo con nuestros <a href=\"/tos.html\" target=\"_blank\">Términos y Condiciones</a>.",
+            "tos": "Debe estar de acuerdo con nuestros <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service#MLDSTermsofService-Español\" target=\"_blank\">Términos y Condiciones</a>.",
             "button": "Iniciar registro",
             "confirmemail": "Correo electrónico (confirmar)"
         },

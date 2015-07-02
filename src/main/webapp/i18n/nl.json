@@ -423,7 +423,7 @@
 		"welcome":"Welkom bij IHTSDO-MLDS",
 		"subwelcome":"De toegangspoort naar SNOMED CT",
 		"form":{
-			"tos":"Verklaar je akkoord met onze <a href=\"/tos.html\" target=\"_blank\">Bepalingen en Voorwaarden </a>.",
+			"tos":"Verklaar je akkoord met onze <a href=\"/https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Bepalingen en Voorwaarden </a>.",
 			"button":"Start Registratie",
 			"confirmemail":"E-mail (bevestigen)"
 		},

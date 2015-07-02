@@ -423,7 +423,7 @@
         "welcome": "Välkommen till Licens- och distributionsportalen",
         "subwelcome": "Här hittar du information om Snomed CT",
         "form": {
-            "tos": "Godkänn våra <a href=\"/tos.html\" target=\"_blank\">användarvillkor</a>.",
+            "tos": "Godkänn våra <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">användarvillkor</a>.",
             "button": "Börja registreringen",
             "confirmemail": "E-postadress (bekräfta)"
         },
