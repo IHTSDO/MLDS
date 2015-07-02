@@ -422,7 +422,7 @@
 		"welcome":"Bienvenue sur IHTSDO-MLDS",
 		"subwelcome":"Votre porte d'accès à SNOMED CT Orientation",
 		"form":{
-			"tos":"Veuillez accepter nos <a href=\"/tos.html\" target=\"_blank\">clauses et conditions</a>.",
+			"tos":"Veuillez accepter nos <a href=\"/https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">clauses et conditions</a>.",
 			"button":"Commencer l'enregistrement",
 			"confirmemail":"E-mail (confirmer)"
 		},

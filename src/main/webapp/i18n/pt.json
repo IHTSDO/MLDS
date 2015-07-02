@@ -423,7 +423,7 @@
 		"welcome":"Benvindo à MLDS (Serviço de Licenciamento e Distribuição) da IHTSDO",
 		"subwelcome":"A porta de entrada para ter acesso ao SNOMED CT",
 		"form":{
-			"tos":"Concorda com os nossos <a href=\"/tos.html\" target=\"_blank\">Termos e Condições</a>.",
+			"tos":"Concorda com os nossos <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Termos e Condições</a>.",
 			"button":"Início do registo",
 			"confirmemail":"e-mail (confirmar)"
 		},
