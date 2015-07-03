@@ -47,7 +47,8 @@
                 "manageBlacklist": "Administrar Lista Negra",
                 "nationalRegistrationList": "Lista de Registro Nacional"
             },
-            "language": "Lenguaje"
+            "language": "Lenguaje",
+            "cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/ddde9484b736d791f04a743c273963f1.js\"></script>"
         },
         "language": {
             "da": "Danés",
@@ -711,8 +712,8 @@
             "INDIVIDUAL": "Individual"
         },
         "type.extended": {
-            "COMMERCIAL": "Commercial - Desarrollador, Proveedor de software o Proveedor de Terminología",
-            "ACADEMIC": "Academic - Para uso interno dentro de una Organización. (Educativo, Investigación, Desarrollo o Proveedor de Servicios de Salud)",
+            "COMMERCIAL": "Comercial - Desarrollador, Proveedor de software o Proveedor de Terminología",
+            "ACADEMIC": "Académico - Para uso interno dentro de una Organización. (Educativo, Investigación, Desarrollo o Proveedor de Servicios de Salud)",
             "OTHER": "Otro - Uso no especificado en otras opciones",
             "INDIVIDUAL": "Individual - Personal, Educativo o Investigación"
         },
