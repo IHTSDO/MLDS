@@ -47,7 +47,8 @@
                 "manageBlacklist": "Manage Blacklist",
                 "nationalRegistrationList": "National Registration List"
             },
-            "language": "Language"
+            "language": "Language",
+            "cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/43e68e5dbb274c2d65ae9b31deb30d2a.js\"></script>"
         },
         "language": {
             "da": "Danish",
