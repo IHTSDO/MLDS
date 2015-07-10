@@ -1012,8 +1012,8 @@
             "purpose": "Este servicio es proporcionado por la IHTSDO para que las organizaciones e individuos puedan solicitar y acceder a la Versión Internacional de  SNOMED CT para uso en los Países no miembros.",
             "furtherDetails": "Por más información, por favor dirigirse a  <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO website</a> o  <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/Preguntas+Frecuentes\" target=\"_blank\">Preguntas Frecuentes</a>.",
             "loginHere": "Inicie sesión",
-            "member.purpose1": "El Centro de Servicios de Salud - NRC - Licenciamiento y distribución de SNOMED-CT es una herramienta utilizada por el NRC ",
-            "member.purpose2": " para gestionar las Licencias de Afiliación de SNOMED CT incluyendo nuevas solicitudes, renovaciones y reportes dentro de los paises miembros ",
+            "member.purpose1": "Esta es una herramienta utilizada por el National Release Center ",
+            "member.purpose2": " para gestionar las Licencias de Afiliación de SNOMED CT. Incluye nuevas solicitudes, renovaciones y reportes dentro de ",
             "member.purpose3": " y de ser relevante en los paises no miembros."
         },
         "releases": {
