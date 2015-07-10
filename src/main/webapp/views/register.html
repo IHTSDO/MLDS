@@ -10,7 +10,7 @@
 			<div class="alert alert-danger" ng-show="error.general" translate="register.messages.error.fail">
 				<strong>Registration failed!</strong> Please check your input and try again.
 			</div>
-			
+
 			<div class="alert alert-danger" ng-show="error.onBlocklist" translate="register.messages.error.blocklist">
 				Due to our IT policies we are unable to process the entered email address. Please contact <a href="mailto:Support@IHTSDO.org">Support@IHTSDO.org</a> for further assistance.
 			</div>
@@ -31,20 +31,20 @@
 
 								<div class="form-group">
 									<label translate="settings.form.countryOfResidence">Country of residence</label>
-									<input class="form-control" type="text" name="country" autofocus=""  autocomplete="off" 
+									<input class="form-control" type="text" name="country" autofocus=""  autocomplete="off"
 										placeholder="{{'settings.form.countryOfResidence.placeholder' | translate}}"
-										ng-model="countryCommonName" 
+										ng-model="countryCommonName"
 										required=""
 										typeahead="'global.country.' + country.isoCode2 | translate for country in availableCountries | filter:$viewValue | limitTo:8"
 										typeahead-editable="false">
-									
+
 									<div ng-show="createUserForm.$error">
 										<div ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="help-block">Required field.</div>
 										<div ng-show="createUserForm.country.$error.editable && createUserForm.attempted" class="help-block">Unrecognized country</div>
-										<div class="help-block" 
-											ng-show="createUserForm.country.$error.excluded" 
+										<div class="help-block"
+											ng-show="createUserForm.country.$error.excluded"
 											translate="register.messages.validate.country.notMLDS" translate-values="{link:registerAccount.country.alternateRegistrationUrl}">
-											This IHTSDO member country manages an independent registry for SNOMED users.  
+											This IHTSDO member country manages an independent registry for SNOMED users.
 											</div>
 									</div>
 								</div>
@@ -131,7 +131,7 @@
 							Your e-mail is required to be at least 5 characters
 						</div>
 						<div class="help-block"
-								ng-show="createUserForm.confirmemail.$error.maxlength" 
+								ng-show="createUserForm.confirmemail.$error.maxlength"
 								translate="global.messages.validate.email.maxlength">
 							Your e-mail cannot be longer than 100 characters
 						</div>
@@ -188,18 +188,17 @@
 				<div class="checkbox form-group">
 					<label><input ng-model="user.tos" name="tos" type="checkbox" required="" />
 					<small class="muted" translate="register.form.tos">
-						Agree to our 
-						<a href="/tos.html" target="_blank">Terms and Conditions</a>.
+						Agree to our
+						<a href="https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service" target="_blank">Terms and Conditions</a>.
 					</small></label>
 					<div ng-show="createUserForm.tos.$error.required && createUserForm.attempted">
 						<div class="help-block">You must agree to the IHTSDO Terms and Conditions to continue.</div>
 					</div>
-					
+ 
 				</div>
-				
+
 				<button type="submit" class="btn btn-primary btn-lg" translate="register.form.button">Register</button>
 			</form>
 		</div>
 		<div class="col-md-3"></div>
 	</div>
-
