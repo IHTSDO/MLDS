@@ -31,7 +31,8 @@
 				"changePassword":"Muuda salasõna",
 				"logout":"Logi välja"
 			},
-			"language":"Keel"
+			"language":"Keel",
+			"cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/43e68e5dbb274c2d65ae9b31deb30d2a.js\"></script>"
 		},
 		"language":{
 			"da":"taani keel",
@@ -406,7 +407,7 @@
 		"welcome":"Tere tulemast IHTSDO-MLDS-i",
 		"subwelcome":"SNOMED CT tutvustus",
 		"form":{
-			"tos":"Nõustu <a href=\"/tos.html\" target=\"_blank\">tingimustega</a>.",
+			"tos":"Nõustu <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">tingimustega</a>.",
 			"button":"Alusta registreerimist",
 			"confirmemail":"Meiliaadress (korda)"
 		},
