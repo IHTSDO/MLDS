@@ -14,7 +14,7 @@
 				<tr>
 					<th translate="views.usageReports.reportDate">Report Date</th>
 					<th translate="views.usageReports.usageType" ng-show="showAllColumns">Usage Type</th>
-					<th trasnlate="global.word.status" ng-show="showAllColumns">Status</th>
+					<th translate="global.word.status" ng-show="showAllColumns">Status</th>
 					<th translate="views.usageReports.countries" ng-show="showAllColumns">Countries</th>
 					<th translate="views.usageReports.hospitals">Hospitals</th>
 					<th translate="views.usageLog.institutions.practices">Practices</th>
@@ -25,7 +25,7 @@
 					ng-class="{highlight:usageReportsUtils.isUsageReportWaitingForApplicant(usageReport)}"
 					ng-repeat="usageReport in affiliate.commercialUsages | orderBy:['-startDate', isActiveUsageReport, '-effectiveTo']">
 					<td ng-class="{'text-muted':usageReport.effectiveTo !== null}">
-						<span class="btn-link"> 
+						<span class="btn-link">
 							<span ng-show="usageReport.effectiveTo" class="text-muted">
 								<i class="fa fa-minus-square-o"></i>
 							</span>
@@ -38,7 +38,7 @@
 							</span>
 							<span ng-class="{'text-muted':usageReport.effectiveTo}">
 								{{usageReport.startDate | date : 'yyyy-MM'}} &#8211 {{usageReport.endDate | date : 'yyyy-MM'}}
-								
+
 							</span>
 						</span>
 					</td>
