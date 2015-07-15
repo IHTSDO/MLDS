@@ -378,7 +378,10 @@
                     "invalid": "Su correo electrónico no es válido.",
                     "minlength": "Su correo electrónico debe tener al menos 1 caracter",
                     "maxlength": "Su correo electrónico no debe tener más de 50 caracteres"
-                }
+                },
+                "confirmemail": {
+                    "match": "La confirmación de correo electrónico no coincide con su correo electrónico"
+                },
             }
         },
         "word": {
