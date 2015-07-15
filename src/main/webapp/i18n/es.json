@@ -378,6 +378,9 @@
                     "invalid": "Su correo electrónico no es válido.",
                     "minlength": "Su correo electrónico debe tener al menos 1 caracter",
                     "maxlength": "Su correo electrónico no debe tener más de 50 caracteres"
+                },
+                "confirmemail": {
+                    "match": "La confirmación de correo electrónico no coincide con su correo electrónico"
                 }
             }
         },
@@ -437,6 +440,9 @@
                 },
                 "country": {
                     "notMLDS": "Las solicitudes para uso de SNOMED CT en su país de residencia deben ser solicitadas al representante correspondiente de su país- <a href=\"{{link}}\" target=\"_blank\">aquí</a>. Si usted quiere solicitar un acuerdo de Bien Público para utilizar SNOMED CT en otro país, o desea realizar otras averiguaciones por favor contacte a la IHTSDO a través de <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+                },
+                "registration": {
+                    "usagetyperequired":"Se requiere el tipo de uso"
                 }
             },
             "success": "<strong>¡Registro guardado!</strong>Por favor revise su correo electrónico para confirmar.",
@@ -713,7 +719,7 @@
         },
         "type.extended": {
             "COMMERCIAL": "Comercial - Desarrollador, Proveedor de software o Proveedor de Terminología",
-            "ACADEMIC": "Académico - Para uso interno dentro de una Organización. (Educativo, Investigación, Desarrollo o Proveedor de Servicios de Salud)",
+            "ACADEMIC": "Académico - Para uso interno dentro de una Organización (Educativo, Investigación, Desarrollo o Proveedor de Servicios de Salud)",
             "OTHER": "Otro - Uso no especificado en otras opciones",
             "INDIVIDUAL": "Individual - Personal, Educativo o Investigación"
         },
@@ -1089,7 +1095,7 @@
                 "deleteCountry": "Eliminar País",
                 "hospAndInst": "Hospital/Institución",
                 "hospAndInst.title": "Hospital/Insitutución",
-                "hospAndInst.plural": "Hospital(es)/Institucion(es)”",
+                "hospAndInst.plural": "Hospital(es)/Institución(es)”",
                 "started": "Comienzo de Utilización",
                 "finished": "Fin de Utilización",
                 "practices.title": "Clínicas",
@@ -1111,7 +1117,7 @@
                     "subtitle": "Nombre del Hospital/Institución",
                     "placeholder": "Ingrese Nombre de Hospital/Institución",
                     "dateBefore": "Fecha antes de usar fecha",
-                    "sure": "¿Está seguro de que desea eliminar?",
+                    "sure": "¿Está seguro de desea eliminar Uruguay y todos sus registros relacionados?",
                     "andEntries": "¿y todos sus registros relacionados?",
                     "addPractices": "Por favor agregue el número de Clínicas (atención primaria) que utilizan SNOMED"
                 }
