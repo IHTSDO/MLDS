@@ -381,7 +381,7 @@
                 },
                 "confirmemail": {
                     "match": "La confirmación de correo electrónico no coincide con su correo electrónico"
-                },
+                }
             }
         },
         "word": {
