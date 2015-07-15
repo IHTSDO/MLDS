@@ -137,6 +137,7 @@
 						</div>
 						<div class="help-block"
 								ng-show="createUserForm.confirmemail.$error.match && !createUserForm.confirmemail.$error.required  && !createUserForm.confirmemail.$error.minlength && !createUserForm.confirmemail.$error.maxlength"
+								translate="global.messages.validate.confirmemail.match">
 								>
 							Your email confirmation does not match your email
 						</div>
@@ -194,7 +195,7 @@
 					<div ng-show="createUserForm.tos.$error.required && createUserForm.attempted">
 						<div class="help-block">You must agree to the IHTSDO Terms and Conditions to continue.</div>
 					</div>
- 
+
 				</div>
 
 				<button type="submit" class="btn btn-primary btn-lg" translate="register.form.button">Register</button>
