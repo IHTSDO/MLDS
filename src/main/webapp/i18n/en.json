@@ -378,6 +378,9 @@
                     "invalid": "Your e-mail is invalid.",
                     "minlength": "Your e-mail is required to be at least 1 character",
                     "maxlength": "Your e-mail cannot be longer than 50 characters"
+                },
+                "confirmemail": {
+                    "match": "Your confirmation email does match the email"
                 }
             }
         },
@@ -437,6 +440,9 @@
                 },
                 "country": {
                     "notMLDS": "Applications for use of SNOMED CT in your country of residence must be made to the appropriate representative from your country - <a href=\"{{link}}\" target=\"_blank\">here</a>. If you wish to apply for a Public Good agreement to use SNOMED CT in another country, or wish to make other inquiries please contact the IHTSDO at <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+                },
+                "registration": {
+                    "usagetyperequired":"Usage type required"
                 }
             },
             "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
