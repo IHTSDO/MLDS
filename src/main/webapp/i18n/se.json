@@ -378,7 +378,10 @@
                     "invalid": "Din e-postadress är inte giltig.",
                     "minlength": "Din e-postadress måste vara minst 1 tecken lång",
                     "maxlength": "Din e-postadress får vara högst 50 tecken lång"
-                }
+                },
+                "confirmemail": {
+      					    "match": "Din e-postbekräftelse stämmer inte överens med e-post"
+      				  }
             }
         },
         "word": {
@@ -437,7 +440,11 @@
                 },
                 "country": {
                     "notMLDS": "Ansökningar om att använda Snomed CT i ditt land måste skickas till det nationella releasecentret i ditt land - <a href=\"{{link}}\" target=\"_blank\">här</a>. Om du vill ansöka om ett allmännyttoavtal för att använda Snomed CT i något annat land eller har andra frågor ber vi dig kontakta IHTSDO på <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
-                }
+                },
+                "registration": {
+      						  "usagetyperequired":"Nödvändigt fält",
+      						  "subtyperequired":"Nödvändigt fält"
+      				  }
             },
             "success": "<strong>Registreringen är sparad!</strong> Kontrollera att du har fått en bekräftelse skickad till din e-postadress.",
             "error": {
