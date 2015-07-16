@@ -43,7 +43,7 @@
 						<option value="RESEARCH" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.RESEARCH">Research</option>
 						<option value="VENDOR" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.VENDOR">Vendor</option>
 					</select>
-					<p ng-show="affiliateApplicationForm.usageSubType.$error.required && affiliateApplicationForm.attempted" class="help-block">
+					<p ng-show="affiliateApplicationForm.usageSubType.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="register.messages.validate.registration.subtyperequired">
 						Subtype field is required.
 					</p>
 				</div>
