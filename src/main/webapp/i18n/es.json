@@ -442,7 +442,8 @@
                     "notMLDS": "Las solicitudes para uso de SNOMED CT en su país de residencia deben ser solicitadas al representante correspondiente de su país- <a href=\"{{link}}\" target=\"_blank\">aquí</a>. Si usted quiere solicitar un acuerdo de Bien Público para utilizar SNOMED CT en otro país, o desea realizar otras averiguaciones por favor contacte a la IHTSDO a través de <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
                 },
                 "registration": {
-                    "usagetyperequired":"Se requiere el tipo de uso"
+                    "usagetyperequired":"Se requiere el tipo de uso",
+                    "subtyperequired":"Campo requerido"
                 }
             },
             "success": "<strong>¡Registro guardado!</strong>Por favor revise su correo electrónico para confirmar.",
@@ -462,7 +463,7 @@
             "conditions": "Por favor seleccione las condiciones bajo las cuales será usado el producto",
             "typeOfAgreement": "Tipo de acuerdo",
             "validation": {
-                "other.required": "Other field is required."
+                "other.required": "Campo requerido"
             },
             "license.title": "Acuerdo con SNOMED CT",
             "license": "Licencia SNOMED ",
