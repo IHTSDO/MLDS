@@ -380,7 +380,7 @@
                     "maxlength": "Your e-mail cannot be longer than 50 characters"
                 },
                 "confirmemail": {
-                    "match": "Your confirmation email does match the email"
+                    "match": "Your confirmation email does not match the email"
                 }
             }
         },

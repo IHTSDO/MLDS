@@ -378,6 +378,9 @@
 					"invalid":"O seu e-mail é inválido.",
 					"minlength":"É necessário que o seu e-mail tenha pelo menos 1 carater",
 					"maxlength":"O seu e-mail não pode ter mais de 50 carateres"
+				},
+				"confirmemail": {
+					"match": "Seu e-mail de confirmação não corresponde ao e-mail"
 				}
 			}
 		},
@@ -437,6 +440,10 @@
 				},
 				"country":{
 					"notMLDS":"O Registo para utilizar o SNOMED CT no seu país de residência, deve ser feito através do representante do seu país - <a href=\"{{link}}\" target=\"_blank\">Aqui</a>. Se quiser candidatar-se ao Acordo para o Bem Público, para usar o SNOMED CT noutro país, por favor contacte <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+				},
+				"registration": {
+						"usagetyperequired":"Campo obrigatório",
+						"subtyperequired":"Campo obrigatório"
 				}
 			},
 			"success":"<strong>Registo guardado!</strong> Por favor verifique o seu e-mail para confirmação.",
