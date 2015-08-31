@@ -347,7 +347,7 @@
             "newpassword.placeholder": "Su nueva contraseña",
             "confirmpassword": "Confirmación de nueva contraseña",
             "confirmpassword.placeholder": "Confirme su nueva contraseña",
-            "email": "Correo electrónico",
+            "email": "Correo electónico de la Unidad que administra SNOMED CT",
             "email.placeholder": "Su correo electrónico",
             "country": "País de residencia"
         },
@@ -429,7 +429,7 @@
         "form": {
             "tos": "Debe estar de acuerdo con nuestros <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service#MLDSTermsofService-Español\" target=\"_blank\">Términos y Condiciones</a>.",
             "button": "Iniciar registro",
-            "confirmemail": "Correo electrónico (confirmar)"
+            "confirmemail": "Correo electónico de la Unidad que administra SNOMED CT (confirmar)"
         },
         "messages": {
             "validate": {
