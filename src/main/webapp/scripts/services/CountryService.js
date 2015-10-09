@@ -19,7 +19,7 @@ angular.module('MLDS')
 			_.each(countries,function(country) {
 				country.commonName = $translate.instant('global.country.'+country.isoCode2);
 				//If this country is managed by someone other than IHTSDO then we know they're using MLDS themselves.
-				if (country.member.key != "IHTSDO") {
+				if (country.member && country.member.key != "IHTSDO") {
 					tempCountriesUsingMLDS.push(country.isoCode2);
 				}
 			});
