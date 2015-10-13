@@ -19,5 +19,10 @@ public class ClientLinkBuilder {
 	public String buildViewReleasesLink() {
 		return templateEvaluator.getUrlBase() + "#/viewReleases";
 	}
+
+	public String buildViewApplication(long applicationId) {
+		//FIXME implement
+		return templateEvaluator.getUrlBase() + "#/viewApplication";
+	}
 	
 }

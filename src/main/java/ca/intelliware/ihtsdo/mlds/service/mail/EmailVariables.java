@@ -7,5 +7,7 @@ public class EmailVariables {
 	static final String VIEW_PACKAGES_URL = "viewPackagesUrl";
 	static final String MEMBERKEY = "memberKey";
 	static final String AFFILIATE_ID = "affiliateId";
+	static final String VIEW_APPLICATION_URL = "viewApplicationUrl";
+	static final String APPLICATION_ID = "applicationId";
 	
 }
