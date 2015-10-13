@@ -63,6 +63,7 @@ import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
 import ca.intelliware.ihtsdo.mlds.service.UsageReportTransition;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
+import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationPendingEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
@@ -83,6 +84,7 @@ public class ApplicationResource {
 	@Resource SessionService sessionService;
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource ApplicationApprovedEmailSender applicationApprovedEmailSender;
+	@Resource ApplicationApprovalStateChangeNotifier applicationApprovalStateChangeNotifier;
 	@Resource UserRepository userRepository;
 	@Resource ApplicationAuditEvents applicationAuditEvents;
 	@Resource AffiliateAuditEvents affiliateAuditEvents;
@@ -315,6 +317,8 @@ public class ApplicationResource {
         application = saveApplicationFields(request,application);
 		authorizationChecker.checkCanAccessApplication(application);
 		
+		ApprovalState originalApplicationState = application.getApprovalState();
+		
 		// Mark application as submitted
 		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)) {
 			application.setApprovalState(ApprovalState.RESUBMITTED);
@@ -346,6 +350,11 @@ public class ApplicationResource {
 		if (application.getCommercialUsage() != null 
 				&& Objects.equal(application.getCommercialUsage().getState(), UsageReportState.NOT_SUBMITTED)) {
 			commercialUsageService.transitionCommercialUsageApproval(application.getCommercialUsage(), UsageReportTransition.SUBMIT);
+		}
+		
+		if (Objects.equal(application.getApprovalState(), ApprovalState.SUBMITTED)
+				&& !Objects.equal(originalApplicationState, application.getApprovalState())) {
+			applicationApprovalStateChangeNotifier.applicationApprovalStateChange(application);
 		}
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
