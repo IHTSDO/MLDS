@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codahale.metrics.annotation.Timed;
+import com.google.common.base.Objects;
+
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-
-import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Objects;
 
 @RestController
 public class ReleaseVersionsResource {
@@ -43,6 +43,9 @@ public class ReleaseVersionsResource {
 
 	@Resource
 	ReleaseFilePrivacyFilter releaseFilePrivacyFilter;
+	
+	@Resource
+	UserNotifier userNotifier;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Versions
@@ -117,6 +120,7 @@ public class ReleaseVersionsResource {
     	if (!Objects.equal(preOnline, releaseVersion.isOnline())) {
     		if (releaseVersion.isOnline()) {
     			releasePackageAuditEvents.logTakenOnline(releaseVersion);
+    			userNotifier.notifyReleasePackageUpdated(releaseVersion);
     		} else {
     			releasePackageAuditEvents.logTakenOffline(releaseVersion);
     		}

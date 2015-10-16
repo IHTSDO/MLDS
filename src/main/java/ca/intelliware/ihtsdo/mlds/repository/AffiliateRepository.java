@@ -1,9 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -47,6 +47,8 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 			+ " OR b.member = :homeMember ")
 	Page<Affiliate> findByHomeMember(@Param("homeMember") Member homeMember, Pageable pageable);
 
+	Iterable<Affiliate> findByStandingStateIn(Collection<StandingState> standingState);
+	
 	Page<Affiliate> findByHomeMemberAndStandingState(Member homeMember, StandingState standingState, Pageable pageable);
 
 	Page<Affiliate> findByStandingState(StandingState standingState, Pageable pageable);
