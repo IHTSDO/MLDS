@@ -19,5 +19,9 @@ public class ClientLinkBuilder {
 	public String buildViewReleasesLink() {
 		return templateEvaluator.getUrlBase() + "#/viewReleases";
 	}
+
+	public String buildViewReleasePackageLink(long releasePackageId) {
+		return templateEvaluator.getUrlBase() + "#/viewReleases/viewRelease/"+releasePackageId;
+	}
 	
 }
