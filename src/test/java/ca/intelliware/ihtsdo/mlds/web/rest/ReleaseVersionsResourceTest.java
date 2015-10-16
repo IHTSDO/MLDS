@@ -44,6 +44,9 @@ public class ReleaseVersionsResourceTest {
 
 	@Mock
 	ReleasePackageAuditEvents releasePackageAuditEvents;
+	
+	@Mock
+	UserNotifier userNotifier;
 
 	ReleaseVersionsResource releaseVersionsResource;
 
@@ -58,6 +61,7 @@ public class ReleaseVersionsResourceTest {
         releaseVersionsResource.authorizationChecker = authorizationChecker;
         releaseVersionsResource.currentSecurityContext = currentSecurityContext;
         releaseVersionsResource.releasePackageAuditEvents = releasePackageAuditEvents;
+        releaseVersionsResource.userNotifier = userNotifier;
 
         this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releaseVersionsResource).build();
     }
@@ -145,6 +149,38 @@ public class ReleaseVersionsResourceTest {
 		Assert.assertEquals("newDescription", releaseVersion.getDescription());
 		
 		Assert.assertEquals("originalCreatedBy", releaseVersion.getCreatedBy());
+	}
+	
+	@Test
+	public void testReleaseVersionShouldNotifyUserWhenVersionPublished() throws Exception {
+		ReleaseVersion releaseVersion = new ReleaseVersion();
+		releaseVersion.setOnline(false);
+		
+		Mockito.when(releaseVersionRepository.findOne(2L)).thenReturn(releaseVersion);
+		
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_VERSION, 1L, 2L)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"releaseVersionId\": 1, \"online\": true, \"name\": \"newName\", \"description\": \"newDescription\", \"createdBy\": \"newCreatedBy\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+		
+		Mockito.verify(userNotifier, Mockito.times(1)).notifyReleasePackageUpdated(Mockito.any(ReleaseVersion.class));
+	}
+
+	@Test
+	public void testReleaseVersionShouldNotNotifyUserWhenAlreadyOnline() throws Exception {
+		ReleaseVersion releaseVersion = new ReleaseVersion();
+		releaseVersion.setOnline(true);
+		
+		Mockito.when(releaseVersionRepository.findOne(2L)).thenReturn(releaseVersion);
+		
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_VERSION, 1L, 2L)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"releaseVersionId\": 1, \"online\": true, \"name\": \"newName\", \"description\": \"newDescription\", \"createdBy\": \"newCreatedBy\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+		
+		Mockito.verify(userNotifier, Mockito.never()).notifyReleasePackageUpdated(Mockito.any(ReleaseVersion.class));
 	}
 
 	@Test
