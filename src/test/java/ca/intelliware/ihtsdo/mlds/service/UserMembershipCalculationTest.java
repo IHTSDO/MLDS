@@ -2,7 +2,6 @@ package ca.intelliware.ihtsdo.mlds.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 import org.hamcrest.CoreMatchers;
@@ -49,7 +48,7 @@ public class UserMembershipCalculationTest {
 		otherMember = new Member("gb", 2L);
 		
 		matchingAffiliates = new ArrayList<Affiliate>();
-		Mockito.when(affiliateRepository.findByStandingStateIn(Matchers.anyCollectionOf(StandingState.class))).thenReturn(matchingAffiliates);
+		Mockito.when(affiliateRepository.findByStandingStateInAndCreatorNotNull(Matchers.anyCollectionOf(StandingState.class))).thenReturn(matchingAffiliates);
 	}
 	
 	@Test
