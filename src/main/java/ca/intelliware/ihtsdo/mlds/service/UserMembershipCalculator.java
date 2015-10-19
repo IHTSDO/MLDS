@@ -24,7 +24,7 @@ public class UserMembershipCalculator {
 	
 	public Iterable<User> acceptedUsers(Member member) {
 		Set<User> users = new HashSet<User>();
-		for (Affiliate affiliate : affiliateRepository.findByStandingStateIn(Arrays.asList(StandingState.IN_GOOD_STANDING, StandingState.DEACTIVATION_PENDING))) {
+		for (Affiliate affiliate : affiliateRepository.findByStandingStateInAndCreatorNotNull(Arrays.asList(StandingState.IN_GOOD_STANDING, StandingState.DEACTIVATION_PENDING))) {
 			Set<Member> acceptedMemberships = affiliateMembershipCalculator.acceptedMemberships(affiliate);
 			if (acceptedMemberships.contains(member)) {
 				User user = userRepository.findByLoginIgnoreCase(affiliate.getCreator());
@@ -33,12 +33,6 @@ public class UserMembershipCalculator {
 				}	
 			}
 		}
-//		for (Affiliate affiliate : affiliateRepository.findActiveByMember(member)) {
-//			User user = userRepository.findByLoginIgnoreCase(affiliate.getCreator());
-//			if (user != null) {
-//				users.add(user);
-//			}
-//		}
 		return users;
 	}
 }
