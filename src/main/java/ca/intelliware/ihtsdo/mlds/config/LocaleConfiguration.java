@@ -34,7 +34,8 @@ public class LocaleConfiguration extends WebMvcConfigurerAdapter implements Envi
     @Bean
     public MessageSource messageSource() {
         final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:/i18n/messages");
+        //FIXME DGJ workaround - why?
+        messageSource.setBasenames("classpath:/i18n/messages", "classpath:/mails/messages/messages");
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheSeconds(propertyResolver.getProperty("cacheSeconds", Integer.class, 1));
         return messageSource;

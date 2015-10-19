@@ -11,6 +11,10 @@ angular.module('MLDS').factory('ReleaseVersionsService',
 				}, {
 					update : {
 						method : 'PUT'
+					},
+					notify : {
+						method : 'POST',
+						url: 'app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/notifications'
 					}
 				});
 } ]);

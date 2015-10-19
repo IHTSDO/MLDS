@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codahale.metrics.annotation.Timed;
+import com.google.common.base.Objects;
+
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-
-import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Objects;
 
 @RestController
 public class ReleaseVersionsResource {
@@ -43,6 +43,9 @@ public class ReleaseVersionsResource {
 
 	@Resource
 	ReleaseFilePrivacyFilter releaseFilePrivacyFilter;
+	
+	@Resource
+	UserNotifier userNotifier;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Versions
@@ -124,7 +127,27 @@ public class ReleaseVersionsResource {
     	
     	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
     }
-	
+
+	@RequestMapping(value = Routes.RELEASE_VERSION_NOTIFICATIONS,
+    		method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
+    public @ResponseBody ResponseEntity<ReleaseVersion> updateReleaseVersionNotification(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
+    	
+		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
+    	if (releaseVersion == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	
+    	authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
+    	
+		userNotifier.notifyReleasePackageUpdated(releaseVersion);
+    	
+    	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+    }
+
 	@RequestMapping(value = Routes.RELEASE_VERSION,
     		method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)

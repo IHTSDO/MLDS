@@ -8,12 +8,19 @@
  	<div>
 		<label>Package Name: </label>
 		<span>{{releasePackage.name}}</span>
- 	</div>
+ 	</div>			
  	<div>
 		<label>Package Version: </label>
 		<span>{{releaseVersion.name}}</span>
  	</div>
- 	
+ 	<form class="space">
+	 	<div>
+	        <label>
+	        	<input type="checkbox" name="notifyAffiliates" ng-model="notify.notifyAffiliates">
+	        	Notify members by email
+	        </label>
+    	</div>
+ 	</form>
  </div>
  <div class="modal-footer">
      <button class="btn btn-link" ng-click="$dismiss()">No</button>

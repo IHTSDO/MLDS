@@ -25,4 +25,8 @@ public class ClientLinkBuilder {
 		return templateEvaluator.getUrlBase() + "#/viewApplication";
 	}
 	
+	public String buildViewReleasePackageLink(long releasePackageId) {
+		return templateEvaluator.getUrlBase() + "#/viewReleases/viewRelease/"+releasePackageId;
+	}
+	
 }

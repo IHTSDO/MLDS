@@ -9,5 +9,7 @@ public class EmailVariables {
 	static final String AFFILIATE_ID = "affiliateId";
 	static final String VIEW_APPLICATION_URL = "viewApplicationUrl";
 	static final String APPLICATION_ID = "applicationId";
-	
+	static final String VIEW_RELEASE_PACKAGE_URL = "viewReleasePackageUrl";
+	static final String RELEASE_PACKAGE = "releasePackage";
+	static final String RELEASE_VERSION = "releaseVersion";
 }
