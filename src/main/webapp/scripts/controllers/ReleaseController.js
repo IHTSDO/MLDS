@@ -141,7 +141,7 @@ angular.module('MLDS').controller('ReleaseController',
 			.$promise.then(loadReleasePackage);
     };
 
-    $scope.deleteVersionModal = function takeOnlineModal(selectedReleaseVersion) {
+    $scope.deleteVersionModal = function deleteVersionModal(selectedReleaseVersion) {
     	var modalInstance = $modal.open({
   	      	templateUrl: 'views/admin/deleteVersionModal.html',
   	      	controller: 'DeleteVersionModalController',
