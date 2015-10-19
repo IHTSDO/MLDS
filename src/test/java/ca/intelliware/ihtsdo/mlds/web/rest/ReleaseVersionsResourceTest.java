@@ -152,35 +152,18 @@ public class ReleaseVersionsResourceTest {
 	}
 	
 	@Test
-	public void testReleaseVersionShouldNotifyUserWhenVersionPublished() throws Exception {
+	public void testReleaseVersionNotification() throws Exception {
 		ReleaseVersion releaseVersion = new ReleaseVersion();
 		releaseVersion.setOnline(false);
 		
 		Mockito.when(releaseVersionRepository.findOne(2L)).thenReturn(releaseVersion);
 		
-		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_VERSION, 1L, 2L)
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_VERSION_NOTIFICATIONS, 1L, 2L)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{ \"releaseVersionId\": 1, \"online\": true, \"name\": \"newName\", \"description\": \"newDescription\", \"createdBy\": \"newCreatedBy\" }")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 		
 		Mockito.verify(userNotifier, Mockito.times(1)).notifyReleasePackageUpdated(Mockito.any(ReleaseVersion.class));
-	}
-
-	@Test
-	public void testReleaseVersionShouldNotNotifyUserWhenAlreadyOnline() throws Exception {
-		ReleaseVersion releaseVersion = new ReleaseVersion();
-		releaseVersion.setOnline(true);
-		
-		Mockito.when(releaseVersionRepository.findOne(2L)).thenReturn(releaseVersion);
-		
-		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_VERSION, 1L, 2L)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content("{ \"releaseVersionId\": 1, \"online\": true, \"name\": \"newName\", \"description\": \"newDescription\", \"createdBy\": \"newCreatedBy\" }")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-		
-		Mockito.verify(userNotifier, Mockito.never()).notifyReleasePackageUpdated(Mockito.any(ReleaseVersion.class));
 	}
 
 	@Test

@@ -120,7 +120,6 @@ public class ReleaseVersionsResource {
     	if (!Objects.equal(preOnline, releaseVersion.isOnline())) {
     		if (releaseVersion.isOnline()) {
     			releasePackageAuditEvents.logTakenOnline(releaseVersion);
-    			userNotifier.notifyReleasePackageUpdated(releaseVersion);
     		} else {
     			releasePackageAuditEvents.logTakenOffline(releaseVersion);
     		}
@@ -128,7 +127,27 @@ public class ReleaseVersionsResource {
     	
     	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
     }
-	
+
+	@RequestMapping(value = Routes.RELEASE_VERSION_NOTIFICATIONS,
+    		method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@Timed
+    public @ResponseBody ResponseEntity<ReleaseVersion> updateReleaseVersionNotification(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
+    	
+		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
+    	if (releaseVersion == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	
+    	authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
+    	
+		userNotifier.notifyReleasePackageUpdated(releaseVersion);
+    	
+    	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+    }
+
 	@RequestMapping(value = Routes.RELEASE_VERSION,
     		method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
