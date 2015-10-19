@@ -174,4 +174,21 @@ public class MemberResource {
 		return newFile;
 	}
 
+    @RequestMapping(value = Routes.MEMBER_NOTIFICATIONS,
+            method = RequestMethod.POST,
+    		headers = "content-type=multipart/*",
+            produces = "application/json")
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Transactional
+	@Timed
+    public ResponseEntity<?> updateMemberNotifications(@PathVariable String memberKey, @RequestParam("staffNotificationEmail") String staffNotificationEmail) throws IOException {
+		Member member = memberRepository.findOneByKey(memberKey);
+
+		member.setStaffNotificationEmail(staffNotificationEmail);
+		
+		memberRepository.save(member);
+
+		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
+	}
+
 }

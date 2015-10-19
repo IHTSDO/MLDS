@@ -103,6 +103,20 @@ angular.module('MLDS')
 	        return promise;
 		};
 		
+		service.updateMemberNotifications = function updateMemberNotifications(memberKey, staffNotificationEmail) {
+			var formData = new FormData();
+	        formData.append('staffNotificationEmail', staffNotificationEmail);
+	        var promise = $http.post('/app/rest/members/' + encodeURIComponent(memberKey) + '/notifications', formData, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        });
+	        promise.then(function(result) {
+	        	updateMemberEntry(result.data);
+	        });
+	        return promise;
+		};
+		
+
 		return service;
 		
 	}]);

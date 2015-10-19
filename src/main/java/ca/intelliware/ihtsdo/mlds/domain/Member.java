@@ -50,6 +50,9 @@ public class Member extends BaseEntity {
     
     private String name;
     
+    @Column(name="staff_notification_email")
+    private String staffNotificationEmail;
+    
 	public Member() {}
 	
 	public Member(String key, long memberId) {
@@ -130,6 +133,14 @@ public class Member extends BaseEntity {
 
 	public void setLogo(File logoFile) {
 		this.logoFile = logoFile;
+	}
+
+	public String getStaffNotificationEmail() {
+		return staffNotificationEmail;
+	}
+
+	public void setStaffNotificationEmail(String staffNotificationEmail) {
+		this.staffNotificationEmail = staffNotificationEmail;
 	}
     
 }

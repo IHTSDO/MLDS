@@ -15,6 +15,8 @@ public class MemberDTO {
     
     private String name;
     private FileDTO logo;
+    
+    private String staffNotificationEmail;
 
     public MemberDTO() {
     }
@@ -32,6 +34,7 @@ public class MemberDTO {
     	if (member.getLogo() != null) {
     		this.logo = new FileDTO(member.getLogo());
     	}
+    	this.staffNotificationEmail = member.getStaffNotificationEmail();
     }
     
     public Long getMemberId() {
@@ -64,5 +67,9 @@ public class MemberDTO {
 
 	public FileDTO getLogo() {
 		return logo;
+	}
+	
+	public String getStaffNotificationEmail() {
+		return staffNotificationEmail;
 	}
 }
