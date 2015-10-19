@@ -13,6 +13,7 @@ public class Routes {
 	
 	public static final String MEMBER_LOGO = "/app/rest/members/{memberKey}/logo";
 	public static final String MEMBER_BRAND = "/app/rest/members/{memberKey}/brand";
+	public static final String MEMBER_NOTIFICATIONS = "/app/rest/members/{memberKey}/notifications";
 	
 	public static final String AUDITS = "/app/rest/audits";
 
