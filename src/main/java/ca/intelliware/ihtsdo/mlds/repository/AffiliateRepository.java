@@ -47,7 +47,7 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 			+ " OR b.member = :homeMember ")
 	Page<Affiliate> findByHomeMember(@Param("homeMember") Member homeMember, Pageable pageable);
 
-	Iterable<Affiliate> findByStandingStateIn(Collection<StandingState> standingState);
+	Iterable<Affiliate> findByStandingStateInAndCreatorNotNull(Collection<StandingState> standingState);
 	
 	Page<Affiliate> findByHomeMemberAndStandingState(Member homeMember, StandingState standingState, Pageable pageable);
 
