@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title th:text="#{releasePackageUpdated.title}">IHTSDO-MLDS Release Package Updated</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+
+    <body>
+        <p th:text="#{email.greeting(${user.firstName + ' ' + user.lastName})}">
+            Dear user,
+        </p>
+        <p th:utext="#{releasePackageUpdated.text(${releasePackage.name}, ${releaseVersion.name})}">
+            The following release package has been updated: ${releasePackage.name}.
+            <br/>
+            <br/> You can view and download the release package by visiting the IHTSD-MLDS system.
+        </p>
+        <p>
+            <a th:href="@{${viewReleasePackageUrl}}" th:text="#{releasePackageUpdated.viewReleasePackageLinkLabel(${releasePackage.name})}">View Release Package</a>
+        </p>
+        <p>
+            <span th:text="#{email.close}">Regards, </span>
+            <br/>
+            <em th:text="#{email.signature}">IHTSDO-MLDS</em>
+        </p>
+    </body>
+
+</html>
