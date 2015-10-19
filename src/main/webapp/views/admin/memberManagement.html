@@ -6,6 +6,7 @@
     			<th>Member</th>
     			<th>Name</th>
     			<th>Public Landing Page</th>
+    			<th>Staff Notifications</th>
     			<th>License</th>
     			<th>Version</th>
     			<th>Last Uploaded</th>
@@ -17,6 +18,7 @@
     			<td>{{member.key}}</td>
     			<td>{{member.name}}</td>
     			<td>{{landingPage(member)}}</td>
+    			<td>{{member.staffNotificationEmail}}</td>
     			<td>{{member.licenseName}}</td>
     			<td>{{member.licenseVersion}}</td>
     			<td>{{member.license.lastUpdated | date: 'yyyy-MM-dd'}}</td>
@@ -29,6 +31,8 @@
 							<li class="divider"></li>
 							<li><a ng-click="viewLicense(member.key)"><i class="fa fa-gavel"></i> View License</a></li>
     						<li><a ng-show="canAccess(member)" ng-click="editLicense(member)"><i class="fa fa-edit"></i> Edit License</a></li>
+							<li class="divider"></li>
+							<li><a ng-show="canAccess(member)" ng-click="editStaffNotificationsEmail(member)"><i class="fa fa-edit"></i> Edit Staff Notifications</a></li>
 						</ul>
 					</div>
     			</td>

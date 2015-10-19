@@ -23,18 +23,19 @@ public class ApplicationPendingEmailSender {
 	@Resource TemplateEvaluator templateEvaluator;
 	@Resource ClientLinkBuilder clientLinkBuilder;
 
-	public void sendApplicationPendingEmail(User user, String memberKey, long affiliateId, long applicationId) {
-		final Locale locale = Locale.forLanguageTag(user.getLangKey());
+	public void sendApplicationPendingEmail(String email, String memberKey, long affiliateId, long applicationId) {
+		//FIXME shared account - which locale?
+		final Locale locale = Locale.forLanguageTag("en");
 		Map<String, Object> variables = Maps.newHashMap();
 		variables.put(EmailVariables.AFFILIATE_ID, Long.toString(affiliateId));
 		variables.put(EmailVariables.APPLICATION_ID, Long.toString(applicationId));
-		variables.put(EmailVariables.USER, user);
+		variables.put(EmailVariables.USER, email);
 		variables.put(EmailVariables.MEMBERKEY, memberKey);
 		variables.put(EmailVariables.VIEW_APPLICATION_URL, clientLinkBuilder.buildViewApplication(applicationId));
 		String content = templateEvaluator.evaluateTemplate("applicationApprovedEmail", locale, variables);
 		String subject = templateEvaluator.getTitleFor("applicationApproved", locale);
 		
-		mailService.sendEmail(user.getEmail(), subject, content, false, true);
+		mailService.sendEmail(email, subject, content, false, true);
 	}
 
 }

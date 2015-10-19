@@ -61,6 +61,7 @@ public class ApplicationResource_SubmitApplication_Test {
 	@Mock UserRepository userRepository;
 	@Mock SessionService sessionService;
 	@Mock ApplicationApprovedEmailSender applicationApprovedEmailSender;
+	@Mock ApplicationApprovalStateChangeNotifier applicationApprovalStateChangeNotifier;
 	@Mock CommercialUsageService commercialUsageService;
 	
 	ApplicationResource applicationResource;
@@ -86,6 +87,7 @@ public class ApplicationResource_SubmitApplication_Test {
         applicationResource.affiliateAuditEvents = affiliateAuditEvents;
         applicationResource.userRepository = userRepository;
         applicationResource.applicationApprovedEmailSender = applicationApprovedEmailSender;
+        applicationResource.applicationApprovalStateChangeNotifier = applicationApprovalStateChangeNotifier;
         applicationResource.sessionService = sessionService;
         applicationResource.commercialUsageService = commercialUsageService;
         

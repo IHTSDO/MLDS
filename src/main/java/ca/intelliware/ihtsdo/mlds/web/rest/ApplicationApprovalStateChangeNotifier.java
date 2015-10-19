@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Objects;
@@ -30,16 +31,8 @@ public class ApplicationApprovalStateChangeNotifier {
 		//FIXME will getAffiliate always be not-null?
 		Long affiliateId = application.getAffiliate().getAffiliateId();
 		Member member = application.getMember();
-		Collection<User> staff = findStaffOfMember(member);
-		for (User user : staff) {
-			applicationPendingEmailSender.sendApplicationPendingEmail(user, application.getMember().getKey(), affiliateId, application.getApplicationId());
+		if (member != null && StringUtils.isNotBlank(member.getStaffNotificationEmail())) {
+			applicationPendingEmailSender.sendApplicationPendingEmail(member.getStaffNotificationEmail(), application.getMember().getKey(), affiliateId, application.getApplicationId());
 		}
-		
 	}
-
-	private Collection<User> findStaffOfMember(Member member) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -1495,4 +1495,12 @@ $f$ language plpgsql;
     	<comment>Repurposing excludeRegistration to excludeUsage as all countries can now register</comment>
     	<renameColumn tableName="country" oldColumnName="exclude_registration" newColumnName="exclude_usage"/>
     </changeSet>
+    
+    <changeSet id="MLDS-918" author="DGJ">
+    	<comment>Add notification "mailing list" email for member's staff. Rely on IHTSDO mail server to handle mapping of mailing list to individual staff accounts.</comment>
+    	<addColumn tableName="member" >
+    		<column name="staff_notification_email" type="VARCHAR(255)"></column>
+    	</addColumn>
+    </changeSet>
+
 </databaseChangeLog>
