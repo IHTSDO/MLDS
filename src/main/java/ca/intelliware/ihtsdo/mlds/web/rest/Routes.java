@@ -126,6 +126,7 @@ public class Routes {
 	 * - PUT
 	 */
 	static final String RELEASE_VERSION = "/app/rest/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}"; 
+	static final String RELEASE_VERSION_NOTIFICATIONS = "/app/rest/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/notifications"; 
 
 	/**
 	 * control endpoint for release files in version:
