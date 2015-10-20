@@ -37,7 +37,7 @@ public class ApplicationPendingEmailSender {
 		variables.put(EmailVariables.APPLICATION_MEMBER, memberDescription(member));
 		variables.put(EmailVariables.VIEW_APPLICATION_URL, clientLinkBuilder.buildViewApplication(application.getApplicationId()));
 		String content = templateEvaluator.evaluateTemplate("applicationPendingEmail", locale, variables);
-		String subject = templateEvaluator.getTitleFor("applicationApproved", locale);
+		String subject = templateEvaluator.getTitleFor("applicationPending", locale);
 		
 		mailService.sendEmail(mailingListEmail, subject, content, false, true);
 	}
