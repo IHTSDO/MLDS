@@ -1,6 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -61,5 +64,20 @@ public class MemberResourceTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(Matchers.containsString("\"memberId\":1,\"key\":\"SE\"")));
+	}
+	
+	@Test
+	public void postMembersNotificationsShouldUpdateStaffNotifications() throws Exception {
+		Member member = new Member("SE", 1L);
+		Mockito.when(memberRepository.findOneByKey("SE")).thenReturn(member);
+		
+        restUserMockMvc.perform(put(Routes.MEMBER_NOTIFICATIONS, "SE")
+        		.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"staffNotificationEmail\": \"staff@test.com\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        
+        Mockito.verify(memberRepository).save(member);
+        assertThat(member.getStaffNotificationEmail(), equalTo("staff@test.com"));
 	}
 }
