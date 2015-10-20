@@ -32,6 +32,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.base.Objects;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateSubType;
@@ -58,25 +69,12 @@ import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
-import ca.intelliware.ihtsdo.mlds.service.ApprovalTransition;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
 import ca.intelliware.ihtsdo.mlds.service.UsageReportTransition;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
-import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationPendingEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
-
-import com.codahale.metrics.annotation.Timed;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.common.base.Objects;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 
 @RestController
 public class ApplicationResource {
@@ -313,11 +311,11 @@ public class ApplicationResource {
 		if (application == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		
+		ApprovalState originalApplicationState = application.getApprovalState();
 
         application = saveApplicationFields(request,application);
 		authorizationChecker.checkCanAccessApplication(application);
-		
-		ApprovalState originalApplicationState = application.getApprovalState();
 		
 		// Mark application as submitted
 		if (Objects.equal(application.getApprovalState(), ApprovalState.CHANGE_REQUESTED)) {
@@ -352,10 +350,7 @@ public class ApplicationResource {
 			commercialUsageService.transitionCommercialUsageApproval(application.getCommercialUsage(), UsageReportTransition.SUBMIT);
 		}
 		
-		if (Objects.equal(application.getApprovalState(), ApprovalState.SUBMITTED)
-				&& !Objects.equal(originalApplicationState, application.getApprovalState())) {
-			applicationApprovalStateChangeNotifier.applicationApprovalStateChange(application);
-		}
+		applicationApprovalStateChangeNotifier.applicationApprovalStateChange(originalApplicationState, application);
 		
 		return new ResponseEntity<Application>(application, HttpStatus.OK);
 	}
@@ -577,9 +572,12 @@ public class ApplicationResource {
 		Application updatedApplication = constructUpdatedApplication(requestBody, original);
 		
 		try {
+			ApprovalState originalApprovalState = original.getApprovalState();
 			applicationService.doUpdate(original, updatedApplication);
 			
 			applicationAuditEvents.logApprovalStateChange(updatedApplication);
+			applicationApprovalStateChangeNotifier.applicationApprovalStateChange(originalApprovalState, updatedApplication);
+			
 		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<String>("Forbidden change to application:" + e.getMessage(), HttpStatus.CONFLICT);
 		}

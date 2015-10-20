@@ -5,15 +5,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <p th:text="#{email.greeting(${user.firstName + ' ' + user.lastName})}">
+        <p th:text="#{applicationPending.greeting}">
             Dear user,
         </p>
-        <p th:text="#{applicationPending.text1}">
-        	An affiliate application is pending approval.
+        <p th:text="#{applicationPending.text1(${applicationMember}, ${applicationId})}">
+        	An affiliate application is pending approval: MEMBER 1234
         </p>
         <p>
             <a th:href="@{${applicationUrl}}"
-               th:text="#{applicationPending.applicationLinkLabel}">View Application</a>
+               th:text="#{applicationPending.applicationLinkLabel(${applicationId})}">View Application X</a>
         </p>
         
         <p>
