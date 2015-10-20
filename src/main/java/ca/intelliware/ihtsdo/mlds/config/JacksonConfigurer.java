@@ -12,17 +12,18 @@ import org.springframework.boot.autoconfigure.web.HttpMapperProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.json.InternalPrivacyFilter;
-import ca.intelliware.ihtsdo.mlds.domain.json.MLDSJacksonModule;
-import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.json.InternalPrivacyFilter;
+import ca.intelliware.ihtsdo.mlds.domain.json.MLDSJacksonModule;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.MemberDTO;
 
 @Configuration
 @ConditionalOnClass(ObjectMapper.class)
@@ -56,6 +57,7 @@ public class JacksonConfigurer {
 	public void registerFilters(ObjectMapper mapper) {
 		SimpleFilterProvider filterProvider = new SimpleFilterProvider();
 		filterProvider.addFilter("affiliatePrivacyFilter", new InternalPrivacyFilter(Affiliate.PRIVATE_FIELDS) );
+		filterProvider.addFilter("memberDtoPrivacyFilter", new InternalPrivacyFilter(MemberDTO.PRIVATE_FIELDS) );
 		
 		mapper.setFilters(filterProvider);
 	}

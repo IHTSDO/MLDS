@@ -38,10 +38,12 @@ public class MemberResourceTest {
         memberResource.fileRepository = fileRepository;
         memberResource.sessionService = sessionService;
         
-        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(memberResource).build();
+        this.restUserMockMvc = MockMvcBuilders
+        		.standaloneSetup(memberResource)
+        		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
+        		.build();
         
         Mockito.when(memberRepository.findAll()).thenReturn(Arrays.asList(new Member("SE", 1), new Member("IHTSDO", 2)));
-
 	}
 	
     @Test
