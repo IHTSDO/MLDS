@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('MemberService', ['$http', '$log', '$q', '$window', '$location', function($http, $log, $q, $window, $location){
+.factory('MemberService', ['$http', '$rootScope', '$log', '$q', '$window', '$location', 
+                           function($http, $rootScope, $log, $q, $window, $location){
 	
 		var membersListQ = 
 			$http.get('/app/rest/members')
@@ -38,6 +39,18 @@ angular.module('MLDS')
 				}
 			});
 		}
+		
+		function reloadMembers() {
+			$http.get('/app/rest/members')
+			.then(function(result){
+				_.each(result.data, function(member, index) {
+					updateMemberEntry(member);
+				});
+			});	
+		};
+
+		/* Members object has role specific fields only available after login*/
+		$rootScope.$on('event:auth-loginConfirmed', reloadMembers);
 		
 		//FIXME is there a better way to indicate the IHTSDO/international member?
 		service.ihtsdoMemberKey = 'IHTSDO';
@@ -115,8 +128,7 @@ angular.module('MLDS')
 	        });
 	        return promise;
 		};
-		
-
+				
 		return service;
 		
 	}]);

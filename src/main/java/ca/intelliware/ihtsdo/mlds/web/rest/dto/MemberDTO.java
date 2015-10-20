@@ -2,9 +2,26 @@ package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 
+/*
+ * DTO for transporting the entire member record to/from the client as JSON with Jackson.
+ * 
+ * Typically the app uses the Entity for that purpose, however, the Member entity
+ * is referenced from many other entities and as on optimization the Member entity is
+ * serialized to JSON as merely the Member key rather than the entire state.
+ * This DTO is used when the client needs the entire state of a member.
+ * 
+ * Note that the privacy filter is used to exclude private fields, such as
+ * staffNotificationEmal, from being serialized to JSON.
+ */
+
+@JsonFilter("memberDtoPrivacyFilter")
 public class MemberDTO {
+	public static final String[] PRIVATE_FIELDS = {"staffNotificationEmail"};
+
 	Long memberId;
     String key;
     Instant createdAt;
