@@ -33,6 +33,8 @@ public class ApplicationUpdateTest {
 	
 	@Mock
 	ApplicationAuditEvents applicationAuditEvents;
+	
+	@Mock ApplicationApprovalStateChangeNotifier applicationApprovalStateChangeNotifier;
 
 	@Before
 	public void setup() {
@@ -40,6 +42,7 @@ public class ApplicationUpdateTest {
 		ApplicationResource applicationResource = new ApplicationResource();
 		applicationResource.applicationRepository = applicationRepository;
 		applicationResource.applicationAuditEvents = applicationAuditEvents;
+		applicationResource.applicationApprovalStateChangeNotifier = applicationApprovalStateChangeNotifier;
 		applicationResource.objectMapper = new ObjectMapper();
 		applicationResource.applicationService = new ApplicationService();
 
