@@ -1,0 +1,152 @@
+package ca.intelliware.ihtsdo.mlds.web.rest;
+
+import static org.mockito.Mockito.times;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+
+import javax.annotation.Resource;
+
+import org.hamcrest.Matchers;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.util.NestedServletException;
+
+import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
+import ca.intelliware.ihtsdo.mlds.service.UserMembershipCalculator;
+import ca.intelliware.ihtsdo.mlds.service.mail.AnnouncementEmailSender;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.AnnouncementDTO;
+
+public class AnnouncementResourceTest {
+
+	@Mock MemberRepository memberRepository;
+	@Mock AnnouncementAuthorizationChecker announcementAuthorizationChecker;
+	@Mock AnnouncementEmailSender announcementEmailSender;
+	@Mock UserMembershipCalculator userMembershipCalculator;
+	@Mock AuditEventService auditEventService;
+	
+	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
+	
+	private MockMvc restAnnouncementResource;
+
+	private Member ihtsdoMember;
+
+	private Member otherMember;	
+	
+	@Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        
+        AnnouncementResource announcementResource = new AnnouncementResource();
+        announcementResource.announcementAuthorizationChecker = announcementAuthorizationChecker;
+        announcementResource.announcementEmailSender = announcementEmailSender;
+        announcementResource.userMembershipCalculator = userMembershipCalculator;
+        announcementResource.auditEventService = auditEventService;
+        
+        MockMvcJacksonTestSupport mockMvcJacksonTestSupport = new MockMvcJacksonTestSupport();
+        mockMvcJacksonTestSupport.memberRepository = memberRepository;
+
+		restAnnouncementResource = MockMvcBuilders
+				.standaloneSetup(announcementResource)
+        		.setMessageConverters(mockMvcJacksonTestSupport.getConfiguredMessageConverters())
+        		.build();
+		
+		ihtsdoMember = withMember("IHTSDO", 1L);
+		otherMember = withMember("OT", 2L);
+		
+		securityContextSetup.asAdmin();
+    }
+
+	private Member withMember(String key, long memberId) {
+		Member member = new Member(key, memberId);
+		Mockito.when(memberRepository.findOneByKey(key)).thenReturn(member);
+		return member;
+	}
+
+	@Test
+	public void postAnnouncementShouldCheckAccess() throws Exception {
+		securityContextSetup.asIHTSDOStaff();
+		
+		Mockito.doThrow(new IllegalStateException("not allowed")).when(announcementAuthorizationChecker).checkCanPostAnnouncement(Mockito.any(AnnouncementDTO.class));
+	
+		try {
+			restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
+	        		.contentType(MediaType.APPLICATION_JSON)
+	        		.content("{ \"member\": { \"key\":\"OT\"} }")
+	                .accept(MediaType.APPLICATION_JSON))
+					.andExpect(status().is5xxServerError());
+	    	Assert.fail();
+	    } catch (NestedServletException e) {
+	    	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("not allowed"));
+	    }
+	}
+	
+	@Test
+	public void postAnnouncementShouldSendEmailsToMemberUsers() throws Exception {
+		securityContextSetup.asIHTSDOStaff();
+		
+		User user = new User();
+		user.setUserId(1L);
+		
+		Mockito.when(userMembershipCalculator.acceptedUsers(ihtsdoMember)).thenReturn(Arrays.asList(user));
+		
+		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\" }")
+                .accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+		
+		Mockito.verify(announcementEmailSender, times(1)).sendAnnouncementEmail(user, ihtsdoMember, "test title", "test message");
+	}
+
+	@Test
+	public void postAnnouncementShouldSendEmailsToAdditionalAddresses() throws Exception {
+		securityContextSetup.asIHTSDOStaff();
+		
+		User user = new User();
+		user.setUserId(1L);
+		
+		Mockito.when(userMembershipCalculator.acceptedUsers(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
+		
+		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\", \"additionalEmails\": [ \"email1@test.com\", \"email2@test.com\" ] }")
+                .accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+		
+		Mockito.verify(announcementEmailSender, times(1)).sendAnnouncementEmail("email1@test.com", ihtsdoMember, "test title", "test message");
+		Mockito.verify(announcementEmailSender, times(1)).sendAnnouncementEmail("email2@test.com", ihtsdoMember, "test title", "test message");
+	}
+
+	@Test
+	public void postAnnouncementShouldLog() throws Exception {
+		securityContextSetup.asIHTSDOStaff();
+		
+		Mockito.when(userMembershipCalculator.acceptedUsers(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
+		
+		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\", \"additionalEmails\": [ \"email1@test.com\", \"email2@test.com\" ] }")
+                .accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+		
+		HashMap<String, String> expected = new HashMap<String,String>();
+		expected.put("announcement.member", "IHTSDO");
+		expected.put("announcement.title", "test title");
+		
+		Mockito.verify(auditEventService).createAuditEvent(Mockito.eq("ANNOUNCEMENT_POSTED"), Mockito.eq(expected));
+	}}
