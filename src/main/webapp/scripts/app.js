@@ -304,6 +304,16 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                .when('/postAnnouncement', {
+                    templateUrl: 'views/admin/postAnnouncement.html',
+                    controller: 'PostAnnouncementController',
+                    access: {
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
                 .when('/metrics', {
                     templateUrl: 'views/admin/metrics.html',
                     controller: 'MetricsController',
