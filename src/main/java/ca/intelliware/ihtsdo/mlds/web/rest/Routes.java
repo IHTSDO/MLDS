@@ -191,4 +191,10 @@ public class Routes {
 	 * - get our version info
 	 */
 	public static final String VERSION = "/app/rest/version";
+	
+	/**
+	 * control endpoint for announcements
+	 * - POST announcement to send announcement to users in member's space
+	 */
+	public static final String ANNOUNCEMENTS = "/app/rest/announcements";
 }
