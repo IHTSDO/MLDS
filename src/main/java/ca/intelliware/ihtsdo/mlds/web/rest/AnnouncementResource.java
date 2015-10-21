@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
@@ -56,7 +58,7 @@ public class AnnouncementResource {
     	auditData.put("announcement.member", announcement.getMember().getKey());
     	auditData.put("announcement.title", announcement.getSubject());
     	
-		auditEventService.createAuditEvent(EVENT_ANNOUNCEMENT_POSTED, auditData );
+		auditEventService.logAuditableEvent(EVENT_ANNOUNCEMENT_POSTED, auditData);
 	}
 
 	private void sendAnnouncementEmails(AnnouncementDTO announcement) {
@@ -66,7 +68,9 @@ public class AnnouncementResource {
 		}
 		if (announcement.getAdditionalEmails() != null) {
 			for (String email : announcement.getAdditionalEmails()) {
-				announcementEmailSender.sendAnnouncementEmail(email, member, announcement.getSubject(), announcement.getBody());
+				if (StringUtils.isNotBlank(email)) {
+					announcementEmailSender.sendAnnouncementEmail(email, member, announcement.getSubject(), announcement.getBody());
+				}
 			}
 		}
 	}

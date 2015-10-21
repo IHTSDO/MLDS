@@ -688,6 +688,7 @@
             "AFFILIATE_IMPORT": "Affiliate Batch Import",
             "AFFILIATE_LOGIN_CREATED": "Affiliate Login Created",
             "AFFILIATE_STANDING_STATE_CHANGED": "Affiliate Standing State Changed",
+        	"ANNOUNCEMENT_POSTED": "Announcement Posted",
             "APPLICATION_CREATED": "Application Created",
             "APPLICATION_APPROVAL_STATE_CHANGED": "Application Approval State Changed",
             "APPLICATION_DELETED": "Application Deleted",
@@ -833,6 +834,9 @@
     },
     "memberManagement": {
         "title": "Member Management"
+    },
+    "postAnnouncement": {
+    	"title": "Post Announcement"
     },
     "activityLog": {
         "title": "Activity Log"
