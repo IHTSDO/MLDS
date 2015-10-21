@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -133,6 +134,24 @@ public class AnnouncementResourceTest {
 	}
 
 	@Test
+	public void postAnnouncementShouldSendEmailsToAdditionalAddressesSkippingBlanks() throws Exception {
+		securityContextSetup.asIHTSDOStaff();
+		
+		User user = new User();
+		user.setUserId(1L);
+		
+		Mockito.when(userMembershipCalculator.acceptedUsers(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
+		
+		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\", \"additionalEmails\": [ \"   \", \"\" ] }")
+                .accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+		
+		Mockito.verify(announcementEmailSender, never()).sendAnnouncementEmail(Mockito.anyString(), Mockito.any(Member.class), Mockito.anyString(), Mockito.anyString());
+	}
+
+	@Test
 	public void postAnnouncementShouldLog() throws Exception {
 		securityContextSetup.asIHTSDOStaff();
 		
@@ -148,5 +167,5 @@ public class AnnouncementResourceTest {
 		expected.put("announcement.member", "IHTSDO");
 		expected.put("announcement.title", "test title");
 		
-		Mockito.verify(auditEventService).createAuditEvent(Mockito.eq("ANNOUNCEMENT_POSTED"), Mockito.eq(expected));
+		Mockito.verify(auditEventService).logAuditableEvent(Mockito.eq("ANNOUNCEMENT_POSTED"), Mockito.eq(expected));
 	}}

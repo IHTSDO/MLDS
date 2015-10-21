@@ -5,13 +5,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Maps;
 
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.User;
-
-import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
 
 /*
  * Send email announcement to the relevant Member affiliates.
@@ -26,23 +26,29 @@ public class AnnouncementEmailSender {
 	@Resource ClientLinkBuilder clientLinkBuilder;
 
 	public void sendAnnouncementEmail(User user, Member member, String title, String message) {
-		sendAnnouncementEmail(user.getEmail(), member, title, message);
+		String fullName = user.getFirstName() + ' ' + user.getLastName();
+		final Locale locale = Locale.forLanguageTag(user.getLangKey());
+		sendAnnouncementEmail(user.getEmail(), fullName, locale, member, title, message);
 	}
-	
+
 	public void sendAnnouncementEmail(String email, Member member, String title, String message) {
-		final Locale locale = Locale.ENGLISH;
+		sendAnnouncementEmail(email, "", Locale.ENGLISH, member, title, message);
+	}
+
+	public void sendAnnouncementEmail(String email, String fullName, Locale locale, Member member, String title, String message) {
+		String subject = title; 
+		if (StringUtils.isBlank(subject)) {
+			subject = templateEvaluator.getTitleFor("announcement", locale);
+		}
+		
 		Map<String, Object> variables = Maps.newHashMap();
-//		variables.put(EmailVariables.APPLICATION_ID, Long.toString(application.getApplicationId()));
-//		variables.put(EmailVariables.APPLICATION_MEMBER, memberDescription(member));
-//		variables.put(EmailVariables.VIEW_APPLICATION_URL, clientLinkBuilder.buildViewApplication(application.getApplicationId()));
+		variables.put(EmailVariables.ANNOUNCEMENT_NAME, fullName);
+		variables.put(EmailVariables.ANNOUNCEMENT_MESSAGE, message);
+		variables.put(EmailVariables.ANNOUNCEMENT_TITLE, subject);
+		variables.put(EmailVariables.LOGIN_URL, clientLinkBuilder.buildLoginLink());
+		
 		String content = templateEvaluator.evaluateTemplate("announcementEmail", locale, variables);
-		String subject = templateEvaluator.getTitleFor("announcement", locale);
 		
 		mailService.sendEmail(email, subject, content, false, true);
 	}
-
-	private String memberDescription(Member member) {
-		return Strings.isNullOrEmpty(member.getName()) ? member.getKey() : member.getName();
-	}
-
 }
