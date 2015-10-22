@@ -2,6 +2,7 @@ package ca.intelliware.ihtsdo.mlds.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -22,9 +23,17 @@ public class UserMembershipCalculator {
 	@Resource UserRepository userRepository;
 	@Resource AffiliateMembershipCalculator affiliateMembershipCalculator;
 	
-	public Iterable<User> acceptedUsers(Member member) {
+	public Iterable<User> approvedReleaseUsers(Member member) {
+		return approvedMembership(member, releaseStandingStates());
+	}
+
+	public Iterable<User> approvedActiveUsers(Member member) {
+		return approvedMembership(member, activeStandingStates());
+	}
+
+	private Iterable<User> approvedMembership(Member member, List<StandingState> releaseStandingState) {
 		Set<User> users = new HashSet<User>();
-		for (Affiliate affiliate : affiliateRepository.findByStandingStateInAndCreatorNotNull(Arrays.asList(StandingState.IN_GOOD_STANDING, StandingState.DEACTIVATION_PENDING))) {
+		for (Affiliate affiliate : affiliateRepository.findByStandingStateInAndCreatorNotNull(releaseStandingState)) {
 			Set<Member> acceptedMemberships = affiliateMembershipCalculator.acceptedMemberships(affiliate);
 			if (acceptedMemberships.contains(member)) {
 				User user = userRepository.findByLoginIgnoreCase(affiliate.getCreator());
@@ -35,4 +44,21 @@ public class UserMembershipCalculator {
 		}
 		return users;
 	}
+
+	private List<StandingState> releaseStandingStates() {
+		return Arrays.asList(
+				StandingState.IN_GOOD_STANDING, 
+				StandingState.DEACTIVATION_PENDING
+				);
+	}
+	
+	private List<StandingState> activeStandingStates() {
+		return Arrays.asList(
+				StandingState.IN_GOOD_STANDING, 
+				StandingState.PENDING_INVOICE,
+				StandingState.INVOICE_SENT,
+				StandingState.DEACTIVATION_PENDING
+				);
+	}
+
 }

@@ -19,7 +19,7 @@ public class UserNotifier {
 	public void notifyReleasePackageUpdated(ReleaseVersion releaseVersion) {
 		ReleasePackage releasePackage = releaseVersion.getReleasePackage();
 		Member member = releasePackage.getMember();
-		for (User user : userMembershipCalculator.acceptedUsers(member)) {
+		for (User user : userMembershipCalculator.approvedReleaseUsers(member)) {
 			releasePackageUpdatedEmailSender.sendRelasePackageUpdatedEmail(user, releasePackage, releaseVersion);
 		}
 	}

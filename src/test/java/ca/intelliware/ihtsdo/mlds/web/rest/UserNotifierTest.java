@@ -44,7 +44,7 @@ public class UserNotifierTest {
 		User user1 = withUser(1L);
 		User user2 = withUser(2L);
 		
-		Mockito.when(userMembershipCalculator.acceptedUsers(member)).thenReturn(Arrays.asList(user1, user2));
+		Mockito.when(userMembershipCalculator.approvedReleaseUsers(member)).thenReturn(Arrays.asList(user1, user2));
 		
 		userNotifier.notifyReleasePackageUpdated(releaseVersion);
 		
