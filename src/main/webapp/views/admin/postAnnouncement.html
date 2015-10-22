@@ -15,7 +15,7 @@
 				<label>Email Subject</label>
 				<input class="form-control"
 					placeholder="Enter Subject" name="subject"
-					ng-model="announcement.subject" ng-required="true">
+					ng-model="announcement.subject" ng-required="true" ng-disabled="completed">
 				<span
 					ng-show="form.subject.$error.required && form.attempted"
 					class="help-block">Required Field</span>
@@ -30,7 +30,7 @@
 
 			<div class="form-group">
 				<div text-angular name="body" ng-model="announcement.body"
-					ng-required="true"></div>
+					ng-required="true" ng-disabled="completed"></div>
 				<span ng-show="form.body.$error.required && form.attempted" class="help-block">Required Field</span>
 			</div>
 			
@@ -54,7 +54,7 @@
 				<select class="form-control" name="member"
 					ng-model="announcement.member"
 					ng-options="m as (m.key | enum:'global.member.') for m in members track by m.key"
-					ng-required="true">
+					ng-required="true" ng-disabled="completed">
 				</select>
 				<span ng-show="form.member.$error.required && form.attempted"
 					class="help-block">Required Field</span>
@@ -63,7 +63,7 @@
 			<div class="form-group">
 				<label>Additional Email Addresses</label>
 				
-				<input class="form-control" name="emails" ng-model="emailListString">
+				<input class="form-control" name="emails" ng-model="emailListString"  ng-disabled="completed">
 				<span class="help-block">Send the announcement to additional email addressses.</span>
 			</div>
 			
@@ -71,14 +71,18 @@
 
 		<div class="col-md-12">
 			<button class="btn btn-success" ng-show="form.$invalid"
-				ng-click="form.attempted = true">
-				<i class="fa fa-send"></i> Post Announcement
+				ng-click="form.attempted = true" ng-disabled="completed">
+				<i class="fa fa-send"></i>
+				Post Announcement
 			</button>
 			<button class="btn btn-success" ng-hide="form.$invalid"
-				ng-click="postAnnouncement()" ng-disabled="submitting">
+				ng-click="postAnnouncement()" ng-disabled="submitting || completed">
 				<i class="fa fa-send"></i>
 				Post Announcement 
 				<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
+			</button>
+			<button class="btn btn-success" ng-hide="!completed" ng-click="newAnnouncement()">
+				New Announcement
 			</button>
 		</div>
 		
