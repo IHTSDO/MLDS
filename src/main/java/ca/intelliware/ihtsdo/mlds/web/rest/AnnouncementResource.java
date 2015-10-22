@@ -16,16 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import com.codahale.metrics.annotation.Timed;
+
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipCalculator;
 import ca.intelliware.ihtsdo.mlds.service.mail.AnnouncementEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.AnnouncementDTO;
-
-import com.codahale.metrics.annotation.Timed;
 
 @RestController
 public class AnnouncementResource {
@@ -62,16 +60,23 @@ public class AnnouncementResource {
 	}
 
 	private void sendAnnouncementEmails(AnnouncementDTO announcement) {
-		Member member = announcement.getMember();
-		for (User user : userMembershipCalculator.acceptedUsers(member)) {
-			announcementEmailSender.sendAnnouncementEmail(user, member, announcement.getSubject(), announcement.getBody());
-		}
+		sendEmailsForAffiliates(announcement);
+		sendEmailsForAdditionalEmailAddresses(announcement);
+	}
+
+	private void sendEmailsForAdditionalEmailAddresses(AnnouncementDTO announcement) {
 		if (announcement.getAdditionalEmails() != null) {
 			for (String email : announcement.getAdditionalEmails()) {
 				if (StringUtils.isNotBlank(email)) {
-					announcementEmailSender.sendAnnouncementEmail(email, member, announcement.getSubject(), announcement.getBody());
+					announcementEmailSender.sendAnnouncementEmail(email, announcement.getMember(), announcement.getSubject(), announcement.getBody());
 				}
 			}
+		}
+	}
+
+	private void sendEmailsForAffiliates(AnnouncementDTO announcement) {
+		for (User user : userMembershipCalculator.approvedActiveUsers(announcement.getMember())) {
+			announcementEmailSender.sendAnnouncementEmail(user, announcement.getMember(), announcement.getSubject(), announcement.getBody());
 		}
 	}
 

@@ -52,30 +52,30 @@ public class UserMembershipCalculationTest {
 	}
 	
 	@Test
-	public void acceptUsersShouldReturnMatchingUsers() {
+	public void approvedReleaseUsersShouldReturnMatchingUsers() {
 		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(sweden));
 		User user0 = withUser(affiliate0);
 		
-		Iterable<User> result = userMembershipCalculator.acceptedUsers(sweden);
+		Iterable<User> result = userMembershipCalculator.approvedReleaseUsers(sweden);
 		
 		Assert.assertThat(Lists.newArrayList(result), CoreMatchers.equalTo(Arrays.asList(user0)));
 	}
 
 	@Test
-	public void acceptUsersShouldReturnIgnoreAffiliatesWithoutRelatedUser() {
+	public void approvedReleaseUsersShouldReturnIgnoreAffiliatesWithoutRelatedUser() {
 		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(sweden));
 		// do not specify user related to affiliate
 		
-		Iterable<User> result = userMembershipCalculator.acceptedUsers(sweden);
+		Iterable<User> result = userMembershipCalculator.approvedReleaseUsers(sweden);
 		
 		Assert.assertThat(result.iterator().hasNext(), CoreMatchers.is(false));
 	}
 
 	@Test
-	public void acceptUsersShouldIgnoreNonMatchingMembers() {
+	public void approvedReleaseUsersShouldIgnoreNonMatchingMembers() {
 		Affiliate nonMatchingAffiliate = withAffiliate(10L, Sets.newHashSet(otherMember));
 		
-		Iterable<User> result = userMembershipCalculator.acceptedUsers(sweden);
+		Iterable<User> result = userMembershipCalculator.approvedReleaseUsers(sweden);
 		
 		Assert.assertThat(result.iterator().hasNext(), CoreMatchers.is(false));
 	}
