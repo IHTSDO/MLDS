@@ -77,6 +77,12 @@ public class Routes {
 	static final String AFFILIATES_ME = "/app/rest/affiliates/me";
 
 	/**
+	 * Public affiliate check
+	 * - get
+	 */
+	static final String AFFILIATES_CHECK = "/app/rest/affiliates/check";
+
+	/**
 	 * - get list of all affiliates for a username
 	 */
 	static final String AFFILIATES_CREATOR = "/app/rest/affiliates/creator/{username:.+}";
@@ -191,4 +197,5 @@ public class Routes {
 	 * - get our version info
 	 */
 	public static final String VERSION = "/app/rest/version";
+
 }
