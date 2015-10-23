@@ -46,7 +46,7 @@ public class AffiliatePublicResource {
 	    @RolesAllowed({ AuthoritiesConstants.ANONYMOUS })
 	    public @ResponseBody ResponseEntity<AffiliateCheckDTO> getAffiliates(
 	    		@RequestParam(value="member", defaultValue="") String memberKey,
-	    		@RequestParam(value="affiliateId", defaultValue="") String affiliateId,
+	    		@RequestParam(value="affiliateId", defaultValue="", required=false) String affiliateId,
 	    		@RequestParam(value="match", defaultValue="") String match) {
 			
 			AffiliateCheckDTO response = new AffiliateCheckDTO();
@@ -59,7 +59,7 @@ public class AffiliatePublicResource {
 			}
 			int MINIMUM_MATCH_LENGTH = 3;
 			if (match.trim().length() < MINIMUM_MATCH_LENGTH) {
-				return badRequest(response, "Match parameter of '+match+' was shorter than the minimum length: "+MINIMUM_MATCH_LENGTH);
+				return badRequest(response, "Match parameter value '"+match+"' was shorter than the minimum length: "+MINIMUM_MATCH_LENGTH);
 			}
 
 			Member member = memberRepository.findOneByKey(memberKey);
@@ -84,8 +84,8 @@ public class AffiliatePublicResource {
 			return new ResponseEntity<AffiliateCheckDTO>(response, HttpStatus.OK);
 		}
 
-		private ResponseEntity<AffiliateCheckDTO> badRequest(AffiliateCheckDTO response, String error) {
-			response.setError(error);
+		private ResponseEntity<AffiliateCheckDTO> badRequest(AffiliateCheckDTO response, String errorMessage) {
+			response.setErrorMessage(errorMessage);
 			return new ResponseEntity<AffiliateCheckDTO>(response, HttpStatus.BAD_REQUEST);
 		}
 
