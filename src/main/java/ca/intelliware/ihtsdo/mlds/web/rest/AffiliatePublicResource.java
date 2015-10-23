@@ -10,6 +10,8 @@ import javax.annotation.security.RolesAllowed;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Objects;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
@@ -34,8 +33,11 @@ import ca.intelliware.ihtsdo.mlds.web.rest.dto.AffiliateCheckDTO;
 @RestController
 public class AffiliatePublicResource {
 
-	   private final Logger log = LoggerFactory.getLogger(AffiliatePublicResource.class);
-	    
+	private static final int ZERO_ONE_MANY_RESULTS_LENGTH = 3;
+	private static final int MINIMUM_MATCH_LENGTH = 3;
+
+	private final Logger log = LoggerFactory.getLogger(AffiliatePublicResource.class);
+	   
 		@Resource AffiliateRepository affiliateRepository;
 		@Resource MemberRepository memberRepository;
 
@@ -57,31 +59,40 @@ public class AffiliatePublicResource {
 			if (StringUtils.isBlank(match)) {
 				return badRequest(response, "Missing mandatory parameter: match");
 			}
-			int MINIMUM_MATCH_LENGTH = 3;
 			if (match.trim().length() < MINIMUM_MATCH_LENGTH) {
-				return badRequest(response, "Match parameter value '"+match+"' was shorter than the minimum length: "+MINIMUM_MATCH_LENGTH);
+				return badRequest(response, "Match parameter value: '"+match+"' was shorter than the minimum length: "+MINIMUM_MATCH_LENGTH);
 			}
 
 			Member member = memberRepository.findOneByKey(memberKey);
 			if (member == null) {
-				return badRequest(response, "Unknown member: "+memberKey+". Valid options: "+memberOptions());
-			}
-			if (StringUtils.isNotBlank(affiliateId)) {
-				try {
-					long id = Long.valueOf(affiliateId);
-					Affiliate affiliate = affiliateRepository.findOne(id);
-					if (affiliate == null) {
-						return badRequest(response, "Unknown affiliateId: "+affiliateId);
-					}
-					response.setMatched(member != null && affiliate != null && nameMatches(affiliate, match) && affiliateValid(affiliate));
-				} catch (NumberFormatException e) {
-					return badRequest(response, "Illegal affiliateId value: "+affiliateId);
-				}
-			} else {
-				response.setMatched(false);
+				return badRequest(response, "Unknown member: '"+memberKey+"'. Valid options: "+memberOptions());
 			}
 			
+			long affilateIdOptional = AffiliateRepository.AFFILIATE_ID_OPTIONAL_VALUE;
+			if (StringUtils.isNotBlank(affiliateId)) {
+				try {
+					// Do not try to check affiliateId to not leak valid ids
+					affilateIdOptional = Long.valueOf(affiliateId);
+				} catch (NumberFormatException e) {
+					response.setMatched(false);
+					return new ResponseEntity<AffiliateCheckDTO>(response, HttpStatus.OK);
+				}
+			}
+
+			Page<Affiliate> matchingAffiliates = affiliateRepository.findForCheck(affilateIdOptional, member, match, createZeroOneManyPageRequest());
+			response.setMatched(isSingleAffiliateMatch(matchingAffiliates));
+			
 			return new ResponseEntity<AffiliateCheckDTO>(response, HttpStatus.OK);
+		}
+
+		private boolean isSingleAffiliateMatch(Page<Affiliate> resultPage) {
+			return resultPage.getNumberOfElements() == 1;
+		}
+
+		private PageRequest createZeroOneManyPageRequest() {
+			// Limit number of results to tell difference between 0, 1, many results
+			PageRequest pageRequest = new PageRequest(0, ZERO_ONE_MANY_RESULTS_LENGTH);
+			return pageRequest;
 		}
 
 		private ResponseEntity<AffiliateCheckDTO> badRequest(AffiliateCheckDTO response, String errorMessage) {
@@ -102,23 +113,4 @@ public class AffiliatePublicResource {
 			}
 			return builder.toString();
 		}
-
-		private boolean affiliateValid(Affiliate affiliate) {
-			return affiliate != null && (Objects.equal(affiliate.getStandingState(), StandingState.IN_GOOD_STANDING));
-		}
-
-		private boolean nameMatches(Affiliate affiliate, String match) {
-			AffiliateDetails details = affiliate.getAffiliateDetails();
-			if (details == null) {
-				return false;
-			}
-			return 
-				matches(details.getOrganizationName(), match)
-				|| matches(details.getEmail(), match);
-		}
-
-		private boolean matches(String value, String match) {
-			return StringUtils.containsIgnoreCase(value, match);
-		}
-		
 }
