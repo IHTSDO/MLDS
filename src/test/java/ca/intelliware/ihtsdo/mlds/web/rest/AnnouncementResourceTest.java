@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
-import javax.annotation.Resource;
-
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -46,8 +44,6 @@ public class AnnouncementResourceTest {
 
 	private Member ihtsdoMember;
 
-	private Member otherMember;	
-	
 	@Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -67,7 +63,6 @@ public class AnnouncementResourceTest {
         		.build();
 		
 		ihtsdoMember = withMember("IHTSDO", 1L);
-		otherMember = withMember("OT", 2L);
 		
 		securityContextSetup.asAdmin();
     }
@@ -102,6 +97,7 @@ public class AnnouncementResourceTest {
 		
 		User user = new User();
 		user.setUserId(1L);
+		user.setEmail("user@test.com");
 		
 		Mockito.when(userMembershipCalculator.approvedActiveUsers(ihtsdoMember)).thenReturn(Arrays.asList(user));
 		
@@ -111,7 +107,7 @@ public class AnnouncementResourceTest {
                 .accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 		
-		Mockito.verify(announcementEmailSender, times(1)).sendAnnouncementEmail(user, ihtsdoMember, "test title", "test message");
+		Mockito.verify(announcementEmailSender, times(1)).sendAnnouncementEmail("user@test.com", ihtsdoMember, "test title", "test message");
 	}
 
 	@Test

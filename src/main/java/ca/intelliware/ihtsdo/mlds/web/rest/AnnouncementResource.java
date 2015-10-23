@@ -76,7 +76,7 @@ public class AnnouncementResource {
 
 	private void sendEmailsForAffiliates(AnnouncementDTO announcement) {
 		for (User user : userMembershipCalculator.approvedActiveUsers(announcement.getMember())) {
-			announcementEmailSender.sendAnnouncementEmail(user, announcement.getMember(), announcement.getSubject(), announcement.getBody());
+			announcementEmailSender.sendAnnouncementEmail(user.getEmail(), announcement.getMember(), announcement.getSubject(), announcement.getBody());
 		}
 	}
 
