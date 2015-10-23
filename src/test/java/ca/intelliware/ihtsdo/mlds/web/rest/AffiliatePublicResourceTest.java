@@ -54,7 +54,7 @@ public class AffiliatePublicResourceTest {
 					.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.error", containsString("member")));
+		.andExpect(jsonPath("$.error.message", containsString("Missing mandatory parameter: member")));
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class AffiliatePublicResourceTest {
 					.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.error", containsString("match")));
+		.andExpect(jsonPath("$.error.message", containsString("Missing mandatory parameter: match")));
 	}
 
 	@Test
@@ -82,9 +82,7 @@ public class AffiliatePublicResourceTest {
 					.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.error", containsString("match")))
-		.andExpect(jsonPath("$.error", containsString("3")))
-		.andExpect(jsonPath("$.error", containsString("minimum")));
+		.andExpect(jsonPath("$.error.message", containsString("Match parameter value 'sm' was shorter than the minimum length: 3")));
 	}
 
 	@Test
@@ -101,9 +99,8 @@ public class AffiliatePublicResourceTest {
 					.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.error", containsString("member")))
-		.andExpect(jsonPath("$.error", containsString("xy")))
-		.andExpect(jsonPath("$.error", containsString("options: es us")));
+		.andExpect(jsonPath("$.error.message", containsString("Unknown member: xy")))
+		.andExpect(jsonPath("$.error.message", containsString("options: es us")));
 	}
 
 	@Test
@@ -120,8 +117,7 @@ public class AffiliatePublicResourceTest {
 					.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.error", containsString("affiliateId")))
-		.andExpect(jsonPath("$.error", containsString("Illegal")));
+		.andExpect(jsonPath("$.error.message", containsString("Illegal affiliateId value: word")));
 	}
 
 	@Test
@@ -138,9 +134,7 @@ public class AffiliatePublicResourceTest {
 					.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.error", containsString("affiliate")))
-		.andExpect(jsonPath("$.error", containsString("123")))
-		.andExpect(jsonPath("$.error", containsString("Unknown")));
+		.andExpect(jsonPath("$.error.message", containsString("Unknown affiliateId: 123")));
 	}
 
 	@Test
@@ -186,7 +180,7 @@ public class AffiliatePublicResourceTest {
 	}
 
 	@Test
-	public void affiateIdWithMatchShouldFail() throws Exception {
+	public void affiateIdWithNonMatchShouldBeFalse() throws Exception {
 		withMember("se", 1L);
 		
 		Affiliate affiliate = withAffiliate(123L);
