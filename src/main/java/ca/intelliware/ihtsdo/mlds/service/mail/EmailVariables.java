@@ -14,7 +14,6 @@ public class EmailVariables {
 	static final String RELEASE_VERSION = "releaseVersion";
 	static final String APPLICATION_TYPE = "applicationType";
 	static final String APPLICATION_MEMBER = "applicationMember";
-	static final String ANNOUNCEMENT_TITLE = "announcementTitle";
-	static final String ANNOUNCEMENT_MESSAGE = "announcementMessage";
-	static final String ANNOUNCEMENT_NAME = "announcementName";
+	static final String BLANK_TITLE = "blankTitle";
+	static final String BLANK_BODY = "blankBody";
 }
