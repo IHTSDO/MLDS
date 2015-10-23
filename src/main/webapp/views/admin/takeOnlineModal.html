@@ -8,7 +8,7 @@
  	<div>
 		<label>Package Name: </label>
 		<span>{{releasePackage.name}}</span>
- 	</div>			
+ 	</div>
  	<div>
 		<label>Package Version: </label>
 		<span>{{releaseVersion.name}}</span>
@@ -17,7 +17,7 @@
 	 	<div>
 	        <label>
 	        	<input type="checkbox" name="notifyAffiliates" ng-model="notify.notifyAffiliates">
-	        	Notify members by email
+	        	Notify by email, all the affiliates who have access to versions in this release
 	        </label>
     	</div>
  	</form>
@@ -25,7 +25,7 @@
  <div class="modal-footer">
      <button class="btn btn-link" ng-click="$dismiss()">No</button>
      <button class="btn btn-success" ng-click="ok()" ng-disabled="submitting">
-     	Yes 
+     	Yes
      	<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
      </button>
  </div>
