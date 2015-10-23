@@ -80,7 +80,7 @@ public class Routes {
 	 * Public affiliate check
 	 * - get
 	 */
-	static final String AFFILIATES_CHECK = "/app/rest/affiliates/check";
+	static final String AFFILIATES_CHECK = "/affiliates/check";
 
 	/**
 	 * - get list of all affiliates for a username
