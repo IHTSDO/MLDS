@@ -17,11 +17,14 @@ mldsApp.controller('PostAnnouncementController', [
 					subject: '',
 					body: '',
 					member: sessionMemberPopulated(),
+					allAffiliates: false,
 					additionalEmails: []
 			};
-			$scope.emailListString = Session.email || ''; 
-			$scope.members = Session.isAdmin() ? 
-					MemberService.members : [ $scope.announcement.member ];
+			$scope.emailListString = Session.email || '';
+			
+			
+			$scope.includeAllAffiliates = 0;
+			$scope.isAdmin = Session.isAdmin();
 
 			$scope.form = {};
 	    	$scope.form.attempted = false;
@@ -52,6 +55,7 @@ mldsApp.controller('PostAnnouncementController', [
 	    		
 	    		$scope.announcement.additionalEmails = $scope.emailListString.split(/[ ,;]+/);
 	    		
+	    		$scope.announcement.allAffiliates = (Session.isAdmin && $scope.includeAllAffiliates) ? true : false;
 
 	    		AnnouncementsService.post({}, $scope.announcement)
 	    			.$promise.then(function(result) {

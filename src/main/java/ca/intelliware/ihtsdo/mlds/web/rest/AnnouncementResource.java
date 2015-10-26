@@ -75,8 +75,16 @@ public class AnnouncementResource {
 	}
 
 	private void sendEmailsForAffiliates(AnnouncementDTO announcement) {
-		for (User user : userMembershipCalculator.approvedActiveUsers(announcement.getMember())) {
+		for (User user : matchingAffiliateUsers(announcement)) {
 			announcementEmailSender.sendAnnouncementEmail(user.getEmail(), announcement.getMember(), announcement.getSubject(), announcement.getBody());
+		}
+	}
+
+	private Iterable<User> matchingAffiliateUsers(AnnouncementDTO announcement) {
+		if (announcement.isAllAffiliates()) {
+			return userMembershipCalculator.approvedActiveUsers();
+		} else {
+			return userMembershipCalculator.approvedActiveUsersWithHomeMembership(announcement.getMember());
 		}
 	}
 
