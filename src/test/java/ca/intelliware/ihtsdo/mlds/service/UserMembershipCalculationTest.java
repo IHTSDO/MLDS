@@ -58,7 +58,7 @@ public class UserMembershipCalculationTest {
 		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
 
 		// test
-		Iterable<User> result = userMembershipCalculator.approvedReleaseUsers(sweden);
+		Iterable<User> result = userMembershipCalculator.approvedReleaseUsersWithAnyMembership(sweden);
 		
 		Assert.assertThat(Lists.newArrayList(result), CoreMatchers.equalTo(Arrays.asList(user0)));
 	}
@@ -71,7 +71,7 @@ public class UserMembershipCalculationTest {
 		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
 		
 		// test
-		Iterable<User> result = userMembershipCalculator.approvedReleaseUsers(sweden);
+		Iterable<User> result = userMembershipCalculator.approvedReleaseUsersWithAnyMembership(sweden);
 		
 		Assert.assertThat(result.iterator().hasNext(), CoreMatchers.is(false));
 	}
@@ -84,7 +84,7 @@ public class UserMembershipCalculationTest {
 		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(Matchers.anyListOf(StandingState.class))).thenReturn(matchingAffiliates);
 
 		// test
-		Iterable<User> result = userMembershipCalculator.approvedReleaseUsers(ihtsdo);
+		Iterable<User> result = userMembershipCalculator.approvedReleaseUsersWithAnyMembership(ihtsdo);
 		
 		Assert.assertThat(Lists.newArrayList(result), CoreMatchers.equalTo(Arrays.asList(user0)));
 	}
@@ -94,10 +94,10 @@ public class UserMembershipCalculationTest {
 		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(sweden));
 		User user0 = withUser(affiliate0);
 
-		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
+		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
 
 		// test
-		Iterable<User> result = userMembershipCalculator.approvedActiveUsers(sweden);
+		Iterable<User> result = userMembershipCalculator.approvedActiveUsersWithHomeMembership(sweden);
 		
 		Assert.assertThat(Lists.newArrayList(result), CoreMatchers.equalTo(Arrays.asList(user0)));
 	}

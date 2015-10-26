@@ -34,14 +34,16 @@
 			<h3>Audience</h3>
 			
 			<div class="form-group">
-				<label>Active affiliates of Member</label>
-				<select class="form-control" name="member"
-					ng-model="announcement.member"
-					ng-options="m as (m.key | enum:'global.member.') for m in members track by m.key"
-					ng-required="true" ng-disabled="completed">
-				</select>
-				<span ng-show="form.member.$error.required && form.attempted"
-					class="help-block">Required Field</span>
+				<label>Affiliates</label>
+				<div ng-show="isAdmin">
+					<select ng-model="includeAllAffiliates">
+						<option value="0" selected="selected">My Affiliates ({{announcement.member.key | enum:'global.member.'}})</option>
+						<option value="1">All Affiliates</option>
+					</select>
+				</div>
+				<div ng-show="!isAdmin">
+					<div>My Affiliates ({{announcement.member.key | enum:'global.member.'}})</div>
+				</div>
 			</div>
 			
 			<div class="form-group">

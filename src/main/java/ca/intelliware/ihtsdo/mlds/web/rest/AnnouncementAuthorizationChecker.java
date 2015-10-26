@@ -10,7 +10,7 @@ public class AnnouncementAuthorizationChecker extends AuthorizationChecker {
 
 	public void checkCanPostAnnouncement(AnnouncementDTO announcement) {
 		if (currentSecurityContext.isAdmin() 
-				|| currentSecurityContext.isStaffFor(announcement.getMember())) {
+				|| (currentSecurityContext.isStaffFor(announcement.getMember()) && !announcement.isAllAffiliates())) {
 			return;
 		}
 		failCheck("User not authorized to post announcement.");

@@ -25,17 +25,29 @@ public class UserMembershipCalculator {
 	@Resource UserRepository userRepository;
 	@Resource AffiliateMembershipCalculator affiliateMembershipCalculator;
 	
-	public Iterable<User> approvedReleaseUsers(Member member) {
-		return approvedMembership(member, releaseStandingStates());
+	public Iterable<User> approvedReleaseUsersWithAnyMembership(Member member) {
+		return findMatchingUsers(anyApprovedMembership(member, releaseStandingStates()));
 	}
 
-	public Iterable<User> approvedActiveUsers(Member member) {
-		return approvedMembership(member, activeStandingStates());
+	public Iterable<User> approvedActiveUsersWithHomeMembership(Member member) {
+		return findMatchingUsers(affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(activeStandingStates(), member));
 	}
 
-	private Iterable<User> approvedMembership(Member member, List<StandingState> releaseStandingState) {
+	public Iterable<User> approvedActiveUsers() {
+		return findMatchingUsers(affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(activeStandingStates()));
+	}
+
+	private Iterable<Affiliate> anyApprovedMembership(Member member, List<StandingState> standingStates) {
+		if (Objects.equal(member.getKey(), Member.KEY_IHTSDO)) {
+			return affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(standingStates);
+		} else {
+			return affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(standingStates,  member);
+		}
+	}
+
+	private Iterable<User> findMatchingUsers(Iterable<Affiliate> affiliates) {
 		Set<User> users = new HashSet<User>();
-		for (Affiliate affiliate : membership(member, releaseStandingState)) {
+		for (Affiliate affiliate : affiliates) {
 			User user = userRepository.findByLoginIgnoreCase(affiliate.getCreator());
 			if (user != null) {
 				users.add(user);
@@ -44,14 +56,8 @@ public class UserMembershipCalculator {
 		return users;
 	}
 
-	private Iterable<Affiliate> membership(Member member, List<StandingState> releaseStandingState) {
-		if (Objects.equal(member.getKey(), Member.KEY_IHTSDO)) {
-			return affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(releaseStandingState);
-		} else {
-			return affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(releaseStandingState,  member);
-		}
-	}
 
+	
 	private List<StandingState> releaseStandingStates() {
 		return Arrays.asList(
 				StandingState.IN_GOOD_STANDING, 
@@ -67,5 +73,4 @@ public class UserMembershipCalculator {
 				StandingState.DEACTIVATION_PENDING
 				);
 	}
-
 }
