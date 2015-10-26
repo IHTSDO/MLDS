@@ -1158,6 +1158,21 @@
                 "dPending.title": "Account Deactivation Pending",
                 "dPending.msg": "Your account is scheduled to be Deactivated.  Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue."
             }
+        },
+        "postAnnouncement": {
+        	"title": "Post Announcement",
+        	"messageContent": "Message Content",
+        	"emailSubject": "Email Subject",
+        	"emailBody": "Email Body",
+        	"salutationMessage": "Remember to add a salutation and valediction to the email.",
+        	"audience": "Audience",
+        	"affiliates": "Affiliates",
+        	"myAffiliates": "My Affiliates",
+        	"allAffiliates": "All Affiliates",
+        	"additionalEmails": "Additional Email Addresses",
+        	"additionalEmailsHelp": "Send the announcement to additional email addressses.",
+        	"post": "Post Announcement",
+        	"newAnnouncement": "New Announcement"
         }
     }
 }
