@@ -42,6 +42,19 @@ public class AnnouncementAuthorizationCheckerTest {
 	}
 
 	@Test
+	public void adminCanPostAnnouncementForAllAffiliates() {
+		securityContextSetup.asAdmin();
+		
+		authorizationChecker.checkCanPostAnnouncement(announcementForAllAffiliates(ihtsdo));
+	}
+
+	private AnnouncementDTO announcementForAllAffiliates(Member member) {
+		AnnouncementDTO announcement = announcement(member);
+		announcement.setAllAffiliates(true);
+		return announcement;
+	}
+
+	@Test
 	public void staffCanPostAnnouncementForOwnMember() {
 		securityContextSetup.asIHTSDOStaff();
 		
@@ -53,6 +66,13 @@ public class AnnouncementAuthorizationCheckerTest {
 		securityContextSetup.asIHTSDOStaff();
 		
 		authorizationChecker.checkCanPostAnnouncement(announcement(sweden));
+	}
+
+	@Test(expected=IllegalStateException.class)
+	public void staffCanNotPostAnnouncementForAllAffiliates() {
+		securityContextSetup.asIHTSDOStaff();
+		
+		authorizationChecker.checkCanPostAnnouncement(announcementForAllAffiliates(sweden));
 	}
 
 	@Test(expected=IllegalStateException.class)

@@ -99,7 +99,7 @@ public class AnnouncementResourceTest {
 		user.setUserId(1L);
 		user.setEmail("user@test.com");
 		
-		Mockito.when(userMembershipCalculator.approvedActiveUsers(ihtsdoMember)).thenReturn(Arrays.asList(user));
+		Mockito.when(userMembershipCalculator.approvedActiveUsersWithHomeMembership(ihtsdoMember)).thenReturn(Arrays.asList(user));
 		
 		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
         		.contentType(MediaType.APPLICATION_JSON)
@@ -117,7 +117,7 @@ public class AnnouncementResourceTest {
 		User user = new User();
 		user.setUserId(1L);
 		
-		Mockito.when(userMembershipCalculator.approvedActiveUsers(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
+		Mockito.when(userMembershipCalculator.approvedActiveUsersWithHomeMembership(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
 		
 		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
         		.contentType(MediaType.APPLICATION_JSON)
@@ -136,7 +136,7 @@ public class AnnouncementResourceTest {
 		User user = new User();
 		user.setUserId(1L);
 		
-		Mockito.when(userMembershipCalculator.approvedActiveUsers(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
+		Mockito.when(userMembershipCalculator.approvedActiveUsersWithHomeMembership(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
 		
 		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
         		.contentType(MediaType.APPLICATION_JSON)
@@ -151,7 +151,7 @@ public class AnnouncementResourceTest {
 	public void postAnnouncementShouldLog() throws Exception {
 		securityContextSetup.asIHTSDOStaff();
 		
-		Mockito.when(userMembershipCalculator.approvedActiveUsers(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
+		Mockito.when(userMembershipCalculator.approvedActiveUsersWithHomeMembership(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
 		
 		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
         		.contentType(MediaType.APPLICATION_JSON)

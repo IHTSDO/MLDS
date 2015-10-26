@@ -8,6 +8,7 @@ public class AnnouncementDTO {
 	private String subject;
 	private String body;
 	private Member member;
+	private boolean allAffiliates;
 	private List<String> additionalEmails;
 	
 	public AnnouncementDTO() {
@@ -44,6 +45,14 @@ public class AnnouncementDTO {
 
 	public void setAdditionalEmails(List<String> additionalEmails) {
 		this.additionalEmails = additionalEmails;
+	}
+
+	public boolean isAllAffiliates() {
+		return allAffiliates;
+	}
+
+	public void setAllAffiliates(boolean allAffiliates) {
+		this.allAffiliates = allAffiliates;
 	}
 
 

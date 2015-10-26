@@ -86,4 +86,13 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 			+ "AND TYPE(b) = ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication "
 			)
 	Iterable<Affiliate> findByUsersAndStandingStateInAndApprovedPrimaryApplication(@Param("standingStates") List<StandingState> standingStates);
+
+	@Query(value="SELECT DISTINCT a from Affiliate a INNER JOIN a.applications b "
+			+ "WHERE  a.creator IS NOT NULL "
+			+ "AND a.standingState IN :standingStates "
+			+ "AND a.homeMember = :member "
+			+ "AND b.member = :member "
+			+ "AND b.approvalState = ca.intelliware.ihtsdo.mlds.domain.ApprovalState.APPROVED "
+			)
+	Iterable<Affiliate> findByUsersAndStandingStateInAndApprovedHomeMembership(@Param("standingStates") List<StandingState> standingStates,  @Param("member") Member member);
 }
