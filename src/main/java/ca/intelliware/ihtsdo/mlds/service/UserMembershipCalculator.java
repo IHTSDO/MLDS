@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Objects;
+
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.StandingState;
@@ -33,16 +35,21 @@ public class UserMembershipCalculator {
 
 	private Iterable<User> approvedMembership(Member member, List<StandingState> releaseStandingState) {
 		Set<User> users = new HashSet<User>();
-		for (Affiliate affiliate : affiliateRepository.findByStandingStateInAndCreatorNotNull(releaseStandingState)) {
-			Set<Member> acceptedMemberships = affiliateMembershipCalculator.acceptedMemberships(affiliate);
-			if (acceptedMemberships.contains(member)) {
-				User user = userRepository.findByLoginIgnoreCase(affiliate.getCreator());
-				if (user != null) {
-					users.add(user);
-				}	
-			}
+		for (Affiliate affiliate : membership(member, releaseStandingState)) {
+			User user = userRepository.findByLoginIgnoreCase(affiliate.getCreator());
+			if (user != null) {
+				users.add(user);
+			}	
 		}
 		return users;
+	}
+
+	private Iterable<Affiliate> membership(Member member, List<StandingState> releaseStandingState) {
+		if (Objects.equal(member.getKey(), Member.KEY_IHTSDO)) {
+			return affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(releaseStandingState);
+		} else {
+			return affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(releaseStandingState,  member);
+		}
 	}
 
 	private List<StandingState> releaseStandingStates() {

@@ -34,7 +34,7 @@ public class UserMembershipCalculationTest {
 	private UserMembershipCalculator userMembershipCalculator;
 	private ArrayList<Affiliate> matchingAffiliates;
 	private Member sweden;
-	private Member otherMember;
+	private Member ihtsdo;
 	
 	@Before
 	public void setup() {
@@ -44,18 +44,20 @@ public class UserMembershipCalculationTest {
 		userMembershipCalculator.affiliateRepository = affiliateRepository;
 		userMembershipCalculator.userRepository = userRepository;
 		
-		sweden = new Member("se", 1L);
-		otherMember = new Member("gb", 2L);
+		sweden = new Member("SE", 1L);
+		ihtsdo = new Member("IHTSDO", 2L);
 		
 		matchingAffiliates = new ArrayList<Affiliate>();
-		Mockito.when(affiliateRepository.findByStandingStateInAndCreatorNotNull(Matchers.anyCollectionOf(StandingState.class))).thenReturn(matchingAffiliates);
 	}
 	
 	@Test
 	public void approvedReleaseUsersShouldReturnMatchingUsers() {
 		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(sweden));
 		User user0 = withUser(affiliate0);
-		
+
+		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
+
+		// test
 		Iterable<User> result = userMembershipCalculator.approvedReleaseUsers(sweden);
 		
 		Assert.assertThat(Lists.newArrayList(result), CoreMatchers.equalTo(Arrays.asList(user0)));
@@ -63,21 +65,41 @@ public class UserMembershipCalculationTest {
 
 	@Test
 	public void approvedReleaseUsersShouldReturnIgnoreAffiliatesWithoutRelatedUser() {
-		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(sweden));
+		withAffiliate(10L, Sets.newHashSet(sweden));
 		// do not specify user related to affiliate
 		
+		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
+		
+		// test
 		Iterable<User> result = userMembershipCalculator.approvedReleaseUsers(sweden);
 		
 		Assert.assertThat(result.iterator().hasNext(), CoreMatchers.is(false));
 	}
 
 	@Test
-	public void approvedReleaseUsersShouldIgnoreNonMatchingMembers() {
-		Affiliate nonMatchingAffiliate = withAffiliate(10L, Sets.newHashSet(otherMember));
+	public void approvedReleaseUsersForIhtsdoMemberShouldReturnMatchingUsers() {
+		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(ihtsdo));
+		User user0 = withUser(affiliate0);
+
+		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(Matchers.anyListOf(StandingState.class))).thenReturn(matchingAffiliates);
+
+		// test
+		Iterable<User> result = userMembershipCalculator.approvedReleaseUsers(ihtsdo);
 		
-		Iterable<User> result = userMembershipCalculator.approvedReleaseUsers(sweden);
+		Assert.assertThat(Lists.newArrayList(result), CoreMatchers.equalTo(Arrays.asList(user0)));
+	}
+
+	@Test
+	public void approvedActiveUsersShouldReturnMatchingUsers() {
+		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(sweden));
+		User user0 = withUser(affiliate0);
+
+		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
+
+		// test
+		Iterable<User> result = userMembershipCalculator.approvedActiveUsers(sweden);
 		
-		Assert.assertThat(result.iterator().hasNext(), CoreMatchers.is(false));
+		Assert.assertThat(Lists.newArrayList(result), CoreMatchers.equalTo(Arrays.asList(user0)));
 	}
 
 	private User withUser(Affiliate affiliate0) {
