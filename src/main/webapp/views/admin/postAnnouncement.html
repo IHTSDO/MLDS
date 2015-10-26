@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="page-header">
-			<h2>Post Announcement</h2>
+			<h2 translate="views.postAnnouncement.title">Post Announcement</h2>
 		</div>
 	</div>
 </div>
@@ -9,48 +9,50 @@
 	<form name="form" bs-validation>
 
 		<div class="col-md-12">
-			<h3>Message Content</h3>
+			<h3 translate="views.postAnnouncement.messageContent">Message Content</h3>
 
 			<div class="form-group">
-				<label>Email Subject</label>
+				<label translate="views.postAnnouncement.emailSubject">Email Subject</label>
 				<input class="form-control"
-					placeholder="Enter Subject" name="subject"
+					name="subject"
 					ng-model="announcement.subject" ng-required="true" ng-disabled="completed">
 				<span
 					ng-show="form.subject.$error.required && form.attempted"
-					class="help-block">Required Field</span>
+					class="help-block" translate="form.requiredField">Required Field</span>
 			</div>
 
 			<div class="form-group">
-				<label>Email Body</label>
+				<label translate="views.postAnnouncement.emailBody">Email Body</label>
 				<div text-angular name="body" ng-model="announcement.body"
 					ng-required="true" ng-disabled="completed"></div>
-				<span class="help-block">Remember to add a salutation and valediction to the email.</span>
-				<span ng-show="form.body.$error.required && form.attempted" class="help-block">Required Field</span>
+				<span translate="views.postAnnouncement.salutationMessage" class="help-block">Remember to add a salutation and valediction to the email.</span>
+				<span ng-show="form.body.$error.required && form.attempted" 
+					class="help-block"translate="form.requiredField">Required Field</span>
 			</div>
 		</div>
 
 		<div class="col-md-12">
-			<h3>Audience</h3>
+			<h3  translate="views.postAnnouncement.audience">Audience</h3>
 			
 			<div class="form-group">
-				<label>Affiliates</label>
+				<label translate="views.postAnnouncement.affiliates">Affiliates</label>
 				<div ng-show="isAdmin">
 					<select ng-model="includeAllAffiliates">
-						<option value="0" selected="selected">My Affiliates ({{announcement.member.key | enum:'global.member.'}})</option>
-						<option value="1">All Affiliates</option>
+						<option value="0" selected="selected"><span translate="views.postAnnouncement.myAffiliates">My Affiliates</span> ({{announcement.member.key | enum:'global.member.'}})</option>
+						<option value="1" translate="views.postAnnouncement.allAffiliates">All Affiliates</option>
 					</select>
 				</div>
 				<div ng-show="!isAdmin">
-					<div>My Affiliates ({{announcement.member.key | enum:'global.member.'}})</div>
+					<div><span translate="views.postAnnouncement.myAffiliates">My Affiliates</span> ({{announcement.member.key | enum:'global.member.'}})</div>
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label>Additional Email Addresses</label>
+				<label translate="views.postAnnouncement.additionalEmails">Additional Email Addresses</label>
 				
 				<input class="form-control" name="emails" ng-model="emailListString"  ng-disabled="completed">
-				<span class="help-block">Send the announcement to additional email addressses.</span>
+				<span class="help-block" translate="views.postAnnouncement.additionalEmailsHelp">
+					Send the announcement to additional email addressses.</span>
 			</div>
 			
 		</div>
@@ -59,16 +61,16 @@
 			<button class="btn btn-success" ng-show="form.$invalid"
 				ng-click="form.attempted = true" ng-disabled="completed">
 				<i class="fa fa-send"></i>
-				Post Announcement
+				<span translate="views.postAnnouncement.post">Post Announcement</span>
 			</button>
 			<button class="btn btn-success" ng-hide="form.$invalid"
 				ng-click="postAnnouncement()" ng-disabled="submitting || completed">
 				<i class="fa fa-send"></i>
-				Post Announcement 
+				<span translate="views.postAnnouncement.post">Post Announcement</span> 
 				<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
 			</button>
 			<button class="btn btn-success" ng-hide="!completed" ng-click="newAnnouncement()">
-				New Announcement
+				 <span translate="views.postAnnouncement.newAnnouncement">New Announcement</span>
 			</button>
 		</div>
 		
