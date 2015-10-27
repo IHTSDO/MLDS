@@ -79,20 +79,19 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 			)
 	Iterable<Affiliate> findByUsersAndStandingStateInAndApprovedMembership(@Param("standingStates") List<StandingState> standingStates, @Param("member") Member member);
 
-	@Query(value="SELECT DISTINCT a from Affiliate a INNER JOIN a.applications b "
+	@Query(value="SELECT a from Affiliate a  "
 			+ "WHERE  a.creator IS NOT NULL "
 			+ "AND a.standingState IN :standingStates "
-			+ "AND b.approvalState = ca.intelliware.ihtsdo.mlds.domain.ApprovalState.APPROVED "
-			+ "AND TYPE(b) = ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication "
+			+ "AND a.application.approvalState = ca.intelliware.ihtsdo.mlds.domain.ApprovalState.APPROVED "
 			)
 	Iterable<Affiliate> findByUsersAndStandingStateInAndApprovedPrimaryApplication(@Param("standingStates") List<StandingState> standingStates);
 
-	@Query(value="SELECT DISTINCT a from Affiliate a INNER JOIN a.applications b "
+	@Query(value="SELECT a from Affiliate a  "
 			+ "WHERE  a.creator IS NOT NULL "
 			+ "AND a.standingState IN :standingStates "
 			+ "AND a.homeMember = :member "
-			+ "AND b.member = :member "
-			+ "AND b.approvalState = ca.intelliware.ihtsdo.mlds.domain.ApprovalState.APPROVED "
+			+ "AND a.application.member = :member "
+			+ "AND a.application.approvalState = ca.intelliware.ihtsdo.mlds.domain.ApprovalState.APPROVED "
 			)
 	Iterable<Affiliate> findByUsersAndStandingStateInAndApprovedHomeMembership(@Param("standingStates") List<StandingState> standingStates,  @Param("member") Member member);
 }

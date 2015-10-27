@@ -1,7 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -36,6 +35,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.codahale.metrics.annotation.Timed;
+import com.google.common.base.Objects;
+import com.google.common.base.Strings;
+
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
@@ -59,10 +62,6 @@ import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
-
-import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Objects;
-import com.google.common.base.Strings;
 
 @RestController
 public class AffiliateResource {
