@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -26,11 +27,13 @@ public class UserMembershipCalculator {
 	@Resource AffiliateMembershipCalculator affiliateMembershipCalculator;
 	
 	public Iterable<User> approvedReleaseUsersWithAnyMembership(Member member) {
-		return findMatchingUsers(anyApprovedMembership(member, releaseStandingStates()));
+		Iterable<Affiliate> affiliates = anyApprovedMembership(member, releaseStandingStates());
+		return findMatchingUsers(affiliates);
 	}
 
 	public Iterable<User> approvedActiveUsersWithHomeMembership(Member member) {
-		return findMatchingUsers(affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(activeStandingStates(), member));
+		Iterable<Affiliate> affiliates = affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(activeStandingStates(), member);
+		return findMatchingUsers(affiliates);
 	}
 
 	public Iterable<User> approvedActiveUsers() {
@@ -46,13 +49,15 @@ public class UserMembershipCalculator {
 	}
 
 	private Iterable<User> findMatchingUsers(Iterable<Affiliate> affiliates) {
-		Set<User> users = new HashSet<User>();
+		
+		List<String> logins = new ArrayList<String>();
 		for (Affiliate affiliate : affiliates) {
-			User user = userRepository.findByLoginIgnoreCase(affiliate.getCreator());
-			if (user != null) {
-				users.add(user);
-			}	
+			String creator = affiliate.getCreator();
+			if (creator != null) {
+				logins.add(creator);
+			}
 		}
+		List<User> users = userRepository.findByLoginIgnoreCaseIn(logins);
 		return users;
 	}
 
