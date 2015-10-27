@@ -33,6 +33,7 @@ public class UserMembershipCalculationTest {
 	
 	private UserMembershipCalculator userMembershipCalculator;
 	private ArrayList<Affiliate> matchingAffiliates;
+	private ArrayList<User> matchingUsers;
 	private Member sweden;
 	private Member ihtsdo;
 	
@@ -48,6 +49,7 @@ public class UserMembershipCalculationTest {
 		ihtsdo = new Member("IHTSDO", 2L);
 		
 		matchingAffiliates = new ArrayList<Affiliate>();
+		matchingUsers = new ArrayList<User>();
 	}
 	
 	@Test
@@ -56,6 +58,7 @@ public class UserMembershipCalculationTest {
 		User user0 = withUser(affiliate0);
 
 		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
+		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
 
 		// test
 		Iterable<User> result = userMembershipCalculator.approvedReleaseUsersWithAnyMembership(sweden);
@@ -69,6 +72,7 @@ public class UserMembershipCalculationTest {
 		// do not specify user related to affiliate
 		
 		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
+		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
 		
 		// test
 		Iterable<User> result = userMembershipCalculator.approvedReleaseUsersWithAnyMembership(sweden);
@@ -82,7 +86,8 @@ public class UserMembershipCalculationTest {
 		User user0 = withUser(affiliate0);
 
 		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(Matchers.anyListOf(StandingState.class))).thenReturn(matchingAffiliates);
-
+		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
+		
 		// test
 		Iterable<User> result = userMembershipCalculator.approvedReleaseUsersWithAnyMembership(ihtsdo);
 		
@@ -95,6 +100,7 @@ public class UserMembershipCalculationTest {
 		User user0 = withUser(affiliate0);
 
 		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
+		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
 
 		// test
 		Iterable<User> result = userMembershipCalculator.approvedActiveUsersWithHomeMembership(sweden);
@@ -105,7 +111,7 @@ public class UserMembershipCalculationTest {
 	private User withUser(Affiliate affiliate0) {
 		User user = new User();
 		user.setUserId(affiliate0.getAffiliateId());
-		Mockito.when(userRepository.findByLoginIgnoreCase(affiliate0.getCreator())).thenReturn(user);
+		matchingUsers.add(user);
 		return user;
 		
 	}
