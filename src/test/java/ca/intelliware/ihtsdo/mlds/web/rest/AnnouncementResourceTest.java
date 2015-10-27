@@ -111,6 +111,25 @@ public class AnnouncementResourceTest {
 	}
 
 	@Test
+	public void postAnnouncementForAllAffiliatesShouldSendEmailsToMemberUsers() throws Exception {
+		securityContextSetup.asIHTSDOStaff();
+		
+		User user = new User();
+		user.setUserId(1L);
+		user.setEmail("user@test.com");
+		
+		Mockito.when(userMembershipCalculator.approvedActiveUsers()).thenReturn(Arrays.asList(user));
+		
+		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\", \"allAffiliates\": true }")
+                .accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+		
+		Mockito.verify(announcementEmailSender, times(1)).sendAnnouncementEmail("user@test.com", ihtsdoMember, "test title", "test message");
+	}
+
+	@Test
 	public void postAnnouncementShouldSendEmailsToAdditionalAddresses() throws Exception {
 		securityContextSetup.asIHTSDOStaff();
 		
@@ -164,4 +183,26 @@ public class AnnouncementResourceTest {
 		expected.put("announcement.title", "test title");
 		
 		Mockito.verify(auditEventService).logAuditableEvent(Mockito.eq("ANNOUNCEMENT_POSTED"), Mockito.eq(expected));
-	}}
+	}
+
+	@Test
+	public void postAnnouncementShouldLogAllAffiliates() throws Exception {
+		securityContextSetup.asIHTSDOStaff();
+		
+		Mockito.when(userMembershipCalculator.approvedActiveUsers()).thenReturn(Collections.<User>emptyList());
+		
+		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\", \"allAffiliates\": true }")
+                .accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+		
+		HashMap<String, String> expected = new HashMap<String,String>();
+		expected.put("announcement.member", "IHTSDO");
+		expected.put("announcement.title", "test title");
+		expected.put("announcement.allAffiliates", "All");
+		
+		Mockito.verify(auditEventService).logAuditableEvent(Mockito.eq("ANNOUNCEMENT_POSTED"), Mockito.eq(expected));
+	}
+
+}

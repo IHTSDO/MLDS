@@ -56,7 +56,8 @@
             </span>
             
             <span ng-if="audit.data['announcement.title']"><i class="fa fa-send"></i> <strong>Announcement:</strong> {{audit.data['announcement.title'] }}</span>
-            <span ng-if="audit.data['announcement.member']"><strong>Member:</strong> {{audit.data['announcement.member'] | enum:'global.member.'}}</span>
+            <span ng-if="audit.data['announcement.member'] && !audit.data['announcement.allAffiliates']"><strong>Affiliates:</strong> {{audit.data['announcement.member'] | enum:'global.member.'}}</span>
+            <span ng-if="audit.data['announcement.allAffiliates']"><strong>All Affiliates</strong></span>
             
             <span ng-if="audit.data['affiliate.affiliateDetails.type'] || audit.data['affiliate.affiliateDetails.otherText']">
             	<strong>Affiliate Type:</strong> {{audit.data['affiliate.affiliateDetails.type'] | enum:'affiliate.type.'}} {{audit.data['affiliate.affiliateDetails.otherText']}}
