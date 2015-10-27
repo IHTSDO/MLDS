@@ -55,6 +55,9 @@ public class AnnouncementResource {
 		Map<String, String> auditData = new HashMap<String,String>();
     	auditData.put("announcement.member", announcement.getMember().getKey());
     	auditData.put("announcement.title", announcement.getSubject());
+    	if (announcement.isAllAffiliates()) {
+    		auditData.put("announcement.allAffiliates", "All");
+    	}
     	
 		auditEventService.logAuditableEvent(EVENT_ANNOUNCEMENT_POSTED, auditData);
 	}
