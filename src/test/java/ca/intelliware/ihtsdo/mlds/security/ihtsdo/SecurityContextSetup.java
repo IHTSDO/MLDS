@@ -16,7 +16,11 @@ public class SecurityContextSetup {
 	public void asIHTSDOStaff() {
 		withRoles(AuthoritiesConstants.STAFF, AuthoritiesConstants.STAFF + "_IHTSDO");
 	}
-	
+
+	public void asSwedenStaff() {
+		withRoles(AuthoritiesConstants.STAFF, AuthoritiesConstants.STAFF + "_SE");
+	}
+
 	private void withRoles(String... role) {
 		Authentication authentication = new TestingAuthenticationToken(USERNAME, "password", role);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
