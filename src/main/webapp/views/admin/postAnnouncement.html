@@ -45,6 +45,14 @@
 				<div ng-show="!isAdmin">
 					<div><span translate="views.postAnnouncement.myAffiliates">My Affiliates</span> ({{announcement.member.key | enum:'global.member.'}})</div>
 				</div>
+				<div><span class="help-block">
+					<span translate="views.postAnnouncement.affiliatesClarification">Approved affiliates with an account standing of:</span>
+					<span translate="affiliate.standingState.IN_GOOD_STANDING">In Good Standing</span>,
+    	        	<span translate="affiliate.standingState.PENDING_INVOICE">Pending Invoice</span>,
+        	    	<span translate="affiliate.standingState.INVOICE_SENT">Invoice Sent</span>,
+            		<span translate="affiliate.standingState.DEACTIVATION_PENDING">Deactivation Pending</span>
+            		.
+				</span></div>
 			</div>
 			
 			<div class="form-group">

@@ -71,6 +71,7 @@ public class UserMembershipCalculator {
 	}
 	
 	private List<StandingState> activeStandingStates() {
+		//NOTE: This list is duplicated in staff facing postAnnouncements.html and messages
 		return Arrays.asList(
 				StandingState.IN_GOOD_STANDING, 
 				StandingState.PENDING_INVOICE,
