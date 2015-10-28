@@ -29,7 +29,19 @@ Date: Tue, 27 Oct 2015 19:54:17 GMT
 
 ## Authentication
 
-The current API does not require authentication.
+The public APIs do not require authentication to be supplied.
+
+### Basic Authentication
+
+The APIs that do require authentication support Basic Authentication using MLDS credentials.
+
+Ensure that all communication is through `https` to ensure the credentials aren't revealed.
+
+```
+$ curl -u USER:PASSWORD -i 'https://mlds.ihtsdotools.org/app/rest/releasePackages'
+```
+
+---
 
 # Affiliate API
 
@@ -87,4 +99,181 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {"matched":true}
+```
+
+---
+
+# Release Packages API
+
+Each member organization can make Release Packages available to their affiliates for downloading. A Release Package has a current version and past versions. A Version contains multiple files that can be individually downloaded by an affiliate.
+
+Release files are not stored in MLDS and instead a URL is provided where the file can be download from on demand. Files are typically stored on the Amazon s3 service.
+
+## Authentication
+
+You can get all release packages without authentication; however, to modify and add release packages requires authentication with a user with staff authorization. 
+
+##  Get all release packages
+
+List all release packages.
+
+```
+$ curl -i 'https://mlds.ihtsdotools.org/app/rest/releasePackages'
+```
+
+### Response
+
+```json
+[{
+  "releasePackageId": 1911,
+  "createdAt": "2015-10-14T13:49:09.163Z",
+  "createdBy": "sweden",
+  "member": {
+    "key": "SE"
+  },
+  "name": "Sweden A",
+  "description": "<h3>sweden a release..<br/></h3>",
+  "releaseVersions": [{
+    "releaseVersionId": 1913,
+    "createdAt": "2015-10-14T13:50:26.918Z",
+    "createdBy": "sweden",
+    "name": "sweden a a 1",
+    "description": "<p>some kind of version<br/></p>",
+    "online": true,
+    "publishedAt": null,
+    "releaseFiles": [{
+      "releaseFileId": 1921,
+      "label": "<p>file2<br/></p>",
+      "createdAt": "2015-10-14T19:18:39.808Z",
+      "clientDownloadUrl": "/app/rest/releasePackages/1911/releaseVersions/1913/releaseFiles/1921/download",
+      "downloadUrl": "http://google.com?q=file2"
+    }, {
+      "releaseFileId": 1919,
+      "label": "<p>file1<br/></p>",
+      "createdAt": "2015-10-14T19:18:30.628Z",
+      "clientDownloadUrl": "/app/rest/releasePackages/1911/releaseVersions/1913/releaseFiles/1919/download",
+      "downloadUrl": "http://google.com?q=file1"
+    }]
+  }]
+}, {
+  "releasePackageId": 5267,
+  "createdAt": "2015-10-20T14:54:25.733Z",
+  "createdBy": "admin",
+  "member": {
+    "key": "BE"
+  },
+  "name": "Belgium A",
+  "description": "<p>AAAA</p><p><br/></p><p></p>",
+  "releaseVersions": [{
+    "releaseVersionId": 5269,
+    "createdAt": "2015-10-20T14:54:44.829Z",
+    "createdBy": "admin",
+    "name": "Belgium A 1",
+    "description": "<p>A 1<br/></p>",
+    "online": true,
+    "publishedAt": null,
+    "releaseFiles": [{
+      "releaseFileId": 5271,
+      "label": null,
+      "createdAt": "2015-10-20T14:55:01.955Z",
+      "clientDownloadUrl": "/app/rest/releasePackages/5267/releaseVersions/5269/releaseFiles/5271/download",
+      "downloadUrl": "http://www.google.com?q=a1"
+    }]
+  }]
+}]
+```
+
+## Get a single Release Package
+
+```
+GET /app/rest/releasePackages/:releasePackageId'
+```
+
+## Get a single Release Version
+
+```
+GET /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId'
+```
+
+### Get a single Release File
+
+```
+GET /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/releaseFiles/:releaseFileId'
+```
+
+## Create a new Release Package
+
+```
+POST /app/rest/releasePackages 
+```
+
+### Input
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| member.key | string | Member organization, either `IHTSDO` or the two letter country code of the member country |
+| name | string | Name of the Release Package |
+| description | string | Description of the Release Package. Can be plain text or HTML. |
+
+```
+{
+  "member": {
+    "key": "IHTSDO"
+  },
+  "name": "Another Release",
+  "description": "<p>Another Description<br/></p>"
+}
+```
+
+### Response
+
+```
+{
+  "releasePackageId": 211920,
+  "createdAt": "2015-10-28T20:39:41.965Z",
+  "createdBy": "user",
+  "member": {
+    "key": "SE"
+  },
+  "name": "Another Release",
+  "description": "<p>Another Description<br/></p>",
+  "releaseVersions": []
+}
+```
+
+## Create a new Release Version
+
+```
+POST /app/rest/releasePackages/:releaseVersionId/releaseVersions
+```
+
+### Input
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| name | string | Name of the Release Version |
+| description | string | Description of the Release Version. Can be plain text or HTML. |
+| publishedAt | date | Optional date that the version should be published. |
+
+```
+{
+  "name": "First Version",
+  "description": "<p><b>First</b> version description <br/></p>",
+  "publishedAt": "2015-10-28"
+}
+```
+
+### Response
+
+```
+{
+  "releaseVersionId": 211924,
+  "createdAt": "2015-10-28T20:48:21.796Z",
+  "createdBy": "user",
+  "name": "First Version",
+  "description": "<p><b>First</b> version description <br/></p>",
+  "online": false,
+  "publishedAt": "2015-10-28",
+  "releaseFiles": []
+}
 ```
