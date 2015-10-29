@@ -392,6 +392,7 @@ POST /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersion
 ```
 
 ### Response
+```
 {
   "releaseVersionId": 211924,
   "createdAt": "2015-10-28T20:48:21.796Z",
@@ -408,7 +409,8 @@ POST /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersion
     "downloadUrl": "http://files.com/example.txt"
   }]
 }
- 
+```
+
 ## Create a Release Package License
 
 A license document can be associated with a Release Package.
