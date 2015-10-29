@@ -409,3 +409,24 @@ POST /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersion
   }]
 }
  
+## Create a Release Package License
+
+A license document can be associated with a Release Package.
+
+```
+POST /app/rest/releasePackages/:releasePackageId/license
+```
+
+### Input
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| file | form-data | File name of the posted file contents.
+
+The request should be a `multipart\form-data' post to the server.
+
+```
+$ curl -u USER:PASSWORD -i -F "file=@FILE.PDF" 'https://mlds.ihtsdotools.org/app/rest/releasePackages/211920/license'
+
+```
+ 
