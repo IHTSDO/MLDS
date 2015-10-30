@@ -19,6 +19,7 @@ public class AffiliateAuditEvents {
 	static final String EVENT_AFFILIATEDETAILS_UPDATED = "AFFILIATEDETAILS_UPDATED";
 	static final String EVENT_AFFILIATE_LOGIN_CREATED = "AFFILIATE_LOGIN_CREATED";
 	static final String EVENT_AFFILIATE_STANDING_STATE_CHANGED = "AFFILIATE_STANDING_STATE_CHANGED";
+	static final String EVENT_AFFILIATE_DELETED = "AFFILIATE_DELETED";
 	
 	@Resource
 	AuditEventService auditEventService;
@@ -92,6 +93,11 @@ public class AffiliateAuditEvents {
 		affiliateDetailsDifferenceCalculator.addDifferencesTo(auditData);
 		
 		return auditData;
+	}
+
+	public void logDeleteOfAffiliate(Affiliate affiliate) {
+		logEvent(EVENT_AFFILIATE_DELETED, affiliate);
+		
 	}
 
 	
