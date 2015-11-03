@@ -522,10 +522,7 @@ public class AffiliateResourceTest {
     	
     	restUserMockMvc.perform(delete(Routes.AFFILIATE, 1L)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                //FIXME.andExpect(jsonPath("$.standingState").value("DEACTIVATED"))
-                ;
+                .andExpect(status().isNoContent());
     	
     	Mockito.verify(affiliateDeleter).deleteAffiliate(Mockito.any(Affiliate.class));
 	}
@@ -538,9 +535,7 @@ public class AffiliateResourceTest {
     	
     	restUserMockMvc.perform(delete(Routes.AFFILIATE, 1L)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                ;
+                .andExpect(status().isNoContent());
     	
     	Mockito.verify(affiliateAuditEvents).logDeleteOfAffiliate(Mockito.any(Affiliate.class));
 	}
