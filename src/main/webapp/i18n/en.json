@@ -1179,7 +1179,8 @@
         "affiliateSummary": {
         	"deleteAffiliate": "Delete Affiliate",
         	"deleteAffiliateModal": {
-        		"sure": "Are you sure you want to delete the affiliate?"
+        		"sure": "Are you sure you want to delete the affiliate?",
+        		"explanation": "Deleting an Affiliate will also delete their Applications and Usage Information. The user will no longer be able to login to the account."
         	}
         }
     }
