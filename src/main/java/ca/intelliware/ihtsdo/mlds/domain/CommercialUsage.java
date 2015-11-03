@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.Validate;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 
@@ -27,6 +29,8 @@ import com.google.common.collect.Sets;
 
 @Entity
 @Table(name="commercial_usage")
+@Where(clause = "inactive_at IS NULL")
+@SQLDelete(sql="UPDATE commercial_usage SET inactive_at = now() WHERE commercial_usage_id = ?")
 public class CommercialUsage extends BaseEntity {
 	@Id
 	@GeneratedValue
@@ -45,6 +49,10 @@ public class CommercialUsage extends BaseEntity {
 
 	//@Type(type="jodatimeInstant")
 	Instant created = Instant.now();
+	
+	@JsonIgnore
+	@Column(name="inactive_at")
+	Instant inactiveAt;
 	
 	@Column(name="start_date")
 	LocalDate startDate;

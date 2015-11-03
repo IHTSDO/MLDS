@@ -5,8 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 @Entity
 @DiscriminatorValue("PRIMARY")
+@Where(clause = "inactive_at IS NULL")
+@SQLDelete(sql="UPDATE application SET inactive_at = now() WHERE application_id = ?")
 public class PrimaryApplication extends Application{
 
 	boolean snomedlicense;
