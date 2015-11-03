@@ -31,6 +31,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="application_type")
 // Note that concrete subclass MUST set @Where and @SQLDelete for soft-delete functionality
+@Where(clause = "inactive_at IS NULL")
+@SQLDelete(sql="UPDATE application SET inactive_at = now() WHERE application_id = ?")
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=As.PROPERTY, property="applicationType")
 @JsonSubTypes({
 	@Type(value=PrimaryApplication.class, name="PRIMARY"),
@@ -70,7 +72,6 @@ public abstract class Application extends BaseEntity {
 	
 	@JsonIgnore
 	@Column(name="inactive_at")
-	private
 	Instant inactiveAt;
 
 	// Timestamp last submitted by the applicant

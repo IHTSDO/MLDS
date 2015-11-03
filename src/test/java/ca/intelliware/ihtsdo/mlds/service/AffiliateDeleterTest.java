@@ -85,12 +85,16 @@ public class AffiliateDeleterTest {
 		Application extensionApplication = withExtensionApplication(affiliate, sweden, ApprovalState.APPROVED);
 		CommercialUsage commercialUsage = withCommercialUsage(affiliate);
 
+		// Confirm data model accessible from JPA
 		assertThat(affiliateRepository.findOne(affiliate.getAffiliateId()), notNullValue(Affiliate.class));
 		assertThat(applicationRepository.findOne(primaryApplication.getApplicationId()), notNullValue(Application.class));
 		assertThat(applicationRepository.findOne(extensionApplication.getApplicationId()), notNullValue(Application.class));
 		assertThat(userRepository.findByLoginIgnoreCase(userEmail), notNullValue(User.class));
 		assertThat(commercialUsageRepository.findOne(commercialUsage.getCommercialUsageId()), notNullValue(CommercialUsage.class));
 		
+		assertThat(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), is(2));
+		
+		// Test
 		affiliateDeleter.deleteAffiliate(affiliate);
 		
 		// JPA should no longer match entities
@@ -99,6 +103,9 @@ public class AffiliateDeleterTest {
 		assertThat(applicationRepository.findOne(extensionApplication.getApplicationId()), nullValue(Application.class));
 		assertThat(userRepository.findByLoginIgnoreCase(userEmail), nullValue(User.class));
 		assertThat(commercialUsageRepository.findOne(commercialUsage.getCommercialUsageId()), nullValue(CommercialUsage.class));
+		
+		// JPA should no longer find through custom repository
+		assertThat(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), is(0));
 		
 		// Records should still be present in the database
 		assertThat(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), is(1));
@@ -172,8 +179,8 @@ public class AffiliateDeleterTest {
 		PrimaryApplication application = new PrimaryApplication();
 		application.setMember(member);
 		application.setApprovalState(approvalState);
+		application.setUsername(affiliate.getCreator());
 		entityManager.persist(application);
-		affiliate.addApplication(application);
 		affiliate.setApplication(application);
 		
 		affiliateRepository.save(affiliate);	
@@ -207,6 +214,7 @@ public class AffiliateDeleterTest {
 		ExtensionApplication application = new ExtensionApplication();
 		application.setMember(member);
 		application.setApprovalState(approvalState);
+		application.setUsername(affiliate.getCreator());
 		entityManager.persist(application);
 		affiliate.addApplication(application);
 		

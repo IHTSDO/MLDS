@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 
 @Service
+@Transactional
 public class AffiliateDeleter {
 
 	@Resource AffiliateRepository affiliateRepository;
@@ -23,8 +25,12 @@ public class AffiliateDeleter {
 	public void deleteAffiliate(Affiliate affiliate) {
 		deleteUser(affiliate);
 		commercialUsageRepository.delete(affiliate.getCommercialUsages());
+		deleteAffiliateDetails(affiliate);
 		applicationRepository.delete(affiliate.getApplications());
 		affiliateRepository.delete(affiliate);
+	}
+
+	private void deleteAffiliateDetails(Affiliate affiliate) {
 	}
 
 	private void deleteUser(Affiliate affiliate) {

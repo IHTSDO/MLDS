@@ -1519,4 +1519,11 @@ $f$ language plpgsql;
 		</addColumn>
 	</changeSet>
 
+	<changeSet id="MLDS-920-2" author="DGJ">
+		<comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
+		<addColumn tableName="affiliate_details">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+	</changeSet>
+
 </databaseChangeLog>
