@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -11,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -21,8 +21,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
@@ -31,6 +33,7 @@ import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
+import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
@@ -46,6 +49,7 @@ public class AffiliateDeleterTest {
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource ApplicationRepository applicationRepository;
 	@Resource UserRepository userRepository;
+	@Resource CommercialUsageRepository commercialUsageRepository;
 
 	@Resource MemberRepository memberRepository;
 	
@@ -68,14 +72,9 @@ public class AffiliateDeleterTest {
 		
 		securityContextSetup.asAdmin();
 	}
-
-//	@Before
-//	public void setupTranslations() {
-//		new AngularTranslateServiceSetup().setup();
-//	}
-
+	
 	@Test
-	public void postAnnouncementToMember() throws Exception {
+	public void deleteAffiliateWithAllData() throws Exception {
 		
 		securityContextSetup.asSwedenStaff();
 		
@@ -84,20 +83,64 @@ public class AffiliateDeleterTest {
 		Affiliate affiliate = withAffiliateUser(StandingState.APPLYING, ihtsdo, userEmail);
 		Application primaryApplication = withPrimaryApplication(affiliate, ihtsdo, ApprovalState.APPROVED);
 		Application extensionApplication = withExtensionApplication(affiliate, sweden, ApprovalState.APPROVED);
+		CommercialUsage commercialUsage = withCommercialUsage(affiliate);
 
 		assertThat(affiliateRepository.findOne(affiliate.getAffiliateId()), notNullValue(Affiliate.class));
 		assertThat(applicationRepository.findOne(primaryApplication.getApplicationId()), notNullValue(Application.class));
 		assertThat(applicationRepository.findOne(extensionApplication.getApplicationId()), notNullValue(Application.class));
 		assertThat(userRepository.findByLoginIgnoreCase(userEmail), notNullValue(User.class));
+		assertThat(commercialUsageRepository.findOne(commercialUsage.getCommercialUsageId()), notNullValue(CommercialUsage.class));
 		
 		affiliateDeleter.deleteAffiliate(affiliate);
 		
+		// JPA should no longer match entities
 		assertThat(affiliateRepository.findOne(affiliate.getAffiliateId()), nullValue(Affiliate.class));
 		assertThat(applicationRepository.findOne(primaryApplication.getApplicationId()), nullValue(Application.class));
 		assertThat(applicationRepository.findOne(extensionApplication.getApplicationId()), nullValue(Application.class));
 		assertThat(userRepository.findByLoginIgnoreCase(userEmail), nullValue(User.class));
+		assertThat(commercialUsageRepository.findOne(commercialUsage.getCommercialUsageId()), nullValue(CommercialUsage.class));
 		
-		//FIXME confirm that records are still there - just being filtered out by default
+		// Records should still be present in the database
+		assertThat(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), is(1));
+		assertThat(matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+primaryApplication.getApplicationId()), is(1));
+		assertThat(matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+extensionApplication.getApplicationId()), is(1));
+		assertThat(matchingNativeRecords("SELECT user_id FROM T_USER WHERE user_id="+user.getUserId()), is(1));
+		assertThat(matchingNativeRecords("SELECT commercial_usage_id FROM commercial_usage WHERE commercial_usage_id="+commercialUsage.getCommercialUsageId()), is(1));
+	}
+
+	@Test
+	public void deleteAffiliateWithMinimalData() throws Exception {
+		
+		securityContextSetup.asSwedenStaff();
+		
+		String userEmail = "test"+uniqueKey+"@email.com";
+		Affiliate affiliate = withAffiliateUser(StandingState.APPLYING, ihtsdo, userEmail);
+
+		assertThat(affiliateRepository.findOne(affiliate.getAffiliateId()), notNullValue(Affiliate.class));
+		
+		affiliateDeleter.deleteAffiliate(affiliate);
+		
+		// JPA should no longer match entities
+		assertThat(affiliateRepository.findOne(affiliate.getAffiliateId()), nullValue(Affiliate.class));
+		
+		// Records should still be present in the database
+		assertThat(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), is(1));
+	}
+
+	private CommercialUsage withCommercialUsage(Affiliate affiliate) {
+		CommercialUsage commercialUsage = new CommercialUsage();
+		commercialUsage.setType(AffiliateType.ACADEMIC);
+		
+		entityManager.persist(commercialUsage);
+		
+		affiliate.addCommercialUsage(commercialUsage);
+		affiliateRepository.save(affiliate);	
+
+		return commercialUsage;
+	}
+
+	private int matchingNativeRecords(String query) {
+		return entityManager.createNativeQuery(query).getResultList().size();
 	}
 
 	private Affiliate withAffiliateUser(StandingState standingState, Member homeMember, String email) {
