@@ -212,6 +212,9 @@ public class AffiliateResource {
 	@Timed
     public @ResponseBody ResponseEntity<Affiliate> getAffiliate(@PathVariable long affiliateId) {
 		Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+		if (affiliate == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
 		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
     }
 
