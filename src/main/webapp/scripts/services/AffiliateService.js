@@ -51,7 +51,11 @@ angular.module('MLDS')
 		//TODO optimize http method size by stripping out some of child elements
 		return $http.put('/app/rest/affiliates/'+ encodeURIComponent(affiliate.affiliateId), affiliateCopy);
 	};
-	
+
+	service.deleteAffiliate = function(affiliate) {
+		return $http['delete']('/app/rest/affiliates/'+ encodeURIComponent(affiliate.affiliateId));
+	};
+
 	service.createLogin = function createLogin(affiliate) {
 		return $http.post('/app/rest/account/create', affiliate);
 	};

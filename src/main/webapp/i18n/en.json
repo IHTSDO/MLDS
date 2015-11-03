@@ -681,6 +681,7 @@
             "AUTHENTICATION_FAILURE": "Authentication Failure",
             "AFFILIATE_CREATED": "Affiliate Created",
             "AFFILIATE_CREATED_BY_IMPORT": "Affiliate Created from Import",
+            "AFFILIATE_DELETED": "Affiliate Deleted", 	
             "AFFILIATE_UPDATED": "Affiliate Updated",
             "AFFILIATE_UPDATED_BY_IMPORT": "Affiliate Updated from Import",
             "AFFILIATEDETAILS_UPDATED": "Affiliate Details Updated",
@@ -1174,6 +1175,12 @@
         	"additionalEmailsHelp": "Send the announcement to additional email addressses.",
         	"post": "Post Announcement",
         	"newAnnouncement": "New Announcement"
+        },
+        "affiliateSummary": {
+        	"deleteAffiliate": "Delete Affiliate",
+        	"deleteAffiliateModal": {
+        		"sure": "Are you sure you want to delete the affiliate?"
+        	}
         }
     }
 }

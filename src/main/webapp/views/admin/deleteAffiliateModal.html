@@ -1,0 +1,28 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="$dismiss()">&times;</button>
+	<h3 class="modal-title"><span translate="views.affiliateSummary.deleteAffiliate">Delete Affiliate</span></h3>
+</div>
+<div class="modal-body">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	<p><span translate="views.affiliateSummary.deleteAffiliateModal.sure">Are you sure you want to delete the affiliate?</p>
+ 	<div>
+		<label>Affiliate No: </label>
+		<span>{{affiliate.affiliateId}}</span>
+ 	</div>
+	<div>
+		<label>User: </label>
+		<span>{{affiliate.creator}}</span>
+ 	</div>
+ 	<div>
+		<label>Member: </label>
+		<span>{{affiliate.homeMember.key | enum:'global.member.'}}</span>
+ 	</div>
+ 	
+</div>
+<div class="modal-footer">
+	<button class="btn btn-link" ng-click="cancel()" ng-disabled="submitting" translate="global.word.cancel">Cancel</button>
+	<button class="btn btn-danger" ng-click="deleteAffiliate()">
+		<span translate="global.word.delete">Delete</span>
+		<span ng-show="submitting"><i class="fa fa-spinner fa-spin"></i></span>
+	</button>
+</div>

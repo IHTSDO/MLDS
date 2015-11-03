@@ -111,6 +111,31 @@ public class AffiliateResourceTest {
 
     
 	@Test
+	public void getAffiliateShouldFailForUnknownAffiliate() throws Exception {
+        when(affiliateRepository.findOne(999L)).thenReturn(null);
+
+        restUserMockMvc.perform(get(Routes.AFFILIATE, 999L)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+	}
+
+	@Test
+	public void getAffiliate() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.getAffiliateDetails().setFirstName("Test FirstName");
+    	affiliate.getAffiliateDetails().getAddress().setStreet("Test Street");
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+
+        restUserMockMvc.perform(get(Routes.AFFILIATE, 1L)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.affiliateDetails.firstName").value("Test FirstName"))
+                .andExpect(jsonPath("$.affiliateDetails.address.street").value("Test Street"));
+	}
+
+    
+	@Test
     public void updateAffiliateDetailShouldFailForUnknownAffiliate() throws Exception {
         when(affiliateRepository.findOne(999L)).thenReturn(null);
 

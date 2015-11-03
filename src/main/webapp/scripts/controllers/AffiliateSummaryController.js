@@ -42,7 +42,22 @@ mldsApp.controller('AffiliateSummaryController', [
         			$scope.submit();
     		    });
 			};
-			
+
+			$scope.deleteAffiliate = function() {
+				var modalInstance = $modal.open({
+        			templateUrl: 'views/admin/deleteAffiliateModal.html',
+        			controller: 'DeleteAffiliateController',
+					resolve: {
+						affiliate: function() {
+							return $scope.affiliate;
+						}
+					}
+        		});
+        		modalInstance.result.then(function () {
+        			$location.path('/affiliateManagement');
+    		    });
+			};
+
 			function loadAffiliateAudits(affiliateId) {
 	          	AuditsService.findByAffiliateId(affiliateId)
             	.then(function(result) {
