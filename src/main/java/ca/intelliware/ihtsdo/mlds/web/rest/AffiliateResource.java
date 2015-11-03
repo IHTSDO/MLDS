@@ -261,6 +261,7 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATE,
     		method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
 	@Timed
     public @ResponseBody ResponseEntity<Affiliate> deleteAffiliate(@PathVariable Long affiliateId) {
     	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
@@ -273,11 +274,11 @@ public class AffiliateResource {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
     	}
 
-    	affiliateDeleter.deleteAffiliate(affiliate);
-    	
     	affiliateAuditEvents.logDeleteOfAffiliate(affiliate);
     	
-    	return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
+    	affiliateDeleter.deleteAffiliate(affiliate);
+    	
+    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 	@RolesAllowed({AuthoritiesConstants.USER})
