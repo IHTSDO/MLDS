@@ -8,12 +8,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="commercial_usage_count")
+@Where(clause = "inactive_at IS NULL")
+@SQLDelete(sql="UPDATE commercial_usage_count SET inactive_at = now() WHERE commercial_usage_count_id = ?")
 public class CommercialUsageCountry extends BaseEntity {
 	@Id
 	@GeneratedValue
@@ -30,6 +34,11 @@ public class CommercialUsageCountry extends BaseEntity {
 	Country country;
 
 	Instant created = Instant.now();
+	
+	@JsonIgnore
+	@Column(name="inactive_at")
+	private
+	Instant inactiveAt;
 	
 	String notes;
 	
@@ -139,5 +148,13 @@ public class CommercialUsageCountry extends BaseEntity {
 
 	public void setDatabasesPerDeployment(Integer databasesPerDeployment) {
 		this.databasesPerDeployment = databasesPerDeployment;
+	}
+
+	public Instant getInactiveAt() {
+		return inactiveAt;
+	}
+
+	public void setInactiveAt(Instant inactiveAt) {
+		this.inactiveAt = inactiveAt;
 	}
 }
