@@ -25,6 +25,8 @@ import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
@@ -136,9 +138,17 @@ public class AffiliateDeleterTest {
 
 	private CommercialUsage withCommercialUsage(Affiliate affiliate) {
 		CommercialUsage commercialUsage = new CommercialUsage();
-		commercialUsage.setType(AffiliateType.ACADEMIC);
+		commercialUsage.setType(AffiliateType.COMMERCIAL);
 		
 		entityManager.persist(commercialUsage);
+		
+		CommercialUsageCountry count = new CommercialUsageCountry();
+		entityManager.persist(count);
+		commercialUsage.addCount(count);
+		
+		CommercialUsageEntry entry = new CommercialUsageEntry();
+		entityManager.persist(entry);
+		commercialUsage.addEntry(entry);
 		
 		affiliate.addCommercialUsage(commercialUsage);
 		affiliateRepository.save(affiliate);	
