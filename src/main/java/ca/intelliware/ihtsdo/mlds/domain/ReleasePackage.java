@@ -36,6 +36,7 @@ public class ReleasePackage extends BaseEntity {
 	@Column(name="created_at")
 	Instant createdAt = Instant.now();
 	
+	@JsonIgnore
 	@Column(name="created_by")
 	String createdBy;
 
