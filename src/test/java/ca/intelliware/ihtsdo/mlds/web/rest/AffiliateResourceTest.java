@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -23,6 +24,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
+import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
 import ca.intelliware.ihtsdo.mlds.domain.StandingState;
@@ -34,6 +36,7 @@ import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateDeleter;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliateImportAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
@@ -65,6 +68,9 @@ public class AffiliateResourceTest {
 
     @Mock
     private AffiliatesImportGenerator affiliatesImportGenerator;
+    
+    @Mock
+    private AffiliateDeleter affiliateDeleter;
 
     @Mock
     private SessionService sessionService;
@@ -92,6 +98,7 @@ public class AffiliateResourceTest {
         affiliateResource.userRepository = userRepository;
         affiliateResource.sessionService = sessionService;
         affiliateResource.affiliateImportAuditEvents = affiliateImportAuditEvents;
+        affiliateResource.affiliateDeleter = affiliateDeleter;
         affiliateResource.currentSecurityContext = new CurrentSecurityContext();
 
         securityContextSetup.asAdmin();
@@ -101,6 +108,31 @@ public class AffiliateResourceTest {
         		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
         		.build();
     }
+
+    
+	@Test
+	public void getAffiliateShouldFailForUnknownAffiliate() throws Exception {
+        when(affiliateRepository.findOne(999L)).thenReturn(null);
+
+        restUserMockMvc.perform(get(Routes.AFFILIATE, 999L)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+	}
+
+	@Test
+	public void getAffiliate() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.getAffiliateDetails().setFirstName("Test FirstName");
+    	affiliate.getAffiliateDetails().getAddress().setStreet("Test Street");
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+
+        restUserMockMvc.perform(get(Routes.AFFILIATE, 1L)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.affiliateDetails.firstName").value("Test FirstName"))
+                .andExpect(jsonPath("$.affiliateDetails.address.street").value("Test Street"));
+	}
 
     
 	@Test
@@ -442,5 +474,69 @@ public class AffiliateResourceTest {
                 ;
     	
     	Mockito.verify(affiliateRepository).save(Mockito.any(Affiliate.class));
+	}
+
+	@Test
+	public void deleteAffiliateShouldFailForUnknownAffiliate() throws Exception {
+        when(affiliateRepository.findOne(999L)).thenReturn(null);
+
+        restUserMockMvc.perform(delete(Routes.AFFILIATE, 999L)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+	}
+
+	@Test
+	public void deleteAffiliateShouldFailIfCurrentUserCannotManage() throws Exception {
+        when(affiliateRepository.findOne(999L)).thenReturn(createBlankAffiliate());
+        Mockito.doThrow(new IllegalStateException("not allowed")).when(applicationAuthorizationChecker).checkCanManageAffiliate(Mockito.any(Affiliate.class));
+
+        try {
+        	restUserMockMvc.perform(delete(Routes.AFFILIATE, 999L)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is5xxServerError());
+        	Assert.fail();
+        } catch (NestedServletException e) {
+        	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("not allowed"));
+        }
+	}
+	
+	@Test
+	public void deleteAffiliateShouldFailWhenAffiliateStandingStateNotApplying() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setStandingState(StandingState.IN_GOOD_STANDING);
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(delete(Routes.AFFILIATE, 1L)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict())
+                ;
+	}
+
+	@Test
+	public void deleteAffiliateShouldDeleteAffiliateAndDependentApplicationsAndUser() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setStandingState(StandingState.APPLYING);
+    	affiliate.addApplication(new PrimaryApplication(1L));
+    	affiliate.addApplication(new ExtensionApplication(1L));
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(delete(Routes.AFFILIATE, 1L)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    	
+    	Mockito.verify(affiliateDeleter).deleteAffiliate(Mockito.any(Affiliate.class));
+	}
+
+	@Test
+	public void deleteAffiliateShouldAuditLogWithAffiliateUpdate() throws Exception {
+    	Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setStandingState(StandingState.APPLYING);
+    	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+    	
+    	restUserMockMvc.perform(delete(Routes.AFFILIATE, 1L)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    	
+    	Mockito.verify(affiliateAuditEvents).logDeleteOfAffiliate(Mockito.any(Affiliate.class));
 	}
 }

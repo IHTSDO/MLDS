@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +56,7 @@ import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateDeleter;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliateImportAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
@@ -100,6 +102,9 @@ public class AffiliateResource {
 	
 	@Resource
 	MemberRepository memberRepository;
+	
+	@Resource
+	AffiliateDeleter affiliateDeleter;
 
 	@Resource
 	SessionService sessionService;
@@ -207,6 +212,9 @@ public class AffiliateResource {
 	@Timed
     public @ResponseBody ResponseEntity<Affiliate> getAffiliate(@PathVariable long affiliateId) {
 		Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+		if (affiliate == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
 		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
     }
 
@@ -248,6 +256,30 @@ public class AffiliateResource {
 			affiliate.setStandingState(body.getStandingState());
 		}
 	}
+
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @RequestMapping(value = Routes.AFFILIATE,
+    		method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
+	@Timed
+    public @ResponseBody ResponseEntity<Affiliate> deleteAffiliate(@PathVariable Long affiliateId) {
+    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+    	if (affiliate == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	applicationAuthorizationChecker.checkCanManageAffiliate(affiliate);
+    	
+    	if (!ObjectUtils.equals(affiliate.getStandingState(), StandingState.APPLYING)) {
+    		return new ResponseEntity<>(HttpStatus.CONFLICT);
+    	}
+
+    	affiliateAuditEvents.logDeleteOfAffiliate(affiliate);
+    	
+    	affiliateDeleter.deleteAffiliate(affiliate);
+    	
+    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATES_ME,
