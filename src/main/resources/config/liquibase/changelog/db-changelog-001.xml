@@ -1503,4 +1503,37 @@ $f$ language plpgsql;
     	</addColumn>
     </changeSet>
 
+	<changeSet id="MLDS-920" author="DGJ">
+		<comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
+		<addColumn tableName="affiliate">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="T_USER">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="application">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="commercial_usage">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-920-2" author="DGJ">
+		<comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
+		<addColumn tableName="affiliate_details">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-920-3" author="DGJ">
+		<comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
+		<addColumn tableName="commercial_usage_entry">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="commercial_usage_count">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+	</changeSet>
+
 </databaseChangeLog>

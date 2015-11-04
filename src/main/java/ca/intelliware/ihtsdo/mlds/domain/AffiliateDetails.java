@@ -15,11 +15,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import org.apache.lucene.analysis.standard.UAX29URLEmailAnalyzer;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Fields;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.joda.time.Instant;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ca.intelliware.ihtsdo.mlds.search.AffiliateTypeFieldBridge;
 import ca.intelliware.ihtsdo.mlds.search.OrganizationTypeFieldBridge;
@@ -27,6 +32,8 @@ import ca.intelliware.ihtsdo.mlds.search.OrganizationTypeFieldBridge;
 
 @Entity
 @Table(name="affiliate_details")
+@Where(clause = "inactive_at IS NULL")
+@SQLDelete(sql="UPDATE affiliate_details SET inactive_at = now() WHERE affiliate_details_id = ?")
 public class AffiliateDetails extends BaseEntity implements Cloneable {
 	
 	@Id
@@ -34,6 +41,11 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Column(name="affiliate_details_id")
     Long affiliateDetailsId;
 
+	@JsonIgnore
+	@Column(name="inactive_at")
+	private
+	Instant inactiveAt;
+	
 	@Enumerated(EnumType.STRING)
 	@Field(name="ALL",bridge=@FieldBridge(impl=AffiliateTypeFieldBridge.class))
 	AffiliateType type;
