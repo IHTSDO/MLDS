@@ -146,7 +146,6 @@ $ curl -i 'https://mlds.ihtsdotools.org/api/releasePackages'
 [{
   "releasePackageId": 1911,
   "createdAt": "2015-10-14T13:49:09.163Z",
-  "createdBy": "sweden",
   "member": {
     "key": "SE"
   },
@@ -155,7 +154,6 @@ $ curl -i 'https://mlds.ihtsdotools.org/api/releasePackages'
   "releaseVersions": [{
     "releaseVersionId": 1913,
     "createdAt": "2015-10-14T13:50:26.918Z",
-    "createdBy": "sweden",
     "name": "sweden a a 1",
     "description": "<p>some kind of version<br/></p>",
     "online": true,
@@ -175,7 +173,6 @@ $ curl -i 'https://mlds.ihtsdotools.org/api/releasePackages'
 }, {
   "releasePackageId": 5267,
   "createdAt": "2015-10-20T14:54:25.733Z",
-  "createdBy": "admin",
   "member": {
     "key": "BE"
   },
@@ -184,7 +181,6 @@ $ curl -i 'https://mlds.ihtsdotools.org/api/releasePackages'
   "releaseVersions": [{
     "releaseVersionId": 5269,
     "createdAt": "2015-10-20T14:54:44.829Z",
-    "createdBy": "admin",
     "name": "Belgium A 1",
     "description": "<p>A 1<br/></p>",
     "online": true,
@@ -247,7 +243,6 @@ POST /api/releasePackages
 {
   "releasePackageId": 211920,
   "createdAt": "2015-10-28T20:39:41.965Z",
-  "createdBy": "user",
   "member": {
     "key": "SE"
   },
@@ -284,7 +279,6 @@ POST /api/releasePackages/:releaseVersionId/releaseVersions
 {
   "releaseVersionId": 211924,
   "createdAt": "2015-10-28T20:48:21.796Z",
-  "createdBy": "user",
   "name": "First Version",
   "description": "<p><b>First</b> version description <br/></p>",
   "online": false,
@@ -363,7 +357,6 @@ PUT /api/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId
 {
   "releaseVersionId": 211924,
   "createdAt": "2015-10-28T20:48:21.796Z",
-  "createdBy": "sweden",
   "name": "First Version",
   "description": "<p><b>First</b> version description <br/></p>",
   "online": true,
@@ -398,7 +391,6 @@ POST /api/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/no
 {
   "releaseVersionId": 211924,
   "createdAt": "2015-10-28T20:48:21.796Z",
-  "createdBy": "sweden",
   "name": "First Version",
   "description": "<p><b>First</b> version description <br/></p>",
   "online": true,
@@ -434,3 +426,55 @@ $ curl -u USER:PASSWORD -i -F "file=@FILE.PDF" 'https://mlds.ihtsdotools.org/api
 
 ```
  
+## Download Release File Content
+
+The content associated with a Release File can be downloaded using the value of the `clientDownloadUrl'.
+
+```
+GET /api/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/releaseFiles/:releaseFileId/download
+```
+
+To download a file content the supplied user credentials must be approved to get access to the member's files.
+
+
+### Response
+
+The response body is the file content.
+
+Where possible the response headers `Content-Disposition' and 'Content-Type' are set with content meta-data, such as filename. 
+
+### Example
+
+Given the existing published Release Package:
+
+```
+{
+  "releaseVersionId": 211924,
+  "createdAt": "2015-10-28T20:48:21.796Z",
+  "name": "First Version",
+  "description": "<p><b>First</b> version description <br/></p>",
+  "online": true,
+  "publishedAt": "2015-10-29",
+  "releaseFiles": [{
+    "releaseFileId": 211928,
+    "label": "<p>Example file</p>",
+    "createdAt": "2015-10-29T14:44:52.682Z",
+    "clientDownloadUrl": "/api/releasePackages/211920/releaseVersions/211924/releaseFiles/211928/download",
+  }]
+}
+```
+
+The content for Release file 211928 can be downloaded using the value of the `clientDownloadUrl`.
+
+```
+$ curl -u USER:PASSWORD -v -o file.pdf 'https://mlds.ihtsdotools.org/api/releasePackages/211920/releaseVersions/211924/releaseFiles/211928/download'
+
+HTTP/1.1 200 OK
+Content-Disposition: attachment; filename="pdfSample.pdf"
+Content-Type: application/pdf
+Content-Length: 113801
+ 
+[data not shown]
+```
+
+The downloaded file can be found at `file.pdf'.
