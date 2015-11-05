@@ -7,7 +7,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class AffiliateCheckDTO {
 
 	private Boolean matched;
-	private ErrorDetails error;
+	
+	//FIXME embed error details here as unable to override status code and message for exceptions....
+	private String error;
+	private Integer status;
+	private String message;
+	
 	
 	public Boolean getMatched() {
 		return matched;
@@ -15,29 +20,23 @@ public class AffiliateCheckDTO {
 	public void setMatched(Boolean matched) {
 		this.matched = matched;
 	}
-	public ErrorDetails getError() {
+	
+	public String getError() {
 		return error;
 	}
-	public void setError(ErrorDetails error) {
+	public void setError(String error) {
 		this.error = error;
 	}
-	
-	public void setErrorMessage(String message) {
-		if (error == null) {
-			error = new ErrorDetails();
-		}
-		error.setMessage(message);
+	public Integer getStatus() {
+		return status;
 	}
-	
-	public static class ErrorDetails {
-		private String message;
-
-		public String getMessage() {
-			return message;
-		}
-
-		public void setMessage(String message) {
-			this.message = message;
-		}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }
