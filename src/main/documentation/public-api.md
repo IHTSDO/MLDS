@@ -26,8 +26,10 @@ Content-Type: application/json
 Transfer-Encoding: chunked
 Date: Tue, 27 Oct 2015 19:54:17 GMT
 
-{"error":{"message":"Missing mandatory parameter: match"}}
+{"error":"Bad Request","status":400,"message":"Unknown member: 'xz'. Valid options: AU BE BN CA CL CZ DK EE ES GB HK IHTSDO IL IN IS LT MT MY NL NZ PL PT SE SG SI SK US UY "}
 ```
+
+Error responses can be detected by a status code of 4xx or 5xx. The message value is an optional human description of the problem.
 
 ## Authentication
 

@@ -55,7 +55,8 @@ public class AffiliatePublicResourceTest {
 					.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.error.message", containsString("Missing mandatory parameter: member")));
+		.andExpect(jsonPath("$.error", containsString("Bad Request")))
+		.andExpect(jsonPath("$.message", containsString("Missing mandatory parameter: member")));
 	}
 
 	@Test
@@ -68,7 +69,8 @@ public class AffiliatePublicResourceTest {
 					.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.error.message", containsString("Missing mandatory parameter: match")));
+		.andExpect(jsonPath("$.error", containsString("Bad Request")))
+		.andExpect(jsonPath("$.message", containsString("Missing mandatory parameter: match")));
 	}
 
 	@Test
@@ -83,7 +85,8 @@ public class AffiliatePublicResourceTest {
 					.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.error.message", containsString("Match parameter value: 'sm' was shorter than the minimum length: 3")));
+		.andExpect(jsonPath("$.error", containsString("Bad Request")))
+		.andExpect(jsonPath("$.message", containsString("Match parameter value: 'sm' was shorter than the minimum length: 3")));
 	}
 
 	@Test
@@ -100,8 +103,9 @@ public class AffiliatePublicResourceTest {
 					.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.error.message", containsString("Unknown member: 'xy'")))
-		.andExpect(jsonPath("$.error.message", containsString("options: es us")));
+		.andExpect(jsonPath("$.error", containsString("Bad Request")))
+		.andExpect(jsonPath("$.message", containsString("Unknown member: 'xy'")))
+		.andExpect(jsonPath("$.message", containsString("options: es us")));
 	}
 
 	@Test

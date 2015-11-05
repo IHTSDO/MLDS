@@ -96,8 +96,11 @@ public class AffiliatePublicResource {
 		}
 
 		private ResponseEntity<AffiliateCheckDTO> badRequest(AffiliateCheckDTO response, String errorMessage) {
-			response.setErrorMessage(errorMessage);
-			return new ResponseEntity<AffiliateCheckDTO>(response, HttpStatus.BAD_REQUEST);
+			HttpStatus status = HttpStatus.BAD_REQUEST;
+			response.setError(status.getReasonPhrase());
+			response.setStatus(status.value());
+			response.setMessage(errorMessage);
+			return new ResponseEntity<AffiliateCheckDTO>(response, status);
 		}
 
 		private String memberOptions() {
