@@ -4,7 +4,7 @@ angular.module('MLDS').factory('ReleaseVersionsService',
     ['$resource',
 	 function($resource) {
 		return $resource(
-				'app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId',
+				'api/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId',
 				{
 					releasePackageId : '@releasePackageId',
 					releaseVersionId : '@releaseVersionId'
@@ -14,7 +14,7 @@ angular.module('MLDS').factory('ReleaseVersionsService',
 					},
 					notify : {
 						method : 'POST',
-						url: 'app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/notifications'
+						url: 'api/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/notifications'
 					}
 				});
 } ]);

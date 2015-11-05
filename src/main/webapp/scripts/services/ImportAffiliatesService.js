@@ -9,17 +9,17 @@ angular.module('MLDS')
 	service.importAffiliates = function(affiliatesFile) {
 		var formData = new FormData();
         formData.append('file', affiliatesFile);
-        return $http.post('/app/rest/affiliates/csv', formData, {
+        return $http.post('/api/affiliates/csv', formData, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         });
 	};
 
-	service.exportAffiliatesUrl = '/app/rest/affiliates/csv';
+	service.exportAffiliatesUrl = '/api/affiliates/csv';
 	
 	service.importSpec = function() {
-		return $http.get('/app/rest/affiliates/csvSpec');
-		//return $http.get('/app/rest/affiliates/csv', {headers: {'Accept':'application/csv+spec'}});
+		return $http.get('/api/affiliates/csvSpec');
+		//return $http.get('/api/affiliates/csv', {headers: {'Accept':'application/csv+spec'}});
 	};
 	
 	return service;

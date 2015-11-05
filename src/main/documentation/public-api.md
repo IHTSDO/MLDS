@@ -7,7 +7,7 @@ IHTSDO-MLDS provides a limited number of APIs to support integration with other 
 All access to the API is over HTTPS to the `mlds.ihtsdotools.org` domain. All data is sent and received as JSON.
 
 ```
-$ curl -i 'https://mlds.ihtsdotools.org/affiliates/check?member=IHTSDO&match=spectra'
+$ curl -i 'https://mlds.ihtsdotools.org/api/affiliates/check?member=IHTSDO&match=spectra'
 HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
@@ -40,7 +40,7 @@ The APIs that do require authentication support Basic Authentication using MLDS 
 Ensure that all communication uses `https` to ensure the credentials aren't revealed.
 
 ```
-$ curl -u USER:PASSWORD -i 'https://mlds.ihtsdotools.org/app/rest/releasePackages'
+$ curl -u USER:PASSWORD -i 'https://mlds.ihtsdotools.org/api/releasePackages'
 ```
 
 ## HTTP Methods
@@ -91,7 +91,7 @@ No additional information is provided to diagnose a failed match.
 A successful match against a Swedish affiliate based on a match against the `abc@test.com` email address. The affiliate was uniquely identified and the account was in good standing.
 
 ```
-$ curl -i 'https://mlds.ihtsdotools.org/affiliates/check?member=SE&match=abc@test.com'
+$ curl -i 'https://mlds.ihtsdotools.org/api/affiliates/check?member=SE&match=abc@test.com'
 HTTP/1.1 200 OK
 Content-Type: application/json
 
@@ -101,7 +101,7 @@ Content-Type: application/json
 An unsuccessful match against an IHTSDO affiliate based a match against the keyword hospital. No affiliate was uniquely identified as many affiliates contained `hospital` in the searched fields.
 
 ```
-$ curl -i 'https://mlds.ihtsdotools.org/affiliates/check?member=SE&match=abc@test.com'
+$ curl -i 'https://mlds.ihtsdotools.org/api/affiliates/check?member=SE&match=abc@test.com'
 HTTP/1.1 200 OK
 Content-Type: application/json
 
@@ -111,7 +111,7 @@ Content-Type: application/json
 A successful match that limited the search to a single specified affiliate. The 'hospital' keyword matched, unlike before, however, by limiting the search to a single affiliate the result was unique.
 
 ```
-$ curl -i 'https://mlds.ihtsdotools.org/affiliates/check?member=IHTSDO&match=hospital&affiliateId=123'
+$ curl -i 'https://mlds.ihtsdotools.org/api/affiliates/check?member=IHTSDO&match=hospital&affiliateId=123'
 HTTP/1.1 200 OK
 Content-Type: application/json
 
@@ -135,7 +135,7 @@ The API provides read access to the released packages without authentication; ho
 List all release packages.
 
 ```
-$ curl -i 'https://mlds.ihtsdotools.org/app/rest/releasePackages'
+$ curl -i 'https://mlds.ihtsdotools.org/api/releasePackages'
 ```
 
 ### Response
@@ -162,12 +162,12 @@ $ curl -i 'https://mlds.ihtsdotools.org/app/rest/releasePackages'
       "releaseFileId": 1921,
       "label": "<p>file2<br/></p>",
       "createdAt": "2015-10-14T19:18:39.808Z",
-      "clientDownloadUrl": "/app/rest/releasePackages/1911/releaseVersions/1913/releaseFiles/1921/download"
+      "clientDownloadUrl": "/api/releasePackages/1911/releaseVersions/1913/releaseFiles/1921/download"
     }, {
       "releaseFileId": 1919,
       "label": "<p>file1<br/></p>",
       "createdAt": "2015-10-14T19:18:30.628Z",
-      "clientDownloadUrl": "/app/rest/releasePackages/1911/releaseVersions/1913/releaseFiles/1919/download"
+      "clientDownloadUrl": "/api/releasePackages/1911/releaseVersions/1913/releaseFiles/1919/download"
     }]
   }]
 }, {
@@ -191,7 +191,7 @@ $ curl -i 'https://mlds.ihtsdotools.org/app/rest/releasePackages'
       "releaseFileId": 5271,
       "label": null,
       "createdAt": "2015-10-20T14:55:01.955Z",
-      "clientDownloadUrl": "/app/rest/releasePackages/5267/releaseVersions/5269/releaseFiles/5271/download"
+      "clientDownloadUrl": "/api/releasePackages/5267/releaseVersions/5269/releaseFiles/5271/download"
     }]
   }]
 }]
@@ -200,25 +200,25 @@ $ curl -i 'https://mlds.ihtsdotools.org/app/rest/releasePackages'
 ## Get a single Release Package
 
 ```
-GET /app/rest/releasePackages/:releasePackageId'
+GET /api/releasePackages/:releasePackageId'
 ```
 
 ## Get a single Release Version
 
 ```
-GET /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId'
+GET /api/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId'
 ```
 
 ### Get a single Release File
 
 ```
-GET /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/releaseFiles/:releaseFileId'
+GET /api/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/releaseFiles/:releaseFileId'
 ```
 
 ## Create a new Release Package
 
 ```
-POST /app/rest/releasePackages 
+POST /api/releasePackages 
 ```
 
 ### Input
@@ -258,7 +258,7 @@ POST /app/rest/releasePackages
 ## Create a new Release Version
 
 ```
-POST /app/rest/releasePackages/:releaseVersionId/releaseVersions
+POST /api/releasePackages/:releaseVersionId/releaseVersions
 ```
 
 ### Input
@@ -296,7 +296,7 @@ POST /app/rest/releasePackages/:releaseVersionId/releaseVersions
 Add a new release file to a Release Version.
 
 ```
-POST /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/releaseFiles
+POST /api/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/releaseFiles
 ```
 
 ### Input
@@ -321,7 +321,7 @@ POST /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersion
   "releaseFileId": 211928,
   "label": "<p>Example file</p>",
   "createdAt": "2015-10-29T14:44:52.682Z",
-  "clientDownloadUrl": "/app/rest/releasePackages/211920/releaseVersions/211924/releaseFiles/211928/download",
+  "clientDownloadUrl": "/api/releasePackages/211920/releaseVersions/211924/releaseFiles/211928/download",
   "downloadUrl": "http://files.com/example.txt"
 }
 ```
@@ -334,7 +334,7 @@ Note that an affiliate download URL is used by affiliates to download the conten
 To publish a Release Version online the Release Version's online flag should be set to true. To take the Release Version offline the online flag should be set to false.
 
 ```
-PUT /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId
+PUT /api/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId
 ```
 
 ### Input
@@ -370,7 +370,7 @@ PUT /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionI
     "releaseFileId": 211928,
     "label": "<p>Example file</p>",
     "createdAt": "2015-10-29T14:44:52.682Z",
-    "clientDownloadUrl": "/app/rest/releasePackages/211920/releaseVersions/211924/releaseFiles/211928/download",
+    "clientDownloadUrl": "/api/releasePackages/211920/releaseVersions/211924/releaseFiles/211928/download",
     "downloadUrl": "http://files.com/example.txt"
   }]
 }
@@ -381,7 +381,7 @@ PUT /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionI
 Affiliates are not notified automatically when a new Release version has been published online. When a notification to affiliates with download access to the Release Package is warranted then the following endpoint can be used. 
 
 ```
-POST /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/notifications
+POST /api/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/notifications
 ```
 
 ### Input
@@ -405,7 +405,7 @@ POST /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersion
     "releaseFileId": 211928,
     "label": "<p>Example file</p>",
     "createdAt": "2015-10-29T14:44:52.682Z",
-    "clientDownloadUrl": "/app/rest/releasePackages/211920/releaseVersions/211924/releaseFiles/211928/download",
+    "clientDownloadUrl": "/api/releasePackages/211920/releaseVersions/211924/releaseFiles/211928/download",
     "downloadUrl": "http://files.com/example.txt"
   }]
 }
@@ -416,7 +416,7 @@ POST /app/rest/releasePackages/:releasePackageId/releaseVersions/:releaseVersion
 A license document can be associated with a Release Package.
 
 ```
-POST /app/rest/releasePackages/:releasePackageId/license
+POST /api/releasePackages/:releasePackageId/license
 ```
 
 ### Input
@@ -428,7 +428,7 @@ POST /app/rest/releasePackages/:releasePackageId/license
 The request should be a `multipart\form-data' post to the server.
 
 ```
-$ curl -u USER:PASSWORD -i -F "file=@FILE.PDF" 'https://mlds.ihtsdotools.org/app/rest/releasePackages/211920/license'
+$ curl -u USER:PASSWORD -i -F "file=@FILE.PDF" 'https://mlds.ihtsdotools.org/api/releasePackages/211920/license'
 
 ```
  

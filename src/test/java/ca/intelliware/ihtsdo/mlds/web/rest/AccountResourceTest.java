@@ -59,7 +59,7 @@ public class AccountResourceTest {
 
     @Test
     public void testNonAuthenticatedUser() throws Exception {
-        restUserMockMvc.perform(get("/app/rest/authenticate")
+        restUserMockMvc.perform(get("/api/authenticate")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(""));
@@ -68,7 +68,7 @@ public class AccountResourceTest {
 
     @Test
     public void testAuthenticatedUser() throws Exception {
-        restUserMockMvc.perform(get("/app/rest/authenticate")
+        restUserMockMvc.perform(get("/api/authenticate")
                 .with(new RequestPostProcessor() {
                     public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
                         request.setRemoteUser("test");
@@ -98,7 +98,7 @@ public class AccountResourceTest {
         when(userService.getUserWithAuthorities()).thenReturn(user);
         when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(new Member("IHTSDO", 1));
 
-        restUserMockMvc.perform(get("/app/rest/account")
+        restUserMockMvc.perform(get("/api/account")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

@@ -16,7 +16,7 @@ angular.module('MLDS').controller('RequestPasswordResetController',
         			return;
         		}
         		
-        		$http.post('/app/rest/passwordReset', {email:$scope.passwordResetData.email})
+        		$http.post('/api/passwordReset', {email:$scope.passwordResetData.email})
         			.error(function(data){
         				$scope.alerts.push({ type: 'danger', msg: 'Email entered is not found in system.' });
         			})

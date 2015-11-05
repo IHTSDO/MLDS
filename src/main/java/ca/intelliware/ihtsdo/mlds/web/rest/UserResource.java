@@ -22,7 +22,7 @@ import com.codahale.metrics.annotation.Timed;
  * REST controller for managing users.
  */
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/api")
 public class UserResource {
 
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
@@ -30,7 +30,7 @@ public class UserResource {
     @Inject
     private UserRepository userRepository;
     
-    @RequestMapping(value = "/rest/users",
+    @RequestMapping(value = "/users",
     		method = RequestMethod.GET,
     		produces = "application/json")
     @RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
@@ -43,7 +43,7 @@ public class UserResource {
     /**
      * GET  /rest/users/:login -> get the "login" user.
      */
-    @RequestMapping(value = "/rest/users/{login}",
+    @RequestMapping(value = "/users/{login}",
             method = RequestMethod.GET,
             produces = "application/json")
     @Timed

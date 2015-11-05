@@ -14,7 +14,7 @@ angular.module('MLDS').controller('ResetPasswordController',
 	    			return;
 	    		}
                 $log.log('success', $scope.resetPassword.password);
-                $resource('/app/rest/passwordReset/:id', {id:$routeParams.token})
+                $resource('/api/passwordReset/:id', {id:$routeParams.token})
                 	.save({ password : $scope.resetPassword.password })
         			.$promise.then(function(data){
                         $scope.error = null;
