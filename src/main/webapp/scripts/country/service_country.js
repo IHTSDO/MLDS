@@ -2,7 +2,7 @@
 
 mldsApp.factory('Countries', ['$resource', '$http',
     function ($resource, $http) {
-        return $resource('app/rest/countries/:isoCode2', {}, {
+        return $resource('api/countries/:isoCode2', {}, {
             'query': { 
             	method: 'GET', 
             	isArray: true, 
