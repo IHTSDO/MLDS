@@ -66,7 +66,7 @@ Check that an affiliate is in good standing with IHTSDO.
 Where possible the `affilateId` with confirming matching data from the application can be used, otherwise a single match from all affiliates of a member can be used. 
 
 ```
-GET /affiliates/check?member=IHTSDO&match=keyword
+GET /affiliates/check?member=:memberKey&match=:keyword[&affilateId=:affiliateId]
 ```
 
 ### Parameters
@@ -114,6 +114,16 @@ A successful match that limited the search to a single specified affiliate. The 
 
 ```
 $ curl -i 'https://mlds.ihtsdotools.org/api/affiliates/check?member=IHTSDO&match=hospital&affiliateId=123'
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{"matched":true}
+```
+
+The `match` value contains user supplied data and as result may need to be escaped using standard URL rules. For example, matching the email address `me+work@email.com` would require escaping the `+` character as `%2B` when using curl or else the match request would fail.
+
+```
+$ curl -i 'https://mlds.ihtsdotools.org/api/affiliates/check?member=IHTSDO&match=me%2Bwork@email.com'
 HTTP/1.1 200 OK
 Content-Type: application/json
 
@@ -441,7 +451,7 @@ To download a file content the supplied user credentials must be approved to get
 
 The response body is the file content.
 
-Where possible the response headers `Content-Disposition' and 'Content-Type' are set with content meta-data, such as filename. 
+Where possible the response headers `Content-Disposition` and `Content-Type` are set with content meta-data, such as filename. 
 
 ### Example
 
@@ -477,4 +487,4 @@ Content-Length: 113801
 [data not shown]
 ```
 
-The downloaded file can be found at `file.pdf'.
+The downloaded file can be found at `file.pdf.
