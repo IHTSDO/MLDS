@@ -9,14 +9,14 @@ angular.module('MLDS')
 		var formData = new FormData();
         formData.append('file', file);
 		
-		return $http.post('/app/rest/releasePackages/' + encodeURIComponent(releasePackageId) + '/license', formData, {
+		return $http.post('/api/releasePackages/' + encodeURIComponent(releasePackageId) + '/license', formData, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         });
 	};
 	
 	service.getReleaseLicense = function(releasePackageId) {
-		$window.open('/app/rest/releasePackages/' + encodeURIComponent(releasePackageId) + '/license', '_blank');
+		$window.open('/api/releasePackages/' + encodeURIComponent(releasePackageId) + '/license', '_blank');
 	};
 	
 	return service;

@@ -75,7 +75,7 @@ import com.codahale.metrics.annotation.Timed;
  * REST controller for managing the current user's account.
  */
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/api")
 public class AccountResource {
 
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
@@ -133,7 +133,7 @@ public class AccountResource {
      * POST  /rest/register -> register the user.
      * @throws IOException 
      */
-    @RequestMapping(value = "/rest/register",
+    @RequestMapping(value = "/register",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -224,7 +224,7 @@ public class AccountResource {
     /**
      * GET  /rest/activate -> activate the registered user.
      */
-    @RequestMapping(value = "/rest/activate",
+    @RequestMapping(value = "/activate",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -240,7 +240,7 @@ public class AccountResource {
     /**
      * GET  /rest/authenticate -> check if the user is authenticated, and return its login.
      */
-    @RequestMapping(value = "/rest/authenticate",
+    @RequestMapping(value = "/authenticate",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
@@ -255,7 +255,7 @@ public class AccountResource {
      * @throws IOException 
      * @throws ClientProtocolException 
      */
-    @RequestMapping(value = "/rest/account",
+    @RequestMapping(value = "/account",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -329,7 +329,7 @@ public class AccountResource {
     /**
      * POST  /rest/account -> update the current user information.
      */
-    @RequestMapping(value = "/rest/account",
+    @RequestMapping(value = "/account",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -341,7 +341,7 @@ public class AccountResource {
     /**
      * POST  /rest/change_password -> changes the current user's password
      */
-    @RequestMapping(value = "/rest/account/change_password",
+    @RequestMapping(value = "/account/change_password",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -357,7 +357,7 @@ public class AccountResource {
     /**
      * GET  /rest/account/sessions -> get the current open sessions.
      */
-    @RequestMapping(value = "/rest/account/sessions",
+    @RequestMapping(value = "/account/sessions",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -385,7 +385,7 @@ public class AccountResource {
      *   There is an API to invalidate the current session, but there is no API to check which session uses which
      *   cookie.
      */
-    @RequestMapping(value = "/rest/account/sessions/{series}",
+    @RequestMapping(value = "/account/sessions/{series}",
             method = RequestMethod.DELETE)
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
@@ -412,7 +412,7 @@ public class AccountResource {
         return templateEngine.process(MailService.EMAIL_ACTIVATION_PREFIX + MailService.TEMPLATE_SUFFIX, context);
     }
     
-    @RequestMapping(value = "/rest/account/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/account/create", method = RequestMethod.POST)
     @RolesAllowed({AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<?> createLogin(@RequestBody Affiliate body, HttpServletRequest request, HttpServletResponse response) {

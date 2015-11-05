@@ -7,7 +7,7 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 			},
 
 			getUsers: function() {
-				return $http.get('/app/rest/users');
+				return $http.get('/api/users');
 			},
 		
 			createUser : function(user) {
@@ -33,11 +33,11 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 			},
 			
 			getApplicationsPending: function() {
-				return $http.get('/app/rest/applications?$filter='+encodeURIComponent('approvalState/pending eq true'));
+				return $http.get('/api/applications?$filter='+encodeURIComponent('approvalState/pending eq true'));
 			},
 
 			filterPendingApplications: function(q, page, pageSize, member, orderBy, reverseSort) {
-				return $http.get('/app/rest/applications?'+
+				return $http.get('/api/applications?'+
 						/* q */
 						'$filter='+encodeURIComponent('approvalState/pending eq true')+
 						'&$page='+encodeURIComponent(page)+
@@ -48,44 +48,44 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 			},
 
 			getApplicationById: function(applicationId) {
-				return $http.get('/app/rest/applications/'+encodeURIComponent(applicationId));
+				return $http.get('/api/applications/'+encodeURIComponent(applicationId));
 			},
 
 			getApplication: function() {
-				return $http.get('/app/rest/applications/me');
+				return $http.get('/api/applications/me');
 			},
 			
 			createExtensionApplication: function createExtensionApplication(member) {
 				$log.log('createExtensionApplication');
-				return $http.post('/app/rest/applications', {memberKey: member.key, applicationType: 'EXTENSION'});
+				return $http.post('/api/applications', {memberKey: member.key, applicationType: 'EXTENSION'});
 			},
 			
 			submitApplication: function submitApplication(applicationForm, applicationId) {
 				$log.log('submitApplication', applicationForm);
-				return $http.post('/app/rest/applications/'+encodeURIComponent(applicationId)+'/registration', applicationForm);
+				return $http.post('/api/applications/'+encodeURIComponent(applicationId)+'/registration', applicationForm);
 			},
 			
 			saveApplication: function saveApplication(applicationForm, applicationId) {
 				$log.log('saveApplication', applicationForm);
-				return $http.put('/app/rest/applications/'+encodeURIComponent(applicationId)+'/registration', applicationForm);
+				return $http.put('/api/applications/'+encodeURIComponent(applicationId)+'/registration', applicationForm);
 			},
 			
 			approveApplication: function approveApplication(application, approvalStatus) {
 				$log.log('approveApplication', approvalStatus);
-				return $http.post('/app/rest/applications/'+encodeURIComponent(application.applicationId)+'/approve', approvalStatus);
+				return $http.post('/api/applications/'+encodeURIComponent(application.applicationId)+'/approve', approvalStatus);
 			},
 			
 			updateApplicationNoteInternal: function(application) {
-				return $http.put('/app/rest/applications/'+encodeURIComponent(application.applicationId)+'/notesInternal', application.notesInternal);
+				return $http.put('/api/applications/'+encodeURIComponent(application.applicationId)+'/notesInternal', application.notesInternal);
 			},
 			
 			// Let's move to using this one
 			updateApplication: function (application) {
-				return $http.post('/app/rest/applications/'+encodeURIComponent(application.applicationId), application);
+				return $http.post('/api/applications/'+encodeURIComponent(application.applicationId), application);
 			},
 			
 			deleteApplication: function (applicationId) { 
-				return $http['delete']('/app/rest/applications/'+encodeURIComponent(applicationId));
+				return $http['delete']('/api/applications/'+encodeURIComponent(applicationId));
 			}
 			
 		};

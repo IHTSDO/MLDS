@@ -4,7 +4,7 @@ angular.module('MLDS')
 .service('CountryService', ['$http', '$log', '$q', '$translate', function($http, $log, $q, $translate){
 	
 		var countriesListQ = 
-			$http.get('/app/rest/countries')
+			$http.get('/api/countries')
 				.then(function(d){return d.data;});
 		var service = {};
 		
