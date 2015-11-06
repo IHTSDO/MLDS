@@ -54,10 +54,13 @@ public class AffiliateFullTextSearchTest {
 	
 	List<Affiliate> affiliates = Lists.newArrayList();
 	Member ihtsdo;
+	Member sweden;
 	
 	@Before
 	public void setUp() {
 		ihtsdo = memberRepository.findOneByKey(Member.KEY_IHTSDO);
+		sweden = memberRepository.findOneByKey("SE");
+		
 		for (int i = 0; i < 10; i++) {
 			affiliates.add(makeAffiliate());
 		}
@@ -193,6 +196,45 @@ public class AffiliateFullTextSearchTest {
 		assertThat(resultList, contains(affiliates.get(4)));
 	}
 	
+	@Test
+	public void findAffiliateByStandingState() throws Exception {
+		affiliates.get(3).setStandingState(StandingState.APPLYING);
+		affiliates.get(5).setStandingState(StandingState.APPLYING);
+		
+		flush();
+		
+		List<Affiliate> resultList = search("firstName", null, StandingState.APPLYING, false);
+		
+		assertThat(resultList.size(), is(2));
+		assertThat(resultList, containsInAnyOrder(affiliates.get(3), affiliates.get(5)));
+	}
+
+	@Test
+	public void findAffiliateByStandingStateNot() throws Exception {
+		affiliates.get(3).setStandingState(StandingState.APPLYING);
+		affiliates.get(5).setStandingState(StandingState.APPLYING);
+		
+		flush();
+		
+		List<Affiliate> resultList = search("firstName", null, StandingState.IN_GOOD_STANDING, true);
+		
+		assertThat(resultList.size(), is(2));
+		assertThat(resultList, containsInAnyOrder(affiliates.get(3), affiliates.get(5)));
+	}
+	
+	@Test
+	public void findAffiliateByHomeMember() throws Exception {
+		affiliates.get(3).setHomeMember(sweden);
+		affiliates.get(5).setHomeMember(sweden);
+		
+		flush();
+		
+		List<Affiliate> resultList = search("firstName", sweden, null, false);
+		
+		assertThat(resultList.size(), is(2));
+		assertThat(resultList, containsInAnyOrder(affiliates.get(3), affiliates.get(5)));
+	}
+
 	/**
 	 * flush to JPA + Lucene.  JPA queries trigger a JPA flush, but Hibernate Search
 	 * only flushes on TX commit by default.  But are using a TX rollback test strategy, so we
@@ -209,7 +251,7 @@ public class AffiliateFullTextSearchTest {
 	}
 
 	private List<Affiliate> search(String query, Member member, StandingState standingState, boolean standingStateNot) {
-		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),member,standingState,false,new PageRequest(0, 50)).getContent();
+		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),member,standingState,standingStateNot,new PageRequest(0, 50)).getContent();
 		return resultList;
 	}
 
@@ -220,6 +262,7 @@ public class AffiliateFullTextSearchTest {
 		affiliate.getAffiliateDetails().setLastName(randomString("lastName"));;
 		affiliate.getAffiliateDetails().setAddress(new MailingAddress());
 		affiliate.setHomeMember(ihtsdo);
+		affiliate.setStandingState(StandingState.IN_GOOD_STANDING);
 		
 		entityManager.persist(affiliate.getAffiliateDetails());
 		affiliateRepository.save(affiliate);

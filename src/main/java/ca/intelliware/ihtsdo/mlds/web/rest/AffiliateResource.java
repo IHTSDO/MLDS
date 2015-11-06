@@ -135,13 +135,7 @@ public class AffiliateResource {
 		StandingState standingState = null;
 		boolean standingStateNot = false;
 		
-		if (filters == null || filters.size() == 0 || StringUtils.isBlank(filters.get(0))) {
-    		if (StringUtils.isBlank(q)) {
-    			affiliates = affiliateRepository.findAll(pageRequest);
-    		} else {
-    			affiliates = affiliateRepository.findByTextQuery(q.toLowerCase(), pageRequest);
-    		}
-		} else {
+		if (filters != null && filters.size() > 0 && StringUtils.isNotBlank(filters.get(0))) {
 			for (String filter : filters) {
 				Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
 				if (homeMemberMatcher.matches()) {
@@ -156,7 +150,6 @@ public class AffiliateResource {
 					standingState = StandingState.valueOf(standingStateString);
 					continue;
 				}
-				//FIXME support more kinds of filters...
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
