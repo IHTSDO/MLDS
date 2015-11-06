@@ -26,6 +26,7 @@ mldsApp.controller('AffiliateManagementController', [
 			$scope.reverseSort = AffiliateService.affiliatesFilter.reverseSort ? AffiliateService.affiliatesFilter.reverseSort : false;
 
 			$scope.standingStateFilter = AffiliateService.affiliatesFilter.standingStateFilter ? AffiliateService.affiliatesFilter.standingStateFilter : null;
+			$scope.standingStateNotApplying = AffiliateService.affiliatesFilter.standingStateNotApplying ? AffiliateService.affiliatesFilter.standingStateNotApplying : false;
 			
 			$scope.canSort = true;
 			$scope.standingStateOptions = StandingStateUtils.options();
@@ -40,6 +41,7 @@ mldsApp.controller('AffiliateManagementController', [
 				AffiliateService.affiliatesFilter.orderByField = $scope.orderByField;
 				AffiliateService.affiliatesFilter.reverseSort = $scope.reverseSort;
 				AffiliateService.affiliatesFilter.standingStateFilter = $scope.standingStateFilter;
+				AffiliateService.affiliatesFilter.standingStateNotApplying = $scope.standingStateNotApplying;
 			}
 			
 			function loadMoreAffiliates() {
@@ -52,7 +54,7 @@ mldsApp.controller('AffiliateManagementController', [
 				$scope.loadReset = false;
 				$scope.downloadingAffiliates = true;
 				$scope.alerts = [];
-				AffiliateService.filterAffiliates($scope.query, $scope.page, 50, $scope.showAllAffiliates==1?null:$scope.homeMember, $scope.standingStateFilter,$scope.orderByField, $scope.reverseSort)
+				AffiliateService.filterAffiliates($scope.query, $scope.page, 50, $scope.showAllAffiliates==1?null:$scope.homeMember, $scope.standingStateFilter, $scope.standingStateNotApplying, $scope.orderByField, $scope.reverseSort)
 					.then(function(response) {
 						//$log.log("...appending "+response.data.length+" to existing "+$scope.affiliates.length+" page="+$scope.page);
 						_.each(response.data, function(a) {
@@ -111,9 +113,16 @@ mldsApp.controller('AffiliateManagementController', [
 			
 			$scope.filterStandingState = function(state) {
 				$scope.standingStateFilter = state;
+				$scope.standingStateNotApplying = false;
 				loadAffiliates();
 			};
-			
+
+			$scope.filterStandingStateNotApplying = function(state) {
+				$scope.standingStateFilter = 'APPLYING';
+				$scope.standingStateNotApplying = true;
+				loadAffiliates();
+			};
+
 			$scope.$watch('showAllAffiliates', loadAffiliates);
 			$scope.$watch('query', loadAffiliates);
 						
@@ -151,7 +160,7 @@ mldsApp.controller('AffiliateManagementController', [
 
 			$scope.generateCsv = function() {
 				$scope.generatingCsv = true;
-				return AffiliateService.filterAffiliates($scope.query, 0, 999999999, $scope.showAllAffiliates==1?null:$scope.homeMember, $scope.standingStateFilter,$scope.orderByField, $scope.reverseSort)
+				return AffiliateService.filterAffiliates($scope.query, 0, 999999999, $scope.showAllAffiliates==1?null:$scope.homeMember, $scope.standingStateFilter, $scope.standingStateNotApplying, $scope.orderByField, $scope.reverseSort)
 					.then(function(response) {
 						var expressions = [
 						    $parse("affiliate.affiliateId"),

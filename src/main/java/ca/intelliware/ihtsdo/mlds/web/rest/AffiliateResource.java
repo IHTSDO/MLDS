@@ -115,7 +115,7 @@ public class AffiliateResource {
 	public static final int DEFAULT_PAGE_SIZE = 50;
 	
 	public static final String FILTER_HOME_MEMBER = "homeMember eq '(\\w+)'";
-	public static final String FILTER_STANDING = "standingState eq '(\\w+)'";
+	public static final String FILTER_STANDING = "(not)?\\s?standingState eq '(\\w+)'";
 	
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.AFFILIATES,
@@ -133,6 +133,7 @@ public class AffiliateResource {
 		PageRequest pageRequest = new PageRequest(page, pageSize, sort);
 		Member member = null;
 		StandingState standingState = null;
+		boolean standingStateNot = false;
 		
 		if (filters == null || filters.size() == 0 || StringUtils.isBlank(filters.get(0))) {
     		if (StringUtils.isBlank(q)) {
@@ -150,7 +151,8 @@ public class AffiliateResource {
 				}
 				Matcher standingStateMatcher = Pattern.compile(FILTER_STANDING).matcher(filter);
 				if (standingStateMatcher.matches()) {
-					String standingStateString = standingStateMatcher.group(1);
+					standingStateNot = StringUtils.equalsIgnoreCase("not", standingStateMatcher.group(1));
+					String standingStateString = standingStateMatcher.group(2);
 					standingState = StandingState.valueOf(standingStateString);
 					continue;
 				}
@@ -161,19 +163,27 @@ public class AffiliateResource {
 		
 		if (!StringUtils.isBlank(q)) {
 			//Note that sorting in the pageRequest is not currently respected by lucene
-			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, pageRequest) ;
+			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest) ;
 		} else {
 			if (member == null) {
 				if (standingState == null) {
 					affiliates = affiliateRepository.findAll(pageRequest);
 				} else {
-					affiliates = affiliateRepository.findByStandingState(standingState, pageRequest);
+					if (standingStateNot) {
+						affiliates = affiliateRepository.findByStandingStateNot(standingState, pageRequest);						
+					} else {
+						affiliates = affiliateRepository.findByStandingState(standingState, pageRequest);
+					}
 				}
 			} else {
 				if (standingState == null) {
 					affiliates = affiliateRepository.findByHomeMember(member, pageRequest);
 				} else {
-					affiliates = affiliateRepository.findByHomeMemberAndStandingState(member, standingState, pageRequest);
+					if (standingStateNot) {
+						affiliates = affiliateRepository.findByHomeMemberAndStandingStateNot(member, standingState, pageRequest);
+					} else {
+						affiliates = affiliateRepository.findByHomeMemberAndStandingState(member, standingState, pageRequest);
+					}
 				}
 			}
     	}
