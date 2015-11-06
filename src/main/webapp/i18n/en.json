@@ -1051,7 +1051,9 @@
             "title": "Password Reset",
             "detail": "We will send you an email containing a link to a password reset form.",
             "button": "Request Password Reset",
-            "back": "Go back to login page"
+            "back": "Go back to login page",
+            "emailNotFound": "Email entered is not found in system.",
+            "resetEmailSent": "Password reset process started, please check your email."
         },
         "usage": {
             "title": "Usage Log",
