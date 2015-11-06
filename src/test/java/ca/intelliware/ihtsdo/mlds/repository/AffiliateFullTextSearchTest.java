@@ -187,7 +187,7 @@ public class AffiliateFullTextSearchTest {
 		affiliates.get(4).getAffiliateDetails().setEmail("fred22@exampleZZZ.com");
 		flush();
 		
-		List<Affiliate> resultList = search("fred22@exampleZZZ.com", ihtsdo, null);
+		List<Affiliate> resultList = search("fred22@exampleZZZ.com", ihtsdo, null, false);
 		
 		assertThat(resultList.size(), is(1));
 		assertThat(resultList, contains(affiliates.get(4)));
@@ -205,11 +205,11 @@ public class AffiliateFullTextSearchTest {
 	}
 	
 	private List<Affiliate> search(String query) {
-		return search(query, null, null);
+		return search(query, null, null, false);
 	}
 
-	private List<Affiliate> search(String query, Member member, StandingState standingState) {
-		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),member,standingState,new PageRequest(0, 50)).getContent();
+	private List<Affiliate> search(String query, Member member, StandingState standingState, boolean standingStateNot) {
+		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),member,standingState,false,new PageRequest(0, 50)).getContent();
 		return resultList;
 	}
 
