@@ -6,7 +6,10 @@ angular.module('MLDS')
 
 	var service = {};
 	
-	service.affiliatesFilter = {};
+	service.affiliatesFilter = {
+			standingStateFilter: 'APPLYING',
+			standingStateNotApplying: true
+	};
 	
 	service.affiliatesResource = $resource('/api/affiliates');
 
@@ -14,13 +17,13 @@ angular.module('MLDS')
 		return $http.get('/api/affiliates?q='+encodeURIComponent(q));
 	};
 	
-	service.filterAffiliates = function(q, page, pageSize, member, standingState, orderBy, reverseSort) {
+	service.filterAffiliates = function(q, page, pageSize, member, standingState, standingStateNot, orderBy, reverseSort) {
 		return $http.get('/api/affiliates?q='+encodeURIComponent(q)+
 				'&$page='+encodeURIComponent(page)+
 				'&$pageSize='+encodeURIComponent(pageSize)+
 				(member?'&$filter='+encodeURIComponent('homeMember eq \''+member.key+'\''):'')+
 				(orderBy?'&$orderby='+encodeURIComponent(orderBy)+(reverseSort?' desc':''):'')+
-				(standingState?'&$filter='+encodeURIComponent('standingState eq \''+standingState+'\''):'')
+				(standingState?'&$filter='+encodeURIComponent((standingStateNot?'not ':'')+'standingState eq \''+standingState+'\''):'')
 				);
 	};
 

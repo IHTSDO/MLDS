@@ -52,8 +52,10 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 	Iterable<Affiliate> findByStandingStateInAndCreatorNotNull(Collection<StandingState> standingState);
 	
 	Page<Affiliate> findByHomeMemberAndStandingState(Member homeMember, StandingState standingState, Pageable pageable);
+	Page<Affiliate> findByHomeMemberAndStandingStateNot(Member homeMember, StandingState standingState, Pageable pageable);
 
 	Page<Affiliate> findByStandingState(StandingState standingState, Pageable pageable);
+	Page<Affiliate> findByStandingStateNot(StandingState standingState, Pageable pageable);
 	
 	@Query(value="SELECT DISTINCT a from Affiliate a INNER JOIN a.applications b "
 			+ "WHERE (a.affiliateId = :affiliateIdOptional OR :affiliateIdOptional = ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository.AFFILIATE_ID_OPTIONAL_VALUE) "
