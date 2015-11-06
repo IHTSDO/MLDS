@@ -11,6 +11,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Arrays;
 
+import org.assertj.core.util.Lists;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -21,6 +23,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
@@ -91,32 +94,51 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
 	@Test
 	public void getAffiliates() throws Exception {
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(jsonPath("$", Matchers.hasSize(1)))
+                .andExpect(contentMatchesTestCreator());
+	}
+
+	private PageImpl<Affiliate> withAffiliateResultForTestCreator() {
+		Affiliate affiliate = createBlankAffiliate();
+    	affiliate.setCreator("testCreator");
+    	
+    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+		return matches;
+	}
+	
+	private ResultMatcher contentMatchesTestCreator() {
+		return jsonPath("$.[0].creator").value("testCreator");
+	}
+
+	@Test
+	public void getAffiliatesCanReturnNoResults() throws Exception {
+    	PageImpl<Affiliate> matches = new PageImpl<>(Lists.<Affiliate>emptyList());
+    	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
+
+        restUserMockMvc.perform(get(Routes.AFFILIATES)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", Matchers.hasSize(0)));
 	}
 
 	@Test
 	public void getAffiliatesShouldSortByAffiliateIdByDefault() throws Exception {
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(contentMatchesTestCreator());
         
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
         verify(affiliateRepository).findAll(argument.capture());
@@ -125,10 +147,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
 	@Test
 	public void getAffiliatesShouldBeSortable() throws Exception {
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
@@ -136,7 +155,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(contentMatchesTestCreator());
         
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
         verify(affiliateRepository).findAll(argument.capture());
@@ -145,10 +164,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
 	@Test
 	public void getAffiliatesShouldBeSortableDescending() throws Exception {
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
@@ -156,7 +172,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(contentMatchesTestCreator());
         
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
         verify(affiliateRepository).findAll(argument.capture());
@@ -165,17 +181,14 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
 	@Test
 	public void getAffiliatesShouldStartOnFirstPageByDefault() throws Exception {
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(contentMatchesTestCreator());
         
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
         verify(affiliateRepository).findAll(argument.capture());
@@ -186,10 +199,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
 	@Test
 	public void getAffiliatesShouldAllowPaging() throws Exception {
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
@@ -198,7 +208,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(contentMatchesTestCreator());
         
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
         verify(affiliateRepository).findAll(argument.capture());
@@ -209,10 +219,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
 	@Test
 	public void getAffiliatesShouldFilterByQuery() throws Exception {
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateSearchRepository.findFullTextAndMember(Mockito.eq("test"), Mockito.eq((Member)null), Mockito.eq((StandingState)null), Mockito.eq(false), Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
@@ -220,15 +227,12 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(contentMatchesTestCreator());
 	}
 
 	@Test
 	public void getAffiliatesShouldFilterByStandingState() throws Exception {
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findByStandingState(Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
@@ -236,15 +240,12 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(contentMatchesTestCreator());
 	}
 
 	@Test
 	public void getAffiliatesShouldFilterByStandingStateNot() throws Exception {
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findByStandingStateNot(Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
@@ -252,7 +253,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(contentMatchesTestCreator());
 	}
 	
 	@Test
@@ -260,10 +261,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 		Member member = new Member("SE", 1L);
 		when(memberRepository.findOneByKey("SE")).thenReturn(member);
 		
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findByHomeMember(Mockito.eq(member), Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
@@ -271,7 +269,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(contentMatchesTestCreator());
 	}
 
 	@Test
@@ -279,10 +277,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 		Member member = new Member("SE", 1L);
 		when(memberRepository.findOneByKey("SE")).thenReturn(member);
 		
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findByHomeMemberAndStandingState(Mockito.eq(member), Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
@@ -291,7 +286,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(contentMatchesTestCreator());
 	}
 
 	@Test
@@ -299,10 +294,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 		Member member = new Member("SE", 1L);
 		when(memberRepository.findOneByKey("SE")).thenReturn(member);
 		
-    	Affiliate affiliate = createBlankAffiliate();
-    	affiliate.setCreator("creator0");
-    	
-    	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findByHomeMemberAndStandingStateNot(Mockito.eq(member), Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
@@ -311,7 +303,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].creator").value("creator0"));
+                .andExpect(contentMatchesTestCreator());
 	}
 
 
