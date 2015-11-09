@@ -50,6 +50,7 @@ $ curl -u USER:PASSWORD -i 'https://mlds.ihtsdotools.org/api/releasePackages'
 Where possible the API supports appropriate HTTP Methods/Verbs for each resource.
 
 | Method | Description |
+| ------ | ----------- |
 | GET | Retrieve a representation of the resource. |
 | POST | Create a new resource. |
 | PUT | Replace a resource. |
