@@ -5,8 +5,6 @@ angular.module('MLDS')
 			
 		[ '$location', 
 		  'AuthenticationSharedService',
-          '$templateCache',
-		  function($location, AuthenticationSharedService, $templateCache) {
-                    $templateCache.removeAll();
+		  function($location, AuthenticationSharedService) {
 					AuthenticationSharedService.logout();
 				}]);
