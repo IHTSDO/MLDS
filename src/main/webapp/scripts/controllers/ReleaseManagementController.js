@@ -7,7 +7,10 @@ angular.module('MLDS').controller('ReleaseManagementController',
 		$scope.utils = PackageUtilsService;
 		$scope.isAdmin = Session.isAdmin();
 		
+		$scope.alerts = [];
+		
 		$scope.packages = [];
+		$scope.onlineMemberPackages = [];
 		
 		function reloadPackages() {
 			$scope.packages = PackagesService.query();
@@ -25,16 +28,25 @@ angular.module('MLDS').controller('ReleaseManagementController',
 			$scope.onlinePackages = memberFiltered
 				.filter(PackageUtilsService.isPackagePublished)
 				.sortBy(PackageUtilsService.getLatestPublishedDate)
+				.sortBy('priority')
 				.reverse()
 				.value();
 			$scope.offinePackages = memberFiltered
 				.reject(PackageUtilsService.isPackagePublished)
 				.sortBy('createdAt')
 				.value();
+
+			$scope.onlineMemberPackages = _.filter($scope.onlinePackages, PackageUtilsService.isReleasePackageMatchingMember);
+
+			var missingPriorities = _.filter($scope.onlineMemberPackages, function(p) {return p.priority == -1;});
+			var firstMissing = _.first(missingPriorities);
+			if (firstMissing) {
+				updatePackagePriority(firstMissing, 0);
+			}
 		}
 		
 		$scope.$watch('utils.showAllMembers', extractPackages);
-		
+				
 		reloadPackages();
 		
 		$scope.addReleasePackage = function() {
@@ -92,5 +104,58 @@ angular.module('MLDS').controller('ReleaseManagementController',
         $scope.isEditableReleasePackage = function(p) {
         	PackageUtilsService.isEditableReleasePackage(p);
         };
+        
+        function findHigherPriorityPackage(p) {
+        	var i = $scope.onlineMemberPackages.indexOf(p);
+        	if (i > 0) {
+        		return $scope.onlineMemberPackages[i - 1];
+        	} else {
+        		return null;
+        	}
+        }
+        
+        function findLowerPriorityPackage(p) {
+        	var i = $scope.onlineMemberPackages.indexOf(p);
+        	if (i !== -1 && i < $scope.onlineMemberPackages.length -1) {
+        		return $scope.onlineMemberPackages[i + 1];
+        	} else {
+        		return null;
+        	}
+        }
+
+        function exchangePackages(p, replace) {
+        	updatePackagePriority(p, replace.priority);
+        };
+        
+        function updatePackagePriority(p, priority) {
+        	$scope.alerts.splice(0, $scope.alerts.length);
+        	p.priority = priority;
+			PackagesService.update(p)
+			.$promise.then(function(result) {
+	        	reloadPackages();
+			})
+			["catch"](function(message) {
+				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+			});
+		}
+        
+        $scope.canPromotePackage = function canPromotePackage(p) {
+        	return findHigherPriorityPackage(p);
+        };
+        
+        $scope.promotePackage = function promotePackage(p) {
+    		var higherPriority = findHigherPriorityPackage(p);
+    		exchangePackages(p, higherPriority);
+        };
+        
+        $scope.canDemotePackage = function canDemotePackage(p) {
+        	return findLowerPriorityPackage(p);
+        };
+        
+        $scope.demotePackage = function demotePackage(p) {
+        	var lower = findLowerPriorityPackage(p);
+        	exchangePackages(lower, p);
+        };
+
     }]);
 
