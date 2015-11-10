@@ -12,6 +12,7 @@
 				<a popover-placement="top" popover="Switch between your releases and releases from all members" class="btn btn-link"><i class="fa fa-question-circle fa-2x"></i></a> 
 			</div>
 		</div>
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	</div>
 </div>
 <div class="row">
@@ -22,16 +23,21 @@
 		</div>
 		<div class="panel panel-default" ng-repeat="package in onlinePackages">
 			<div class="panel-heading">
-				<div class="dropdown pull-right" 
-					ng-show="isEditableReleasePackage(package)">
-					<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li><a ng-click="editReleasePackage(package)">Edit</a></li>
-					</ul>
+				<div class="pull-right">
+					<button type="button" class="btn" ng-click="promotePackage(package)" ng-show="canPromotePackage(package) || canDemotePackage(package)" ng-disabled="!canPromotePackage(package)"><span class="glyphicon glyphicon-chevron-up"></span></button>
+					<button type="button" class="btn" ng-click="demotePackage(package)" ng-show="canPromotePackage(package) || canDemotePackage(package)" ng-disabled="!canDemotePackage(package)"><span class="glyphicon glyphicon-chevron-down"></span></button>
+					<div class="dropdown" 
+						ng-show="isEditableReleasePackage(package)">
+						<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a ng-click="editReleasePackage(package)">Edit</a></li>
+						</ul>
+					</div>
 				</div>
-				<h3 class="panel-title"> <a ng-click="goToPackage(package)">{{package.name}} - {{package.member.key | enum:'global.member.'}}</a></h3>
+				<h3 class="panel-title"> <a ng-click="goToPackage(package)">{{package.name}} - {{package.member.key | enum:'global.member.'}}</a>
+				</h3>
 			</div>
 			<div class="panel-body">
 				

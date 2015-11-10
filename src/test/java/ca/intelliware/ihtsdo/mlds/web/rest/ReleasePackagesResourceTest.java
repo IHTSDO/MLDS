@@ -26,6 +26,7 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
+import ca.intelliware.ihtsdo.mlds.service.ReleasePackagePrioritizer;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -56,6 +57,9 @@ public class ReleasePackagesResourceTest {
 	@Mock
 	MemberRepository memberRepository;
 	
+	@Mock
+	ReleasePackagePrioritizer releasePackagePrioritizer;
+	
 	@Captor
 	ArgumentCaptor<ReleasePackage> releasePacakgeCaptor;
 	
@@ -73,6 +77,7 @@ public class ReleasePackagesResourceTest {
         releasePackagesResource.currentSecurityContext = currentSecurityContext;
         releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
         releasePackagesResource.userMembershipAccessor = userMembershipAccessor;
+        releasePackagesResource.releasePackagePrioritizer = releasePackagePrioritizer;
         
         Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(new Member("IHTSDO", 1));
 
@@ -205,6 +210,28 @@ public class ReleasePackagesResourceTest {
 		Assert.assertEquals("newDescription", savedReleasePackage.getValue().getDescription());
 		
 		Assert.assertEquals("originalCreatedBy", savedReleasePackage.getValue().getCreatedBy());
+	}
+
+	@Test
+	public void testReleasePackageUpdateShouldReorderMemberPackagesWhenPriorityChanged() throws Exception {
+		ReleasePackage releasePackage = new ReleasePackage();
+		releasePackage.setName("originalName");
+		releasePackage.setDescription("originalDescription");
+		releasePackage.setCreatedBy("originalCreatedBy");
+		releasePackage.setPriority(5);
+		
+		Mockito.when(releasePackageRepository.findOne(1L)).thenReturn(releasePackage);
+		
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 1L)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"releasePackageId\": 1, \"priority\": 9 }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+		
+		ArgumentCaptor<ReleasePackage> savedReleasePackage = ArgumentCaptor.forClass(ReleasePackage.class);
+		Mockito.verify(releasePackageRepository).save(savedReleasePackage.capture());
+		
+		Mockito.verify(releasePackagePrioritizer).prioritize(releasePackage, 9);
 	}
 
 	@Test

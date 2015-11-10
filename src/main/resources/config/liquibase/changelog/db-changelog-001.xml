@@ -1536,4 +1536,11 @@ $f$ language plpgsql;
 		</addColumn>
 	</changeSet>
 
+	<changeSet id="MLDS-928" author="DGJ">
+		<comment>Add priority to release packages to help with visual ordering for affiliates</comment>
+		<addColumn tableName="release_package">
+			<column name="priority" type="integer" defaultValue="-1"/>
+		</addColumn>
+	</changeSet>
+
 </databaseChangeLog>
