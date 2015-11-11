@@ -164,7 +164,7 @@
 				<h3 class="panel-title"> {{memberReleases.member.key | enum:'global.member.'}}</h3>
 			</div>
 			<table class="table table-striped">
-				<tr ng-repeat="releasePackage in memberReleases.packages | orderBy:packageUtils.getLatestPublishedDate:true | filter: packageUtils.isPackagePublished">
+				<tr ng-repeat="releasePackage in memberReleases.packages">
 					<td class="break-text">
 						<a href="#/viewReleases/viewRelease/{{releasePackage.releasePackageId}}">{{releasePackage.name}}</a>
 					</td>
