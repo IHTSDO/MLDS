@@ -161,6 +161,20 @@ public class ReleasePackagesResourceTest {
 	}
 
 	@Test
+	public void testReleasePackageCreateShouldInitializePackagesPriorityToEndOfList() throws Exception {
+		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"name\": \"name\", \"description\": \"description\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+		
+		Mockito.verify(releasePackageRepository).save(Mockito.any(ReleasePackage.class));
+		
+		Mockito.verify(releasePackagePrioritizer).prioritize(Mockito.any(ReleasePackage.class), Mockito.eq(ReleasePackagePrioritizer.END_PRIORITY));
+	}
+
+	
+	@Test
 	public void testReleasePackageUpdateFailsForUnknownId() throws Exception {
 		Mockito.when(releasePackageRepository.findOne(999L)).thenReturn(null);
 		
