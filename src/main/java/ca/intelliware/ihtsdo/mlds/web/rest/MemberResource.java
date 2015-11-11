@@ -191,4 +191,24 @@ public class MemberResource {
 		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
 	}
 
+    @RequestMapping(value = Routes.MEMBER,
+            method = RequestMethod.PUT,
+            produces = "application/json")
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Transactional
+	@Timed
+    public ResponseEntity<?> updateMember(@PathVariable String memberKey, @RequestBody MemberDTO body) throws IOException {
+		Member member = memberRepository.findOneByKey(memberKey);
+    	if (member == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	} 
+
+    	member.setPromotePackages(body.getPromotePackages());
+		member.setStaffNotificationEmail(body.getStaffNotificationEmail());
+		
+		memberRepository.save(member);
+
+		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
+	}
+
 }

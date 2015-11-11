@@ -1543,4 +1543,14 @@ $f$ language plpgsql;
 		</addColumn>
 	</changeSet>
 
+	<changeSet id="MLDS-928-2" author="DGJ">
+		<comment>Choose order when combining ihtsdo and member release packages</comment>
+		<addColumn tableName="member">
+			<column name="promote_packages" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+
+		</addColumn>
+	</changeSet>
+
 </databaseChangeLog>
