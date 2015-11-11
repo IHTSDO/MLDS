@@ -17,11 +17,13 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 @Transactional
 public class ReleasePackagePrioritizer {
 	
+	public static final int END_PRIORITY = 0;
+	
 	@Resource ReleasePackageRepository releasePackageRepository;
 
 	public void prioritize(ReleasePackage releasePackage, Integer priority) {
 		if (priority != null && Objects.equal(releasePackage.getPriority(), priority)) {
-			// do nothing
+			// no change - so do nothing - under the assumption that existing priority is valid
 		} else {
 			setPriorityTo(releasePackage, priority);
 		}

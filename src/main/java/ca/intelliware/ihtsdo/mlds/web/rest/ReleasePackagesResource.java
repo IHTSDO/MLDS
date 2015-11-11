@@ -132,6 +132,8 @@ public class ReleasePackagesResource {
     		releasePackage.setMember(userMembershipAccessor.getMemberAssociatedWithUser());
     	}
     	
+    	releasePackagePrioritizer.prioritize(releasePackage, ReleasePackagePrioritizer.END_PRIORITY);
+    	
     	releasePackageRepository.save(releasePackage);
 
     	releasePackageAuditEvents.logCreationOf(releasePackage);
