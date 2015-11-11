@@ -30,10 +30,10 @@ angular.module('MLDS').controller('ReleaseManagementController',
 
 		    $scope.packagesByMember = _.chain(memberFiltered)
 		        .groupBy(function(value) {return value.member.key;})
-		        .map(function(packages, memberKey) {
+		        .map(function(memberPackages, memberKey) {
 		        	var onlinePackages = PackageUtilsService.releasePackageSort(
-		        			_.filter(packages, PackageUtilsService.isPackagePublished));
-		        	var offlinePackages = _.chain(packages)
+		        			_.filter(memberPackages, PackageUtilsService.isPackagePublished));
+		        	var offlinePackages = _.chain(memberPackages)
 			        	.reject(PackageUtilsService.isPackagePublished)
 				        .sortBy('createdAt')
 				        .value();

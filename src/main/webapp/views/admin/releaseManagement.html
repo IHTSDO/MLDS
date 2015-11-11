@@ -63,7 +63,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="alert alert-warning" ng-show="onlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no public releases available</div>
+		<div class="alert alert-warning" ng-show="memberEntry.onlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no public releases available</div>
 	</div>	
 </div>
 <div class="row">
@@ -72,7 +72,7 @@
 			<h3>Offline Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
 			<p>Releases that do not have any online versions are taken offline. To take a release online, select a release below and set one or more versions online.</p>
 		</div>
-			<div class="panel panel-default" ng-repeat="package in memberEntry.offinePackages">
+			<div class="panel panel-default" ng-repeat="package in memberEntry.offlinePackages">
 				<div class="panel-heading">
 					<div class="dropdown pull-right"
 						ng-show="isEditableReleasePackage(package)">
@@ -91,7 +91,7 @@
 					<div ng-bind-html="package.description"></div>
 				</div>
 			</div>
-		<div class="alert alert-warning" ng-show="offinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline releases available </div>
+		<div class="alert alert-warning" ng-show="memberEntry.offlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline releases available </div>
 	</div>
 </div>
 </div>
