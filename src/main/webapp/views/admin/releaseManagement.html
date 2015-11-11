@@ -21,6 +21,12 @@
 			<h3>Public Releases</h3>
 			<p>Releases are made public when one or more versions inside the release is made public. To take a release offline, select a release below and set all versions to offline.</p>	
 		</div>
+	 	<div>
+	        <label ng-if="member.key != 'IHTSDO'">
+	        	<input type="checkbox" name="promotePackages" ng-model="member.promotePackages" ng-change="promoteMemberPackagesChanged(member)">
+	        	Show online packages before IHTSDO packages to affiliates.
+	        </label>
+    	</div>
 		<div class="panel panel-default" ng-repeat="package in onlinePackages">
 			<div class="panel-heading">
 				<div class="pull-right">

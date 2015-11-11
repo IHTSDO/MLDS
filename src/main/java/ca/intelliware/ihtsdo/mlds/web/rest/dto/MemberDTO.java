@@ -30,10 +30,14 @@ public class MemberDTO {
     String licenseName;
     String licenseVersion;
     
+    private Boolean promotePackages;
+    
     private String name;
     private FileDTO logo;
     
+    // Sensitive email addresses - intent is to only reveal to other staff/admins
     private String staffNotificationEmail;
+    
 
     public MemberDTO() {
     }
@@ -42,6 +46,7 @@ public class MemberDTO {
     	this.memberId = member.getMemberId();
     	this.key = member.getKey();
     	this.createdAt = member.getCreatedAt();
+    	this.promotePackages = member.getPromotePackages();
     	this.licenseName = member.getLicenseName();
     	this.licenseVersion = member.getLicenseVersion();
     	if (member.getLicense() != null) {
@@ -88,5 +93,9 @@ public class MemberDTO {
 	
 	public String getStaffNotificationEmail() {
 		return staffNotificationEmail;
+	}
+
+	public Boolean getPromotePackages() {
+		return promotePackages;
 	}
 }

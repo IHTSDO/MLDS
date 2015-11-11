@@ -2,6 +2,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.never;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -80,4 +81,36 @@ public class MemberResourceTest {
         Mockito.verify(memberRepository).save(member);
         assertThat(member.getStaffNotificationEmail(), equalTo("staff@test.com"));
 	}
+	
+	@Test
+	public void updateMemberShouldFailForUnknownMember() throws Exception {
+        restUserMockMvc.perform(put(Routes.MEMBER, "ZZ")
+        		.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"staffNotificationEmail\": \"new@test.com\" }")
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isNotFound());
+        
+        Mockito.verify(memberRepository, never()).save(Mockito.any(Member.class));
+	}
+
+	@Test
+	public void updateMemberShouldUpdateFields() throws Exception {
+		Member member = new Member("SE", 1L);
+		member.setStaffNotificationEmail("old@test.com");
+		member.setPromotePackages(false);
+		Mockito.when(memberRepository.findOneByKey("SE")).thenReturn(member);
+		
+        restUserMockMvc.perform(put(Routes.MEMBER, "SE")
+        		.contentType(MediaType.APPLICATION_JSON)
+				.content("{ \"promotePackages\": true, \"staffNotificationEmail\": \"new@test.com\" }")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        
+        Mockito.verify(memberRepository).save(member);
+        
+        assertThat(member.getStaffNotificationEmail(), equalTo("new@test.com"));
+        assertThat(member.getPromotePackages(), equalTo(true));
+	}
+	
+	
 }
