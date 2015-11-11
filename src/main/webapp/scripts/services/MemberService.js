@@ -125,7 +125,15 @@ angular.module('MLDS')
 	        });
 	        return promise;
 		};
-				
+
+		service.updateMember = function updateMember(member) {
+	        var promise = $http.put('/api/members/' + encodeURIComponent(member.key), member);
+	        promise.then(function(result) {
+	        	updateMemberEntry(result.data);
+	        });
+	        return promise;
+		};
+
 		return service;
 		
 	}]);

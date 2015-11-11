@@ -12,9 +12,14 @@ angular.module('MLDS').factory('PackageUtilsService',
 
 			service.getMemberOrder = function getMemberOrder(packageEntity) {
 				if (packageEntity.member.key === 'IHTSDO') {
-					return 1;
-				} else {
 					return 0;
+				} else {
+					var member = MemberService.membersByKey[packageEntity.member.key];
+					if (member && member.promotePackages) {
+						return 1;
+					} else {
+						return -1;
+					}
 				}
 			};
 			

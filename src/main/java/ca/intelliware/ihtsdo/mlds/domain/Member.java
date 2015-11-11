@@ -53,6 +53,9 @@ public class Member extends BaseEntity {
     @Column(name="staff_notification_email")
     private String staffNotificationEmail;
     
+    @Column(name="promote_packages")
+    private Boolean promotePackages;
+    
 	public Member() {}
 	
 	public Member(String key, long memberId) {
@@ -141,6 +144,14 @@ public class Member extends BaseEntity {
 
 	public void setStaffNotificationEmail(String staffNotificationEmail) {
 		this.staffNotificationEmail = staffNotificationEmail;
+	}
+
+	public Boolean getPromotePackages() {
+		return promotePackages;
+	}
+
+	public void setPromotePackages(Boolean promotePackages) {
+		this.promotePackages = promotePackages;
 	}
     
 }

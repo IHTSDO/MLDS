@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('ReleaseManagementController', 
-		['$scope', '$log', '$modal', 'PackagesService', '$location', 'PackageUtilsService', 'Session',
-    function ($scope, $log, $modal, PackagesService, $location, PackageUtilsService, Session) {
+		['$scope', '$log', '$modal', 'PackagesService', '$location', 'PackageUtilsService', 'Session', 'MemberService',
+    function ($scope, $log, $modal, PackagesService, $location, PackageUtilsService, Session, MemberService) {
 			
 		$scope.utils = PackageUtilsService;
 		$scope.isAdmin = Session.isAdmin();
@@ -11,6 +11,8 @@ angular.module('MLDS').controller('ReleaseManagementController',
 		
 		$scope.packages = [];
 		$scope.onlineMemberPackages = [];
+		
+		$scope.member = MemberService.membersByKey[Session.member.key];
 		
 		function reloadPackages() {
 			$scope.packages = PackagesService.query();
@@ -156,6 +158,16 @@ angular.module('MLDS').controller('ReleaseManagementController',
         	var lower = findLowerPriorityPackage(p);
         	exchangePackages(lower, p);
         };
+        
+        $scope.promoteMemberPackagesChanged = function promoteMemberPackagesChanged(member) {
+			MemberService.updateMember(member)
+			.then(function(result) {
+	        	// updated
+			})
+			["catch"](function(message) {
+				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+			});
+        }; 
 
     }]);
 

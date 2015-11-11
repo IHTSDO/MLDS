@@ -48,6 +48,7 @@ angular.module('MLDS')
                 _.each(memberRelease.packages, function(releasePackage){
                     item.packages.push(releasePackage);
                 });
+                item.packages = PackageUtilsService.releasePackageSort(item.packages);
             }
         });
     }
