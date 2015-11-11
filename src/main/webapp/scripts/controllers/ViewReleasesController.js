@@ -27,7 +27,7 @@ angular.module('MLDS')
         .map(function(packages, memberKey) {
             return {
                 member: MemberService.membersByKey[memberKey], 
-                packages: packages};})
+                packages: PackageUtilsService.releasePackageSort(packages)};})
         .value();
     if(Session.member != null)
     {
