@@ -1,18 +1,19 @@
 'use strict';
 
 angular.module('MLDS').controller('ReleaseManagementController', 
-		['$scope', '$log', '$modal', 'PackagesService', '$location', 'PackageUtilsService', 'Session', 'MemberService',
-    function ($scope, $log, $modal, PackagesService, $location, PackageUtilsService, Session, MemberService) {
+		['$scope', '$log', '$modal', 'PackagesService', '$location', '$translate', 'PackageUtilsService', 'Session', 'MemberService',
+    function ($scope, $log, $modal, PackagesService, $location, $translate, PackageUtilsService, Session, MemberService) {
 			
 		$scope.utils = PackageUtilsService;
 		$scope.isAdmin = Session.isAdmin();
 		
 		$scope.alerts = [];
 		
+		$scope.memberPackages = [];
 		$scope.packages = [];
 		$scope.onlineMemberPackages = [];
 		
-		$scope.member = MemberService.membersByKey[Session.member.key];
+		$scope.packagesByMember = [];
 		
 		function reloadPackages() {
 			$scope.packages = PackagesService.query();
@@ -26,23 +27,36 @@ angular.module('MLDS').controller('ReleaseManagementController',
 			}
 			
 			var memberFiltered = _.chain(packages).filter(function(p){ return PackageUtilsService.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); });
-			
-			$scope.onlinePackages = memberFiltered
-				.filter(PackageUtilsService.isPackagePublished)
-				.sortBy(PackageUtilsService.getLatestPublishedDate)
-				.sortBy('priority')
-				.reverse()
-				.value();
-			$scope.offinePackages = memberFiltered
-				.reject(PackageUtilsService.isPackagePublished)
-				.sortBy('createdAt')
-				.value();
 
-			$scope.onlineMemberPackages = _.filter($scope.onlinePackages, PackageUtilsService.isReleasePackageMatchingMember);
+		    $scope.packagesByMember = _.chain(memberFiltered)
+		        .groupBy(function(value) {return value.member.key;})
+		        .map(function(packages, memberKey) {
+		        	var onlinePackages = PackageUtilsService.releasePackageSort(
+		        			_.filter(packages, PackageUtilsService.isPackagePublished));
+		        	var offlinePackages = _.chain(packages)
+			        	.reject(PackageUtilsService.isPackagePublished)
+				        .sortBy('createdAt')
+				        .value();
+		            return {
+		                member: MemberService.membersByKey[memberKey], 
+		                onlinePackages: onlinePackages,
+		                offlinePackages: offlinePackages
+		             };})
+		         .sortBy(function(memberEntry) {return memberEntry.member.key === 'IHTSDO' ? '!IHTSDO' : $translate.instant('global.member.'+memberEntry.member.key);})
+		        .value();
 
-			var missingPriorities = _.filter($scope.onlineMemberPackages, function(p) {return p.priority == -1;});
-			var firstMissing = _.first(missingPriorities);
+		    fixReleasePackagesWithoutPriority(memberFiltered);
+		}
+		
+		function fixReleasePackagesWithoutPriority(memberFiltered) {
+		    var firstMissing = _.chain(memberFiltered)
+		    	.filter(PackageUtilsService.isPackagePublished)
+		    	.sortBy(PackageUtilsService.getLatestPublishedDate)
+		    	.filter(function(p) {return p.priority === -1 || p.priority === null;})
+		    	.first()
+		    	.value();
 			if (firstMissing) {
+				$log.log('Found release package without priority', firstMissing);
 				updatePackagePriority(firstMissing, 0);
 			}
 		}
@@ -107,19 +121,19 @@ angular.module('MLDS').controller('ReleaseManagementController',
         	PackageUtilsService.isEditableReleasePackage(p);
         };
         
-        function findHigherPriorityPackage(p) {
-        	var i = $scope.onlineMemberPackages.indexOf(p);
+        function findHigherPriorityPackage(memberEntry, p) {
+        	var i = memberEntry.onlinePackages.indexOf(p);
         	if (i > 0) {
-        		return $scope.onlineMemberPackages[i - 1];
+        		return memberEntry.onlinePackages[i - 1];
         	} else {
         		return null;
         	}
         }
         
-        function findLowerPriorityPackage(p) {
-        	var i = $scope.onlineMemberPackages.indexOf(p);
-        	if (i !== -1 && i < $scope.onlineMemberPackages.length -1) {
-        		return $scope.onlineMemberPackages[i + 1];
+        function findLowerPriorityPackage(memberEntry, p) {
+        	var i = memberEntry.onlinePackages.indexOf(p);
+        	if (i !== -1 && i < memberEntry.onlinePackages.length -1) {
+        		return memberEntry.onlinePackages[i + 1];
         	} else {
         		return null;
         	}
@@ -141,21 +155,21 @@ angular.module('MLDS').controller('ReleaseManagementController',
 			});
 		}
         
-        $scope.canPromotePackage = function canPromotePackage(p) {
-        	return findHigherPriorityPackage(p);
+        $scope.canPromotePackage = function canPromotePackage(memberEntry, p) {
+        	return findHigherPriorityPackage(memberEntry, p);
         };
         
-        $scope.promotePackage = function promotePackage(p) {
-    		var higherPriority = findHigherPriorityPackage(p);
+        $scope.promotePackage = function promotePackage(memberEntry, p) {
+    		var higherPriority = findHigherPriorityPackage(memberEntry, p);
     		exchangePackages(p, higherPriority);
         };
         
-        $scope.canDemotePackage = function canDemotePackage(p) {
-        	return findLowerPriorityPackage(p);
+        $scope.canDemotePackage = function canDemotePackage(memberEntry, p) {
+        	return findLowerPriorityPackage(memberEntry, p);
         };
         
-        $scope.demotePackage = function demotePackage(p) {
-        	var lower = findLowerPriorityPackage(p);
+        $scope.demotePackage = function demotePackage(memberEntry, p) {
+        	var lower = findLowerPriorityPackage(memberEntry, p);
         	exchangePackages(lower, p);
         };
         
