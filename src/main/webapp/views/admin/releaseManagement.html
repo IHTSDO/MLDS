@@ -15,23 +15,24 @@
 		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	</div>
 </div>
+<div ng-repeat="memberEntry in packagesByMember">
 <div class="row">
 	<div class="col-lg-8">
 		<div class="">
-			<h3>Public Releases</h3>
+			<h3>Public Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
 			<p>Releases are made public when one or more versions inside the release is made public. To take a release offline, select a release below and set all versions to offline.</p>	
 		</div>
 	 	<div>
-	        <label ng-if="member.key != 'IHTSDO'">
-	        	<input type="checkbox" name="promotePackages" ng-model="member.promotePackages" ng-change="promoteMemberPackagesChanged(member)">
-	        	Show online packages before IHTSDO packages to affiliates.
+	        <label ng-if="memberEntry.member.key != 'IHTSDO'">
+	        	<input type="checkbox" name="promotePackages" ng-model="memberEntry.member.promotePackages" ng-change="promoteMemberPackagesChanged(memberEntry.member)">
+	        	Show online packages ahead of IHTSDO packages to affiliates.
 	        </label>
     	</div>
-		<div class="panel panel-default" ng-repeat="package in onlinePackages">
+		<div class="panel panel-default" ng-repeat="package in memberEntry.onlinePackages">
 			<div class="panel-heading">
 				<div class="pull-right">
-					<button type="button" class="btn" ng-click="promotePackage(package)" ng-show="canPromotePackage(package) || canDemotePackage(package)" ng-disabled="!canPromotePackage(package)"><span class="glyphicon glyphicon-chevron-up"></span></button>
-					<button type="button" class="btn" ng-click="demotePackage(package)" ng-show="canPromotePackage(package) || canDemotePackage(package)" ng-disabled="!canDemotePackage(package)"><span class="glyphicon glyphicon-chevron-down"></span></button>
+					<button type="button" class="btn" ng-click="promotePackage(memberEntry, package)" ng-show="canPromotePackage(memberEntry, package) || canDemotePackage(memberEntry, package)" ng-disabled="!canPromotePackage(memberEntry, package)"><span class="glyphicon glyphicon-chevron-up"></span></button>
+					<button type="button" class="btn" ng-click="demotePackage(memberEntry, package)" ng-show="canPromotePackage(memberEntry, package) || canDemotePackage(memberEntry, package)" ng-disabled="!canDemotePackage(memberEntry, package)"><span class="glyphicon glyphicon-chevron-down"></span></button>
 					<div class="dropdown" 
 						ng-show="isEditableReleasePackage(package)">
 						<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
@@ -68,10 +69,10 @@
 <div class="row">
 	<div class="col-lg-8">
 		<div class="page-header">
-			<h3>Offline Releases</h3>
+			<h3>Offline Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
 			<p>Releases that do not have any online versions are taken offline. To take a release online, select a release below and set one or more versions online.</p>
 		</div>
-			<div class="panel panel-default" ng-repeat="package in offinePackages">
+			<div class="panel panel-default" ng-repeat="package in memberEntry.offinePackages">
 				<div class="panel-heading">
 					<div class="dropdown pull-right"
 						ng-show="isEditableReleasePackage(package)">
@@ -92,4 +93,5 @@
 			</div>
 		<div class="alert alert-warning" ng-show="offinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline releases available </div>
 	</div>
+</div>
 </div>
