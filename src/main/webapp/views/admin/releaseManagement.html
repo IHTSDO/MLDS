@@ -31,10 +31,9 @@
 		<div class="panel panel-default" ng-repeat="package in memberEntry.onlinePackages">
 			<div class="panel-heading">
 				<div class="pull-right">
-					<button type="button" class="btn" ng-click="promotePackage(memberEntry, package)" ng-show="canPromotePackage(memberEntry, package) || canDemotePackage(memberEntry, package)" ng-disabled="!canPromotePackage(memberEntry, package)"><span class="glyphicon glyphicon-chevron-up"></span></button>
-					<button type="button" class="btn" ng-click="demotePackage(memberEntry, package)" ng-show="canPromotePackage(memberEntry, package) || canDemotePackage(memberEntry, package)" ng-disabled="!canDemotePackage(memberEntry, package)"><span class="glyphicon glyphicon-chevron-down"></span></button>
-					<div class="dropdown" 
-						ng-show="isEditableReleasePackage(package)">
+					<button type="button" class="btn btn-sm" ng-click="promotePackage(memberEntry, package)" ng-show="canPromotePackage(memberEntry, package) || canDemotePackage(memberEntry, package)" ng-disabled="!canPromotePackage(memberEntry, package)"><span class="glyphicon glyphicon-chevron-up"></span></button>
+					<button type="button" class="btn btn-sm" ng-click="demotePackage(memberEntry, package)" ng-show="canPromotePackage(memberEntry, package) || canDemotePackage(memberEntry, package)" ng-disabled="!canDemotePackage(memberEntry, package)"><span class="glyphicon glyphicon-chevron-down"></span></button>
+					<div class="dropdown" ng-show="isEditableReleasePackage(package)">
 						<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 							<span class="caret"></span>
 						</button>
@@ -74,8 +73,7 @@
 		</div>
 			<div class="panel panel-default" ng-repeat="package in memberEntry.offlinePackages">
 				<div class="panel-heading">
-					<div class="dropdown pull-right"
-						ng-show="isEditableReleasePackage(package)">
+					<div class="dropdown pull-right" ng-show="isEditableReleasePackage(package)">
 						<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 							<span class="caret"></span>
 						</button>
