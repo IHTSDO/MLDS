@@ -314,6 +314,29 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                .when('/ihtsdoReleases', {
+                    templateUrl: 'views/admin/ihtsdoReleases.html',
+                    controller: 'IHTSDOReleasesController',
+                    access: {
+                    	authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}],
+                    	membersLoaded:['MemberService', function(MemberService){return MemberService.ready;}],
+                    	releasePackagesQueryResult: ['PackagesService', function(PackagesService){return PackagesService.query().$promise;}]
+                    }
+                })
+                .when('/ihtsdoReleases/ihtsdoRelease/:releasePackageId', {
+                    templateUrl: 'views/admin/ihtsdoRelease.html',
+                    controller: 'IHTSDOReleaseController',
+                    access: {
+                    	authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+
                 .when('/metrics', {
                     templateUrl: 'views/admin/metrics.html',
                     controller: 'MetricsController',

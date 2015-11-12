@@ -1,0 +1,34 @@
+
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="page-header">
+			<h1>
+				<span translate="views.ihtsdoReleases.title">IHTSDO Releases</span>
+				<a class="btn btn-sm btn-link" ng-click="viewLicense()"><span translate="global.word.viewlicense">View License</span></a>
+			</h1>
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-repeat="releasePackage in releasePackages" ng-controller="IHTSDOReleaseController">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="panel panel-default release-package">
+			<div class="panel-heading">
+				<div>
+					<div>
+						<h3 class="panel-title"><span class="panel-title-link" ng-click="goToIHTSDOPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}</span></h3>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div ng-bind-html="releasePackage.description"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-show="releasePackagesByMember.length == 0">
+	<div class="alert alert-warning">
+		<i class="fa fa-exclamation-circle"></i> <span translate="views.releases.notAvailable">There are currently no release packages available.</span>
+	</div>
+</div>
