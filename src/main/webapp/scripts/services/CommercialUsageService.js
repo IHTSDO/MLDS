@@ -60,6 +60,14 @@ angular.module('MLDS')
 
 		service.currentCommercialUsageReport = {};
 		
+		// Ensure that stateful service state is cleared on logout
+		$rootScope.$on('event:auth-loginConfirmed', resetCurrerntCommercialUsageReport);
+		$rootScope.$on('event:auth-loginCancelled', resetCurrerntCommercialUsageReport);
+
+		function resetCurrerntCommercialUsageReport() {
+			service.currentCommercialUsageReport = {};	
+		}
+		
 		service.getUsageReport = function(reportId) {
 		   var usagePromise = $http.get('/api/commercialUsages/'+reportId);
 		   usagePromise.then(function(response){
