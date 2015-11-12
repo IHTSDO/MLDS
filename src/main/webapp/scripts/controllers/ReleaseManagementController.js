@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('MLDS').controller('ReleaseManagementController', 
-		['$scope', '$log', '$modal', 'PackagesService', '$location', '$translate', 'PackageUtilsService', 'Session', 'MemberService',
-    function ($scope, $log, $modal, PackagesService, $location, $translate, PackageUtilsService, Session, MemberService) {
-			
+		['$scope', '$log', '$modal', 'PackagesService', '$location', '$translate', 'PackageUtilsService', 'Session', 'MemberService', 'SessionStateService',
+    function ($scope, $log, $modal, PackagesService, $location, $translate, PackageUtilsService, Session, MemberService, SessionStateService) {
+
 		$scope.utils = PackageUtilsService;
 		$scope.isAdmin = Session.isAdmin();
+		
+		$scope.releaseManagementFilter = SessionStateService.sessionState.releaseManagementFilter;
 		
 		$scope.alerts = [];
 		
@@ -26,7 +28,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
 				return;
 			}
 			
-			var memberFiltered = _.chain(packages).filter(function(p){ return PackageUtilsService.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); });
+			var memberFiltered = _.chain(packages).filter(function(p){ return $scope.releaseManagementFilter.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); });
 
 		    $scope.packagesByMember = _.chain(memberFiltered)
 		        .groupBy(function(value) {return value.member.key;})
@@ -61,7 +63,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
 			}
 		}
 		
-		$scope.$watch('utils.showAllMembers', extractPackages);
+		$scope.$watch('releaseManagementFilter.showAllMembers', extractPackages);
 				
 		reloadPackages();
 		

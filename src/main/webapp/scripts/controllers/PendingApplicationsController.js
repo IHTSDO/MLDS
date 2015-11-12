@@ -10,11 +10,11 @@ angular.module('MLDS').controller('PendingApplicationsController', [
 		'DomainBlacklistService',
 		'PackagesService',
 		'AffiliateService',
+		'SessionStateService',
 		function($scope, $log, $location, $parse, Session, UserRegistrationService, DomainBlacklistService,
-				PackagesService, AffiliateService) {
+				PackagesService, AffiliateService, SessionStateService) {
 
 			$scope.applications = [];
-			$scope.showAllApplications = UserRegistrationService.pendingApplicationsFilter.showAllApplications ? UserRegistrationService.pendingApplicationsFilter.showAllApplications : 0;
 			$scope.isAdmin = Session.isAdmin();
 			$scope.homeMember = Session.member || {member: 'NONE'};
 
@@ -23,13 +23,21 @@ angular.module('MLDS').controller('PendingApplicationsController', [
 			$scope.loadReset = false;
 			$scope.noResults = false;
 
-			$scope.orderByField = UserRegistrationService.pendingApplicationsFilter.orderByField ? UserRegistrationService.pendingApplicationsFilter.orderByField : 'submittedAt';
-			$scope.reverseSort = UserRegistrationService.pendingApplicationsFilter.reverseSort ? UserRegistrationService.pendingApplicationsFilter.reverseSort : false;
-
 			$scope.generatingCsv = false;
 
-			function rememberVisualState() {
-				var store = UserRegistrationService.pendingApplicationsFilter;
+			loadVisualState();
+			
+			
+			function loadVisualState() {
+				var store = SessionStateService.sessionState.pendingApplicationsFilter;
+
+				$scope.showAllApplications = store.showAllApplications ? store.showAllApplications : 0;
+				$scope.orderByField = store.orderByField ? store.orderByField : 'submittedAt';
+				$scope.reverseSort = store.reverseSort ? store.reverseSort : false;
+			}
+			
+			function saveVisualState() {
+				var store = SessionStateService.sessionState.pendingApplicationsFilter;
 				
 				store.showAllApplications = $scope.showAllApplications;
 				store.orderByField = $scope.orderByField;
@@ -37,7 +45,7 @@ angular.module('MLDS').controller('PendingApplicationsController', [
 			}
 			
 			function loadMoreApplications() {
-				rememberVisualState();
+				saveVisualState();
 				
 				if ($scope.downloadingApplications) {
 					// If a loadAffiliates (loadReset === true) had been called then need to redownload once the current download is complete
