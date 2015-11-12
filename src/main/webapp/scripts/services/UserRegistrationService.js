@@ -1,16 +1,13 @@
 'use strict';
 
 mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Events', function($http, $rootScope, $log, Events){
-		return {
-			pendingApplicationsFilter: {
-				
-			},
-
-			getUsers: function() {
+	var service = {};
+	
+	service.getUsers = function() {
 				return $http.get('/api/users');
-			},
+			};
 		
-			createUser : function(user) {
+	service.createUser = function(user) {
 				var httpPromise = $http({
 					    method: 'POST',
 					    url: '/registrations/create',
@@ -26,17 +23,17 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 				});
 				
 				return httpPromise;
-			},
+			};
 						
-			getApplications: function() {
+			service.getApplications = function() {
 				return $http.get('/api/applications');
-			},
+			};
 			
-			getApplicationsPending: function() {
+			service.getApplicationsPending = function() {
 				return $http.get('/api/applications?$filter='+encodeURIComponent('approvalState/pending eq true'));
-			},
+			};
 
-			filterPendingApplications: function(q, page, pageSize, member, orderBy, reverseSort) {
+			service.filterPendingApplications = function(q, page, pageSize, member, orderBy, reverseSort) {
 				return $http.get('/api/applications?'+
 						/* q */
 						'$filter='+encodeURIComponent('approvalState/pending eq true')+
@@ -45,49 +42,49 @@ mldsApp.factory('UserRegistrationService', ['$http', '$rootScope', '$log', 'Even
 						(member?'&$filter='+encodeURIComponent('homeMember eq \''+member.key+'\''):'')+
 						(orderBy?'&$orderby='+encodeURIComponent(orderBy)+(reverseSort?' desc':''):'')
 						);
-			},
+			};
 
-			getApplicationById: function(applicationId) {
+			service.getApplicationById = function(applicationId) {
 				return $http.get('/api/applications/'+encodeURIComponent(applicationId));
-			},
+			};
 
-			getApplication: function() {
+			service.getApplication = function() {
 				return $http.get('/api/applications/me');
-			},
+			};
 			
-			createExtensionApplication: function createExtensionApplication(member) {
+			service.createExtensionApplication = function createExtensionApplication(member) {
 				$log.log('createExtensionApplication');
 				return $http.post('/api/applications', {memberKey: member.key, applicationType: 'EXTENSION'});
-			},
+			};
 			
-			submitApplication: function submitApplication(applicationForm, applicationId) {
+			service.submitApplication = function submitApplication(applicationForm, applicationId) {
 				$log.log('submitApplication', applicationForm);
 				return $http.post('/api/applications/'+encodeURIComponent(applicationId)+'/registration', applicationForm);
-			},
+			};
 			
-			saveApplication: function saveApplication(applicationForm, applicationId) {
+			service.saveApplication = function saveApplication(applicationForm, applicationId) {
 				$log.log('saveApplication', applicationForm);
 				return $http.put('/api/applications/'+encodeURIComponent(applicationId)+'/registration', applicationForm);
-			},
+			};
 			
-			approveApplication: function approveApplication(application, approvalStatus) {
+			service.approveApplication = function approveApplication(application, approvalStatus) {
 				$log.log('approveApplication', approvalStatus);
 				return $http.post('/api/applications/'+encodeURIComponent(application.applicationId)+'/approve', approvalStatus);
-			},
+			};
 			
-			updateApplicationNoteInternal: function(application) {
+			service.updateApplicationNoteInternal = function(application) {
 				return $http.put('/api/applications/'+encodeURIComponent(application.applicationId)+'/notesInternal', application.notesInternal);
-			},
+			};
 			
 			// Let's move to using this one
-			updateApplication: function (application) {
+			service.updateApplication = function (application) {
 				return $http.post('/api/applications/'+encodeURIComponent(application.applicationId), application);
-			},
+			};
 			
-			deleteApplication: function (applicationId) { 
+			service.deleteApplication = function (applicationId) { 
 				return $http['delete']('/api/applications/'+encodeURIComponent(applicationId));
-			}
+			};
 			
-		};
+		return service;
 		
 	}]);

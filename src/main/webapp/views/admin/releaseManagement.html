@@ -5,7 +5,7 @@
 						
 			<div ng-if="isAdmin">
 				<span>Show releases for: </span>
-				<select ng-model="utils.showAllMembers">
+				<select ng-model="releaseManagementFilter.showAllMembers">
 					<option value="" selected="selected" ng-bind="Session.member.key | enum:'global.member.'">Only my releases</option>
 					<option value="1">All Members</option>
 				</select>

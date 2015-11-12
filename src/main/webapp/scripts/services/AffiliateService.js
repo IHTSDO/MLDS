@@ -6,11 +6,6 @@ angular.module('MLDS')
 
 	var service = {};
 	
-	service.affiliatesFilter = {
-			standingStateFilter: 'APPLYING',
-			standingStateNotApplying: true
-	};
-	
 	service.affiliatesResource = $resource('/api/affiliates');
 
 	service.allAffiliates = function(q) {
