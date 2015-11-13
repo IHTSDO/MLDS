@@ -24,11 +24,11 @@ angular.module('MLDS')
 	        .filter(function (p) {return MemberService.isIhtsdoMember(p.member);})
 	        .filter(PackageUtilsService.isPackagePublished)
 	        .value());
-    $scope.offlinePackages = PackageUtilsService.releasePackageSort( 
+    $scope.offlinePackages = 
     	_.chain(releasePackagesQueryResult)
 	        .filter(function (p) {return MemberService.isIhtsdoMember(p.member);})
 	        .reject(PackageUtilsService.isPackagePublished)
 			.sortBy('createdAt')
-	        .value());
+	        .value();
 
 }]);
