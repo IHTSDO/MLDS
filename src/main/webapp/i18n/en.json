@@ -1189,7 +1189,17 @@
         	}
         },
         "ihtsdoReleases": {
-        	"title": "IHTSDO Releases"
+        	"title": "IHTSDO Releases",
+        	"offline": "Offline",
+        	"publicReleases": "Public Releases",
+        	"latest": "Latest",
+        	"offlineReleases": "Offline Releases",
+        	"noPublicReleases": "There are currently no public releases available.",
+        	"noOfflineReleases": "There are currently no offline releases available.",
+        	"backToReleases": "Back to IHTSDO Releases",
+        	"publicVersions": "Public Versions",
+        	"noOnlineVersions": "There are currently no online versions of this release.",
+        	"noOfflineVersions": "There are currently no offline versions of this release."
         }
     }
 }
