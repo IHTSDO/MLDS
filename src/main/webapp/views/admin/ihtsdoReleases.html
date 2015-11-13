@@ -15,8 +15,15 @@
 		<div class="panel panel-default release-package">
 			<div class="panel-heading">
 				<div>
+					<span class="alert-danger-flag pull-right"
+						ng-show="! utils.isPackagePublished(releasePackage)"
+						>
+						Offline
+					</span>
 					<div>
-						<h3 class="panel-title"><span class="panel-title-link" ng-click="goToIHTSDOPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}</span></h3>
+						<h3 class="panel-title">
+							<span class="panel-title-link" ng-click="goToIHTSDOPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}</span>
+							</h3>
 					</div>
 				</div>
 			</div>
