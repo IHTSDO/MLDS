@@ -63,15 +63,7 @@ angular.module('MLDS')
 	};
 	
 	$scope.downloadReleaseFile = function(downloadUrl) {
-		var modalInstance = $modal.open({
-	      templateUrl: 'views/user/reviewReleaseLicenseModal.html',
-	      size: 'lg',
-	      scope: $scope
-	    });
-	
-	    modalInstance.result.then(function () {
-	    	$window.open(downloadUrl, '_blank');
-	    });
+    	$window.open(downloadUrl, '_blank');
 	};
 	
 }]);
