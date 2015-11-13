@@ -19,7 +19,6 @@ angular.module('MLDS')
 	
     $scope.releasePackages = PackageUtilsService.releasePackageSort( 
     	_.chain(releasePackagesQueryResult)
-        .filter(PackageUtilsService.isPackagePublished)
         .filter(function (p) {return MemberService.isIhtsdoMember(p.member);})
         .value());
 }]);
