@@ -23,26 +23,7 @@ angular.module('MLDS')
 		$scope.releaseVersions = $scope.utils.updateVersionsLists(newValue);
 	});
 	
-	var getLatestMatchingMemberApplication = function getStatusOfLatestMatchingMemberApplication(releasePackage) {
-		return _.chain(UserAffiliateService.affiliate.applications)
-				.filter(function(application){return application.member.key === releasePackage.member.key;})
-				.max(function(application){return new Date(application.submittedAt);})
-				.value();
-	};
-	
-	$scope.isPrimaryApplicationApproved = false;
-	$scope.isIHTSDOPackage = false;
-	$scope.isApplicationWaitingForApplicant = false;
-	$scope.matchingExtensionApplication = {};
-	
-	$scope.goToExtensionApplication = function goToExtensionApplication() {
-		$location.path('/extensionApplication/'+$scope.matchingExtensionApplication.applicationId);
-	};
-		
 	var initReleasePackageState = function initReleasePackageState(releasePackage) {
-		UserAffiliateService.promise.then(function() {
-			$scope.isIHTSDOPackage = MemberService.isIhtsdoMember(releasePackage.member);
-		});
 	};
 
 	var setReleasePackage = function setReleasePackage(releasePackage) {

@@ -26,8 +26,52 @@
 				<p ng-bind-html="releaseVersion.description"></p>
 					<span><strong><span translate="global.word.publishedOn">Published On</span>:</strong> {{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</span>
 			</div>
-			<div class="panel-footer"
-				ng-show="$root.authenticated">
+			<div class="panel-footer">
+				<div class="row">
+				<div class="col-md-2">
+					<span class="version-title" translate="global.word.file">File:</span>
+				</div>
+				<div class="col-md-10">
+					<div ng-repeat="releaseFile in releaseVersion.releaseFiles">
+						<i class="fa fa-file"></i>
+						<button class="btn btn-link disabled no-padding" disabled="disabled"
+							ng-show="!releaseFile.clientDownloadUrl " ng-bind-html="releaseFile.label">
+						</button>
+
+<!-- 						<a href="{{releaseFile.clientDownloadUrl}}"  -->
+<!-- 							ng-hide="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding"  -->
+<!-- 							target="_blank"> -->
+<!-- 							{{releaseFile.label}} -->
+<!-- 						</a> -->
+
+						<button class="btn btn-link" ng-hide="!releaseFile.clientDownloadUrl "
+							ng-click="downloadReleaseFile(releaseFile.clientDownloadUrl)" ng-bind-html="releaseFile.label">
+						</button>
+
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default release-package package" ng-repeat="releaseVersion in releaseVersions.offline">
+			<div class="panel-heading status">
+				<span class="alert-danger-flag pull-right">
+						Offline
+					</span>
+				<div class="status">
+					<h3 class="panel-title">{{releaseVersion.name}}</h3>
+				</div>
+			</div>
+			<div class="panel-body">
+				<p ng-bind-html="releaseVersion.description"></p>
+					<span><strong><span translate="global.word.publishedOn">Published On</span>:</strong> {{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</span>
+			</div>
+			<div class="panel-footer">
 				<div class="row">
 				<div class="col-md-2">
 					<span class="version-title" translate="global.word.file">File:</span>
