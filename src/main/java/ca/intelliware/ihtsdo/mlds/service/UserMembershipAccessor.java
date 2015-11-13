@@ -34,7 +34,7 @@ public class UserMembershipAccessor {
 	AffiliateMembershipCalculator affiliateMembershipCalculator;
 
 	public Member getMemberAssociatedWithUser() {
-		if (currentSecurityContext.isStaffOrAdmin()) {
+		if (currentSecurityContext.isMemberOrStaffOrAdmin()) {
 			return getStaffOrAdminMembership();
 		} else if (currentSecurityContext.isUser()) {
 			return getAffiliateHomeMember();

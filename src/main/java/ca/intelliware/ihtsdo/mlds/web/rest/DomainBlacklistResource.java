@@ -27,7 +27,7 @@ public class DomainBlacklistResource {
 	@Resource
 	DomainBlacklistService domainBlacklistService;
 	
-	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	@RequestMapping(value="api/domain-blacklist")
 	@Timed
 	public @ResponseBody Iterable<DomainBlacklist> getDomainBlacklist() {

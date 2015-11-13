@@ -81,6 +81,17 @@ public class UserMembershipAccessorTest {
     }
 
     @Test
+    public void shouldReturnMemberForMemberBasedOnRole() {
+    	Mockito.when(memberRespository.findOneByKey("IHTSDO")).thenReturn(ihtsdo);
+    	
+    	securityContextSetup.asIHTSDOMember();
+    	
+    	Member member = userMembershipAccessor.getMemberAssociatedWithUser();
+    	
+    	Assert.assertThat(member, Matchers.equalTo(ihtsdo));
+    }
+
+    @Test
     public void shouldReturnMemberForAffiliateBasedOnAffiliateHomeMember() {
     	Affiliate affiliate = new Affiliate();
     	affiliate.setHomeMember(sweden);

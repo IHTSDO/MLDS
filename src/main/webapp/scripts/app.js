@@ -318,7 +318,7 @@ mldsApp
                     templateUrl: 'views/admin/ihtsdoReleases.html',
                     controller: 'IHTSDOReleasesController',
                     access: {
-                    	authorizedRoles: USER_ROLES.staffOrAdmin
+                    	authorizedRoles: USER_ROLES.memberOrStaffOrAdmin
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}],
@@ -330,7 +330,7 @@ mldsApp
                     templateUrl: 'views/admin/ihtsdoRelease.html',
                     controller: 'IHTSDOReleaseController',
                     access: {
-                    	authorizedRoles: USER_ROLES.staffOrAdmin
+                    	authorizedRoles: USER_ROLES.memberOrStaffOrAdmin
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]

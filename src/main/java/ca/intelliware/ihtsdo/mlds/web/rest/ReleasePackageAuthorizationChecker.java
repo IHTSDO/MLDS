@@ -4,6 +4,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Objects;
+
+import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.AuthorizationChecker;
@@ -32,7 +35,7 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 	}
 
 	boolean shouldSeeOfflinePackages() {
-		return currentSecurityContext.isStaffOrAdmin();
+		return currentSecurityContext.isMemberOrStaffOrAdmin();
 	}
 
 	public void checkCanAccessReleaseVersion(ReleaseVersion releaseVersion) {
@@ -44,6 +47,9 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 
 	public void checkCanDownloadReleaseVersion(ReleaseVersion releaseVersion) {
 		if (isStaffOrAdmin()) {
+			return;
+		} else if (isMember()
+				&& Objects.equal(releaseVersion.getReleasePackage().getMember().getKey(), Member.KEY_IHTSDO)) {
 			return;
 		} else if (releaseVersion.isOnline() 
 				&& !userStandingCalculator.isLoggedInUserAffiliateDeactivated()

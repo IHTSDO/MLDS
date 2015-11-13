@@ -2,12 +2,11 @@ package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-
 import com.google.common.base.Objects;
+
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 
 /**
  * Provide access check helpers for our rest controllers.
@@ -28,7 +27,11 @@ public class AuthorizationChecker {
 	protected boolean isUser() {
 		return currentSecurityContext.isUser();
 	}
-	
+
+	protected boolean isMember() {
+		return currentSecurityContext.isMember();
+	}
+
 	protected void failCheck(String description) {
 		//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
 		throw new IllegalStateException(description);
@@ -57,6 +60,8 @@ public class AuthorizationChecker {
 	public void checkCanAccessAffiliate(Affiliate affiliate) {
 		if (isStaffOrAdmin()) {
 			return;
+		} else if (isMember()) {
+			failCheck("Member not authorized to access Affiliate");
 		}
 		checkCurrentUserIsMemberOfAffiliate(affiliate);
 	}
