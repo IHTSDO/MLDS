@@ -57,13 +57,16 @@ public class ReleasePackageAuthorizationCheckerTest {
 	}
 
 	@Test
-	public void onlyStaffAndAdminCanSeeOfflinePackages() {
+	public void onlyMemberAndStaffAndAdminCanSeeOfflinePackages() {
 		securityContextSetup.asAdmin();
 		assertTrue("Admin should see offline packages", authorizationChecker.shouldSeeOfflinePackages());
 		
 		securityContextSetup.asIHTSDOStaff();
 		assertTrue("Staff should see offline packages", authorizationChecker.shouldSeeOfflinePackages());
-		
+
+		securityContextSetup.asIHTSDOMember();
+		assertTrue("Member should see offline packages", authorizationChecker.shouldSeeOfflinePackages());
+
 		securityContextSetup.asAffiliateUser();
 		assertFalse("Users should not see offline packages", authorizationChecker.shouldSeeOfflinePackages());
 		
@@ -149,7 +152,26 @@ public class ReleasePackageAuthorizationCheckerTest {
 		
 		authorizationChecker.checkCanDownloadReleaseVersion(offlineReleaseVersion);
 	}
-	
+
+	@Test
+	public void memberCanDownloadIhtsdoPackageVersion() {
+		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
+
+		securityContextSetup.asIHTSDOMember();
+		
+		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
+	}
+
+	@Test(expected=IllegalStateException.class)
+	public void memberCannotDownloadOtherPackageVersion() {
+		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
+		onlineIhtsdoVersion.getReleasePackage().setMember(sweden);
+		
+		securityContextSetup.asIHTSDOMember();
+		
+		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
+	}
+
 	@Test
 	public void userCanDownloadApprovedPackageVersion() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
