@@ -1,5 +1,5 @@
 <div id="sideNav" class="sidebar" location-aware-nav>
-  <ul class="nav nav-sidebar">
+  <ul class="nav nav-sidebar" ng-show="$root.Session.isStaffOrAdmin()">
     <li>
 		<a href="#/pendingApplications">
 			<i class="fa fa-tasks"></i> 
@@ -36,6 +36,8 @@
     		<span translate="postAnnouncement.title">Post Announcement</span>
     	</a>
     </li>
+  </ul>
+  <ul class="nav nav-sidebar" ng-show="$root.Session.isMemberOrStaffOrAdmin()">
     <li>
     	<a href="#/ihtsdoReleases">
     		<i class="fa fa-download"></i>

@@ -29,6 +29,12 @@ angular.module('MLDS').factory('Session', ['USER_ROLES','$q', '$log',
 	        this.isStaffOrAdmin = function() {
 	        	return this.userRoles && (_.contains(this.userRoles, USER_ROLES.admin) || _.contains(this.userRoles, USER_ROLES.staff));
 	        };
+	        this.isMemberOrStaffOrAdmin = function() {
+	        	return this.userRoles && (_.contains(this.userRoles, USER_ROLES.admin) || _.contains(this.userRoles, USER_ROLES.staff) || _.contains(this.userRoles, USER_ROLES.member));
+	        };
+	        this.isMember = function() {
+	        	return this.userRoles && _.contains(this.userRoles, USER_ROLES.member);
+	        };
 	        this.isUser = function() {
 	        	return this.userRoles && _.contains(this.userRoles, USER_ROLES.user);
 	        };
