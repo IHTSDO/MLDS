@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-12">
-	<button ng-click="goToViewPackages()" type="button" class="btn btn-link"><span translate="global.word.back">Back to all available releases</span></button>
+	<button ng-click="goToViewPackages()" type="button" class="btn btn-link"><i class="fa fa-angle-double-left"></i> Back to IHTSDO Releases</button>
 	</div>
 </div>
 
@@ -16,6 +16,8 @@
 
 <div class="row">
 	<div class="col-md-12">
+		<h3>Public Versions</h3>
+		
 		<div class="panel panel-default release-package package" ng-repeat="releaseVersion in releaseVersions.online">
 			<div class="panel-heading status">
 				<div class="status">
@@ -38,26 +40,23 @@
 							ng-show="!releaseFile.clientDownloadUrl " ng-bind-html="releaseFile.label">
 						</button>
 
-<!-- 						<a href="{{releaseFile.clientDownloadUrl}}"  -->
-<!-- 							ng-hide="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding"  -->
-<!-- 							target="_blank"> -->
-<!-- 							{{releaseFile.label}} -->
-<!-- 						</a> -->
-
-						<button class="btn btn-link" ng-hide="!releaseFile.clientDownloadUrl "
-							ng-click="downloadReleaseFile(releaseFile.clientDownloadUrl)" ng-bind-html="releaseFile.label">
-						</button>
-
+						<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a>
 					</div>
 				</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="col-md-12">
+		<div class="alert alert-warning" ng-show="releaseVersions.online.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no online version of this release.</div>
+	</div>
 </div>
+
 
 <div class="row">
 	<div class="col-md-12">
+		<h3>Offline Versions</h3>
+		
 		<div class="panel panel-default release-package package" ng-repeat="releaseVersion in releaseVersions.offline">
 			<div class="panel-heading status">
 				<span class="alert-danger-flag pull-right">
@@ -82,21 +81,15 @@
 						<button class="btn btn-link disabled no-padding" disabled="disabled"
 							ng-show="!releaseFile.clientDownloadUrl " ng-bind-html="releaseFile.label">
 						</button>
-
-<!-- 						<a href="{{releaseFile.clientDownloadUrl}}"  -->
-<!-- 							ng-hide="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding"  -->
-<!-- 							target="_blank"> -->
-<!-- 							{{releaseFile.label}} -->
-<!-- 						</a> -->
-
-						<button class="btn btn-link" ng-hide="!releaseFile.clientDownloadUrl "
-							ng-click="downloadReleaseFile(releaseFile.clientDownloadUrl)" ng-bind-html="releaseFile.label">
-						</button>
-
+						<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a>
 					</div>
 				</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="col-md-12">
+		<div class="alert alert-warning" ng-show="releaseVersions.offline.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline versions of this release.</div>
+	</div>
+	
 </div>

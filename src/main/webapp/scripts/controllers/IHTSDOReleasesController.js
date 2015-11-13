@@ -6,19 +6,29 @@ angular.module('MLDS')
            function ($scope, $log, Session, PackageUtilsService, $location, MemberService, UserAffiliateService, releasePackagesQueryResult, MemberPackageService) {
     			
 	$scope.utils = PackageUtilsService;
-	$scope.releasePackages = [];
+	$scope.member = MemberService.ihtsdoMember;
+	$scope.onlinePackages = [];
+	$scope.offlinePackages = [];
 	$scope.alerts = [];
 	
 	$scope.viewLicense = function () {
 		MemberService.getMemberLicense(MemberService.ihtsdoMemberKey);
 	};
 	
-	$scope.goToIHTSDOPackagePage = function goToViewPackagePage(releasePackageId) {
-		$location.path('/ihtsdoReleases/ihtsdoRelease/'+ releasePackageId);
+	$scope.goToPackage = function goToPackage(releasePackage) {
+		$location.path('/ihtsdoReleases/ihtsdoRelease/'+encodeURIComponent(releasePackage.releasePackageId));
 	};
 	
-    $scope.releasePackages = PackageUtilsService.releasePackageSort( 
+    $scope.onlinePackages = PackageUtilsService.releasePackageSort( 
     	_.chain(releasePackagesQueryResult)
-        .filter(function (p) {return MemberService.isIhtsdoMember(p.member);})
-        .value());
+	        .filter(function (p) {return MemberService.isIhtsdoMember(p.member);})
+	        .filter(PackageUtilsService.isPackagePublished)
+	        .value());
+    $scope.offlinePackages = PackageUtilsService.releasePackageSort( 
+    	_.chain(releasePackagesQueryResult)
+	        .filter(function (p) {return MemberService.isIhtsdoMember(p.member);})
+	        .reject(PackageUtilsService.isPackagePublished)
+			.sortBy('createdAt')
+	        .value());
+
 }]);
