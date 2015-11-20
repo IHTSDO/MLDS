@@ -36,6 +36,7 @@ public class ReleasePackage extends BaseEntity {
 	@Column(name="created_at")
 	Instant createdAt = Instant.now();
 	
+	@JsonIgnore
 	@Column(name="created_by")
 	String createdBy;
 
@@ -50,6 +51,8 @@ public class ReleasePackage extends BaseEntity {
 	String name;
 	
 	String description;
+	
+	private Integer priority;
 	
 	@JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
@@ -138,6 +141,14 @@ public class ReleasePackage extends BaseEntity {
 
 	public void setLicenceFile(File licenceFile) {
 		this.licenceFile = licenceFile;
+	}
+
+	public Integer getPriority() {
+		return priority;
+	}
+
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 	
 }

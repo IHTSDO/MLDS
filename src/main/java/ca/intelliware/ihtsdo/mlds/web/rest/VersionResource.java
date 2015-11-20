@@ -19,7 +19,7 @@ import ca.intelliware.ihtsdo.mlds.service.SpringEnabledMavenWebappMetadataLookup
 public class VersionResource {
 	@Resource SpringEnabledMavenWebappMetadataLookup mavenWebappMetadataLookup;
 	
-	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.VERSION,
     		method = RequestMethod.GET)
 	public Properties getVersionInfo() {

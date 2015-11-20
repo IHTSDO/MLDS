@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{applicationPending.title}">IHTSDO-MLDS Application Pending</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{applicationPending.greeting}">
+            Dear user,
+        </p>
+        <p th:utext="#{applicationPending.text1(${applicationMember}, ${applicationId})}">
+        	An affiliate application is pending approval: MEMBER #1234
+        </p>
+        <p>
+            <a th:href="@{${viewApplicationUrl}}"
+               th:text="#{applicationPending.applicationLinkLabel(${applicationId})}">View Application X</a>
+        </p>
+        
+        <p>
+            <span th:text="#{email.close}">Regards, </span>
+            <br/>
+            <em th:text="#{email.signature}">IHTSDO.</em>
+        </p>
+    </body>
+</html>

@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
@@ -8,6 +10,7 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -38,7 +41,6 @@ import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateDetailsResetter;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
-import ca.intelliware.ihtsdo.mlds.service.ApprovalTransition;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
 import ca.intelliware.ihtsdo.mlds.service.UsageReportTransition;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
@@ -61,6 +63,7 @@ public class ApplicationResource_SubmitApplication_Test {
 	@Mock UserRepository userRepository;
 	@Mock SessionService sessionService;
 	@Mock ApplicationApprovedEmailSender applicationApprovedEmailSender;
+	@Mock ApplicationApprovalStateChangeNotifier applicationApprovalStateChangeNotifier;
 	@Mock CommercialUsageService commercialUsageService;
 	
 	ApplicationResource applicationResource;
@@ -86,6 +89,7 @@ public class ApplicationResource_SubmitApplication_Test {
         applicationResource.affiliateAuditEvents = affiliateAuditEvents;
         applicationResource.userRepository = userRepository;
         applicationResource.applicationApprovedEmailSender = applicationApprovedEmailSender;
+        applicationResource.applicationApprovalStateChangeNotifier = applicationApprovalStateChangeNotifier;
         applicationResource.sessionService = sessionService;
         applicationResource.commercialUsageService = commercialUsageService;
         
@@ -168,6 +172,21 @@ public class ApplicationResource_SubmitApplication_Test {
 			.andExpect(status().isOk());
 
 		Mockito.verify(applicationAuditEvents).logApprovalStateChange(Mockito.any(Application.class));
+	}
+
+	@Test
+	public void submitApplicationShouldNotifyUser() throws Exception {
+		Affiliate affiliate = withAffiliate(StandingState.APPLYING, AffiliateType.ACADEMIC);
+		PrimaryApplication application = withExistingSwedishPrimaryApplication(1L, affiliate);
+		application.setApprovalState(ApprovalState.NOT_SUBMITTED);
+		application.getCommercialUsage().setState(UsageReportState.NOT_SUBMITTED);
+
+		postSubmitApplication(1L, applicationRequestBody())
+			.andExpect(status().isOk());
+
+		ArgumentCaptor<Application> applicationCaptor = ArgumentCaptor.forClass(Application.class);
+		Mockito.verify(applicationApprovalStateChangeNotifier).applicationApprovalStateChange(Mockito.eq(ApprovalState.NOT_SUBMITTED), applicationCaptor.capture());
+		assertThat(applicationCaptor.getValue().getApprovalState(), equalTo(ApprovalState.SUBMITTED));
 	}
 
 

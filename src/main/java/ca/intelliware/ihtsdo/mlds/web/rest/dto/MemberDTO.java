@@ -2,9 +2,26 @@ package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 
 import org.joda.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 
+/*
+ * DTO for transporting the entire member record to/from the client as JSON with Jackson.
+ * 
+ * Typically the app uses the Entity for that purpose, however, the Member entity
+ * is referenced from many other entities and as on optimization the Member entity is
+ * serialized to JSON as merely the Member key rather than the entire state.
+ * This DTO is used when the client needs the entire state of a member.
+ * 
+ * Note that the privacy filter is used to exclude private fields, such as
+ * staffNotificationEmal, from being serialized to JSON.
+ */
+
+@JsonFilter("memberDtoPrivacyFilter")
 public class MemberDTO {
+	public static final String[] PRIVATE_FIELDS = {"staffNotificationEmail"};
+
 	Long memberId;
     String key;
     Instant createdAt;
@@ -13,8 +30,14 @@ public class MemberDTO {
     String licenseName;
     String licenseVersion;
     
+    private Boolean promotePackages;
+    
     private String name;
     private FileDTO logo;
+    
+    // Sensitive email addresses - intent is to only reveal to other staff/admins
+    private String staffNotificationEmail;
+    
 
     public MemberDTO() {
     }
@@ -23,6 +46,7 @@ public class MemberDTO {
     	this.memberId = member.getMemberId();
     	this.key = member.getKey();
     	this.createdAt = member.getCreatedAt();
+    	this.promotePackages = member.getPromotePackages();
     	this.licenseName = member.getLicenseName();
     	this.licenseVersion = member.getLicenseVersion();
     	if (member.getLicense() != null) {
@@ -32,6 +56,7 @@ public class MemberDTO {
     	if (member.getLogo() != null) {
     		this.logo = new FileDTO(member.getLogo());
     	}
+    	this.staffNotificationEmail = member.getStaffNotificationEmail();
     }
     
     public Long getMemberId() {
@@ -64,5 +89,13 @@ public class MemberDTO {
 
 	public FileDTO getLogo() {
 		return logo;
+	}
+	
+	public String getStaffNotificationEmail() {
+		return staffNotificationEmail;
+	}
+
+	public Boolean getPromotePackages() {
+		return promotePackages;
 	}
 }

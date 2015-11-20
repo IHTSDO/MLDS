@@ -3,11 +3,13 @@ package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
 /**
@@ -18,8 +20,10 @@ import com.google.common.collect.Lists;
 public class AuthorityConverter {
 
 	static final String REMOTE_MEMBER_IHTSDO = "INTL";
+	static final String REMOTE_MEMBER_STAR = "*";
 	static final String REMOTE_ROLE_ADMIN = "Admin";
 	static final String REMOTE_ROLE_STAFF = "Staff";
+	static final String REMOTE_ROLE_MEMBER = "Member";
 
 	List<GrantedAuthority> buildAuthoritiesList(List<CentralAuthUserPermission> userPermissions) {
 		List<GrantedAuthority> authorities = Lists.newArrayList();
@@ -30,6 +34,13 @@ public class AuthorityConverter {
 				String memberKey = getMemberKey(centralAuthUserPermission);
 				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.STAFF));
 				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.staffRoleForMember(memberKey)));
+			} else if (REMOTE_ROLE_MEMBER.equals(centralAuthUserPermission.getRole())) {
+				String memberKey = getMemberKey(centralAuthUserPermission);
+				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.MEMBER));
+				if (StringUtils.isBlank(memberKey) || Objects.equal(memberKey, REMOTE_MEMBER_STAR)) {
+					memberKey = AuthoritiesConstants.IHTSDO;
+				}
+				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.memberRoleForMember(memberKey)));
 			}
 		}
 		return authorities;

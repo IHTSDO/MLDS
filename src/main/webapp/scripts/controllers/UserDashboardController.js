@@ -63,7 +63,7 @@ angular.module('MLDS')
         					.map(function(packages, memberKey) {
         						return {
         							member: MemberService.membersByKey[memberKey], 
-        							packages: packages};})
+        							packages: PackageUtilsService.releasePackageSort(packages)};})
         					.value();
         				if (StandingStateUtils.isDeactivated($scope.affiliate.standingState)) {
         					$scope.approvedReleasePackagesByMember = [];

@@ -1,7 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,6 +15,7 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +36,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.codahale.metrics.annotation.Timed;
+import com.google.common.base.Objects;
+import com.google.common.base.Strings;
+
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
@@ -52,6 +56,7 @@ import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
+import ca.intelliware.ihtsdo.mlds.service.AffiliateDeleter;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliateImportAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
@@ -59,10 +64,6 @@ import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImporterService;
 import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
-
-import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Objects;
-import com.google.common.base.Strings;
 
 @RestController
 public class AffiliateResource {
@@ -101,6 +102,9 @@ public class AffiliateResource {
 	
 	@Resource
 	MemberRepository memberRepository;
+	
+	@Resource
+	AffiliateDeleter affiliateDeleter;
 
 	@Resource
 	SessionService sessionService;
@@ -111,7 +115,7 @@ public class AffiliateResource {
 	public static final int DEFAULT_PAGE_SIZE = 50;
 	
 	public static final String FILTER_HOME_MEMBER = "homeMember eq '(\\w+)'";
-	public static final String FILTER_STANDING = "standingState eq '(\\w+)'";
+	public static final String FILTER_STANDING = "(not)?\\s?standingState eq '(\\w+)'";
 	
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.AFFILIATES,
@@ -129,14 +133,9 @@ public class AffiliateResource {
 		PageRequest pageRequest = new PageRequest(page, pageSize, sort);
 		Member member = null;
 		StandingState standingState = null;
+		boolean standingStateNot = false;
 		
-		if (filters == null || filters.size() == 0 || StringUtils.isBlank(filters.get(0))) {
-    		if (StringUtils.isBlank(q)) {
-    			affiliates = affiliateRepository.findAll(pageRequest);
-    		} else {
-    			affiliates = affiliateRepository.findByTextQuery(q.toLowerCase(), pageRequest);
-    		}
-		} else {
+		if (filters != null && filters.size() > 0 && StringUtils.isNotBlank(filters.get(0))) {
 			for (String filter : filters) {
 				Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
 				if (homeMemberMatcher.matches()) {
@@ -146,30 +145,38 @@ public class AffiliateResource {
 				}
 				Matcher standingStateMatcher = Pattern.compile(FILTER_STANDING).matcher(filter);
 				if (standingStateMatcher.matches()) {
-					String standingStateString = standingStateMatcher.group(1);
+					standingStateNot = StringUtils.equalsIgnoreCase("not", standingStateMatcher.group(1));
+					String standingStateString = standingStateMatcher.group(2);
 					standingState = StandingState.valueOf(standingStateString);
 					continue;
 				}
-				//FIXME support more kinds of filters...
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
 		
 		if (!StringUtils.isBlank(q)) {
 			//Note that sorting in the pageRequest is not currently respected by lucene
-			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, pageRequest) ;
+			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest) ;
 		} else {
 			if (member == null) {
 				if (standingState == null) {
 					affiliates = affiliateRepository.findAll(pageRequest);
 				} else {
-					affiliates = affiliateRepository.findByStandingState(standingState, pageRequest);
+					if (standingStateNot) {
+						affiliates = affiliateRepository.findByStandingStateNot(standingState, pageRequest);						
+					} else {
+						affiliates = affiliateRepository.findByStandingState(standingState, pageRequest);
+					}
 				}
 			} else {
 				if (standingState == null) {
 					affiliates = affiliateRepository.findByHomeMember(member, pageRequest);
 				} else {
-					affiliates = affiliateRepository.findByHomeMemberAndStandingState(member, standingState, pageRequest);
+					if (standingStateNot) {
+						affiliates = affiliateRepository.findByHomeMemberAndStandingStateNot(member, standingState, pageRequest);
+					} else {
+						affiliates = affiliateRepository.findByHomeMemberAndStandingState(member, standingState, pageRequest);
+					}
 				}
 			}
     	}
@@ -208,6 +215,9 @@ public class AffiliateResource {
 	@Timed
     public @ResponseBody ResponseEntity<Affiliate> getAffiliate(@PathVariable long affiliateId) {
 		Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+		if (affiliate == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
 		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
     }
 
@@ -249,6 +259,30 @@ public class AffiliateResource {
 			affiliate.setStandingState(body.getStandingState());
 		}
 	}
+
+	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @RequestMapping(value = Routes.AFFILIATE,
+    		method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
+	@Timed
+    public @ResponseBody ResponseEntity<Affiliate> deleteAffiliate(@PathVariable Long affiliateId) {
+    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+    	if (affiliate == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	applicationAuthorizationChecker.checkCanManageAffiliate(affiliate);
+    	
+    	if (!ObjectUtils.equals(affiliate.getStandingState(), StandingState.APPLYING)) {
+    		return new ResponseEntity<>(HttpStatus.CONFLICT);
+    	}
+
+    	affiliateAuditEvents.logDeleteOfAffiliate(affiliate);
+    	
+    	affiliateDeleter.deleteAffiliate(affiliate);
+    	
+    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATES_ME,

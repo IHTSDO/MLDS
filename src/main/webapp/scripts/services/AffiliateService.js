@@ -6,26 +6,24 @@ angular.module('MLDS')
 
 	var service = {};
 	
-	service.affiliatesFilter = {};
-	
-	service.affiliatesResource = $resource('/app/rest/affiliates');
+	service.affiliatesResource = $resource('/api/affiliates');
 
 	service.allAffiliates = function(q) {
-		return $http.get('/app/rest/affiliates?q='+encodeURIComponent(q));
+		return $http.get('/api/affiliates?q='+encodeURIComponent(q));
 	};
 	
-	service.filterAffiliates = function(q, page, pageSize, member, standingState, orderBy, reverseSort) {
-		return $http.get('/app/rest/affiliates?q='+encodeURIComponent(q)+
+	service.filterAffiliates = function(q, page, pageSize, member, standingState, standingStateNot, orderBy, reverseSort) {
+		return $http.get('/api/affiliates?q='+encodeURIComponent(q)+
 				'&$page='+encodeURIComponent(page)+
 				'&$pageSize='+encodeURIComponent(pageSize)+
 				(member?'&$filter='+encodeURIComponent('homeMember eq \''+member.key+'\''):'')+
 				(orderBy?'&$orderby='+encodeURIComponent(orderBy)+(reverseSort?' desc':''):'')+
-				(standingState?'&$filter='+encodeURIComponent('standingState eq \''+standingState+'\''):'')
+				(standingState?'&$filter='+encodeURIComponent((standingStateNot?'not ':'')+'standingState eq \''+standingState+'\''):'')
 				);
 	};
 
 	service.myAffiliate = function() {
-		return $http.get('/app/rest/affiliates/me', {ignoreAuthModule:true})
+		return $http.get('/api/affiliates/me', {ignoreAuthModule:true})
 			.then(function(result) {
     			var affiliates = result.data;
     			if (affiliates && affiliates.length > 0) {
@@ -49,15 +47,19 @@ angular.module('MLDS')
 			affiliateCopy.application.commercialUsage = null;
 		}
 		//TODO optimize http method size by stripping out some of child elements
-		return $http.put('/app/rest/affiliates/'+ encodeURIComponent(affiliate.affiliateId), affiliateCopy);
+		return $http.put('/api/affiliates/'+ encodeURIComponent(affiliate.affiliateId), affiliateCopy);
 	};
-	
+
+	service.deleteAffiliate = function(affiliate) {
+		return $http['delete']('/api/affiliates/'+ encodeURIComponent(affiliate.affiliateId));
+	};
+
 	service.createLogin = function createLogin(affiliate) {
-		return $http.post('/app/rest/account/create', affiliate);
+		return $http.post('/api/account/create', affiliate);
 	};
 	
 	service.updateAffiliateDetails = function(affiliateId, affiliateDetails) {
-		var promise = $http.put('/app/rest/affiliates/'+encodeURIComponent(affiliateId)+'/detail', affiliateDetails);
+		var promise = $http.put('/api/affiliates/'+encodeURIComponent(affiliateId)+'/detail', affiliateDetails);
 		promise.then(function(result) {
 			var affiliateDetails = result.data;
 			if (affiliateDetails.email === Session.login) {
@@ -69,15 +71,15 @@ angular.module('MLDS')
 	};
 
 	service.myAffiliates = function() {
-		return $http.get('/app/rest/affiliates/me');
+		return $http.get('/api/affiliates/me');
 	};
 
 	service.affiliate = function(affiliateId) {
-		return $http.get('/app/rest/affiliates/'+ encodeURIComponent(affiliateId));
+		return $http.get('/api/affiliates/'+ encodeURIComponent(affiliateId));
 	};
 	
 	service.affiliates = function(username) {
-		return $http.get('/app/rest/affiliates/creator/'+encodeURIComponent(username));
+		return $http.get('/api/affiliates/creator/'+encodeURIComponent(username));
 	};
 
 	service.affiliateIsCommercial = function(affiliate) {
