@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('RequestPasswordResetController', 
-		['$scope', '$log', '$http', 
-        function($scope, $log, $http) {
+		['$scope', '$log', '$http', '$translate',
+        function($scope, $log, $http, $translate) {
 			$scope.passwordResetData = {};
 			$scope.alerts = [];
 			$scope.resetProcessStarted = false;
@@ -16,12 +16,12 @@ angular.module('MLDS').controller('RequestPasswordResetController',
         			return;
         		}
         		
-        		$http.post('/app/rest/passwordReset', {email:$scope.passwordResetData.email})
+        		$http.post('/api/passwordReset', {email:$scope.passwordResetData.email})
         			.error(function(data){
-        				$scope.alerts.push({ type: 'danger', msg: 'Email entered is not found in system.' });
+        				$scope.alerts.push({ type: 'danger', msg: $translate.instant('views.requestPasswordReset.emailNotFound') });
         			})
         			.then(function(data){
-        				$scope.alerts.push({ type: 'success', msg: 'Password reset process started, please check your email.' });
+        				$scope.alerts.push({ type: 'success', msg: $translate.instant('views.requestPasswordReset.resetEmailSent') });
         				$scope.resetProcessStarted = true;
         			});
 			};

@@ -3,7 +3,7 @@
 /* App Module */
 
 var mldsApp = angular.module('MLDS', ['http-auth-interceptor', 'tmh.dynamicLocale',
-    'ngResource', 'ngRoute', 'ngCookies', 'ngSanitize', 'mldsAppUtils', 'pascalprecht.translate', 'truncate', 'ui.bootstrap', 'ui.bootstrap.tpls', 'infinite-scroll', 'ngCsv', 'textAngular']);
+    'ngResource', 'ngRoute', 'ngCookies', 'ngSanitize', 'mldsAppUtils', 'pascalprecht.translate', 'truncate',  'ui.bootstrap', 'infinite-scroll', 'ngCsv', 'textAngular']);
 mldsApp
     .config(['$routeProvider', '$httpProvider', '$translateProvider',  'tmhDynamicLocaleProvider', 'USER_ROLES',
         function ($routeProvider, $httpProvider, $translateProvider, tmhDynamicLocaleProvider, USER_ROLES) {
@@ -304,6 +304,39 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                .when('/postAnnouncement', {
+                    templateUrl: 'views/admin/postAnnouncement.html',
+                    controller: 'PostAnnouncementController',
+                    access: {
+                        authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/ihtsdoReleases', {
+                    templateUrl: 'views/admin/ihtsdoReleases.html',
+                    controller: 'IHTSDOReleasesController',
+                    access: {
+                    	authorizedRoles: USER_ROLES.memberOrStaffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}],
+                    	membersLoaded:['MemberService', function(MemberService){return MemberService.ready;}],
+                    	releasePackagesQueryResult: ['PackagesService', function(PackagesService){return PackagesService.query().$promise;}]
+                    }
+                })
+                .when('/ihtsdoReleases/ihtsdoRelease/:releasePackageId', {
+                    templateUrl: 'views/admin/ihtsdoRelease.html',
+                    controller: 'IHTSDOReleaseController',
+                    access: {
+                    	authorizedRoles: USER_ROLES.memberOrStaffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+
                 .when('/metrics', {
                     templateUrl: 'views/admin/metrics.html',
                     controller: 'MetricsController',

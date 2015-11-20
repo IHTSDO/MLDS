@@ -11,7 +11,10 @@
     <tr ng-repeat="audit in audits | filter:filter | orderBy:predicate:reverse" ng-hide="audit.filtered">
         <td><span>{{audit.timestamp| date: 'yyyy-MM-dd HH:mm:ss'}}</span></td>
         <td><small>{{audit.principal}}</small></td>
-        <td>{{audit.type | enum:'audits.type.'}}</td>
+        <td>
+        	{{audit.type | enum:'audits.type.'}}
+        	<span ng-if="audit.type === 'AFFILIATE_DELETED'" class="text-danger"><span class="glyphicon glyphicon-remove"></span></span>
+        </td>
         <td>
             <span ng-if="audit.data.message">{{audit.data.message}}</span>
             <span ng-if="audit.data.remoteAddress">{{'audits.table.data.remoteAddress' | translate}} {{audit.data.remoteAddress}}</span>
@@ -54,6 +57,10 @@
             	<span ng-show="audit.data['usage.approvalState'] === 'PAID'" class="text-success"><span class="glyphicon glyphicon-ok"></span></span> 
             	{{audit.data['usage.state'] | enum:'usageReport.state.'}}
             </span>
+            
+            <span ng-if="audit.data['announcement.title']"><i class="fa fa-send"></i> <strong>Announcement:</strong> {{audit.data['announcement.title'] }}</span>
+            <span ng-if="audit.data['announcement.member'] && !audit.data['announcement.allAffiliates']"><strong>Affiliates:</strong> {{audit.data['announcement.member'] | enum:'global.member.'}}</span>
+            <span ng-if="audit.data['announcement.allAffiliates']"><strong>All Affiliates</strong></span>
             
             <span ng-if="audit.data['affiliate.affiliateDetails.type'] || audit.data['affiliate.affiliateDetails.otherText']">
             	<strong>Affiliate Type:</strong> {{audit.data['affiliate.affiliateDetails.type'] | enum:'affiliate.type.'}} {{audit.data['affiliate.affiliateDetails.otherText']}}

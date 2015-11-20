@@ -46,8 +46,8 @@ public class AffiliateSearchRepository {
 		getFullTextEntityManager().index(a);
 	}
 
-	public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, StandingState standingState, Pageable pageable) {
-		Query query = buildQuery(q, homeMember, standingState);
+	public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, StandingState standingState, boolean standingStateNot, Pageable pageable) {
+		Query query = buildQuery(q, homeMember, standingState, standingStateNot);
 		
 		FullTextQuery ftQuery = getFullTextEntityManager().createFullTextQuery(query, Affiliate.class);
 		
@@ -64,7 +64,7 @@ public class AffiliateSearchRepository {
 		return new PageImpl<>(resultList, pageable, ftQuery.getResultSize());
 	}
 
-	private Query buildQuery(String q, Member homeMember, StandingState standingState) {
+	private Query buildQuery(String q, Member homeMember, StandingState standingState, boolean standingStateNot) {
 		QueryBuilder queryBuilder = getSearchFactory().buildQueryBuilder()
 				.forEntity(Affiliate.class).get();
 		
@@ -73,7 +73,7 @@ public class AffiliateSearchRepository {
 		if (homeMember == null && standingState == null) {
 			return textQuery;
 		} else {
-			MustJunction building = queryBuilder
+			BooleanJunction <MustJunction> building = queryBuilder
 					.bool()
 					.must(textQuery);
 			
@@ -83,7 +83,13 @@ public class AffiliateSearchRepository {
 			}
 			if (standingState != null) {
 				Query standingStateQuery = buildQueryMatchingStandingState(queryBuilder, standingState);
-				building = building.must(standingStateQuery);
+				MustJunction standingStateBuilding = building.must(standingStateQuery);
+				if (standingStateNot) {
+					// Caught up in .not() returning boolean rather than must... 
+					building = standingStateBuilding.not();
+				} else {
+					building = standingStateBuilding;
+				}
 			}
 			return building.createQuery();
 		}

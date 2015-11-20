@@ -22,7 +22,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row" ng-repeat="releasePackage in memberReleases.packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished" ng-controller="ViewReleaseController">
+	<div class="row" ng-repeat="releasePackage in memberReleases.packages" ng-controller="ViewReleaseController">
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<div class="panel panel-default release-package">
 				<div class="panel-heading">
@@ -99,7 +99,7 @@
                     <a class="btn btn-sm btn-link" ng-click="viewLicense(memberReleases.packages[0].member.key)"><span translate="global.word.viewlicense">View License</span></a>
                 </h2>
             </accordion-heading>
-            <div ng-repeat="releasePackage in memberReleases.packages | orderBy:utils.getLatestPublishedDate:true | filter: utils.isPackagePublished" ng-controller="ViewReleaseController">
+            <div ng-repeat="releasePackage in memberReleases.packages" ng-controller="ViewReleaseController">
                     <div class="">
                         <div class="panel-heading inner-heading">
                             <div ng-class="{'status text-muted': !isMembershipInGoodStanding}">

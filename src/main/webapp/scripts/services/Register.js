@@ -4,6 +4,6 @@
 
 mldsApp.factory('Register', ['$resource',
     function ($resource) {
-        return $resource('app/rest/register', {}, {
+        return $resource('api/register', {}, {
         });
     }]);

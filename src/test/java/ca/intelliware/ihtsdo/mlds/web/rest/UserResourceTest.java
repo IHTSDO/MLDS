@@ -45,7 +45,7 @@ public class UserResourceTest {
 
     @Test
     public void testGetUnknownUser() throws Exception {
-        restUserMockMvc.perform(get("/app/rest/users/unknown")
+        restUserMockMvc.perform(get("/api/users/unknown")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }

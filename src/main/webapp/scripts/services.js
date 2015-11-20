@@ -4,26 +4,26 @@
 
 mldsApp.factory('Activate', ['$resource',
     function ($resource) {
-        return $resource('app/rest/activate', {}, {
+        return $resource('api/activate', {}, {
             'get': { method: 'GET', params: {}, isArray: false}
         });
     }]);
 
 mldsApp.factory('Account', ['$resource',
     function ($resource) {
-        return $resource('app/rest/account', {}, {
+        return $resource('api/account', {}, {
         });
     }]);
 
 mldsApp.factory('Password', ['$resource',
     function ($resource) {
-        return $resource('app/rest/account/change_password', {}, {
+        return $resource('api/account/change_password', {}, {
         });
     }]);
 
 mldsApp.factory('Sessions', ['$resource',
     function ($resource) {
-        return $resource('app/rest/account/sessions/:series', {}, {
+        return $resource('api/account/sessions/:series', {}, {
             'get': { method: 'GET', isArray: true}
         });
     }]);
@@ -61,7 +61,7 @@ mldsApp.factory('HealthCheckService', ['$rootScope', '$http',
 
 mldsApp.factory('LogsService', ['$resource',
     function ($resource) {
-        return $resource('app/rest/logs', {}, {
+        return $resource('api/logs', {}, {
             'findAll': { method: 'GET', isArray: true},
             'changeLevel':  { method: 'PUT'}
         });
@@ -70,7 +70,7 @@ mldsApp.factory('LogsService', ['$resource',
 mldsApp.factory('AuditsService', ['$http', '$log', 
     function ($http, $log) {
 		function findFilteredAudits(filter) {
-            var promise = $http.get('/app/rest/audits' + (filter?'?$filter='+encodeURIComponent(filter):''))
+            var promise = $http.get('/api/audits' + (filter?'?$filter='+encodeURIComponent(filter):''))
 	       		.then(function (response) {
 	       			return _.chain(response.data)
 	       				.sortBy('timestamp')

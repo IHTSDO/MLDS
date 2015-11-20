@@ -58,6 +58,7 @@
 
 		<div>
 			<a class="btn btn-primary btn-block" ng-disabled="standingStateUtils.isInvoiceSent(affiliate.standingState)" ng-click="invoiceSent()">Invoice</a>
+			<a class="btn btn-danger btn-block" ng-disabled="!standingStateUtils.isApplying(affiliate.standingState)" ng-click="deleteAffiliate()" translate="views.affiliateSummary.deleteAffiliate">Delete Affiliate</a>
 		</div>
 
 		<div class="panel panel-default">

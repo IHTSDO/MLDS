@@ -1,12 +1,36 @@
 'use strict';
 
 angular.module('MLDS').factory('PackageUtilsService',
-		[ '$resource', '$q', '$log', '$location', '$modal', 'Session', 'UserRegistrationService', 'MemberService', 'UserAffiliateService',
-		  function($resource, $q, $log, $location, $modal, Session, UserRegistrationService, MemberService, UserAffiliateService) {
+		[ '$rootScope', '$resource', '$q', '$log', '$location', '$modal', 'Session', 'UserRegistrationService', 'MemberService', 'UserAffiliateService', '$filter',
+		  function($rootScope, $resource, $q, $log, $location, $modal, Session, UserRegistrationService, MemberService, UserAffiliateService, $filter) {
+
 			var service = {};
 			
 			service.isReleasePackageInactive = function isReleasePackageInactive(packageEntity) {
 				return (packageEntity.inactiveAt) ? true : false;
+			};
+
+			service.getMemberOrder = function getMemberOrder(packageEntity) {
+				if (packageEntity.member.key === 'IHTSDO') {
+					return 0;
+				} else {
+					var member = MemberService.membersByKey[packageEntity.member.key];
+					if (member && member.promotePackages) {
+						return 1;
+					} else {
+						return -1;
+					}
+				}
+			};
+			
+			service.releasePackageOrder = [
+			                              service.getMemberOrder,
+			              			     'priority',
+			              			   service.getLatestPublishedDate
+			              			];
+
+			service.releasePackageSort = function releasePackageSort(releasePackages) {
+				return $filter('orderBy')(releasePackages, service.releasePackageOrder, true);
 			};
 			
 			service.isPackagePublished = function isPackagePublished(packageEntity) {
