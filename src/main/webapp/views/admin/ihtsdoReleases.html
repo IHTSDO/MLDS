@@ -21,7 +21,7 @@
 				</h3>
 			</div>
 			<div class="panel-body">
-				
+
 				<div ng-bind-html="package.description"></div>
 			</div>
 			<div class="panel-footer" ng-repeat="version in package.releaseVersions | filter: utils.isVersionOnline" ng-show="utils.isLatestVersion(version, (package.releaseVersions | filter: utils.isVersionOnline))">
@@ -41,12 +41,12 @@
 			</div>
 		</div>
 		<div class="alert alert-warning" ng-show="onlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> <span translate="views.ihtsdoReleases.noPublicReleases">There are currently no public releases available.</span></div>
-	</div>	
+	</div>
 </div>
 <div class="row">
 	<div class="col-lg-8">
 		<div class="page-header">
-			<h3><span translate="views.ihtsdoReleases.offlineReleases">Offline Releases</span>: <span>{{member.key | enum:'global.member.'}}</span></h3>
+			<h3><span translate="views.ihtsdoReleases.offlineReleases">Offline & Alpha Releases</span>: <span>{{member.key | enum:'global.member.'}}</span></h3>
 		</div>
 			<div class="panel panel-default" ng-repeat="package in offlinePackages">
 				<div class="panel-heading">
@@ -56,6 +56,6 @@
 					<div ng-bind-html="package.description"></div>
 				</div>
 			</div>
-		<div class="alert alert-warning" ng-show="offlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> <span translate="views.ihtsdoReleases.noOfflineReleases">There are currently no offline releases available</span></div>
+		<div class="alert alert-warning" ng-show="offlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> <span translate="views.ihtsdoReleases.noOfflineReleases">There are currently no offline or alpha releases available</span></div>
 	</div>
 </div>
