@@ -681,7 +681,7 @@
             "AUTHENTICATION_FAILURE": "Authentication Failure",
             "AFFILIATE_CREATED": "Affiliate Created",
             "AFFILIATE_CREATED_BY_IMPORT": "Affiliate Created from Import",
-            "AFFILIATE_DELETED": "Affiliate Deleted", 	
+            "AFFILIATE_DELETED": "Affiliate Deleted",
             "AFFILIATE_UPDATED": "Affiliate Updated",
             "AFFILIATE_UPDATED_BY_IMPORT": "Affiliate Updated from Import",
             "AFFILIATEDETAILS_UPDATED": "Affiliate Details Updated",
@@ -1193,13 +1193,13 @@
         	"offline": "Offline",
         	"publicReleases": "Public Releases",
         	"latest": "Latest",
-        	"offlineReleases": "Offline Releases",
+        	"offlineReleases": "Offline & Alpha Releases",
         	"noPublicReleases": "There are currently no public releases available.",
-        	"noOfflineReleases": "There are currently no offline releases available.",
+        	"noOfflineReleases": "There are currently no offline & alpha releases available.",
         	"backToReleases": "Back to IHTSDO Releases",
         	"publicVersions": "Public Versions",
         	"noOnlineVersions": "There are currently no online versions of this release.",
-        	"noOfflineVersions": "There are currently no offline versions of this release."
+        	"noOfflineVersions": "There are currently no offline & alpha versions of this release."
         }
     }
 }
