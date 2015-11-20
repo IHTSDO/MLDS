@@ -52,5 +52,19 @@ angular.module('MLDS').controller('MemberManagementController',
                 }
               });
 		};
+		$scope.editStaffNotificationsEmail = function editStaffNotificationsEmail(member) {
+			var modalInstance = $modal.open({
+                templateUrl: 'views/admin/editMemberNotifications.html',
+                controller: 'EditMemberNotificationsController',
+                scope: $scope,
+                size: 'lg',
+                backdrop: 'static',
+                resolve: {
+                  member: function() {
+                  	return angular.copy(member);
+                  }
+                }
+              });
+		};
 	}]);
 

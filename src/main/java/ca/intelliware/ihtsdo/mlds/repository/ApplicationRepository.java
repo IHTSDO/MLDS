@@ -17,6 +17,7 @@ public interface ApplicationRepository extends PagingAndSortingRepository<Applic
 	List<Application> findByUsernameIgnoreCase(String username);
 	
 	Iterable<Application> findByApprovalStateIn(Collection<ApprovalState> approvalState);
+	Iterable<Application> findByApprovalStateInAndMember(Collection<ApprovalState> approvalState, Member member);
 
 	Page<Application> findByApprovalStateIn(Collection<ApprovalState> approvalState, Pageable pageable);
 	Page<Application> findByApprovalStateInAndMember(Collection<ApprovalState> approvalState, Member member, Pageable pageable);

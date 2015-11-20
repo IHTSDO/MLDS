@@ -25,5 +25,7 @@ public interface UserRepository extends JpaRepository<User, String> {
 
 
 	User findByLoginIgnoreCase(String login);
+	
+	List<User> findByLoginIgnoreCaseIn(List<String> logins);
 
 }

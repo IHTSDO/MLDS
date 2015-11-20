@@ -13,6 +13,8 @@ angular.module('MLDS').service('LandingRedirectService',
 					//$log.log('LandingRedirectService redirecting', $location.path(), $route.current, window.location.hash);
 					if (Session.isStaffOrAdmin()) {
 						$location.path('/pendingApplications').replace();		
+					} else if (Session.isMember()) {
+						$location.path('/ihtsdoReleases').replace();		
 					} else if (Session.isUser()) {
 						UserAffiliateService.promise.then(function() {
 							if (ApplicationUtilsService.isApplicationWaitingForApplicant(UserAffiliateService.affiliate.application)) {

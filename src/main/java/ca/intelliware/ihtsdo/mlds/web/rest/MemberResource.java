@@ -23,11 +23,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.codahale.metrics.annotation.Timed;
 
 import ca.intelliware.ihtsdo.mlds.domain.File;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
@@ -37,8 +40,6 @@ import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.MemberDTO;
-
-import com.codahale.metrics.annotation.Timed;
 
 @RestController
 public class MemberResource {
@@ -172,6 +173,42 @@ public class MemberResource {
 
 		fileRepository.save(newFile);
 		return newFile;
+	}
+
+    @RequestMapping(value = Routes.MEMBER_NOTIFICATIONS,
+            method = RequestMethod.PUT,
+            produces = "application/json")
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Transactional
+	@Timed
+    public ResponseEntity<?> updateMemberNotifications(@PathVariable String memberKey, @RequestBody MemberDTO body) throws IOException {
+		Member member = memberRepository.findOneByKey(memberKey);
+
+		member.setStaffNotificationEmail(body.getStaffNotificationEmail());
+		
+		memberRepository.save(member);
+
+		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
+	}
+
+    @RequestMapping(value = Routes.MEMBER,
+            method = RequestMethod.PUT,
+            produces = "application/json")
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@Transactional
+	@Timed
+    public ResponseEntity<?> updateMember(@PathVariable String memberKey, @RequestBody MemberDTO body) throws IOException {
+		Member member = memberRepository.findOneByKey(memberKey);
+    	if (member == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	} 
+
+    	member.setPromotePackages(body.getPromotePackages());
+		member.setStaffNotificationEmail(body.getStaffNotificationEmail());
+		
+		memberRepository.save(member);
+
+		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
 	}
 
 }

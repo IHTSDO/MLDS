@@ -1,5 +1,5 @@
 <div id="sideNav" class="sidebar" location-aware-nav>
-  <ul class="nav nav-sidebar">
+  <ul class="nav nav-sidebar" ng-show="$root.Session.isStaffOrAdmin()">
     <li>
 		<a href="#/pendingApplications">
 			<i class="fa fa-tasks"></i> 
@@ -28,6 +28,20 @@
     	<a href="#/memberManagement">
     		<i class="fa fa-institution"></i>
     		<span translate="memberManagement.title">Member Management</span>
+    	</a>
+    </li>
+    <li>
+    	<a href="#/postAnnouncement">
+    		<i class="fa fa-send"></i>
+    		<span translate="postAnnouncement.title">Post Announcement</span>
+    	</a>
+    </li>
+  </ul>
+  <ul class="nav nav-sidebar" ng-show="$root.Session.isMemberOrStaffOrAdmin()">
+    <li>
+    	<a href="#/ihtsdoReleases">
+    		<i class="fa fa-download"></i>
+    		<span translate="ihtsdoReleases.title">IHTSDO Releases</span>
     	</a>
     </li>
   </ul>
@@ -73,7 +87,7 @@
   </ul>
   <ul class="nav nav-sidebar">
     <li>
-    	<a ng-click="$templateCache.removeAll()" href="#/logout">
+    	<a href="#/logout">
     		<i class="fa fa-sign-out"></i>
     		<span>Logout</span>
     	</a>

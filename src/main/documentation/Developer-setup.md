@@ -43,7 +43,16 @@ Start eclipse and create Eclipse workspace: /projects/IHTSDO/workspace
 - Create mlds database, owned by mlds user.
 
 ###Running the application
-Run the "Application" class at the root of the Java package hierarchy directly
+- Run the "Application" class at the root of the Java package hierarchy directly
+- Access the site at: http://localhost:8080
+
+### Populating developer database
+- The first run of "Application" will build the schema using liquibase.
+- On a private developer box you may want to load in a minimal set of user accounts from src/main/ad-hoc/minimal-dev-db.sql
+ - sudo -u postgres psql --set ON_ERROR_STOP=on mlds  < minimal-dev-db.sql
+ - DO NOT do this on a public accessable machine
+ - You can then use the following accounts: admin, staff, sweden, user with matching passwords
+
 
 ####[JHipster Development Docs](http://jhipster.github.io/development.html "JHipster Development Docs")
 

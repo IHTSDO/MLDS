@@ -1495,4 +1495,67 @@ $f$ language plpgsql;
     	<comment>Repurposing excludeRegistration to excludeUsage as all countries can now register</comment>
     	<renameColumn tableName="country" oldColumnName="exclude_registration" newColumnName="exclude_usage"/>
     </changeSet>
+    
+    <changeSet id="MLDS-918" author="DGJ">
+    	<comment>Add notification "mailing list" email for member's staff. Rely on IHTSDO mail server to handle mapping of mailing list to individual staff accounts.</comment>
+    	<addColumn tableName="member" >
+    		<column name="staff_notification_email" type="VARCHAR(255)"></column>
+    	</addColumn>
+    </changeSet>
+
+	<changeSet id="MLDS-920" author="DGJ">
+		<comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
+		<addColumn tableName="affiliate">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="T_USER">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="application">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="commercial_usage">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-920-2" author="DGJ">
+		<comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
+		<addColumn tableName="affiliate_details">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-920-3" author="DGJ">
+		<comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
+		<addColumn tableName="commercial_usage_entry">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="commercial_usage_count">
+			<column name="inactive_at" type="timestamp"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-928" author="DGJ">
+		<comment>Add priority to release packages to help with visual ordering for affiliates</comment>
+		<addColumn tableName="release_package">
+			<column name="priority" type="integer" defaultValue="-1"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="MLDS-928-2" author="DGJ">
+		<comment>Choose order when combining ihtsdo and member release packages</comment>
+		<addColumn tableName="member">
+			<column name="promote_packages" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+
+		</addColumn>
+	</changeSet>
+
+    <changeSet id="MLDS-935" author="DGJ">
+    	<comment>Add additional IHTSDO and SE Member authority roles</comment>
+		<sql>INSERT INTO t_authority (name) values ('ROLE_MEMBER'), ('ROLE_MEMBER_SE'), ('ROLE_MEMBER_IHTSDO')</sql>
+    </changeSet>
+
 </databaseChangeLog>

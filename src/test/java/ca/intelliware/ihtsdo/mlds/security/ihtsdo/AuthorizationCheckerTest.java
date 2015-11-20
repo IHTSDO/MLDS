@@ -66,4 +66,17 @@ public class AuthorizationCheckerTest {
 		authorizationChecker.checkCanManageAffiliate(ihtsdoAffiliate);
 	}
 
+	@Test(expected=IllegalStateException.class)
+	public void memberCanAccessOwnAffiliate() {
+		securityContextSetup.asIHTSDOMember();
+		
+		authorizationChecker.checkCanAccessAffiliate(ihtsdoAffiliate);
+	}
+
+	@Test(expected=IllegalStateException.class)
+	public void memberCanNotManageAffiliate() {
+		securityContextSetup.asIHTSDOMember();
+		
+		authorizationChecker.checkCanManageAffiliate(ihtsdoAffiliate);
+	}
 }

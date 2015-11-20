@@ -53,7 +53,7 @@ public class ReleaseFilesResource {
 	@RequestMapping(value = Routes.RELEASE_FILE,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	@Timed
     public @ResponseBody ResponseEntity<ReleaseFile> getReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
     	
@@ -115,7 +115,7 @@ public class ReleaseFilesResource {
 	
 	@RequestMapping(value = Routes.RELEASE_FILE_DOWNLOAD,
     		method = RequestMethod.GET)
-	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	@Timed
 	public @ResponseBody
 	void downloadReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId,

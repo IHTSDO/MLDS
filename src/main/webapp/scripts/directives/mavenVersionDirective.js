@@ -7,7 +7,7 @@ angular.module('MLDS').directive(
 		  function($http, $log) {
 			return {
 				link : function(scope, element, attrs) {
-					$http.get("/app/rest/version").success(function(versionInfo) {
+					$http.get("/api/version").success(function(versionInfo) {
 						$log.log('mavenVersion', versionInfo);
 						element.text(versionInfo.version);
 					});

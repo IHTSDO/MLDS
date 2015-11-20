@@ -30,6 +30,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.codahale.metrics.annotation.Timed;
+import com.google.common.collect.Sets;
+
 import ca.intelliware.ihtsdo.mlds.domain.File;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
@@ -38,11 +41,9 @@ import ca.intelliware.ihtsdo.mlds.repository.FileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.service.ReleasePackagePrioritizer;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
-
-import com.codahale.metrics.annotation.Timed;
-import com.google.common.collect.Sets;
 
 @RestController
 public class ReleasePackagesResource {
@@ -69,6 +70,9 @@ public class ReleasePackagesResource {
 	
 	@Resource
 	ReleaseFilePrivacyFilter releaseFilePrivacyFilter;
+	
+	@Resource
+	ReleasePackagePrioritizer releasePackagePrioritizer;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Packages
@@ -128,6 +132,8 @@ public class ReleasePackagesResource {
     		releasePackage.setMember(userMembershipAccessor.getMemberAssociatedWithUser());
     	}
     	
+    	releasePackagePrioritizer.prioritize(releasePackage, ReleasePackagePrioritizer.END_PRIORITY);
+    	
     	releasePackageRepository.save(releasePackage);
 
     	releasePackageAuditEvents.logCreationOf(releasePackage);
@@ -139,7 +145,7 @@ public class ReleasePackagesResource {
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Timed
     public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
     	//FIXME should we check children being consistent?		
@@ -188,6 +194,7 @@ public class ReleasePackagesResource {
     	if (currentSecurityContext.isAdmin()) {
     		releasePackage.setMember(body.getMember());
     	}
+    	releasePackagePrioritizer.prioritize(releasePackage, body.getPriority());
     	
     	releasePackageRepository.save(releasePackage);
     	

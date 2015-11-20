@@ -681,6 +681,7 @@
             "AUTHENTICATION_FAILURE": "Authentication Failure",
             "AFFILIATE_CREATED": "Affiliate Created",
             "AFFILIATE_CREATED_BY_IMPORT": "Affiliate Created from Import",
+            "AFFILIATE_DELETED": "Affiliate Deleted",
             "AFFILIATE_UPDATED": "Affiliate Updated",
             "AFFILIATE_UPDATED_BY_IMPORT": "Affiliate Updated from Import",
             "AFFILIATEDETAILS_UPDATED": "Affiliate Details Updated",
@@ -688,6 +689,7 @@
             "AFFILIATE_IMPORT": "Affiliate Batch Import",
             "AFFILIATE_LOGIN_CREATED": "Affiliate Login Created",
             "AFFILIATE_STANDING_STATE_CHANGED": "Affiliate Standing State Changed",
+        	"ANNOUNCEMENT_POSTED": "Announcement Posted",
             "APPLICATION_CREATED": "Application Created",
             "APPLICATION_APPROVAL_STATE_CHANGED": "Application Approval State Changed",
             "APPLICATION_DELETED": "Application Deleted",
@@ -833,6 +835,12 @@
     },
     "memberManagement": {
         "title": "Member Management"
+    },
+    "postAnnouncement": {
+    	"title": "Post Announcement"
+    },
+    "ihtsdoReleases": {
+    	"title": "IHTSDO Releases"
     },
     "activityLog": {
         "title": "Activity Log"
@@ -1046,7 +1054,9 @@
             "title": "Password Reset",
             "detail": "We will send you an email containing a link to a password reset form.",
             "button": "Request Password Reset",
-            "back": "Go back to login page"
+            "back": "Go back to login page",
+            "emailNotFound": "Email entered is not found in system.",
+            "resetEmailSent": "Password reset process started, please check your email."
         },
         "usage": {
             "title": "Usage Log",
@@ -1154,6 +1164,42 @@
                 "dPending.title": "Account Deactivation Pending",
                 "dPending.msg": "Your account is scheduled to be Deactivated.  Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue."
             }
+        },
+        "postAnnouncement": {
+        	"title": "Post Announcement",
+        	"messageContent": "Message Content",
+        	"emailSubject": "Email Subject",
+        	"emailBody": "Email Body",
+        	"salutationMessage": "Remember to add a salutation and valediction to the email body.",
+        	"audience": "Audience",
+        	"affiliates": "Affiliates",
+        	"myAffiliates": "My Affiliates",
+        	"allAffiliates": "All Affiliates",
+        	"affiliatesClarification": "Approved affiliates with an account standing of:",
+        	"additionalEmails": "Additional Email Addresses",
+        	"additionalEmailsHelp": "Send the announcement to additional email addressses.",
+        	"post": "Post Announcement",
+        	"newAnnouncement": "New Announcement"
+        },
+        "affiliateSummary": {
+        	"deleteAffiliate": "Delete Affiliate",
+        	"deleteAffiliateModal": {
+        		"sure": "Are you sure you want to delete the affiliate?",
+        		"explanation": "Deleting an Affiliate will also delete their Applications and Usage Information. The user will no longer be able to login to the account."
+        	}
+        },
+        "ihtsdoReleases": {
+        	"title": "IHTSDO Releases",
+        	"offline": "Offline",
+        	"publicReleases": "Public Releases",
+        	"latest": "Latest",
+        	"offlineReleases": "Offline & Alpha Releases",
+        	"noPublicReleases": "There are currently no public releases available.",
+        	"noOfflineReleases": "There are currently no offline & alpha releases available.",
+        	"backToReleases": "Back to IHTSDO Releases",
+        	"publicVersions": "Public Versions",
+        	"noOnlineVersions": "There are currently no online versions of this release.",
+        	"noOfflineVersions": "There are currently no offline & alpha versions of this release."
         }
     }
 }

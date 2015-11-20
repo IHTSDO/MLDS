@@ -18,7 +18,10 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Email;
+import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Objects;
@@ -29,6 +32,8 @@ import com.google.common.base.Objects;
 @Entity
 @Table(name = "T_USER")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Where(clause = "inactive_at IS NULL")
+@SQLDelete(sql="UPDATE T_USER SET inactive_at = now() WHERE user_id = ?")
 public class User extends AbstractAuditingEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -67,6 +72,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Size(min = 0, max = 20)
     @Column(name = "activation_key")
     private String activationKey;
+
+	@JsonIgnore
+	@Column(name="inactive_at")
+	private
+	Instant inactiveAt;
 
     @JsonIgnore
     @ManyToMany
@@ -205,5 +215,13 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	public Instant getInactiveAt() {
+		return inactiveAt;
+	}
+
+	public void setInactiveAt(Instant inactiveAt) {
+		this.inactiveAt = inactiveAt;
 	}
 }

@@ -1,0 +1,95 @@
+<div class="row">
+	<div class="col-md-12">
+	<button ng-click="goToViewPackages()" type="button" class="btn btn-link"><i class="fa fa-angle-double-left"></i> <span translate="views.ihtsdoReleases.backToReleases">Back to IHTSDO Releases</span></button>
+	</div>
+</div>
+
+<div class="row" >
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="page-header">
+			<h2>{{releasePackage.name}} <button class="btn btn-sm btn-link" ng-click="viewLicense(releasePackage.member.key)"><span translate="global.word.viewlicense">View License</span></button></h2>
+			<div ng-bind-html="releasePackage.description"></div>
+		</div>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12">
+		<h3 translate="views.ihtsdoReleases.publicVersions">Public Versions</h3>
+
+		<div class="panel panel-default release-package package" ng-repeat="releaseVersion in releaseVersions.online">
+			<div class="panel-heading status">
+				<div class="status">
+					<h3 class="panel-title">{{releaseVersion.name}}</h3>
+				</div>
+			</div>
+			<div class="panel-body">
+				<p ng-bind-html="releaseVersion.description"></p>
+					<span><strong><span translate="global.word.publishedOn">Published On</span>:</strong> {{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</span>
+			</div>
+			<div class="panel-footer">
+				<div class="row">
+				<div class="col-md-2">
+					<span class="version-title" translate="global.word.file">File:</span>
+				</div>
+				<div class="col-md-10">
+					<div ng-repeat="releaseFile in releaseVersion.releaseFiles">
+						<i class="fa fa-file"></i>
+						<button class="btn btn-link disabled no-padding" disabled="disabled"
+							ng-show="!releaseFile.clientDownloadUrl " ng-bind-html="releaseFile.label">
+						</button>
+
+						<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="alert alert-warning" ng-show="releaseVersions.online.length == 0"><i class="fa fa-exclamation-circle"></i> <span translate="views.ihtsdoReleases.noOnlineVersions">There are currently no online versions of this release.</span></div>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12">
+		<h3>Offline & Alpha Versions</h3>
+
+		<div class="panel panel-default release-package package" ng-repeat="releaseVersion in releaseVersions.offline">
+			<div class="panel-heading status">
+				<span class="alert-danger-flag pull-right" translate="views.ihtsdoReleases.offline">
+						Offline
+					</span>
+				<div class="status">
+					<h3 class="panel-title">{{releaseVersion.name}}</h3>
+				</div>
+			</div>
+			<div class="panel-body">
+				<p ng-bind-html="releaseVersion.description"></p>
+					<span><strong><span translate="global.word.publishedOn">Published On</span>:</strong> {{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</span>
+			</div>
+			<div class="panel-footer">
+				<div class="row">
+				<div class="col-md-2">
+					<span class="version-title" translate="global.word.file">File:</span>
+				</div>
+				<div class="col-md-10">
+					<div ng-repeat="releaseFile in releaseVersion.releaseFiles">
+						<i class="fa fa-file"></i>
+						<button class="btn btn-link disabled no-padding" disabled="disabled"
+							ng-show="!releaseFile.clientDownloadUrl " ng-bind-html="releaseFile.label">
+						</button>
+						<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="alert alert-warning" ng-show="releaseVersions.offline.length == 0"><i class="fa fa-exclamation-circle"></i> <span translate="views.ihtsdoReleases.noOfflineVersions">There are currently no offline versions of this release.</span></div>
+	</div>
+
+</div>

@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.joda.time.Instant;
@@ -28,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="application_type")
+// Note that concrete subclass MUST set @Where and @SQLDelete for soft-delete functionality
+@Where(clause = "inactive_at IS NULL")
+@SQLDelete(sql="UPDATE application SET inactive_at = now() WHERE application_id = ?")
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=As.PROPERTY, property="applicationType")
 @JsonSubTypes({
 	@Type(value=PrimaryApplication.class, name="PRIMARY"),
@@ -64,6 +69,10 @@ public abstract class Application extends BaseEntity {
 	@Column(name="created_at")
 	private
 	Instant createdAt = Instant.now();
+	
+	@JsonIgnore
+	@Column(name="inactive_at")
+	Instant inactiveAt;
 
 	// Timestamp last submitted by the applicant
 	@Column(name="submitted_at")
@@ -193,6 +202,14 @@ public abstract class Application extends BaseEntity {
 	@JsonIgnore
 	public String getApplicationTypeValue() {
 		return applicationTypeValue;
+	}
+
+	public Instant getInactiveAt() {
+		return inactiveAt;
+	}
+
+	public void setInactiveAt(Instant inactiveAt) {
+		this.inactiveAt = inactiveAt;
 	};
 
 }

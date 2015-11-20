@@ -146,7 +146,7 @@ public class AccountResource_Register_Test {
 		String content = "{ \"login\": \""+login+"\", \"email\": \""+login+"\", \"country\":{ \"isoCode2\":\"SE\"} }";
 		return restUserMockMvc.perform(
 			MockMvcRequestBuilders
-				.post("/app/rest/register")
+				.post("/api/register")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(content)
 				.accept(MediaType.APPLICATION_JSON));

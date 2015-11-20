@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.Validate;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Fields;
@@ -33,6 +35,8 @@ import com.google.common.collect.Sets;
 @Entity
 @Indexed
 @JsonFilter("affiliatePrivacyFilter")
+@Where(clause = "inactive_at IS NULL")
+@SQLDelete(sql="UPDATE affiliate SET inactive_at = now() WHERE affiliate_id = ?")
 public class Affiliate extends BaseEntity {
 	public static final String[] PRIVATE_FIELDS = {"notesInternal"};
 
@@ -43,6 +47,11 @@ public class Affiliate extends BaseEntity {
 	Long affiliateId;
 
 	Instant created = Instant.now();
+	
+	@JsonIgnore
+	@Column(name="inactive_at")
+	private
+	Instant inactiveAt;
 
 	@Enumerated(EnumType.STRING)
 	AffiliateType type;
@@ -202,5 +211,13 @@ public class Affiliate extends BaseEntity {
 
 	public void setStandingState(StandingState standingState) {
 		this.standingState = standingState;
+	}
+
+	public Instant getInactiveAt() {
+		return inactiveAt;
+	}
+
+	public void setInactiveAt(Instant inactiveAt) {
+		this.inactiveAt = inactiveAt;
 	}
 }

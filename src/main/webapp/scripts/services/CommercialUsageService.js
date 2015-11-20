@@ -43,15 +43,15 @@ angular.module('MLDS')
 		};
 
 		service.getUsageReports = function(affiliateId) {
-			return $http.get('/app/rest/affiliates/'+affiliateId+'/commercialUsages');
+			return $http.get('/api/affiliates/'+affiliateId+'/commercialUsages');
 		};
 
 		service.getSubmittedUsageReports = function() {			
-			return $http.get('/app/rest/commercialUsages/?$filter='+encodeURIComponent('approvalState/not submitted eq false'));
+			return $http.get('/api/commercialUsages/?$filter='+encodeURIComponent('approvalState/not submitted eq false'));
 		};
 		
 		service.createUsageReport = function(affiliateId, startDate, endDate) {
-			return $http.post('/app/rest/affiliates/'+affiliateId+'/commercialUsages',
+			return $http.post('/api/affiliates/'+affiliateId+'/commercialUsages',
 					{
 						startDate: serializeDate(startDate),
 						endDate: serializeDate(endDate)
@@ -60,8 +60,16 @@ angular.module('MLDS')
 
 		service.currentCommercialUsageReport = {};
 		
+		// Ensure that stateful service state is cleared on logout
+		$rootScope.$on('event:auth-loginConfirmed', resetCurrerntCommercialUsageReport);
+		$rootScope.$on('event:auth-loginCancelled', resetCurrerntCommercialUsageReport);
+
+		function resetCurrerntCommercialUsageReport() {
+			service.currentCommercialUsageReport = {};	
+		}
+		
 		service.getUsageReport = function(reportId) {
-		   var usagePromise = $http.get('/app/rest/commercialUsages/'+reportId);
+		   var usagePromise = $http.get('/api/commercialUsages/'+reportId);
 		   usagePromise.then(function(response){
 		           service.currentCommercialUsageReport = response.data;
 		   });
@@ -69,26 +77,26 @@ angular.module('MLDS')
 		};
 
 		service.updateUsageReportContext = function(usageReport, options) {
-			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/context', usageReport.context);
+			var httpPromise = $http.put('/api/commercialUsages/'+usageReport.commercialUsageId+'/context', usageReport.context);
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 
 		service.updateUsageReportType = function(usageReport, options) {
-			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/type/'+encodeURIComponent(usageReport.type));
+			var httpPromise = $http.put('/api/commercialUsages/'+usageReport.commercialUsageId+'/type/'+encodeURIComponent(usageReport.type));
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 
 		service.addUsageEntry = function(usageReport, entry, options) {
-			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId, serializeCommercialEntry(entry));
+			var httpPromise = $http.post('/api/commercialUsages/'+usageReport.commercialUsageId, serializeCommercialEntry(entry));
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 		
 		
 		service.updateUsageEntry = function(usageReport, entry, options) {
-			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId,
+			var httpPromise = $http.put('/api/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId,
 					serializeCommercialEntry(entry)
 				);
 			notifyUsageUpdatedIfRequired(httpPromise, options);
@@ -97,21 +105,21 @@ angular.module('MLDS')
 
 		
 		service.deleteUsageEntry = function(usageReport, entry, options) {
-			var httpPromise = $http['delete']('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId);
+			var httpPromise = $http['delete']('/api/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId);
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 
 		
 		service.addUsageCount = function(usageReport, count, options) {
-			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/countries', serializeCommercialCount(count));
+			var httpPromise = $http.post('/api/commercialUsages/'+usageReport.commercialUsageId+'/countries', serializeCommercialCount(count));
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 		
 		
 		service.updateUsageCount = function(usageReport, count, options) {
-			var httpPromise = $http.put('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/countries/'+count.commercialUsageCountId,
+			var httpPromise = $http.put('/api/commercialUsages/'+usageReport.commercialUsageId+'/countries/'+count.commercialUsageCountId,
 					serializeCommercialCount(count)
 				);
 			notifyUsageUpdatedIfRequired(httpPromise, options);
@@ -120,14 +128,14 @@ angular.module('MLDS')
 
 		
 		service.deleteUsageCount = function(usageReport, count, options) {
-			var httpPromise = $http['delete']('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/countries/'+count.commercialUsageCountId);
+			var httpPromise = $http['delete']('/api/commercialUsages/'+usageReport.commercialUsageId+'/countries/'+count.commercialUsageCountId);
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 
 		
 		service.submitUsageReport = function(usageReport, options) {
-			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
+			var httpPromise = $http.post('/api/commercialUsages/'+usageReport.commercialUsageId+'/approval',
 					{
 						transition: 'SUBMIT'
 					}
@@ -137,7 +145,7 @@ angular.module('MLDS')
 		};
 		
 		service.retractUsageReport = function(usageReport, options) {
-			var httpPromise = $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
+			var httpPromise = $http.post('/api/commercialUsages/'+usageReport.commercialUsageId+'/approval',
 					{
 						transition: 'RETRACT'
 					}
@@ -147,7 +155,7 @@ angular.module('MLDS')
 		};
 
 		service.updateUsageReport = function(usageReport, newState) {
-			return $http.post('/app/rest/commercialUsages/'+usageReport.commercialUsageId+'/approval',
+			return $http.post('/api/commercialUsages/'+usageReport.commercialUsageId+'/approval',
 					{
 						transition: newState
 					}
