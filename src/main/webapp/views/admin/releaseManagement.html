@@ -2,14 +2,14 @@
 	<div class="col-md-12">
 		<div class="page-header">
 			<h2>Release Management &nbsp;&nbsp;<button class="btn btn-success" ng-click="addReleasePackage()"><i class="fa fa-plus"></i> Add Release</button></h2>
-						
+
 			<div ng-if="isAdmin">
 				<span>Show releases for: </span>
 				<select ng-model="releaseManagementFilter.showAllMembers">
 					<option value="" selected="selected" ng-bind="Session.member.key | enum:'global.member.'">Only my releases</option>
 					<option value="1">All Members</option>
 				</select>
-				<a popover-placement="top" popover="Switch between your releases and releases from all members" class="btn btn-link"><i class="fa fa-question-circle fa-2x"></i></a> 
+				<a popover-placement="top" popover="Switch between your releases and releases from all members" class="btn btn-link"><i class="fa fa-question-circle fa-2x"></i></a>
 			</div>
 		</div>
 		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
@@ -20,7 +20,7 @@
 	<div class="col-lg-8">
 		<div class="">
 			<h3>Public Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
-			<p>Releases are made public when one or more versions inside the release is made public. To take a release offline, select a release below and set all versions to offline.</p>	
+			<p>Releases are made public when one or more versions inside the release is made public. To take a release offline, select a release below and set all versions to offline.</p>
 		</div>
 	 	<div>
 	        <label ng-if="memberEntry.member.key != 'IHTSDO'">
@@ -46,7 +46,7 @@
 				</h3>
 			</div>
 			<div class="panel-body">
-				
+
 				<div ng-bind-html="package.description"></div>
 			</div>
 			<div class="panel-footer" ng-repeat="version in package.releaseVersions | filter: utils.isVersionOnline" ng-show="utils.isLatestVersion(version, (package.releaseVersions | filter: utils.isVersionOnline))">
@@ -63,12 +63,12 @@
 			</div>
 		</div>
 		<div class="alert alert-warning" ng-show="memberEntry.onlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no public releases available</div>
-	</div>	
+	</div>
 </div>
 <div class="row">
 	<div class="col-lg-8">
 		<div class="page-header">
-			<h3>Offline Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
+			<h3>Offline & Alpha Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
 			<p>Releases that do not have any online versions are taken offline. To take a release online, select a release below and set one or more versions online.</p>
 		</div>
 			<div class="panel panel-default" ng-repeat="package in memberEntry.offlinePackages">

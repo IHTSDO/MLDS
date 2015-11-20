@@ -1,8 +1,8 @@
 <div class="row">
-		<button ng-click="goToReleaseManagement()" type="button" class="btn btn-link"><i class="fa fa-angle-double-left"></i> Back to Release Management</button>		
+		<button ng-click="goToReleaseManagement()" type="button" class="btn btn-link"><i class="fa fa-angle-double-left"></i> Back to Release Management</button>
 
 	<div class="col-md-12">
-		
+
 			<div>
 				<div class="btn-group pull-right" dropdown ng-show="isEditableReleasePackage">
 					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Edit  <i class="caret"></i></button>
@@ -19,9 +19,9 @@
 				</div>
 				<h2>{{packageEntity.name}} - {{packageEntity.member.key | enum:'global.member.'}}</h2>
 			</div>
-			
+
 			<div ng-bind-html="packageEntity.description"></div>
-	
+
 	</div>
 
 	<div class="col-lg-12">
@@ -74,7 +74,7 @@
 	</div>
 
 	<div class="col-lg-12">
-		<h3>Offline Versions</h3>
+		<h3>Offline & Alpha Versions</h3>
 <p>Set one or more versions of a release to public view by selecting "Publish Online" from the drop down menu. Set one or more versions online to move this release to public view. </p>
 	<table class="table table-striped" >
 				<thead>
@@ -102,8 +102,8 @@
 						<span class="release" ng-repeat="releaseFile in releaseVersion.releaseFiles">
 							<p>
 								<i class="fa fa-file"></i>
-								<a href="{{releaseFile.downloadUrl}}" target="_blank" ng-bind-html="releaseFile.label"></a> 
-								<button class="btn btn-danger btn-xs pull-right" 
+								<a href="{{releaseFile.downloadUrl}}" target="_blank" ng-bind-html="releaseFile.label"></a>
+								<button class="btn btn-danger btn-xs pull-right"
 									ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-times"></i> Remove
 								</button>
@@ -111,7 +111,7 @@
 						</span>
 					</td>
 					<td>{{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</td>
-					<td>						
+					<td>
 							<div class="dropdown pull-right" ng-show="isEditableReleasePackage">
 								<button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 									<span class="caret"></span>
