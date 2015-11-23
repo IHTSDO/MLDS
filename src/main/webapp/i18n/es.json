@@ -478,6 +478,7 @@
     "login": {
         "title": "Inicie sesión",
         "form": {
+            "username": "Correo electónico de la Unidad que administra SNOMED CT",
             "password": "Contraseña",
             "password.placeholder": "Su contraseña",
             "rememberme": "Recordarme",

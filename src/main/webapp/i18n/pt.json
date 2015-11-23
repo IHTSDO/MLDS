@@ -348,7 +348,7 @@
 			"confirmpassword":"Confirmação de nova palavra passe",
 			"confirmpassword.placeholder":"Confirme a nova palavra passe",
 			"email":"e-mail",
-			"email.placeholder":"O seu  e-mail",
+			"email.placeholder":"O seu e-mail",
 			"country":" País de residência"
 		},
 		"messages":{
@@ -478,6 +478,7 @@
 	"login":{
 		"title":"Login",
 		"form":{
+			"username": "E-mail",
 			"password":"Palavra Passe",
 			"password.placeholder":"A sua palavra passe",
 			"rememberme":"Recorde-me",

@@ -478,6 +478,7 @@
     "login": {
         "title": "Login",
         "form": {
+            "username": "E-mail or Username",
             "password": "Password",
             "password.placeholder": "Your password",
             "rememberme": "Remember Me",
