@@ -1021,6 +1021,7 @@
         "footer": {
             "tos": "Terms of Service",
             "pp": "Privacy Policy",
+            "register": "Register your deployment",
             "contact": "Contact Us"
         },
         "landingPage": {
