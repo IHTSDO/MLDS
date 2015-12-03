@@ -68,8 +68,8 @@
 <div class="row">
 	<div class="col-lg-8">
 		<div class="page-header">
-			<h3>Offline & Alpha Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
-			<p>Releases that do not have any online versions are taken offline. To take a release online, select a release below and set one or more versions online.</p>
+			<h3>Offline & Alpha/Beta Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
+			<p>Releases that do not have any online versions are taken offline or made available for alpha/beta reviews. To take a release online, select a release below and set one or more versions online.</p>
 		</div>
 			<div class="panel panel-default" ng-repeat="package in memberEntry.offlinePackages">
 				<div class="panel-heading">

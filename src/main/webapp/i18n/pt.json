@@ -1013,6 +1013,7 @@
 		"footer":{
 			"tos":"Termos do serviço",
 			"pp":"Política de Privacidade",
+			"register": "Registre a sua implementação",
 			"contact":"Contacte-nos"
 		},
 		"landingPage":{
