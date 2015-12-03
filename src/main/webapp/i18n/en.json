@@ -1195,13 +1195,13 @@
         	"offline": "Offline",
         	"publicReleases": "Public Releases",
         	"latest": "Latest",
-        	"offlineReleases": "Offline & Alpha Releases",
+        	"offlineReleases": "Offline & Alpha/Beta Releases",
         	"noPublicReleases": "There are currently no public releases available.",
-        	"noOfflineReleases": "There are currently no offline & alpha releases available.",
+        	"noOfflineReleases": "There are currently no offline & alpha/beta releases available.",
         	"backToReleases": "Back to IHTSDO Releases",
         	"publicVersions": "Public Versions",
         	"noOnlineVersions": "There are currently no online versions of this release.",
-        	"noOfflineVersions": "There are currently no offline & alpha versions of this release."
+        	"noOfflineVersions": "There are currently no offline & alpha/beta versions of this release."
         }
     }
 }
