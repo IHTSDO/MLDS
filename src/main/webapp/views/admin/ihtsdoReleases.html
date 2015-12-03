@@ -5,19 +5,16 @@
 			<h1>
 				<span translate="views.ihtsdoReleases.title">IHTSDO Releases</span>
 			</h1>
-			<p>This page contains IHTSDO releases, both production and alpha (technology previews), available for Members to download</p>
+			<p>This page contains IHTSDO releases, both production and alpha/beta (technology previews), available for Members to download</p>
 		</div>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-lg-8">
-		<div class="">
-			<h3><span translate="views.ihtsdoReleases.publicReleases">Public Releases</span>: <span>{{member.key | enum:'global.member.'}}</span></h3>
-		</div>
 		<div class="panel panel-default" ng-repeat="package in onlinePackages">
 			<div class="panel-heading">
-				<h3 class="panel-title"> <a ng-click="goToPackage(package)">{{package.name}} - {{package.member.key | enum:'global.member.'}}</a>
+				<h3 class="panel-title"> <a ng-click="goToPackage(package)">{{package.name}}</a>
 				</h3>
 			</div>
 			<div class="panel-body">
@@ -41,21 +38,5 @@
 			</div>
 		</div>
 		<div class="alert alert-warning" ng-show="onlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> <span translate="views.ihtsdoReleases.noPublicReleases">There are currently no public releases available.</span></div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-lg-8">
-		<div class="page-header">
-			<h3><span translate="views.ihtsdoReleases.offlineReleases">Offline & Alpha Releases</span>: <span>{{member.key | enum:'global.member.'}}</span></h3>
-		</div>
-			<div class="panel panel-default" ng-repeat="package in offlinePackages">
-				<div class="panel-heading">
-					<h4 class="panel-title"><a ng-click="goToPackage(package)"> {{package.name}} - {{package.member.key | enum:'global.member.'}}</a></h4>
-				</div>
-				<div class="panel-body">
-					<div ng-bind-html="package.description"></div>
-				</div>
-			</div>
-		<div class="alert alert-warning" ng-show="offlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> <span translate="views.ihtsdoReleases.noOfflineReleases">There are currently no offline or alpha releases available</span></div>
 	</div>
 </div>
