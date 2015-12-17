@@ -38,6 +38,8 @@ import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
+import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
+import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
@@ -56,6 +58,8 @@ public class AffiliateDeleterTest {
 	@Resource ApplicationRepository applicationRepository;
 	@Resource UserRepository userRepository;
 	@Resource CommercialUsageRepository commercialUsageRepository;
+	@Resource CommercialUsageCountryRepository commercialUsageCountryRepository;
+	@Resource CommercialUsageEntryRepository commercialUsageEntryRepository;
 
 	@Resource MemberRepository memberRepository;
 	
@@ -88,11 +92,16 @@ public class AffiliateDeleterTest {
 		User user = withUser(userEmail);
 		Affiliate affiliate = withAffiliateUser(StandingState.APPLYING, ihtsdo, userEmail);
 		AffiliateDetails affiliateDetails = affiliate.getAffiliateDetails();
+		
 		Application primaryApplication = withPrimaryApplication(affiliate, ihtsdo, ApprovalState.APPROVED);
 		AffiliateDetails affiliatePrimaryDetails = primaryApplication.getAffiliateDetails();
+		
 		Application extensionApplication = withExtensionApplication(affiliate, sweden, ApprovalState.APPROVED);
 		AffiliateDetails affiliateExtensionDetails = extensionApplication.getAffiliateDetails();
+		
 		CommercialUsage commercialUsage = withCommercialUsage(affiliate);
+		CommercialUsageCountry commercialUsageCountry = commercialUsage.getCountries().iterator().next();
+		CommercialUsageEntry commercialUsageEntry = commercialUsage.getEntries().iterator().next();
 
 		// Confirm unique affiliate details
 		assertThat(affiliateDetails.getAffiliateDetailsId(), not(equalTo(affiliatePrimaryDetails.getAffiliateDetailsId())));
@@ -108,7 +117,9 @@ public class AffiliateDeleterTest {
 		assertThat(affiliateDetailsRepository.findOne(affiliateDetails.getAffiliateDetailsId()), notNullValue(AffiliateDetails.class));
 		assertThat(affiliateDetailsRepository.findOne(affiliatePrimaryDetails.getAffiliateDetailsId()), notNullValue(AffiliateDetails.class));
 		assertThat(affiliateDetailsRepository.findOne(affiliateExtensionDetails.getAffiliateDetailsId()), notNullValue(AffiliateDetails.class));
-
+		assertThat(commercialUsageCountryRepository.findOne(commercialUsageCountry.getCommercialUsageCountId()), notNullValue(CommercialUsageCountry.class));
+		assertThat(commercialUsageEntryRepository.findOne(commercialUsageEntry.getCommercialUsageEntryId()), notNullValue(CommercialUsageEntry.class));
+		
 		assertThat(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), is(2));
 		
 		// Test
@@ -123,7 +134,9 @@ public class AffiliateDeleterTest {
 		assertThat(affiliateDetailsRepository.findOne(affiliateDetails.getAffiliateDetailsId()), nullValue(AffiliateDetails.class));
 		assertThat(affiliateDetailsRepository.findOne(affiliatePrimaryDetails.getAffiliateDetailsId()), nullValue(AffiliateDetails.class));
 		assertThat(affiliateDetailsRepository.findOne(affiliateExtensionDetails.getAffiliateDetailsId()), nullValue(AffiliateDetails.class));
-		
+		assertThat(commercialUsageCountryRepository.findOne(commercialUsageCountry.getCommercialUsageCountId()), nullValue(CommercialUsageCountry.class));
+		assertThat(commercialUsageEntryRepository.findOne(commercialUsageEntry.getCommercialUsageEntryId()), nullValue(CommercialUsageEntry.class));
+
 		// JPA should no longer find through custom repository
 		assertThat(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), is(0));
 		
@@ -136,7 +149,8 @@ public class AffiliateDeleterTest {
 		assertThat(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateDetails.getAffiliateDetailsId()), is(1));
 		assertThat(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliatePrimaryDetails.getAffiliateDetailsId()), is(1));
 		assertThat(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateExtensionDetails.getAffiliateDetailsId()), is(1));
-
+		assertThat(matchingNativeRecords("SELECT commercial_usage_count_id FROM commercial_usage_count WHERE commercial_usage_count_id="+commercialUsageCountry.getCommercialUsageCountId()), is(1));
+		assertThat(matchingNativeRecords("SELECT commercial_usage_entry_id FROM commercial_usage_entry WHERE commercial_usage_entry_id="+commercialUsageEntry.getCommercialUsageEntryId()), is(1));
 	}
 
 	@Test
