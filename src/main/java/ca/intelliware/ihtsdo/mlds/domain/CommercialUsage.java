@@ -77,10 +77,12 @@ public class CommercialUsage extends BaseEntity {
 
 	@JsonProperty("entries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
+	@Where(clause = "inactive_at IS NULL")
 	Set<CommercialUsageEntry> usage = Sets.newHashSet();
 	
 	@JsonProperty("countries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
+	@Where(clause = "inactive_at IS NULL")
 	Set<CommercialUsageCountry> countries = Sets.newHashSet();
 	
 	public CommercialUsage() {
