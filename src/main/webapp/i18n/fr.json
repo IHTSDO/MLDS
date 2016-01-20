@@ -378,7 +378,7 @@
                "required":"Votre e-mail doit être indiqué.",
                "invalid":"Votre e-mail n’est pas valable.",
                "minlength":"Votre e-mail doit comporter au moins 1 caractère.",
-               "maxlength":"Votre e-mail ne doit pas comporter plus de 50 caractères",
+               "maxlength":"Votre e-mail ne doit pas comporter plus de 50 caractères"
             },
             "confirmemail": {
                 "match": "Votre email de confirmation ne correspond pas"
@@ -437,7 +437,7 @@
             "login":{
                "required":"Vos données de connexion doivent être indiquées.",
                "minlength":"Vos données de connexion doivent comporter au moins 1 caractères.",
-               "maxlength":"Vos données de connexion ne doivent pas comporter plus de 50 caractères",
+               "maxlength":"Vos données de connexion ne doivent pas comporter plus de 50 caractères"
             },
             "country":{
                "notMLDS":"Les demandes d’utilisation de SNOMED CT dans votre pays de résidence doivent être déposées auprès du représentant correspondant de votre pays - <a href=\"{{link}}\" target=\"_blank\">here</a>. Si vous souhaitez déposer une demande pour un accord d’intérêt public afin d’utiliser SNOMED CT dans un autre pays ou souhaitez transmettre d’autres requêtes, veuillez contacter l’IHTSDO à l’adresse <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
@@ -512,12 +512,12 @@
             "firstname":{
                "required":"Votre prénom doit être indiqué.",
                "minlength":"Votre prénom doit comporter au moins 1 caractère.",
-               "maxlength":"Votre prénom ne doit pas comporter plus de 50 caractères",
+               "maxlength":"Votre prénom ne doit pas comporter plus de 50 caractères"
             },
             "lastname":{
                "required":"Votre nom de famille doit être indiqué.",
                "minlength":"Votre nom de famille doit comporter au moins 1 caractère.",
-               "maxlength":"Votre nom de famille ne doit pas comporter plus de 50 caractères",
+               "maxlength":"Votre nom de famille ne doit pas comporter plus de 50 caractères"
             }
          }
       }
@@ -546,7 +546,7 @@
       },
       "messages":{
          "success":"<strong>Session invalide!</strong>",
-         "error":"<strong>Une erreur s’est produite!</strong> La session n’a pas pu être invalidée.",
+         "error":"<strong>Une erreur s’est produite!</strong> La session n’a pas pu être invalidée."
       }
    },
    "tracker":{
