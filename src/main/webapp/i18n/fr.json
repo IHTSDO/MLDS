@@ -1,4 +1,4 @@
-﻿{
+{
    "global":{
       "title":"mlds",
       "browsehappy":"Vous utilisez un navigateur <strong>trop ancien</strong>. Veuillez <a href=\"http://browsehappy.com/?locale=en\">mettre votre navigateur à jour</a> pour améliorer votre expérience utilisateur.",
@@ -1056,7 +1056,7 @@
       "requestPasswordReset":{
          "title":"Réinitialisation du mot de passe",
          "detail":"Nous vous enverrons un e-mail avec un lien vers le formulaire de réinitialisation du mot de passe.",
-         "button":"Demander réinitialisation du mot de passe",
+         "button":"Réinitialisation",
          "back":"Retour à la page de connexion",
          "emailNotFound": "Email n'existe pas dans le système",
          "resetEmailSent": "Password reset process started, please check your email."

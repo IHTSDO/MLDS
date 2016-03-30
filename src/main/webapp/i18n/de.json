@@ -1,4 +1,4 @@
-﻿{
+{
    "global":{
       "title":"mlds",
       "browsehappy":"Sie benutzen einen <strong>veralteten</strong> Browser. Bitte <a href=\"http://browsehappy.com/?locale=en\">aktualisieren Sie Ihren Browser</a>, um Ihre Nutzung dieser Website zu verbessern.",
@@ -346,11 +346,11 @@
          "name.placeholder":"Ihr Name",
          "newpassword":"Neues Passwort",
          "newpassword.placeholder":"Neues Passwort",
-         "confirmpassword":"Passwortbestätigung",
+         "confirmpassword":"Passwort bestätigen",
          "confirmpassword.placeholder":"Bestätigen Sie das neue Passwort",
          "email":"E-Mail",
          "email.placeholder":"Ihre E-Mail-Adresse",
-         "country":"Wohnsitzland"
+         "country":"Land"
       },
       "messages":{
          "info":{
@@ -389,7 +389,7 @@
          "or":"oder",
          "add":"Hinzufügen",
          "edit":"Bearbeiten",
-         "name":"Benennen",
+         "name":"Name",
          "cancel":"Abbrechen",
          "note":"Anmerkung",
          "notes":"Anmerkungen",
@@ -440,7 +440,7 @@
                "maxlength":"Ihr Login darf nicht mehr als 50 Zeichen aufweisen"
             },
             "country":{
-               "notMLDS":"Anträge für die Nutzung von SNOMED CT in Ihrem Wohnsitzland müssen beim zuständigen Vertreter Ihres Landes <a href=\"{{link}}\" target=\"_blank\">hier</a>gestellt werden. Wenn sie einen Antrag für eine Public Good-Vereinbarung zur Nutzung von SNOMED CT in einem anderen Land stellen möchten oder weitere Fragen haben, wenden Sie sich bitte an die IHTSDO über <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+               "notMLDS":"Anträge für die Nutzung von SNOMED CT in Ihrem Land müssen beim zuständigen Vertreter Ihres Landes <a href=\"{{link}}\" target=\"_blank\">hier</a>gestellt werden. Wenn sie einen Antrag für eine Public Good-Vereinbarung zur Nutzung von SNOMED CT in einem anderen Land stellen möchten oder weitere Fragen haben, wenden Sie sich bitte an die IHTSDO über <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
             },
             "registration": {
                 "usagetyperequired":"Nutzungstyp xx",
@@ -479,7 +479,7 @@
    "login":{
       "title":"Login",
       "form":{
-         "username": "E-mail ou Nom d'utilisateur",
+         "username": "E-Mail oder Benutzername",
          "password":"Passwort",
          "password.placeholder":"Ihr Passwort",
          "rememberme":"Passwort merken",
@@ -497,8 +497,8 @@
    "settings":{
       "title":"Kontaktinfo für [<b>{{username}}</b>]",
       "form":{
-         "countryOfResidence":"Wohnsitzland",
-         "countryOfResidence.placeholder":"Ihr Wohnsitzland",
+         "countryOfResidence":"Land",
+         "countryOfResidence.placeholder":"Land",
          "firstname":"Vorname",
          "firstname.placeholder":"Ihr Vorname",
          "lastname":"Name",
@@ -528,7 +528,7 @@
          "button":"Speichern"
       },
       "reset":{
-         "title":"Kontopasswort zurücksetzen",
+         "title":"Passwort zurücksetzen",
          "instructions":"Geben Sie das neue Passwort unten ein."
       },
       "messages":{
@@ -1022,13 +1022,13 @@
       "footer":{
          "tos":"Leistungsbedingungen",
          "pp":"Datenschutz",
-         "register": "Inscrivez votre installation",
+         "register": "Registrieren SIe Ihr Projekt",
          "contact":"Kontaktieren Sie uns"
       },
       "landingPage":{
          "appName":"Mitgliederlizenzierungs- und Vertriebs-Dienst",
          "purpose":"Die IHTSDO stellt diesen Dienst für Organisationen und Privatpersonen zur Verfügung, damit Sie die Nutzung und den Zugang zur internationalen Version von SNOMED CT in Nicht-Mitgliedstaaten beantragen können.",
-         "furtherDetails":"Weitere Einzelheiten finden Sie auf der <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO-Website</a> oder in den<a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ</a>.",
+         "furtherDetails":"Weitere Einzelheiten finden Sie auf der <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO-Website</a> oder in den <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ</a>.",
          "loginHere":"Login",
          "member.purpose1":"MLDS ist ein vom NRC in ",
          "member.purpose2":" verwendetes Instrument, um die Partner-Lizenzierung von SNOMED CT, einschliesslich neuer Anträge, Erneuerungen und der Nutzungsberichte, in ",
@@ -1056,7 +1056,7 @@
       "requestPasswordReset":{
          "title":"Passwort zurücksetzen",
          "detail":"Wir werden Ihnen ein E-Mail mit einem Link zu einem Passwort-Zurücksetzen-Formular senden.",
-         "button":"Beantragen, dass Passwort zurückgesetzt wird",
+         "button":"zurücksetzen",
          "back":"Zurück zur Login-Seite",
          "emailNotFound": "Email n'existe pas dans le système",
          "resetEmailSent": "Password reset process started, please check your email"
