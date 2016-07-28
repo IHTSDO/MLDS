@@ -24,7 +24,7 @@
             "help": "Ayuda",
             "privacyPolicy": "Políticas de privacidad",
             "usageReports": "Reportes de uso",
-            "applications": "Solicitues",
+            "applications": "Solicitudes",
             "releasePackages": "Versiones",
             "affiliate": {
                 "accountInformation": "Información de cuenta",
@@ -348,7 +348,7 @@
             "newpassword.placeholder": "Su nueva contraseña",
             "confirmpassword": "Confirmación de nueva contraseña",
             "confirmpassword.placeholder": "Confirme su nueva contraseña",
-            "email": "Correo electónico de la Unidad que administra SNOMED CT",
+            "email": "Correo electrónico de la Unidad que administra SNOMED CT",
             "email.placeholder": "Su correo electrónico",
             "country": "País de residencia"
         },
@@ -430,7 +430,7 @@
         "form": {
             "tos": "Debe estar de acuerdo con nuestros <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service#MLDSTermsofService-Español\" target=\"_blank\">Términos y Condiciones</a>.",
             "button": "Iniciar registro",
-            "confirmemail": "Correo electónico de la Unidad que administra SNOMED CT (confirmar)"
+            "confirmemail": "Correo electrónico de la Unidad que administra SNOMED CT (confirmar)"
         },
         "messages": {
             "validate": {
@@ -479,7 +479,7 @@
     "login": {
         "title": "Inicie sesión",
         "form": {
-            "username": "Correo electónico de la Unidad que administra SNOMED CT",
+            "username": "Correo electrónico de la Unidad que administra SNOMED CT",
             "password": "Contraseña",
             "password.placeholder": "Su contraseña",
             "rememberme": "Recordarme",
