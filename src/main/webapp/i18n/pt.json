@@ -64,7 +64,7 @@
 			"se":"Sueco"
 		},
 		"member":{
-			"IHTSDO":"IHTSDO",
+			"IHTSDO":"SNOMED International",
 			"AU":"Austrália",
 			"BE":"Bélgica",
 			"BN":"Brunei",
@@ -427,7 +427,7 @@
 	},
 	"register":{
 		"title":"Registar",
-		"welcome":"Benvindo à MLDS (Serviço de Licenciamento e Distribuição) da IHTSDO",
+		"welcome":"Benvindo à MLDS (Serviço de Licenciamento e Distribuição) da SNOMED International",
 		"subwelcome":"A porta de entrada para ter acesso ao SNOMED CT",
 		"form":{
 			"tos":"Concorda com os nossos <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Termos e Condições</a>.",
@@ -442,7 +442,7 @@
 					"maxlength":"O seu login não pode ter mais de 50 carateres"
 				},
 				"country":{
-					"notMLDS":"O Registo para utilizar o SNOMED CT no seu país de residência, deve ser feito através do representante do seu país - <a href=\"{{link}}\" target=\"_blank\">Aqui</a>. Se quiser candidatar-se ao Acordo para o Bem Público, para usar o SNOMED CT noutro país, por favor contacte <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+					"notMLDS":"O Registo para utilizar o SNOMED CT no seu país de residência, deve ser feito através do representante do seu país - <a href=\"{{link}}\" target=\"_blank\">Aqui</a>. Se quiser candidatar-se ao Acordo para o Bem Público, para usar o SNOMED CT noutro país, por favor contacte <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
 				},
 				"registration": {
 						"usagetyperequired":"Campo obrigatório",
@@ -453,7 +453,7 @@
 			"error":{
 				"fail":"<strong>Registo falhado!</strong> Por favor, tente mais tarde.",
 				"userexists":"<strong>Um utilizador já se registou com o seu endereço de e-mail.</strong> Pretendia <a href='#/login'>entrar</a>?",
-				"blocklist":"Devido às nossas políticas de TIC, não é possível processar o e-mail que introduziu <a href=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a> para mais assistência"
+				"blocklist":"Devido às nossas políticas de TIC, não é possível processar o e-mail que introduziu <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a> para mais assistência"
 			}
 		},
 		"emailVerification":{
@@ -1021,8 +1021,8 @@
 		},
 		"landingPage":{
 			"appName":"Serviço de Licenciamento e Distribuição aos Países Membros",
-			"purpose":"Este serviço é fornecido pelo IHTSDO para organizações e indivíduos poderem solicitar a utilização e o acesso à Versão Internacional do SNOMED CT, para utilização em países não Membros.",
-			"furtherDetails":"Para mais detalhes, por favor consulte o <a href=\"http://www.ihtsdo.org\" target=\"_blank\">site do IHTSDO</a> ou as <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ's</a>.",
+			"purpose":"Este serviço é fornecido pelo SNOMED International para organizações e indivíduos poderem solicitar a utilização e o acesso à Versão Internacional do SNOMED CT, para utilização em países não Membros.",
+			"furtherDetails":"Para mais detalhes, por favor consulte o <a href=\"http://www.snomed.org\" target=\"_blank\">site do SNOMED International</a> ou as <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ's</a>.",
 			"loginHere":"Faça o seu login",
 			"member.purpose1":"MLDS é usada pelo Centro de Terminologias Clínicas em ",
 			"member.purpose2":" para fazer a gestão do licenciamento do SNOMED CT, incluindo novas candidaturas, renovações e relatórios de utilização em ",
@@ -1032,7 +1032,7 @@
 			"title":"Distribuições disponíveis para Utilizadores Registados",
 			"noAuth":"<a href=\"#/login\">Faça o seu login</a> para efetuar o download ou clique <a href=\"#/register\">Registar</a> para começar o processo de registo.",
 			"memberCountries":"Países Membros",
-			"countryIsMissing":"Se o país que procura não está nesta lista, por favor consulte o <a href=\"http://www.ihtsdo.org/\">site do IHTSDO</a> para informação sobre o download das distribuições.",
+			"countryIsMissing":"Se o país que procura não está nesta lista, por favor consulte o <a href=\"http://www.snomed.org/\">site do SNOMED International</a> para informação sobre o download das distribuições.",
 			"notAvailable":"Atualmente não existem pacotes de distribuição disponíveis",
 			"releasePackageLicense":"Licença de Distribuições",
 			"reviewLicense":"Por favor, reveja a seguinte licença e aceito-o antes de baixar a distribuição:",
@@ -1129,7 +1129,7 @@
 				}
 			},
 			"otherActivities":"Outras Atividades",
-			"notificationRequired":"Os Afiliados devem notificar o IHTSDO antes de fazerem parte de quaisquer atividades que não caibam nas categorias existentes, sendo que o IHTSDO determinará a estrutura de pagamento apropriada para a atividade em causa.",
+			"notificationRequired":"Os Afiliados devem notificar o SNOMED International antes de fazerem parte de quaisquer atividades que não caibam nas categorias existentes, sendo que o SNOMED International determinará a estrutura de pagamento apropriada para a atividade em causa.",
 			"pleaseDescribe":"Por favor descreva a atividade abaixo.",
 			"submitFor":"Submeta a Declaração para"
 		},
@@ -1153,11 +1153,11 @@
 				"declined.title":"O Registo de Afiliado foi negado",
 				"declined.msg":"O seu registo de afiliado foi negado. Por favor verifique o e-mail relativo aos pormenores da decisão.",
 				"deactivated.title":"Conta inativada",
-				"deactivated.msg":"A sua conta foi inativada. O download dos pacotes de distribuição e candidaturas às Extensões foi suspenso. Por favor, contacte <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> para resolver o problema.",
+				"deactivated.msg":"A sua conta foi inativada. O download dos pacotes de distribuição e candidaturas às Extensões foi suspenso. Por favor, contacte <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> para resolver o problema.",
 				"iPending.title":"A Fatura da conta está pendente",
-				"iPending.msg":"A sua conta tem uma fatura pendente.O download do pacote de distribuição foi suspenso. Por favor contacte <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> para resolver o problema.",
+				"iPending.msg":"A sua conta tem uma fatura pendente.O download do pacote de distribuição foi suspenso. Por favor contacte <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> para resolver o problema.",
 				"dPending.title":"A inativação da conta está pendente",
-				"dPending.msg":"A inativação da sua conta está agendada.  Por favor, contacte <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> para resolver o problema."
+				"dPending.msg":"A inativação da sua conta está agendada.  Por favor, contacte <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> para resolver o problema."
 			}
 		}
 	}

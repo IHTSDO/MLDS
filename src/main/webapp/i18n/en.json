@@ -64,7 +64,7 @@
             "se": "Swedish"
         },
         "member": {
-            "IHTSDO": "IHTSDO",
+            "IHTSDO": "SNOMED International",
             "AU": "Australia",
             "BE": "Belgium",
             "BN": "Brunei",
@@ -427,7 +427,7 @@
     },
     "register": {
         "title": "Register",
-        "welcome": "Welcome to IHTSDO-MLDS",
+        "welcome": "Welcome to SNOMED International-MLDS",
         "subwelcome": "The gateway to access SNOMED CT Orientation",
         "form": {
             "tos": "Agree to our <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Terms and Conditions</a>.",
@@ -442,7 +442,7 @@
                     "maxlength": "Your login cannot be longer than 50 characters"
                 },
                 "country": {
-                    "notMLDS": "Applications for use of SNOMED CT in your country of residence must be made to the appropriate representative from your country - <a href=\"{{link}}\" target=\"_blank\">here</a>. If you wish to apply for a Public Good agreement to use SNOMED CT in another country, or wish to make other inquiries please contact the IHTSDO at <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+                    "notMLDS": "Applications for use of SNOMED CT in your country of residence must be made to the appropriate representative from your country - <a href=\"{{link}}\" target=\"_blank\">here</a>. If you wish to apply for a Public Good agreement to use SNOMED CT in another country, or wish to make other inquiries please contact the SNOMED International at <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
                 },
                 "registration": {
                     "usagetyperequired":"Usage type required",
@@ -453,7 +453,7 @@
             "error": {
                 "fail": "<strong>Registration failed!</strong> Please try again later.",
                 "userexists": "<strong>A user has already registered with that email address.</strong> Did you mean to <a href='#/login'>login</a>?",
-                "blocklist": "Due to our IT policies we are unable to process the entered email address. Please contact <a href=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a> for further assistance."
+                "blocklist": "Due to our IT policies we are unable to process the entered email address. Please contact <a href=\"mailto:support@snomed.org\">support@snomed.org</a> for further assistance."
             }
         },
         "emailVerification": {
@@ -844,7 +844,7 @@
     	"title": "Post Announcement"
     },
     "ihtsdoReleases": {
-    	"title": "IHTSDO Releases"
+    	"title": "SNOMED International Releases"
     },
     "activityLog": {
         "title": "Activity Log"
@@ -1029,8 +1029,8 @@
         },
         "landingPage": {
             "appName": "Member Licensing and Distribution Service",
-            "purpose": "This service is provided by IHTSDO for organizations and individuals to request use and access to the International Release of SNOMED CT for use in non-Member countries.",
-            "furtherDetails": "For further details, please refer to the <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO website</a> or the <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>.",
+            "purpose": "This service is provided by SNOMED International for organizations and individuals to request use and access to the International Release of SNOMED CT for use in non-Member countries.",
+            "furtherDetails": "For further details, please refer to the <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International website</a> or the <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>.",
             "loginHere": "login here",
             "member.purpose1": "MLDS is a tool used by the NRC in ",
             "member.purpose2": " to manage the Affiliate Licensing of SNOMED CT including new applications, renewals and usage reporting within ",
@@ -1040,7 +1040,7 @@
             "title": "Releases available for Registered Users",
             "noAuth": "<a href=\"#/login\">Log in</a> to download or click <a href=\"#/register\">register</a> to start application process.",
             "memberCountries": "Member Countries",
-            "countryIsMissing": "If the country you're looking for is not in this list, please refer to the <a href=\"http://www.ihtsdo.org/\">IHTSDO website</a> for release download information.",
+            "countryIsMissing": "If the country you're looking for is not in this list, please refer to the <a href=\"http://www.snomed.org/\">SNOMED International website</a> for release download information.",
             "notAvailable": "There are currently no release packages available",
             "releasePackageLicense": "Release Package License",
             "reviewLicense": "Please review the following license and accept it before downloading the release package:",
@@ -1139,7 +1139,7 @@
                 }
             },
             "otherActivities": "Other Activities",
-            "notificationRequired": "Affiliates are required to notify IHTSDO prior to engaging in any activities that do not fall within the existing categories at which time the IHTSDO will determine the appropriate Fee Structure for the activity in question.",
+            "notificationRequired": "Affiliates are required to notify SNOMED International prior to engaging in any activities that do not fall within the existing categories at which time the SNOMED International will determine the appropriate Fee Structure for the activity in question.",
             "pleaseDescribe": "Please describe activity below.",
             "submitFor": "Submit Declaration for"
         },
@@ -1163,9 +1163,9 @@
                 "declined.title": "Affiliate Registration Declined",
                 "declined.msg": "Your affiliate registration has been declined. Please see email regarding the details of the decision.",
                 "deactivated.title": "Account Deactivated",
-                "deactivated.msg": "Your account has been Deactivated. Release package downloads and Extension applications have been suspended. Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue.",
+                "deactivated.msg": "Your account has been Deactivated. Release package downloads and Extension applications have been suspended. Please contact <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> to resolve the issue.",
                 "iPending.title": "Account Pending Invoice",
-                "iPending.msg": "Your account has a pending invoice. Release package downloads have been suspended. Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue.",
+                "iPending.msg": "Your account has a pending invoice. Release package downloads have been suspended. Please contact <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> to resolve the issue.",
                 "dPending.title": "Account Deactivation Pending",
                 "dPending.msg": "Your account is scheduled to be Deactivated.  Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue."
             }
@@ -1194,14 +1194,14 @@
         	}
         },
         "ihtsdoReleases": {
-        	"title": "IHTSDO Releases",
+        	"title": "SNOMED International Releases",
         	"offline": "Offline",
         	"publicReleases": "Public Releases",
         	"latest": "Latest",
         	"offlineReleases": "Offline & Alpha/Beta Releases",
         	"noPublicReleases": "There are currently no public releases available.",
         	"noOfflineReleases": "There are currently no offline & alpha/beta releases available.",
-        	"backToReleases": "Back to IHTSDO Releases",
+        	"backToReleases": "Back to SNOMED International Releases",
         	"publicVersions": "Public Versions",
         	"noOnlineVersions": "There are currently no online versions of this release.",
         	"noOfflineVersions": "There are currently no offline & alpha/beta versions of this release."
