@@ -64,7 +64,7 @@
          "se":"Schwedisch"
       },
       "member":{
-         "IHTSDO":"IHTSDO",
+         "IHTSDO":"SNOMED International",
          "AU":"Australien",
          "BE":"Belgien",
          "BN":"Brunei",
@@ -427,7 +427,7 @@
    },
    "register":{
       "title":"Registrieren",
-      "welcome":"Willkommen bei IHTSDO-MLDS",
+      "welcome":"Willkommen bei SNOMED International-MLDS",
       "subwelcome":"Das Tor für den Zugriff auf die SNOMED CT-Einführung",
       "form":{
          "tos":"Stimmen Sie unseren <a href=\"/tos.html\" target=\"_blank\">allgemeinen Geschäftsbedingungen zu</a>.",
@@ -442,7 +442,7 @@
                "maxlength":"Ihr Login darf nicht mehr als 50 Zeichen aufweisen"
             },
             "country":{
-               "notMLDS":"Anträge für die Nutzung von SNOMED CT in Ihrem Land müssen beim zuständigen Vertreter Ihres Landes <a href=\"{{link}}\" target=\"_blank\">hier</a>gestellt werden. Wenn sie einen Antrag für eine Public Good-Vereinbarung zur Nutzung von SNOMED CT in einem anderen Land stellen möchten oder weitere Fragen haben, wenden Sie sich bitte an die IHTSDO über <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+               "notMLDS":"Anträge für die Nutzung von SNOMED CT in Ihrem Land müssen beim zuständigen Vertreter Ihres Landes <a href=\"{{link}}\" target=\"_blank\">hier</a>gestellt werden. Wenn sie einen Antrag für eine Public Good-Vereinbarung zur Nutzung von SNOMED CT in einem anderen Land stellen möchten oder weitere Fragen haben, wenden Sie sich bitte an die SNOMED International über <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
             },
             "registration": {
                 "usagetyperequired":"Nutzungstyp xx",
@@ -453,7 +453,7 @@
          "error":{
             "fail":"<strong>Registrierung fehlgeschlagen!</strong> Bitte versuchen Sie es später noch einmal.",
             "userexists":"<strong>Ein anderer Benutzer hat sich bereits mit dieser E-Mail-Adresse registriert.</strong> Wollten Sie sich <a href='#/login'>einloggen</a>?",
-            "blocklist":"Aufgrund unserer IT-Richtlinien können wir die eingegebene E-Mail-Adresse nicht verarbeiten. Für weitere Hilfe kontaktieren Sie bitte <a href=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a>."
+            "blocklist":"Aufgrund unserer IT-Richtlinien können wir die eingegebene E-Mail-Adresse nicht verarbeiten. Für weitere Hilfe kontaktieren Sie bitte <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a>."
          }
       },
       "emailVerification":{
@@ -844,7 +844,7 @@
     "title": "Post Announcement"
    },
    "ihtsdoReleases": {
-    "title": "IHTSDO Releases"
+    "title": "SNOMED International Releases"
    },
    "activityLog":{
       "title":"Aktivitäts-Log"
@@ -1029,8 +1029,8 @@
       },
       "landingPage":{
          "appName":"Mitgliederlizenzierungs- und Vertriebs-Dienst",
-         "purpose":"Die IHTSDO stellt diesen Dienst für Organisationen und Privatpersonen zur Verfügung, damit Sie die Nutzung und den Zugang zur internationalen Version von SNOMED CT in Nicht-Mitgliedstaaten beantragen können.",
-         "furtherDetails":"Weitere Einzelheiten finden Sie auf der <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO-Website</a> oder in den <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ</a>.",
+         "purpose":"Die SNOMED International stellt diesen Dienst für Organisationen und Privatpersonen zur Verfügung, damit Sie die Nutzung und den Zugang zur internationalen Version von SNOMED CT in Nicht-Mitgliedstaaten beantragen können.",
+         "furtherDetails":"Weitere Einzelheiten finden Sie auf der <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-Website</a> oder in den <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ</a>.",
          "loginHere":"Login",
          "member.purpose1":"MLDS ist ein vom NRC in ",
          "member.purpose2":" verwendetes Instrument, um die Partner-Lizenzierung von SNOMED CT, einschliesslich neuer Anträge, Erneuerungen und der Nutzungsberichte, in ",
@@ -1040,7 +1040,7 @@
          "title":"Für registrierte Benutzer verfügbare Releases",
          "noAuth":"<a href=\"#/login\">Loggen Sie sich ein</a> für den Download oder klicken Sie auf <a href=\"#/register\">register</a>, um den Antragsprozess zu starten.",
          "memberCountries":"Mitgliedstaaten",
-         "countryIsMissing":"Wenn sich das gesuchte Land nicht auf dieser Liste befindet, entnehmen Sie bitte der <a href=\"http://www.ihtsdo.org/\">IHTSDO-Website</a> die Informationen für das Herunterladen des Release.",
+         "countryIsMissing":"Wenn sich das gesuchte Land nicht auf dieser Liste befindet, entnehmen Sie bitte der <a href=\"http://www.snomed.org/\">SNOMED International-Website</a> die Informationen für das Herunterladen des Release.",
          "notAvailable":"Gegenwärtig sind keine Release-Pakete verfügbar",
          "releasePackageLicense":"Lizenz für ein Release-Paket",
          "reviewLicense":"Bitte überprüfen Sie die folgende Lizenz und stimmen Sie ihr zu, bevor Sie das Release-Paket herunterladen:",
@@ -1139,7 +1139,7 @@
             }
          },
          "otherActivities":"Andere Aktivitäten",
-         "notificationRequired":"Partner müssen der IHTSDO Aktivitäten melden, welche nicht den bestehenden Kategorien zugeordnet werden können, bevor Sie diese durchführen. Die IHTSDO wird die geeignete Gebührenstruktur für die betreffende Aktivität festlegen.",
+         "notificationRequired":"Partner müssen der SNOMED International Aktivitäten melden, welche nicht den bestehenden Kategorien zugeordnet werden können, bevor Sie diese durchführen. Die SNOMED International wird die geeignete Gebührenstruktur für die betreffende Aktivität festlegen.",
          "pleaseDescribe":"Bitte beschreiben Sie die Aktivität unten.",
          "submitFor":"Einreichen der Erklärung für"
       },
@@ -1163,11 +1163,11 @@
             "declined.title":"Partnerregistrierung abgelehnt",
             "declined.msg":"Ihre Partnerregistrierung wurde abgelehnt. Bitte entnehmen Sie dem E-Mail die Details zu diesem Entscheid.",
             "deactivated.title":"Konto deaktiviert",
-            "deactivated.msg":"Ihr Konto wurde deaktiviert. Das Herunterladen von Release-Paketen und Anträge für Erweiterungen wurden gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a>, um dieses Problem zu lösen.",
+            "deactivated.msg":"Ihr Konto wurde deaktiviert. Das Herunterladen von Release-Paketen und Anträge für Erweiterungen wurden gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu lösen.",
             "iPending.title":"Konto mit offener Rechnung",
-            "iPending.msg":"Ihr Konto weist eine offene Rechnung auf. Das Herunterladen von Release-Paketen wurde gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a>, um dieses Problem zu lösen.",
+            "iPending.msg":"Ihr Konto weist eine offene Rechnung auf. Das Herunterladen von Release-Paketen wurde gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu lösen.",
             "dPending.title":"Kontodeaktivierung hängig",
-            "dPending.msg":"Es ist vorgesehen, dass Ihr Konto deaktiviert wird. Bitte wenden Sie sich an <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a>, um dieses Problem zu lösen."
+            "dPending.msg":"Es ist vorgesehen, dass Ihr Konto deaktiviert wird. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu lösen."
          }
       },
       "postAnnouncement": {
@@ -1194,14 +1194,14 @@
         }
       },
       "ihtsdoReleases": {
-        "title": "IHTSDO Releases",
+        "title": "SNOMED International Releases",
         "offline": "Offline",
         "publicReleases": "Public Releases",
         "latest": "Latest",
         "offlineReleases": "Offline & Alpha/Beta Releases",
         "noPublicReleases": "There are currently no public releases available.",
         "noOfflineReleases": "There are currently no offline & alpha/beta releases available.",
-        "backToReleases": "Back to IHTSDO Releases",
+        "backToReleases": "Back to SNOMED International Releases",
         "publicVersions": "Public Versions",
         "noOnlineVersions": "There are currently no online versions of this release.",
         "noOfflineVersions": "There are currently no offline & alpha/beta versions of this release."
