@@ -64,7 +64,7 @@
             "se": "Zweedse"
         },
         "member": {
-          "IHTSDO": "IHTSDO",
+          "IHTSDO": "SNOMED International",
           "AU": "Australia",
           "BE": "Belgium",
           "BN": "Brunei",
@@ -427,7 +427,7 @@
     },
     "register": {
         "title": "Registreren",
-        "welcome": "Welkom bij IHTSDO-MLDS",
+        "welcome": "Welkom bij SNOMED International-MLDS",
         "subwelcome": "De toegangspoort naar SNOMED CT",
         "form": {
             "tos": "Verklaar je akkoord met onze <a href=\"/https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Bepalingen en Voorwaarden </a>.",
@@ -442,7 +442,7 @@
                     "maxlength": "Je login mag maximum 50 karakters tellen"
                 },
                 "country": {
-                    "notMLDS": "Aanvragen om SNOMED CT te gebruiken in je land van verblijf moeten worden gericht aan de juiste vertegenwoordiger van je land - <a href=\"{{link}}\" target=\"_blank\">here</a>. Als je een overeenkomst om redenen van openbaar belang wil aanvragen om SNOMED CT te gebruiken in een ander land, of als je andere inlichtingen wil, gelieve dan contact op te nemen met de IHTSDO op het volgende adres <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+                    "notMLDS": "Aanvragen om SNOMED CT te gebruiken in je land van verblijf moeten worden gericht aan de juiste vertegenwoordiger van je land - <a href=\"{{link}}\" target=\"_blank\">here</a>. Als je een overeenkomst om redenen van openbaar belang wil aanvragen om SNOMED CT te gebruiken in een ander land, of als je andere inlichtingen wil, gelieve dan contact op te nemen met de SNOMED International op het volgende adres <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
                 },
 								"registration": {
                     "usagetyperequired":"Usage type required",
@@ -453,7 +453,7 @@
             "error": {
                 "fail": "<strong>De registratie is niet gelukt!</strong> Gelieve later opnieuw te proberen.",
                 "userexists": "<strong> Er heeft zich al een gebruiker geregistreerd met dit e-mailadres.</strong> Wou je <a href='#/login'>inloggen</a>?",
-                "blocklist": "Op basis van ons IT-beleid kunnen we het opgegeven e-mailadres niet behandelen. Gelieve contact op te nemen met <a href=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a> waar men je verder kan helpen."
+                "blocklist": "Op basis van ons IT-beleid kunnen we het opgegeven e-mailadres niet behandelen. Gelieve contact op te nemen met <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a> waar men je verder kan helpen."
             }
         },
         "emailVerification": {
@@ -844,7 +844,7 @@
     	"title": "Post Announcement"
     },
 		"ihtsdoReleases": {
-    	"title": "IHTSDO Releases"
+    	"title": "SNOMED International Releases"
     },
     "activityLog": {
         "title": "Activiteitenlog"
@@ -1029,8 +1029,8 @@
         },
         "landingPage": {
             "appName": "Member Licensing and Distribution Service",
-            "purpose": "Deze service wordt verleend door de IHTSDO om organisaties en individuen in staat te stellen om het gebruik van en toegang tot de Internationale Release van SNOMED CT aan te vragen voor gebruik in landen die geen lid zijn.",
-            "furtherDetails": "Voor meer details, zie de <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO-website</a> of de <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Veelgestelde vragen</a>.",
+            "purpose": "Deze service wordt verleend door de SNOMED International om organisaties en individuen in staat te stellen om het gebruik van en toegang tot de Internationale Release van SNOMED CT aan te vragen voor gebruik in landen die geen lid zijn.",
+            "furtherDetails": "Voor meer details, zie de <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-website</a> of de <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Veelgestelde vragen</a>.",
             "loginHere": "log je hier in",
             "member.purpose1": "[Dutch translation TBC] MLDS is a tool used by ",
             "member.purpose2": " NRC to manage the Affiliate Licensing of SNOMED CT including new applications, renewals and usage reporting within ",
@@ -1040,7 +1040,7 @@
             "title": "Releases beschikbaar voor geregistreerde gebruikers",
             "noAuth": "<a href=\"#/login\">Log je in</a> om te downloaden of klik <a href=\"#/register\">registreer</a> om het aanvraagproces op te starten.",
             "memberCountries": "Lidstaten",
-            "countryIsMissing": "Als het land dat je zoekt niet in de lijst staat, ga dan naar de <a href=\"http://www.ihtsdo.org/\">IHTSDO-website</a> voor informatie over het downloaden van releases.",
+            "countryIsMissing": "Als het land dat je zoekt niet in de lijst staat, ga dan naar de <a href=\"http://www.snomed.org/\">SNOMED International-website</a> voor informatie over het downloaden van releases.",
             "notAvailable": "Er zijn momenteel geen release packages beschikbaar",
 						"releasePackageLicense": "Release Package License",
             "reviewLicense": "Please review the following license and accept it before downloading the release package:",
@@ -1139,7 +1139,7 @@
                 }
             },
             "otherActivities": "Andere activiteiten",
-            "notificationRequired": "De geaffilieerden/licentiehouders moeten de IHTSDO op de hoogte brengen alvorens ze activiteiten aanvatten die niet binnen de bestaande categorieën vallen, waarna de IHTSDO de geschikte structuur van de vergoedingen zal bepalen voor de activiteit in kwestie.",
+            "notificationRequired": "De geaffilieerden/licentiehouders moeten de SNOMED International op de hoogte brengen alvorens ze activiteiten aanvatten die niet binnen de bestaande categorieën vallen, waarna de SNOMED International de geschikte structuur van de vergoedingen zal bepalen voor de activiteit in kwestie.",
             "pleaseDescribe": "Gelieve de activiteit hieronder te beschrijven.",
             "submitFor": "Dien de Verklaring in voor"
         },
@@ -1163,11 +1163,11 @@
                 "declined.title": "Registratie als geaffilieerde/licentiehouder geweigerd",
                 "declined.msg": "Je registratie als geaffilieerde/licentiehouder werd geweigerd. Zie de e-mail met de details over de beslissing.",
                 "deactivated.title": "Account gedesactiveerd",
-                "deactivated.msg": "Je account werd gedesactiveerd. Het downloaden van softwarereleases en de aanvragen voor uitbreidingen werden opgeschort. Gelieve contact op te nemen met <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> om het probleem op te lossen.",
+                "deactivated.msg": "Je account werd gedesactiveerd. Het downloaden van softwarereleases en de aanvragen voor uitbreidingen werden opgeschort. Gelieve contact op te nemen met <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> om het probleem op te lossen.",
                 "iPending.title": "Account met openstaande factuur ",
-                "iPending.msg": "Je account bevat een openstaande factuur. Het downloaden van softwarereleases werd opgeschort. Gelieve contact op te nemen met <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> om het probleem op te lossen.",
+                "iPending.msg": "Je account bevat een openstaande factuur. Het downloaden van softwarereleases werd opgeschort. Gelieve contact op te nemen met <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> om het probleem op te lossen.",
                 "dPending.title": "Desactivering account nakend",
-                "dPending.msg": "Je account zal gedesactiveerd worden. Gelieve contact op te nemen met <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> om het probleem op te lossen."
+                "dPending.msg": "Je account zal gedesactiveerd worden. Gelieve contact op te nemen met <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> om het probleem op te lossen."
             }
         },
 				"postAnnouncement": {
@@ -1194,14 +1194,14 @@
         	}
         },
         "ihtsdoReleases": {
-        	"title": "IHTSDO Releases",
+        	"title": "SNOMED International Releases",
         	"offline": "Offline",
         	"publicReleases": "Public Releases",
         	"latest": "Latest",
         	"offlineReleases": "Offline & Alpha/Beta Releases",
         	"noPublicReleases": "There are currently no public releases available.",
         	"noOfflineReleases": "There are currently no offline & alpha/beta releases available.",
-        	"backToReleases": "Back to IHTSDO Releases",
+        	"backToReleases": "Back to SNOMED International Releases",
         	"publicVersions": "Public Versions",
         	"noOnlineVersions": "There are currently no online versions of this release.",
         	"noOfflineVersions": "There are currently no offline & alpha/beta versions of this release."

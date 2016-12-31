@@ -64,7 +64,7 @@
             "se": "svenska"
         },
         "member": {
-            "IHTSDO": "IHTSDO",
+            "IHTSDO": "SNOMED International",
             "AU": "Australien",
             "BE": "Belgien",
             "BN": "Brunei",
@@ -442,7 +442,7 @@
                     "maxlength": "Ditt inloggningsnamn får vara högst 50 tecken långt"
                 },
                 "country": {
-                    "notMLDS": "Ansökningar om att använda Snomed CT i ditt land måste skickas till det nationella releasecentret i ditt land - <a href=\"{{link}}\" target=\"_blank\">här</a>. Om du vill ansöka om ett allmännyttoavtal för att använda Snomed CT i något annat land eller har andra frågor ber vi dig kontakta IHTSDO på <a href=\"mailto:info@ihtsdo.org\">info@ihtsdo.org</a>"
+                    "notMLDS": "Ansökningar om att använda Snomed CT i ditt land måste skickas till det nationella releasecentret i ditt land - <a href=\"{{link}}\" target=\"_blank\">här</a>. Om du vill ansöka om ett allmännyttoavtal för att använda Snomed CT i något annat land eller har andra frågor ber vi dig kontakta SNOMED International på <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
                 },
                 "registration": {
       						  "usagetyperequired":"Nödvändigt fält",
@@ -453,7 +453,7 @@
             "error": {
                 "fail": "<strong>Registreringen misslyckades!</strong> Försök igen senare.",
                 "userexists": "<strong>En användare har redan registrerat sig med den e-postadressen.</strong> Ville du egentligen <a href='#/logga in'>login</a>?",
-                "blocklist": "På grund av vår it-policy kan vi inte behandla den angivna e-postadressen. Var god kontakta <a href=\"mailto:Support@IHTSDO.org\">Support@IHTSDO.org</a> för att få ytterligare hjälp."
+                "blocklist": "På grund av vår it-policy kan vi inte behandla den angivna e-postadressen. Var god kontakta <a href=\"mailto:support@snomed.org\">support@snomed.org</a> för att få ytterligare hjälp."
             }
         },
         "emailVerification": {
@@ -1022,7 +1022,7 @@
         "landingPage": {
             "appName": "Licens- och distributionsportalen för Snomed CT",
             "purpose": "Denna portal används av det svenska nationella releasecentret på Socialstyrelsen för att administrera licenser och användningsrapportering för den internationella och svenska releasen av Snomed CT vid användning i Sverige.",
-            "furtherDetails": "Mer information finns på <a href=\"http://www.ihtsdo.org\" target=\"_blank\">IHTSDO:s webbplats</a> och på webbsidan med <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">vanliga frågor</a>.",
+            "furtherDetails": "Mer information finns på <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International:s webbplats</a> och på webbsidan med <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">vanliga frågor</a>.",
             "loginHere": "logga in här",
             "member.purpose1": "Denna portal används av Socialstyrelsen, som ansvarar för det nationella releasecentret för Snomed CT i ",
             "member.purpose2": ", för att administrera licenser och användningsrapportering för den internationella och svenska releasen av Snomed CT, vid användning i ",
@@ -1032,7 +1032,7 @@
             "title": "Releaser som är tillgängliga för registrerade användare",
             "noAuth": "<a href=\"#/login\">Logga in</a> för att ladda ner en release eller klicka på <a href=\"#/register\">registrera</a> för att påbörja ansökningsprocessen.",
             "memberCountries": "Medlemsländer",
-            "countryIsMissing": "Om det land du letar efter inte finns med i listan kan du gå till <a href=\"http://www.ihtsdo.org/\">IHTSDO:s webbplats</a> för att hitta information om nedladdning av releaser.",
+            "countryIsMissing": "Om det land du letar efter inte finns med i listan kan du gå till <a href=\"http://www.snomed.org/\">SNOMED International:s webbplats</a> för att hitta information om nedladdning av releaser.",
             "notAvailable": "Det finns för närvarande inga releasepaket tillgängliga",
             "releasePackageLicense": "Licensavtal för releasepaket",
             "reviewLicense": "Läs och godkänn licensavtalet innan du laddar ner releasepaketet:",
@@ -1129,7 +1129,7 @@
                 }
             },
             "otherActivities": "Andra aktiviteter",
-            "notificationRequired": "Licenstagare måste meddela IHTSDO innan man påbörjar några aktiviteter som inte faller inom de nuvarande kategorierna, så att IHTSDO kan fatta beslut om en lämplig avgiftsstruktur för den aktuella aktiviteten.",
+            "notificationRequired": "Licenstagare måste meddela SNOMED International innan man påbörjar några aktiviteter som inte faller inom de nuvarande kategorierna, så att SNOMED International kan fatta beslut om en lämplig avgiftsstruktur för den aktuella aktiviteten.",
             "pleaseDescribe": "Var god beskriv aktiviteten här nedan.",
             "submitFor": "Skicka in rapport för"
         },
@@ -1153,11 +1153,11 @@
                 "declined.title": "Licenstagarregistreringen avslogs",
                 "declined.msg": "Din licenstagarregistrering har avslagits. Se meddelandet med närmare uppgifter om beslutet.",
                 "deactivated.title": "Avaktivering av konto",
-                "deactivated.msg": "Ditt konto har avaktiverats. Funktionerna för nedladdning av releasepaket och ansökning om tillgång till extensioner har stängts av. Var god kontakta <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> för att lösa problemet.",
+                "deactivated.msg": "Ditt konto har avaktiverats. Funktionerna för nedladdning av releasepaket och ansökning om tillgång till extensioner har stängts av. Var god kontakta <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> för att lösa problemet.",
                 "iPending.title": "Kontot har en obetald faktura",
-                "iPending.msg": "Ditt konto har en obetald faktura. Funktionen för nedladdning av releasepaket har stängts av. Kontakta <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> för att lösa problemet.",
+                "iPending.msg": "Ditt konto har en obetald faktura. Funktionen för nedladdning av releasepaket har stängts av. Kontakta <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> för att lösa problemet.",
                 "dPending.title": "Avaktivering av kontot väntar",
-                "dPending.msg": "Ditt konto kommer att avaktiveras. Kontakta <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> för att lösa problemet."
+                "dPending.msg": "Ditt konto kommer att avaktiveras. Kontakta <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> för att lösa problemet."
             }
         }
     }
