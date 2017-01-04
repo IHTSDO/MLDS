@@ -838,6 +838,9 @@
     "memberManagement": {
         "title": "Hantering av medlemmar"
     },
+    "ihtsdoReleases": {
+     "title": "SNOMED Releases"
+    },
     "activityLog": {
         "title": "Aktivitetslogg"
     },
