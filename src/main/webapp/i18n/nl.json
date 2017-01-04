@@ -1194,14 +1194,14 @@
         	}
         },
         "ihtsdoReleases": {
-        	"title": "SNOMED Releases",
+        	"title": "SNOMED International Releases",
         	"offline": "Offline",
         	"publicReleases": "Public Releases",
         	"latest": "Latest",
         	"offlineReleases": "Offline & Alpha/Beta Releases",
         	"noPublicReleases": "There are currently no public releases available.",
         	"noOfflineReleases": "There are currently no offline & alpha/beta releases available.",
-        	"backToReleases": "Back to SNOMED Releases",
+        	"backToReleases": "Back to SNOMED International Releases",
         	"publicVersions": "Public Versions",
         	"noOnlineVersions": "There are currently no online versions of this release.",
         	"noOfflineVersions": "There are currently no offline & alpha/beta versions of this release."
