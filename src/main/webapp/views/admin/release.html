@@ -35,7 +35,7 @@
 					<tr>
 						<th>Version</th>
 						<th>Description</th>
-						<th>Files</th>
+						<th>Download Files</th>
 						<th>Date Published</th>
 						<th>
 							<i class="fa fa-cog"></i>
@@ -48,8 +48,9 @@
 					<td class="col-sm-2">{{releaseVersion.name}}</td>
 					<td class="col-sm-5" ng-bind-html="releaseVersion.description"></td>
 					<td class="col-sm-3">
-						<div ng-repeat="packageFile in releaseVersion.releaseFiles">
-							<p><i class="fa fa-file"> </i><a href="{{packageFile.downloadUrl}}" target="_blank"> {{packageFile.label}}</a></p>
+						<div ng-repeat="releaseFile in releaseVersion.releaseFiles">
+							<p><i class="fa fa-file"> </i>
+								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a></p>
 						</div>
 					</td>
 					<td class="col-sm-2">{{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</td>
@@ -81,7 +82,7 @@
 					<tr>
 						<th class="col-sm-2">Version</th>
 						<th class="col-sm-5">Description</th>
-						<th class="col-sm-3">Files </th>
+						<th class="col-sm-3">Download Files</th>
 						<th class="col-sm-2">Date Added</th>
 						<th >
 							<i class="fa fa-cog"></i>
@@ -102,7 +103,7 @@
 						<span class="release" ng-repeat="releaseFile in releaseVersion.releaseFiles">
 							<p>
 								<i class="fa fa-file"></i>
-								<a href="{{releaseFile.downloadUrl}}" target="_blank" ng-bind-html="releaseFile.label"></a>
+													<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a></p>
 								<button class="btn btn-danger btn-xs pull-right"
 									ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-times"></i> Remove
