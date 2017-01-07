@@ -50,7 +50,7 @@
 					<td class="col-sm-3">
 						<div ng-repeat="releaseFile in releaseVersion.releaseFiles">
 							<p><i class="fa fa-file"> </i>
-													<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a></p>
+													<span ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></span></p>
 						</div>
 					</td>
 					<td class="col-sm-2">{{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</td>
@@ -104,8 +104,7 @@
 						<span class="release" ng-repeat="releaseFile in releaseVersion.releaseFiles">
 							<p>
 								<i class="fa fa-file"></i>
-								<a href="{{releaseFile.downloadUrl}}" target="_blank" ng-bind-html="releaseFile.label"></a>
-								<button class="btn btn-danger btn-xs pull-right"
+								<span ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></span>								<button class="btn btn-danger btn-xs pull-right"
 									ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-times"></i> Remove
 								</button>
