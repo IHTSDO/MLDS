@@ -468,6 +468,10 @@
          "validation":{
             "other.required":"Un autre champ doit être rempli."
          },
+         "changeRequestedWarning": {
+             "title":"Besoin des Modifications",
+             "text":"Votre inscription doit être mise à jour avant de pouvoir être traitée. Veuillez consulter le courriel concernant les modifications nécessaires pour compléter votre inscription."
+         },
          "license.title":"Accord SNOMED CT",
          "license":"Licence SNOMED",
          "license.confirm":"J’accepte les termes de la licence.",
