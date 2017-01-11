@@ -259,7 +259,7 @@
             "NF": "Norfolk Island",
             "NG": "Nigeria",
             "NI": "Nicaragua",
-            "NL": "Netherlands",
+            "NL": "Nederland",
             "NO": "Norway",
             "NP": "Nepal",
             "NR": "Nauru",
@@ -467,6 +467,10 @@
             "typeOfAgreement": "Type Overeenkomst",
             "validation": {
                 "other.required": "Het veld ‘Andere’is vereist."
+            },
+            "changeRequestedWarning": {
+                "title":"Aanvulling gevraagd op uw licentieaanvraag",
+                "text":"Voordat uw licentieaanvraag verwerkt kan worden wordt u vriendelijk verzocht deze aan te passen. Lees voor de details s.v.p. de mail die u hierover ontvangen heeft."
             },
             "license.title": "SNOMED CT Overeenkomst",
             "license": "SNOMED CT Licentie",
@@ -1030,11 +1034,11 @@
         "landingPage": {
             "appName": "Member Licensing and Distribution Service",
             "purpose": "Deze service wordt verleend door SNOMED International en het SNOMED National Release Center. Het biedt organisaties en personen de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT. Zowel voor gebruik in lidstaten als voor gebruik in landen die geen lid zijn van SNOMED International.",
-            "furtherDetails": "Voor meer details, zie de <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-website</a> of de <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Veelgestelde vragen</a>.",
+            "furtherDetails": "Voor meer informatie over het SNOMED CT National Release Center: <a href=\" https://www.nictiz.nl/terminologiecentrum/snomed-ct-release-center\" target=\"_blank\">SNOMED CT NRC</a>. Voor meer details, zie de <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-website</a> of de <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Veelgestelde vragen</a>.",
             "loginHere": "log u hier in",
-            "member.purpose1": "Deze service wordt verleend door SNOMED International en het SNOMED National Release Center.",
-            "member.purpose2": "Het biedt u de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT. Zowel voor gebruik in lidstaten als voor gebruik in landen die geen lid zijn van SNOMED International.",
-            "member.purpose3": "Voor meer informatie over het SNOMED CT National Release Center bij Nictiz: <a href=\" https://www.nictiz.nl/terminologiecentrum/snomed-ct-release-center\" target=\"_blank\">SNOMED CT NRC Nederland</a>."
+            "member.purpose1": "Deze service wordt verleend door SNOMED International en het SNOMED National Release Center in ",
+            "member.purpose2": " Het biedt u de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT in ",
+            "member.purpose3": "."
         },
         "releases": {
             "title": "Beschikbare releases",

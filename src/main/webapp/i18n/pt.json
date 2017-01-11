@@ -468,6 +468,10 @@
 			"validation":{
 				"other.required":"É necessário outro campo."
 			},
+			"changeRequestedWarning": {
+					"title":"Affiliate Registration Needs Amendments",
+					"text":"Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration."
+			},
 			"license.title":"Acordo relativo ao SNOMED CT",
 			"license":"Licença SNOMED CT",
 			"license.confirm":"Concordo com a licença",
