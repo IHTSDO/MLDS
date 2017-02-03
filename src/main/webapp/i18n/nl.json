@@ -38,7 +38,7 @@
                 "affiliteUserManagement": "Gebruikersbeheer van licentiehouders",
                 "activityLog": "Activiteitenlog",
                 "packageManagement": "Softwarebeheer",
-                "licenseTC": "Licentie T&C",
+                "licenseTC": "Licentievoorwaarden",
                 "reportsExtracts": "Rapporten en overzichten",
                 "logout": "Afmelden"
             },
@@ -61,7 +61,7 @@
             "pl": "Pools",
             "pt": "Portugees",
             "ru": "Russisch",
-            "se": "Zweedse"
+            "se": "Zweeds"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -105,7 +105,7 @@
             "AI": "Anguilla",
             "AL": "Albania",
             "AM": "Armenia",
-            "AN": "Netherlands Antilles",
+            "AN": "Nederlandse Antillen",
             "AO": "Angola",
             "AQ": "Australian Antarctic Territory",
             "AR": "Argentina",
@@ -118,7 +118,7 @@
             "BA": "Bosnia and Herzegovina",
             "BB": "Barbados",
             "BD": "Bangladesh",
-            "BE": "Belgium",
+            "BE": "België",
             "BF": "Burkina Faso",
             "BG": "Bulgaria",
             "BH": "Bahrain",
@@ -346,10 +346,10 @@
             "username": "Gebruikersnaam",
             "username.placeholder": "Uw gebruikersnaam",
             "name.placeholder": "Uw naam",
-            "newpassword": "Nieuw wachtwoord",
+            "newpassword": "Wachtwoord",
             "newpassword.placeholder": "Nieuw wachtwoord",
-            "confirmpassword": "Bevestiging nieuw wachtwoord",
-            "confirmpassword.placeholder": "Bevestig het nieuw wachtwoord",
+            "confirmpassword": "Bevestiging wachtwoord",
+            "confirmpassword.placeholder": "Bevestig hetwachtwoord",
             "email": "E-mail",
             "email.placeholder": "Uw e-mailadres",
             "country": "Land van verblijf"
@@ -357,7 +357,7 @@
         "messages": {
             "info": {
                 "authenticated": "Als u u wilt <a href=\"#/login\">identificeren</a>, kunt u gebruik maken van de default accounts:<br/>- Administrator (login=\"admin\" en wachtwoord=\"admin\") <br/>- Gebruiker (login=\"user\" en wachtwoord=\"user\").",
-                "register": "U heeft nog geen account ? <a href=\"#/register\">Registreer een nieuwe account</a>"
+                "register": "Heeft u nog geen account? <a href=\"#/register\">Registreer</a>"
             },
             "error": {
                 "dontmatch": "Het wachtwoord en de bevestiging ervan komen niet overeen!",
@@ -463,7 +463,7 @@
         "affiliateRegistration": {
             "title": "Registratie licentiehouder",
             "usageType": "Type gebruik",
-            "conditions": "Gelieve te selecteren onder welke omstandigheden het product gebruikt zal worden",
+            "conditions": "Selecteren s.v.p. onder welke omstandigheden het product gebruikt zal worden",
             "typeOfAgreement": "Type Overeenkomst",
             "validation": {
                 "other.required": "Het veld ‘Andere’is vereist."
@@ -478,8 +478,8 @@
             "license.error": "Om u te kunnen registreren, moet u de bepalingen en voorwaarden van de SNOMED CT Licentie, waarin ook de mogelijke te betalen vergoedingen vermeld staan, aanvaarden."
         },
         "affiliateRegistrationReview": {
-            "title": "Aanvraag tot herziening",
-            "editApp": "Aanvraag tot wijziging"
+            "title": "Aanvraag voor wijziging",
+            "editApp": "Aanvraag voor wijziging"
         }
     },
     "login": {
@@ -753,7 +753,7 @@
             "PRIVATE_HEALTH_ORGANIZATION": "Commerciële zorginstelling",
             "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Organisatie voor Onderzoek en Ontwikkeling",
             "HEALTHERCARE_APPLICATION_DEVELOPER": "Zorg ICT leverancier",
-            "GENERAL_PRACTITIONER_PRACTICE": "Huisartspraktijk",
+            "GENERAL_PRACTITIONER_PRACTICE": "1e lijn zorgpraktijken",
             "EDUCATIONAL_INSTITUTE": "Onderwijsinstelling",
             "OTHER": "Anders"
         },
@@ -789,7 +789,7 @@
             "CHANGE_REQUESTED": "Wijziging gevraagd",
             "SUBMITTED": "Ingediend",
             "RESUBMITTED": "Opnieuw ingediend",
-            "REVIEW_REQUESTED": "Herziening gevraagd",
+            "REVIEW_REQUESTED": "Wijziging gevraagd",
             "APPROVED": "Goedgekeurd",
             "REJECTED": "Geweigerd"
         }
@@ -800,7 +800,7 @@
             "CHANGE_REQUESTED": "Wijziging gevraagd",
             "SUBMITTED": "Ingediend",
             "RESUBMITTED": "Opnieuw ingediend",
-            "REVIEW_REQUESTED": "Herziening gevraagd",
+            "REVIEW_REQUESTED": "Wijziging gevraagd",
             "PENDING_INVOICE": "Openstaande factuur",
             "INVOICE_SENT": "Factuur opgestuurd",
             "PAID": "Betaald",
@@ -829,7 +829,7 @@
             "homeCountry": "Land van domicilie",
             "member": "Lid",
             "email": "E-mail",
-            "review": "Herziening"
+            "review": "Wijziging"
         }
     },
     "affiliateManagement": {
@@ -839,7 +839,7 @@
         "title": "Beheer van de Releases"
     },
     "reviewUsageReports": {
-        "title": "Herziening gebruiksrapportage"
+        "title": "Wijzigen gebruiksrapportage"
     },
     "memberManagement": {
         "title": "Ledenbeheer"
@@ -877,7 +877,7 @@
             "messages": {
                 "success": {
                     "title": "Gebruikersaccount werd aangemaakt.",
-                    "body": "Het systeem zal u over enkele ogenblikken vragen om uw registratieproces verder te zetten. Als u niet automatisch wordt doorverwezen, {{linkbegin}}klik dan hier.{{linkend}}"
+                    "body": "Het systeem zal u over enkele ogenblikken vragen om uw registratieproces verder te zetten. Als u niet automatisch wordt doorverwezen, {{linkbegin}}klik hier.{{linkend}}"
                 },
                 "error": {
                     "title": "Uw gebruikersaccount kon niet geactiveerd worden.",
@@ -886,7 +886,7 @@
             }
         },
         "applicationSummary": {
-            "title": "Samenvatting Aanvraag",
+            "title": "Samenvatting aanvraag",
             "ext.title": "Info Uitbreidingsaanvraag",
             "reason": "Reden",
             "affiliateInfo": "Info licentiehouder",
@@ -1028,17 +1028,17 @@
         "footer": {
             "tos": "Voorwaarden dienstverlening",
             "pp": "Privacybeleid",
-            "register": "Register uw implementatie",
+            "register": "Registeer uw SNOMED CT implementatie",
             "contact": "Contact"
         },
         "landingPage": {
-            "appName": "Member Licensing and Distribution Service",
+            "appName": "Member Licensing and Distribution Service (MLDS)",
             "purpose": "Deze service wordt verleend door SNOMED International en het SNOMED National Release Center. Het biedt organisaties en personen de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT. Zowel voor gebruik in lidstaten als voor gebruik in landen die geen lid zijn van SNOMED International.",
-            "furtherDetails": "Voor meer informatie over het SNOMED CT National Release Center: <a href=\" https://www.nictiz.nl/terminologiecentrum/snomed-ct-release-center\" target=\"_blank\">SNOMED CT NRC</a>. Of kijk op de <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-website</a> of de <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Veelgestelde vragen</a>.",
-            "loginHere": "log u hier in",
+            "furtherDetails": "Voor meer details, zie de <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-website</a> of de <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Veelgestelde vragen</a>.",
+            "loginHere": "log hier in",
             "member.purpose1": "Deze service wordt verleend door SNOMED International en het SNOMED National Release Center in ",
-            "member.purpose2": ". Het biedt u de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT in ",
-            "member.purpose3": "."
+             "member.purpose2": ". Het biedt u de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT in ",
+             "member.purpose3": "."
         },
         "releases": {
             "title": "Beschikbare releases",
@@ -1048,7 +1048,7 @@
             "notAvailable": "Er zijn momenteel geen releases beschikbaar",
             "releasePackageLicense": "Release Licentie",
             "reviewLicense": "Leest u svp. de volgende licentievoorwaarden en accepteer deze voor downloaden van de release:",
-            "agreeToLicense": "Ik stem in met de licentievoorwaarden",
+            "agreeToLicense": "Ik ga akkoord met de licentievoorwaarden",
             "warning": {
                 "deactivated": "Account gedeactiveerd",
                 "pending": "Openstaande factuur",
@@ -1068,11 +1068,11 @@
             "resetEmailSent": "Wachtwoord reset proces is gestart. Controleer uw e-mail svp."
         },
         "usage": {
-            "title": "Verklaring van gebruik",
-            "instructions": "Gelieve een verklaring van gebruik in te vullen voor de geselecteerde periode.",
+            "title": "Gebruiksverklaring",
+            "instructions": "Gelieve een Gebruiksverklaring in te vullen voor de geselecteerde periode.",
             "modal": {
                 "title": "Gebruiksverklaring aanmaken",
-                "instructions": "Gelieve uw gebruiksverklaring in te vullen voor alle periodes. Gelieve rapporten toe te voegen voor vroeger en huidig gebruik.",
+                "instructions": "Gelieve uw Gebruiksverklaring in te vullen voor alle periodes. Gelieve rapporten toe te voegen voor vroeger en huidig gebruik.",
                 "period": "Aangifteperiode"
             },
             "submit": {
@@ -1101,7 +1101,7 @@
             "impStatus": "Implementatiestatus",
             "countries": {
                 "title": "Landen waar u SNOMED CT gebruikt",
-                "subTitle": "Selecteer svp. landen waar u SNOMED CT wilt gebruiken  EN  die geen lid van SNOMED CT.",
+                "subTitle": "Selecteer s.v.p. landen waar u SNOMED CT wilt gebruiken  EN  die geen lid van SNOMED  International zijn.",
                 "list": "Lijst van landen",
                 "search": "Zoek Landen",
                 "homeCountry": "Land van domicilie",
@@ -1119,7 +1119,7 @@
                 "started": "Begindatum gebruik",
                 "finished": "Einddatum gebruik",
                 "practices.title": "Praktijk(en)",
-                "practices": "Praktijken",
+                "practices": "1e lijn zorgpraktijken",
                 "dataAnalysis": {
                     "title": "Gegevensanalyse",
                     "staff": "Zorgverleners",
@@ -1129,7 +1129,7 @@
                     "systems": "Systemen",
                     "data": "Data",
                     "provideStaff": "Hoeveel ziekenhuizen (Incl ZBC's)?",
-                    "usingDCSNotHosp": "Hoeveel zorginstellingen zijn geen ziekenhuizen",
+                    "usingDCSNotHosp": "Hoeveel zorginstellingen excl. ziekenhuizen",
                     "usingDCSNotPract": "Hoeveel overige gebruikersorganisaties",
                     "howManyDAS": "Hoeveel data-analyse systemen?"
                 },
@@ -1142,7 +1142,7 @@
                     "addPractices": "Gelieve toe te voegen hoeveel 1e lijn zorgpraktijken gebruik maken van SNOMED CT"
                 }
             },
-            "otherActivities": "Andere activiteiten in landen die GEEN lid zijn van SNOMED International.",
+            "otherActivities": "Activiteiten in landen die GEEN lid zijn van SNOMED International.",
             "notificationRequired": "De licentiehouders moeten de SNOMED International op de hoogte brengen alvorens ze activiteiten aanvatten die niet binnen de bestaande categorieën vallen, waarna de SNOMED International de geschikte structuur van de vergoedingen zal bepalen voor de activiteit in kwestie.",
             "pleaseDescribe": "Gelieve de activiteit hieronder te beschrijven.",
             "submitFor": "Dien de Verklaring in voor"
