@@ -1036,9 +1036,9 @@
             "purpose": "Deze service wordt verleend door SNOMED International en het SNOMED National Release Center. Het biedt organisaties en personen de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT. Zowel voor gebruik in lidstaten als voor gebruik in landen die geen lid zijn van SNOMED International.",
             "furtherDetails": "Voor meer details, zie de <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-website</a> of de <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Veelgestelde vragen</a>.",
             "loginHere": "log hier in",
-            "member.purpose1": "[Dutch translation TBC] MLDS is a tool used by ",
-            "member.purpose2": " NRC to manage the Affiliate Licensing of SNOMED CT including new applications, renewals and usage reporting within ",
-            "member.purpose3": " and where relevant in non member countries."
+            "member.purpose1": "Deze service wordt verleend door SNOMED International en het SNOMED National Release Center in ",
+             "member.purpose2": ". Het biedt u de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT in ",
+             "member.purpose3": "."
         },
         "releases": {
             "title": "Beschikbare releases",
