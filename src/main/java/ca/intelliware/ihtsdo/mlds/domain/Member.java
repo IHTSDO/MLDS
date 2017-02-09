@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Member extends BaseEntity {
 	public static final String KEY_IHTSDO = "IHTSDO";
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name="member_id")
@@ -30,34 +30,34 @@ public class Member extends BaseEntity {
 
     @Column(name="created_at")
     Instant createdAt = Instant.now();
-    
+
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="license_file")
     File licenseFile;
-    
+
     @Column(name="license_name")
     String licenseName;
-    
+
     @Column(name="license_version")
     String licenseVersion;
-    
+
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="logo_file")
 	private
-    File logoFile;    
-    
+    File logoFile;
+
     private String name;
-    
+
     @Column(name="staff_notification_email")
     private String staffNotificationEmail;
-    
+
     @Column(name="promote_packages")
     private Boolean promotePackages;
-    
+
 	public Member() {}
-	
+
 	public Member(String key, long memberId) {
 		this.key = key;
 		this.memberId = memberId;
@@ -76,7 +76,7 @@ public class Member extends BaseEntity {
 	 * @param key
 	 */
 	public void setKey(String key) {
-		this.key = key;
+		this.key = "'"+key+"'";
 	}
 	
 	public Instant getCreatedAt() {
@@ -153,5 +153,5 @@ public class Member extends BaseEntity {
 	public void setPromotePackages(Boolean promotePackages) {
 		this.promotePackages = promotePackages;
 	}
-    
+
 }

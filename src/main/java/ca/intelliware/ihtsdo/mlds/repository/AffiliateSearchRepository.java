@@ -47,8 +47,8 @@ public class AffiliateSearchRepository {
 	}
 
 	public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, StandingState standingState, boolean standingStateNot, Pageable pageable) {
-		Query query = buildQuery(q, "'"+homeMember+"'", standingState, standingStateNot);
-		
+		Query query = buildQuery(q, homeMember, standingState, standingStateNot);
+
 		FullTextQuery ftQuery = getFullTextEntityManager().createFullTextQuery(query, Affiliate.class);
 
 		ftQuery.setFirstResult(pageableUtil.getStartPosition(pageable));
