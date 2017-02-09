@@ -123,7 +123,7 @@ public class AffiliateSearchRepository {
 
 	Query buildQueryMatchingHomeMember(QueryBuilder queryBuilder, Member homeMember) {
 		Query homeMemberQuery = queryBuilder.keyword()
-				.onField("homeMember").matching(homeMember.getKey())
+				.onField("homeMember").matching(new String("'"+homeMember.getKey()+"'")
 				.createQuery();
 		return homeMemberQuery;
 	}
