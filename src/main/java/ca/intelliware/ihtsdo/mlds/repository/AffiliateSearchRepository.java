@@ -6,7 +6,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.SearchFactory;
 import org.hibernate.search.errors.EmptyQueryException;
@@ -123,9 +122,8 @@ public class AffiliateSearchRepository {
 	}
 
 	Query buildQueryMatchingHomeMember(QueryBuilder queryBuilder, Member homeMember) {
-		String memberKey = StringEscapeUtils.escapeSQL(homeMember.getKey());
 		Query homeMemberQuery = queryBuilder.keyword()
-				.onField("homeMember").matching(memberKey)
+				.onField("homeMember").matching(new String("\""+homeMember.getKey()+"\""))
 				.createQuery();
 		return homeMemberQuery;
 	}
