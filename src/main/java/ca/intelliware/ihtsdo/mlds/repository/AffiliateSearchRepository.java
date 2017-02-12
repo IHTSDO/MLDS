@@ -28,7 +28,7 @@ import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 
 /**
  * Turn on trace level logging to get lucene score and explain info on query.
- * 
+ *
  * @author buckleym
  */
 @Service
@@ -36,47 +36,47 @@ public class AffiliateSearchRepository {
 	private static final String FIELD_ALL = "ALL";
 
 	static final Logger LOG = LoggerFactory.getLogger(AffiliateSearchRepository.class);
-	
+
 	@Resource
 	EntityManager entityManager;
-	
+
 	PageableUtil pageableUtil = new PageableUtil();
-	
+
 	public void reindex(Affiliate a) {
 		getFullTextEntityManager().index(a);
 	}
 
 	public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, StandingState standingState, boolean standingStateNot, Pageable pageable) {
 		Query query = buildQuery(q, homeMember, standingState, standingStateNot);
-		
+    LOG.debug("Query: {}", query);
 		FullTextQuery ftQuery = getFullTextEntityManager().createFullTextQuery(query, Affiliate.class);
-		
+
 		ftQuery.setFirstResult(pageableUtil.getStartPosition(pageable));
 		ftQuery.setMaxResults(pageable.getPageSize());
-		
+
 		@SuppressWarnings("unchecked")
 		List<Affiliate> resultList = ftQuery.getResultList();
 
 		dumpDebugInfoWithScores(ftQuery);
-		
+
 		LOG.debug("Found {} results for query: {}", ftQuery.getResultSize(), q);
-		
+
 		return new PageImpl<>(resultList, pageable, ftQuery.getResultSize());
 	}
 
 	private Query buildQuery(String q, Member homeMember, StandingState standingState, boolean standingStateNot) {
 		QueryBuilder queryBuilder = getSearchFactory().buildQueryBuilder()
 				.forEntity(Affiliate.class).get();
-		
+
 		Query textQuery = buildWildcardQueryForTokens(queryBuilder, q);
-		
+
 		if (homeMember == null && standingState == null) {
 			return textQuery;
 		} else {
 			BooleanJunction <MustJunction> building = queryBuilder
 					.bool()
 					.must(textQuery);
-			
+
 			if (homeMember != null) {
 				Query homeMemberQuery = buildQueryMatchingHomeMember(queryBuilder, homeMember);
 				building = building.must(homeMemberQuery);
@@ -85,7 +85,7 @@ public class AffiliateSearchRepository {
 				Query standingStateQuery = buildQueryMatchingStandingState(queryBuilder, standingState);
 				MustJunction standingStateBuilding = building.must(standingStateQuery);
 				if (standingStateNot) {
-					// Caught up in .not() returning boolean rather than must... 
+					// Caught up in .not() returning boolean rather than must...
 					building = standingStateBuilding.not();
 				} else {
 					building = standingStateBuilding;
@@ -106,18 +106,18 @@ public class AffiliateSearchRepository {
 	@SuppressWarnings("unchecked")
 	void dumpDebugInfoWithScores(FullTextQuery ftQuery) {
 		if (LOG.isTraceEnabled()) {
-			
+
 			ftQuery.setProjection(
 					FullTextQuery.DOCUMENT_ID,
 					FullTextQuery.SCORE,
 					FullTextQuery.EXPLANATION,
 					"affiliateDetails.organizationName"
 					);
-			
+
 			for (Object[] projection : (List<Object[]>) ftQuery.getResultList()) {
 				LOG.trace("Projection: {}",Arrays.asList(projection));
 			}
-			
+
 		}
 	}
 
@@ -137,9 +137,9 @@ public class AffiliateSearchRepository {
 
 	Query buildWildcardQueryForTokens(QueryBuilder queryBuilder, String q) {
 		BooleanJunction<?> bool = queryBuilder.bool();
-		
+
 		//Analyzer searchtokenAnalyzer = getSearchFactory().getAnalyzer("searchtokenanalyzer");
-		
+
 		try {
 			// We're letting the default analyzer tokenize the main query for the ALL field
 			Query allKeywordQuery = queryBuilder.keyword()
@@ -180,7 +180,7 @@ public class AffiliateSearchRepository {
 					.createQuery());
 		}
 		Query textQuery = bool.createQuery();
-		
+
 		return textQuery;
 	}
 
