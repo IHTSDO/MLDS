@@ -28,7 +28,7 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 	Affiliate findByImportKeyAndHomeMember(String importKey, Member member);
 
 	@Query(value="SELECT a from Affiliate a where "
-			+ "a.homeMember = ':homeMember' "
+			+ "a.homeMember = :homeMember "
 			+ "and (LOWER(a.application.affiliateDetails.lastName) like :q "
 				+ "OR LOWER(a.application.affiliateDetails.firstName) like :q "
 				+ "OR LOWER(a.application.affiliateDetails.organizationName) like :q "
@@ -45,8 +45,8 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 	Page<Affiliate> findByTextQuery(@Param("q") String q, Pageable pageable);
 
 	@Query(value = "SELECT a FROM Affiliate a LEFT JOIN a.applications b"
-			+ " WHERE a.homeMember = ':homeMember' "
-			+ " OR b.member = ':homeMember' ")
+			+ " WHERE a.homeMember = :homeMember "
+			+ " OR b.member = :homeMember ")
 	Page<Affiliate> findByHomeMember(@Param("homeMember") Member homeMember, Pageable pageable);
 
 	Iterable<Affiliate> findByStandingStateInAndCreatorNotNull(Collection<StandingState> standingState);
@@ -68,7 +68,7 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 			+ "  OR LOWER(a.affiliateDetails.alternateEmail) like '%' || :q || '%' "
 			+ "  OR LOWER(a.affiliateDetails.thirdEmail) like '%' || :q || '%' "
 			+ ")"
-			+ "AND b.member = ':member' "
+			+ "AND b.member = :member "
 			+ "AND b.approvalState = ca.intelliware.ihtsdo.mlds.domain.ApprovalState.APPROVED "
 			)
 	Page<Affiliate> findForCheck(@Param("affiliateIdOptional") long affiliateIdOptional, @Param("member") Member member, @Param("q") String q, Pageable pageable);
@@ -76,7 +76,7 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 	@Query(value="SELECT DISTINCT a from Affiliate a INNER JOIN a.applications b "
 			+ "WHERE  a.creator IS NOT NULL "
 			+ "AND a.standingState IN :standingStates "
-			+ "AND b.member = ':member' "
+			+ "AND b.member = :member "
 			+ "AND b.approvalState = ca.intelliware.ihtsdo.mlds.domain.ApprovalState.APPROVED "
 			)
 	Iterable<Affiliate> findByUsersAndStandingStateInAndApprovedMembership(@Param("standingStates") List<StandingState> standingStates, @Param("member") Member member);
@@ -91,8 +91,8 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 	@Query(value="SELECT a from Affiliate a  "
 			+ "WHERE  a.creator IS NOT NULL "
 			+ "AND a.standingState IN :standingStates "
-			+ "AND a.homeMember = ':member' "
-			+ "AND a.application.member = ':member' "
+			+ "AND a.homeMember = :member "
+			+ "AND a.application.member = :member "
 			+ "AND a.application.approvalState = ca.intelliware.ihtsdo.mlds.domain.ApprovalState.APPROVED "
 			)
 	Iterable<Affiliate> findByUsersAndStandingStateInAndApprovedHomeMembership(@Param("standingStates") List<StandingState> standingStates,  @Param("member") Member member);
