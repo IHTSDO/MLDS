@@ -1,0 +1,1214 @@
+{
+    "global": {
+        "title": "mlds",
+        "browsehappy": "Du har<strong>en eldre versjon av</strong> nettleser. Vennligst<a href=\"http://browsehappy.com/?locale=en\">oppdater nettlseseren din</a> for en bedre brukeropplevelse.",
+        "menu": {
+            "home": "Hjem",
+            "account": {
+                "main": "Konto",
+                "contactInfo": "Kontaktinformasjon",
+                "password": "Passord",
+                "sessions": "Sessioner",
+                "tracker": "Brukerlogging",
+                "metrics": "Metrisk",
+                "logs": "Logger",
+                "audits": "Revisjoner",
+                "login": "Innlogging",
+                "logout": "Logg ut",
+                "apidocs": "API",
+                "register": "Registrer deg",
+                "affiliates": "Lisenshaver",
+                "dashboard": "Oversikt"
+            },
+            "dashboard": "Oversikt",
+            "help": "Hjelp",
+            "privacyPolicy": "Policy personsensitive data",
+            "usageReports": "Brukerrapporter",
+            "applications": "Søknader",
+            "releasePackages": "Releasepakke",
+            "affiliate": {
+                "accountInformation": "Kontoinformasjon",
+                "changePassword": "Bytt passord",
+                "logout": "Logg ut"
+            },
+            "staff": {
+                "dashboard": "Oversikt",
+                "pendingApplications": "Søknader under behandling",
+                "usageReports": "Brukerrapporter",
+                "affiliteUserManagement": "Lisensadministrasjon",
+                "activityLog": "Aktivitetslogg",
+                "packageManagement": "Pakkehåndtering",
+                "licenseTC": "Brukervilkår",
+                "reportsExtracts": "Rapporter og utdrag",
+                "logout": "Logg ut"
+            },
+            "admin": {
+                "importAffiliateRecords": "Importer lisensinformasjon",
+                "manageBlacklist": "HåndterSpam",
+                "nationalRegistrationList": "Nasjonal registreringsliste"
+            },
+            "language": "Språk",
+            "cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/43e68e5dbb274c2d65ae9b31deb30d2a.js\"></script>"
+        },
+        "language": {
+            "da": "dansk",
+            "ee": "estisk",
+            "en": "engelsk",
+            "es": "spansk",
+            "fr": "fransk",
+            "de": "tysk",
+            "nl": "nederlandsk",
+            "pl": "polsk",
+            "pt": "portugisisk",
+            "ru": "russisk",
+            "se": "svensk"
+        },
+        "member": {
+            "IHTSDO": "SNOMED International",
+            "AU": "Australia",
+            "BE": "Belgia",
+            "BN": "Brunei",
+            "CA": "Canada",
+            "CH": "Sveits",
+            "CL": "Chile",
+            "CZ": "Tjekkia",
+            "DK": "Danmark",
+            "EE": "Estland",
+            "HK": "Hong Kong, Kina",
+            "IS": "Island",
+            "IE": "Irland",
+            "NO": "Norge",
+            "IN": "India",
+            "IL": "Israel",
+            "LT": "Litauen",
+            "MY": "Malaysia",
+            "MT": "Malta",
+            "NL": "Nederland",
+            "NZ": "New Zealand",
+            "PL": "Polen",
+            "PT": "Portugal",
+            "SG": "Singapore",
+            "SK": "Slovakia",
+            "SI": "Slovenia",
+            "ES": "Spania",
+            "SE": "Sverige",
+            "GB": "Storbritannia",
+            "US": "USA",
+            "UY": "Uruguay"
+        },
+        "country": {
+            "AC": "Ascension",
+            "AD": "Andorra",
+            "AE": "De forente arabiske emirater",
+            "AF": "Afghanistan",
+            "AG": "Antigua og Barbuda",
+            "AI": "Anguilla",
+            "AL": "Albania",
+            "AM": "Armenia",
+            "AN": "De nederlandske antiller",
+            "AO": "Angola",
+            "AQ": "Australsk Antarktis",
+            "AR": "Argentina",
+            "AS": "Amerikansk Samoa",
+            "AT": "Østerrike",
+            "AU": "Australia",
+            "AW": "Aruba",
+            "AX": "Åland",
+            "AZ": "Aserbajdsjan",
+            "BA": "Bosnia-Hercegovina",
+            "BB": "Barbados",
+            "BD": "Bangladesh",
+            "BE": "Belgia",
+            "BF": "Burkina Faso",
+            "BG": "Bulgaria",
+            "BH": "Bahrain",
+            "BI": "Burundi",
+            "BJ": "Benin",
+            "BM": "Bermuda",
+            "BN": "Brunei",
+            "BO": "Bolivia",
+            "BR": "Brasil",
+            "BS": "Bahamas",
+            "BT": "Bhutan",
+            "BV": "Bouvetøyen",
+            "BW": "Botswana",
+            "BY": "Hviterussland",
+            "BZ": "Belize",
+            "CA": "Canada",
+            "CC": "Kokosøyene",
+            "CD": "Den demokratiske republikken Kongo",
+            "CF": "Den sentralafrikanske republikk",
+            "CG": "Republikken Kongo",
+            "CH": "Sveits",
+            "CI": "Elfenbenskysten",
+            "CK": "Cookøyene",
+            "CL": "Chile",
+            "CM": "Kamerun",
+            "CN": "Folkerepublikken Kina",
+            "CO": "Colombia",
+            "CR": "Costa Rica",
+            "CU": "Cuba",
+            "CV": "Kapp Verde",
+            "CX": "Christmasøya",
+            "CY": "Kypros",
+            "CZ": "Tjekkia",
+            "DE": "Tyskland",
+            "DJ": "Djibouti",
+            "DK": "Danmark",
+            "DM": "Dominica",
+            "DO": "Den dominikanske republikk",
+            "DZ": "Algerie",
+            "EC": "Ecuador",
+            "EE": "Estland",
+            "EG": "Egypt",
+            "ER": "Eritrea",
+            "ES": "Spania",
+            "ET": "Etiopia",
+            "FI": "Finland",
+            "FJ": "Fiji",
+            "FK": "Falklandsøyene",
+            "FM": "Mikronesia",
+            "FO": "Færøyene",
+            "FR": "Frankrike",
+            "GA": "Gabon",
+            "GB": "Storbritannia",
+            "GD": "Grenada",
+            "GE": "Georgia",
+            "GF": "Fransk Guyana",
+            "GG": "Guernsey",
+            "GH": "Ghana",
+            "GI": "Gibraltar",
+            "GL": "Grønland",
+            "GM": "Gambia",
+            "GN": "Guinea",
+            "GP": "Guadeloupe",
+            "GQ": "Ekvatorial-Guinea",
+            "GR": "Helles",
+            "GS": "Sør-Georgia og Sør-Sandwichøyene",
+            "GT": "Guatemala",
+            "GU": "Guam",
+            "GW": "Guinea-Bissau",
+            "GY": "Guyana",
+            "HK": "Hong Kong",
+            "HM": "Heard- og McDonaldøyene",
+            "HN": "Honduras",
+            "HR": "Kroatia",
+            "HT": "Haiti",
+            "HU": "Ungarn",
+            "ID": "Indonesia",
+            "IE": "Irland",
+            "IL": "Israel",
+            "IM": "Isle of Man",
+            "IN": "India",
+            "IO": "Det brittiska territoriet i Indiahavet",
+            "IQ": "Irak",
+            "IR": "Iran",
+            "IS": "Island",
+            "IT": "Italia",
+            "JE": "Jersey",
+            "JM": "Jamaica",
+            "JO": "Jordan",
+            "JP": "Japan",
+            "KE": "Kenya",
+            "KG": "Kirgisistan",
+            "KH": "Kambodsja",
+            "KI": "Kiribati",
+            "KM": "Komorene",
+            "KN": "Saint Kitts og Nevis",
+            "KP": "Nord-Korea",
+            "KR": "Syd-Korea",
+            "KW": "Kuwait",
+            "KY": "Caymanøyene",
+            "KZ": "Kasakhstan",
+            "LA": "Laos",
+            "LB": "Libanon",
+            "LC": "Saint Lucia",
+            "LI": "Liechtenstein",
+            "LK": "Sri Lanka",
+            "LR": "Liberia",
+            "LS": "Lesotho",
+            "LT": "Litauen",
+            "LU": "Luxembourg",
+            "LV": "Latvia",
+            "LY": "Libya",
+            "MA": "Marokko",
+            "MC": "Monaco",
+            "MD": "Moldavia",
+            "ME": "Montenegro",
+            "MG": "Madagaskar",
+            "MH": "Marshalløyene",
+            "MK": "Makedonia",
+            "ML": "Mali",
+            "MM": "Burma",
+            "MN": "Mongolia",
+            "MO": "Macao",
+            "MP": "Nord-Marianene",
+            "MQ": "Martinique",
+            "MR": "Mauritius",
+            "MS": "Montserrat",
+            "MT": "Malta",
+            "MU": "Mauritius",
+            "MV": "Maldivene",
+            "MW": "Malawi",
+            "MX": "Mexico",
+            "MY": "Malaysia",
+            "MZ": "Mosambik",
+            "NA": "Namibia",
+            "NC": "Ny-Caledonia",
+            "NE": "Niger",
+            "NF": "Norfolkøya",
+            "NG": "Nigeria",
+            "NI": "Nicaragua",
+            "NL": "Nederland",
+            "NO": "Norge",
+            "NP": "Nepal",
+            "NR": "Nauru",
+            "NU": "Niue",
+            "NZ": "New Zealand",
+            "OM": "Oman",
+            "PA": "Panama",
+            "PE": "Peru",
+            "PF": "Fransk Polynesia",
+            "PG": "Papua Ny-Guinea",
+            "PH": "Filippinene",
+            "PK": "Pakistan",
+            "PL": "Polen",
+            "PM": "Saint-Pierre og Miquelon",
+            "PN": "Pitcairnøyene",
+            "PR": "Puerto Rico",
+            "PT": "Portugal",
+            "PW": "Palau",
+            "PY": "Paraguay",
+            "QA": "Qatar",
+            "RE": "Réunion",
+            "RO": "Romania",
+            "RS": "Serbia",
+            "RU": "Russland",
+            "RW": "Rwanda",
+            "SA": "Saudi-Arabia",
+            "SB": "Salomonøyene",
+            "SC": "Seychellene",
+            "SD": "Sudan",
+            "SE": "Sverige",
+            "SG": "Singapore",
+            "SH": "St. Helena",
+            "SI": "Slovenia",
+            "SJ": "Svalbard",
+            "SK": "Slovakia",
+            "SL": "Sierra Leone",
+            "SM": "San Marino",
+            "SN": "Senegal",
+            "SO": "Somalia",
+            "SR": "Surinam",
+            "ST": "São Tomé og Príncipe",
+            "SV": "El Salvador",
+            "SY": "Syria",
+            "SZ": "Swaziland",
+            "TA": "Tristan da Cunha",
+            "TC": "Turks- og Caicosøyene",
+            "TD": "Tsjad",
+            "TF": "De franske sørterritorier",
+            "TG": "Togo",
+            "TH": "Thailand",
+            "TJ": "Tadsjikistan",
+            "TK": "Tokelau",
+            "TL": "Østtimor",
+            "TM": "Turkmenistan",
+            "TN": "Tunisia",
+            "TO": "Tonga",
+            "TR": "Tyrkia",
+            "TT": "Trinidad og Tobago",
+            "TV": "Tuvalu",
+            "TW": "Taiwan",
+            "TZ": "Tanzania",
+            "UA": "Ukraina",
+            "UG": "Uganda",
+            "UM": "Wake Island",
+            "US": "USA",
+            "UY": "Uruguay",
+            "UZ": "Usbekistan",
+            "VA": "Vatikanstaten",
+            "VC": "Saint Vinsent og Grenadinene",
+            "VE": "Venezuela",
+            "VG": "De britiske Jomfruøyer",
+            "VI": "De amerikanske Jomfruøyer",
+            "VN": "Vietnam",
+            "VU": "Vanuatu",
+            "WF": "Wallis- og Futunaøyene",
+            "WS": "Samoa",
+            "YE": "Jemen",
+            "YT": "Mayotte",
+            "ZA": "Sør-Afrika",
+            "ZM": "Zambia",
+            "ZW": "Zimbabwe"
+        },
+        "form": {
+            "username": "Logg inn",
+            "username.placeholder": "Din inlogging",
+            "name.placeholder": "Ditt navn",
+            "newpassword": "Nytt passord",
+            "newpassword.placeholder": "Nytt passord",
+            "confirmpassword": "Bekreft det nye passordet",
+            "confirmpassword.placeholder": "Bekreft det nye passordet",
+            "email": "E-post adresse",
+            "email.placeholder": "Din e-post adresse",
+            "country": "Hjemland"
+        },
+        "messages": {
+            "info": {
+                "authenticated": "Om du vil <a href=\"#/login\">verifiera</a> kan du forsøke med standardkontoen:<br/>- Administrator (login=\"admin\" og passord=\"admin\") <br/>- User (login=\"user\" og passord=\"user\").",
+                "register": "Har du ingen konto? <a href=\"#/register\">Registrerny konto</a>"
+            },
+            "error": {
+                "dontmatch": "Passordet stemmer ikke med tilsendt passord!",
+                "server": "Det har oppstått en feil. Prøv på nytt."
+            },
+            "validate": {
+                "newpassword": {
+                    "required": "Du må angi passordet ditt.",
+                    "minlength": "Ditt passord må bestå av minimum 5 tegn",
+                    "maxlength": "Ditt passord kan inneholde maksimum 50 tegn",
+                    "strength": "Passordstyrke:"
+                },
+                "confirmpassword": {
+                    "required": "Bekreft passord",
+                    "minlength": "Bekreftelsen må være på minimum 5 tegn",
+                    "maxlength": "Bekreftelsen kan maksimum inneholde 50 tegn",
+                    "match": "Bekreftelsen stemmer ikke med aktiveringskoden"
+                },
+                "email": {
+                    "required": "Du må angi din e-postadresse",
+                    "invalid": "Din e-postadresse er ugyldig",
+                    "minlength": "Din e-postadresse må inneholde minst 1 tegn",
+                    "maxlength": "Din e-postadresse kan ha maks 50 tegn "
+                },
+                "confirmemail": {
+                    "match": "Din e-postbekreftelse stemmer ikke overense med angitt e-post"
+                }
+            }
+        },
+        "word": {
+            "or": "eller",
+            "add": "Legg til",
+            "edit": "Rediger",
+            "name": "Navn",
+            "cancel": "Avbryt",
+            "note": "Kommentar",
+            "notes": "Kommentarer",
+            "close": "lukk",
+            "slett": "Fjern",
+            "update": "Oppdater",
+            "from": "fra",
+            "ok": "Ok",
+            "submit": "Send",
+            "save": "Lagre",
+            "welcome": "Velkommen!",
+            "view": "Se",
+            "viewlicense": "Vis lisens",
+            "viewAll": "Se alt",
+            "state": "Tilstand",
+            "status": "Status",
+            "type": "Type",
+            "date": "Dato",
+            "user": "Bruker",
+            "yes": "Ja",
+            "no": "Nei",
+            "apply": "søk",
+            "download": "Last ned",
+            "file": "Fil",
+            "publishedOn": "Publisert den",
+            "license": "Lisens",
+            "back": "Tilbake"
+        }
+    },
+    "logout": {
+        "title": "Utlogging fra Lisens- og distribusjonsportalen",
+        "subtitle": "Vi logger deg ut fra din sesjon."
+    },
+    "register": {
+        "title": "Registrer deg",
+        "welcome": "Velkommen til Lisens- og distribusjonsportalen",
+        "subwelcome": "Her finner du informasjon om Snomed CT",
+        "form": {
+            "tos": "Godta våre<a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">brukervilkår</a>.",
+            "button": "Begynn å registrer",
+            "confirmemail": "Bekreft e-postadresse"
+        },
+        "messages": {
+            "validate": {
+                "login": {
+                    "required": "Du må logge deg inn.",
+                    "minlength": "Ditt påloggingsnavn må ha minst 1 tegn",
+                    "maxlength": "Ditt påloggingsnavn kan ha maks 50 tegn"
+                },
+                "country": {
+                    "notMLDS": "Søknad om å benytte Snomed CT i ditt land må sendes til det nasjonale release centeret i ditt land - <a href=\"{{link}}\" target=\"_blank\">här</a>. Dersom du vil søke om en allmenn bruksavtale for å benytte Snomed CT i et annet land eller har andre spørsmål ber vi deg ta kontakt med SNOMED International på <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
+                },
+                "registrering": {
+                    "usagetyperequired": "Obligatorisk felt",
+                    "subtyperequired": "Obligatorisk felt"
+                }
+            },
+            "suksess": "<strong>Registreringen er lagret!</strong> Kontroller at du har fått en bekreftelse sendt til din e-post adresse.",
+            "error": {
+                "fail": "<strong>Registrering mislykket!</strong> Prøv igjen senere.",
+                "userexists": "<strong>En bruker har allerede registrert seg med denne e-postadressen.</strong> Ville du egentlig <a href='#/logg inn'>login</a>?",
+                "blocklist": "På grunn av vår it-policy kan vi ikke behandle angitt e-postadresse. Vennligst ta kontakt<a href=\"mailto:support@snomed.org\">support@snomed.org</a> for å få ytterligere hjelp."
+            }
+        },
+        "emailVerification": {
+            "intro": "Vi har sendt deg en bekreftelse.",
+            "detail": "Åpne beskjeden du nettopp mottok fra oss for å bekrefte din konto og få tilgang til Lisens- og distribusjonsportalen"
+        },
+        "affiliateRegistration": {
+            "title": "Lisenstaker registrering",
+            "usageType": "Brukertype",
+            "conditions": "Angi grunnen for søknad om bruk av Snomed CT",
+            "typeOfAgreement": "Avtale type",
+            "validation": {
+                "other.required": "Andre felt må fylles ut."
+            },
+            "changeRequestedWarning": {
+                "title": "Affiliate Registration Needs Amendments",
+                "text": "Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration."
+            },
+            "license.title": "Avtale for bruk av SNOMED CT",
+            "license": "Snomed CT-lisens",
+            "license.confirm": "Jag godtar lisensvilkårene",
+            "license.error": "Du må godkjenne betingelsene i Snomed CT-lisensen for å kunne registrere deg. Lisensen oppgir hvilke eventuella avgifter som kan gjelde."
+        },
+        "affiliateRegistrationReview": {
+            "title": "Se over søknaden",
+            "editApp": "Rediger søknad"
+        }
+    },
+    "login": {
+        "title": "Innlogging",
+        "form": {
+            "username": "E-post adresse",
+            "password": "Passord",
+            "password.placeholder": "Ditt passord",
+            "husk meg": "Husk meg",
+            "button": "Logg inn",
+            "forgot": "Har du glemt ditt passord?"
+        },
+        "messages": {
+            "error": {
+                "authentication": "<strong>Verifisering var mislykket!</strong> Vennligst se over din informasjonen og prøv igjen. Passord skiller mellom små og store bokstaver.",
+                "deregistered": "<strong> Verifisering mislykket!</strong> Denne konto er slettet. Kontakt support.",
+                "noPermissions": "<strong> Verifisering mislykket!</strong> Vi har verifisert deg, men din konto har ikke tillgang til denne applikasjonen eller er feilkonfigurert. Kontakt support."
+            }
+        }
+    },
+    "settings": {
+        "title": "Kontaktinformasjon for [<b>{{username}}</b>]",
+        "form": {
+            "countryOfResidence": "Country of Residence",
+            "countryOfResidence.placeholder": "Your country of residence",
+            "firstname": "First Name",
+            "firstname.placeholder": "Your first name",
+            "lastname": "Last Name",
+            "lastname.placeholder": "Your last name",
+            "button": "Save"
+        },
+        "messages": {
+            "error": "<strong>Det har oppstått en feil!</strong> Dine innstillinger kunne ikke lagres.",
+            "success": "<strong>Dine innstillinger er lagret!</strong>",
+            "validate": {
+                "firstname": {
+                    "required": "Venligst angi fornavn.",
+                    "minlength": "Ditt fornavn må være minst 1 tegn langt",
+                    "maxlength": "Ditt fornavn kan ikke være mer enn 50 tegn langt"
+                },
+                "lastname": {
+                    "required": "Du må oppgi ditt etternavn.",
+                    "minlength": "Ditt etternavn må være minst 1 tegn langt",
+                    "maxlength": "Ditt etternavn kan ikke være mer enn 50 tegn langt"
+                }
+            }
+        }
+    },
+    "password": {
+        "title": "Passord for {{username}}",
+        "form": {
+            "button": "Lagre"
+        },
+        "reset": {
+            "title": "Tilbakestill passord",
+            "instructions": "Angi det nye passordet nedenfor."
+        },
+        "messages": {
+            "error": "<strong> Det har oppstått en feil!</strong> Passordet kunne ikke endres.",
+            "success": "<strong>Passordet er endret!</strong> Gå videre til<a href='#/contactInfo'>Kontoinformation</a>",
+            "expired": "<strong>Tilbakestillingslenken er enten utgått eller ugyldig.</strong> <a href='#/requestPasswordReset'>Be om tilbakestilling av passord</a>"
+        }
+    },
+    "sessions": {
+        "title": "Aktive sesjoner for [<b>{{username}}</b>]",
+        "table": {
+            "ipaddress": "IP-adresse",
+            "useragent": "Brukeragent",
+            "button": "Gjør ugyldig"
+        },
+        "messages": {
+            "success": "<strong>Sessionen er avsluttet!</strong>",
+            "error": "<strong>Det har oppstått en feil!</strong> Sessionen kunne ikke avsluttes."
+        }
+    },
+    "tracker": {
+        "title": "Brukeraktiviteter i sanntid",
+        "table": {
+            "userlogin": "Brukere",
+            "ipaddresse": "IP-adress",
+            "userAgent": "Brukeragent",
+            "page": "Aktuelle side",
+            "time": "Tid"
+        }
+    },
+    "metrics": {
+        "title": "System metrisk",
+        "refresh.button": "Oppdater",
+        "helse": {
+            "title": "Helsekontroll",
+            "database": "Database",
+            "email": "E-post",
+            "stacktrace": "StackTrace"
+        },
+        "jvm": {
+            "title": "JVM-metrik",
+            "memory": {
+                "title": "Minne",
+                "total": "Total minne",
+                "heap": "Heap Memory",
+                "nonheap": "Non-Heap Memory"
+            },
+            "threads": {
+                "title": "Tråder",
+                "all": "Alle",
+                "runnable": "Eksekverbar",
+                "timedwaiting": "Timed waiting",
+                "waiting": "Venter",
+                "blocked": "Blokkert",
+                "dump": {
+                    "title": "Tråddump",
+                    "id": "Id",
+                    "blockedtime": "Blocked klokken",
+                    "blockedcount": "Blocked Count",
+                    "waitedtime": "Waited Time",
+                    "waitedcount": "Waited Count",
+                    "lockname": "Lock name",
+                    "stacktrace": "StackTrace",
+                    "show": "Vis",
+                    "hide": "Skjul"
+                }
+            },
+            "gc": {
+                "title": "Skrapinnsamling",
+                "marksweepcount": "Mark Sweep count",
+                "marksweeptime": "Mark Sweep time",
+                "scavengecount": "Scavenge count",
+                "scavengetime": "Scavenge time"
+            },
+            "http": {
+                "title": "HTTP-søk (hendelser per sekund)",
+                "active": "Aktive søk",
+                "total": "Totalt antall søk",
+                "table": {
+                    "code": "Kode",
+                    "count": "Antall",
+                    "mean": "Median",
+                    "average": "Gjenomsnitt"
+                },
+                "code": {
+                    "ok": "OK",
+                    "notfound": "Fant ikke",
+                    "servererror": "Serverfeil"
+                }
+            }
+        },
+        "servicesstats": {
+            "title": "Tjenestestatistikk (tid i millisekunder)",
+            "table": {
+                "name": "Tjenestnavn",
+                "count": "Antall",
+                "mean": "Gjennomsnitt",
+                "min": "Min",
+                "max": "Maks",
+                "p50": "p50",
+                "p75": "p75",
+                "p95": "p95",
+                "p99": "p99"
+            }
+        },
+        "ehcache": {
+            "title": "Ehcache-statistikk",
+            "cachename": "Cachenavn",
+            "objects": "Objekt",
+            "hits": "Treff",
+            "misses": "Misser",
+            "evictioncount": "Eviction count",
+            "mean": "Mean get time (ms)"
+        }
+    },
+    "logs": {
+        "title": "Logger",
+        "nbloggers": "Det finnes {{ total }} logger.",
+        "filter": "Filter",
+        "table": {
+            "name": "Navn",
+            "level": "Nivå"
+        }
+    },
+    "audits": {
+        "title": "Revisjoner",
+        "filter": {
+            "title": "Filter per dato",
+            "from": "fra",
+            "to": "til",
+            "button": {
+                "weeks": "Uker",
+                "today": "i dag",
+                "clear": "tøm",
+                "close": "steng"
+            }
+        },
+        "table": {
+            "header": {
+                "principal": "Bruker",
+                "date": "Dato (lokalt)",
+                "status": "Status",
+                "data": "Ekstra data"
+            },
+            "data": {
+                "remoteAddress": "Remote Address:"
+            }
+        },
+        "type": {
+            "AUTHORIZATION_FAILURE": "Autorisering mislykket",
+            "AUTHENTICATION_SUCCESS": "Verifisering lykkes",
+            "AUTHENTICATION_FAILURE": "Verifisering mislykket",
+            "AFFILIATE_CREATED": "Lisenshaver er etablert",
+            "AFFILIATE_CREATED_BY_IMPORT": "Lisenshaver er skapt fra import",
+            "AFFILIATE_DELETED": "Affiliate Deleted",
+            "AFFILIATE_UPDATED": "Lisenshaver er blitt oppdatert",
+            "AFFILIATE_UPDATED_BY_IMPORT": "Lisenshaver er oppdatert fra import",
+            "AFFILIATEDETAILS_UPDATED": "Lisensinformasjon er oppdatert",
+            "AFFILIATE_EXPORT": "Batchexport av lisenshavere",
+            "AFFILIATE_IMPORT": "Batchimport av lisenshavere",
+            "AFFILIATE_LOGIN_CREATED": "Logging av lisenshaver er skapt",
+            "AFFILIATE_STANDING_STATE_CHANGED": "Lisenshaverstatus er endret",
+            "ANNOUNCEMENT_POSTED": "Announcement Posted",
+            "APPLICATION_CREATED": "Søknad er laget",
+            "APPLICATION_APPROVAL_STATE_CHANGED": "Godkjenningsstatus for lisenshaver er endret",
+            "APPLICATION_DELETED": "Søknaden er tatt bort",
+            "RELEASE_FILE_CREATED": "Releasefil er produsert",
+            "RELEASE_FILE_DELETED": "Releasefil er fjernet",
+            "RELEASE_FILE_DOWNLOADED": "Releasefil er lastet ned",
+            "RELEASE_PACKAGE_DELETED": "Releasepakken er fjernet",
+            "RELEASE_PACKAGE_CREATED": "Releasepakken har laget",
+            "RELEASE_VERSION_TAKEN_OFFLINE": "Releaseversionen er tatt av nett",
+            "RELEASE_VERSION_TAKEN_ONLINE": "Releaseversionen er lagt på nett",
+            "RELEASE_VERSION_CREATED": "Ny releaseversionen er laget",
+            "RELEASE_VERSION_DELETED": "Releaseversionen er slettet",
+            "USAGE_CREATED": "Bruk er skapt",
+            "USAGE_APPROVAL_STATE_CHANGED": "Godkjenningsstatus for bruker er endret"
+        }
+    },
+    "errors": {
+        "403": "Du har ingen adgang til denne siden.",
+        "title": "Feilside!"
+    },
+    "footer": "Det er slutten på din side",
+    "affiliate": {
+        "title": "Lisenstagare",
+        "type": {
+            "title": "Type",
+            "COMMERCIAL": "Kommersiell",
+            "ACADEMIC": "Akademisk/helse",
+            "OTHER": "Annet",
+            "INDIVIDUAL": "Individuell"
+        },
+        "type.extended": {
+            "COMMERCIAL": "Kommersiell utvikler, selger eller leverandør",
+            "ACADEMIC": "Akademisk for internt bruk innen en organisasjon. (utdanning, forskning, utvikling eller helseyter)",
+            "OTHER": "Annet bruk som so ikke angis i øvrige alternativ",
+            "INDIVIDUAL": "Individuell for personlig, utdannings- eller forskningsformål"
+        },
+        "subType": {
+            "DEVELOPER": "Utvikler",
+            "DEVELOPMENT": "Utvikling",
+            "EDUCATIONAL": "Utdanning",
+            "HEALTHCAREPROVIDER": "Helseinstitusjon",
+            "PERSONAL": "Personlig",
+            "RESEARCH": "Forskning",
+            "VENDOR": "Leverandør"
+        },
+        "agreementType": {
+            "AFFILIATE_NORMAL": "Lisenstager normal",
+            "AFFILIATE_RESEARCH": "Lisenstager forskning",
+            "AFFILIATE_PUBLIC_GOOD": "Lisenstager offentlig nytte"
+        },
+        "organizationType": {
+            "PUBLIC_HEALTH_ORGANIZATION": "Offentlig helseinstitusjon",
+            "PRIVATE_HEALTH_ORGANIZATION": "Privat helseinstitusjon",
+            "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Forsknings- og utviklingsorganisasjon",
+            "HEALTHERCARE_APPLICATION_DEVELOPER": "Utviklere av helseapplikasjoner",
+            "GENERAL_PRACTITIONER_PRACTICE": "Fastlegepraksis",
+            "EDUCATIONAL_INSTITUTE": "Utdanningsinstitusjon",
+            "OTHER": "Annet"
+        },
+        "implementationStatus": {
+            "IMPLEMENTED": "Aktiv/Implementert",
+            "DEVELOPMENT": "Under uvikling",
+            "PLANNING": "Under planlegging"
+        },
+        "standingState": {
+            "APPLYING": "Søker",
+            "IN_GOOD_STANDING": "Godkjent",
+            "REJECTED": "Avslått",
+            "DEACTIVATION_PENDING": "Venter på aktivering",
+            "DEACTIVATED": "Aktivert",
+            "DEREGISTERED": "Avregistrert",
+            "PENDING_INVOICE": "Venter på faktura",
+            "INVOICE_SENT": "Faktura er sendt"
+        },
+        "standingStateWithExplanation": {
+            "APPLYING": "Søker",
+            "IN_GOOD_STANDING": "Godkjent. Full tilgang er innvilget. Kontoen er betalt. Betaling er ikke nødvendig eller problemet med kontoen er løst",
+            "REJECTED": "Avslått",
+            "DEACTIVATION_PENDING": "Venter på deaktivering. Kun tilgang til kontoen. Ikke mulig å laste ned",
+            "DEACTIVATED": "Aktivert. Kun tilgang til kontoen. Ikke mulig å laste ned",
+            "DEREGISTERED": "Avregistrert. Ingen tilgang til kontoen",
+            "PENDING_INVOICE": "Venter på faktura. Kun tilgang til konto. Utestående betaling",
+            "INVOICE_SENT": "Faktura sendt. Kun tilgang til konto. Utestående betaling"
+        }
+    },
+    "approval": {
+        "state": {
+            "NOT_SUBMITTED": "Ikke sendt",
+            "CHANGE_REQUESTED": "Endring er forespurt",
+            "SUBMITTED": "Sendt",
+            "RESUBMITTED": "Sendt på nytt",
+            "REVIEW_REQUESTED": "Gjennomgang er anmodet",
+            "APPROVED": "Godkjent",
+            "REJECTED": "Avslått"
+        }
+    },
+    "usageReport": {
+        "state": {
+            "NOT_SUBMITTED": "Ikke sendt",
+            "CHANGE_REQUESTED": "Endring er forespurt",
+            "SUBMITTED": "Sendt",
+            "RESUBMITTED": "Sendt",
+            "REVIEW_REQUESTED": "Gjennomgang er anmodet",
+            "PENDING_INVOICE": "Venter på faktura",
+            "INVOICE_SENT": "Faktura sendt",
+            "PAID": "Betalt",
+            "REJECTED": "Avslått"
+        }
+    },
+    "application": {
+        "applicationType": {
+            "PRIMARY": "Primær",
+            "EXTENSION": "Extension",
+            "IMPORT": "Import"
+        }
+    },
+    "pendingApplications": {
+        "title": "Mine søknader",
+        "show": {
+            "myApplications": "Mine ubehandlede søknader",
+            "allApplications": "Alle søknader"
+        },
+        "table": {
+            "affiliateName": "Navn på lisensinnehaver",
+            "applicationType": "Søknadstype",
+            "agreementType": "Avtaletype",
+            "useType": "Brukertype",
+            "dateSubmitted": "Sendt den",
+            "homeCountry": "Hjemland",
+            "member": "Medlem",
+            "email": "E-post",
+            "review": "Gjennomgang"
+        }
+    },
+    "affiliateManagement": {
+        "title": "Håndtering av lisensinnehaver"
+    },
+    "releaseManagement": {
+        "title": "Releasehåndtering"
+    },
+    "reviewUsageReports": {
+        "title": "Gjennomgang brukerrapporter"
+    },
+    "memberManagement": {
+        "title": "Håndtering av medlemmer"
+    },
+    "postAnnouncement": {
+    	"title": "Post Announcement"
+    },
+    "ihtsdoReleases": {
+        "title": "SNOMED CT Releases"
+    },
+    "activityLog": {
+        "title": "Aktivitetslogg"
+    },
+    "importAffiliateRecords": {
+        "title": "Importer informasjon om lisensinnehaver"
+    },
+    "manageBlocklist": {
+        "title": "Administrer spamfilter"
+    },
+    "nationalRegistrationList": {
+        "title": "Nasjonal registreringsliste"
+    },
+    "systemLoggers": {
+        "title": "Systemlogger"
+    },
+    "form": {
+        "requiredField": "Obligatorisk felt.",
+        "tooLong": "For mye data inn.",
+        "invalidNumber": "Nummeret er ugyldig",
+        "pleaseFix": "Vennligst rett feilen som er angitt over."
+    },
+    "views": {
+        "activate": {
+            "title": "Aktivering",
+            "messages": {
+                "success": {
+                    "title": "Brukerkonto er etablert.",
+                    "body": "Systemet vil snart sende deg videre i registreringsprosessen. Om du ikke blir automatisk omdirigert kan du {{linkbegin}}klikke her.{{linkend}}"
+                },
+                "error": {
+                    "title": "Din bruker kunne ikke aktiveres.",
+                    "body": "Benytt registreringsskjema for å skrive deg inn. Har du fortsatt problem ber vi deg ta kontakt med support."
+                }
+            }
+        },
+        "applicationSummary": {
+            "title": "Sammendrag av søknad",
+            "ext.title": "Info om förlängning av ansökan",
+            "reason": "Begrunnelse",
+            "affiliateInfo": "Lisenstakerinfo",
+            "affiliateInformation": "Lisenstakerinformasjon",
+            "useType": "Brukertype",
+            "useSubType": "Undertype bruk",
+            "billingInfo": "Faktura informasjon",
+            "context": "Informasjon om brukerformål",
+            "subLicence": "Underlisensbruk",
+            "applicationActivity": "Søknadsaktivitet"
+        },
+        "contactInfo": {
+            "title": "Kontoinformasjon",
+            "messages": {
+                "notApproved": {
+                    "title": "Registreringen er ennå ikke godkjent",
+                    "body": "Du kan ikke forandre på kontaktinformasjonen for en lisensinnehaver før søknad om registrering er godkjent."
+                }
+            },
+            "admin": {
+                "title": "Redigerbar Admin",
+                "other": {
+                    "name": "Annet",
+                    "placeholder": "Annet",
+                    "required": "Fyll ut feltet Annet."
+                },
+                "subtype": {
+                    "name": "Undertype",
+                    "required": "Feltet Undertype må fylles ut."
+                },
+                "usageType": {
+                    "name": "Typ",
+                    "required": "Fältet Brukertype må fylles ut."
+                },
+                "agreementType": "Avtalstype",
+                "accountStanding": "Kontostatus"
+            },
+            "contact": {
+                "title": "Kontaktinformasjon",
+                "fullName": "Navn",
+                "firstName": {
+                    "name": "Fornavn",
+                    "placeholder": "Jonny"
+                },
+                "lastName": {
+                    "name": "Etternavn",
+                    "placeholder": "Nilsen"
+                },
+                "email": {
+                    "name": "E-postadresse",
+                    "placeholder": "JonnyNilsen@OrganisationABC.no",
+                    "uniqueness": "E-postadressen må være unik.",
+                    "invalid": "Ugyldig e-postadresse."
+                },
+                "alternativeEmail": {
+                    "name": "Alternativ e-postadresse",
+                    "placeholder": "alternativ@epost.no"
+                },
+                "thirdEmail": "Tredje e-postadresse",
+                "landline": {
+                    "name": "Telefonnummer",
+                    "short": "Telefon",
+                    "invalid": "Ugyldig telefonnummer."
+                },
+                "landlineExtension": {
+                    "name": "Direktnummer",
+                    "short": "Dir.nr.",
+                    "placeholder": "Direktenummer"
+                },
+                "mobile": {
+                    "name": "Mobiltelefon",
+                    "placeholder": "nummer"
+                },
+                "address": {
+                    "title": "Adresse",
+                    "name": "Adresse",
+                    "placeholder": "Hovedveien123"
+                },
+                "city": {
+                    "name": "Sted",
+                    "placeholder": "Sted"
+                },
+                "postcode": {
+                    "name": "Postnummer",
+                    "placeholder": "Postnummer",
+                    "tooLong": "Postnummeret er for langt."
+                },
+                "country": {
+                    "name": "Land",
+                    "placeholder": "Land",
+                    "unrecognized": "Ukjent land"
+                },
+                "billingAddress": {
+                    "name": "Fakturaadresse",
+                    "country": "Fakturaland",
+                    "placeholder": "Adresse",
+                    "sameAsAddress": "Bruk adressen som fakturaadresse",
+                    "useOrganizationAddress": "Benytt organisasjonsadressen som fakturaadresse"
+                }
+            },
+            "organization": {
+                "title": "Organisason",
+                "name": {
+                    "name": "Organisasjonsnavn",
+                    "placeholder": "Org.navn"
+                },
+                "type": {
+                    "name": "Organisasjonstype",
+                    "required": "Angi organisasjonstype",
+                    "placeholder": "Annen organisasjonstype"
+                }
+            }
+        },
+        "extensionApplication": {
+            "title": "Start Extension Application Process",
+            "sure": "Are you sure you want to apply for this Extension?",
+            "form": {
+                "title": "Extension Application Form",
+                "why": "Please describe why you would like access to this extension.",
+                "purpose": "Purpose of Use",
+                "error": "Reason needs to be longer."
+            },
+            "agreement": "Extension Agreement",
+            "license": "Extension License",
+            "warning": {
+                "change": "Extension Registration Needs Change",
+                "change.detail": "Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.",
+                "rejected": "Extension Registration Rejected",
+                "rejected.detail": "Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.",
+                "approved": "Extension Registration Approved",
+                "approved.detail": "Your application has been approved."
+            },
+            "delete": {
+                "title": "Cancel Application",
+                "sure": "Are you sure you want to cancel this application?",
+                "sure.detail": "Doing so will cause you to lose all saved information on this application."
+            }
+        },
+        "footer": {
+            "tos": "Brukervilkår",
+            "pp": "Sikkerhets policy",
+            "register": "Registrer din tilpasning",
+            "contact": "Kontakt oss"
+        },
+        "landingPage": {
+            "appName": "Lisens- og distribusjonsportalen for Snomed CT",
+            "purpose": "Denne portal benyttes av terminologisenteret i det norske Direktoratet for e-helse til lisensadministrasjon og brukerrapportering for den internasjonale og norske releasen av Snomed CT ved bruk i Norge.",
+            "furtherDetails": "Mer informasjon finner du på <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International:s webside</a> og på webbsiden med <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">vanlige spørsmål</a>.",
+            "loginHere": "logg inn her",
+            "member.purpose1": "Denne portal benyttes av Direktoratet for e-helse, som har ansvar for det nasjonale release senter for Snomed CT i ",
+            "member.purpose2": "for å administrere lisenser og brukerrapportering for den internasjonale og norske releasen av Snomed CT, ved framtidig bruk i ",
+            "member.purpose3": "I forbindelse med at du etablerer en konto i portalen godtar du at informasjonen du lagrer kan benyttes på den måte som er angitt i personvern policyen som er angitt nedenfor. Kontaktinformasjonen lagres helt til du avregistrerer deg som bruker i portalen."
+        },
+        "releases": {
+            "title": "Releaser som er tilgjengelig for registrerte brukere",
+            "noAuth": "<a href=\"#/login\">Logga in</a> for å laste ned en release eller klikke på <a href=\"#/register\">registrera</a> for å starte søknadsprosessen.",
+            "memberCountries": "Medlemsland",
+            "countryIsMissing": "Dersom landet du søker etter ikke er med i listen kan du gå til <a href=\"http://www.snomed.org/\">SNOMED International:s webbplats</a> og finne informasjon om hvordan releaser lastes ned.",
+            "notAvailable": "Det er ingen releasepakke tilgjengelig på nåværende tidspunkt",
+            "releasePackageLicense": "Lisensavtale for releasepakken",
+            "reviewLicense": "Les gjennom-, og godkjenn lisensavtalen før du laster ned releasepakken",
+            "agreeToLicense": "Jeg godtar betingelsene i lisensavtalen",
+            "warning": {
+                "deactivated": "Kontoen er deaktivert",
+                "pending": "Venter på faktura",
+                "pAttention": "Hovedsøknaden må gjennomgås",
+                "pProcessed": "Hovedsøknaden er under behandling",
+                "apply": "Søknad om adgang til en extention",
+                "aProcessed": "Søknad er under behandling",
+                "aAttention": "Søknaden må gjennomgås, klikk for å fortsette søknaden"
+            }
+        },
+        "requestPasswordReset": {
+            "title": "Tilbakestilling av passord",
+            "detail": "Vi kommer til å sende en e-post med lenke til et skjema for tilbakestilling av passord.",
+            "button": "Be om tilbakestilling av passord",
+            "back": "Tillbake til innloggingssiden",
+            "emailNotFound": "Email entered is not found in system.",
+            "resetEmailSent": "Password reset process started, please check your email."
+        },
+        "usage": {
+            "title": "Brukerlogg",
+            "instructions": "Fyll ut din brukerrapport for valgte periode.",
+            "modal": {
+                "title": "Produser en brukerrapport",
+                "instructions": "Fyll ut din brukerrapport for alle perioder som er aktuelle for deg. Inkluder rapporter for nåværende og tidligere bruk.",
+                "period": "Bruksperiode"
+            },
+            "submit": {
+                "title": "Send en bruksrapport",
+                "instructions": "Kontroller at bruksrapporten er helt utfyllt før du sender den.",
+                "declarationForPeriod": "Rapport for perioden",
+                "button": "Send rapport"
+            },
+            "retract": {
+                "title": "Trekk tilbake brukerrapporten",
+                "instructions": "Er du sikker på at du vil trekke tilbake denne rapporten? Du kommer tilbake til samme brukerrapport og kan redigere og sende den inn på nytt. For en ny periode må du sende en ny rapport.",
+                "button": "Trekk tilbake rapport"
+            }
+        },
+        "usageLog": {
+            "title": "Sendt brukerrapport",
+            "retract": "Trukket tilbake rapport",
+            "usage": "Bruk",
+            "subTitle": "Lisensbruk",
+            "usageFor": "Brukes for",
+            "pleaseFill": "Fyll ut all relevant brukerinformasjon. Du kommer til å bli bedt om å bekrefte bruken så snart søknaden din er godkjent.",
+            "licenseType": "Lisenstype",
+            "currentUsage": "Aktuell bruk",
+            "plannedUsage": "Planlagt bruk",
+            "purpose": "Formål",
+            "impStatus": "Implementeringsstatus",
+            "countries": {
+                "title": "Land der Snomed CT er i bruk",
+                "subTitle": "Velg de land som ikke er medlem hvor SNOMED CT kommer til å bli brukt.",
+                "list": "Liste over land",
+                "search": "Søk land",
+                "homeCountry": "Hjemland",
+                "button": "Legg til land"
+            },
+            "institutions": {
+                "title": "Underlisensierte organisasjoner/enheter",
+                "selectFirst": "Du må velge et land før du kan legge inn underlisensierende organisasjoner/enheter.",
+                "noneSelected": "Ingn land er blitt valgt.",
+                "country": "Land",
+                "deleteCountry": "Ta bort land",
+                "hospAndInst": "Helseforetak/institusjon",
+                "hospAndInst.title": "Helseforetak/institusjon(-er)",
+                "hospAndInst.plural": "Helseforetak/institusjoner",
+                "started": "Tatt i bruk",
+                "finished": "Avlsuttet bruk",
+                "practices.title": "Klinikk(-er)",
+                "praksis": "Klinikker",
+                "dataAnalysis": {
+                    "title": "Dataanalyse",
+                    "staff": "Helseforetak som forsyner klinikker med personnell",
+                    "dataCreation": "Datauttrekk system",
+                    "independent": "Private klinikker",
+                    "dataAnalysis": "System for dataanalyse",
+                    "systems": "System",
+                    "data": "Data",
+                    "provideStaff": "Hvor mange Helseforetak avgir personell til klinikken?",
+                    "usingDCSNotHosp": "Hvor mange klinikker benytter system for datafangst og som IKKE er del at et Helseforetak?",
+                    "usingDCSNotPract": "Hvor mange Helseforetak eller andre institusjoner benytter datafangssystemet men som ikke kan defineres som klinikker slik det er definert i lisensen?",
+                    "howManyDAS": "hvor mange dataanalystem ar du fordelt i denne regionen og vhor mange databaser er det distribuert per distribuert system?"
+                },
+                "modal": {
+                    "subtitle": "Helseforetakets/institusjonens navn",
+                    "placeholder": "Skriv inn helseforetakets/institusjonens navn",
+                    "dateBefore": "Dato for ibrukstakelse",
+                    "sure": "Er du sikker på at du vil ta bort",
+                    "andEntries": "og tilhørende poster?",
+                    "addPractices": "Angi antall klinikker som benytter SNOMED CT"
+                }
+            },
+            "otherActivities": "Andre aktiviteter",
+            "notificationRequired": "Lisenstagere må meddele SNOMED International før man starter noen aktiviteter som inte faller inn under nåværende kategoriene, slik at SNOMED International kan ta en beslutning om en tilpasning  av avgiftsstruktur for den aktuelle aktiviteten.",
+            "pleaseDescribe": "Vær snill og beskriv aktiviteten nedenfor.",
+            "submitFor": "Send inn rapport før"
+        },
+        "usageReports": {
+            "reportDate": "Rapportdato",
+            "hospitals": "Helseforetak",
+            "usageType": "Brukstype",
+            "countries": "Land",
+            "newReport": "Ny rapport"
+        },
+        "userDashboard": {
+            "affiliateNo": "Lisenstakernummer",
+            "edit": "Rediger søknad om lisens",
+            "myPackages": "Mine releasepakker",
+            "otherPackages": "Andre tilgjengelige releaser",
+            "warning": {
+                "required.title": "En brukerrapport må fylles ut",
+                "required.msg": "En foreløpig versjon av din brukerrapport er lagret. Husk å send inn en ferdig rapport for inneværende år senest den 15. januar. Merk at alle foregående års brukerrapporter må sendes inn før du kan laste ned SNOMED CT.",
+                "change.title": "Lisenshaver registreringen må endres",
+                "change.msg": "Din lisensregistrering må oppdateres før den kan behandles. Vennligst les melding om hvilke endringer som må utføres for å fullføre din registrering .",
+                "declined.title": "Lisenstaker regsistreing avslått",
+                "declined.msg": "Din lisenstagerregistrering er avslått. Se melding med nærmere opplysninger om beslutningen.",
+                "deactivated.title": "Deaktivering av konto",
+                "deactivated.msg": "Din konto er deaktivert. Funksjonenen for nedlasting av releasepakken og søknad om tilgang til extensions er stengt. Vennligst ta kontakt <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> for å løse problemet.",
+                "iPending.title": "Kontoen har en utestående faktura",
+                "iPending.msg": "Din konto har en utestående faktura. Funksjonen for nedlastning av releaspakke av er stengt. Kontakt <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> for å løse problemet.",
+                "dPending.title": "Deaktivering av konto venter",
+                "dPending.msg": "Din konto kommer til å bli deaktivert. Kontakt <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> for å løse problemet."
+            }
+        },
+        "postAnnouncement": {
+        	"title": "Post Announcement",
+        	"messageContent": "Message Content",
+        	"emailSubject": "Email Subject",
+        	"emailBody": "Email Body",
+        	"salutationMessage": "Remember to add a salutation and valediction to the email body.",
+        	"audience": "Audience",
+        	"affiliates": "Affiliates",
+        	"myAffiliates": "My Affiliates",
+        	"allAffiliates": "All Affiliates",
+        	"affiliatesClarification": "Approved affiliates with an account standing of:",
+        	"additionalEmails": "Additional Email Addresses",
+        	"additionalEmailsHelp": "Send the announcement to additional email addressses.",
+        	"post": "Post Announcement",
+        	"newAnnouncement": "New Announcement"
+        },
+        "affiliateSummary": {
+        	"deleteAffiliate": "Delete Affiliate",
+        	"deleteAffiliateModal": {
+        		"sure": "Are you sure you want to delete the affiliate?",
+        		"explanation": "Deleting an Affiliate will also delete their Applications and Usage Information. The user will no longer be able to login to the account."
+        	}
+        },
+        "ihtsdoReleases": {
+            "title": "SNOMED Releases",
+            "offline": "Offline",
+            "publicReleases": "Public Releases",
+            "latest": "Latest",
+            "offlineReleases": "Offline & Alpha/Beta Releases",
+            "noPublicReleases": "There are currently no public releases available.",
+            "noOfflineReleases": "There are currently no offline & alpha/beta releases available.",
+            "backToReleases": "Back to SNOMED Releases",
+            "publicVersions": "Public Versions",
+            "noOnlineVersions": "There are currently no online versions of this release.",
+            "noOfflineVersions": "There are currently no offline & alpha/beta versions of this release."
+        }
+    }
+}
