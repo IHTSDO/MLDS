@@ -16,8 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.Validate;
+import org.apache.lucene.analysis.KeywordAnalyzer;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Fields;
@@ -84,7 +86,7 @@ public class Affiliate extends BaseEntity {
     Member homeMember;
 
 	@JsonIgnore
-	@Field(name="homeMember")
+	@Field(name="homeMember", analyzer=@Analyzer(impl=KeywordAnalyzer.class))
 	public String getHomeMemberKey() {
 		return homeMember!= null?homeMember.getKey():null;
 	}
