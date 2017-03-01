@@ -67,6 +67,7 @@ public class AffiliateSearchRepository {
 	private Query buildQuery(String q, Member homeMember, StandingState standingState, boolean standingStateNot) {
 		QueryBuilder queryBuilder = getSearchFactory().buildQueryBuilder()
 				.forEntity(Affiliate.class).get();
+		
 
 		Query textQuery = buildWildcardQueryForTokens(queryBuilder, q);
 
@@ -123,7 +124,8 @@ public class AffiliateSearchRepository {
 
 	Query buildQueryMatchingHomeMember(QueryBuilder queryBuilder, Member homeMember) {
 		Query homeMemberQuery = queryBuilder.keyword()
-				.onField("homeMember").matching(homeMember.getKey())
+				.onField("homeMember")
+				.matching(homeMember.getKey())
 				.createQuery();
 		return homeMemberQuery;
 	}
