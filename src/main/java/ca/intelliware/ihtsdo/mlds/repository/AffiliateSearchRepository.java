@@ -68,8 +68,8 @@ public class AffiliateSearchRepository {
 		QueryBuilder queryBuilder = getSearchFactory().buildQueryBuilder()
 				.forEntity(Affiliate.class).get();
 		
-
-		Query textQuery = buildWildcardQueryForTokens(queryBuilder, q);
+		//Odd issue with Camel case text not finding exact matches. Workaround using lowercase.
+		Query textQuery = buildWildcardQueryForTokens(queryBuilder, q.toLowerCase());
 
 		if (homeMember == null && standingState == null) {
 			return textQuery;
