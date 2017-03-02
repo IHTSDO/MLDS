@@ -422,6 +422,11 @@
 			<version>9.3-1100-jdbc41</version>
 		</dependency>
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<!--  <version>5.1.37</version> -->
+		</dependency>
 
 		<!-- Test dependencies -->
 		<dependency>
