@@ -470,8 +470,8 @@
                 "other.required": "Andre felt må fylles ut."
             },
             "changeRequestedWarning": {
-                "title": "Affiliate Registration Needs Amendments",
-                "text": "Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration."
+                "title": "Affiliate Registrering behøver tillegg",
+                "text": "Din affiliate registrering må oppdateres før den kan behandles videre. Vennligst se e-post vedrørende nødvendige endringer for å fullføre registreringen din."
             },
             "license.title": "Avtale for bruk av SNOMED CT",
             "license": "Snomed CT-lisens",
@@ -504,13 +504,13 @@
     "settings": {
         "title": "Kontaktinformasjon for [<b>{{username}}</b>]",
         "form": {
-            "countryOfResidence": "Country of Residence",
-            "countryOfResidence.placeholder": "Your country of residence",
-            "firstname": "First Name",
-            "firstname.placeholder": "Your first name",
-            "lastname": "Last Name",
-            "lastname.placeholder": "Your last name",
-            "button": "Save"
+            "countryOfResidence": "Oppholdelsesland",
+            "countryOfResidence.placeholder": "Ditt oppholdelsesland",
+            "fornavn": "Fornavn",
+            "firstname.placeholder": "Ditt fornavn",
+            "etternavn": "Etternavn",
+            "lastname.placeholder": "Ditt etternavn",
+            "button": "Lagre"
         },
         "messages": {
             "error": "<strong>Det har oppstått en feil!</strong> Dine innstillinger kunne ikke lagres.",
@@ -587,17 +587,17 @@
                 "title": "Tråder",
                 "all": "Alle",
                 "runnable": "Eksekverbar",
-                "timedwaiting": "Timed waiting",
+                "timedwaiting": "Tidsbestemt ventetid",
                 "waiting": "Venter",
                 "blocked": "Blokkert",
                 "dump": {
                     "title": "Tråddump",
                     "id": "Id",
-                    "blockedtime": "Blocked klokken",
+                    "blockedtime": "Blokkert klokken",
                     "blockedcount": "Blocked Count",
-                    "waitedtime": "Waited Time",
-                    "waitedcount": "Waited Count",
-                    "lockname": "Lock name",
+                    "waitedtime": "Ventetid",
+                    "waitedcount": "Ventetelling",
+                    "lockname": "Låsenavn",
                     "stacktrace": "StackTrace",
                     "show": "Vis",
                     "hide": "Skjul"
@@ -630,7 +630,7 @@
         "servicesstats": {
             "title": "Tjenestestatistikk (tid i millisekunder)",
             "table": {
-                "name": "Tjenestnavn",
+                "name": "Tjenestenavn",
                 "count": "Antall",
                 "mean": "Gjennomsnitt",
                 "min": "Min",
@@ -846,7 +846,7 @@
         "title": "Håndtering av medlemmer"
     },
     "postAnnouncement": {
-    	"title": "Post Announcement"
+        "title": "Post Announcement"
     },
     "ihtsdoReleases": {
         "title": "SNOMED CT Releases"
@@ -920,9 +920,9 @@
                 },
                 "usageType": {
                     "name": "Typ",
-                    "required": "Fältet Brukertype må fylles ut."
+                    "required": "Feltet Brukertype må fylles ut."
                 },
-                "agreementType": "Avtalstype",
+                "agreementType": "Type avtale",
                 "accountStanding": "Kontostatus"
             },
             "contact": {
@@ -1002,28 +1002,28 @@
             }
         },
         "extensionApplication": {
-            "title": "Start Extension Application Process",
-            "sure": "Are you sure you want to apply for this Extension?",
+            "title": "Start prosessen søknad om bruk av ekstensjon",
+            "sure": "Er du sikker på at du vil søke om denne ekstensjonen?",
             "form": {
-                "title": "Extension Application Form",
-                "why": "Please describe why you would like access to this extension.",
-                "purpose": "Purpose of Use",
-                "error": "Reason needs to be longer."
+                "title": "Skjema for søknad om ekstensjon",
+                "why": "Vennligst beskriv hvorfor du ønsker å få adgang til denne ekstensjonen.",
+                "purpose": "Formål med bruken",
+                "error": "En lengre beskrivelse er nødvendig."
             },
-            "agreement": "Extension Agreement",
-            "license": "Extension License",
+            "agreement": "Ekstensjonsavtale",
+            "license": "Ekstensjons-lisens",
             "warning": {
-                "change": "Extension Registration Needs Change",
-                "change.detail": "Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.",
-                "rejected": "Extension Registration Rejected",
-                "rejected.detail": "Your extension registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration.",
-                "approved": "Extension Registration Approved",
-                "approved.detail": "Your application has been approved."
+                "change": "Ekstensjonsregistreringen må endres",
+                "change.detail": "Din ekstensjonsregistrering må oppdateres før den kan behandles videre. Vennligst se epost vedrørende nødvendige endringer for å fullføre din registrering.",
+                "rejected": "Ekstensjonsregistreringen er avslått",
+                "rejected.detail": "Din ekstensjonsregistrering må oppdateres før den kan behandles videre. Vennligst se epost vedrørende nødvendige endringer for å fullføre din registrering.",
+                "approved": "Registrering for en ekstensjon er godkjent",
+                "approved.detail": "Søknaden din er godkjent."
             },
             "delete": {
-                "title": "Cancel Application",
-                "sure": "Are you sure you want to cancel this application?",
-                "sure.detail": "Doing so will cause you to lose all saved information on this application."
+                "title": "Kanseller søknad",
+                "sure": "Er du sikker på at du vil kansellere denne søknaden?",
+                "sure.detail": "Ved å gjøre det vil føre til at all lagret informasjon blir slettet tilknyttet søknaden."
             }
         },
         "footer": {
@@ -1065,8 +1065,8 @@
             "detail": "Vi kommer til å sende en e-post med lenke til et skjema for tilbakestilling av passord.",
             "button": "Be om tilbakestilling av passord",
             "back": "Tillbake til innloggingssiden",
-            "emailNotFound": "Email entered is not found in system.",
-            "resetEmailSent": "Password reset process started, please check your email."
+            "emailNotFound": "Innlagte epost er ikke funnet i systemet.",
+            "resetEmailSent": "Prosess for resetting av passord er startet, vennligst kontroller din epost."
         },
         "usage": {
             "title": "Brukerlogg",
@@ -1132,7 +1132,7 @@
                     "provideStaff": "Hvor mange Helseforetak avgir personell til klinikken?",
                     "usingDCSNotHosp": "Hvor mange klinikker benytter system for datafangst og som IKKE er del at et Helseforetak?",
                     "usingDCSNotPract": "Hvor mange Helseforetak eller andre institusjoner benytter datafangssystemet men som ikke kan defineres som klinikker slik det er definert i lisensen?",
-                    "howManyDAS": "hvor mange dataanalystem ar du fordelt i denne regionen og vhor mange databaser er det distribuert per distribuert system?"
+                    "howManyDAS": "Hvor mange data-analyse system har du fordelt i denne regionen og hvor mange databaser er distribuert per distribuerte system?"
                 },
                 "modal": {
                     "subtitle": "Helseforetakets/institusjonens navn",
@@ -1176,40 +1176,40 @@
             }
         },
         "postAnnouncement": {
-        	"title": "Post Announcement",
-        	"messageContent": "Message Content",
-        	"emailSubject": "Email Subject",
-        	"emailBody": "Email Body",
-        	"salutationMessage": "Remember to add a salutation and valediction to the email body.",
-        	"audience": "Audience",
-        	"affiliates": "Affiliates",
-        	"myAffiliates": "My Affiliates",
-        	"allAffiliates": "All Affiliates",
-        	"affiliatesClarification": "Approved affiliates with an account standing of:",
-        	"additionalEmails": "Additional Email Addresses",
-        	"additionalEmailsHelp": "Send the announcement to additional email addressses.",
-        	"post": "Post Announcement",
-        	"newAnnouncement": "New Announcement"
+            "title": "Post annonsering",
+            "messageContent": "Meldingstekst",
+            "emailSubject": "Emne",
+            "emailBody": "Epost tekstfelt",
+            "salutationMessage": "Husk å legg inn en hilsen og vurdering i epost teksten.",
+            "audience": "Publikum",
+            "affiliates": "Lisenshavere",
+            "myAffiliates": "Mine lisenser",
+            "allAffiliates": "Alle lisenser",
+            "affiliatesClarification": "Godkjente lisenserhavere med følgende konto:",
+            "additionalEmails": "Ytterligere e-post adresser",
+            "additionalEmailsHelp": "Send bekjentgjøringen til ytterlige e-post adresser.",
+            "post": "Publiser kunngjøring",
+            "newAnnouncement": "Nye kunngjøringer"
         },
         "affiliateSummary": {
-        	"deleteAffiliate": "Delete Affiliate",
-        	"deleteAffiliateModal": {
-        		"sure": "Are you sure you want to delete the affiliate?",
-        		"explanation": "Deleting an Affiliate will also delete their Applications and Usage Information. The user will no longer be able to login to the account."
-        	}
+            "deleteAffiliate": "Slett lisens",
+            "deleteAffiliateModal": {
+                "sure": "Er du sikker på at du vil slette lisens?",
+                "explanation": "Ved å slette en lisenshaver blir også deres søknader og brukerinformasjon bli slettet. Brukeren vil ikke lenger være i stand til å logge inn på kontoen sin."
+            }
         },
         "ihtsdoReleases": {
-            "title": "SNOMED Releases",
+            "title": "SNOMED Utgivleser",
             "offline": "Offline",
-            "publicReleases": "Public Releases",
-            "latest": "Latest",
-            "offlineReleases": "Offline & Alpha/Beta Releases",
-            "noPublicReleases": "There are currently no public releases available.",
-            "noOfflineReleases": "There are currently no offline & alpha/beta releases available.",
-            "backToReleases": "Back to SNOMED Releases",
-            "publicVersions": "Public Versions",
-            "noOnlineVersions": "There are currently no online versions of this release.",
-            "noOfflineVersions": "There are currently no offline & alpha/beta versions of this release."
+            "publicReleases": "Offentlige utgivelser",
+            "latest": "Siste",
+            "offlineReleases": "Offline og Alpha/Beta Utgivelser",
+            "noPublicReleases": "Det er for øyeblikket ingen offentlige utgivelser tilgjengelig.",
+            "noOfflineReleases": "Det er for øyeblikket ingen offline eller alpha/beta utgivelser tilgjengelig.",
+            "backToReleases": "Tilbake til SNOMED utgivelser",
+            "publicVersions": "Offentlige versjoner",
+            "noOnlineVersions": "Det er for øyeblikkert ingen online versjon for denne versjonen.",
+            "noOfflineVersions": "Det er for øyeblikket ingen offline eller alpha/beta versionner for denne utgivelsen."
         }
     }
 }
