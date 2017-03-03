@@ -552,7 +552,7 @@
             "button": "Gjør ugyldig"
         },
         "messages": {
-            "success": "<strong>Sessionen er avsluttet!</strong>",
+            "success": "<strong>Sesjonen er avsluttet!</strong>",
             "error": "<strong>Det har oppstått en feil!</strong> Sessionen kunne ikke avsluttes."
         }
     },
@@ -690,7 +690,7 @@
             "AUTHENTICATION_FAILURE": "Verifisering mislykket",
             "AFFILIATE_CREATED": "Lisenshaver er etablert",
             "AFFILIATE_CREATED_BY_IMPORT": "Lisenshaver er skapt fra import",
-            "AFFILIATE_DELETED": "Affiliate Deleted",
+            "AFFILIATE_DELETED": "Lisenshaver slettet",
             "AFFILIATE_UPDATED": "Lisenshaver er blitt oppdatert",
             "AFFILIATE_UPDATED_BY_IMPORT": "Lisenshaver er oppdatert fra import",
             "AFFILIATEDETAILS_UPDATED": "Lisensinformasjon er oppdatert",
@@ -698,7 +698,7 @@
             "AFFILIATE_IMPORT": "Batchimport av lisenshavere",
             "AFFILIATE_LOGIN_CREATED": "Logging av lisenshaver er skapt",
             "AFFILIATE_STANDING_STATE_CHANGED": "Lisenshaverstatus er endret",
-            "ANNOUNCEMENT_POSTED": "Announcement Posted",
+            "ANNOUNCEMENT_POSTED": "Kunngjøring postet",
             "APPLICATION_CREATED": "Søknad er laget",
             "APPLICATION_APPROVAL_STATE_CHANGED": "Godkjenningsstatus for lisenshaver er endret",
             "APPLICATION_DELETED": "Søknaden er tatt bort",
@@ -707,11 +707,11 @@
             "RELEASE_FILE_DOWNLOADED": "Releasefil er lastet ned",
             "RELEASE_PACKAGE_DELETED": "Releasepakken er fjernet",
             "RELEASE_PACKAGE_CREATED": "Releasepakken har laget",
-            "RELEASE_VERSION_TAKEN_OFFLINE": "Releaseversionen er tatt av nett",
-            "RELEASE_VERSION_TAKEN_ONLINE": "Releaseversionen er lagt på nett",
-            "RELEASE_VERSION_CREATED": "Ny releaseversionen er laget",
-            "RELEASE_VERSION_DELETED": "Releaseversionen er slettet",
-            "USAGE_CREATED": "Bruk er skapt",
+            "RELEASE_VERSION_TAKEN_OFFLINE": "Releaseversjon er tatt av nett",
+            "RELEASE_VERSION_TAKEN_ONLINE": "Releaseversjon er lagt på nett",
+            "RELEASE_VERSION_CREATED": "Ny releaseversjon er laget",
+            "RELEASE_VERSION_DELETED": "Releaseversjonen er slettet",
+            "USAGE_CREATED": "Bruker er etablert",
             "USAGE_APPROVAL_STATE_CHANGED": "Godkjenningsstatus for bruker er endret"
         }
     },
@@ -721,7 +721,7 @@
     },
     "footer": "Det er slutten på din side",
     "affiliate": {
-        "title": "Lisenstagare",
+        "title": "Lisenstagere",
         "type": {
             "title": "Type",
             "COMMERCIAL": "Kommersiell",
@@ -919,11 +919,11 @@
                     "required": "Feltet Undertype må fylles ut."
                 },
                 "usageType": {
-                    "name": "Typ",
+                    "name": "Brukertype",
                     "required": "Feltet Brukertype må fylles ut."
                 },
                 "agreementType": "Type avtale",
-                "accountStanding": "Kontostatus"
+                "accountStanding": "Konto status"
             },
             "contact": {
                 "title": "Kontaktinformasjon",
@@ -989,7 +989,7 @@
                 }
             },
             "organization": {
-                "title": "Organisason",
+                "title": "Organisasjon",
                 "name": {
                     "name": "Organisasjonsnavn",
                     "placeholder": "Org.navn"
@@ -1002,7 +1002,7 @@
             }
         },
         "extensionApplication": {
-            "title": "Start prosessen søknad om bruk av ekstensjon",
+            "title": "Start søknadsprosessen for bruk av ekstensjon",
             "sure": "Er du sikker på at du vil søke om denne ekstensjonen?",
             "form": {
                 "title": "Skjema for søknad om ekstensjon",
@@ -1043,7 +1043,7 @@
         },
         "releases": {
             "title": "Releaser som er tilgjengelig for registrerte brukere",
-            "noAuth": "<a href=\"#/login\">Logga in</a> for å laste ned en release eller klikke på <a href=\"#/register\">registrera</a> for å starte søknadsprosessen.",
+            "noAuth": "<a href=\"#/login\">Logg inn</a> for å laste ned en release eller klikk på <a href=\"#/register\">registrera</a> for å starte søknadsprosessen.",
             "memberCountries": "Medlemsland",
             "countryIsMissing": "Dersom landet du søker etter ikke er med i listen kan du gå til <a href=\"http://www.snomed.org/\">SNOMED International:s webbplats</a> og finne informasjon om hvordan releaser lastes ned.",
             "notAvailable": "Det er ingen releasepakke tilgjengelig på nåværende tidspunkt",
@@ -1053,9 +1053,9 @@
             "warning": {
                 "deactivated": "Kontoen er deaktivert",
                 "pending": "Venter på faktura",
-                "pAttention": "Hovedsøknaden må gjennomgås",
-                "pProcessed": "Hovedsøknaden er under behandling",
-                "apply": "Søknad om adgang til en extention",
+                "pAttention": "Hovedsøknad må gjennomgås",
+                "pProcessed": "Hovedsøknad er under behandling",
+                "apply": "Søknad om adgang til en extensjon",
                 "aProcessed": "Søknad er under behandling",
                 "aAttention": "Søknaden må gjennomgås, klikk for å fortsette søknaden"
             }
@@ -1111,14 +1111,14 @@
             "institutions": {
                 "title": "Underlisensierte organisasjoner/enheter",
                 "selectFirst": "Du må velge et land før du kan legge inn underlisensierende organisasjoner/enheter.",
-                "noneSelected": "Ingn land er blitt valgt.",
+                "noneSelected": "Ingen land er valgt",
                 "country": "Land",
                 "deleteCountry": "Ta bort land",
                 "hospAndInst": "Helseforetak/institusjon",
                 "hospAndInst.title": "Helseforetak/institusjon(-er)",
                 "hospAndInst.plural": "Helseforetak/institusjoner",
                 "started": "Tatt i bruk",
-                "finished": "Avlsuttet bruk",
+                "finished": "Avsluttet bruk",
                 "practices.title": "Klinikk(-er)",
                 "praksis": "Klinikker",
                 "dataAnalysis": {
@@ -1145,7 +1145,7 @@
             },
             "otherActivities": "Andre aktiviteter",
             "notificationRequired": "Lisenstagere må meddele SNOMED International før man starter noen aktiviteter som inte faller inn under nåværende kategoriene, slik at SNOMED International kan ta en beslutning om en tilpasning  av avgiftsstruktur for den aktuelle aktiviteten.",
-            "pleaseDescribe": "Vær snill og beskriv aktiviteten nedenfor.",
+            "pleaseDescribe": "Vennligst beskriv aktiviteten nedenfor.",
             "submitFor": "Send inn rapport før"
         },
         "usageReports": {
@@ -1185,9 +1185,9 @@
             "affiliates": "Lisenshavere",
             "myAffiliates": "Mine lisenser",
             "allAffiliates": "Alle lisenser",
-            "affiliatesClarification": "Godkjente lisenserhavere med følgende konto:",
+            "affiliatesClarification": "Godkjente lisenshavere med følgende konto:",
             "additionalEmails": "Ytterligere e-post adresser",
-            "additionalEmailsHelp": "Send bekjentgjøringen til ytterlige e-post adresser.",
+            "additionalEmailsHelp": "Send bekjentgjøringen til ytterlige e-post adresse",
             "post": "Publiser kunngjøring",
             "newAnnouncement": "Nye kunngjøringer"
         },
@@ -1195,7 +1195,7 @@
             "deleteAffiliate": "Slett lisens",
             "deleteAffiliateModal": {
                 "sure": "Er du sikker på at du vil slette lisens?",
-                "explanation": "Ved å slette en lisenshaver blir også deres søknader og brukerinformasjon bli slettet. Brukeren vil ikke lenger være i stand til å logge inn på kontoen sin."
+                "explanation": "Ved å slette en lisenshaver blir også deres søknader og brukerinformasjon slettet. Brukeren vil ikke lenger være i stand til å logge inn på kontoen sin."
             }
         },
         "ihtsdoReleases": {
@@ -1204,11 +1204,11 @@
             "publicReleases": "Offentlige utgivelser",
             "latest": "Siste",
             "offlineReleases": "Offline og Alpha/Beta Utgivelser",
-            "noPublicReleases": "Det er for øyeblikket ingen offentlige utgivelser tilgjengelig.",
-            "noOfflineReleases": "Det er for øyeblikket ingen offline eller alpha/beta utgivelser tilgjengelig.",
+            "noPublicReleases": "Det er for øyeblikket ingen offentlige utgivelser tilgjengelig",
+            "noOfflineReleases": "Det er for øyeblikket ingen offline eller alpha/beta utgivelser tilgjengelig",
             "backToReleases": "Tilbake til SNOMED utgivelser",
             "publicVersions": "Offentlige versjoner",
-            "noOnlineVersions": "Det er for øyeblikkert ingen online versjon for denne versjonen.",
+            "noOnlineVersions": "Det er for øyeblikkert ingen online versjon for denne versjonen",
             "noOfflineVersions": "Det er for øyeblikket ingen offline eller alpha/beta versionner for denne utgivelsen."
         }
     }
