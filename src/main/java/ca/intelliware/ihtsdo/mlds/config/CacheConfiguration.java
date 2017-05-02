@@ -55,8 +55,10 @@ public class CacheConfiguration {
     @Bean
     public CacheManager cacheManager() {
         log.debug("Starting Ehcache");
-        cacheManager = net.sf.ehcache.CacheManager.create();
-        cacheManager.getConfiguration().setMaxBytesLocalHeap(env.getProperty("cache.ehcache.maxBytesLocalHeap", String.class, "16M"));
+        net.sf.ehcache.config.Configuration config = new net.sf.ehcache.config.Configuration();
+        net.sf.ehcache.config.CacheConfiguration cacheConfiguration = new net.sf.ehcache.config.CacheConfiguration().maxElementsInMemory(1600);
+        config.setDefaultCacheConfiguration(cacheConfiguration);
+        cacheManager = net.sf.ehcache.CacheManager.create(config);
         log.debug("Registring Ehcache Metrics gauges");
         Set<EntityType<?>> entities = entityManager.getMetamodel().getEntities();
         for (EntityType<?> entity : entities) {
