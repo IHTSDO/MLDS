@@ -61,7 +61,7 @@ public class AngularTranslateService {
 			bundle = lookupBundle(Locale.ENGLISH);
 		}
 		if (bundle == null) {
-			throw new IllegalStateException("No bundle found for " + locale.getLanguage());
+			throw new IllegalStateException("No bundle found for " + locale.getLanguage() + " with path '" + path + "'");
 		}
 		TreeNode cursor = bundle;
 		String[] parts = path.split("\\.");

@@ -17,8 +17,6 @@ public class JHipsterHealthIndicatorConfiguration {
     @Inject
     private DataSource dataSource;
 
-    private DatabaseHealthCheckIndicator databaseHealthCheckIndicator = new DatabaseHealthCheckIndicator();
-
     @Bean
     public JavaMailHealthCheckIndicator javaMailHealthCheckIndicator() {
         return new JavaMailHealthCheckIndicator(javaMailSender);

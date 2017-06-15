@@ -107,6 +107,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .disable()
             .headers()
                 .frameOptions().disable()
+                .and()
             .authorizeRequests()
                 .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/api/**").permitAll()
