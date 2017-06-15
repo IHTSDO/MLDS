@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
@@ -56,7 +57,7 @@ public class Application {
      */
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
-        app.setShowBanner(false);
+        app.setBannerMode(Banner.Mode.OFF);
 
         SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
 
