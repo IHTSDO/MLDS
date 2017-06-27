@@ -21,9 +21,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import ca.intelliware.ihtsdo.mlds.domain.Application;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
-@WebAppConfiguration
+@SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("dev")
 public class CountriesResourceTest {
 
@@ -43,7 +44,7 @@ public class CountriesResourceTest {
     @Test
     public void countriesListContainsDenmark() throws Exception {
         restUserMockMvc.perform(get(Routes.COUNTRIES)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("[?(@.isoCode2=='DK')]").exists());
 
@@ -52,7 +53,7 @@ public class CountriesResourceTest {
     @Test
     public void nonAuthenticatedUserCanFetchListOfCountries() throws Exception {
     	restUserMockMvc.perform(get(Routes.COUNTRIES)
-    			.accept(MediaType.APPLICATION_JSON))
+    			.accept(MediaType.APPLICATION_JSON_UTF8))
     			.andExpect(status().isOk())
     			.andExpect(content().string(Matchers.not(Matchers.isEmptyOrNullString())));
     	

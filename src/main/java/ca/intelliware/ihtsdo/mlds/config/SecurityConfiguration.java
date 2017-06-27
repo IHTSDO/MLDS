@@ -129,7 +129,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-    @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
-    private static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
-    }
+   // @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
+   // private static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
+   // }
 }

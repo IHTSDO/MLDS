@@ -98,9 +98,9 @@ public class ApplicationUpdateTest {
 		return mockMvc.perform(
 				MockMvcRequestBuilders
 						.post(Routes.APPLICATION, 22L)
-						.contentType(MediaType.APPLICATION_JSON)
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
 						.content(requestBody)
-						.accept(MediaType.APPLICATION_JSON));
+						.accept(MediaType.APPLICATION_JSON_UTF8));
 	}
 
 }
