@@ -54,7 +54,7 @@ public class AuditResourceTest {
     public void findByFilterShouldFailForUnknownFilter() throws Exception {
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "unknownField eq 999")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest());
     }
 
@@ -63,7 +63,7 @@ public class AuditResourceTest {
 		when(auditEventService.findAll()).thenReturn(Arrays.asList(createAuditEvent("TypeA"), createAuditEvent("TypeB")));
 		
         restUserMockMvc.perform(get(Routes.AUDITS)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].type", Matchers.is("TypeA")))
                 .andExpect(jsonPath("$[1].type", Matchers.is("TypeB")))
@@ -76,7 +76,7 @@ public class AuditResourceTest {
 		
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "auditEventType eq 'TypeA'")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].type", Matchers.is("TypeA")))
                 ;
@@ -88,7 +88,7 @@ public class AuditResourceTest {
 		
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "auditEventDate ge '2014-01-02' and auditEventDate le '2014-01-10'")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].type", Matchers.is("TypeA")))
                 ;
@@ -99,7 +99,7 @@ public class AuditResourceTest {
 		try {
 	        restUserMockMvc.perform(get(Routes.AUDITS)
 	        		.param("$filter", "auditEventDate ge '2014-01-02' and auditEventDate le 'NOT A DATE'")
-	                .accept(MediaType.APPLICATION_JSON))
+	                .accept(MediaType.APPLICATION_JSON_UTF8))
 	                .andExpect(status().is5xxServerError())
 	                ;
 	        Assert.fail();
@@ -115,7 +115,7 @@ public class AuditResourceTest {
 		
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "affiliateId eq '123'")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].type", Matchers.is("TypeA")))
                 ;
@@ -127,7 +127,7 @@ public class AuditResourceTest {
 		
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "applicationId eq '123'")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].type", Matchers.is("TypeA")))
                 ;

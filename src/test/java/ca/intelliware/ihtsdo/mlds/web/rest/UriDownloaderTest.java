@@ -14,8 +14,7 @@ import ca.intelliware.ihtsdo.mlds.Application;
 import ca.intelliware.ihtsdo.mlds.web.rest.UriDownloader.S3Location;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
-@WebAppConfiguration
+@SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("dev")
 public class UriDownloaderTest {
 

@@ -47,9 +47,11 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
 
     private final Logger log = LoggerFactory.getLogger(MetricsConfiguration.class);
 
-    private static final MetricRegistry METRIC_REGISTRY = new MetricRegistry();
+    //Metric registry no longer static
+    //See https://github.com/jhipster/generator-jhipster/issues/980
+    private final MetricRegistry METRIC_REGISTRY = new MetricRegistry();
 
-    private static final HealthCheckRegistry HEALTH_CHECK_REGISTRY = new HealthCheckRegistry();
+    private final HealthCheckRegistry HEALTH_CHECK_REGISTRY = new HealthCheckRegistry();
 
     private RelaxedPropertyResolver propertyResolver;
 
