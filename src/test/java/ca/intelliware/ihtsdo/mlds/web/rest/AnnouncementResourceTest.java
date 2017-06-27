@@ -81,9 +81,9 @@ public class AnnouncementResourceTest {
 	
 		try {
 			restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
-	        		.contentType(MediaType.APPLICATION_JSON)
+	        		.contentType(MediaType.APPLICATION_JSON_UTF8)
 	        		.content("{ \"member\": { \"key\":\"OT\"} }")
-	                .accept(MediaType.APPLICATION_JSON))
+	                .accept(MediaType.APPLICATION_JSON_UTF8))
 					.andExpect(status().is5xxServerError());
 	    	Assert.fail();
 	    } catch (NestedServletException e) {
@@ -102,9 +102,9 @@ public class AnnouncementResourceTest {
 		Mockito.when(userMembershipCalculator.approvedActiveUsersWithHomeMembership(ihtsdoMember)).thenReturn(Arrays.asList(user));
 		
 		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
         		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk());
 		
 		Mockito.verify(announcementEmailSender, times(1)).sendAnnouncementEmail("user@test.com", ihtsdoMember, "test title", "test message");
@@ -121,9 +121,9 @@ public class AnnouncementResourceTest {
 		Mockito.when(userMembershipCalculator.approvedActiveUsers()).thenReturn(Arrays.asList(user));
 		
 		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
         		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\", \"allAffiliates\": true }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk());
 		
 		Mockito.verify(announcementEmailSender, times(1)).sendAnnouncementEmail("user@test.com", ihtsdoMember, "test title", "test message");
@@ -139,9 +139,9 @@ public class AnnouncementResourceTest {
 		Mockito.when(userMembershipCalculator.approvedActiveUsersWithHomeMembership(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
 		
 		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
         		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\", \"additionalEmails\": [ \"email1@test.com\", \"email2@test.com\" ] }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk());
 		
 		Mockito.verify(announcementEmailSender, times(1)).sendAnnouncementEmail("email1@test.com", ihtsdoMember, "test title", "test message");
@@ -158,9 +158,9 @@ public class AnnouncementResourceTest {
 		Mockito.when(userMembershipCalculator.approvedActiveUsersWithHomeMembership(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
 		
 		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
         		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\", \"additionalEmails\": [ \"   \", \"\" ] }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk());
 		
 		Mockito.verify(announcementEmailSender, never()).sendAnnouncementEmail(Mockito.anyString(), Mockito.any(Member.class), Mockito.anyString(), Mockito.anyString());
@@ -173,9 +173,9 @@ public class AnnouncementResourceTest {
 		Mockito.when(userMembershipCalculator.approvedActiveUsersWithHomeMembership(ihtsdoMember)).thenReturn(Collections.<User>emptyList());
 		
 		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
         		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\", \"additionalEmails\": [ \"email1@test.com\", \"email2@test.com\" ] }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk());
 		
 		HashMap<String, String> expected = new HashMap<String,String>();
@@ -192,9 +192,9 @@ public class AnnouncementResourceTest {
 		Mockito.when(userMembershipCalculator.approvedActiveUsers()).thenReturn(Collections.<User>emptyList());
 		
 		restAnnouncementResource.perform(post(Routes.ANNOUNCEMENTS)
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
         		.content("{ \"member\": { \"key\":\"IHTSDO\"}, \"subject\":\"test title\", \"body\":\"test message\", \"allAffiliates\": true }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk());
 		
 		HashMap<String, String> expected = new HashMap<String,String>();

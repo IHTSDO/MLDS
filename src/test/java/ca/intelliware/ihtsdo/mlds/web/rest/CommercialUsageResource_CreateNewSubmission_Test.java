@@ -206,8 +206,8 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 		return restCommercialUsageResource.perform(
 				MockMvcRequestBuilders
 					.post(Routes.USAGE_REPORTS, affiliateId)
-					.contentType(MediaType.APPLICATION_JSON)
+					.contentType(MediaType.APPLICATION_JSON_UTF8)
 					.content("{\"startDate\":\""+period.getStartDate()+"\",\"endDate\":\""+period.getEndDate()+"\"}")
-					.accept(MediaType.APPLICATION_JSON));
+					.accept(MediaType.APPLICATION_JSON_UTF8));
 	}
 }

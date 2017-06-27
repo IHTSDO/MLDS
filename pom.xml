@@ -112,7 +112,7 @@
 		<commons-io.version>2.4</commons-io.version>
 		<javax.inject.version>1</javax.inject.version>
 		<joda-time-hibernate.version>1.3</joda-time-hibernate.version>
-		<json-path.version>0.9.1</json-path.version>
+		<json-path.version>2.2.0</json-path.version>
 		<geronimo-javamail_1.4_mail.version>1.8.3</geronimo-javamail_1.4_mail.version>
 		<!-- Note: hibernate-search version doesn't match the ORM version.
 			Check website for compatibility -->

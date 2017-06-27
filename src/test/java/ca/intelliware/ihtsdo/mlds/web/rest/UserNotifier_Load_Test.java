@@ -37,8 +37,7 @@ import ca.intelliware.ihtsdo.mlds.search.AngularTranslateServiceSetup;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
-@WebAppConfiguration
+@SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("dev")
 @Transactional
 public class UserNotifier_Load_Test {

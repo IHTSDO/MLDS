@@ -15,6 +15,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
@@ -22,6 +23,7 @@ import org.springframework.core.env.SimpleCommandLinePropertySource;
 import ca.intelliware.ihtsdo.mlds.config.Constants;
 
 @ComponentScan
+@SpringBootApplication
 @EnableAutoConfiguration(exclude = {
 		MetricFilterAutoConfiguration.class, 
 		MetricRepositoryAutoConfiguration.class, 

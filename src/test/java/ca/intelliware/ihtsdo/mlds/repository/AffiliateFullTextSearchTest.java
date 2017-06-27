@@ -34,8 +34,7 @@ import ca.intelliware.ihtsdo.mlds.search.AngularTranslateServiceSetup;
 import com.google.common.collect.Lists;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
-@WebAppConfiguration
+@SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("dev")
 @Transactional
 public class AffiliateFullTextSearchTest {
