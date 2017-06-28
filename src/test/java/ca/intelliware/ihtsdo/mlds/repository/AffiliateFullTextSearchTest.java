@@ -20,8 +20,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
@@ -34,6 +34,7 @@ import ca.intelliware.ihtsdo.mlds.search.AngularTranslateServiceSetup;
 import com.google.common.collect.Lists;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@TestPropertySource(locations="classpath:test.application.properties")
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("dev")
 @Transactional
