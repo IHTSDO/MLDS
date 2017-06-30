@@ -108,7 +108,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		if (entityManagerFactory != null) {
-    		log.debug("Skipping entityManagerFactory configuration - already configured.");
+			log.debug("Skipping entityManagerFactory configuration - already configured.");
 			return entityManagerFactory;
 		}
 		log.debug("Configuring entityManagerFactory");
@@ -136,7 +136,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
 			"hibernate.hbm2ddl.auto", 
 			env.getProperty("hibernate.hbm2ddl.auto"));
 		entityManagerFactory.setJpaProperties(additionalProperties);
-		
+		log.debug("Completed entityManagerFactory configuration");
 		return entityManagerFactory;
 	}
 
