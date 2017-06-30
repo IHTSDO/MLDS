@@ -45,7 +45,7 @@ public class Affiliate extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="affiliate_id")
-	@Fields({ @Field(name="ALL"), @Field()})
+	//@Fields({ @Field(name="ALL"), @Field()})
 	Long affiliateId;
 
 	Instant created = Instant.now();
