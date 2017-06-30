@@ -27,6 +27,7 @@ public class Country extends BaseEntity {
     
     private boolean excludeUsage;
     
+    @Column(name="alternate_registration_url")
     private String alternateRegistrationUrl;
     
 	@ManyToOne
