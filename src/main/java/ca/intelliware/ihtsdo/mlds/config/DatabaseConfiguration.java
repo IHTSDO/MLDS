@@ -25,6 +25,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.amazonaws.services.kinesis.model.InvalidArgumentException;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -125,7 +126,10 @@ public class DatabaseConfiguration implements EnvironmentAware {
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
 		
-		// Hibernate properties
+		// Hibernate properties -- add explicit check for new property
+		if (env.getProperty("hibernate.cache.region.factory_class") == null) {
+			throw new InvalidArgumentException("Configuration file is missing required parameter -hibernate.cache.region.factory_class" );
+		}
 		Properties additionalProperties = new Properties();
 		additionalProperties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		additionalProperties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
