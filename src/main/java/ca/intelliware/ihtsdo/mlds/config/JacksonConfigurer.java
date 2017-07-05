@@ -47,6 +47,8 @@ public class JacksonConfigurer {
 	@PostConstruct
 	public void init() {
 		logger.debug("Initialising Jackson Mappers using {}", beanFactory.getClass().getName());
+		ObjectMapper dummy = new ObjectMapper();
+		logger.debug("Constructed dummy object mapper with type factory {}", dummy.getTypeFactory().getClass().getName());
 		//logger.debug("Alternatively: {}",((HierarchicalBeanFactory)beanFactory).getParentBeanFactory().getClass().getName());
 		
 		Collection<ObjectMapper> mappers = BeanFactoryUtils
