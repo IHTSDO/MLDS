@@ -3,8 +3,8 @@
 # Stop on error
 set -e;
 # set -x;
-
-while getopts ":ds" opt
+skipTests="-DskipTests=true"
+while getopts ":dst" opt
 do
 	case $opt in
 		d) 
@@ -20,11 +20,16 @@ do
 			skipBuild=true
 			echo "Option set to skip build"
 		;;
+		t)
+			skipTests=""
+			echo "Running tests as part of build"
+		;;
 		help|\?)
 			echo -e "Usage: [-d]  [-s]"
 			echo -e "\t d - debug. Starts the API in debug mode, which an IDE can attach to on port 8001"
 			#echo -e "\t p <port> - Starts the API on a specific port (default 8080)"
-			echo -e "\t s - skip. Skips the build."
+			echo -e "\t s - skip. Skips the build"
+			echo -e "\t t - include unit tests"
 			exit 0
 		;;
 	esac
@@ -39,7 +44,7 @@ done
 
 if [ -z "${skipBuild}" ]
 then
-	mvn clean install 
+	mvn clean install ${skipTests}
 fi
 
 #export JPDA_ADDRESS=8000
@@ -51,8 +56,11 @@ fi
 #Port appears set at 8080, possibly by ./src/main/deb/config.properties 
 #More likely resources/application.yml
 #Can't get this self hosted option to listen for debug connections
-java ${debugFlags} -jar target/ihtsdo-mlds.war \
---spring.config.location=config.properties --spring.profiles.active=mlds,dev 
+
+
+memOptions="-Xms2g -Xmx5g -XX:MaxPermSize=256m"
+java ${memOptions} ${debugFlags} -jar target/ihtsdo-mlds.war \
+--spring.config.location=local.config.properties --spring.profiles.active=mlds,dev 
 
 #java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -Djava.compiler=NONE \
 # -jar target/ihtsdo-mlds.war \
