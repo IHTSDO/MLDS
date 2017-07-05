@@ -121,8 +121,8 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
 		return restCommercialUsageResource.perform(
 				MockMvcRequestBuilders
 					.post(Routes.USAGE_REPORT_APPROVAL, commercialUsageId)
-					.contentType(MediaType.APPLICATION_JSON)
+					.contentType(MediaType.APPLICATION_JSON_UTF8)
 					.content("{\"transition\":\""+approvalTransition+"\"}")
-					.accept(MediaType.APPLICATION_JSON));
+					.accept(MediaType.APPLICATION_JSON_UTF8));
 	}
 }

@@ -25,8 +25,10 @@ public class Country extends BaseEntity {
     @Column(name="common_name")
     private String commonName;
     
+    @Column(name="exclude_usage")
     private boolean excludeUsage;
     
+    @Column(name="alternate_registration_url")
     private String alternateRegistrationUrl;
     
 	@ManyToOne

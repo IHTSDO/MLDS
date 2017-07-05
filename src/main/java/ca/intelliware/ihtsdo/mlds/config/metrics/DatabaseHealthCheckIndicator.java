@@ -9,6 +9,8 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.Health;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,10 +19,8 @@ import org.springframework.util.StringUtils;
 /**
  * SpringBoot Actuator HealthIndicator check for the Database.
  */
-public class DatabaseHealthCheckIndicator extends HealthCheckIndicator {
+public class DatabaseHealthCheckIndicator extends AbstractHealthIndicator {
 
-    public static final String DATABASE_HEALTH_INDICATOR = "database";
-	
     private final Logger log = LoggerFactory.getLogger(DatabaseHealthCheckIndicator.class);
     
     private static Map<String, String> queries = new HashMap<>();
@@ -40,20 +40,12 @@ public class DatabaseHealthCheckIndicator extends HealthCheckIndicator {
     private JdbcTemplate jdbcTemplate;
     private String query = null;
 
-    public DatabaseHealthCheckIndicator() {
-    }
-    
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public DatabaseHealthCheckIndicator(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    protected String getHealthCheckIndicatorName() {
-        return DATABASE_HEALTH_INDICATOR;
-    }
-
-    @Override
-    protected Result check() throws Exception {
+    protected void doHealthCheck(Health.Builder builder) throws Exception {
         log.debug("Initializing Database health indicator");
         try {
             String dataBaseProductName = jdbcTemplate.execute(new ConnectionCallback<String>() {
@@ -64,10 +56,10 @@ public class DatabaseHealthCheckIndicator extends HealthCheckIndicator {
                 }
             });
             query = detectQuery(dataBaseProductName);
-            return healthy();
+            builder.up();
         } catch (Exception e) {
             log.debug("Cannot connect to Database.", e);
-            return unhealthy("Cannot connect to database.", e);
+            builder.down(e);
         }
     }
 

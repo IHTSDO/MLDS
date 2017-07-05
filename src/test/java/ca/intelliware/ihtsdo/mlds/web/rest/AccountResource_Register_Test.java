@@ -147,9 +147,9 @@ public class AccountResource_Register_Test {
 		return restUserMockMvc.perform(
 			MockMvcRequestBuilders
 				.post("/api/register")
-				.contentType(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(content)
-				.accept(MediaType.APPLICATION_JSON));
+				.accept(MediaType.APPLICATION_JSON_UTF8));
 	}
 
 }
