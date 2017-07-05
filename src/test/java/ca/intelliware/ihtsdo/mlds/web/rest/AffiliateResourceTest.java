@@ -115,7 +115,7 @@ public class AffiliateResourceTest {
         when(affiliateRepository.findOne(999L)).thenReturn(null);
 
         restUserMockMvc.perform(get(Routes.AFFILIATE, 999L)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 	}
 
@@ -127,9 +127,9 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
 
         restUserMockMvc.perform(get(Routes.AFFILIATE, 1L)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.affiliateDetails.firstName").value("Test FirstName"))
                 .andExpect(jsonPath("$.affiliateDetails.address.street").value("Test Street"));
 	}
@@ -140,9 +140,9 @@ public class AffiliateResourceTest {
         when(affiliateRepository.findOne(999L)).thenReturn(null);
 
         restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 999L)
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
         		.content("{ \"firstName\": \"Updated FirstName\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
     }
 
@@ -153,9 +153,9 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
 
         restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
         		.content("{ \"firstName\": \"Updated FirstName\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isConflict());
     }
 
@@ -166,9 +166,9 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
 
         restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
         		.content("{ \"firstName\": \"Updated FirstName\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isConflict());
     }
 
@@ -180,11 +180,11 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"firstName\": \"Updated FirstName\", \"address\": { \"street\":\"Updated Street\" }, \"billingAddress\": {} }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.firstName").value("Updated FirstName"))
                 .andExpect(jsonPath("$.address.street").value("Updated Street"))
                 ;
@@ -204,11 +204,11 @@ public class AffiliateResourceTest {
 		when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"email\":\"new@email.com\", \"firstName\": \"Updated FirstName\", \"lastName\": \"Updated LastName\", \"address\": { \"street\":\"Updated Street\" }, \"billingAddress\": {} }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 ;
     	
     	
@@ -226,11 +226,11 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"organizationName\": \"Updated OrganizationName\", \"address\": {}, \"billingAddress\": {} }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.organizationName").value("Original OrganizationName"))
                 ;
     }
@@ -243,11 +243,11 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"address\": { \"country\": {\"isoCode2\":\"DK\"}}, \"billingAddress\": {\"country\": {\"isoCode2\":\"DK\"}} }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.address.country.isoCode2").value("CA")) /* Original address country preserved */
                 .andExpect(jsonPath("$.billingAddress.country.isoCode2").value("DK")) /* Updated billing country */
                 ;
@@ -260,9 +260,9 @@ public class AffiliateResourceTest {
 		when(affiliatesExporterService.exportSpec()).thenReturn(spec);
     	
     	restUserMockMvc.perform(get(Routes.AFFILIATES_CSV_SPEC)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.example").value("Example File Content"))
                 ;
     }
@@ -317,9 +317,9 @@ public class AffiliateResourceTest {
         when(affiliateRepository.findOne(999L)).thenReturn(null);
 
         restUserMockMvc.perform(put(Routes.AFFILIATE, 999L)
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
         		.content("{ \"notesInternal\": \"Updated notes\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 	}
 
@@ -330,9 +330,9 @@ public class AffiliateResourceTest {
 
         try {
         	restUserMockMvc.perform(put(Routes.AFFILIATE, 999L)
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
         		.content("{ \"notesInternal\": \"Updated notes\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().is5xxServerError());
         	Assert.fail();
         } catch (NestedServletException e) {
@@ -347,11 +347,11 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"notesInternal\": \"Updated Notes\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.notesInternal").value("Updated Notes"))
                 ;
     	
@@ -365,11 +365,11 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"standingState\": \"DEACTIVATED\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.standingState").value("DEACTIVATED"))
                 ;
     	
@@ -383,11 +383,11 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"standingState\": null }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.standingState").value("IN_GOOD_STANDING"))
                 ;
     	
@@ -401,9 +401,9 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"standingState\": \"IN_GOOD_STANDING\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isConflict())
                 ;
 	}
@@ -414,11 +414,11 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"notesInternal\": \"Updated Notes\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 ;
     	
     	Mockito.verify(affiliateAuditEvents).logUpdateOfAffiliate(Mockito.any(Affiliate.class));
@@ -431,11 +431,11 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"standingState\": \"DEACTIVATED\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 ;
     	
     	Mockito.verify(affiliateAuditEvents).logStandingStateChange(Mockito.any(Affiliate.class));
@@ -448,11 +448,11 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"standingState\": \"APPLYING\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 ;
     	
     	Mockito.verify(affiliateAuditEvents, Mockito.never()).logStandingStateChange(Mockito.any(Affiliate.class));
@@ -465,11 +465,11 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
-    			.contentType(MediaType.APPLICATION_JSON)
+    			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"creator\": \"updated@email.com\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.creator").value("original@email.com"))
                 ;
     	
@@ -481,7 +481,7 @@ public class AffiliateResourceTest {
         when(affiliateRepository.findOne(999L)).thenReturn(null);
 
         restUserMockMvc.perform(delete(Routes.AFFILIATE, 999L)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 	}
 
@@ -492,7 +492,7 @@ public class AffiliateResourceTest {
 
         try {
         	restUserMockMvc.perform(delete(Routes.AFFILIATE, 999L)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().is5xxServerError());
         	Assert.fail();
         } catch (NestedServletException e) {
@@ -507,7 +507,7 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(delete(Routes.AFFILIATE, 1L)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isConflict())
                 ;
 	}
@@ -521,7 +521,7 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(delete(Routes.AFFILIATE, 1L)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNoContent());
     	
     	Mockito.verify(affiliateDeleter).deleteAffiliate(Mockito.any(Affiliate.class));
@@ -534,7 +534,7 @@ public class AffiliateResourceTest {
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
     	
     	restUserMockMvc.perform(delete(Routes.AFFILIATE, 1L)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNoContent());
     	
     	Mockito.verify(affiliateAuditEvents).logDeleteOfAffiliate(Mockito.any(Affiliate.class));

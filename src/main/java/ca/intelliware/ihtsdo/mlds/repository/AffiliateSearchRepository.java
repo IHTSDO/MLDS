@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 
 import org.apache.lucene.search.Query;
 import org.hibernate.search.SearchFactory;
-import org.hibernate.search.errors.EmptyQueryException;
+import org.hibernate.search.exception.EmptyQueryException;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
