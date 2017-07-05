@@ -47,10 +47,10 @@ public class JacksonConfigurer {
 	@PostConstruct
 	public void init() {
 		logger.debug("Initialising Jackson Mappers using {}", beanFactory.getClass().getName());
-		logger.debug("Alternatively: {}",((HierarchicalBeanFactory)beanFactory).getParentBeanFactory().getClass().getName());
+		//logger.debug("Alternatively: {}",((HierarchicalBeanFactory)beanFactory).getParentBeanFactory().getClass().getName());
 		
 		Collection<ObjectMapper> mappers = BeanFactoryUtils
-				.beansOfTypeIncludingAncestors(beanFactory, ObjectMapper.class)
+				.beansOfTypeIncludingAncestors(beanFactory, ObjectMapper.class,true, true)
 				.values();
 		for (ObjectMapper mapper : mappers) {
 			logger.debug("Configuring Jackson mapper: {}", mapper.getTypeFactory().getClass().getName());
