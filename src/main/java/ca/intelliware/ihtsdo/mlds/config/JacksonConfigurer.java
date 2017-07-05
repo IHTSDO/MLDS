@@ -7,8 +7,10 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
+import org.springframework.beans.factory.HierarchicalBeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +30,7 @@ import ca.intelliware.ihtsdo.mlds.web.rest.dto.MemberDTO;
 
 @Configuration
 @ConditionalOnClass(ObjectMapper.class)
+@AutoConfigureAfter(WebConfigurer.class)
 public class JacksonConfigurer {
 	
     private final Logger logger = LoggerFactory.getLogger(JacksonConfigurer.class);
@@ -38,15 +41,16 @@ public class JacksonConfigurer {
 	@Bean
 	public Module mldsModule(final MemberRepository memberRepository, CurrentSecurityContext securityContext) {
 		SimpleModule mldsModule = new MLDSJacksonModule(memberRepository, securityContext);
-		
 		return mldsModule;
 	}
 	
 	@PostConstruct
 	public void init() {
-		logger.debug("Initialising Jackson Mappers");
+		logger.debug("Initialising Jackson Mappers using {}", beanFactory.getClass().getName());
+		logger.debug("Alternatively: {}",((HierarchicalBeanFactory)beanFactory).getParentBeanFactory().getClass().getName());
+		
 		Collection<ObjectMapper> mappers = BeanFactoryUtils
-				.beansOfTypeIncludingAncestors(this.beanFactory, ObjectMapper.class)
+				.beansOfTypeIncludingAncestors(beanFactory, ObjectMapper.class)
 				.values();
 		for (ObjectMapper mapper : mappers) {
 			logger.debug("Configuring Jackson mapper: {}", mapper.getTypeFactory().getClass().getName());
@@ -60,7 +64,6 @@ public class JacksonConfigurer {
 		SimpleFilterProvider filterProvider = new SimpleFilterProvider();
 		filterProvider.addFilter("affiliatePrivacyFilter", new InternalPrivacyFilter(Affiliate.PRIVATE_FIELDS) );
 		filterProvider.addFilter("memberDtoPrivacyFilter", new InternalPrivacyFilter(MemberDTO.PRIVATE_FIELDS) );
-		
 		mapper.setFilters(filterProvider);
 	}
 
