@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -45,8 +46,8 @@ public abstract class Application extends BaseEntity {
 	}
 	
 	@Id
-	@GeneratedValue
-	@Column(name="application_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="application_id", columnDefinition = "BIGINT")
     Long applicationId;
 	
 	// the parent

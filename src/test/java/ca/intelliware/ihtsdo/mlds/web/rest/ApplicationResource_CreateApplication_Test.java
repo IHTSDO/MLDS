@@ -116,9 +116,9 @@ public class ApplicationResource_CreateApplication_Test {
 		return mockMvc.perform(
 				MockMvcRequestBuilders
 						.post(Routes.APPLICATIONS)
-						.contentType(MediaType.APPLICATION_JSON)
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
 						.content("{ \"applicationType\": \"EXTENSION\", \"memberKey\":\"SE\" }")
-						.accept(MediaType.APPLICATION_JSON));
+						.accept(MediaType.APPLICATION_JSON_UTF8));
 	}
 
 	private void withNewSwedishExtensionApplication(int applicationId) {

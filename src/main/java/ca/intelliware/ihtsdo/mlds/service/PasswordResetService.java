@@ -13,8 +13,11 @@ import ca.intelliware.ihtsdo.mlds.repository.PasswordResetTokenRepository;
 @Service
 @Transactional
 public class PasswordResetService {
-	@Resource PasswordResetTokenRepository passwordResetTokenRepository;
-	@Resource UserService userService;
+	@Resource 
+	PasswordResetTokenRepository passwordResetTokenRepository;
+	
+	@Resource
+	UserService userService;
 	
 	public void resetPassword(String tokenKey, String newPassword) {
 		Validate.notEmpty(tokenKey);

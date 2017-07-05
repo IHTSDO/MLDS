@@ -8,7 +8,6 @@ import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.web.HttpMapperProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -31,9 +30,6 @@ public class JacksonConfigurer {
 
 	@Autowired
 	private ListableBeanFactory beanFactory;
-
-	@Autowired
-	private HttpMapperProperties properties = new HttpMapperProperties();
 
 	@Bean
 	public Module mldsModule(final MemberRepository memberRepository, CurrentSecurityContext securityContext) {
