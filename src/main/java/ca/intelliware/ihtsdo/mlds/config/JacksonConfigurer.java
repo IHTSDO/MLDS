@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +31,7 @@ import ca.intelliware.ihtsdo.mlds.web.rest.dto.MemberDTO;
 
 @Configuration
 @ConditionalOnClass(ObjectMapper.class)
-@AutoConfigureAfter(WebConfigurer.class)
+@DependsOn("passwordEncoder")
 public class JacksonConfigurer {
 	
     private final Logger logger = LoggerFactory.getLogger(JacksonConfigurer.class);
