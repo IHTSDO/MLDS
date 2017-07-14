@@ -24,3 +24,4 @@ src/main/webapp/bower_components/placeholders/test/
 .springBeans
 .yo-rc.json
 .bowerrc
+ca.*
