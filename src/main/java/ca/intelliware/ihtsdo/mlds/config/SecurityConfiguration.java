@@ -2,6 +2,7 @@ package ca.intelliware.ihtsdo.mlds.config;
 
 import javax.inject.Inject;
 
+import org.ihtsdo.sso.integration.RequestHeaderAuthenticationDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -18,16 +19,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import ca.intelliware.ihtsdo.mlds.security.AjaxAuthenticationFailureHandler;
 import ca.intelliware.ihtsdo.mlds.security.AjaxAuthenticationSuccessHandler;
 import ca.intelliware.ihtsdo.mlds.security.AjaxLogoutSuccessHandler;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.Http401UnauthorizedEntryPoint;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAuthenticationProvider;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled=true, securedEnabled=true, proxyTargetClass=true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
     private final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
@@ -50,15 +53,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Inject
     private UserDetailsService userDetailsService;
     
-    @Inject
-    private RememberMeServices rememberMeServices;
-    
-    @Inject
-    private HttpAuthAuthenticationProvider httpAuthAuthenticationProvider;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new StandardPasswordEncoder();
+    }
+    
+    @Bean
+    public RequestHeaderAuthenticationDecorator authenticationDecorator() {
+    	return new RequestHeaderAuthenticationDecorator();
     }
 
     @Inject
@@ -66,8 +68,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     	logger.debug("Configuring Global Security");
         auth
             .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-        auth.authenticationProvider(httpAuthAuthenticationProvider);
+            .passwordEncoder(passwordEncoder());
+    }
+    
+    @Bean
+    public RememberMeServices rememberMeServices() {
+    	String rememberMeKey = env.getProperty("jhipster.security.rememberme.key");
+        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(rememberMeKey, userDetailsService);
+        // See http://stackoverflow.com/questions/25565809/implementing-a-remember-me-for-spring-social
+        rememberMeServices.setAlwaysRemember(true);
+        return rememberMeServices;
     }
 
     @Override
@@ -88,11 +98,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     	
     	logger.debug("Configuring HTTP Security");
         http
+            .addFilterAfter(new RequestHeaderAuthenticationDecorator(), BasicAuthenticationFilter.class)
             .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
             .rememberMe()
-                .rememberMeServices(rememberMeServices)
+                .rememberMeServices(rememberMeServices())
                 .key(env.getProperty("jhipster.security.rememberme.key"))
                 .and()
             .formLogin()
@@ -119,7 +130,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/api/**").permitAll()
-                //.antMatchers("/app/**").authenticated()
                 .antMatchers("/websocket/tracker").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/websocket/**").permitAll()
                 .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
@@ -134,10 +144,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/protected/**").authenticated();
-
     }
 
-   // @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
-   // private static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
-   // }
 }

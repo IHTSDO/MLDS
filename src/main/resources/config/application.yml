@@ -64,7 +64,3 @@ spring:
         mode: XHTML
         cache: false
 
-
-webauth:
-    url: https://usermanagement2.ihtsdotools.org/security-web/query/
-    applicationName: mlds

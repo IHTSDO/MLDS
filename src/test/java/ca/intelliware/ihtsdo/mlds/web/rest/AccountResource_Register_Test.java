@@ -36,7 +36,6 @@ import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAdaptor;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
@@ -55,7 +54,6 @@ public class AccountResource_Register_Test {
     @Mock private PasswordResetService passwordResetService;
     @Mock private DuplicateRegistrationEmailSender duplicateRegistrationEmailSender;
     @Mock private DomainBlacklistService domainBlacklistService;
-    @Mock private HttpAuthAdaptor httpAuthAdaptor;
     @Mock private AffiliateRepository affiliateRepository;
     @Mock private AffiliateDetailsRepository affiliateDetailsRepository;
     @Mock private ApplicationRepository applicationRepository;
@@ -81,7 +79,6 @@ public class AccountResource_Register_Test {
         accountResource.passwordResetService = passwordResetService;
         accountResource.duplicateRegistrationEmailSender = duplicateRegistrationEmailSender;
         accountResource.domainBlacklistService = domainBlacklistService;
-        accountResource.httpAuthAdaptor = httpAuthAdaptor;
         accountResource.affiliateRepository = affiliateRepository;
         accountResource.affiliateDetailsRepository = affiliateDetailsRepository;
         accountResource.applicationRepository = applicationRepository;
@@ -126,13 +123,13 @@ public class AccountResource_Register_Test {
     		.andExpect(status().isNotAcceptable());
     }
 
-    @Test
+  /*  @Test
     public void shouldFailWhenRegisteringWithExistingStormpathAccountEmail() throws Exception {
     	Mockito.when(httpAuthAdaptor.getUserInfo(Mockito.eq("staff@test.com"))).thenReturn(new CentralAuthUserInfo());
     	
     	postRegister("staff@test.com")
     		.andExpect(status().isNotAcceptable());
-    }
+    }*/
 
     @Test
     @Ignore

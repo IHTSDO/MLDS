@@ -47,26 +47,6 @@
 			</properties>
 			<build>
 				<plugins>
-					<!--<plugin>-->
-						<!--<groupId>com.github.trecloux</groupId>-->
-						<!--<artifactId>yeoman-maven-plugin</artifactId>-->
-						<!--<version>0.2</version>-->
-						<!--<configuration>-->
-							<!--<yeomanProjectDirectory>${project.basedir}</yeomanProjectDirectory>-->
-						<!--</configuration>-->
-						<!--<executions>-->
-							<!--<execution>-->
-								<!--<id>run-grunt</id>-->
-								<!--<phase>generate-resources</phase>-->
-								<!--<goals>-->
-									<!--<goal>build</goal>-->
-								<!--</goals>-->
-								<!--<configuration>-->
-									<!--<gruntBuildArgs>&#45;&#45;force</gruntBuildArgs>-->
-								<!--</configuration>-->
-							<!--</execution>-->
-						<!--</executions>-->
-					<!--</plugin>-->
 					<plugin>
 						<artifactId>maven-clean-plugin</artifactId>
 						<version>2.5</version>
@@ -124,6 +104,7 @@
 		<metrics-spring.version>3.0.0</metrics-spring.version>
 		<postgresql.version>9.3-1100-jdbc41</postgresql.version>
 		<usertype.core.version>5.0.0.GA</usertype.core.version>
+		<ihtsdo-spring-sso.version>2.0.0</ihtsdo-spring-sso.version>
 	</properties>
 
 	<repositories>
@@ -207,8 +188,8 @@
 
 	<dependencies>
 		<dependency>
-		  <groupId>org.apache.httpcomponents</groupId>
-		  <artifactId>httpclient</artifactId>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
@@ -412,6 +393,11 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>springloaded</artifactId>
 			<version>1.2.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ihtsdo.otf</groupId>
+			<artifactId>ihtsdo-spring-sso</artifactId>
+			<version>${ihtsdo-spring-sso.version}</version>
 		</dependency>
 
 		<!-- Database dependencies -->
@@ -712,8 +698,6 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings
-					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -723,6 +707,8 @@
 						<target>1.7</target>
 					</configuration>
 				</plugin>
+				<!--This plugin's configuration is used to store Eclipse m2e settings
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>

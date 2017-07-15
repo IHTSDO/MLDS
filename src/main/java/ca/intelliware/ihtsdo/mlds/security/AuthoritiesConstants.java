@@ -8,13 +8,14 @@ public final class AuthoritiesConstants {
     private AuthoritiesConstants() {
     }
 
-    public static final String ADMIN = "ROLE_ADMIN";
+    public static final String ADMIN = "ROLE_mlds-ihtsdo";
     
-    public static final String STAFF = "ROLE_STAFF";
+    public static final String STAFF = "ROLE_mlds-member-";
 
-    public static final String MEMBER = "ROLE_MEMBER";
+    public static final String MEMBER = "ROLE_mlds-member";
     
-    public static final String USER = "ROLE_USER";
+    //Any user logged in as one of the above is automatically a user.
+    public static final String USER = "ROLE_USER";  
 
     public static final String ANONYMOUS = "ROLE_ANONYMOUS";
     public static final String IHTSDO = "IHTSDO";
@@ -31,7 +32,7 @@ public final class AuthoritiesConstants {
     
 
 	public static String staffRoleForMember(String memberKey) {
-		return STAFF + "_" + memberKey;
+		return STAFF + memberKey;
 	}
 
 	public static String memberRoleForMember(String memberKey) {

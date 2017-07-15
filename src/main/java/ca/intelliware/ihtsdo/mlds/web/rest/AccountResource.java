@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
+import org.ihtsdo.sso.integration.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,6 @@ import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAdaptor;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
@@ -124,9 +124,6 @@ public class AccountResource {
 	@Resource
 	UserMembershipAccessor userMembershipAccessor;
 	
-	@Resource
-	HttpAuthAdaptor httpAuthAdaptor;
-	
 	CurrentSecurityContext currentSecurityContext = new CurrentSecurityContext();
 
     /**
@@ -148,10 +145,11 @@ public class AccountResource {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         } else if (domainBlacklistService.isDomainBlacklisted(userDTO.getEmail())) {
     		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        } else if (httpAuthAdaptor.getUserInfo(userDTO.getLogin()) != null) {
+        } /*TODO Need to check if proposed user account name is already known as staff/admin account
+        	else if (httpAuthAdaptor.getUserInfo(userDTO.getLogin()) != null) {
         	// Admin/Stormpath registered account - do not allow local duplicate
     		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        } else {
+        } */ else {
         	createUserAccount(userDTO, request, response);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
@@ -266,7 +264,8 @@ public class AccountResource {
         if (user != null) {
         	userDto = createUserDtoFromUser(user);
         } else {
-        	CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserInfo(currentSecurityContext.getCurrentUserName());
+        	//CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserInfo(currentSecurityContext.getCurrentUserName());
+        	CentralAuthUserInfo userInfo = getUserInfo();
         	if (userInfo != null) {
                 userDto = createUserDtoFromRemoteUserInfo(userInfo);
         	} else {
@@ -279,6 +278,16 @@ public class AccountResource {
         
 		return new ResponseEntity<>(userDto,HttpStatus.OK);
     }
+	private CentralAuthUserInfo getUserInfo() {
+		CentralAuthUserInfo userInfo = null;
+		String userName = SecurityUtil.getUsername();
+		if (userName != null && !userName.isEmpty()) {
+			userInfo = new CentralAuthUserInfo();
+			userInfo.setName(userName);
+		}
+		return userInfo;
+	}
+
 	private UserDTO createUserDtoFromRemoteUserInfo(CentralAuthUserInfo userInfo) {
 		Member member = userMembershipAccessor.getMemberAssociatedWithUser();
 		
