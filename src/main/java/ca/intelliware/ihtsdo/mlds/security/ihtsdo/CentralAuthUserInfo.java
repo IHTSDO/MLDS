@@ -1,84 +1,67 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * Bean to wrap json response from https://usermanagement.ihtsdotools.org/security-web/query/users/Bob
- * {
- * 	"name":"Bob",
- * 	"status":"ENABLED",
- * 	"email":"bob@test.com",
- * 	"givenName":"Bob",
- * 	"middleName":"the",
- * 	"surname":"Bobbin",
- *      "parentDir":"OTF Users",
- * 	"token":"411f228b-7e48-4449-8432-8f7416692be9"
- * }
+ * Bean to wrap json response from https://ims.ihtsdotools.org:443/api/account
+{
+  "login": "pwilliams",
+  "password": null,
+  "firstName": "Peter",
+  "lastName": "G. Williams",
+  "email": "pwi@ihtsdo.org",
+  "langKey": null,
+  "roles": [
+    "ROLE_auths-design-steering-group",
+    "ROLE_auths-extended-team",
+    "ROLE_auths-testers"
+  ]
+}
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class CentralAuthUserInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	static enum Status {
-		ENABLED, DISABLED;
-	}
-	String name;
-	Status status;
+	String login;
+	String firstName;
 	String email;
-	String givenName;
-	String middleName;
-	String surname;
-	String token;
-	String parentDir;
+	String lastName;
+	List<String> roles;
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Status getStatus() {
-		return status;
-	}
-	public void setStatus(Status status) {
-		this.status = status;
-	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getGivenName() {
-		return givenName;
+	public String getLogin() {
+		return login;
 	}
-	public void setGivenName(String givenName) {
-		this.givenName = givenName;
+	public void setLogin(String login) {
+		this.login = login;
 	}
-	public String getMiddleName() {
-		return middleName;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getSurname() {
-		return surname;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-	public String getToken() {
-		return token;
+	public List<String> getRoles() {
+		return roles;
 	}
-	public void setToken(String token) {
-		this.token = token;
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
-	public String getParentDir() {
-		return parentDir;
-	}
-	public void setParentDir(String parentDir) {
-		this.parentDir = parentDir;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

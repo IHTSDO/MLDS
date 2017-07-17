@@ -5,8 +5,6 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo.Status;
-
 /**
  * Adapt the CentralAuthUserInfo to the Spring UserDetails interface.
  */
@@ -34,31 +32,32 @@ public class RemoteUserDetails implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return centralAuthUserInfo.getName();
+		return centralAuthUserInfo.getLogin();
+	}
+
+
+	public CentralAuthUserInfo getCentralAuthUserInfo() {
+		return centralAuthUserInfo;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return centralAuthUserInfo.status == Status.ENABLED;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return centralAuthUserInfo.status == Status.ENABLED;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return centralAuthUserInfo.status == Status.ENABLED;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return centralAuthUserInfo.status == Status.ENABLED;
-	}
-
-	public CentralAuthUserInfo getCentralAuthUserInfo() {
-		return centralAuthUserInfo;
+		return true;
 	}
 	
 }

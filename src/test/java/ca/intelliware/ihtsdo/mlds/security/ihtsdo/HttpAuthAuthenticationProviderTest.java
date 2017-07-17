@@ -93,7 +93,7 @@ public class HttpAuthAuthenticationProviderTest {
 
 	private void stubUserPerms(String username, CentralAuthUserPermission... perms)
 			throws ClientProtocolException, IOException {
-		Mockito.stub(httpAuthAdaptorMock.getUserPermissions(username)).toReturn(Arrays.asList(perms));
+		Mockito.stub(httpAuthAdaptorMock.getUserAccountInfo(username)).toReturn(Arrays.asList(perms));
 	}
 
 
