@@ -1,8 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
+import java.net.HttpCookie;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,9 +21,9 @@ public class HttpAuthIntegrationTest {
 		String username = "michaelb";
 		String password = "XXXXXXXX";// put a real password in
 		
-		boolean result = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
+		HttpCookie cookie = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password, null);
 		
-		assertEquals(true, result);
+		assertNotNull(cookie);
 	}
 	
 	@Test
@@ -28,15 +31,15 @@ public class HttpAuthIntegrationTest {
 		String username = "michaelb";
 		String password = "nothepassword";
 		
-		boolean result = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
+		HttpCookie cookie = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password, null);
 		
-		assertEquals(false ,result);
+		assertNull(cookie);
 	}
 	
 	@Test(expected=IOException.class)
 	public void badUrlInConfigThrowsExceptionRatherThanResult() throws Exception {
 		httpAuthAdaptor = new HttpAuthAdaptor("https://usermanagement.ihtsdotools.org/notTheQueryUrl/");
 		
-		httpAuthAdaptor.checkUsernameAndPasswordValid("user", "password");
+		httpAuthAdaptor.checkUsernameAndPasswordValid("user", "password", null);
 	}
 }

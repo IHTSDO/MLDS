@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApplicationErrorCodes;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 
 /**
  * AuthenticationProvider implementation that queries the IHTSDO Crowd wrapper.
@@ -59,6 +60,10 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 				for (String role : remoteUserInfo.getRoles()) {
 					if (role.contains("mlds")) {
 						authorities.add(new SimpleGrantedAuthority(role));
+					}
+					
+					if (role.equals(AuthoritiesConstants.ADMIN)) {
+						authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.IHTSDO));
 					}
 				}
 				if (authorities.isEmpty()) {
