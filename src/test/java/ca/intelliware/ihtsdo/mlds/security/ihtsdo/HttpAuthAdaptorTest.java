@@ -48,7 +48,7 @@ public class HttpAuthAdaptorTest {
 		response200.setEntity(new StringEntity("{\"perms\":[{\"app\":\"Release\",\"role\":\"Manager\",\"member\":\"UK\"}]}", ContentType.APPLICATION_JSON));
 		Mockito.stub(httpClient.execute(Mockito.any(HttpUriRequest.class))).toReturn(response200);
 		
-		List<CentralAuthUserPermission> userPermissions = httpAuthAdaptor.getUserPermissions("username");
+		List<CentralAuthUserPermission> userPermissions = httpAuthAdaptor.getUserAccountInfo("username");
 		
 		assertNotNull(userPermissions);
 		assertThat(userPermissions, not(empty()));
