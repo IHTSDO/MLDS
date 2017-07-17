@@ -1,10 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 import java.io.IOException;
+import java.net.HttpCookie;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -12,43 +15,52 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Lists;
 
 import ca.intelliware.ihtsdo.mlds.domain.ApplicationErrorCodes;
 
 /**
- * AuthenticationProvider implementation that queries the IHTSDO Stormpath wrapper.
+ * AuthenticationProvider implementation that queries the IHTSDO Crowd wrapper.
  */
 @Service
 public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 	@Resource
 	HttpAuthAdaptor httpAuthAdaptor;
-
-	AuthorityConverter authorityConverter = new AuthorityConverter(); 
+	
+	private final Logger logger = LoggerFactory.getLogger(HttpAuthAuthenticationProvider.class);
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		String username = "unknown";
 		if (authentication instanceof UsernamePasswordAuthenticationToken) {
 			UsernamePasswordAuthenticationToken usernamePassword = (UsernamePasswordAuthenticationToken) authentication;
 			
-			String username = usernamePassword.getName();
+			username = usernamePassword.getName();
 			String password = (String) usernamePassword.getCredentials();
 			
 			try {
-				CentralAuthUserInfo remoteUserInfo = httpAuthAdaptor.getUserInfo(username);
-				if (remoteUserInfo == null) {
+				//First we need a cross scripting token before we can make any API calls
+				String csrfToken = httpAuthAdaptor.getCsrfToken();
+				if (!httpAuthAdaptor.checkUserExists(username, csrfToken)) {
 					throw new UsernameNotFoundException("User not found in remote system: " + username);
 				}
 				
-				boolean isValid = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
-				if (!isValid) {
+				HttpCookie authenticatedToken = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password, csrfToken);
+				if (authenticatedToken == null) {
 					throw new BadCredentialsException(ApplicationErrorCodes.MLDS_ERR_AUTH_BAD_PASSWORD
 							+ ": Password for remote user was invalid: " + username);
 				}
-				
-				List<CentralAuthUserPermission> userPermissions = httpAuthAdaptor.getUserPermissions(username);
-				List<GrantedAuthority> authorities = authorityConverter.buildAuthoritiesList(userPermissions);
+				CentralAuthUserInfo remoteUserInfo =  httpAuthAdaptor.getUserAccountInfo(username, csrfToken, authenticatedToken);
+				List<GrantedAuthority> authorities = Lists.newArrayList();
+				for (String role : remoteUserInfo.getRoles()) {
+					if (role.contains("mlds")) {
+						authorities.add(new SimpleGrantedAuthority(role));
+					}
+				}
 				if (authorities.isEmpty()) {
 					throw new DisabledException(ApplicationErrorCodes.MLDS_ERR_AUTH_NO_PERMISSIONS
 							+ ": Users exists, but has no permissions assigned: "+ username);
@@ -59,6 +71,9 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 				
 			} catch (IOException e) {
 				throw new RuntimeException("MLDS_ERR_AUTH_SYSTEM: Failed to contact authentication system.", e);
+			} catch (Exception e) {
+				logger.info("Returning {} due to {}", e.getClass().getName(), e.getMessage());
+				throw (e);
 			}
 			
 		} else {
