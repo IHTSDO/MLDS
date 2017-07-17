@@ -128,7 +128,7 @@ public class AccountResource_Register_Test {
 
     @Test
     public void shouldFailWhenRegisteringWithExistingStormpathAccountEmail() throws Exception {
-    	Mockito.when(httpAuthAdaptor.getUserInfo(Mockito.eq("staff@test.com"))).thenReturn(new CentralAuthUserInfo());
+    	Mockito.when(httpAuthAdaptor.getUserAccountInfo(Mockito.eq("staff@test.com"), null, null)).thenReturn(new CentralAuthUserInfo());
     	
     	postRegister("staff@test.com")
     		.andExpect(status().isNotAcceptable());
