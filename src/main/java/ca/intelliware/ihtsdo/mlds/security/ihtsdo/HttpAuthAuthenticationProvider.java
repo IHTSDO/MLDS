@@ -56,16 +56,8 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 							+ ": Password for remote user was invalid: " + username);
 				}
 				CentralAuthUserInfo remoteUserInfo =  httpAuthAdaptor.getUserAccountInfo(username, csrfToken, authenticatedToken);
-				List<GrantedAuthority> authorities = Lists.newArrayList();
-				for (String role : remoteUserInfo.getRoles()) {
-					if (role.contains("mlds")) {
-						authorities.add(new SimpleGrantedAuthority(role));
-					}
-					
-					if (role.equals(AuthoritiesConstants.ADMIN)) {
-						authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.IHTSDO));
-					}
-				}
+				List<GrantedAuthority> authorities = AuthorityConverter.buildAuthoritiesList(remoteUserInfo.getRoles());
+
 				if (authorities.isEmpty()) {
 					throw new DisabledException(ApplicationErrorCodes.MLDS_ERR_AUTH_NO_PERMISSIONS
 							+ ": Users exists, but has no permissions assigned: "+ username);
