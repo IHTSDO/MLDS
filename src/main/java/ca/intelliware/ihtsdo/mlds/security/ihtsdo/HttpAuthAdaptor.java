@@ -17,6 +17,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +27,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * HTTP query marshaller for the IHTSDO shared web authentication service.
  */
 public class HttpAuthAdaptor implements HeaderConstants {
+	
+	private final Logger logger = LoggerFactory.getLogger(HttpAuthAdaptor.class);
+	
 	static final String PARAM_QUERY_USERNAME = "username";
 	static final String PARAM_LOGIN_USERNAME = "j_username";
 	static final String PARAM_APP_NAME = "appName";
@@ -112,6 +117,7 @@ public class HttpAuthAdaptor implements HeaderConstants {
 				throw new IllegalStateException("Unexpected JSON: " + body, e);
 			}
 		} finally {
+			logger.info("Made remote call to get user details for {} HTTP {}", username, statusCode);
 			request.releaseConnection();
 		}
 	}
