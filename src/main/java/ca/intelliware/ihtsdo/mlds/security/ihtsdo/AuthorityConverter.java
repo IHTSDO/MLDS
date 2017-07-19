@@ -33,7 +33,7 @@ public class AuthorityConverter {
 				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN));
 				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.IHTSDO));
 			} else if (role.startsWith(REMOTE_ROLE_STAFF)) {
-				String memberKey = role.substring(REMOTE_ROLE_STAFF.length()+1);
+				String memberKey = role.substring(REMOTE_ROLE_STAFF.length());
 				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.STAFF));
 				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.staffRoleForMember(memberKey)));
 			} else if (REMOTE_ROLE_MEMBER.equals(role)) {
