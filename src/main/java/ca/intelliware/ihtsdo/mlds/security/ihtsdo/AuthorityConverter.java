@@ -1,10 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
-import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -35,7 +32,7 @@ public class AuthorityConverter {
 				String memberKey = role.substring(REMOTE_ROLE_STAFF.length()).toUpperCase();
 				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.STAFF));
 				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.staffRoleForMember(memberKey)));
-			} else if (role.startsWith(REMOTE_ROLE_MEMBER)) {
+			} else if (role.equals(REMOTE_ROLE_MEMBER)) {
 				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.MEMBER));
 				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.memberRoleForMember(AuthoritiesConstants.IHTSDO)));
 			}
