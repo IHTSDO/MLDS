@@ -19,8 +19,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.Lists;
-
 import ca.intelliware.ihtsdo.mlds.domain.ApplicationErrorCodes;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 
@@ -55,13 +53,16 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 					throw new BadCredentialsException(ApplicationErrorCodes.MLDS_ERR_AUTH_BAD_PASSWORD
 							+ ": Password for remote user was invalid: " + username);
 				}
-				CentralAuthUserInfo remoteUserInfo =  httpAuthAdaptor.getUserAccountInfo(username, csrfToken, authenticatedToken);
+				CentralAuthUserInfo remoteUserInfo = httpAuthAdaptor.getUserAccountInfo(username, csrfToken, authenticatedToken);
 				List<GrantedAuthority> authorities = AuthorityConverter.buildAuthoritiesList(remoteUserInfo.getRoles());
-
+				
 				if (authorities.isEmpty()) {
 					throw new DisabledException(ApplicationErrorCodes.MLDS_ERR_AUTH_NO_PERMISSIONS
 							+ ": Users exists, but has no permissions assigned: "+ username);
 				}
+				
+				//If the user has logged in, also give them the USER role
+				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
 				
 				RemoteUserDetails user = new RemoteUserDetails(remoteUserInfo, authorities);
 				return new UsernamePasswordAuthenticationToken(user, password,authorities);
