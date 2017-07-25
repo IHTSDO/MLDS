@@ -179,7 +179,8 @@ mldsApp.controller('AffiliateManagementController', [
 						    $parse("affiliate.standingState | enum:'affiliate.standingState.'"),
 						    $parse("affiliateActiveDetails.address.country.commonName||''"),
 						    $parse("affiliate.homeMember.key"),
-						    $parse("affiliateActiveDetails.email")
+						    $parse("affiliateActiveDetails.email"),
+								$parse("application.submittedAt | date: 'yyyy-MM-dd'")
 						];
 						var result = [];
 						_.each(response.data, function(affiliate) {
