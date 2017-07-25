@@ -7,10 +7,8 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
-import org.springframework.beans.factory.HierarchicalBeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,7 +48,6 @@ public class JacksonConfigurer {
 		logger.debug("Initialising Jackson Mappers using {}", beanFactory.getClass().getName());
 		ObjectMapper dummy = new ObjectMapper();
 		logger.debug("Constructed dummy object mapper with type factory {}", dummy.getTypeFactory().getClass().getName());
-		//logger.debug("Alternatively: {}",((HierarchicalBeanFactory)beanFactory).getParentBeanFactory().getClass().getName());
 		
 		Collection<ObjectMapper> mappers = BeanFactoryUtils
 				.beansOfTypeIncludingAncestors(beanFactory, ObjectMapper.class,true, true)
