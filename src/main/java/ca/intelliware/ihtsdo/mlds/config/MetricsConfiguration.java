@@ -45,11 +45,13 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
     private static final String PROP_METRIC_REG_JVM_FILES = "jvm.files";
     private static final String PROP_METRIC_REG_JVM_BUFFERS = "jvm.buffers";
 
-    private final Logger log = LoggerFactory.getLogger(MetricsConfiguration.class);
+    private final Logger logger = LoggerFactory.getLogger(MetricsConfiguration.class);
 
-    private static final MetricRegistry METRIC_REGISTRY = new MetricRegistry();
+    //Metric registry no longer static
+    //See https://github.com/jhipster/generator-jhipster/issues/980
+    private final MetricRegistry METRIC_REGISTRY = new MetricRegistry();
 
-    private static final HealthCheckRegistry HEALTH_CHECK_REGISTRY = new HealthCheckRegistry();
+    private final HealthCheckRegistry HEALTH_CHECK_REGISTRY = new HealthCheckRegistry();
 
     private RelaxedPropertyResolver propertyResolver;
 
@@ -67,19 +69,20 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
     @Override
     @Bean
     public HealthCheckRegistry getHealthCheckRegistry() {
+    	logger.debug("Creating metrics health check registry");
         return HEALTH_CHECK_REGISTRY;
     }
 
     @PostConstruct
     public void init() {
-        log.debug("Registring JVM gauges");
+    	logger.debug("Registring JVM gauges");
         METRIC_REGISTRY.register(PROP_METRIC_REG_JVM_MEMORY, new MemoryUsageGaugeSet());
         METRIC_REGISTRY.register(PROP_METRIC_REG_JVM_GARBAGE, new GarbageCollectorMetricSet());
         METRIC_REGISTRY.register(PROP_METRIC_REG_JVM_THREADS, new ThreadStatesGaugeSet());
         METRIC_REGISTRY.register(PROP_METRIC_REG_JVM_FILES, new FileDescriptorRatioGauge());
         METRIC_REGISTRY.register(PROP_METRIC_REG_JVM_BUFFERS, new BufferPoolMetricSet(ManagementFactory.getPlatformMBeanServer()));
         if (propertyResolver.getProperty(PROP_JMX_ENABLED, Boolean.class, false)) {
-            log.info("Initializing Metrics JMX reporting");
+        	logger.info("Initializing Metrics JMX reporting");
             final JmxReporter jmxReporter = JmxReporter.forRegistry(METRIC_REGISTRY).build();
             jmxReporter.start();
         }

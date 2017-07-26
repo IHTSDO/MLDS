@@ -362,7 +362,7 @@
             },
             "error": {
                 "dontmatch": "The password and its confirmation do not match!",
-                "server": "An error occurred.  Repeating the action may succeed."
+                "server": "An error has occurred.  Please login again by pressing the Login button again."
             },
             "validate": {
                 "newpassword": {

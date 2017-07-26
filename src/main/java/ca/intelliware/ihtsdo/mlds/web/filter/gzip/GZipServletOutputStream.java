@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
+
+import org.apache.commons.lang.NotImplementedException;
 
 class GZipServletOutputStream extends ServletOutputStream {
     private OutputStream stream;
@@ -38,4 +41,15 @@ class GZipServletOutputStream extends ServletOutputStream {
     public void write(int b) throws IOException {
         this.stream.write(b);
     }
+
+	@Override
+	public boolean isReady() {
+		return true;
+	}
+
+	@Override
+	public void setWriteListener(WriteListener listener) {
+		// TODO Auto-generated method stub
+		throw new NotImplementedException();
+	}
 }

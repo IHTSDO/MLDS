@@ -79,8 +79,8 @@ public class ReleaseFilesResourceTest {
 		releaseFile.setDownloadUrl("http://test.com/file");
 
 		restReleaseFilesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
-				.contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 		
 		Mockito.verify(uriDownloader).download(Mockito.eq("http://test.com/file"), Mockito.any(HttpServletRequest.class), Mockito.any(HttpServletResponse.class));
@@ -97,8 +97,8 @@ public class ReleaseFilesResourceTest {
 		withReleaseFileWithIdOf(3L);
 		
 		restReleaseFilesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
-				.contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
 		Mockito.verify(releasePackageAuditEvents).logDownload(Mockito.any(ReleaseFile.class), Mockito.anyInt(), Mockito.any(Affiliate.class));
@@ -113,8 +113,8 @@ public class ReleaseFilesResourceTest {
 
 		try {
 			restReleaseFilesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
-					.contentType(MediaType.APPLICATION_JSON)
-	                .accept(MediaType.APPLICATION_JSON))
+					.contentType(MediaType.APPLICATION_JSON_UTF8)
+	                .accept(MediaType.APPLICATION_JSON_UTF8))
 	                .andExpect(status().is5xxServerError());
 			Assert.fail();
         } catch (NestedServletException e) {

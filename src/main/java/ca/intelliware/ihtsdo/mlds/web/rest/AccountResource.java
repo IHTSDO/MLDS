@@ -148,7 +148,7 @@ public class AccountResource {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         } else if (domainBlacklistService.isDomainBlacklisted(userDTO.getEmail())) {
     		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        } else if (httpAuthAdaptor.getUserInfo(userDTO.getLogin()) != null) {
+        } else if (httpAuthAdaptor.checkUserExists(userDTO.getLogin(), null)) {
         	// Admin/Stormpath registered account - do not allow local duplicate
     		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         } else {
@@ -266,7 +266,7 @@ public class AccountResource {
         if (user != null) {
         	userDto = createUserDtoFromUser(user);
         } else {
-        	CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserInfo(currentSecurityContext.getCurrentUserName());
+        	CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserAccountInfo(currentSecurityContext.getCurrentUserName(), null, null);
         	if (userInfo != null) {
                 userDto = createUserDtoFromRemoteUserInfo(userInfo);
         	} else {
@@ -285,10 +285,10 @@ public class AccountResource {
 		List<String> roles = currentSecurityContext.getRolesList();
 		
 		UserDTO userDto = new UserDTO(
-				userInfo.getName(),
+				userInfo.getLogin(),
 				"XX",
-				userInfo.getGivenName(),
-				userInfo.getSurname(),
+				userInfo.getFirstName(),
+				userInfo.getLastName(),
 				userInfo.getEmail(),
 				"en", // The central service doesn't have a language preference.
 			    roles,
