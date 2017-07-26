@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.domain;
 import java.io.Serializable;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -21,6 +22,7 @@ public class PasswordResetToken implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name="password_reset_token_id")
     private String passwordResetTokenId = UUID.randomUUID().toString();
 
     @ManyToOne

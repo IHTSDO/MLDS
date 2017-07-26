@@ -50,8 +50,8 @@ public class PasswordResetResourceTest {
 	public void requestPasswordResetShouldFailIfEmailNotIncluded() throws Exception {
 		restPasswordResetResource.perform(MockMvcRequestBuilders.post(Routes.PASSWORD_RESET)
 				.content("{\"email\": null}")
-				.contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.containsString("no email")));
 		
@@ -64,8 +64,8 @@ public class PasswordResetResourceTest {
 		
 		restPasswordResetResource.perform(MockMvcRequestBuilders.post(Routes.PASSWORD_RESET)
 				.content("{\"email\": \"unknown@email.com\"}")
-				.contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest());
 		
 		Mockito.verify(passwordResetEmailSender, Mockito.never()).sendPasswordResetEmail(Mockito.any(User.class), Mockito.anyString());
@@ -79,8 +79,8 @@ public class PasswordResetResourceTest {
 		
 		restPasswordResetResource.perform(MockMvcRequestBuilders.post(Routes.PASSWORD_RESET)
 				.content("{\"email\": \"test@email.com\"}")
-				.contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 		
 		Mockito.verify(passwordResetEmailSender, Mockito.atLeastOnce()).sendPasswordResetEmail(Mockito.any(User.class), Mockito.matches("TEST-TOKEN"));
@@ -90,8 +90,8 @@ public class PasswordResetResourceTest {
 	public void resetPasswordShouldFailIfPasswordNotIncluded() throws Exception {
 		restPasswordResetResource.perform(MockMvcRequestBuilders.post(Routes.PASSWORD_RESET_ITEM, "TEST-TOKEN")
 				.content("{\"password\": null}")
-				.contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.containsString("no password")))
                 ;
@@ -103,8 +103,8 @@ public class PasswordResetResourceTest {
 	public void resetPasswordShouldResetPassword() throws Exception {
 		restPasswordResetResource.perform(MockMvcRequestBuilders.post(Routes.PASSWORD_RESET_ITEM, "TEST-TOKEN")
 				.content("{\"password\": \"new-password\"}")
-				.contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 		
 		Mockito.verify(passwordResetService, Mockito.atLeastOnce()).resetPassword("TEST-TOKEN", "new-password");
@@ -116,8 +116,8 @@ public class PasswordResetResourceTest {
 		
 		restPasswordResetResource.perform(MockMvcRequestBuilders.post(Routes.PASSWORD_RESET_ITEM, "BAD-TOKEN")
 				.content("{\"password\": \"new-password\"}")
-				.contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 		
 		Mockito.verify(passwordResetService, Mockito.atLeastOnce()).resetPassword("BAD-TOKEN", "new-password");

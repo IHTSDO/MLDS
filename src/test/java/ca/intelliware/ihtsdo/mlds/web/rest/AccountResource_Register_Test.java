@@ -128,7 +128,7 @@ public class AccountResource_Register_Test {
 
     @Test
     public void shouldFailWhenRegisteringWithExistingStormpathAccountEmail() throws Exception {
-    	Mockito.when(httpAuthAdaptor.getUserInfo(Mockito.eq("staff@test.com"))).thenReturn(new CentralAuthUserInfo());
+    	Mockito.when(httpAuthAdaptor.getUserAccountInfo(Mockito.eq("staff@test.com"), null, null)).thenReturn(new CentralAuthUserInfo());
     	
     	postRegister("staff@test.com")
     		.andExpect(status().isNotAcceptable());
@@ -147,9 +147,9 @@ public class AccountResource_Register_Test {
 		return restUserMockMvc.perform(
 			MockMvcRequestBuilders
 				.post("/api/register")
-				.contentType(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(content)
-				.accept(MediaType.APPLICATION_JSON));
+				.accept(MediaType.APPLICATION_JSON_UTF8));
 	}
 
 }

@@ -3,7 +3,7 @@
 		<div class="page-header">
 			<h2>
 				<span>Affiliate Management</span>
-				<button class="btn btn-primary pull-right" type="button" ng-csv="generateCsv()" lazy-load="true" csv-header="['No.', 'Affiliate Name', 'Agreement Type', 'Standing', 'Home Country', 'Member', 'Email']" filename="affiliates.csv">
+				<button class="btn btn-primary pull-right" type="button" ng-csv="generateCsv()" lazy-load="true" csv-header="['No.', 'Affiliate Name', 'Organization Name', 'Organization Type', 'Agreement Type', 'Standing', 'Home Country', 'Member', 'Email', 'Application Submission Date', 'Application Completion Date']" filename="affiliates.csv">
 					<i class="fa fa-download"></i> Export as CSV
 					<span ng-show="generatingCsv" ><i class="fa fa-spinner fa-spin"></i></span>
 				</button>
@@ -21,7 +21,7 @@
 <div class="row">
 	<div class="col-sm-6">
 		<div class="input-group">
-      <input class="form-control" type="search" ng-model="query" placeholder="Search Affiliates"> 
+      <input class="form-control" type="search" ng-model="query" placeholder="Search Affiliates">
      	<span class="input-group-addon"><span class="fa fa-search"></span></span>
     </div>
     <hr>
@@ -85,7 +85,7 @@
 						<th class="col-md-2">
 							<span class="btn-group" dropdown>
 					      <a href class="dropdown-toggle" data-toggle="dropdown">
-					        Standing<span ng-show="standingStateFilter">: {{standingStateNotApplying?'Not':''}} {{standingStateFilter | enum:'affiliate.standingState.'}}</span> 
+					        Standing<span ng-show="standingStateFilter">: {{standingStateNotApplying?'Not':''}} {{standingStateFilter | enum:'affiliate.standingState.'}}</span>
 					        <span ng-hide="orderByField == 'standingState'"><i class="fa fa-sort"></i></span>
 					        <span ng-show="orderByField == 'standingState' && canSort">
 										<span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
@@ -97,10 +97,10 @@
 					      	<li ng-show="canSort"><button class="btn btn-link btn-muted" ng-click="toggleField('standingState', true)"><i class="fa fa-sort-alpha-desc"></i> Sort Z to A</button></li>
 					      	<li class="divider" ng-show="canSort"></li>
 					      	<li>
-					      		<button class="btn btn-link btn-muted" ng-click="filterStandingState('')">All</button>					      		
+					      		<button class="btn btn-link btn-muted" ng-click="filterStandingState('')">All</button>
 					      	</li>
 					      	<li>
-					      		<button class="btn btn-link btn-muted" ng-click="filterStandingStateNotApplying()" ng-class="{selected: standingStateNotApplying}">Not Applying</button>					      		
+					      		<button class="btn btn-link btn-muted" ng-click="filterStandingStateNotApplying()" ng-class="{selected: standingStateNotApplying}">Not Applying</button>
 					      	</li>
 
 					        <li ng-repeat="standingState in standingStateOptions" >

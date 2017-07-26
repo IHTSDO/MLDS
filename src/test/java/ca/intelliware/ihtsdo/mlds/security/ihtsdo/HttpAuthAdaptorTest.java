@@ -39,7 +39,6 @@ public class HttpAuthAdaptorTest {
 	public void setUp() {
 		httpAuthAdaptor.httpClient = httpClient;
 		httpAuthAdaptor.objectMapper = new ObjectMapperTestBuilder(null).buildObjectMapper();
-		httpAuthAdaptor.setApplicationName("MLDS");
 		httpAuthAdaptor.setQueryUrl("http://example.com/");
 	}
 	
@@ -48,10 +47,10 @@ public class HttpAuthAdaptorTest {
 		response200.setEntity(new StringEntity("{\"perms\":[{\"app\":\"Release\",\"role\":\"Manager\",\"member\":\"UK\"}]}", ContentType.APPLICATION_JSON));
 		Mockito.stub(httpClient.execute(Mockito.any(HttpUriRequest.class))).toReturn(response200);
 		
-		List<CentralAuthUserPermission> userPermissions = httpAuthAdaptor.getUserPermissions("username");
+		CentralAuthUserInfo userPermissions = httpAuthAdaptor.getUserAccountInfo("username", null, null);
 		
 		assertNotNull(userPermissions);
-		assertThat(userPermissions, not(empty()));
+		assertThat(userPermissions.getRoles(), not(empty()));
 	}
 
 	@Test
@@ -59,7 +58,7 @@ public class HttpAuthAdaptorTest {
 		response200.setEntity(new StringEntity("{\"name\":\"Bob\",\"status\":\"ENABLED\",\"email\":\"bob@test.com\",\"givenName\":\"Bob\",\"middleName\":\"the\",\"surname\":\"Bobbin\",\"token\":\"411f228b-7e48-4449-8432-8f7416692be9\"}", ContentType.APPLICATION_JSON));
 		Mockito.stub(httpClient.execute(Mockito.any(HttpUriRequest.class))).toReturn(response200);
 		
-		CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserInfo("Bob");
+		CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserAccountInfo("Bob", null, null);
 		
 		assertNotNull(userInfo);
 		assertEquals("bob@test.com", userInfo.getEmail());
@@ -70,7 +69,7 @@ public class HttpAuthAdaptorTest {
 		response200.setEntity(new StringEntity("NO RESPONSE", ContentType.APPLICATION_JSON));
 		Mockito.stub(httpClient.execute(Mockito.any(HttpUriRequest.class))).toReturn(response200);
 		
-		CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserInfo("Bob");
+		CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserAccountInfo("Bob", null, null);
 		
 		assertNull(userInfo);
 		

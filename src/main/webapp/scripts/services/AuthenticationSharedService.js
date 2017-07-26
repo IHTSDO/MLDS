@@ -5,9 +5,9 @@ mldsApp.factory('AuthenticationSharedService', ['$rootScope', '$http', '$log', '
         return {
             login: function (param) {
                 var data = $.param({ 
-                	j_username : param.username, 
-                	j_password : param.password,
-                	_spring_security_remember_me : param.rememberMe
+                	"j_username" : param.username, 
+                	"j_password" : param.password,
+                	"remember-me" : param.rememberMe
             	});
                 
                 var httpPromise = $http.post('app/authentication', data, {

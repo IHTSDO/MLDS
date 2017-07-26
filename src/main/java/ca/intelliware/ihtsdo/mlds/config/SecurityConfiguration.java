@@ -2,15 +2,15 @@ package ca.intelliware.ihtsdo.mlds.config;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,8 +25,10 @@ import ca.intelliware.ihtsdo.mlds.security.Http401UnauthorizedEntryPoint;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAuthenticationProvider;
 
 @Configuration
-@EnableWebSecurity
+@EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	
+    private final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
     
     @Inject
     private Environment env;
@@ -59,6 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    	logger.debug("Configuring Global Security");
         auth
             .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
@@ -67,6 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+    	logger.debug("Configuring URL Security");
         web.ignoring()
             .antMatchers("/bower_components/**")
             .antMatchers("/fonts/**")
@@ -79,6 +83,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	
+    	logger.debug("Configuring HTTP Security");
         http
             .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)
@@ -107,10 +113,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .disable()
             .headers()
                 .frameOptions().disable()
+                .and()
             .authorizeRequests()
                 .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/api/**").permitAll()
-                //.antMatchers("/app/**").authenticated()
                 .antMatchers("/websocket/tracker").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/websocket/**").permitAll()
                 .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
@@ -125,10 +131,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/protected/**").authenticated();
-
-    }
-
-    @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
-    private static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
     }
 }

@@ -98,9 +98,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
     	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$", Matchers.hasSize(1)))
                 .andExpect(contentMatchesTestCreator());
 	}
@@ -123,9 +123,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
     	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$", Matchers.hasSize(0)));
 	}
 
@@ -135,9 +135,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
     	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
         
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
@@ -152,9 +152,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$orderby", "member")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
         
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
@@ -169,9 +169,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$orderby", "member desc")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
         
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
@@ -185,9 +185,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
     	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
         
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
@@ -205,9 +205,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$page", "2")
         		.param("$pageSize", "20")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
         
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
@@ -224,9 +224,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("q", "test")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
 	}
 
@@ -237,9 +237,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$filter", "standingState eq 'APPLYING'")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
 	}
 
@@ -250,9 +250,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$filter", "not standingState eq 'APPLYING'")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
 	}
 	
@@ -266,9 +266,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$filter", "homeMember eq 'SE'")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
 	}
 
@@ -283,9 +283,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$filter", "homeMember eq 'SE'")
         		.param("$filter", "standingState eq 'APPLYING'")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
 	}
 
@@ -300,9 +300,9 @@ public class AffiliateResource_AffiliatesFilter_Test {
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$filter", "homeMember eq 'SE'")
         		.param("$filter", "not standingState eq 'APPLYING'")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
 	}
 

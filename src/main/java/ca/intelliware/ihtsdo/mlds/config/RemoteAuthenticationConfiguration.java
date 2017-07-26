@@ -21,7 +21,6 @@ public class RemoteAuthenticationConfiguration implements EnvironmentAware {
     public HttpAuthAdaptor httpAuthAdaptor() {
     	HttpAuthAdaptor httpAuthAdaptor = new HttpAuthAdaptor();
     	httpAuthAdaptor.setQueryUrl(propertyResolver.getProperty("url"));
-    	httpAuthAdaptor.setApplicationName(propertyResolver.getProperty("applicationName"));
 		return httpAuthAdaptor;
     }
 

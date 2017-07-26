@@ -4,13 +4,15 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.web.HttpMapperProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,38 +29,41 @@ import ca.intelliware.ihtsdo.mlds.web.rest.dto.MemberDTO;
 
 @Configuration
 @ConditionalOnClass(ObjectMapper.class)
+@DependsOn("passwordEncoder")
 public class JacksonConfigurer {
+	
+    private final Logger logger = LoggerFactory.getLogger(JacksonConfigurer.class);
 
 	@Autowired
 	private ListableBeanFactory beanFactory;
 
-	@Autowired
-	private HttpMapperProperties properties = new HttpMapperProperties();
-
 	@Bean
 	public Module mldsModule(final MemberRepository memberRepository, CurrentSecurityContext securityContext) {
 		SimpleModule mldsModule = new MLDSJacksonModule(memberRepository, securityContext);
-		
 		return mldsModule;
 	}
 	
 	@PostConstruct
 	public void init() {
+		logger.debug("Initialising Jackson Mappers using {}", beanFactory.getClass().getName());
+		ObjectMapper dummy = new ObjectMapper();
+		logger.debug("Constructed dummy object mapper with type factory {}", dummy.getTypeFactory().getClass().getName());
+		
 		Collection<ObjectMapper> mappers = BeanFactoryUtils
-				.beansOfTypeIncludingAncestors(this.beanFactory, ObjectMapper.class)
+				.beansOfTypeIncludingAncestors(beanFactory, ObjectMapper.class,true, true)
 				.values();
 		for (ObjectMapper mapper : mappers) {
+			logger.debug("Configuring Jackson mapper: {}", mapper.getTypeFactory().getClass().getName());
 			mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-			
 			registerFilters(mapper);
 		}
 	}
 
 	public void registerFilters(ObjectMapper mapper) {
+		logger.debug("Registering jackson privacy filters");
 		SimpleFilterProvider filterProvider = new SimpleFilterProvider();
 		filterProvider.addFilter("affiliatePrivacyFilter", new InternalPrivacyFilter(Affiliate.PRIVATE_FIELDS) );
 		filterProvider.addFilter("memberDtoPrivacyFilter", new InternalPrivacyFilter(MemberDTO.PRIVATE_FIELDS) );
-		
 		mapper.setFilters(filterProvider);
 	}
 

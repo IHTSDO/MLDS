@@ -37,14 +37,18 @@ public class DBUserDetailsService implements org.springframework.security.core.u
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String login) {
-        log.debug("Authenticating {}", login);
+        log.debug("Attepting to authenticatin {} using local database", login);
         String lowercaseLogin = login.toLowerCase();
 
         User userFromDatabase = userRepository.findByLoginIgnoreCase(lowercaseLogin);
         if (userFromDatabase == null) {
-            throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
+        	String msg = "User " + lowercaseLogin + " was not found in the database";
+        	log.debug(msg);
+            throw new UsernameNotFoundException(msg);
         } else if (!userFromDatabase.getActivated()) {
-            throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
+        	String msg = "User " + lowercaseLogin + " was not activated";
+        	log.debug (msg);
+            throw new UserNotActivatedException(msg);
         }
 
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();

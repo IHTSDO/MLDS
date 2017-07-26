@@ -66,5 +66,4 @@ spring:
 
 
 webauth:
-    url: https://usermanagement2.ihtsdotools.org/security-web/query/
-    applicationName: mlds
+    url: https://dev-ims.ihtsdotools.org/api/

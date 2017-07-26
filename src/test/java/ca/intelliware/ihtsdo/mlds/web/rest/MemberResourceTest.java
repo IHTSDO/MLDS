@@ -53,7 +53,7 @@ public class MemberResourceTest {
     @Test
     public void getMembersShouldIncludeAllMembers() throws Exception {
     	restUserMockMvc.perform(get(Routes.MEMBERS)
-    			.accept(MediaType.APPLICATION_JSON))
+    			.accept(MediaType.APPLICATION_JSON_UTF8))
     			.andExpect(status().isOk())
     			.andExpect(content().string(Matchers.allOf(Matchers.containsString("SE"), Matchers.containsString("IHTSDO"))));
     	
@@ -62,7 +62,7 @@ public class MemberResourceTest {
 	@Test
 	public void getMembersShouldReturnPopulatedDTOs() throws Exception {
         restUserMockMvc.perform(get(Routes.MEMBERS)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(content().string(Matchers.containsString("\"memberId\":1,\"key\":\"SE\"")));
 	}
@@ -73,9 +73,9 @@ public class MemberResourceTest {
 		Mockito.when(memberRepository.findOneByKey("SE")).thenReturn(member);
 		
         restUserMockMvc.perform(put(Routes.MEMBER_NOTIFICATIONS, "SE")
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{ \"staffNotificationEmail\": \"staff@test.com\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
         
         Mockito.verify(memberRepository).save(member);
@@ -85,9 +85,9 @@ public class MemberResourceTest {
 	@Test
 	public void updateMemberShouldFailForUnknownMember() throws Exception {
         restUserMockMvc.perform(put(Routes.MEMBER, "ZZ")
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{ \"staffNotificationEmail\": \"new@test.com\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(status().isNotFound());
         
         Mockito.verify(memberRepository, never()).save(Mockito.any(Member.class));
@@ -101,9 +101,9 @@ public class MemberResourceTest {
 		Mockito.when(memberRepository.findOneByKey("SE")).thenReturn(member);
 		
         restUserMockMvc.perform(put(Routes.MEMBER, "SE")
-        		.contentType(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{ \"promotePackages\": true, \"staffNotificationEmail\": \"new@test.com\" }")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
         
         Mockito.verify(memberRepository).save(member);

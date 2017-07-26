@@ -20,19 +20,19 @@ mldsApp.controller('AffiliateManagementController', [
 			$scope.isAdmin = Session.isAdmin();
 			$scope.downloadingAffiliates = false;
 			$scope.page = 0;
-			
+
 			$scope.canSort = true;
 			$scope.standingStateOptions = StandingStateUtils.options();
 
 			$scope.alerts = [];
-			
+
 			$scope.generatingCsv = false;
-			
+
 			loadVisualState();
 
 			function loadVisualState() {
 				var store = SessionStateService.sessionState.affiliatesFilter;
-				
+
 				$scope.query = store.affiliateQuery ? store.affiliateQuery : '';
 				$scope.showAllAffiliates = store.showAllAffiliates ? store.showAllAffiliates : 0;
 				$scope.orderByField = store.orderByField ? store.orderByField : 'standingState';
@@ -40,10 +40,10 @@ mldsApp.controller('AffiliateManagementController', [
 				$scope.standingStateFilter = store.standingStateFilter ? store.standingStateFilter : null;
 				$scope.standingStateNotApplying = store.standingStateNotApplying ? store.standingStateNotApplying : false;
 			}
-			
+
 			function saveVisualState() {
 				var store = SessionStateService.sessionState.affiliatesFilter;
-				
+
 				store.affiliateQuery = $scope.query;
 				store.showAllAffiliates = $scope.showAllAffiliates;
 				store.orderByField = $scope.orderByField;
@@ -51,10 +51,10 @@ mldsApp.controller('AffiliateManagementController', [
 				store.standingStateFilter = $scope.standingStateFilter;
 				store.standingStateNotApplying = $scope.standingStateNotApplying;
 			}
-			
+
 			function loadMoreAffiliates() {
 				saveVisualState();
-				
+
 				if ($scope.downloadingAffiliates) {
 					// If a loadAffiliates (loadReset === true) had been called then need to redownload once the current download is complete
 					return;
@@ -86,19 +86,19 @@ mldsApp.controller('AffiliateManagementController', [
 						}
 					});
 			}
-			
+
 			function loadAffiliates() {
 				//Force clear - note loadMoreAffiliates works on alias
 				$scope.affiliates = [];
 				$scope.page = 0;
 				$scope.noResults = true;
 				$scope.canSort = !$scope.query;
-				
+
 				$scope.loadReset = true;
-				
+
 				loadMoreAffiliates();
 			}
-			
+
 			$scope.clearSearch = function() {
 				$scope.standingStateFilter = null;
 				$scope.query = '';
@@ -110,15 +110,15 @@ mldsApp.controller('AffiliateManagementController', [
 				} else {
 					$scope.reverseSort = !$scope.reverseSort;
 				}
-				
+
 				if (typeof(isDescendingOrder) !== 'undefined') {
 					$scope.reverseSort = isDescendingOrder;
 				}
-				
-				$scope.orderByField = fieldName; 
+
+				$scope.orderByField = fieldName;
 				loadAffiliates();
 			};
-			
+
 			$scope.filterStandingState = function(state) {
 				$scope.standingStateFilter = state;
 				$scope.standingStateNotApplying = false;
@@ -133,22 +133,22 @@ mldsApp.controller('AffiliateManagementController', [
 
 			$scope.$watch('showAllAffiliates', loadAffiliates);
 			$scope.$watch('query', loadAffiliates);
-						
+
 			$scope.nextPage = function() {
 				return loadMoreAffiliates();
 			};
-			
+
 			$scope.affiliateActiveDetails = function(affiliate) {
-				return affiliate.affiliateDetails 
-					|| (affiliate.application && affiliate.application.affiliateDetails) 
+				return affiliate.affiliateDetails
+					|| (affiliate.application && affiliate.application.affiliateDetails)
 					|| {};
 			};
-			
+
 			$scope.viewAffiliate = function viewAffiliate(affiliateId) {
 				$location.path('/affiliateManagement/' + affiliateId);
 			};
-			
-			
+
+
 			$scope.viewApplication = function(application) {
         		var modalInstance = $modal.open({
         			templateUrl: 'views/admin/applicationSummaryModal.html',
@@ -173,11 +173,15 @@ mldsApp.controller('AffiliateManagementController', [
 						var expressions = [
 						    $parse("affiliate.affiliateId"),
 						    $parse("affiliateActiveDetails.firstName + ' '+affiliateActiveDetails.lastName"),
+								$parse("affiliateActiveDetails.organizationName"),
+								$parse("affiliateActiveDetails.organizationType"),
 						    $parse("((affiliateActiveDetails.type | enum:'affiliate.type.')||'') + ' - '+((affiliateActiveDetails.subType | enum:'affiliate.subType.')||'') + ' '+ (affiliateActiveDetails.otherText||'')"),
 						    $parse("affiliate.standingState | enum:'affiliate.standingState.'"),
 						    $parse("affiliateActiveDetails.address.country.commonName||''"),
 						    $parse("affiliate.homeMember.key"),
-						    $parse("affiliateActiveDetails.email")
+						    $parse("affiliateActiveDetails.email"),
+								$parse("affiliate.application.submittedAt | date: 'yyyy-MM-dd'"),
+								$parse("affiliate.application.completedAt | date: 'yyyy-MM-dd'")
 						];
 						var result = [];
 						_.each(response.data, function(affiliate) {

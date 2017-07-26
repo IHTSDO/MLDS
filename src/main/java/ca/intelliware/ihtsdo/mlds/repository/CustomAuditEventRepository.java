@@ -5,11 +5,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.joda.time.Instant;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
+
+import com.amazonaws.services.importexport.model.UnableToCancelJobIdException;
 
 import ca.intelliware.ihtsdo.mlds.config.audit.AuditEventConverter;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
@@ -55,6 +58,17 @@ public class CustomAuditEventRepository {
 
                 persistenceAuditEventRepository.save(persistentAuditEvent);
             }
+
+			@Override
+			public List<AuditEvent> find(Date after) {
+				throw new NotImplementedException();
+			}
+
+			@Override
+			public List<AuditEvent> find(String principal, Date after,
+					String type) {
+				throw new NotImplementedException();
+			}
         };
     }
 }

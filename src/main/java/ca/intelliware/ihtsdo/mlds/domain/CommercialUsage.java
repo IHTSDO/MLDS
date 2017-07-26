@@ -39,7 +39,7 @@ public class CommercialUsage extends BaseEntity {
 
 	// the parent
 	//FIXME review dependency graph!
-	@JsonIgnoreProperties({"application", "applications", "commercialUsages"})
+	@JsonIgnoreProperties(value={"application", "applications", "commercialUsages"}, allowSetters=true)
 	@ManyToOne
 	@JoinColumn(name="affiliate_id")
 	Affiliate affiliate;

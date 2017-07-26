@@ -226,9 +226,9 @@ public class ApplicationResource_SubmitApplication_Test {
 		return mockMvc.perform(
 			MockMvcRequestBuilders
 				.post(Routes.APPLICATION_REGISTRATION, primaryApplicationId)
-				.contentType(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(updatedApprovalState)
-				.accept(MediaType.APPLICATION_JSON));
+				.accept(MediaType.APPLICATION_JSON_UTF8));
 	}
 
 	private PrimaryApplication withExistingSwedishPrimaryApplication(long primaryApplicationId, Affiliate affiliate) {
