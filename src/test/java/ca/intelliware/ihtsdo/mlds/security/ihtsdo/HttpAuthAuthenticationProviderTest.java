@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.net.HttpCookie;
 import java.util.Arrays;
 
 import org.apache.http.client.ClientProtocolException;
@@ -48,8 +49,8 @@ public class HttpAuthAuthenticationProviderTest {
 	@Test
 	public void successReturnsAnAuthentication() throws Exception {
 		stubUserLookup("username", remoteUserInfo);
-		stubUserPasswordCheckResult("username", "password", true);
-		stubUserPerms("username", adminUserPermission);
+		stubUserPasswordCheckResult("username", "password", null);
+		//stubUserPerms("username", adminUserPermission);
 
 		Authentication authentication = authenticationProvider.authenticate(new UsernamePasswordAuthenticationToken("username", "password"));
 		
@@ -59,7 +60,7 @@ public class HttpAuthAuthenticationProviderTest {
 	@Test()
 	public void badPasswordThrowsAnAuthException() throws Exception {
 		stubUserLookup("username", remoteUserInfo);
-		stubUserPasswordCheckResult("username", "badpassword", false);
+		stubUserPasswordCheckResult("username", "badpassword", null);
 		
 		try {
 			authenticationProvider.authenticate(new UsernamePasswordAuthenticationToken("username", "badpassword"));
@@ -71,7 +72,7 @@ public class HttpAuthAuthenticationProviderTest {
 	@Test()
 	public void nouserThrowsUsernameNotFoundException() throws Exception {
 		stubUserLookup("username", null);
-		stubUserPasswordCheckResult("username", "badpassword", false);
+		stubUserPasswordCheckResult("username", "badpassword", null);
 		
 		try {
 			authenticationProvider.authenticate(new UsernamePasswordAuthenticationToken("username", "badpassword"));
@@ -83,25 +84,21 @@ public class HttpAuthAuthenticationProviderTest {
 	@Test
 	public void successfulAuthenticationHasAuthorities() throws Exception {
 		stubUserLookup("username", remoteUserInfo);
-		stubUserPasswordCheckResult("username", "password", true);
-		stubUserPerms("username", adminUserPermission);
+		stubUserPasswordCheckResult("username", "password", null);
+		//stubUserPerms("username", adminUserPermission);
 		
 		Authentication authentication = authenticationProvider.authenticate(new UsernamePasswordAuthenticationToken("username", "password"));
 		
 		assertThat(authentication.getAuthorities(), not(empty()));
 	}
 
-	private void stubUserPerms(String username, CentralAuthUserPermission... perms)
-			throws ClientProtocolException, IOException {
-		Mockito.stub(httpAuthAdaptorMock.getUserPermissions(username)).toReturn(Arrays.asList(perms));
-	}
 
 
 	private void stubUserLookup(String username, CentralAuthUserInfo centralAuthUserInfo) throws IOException {
-		Mockito.stub(httpAuthAdaptorMock.getUserInfo(username)).toReturn(centralAuthUserInfo);
+		Mockito.stub(httpAuthAdaptorMock.getUserAccountInfo(username, null, null)).toReturn(centralAuthUserInfo);
 	}
 
-	private void stubUserPasswordCheckResult(String username, String password, boolean value) throws IOException, ClientProtocolException {
-		Mockito.stub(httpAuthAdaptorMock.checkUsernameAndPasswordValid(username, password)).toReturn(value);
+	private void stubUserPasswordCheckResult(String username, String password, HttpCookie value) throws IOException, ClientProtocolException {
+		Mockito.stub(httpAuthAdaptorMock.checkUsernameAndPasswordValid(username, password, null)).toReturn(value);
 	}
 }

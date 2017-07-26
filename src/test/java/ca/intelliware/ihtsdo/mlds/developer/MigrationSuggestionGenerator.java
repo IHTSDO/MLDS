@@ -18,7 +18,7 @@ public class MigrationSuggestionGenerator {
 	@Resource
 	DataSource dataSource;
 
-	private DiffOutputControl diffControl = new DiffOutputControl(false,false,false);
+	private DiffOutputControl diffControl = new DiffOutputControl(false,false,false, null);
 	
 	public static void main(String[] args) throws Exception {
 		new MigrationSuggestionGenerator().run();

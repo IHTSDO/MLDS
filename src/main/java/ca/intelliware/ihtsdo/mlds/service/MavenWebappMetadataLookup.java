@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  * Lookup our webapp maven metadata to include on pages for debugging.
  */
 public class MavenWebappMetadataLookup implements ServletContextListener{
-    final Logger log = LoggerFactory.getLogger(UserService.class);
+    final Logger log = LoggerFactory.getLogger(MavenWebappMetadataLookup.class);
     
 	ServletContext servletContext;
 	String artifactId;
