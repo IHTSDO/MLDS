@@ -124,6 +124,7 @@
 		<metrics-spring.version>3.0.0</metrics-spring.version>
 		<postgresql.version>9.3-1100-jdbc41</postgresql.version>
 		<usertype.core.version>5.0.0.GA</usertype.core.version>
+		<apache-httpclient.version>4.5.2</apache-httpclient.version>
 	</properties>
 
 	<repositories>
@@ -207,8 +208,9 @@
 
 	<dependencies>
 		<dependency>
-		  <groupId>org.apache.httpcomponents</groupId>
-		  <artifactId>httpclient</artifactId>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${apache-httpclient.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
@@ -469,7 +471,7 @@
 		<dependency>
 			<groupId>org.ihtsdo.otf.common</groupId>
 			<artifactId>otf-common</artifactId>
-			<version>0.0.19</version>
+			<version>1.4.3</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring-beans</artifactId>
