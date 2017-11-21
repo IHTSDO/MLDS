@@ -3,7 +3,7 @@
 	<groupId>org.ihtsdo.mlds</groupId>
 	<artifactId>mlds</artifactId>
 	<packaging>war</packaging>
-	<version>2.1.3-SNAPSHOT</version>
+	<version>2.1.3</version>
 	<name>ihtsdo-mlds Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
@@ -48,24 +48,24 @@
 			<build>
 				<plugins>
 					<!--<plugin>-->
-						<!--<groupId>com.github.trecloux</groupId>-->
-						<!--<artifactId>yeoman-maven-plugin</artifactId>-->
-						<!--<version>0.2</version>-->
-						<!--<configuration>-->
-							<!--<yeomanProjectDirectory>${project.basedir}</yeomanProjectDirectory>-->
-						<!--</configuration>-->
-						<!--<executions>-->
-							<!--<execution>-->
-								<!--<id>run-grunt</id>-->
-								<!--<phase>generate-resources</phase>-->
-								<!--<goals>-->
-									<!--<goal>build</goal>-->
-								<!--</goals>-->
-								<!--<configuration>-->
-									<!--<gruntBuildArgs>&#45;&#45;force</gruntBuildArgs>-->
-								<!--</configuration>-->
-							<!--</execution>-->
-						<!--</executions>-->
+					<!--<groupId>com.github.trecloux</groupId>-->
+					<!--<artifactId>yeoman-maven-plugin</artifactId>-->
+					<!--<version>0.2</version>-->
+					<!--<configuration>-->
+					<!--<yeomanProjectDirectory>${project.basedir}</yeomanProjectDirectory>-->
+					<!--</configuration>-->
+					<!--<executions>-->
+					<!--<execution>-->
+					<!--<id>run-grunt</id>-->
+					<!--<phase>generate-resources</phase>-->
+					<!--<goals>-->
+					<!--<goal>build</goal>-->
+					<!--</goals>-->
+					<!--<configuration>-->
+					<!--<gruntBuildArgs>&#45;&#45;force</gruntBuildArgs>-->
+					<!--</configuration>-->
+					<!--</execution>-->
+					<!--</executions>-->
 					<!--</plugin>-->
 					<plugin>
 						<artifactId>maven-clean-plugin</artifactId>
@@ -114,8 +114,7 @@
 		<joda-time-hibernate.version>1.3</joda-time-hibernate.version>
 		<json-path.version>2.2.0</json-path.version>
 		<geronimo-javamail_1.4_mail.version>1.8.3</geronimo-javamail_1.4_mail.version>
-		<!-- Note: hibernate-search version doesn't match the ORM version.
-			Check website for compatibility -->
+		<!-- Note: hibernate-search version doesn't match the ORM version. Check website for compatibility -->
 		<hibernate-entitymanager.version>4.3.5.Final</hibernate-entitymanager.version>
 		<hibernate-search.version>5.6.2.Final</hibernate-search.version>
 		<HikariCP.version>1.3.8</HikariCP.version>
@@ -226,8 +225,8 @@
 			<artifactId>metrics-graphite</artifactId>
 		</dependency>
 		<!--<dependency>-->
-			<!--<groupId>io.dropwizard.metrics</groupId>-->
-			<!--<artifactId>metrics-jvm</artifactId>-->
+		<!--<groupId>io.dropwizard.metrics</groupId>-->
+		<!--<artifactId>metrics-jvm</artifactId>-->
 		<!--</dependency>-->
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
@@ -235,8 +234,8 @@
 			<version>${dropwizard-metrics.version}</version>
 		</dependency>
 		<!--<dependency>-->
-			<!--<groupId>io.dropwizard.metrics</groupId>-->
-			<!--<artifactId>metrics-json</artifactId>-->
+		<!--<groupId>io.dropwizard.metrics</groupId>-->
+		<!--<artifactId>metrics-json</artifactId>-->
 		<!--</dependency>-->
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
@@ -284,9 +283,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- The HikariCP Java Agent is disabled by default, as it is experimental
-			<dependency> <groupId>com.zaxxer</groupId> <artifactId>HikariCP-agent</artifactId>
-			<version>${HikariCP.version}</version> </dependency> -->
+		<!-- The HikariCP Java Agent is disabled by default, as it is experimental <dependency> <groupId>com.zaxxer</groupId> <artifactId>HikariCP-agent</artifactId> <version>${HikariCP.version}</version> </dependency> -->
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -334,8 +331,8 @@
 			<version>${hibernate-search.version}</version>
 		</dependency>
 		<!--<dependency>-->
-			<!--<groupId>org.hibernate</groupId>-->
-			<!--<artifactId>hibernate-search-orm</artifactId>-->
+		<!--<groupId>org.hibernate</groupId>-->
+		<!--<artifactId>hibernate-search-orm</artifactId>-->
 		<!--</dependency>-->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -426,7 +423,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<!--  <version>5.1.37</version> -->
+			<!-- <version>5.1.37</version> -->
 		</dependency>
 
 		<!-- Test dependencies -->
@@ -522,13 +519,11 @@
 						<configuration>
 							<rules>
 								<requireMavenVersion>
-									<message>You are running an older version of Maven. JHipster
-										requires at least Maven 3.0</message>
+									<message>You are running an older version of Maven. JHipster requires at least Maven 3.0</message>
 									<version>[3.0.0,)</version>
 								</requireMavenVersion>
 								<requireJavaVersion>
-									<message>You are running an older version of Java. JHipster
-										requires at least JDK 1.7</message>
+									<message>You are running an older version of Java. JHipster requires at least JDK 1.7</message>
 									<version>[1.7.0,)</version>
 								</requireJavaVersion>
 							</rules>
@@ -651,18 +646,7 @@
 										<filemode>0640</filemode>
 									</mapper>
 								</data>
-								<!--
-								<data>
-									<src>${basedir}/src/main/deb/server.xml</src>
-									<dst>/etc/opt/${packageName}/server.xml</dst>
-									<type>file</type>
-									<conffile>true</conffile>
-									<mapper>
-										<type>perm</type>
-										<filemode>0644</filemode>
-									</mapper>
-								</data>
-								 -->
+								<!-- <data> <src>${basedir}/src/main/deb/server.xml</src> <dst>/etc/opt/${packageName}/server.xml</dst> <type>file</type> <conffile>true</conffile> <mapper> <type>perm</type> <filemode>0644</filemode> </mapper> </data> -->
 								<data>
 									<type>template</type>
 									<paths>
@@ -677,7 +661,7 @@
 										<path>/var/opt/${packageName}/run</path>
 										<path>/var/opt/${packageName}/logs</path>
 										<path>/var/opt/${packageName}/lucene</path>
-										<!-- <path>/var/opt/${packageName}/offline_bucket</path>  -->
+										<!-- <path>/var/opt/${packageName}/offline_bucket</path> -->
 									</paths>
 									<mapper>
 										<type>perm</type>
@@ -698,29 +682,18 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--  <plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-					<id>download-licenses</id>
-					<goals>
-						<goal>download-licenses</goal>
-					</goals>
-					</execution>
-				</executions>
-			</plugin>  -->
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>license-maven-plugin</artifactId> <version>1.8</version> <executions> <execution> <id>download-licenses</id> <goals> <goal>download-licenses</goal> </goals> </execution> </executions>
+			</plugin> -->
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings
-					only. It has no influence on the Maven build itself. -->
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<debug>true</debug> <!-- Want line numbers in so we can remote debug -->
+						<debug>true</debug>
+						<!-- Want line numbers in so we can remote debug -->
 						<source>1.7</source>
 						<target>1.7</target>
 					</configuration>
@@ -748,7 +721,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<execute />
+										<execute/>
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -763,7 +736,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<execute />
+										<execute/>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
