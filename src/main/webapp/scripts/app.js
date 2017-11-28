@@ -515,7 +515,7 @@ mldsApp
                     
                     if ($location.path() !== "/" && 
                     		$location.path() !== "" && 
-                    		$location.path() !== "/landing" &&
+                    		$location.path().indexOf("/landing") == -1 &&
                     		$location.path() !== "/register" &&
                     		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
