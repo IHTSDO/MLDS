@@ -62,7 +62,3 @@ memOptions="-Xms2g -Xmx5g -XX:MaxPermSize=256m"
 set -x;
 java ${memOptions} ${debugFlags} -jar target/ihtsdo-mlds.war \
 --spring.config.location=local.config.properties --spring.profiles.active=mlds,dev 
-
-#java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -Djava.compiler=NONE \
-# -jar target/ihtsdo-mlds.war \
-#--spring.config.location=config.properties --spring.profiles.active=mlds,dev 

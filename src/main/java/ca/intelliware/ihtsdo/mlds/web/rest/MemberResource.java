@@ -54,7 +54,7 @@ public class MemberResource {
     @RequestMapping(value = Routes.MEMBERS,
             method = RequestMethod.GET,
             produces = "application/json")
-	@RolesAllowed({ AuthoritiesConstants.USER })
+    @PermitAll
     @Transactional
     @Timed
     public List<MemberDTO> getMembers() {
