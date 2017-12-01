@@ -1035,11 +1035,11 @@
     "landingPage": {
       "appName": "Lisens- og distribusjonsportalen for SNOMED CT",
       "purpose": "Denne portal benyttes av terminologisenteret i det norske Direktoratet for e-helse til lisensadministrasjon og brukerrapportering for den internasjonale og norsk release av Snomed CT ved bruk i Norge.",
-      "furtherDetails": "Mer informasjon finner du på <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International:s webside</a> og på internettsiden med <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">vanlige spørsmål</a>.",
+      "furtherDetails": "Mer informasjon finner du på den <a href=\"https://ehelse.no/standarder-kodeverk-og-referansekatalog/helsefaglige-kodeverk/snomed-ct\">SNOMED CTs norske hjemmeside</a> og <a href=\"https://www.snomed.org\">SNOMED International:s hjemmeside</a> og på internettsiden med <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\">vanlige spørsmål</a>.",
       "loginHere": "logg inn her",
-      "member.purpose1": "Denne portal benyttes av Direktoratet for e-helse, som har ansvar for det nasjonale release senter for SNOMED CT i ",
-      "member.purpose2": "for å administrere lisenser og brukerrapportering for den internasjonale og norske releasen av Snomed CT, ved framtidig bruk i ",
-      "member.purpose3": "I forbindelse med at du etablerer en konto i portalen godtar du at informasjonen du lagrer kan benyttes på den måte som er angitt i personvern policyen som er angitt nedenfor. Kontaktinformasjonen lagres helt til du avregistrerer deg som bruker i portalen."
+      "member.purpose1": "Denne portalen benyttes av Direktoratet for e-helse, som har ansvar for det nasjonale release senter for SNOMED CT i  ",
+      "member.purpose2": ", for å administrere lisenser og brukerrapportering for den internasjonale og norske releasen av Snomed CT i ",
+      "member.purpose3": "<br>I forbindelse med at du oppretter en brukerkonto i portalen godtar du at informasjonen du lagrer kan benyttes som angitt i personvern policyen som du finner lenke til nederst på siden. Kontaktinformasjonen lagres til du avregistrerer deg som bruker i portalen."
     },
     "releases": {
       "title": "Releaser som er tilgjengelig for registrerte brukere",
