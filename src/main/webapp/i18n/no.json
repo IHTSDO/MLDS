@@ -1039,7 +1039,7 @@
       "loginHere": "logg inn her",
       "member.purpose1": "Denne portalen benyttes av Direktoratet for e-helse, som har ansvar for det nasjonale release senter for SNOMED CT i  ",
       "member.purpose2": ", for å administrere lisenser og brukerrapportering for den internasjonale og norske releasen av Snomed CT i ",
-      "member.purpose3": "<br>I forbindelse med at du oppretter en brukerkonto i portalen godtar du at informasjonen du lagrer kan benyttes som angitt i personvern policyen som du finner lenke til nederst på siden. Kontaktinformasjonen lagres til du avregistrerer deg som bruker i portalen."
+      "member.purpose3": ". I forbindelse med at du oppretter en brukerkonto i portalen godtar du at informasjonen du lagrer kan benyttes som angitt i personvern policyen som du finner lenke til nederst på siden. Kontaktinformasjonen lagres til du avregistrerer deg som bruker i portalen."
     },
     "releases": {
       "title": "Releaser som er tilgjengelig for registrerte brukere",
