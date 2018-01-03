@@ -1,11 +1,15 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.joda.time.LocalDate;
 import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Sets;
 
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
@@ -36,15 +40,23 @@ public class CommercialUsageResetter {
 	}
 	
 	public void detach(CommercialUsage commercialUsage) {
+
+		//INFRA-2075 Create new collections to hold these objects and reassign
+		Set<CommercialUsageEntry> usageEntryCollection = Sets.newHashSet();
 		for (CommercialUsageEntry entry : commercialUsage.getEntries()) {
 			em.detach(entry);
 			entry.setCommercialUsageEntryId(null);
+			usageEntryCollection.add(entry);
 		}
-
+		commercialUsage.setUsage(usageEntryCollection);
+		
+		Set<CommercialUsageCountry> countryCollection = Sets.newHashSet();
 		for (CommercialUsageCountry country : commercialUsage.getCountries()) {
 			em.detach(country);
 			country.setCommercialUsageCountId(null);
+			countryCollection.add(country);
 		}
+		commercialUsage.setCountries(countryCollection);
 
 		em.detach(commercialUsage);
 		commercialUsage.setCommercialUsageId(null);
