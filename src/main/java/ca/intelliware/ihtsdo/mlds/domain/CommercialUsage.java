@@ -233,4 +233,12 @@ public class CommercialUsage extends BaseEntity {
 		}
 		return false;
 	}
+
+	public void setCountries(Set<CommercialUsageCountry> countries) {
+		this.countries = countries;
+	}
+	
+	public void setUsage(Set<CommercialUsageEntry> usage) {
+		this.usage = usage;
+	}
 }
