@@ -691,6 +691,7 @@
       "AUTHENTICATION_FAILURE": "Error de Autenticación",
       "AFFILIATE_CREATED": "Afiliación Creada",
       "AFFILIATE_CREATED_BY_IMPORT": "Afiliación Creada por Importación",
+      "AFFILIATE_DELETED": "Afiliado Eliminado",
       "AFFILIATE_UPDATED": "Afiliación Actualizada",
       "AFFILIATE_UPDATED_BY_IMPORT": "Affiliación Actualizada por Importación",
       "AFFILIATEDETAILS_UPDATED": "Detalles de la Afiliación Actualizados",
@@ -698,6 +699,7 @@
       "AFFILIATE_IMPORT": "Importar Afiliados",
       "AFFILIATE_LOGIN_CREATED": "Acceso de Afiliado Creado",
       "AFFILIATE_STANDING_STATE_CHANGED": "El Estado de Afiliación ha sido cambiado",
+      "ANNOUNCEMENT_POSTED": "Anuncio Publicado",
       "APPLICATION_CREATED": "Solicitud Creada",
       "APPLICATION_APPROVAL_STATE_CHANGED": "El Estado de Aprobación de la Solicitud ha Cambiado",
       "APPLICATION_DELETED": "Solicitud Eliminada",
@@ -843,6 +845,12 @@
   },
   "memberManagement": {
     "title": "Gestión de Miembros"
+  },
+  "postAnnouncement": {
+    "title": "Publicar Anuncio"
+  },
+  "ihtsdoReleases": {
+    "title": "Releases de SNOMED"
   },
   "activityLog": {
     "title": "Registro de Actividad"
@@ -1057,7 +1065,9 @@
       "title": "Resetear Contraseña",
       "detail": "Le enviaremos un correo electrónico con un link para reestablecer su contraseña.",
       "button": "Resetear Contraseña",
-      "back": "Volver al inicio de sesión"
+      "back": "Volver al inicio de sesión",
+      "emailNotFound": "El Correo Electróni no fue encontrado en el sistema.",
+      "resetEmailSent": "El proceso de restablecimiento de contraseña se ha iniciado. Chequee su correo electrónico para el siguiente paso."
     },
     "usage": {
       "title": "Registro de utilización",
@@ -1165,6 +1175,42 @@
         "dPending.title": "Desactivación de Cuenta pendiente",
         "dPending.msg": "Su cuenta está en lista de espera para ser Desactivada. Por favor contáctese con <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> para resolver este asunto."
       }
+    },
+    "postAnnouncement": {
+      "title": "Publicar Anuncio",
+      "messageContent": "Contenido del Mensaje",
+      "emailSubject": "Tema del correo",
+      "emailBody": "Cuerpo del correo",
+      "salutationMessage": "Recuerde agregar un saludo de introducción y despedida en el cuerpo del correo.",
+      "audience": "Audiencia",
+      "affiliates": "Afiliados",
+      "myAffiliates": "Mis Afiliados",
+      "allAffiliates": "Todos los Afiliados",
+      "affiliatesClarification": "Afiliados Aprobados con su cuenta en estado:",
+      "additionalEmails": "Dirección de correo adicional",
+      "additionalEmailsHelp": "Enviar Anuncio a la dirección de correo adicional.",
+      "post": "Publicar Anuncio",
+      "newAnnouncement": "Nuevo Anuncio"
+    },
+    "affiliateSummary": {
+      "deleteAffiliate": "Eliminar Afiliado",
+      "deleteAffiliateModal": {
+        "sure": "¿Esta seguro que desea eliminar el Afiliado?",
+        "explanation": "Al Eliminar el Afiliado se eliminan también los formularios e información de uso. El usuario no podrá ingresar a su cuenta."
+      }
+    },
+    "ihtsdoReleases": {
+      "title": "Releases de SNOMED",
+      "offline": "Fuera de línea",
+      "publicReleases": "Releases Públicos",
+      "latest": "Latest",
+      "offlineReleases": "Releases Fuera de línea o Alpha/Beta",
+      "noPublicReleases": "No hay releases públicos disponibles.",
+      "noOfflineReleases": "No hay releases Fuera de línea o Alpha/Beta disponibles.",
+      "backToReleases": "Volver a los Releases de SNOMED",
+      "publicVersions": "Versiones Públicas",
+      "noOnlineVersions": "No hay versiones en línea para este release.",
+      "noOfflineVersions": "No hay versiones auera de línea o Alpha/BetaThere apara este release."
     }
   }
 }
