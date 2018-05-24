@@ -1035,7 +1035,7 @@
             "loginHere": "logga in här",
             "member.purpose1": "Denna portal används i ",
             "member.purpose2": " av Socialstyrelsen för att administrera licenser och användningsrapportering för den internationella och svenska releasen av Snomed CT. I samband med att du registrerar ett konto i portalen godkänner du att informationen du lämnar hanteras enligt GDPR. Kontaktinformationen sparas tills du avregistreras som användare i portalen i ",
-            "member.purpose3": "."
+            "member.purpose3": ". "
         },
         "releases": {
             "title": "Releaser som är tillgängliga för registrerade användare",
