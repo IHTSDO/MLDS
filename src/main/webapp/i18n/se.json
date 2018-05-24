@@ -1033,9 +1033,9 @@
             "purpose": "Denna portal används av det svenska nationella releasecentret på Socialstyrelsen för att administrera licenser och användningsrapportering för den internationella och svenska releasen av Snomed CT vid användning i Sverige.",
             "furtherDetails": "Läs om <a href=\"http://informationsstruktur.socialstyrelsen.se/gdpr/gdpr-snomed.html\" target=\"_blank\">GDPR</a>. Mer information om Snomed CT finns på <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International:s webbplats</a> och på webbsidan med <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">vanliga frågor</a>.",
             "loginHere": "logga in här",
-            "member.purpose1": "Denna portal används av Socialstyrelsen, som ansvarar för det nationella releasecentret för Snomed CT i ",
-            "member.purpose2": ", för att administrera licenser och användningsrapportering för den internationella och svenska releasen av Snomed CT, vid användning i ",
-            "member.purpose3": ". I samband med att du registrerar ett konto i portalen godkänner du att informationen du lämnar används på de sätt som anges i GDPR nedan. Kontaktinformationen sparas tills du avregistreras som användare i portalen."
+            "member.purpose1": "Denna portal används i ",
+            "member.purpose2": " av Socialstyrelsen för att administrera licenser och användningsrapportering för den internationella och svenska releasen av Snomed CT. I samband med att du registrerar ett konto i portalen godkänner du att informationen du lämnar hanteras enligt GDPR. Kontaktinformationen sparas tills du avregistreras som användare i portalen i ",
+            "member.purpose3": "."
         },
         "releases": {
             "title": "Releaser som är tillgängliga för registrerade användare",
