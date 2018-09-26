@@ -3,8 +3,8 @@
 	<groupId>org.ihtsdo.mlds</groupId>
 	<artifactId>mlds</artifactId>
 	<packaging>war</packaging>
-	<version>2.1.14-SNPASHOT</version>
-	<name>ihtsdo-mlds Maven Webapp</name>
+	<version>2.1.14-SNAPSHOT</version>
+	<name>ihtsdo-mlds Maven Webapp</name>	
 	<url>http://maven.apache.org</url>
 
 	<parent>
