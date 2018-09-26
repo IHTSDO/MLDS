@@ -1,1216 +1,1217 @@
 {
-  "global": {
-    "title": "mlds",
-    "browsehappy": "U maakt gebruik van een <strong>verouderde </strong> browser. Gelieve <a href=\"http://browsehappy.com/?locale=en\">uw browser te upgraden</a> voor betere resultaten.",
-    "menu": {
-      "home": "Home",
-      "account": {
-        "main": "Account",
-        "contactInfo": "Contactinfo",
-        "password": "Wachtwoord",
-        "sessions": "Sessies",
-        "tracker": "Gebruiker tracking",
-        "metrics": "Systeemparameters",
-        "logs": "Logs",
-        "audits": "Audits",
-        "login": "Aanmelden",
-        "logout": "Afmelden",
-        "apidocs": "API",
-        "register": "Registreren",
-        "affiliates": "Licentiehouders",
-        "dashboard": "Dashboard"
-      },
-      "dashboard": "Dashboard",
-      "help": "Help",
-      "privacyPolicy": "Privacybeleid",
-      "usageReports": "Gebruiksrapportage",
-      "applications": "Aanvragen",
-      "releasePackages": "Releases",
-      "affiliate": {
-        "accountInformation": "Informatie over uw account ",
-        "changePassword": "Verander het wachtwoord",
-        "logout": "Afmelden"
-      },
-      "staff": {
-        "dashboard": "Dashboard",
-        "pendingApplications": "Aanvragen in behandeling",
-        "usageReports": "Gebruiksrapportage",
-        "affiliteUserManagement": "Gebruikersbeheer van licentiehouders",
-        "activityLog": "Activiteitenlog",
-        "packageManagement": "Softwarebeheer",
-        "licenseTC": "Licentievoorwaarden",
-        "reportsExtracts": "Rapporten en overzichten",
-        "logout": "Afmelden"
-      },
-      "admin": {
-        "importAffiliateRecords": "Gegevens van geaffilieerden/licentiehouders importeren",
-        "manageBlacklist": "Zwarte lijst beheren",
-        "nationalRegistrationList": "Nationale Registratielijst"
-      },
-      "language": "Taal",
-      "cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/43e68e5dbb274c2d65ae9b31deb30d2a.js\"></script>"
-    },
-    "language": {
-      "da": "Deens",
-      "ee": "Estlands",
-      "en": "Engels",
-      "es": "Spaans",
-      "fr": "Frans",
-      "de": "Duits",
-      "nl": "Nederlands",
-      "no": "Noors",
-      "pl": "Pools",
-      "pt": "Portugees",
-      "ru": "Russisch",
-      "se": "Zweeds"
-    },
-    "member": {
-      "IHTSDO": "SNOMED International",
-      "AR": "Argentinië",
-      "AU": "Australie",
-      "BE": "België",
-      "BN": "Brunei",
-      "CA": "Canada",
-      "CH": "Zwitserland",
-      "CL": "Chili",
-      "CZ": "Tsjechië",
-      "DK": "Denemarken",
-      "EE": "Estland",
-      "HK": "Hong Kong, China",
-      "IS": "IJsland",
-      "IE": "Ierland",
-      "NO": "Noorwegen",
-      "IN": "India",
-      "IL": "Israel",
-      "LT": "Litouwen",
-      "MY": "Maleisië",
-      "MT": "Malta",
-      "NL": "Nederland",
-      "NZ": "Nieuw Zeeland",
-      "PL": "Polen",
-      "PT": "Portugal",
-      "SG": "Singapore",
-      "SK": "Slowakije",
-      "SI": "Slovenië",
-      "ES": "Spanje",
-      "SE": "Zweden",
-      "GB": "Verenigd Koninkrijk",
-      "US": "Verenigde Staten van Amerika",
-      "UY": "Uruguay"
-    },
-    "country": {
-      "AC": "Ascension",
-      "AD": "Andorra",
-      "AE": "United Arab Emirates",
-      "AF": "Afghanistan",
-      "AG": "Antigua and Barbuda",
-      "AI": "Anguilla",
-      "AL": "Albanië",
-      "AM": "Armenië",
-      "AN": "Nederlandse Antillen",
-      "AO": "Angola",
-      "AQ": "Australian Antarctic Territory",
-      "AR": "Argentinië",
-      "AS": "American Samoa",
-      "AT": "Oostenrijk",
-      "AU": "Australië",
-      "AW": "Aruba",
-      "AX": "Aland",
-      "AZ": "Azerbaijan",
-      "BA": "Bosnia and Herzegovina",
-      "BB": "Barbados",
-      "BD": "Bangladesh",
-      "BE": "België",
-      "BF": "Burkina Faso",
-      "BG": "Bulgarije",
-      "BH": "Bahrain",
-      "BI": "Burundi",
-      "BJ": "Benin",
-      "BM": "Bermuda",
-      "BN": "Brunei",
-      "BO": "Bolivia",
-      "BR": "Brazilië",
-      "BS": "Bahamas, The",
-      "BT": "Bhutan",
-      "BV": "Bouvet Island",
-      "BW": "Botswana",
-      "BY": "Belarus",
-      "BZ": "Belize",
-      "CA": "Canada",
-      "CC": "Cocos (Keeling) Islands",
-      "CD": "Congo, (Congo Kinshasa)",
-      "CF": "Central African Republic",
-      "CG": "Congo, (Congo Brazzaville)",
-      "CH": "Zwitserland",
-      "CI": "Ivoorkust",
-      "CK": "Cook Islands",
-      "CL": "Chili",
-      "CM": "Cameroon",
-      "CN": "China, People's Republic of",
-      "CO": "Colombia",
-      "CR": "Costa Rica",
-      "CU": "Cuba",
-      "CV": "Kaap Verdië",
-      "CX": "Christmas Island",
-      "CY": "Cyprus",
-      "CZ": "Tsjechië",
-      "DE": "Duitsland",
-      "DJ": "Djibouti",
-      "DK": "Denemarken",
-      "DM": "Dominica",
-      "DO": "Dominicaanse Republiek",
-      "DZ": "Algerije",
-      "EC": "Ecuador",
-      "EE": "Estland",
-      "EG": "Egypte",
-      "ER": "Eritrea",
-      "ES": "Spanje",
-      "ET": "Ethiopië",
-      "FI": "Finland",
-      "FJ": "Fiji",
-      "FK": "Falkland Islands (Islas Malvinas)",
-      "FM": "Micronesia",
-      "FO": "Faroe Islands",
-      "FR": "Frankrijk",
-      "GA": "Gabon",
-      "GB": "Verenigd Koninkrijk",
-      "GD": "Grenada",
-      "GE": "Georgia",
-      "GF": "French Guiana",
-      "GG": "Guernsey",
-      "GH": "Ghana",
-      "GI": "Gibraltar",
-      "GL": "Groenland",
-      "GM": "Gambia, The",
-      "GN": "Guinea",
-      "GP": "Guadeloupe",
-      "GQ": "Equatorial Guinea",
-      "GR": "Griekenland",
-      "GS": "South Georgia & South Sandwich Islands",
-      "GT": "Guatemala",
-      "GU": "Guam",
-      "GW": "Guinea-Bissau",
-      "GY": "Guyana",
-      "HK": "Hong Kong",
-      "HM": "Heard Island and McDonald Islands",
-      "HN": "Honduras",
-      "HR": "Kroatië",
-      "HT": "Haiti",
-      "HU": "Hongarije",
-      "ID": "Indonesië",
-      "IE": "Ierland",
-      "IL": "Israel",
-      "IM": "Isle of Man",
-      "IN": "India",
-      "IO": "British Indian Ocean Territory",
-      "IQ": "Iraq",
-      "IR": "Iran",
-      "IS": "IJsland",
-      "IT": "Italië",
-      "JE": "Jersey",
-      "JM": "Jamaica",
-      "JO": "Jordanië",
-      "JP": "Japan",
-      "KE": "Kenya",
-      "KG": "Kyrgyzstan",
-      "KH": "Cambodja",
-      "KI": "Kiribati",
-      "KM": "Comoros",
-      "KN": "Saint Kitts and Nevis",
-      "KP": "Korea, Noord",
-      "KR": "Korea, Zuid",
-      "KW": "Koeweit",
-      "KY": "Cayman Islands",
-      "KZ": "Kazakhstan",
-      "LA": "Laos",
-      "LB": "Libanon",
-      "LC": "Saint Lucia",
-      "LI": "Liechtenstein",
-      "LK": "Sri Lanka",
-      "LR": "Liberia",
-      "LS": "Lesotho",
-      "LT": "Litouwen",
-      "LU": "Luxemburg",
-      "LV": "Letland",
-      "LY": "Libië",
-      "MA": "Marokko",
-      "MC": "Monaco",
-      "MD": "Moldavië",
-      "ME": "Montenegro",
-      "MG": "Madagascar",
-      "MH": "Marshall Islands",
-      "MK": "Macedonië",
-      "ML": "Mali",
-      "MM": "Myanmar (Burma)",
-      "MN": "Mongolia",
-      "MO": "Macau",
-      "MP": "Northern Mariana Islands",
-      "MQ": "Martinique",
-      "MR": "Mauritania",
-      "MS": "Montserrat",
-      "MT": "Malta",
-      "MU": "Mauritius",
-      "MV": "Maldiven",
-      "MW": "Malawi",
-      "MX": "Mexico",
-      "MY": "Malaysia",
-      "MZ": "Mozambique",
-      "NA": "Namibia",
-      "NC": "New Caledonia",
-      "NE": "Niger",
-      "NF": "Norfolk Island",
-      "NG": "Nigeria",
-      "NI": "Nicaragua",
-      "NL": "Nederland",
-      "NO": "Norwegen",
-      "NP": "Nepal",
-      "NR": "Nauru",
-      "NU": "Niue",
-      "NZ": "Nieuw Zeeland",
-      "OM": "Oman",
-      "PA": "Panama",
-      "PE": "Peru",
-      "PF": "Frans Polinesië",
-      "PG": "Papua Nieuw Guinea",
-      "PH": "Filipijnen",
-      "PK": "Pakistan",
-      "PL": "Polen",
-      "PM": "Saint Pierre and Miquelon",
-      "PN": "Pitcairn Islands",
-      "PR": "Puerto Rico",
-      "PT": "Portugal",
-      "PW": "Palau",
-      "PY": "Paraguay",
-      "QA": "Qatar",
-      "RE": "Réunion",
-      "RO": "Romenië",
-      "RS": "Servië",
-      "RU": "Rusland",
-      "RW": "Rwanda",
-      "SA": "Saudi Arabië",
-      "SB": "Solomon Islands",
-      "SC": "Seychelles",
-      "SD": "Sudan",
-      "SE": "Zweden",
-      "SG": "Singapore",
-      "SH": "Saint Helena",
-      "SI": "Slovenië",
-      "SJ": "Svalbard",
-      "SK": "Slovakia",
-      "SL": "Sierra Leone",
-      "SM": "San Marino",
-      "SN": "Senegal",
-      "SO": "Somalia",
-      "SR": "Suriname",
-      "ST": "São Tomé en Príncipe",
-      "SV": "El Salvador",
-      "SY": "Syrië",
-      "SZ": "Swaziland",
-      "TA": "Tristan da Cunha",
-      "TC": "Turks and Caicos Islands",
-      "TD": "Tjaad",
-      "TF": "French Southern and Antarctic Lands",
-      "TG": "Togo",
-      "TH": "Thailand",
-      "TJ": "Tajikistan",
-      "TK": "Tokelau",
-      "TL": "Timor-Leste (East Timor)",
-      "TM": "Turkmenistan",
-      "TN": "Tunisië",
-      "TO": "Tonga",
-      "TR": "Turkije",
-      "TT": "Trinidad and Tobago",
-      "TV": "Tuvalu",
-      "TW": "Taiwan",
-      "TZ": "Tanzania",
-      "UA": "Ukrainië",
-      "UG": "Oeganda",
-      "UM": "Wake Island",
-      "US": "Verenigde Staten van Amerkia",
-      "UY": "Uruguay",
-      "UZ": "Uzbekistan",
-      "VA": "Vatikaanstad",
-      "VC": "Saint Vincent and the Grenadines",
-      "VE": "Venezuela",
-      "VG": "British Virgin Islands",
-      "VI": "U.S. Virgin Islands",
-      "VN": "Vietnam",
-      "VU": "Vanuatu",
-      "WF": "Wallis and Futuna",
-      "WS": "Samoa",
-      "YE": "Jemen",
-      "YT": "Mayotte",
-      "ZA": "Zuid-Afrika",
-      "ZM": "Zambia",
-      "ZW": "Zimbabwe"
-    },
-    "form": {
-      "username": "Gebruikersnaam",
-      "username.placeholder": "Uw gebruikersnaam",
-      "name.placeholder": "Uw naam",
-      "newpassword": "Wachtwoord",
-      "newpassword.placeholder": "Nieuw wachtwoord",
-      "confirmpassword": "Bevestiging wachtwoord",
-      "confirmpassword.placeholder": "Bevestig hetwachtwoord",
-      "email": "E-mail",
-      "email.placeholder": "Uw e-mailadres",
-      "country": "Land van verblijf"
-    },
-    "messages": {
-      "info": {
-        "authenticated": "Als u u wilt <a href=\"#/login\">identificeren</a>, kunt u gebruik maken van de default accounts:<br/>- Administrator (login=\"admin\" en wachtwoord=\"admin\") <br/>- Gebruiker (login=\"user\" en wachtwoord=\"user\").",
-        "register": "Heeft u nog geen account? <a href=\"#/register\">Registreer</a>"
-      },
-      "error": {
-        "dontmatch": "Het wachtwoord en de bevestiging ervan komen niet overeen!",
-        "server": "Er heeft zich een fout voorgedaan. Voer de actie nogmaals uit."
-      },
-      "validate": {
-        "newpassword": {
-          "required": "Uw wachtwoord is vereist.",
-          "minlength": "Uw wachtwoord moet ten minste 5 karakters tellen",
-          "maxlength": "Uw wachtwoord mag niet meer dan 50 karakters tellen",
-          "strength": "Sterkte van het wachtwoord:"
+    "global": {
+        "title": "mlds",
+        "browsehappy": "U maakt gebruik van een <strong>verouderde </strong> browser. Gelieve <a href=\"http://browsehappy.com/?locale=en\">uw browser te upgraden</a> voor betere resultaten.",
+        "menu": {
+            "home": "Home",
+            "account": {
+                "main": "Account",
+                "contactInfo": "Contactinfo",
+                "password": "Wachtwoord",
+                "sessions": "Sessies",
+                "tracker": "Gebruiker tracking",
+                "metrics": "Systeemparameters",
+                "logs": "Logs",
+                "audits": "Audits",
+                "login": "Aanmelden",
+                "logout": "Afmelden",
+                "apidocs": "API",
+                "register": "Registreren",
+                "affiliates": "Licentiehouders",
+                "dashboard": "Dashboard"
+            },
+            "dashboard": "Dashboard",
+            "help": "Help",
+            "privacyPolicy": "Privacybeleid",
+            "usageReports": "Gebruiksrapportage",
+            "applications": "Aanvragen",
+            "releasePackages": "Releases",
+            "affiliate": {
+                "accountInformation": "Informatie over uw account ",
+                "changePassword": "Verander het wachtwoord",
+                "logout": "Afmelden"
+            },
+            "staff": {
+                "dashboard": "Dashboard",
+                "pendingApplications": "Aanvragen in behandeling",
+                "usageReports": "Gebruiksrapportage",
+                "affiliteUserManagement": "Gebruikersbeheer van licentiehouders",
+                "activityLog": "Activiteitenlog",
+                "packageManagement": "Softwarebeheer",
+                "licenseTC": "Licentievoorwaarden",
+                "reportsExtracts": "Rapporten en overzichten",
+                "logout": "Afmelden"
+            },
+            "admin": {
+                "importAffiliateRecords": "Gegevens van geaffilieerden/licentiehouders importeren",
+                "manageBlacklist": "Zwarte lijst beheren",
+                "nationalRegistrationList": "Nationale Registratielijst"
+            },
+            "language": "Taal",
+            "cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/43e68e5dbb274c2d65ae9b31deb30d2a.js\"></script>"
         },
-        "confirmpassword": {
-          "required": "Uw bevestigingswachtwoord is vereist.",
-          "minlength": "Uw bevestigingswachtwoord moet ten minste 5 karakters tellen",
-          "maxlength": "Uw bevestigingswachtwoord mag niet meer dan 50 karakters tellen",
-          "match": "Uw bevestigingswachtwoord komt niet overeen met het wachtwoord"
+        "language": {
+            "br": "Portugees",
+            "da": "Deens",
+            "ee": "Estlands",
+            "en": "Engels",
+            "es": "Spaans",
+            "fr": "Frans",
+            "de": "Duits",
+            "nl": "Nederlands",
+            "no": "Noors",
+            "pl": "Pools",
+            "pt": "Portugees",
+            "ru": "Russisch",
+            "se": "Zweeds"
         },
-        "email": {
-          "required": "Uw e-mail is vereist.",
-          "invalid": "Uw e-mail is ongeldig.",
-          "minlength": "Uw e-mail moet ten minste 1 karakter tellen",
-          "maxlength": "Uw e-mail mag niet langer zijn dan 50 karakters"
-        },
-        "confirmemail": {
-          "match": "Uw bevestigings-e-mailadres correspondeert niet met dit emailadres"
-        }
-      }
-    },
-    "word": {
-      "or": "of",
-      "add": "Toevoegen",
-      "edit": "Wijzigen",
-      "name": "Naam",
-      "cancel": "Annuleren",
-      "note": "Opmerking",
-      "notes": "Opmerkingen",
-      "close": "Sluiten",
-      "delete": "Verwijderen",
-      "update": "Updaten",
-      "from": "van",
-      "ok": "OK",
-      "submit": "Indienen",
-      "save": "Opslaan",
-      "welcome": "Welkom",
-      "view": "Bekijken",
-      "viewlicense": "Bekijk licentie",
-      "viewAll": "Alles bekijken",
-      "state": "Staat",
-      "status": "Status",
-      "type": "Type",
-      "date": "Datum",
-      "user": "Gebruiker",
-      "yes": "Ja",
-      "no": "Neen",
-      "apply": "Toepassen",
-      "download": "Download",
-      "file": "File",
-      "publishedOn": "Gepubliceerd op",
-      "license": "Licentie",
-      "back": "Terug"
-    }
-  },
-  "logout": {
-    "title": "MLDS-Afmelden",
-    "subtitle": "Uw sessie wordt afgesloten."
-  },
-  "register": {
-    "title": "Registreren",
-    "welcome": "Welkom bij SNOMED International-MLDS",
-    "subwelcome": "De toegangspoort naar SNOMED CT",
-    "form": {
-      "tos": "Verklaar u akkoord met onze <a href=\"/https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Bepalingen en Voorwaarden </a>.",
-      "button": "Start Registratie",
-      "confirmemail": "E-mail (bevestigen)"
-    },
-    "messages": {
-      "validate": {
-        "login": {
-          "required": "Uw login is vereist.",
-          "minlength": "Uw login moet ten minste 1 karakter tellen",
-          "maxlength": "Uw login mag maximum 50 karakters tellen"
+        "member": {
+            "IHTSDO": "SNOMED International",
+            "AR": "Argentinië",
+            "AU": "Australie",
+            "BE": "België",
+            "BN": "Brunei",
+            "CA": "Canada",
+            "CH": "Zwitserland",
+            "CL": "Chili",
+            "CZ": "Tsjechië",
+            "DK": "Denemarken",
+            "EE": "Estland",
+            "HK": "Hong Kong, China",
+            "IS": "IJsland",
+            "IE": "Ierland",
+            "NO": "Noorwegen",
+            "IN": "India",
+            "IL": "Israel",
+            "LT": "Litouwen",
+            "MY": "Maleisië",
+            "MT": "Malta",
+            "NL": "Nederland",
+            "NZ": "Nieuw Zeeland",
+            "PL": "Polen",
+            "PT": "Portugal",
+            "SG": "Singapore",
+            "SK": "Slowakije",
+            "SI": "Slovenië",
+            "ES": "Spanje",
+            "SE": "Zweden",
+            "GB": "Verenigd Koninkrijk",
+            "US": "Verenigde Staten van Amerika",
+            "UY": "Uruguay"
         },
         "country": {
-          "notMLDS": "Aanvragen om SNOMED CT te gebruiken in uw land van verblijf moeten worden gericht aan de juiste vertegenwoordiger van uw land - <a href=\"{{link}}\" target=\"_blank\">here</a>. Als u een overeenkomst om redenen van openbaar belang wil aanvragen om SNOMED CT te gebruiken in een ander land, of als u andere inlichtingen wilt, gelieve dan contact op te nemen met SNOMED International op het volgende adres <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
+            "AC": "Ascension",
+            "AD": "Andorra",
+            "AE": "United Arab Emirates",
+            "AF": "Afghanistan",
+            "AG": "Antigua and Barbuda",
+            "AI": "Anguilla",
+            "AL": "Albanië",
+            "AM": "Armenië",
+            "AN": "Nederlandse Antillen",
+            "AO": "Angola",
+            "AQ": "Australian Antarctic Territory",
+            "AR": "Argentinië",
+            "AS": "American Samoa",
+            "AT": "Oostenrijk",
+            "AU": "Australië",
+            "AW": "Aruba",
+            "AX": "Aland",
+            "AZ": "Azerbaijan",
+            "BA": "Bosnia and Herzegovina",
+            "BB": "Barbados",
+            "BD": "Bangladesh",
+            "BE": "België",
+            "BF": "Burkina Faso",
+            "BG": "Bulgarije",
+            "BH": "Bahrain",
+            "BI": "Burundi",
+            "BJ": "Benin",
+            "BM": "Bermuda",
+            "BN": "Brunei",
+            "BO": "Bolivia",
+            "BR": "Brazilië",
+            "BS": "Bahamas, The",
+            "BT": "Bhutan",
+            "BV": "Bouvet Island",
+            "BW": "Botswana",
+            "BY": "Belarus",
+            "BZ": "Belize",
+            "CA": "Canada",
+            "CC": "Cocos (Keeling) Islands",
+            "CD": "Congo, (Congo Kinshasa)",
+            "CF": "Central African Republic",
+            "CG": "Congo, (Congo Brazzaville)",
+            "CH": "Zwitserland",
+            "CI": "Ivoorkust",
+            "CK": "Cook Islands",
+            "CL": "Chili",
+            "CM": "Cameroon",
+            "CN": "China, People's Republic of",
+            "CO": "Colombia",
+            "CR": "Costa Rica",
+            "CU": "Cuba",
+            "CV": "Kaap Verdië",
+            "CX": "Christmas Island",
+            "CY": "Cyprus",
+            "CZ": "Tsjechië",
+            "DE": "Duitsland",
+            "DJ": "Djibouti",
+            "DK": "Denemarken",
+            "DM": "Dominica",
+            "DO": "Dominicaanse Republiek",
+            "DZ": "Algerije",
+            "EC": "Ecuador",
+            "EE": "Estland",
+            "EG": "Egypte",
+            "ER": "Eritrea",
+            "ES": "Spanje",
+            "ET": "Ethiopië",
+            "FI": "Finland",
+            "FJ": "Fiji",
+            "FK": "Falkland Islands (Islas Malvinas)",
+            "FM": "Micronesia",
+            "FO": "Faroe Islands",
+            "FR": "Frankrijk",
+            "GA": "Gabon",
+            "GB": "Verenigd Koninkrijk",
+            "GD": "Grenada",
+            "GE": "Georgia",
+            "GF": "French Guiana",
+            "GG": "Guernsey",
+            "GH": "Ghana",
+            "GI": "Gibraltar",
+            "GL": "Groenland",
+            "GM": "Gambia, The",
+            "GN": "Guinea",
+            "GP": "Guadeloupe",
+            "GQ": "Equatorial Guinea",
+            "GR": "Griekenland",
+            "GS": "South Georgia & South Sandwich Islands",
+            "GT": "Guatemala",
+            "GU": "Guam",
+            "GW": "Guinea-Bissau",
+            "GY": "Guyana",
+            "HK": "Hong Kong",
+            "HM": "Heard Island and McDonald Islands",
+            "HN": "Honduras",
+            "HR": "Kroatië",
+            "HT": "Haiti",
+            "HU": "Hongarije",
+            "ID": "Indonesië",
+            "IE": "Ierland",
+            "IL": "Israel",
+            "IM": "Isle of Man",
+            "IN": "India",
+            "IO": "British Indian Ocean Territory",
+            "IQ": "Iraq",
+            "IR": "Iran",
+            "IS": "IJsland",
+            "IT": "Italië",
+            "JE": "Jersey",
+            "JM": "Jamaica",
+            "JO": "Jordanië",
+            "JP": "Japan",
+            "KE": "Kenya",
+            "KG": "Kyrgyzstan",
+            "KH": "Cambodja",
+            "KI": "Kiribati",
+            "KM": "Comoros",
+            "KN": "Saint Kitts and Nevis",
+            "KP": "Korea, Noord",
+            "KR": "Korea, Zuid",
+            "KW": "Koeweit",
+            "KY": "Cayman Islands",
+            "KZ": "Kazakhstan",
+            "LA": "Laos",
+            "LB": "Libanon",
+            "LC": "Saint Lucia",
+            "LI": "Liechtenstein",
+            "LK": "Sri Lanka",
+            "LR": "Liberia",
+            "LS": "Lesotho",
+            "LT": "Litouwen",
+            "LU": "Luxemburg",
+            "LV": "Letland",
+            "LY": "Libië",
+            "MA": "Marokko",
+            "MC": "Monaco",
+            "MD": "Moldavië",
+            "ME": "Montenegro",
+            "MG": "Madagascar",
+            "MH": "Marshall Islands",
+            "MK": "Macedonië",
+            "ML": "Mali",
+            "MM": "Myanmar (Burma)",
+            "MN": "Mongolia",
+            "MO": "Macau",
+            "MP": "Northern Mariana Islands",
+            "MQ": "Martinique",
+            "MR": "Mauritania",
+            "MS": "Montserrat",
+            "MT": "Malta",
+            "MU": "Mauritius",
+            "MV": "Maldiven",
+            "MW": "Malawi",
+            "MX": "Mexico",
+            "MY": "Malaysia",
+            "MZ": "Mozambique",
+            "NA": "Namibia",
+            "NC": "New Caledonia",
+            "NE": "Niger",
+            "NF": "Norfolk Island",
+            "NG": "Nigeria",
+            "NI": "Nicaragua",
+            "NL": "Nederland",
+            "NO": "Norwegen",
+            "NP": "Nepal",
+            "NR": "Nauru",
+            "NU": "Niue",
+            "NZ": "Nieuw Zeeland",
+            "OM": "Oman",
+            "PA": "Panama",
+            "PE": "Peru",
+            "PF": "Frans Polinesië",
+            "PG": "Papua Nieuw Guinea",
+            "PH": "Filipijnen",
+            "PK": "Pakistan",
+            "PL": "Polen",
+            "PM": "Saint Pierre and Miquelon",
+            "PN": "Pitcairn Islands",
+            "PR": "Puerto Rico",
+            "PT": "Portugal",
+            "PW": "Palau",
+            "PY": "Paraguay",
+            "QA": "Qatar",
+            "RE": "Réunion",
+            "RO": "Romenië",
+            "RS": "Servië",
+            "RU": "Rusland",
+            "RW": "Rwanda",
+            "SA": "Saudi Arabië",
+            "SB": "Solomon Islands",
+            "SC": "Seychelles",
+            "SD": "Sudan",
+            "SE": "Zweden",
+            "SG": "Singapore",
+            "SH": "Saint Helena",
+            "SI": "Slovenië",
+            "SJ": "Svalbard",
+            "SK": "Slovakia",
+            "SL": "Sierra Leone",
+            "SM": "San Marino",
+            "SN": "Senegal",
+            "SO": "Somalia",
+            "SR": "Suriname",
+            "ST": "São Tomé en Príncipe",
+            "SV": "El Salvador",
+            "SY": "Syrië",
+            "SZ": "Swaziland",
+            "TA": "Tristan da Cunha",
+            "TC": "Turks and Caicos Islands",
+            "TD": "Tjaad",
+            "TF": "French Southern and Antarctic Lands",
+            "TG": "Togo",
+            "TH": "Thailand",
+            "TJ": "Tajikistan",
+            "TK": "Tokelau",
+            "TL": "Timor-Leste (East Timor)",
+            "TM": "Turkmenistan",
+            "TN": "Tunisië",
+            "TO": "Tonga",
+            "TR": "Turkije",
+            "TT": "Trinidad and Tobago",
+            "TV": "Tuvalu",
+            "TW": "Taiwan",
+            "TZ": "Tanzania",
+            "UA": "Ukrainië",
+            "UG": "Oeganda",
+            "UM": "Wake Island",
+            "US": "Verenigde Staten van Amerkia",
+            "UY": "Uruguay",
+            "UZ": "Uzbekistan",
+            "VA": "Vatikaanstad",
+            "VC": "Saint Vincent and the Grenadines",
+            "VE": "Venezuela",
+            "VG": "British Virgin Islands",
+            "VI": "U.S. Virgin Islands",
+            "VN": "Vietnam",
+            "VU": "Vanuatu",
+            "WF": "Wallis and Futuna",
+            "WS": "Samoa",
+            "YE": "Jemen",
+            "YT": "Mayotte",
+            "ZA": "Zuid-Afrika",
+            "ZM": "Zambia",
+            "ZW": "Zimbabwe"
         },
-        "registration": {
-          "usagetyperequired": "Type gebruik is verplicht",
-          "subtyperequired": "Subtype is verplicht"
-        }
-      },
-      "success": "<strong>Registratie opgeslagen!</strong> Gelieve naar uw e-mail te gaan voor bevestiging.",
-      "error": {
-        "fail": "<strong>De registratie is niet gelukt!</strong> Gelieve later opnieuw te proberen.",
-        "userexists": "<strong> Er heeft zich al een gebruiker geregistreerd met dit e-mailadres.</strong> Wilde u <a href='#/login'>inloggen</a>?",
-        "blocklist": "Op basis van ons IT-beleid kunnen we het opgegeven e-mailadres niet behandelen. Gelieve contact op te nemen met <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a> waar men u verder kan helpen."
-      }
-    },
-    "emailVerification": {
-      "intro": "We hebben u een e-mail gestuurd.",
-      "detail": "Gelieve de e-mail te openen die we u zojuist gestuurd hebben om uw account te verifiëren en toegang te verkrijgen tot MLDS"
-    },
-    "affiliateRegistration": {
-      "title": "Registratie licentiehouder",
-      "usageType": "Type gebruik",
-      "conditions": "Selecteren s.v.p. onder welke omstandigheden het product gebruikt zal worden",
-      "typeOfAgreement": "Type Overeenkomst",
-      "validation": {
-        "other.required": "Het veld ‘Andere’is vereist."
-      },
-      "changeRequestedWarning": {
-        "title": "Aanvulling gevraagd op uw licentieaanvraag",
-        "text": "Voordat uw licentieaanvraag verwerkt kan worden wordt u vriendelijk verzocht deze aan te passen. Lees voor de details s.v.p. de mail die u hierover ontvangen heeft."
-      },
-      "license.title": "SNOMED CT Overeenkomst",
-      "license": "SNOMED CT Licentie",
-      "license.confirm": "Ik aanvaard de licentievoorwaarden",
-      "license.error": "Om u te kunnen registreren, moet u de bepalingen en voorwaarden van de SNOMED CT Licentie, waarin ook de mogelijke te betalen vergoedingen vermeld staan, aanvaarden."
-    },
-    "affiliateRegistrationReview": {
-      "title": "Wijzigen",
-      "editApp": "Wijzigen"
-    }
-  },
-  "login": {
-    "title": "Login",
-    "form": {
-      "username": "E-mail of gebruikersnaam",
-      "password": "Wachtwoord",
-      "password.placeholder": "Uw wachtwoord",
-      "rememberme": "Dit wachtwoord onthouden",
-      "button": "Login",
-      "forgot": "Wachtwoord vergeten?"
-    },
-    "messages": {
-      "error": {
-        "authentication": "<strong>De authentificatie is niet gelukt!</strong> Gelieve uw gegevens te controleren en opnieuw te proberen. Wachtwoorden zijn hoofdlettergevoelig.",
-        "deregistered": "<strong>De authentificatie is niet gelukt !</strong> Deze account werd gederegistreerd. Gelieve contact op te nemen met de helpdesk.",
-        "noPermissions": "<strong>De authentificatie is niet gelukt!</strong> We hebben uw geauthentificeerd, maar uw account biedt geen toegang tot deze applicatie, of is slecht geconfigureerd.  Gelieve contact op te nemen met de helpdesk."
-      }
-    }
-  },
-  "settings": {
-    "title": "Contactinfo voor [<b>{{username}}</b>]",
-    "form": {
-      "countryOfResidence": "Land van verblijf",
-      "countryOfResidence.placeholder": "Land van verblijf",
-      "firstname": "Voornaam",
-      "firstname.placeholder": "Voornaam",
-      "lastname": "Achternaam",
-      "lastname.placeholder": "Achternaam",
-      "button": "Opslaan"
-    },
-    "messages": {
-      "error": "<strong>Er is een fout opgetreden!</strong> De instellingen konden niet worden opgeslagen.",
-      "success": "<strong>Instellingen opgeslagen!</strong>",
-      "validate": {
-        "firstname": {
-          "required": "Uw voornaam is vereist.",
-          "minlength": "Uw voornaam moet ten minste 1 karakter tellen",
-          "maxlength": "Uw voornaam mag maximum 50 karakters tellen"
+        "form": {
+            "username": "Gebruikersnaam",
+            "username.placeholder": "Uw gebruikersnaam",
+            "name.placeholder": "Uw naam",
+            "newpassword": "Wachtwoord",
+            "newpassword.placeholder": "Nieuw wachtwoord",
+            "confirmpassword": "Bevestiging wachtwoord",
+            "confirmpassword.placeholder": "Bevestig hetwachtwoord",
+            "email": "E-mail",
+            "email.placeholder": "Uw e-mailadres",
+            "country": "Land van verblijf"
         },
-        "lastname": {
-          "required": "Uw achternaam is vereist.",
-          "minlength": "Uw achternaam moet ten minste 1 karakter tellen",
-          "maxlength": "Uw achternaam mag maximum 50 karakters tellen"
+        "messages": {
+            "info": {
+                "authenticated": "Als u u wilt <a href=\"#/login\">identificeren</a>, kunt u gebruik maken van de default accounts:<br/>- Administrator (login=\"admin\" en wachtwoord=\"admin\") <br/>- Gebruiker (login=\"user\" en wachtwoord=\"user\").",
+                "register": "Heeft u nog geen account? <a href=\"#/register\">Registreer</a>"
+            },
+            "error": {
+                "dontmatch": "Het wachtwoord en de bevestiging ervan komen niet overeen!",
+                "server": "Er heeft zich een fout voorgedaan. Voer de actie nogmaals uit."
+            },
+            "validate": {
+                "newpassword": {
+                    "required": "Uw wachtwoord is vereist.",
+                    "minlength": "Uw wachtwoord moet ten minste 5 karakters tellen",
+                    "maxlength": "Uw wachtwoord mag niet meer dan 50 karakters tellen",
+                    "strength": "Sterkte van het wachtwoord:"
+                },
+                "confirmpassword": {
+                    "required": "Uw bevestigingswachtwoord is vereist.",
+                    "minlength": "Uw bevestigingswachtwoord moet ten minste 5 karakters tellen",
+                    "maxlength": "Uw bevestigingswachtwoord mag niet meer dan 50 karakters tellen",
+                    "match": "Uw bevestigingswachtwoord komt niet overeen met het wachtwoord"
+                },
+                "email": {
+                    "required": "Uw e-mail is vereist.",
+                    "invalid": "Uw e-mail is ongeldig.",
+                    "minlength": "Uw e-mail moet ten minste 1 karakter tellen",
+                    "maxlength": "Uw e-mail mag niet langer zijn dan 50 karakters"
+                },
+                "confirmemail": {
+                    "match": "Uw bevestigings-e-mailadres correspondeert niet met dit emailadres"
+                }
+            }
+        },
+        "word": {
+            "or": "of",
+            "add": "Toevoegen",
+            "edit": "Wijzigen",
+            "name": "Naam",
+            "cancel": "Annuleren",
+            "note": "Opmerking",
+            "notes": "Opmerkingen",
+            "close": "Sluiten",
+            "delete": "Verwijderen",
+            "update": "Updaten",
+            "from": "van",
+            "ok": "OK",
+            "submit": "Indienen",
+            "save": "Opslaan",
+            "welcome": "Welkom",
+            "view": "Bekijken",
+            "viewlicense": "Bekijk licentie",
+            "viewAll": "Alles bekijken",
+            "state": "Staat",
+            "status": "Status",
+            "type": "Type",
+            "date": "Datum",
+            "user": "Gebruiker",
+            "yes": "Ja",
+            "no": "Neen",
+            "apply": "Toepassen",
+            "download": "Download",
+            "file": "File",
+            "publishedOn": "Gepubliceerd op",
+            "license": "Licentie",
+            "back": "Terug"
         }
-      }
-    }
-  },
-  "password": {
-    "title": "Wachtwoord voor {{username}}",
-    "form": {
-      "button": "Opslaan"
     },
-    "reset": {
-      "title": "Reset wachtwoord",
-      "instructions": "Voer het nieuwe wachtwoord hieronder in."
+    "logout": {
+        "title": "MLDS-Afmelden",
+        "subtitle": "Uw sessie wordt afgesloten."
     },
-    "messages": {
-      "error": "<strong>Er is een fout opgetreden!</strong> Het wachtwoord kon niet gewijzigd worden.",
-      "success": "<strong>Wachtwoord gewijzigd!</strong> Ga door naar <a href='#/contactInfo'> Informatie over uw account </a>",
-      "expired": "<strong>De link om opnieuw in te stellen is verlopen of was ongeldig.</strong> <a href='#/requestPasswordReset'>Vraag om opnieuw in te stellen</a>"
-    }
-  },
-  "sessions": {
-    "title": "Actieve sessies voor [<b>{{username}}</b>]",
-    "table": {
-      "ipaddress": "IP-adres",
-      "useragent": "User Agent",
-      "button": "Ongeldig maken"
-    },
-    "messages": {
-      "success": "<strong>Sessie ongeldig!</strong>",
-      "error": "<strong>Er is een fout opgetreden!</strong> De sessie kon niet ongeldig gemaakt worden."
-    }
-  },
-  "tracker": {
-    "title": "Activiteiten van de gebruiker in real time",
-    "table": {
-      "userlogin": "Gebruiker",
-      "ipaddress": "IP-adres",
-      "userAgent": "User agent",
-      "page": "Huidige pagina",
-      "time": "Tijd"
-    }
-  },
-  "metrics": {
-    "title": "Systeemparameters",
-    "refresh.button": "Vernieuwen",
-    "health": {
-      "title": "Gezondheidscheck",
-      "database": "Database",
-      "email": "E-mail",
-      "stacktrace": "Stack trace"
-    },
-    "jvm": {
-      "title": "JVM parameters",
-      "memory": {
-        "title": "Geheugen",
-        "total": "Totaal geheugen",
-        "heap": "Heap-geheugen",
-        "nonheap": "Non-Heap-geheugen"
-      },
-      "threads": {
-        "title": "Threads",
-        "all": "Alle",
-        "runnable": "Uitvoerbaar",
-        "timedwaiting": "Timed waiting",
-        "waiting": "Waiting",
-        "blocked": "Geblokkeerd",
-        "dump": {
-          "title": "Threads dump",
-          "id": "Id",
-          "blockedtime": "Tijd geblokkeerd",
-          "blockedcount": "Telling geblokkeerd",
-          "waitedtime": "Waited time",
-          "waitedcount": "Waited Count",
-          "lockname": "Naam vergrendelen",
-          "stacktrace": "Stack trace",
-          "show": "Tonen",
-          "hide": "Verbergen"
+    "register": {
+        "title": "Registreren",
+        "welcome": "Welkom bij SNOMED International-MLDS",
+        "subwelcome": "De toegangspoort naar SNOMED CT",
+        "form": {
+            "tos": "Verklaar u akkoord met onze <a href=\"/https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Bepalingen en Voorwaarden </a>.",
+            "button": "Start Registratie",
+            "confirmemail": "E-mail (bevestigen)"
+        },
+        "messages": {
+            "validate": {
+                "login": {
+                    "required": "Uw login is vereist.",
+                    "minlength": "Uw login moet ten minste 1 karakter tellen",
+                    "maxlength": "Uw login mag maximum 50 karakters tellen"
+                },
+                "country": {
+                    "notMLDS": "Aanvragen om SNOMED CT te gebruiken in uw land van verblijf moeten worden gericht aan de juiste vertegenwoordiger van uw land - <a href=\"{{link}}\" target=\"_blank\">here</a>. Als u een overeenkomst om redenen van openbaar belang wil aanvragen om SNOMED CT te gebruiken in een ander land, of als u andere inlichtingen wilt, gelieve dan contact op te nemen met SNOMED International op het volgende adres <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
+                },
+                "registration": {
+                    "usagetyperequired": "Type gebruik is verplicht",
+                    "subtyperequired": "Subtype is verplicht"
+                }
+            },
+            "success": "<strong>Registratie opgeslagen!</strong> Gelieve naar uw e-mail te gaan voor bevestiging.",
+            "error": {
+                "fail": "<strong>De registratie is niet gelukt!</strong> Gelieve later opnieuw te proberen.",
+                "userexists": "<strong> Er heeft zich al een gebruiker geregistreerd met dit e-mailadres.</strong> Wilde u <a href='#/login'>inloggen</a>?",
+                "blocklist": "Op basis van ons IT-beleid kunnen we het opgegeven e-mailadres niet behandelen. Gelieve contact op te nemen met <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a> waar men u verder kan helpen."
+            }
+        },
+        "emailVerification": {
+            "intro": "We hebben u een e-mail gestuurd.",
+            "detail": "Gelieve de e-mail te openen die we u zojuist gestuurd hebben om uw account te verifiëren en toegang te verkrijgen tot MLDS"
+        },
+        "affiliateRegistration": {
+            "title": "Registratie licentiehouder",
+            "usageType": "Type gebruik",
+            "conditions": "Selecteren s.v.p. onder welke omstandigheden het product gebruikt zal worden",
+            "typeOfAgreement": "Type Overeenkomst",
+            "validation": {
+                "other.required": "Het veld ‘Andere’is vereist."
+            },
+            "changeRequestedWarning": {
+                "title": "Aanvulling gevraagd op uw licentieaanvraag",
+                "text": "Voordat uw licentieaanvraag verwerkt kan worden wordt u vriendelijk verzocht deze aan te passen. Lees voor de details s.v.p. de mail die u hierover ontvangen heeft."
+            },
+            "license.title": "SNOMED CT Overeenkomst",
+            "license": "SNOMED CT Licentie",
+            "license.confirm": "Ik aanvaard de licentievoorwaarden",
+            "license.error": "Om u te kunnen registreren, moet u de bepalingen en voorwaarden van de SNOMED CT Licentie, waarin ook de mogelijke te betalen vergoedingen vermeld staan, aanvaarden."
+        },
+        "affiliateRegistrationReview": {
+            "title": "Wijzigen",
+            "editApp": "Wijzigen"
         }
-      },
-      "gc": {
-        "title": "Garbage collections",
-        "marksweepcount": "Mark Sweep count",
-        "marksweeptime": "Mark Sweep time",
-        "scavengecount": "Scavenge count",
-        "scavengetime": "Scavenge time"
-      },
-      "http": {
-        "title": "HTTP-verzoeken(events per seconde)",
-        "active": "Actieve verzoeken",
-        "total": "Totaal aantal verzoeken",
+    },
+    "login": {
+        "title": "Login",
+        "form": {
+            "username": "E-mail of gebruikersnaam",
+            "password": "Wachtwoord",
+            "password.placeholder": "Uw wachtwoord",
+            "rememberme": "Dit wachtwoord onthouden",
+            "button": "Login",
+            "forgot": "Wachtwoord vergeten?"
+        },
+        "messages": {
+            "error": {
+                "authentication": "<strong>De authentificatie is niet gelukt!</strong> Gelieve uw gegevens te controleren en opnieuw te proberen. Wachtwoorden zijn hoofdlettergevoelig.",
+                "deregistered": "<strong>De authentificatie is niet gelukt !</strong> Deze account werd gederegistreerd. Gelieve contact op te nemen met de helpdesk.",
+                "noPermissions": "<strong>De authentificatie is niet gelukt!</strong> We hebben uw geauthentificeerd, maar uw account biedt geen toegang tot deze applicatie, of is slecht geconfigureerd.  Gelieve contact op te nemen met de helpdesk."
+            }
+        }
+    },
+    "settings": {
+        "title": "Contactinfo voor [<b>{{username}}</b>]",
+        "form": {
+            "countryOfResidence": "Land van verblijf",
+            "countryOfResidence.placeholder": "Land van verblijf",
+            "firstname": "Voornaam",
+            "firstname.placeholder": "Voornaam",
+            "lastname": "Achternaam",
+            "lastname.placeholder": "Achternaam",
+            "button": "Opslaan"
+        },
+        "messages": {
+            "error": "<strong>Er is een fout opgetreden!</strong> De instellingen konden niet worden opgeslagen.",
+            "success": "<strong>Instellingen opgeslagen!</strong>",
+            "validate": {
+                "firstname": {
+                    "required": "Uw voornaam is vereist.",
+                    "minlength": "Uw voornaam moet ten minste 1 karakter tellen",
+                    "maxlength": "Uw voornaam mag maximum 50 karakters tellen"
+                },
+                "lastname": {
+                    "required": "Uw achternaam is vereist.",
+                    "minlength": "Uw achternaam moet ten minste 1 karakter tellen",
+                    "maxlength": "Uw achternaam mag maximum 50 karakters tellen"
+                }
+            }
+        }
+    },
+    "password": {
+        "title": "Wachtwoord voor {{username}}",
+        "form": {
+            "button": "Opslaan"
+        },
+        "reset": {
+            "title": "Reset wachtwoord",
+            "instructions": "Voer het nieuwe wachtwoord hieronder in."
+        },
+        "messages": {
+            "error": "<strong>Er is een fout opgetreden!</strong> Het wachtwoord kon niet gewijzigd worden.",
+            "success": "<strong>Wachtwoord gewijzigd!</strong> Ga door naar <a href='#/contactInfo'> Informatie over uw account </a>",
+            "expired": "<strong>De link om opnieuw in te stellen is verlopen of was ongeldig.</strong> <a href='#/requestPasswordReset'>Vraag om opnieuw in te stellen</a>"
+        }
+    },
+    "sessions": {
+        "title": "Actieve sessies voor [<b>{{username}}</b>]",
         "table": {
-          "code": "Code",
-          "count": "Telling",
-          "mean": "Mediaan",
-          "average": "Gemiddelde"
+            "ipaddress": "IP-adres",
+            "useragent": "User Agent",
+            "button": "Ongeldig maken"
         },
-        "code": {
-          "ok": "Ok",
-          "notfound": "Niet gevonden",
-          "servererror": "Serverfout"
+        "messages": {
+            "success": "<strong>Sessie ongeldig!</strong>",
+            "error": "<strong>Er is een fout opgetreden!</strong> De sessie kon niet ongeldig gemaakt worden."
         }
-      }
     },
-    "servicesstats": {
-      "title": "Statistieken van services (tijd in milliseconden)",
-      "table": {
-        "name": "Naam van de service",
-        "count": "Telling",
-        "mean": "Mediaan",
-        "min": "Min",
-        "max": "Max",
-        "p50": "p50",
-        "p75": "p75",
-        "p95": "p95",
-        "p99": "p99"
-      }
-    },
-    "ehcache": {
-      "title": "Cache statistieken",
-      "cachename": "Naam cache",
-      "objects": "Voorwerpen",
-      "hits": "Hits",
-      "misses": "Gemist",
-      "evictioncount": "Telling verwijderingen",
-      "mean": "Mediane duur(ms)"
-    }
-  },
-  "logs": {
-    "title": "Logs",
-    "nbloggers": "Er zijn {{ totaal }} personen ingelogd.",
-    "filter": "Filter",
-    "table": {
-      "name": "Naam",
-      "level": "Niveau"
-    }
-  },
-  "audits": {
-    "title": "Audits",
-    "filter": {
-      "title": "Filter per datum",
-      "from": "van",
-      "to": "tot",
-      "button": {
-        "weeks": "weken",
-        "today": "vandaag",
-        "clear": "leegmaken",
-        "close": "sluiten"
-      }
-    },
-    "table": {
-      "header": {
-        "principal": "Gebruiker",
-        "date": "Datum (Lokaal)",
-        "status": "Status",
-        "data": "Extra data"
-      },
-      "data": {
-        "remoteAddress": "Extern adres:"
-      }
-    },
-    "type": {
-      "AUTHORIZATION_FAILURE": "Authorisatie niet gelukt",
-      "AUTHENTICATION_SUCCESS": "Authorisatie gelukt",
-      "AUTHENTICATION_FAILURE": "Authentificatie niet gelukt",
-      "AFFILIATE_CREATED": "Licentiehouder aangemaakt",
-      "AFFILIATE_CREATED_BY_IMPORT": "Licentiehouder aangemaakt via Import",
-      "AFFILIATE_DELETED": "Affiliate Deleted",
-      "AFFILIATE_UPDATED": " Licentiehouder geüpdatet",
-      "AFFILIATE_UPDATED_BY_IMPORT": "Licentiehouder geüpdatet via Import",
-      "AFFILIATEDETAILS_UPDATED": " Details licentiehouder geüpdatet",
-      "AFFILIATE_EXPORT": "Batch Export licentiehouder",
-      "AFFILIATE_IMPORT": "Batch Import licentiehouder",
-      "AFFILIATE_LOGIN_CREATED": "Login licentiehouder aangemaakt",
-      "AFFILIATE_STANDING_STATE_CHANGED": "Huidige staat licentiehouder gewijzigd",
-      "ANNOUNCEMENT_POSTED": "Aankondiging gepost",
-      "APPLICATION_CREATED": "Aanvraag aangemaakt",
-      "APPLICATION_APPROVAL_STATE_CHANGED": "Staat van de goedkeuring van de aanvraag gewijzigd",
-      "APPLICATION_DELETED": "Aanvraag verwijderd",
-      "RELEASE_FILE_CREATED": "Release File aangemaakt",
-      "RELEASE_FILE_DELETED": "Release File verwijderd",
-      "RELEASE_FILE_DOWNLOADED": "Release File gedownload",
-      "RELEASE_PACKAGE_DELETED": "Release Package verwijderd ",
-      "RELEASE_PACKAGE_CREATED": "Release Package aangemaakt",
-      "RELEASE_VERSION_TAKEN_OFFLINE": "Versie van de release offline gehaald",
-      "RELEASE_VERSION_TAKEN_ONLINE": "Versie van de release online geplaatst",
-      "RELEASE_VERSION_CREATED": " Versie van de release aangemaakt",
-      "RELEASE_VERSION_DELETED": " Versie van de release verwijderd",
-      "USAGE_CREATED": "Gebruik aangemaakt",
-      "USAGE_APPROVAL_STATE_CHANGED": "Staat van de goedkeuring van het gebruik gewijzigd"
-    }
-  },
-  "errors": {
-    "403": "U heeft geen toestemming om deze pagina te bekijken.",
-    "title": "Fout op de pagina!"
-  },
-  "footer": "Dit is uw voettekst",
-  "affiliate": {
-    "title": "Licentiehouder",
-    "type": {
-      "title": "Type",
-      "COMMERCIAL": "Commercieel",
-      "ACADEMIC": "Academisch",
-      "OTHER": "Anders",
-      "INDIVIDUAL": "Persoonlijk"
-    },
-    "type.extended": {
-      "COMMERCIAL": "Commercieel - Ontwikkelaar, Verkoper of Leverancier van Terminologie",
-      "ACADEMIC": "Academisch – Voor intern gebruik binnen een Organisatie. (onderwijs, onderzoek,ontwikkeling of gezondheidswerker)",
-      "OTHER": "Andere – Gebruik staat niet vermeld in andere opties",
-      "INDIVIDUAL": "Individueel - Persoonlijk, onderzoek"
-    },
-    "subType": {
-      "DEVELOPER": "Ontwikkelaar",
-      "DEVELOPMENT": "Ontwikkeling",
-      "EDUCATIONAL": "Onderwijs",
-      "HEALTHCAREPROVIDER": "Zorgverlener",
-      "PERSONAL": "Persoonlijk",
-      "RESEARCH": "Onderzoek",
-      "VENDOR": "Leverancier"
-    },
-    "agreementType": {
-      "AFFILIATE_NORMAL": "Licentiehouder - Normaal",
-      "AFFILIATE_RESEARCH": " Licentiehouder - Onderzoek",
-      "AFFILIATE_PUBLIC_GOOD": " Licentiehouder – Algemeen belang"
-    },
-    "organizationType": {
-      "PUBLIC_HEALTH_ORGANIZATION": "Zorginstelling",
-      "PRIVATE_HEALTH_ORGANIZATION": "Commerciële zorginstelling",
-      "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Organisatie voor onderzoek en/of ontwikkeling",
-      "HEALTHERCARE_APPLICATION_DEVELOPER": "Zorg ICT leverancier",
-      "GENERAL_PRACTITIONER_PRACTICE": "1e lijn zorgpraktijken",
-      "EDUCATIONAL_INSTITUTE": "Onderwijsinstelling",
-      "OTHER": "Anders"
-    },
-    "implementationStatus": {
-      "IMPLEMENTED": "Live/Geïmplementeerd",
-      "DEVELOPMENT": "In ontwikkeling",
-      "PLANNING": "In planning"
-    },
-    "standingState": {
-      "APPLYING": "Aanvraag ingediend",
-      "IN_GOOD_STANDING": "In orde",
-      "REJECTED": "Geweigerd",
-      "DEACTIVATION_PENDING": "Lopende deactivering",
-      "DEACTIVATED": "Gedeactiveerd",
-      "DEREGISTERED": "Gederegistreerd",
-      "PENDING_INVOICE": "Openstaande factuur",
-      "INVOICE_SENT": "Factuur opgestuurd"
-    },
-    "standingStateWithExplanation": {
-      "APPLYING": "Aanvraag ingediend",
-      "IN_GOOD_STANDING": "In orde – Volledige toegang goedgekeurd, Account betaald, Geen betaling vereist of Probleem met de Account opgelost",
-      "REJECTED": "Geweigerd",
-      "DEACTIVATION_PENDING": "Lopende deactivering – Slechts toegang tot de Account, niet mogelijk om te downloaden",
-      "DEACTIVATED": "Gedeactiveerd – Alleen toegang tot de Account, niet mogelijk om te downloaden",
-      "DEREGISTERED": "Gederegistreerd – Geen toegang tot MLDS Account",
-      "PENDING_INVOICE": "Openstaande factuur – Alleen toegang tot Account, Betaling verschuldigd",
-      "INVOICE_SENT": "Factuur opgestuurd – Alleen toegang tot Account, Betaling verschuldigd "
-    }
-  },
-  "approval": {
-    "state": {
-      "NOT_SUBMITTED": "Niet ingediend",
-      "CHANGE_REQUESTED": "Wijziging gevraagd",
-      "SUBMITTED": "Ingediend",
-      "RESUBMITTED": "Opnieuw ingediend",
-      "REVIEW_REQUESTED": "Wijziging gevraagd",
-      "APPROVED": "Goedgekeurd",
-      "REJECTED": "Geweigerd"
-    }
-  },
-  "usageReport": {
-    "state": {
-      "NOT_SUBMITTED": "Niet ingediend",
-      "CHANGE_REQUESTED": "Wijziging gevraagd",
-      "SUBMITTED": "Ingediend",
-      "RESUBMITTED": "Opnieuw ingediend",
-      "REVIEW_REQUESTED": "Wijziging gevraagd",
-      "PENDING_INVOICE": "Openstaande factuur",
-      "INVOICE_SENT": "Factuur opgestuurd",
-      "PAID": "Betaald",
-      "REJECTED": "Geweigerd"
-    }
-  },
-  "application": {
-    "applicationType": {
-      "PRIMARY": "Eerste aanvraag",
-      "EXTENSION": "Uitbreiding",
-      "IMPORT": "Import"
-    }
-  },
-  "pendingApplications": {
-    "title": "Openstaande aanvragen",
-    "show": {
-      "myApplications": "Mijn openstaande aanvragen",
-      "allApplications": "Alle openstaande aanvragen"
-    },
-    "table": {
-      "affiliateName": "Naam van de licentiehouder",
-      "applicationType": "Type aanvraag",
-      "agreementType": "Type overeenkomst",
-      "useType": "Type gebruik",
-      "dateSubmitted": "Datum van indiening",
-      "homeCountry": "Land van domicilie",
-      "member": "Lid",
-      "email": "E-mail",
-      "review": "Wijziging"
-    }
-  },
-  "affiliateManagement": {
-    "title": "Beheerlicentiehouders"
-  },
-  "releaseManagement": {
-    "title": "Beheer van de Releases"
-  },
-  "reviewUsageReports": {
-    "title": "Wijzigen gebruiksrapportage"
-  },
-  "memberManagement": {
-    "title": "Ledenbeheer"
-  },
-  "postAnnouncement": {
-    "title": "Post Announcement"
-  },
-  "ihtsdoReleases": {
-    "title": "SNOMED International Releases"
-  },
-  "activityLog": {
-    "title": "Activiteitenlog"
-  },
-  "importAffiliateRecords": {
-    "title": "Gegevens licentiehouders importeren"
-  },
-  "manageBlocklist": {
-    "title": "Blocklist beheren"
-  },
-  "nationalRegistrationList": {
-    "title": "Nationale Registratielijst"
-  },
-  "systemLoggers": {
-    "title": "Personen ingelogd op het systeem"
-  },
-  "form": {
-    "requiredField": "Verplicht veld.",
-    "tooLong": "Ingevoerde waarde is te lang.",
-    "invalidNumber": "Geen geldig nummer",
-    "pleaseFix": "Gelieve de bovenstaande fouten te verbeteren."
-  },
-  "views": {
-    "activate": {
-      "title": "Activering",
-      "messages": {
-        "success": {
-          "title": "Gebruikersaccount werd aangemaakt.",
-          "body": "Het systeem zal u over enkele ogenblikken vragen om uw registratieproces verder te zetten. Als u niet automatisch wordt doorverwezen, {{linkbegin}}klik hier.{{linkend}}"
-        },
-        "error": {
-          "title": "Uw gebruikersaccount kon niet geactiveerd worden.",
-          "body": "Gelieve gebruik te maken van het registratieformulier om u te identificeren. Als u nog steeds moeilijkheden ondervindt, gelieve dan met de helpdesk contact op te nemen."
+    "tracker": {
+        "title": "Activiteiten van de gebruiker in real time",
+        "table": {
+            "userlogin": "Gebruiker",
+            "ipaddress": "IP-adres",
+            "userAgent": "User agent",
+            "page": "Huidige pagina",
+            "time": "Tijd"
         }
-      }
     },
-    "applicationSummary": {
-      "title": "Samenvatting aanvraag",
-      "ext.title": "Info Uitbreidingsaanvraag",
-      "reason": "Reden",
-      "affiliateInfo": "Info licentiehouder",
-      "affiliateInformation": "Informatie licentiehouder",
-      "useType": "Type gebruik",
-      "useSubType": "Subtype gebruik",
-      "billingInfo": "Informatie over de facturatie",
-      "context": "Informatie over de gebruikscontext",
-      "subLicence": "Gebruik via sublicentie",
-      "applicationActivity": "Activiteit van de Aanvraag"
+    "metrics": {
+        "title": "Systeemparameters",
+        "refresh.button": "Vernieuwen",
+        "health": {
+            "title": "Gezondheidscheck",
+            "database": "Database",
+            "email": "E-mail",
+            "stacktrace": "Stack trace"
+        },
+        "jvm": {
+            "title": "JVM parameters",
+            "memory": {
+                "title": "Geheugen",
+                "total": "Totaal geheugen",
+                "heap": "Heap-geheugen",
+                "nonheap": "Non-Heap-geheugen"
+            },
+            "threads": {
+                "title": "Threads",
+                "all": "Alle",
+                "runnable": "Uitvoerbaar",
+                "timedwaiting": "Timed waiting",
+                "waiting": "Waiting",
+                "blocked": "Geblokkeerd",
+                "dump": {
+                    "title": "Threads dump",
+                    "id": "Id",
+                    "blockedtime": "Tijd geblokkeerd",
+                    "blockedcount": "Telling geblokkeerd",
+                    "waitedtime": "Waited time",
+                    "waitedcount": "Waited Count",
+                    "lockname": "Naam vergrendelen",
+                    "stacktrace": "Stack trace",
+                    "show": "Tonen",
+                    "hide": "Verbergen"
+                }
+            },
+            "gc": {
+                "title": "Garbage collections",
+                "marksweepcount": "Mark Sweep count",
+                "marksweeptime": "Mark Sweep time",
+                "scavengecount": "Scavenge count",
+                "scavengetime": "Scavenge time"
+            },
+            "http": {
+                "title": "HTTP-verzoeken(events per seconde)",
+                "active": "Actieve verzoeken",
+                "total": "Totaal aantal verzoeken",
+                "table": {
+                    "code": "Code",
+                    "count": "Telling",
+                    "mean": "Mediaan",
+                    "average": "Gemiddelde"
+                },
+                "code": {
+                    "ok": "Ok",
+                    "notfound": "Niet gevonden",
+                    "servererror": "Serverfout"
+                }
+            }
+        },
+        "servicesstats": {
+            "title": "Statistieken van services (tijd in milliseconden)",
+            "table": {
+                "name": "Naam van de service",
+                "count": "Telling",
+                "mean": "Mediaan",
+                "min": "Min",
+                "max": "Max",
+                "p50": "p50",
+                "p75": "p75",
+                "p95": "p95",
+                "p99": "p99"
+            }
+        },
+        "ehcache": {
+            "title": "Cache statistieken",
+            "cachename": "Naam cache",
+            "objects": "Voorwerpen",
+            "hits": "Hits",
+            "misses": "Gemist",
+            "evictioncount": "Telling verwijderingen",
+            "mean": "Mediane duur(ms)"
+        }
     },
-    "contactInfo": {
-      "title": "Accountinformatie",
-      "messages": {
-        "notApproved": {
-          "title": "Registratie nog niet goedgekeurd",
-          "body": "U kan de contactinformatie voor een licentiehouder pas wijzigen nadat het registratieverzoek werd goedgekeurd."
+    "logs": {
+        "title": "Logs",
+        "nbloggers": "Er zijn {{ totaal }} personen ingelogd.",
+        "filter": "Filter",
+        "table": {
+            "name": "Naam",
+            "level": "Niveau"
         }
-      },
-      "admin": {
-        "title": "Te wijzingen door een Admin",
-        "other": {
-          "name": "Andere",
-          "placeholder": " Andere ",
-          "required": "Ander veld is vereist."
+    },
+    "audits": {
+        "title": "Audits",
+        "filter": {
+            "title": "Filter per datum",
+            "from": "van",
+            "to": "tot",
+            "button": {
+                "weeks": "weken",
+                "today": "vandaag",
+                "clear": "leegmaken",
+                "close": "sluiten"
+            }
         },
-        "subtype": {
-          "name": "Subtype",
-          "required": "Het veld ‘Subtype’is vereist."
-        },
-        "usageType": {
-          "name": "Type",
-          "required": "Het veld ‘Type gebruik’ is vereist."
-        },
-        "agreementType": "Type overeenkomst",
-        "accountStanding": "Status van account"
-      },
-      "contact": {
-        "title": "Contactinformatie",
-        "fullName": "Naam",
-        "firstName": {
-          "name": "Voornaam",
-          "placeholder": "Jan"
-        },
-        "lastName": {
-          "name": "Achternaam",
-          "placeholder": "Smit"
-        },
-        "email": {
-          "name": "E-mail",
-          "placeholder": "JanSmit@OrganizationABC.com",
-          "unique": "De e-mailadressen moeten uniek zijn.",
-          "invalid": "Ongeldig e-mailadres."
-        },
-        "alternativeEmail": {
-          "name": "Alternatieve e-mail",
-          "placeholder": "alternative@email.com"
-        },
-        "thirdEmail": "Derde e-mail",
-        "landline": {
-          "name": "Vast telefoonnummer",
-          "short": "Telefoonnummer",
-          "invalid": "Ongeldig telefoonnummer."
-        },
-        "landlineExtension": {
-          "name": "Uitbreiding",
-          "short": "Uitb",
-          "placeholder": "Uitbreiding"
-        },
-        "mobile": {
-          "name": "Mobiel telefoonnummer",
-          "placeholder": "Nummer"
-        },
-        "address": {
-          "title": "Adres",
-          "name": "Adres",
-          "placeholder": "Ergenslaan 123"
-        },
-        "city": {
-          "name": "Stad",
-          "placeholder": "Stad"
-        },
-        "postcode": {
-          "name": "Postcode",
-          "placeholder": "Postcode",
-          "tooLong": "Postcode is te lang."
-        },
-        "country": {
-          "name": "Land",
-          "placeholder": "Land",
-          "unrecognized": "Land niet herkend."
-        },
-        "billingAddress": {
-          "name": "Facturatieadres",
-          "country": "Land van facturatie",
-          "placeholder": "Adres",
-          "sameAsAddress": "Gebruik het adres als facturatieadres",
-          "useOrganizationAddress": "Gebruik het adres van de organisatie als facturatieadres"
-        }
-      },
-      "organization": {
-        "title": "Organisatie",
-        "name": {
-          "name": "Naam van de organisatie",
-          "placeholder": "Naam org"
+        "table": {
+            "header": {
+                "principal": "Gebruiker",
+                "date": "Datum (Lokaal)",
+                "status": "Status",
+                "data": "Extra data"
+            },
+            "data": {
+                "remoteAddress": "Extern adres:"
+            }
         },
         "type": {
-          "name": "Type organisatie",
-          "required": "Er is een type organisatie vereist",
-          "placeholder": "Ander type organisatie"
+            "AUTHORIZATION_FAILURE": "Authorisatie niet gelukt",
+            "AUTHENTICATION_SUCCESS": "Authorisatie gelukt",
+            "AUTHENTICATION_FAILURE": "Authentificatie niet gelukt",
+            "AFFILIATE_CREATED": "Licentiehouder aangemaakt",
+            "AFFILIATE_CREATED_BY_IMPORT": "Licentiehouder aangemaakt via Import",
+            "AFFILIATE_DELETED": "Affiliate Deleted",
+            "AFFILIATE_UPDATED": " Licentiehouder geüpdatet",
+            "AFFILIATE_UPDATED_BY_IMPORT": "Licentiehouder geüpdatet via Import",
+            "AFFILIATEDETAILS_UPDATED": " Details licentiehouder geüpdatet",
+            "AFFILIATE_EXPORT": "Batch Export licentiehouder",
+            "AFFILIATE_IMPORT": "Batch Import licentiehouder",
+            "AFFILIATE_LOGIN_CREATED": "Login licentiehouder aangemaakt",
+            "AFFILIATE_STANDING_STATE_CHANGED": "Huidige staat licentiehouder gewijzigd",
+            "ANNOUNCEMENT_POSTED": "Aankondiging gepost",
+            "APPLICATION_CREATED": "Aanvraag aangemaakt",
+            "APPLICATION_APPROVAL_STATE_CHANGED": "Staat van de goedkeuring van de aanvraag gewijzigd",
+            "APPLICATION_DELETED": "Aanvraag verwijderd",
+            "RELEASE_FILE_CREATED": "Release File aangemaakt",
+            "RELEASE_FILE_DELETED": "Release File verwijderd",
+            "RELEASE_FILE_DOWNLOADED": "Release File gedownload",
+            "RELEASE_PACKAGE_DELETED": "Release Package verwijderd ",
+            "RELEASE_PACKAGE_CREATED": "Release Package aangemaakt",
+            "RELEASE_VERSION_TAKEN_OFFLINE": "Versie van de release offline gehaald",
+            "RELEASE_VERSION_TAKEN_ONLINE": "Versie van de release online geplaatst",
+            "RELEASE_VERSION_CREATED": " Versie van de release aangemaakt",
+            "RELEASE_VERSION_DELETED": " Versie van de release verwijderd",
+            "USAGE_CREATED": "Gebruik aangemaakt",
+            "USAGE_APPROVAL_STATE_CHANGED": "Staat van de goedkeuring van het gebruik gewijzigd"
         }
-      }
     },
-    "extensionApplication": {
-      "title": "Proces voor aanvraag van een Extensie opstarten",
-      "sure": "Bent u zeker dat u die Extensie wil aanvragen?",
-      "form": {
-        "title": "Formulier voor aanvraag van een Extensie",
-        "why": "Gelieve te vermelden waarom u toegang wil tot die Extensie.",
-        "purpose": "Doel van het gebruik",
-        "error": "De reden moet langer zijn."
-      },
-      "agreement": "Overeenkomst voor Extensie",
-      "license": "Licentie voor Extensie",
-      "warning": {
-        "change": "De registratie van de Extensie moet gewijzigd worden",
-        "change.detail": "De registratie van uw Extensie moet geüpdatet worden alvorens ze behandeld kan worden. Zie de e-mail aangaande de wijzigingen die nodig zijn om uw registratie af te ronden.",
-        "rejected": "Registratie van Extensie geweigerd",
-        "rejected.detail": "De registratie van uw Extensie moet geüpdatet worden alvorens ze behandeld kan worden. Zie de e-mail aangaande de wijzigingen die nodig zijn om uw registratie af te ronden.",
-        "approved": " Registratie van Extensie goedgekeurd",
-        "approved.detail": "Uw aanvraag werd goedgekeurd."
-      },
-      "delete": {
-        "title": " Aanvraag annuleren",
-        "sure": "Bent u zeker dat u deze aanvraag wil annuleren ?",
-        "sure.detail": "Als u dat doet, zal u alle opgeslagen informatie over deze aanvraag kwijtraken."
-      }
+    "errors": {
+        "403": "U heeft geen toestemming om deze pagina te bekijken.",
+        "title": "Fout op de pagina!"
     },
-    "footer": {
-      "tos": "Voorwaarden dienstverlening",
-      "pp": "Privacybeleid",
-      "register": "Registeer uw SNOMED CT implementatie",
-      "contact": "Contact"
-    },
-    "landingPage": {
-      "appName": "Member Licensing and Distribution Service (MLDS)",
-      "purpose": "Deze service wordt verleend door SNOMED International en het SNOMED National Release Center. Het biedt organisaties en personen de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT. Zowel voor gebruik in lidstaten als voor gebruik in landen die geen lid zijn van SNOMED International.",
-      "furtherDetails": "Voor meer details, zie de <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-website</a> of de <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Veelgestelde vragen</a>.",
-      "loginHere": "log hier in",
-      "member.purpose1": "Deze service wordt verleend door SNOMED International en het SNOMED National Release Center in ",
-      "member.purpose2": ". Het biedt u de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT in ",
-      "member.purpose3": "."
-    },
-    "releases": {
-      "title": "Beschikbare releases",
-      "noAuth": "<a href=\"#/login\">Log u in</a> om te downloaden of klik <a href=\"#/register\">registreer</a> om het aanvraagproces op te starten.",
-      "memberCountries": "Lidstaten",
-      "countryIsMissing": "Als het land dat u zoekt niet in de lijst staat, ga dan naar de <a href=\"http://www.snomed.org/\">SNOMED International-website</a> voor informatie over het downloaden van releases.",
-      "notAvailable": "Er zijn momenteel geen releases beschikbaar",
-      "releasePackageLicense": "Release Licentie",
-      "reviewLicense": "Leest u svp. de volgende licentievoorwaarden en accepteer deze voor downloaden van de release:",
-      "agreeToLicense": "Ik ga akkoord met de licentievoorwaarden",
-      "warning": {
-        "deactivated": "Account gedeactiveerd",
-        "pending": "Openstaande factuur",
-        "pAttention": "De eerste aanvraag vereist aandacht",
-        "pProcessed": "De eerste aanvraag wordt momenteel behandeld",
-        "apply": "Vraag een Extensie aan",
-        "aProcessed": "De aanvraag wordt momenteel behandeld",
-        "aAttention": "De aanvraag vereist aandacht, klik om de aanvraag voort te zetten"
-      }
-    },
-    "requestPasswordReset": {
-      "title": "Reset wachtwoord",
-      "detail": "We zullen u een e-mail sturen met een link naar een formulier om het wachtwoord te resetten.",
-      "back": "terug",
-      "button": "Vraag een reset van het wachtwoord aan",
-      "emailNotFound": "Dit e-mail adres is niet bekend.",
-      "resetEmailSent": "Wachtwoord reset proces is gestart. Controleer uw e-mail svp."
-    },
-    "usage": {
-      "title": "Gebruiksverklaring",
-      "instructions": "Gelieve een Gebruiksverklaring in te vullen voor de geselecteerde periode.",
-      "modal": {
-        "title": "Gebruiksverklaring aanmaken",
-        "instructions": "Gelieve uw Gebruiksverklaring in te vullen voor alle periodes. Gelieve rapporten toe te voegen voor vroeger en huidig gebruik.",
-        "period": "Aangifteperiode"
-      },
-      "submit": {
-        "title": "Gebruiksverklaring indienen",
-        "instructions": "Gelieve te controleren of u hieronder weergegeven gebruiksverklaring correct is alvorens ze in te dienen.",
-        "declarationForPeriod": "Verklaring voor periode",
-        "button": "Verklaring indienen"
-      },
-      "retract": {
-        "title": "Gebruiksverklaring herroepen",
-        "instructions": "Weet u zeker dat u dit rapport wil herroepen ? U zal opnieuw terechtkomen bij hetzelfde gebruiksrapport dat u dan kan bewerken en opnieuw indienen. Voor een nieuwe periode moet u een nieuw verklaring indienen.",
-        "button": "Verklaring herroepen "
-      }
-    },
-    "usageLog": {
-      "title": "Ingediend gebruiksrapport",
-      "retract": "Verklaring herroepen ",
-      "usage": "Gebruik",
-      "subTitle": "Gebruik van licentie",
-      "usageFor": "Gebruik voor",
-      "pleaseFill": "Vermeld s.v.p. alle actuele informatie m.bt. het gebruik van SNOMED CT door uw organisatie; zodra uw aanvraag goedgekeurd is , zal u gevraagd worden om het gebruik te bevestigen.",
-      "licenseType": "Type licentie",
-      "currentUsage": "Huidig gebruik",
-      "plannedUsage": "Gepland gebruik",
-      "purpose": "Doel",
-      "impStatus": "Implementatiestatus",
-      "countries": {
-        "title": "Landen waar u SNOMED CT gebruikt",
-        "subTitle": "Selecteer s.v.p. landen waar u SNOMED CT wilt gebruiken  EN  die geen lid van SNOMED  International zijn.",
-        "list": "Lijst van landen",
-        "search": "Zoek Landen",
-        "homeCountry": "Land van domicilie",
-        "button": "Voeg land toe"
-      },
-      "institutions": {
-        "title": "Organisaties met een sublicentie",
-        "selectFirst": "Er moet eerst een land geselecteerd worden alvorens de instellingen met een sublicentie worden ingevoerd.",
-        "noneSelected": "Er werden geen landen geselecteerd.",
-        "country": "Land",
-        "deleteCountry": "Verwijder land",
-        "hospAndInst": "Ziekenhuis/zorginstelling",
-        "hospAndInst.title": "Ziekenhuis(huizen)/Instelling(en)",
-        "hospAndInst.plural": "Ziekenhuizen/Instellingen",
-        "started": "Begindatum gebruik",
-        "finished": "Einddatum gebruik",
-        "practices.title": "Praktijk(en)",
-        "practices": "1e lijn zorgpraktijken",
-        "dataAnalysis": {
-          "title": "Gegevensanalyse",
-          "staff": "Zorgverleners",
-          "dataCreation": "Systemen voor data-creatie",
-          "independent": "Commerciële zorginstellingen",
-          "dataAnalysis": "Systemen voor data-analyse",
-          "systems": "Systemen",
-          "data": "Data",
-          "provideStaff": "Hoeveel ziekenhuizen (Incl ZBC's)?",
-          "usingDCSNotHosp": "Hoeveel zorginstellingen excl. ziekenhuizen",
-          "usingDCSNotPract": "Hoeveel overige gebruikersorganisaties",
-          "howManyDAS": "Hoeveel data-analyse systemen?"
+    "footer": "Dit is uw voettekst",
+    "affiliate": {
+        "title": "Licentiehouder",
+        "type": {
+            "title": "Type",
+            "COMMERCIAL": "Commercieel",
+            "ACADEMIC": "Academisch",
+            "OTHER": "Anders",
+            "INDIVIDUAL": "Persoonlijk"
         },
-        "modal": {
-          "subtitle": "Naam van 2e(3e)-lijn zorginstellingen",
-          "placeholder": "Voer de naam van 2e(3e)-lijn zorginstelling in",
-          "dateBefore": "Datum voorafgaand aan Begindatum gebruik",
-          "sure": "Bent u zeker dat u dit wilt verwijderen ",
-          "andEntries": "en de gegevens die er verband mee houden?",
-          "addPractices": "Gelieve toe te voegen hoeveel 1e lijn zorgpraktijken gebruik maken van SNOMED CT"
+        "type.extended": {
+            "COMMERCIAL": "Commercieel - Ontwikkelaar, Verkoper of Leverancier van Terminologie",
+            "ACADEMIC": "Academisch – Voor intern gebruik binnen een Organisatie. (onderwijs, onderzoek,ontwikkeling of gezondheidswerker)",
+            "OTHER": "Andere – Gebruik staat niet vermeld in andere opties",
+            "INDIVIDUAL": "Individueel - Persoonlijk, onderzoek"
+        },
+        "subType": {
+            "DEVELOPER": "Ontwikkelaar",
+            "DEVELOPMENT": "Ontwikkeling",
+            "EDUCATIONAL": "Onderwijs",
+            "HEALTHCAREPROVIDER": "Zorgverlener",
+            "PERSONAL": "Persoonlijk",
+            "RESEARCH": "Onderzoek",
+            "VENDOR": "Leverancier"
+        },
+        "agreementType": {
+            "AFFILIATE_NORMAL": "Licentiehouder - Normaal",
+            "AFFILIATE_RESEARCH": " Licentiehouder - Onderzoek",
+            "AFFILIATE_PUBLIC_GOOD": " Licentiehouder – Algemeen belang"
+        },
+        "organizationType": {
+            "PUBLIC_HEALTH_ORGANIZATION": "Zorginstelling",
+            "PRIVATE_HEALTH_ORGANIZATION": "Commerciële zorginstelling",
+            "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Organisatie voor onderzoek en/of ontwikkeling",
+            "HEALTHERCARE_APPLICATION_DEVELOPER": "Zorg ICT leverancier",
+            "GENERAL_PRACTITIONER_PRACTICE": "1e lijn zorgpraktijken",
+            "EDUCATIONAL_INSTITUTE": "Onderwijsinstelling",
+            "OTHER": "Anders"
+        },
+        "implementationStatus": {
+            "IMPLEMENTED": "Live/Geïmplementeerd",
+            "DEVELOPMENT": "In ontwikkeling",
+            "PLANNING": "In planning"
+        },
+        "standingState": {
+            "APPLYING": "Aanvraag ingediend",
+            "IN_GOOD_STANDING": "In orde",
+            "REJECTED": "Geweigerd",
+            "DEACTIVATION_PENDING": "Lopende deactivering",
+            "DEACTIVATED": "Gedeactiveerd",
+            "DEREGISTERED": "Gederegistreerd",
+            "PENDING_INVOICE": "Openstaande factuur",
+            "INVOICE_SENT": "Factuur opgestuurd"
+        },
+        "standingStateWithExplanation": {
+            "APPLYING": "Aanvraag ingediend",
+            "IN_GOOD_STANDING": "In orde – Volledige toegang goedgekeurd, Account betaald, Geen betaling vereist of Probleem met de Account opgelost",
+            "REJECTED": "Geweigerd",
+            "DEACTIVATION_PENDING": "Lopende deactivering – Slechts toegang tot de Account, niet mogelijk om te downloaden",
+            "DEACTIVATED": "Gedeactiveerd – Alleen toegang tot de Account, niet mogelijk om te downloaden",
+            "DEREGISTERED": "Gederegistreerd – Geen toegang tot MLDS Account",
+            "PENDING_INVOICE": "Openstaande factuur – Alleen toegang tot Account, Betaling verschuldigd",
+            "INVOICE_SENT": "Factuur opgestuurd – Alleen toegang tot Account, Betaling verschuldigd "
         }
-      },
-      "otherActivities": "Activiteiten in landen die GEEN lid zijn van SNOMED International.",
-      "notificationRequired": "De licentiehouders moeten de SNOMED International op de hoogte brengen alvorens ze activiteiten aanvatten die niet binnen de bestaande categorieën vallen, waarna de SNOMED International de geschikte structuur van de vergoedingen zal bepalen voor de activiteit in kwestie.",
-      "pleaseDescribe": "Gelieve de activiteit hieronder te beschrijven.",
-      "submitFor": "Dien de Verklaring in voor"
     },
-    "usageReports": {
-      "reportDate": "Datum van het rapport",
-      "hospitals": "Ziekenhuizen",
-      "usageType": "Type gebruik",
-      "countries": "Landen",
-      "newReport": "Nieuw rapport"
+    "approval": {
+        "state": {
+            "NOT_SUBMITTED": "Niet ingediend",
+            "CHANGE_REQUESTED": "Wijziging gevraagd",
+            "SUBMITTED": "Ingediend",
+            "RESUBMITTED": "Opnieuw ingediend",
+            "REVIEW_REQUESTED": "Wijziging gevraagd",
+            "APPROVED": "Goedgekeurd",
+            "REJECTED": "Geweigerd"
+        }
     },
-    "userDashboard": {
-      "affiliateNo": "Nummer van de licentie(affiliate)houder",
-      "edit": "Aanvraag van de licentie(affiliate)houder wijzigen",
-      "myPackages": "Mijn releases",
-      "otherPackages": "Andere beschikbare releases",
-      "warning": {
-        "required.title": "Gebruiksverklaring vereist",
-        "required.msg": "Uw voorlopige gebruiksverklaring werd opgeslagen. Gelieve er wel rekening mee te houden dat u uw definitieve gebruiksverklaring voor dit jaar moet indienen voor 15 januari. We willen erop wijzen dat alle gebruiksrapportage van de vorige jaren ingediend moeten worden om SNOMED CT te downloaden.",
-        "change.title": "Uw registratie als licentiehouder moet gewijzigd worden",
-        "change.msg": "Uw registratie als licentiehouder moet geüpdatet worden voor ze behandeld kan worden. Zie de e-mail in verband met de wijzigingen die nodig zijn om uw registratie te vervolledigen.",
-        "declined.title": "Registratie als licentiehouder geweigerd",
-        "declined.msg": "Uw registratie als licentiehouder werd geweigerd. Zie de e-mail met de details over de beslissing.",
-        "deactivated.title": "Account gedeactiveerd",
-        "deactivated.msg": "Uw account werd gedeactiveerd. Het downloaden van releases en de aanvragen voor uitbreidingen werden opgeschort. Gelieve contact op te nemen met <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> om het probleem op te lossen.",
-        "iPending.title": "Account met openstaande factuur ",
-        "iPending.msg": "Uw account bevat een openstaande factuur. Het downloaden van releases werd opgeschort. Gelieve contact op te nemen met <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> om het probleem op te lossen.",
-        "dPending.title": "Desactivering account nakend",
-        "dPending.msg": "Uw account zal gedeactiveerd worden. Gelieve contact op te nemen met <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> om het probleem op te lossen."
-      }
+    "usageReport": {
+        "state": {
+            "NOT_SUBMITTED": "Niet ingediend",
+            "CHANGE_REQUESTED": "Wijziging gevraagd",
+            "SUBMITTED": "Ingediend",
+            "RESUBMITTED": "Opnieuw ingediend",
+            "REVIEW_REQUESTED": "Wijziging gevraagd",
+            "PENDING_INVOICE": "Openstaande factuur",
+            "INVOICE_SENT": "Factuur opgestuurd",
+            "PAID": "Betaald",
+            "REJECTED": "Geweigerd"
+        }
+    },
+    "application": {
+        "applicationType": {
+            "PRIMARY": "Eerste aanvraag",
+            "EXTENSION": "Uitbreiding",
+            "IMPORT": "Import"
+        }
+    },
+    "pendingApplications": {
+        "title": "Openstaande aanvragen",
+        "show": {
+            "myApplications": "Mijn openstaande aanvragen",
+            "allApplications": "Alle openstaande aanvragen"
+        },
+        "table": {
+            "affiliateName": "Naam van de licentiehouder",
+            "applicationType": "Type aanvraag",
+            "agreementType": "Type overeenkomst",
+            "useType": "Type gebruik",
+            "dateSubmitted": "Datum van indiening",
+            "homeCountry": "Land van domicilie",
+            "member": "Lid",
+            "email": "E-mail",
+            "review": "Wijziging"
+        }
+    },
+    "affiliateManagement": {
+        "title": "Beheerlicentiehouders"
+    },
+    "releaseManagement": {
+        "title": "Beheer van de Releases"
+    },
+    "reviewUsageReports": {
+        "title": "Wijzigen gebruiksrapportage"
+    },
+    "memberManagement": {
+        "title": "Ledenbeheer"
     },
     "postAnnouncement": {
-      "title": "Post Announcement",
-      "messageContent": "Message Content",
-      "emailSubject": "Email Subject",
-      "emailBody": "Email Body",
-      "salutationMessage": "Remember to add a salutation and valediction to the email body.",
-      "audience": "Audience",
-      "affiliates": "Affiliates",
-      "myAffiliates": "My Affiliates",
-      "allAffiliates": "All Affiliates",
-      "affiliatesClarification": "Approved affiliates with an account standing of:",
-      "additionalEmails": "Additional Email Addresses",
-      "additionalEmailsHelp": "Send the announcement to additional email addressses.",
-      "post": "Post Announcement",
-      "newAnnouncement": "New Announcement"
-    },
-    "affiliateSummary": {
-      "deleteAffiliate": "Verwijder Licentiehouder",
-      "deleteAffiliateModal": {
-        "bevestig": "Bent u er zeker van dat u de licentie(affiliate)houder wilt verwijderen?",
-        "uitleg": "Bij het verwijderen van een licentie(affiliate)houder worden ook alle aanvragen en gebruiksrapportage verwijderd. De gebruiker zal niet meer in staat zijn in te loggen."
-      }
+        "title": "Post Announcement"
     },
     "ihtsdoReleases": {
-      "title": "SNOMED International Releases",
-      "offline": "Offline",
-      "publicReleases": "Public Releases",
-      "latest": "Laatstet",
-      "offlineReleases": "Offline & Alpha/Beta Releases",
-      "noPublicReleases": "Er zijn op dit moment geen public releases beschikbaar.",
-      "noOfflineReleases": "Er zijn op dit moment geen offline & alpha/beta releases beschikbaar.",
-      "backToReleases": "Terug naar SNOMED International Releases",
-      "publicVersions": "Public Versions",
-      "noOnlineVersions": "Er zijn op dit moment geen online versies van deze release.",
-      "noOfflineVersions": "Er zijn op dit moment geen online offline & alpha/beta versies van deze release."
+        "title": "SNOMED International Releases"
+    },
+    "activityLog": {
+        "title": "Activiteitenlog"
+    },
+    "importAffiliateRecords": {
+        "title": "Gegevens licentiehouders importeren"
+    },
+    "manageBlocklist": {
+        "title": "Blocklist beheren"
+    },
+    "nationalRegistrationList": {
+        "title": "Nationale Registratielijst"
+    },
+    "systemLoggers": {
+        "title": "Personen ingelogd op het systeem"
+    },
+    "form": {
+        "requiredField": "Verplicht veld.",
+        "tooLong": "Ingevoerde waarde is te lang.",
+        "invalidNumber": "Geen geldig nummer",
+        "pleaseFix": "Gelieve de bovenstaande fouten te verbeteren."
+    },
+    "views": {
+        "activate": {
+            "title": "Activering",
+            "messages": {
+                "success": {
+                    "title": "Gebruikersaccount werd aangemaakt.",
+                    "body": "Het systeem zal u over enkele ogenblikken vragen om uw registratieproces verder te zetten. Als u niet automatisch wordt doorverwezen, {{linkbegin}}klik hier.{{linkend}}"
+                },
+                "error": {
+                    "title": "Uw gebruikersaccount kon niet geactiveerd worden.",
+                    "body": "Gelieve gebruik te maken van het registratieformulier om u te identificeren. Als u nog steeds moeilijkheden ondervindt, gelieve dan met de helpdesk contact op te nemen."
+                }
+            }
+        },
+        "applicationSummary": {
+            "title": "Samenvatting aanvraag",
+            "ext.title": "Info Uitbreidingsaanvraag",
+            "reason": "Reden",
+            "affiliateInfo": "Info licentiehouder",
+            "affiliateInformation": "Informatie licentiehouder",
+            "useType": "Type gebruik",
+            "useSubType": "Subtype gebruik",
+            "billingInfo": "Informatie over de facturatie",
+            "context": "Informatie over de gebruikscontext",
+            "subLicence": "Gebruik via sublicentie",
+            "applicationActivity": "Activiteit van de Aanvraag"
+        },
+        "contactInfo": {
+            "title": "Accountinformatie",
+            "messages": {
+                "notApproved": {
+                    "title": "Registratie nog niet goedgekeurd",
+                    "body": "U kan de contactinformatie voor een licentiehouder pas wijzigen nadat het registratieverzoek werd goedgekeurd."
+                }
+            },
+            "admin": {
+                "title": "Te wijzingen door een Admin",
+                "other": {
+                    "name": "Andere",
+                    "placeholder": " Andere ",
+                    "required": "Ander veld is vereist."
+                },
+                "subtype": {
+                    "name": "Subtype",
+                    "required": "Het veld ‘Subtype’is vereist."
+                },
+                "usageType": {
+                    "name": "Type",
+                    "required": "Het veld ‘Type gebruik’ is vereist."
+                },
+                "agreementType": "Type overeenkomst",
+                "accountStanding": "Status van account"
+            },
+            "contact": {
+                "title": "Contactinformatie",
+                "fullName": "Naam",
+                "firstName": {
+                    "name": "Voornaam",
+                    "placeholder": "Jan"
+                },
+                "lastName": {
+                    "name": "Achternaam",
+                    "placeholder": "Smit"
+                },
+                "email": {
+                    "name": "E-mail",
+                    "placeholder": "JanSmit@OrganizationABC.com",
+                    "unique": "De e-mailadressen moeten uniek zijn.",
+                    "invalid": "Ongeldig e-mailadres."
+                },
+                "alternativeEmail": {
+                    "name": "Alternatieve e-mail",
+                    "placeholder": "alternative@email.com"
+                },
+                "thirdEmail": "Derde e-mail",
+                "landline": {
+                    "name": "Vast telefoonnummer",
+                    "short": "Telefoonnummer",
+                    "invalid": "Ongeldig telefoonnummer."
+                },
+                "landlineExtension": {
+                    "name": "Uitbreiding",
+                    "short": "Uitb",
+                    "placeholder": "Uitbreiding"
+                },
+                "mobile": {
+                    "name": "Mobiel telefoonnummer",
+                    "placeholder": "Nummer"
+                },
+                "address": {
+                    "title": "Adres",
+                    "name": "Adres",
+                    "placeholder": "Ergenslaan 123"
+                },
+                "city": {
+                    "name": "Stad",
+                    "placeholder": "Stad"
+                },
+                "postcode": {
+                    "name": "Postcode",
+                    "placeholder": "Postcode",
+                    "tooLong": "Postcode is te lang."
+                },
+                "country": {
+                    "name": "Land",
+                    "placeholder": "Land",
+                    "unrecognized": "Land niet herkend."
+                },
+                "billingAddress": {
+                    "name": "Facturatieadres",
+                    "country": "Land van facturatie",
+                    "placeholder": "Adres",
+                    "sameAsAddress": "Gebruik het adres als facturatieadres",
+                    "useOrganizationAddress": "Gebruik het adres van de organisatie als facturatieadres"
+                }
+            },
+            "organization": {
+                "title": "Organisatie",
+                "name": {
+                    "name": "Naam van de organisatie",
+                    "placeholder": "Naam org"
+                },
+                "type": {
+                    "name": "Type organisatie",
+                    "required": "Er is een type organisatie vereist",
+                    "placeholder": "Ander type organisatie"
+                }
+            }
+        },
+        "extensionApplication": {
+            "title": "Proces voor aanvraag van een Extensie opstarten",
+            "sure": "Bent u zeker dat u die Extensie wil aanvragen?",
+            "form": {
+                "title": "Formulier voor aanvraag van een Extensie",
+                "why": "Gelieve te vermelden waarom u toegang wil tot die Extensie.",
+                "purpose": "Doel van het gebruik",
+                "error": "De reden moet langer zijn."
+            },
+            "agreement": "Overeenkomst voor Extensie",
+            "license": "Licentie voor Extensie",
+            "warning": {
+                "change": "De registratie van de Extensie moet gewijzigd worden",
+                "change.detail": "De registratie van uw Extensie moet geüpdatet worden alvorens ze behandeld kan worden. Zie de e-mail aangaande de wijzigingen die nodig zijn om uw registratie af te ronden.",
+                "rejected": "Registratie van Extensie geweigerd",
+                "rejected.detail": "De registratie van uw Extensie moet geüpdatet worden alvorens ze behandeld kan worden. Zie de e-mail aangaande de wijzigingen die nodig zijn om uw registratie af te ronden.",
+                "approved": " Registratie van Extensie goedgekeurd",
+                "approved.detail": "Uw aanvraag werd goedgekeurd."
+            },
+            "delete": {
+                "title": " Aanvraag annuleren",
+                "sure": "Bent u zeker dat u deze aanvraag wil annuleren ?",
+                "sure.detail": "Als u dat doet, zal u alle opgeslagen informatie over deze aanvraag kwijtraken."
+            }
+        },
+        "footer": {
+            "tos": "Voorwaarden dienstverlening",
+            "pp": "Privacybeleid",
+            "register": "Registeer uw SNOMED CT implementatie",
+            "contact": "Contact"
+        },
+        "landingPage": {
+            "appName": "Member Licensing and Distribution Service (MLDS)",
+            "purpose": "Deze service wordt verleend door SNOMED International en het SNOMED National Release Center. Het biedt organisaties en personen de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT. Zowel voor gebruik in lidstaten als voor gebruik in landen die geen lid zijn van SNOMED International.",
+            "furtherDetails": "Voor meer details, zie de <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-website</a> of de <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Veelgestelde vragen</a>.",
+            "loginHere": "log hier in",
+            "member.purpose1": "Deze service wordt verleend door SNOMED International en het SNOMED National Release Center in ",
+            "member.purpose2": ". Het biedt u de mogelijkheid toegang aan te vragen tot de nationale en internationale releases van SNOMED CT in ",
+            "member.purpose3": "."
+        },
+        "releases": {
+            "title": "Beschikbare releases",
+            "noAuth": "<a href=\"#/login\">Log u in</a> om te downloaden of klik <a href=\"#/register\">registreer</a> om het aanvraagproces op te starten.",
+            "memberCountries": "Lidstaten",
+            "countryIsMissing": "Als het land dat u zoekt niet in de lijst staat, ga dan naar de <a href=\"http://www.snomed.org/\">SNOMED International-website</a> voor informatie over het downloaden van releases.",
+            "notAvailable": "Er zijn momenteel geen releases beschikbaar",
+            "releasePackageLicense": "Release Licentie",
+            "reviewLicense": "Leest u svp. de volgende licentievoorwaarden en accepteer deze voor downloaden van de release:",
+            "agreeToLicense": "Ik ga akkoord met de licentievoorwaarden",
+            "warning": {
+                "deactivated": "Account gedeactiveerd",
+                "pending": "Openstaande factuur",
+                "pAttention": "De eerste aanvraag vereist aandacht",
+                "pProcessed": "De eerste aanvraag wordt momenteel behandeld",
+                "apply": "Vraag een Extensie aan",
+                "aProcessed": "De aanvraag wordt momenteel behandeld",
+                "aAttention": "De aanvraag vereist aandacht, klik om de aanvraag voort te zetten"
+            }
+        },
+        "requestPasswordReset": {
+            "title": "Reset wachtwoord",
+            "detail": "We zullen u een e-mail sturen met een link naar een formulier om het wachtwoord te resetten.",
+            "back": "terug",
+            "button": "Vraag een reset van het wachtwoord aan",
+            "emailNotFound": "Dit e-mail adres is niet bekend.",
+            "resetEmailSent": "Wachtwoord reset proces is gestart. Controleer uw e-mail svp."
+        },
+        "usage": {
+            "title": "Gebruiksverklaring",
+            "instructions": "Gelieve een Gebruiksverklaring in te vullen voor de geselecteerde periode.",
+            "modal": {
+                "title": "Gebruiksverklaring aanmaken",
+                "instructions": "Gelieve uw Gebruiksverklaring in te vullen voor alle periodes. Gelieve rapporten toe te voegen voor vroeger en huidig gebruik.",
+                "period": "Aangifteperiode"
+            },
+            "submit": {
+                "title": "Gebruiksverklaring indienen",
+                "instructions": "Gelieve te controleren of u hieronder weergegeven gebruiksverklaring correct is alvorens ze in te dienen.",
+                "declarationForPeriod": "Verklaring voor periode",
+                "button": "Verklaring indienen"
+            },
+            "retract": {
+                "title": "Gebruiksverklaring herroepen",
+                "instructions": "Weet u zeker dat u dit rapport wil herroepen ? U zal opnieuw terechtkomen bij hetzelfde gebruiksrapport dat u dan kan bewerken en opnieuw indienen. Voor een nieuwe periode moet u een nieuw verklaring indienen.",
+                "button": "Verklaring herroepen "
+            }
+        },
+        "usageLog": {
+            "title": "Ingediend gebruiksrapport",
+            "retract": "Verklaring herroepen ",
+            "usage": "Gebruik",
+            "subTitle": "Gebruik van licentie",
+            "usageFor": "Gebruik voor",
+            "pleaseFill": "Vermeld s.v.p. alle actuele informatie m.bt. het gebruik van SNOMED CT door uw organisatie; zodra uw aanvraag goedgekeurd is , zal u gevraagd worden om het gebruik te bevestigen.",
+            "licenseType": "Type licentie",
+            "currentUsage": "Huidig gebruik",
+            "plannedUsage": "Gepland gebruik",
+            "purpose": "Doel",
+            "impStatus": "Implementatiestatus",
+            "countries": {
+                "title": "Landen waar u SNOMED CT gebruikt",
+                "subTitle": "Selecteer s.v.p. landen waar u SNOMED CT wilt gebruiken  EN  die geen lid van SNOMED  International zijn.",
+                "list": "Lijst van landen",
+                "search": "Zoek Landen",
+                "homeCountry": "Land van domicilie",
+                "button": "Voeg land toe"
+            },
+            "institutions": {
+                "title": "Organisaties met een sublicentie",
+                "selectFirst": "Er moet eerst een land geselecteerd worden alvorens de instellingen met een sublicentie worden ingevoerd.",
+                "noneSelected": "Er werden geen landen geselecteerd.",
+                "country": "Land",
+                "deleteCountry": "Verwijder land",
+                "hospAndInst": "Ziekenhuis/zorginstelling",
+                "hospAndInst.title": "Ziekenhuis(huizen)/Instelling(en)",
+                "hospAndInst.plural": "Ziekenhuizen/Instellingen",
+                "started": "Begindatum gebruik",
+                "finished": "Einddatum gebruik",
+                "practices.title": "Praktijk(en)",
+                "practices": "1e lijn zorgpraktijken",
+                "dataAnalysis": {
+                    "title": "Gegevensanalyse",
+                    "staff": "Zorgverleners",
+                    "dataCreation": "Systemen voor data-creatie",
+                    "independent": "Commerciële zorginstellingen",
+                    "dataAnalysis": "Systemen voor data-analyse",
+                    "systems": "Systemen",
+                    "data": "Data",
+                    "provideStaff": "Hoeveel ziekenhuizen (Incl ZBC's)?",
+                    "usingDCSNotHosp": "Hoeveel zorginstellingen excl. ziekenhuizen",
+                    "usingDCSNotPract": "Hoeveel overige gebruikersorganisaties",
+                    "howManyDAS": "Hoeveel data-analyse systemen?"
+                },
+                "modal": {
+                    "subtitle": "Naam van 2e(3e)-lijn zorginstellingen",
+                    "placeholder": "Voer de naam van 2e(3e)-lijn zorginstelling in",
+                    "dateBefore": "Datum voorafgaand aan Begindatum gebruik",
+                    "sure": "Bent u zeker dat u dit wilt verwijderen ",
+                    "andEntries": "en de gegevens die er verband mee houden?",
+                    "addPractices": "Gelieve toe te voegen hoeveel 1e lijn zorgpraktijken gebruik maken van SNOMED CT"
+                }
+            },
+            "otherActivities": "Activiteiten in landen die GEEN lid zijn van SNOMED International.",
+            "notificationRequired": "De licentiehouders moeten de SNOMED International op de hoogte brengen alvorens ze activiteiten aanvatten die niet binnen de bestaande categorieën vallen, waarna de SNOMED International de geschikte structuur van de vergoedingen zal bepalen voor de activiteit in kwestie.",
+            "pleaseDescribe": "Gelieve de activiteit hieronder te beschrijven.",
+            "submitFor": "Dien de Verklaring in voor"
+        },
+        "usageReports": {
+            "reportDate": "Datum van het rapport",
+            "hospitals": "Ziekenhuizen",
+            "usageType": "Type gebruik",
+            "countries": "Landen",
+            "newReport": "Nieuw rapport"
+        },
+        "userDashboard": {
+            "affiliateNo": "Nummer van de licentie(affiliate)houder",
+            "edit": "Aanvraag van de licentie(affiliate)houder wijzigen",
+            "myPackages": "Mijn releases",
+            "otherPackages": "Andere beschikbare releases",
+            "warning": {
+                "required.title": "Gebruiksverklaring vereist",
+                "required.msg": "Uw voorlopige gebruiksverklaring werd opgeslagen. Gelieve er wel rekening mee te houden dat u uw definitieve gebruiksverklaring voor dit jaar moet indienen voor 15 januari. We willen erop wijzen dat alle gebruiksrapportage van de vorige jaren ingediend moeten worden om SNOMED CT te downloaden.",
+                "change.title": "Uw registratie als licentiehouder moet gewijzigd worden",
+                "change.msg": "Uw registratie als licentiehouder moet geüpdatet worden voor ze behandeld kan worden. Zie de e-mail in verband met de wijzigingen die nodig zijn om uw registratie te vervolledigen.",
+                "declined.title": "Registratie als licentiehouder geweigerd",
+                "declined.msg": "Uw registratie als licentiehouder werd geweigerd. Zie de e-mail met de details over de beslissing.",
+                "deactivated.title": "Account gedeactiveerd",
+                "deactivated.msg": "Uw account werd gedeactiveerd. Het downloaden van releases en de aanvragen voor uitbreidingen werden opgeschort. Gelieve contact op te nemen met <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> om het probleem op te lossen.",
+                "iPending.title": "Account met openstaande factuur ",
+                "iPending.msg": "Uw account bevat een openstaande factuur. Het downloaden van releases werd opgeschort. Gelieve contact op te nemen met <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> om het probleem op te lossen.",
+                "dPending.title": "Desactivering account nakend",
+                "dPending.msg": "Uw account zal gedeactiveerd worden. Gelieve contact op te nemen met <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> om het probleem op te lossen."
+            }
+        },
+        "postAnnouncement": {
+            "title": "Post Announcement",
+            "messageContent": "Message Content",
+            "emailSubject": "Email Subject",
+            "emailBody": "Email Body",
+            "salutationMessage": "Remember to add a salutation and valediction to the email body.",
+            "audience": "Audience",
+            "affiliates": "Affiliates",
+            "myAffiliates": "My Affiliates",
+            "allAffiliates": "All Affiliates",
+            "affiliatesClarification": "Approved affiliates with an account standing of:",
+            "additionalEmails": "Additional Email Addresses",
+            "additionalEmailsHelp": "Send the announcement to additional email addressses.",
+            "post": "Post Announcement",
+            "newAnnouncement": "New Announcement"
+        },
+        "affiliateSummary": {
+            "deleteAffiliate": "Verwijder Licentiehouder",
+            "deleteAffiliateModal": {
+                "bevestig": "Bent u er zeker van dat u de licentie(affiliate)houder wilt verwijderen?",
+                "uitleg": "Bij het verwijderen van een licentie(affiliate)houder worden ook alle aanvragen en gebruiksrapportage verwijderd. De gebruiker zal niet meer in staat zijn in te loggen."
+            }
+        },
+        "ihtsdoReleases": {
+            "title": "SNOMED International Releases",
+            "offline": "Offline",
+            "publicReleases": "Public Releases",
+            "latest": "Laatstet",
+            "offlineReleases": "Offline & Alpha/Beta Releases",
+            "noPublicReleases": "Er zijn op dit moment geen public releases beschikbaar.",
+            "noOfflineReleases": "Er zijn op dit moment geen offline & alpha/beta releases beschikbaar.",
+            "backToReleases": "Terug naar SNOMED International Releases",
+            "publicVersions": "Public Versions",
+            "noOnlineVersions": "Er zijn op dit moment geen online versies van deze release.",
+            "noOfflineVersions": "Er zijn op dit moment geen online offline & alpha/beta versies van deze release."
+        }
     }
-  }
 }
