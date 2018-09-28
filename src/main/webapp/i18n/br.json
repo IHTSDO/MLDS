@@ -51,7 +51,6 @@
             "cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/43e68e5dbb274c2d65ae9b31deb30d2a.js\"></script>"
         },
         "language": {
-            "br": "Português",
             "da": "Dinamarquês",
             "ee": "Estoniano",
             "en": "Inglês",
@@ -352,11 +351,11 @@
             "username.placeholder": "O seu Usuário",
             "name.placeholder": "Nome",
             "newpassword": "Nova senha",
-            "newpassword.placeholder": "Nova senha",
+            "newpassword.placeholder": "Insira nova senha",
             "confirmpassword": "Confirmação de nova senha",
-            "confirmpassword.placeholder": "Confirmação da nova senha",
+            "confirmpassword.placeholder": "Redigite a nova senha",
             "email": "e-mail",
-            "email.placeholder": "O seu e-mail",
+            "email.placeholder": "Insira o seu e-mail",
             "country": "País de residência"
         },
         "messages": {
@@ -373,7 +372,7 @@
                     "required": "Insira a sua senha.",
                     "minlength": "A sua senha deve ter um mínimo de 5 caracteres",
                     "maxlength": "A sua senha não pode ter mais de 50 caracteres",
-                    "strength": "Força de sua senha:"
+                    "strength": "Complexidade de sua senha:"
                 },
                 "confirmpassword": {
                     "required": "A sua senha de confirmação é necessária.",
@@ -510,10 +509,10 @@
         "form": {
             "countryOfResidence": "País de Residência",
             "countryOfResidence.placeholder": "O seu país de residência",
-            "firstname": "Primeiro Nome",
-            "firstname.placeholder": "O seu primeiro nome",
+            "firstname": "Nome",
+            "firstname.placeholder": "Insira o seu nome",
             "lastname": "Sobrenome",
-            "lastname.placeholder": "O seu Sobrenome",
+            "lastname.placeholder": "Insira o seu sobrenome",
             "button": "Salvar"
         },
         "messages": {
@@ -521,9 +520,9 @@
             "success": "<strong>Definições salvas!</strong>",
             "validate": {
                 "firstname": {
-                    "required": "É necessário o seu primeiro nome.",
-                    "minlength": "O seu primeiro nome deve ter pelo menos um caractere",
-                    "maxlength": "O seu primeiro nome não pode ter mais de 50 caracteres"
+                    "required": "É necessário o seu nome.",
+                    "minlength": "O seu nome deve ter pelo menos um caractere",
+                    "maxlength": "O seu nome não pode ter mais de 50 caracteres"
                 },
                 "lastname": {
                     "required": "O seu sobrenome é necessário.",
@@ -723,7 +722,7 @@
         "403": "Você não está autorizado a acessar esta página.",
         "title": "Página de erro!"
     },
-    "footer": "Este é o seu rodapé",
+    "footer": "Este é o rodapé",
     "affiliate": {
         "title": "Afiliado",
         "type": {
@@ -933,7 +932,7 @@
                 "title": "Informação de contato",
                 "fullName": "Nome",
                 "firstName": {
-                    "name": "Primeiro Nome",
+                    "name": "Nome",
                     "placeholder": "João"
                 },
                 "lastName": {
@@ -1039,9 +1038,9 @@
         "landingPage": {
             "appName": "Serviço de Licenciamento e Distribuição do SNOMED CT aos Países Membros",
             "purpose": "Este serviço é fornecido pelo SNOMED International para organizações e indivíduos poderem solicitar a utilização e o acesso à Versão Internacional do SNOMED CT, para utilização em países não-membros.",
-            "furtherDetails": "Para maiores detalhes, consulte o <a href=\"http://www.snomed.org\" target=\"_blank\">site do SNOMED International</a> ou as <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ's</a>.",
+            "furtherDetails": "Para maiores detalhes, consulte o <a href=\"http://www.snomed.org\" target=\"_blank\">site do SNOMED International</a> ou as <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ</a>.",
             "loginHere": "Entre com o seu usuário",
-            "member.purpose1": "O MLDS é usado pelo Centro de Terminologias Clínicas no ",
+            "member.purpose1": "O MLDS é usado pelo Centro Nacional de Terminologias Clínicas no ",
             "member.purpose2": " para fazer o gerenciamento do licenciamento do SNOMED CT, incluindo novas incrições, renovações e relatórios de utilização em ",
             "member.purpose3": " e, se necessário, a países não-membros."
         },
