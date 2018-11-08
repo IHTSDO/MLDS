@@ -71,6 +71,7 @@
             "AU": "Australie",
             "BE": "België",
             "BN": "Brunei",
+            "BR": "Brazilië",
             "CA": "Canada",
             "CH": "Zwitserland",
             "CL": "Chili",
@@ -84,6 +85,7 @@
             "IN": "India",
             "IL": "Israel",
             "LT": "Litouwen",
+            "LU": "Luxemburg",
             "MY": "Maleisië",
             "MT": "Malta",
             "NL": "Nederland",
@@ -433,7 +435,7 @@
         "welcome": "Welkom bij SNOMED International-MLDS",
         "subwelcome": "De toegangspoort naar SNOMED CT",
         "form": {
-            "tos": "Verklaar u akkoord met onze <a href=\"/https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Bepalingen en Voorwaarden </a>.",
+            "tos": "Verklaar u akkoord met onze <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Bepalingen en Voorwaarden </a>.",
             "button": "Start Registratie",
             "confirmemail": "E-mail (bevestigen)"
         },
