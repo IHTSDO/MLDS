@@ -148,9 +148,6 @@ public class AccountResource {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         } else if (domainBlacklistService.isDomainBlacklisted(userDTO.getEmail())) {
     		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        } else if (httpAuthAdaptor.checkUserExists(userDTO.getLogin(), null)) {
-        	// Admin/Stormpath registered account - do not allow local duplicate
-    		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         } else {
         	createUserAccount(userDTO, request, response);
             return new ResponseEntity<>(HttpStatus.CREATED);
