@@ -134,34 +134,6 @@ public class HttpAuthAdaptor implements HeaderConstants {
 		this.queryUrl = queryUrl;
 	}
 
-	public boolean checkUserExists(String username, String csrfToken) throws IOException {
-		String url = queryUrl + "api/pre-register-check?" + PARAM_QUERY_USERNAME + "=" + username;
-		if (csrfToken==null) {
-			csrfToken = getCsrfToken();
-		}
-		
-		PostRequestBuilder builder = new PostRequestBuilder(url, csrfToken);
-		HttpPost request = builder.toRequest();
-		
-		HttpResponse response = httpClient.execute(request);
-		try {
-			int statusCode = response.getStatusLine().getStatusCode(); 
-			boolean result;
-			if (statusCode == 200) {
-				result = true;
-			} else if (statusCode == 404) {
-				result = false;
-			} else {
-				throw new IOException("Authentication service returned unexpected value while checking if user exists: " + statusCode);
-			}
-			
-			return result;
-		} finally {
-			request.releaseConnection();
-		}
-	}
-	
-	
 	public String getCsrfToken() throws IOException {
 		HttpHead request = new HttpHead(queryUrl);
 		HttpResponse response = httpClient.execute(request);
