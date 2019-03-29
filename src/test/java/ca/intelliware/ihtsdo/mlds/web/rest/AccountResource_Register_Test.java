@@ -1,31 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import ca.intelliware.ihtsdo.mlds.domain.Authority;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.User;
@@ -34,18 +8,26 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAdaptor;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
-import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
-import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
-import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
-import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
-import ca.intelliware.ihtsdo.mlds.service.UserService;
+import ca.intelliware.ihtsdo.mlds.service.*;
 import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
-import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class AccountResource_Register_Test {
 
@@ -128,7 +110,7 @@ public class AccountResource_Register_Test {
 
     @Test
     public void shouldFailWhenRegisteringWithExistingStormpathAccountEmail() throws Exception {
-    	Mockito.when(httpAuthAdaptor.getUserAccountInfo(Mockito.eq("staff@test.com"), null, null)).thenReturn(new CentralAuthUserInfo());
+    	Mockito.when(httpAuthAdaptor.getUserAccountInfo(Mockito.eq("staff@test.com"), null)).thenReturn(new CentralAuthUserInfo());
     	
     	postRegister("staff@test.com")
     		.andExpect(status().isNotAcceptable());

@@ -1,14 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.net.HttpCookie;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @Ignore // Use explore behaviour
 public class HttpAuthIntegrationTest {
@@ -21,7 +20,7 @@ public class HttpAuthIntegrationTest {
 		String username = "michaelb";
 		String password = "XXXXXXXX";// put a real password in
 		
-		HttpCookie cookie = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password, null);
+		HttpCookie cookie = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
 		
 		assertNotNull(cookie);
 	}
@@ -31,7 +30,7 @@ public class HttpAuthIntegrationTest {
 		String username = "michaelb";
 		String password = "nothepassword";
 		
-		HttpCookie cookie = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password, null);
+		HttpCookie cookie = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
 		
 		assertNull(cookie);
 	}
@@ -40,6 +39,6 @@ public class HttpAuthIntegrationTest {
 	public void badUrlInConfigThrowsExceptionRatherThanResult() throws Exception {
 		httpAuthAdaptor = new HttpAuthAdaptor("https://usermanagement.ihtsdotools.org/notTheQueryUrl/");
 		
-		httpAuthAdaptor.checkUsernameAndPasswordValid("user", "password", null);
+		httpAuthAdaptor.checkUsernameAndPasswordValid("user", "password");
 	}
 }

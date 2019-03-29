@@ -1,24 +1,20 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import ca.intelliware.ihtsdo.mlds.domain.*;
+import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
+import ca.intelliware.ihtsdo.mlds.repository.*;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAdaptor;
+import ca.intelliware.ihtsdo.mlds.service.*;
+import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
+import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
+import ca.intelliware.ihtsdo.mlds.service.mail.PasswordResetEmailSender;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
+import com.codahale.metrics.annotation.Timed;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,50 +22,22 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringWebContext;
 import org.thymeleaf.util.Validate;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
-import ca.intelliware.ihtsdo.mlds.domain.Application;
-import ca.intelliware.ihtsdo.mlds.domain.Authority;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.PersistentToken;
-import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
-import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
-import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
-import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.repository.PersistentTokenRepository;
-import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAdaptor;
-import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
-import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
-import ca.intelliware.ihtsdo.mlds.service.PasswordResetService;
-import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
-import ca.intelliware.ihtsdo.mlds.service.UserService;
-import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
-import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
-import ca.intelliware.ihtsdo.mlds.service.mail.PasswordResetEmailSender;
-import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
-
-import com.codahale.metrics.annotation.Timed;
+import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
+import javax.inject.Inject;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.*;
 
 /**
  * REST controller for managing the current user's account.
@@ -249,21 +217,19 @@ public class AccountResource {
 
     /**
      * GET  /rest/account -> get the current user.
-     * @throws IOException 
-     * @throws ClientProtocolException 
      */
     @RequestMapping(value = "/account",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-    public ResponseEntity<UserDTO> getAccount() throws ClientProtocolException, IOException {
+    public ResponseEntity<UserDTO> getAccount() throws IOException {
     	final UserDTO userDto;
         User user = userService.getUserWithAuthorities();
         if (user != null) {
         	userDto = createUserDtoFromUser(user);
         } else {
-        	CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserAccountInfo(currentSecurityContext.getCurrentUserName(), null, null);
+        	CentralAuthUserInfo userInfo = httpAuthAdaptor.getUserAccountInfo(currentSecurityContext.getCurrentUserName(), null);
         	if (userInfo != null) {
                 userDto = createUserDtoFromRemoteUserInfo(userInfo);
         	} else {
