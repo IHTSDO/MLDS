@@ -64,4 +64,15 @@ public class CentralAuthUserInfo implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+    @Override
+    public String toString() {
+        return "CentralAuthUserInfo{" +
+            "login='" + login + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", email='" + email + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", roles=" + roles +
+            '}';
+    }
 }
