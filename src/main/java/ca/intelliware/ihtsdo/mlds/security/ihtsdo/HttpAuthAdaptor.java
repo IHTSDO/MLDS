@@ -46,7 +46,7 @@ public class HttpAuthAdaptor implements HeaderConstants {
 	}
 
 	HttpCookie checkUsernameAndPasswordValid(String username, String password) throws IOException, IllegalStateException {
-		PostRequestBuilder builder = new PostRequestBuilder(queryUrl + "authenticate");
+		PostRequestBuilder builder = new PostRequestBuilder(queryUrl + "api/authenticate");
 		builder.addParam(PARAM_LOGIN_USERNAME, username);
 		builder.addParam(PARAM_LOGIN_PASSWORD, password);
 		HttpPost request = builder.toRequest();
