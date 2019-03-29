@@ -98,7 +98,7 @@ public class HttpAuthAuthenticationProviderTest {
 		Mockito.stub(httpAuthAdaptorMock.getUserAccountInfo(username, null)).toReturn(centralAuthUserInfo);
 	}
 
-	private void stubUserPasswordCheckResult(String username, String password, HttpCookie value) throws IOException {
+	private void stubUserPasswordCheckResult(String username, String password, String value) throws IOException {
 		Mockito.stub(httpAuthAdaptorMock.checkUsernameAndPasswordValid(username, password)).toReturn(value);
 	}
 }

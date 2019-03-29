@@ -1,22 +1,20 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.BufferedHttpEntity;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.Resource;
 import java.io.IOException;
-import java.net.HttpCookie;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * HTTP query marshaller for the IHTSDO shared web authentication service.
@@ -29,86 +27,57 @@ public class HttpAuthAdaptor implements HeaderConstants {
     private static final String PARAM_LOGIN_PASSWORD = "password";
 
 	private String queryUrl;
-    HttpClient httpClient = HttpClients.createDefault();
-	
-	@Resource
-    ObjectMapper objectMapper;
-	
+    private RestTemplate restTemplate;
+
 	@Value("${ims.cookie}")
     private String authenticatedCookieName;
 
-	public HttpAuthAdaptor() {
-	}
-	
-	HttpAuthAdaptor(String url) {
-		this();
-		queryUrl = url;
-	}
+	public HttpAuthAdaptor(String url) {
+        queryUrl = url;
+        this.restTemplate = new RestTemplateBuilder()
+            .additionalMessageConverters(new MappingJackson2HttpMessageConverter())
+            .build();
+    }
 
-	HttpCookie checkUsernameAndPasswordValid(String username, String password) throws IOException, IllegalStateException {
-		PostRequestBuilder builder = new PostRequestBuilder(queryUrl + "api/authenticate");
-		builder.addParam(PARAM_LOGIN_USERNAME, username);
-		builder.addParam(PARAM_LOGIN_PASSWORD, password);
-		HttpPost request = builder.toRequest();
-		HttpCookie authenticatedToken;
-		
-		HttpResponse response = httpClient.execute(request);
+	String checkUsernameAndPasswordValid(String username, String password) throws IOException, IllegalStateException {
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put(PARAM_LOGIN_USERNAME, username);
+        requestBody.put(PARAM_LOGIN_PASSWORD, password);
+
 		try {
-			int statusCode = response.getStatusLine().getStatusCode();
-			if (statusCode == 302) {
-				//IMS returns users to the home page with a valid cookie if they successfully authenticate
-				authenticatedToken = recoverAuthenticationCookie(response);
-			} else if (statusCode == 401) {
-				authenticatedToken = null;
-			} else {
-				throw new IOException("Authentication service returned unexpected value: " + statusCode);
-			}
-			
-			return authenticatedToken;
-		} finally {
-			request.releaseConnection();
-		}
-	}
+            ResponseEntity<Void> exchange = restTemplate.exchange(new RequestEntity<>(requestBody, HttpMethod.POST, URI.create(queryUrl + "api/authenticate")), Void.class);
+            if (exchange.getStatusCodeValue() == 200) {
+                return recoverAuthenticationCookie(exchange);
+            }
+        } catch (HttpClientErrorException e) {
+            if (e.getRawStatusCode() == 404) {
+                logger.info("IMS response is 404 = incorrect username/password.");
+            } else {
+                throw new IOException("Authentication service returned unexpected value: " + e.getRawStatusCode());
+            }
+        }
+		return null;
+    }
 
-	private HttpCookie recoverAuthenticationCookie(HttpResponse response) {
-		for (Header header : response.getHeaders(SET_COOKIE)) {
-			if (header.getValue().startsWith(authenticatedCookieName)) {
-				return HttpCookie.parse(header.getValue()).get(0);
+	private String recoverAuthenticationCookie(ResponseEntity<Void> response) {
+        for (String header : response.getHeaders().get(SET_COOKIE)) {
+			if (header.startsWith(authenticatedCookieName)) {
+				return header;
 			}
 		}
 		return null;
 	}
 
-	public CentralAuthUserInfo getUserAccountInfo(String username, HttpCookie authenticationCookie) throws IOException {
-		GetRequestBuilder builder = new GetRequestBuilder(queryUrl + "api/account");
-		//No username is passed, the service works it out from the login cookie
-		HttpGet request = builder.toRequest(authenticationCookie);
-		request.setHeader(ACCEPT, JSON_MIME_TYPE);
-		HttpResponse response = httpClient.execute(request);
-		int statusCode = response.getStatusLine().getStatusCode();
-		if (statusCode != 200) {
-			throw new IOException("Unable to recover user account details for " + username + " received: " + statusCode);
-		}
-		
-		HttpEntity entity = new BufferedHttpEntity(response.getEntity());
-		try {
-			return objectMapper.readValue(entity.getContent(), CentralAuthUserInfo.class);
-		} catch (Exception e) {
-			// the system returns 200 "NO RESPONSE" instead of a 404 on no-user.  Return null
-			String body = EntityUtils.toString(entity);
-			if ("NO RESPONSE".equals(body)) {
-				return null;
-			} else {
-				throw new IllegalStateException("Unexpected JSON: " + body, e);
-			}
-		} finally {
-			logger.info("Made remote call to get user details for {} HTTP {}", username, statusCode);
-			request.releaseConnection();
-		}
-	}
-	
-	public void setQueryUrl(String queryUrl) {
-		this.queryUrl = queryUrl;
+	public CentralAuthUserInfo getUserAccountInfo(String username, String authenticationCookie) throws IOException {
+        Map<String, String> headers = new HashMap<>();
+        headers.put(COOKIE, authenticationCookie);
+        try {
+            ResponseEntity<CentralAuthUserInfo> exchange = restTemplate.exchange(new RequestEntity<>(headers, HttpMethod.GET, URI.create(queryUrl + "api/account")), CentralAuthUserInfo.class);
+            logger.info("Made remote call to get user details for {} HTTP {}", username, exchange.getStatusCodeValue());
+            return exchange.getBody();
+        } catch (HttpClientErrorException e) {
+            throw new IOException("Unable to recover user account details for " + username + " received: " + e.getRawStatusCode());
+        }
 	}
 
 }

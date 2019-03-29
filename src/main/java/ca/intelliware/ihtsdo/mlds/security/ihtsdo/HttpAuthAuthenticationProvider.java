@@ -39,7 +39,7 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 			String password = (String) usernamePassword.getCredentials();
 			
 			try {
-				HttpCookie authenticatedToken = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
+				String authenticatedToken = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
 				if (authenticatedToken == null) {
 					throw new BadCredentialsException(ApplicationErrorCodes.MLDS_ERR_AUTH_BAD_PASSWORD
 							+ ": Password for remote user was invalid: " + username);
