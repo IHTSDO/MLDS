@@ -95,10 +95,10 @@ public class HttpAuthAuthenticationProviderTest {
 
 
 	private void stubUserLookup(String username, CentralAuthUserInfo centralAuthUserInfo) throws IOException {
-		Mockito.stub(httpAuthAdaptorMock.getUserAccountInfo(username, null, null)).toReturn(centralAuthUserInfo);
+		Mockito.stub(httpAuthAdaptorMock.getUserAccountInfo(username, null)).toReturn(centralAuthUserInfo);
 	}
 
-	private void stubUserPasswordCheckResult(String username, String password, HttpCookie value) throws IOException, ClientProtocolException {
-		Mockito.stub(httpAuthAdaptorMock.checkUsernameAndPasswordValid(username, password, null)).toReturn(value);
+	private void stubUserPasswordCheckResult(String username, String password, HttpCookie value) throws IOException {
+		Mockito.stub(httpAuthAdaptorMock.checkUsernameAndPasswordValid(username, password)).toReturn(value);
 	}
 }

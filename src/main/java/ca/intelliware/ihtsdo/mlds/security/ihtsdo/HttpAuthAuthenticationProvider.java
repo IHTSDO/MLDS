@@ -1,11 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
-import java.io.IOException;
-import java.net.HttpCookie;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import ca.intelliware.ihtsdo.mlds.domain.ApplicationErrorCodes;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -16,11 +12,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.domain.ApplicationErrorCodes;
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.net.HttpCookie;
+import java.util.List;
 
 /**
  * AuthenticationProvider implementation that queries the IHTSDO Crowd wrapper.
@@ -34,7 +31,7 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		String username = "unknown";
+		String username;
 		if (authentication instanceof UsernamePasswordAuthenticationToken) {
 			UsernamePasswordAuthenticationToken usernamePassword = (UsernamePasswordAuthenticationToken) authentication;
 			
@@ -42,18 +39,12 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 			String password = (String) usernamePassword.getCredentials();
 			
 			try {
-				//First we need a cross scripting token before we can make any API calls
-				String csrfToken = httpAuthAdaptor.getCsrfToken();
-				if (!httpAuthAdaptor.checkUserExists(username, csrfToken)) {
-					throw new UsernameNotFoundException("User not found in remote system: " + username);
-				}
-				
-				HttpCookie authenticatedToken = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password, csrfToken);
+				HttpCookie authenticatedToken = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
 				if (authenticatedToken == null) {
 					throw new BadCredentialsException(ApplicationErrorCodes.MLDS_ERR_AUTH_BAD_PASSWORD
 							+ ": Password for remote user was invalid: " + username);
 				}
-				CentralAuthUserInfo remoteUserInfo = httpAuthAdaptor.getUserAccountInfo(username, csrfToken, authenticatedToken);
+				CentralAuthUserInfo remoteUserInfo = httpAuthAdaptor.getUserAccountInfo(username, authenticatedToken);
 				List<GrantedAuthority> authorities = AuthorityConverter.buildAuthoritiesList(remoteUserInfo.getRoles());
 				
 				if (authorities.isEmpty()) {
