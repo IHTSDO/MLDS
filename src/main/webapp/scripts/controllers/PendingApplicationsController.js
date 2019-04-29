@@ -141,8 +141,7 @@ angular.module('MLDS').controller('PendingApplicationsController', [
                         $parse("application.approvalState | enum:'approval.state.'"),
                         $parse("(application.affiliateDetails.address.country.commonName)||''"),
                         $parse("(application.member.key | enum:'global.member.')||''"),
-                        $parse("application.affiliateDetails.email"),
-                        $parse("affiliateActiveDetails.agreementType")
+                        $parse("application.affiliateDetails.email")
                     ];
                     var result = [];
                     _.each(response.data, function(application) {

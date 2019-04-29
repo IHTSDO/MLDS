@@ -3,8 +3,7 @@
         <div class="page-header">
             <h2>
                 <span translate="pendingApplications.title">Pending Applications</span>
-                <button class="btn btn-primary pull-right" type="button" ng-csv="generateCsv()" lazy-load="true" csv-header="['No.', 'Affiliate Name', 'Application Origin', 'Agreement Type', 'Use Type', 'Date Submitted', 'Status', 'Country', 'Member', 'Email', 'Application Type']"
-                    filename="pending-applications.csv">
+                <button class="btn btn-primary pull-right" type="button" ng-csv="generateCsv()" lazy-load="true" csv-header="['No.', 'Affiliate Name', 'Application Type', 'Agreement Type', 'Use Type', 'Date Submitted', 'Status', 'Country', 'Member', 'Email']" filename="pending-applications.csv">
 					<i class="fa fa-download"></i> Export as CSV
 					<span ng-show="generatingCsv" ><i class="fa fa-spinner fa-spin"></i></span>
 				</button>
