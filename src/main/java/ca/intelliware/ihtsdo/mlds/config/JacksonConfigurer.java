@@ -36,6 +36,9 @@ public class JacksonConfigurer {
 
 	@Autowired
 	private ListableBeanFactory beanFactory;
+	
+	@Autowired 
+	ObjectMapper objectMapper;
 
 	@Bean
 	public Module mldsModule(final MemberRepository memberRepository, CurrentSecurityContext securityContext) {
@@ -51,10 +54,16 @@ public class JacksonConfigurer {
 		Collection<ObjectMapper> mappers = BeanFactoryUtils
 				.beansOfTypeIncludingAncestors(beanFactory, ObjectMapper.class,true, true)
 				.values();
+		int mappersConfigured = 0;
 		for (ObjectMapper mapper : mappers) {
 			logger.debug("Configuring Jackson mapper: {} with type factory {}", mapper.toString(), mapper.getTypeFactory().getClass().getName());
 			mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 			registerFilters(mapper);
+			mappersConfigured++;
+		}
+		
+		if (mappersConfigured == 0) {
+			logger.error("*** NO MAPPERS FOUND TO CONFIGURE! ***");
 		}
 	}
 
