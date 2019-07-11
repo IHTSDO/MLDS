@@ -7,7 +7,7 @@ To run Maven, we need:
 
 - a recent JDK (>=6)
 - Maven
-- NodeJS: apt-get install nodejs (or nodejs-legacy, depending on os version).  Make sure that "node --version" returns something > 10.10
+- NodeJS: apt-get install nodejs (or nodejs-legacy, depending on os version).  Make sure that "node --version" returns something > 0.10.10
 - ruby: apt-get install ruby
 - compass: apt-get install ruby-compass
 - bower: npm install -g bower
