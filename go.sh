@@ -4,13 +4,17 @@
 set -e;
 # set -x;
 skipTests="-DskipTests=true"
+
+#Always make debug available, but don't wait unless -d option specified
+debugFlags="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8083"
+
 while getopts ":dst" opt
 do
 	case $opt in
 		d) 
 			debugMode=true
 			echo "Option set to start API in debug mode."
-			debugFlags="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000 -Djava.compiler=NONE" 
+			debugFlags="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8083 -Djava.compiler=NONE" 
 		;;
 		p)
 			apiPort=$OPTARG
@@ -58,7 +62,7 @@ fi
 #Can't get this self hosted option to listen for debug connections
 
 
-memOptions="-Xms2g -Xmx5g -XX:MaxPermSize=256m"
+memOptions="-Xms2g -Xmx5g"
 set -x;
 java ${memOptions} ${debugFlags} -jar target/ihtsdo-mlds.war \
 --spring.config.location=local.config.properties 
