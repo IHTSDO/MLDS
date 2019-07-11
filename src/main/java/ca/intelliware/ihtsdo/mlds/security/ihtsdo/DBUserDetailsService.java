@@ -37,7 +37,7 @@ public class DBUserDetailsService implements org.springframework.security.core.u
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String login) {
-        log.debug("Attepting to authenticatin {} using local database", login);
+        log.debug("Attepting to authenticate '{}' using local database", login);
         String lowercaseLogin = login.toLowerCase();
 
         User userFromDatabase = userRepository.findByLoginIgnoreCase(lowercaseLogin);
