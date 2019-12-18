@@ -69,7 +69,13 @@ public class AngularCookieLocaleResolver extends CookieLocaleResolver {
                     localePart = value.substring(0, spaceIndex);
                     timeZonePart = value.substring(spaceIndex + 1);
                 }
-                locale = (!"-".equals(localePart) ? StringUtils.parseLocaleString(localePart) : null);
+                
+                locale = null;
+                if (!"-".equals(localePart)) {
+                	//Spring expects locale variations to use underscore rather than dash
+                	localePart = localePart.replaceAll("-","_");
+                	StringUtils.parseLocaleString(localePart);
+                };
                 if (timeZonePart != null) {
                     timeZone = StringUtils.parseTimeZoneString(timeZonePart);
                 }
