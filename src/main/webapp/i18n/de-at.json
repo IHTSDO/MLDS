@@ -1041,13 +1041,13 @@
             "contact": "Kontaktieren Sie uns"
         },
         "landingPage": {
-            "appName": "Mitgliederlizenzierungs- und Vertriebs-Dienst",
+            "appName": "Mitgliederlizenzierungs- und Distributions-Dienst",
             "purpose": "Die SNOMED International stellt diesen Dienst für Organisationen und Privatpersonen zur Verfügung, damit Sie die Nutzung und den Zugang zur internationalen Version von SNOMED CT in Nicht-Mitgliedstaaten beantragen können.",
-            "furtherDetails": "Weitere Einzelheiten finden Sie auf der <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-Website</a> oder in den <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ</a>.<br/><br/>*<br/>",
+            "furtherDetails": "Weitere Informationen zur Lizenzierung und zu SNOMED CT in Österreich finden sie auf der <a href=\"https://www.elga.gv.at/technischer-hintergrund/snomed-ct/\" target=\"_blank\">ELGA Website</a>. Außerdem auf der <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-Website</a> oder in den <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ</a>.",
             "loginHere": "Login",
-            "member.purpose1": "MLDS ist ein vom NRC in ",
-            "member.purpose2": " verwendetes Instrument, um die Partner-Lizenzierung von SNOMED CT, einschliesslich neuer Anträge, Erneuerungen und der Nutzungsberichte, in ",
-            "member.purpose3": " und soweit von Belang in Nicht-Mitgliedstaaten zu verwalten."
+            "member.purpose1": "Der MLDS ist ein vom NRC in ",
+            "member.purpose2": " verwendetes Instrument zur Verwaltung der Affiliate-Lizenzierung. Da die Verwendung von SNOMED CT in ",
+            "member.purpose3": " eine aufrechte Affiliate Lizenz (oder eine entsprechende Sublizenz) erfordert, kann diese hier durch Klick auf „Registrieren“ kostenfrei erworben werden."
         },
         "releases": {
             "title": "Für registrierte Benutzer verfügbare Releases",
