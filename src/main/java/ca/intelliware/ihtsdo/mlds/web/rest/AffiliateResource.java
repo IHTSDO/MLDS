@@ -179,9 +179,9 @@ public class AffiliateResource {
 					}
 				}
 			}
-    	}
+		}
 		return new ResponseEntity<Collection<Affiliate>>(affiliates.getContent(), HttpStatus.OK);
-    }
+	}
 	
 	private static final Map<String,List<String>> ORDER_BY_FIELD_MAPPINGS = new HashMap<String,List<String>>();
 	static {
@@ -328,7 +328,6 @@ public class AffiliateResource {
             produces = "application/csv;charset=UTF-8")
 	@Timed
     public @ResponseBody ResponseEntity<String> exportAffiliates(@RequestParam(value="generate",required = false) Integer generateRows) throws IOException {
-		//FIXME DGJ Introduce parameter to generate phoney data until we can add an application start
 		String result;
 		if (generateRows == null) {
 			result = affiliatesExporterService.exportToCSV();
