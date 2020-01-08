@@ -1,6 +1,7 @@
 /bin
 /target
 local.config.properties
+local-*
 .c9
 node
 node_modules
