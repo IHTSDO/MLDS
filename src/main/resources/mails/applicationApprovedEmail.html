@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title th:text="#{applicationApproved.title}">IHTSDO-MLDS Application Approved</title>
+        <title th:utext="#{applicationApproved.title}">IHTSDO-MLDS Application Approved</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
 
     <body>
-        <p th:text="#{email.greeting(${user.firstName + ' ' + user.lastName})}">
+        <p th:utext="#{email.greeting(${user.firstName + ' ' + user.lastName})}">
             Dear user,
         </p>
         <p th:utext="#{applicationApproved.text(${affiliateId})}">
@@ -18,12 +18,12 @@
             <br/> You can view your Account Standing by logging into your MLDS account and looking in the Account Information section on your Dashboard view.
         </p>
         <p>
-            <a th:href="@{${loginUrl}}" th:text="#{duplicateRegistration.loginLinkLabel}">Login</a>
+            <a th:href="@{${loginUrl}}" th:utext="#{duplicateRegistration.loginLinkLabel}">Login</a>
         </p>
         <p>
-            <span th:text="#{email.close}">Regards, </span>
+            <span th:utext="#{email.close}">Regards, </span>
             <br/>
-            <em th:text="#{email.signature}">IHTSDO-MLDS</em>
+            <em th:utext="#{email.signature}">SNOMED International - MLDS</em>
         </p>
     </body>
 
