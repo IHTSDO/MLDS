@@ -23,12 +23,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
-import ca.intelliware.ihtsdo.mlds.domain.Country;
-import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.StandingState;
+import ca.intelliware.ihtsdo.mlds.domain.*;
 import ca.intelliware.ihtsdo.mlds.search.AngularTranslateServiceSetup;
 
 import com.google.common.collect.Lists;
