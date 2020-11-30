@@ -19,6 +19,7 @@ import ca.intelliware.ihtsdo.mlds.search.AngularTranslateService;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.JdkFutureAdapters;
+import com.google.common.util.concurrent.MoreExecutors;
 
 @Configuration
 public class SearchConfiguration {
@@ -51,7 +52,7 @@ public class SearchConfiguration {
 			public void onFailure(Throwable t) {
 				log.error("SearchConfiguration - Failed creating full-text index", t);
 			}
-		});
+		}, MoreExecutors.directExecutor());
 	}
 
 }

@@ -19,17 +19,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.util.NestedServletException;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.service.ApprovalTransition;
-import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuditEvents;
-import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuthorizationChecker;
-import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
-import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
-import ca.intelliware.ihtsdo.mlds.service.UsageReportTransition;
+import ca.intelliware.ihtsdo.mlds.service.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {

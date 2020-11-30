@@ -5,21 +5,14 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import ca.intelliware.ihtsdo.mlds.Application;
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.ImportApplication;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
+import ca.intelliware.ihtsdo.mlds.domain.*;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 
@@ -29,6 +22,7 @@ import com.google.common.collect.Lists;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(locations="classpath:test.application.properties")
 @ActiveProfiles("dev")
 @Transactional
 public class AffiliatesImporterServiceTest {
@@ -43,7 +37,6 @@ public class AffiliatesImporterServiceTest {
 	@Before
 	public void setup() {
 		sweden = memberRepository.findOneByKey("SE");
-
 		fields = createEmptyFieldsList();
 		setField(fields,"member", "SE");
 		setField(fields,"importKey", "XXX_Test");
@@ -140,6 +133,11 @@ public class AffiliatesImporterServiceTest {
 			@Override
 			public boolean apply(FieldMapping input) {
 				return input.columnName.equals(targetColumnName);
+			}
+			
+			@Override
+			public boolean test(FieldMapping input) {
+				return apply(input);
 			}
 		};
 		

@@ -1,8 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import javax.sql.DataSource;
 
@@ -10,7 +8,6 @@ import liquibase.integration.spring.SpringLiquibase;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
@@ -25,7 +22,6 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.amazonaws.services.kinesis.model.InvalidArgumentException;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -128,7 +124,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
 		
 		// Hibernate properties -- add explicit check for new property
 		if (env.getProperty("hibernate.cache.region.factory_class") == null) {
-			throw new InvalidArgumentException("Configuration file is missing required parameter -hibernate.cache.region.factory_class" );
+			throw new IllegalArgumentException("Configuration file is missing required parameter -hibernate.cache.region.factory_class" );
 		}
 		Properties additionalProperties = new Properties();
 		additionalProperties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
