@@ -27,3 +27,4 @@ src/main/webapp/bower_components/placeholders/test/
 .yo-rc.json
 .bowerrc
 ca.*
+sqldump.sql
