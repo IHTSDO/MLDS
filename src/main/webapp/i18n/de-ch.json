@@ -1,12 +1,12 @@
 {
     "global": {
         "title": "mlds",
-        "browsehappy": "Sie benutzen einen <strong>veralteten</strong> Browser. Bitte <a href=\"http://browsehappy.com/?locale=en\">aktualisieren Sie Ihren Browser</a>, um die Nutzung dieser Website zu verbessern.",
+        "browsehappy": "Sie benutzen einen <strong>veralteten</strong> Browser. Bitte <a href=\"http://browsehappy.com/?locale=en\">aktualisieren Sie Ihren Browser</a>, um Ihre Nutzung dieser Website zu verbessern.",
         "menu": {
             "home": "Home",
             "account": {
                 "main": "Konto",
-                "contactInfo": "Kontaktinformation",
+                "contactInfo": "Kontaktinfo",
                 "password": "Passwort",
                 "sessions": "Sessions",
                 "tracker": "User-Tracker",
@@ -17,13 +17,13 @@
                 "logout": "Logout",
                 "apidocs": "API",
                 "register": "Registrieren",
-                "affiliates": "Sublizenznehmer",
+                "affiliates": "Partner",
                 "dashboard": "Übersicht"
             },
             "dashboard": "Übersicht",
             "help": "Hilfe",
             "privacyPolicy": "Datenschutzrichtlinie",
-            "usageReports": "Nutzungserklärungen",
+            "usageReports": "Nutzungsberichte",
             "applications": "Anträge",
             "releasePackages": "Release-Pakete",
             "affiliate": {
@@ -33,17 +33,17 @@
             },
             "staff": {
                 "dashboard": "Übersicht",
-                "pendingApplications": "Anträge in Bearbeitung",
-                "usageReports": "Nutzungserklärungen",
-                "affiliteUserManagement": "Nutzer-Verwaltung für Sublizenznehmer",
+                "pendingApplications": "Hängige Anträge",
+                "usageReports": "Nutzungsberichte",
+                "affiliteUserManagement": "Partnernutzer-Verwaltung",
                 "activityLog": "Aktivitäts-Log",
-                "packageManagement": "Paket-Verwaltung",
+                "packageManagement": "Paketverwaltung",
                 "licenseTC": "Lizenz T und C",
                 "reportsExtracts": "Berichte und Datenauszüge",
                 "logout": "Logout"
             },
             "admin": {
-                "importAffiliateRecords": "Datensätze der Sublizenznehmer importieren",
+                "importAffiliateRecords": "Partner-Datensätze importieren",
                 "manageBlacklist": "Blacklist verwalten",
                 "nationalRegistrationList": "Nationale Registrierungsliste"
             },
@@ -368,7 +368,7 @@
         "messages": {
             "info": {
                 "authenticated": "Zur <a href=\"#/login\">Authentifizierung</a> können Sie die Standardkonten benutzen:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- Benutzer (login=\"user\" and password=\"user\").",
-                "register": "Sie haben noch kein Konto? <a href=\"#/register\">Richten Sie ein neues Konto ein.</a>"
+                "register": "Sie haben noch kein Konto? <a href=\"#/register\">Richten Sie ein neues Konto ein</a>"
             },
             "error": {
                 "dontmatch": "Das Passwort und seine Bestätigung stimmen nicht überein!",
@@ -377,24 +377,24 @@
             "validate": {
                 "newpassword": {
                     "required": "Sie müssen Ihr Passwort angeben.",
-                    "minlength": "Ihr Passwort muss mindestens 5 Zeichen aufweisen.",
-                    "maxlength": "Ihr Passwort darf nicht mehr als 50 Zeichen aufweisen.",
+                    "minlength": "Ihr Passwort muss mindestens 5 Zeichen aufweisen",
+                    "maxlength": "Ihr Passwort darf nicht mehr als 50 Zeichen aufweisen",
                     "strength": "Passwortstärke:"
                 },
                 "confirmpassword": {
                     "required": "Sie müssen Ihr Bestätigungs-Passwort angeben.",
-                    "minlength": "Ihr Bestätigungs-Passwort muss mindestens 5 Zeichen aufweisen.",
-                    "maxlength": "Ihr Bestätigungs-Passwort darf nicht mehr als 50 Zeichen aufweisen.",
-                    "match": "Ihr Bestätigungs-Passwort stimmt nicht mit dem Passwort überein."
+                    "minlength": "Ihr Bestätigungs-Passwort muss mindestens 5 Zeichen aufweisen",
+                    "maxlength": "Ihr Bestätigungs-Passwort darf nicht mehr als 50 Zeichen aufweisen",
+                    "match": "Ihre Passwortbestätigung stimmt nicht mit dem Passwort überein"
                 },
                 "email": {
                     "required": "Sie müssen Ihre E-Mail-Adresse angeben.",
                     "invalid": "Ihre E-Mail-Adresse ist ungültig.",
-                    "minlength": "Ihre E-Mail-Adresse muss mindestens 1 Zeichen aufweisen.",
-                    "maxlength": "Ihre E-Mail-Adresse darf nicht mehr als 50 Zeichen aufweisen."
+                    "minlength": "Ihre E-Mail-Adresse muss mindestens 1 Zeichen aufweisen",
+                    "maxlength": "Ihre E-Mail-Adresse darf nicht mehr als 50 Zeichen aufweisen"
                 },
                 "confirmemail": {
-                    "match": "Ihre Bestätigung-E-Mail stimmt nicht mit der registrierten E-Mail überein."
+                    "match": "Ihre Bestätigung per E-Mail nicht die E-Mail übereinstimmen"
                 }
             }
         },
@@ -439,9 +439,9 @@
     "register": {
         "title": "Registrieren",
         "welcome": "Willkommen bei SNOMED International-MLDS",
-        "subwelcome": "Das Service-Portal für den Zugriff auf SNOMED CT",
+        "subwelcome": "Das Tor für den Zugriff auf die SNOMED CT-Einführung",
         "form": {
-            "tos": "Ich stimme den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Nutzungsbedingungen</a> und den <a href=\https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Privacy+Policies\ target=\"_blank\">Datenschutzbestimmungen</a> für MLDS zu.",
+            "tos": "Stimmen Sie unseren <a href=\"/tos.html\" target=\"_blank\">allgemeinen Geschäftsbedingungen zu</a>.",
             "button": "Starten Sie die Registrierung",
             "confirmemail": "E-Mail (bestätigen)"
         },
@@ -449,44 +449,44 @@
             "validate": {
                 "login": {
                     "required": "Ihr Login wird benötigt.",
-                    "minlength": "Ihr Login muss mindestens 1 Zeichen aufweisen.",
-                    "maxlength": "Ihr Login darf nicht mehr als 50 Zeichen aufweisen."
+                    "minlength": "Ihr Login muss mindestens 1 Zeichen aufweisen",
+                    "maxlength": "Ihr Login darf nicht mehr als 50 Zeichen aufweisen"
                 },
                 "country": {
-                    "notMLDS": "Anträge für die Nutzung von SNOMED CT in Ihrem Land müssen beim zuständigen National Release Center Ihres Landes - <a href=\"{{link}}\" target=\"_blank\">hier</a> gestellt werden. Wenn Sie einen Antrag für eine Gemeinnützigkeits-Vereinbarung zur Nutzung von SNOMED CT in einem anderen Land stellen möchten oder weitere Fragen haben, wenden Sie sich bitte an SNOMED International über <a href=\"mailto:info@snomed.org\">info@snomed.org</a>."
+                    "notMLDS": "Anträge für die Nutzung von SNOMED CT in Ihrem Land müssen beim zuständigen Vertreter Ihres Landes <a href=\"{{link}}\" target=\"_blank\">hier</a>gestellt werden. Wenn sie einen Antrag für eine Public Good-Vereinbarung zur Nutzung von SNOMED CT in einem anderen Land stellen möchten oder weitere Fragen haben, wenden Sie sich bitte an die SNOMED International über <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
                 },
                 "registration": {
                     "usagetyperequired": "Nutzungstyp xx",
                     "subtyperequired": "Nutzungs-Subtyp xx"
                 }
             },
-            "success": "<strong>Registrierung gespeichert!</strong> Bitte überprüfen Sie, ob Sie eine Bestätigungs-E-Mail erhalten haben.",
+            "success": "<strong>Registrierung gespeichert!</strong> Bitte überprüfen Sie, ob Sie ein Bestätigungs-Mail erhalten haben.",
             "error": {
                 "fail": "<strong>Registrierung fehlgeschlagen!</strong> Bitte versuchen Sie es später noch einmal.",
                 "userexists": "<strong>Ein anderer Benutzer hat sich bereits mit dieser E-Mail-Adresse registriert.</strong> Wollten Sie sich <a href='#/login'>einloggen</a>?",
-                "blocklist": "Aufgrund der IT-Richtlinien von SNOMED International können wir die eingegebene E-Mail-Adresse nicht verarbeiten. Für Support kontaktieren Sie bitte <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a>."
+                "blocklist": "Aufgrund unserer IT-Richtlinien können wir die eingegebene E-Mail-Adresse nicht verarbeiten. Für weitere Hilfe kontaktieren Sie bitte <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a>."
             }
         },
         "emailVerification": {
-            "intro": "Wir haben Ihnen eine E-Mail gesendet.",
-            "detail": "Bitte öffnen Sie die E-Mail, die wir Ihnen soeben geschickt haben, um Ihr Konto zu überprüfen und Zugang zum MLDS zu erhalten."
+            "intro": "Wir haben Ihnen ein E-Mail gesendet.",
+            "detail": "Bitte öffnen Sie das E-Mail, das wir Ihnen soeben geschickt haben, um Ihr Konto zu überprüfen und Zugang zum MLDS zu erhalten"
         },
         "affiliateRegistration": {
-            "title": "Registrierung als Sublizenznehmer",
+            "title": "Partner-Registrierung",
             "usageType": "Nutzungstyp",
-            "conditions": "Bitte wählen Sie die Bedingungen, unter denen Ihr Produkt verwendet werden wird.",
+            "conditions": "Bitte wählen Sie die Bedingungen, unter denen das Produkt verwendet werden wird ",
             "typeOfAgreement": "Art der Vereinbarung",
             "validation": {
                 "other.required": "Anderes Feld ist erforderlich."
             },
             "changeRequestedWarning": {
-                "title": "Ihre Registrierung als Sublizenznehmer muss aktualisiert werden",
-                "text": "Ihre Registrierung als Sublizenznehmer muss aktualisiert werden, bevor sie verarbeitet werden kann. Bitte beachten Sie die an Sie versandte E-Mail. Diese enthält Hinweise zu den erforderlichen Änderungen."
+                "title": "Affiliate Registration Needs Amendments",
+                "text": "Your affiliate registration needs to be updated before it can processed. Please see email regarding the necessary changes to complete your registration."
             },
             "license.title": "SNOMED CT-Vereinbarung",
             "license": "SNOMED-Lizenz",
-            "license.confirm": "Ich stimme den Allgemeinen Geschäftsbedingungen zu.",
-            "license.error": "Sie müssen den Allgemeinen Geschäftsbedingungen für eine Nutzung der SNOMED CT-Lizenz zustimmen, um eine Registrierung vorzunehmen."
+            "license.confirm": "Ich stimme der Lizenz zu",
+            "license.error": "Sie müssen den allgemeinen Geschäftsbedingungen der SNOMED CT-Lizenz zustimmen, um eine Registrierung vorzunehmen. Dort werden auch mögliche Gebühren angegeben."
         },
         "affiliateRegistrationReview": {
             "title": "Antrag überprüfen",
@@ -512,10 +512,10 @@
         }
     },
     "settings": {
-        "title": "Kontaktinformation für [<b>{{username}}</b>]",
+        "title": "Kontaktinfo für [<b>{{username}}</b>]",
         "form": {
             "countryOfResidence": "Land",
-            "countryOfResidence.placeholder": "Deutschland",
+            "countryOfResidence.placeholder": "Land",
             "firstname": "Vorname",
             "firstname.placeholder": "Ihr Vorname",
             "lastname": "Name",
@@ -524,17 +524,17 @@
         },
         "messages": {
             "error": "<strong>Es ist ein Fehler aufgetreten!</strong> Die Einstellungen konnten nicht gespeichert werden.",
-            "success": "<strong>Einstellungen gespeichert.</strong>",
+            "success": "<strong>Einstellungen gesichert!</strong>",
             "validate": {
                 "firstname": {
                     "required": "Sie müssen Ihren Vornamen angeben.",
-                    "minlength": "Ihr Vorname muss mindestens 1 Zeichen aufweisen.",
-                    "maxlength": "Ihr Vorname darf nicht mehr als 50 Zeichen aufweisen."
+                    "minlength": "Ihr Vorname muss mindestens 1 Zeichen aufweisen",
+                    "maxlength": "Ihr Vorname darf nicht mehr als 50 Zeichen aufweisen"
                 },
                 "lastname": {
                     "required": "Sie müssen Ihren Nachnamen angeben.",
-                    "minlength": "Ihr Nachname muss mindestens 1 Zeichen aufweisen.",
-                    "maxlength": "Ihr Nachname darf nicht mehr als 50 Zeichen aufweisen."
+                    "minlength": "Ihr Nachname muss mindestens 1 Zeichen aufweisen",
+                    "maxlength": "Ihr Nachname darf nicht mehr als 50 Zeichen aufweisen"
                 }
             }
         }
@@ -551,7 +551,7 @@
         "messages": {
             "error": "<strong>Es ist ein Fehler aufgetreten!</strong> Das Passwort konnte nicht geändert werden.",
             "success": "<strong>Passwort geändert!</strong>  Weiter zu <a href='#/contactInfo'>Kontoinformation</a>",
-            "expired": "<strong>Der Link, um das Passwort zurückzusetzen, ist abgelaufen oder war ungültig.</strong> <a href='#/requestPasswordReset'></a> Fordern Sie einen neuen Link an."
+            "expired": "<strong>Der Link, um das Passwort zurückzusetzen, ist abgelaufen oder war ungültig.</strong> <a href='#/requestPasswordReset'>Fordern Sie einen neuen Link an</a>"
         }
     },
     "sessions": {
@@ -698,19 +698,19 @@
             "AUTHORIZATION_FAILURE": "Genehmigung fehlgeschlagen",
             "AUTHENTICATION_SUCCESS": "Authentifizierung erfolgreich",
             "AUTHENTICATION_FAILURE": "Authentifizierung fehlgeschlagen",
-            "AFFILIATE_CREATED": "Sublizenznehmer erstellt",
-            "AFFILIATE_CREATED_BY_IMPORT": "Sublizenznehmer durch Import erstellt",
-            "AFFILIATE_UPDATED": "Sublizenznehmer aktualisiert",
-            "AFFILIATE_DELETED": "Sublizenznehmer gelöscht",
-            "AFFILIATE_UPDATED_BY_IMPORT": "Sublizenznehmer durch Import aktualisiert",
-            "AFFILIATEDETAILS_UPDATED": "Sublizenznehmer-Daten aktualisiert",
-            "AFFILIATE_EXPORT": "Sublizenznehmer-Batch-Export",
-            "AFFILIATE_IMPORT": "Sublizenznehmer-Batch-Import",
-            "AFFILIATE_LOGIN_CREATED": "Sublizenznehmer-Login erstellt",
-            "AFFILIATE_STANDING_STATE_CHANGED": "Sublizenznehmer-Status geändert",
+            "AFFILIATE_CREATED": "Partner erstellt",
+            "AFFILIATE_CREATED_BY_IMPORT": "Partner durch Import erstellt",
+            "AFFILIATE_UPDATED": "Partner aktualisiert",
+            "AFFILIATE_DELETED": "Affiliate Deleted",
+            "AFFILIATE_UPDATED_BY_IMPORT": "Partner durch Import aktualisiert",
+            "AFFILIATEDETAILS_UPDATED": "Partner-Daten aktualisiert",
+            "AFFILIATE_EXPORT": "Partner-Batch-Export",
+            "AFFILIATE_IMPORT": "Partner-Batch-Import",
+            "AFFILIATE_LOGIN_CREATED": "Partner-Login erstellt",
+            "AFFILIATE_STANDING_STATE_CHANGED": "Partner-Status geändert",
             "APPLICATION_CREATED": "Antrag erstellt",
             "APPLICATION_APPROVAL_STATE_CHANGED": "Genehmigungsstatus des Antrags geändert",
-            "ANNOUNCEMENT_POSTED": "Benachrichtigung versandt",
+            "ANNOUNCEMENT_POSTED": "Announcement Posted",
             "APPLICATION_DELETED": "Antrag gelöscht",
             "RELEASE_FILE_CREATED": "Release-Datei erstellt",
             "RELEASE_FILE_DELETED": "Release-Datei gelöscht",
@@ -729,69 +729,69 @@
         "403": "Sie sind nicht berechtigt, diese Seite aufzurufen.",
         "title": "Fehlerseite!"
     },
-    "footer": "Dies ist Ihre Fusszeile.",
+    "footer": "Dies ist Ihre Fusszeile",
     "affiliate": {
-        "title": "Sublizenznehmer",
+        "title": "Partner",
         "type": {
             "title": "Typ",
-            "COMMERCIAL": "Kommerzielle Nutzung",
-            "ACADEMIC": "Nicht-Kommerzielle Nutzung",
-            "OTHER": "Andere Nutzung",
-            "INDIVIDUAL": "Nutzung als Einzelperson"
+            "COMMERCIAL": "Kommerziell",
+            "ACADEMIC": "Akademisch",
+            "OTHER": "Andere",
+            "INDIVIDUAL": "Einzelperson"
         },
         "type.extended": {
-            "COMMERCIAL": "Kommerzielle Nutzung = Nutzung durch kommerzielle Entwickler, Software- oder Terminologie-Dienst-Anbieter",
-            "ACADEMIC": "Nicht-Kommerzielle Nutzung = Interne Nutzung innerhalb einer Organisation (im Bereich Bildung, Forschung, Entwicklung oder Leistungserbringer im Gesundheitswesen)",
-            "OTHER": "Andere Nutzung = Nutzung für andere Zwecke",
-            "INDIVIDUAL": "Nutzung als Einzelperson = Persönliche Nutzung im Bereich Bildung oder Forschung "
+            "COMMERCIAL": "Kommerziell – Entwickler, Verkäufer oder Terminologie-Anbieter",
+            "ACADEMIC": "Akademisch – für interne Nutzung innerhalb einer Organisation. (Bildung, Forschung, Entwicklung oder Leistungserbringer im Gesundheitswesen)",
+            "OTHER": "Andere – Nutzung nicht in anderen Optionen erwähnt",
+            "INDIVIDUAL": "Einzelperson – privat, Bildung oder Forschung "
         },
         "subType": {
-            "DEVELOPER": "Kommerzielle Software-Entwicklung",
-            "DEVELOPMENT": "Nicht-Kommerzielle Software-Entwicklung",
+            "DEVELOPER": "Entwickler",
+            "DEVELOPMENT": "Entwicklung",
             "EDUCATIONAL": "Bildung",
             "HEALTHCAREPROVIDER": "Leistungserbringer im Gesundheitswesen",
-            "PERSONAL": "Einzelperson",
+            "PERSONAL": "Privat",
             "RESEARCH": "Forschung",
-            "VENDOR": "Software- oder Terminologie-Dienst-Anbieter"
+            "VENDOR": "Verkäufer"
         },
         "agreementType": {
-            "AFFILIATE_NORMAL": "Sublizenznehmer - Kommerziell (z.B. Nutzung durch kommerzielle Entwickler, Software- oder Terminologie-Dienst-Anbieter)",
-            "AFFILIATE_RESEARCH": "Sublizenznehmer - Forschung / nicht-kommerzielle Nutzung (z.B. interne Nutzung innerhalb einer Organisation im Bereich Bildung, Forschung, Entwicklung oder Leistungserbringer im Gesundheitswesen)",
-            "AFFILIATE_PUBLIC_GOOD": "Sublizenznehmer - Gemeinnützig, inkl. öffentlich finanzierte Software-Entwicklung"
+            "AFFILIATE_NORMAL": "Partner - Normal",
+            "AFFILIATE_RESEARCH": "Partner - Forschung",
+            "AFFILIATE_PUBLIC_GOOD": "Partner – Öffentliches Gut"
         },
         "organizationType": {
-            "PUBLIC_HEALTH_ORGANIZATION": "Öffentliche Gesundheitsorganisation (z.B. Krankenhaus, Krankenversicherung, Behörde, Einrichtung der Sekundär-/Tertiärversorgung)",
-            "PRIVATE_HEALTH_ORGANIZATION": "Private Gesundheitsorganisation (z.B. Krankenhaus, Krankenversicherung, Einrichtung der Sekundär-/Tertiärversorgung)",
-            "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Einrichtung im Bereich Forschung und Entwicklung (z.B. Öffentlich geförderte Institution, kommerzielle Forschung, nicht-kommerzielle Forschung)",
-            "HEALTHERCARE_APPLICATION_DEVELOPER": "Entwickler von Anwendungen im Gesundheitswesen (z.B. Softwareentwickler, Terminologie-Dienst)",
-            "GENERAL_PRACTITIONER_PRACTICE": "Praxis für Gesundheitsberufe inkl. Apotheken, Einrichtung der Primärversorgung",
+            "PUBLIC_HEALTH_ORGANIZATION": "Öffentliche Gesundheitsorganisation",
+            "PRIVATE_HEALTH_ORGANIZATION": "Private Gesundheitsorganisation",
+            "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Forschungs- und Entwicklungsorganisation",
+            "HEALTHERCARE_APPLICATION_DEVELOPER": "Entwickler von Anwendungen im Gesundheitswesen",
+            "GENERAL_PRACTITIONER_PRACTICE": "Praxis für Allgemeinmedizin",
             "EDUCATIONAL_INSTITUTE": "Bildungseinrichtung",
             "OTHER": "Andere"
         },
         "implementationStatus": {
             "IMPLEMENTED": "Live/Implementiert",
-            "DEVELOPMENT": "In der Entwicklungs-/Bearbeitungsphase",
+            "DEVELOPMENT": "In Bearbeitung/Entwicklung",
             "PLANNING": "In der Planungsphase"
         },
         "standingState": {
-            "APPLYING": "Antrag in Bearbeitung",
-            "IN_GOOD_STANDING": "Vollberechtigter Status",
+            "APPLYING": "Antrag hängig",
+            "IN_GOOD_STANDING": "Nicht beitragssäumig/vollberechtigter Status",
             "REJECTED": "Abgelehnt",
-            "DEACTIVATION_PENDING": "Deaktivierung in Bearbeitung",
+            "DEACTIVATION_PENDING": "Deaktivierung hängig",
             "DEACTIVATED": "Deaktiviert",
             "DEREGISTERED": "Abgemeldet",
-            "PENDING_INVOICE": "nicht zutreffend",
-            "INVOICE_SENT": "nicht zutreffend"
+            "PENDING_INVOICE": "Rechnung offen",
+            "INVOICE_SENT": "Rechnung verschickt"
         },
         "standingStateWithExplanation": {
-            "APPLYING": " Antrag in Bearbeitung",
-            "IN_GOOD_STANDING": "Vollberechtigter Status - Genehmigter voller Zugang oder Problem mit dem Konto gelöst",
+            "APPLYING": " Antrag hängig",
+            "IN_GOOD_STANDING": "Nicht beitragssäumig/vollberechtigter Status – Genehmigter voller Zugang, Konto bezahlt, keine Zahlung hängig oder Problem mit dem Konto gelöst",
             "REJECTED": "Abgelehnt",
-            "DEACTIVATION_PENDING": "Deaktivierung in Bearbeitung - Nur Zugang zum Konto, Download nicht möglich",
+            "DEACTIVATION_PENDING": "Deaktivierung hängig – Nur Zugang zum Konto, Download nicht möglich",
             "DEACTIVATED": "Deaktiviert - Nur Zugang zum Konto, Download nicht möglich ",
-            "DEREGISTERED": "Abgemeldet - Kein Zugang zum MLDS-Konto",
-            "PENDING_INVOICE": "nicht zutreffend",
-            "INVOICE_SENT": "nicht zutreffend"
+            "DEREGISTERED": "Abgemeldet – Kein Zugang zum MLDS-Konto",
+            "PENDING_INVOICE": "Rechnung offen – Nur Zugang zum Konto, Zahlung fällig",
+            "INVOICE_SENT": "Rechnung verschickt - Nur Zugang zum Konto, Zahlung fällig"
         }
     },
     "approval": {
@@ -812,9 +812,9 @@
             "SUBMITTED": "Eingereicht",
             "RESUBMITTED": "Erneut eingereicht",
             "REVIEW_REQUESTED": "Überprüfung angefordert",
-            "PENDING_INVOICE": "nicht zutreffend: Rechnung offen",
-            "INVOICE_SENT": "nicht zutreffend",
-            "PAID": "nicht zutreffend",
+            "PENDING_INVOICE": "Rechnung offen",
+            "INVOICE_SENT": "Rechnung verschickt",
+            "PAID": "Bezahlt",
             "REJECTED": "Abgelehnt"
         }
     },
@@ -826,31 +826,31 @@
         }
     },
     "pendingApplications": {
-        "title": "Anträge in Bearbeitung",
+        "title": "Hängige Anträge",
         "show": {
-            "myApplications": "Meine Anträge in Bearbeitung",
-            "allApplications": "Alle Anträge in Bearbeitung"
+            "myApplications": "Meine hängigen Anträge",
+            "allApplications": "Alle hängigen Anträge"
         },
         "table": {
-            "affiliateName": "Name des Sublizenznehmers",
+            "affiliateName": "Partnername",
             "applicationType": "Antragsart",
             "agreementType": "Art der Vereinbarung",
-            "useType": "Nutzungstyp",
-            "dateSubmitted": "Datum der Einreichung",
-            "homeCountry": "Heimatland",
+            "useType": "Nutzungsart",
+            "dateSubmitted": "Einreichungsdatum",
+            "homeCountry": "Heimatstaat",
             "member": "Mitglied",
             "email": "E-Mail",
             "review": "Überprüfung"
         }
     },
     "affiliateManagement": {
-        "title": "Sublizenznehmer-Management"
+        "title": "Partner-Management"
     },
     "releaseManagement": {
         "title": "Release-Management"
     },
     "reviewUsageReports": {
-        "title": "Nutzungserklärungen überprüfen"
+        "title": "Nutzungsberichte überprüfen"
     },
     "memberManagement": {
         "title": "Mitglieder-Management"
@@ -865,7 +865,7 @@
         "title": "Aktivitäts-Log"
     },
     "importAffiliateRecords": {
-        "title": "Datensätze des Sublizenznehmers importieren"
+        "title": "Partner-Datensätze importieren"
     },
     "manageBlocklist": {
         "title": "Blockliste verwalten"
@@ -891,8 +891,8 @@
                     "body": "Das System wird Sie gleich weiterleiten, damit Sie Ihren Registrierungsprozess fortsetzen können. Falls Sie nicht automatisch weitergeleitet werden, {{linkbegin}}klicken Sie bitte hier.{{linkend}}"
                 },
                 "error": {
-                    "title": "Ihr Nutzerkonto konnte nicht aktiviert werden.",
-                    "body": "Bitte verwenden Sie für den Antrag das Registrierungsformular. Wenn Sie immer noch auf Schwierigkeiten stoßen, wenden Sie sich bitte an den Support."
+                    "title": "Ihr Nutzer konnte nicht aktiviert werden.",
+                    "body": "Bitte verwenden Sie für den Antrag das Registrierungsformular. Wenn Sie immer noch auf Schwierigkeiten stossen, wenden Sie sich bitte an den Support."
                 }
             }
         },
@@ -900,11 +900,11 @@
             "title": "Zusammenfassung des Antrags",
             "ext.title": "Information über den Erweiterungsantrag",
             "reason": "Grund",
-            "affiliateInfo": "Info zum Sublizenznehmer",
-            "affiliateInformation": "Information zum Sublizenznehmer",
+            "affiliateInfo": "Partnerinfo",
+            "affiliateInformation": "Partnerinformation",
             "useType": "Nutzungstyp",
             "useSubType": "Nutzungs-Subtyp",
-            "billingInfo": "Informationen zur Rechnungstellung, nicht zutreffend",
+            "billingInfo": "Informationen zur Rechnungstellung",
             "context": "Informationen zum Nutzungskontext",
             "subLicence": "Nutzung in Unterlizenz",
             "applicationActivity": "Antrags-Aktivität"
@@ -914,7 +914,7 @@
             "messages": {
                 "notApproved": {
                     "title": "Registrierung noch nicht genehmigt",
-                    "body": "Sie können die Kontaktinformationen für einen Sublizenznehmer erst ändern, wenn die Registrierungs-Anforderung genehmigt worden ist."
+                    "body": "Sie können die Kontaktinformationen für einen Partner erst ändern, wenn die Registrierungs-Anforderung genehmigt worden ist."
                 }
             },
             "admin": {
@@ -926,7 +926,7 @@
                 },
                 "subtype": {
                     "name": "Subtyp",
-                    "required": "Nutzungs-Subtyp-Feld wird benötigt."
+                    "required": "Subtyp-Feld wird benötigt."
                 },
                 "usageType": {
                     "name": "Typ",
@@ -940,27 +940,27 @@
                 "fullName": "Name",
                 "firstName": {
                     "name": "Vorname",
-                    "placeholder": "Max"
+                    "placeholder": "John"
                 },
                 "lastName": {
                     "name": "Nachname",
-                    "placeholder": "Mustermann"
+                    "placeholder": "Smith"
                 },
                 "email": {
-                    "name": "E-Mail-Adresse [Bitte beachten Sie die <a href=\https://www.bfarm.de/DE/Forschung/SNOMED-CT-NRC/_node.html target=\"_blank\">Hinweise zur Beantragung</a>.]",
-                    "placeholder": "max.mustermann@organisationABC.de",
+                    "name": "E-Mail-Adresse",
+                    "placeholder": "JohnSmith@OrganizationABC.com",
                     "unique": "E-Mail-Adressen müssen einmalig sein.",
                     "invalid": "Ungültige E-Mail-Adresse."
                 },
                 "alternativeEmail": {
                     "name": "Alternative E-Mail-Adresse",
-                    "placeholder": "alternative@email.de"
+                    "placeholder": "alternative@email.com"
                 },
                 "thirdEmail": "Dritte E-Mail-Adresse",
                 "landline": {
-                    "name": "Telefonnummer Festnetz",
+                    "name": "Festnetznummer",
                     "short": "Telefonnummer",
-                    "invalid": "Ungültige Telefonnummer"
+                    "invalid": "Ungültige Telefonnummer."
                 },
                 "landlineExtension": {
                     "name": "Erweiterung",
@@ -968,7 +968,7 @@
                     "placeholder": "Erweiterung"
                 },
                 "mobile": {
-                    "name": "Telefonnummer mobil",
+                    "name": "Mobiltelefonnummer",
                     "placeholder": "Nummer"
                 },
                 "address": {
@@ -983,7 +983,7 @@
                 "postcode": {
                     "name": "Postleitzahl",
                     "placeholder": "Postleitzahl",
-                    "tooLong": "Die Postleitzahl ist zu lang."
+                    "tooLong": "Postleitzahl ist zu lang."
                 },
                 "country": {
                     "name": "Land",
@@ -1001,13 +1001,13 @@
             "organization": {
                 "title": "Organisation",
                 "name": {
-                    "name": "Name der Organisation",
-                    "placeholder": "Organisationsname"
+                    "name": "Organisationsname",
+                    "placeholder": "Orgname"
                 },
                 "type": {
                     "name": "Art der Organisation",
-                    "required": "Es muss eine Art der Organisation angegeben werden.",
-                    "placeholder": "Organisationsart"
+                    "required": "Es muss eine Art der Organisation angegeben werden",
+                    "placeholder": "Andere Art von Organisation"
                 }
             }
         },
@@ -1024,9 +1024,9 @@
             "license": "Erweiterungslizenz",
             "warning": {
                 "change": "Erweiterungsregistrierung erfordert Änderung",
-                "change.detail": "Ihre Erweiterungsregistrierung muss aktualisiert werden, bevor sie bearbeitet werden kann. Bitte entnehmen Sie der E-Mail, welche Änderungen für die Vervollständigung Ihrer Registrierung erforderlich sind.",
+                "change.detail": "Ihre Erweiterungsregistrierung muss aktualisiert werden, bevor sie bearbeitet werden kann. Bitte entnehmen Sie dem E-Mail, welche Änderungen für die Vervollständigung Ihrer Registrierung erforderlich sind.",
                 "rejected": "Erweiterungsregistrierung abgelehnt",
-                "rejected.detail": "Ihre Erweiterungsregistrierung muss aktualisiert werden, bevor sie bearbeitet werden kann. Bitte entnehmen Sie der E-Mail, welche Änderungen für die Vervollständigung Ihrer Registrierung erforderlich sind.",
+                "rejected.detail": "Ihre Erweiterungsregistrierung muss aktualisiert werden, bevor sie bearbeitet werden kann. Bitte entnehmen Sie dem E-Mail, welche Änderungen für die Vervollständigung Ihrer Registrierung erforderlich sind.",
                 "approved": "Erweiterungsregistrierung genehmigt",
                 "approved.detail": "Ihr Antrag wurde genehmigt."
             },
@@ -1037,152 +1037,152 @@
             }
         },
         "footer": {
-            "tos": "Nutzungsbedingungen",
-            "pp": "Datenschutzbestimmungen",
-            "register": "Registrieren Sie Ihr Produkt",
+            "tos": "Leistungsbedingungen",
+            "pp": "Datenschutz",
+            "register": "Registrieren SIe Ihr Projekt",
             "contact": "Kontaktieren Sie uns"
         },
         "landingPage": {
-            "appName": "Mitgliederlizenzierungs- und Vertriebs-Service",
-            "purpose": "SNOMED International stellt diesen Service für Organisationen und Personen zur Verfügung, um den Zugang zu beantragen, um ihre Berichtspflichten zu erfüllen und um bereitgestellte Releases von SNOMED CT zu beziehen.",
+            "appName": "Mitgliederlizenzierungs- und Vertriebs-Dienst",
+            "purpose": "Die SNOMED International stellt diesen Dienst für Organisationen und Privatpersonen zur Verfügung, damit Sie die Nutzung und den Zugang zur internationalen Version von SNOMED CT in Nicht-Mitgliedstaaten beantragen können.",
             "furtherDetails": "Weitere Einzelheiten finden Sie auf der <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-Website</a> oder in den <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ</a>.",
             "loginHere": "Login",
-            "member.purpose1": "MLDS ist ein Service vom National Release Center,",
-            "member.purpose2": " um die Sublizenznehmer-Lizenzierung für SNOMED CT zu verwalten. Hier beantragen und aktualisieren Sie Ihren Antrag und reichen die erforderlichen Nutzungserklärungen ein.",
-            "member.purpose3": " Hier haben Sie auch Zugang zu bereitgestellten Releases von SNOMED CT und Nationalen Erweiterungen. Über MLDS ist es auch möglich, Anträge für Lizenzen in Nicht-Mitgliedsstaaten an SNOMED International weiterzugeben."
+            "member.purpose1": "MLDS ist ein vom NRC in ",
+            "member.purpose2": " verwendetes Instrument, um die Partner-Lizenzierung von SNOMED CT, einschliesslich neuer Anträge, Erneuerungen und der Nutzungsberichte, in ",
+            "member.purpose3": " und soweit von Belang in Nicht-Mitgliedstaaten zu verwalten."
         },
         "releases": {
             "title": "Für registrierte Benutzer verfügbare Releases",
             "noAuth": "<a href=\"#/login\">Loggen Sie sich ein</a> für den Download oder klicken Sie auf <a href=\"#/register\">register</a>, um den Antragsprozess zu starten.",
-            "memberCountries": "Mitgliedsländer",
-            "countryIsMissing": "Wenn sich das gesuchte Land nicht auf dieser Liste befindet, entnehmen Sie bitte der <a href=\"http://www.snomed.org/\">SNOMED International-Website</a> die Informationen f�r das Herunterladen des Releases.",
-            "notAvailable": "Aktuell sind keine Release-Pakete verfügbar",
+            "memberCountries": "Mitgliedstaaten",
+            "countryIsMissing": "Wenn sich das gesuchte Land nicht auf dieser Liste befindet, entnehmen Sie bitte der <a href=\"http://www.snomed.org/\">SNOMED International-Website</a> die Informationen für das Herunterladen des Release.",
+            "notAvailable": "Gegenwärtig sind keine Release-Pakete verfügbar",
             "releasePackageLicense": "Lizenz für ein Release-Paket",
             "reviewLicense": "Bitte überprüfen Sie die folgende Lizenz und stimmen Sie ihr zu, bevor Sie das Release-Paket herunterladen:",
             "agreeToLicense": "Ich stimme der Lizenz zu",
             "warning": {
                 "deactivated": "Konto deaktiviert",
                 "pending": "Rechnung offen",
-                "pAttention": "Der Primärantrag benötigt Ihre Aufmerksamkeit",
-                "pProcessed": "Der Primärantrag wird bearbeitet",
+                "pAttention": "Primärantrag benötigt Ihre Aufmerksamkeit",
+                "pProcessed": "Primärantrag wird bearbeitet",
                 "apply": "Erweiterung beantragen",
-                "aProcessed": "Der Antrag wird bearbeitet",
-                "aAttention": "Der Antrag benötigt Ihre Aufmerksamkeit. Klicken Sie, um den Antrag fortzusetzen."
+                "aProcessed": "Antrag wird bearbeitet",
+                "aAttention": "Antrag benötigt Aufmerksamkeit, klicken Sie, um den Antrag fortzusetzen"
             }
         },
         "requestPasswordReset": {
             "title": "Passwort zurücksetzen",
-            "detail": "Wir werden Ihnen eine E-Mail mit einem Link zu einem Passwort-Zurücksetzen-Formular senden.",
+            "detail": "Wir werden Ihnen ein E-Mail mit einem Link zu einem Passwort-Zurücksetzen-Formular senden.",
             "button": "zurücksetzen",
             "back": "Zurück zur Login-Seite",
-            "emailNotFound": "E-Mail nicht gefunden.",
-            "resetEmailSent": "Das Zurücksetzen des Passwortes ist erfolgt, bitte schauen Sie in Ihrem E-Mail-Postfach nach."
+            "emailNotFound": "Email n'existe pas dans le système",
+            "resetEmailSent": "Password reset process started, please check your email"
         },
         "usage": {
             "title": "Nutzungs-Log",
             "instructions": "Bitte vervollständigen Sie Ihre Nutzungserklärung für den ausgewählten Zeitraum.",
             "modal": {
                 "title": "Nutzungserklärung erstellen",
-                "instructions": "Bitte vervollständigen Sie Ihre Nutzungserklärungen für alle Zeiträume. Bitte ergänzen Sie die Nutzungserklärungen für die frühere und die aktuelle Nutzung.",
+                "instructions": "Bitte vervollständigen Sie Ihre Nutzungserklärung für alle Zeiträume. Bitte fügen Sie Berichte für die frühere und die heutige Nutzung bei.",
                 "period": "Zeitraum für die Nutzungserklärung"
             },
             "submit": {
                 "title": "Nutzungserklärung einreichen",
                 "instructions": "Bitte überprüfen Sie, ob Ihre unten angezeigte Nutzungserklärung korrekt ist, bevor Sie diese einreichen.",
-                "declarationForPeriod": "Nutzungserklärung für den Zeitraum",
-                "button": "Nutzungserklärung einreichen"
+                "declarationForPeriod": "Erklärung für Zeitraum",
+                "button": "Erklärung einreichen"
             },
             "retract": {
                 "title": "Nutzungserklärung zurückziehen",
-                "instructions": "Sind Sie sicher, dass Sie diese Nutzungserklärung zurückziehen möchten? Sie werden zu derselben Nutzungserklärung zurückgeleitet, um diese zu bearbeiten und erneut einzureichen. Für einen neuen Berichts-Zeitraum müssen Sie eine neue Nutzungserklärung einreichen.",
-                "button": "Nutzungserklärung zurückziehen"
+                "instructions": "Sind Sie sicher, dass Sie diesen Bericht zurückziehen möchten? Sie werden zum selben Nutzungsbericht zurückgeleitet, um diesen zu bearbeiten und erneut einzureichen. Für einen neuen Zeitraum müssen Sie einen neuen Bericht einreichen.",
+                "button": "Erklärung zurückziehen"
             }
         },
         "usageLog": {
-            "title": "Eingereichte Nutzungserklärung",
-            "retract": "Nutzungserklärung zurückziehen",
+            "title": "Eingereichter Nutzungsbericht",
+            "retract": "Erklärung zurückziehen",
             "usage": "Nutzung",
             "subTitle": "Lizenznutzung",
             "usageFor": "Nutzung für",
-            "pleaseFill": "Bitte geben Sie alle aktuell bekannten Nutzungsinformationen an. Nachdem Ihr Antrag genehmigt ist, werden Sie aufgefordert, die Nutzung zu bestätigen.",
+            "pleaseFill": "Bitte geben Sie alle gegenwärtig bekannten Nutzungsinformationen an. Nachdem Ihr Antrag genehmigt ist, werden Sie aufgefordert, die Nutzung zu bestätigen.",
             "licenseType": "Lizenztyp",
-            "currentUsage": "Aktuelle Nutzung",
+            "currentUsage": "Heutige Nutzung",
             "plannedUsage": "Geplante Nutzung",
-            "purpose": "Zweck der Nutzung",
+            "purpose": "Zweck",
             "impStatus": "Implementierungsstatus",
             "countries": {
-                "title": "Länder, in denen SNOMED CT genutzt werden soll",
-                "subTitle": "Bitte tragen Sie die Nutzungsinformationen für Deutschland ein. Zusätzlich zum Heimatland können Sie hier auch eine Lizenz für ein Nicht-Mitgliedsland von SNOMED International beantragen, indem Sie hier ein anderes Land auswählen. Über das MLDS wird diese Information direkt an SNOMED International weitergegeben. Lizenzanfragen für Nicht-Mitgliedsländer werden vom BfArM nicht bearbeitet.",
+                "title": "Nutzende Länder",
+                "subTitle": "Wählen Sie die Nicht-Mitgliedstaaten aus, in denen SNOMED CT verwendet werden wird.",
                 "list": "Länderliste",
                 "search": "Länder suchen",
-                "homeCountry": "Heimatland",
+                "homeCountry": "Heimatstaat",
                 "button": "Land hinzufügen"
             },
             "institutions": {
                 "title": "Einrichtungen mit Unterlizenz",
-                "selectFirst": "Bevor Einrichtungen mit Unterlizenz erfasst werden können, muss ein Land ausgewählt werden.",
+                "selectFirst": "Bevor Einrichtungen mit Unterlizenz eingegeben werden können, muss ein Land ausgewählt werden.",
                 "noneSelected": "Es sind keine Länder ausgewählt worden.",
                 "country": "Land",
                 "deleteCountry": "Land entfernen",
-                "hospAndInst": "Unterlizenz für Organisationen (z.B. Krankenhaus, Krankenkasse, andere Einrichtung)",
-                "hospAndInst.title": "Unterlizenz für Organisationen (z.B. Krankenhaus, Krankenkasse, andere Einrichtung)",
-                "hospAndInst.plural": "Anwendungsplätze in Organisationen",
+                "hospAndInst": "Spital/Einrichtung",
+                "hospAndInst.title": "Spital/Spitäler/Einrichtung(en)",
+                "hospAndInst.plural": " Spital/Spitäler/Einrichtung(en)",
                 "started": "Nutzung aufgenommen",
                 "finished": "Nutzung eingestellt",
-                "practices.title": "Unterlizenz für Einzelnutzer (z.B. Praxis, Apotheke, Endanwender)",
-                "practices": "Unterlizenz für Einzelnutzer (z.B. Praxis, Apotheke, Endanwender)",
+                "practices.title": "Praxis/Praxen",
+                "practices": "Praxen",
                 "dataAnalysis": {
-                    "title": "Angaben zu Software-Anwendungen",
-                    "staff": "Anzahl der unterschiedlichen Software-Anwendungen",
-                    "dataCreation": "Anzahl der Softwarenutzer für Systeme zur Erfassung von Daten",
-                    "independent": "Anwendungsplätze bei Einzelnutzern",
-                    "dataAnalysis": "Anzahl der Softwarenutzer für Systeme zur Auswertung oder Aggregation von Daten",
-                    "systems": "Anwendungsplätze in Organisationen",
-                    "data": "Anwendungsplätze bei Einzelnutzern",
-                    "provideStaff": "Wie viele unterschiedliche Software-Anwendungen entwickeln/betreiben/vertreiben Sie, die SNOMED CT-Konzepte enthalten?",
-                    "usingDCSNotHosp": "Wie viele Anwendungsplätze in den o.g. Organisationen nutzen Software, die SNOMED CT-Konzepte zur Erfassung von Daten enthalten (ungefähre Angabe reicht)?",
-                    "usingDCSNotPract": "Wie viele Anwendungsplätze bei den o.g. Einzelnutzern nutzen Software, die SNOMED CT-Konzepte zur Erfassung von Daten enthalten (ungefähre Angabe reicht)?",
-                    "howManyDAS": "Wie viele Anwendungsplätze insgesamt nutzen Software, die SNOMED CT-Konzepte auswertet oder aggregiert (ungefähre Angabe reicht)?"
+                    "title": "Datenanalyse",
+                    "staff": "Spitäler, die Praxen Personal zur Verfügung stellen",
+                    "dataCreation": "Datenerstellungssysteme",
+                    "independent": "Unabhängige Praxen",
+                    "dataAnalysis": "Datenanalyse-Systeme",
+                    "systems": "Systeme",
+                    "data": "Daten",
+                    "provideStaff": "Wie viele Spitäler stellen den angegebenen Praxen Personal zur Verfügung?",
+                    "usingDCSNotHosp": "Wie viele Praxen verwenden Datenerstellungssysteme und sind NICHT Teil einer Spitalorganisation?",
+                    "usingDCSNotPract": "Wie viele Spitäler oder andere Einrichtungen verwenden Datenerstellungssysteme und können nicht als Praxen gemäss Definition der Lizenz bezeichnet werden?",
+                    "howManyDAS": "Wie viele Datenanalyse-Systeme haben Sie in dieser Region implementiert und wie viele Datenbanken sind pro Implementierung vorhanden?"
                 },
                 "modal": {
                     "subtitle": "Name des Spitals/der Einrichtung",
-                    "placeholder": "Name der Organisation",
-                    "dateBefore": "Datum vor Nutzung aufgenommen-Datum",
+                    "placeholder": "Name des Spitals/der Einrichtung eingeben",
+                    "dateBefore": "Datum vor ‘Nutzung aufgenommen’-Datum",
                     "sure": "Sind Sie sicher, dass Sie",
                     "andEntries": "und die damit verbundenen Einträge entfernen möchten?",
-                    "addPractices": "Bitte fügen Sie die Zahl der Einzelnutzer hinzu, die SNOMED CT verwenden."
+                    "addPractices": "Bitte fügen Sie die Zahl der Praxen hinzu, die SNOMED verwenden."
                 }
             },
             "otherActivities": "Andere Aktivitäten",
-            "notificationRequired": "Sublizenznehmer müssen SNOMED International Aktivitäten melden, welche nicht den bestehenden Kategorien zugeordnet werden können, bevor Sie diese ausführen.",
+            "notificationRequired": "Partner müssen der SNOMED International Aktivitäten melden, welche nicht den bestehenden Kategorien zugeordnet werden können, bevor Sie diese durchführen. Die SNOMED International wird die geeignete Gebührenstruktur für die betreffende Aktivität festlegen.",
             "pleaseDescribe": "Bitte beschreiben Sie die Aktivität unten.",
             "submitFor": "Einreichen der Erklärung für"
         },
         "usageReports": {
             "reportDate": "Berichtsdatum",
-            "hospitals": "Unterlizenz für Organisationen",
+            "hospitals": "Spitäler",
             "usageType": "Nutzungstyp",
             "countries": "Länder",
-            "newReport": "Neue Nutzungserklärung"
+            "newReport": "Neuer Bericht"
         },
         "userDashboard": {
-            "affiliateNo": "Nummer des Sublizenznehmers",
-            "edit": "Antrag für Sublizenznehmer bearbeiten",
+            "affiliateNo": "Partnernummer",
+            "edit": "Partnerantrag bearbeiten",
             "myPackages": "Meine Release-Pakete",
             "otherPackages": "Andere verfügbare Releases",
             "warning": {
                 "required.title": "Nutzungserklärung erforderlich",
-                "required.msg": "Ihr Entwurf der Nutzungserklärung ist gespeichert worden. Bitte beachten Sie, dass Sie Ihre endgültige Nutzungserklärung für das laufende Jahr bis zum 15. Januar des Folgejahres einreichen müssen. Um SNOMED CT herunterladen zu können, müssen alle bisherigen Nutzungserklärungen eingereicht worden sein.",
-                "change.title": "Ihr Registrierung als Sublizenznehmer erfordert eine Änderung",
-                "change.msg": "Ihre Registrierung als Sublizenznehmer muss aktualisiert werden, bevor sie bearbeitet werden kann. Bitte entnehmen Sie der E-Mail, welche Änderungen für die Vervollständigung Ihrer Registrierung erforderlich sind.",
-                "declined.title": "Registrierung als Sublizenznehmer abgelehnt",
-                "declined.msg": "Ihre Registrierung als Sublizenznehmer wurde abgelehnt. Bitte entnehmen Sie der E-Mail die Details zu dieser Entscheidung.",
+                "required.msg": "Ihr Entwurf der Nutzungserklärung ist gespeichert worden. Bitte beachten Sie, dass Sie Ihre definitive Nutzungserklärung für das laufende Jahr bis zum 15. Januar einreichen müssen. Um SNOMED CT herunterzuladen, müssen alle bisherigen Nutzungsberichte eingereicht worden sein.",
+                "change.title": "Partnerregistrierung erfordert Änderung",
+                "change.msg": "Ihre Partnerregistrierung muss aktualisiert werden, bevor sie bearbeitet werden kann. Bitte entnehmen Sie dem E-Mail, welche Änderungen für die Vervollständigung Ihrer Registrierung erforderlich sind.",
+                "declined.title": "Partnerregistrierung abgelehnt",
+                "declined.msg": "Ihre Partnerregistrierung wurde abgelehnt. Bitte entnehmen Sie dem E-Mail die Details zu diesem Entscheid.",
                 "deactivated.title": "Konto deaktiviert",
-                "deactivated.msg": "Ihr Konto wurde deaktiviert. Das Herunterladen von Release-Paketen und Anträgen für Erweiterungen wurden gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu l�sen.",
-                "iPending.title": "Nicht zutreffend",
-                "iPending.msg": "Nicht zutreffend. Das Herunterladen von Release-Paketen wurde gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu l�sen.",
-                "dPending.title": "Kontodeaktivierung in Bearbeitung",
-                "dPending.msg": "Es ist vorgesehen, dass Ihr Konto deaktiviert wird. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu l�sen."
+                "deactivated.msg": "Ihr Konto wurde deaktiviert. Das Herunterladen von Release-Paketen und Anträge für Erweiterungen wurden gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu lösen.",
+                "iPending.title": "Konto mit offener Rechnung",
+                "iPending.msg": "Ihr Konto weist eine offene Rechnung auf. Das Herunterladen von Release-Paketen wurde gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu lösen.",
+                "dPending.title": "Kontodeaktivierung hängig",
+                "dPending.msg": "Es ist vorgesehen, dass Ihr Konto deaktiviert wird. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu lösen."
             }
         },
         "postAnnouncement": {
