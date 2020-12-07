@@ -441,7 +441,7 @@
         "welcome": "Willkommen bei SNOMED International-MLDS",
         "subwelcome": "Das Service-Portal für den Zugriff auf SNOMED CT",
         "form": {
-            "tos": "Ich stimme den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Nutzungsbedingungen</a> und den <a href=\https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Privacy+Policies\ target=\"_blank\">Datenschutzbestimmungen</a> für MLDS zu.",
+            "tos": "Ich stimme den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Nutzungsbedingungen</a> und den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Privacy+Policies\" target=\"_blank\">Datenschutzbestimmungen</a> für MLDS zu.",
             "button": "Starten Sie die Registrierung",
             "confirmemail": "E-Mail (bestätigen)"
         },
@@ -947,7 +947,7 @@
                     "placeholder": "Mustermann"
                 },
                 "email": {
-                    "name": "E-Mail-Adresse [Bitte beachten Sie die <a href=\https://www.bfarm.de/DE/Forschung/SNOMED-CT-NRC/_node.html target=\"_blank\">Hinweise zur Beantragung</a>.]",
+                    "name": "E-Mail-Adresse [Bitte beachten Sie die <a href=\"https://www.bfarm.de/DE/Forschung/SNOMED-CT-NRC/_node.html\" target=\"_blank\">Hinweise zur Beantragung</a>.]",
                     "placeholder": "max.mustermann@organisationABC.de",
                     "unique": "E-Mail-Adressen müssen einmalig sein.",
                     "invalid": "Ungültige E-Mail-Adresse."
