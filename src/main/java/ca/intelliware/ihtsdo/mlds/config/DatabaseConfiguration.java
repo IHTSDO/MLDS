@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -104,6 +105,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
 	 * Declare the JPA entity manager factory.
 	 */
 	@Bean
+	@DependsOn("liquibase")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		if (entityManagerFactory != null) {
 			log.debug("Skipping entityManagerFactory configuration - already configured.");
