@@ -55,6 +55,7 @@ public class UserNotifierTest {
 	private User withUser(long id) {
 		User user = new User();
 		user.setUserId(id);
+		user.setAcceptNotifications(true);
 		return user;
 	}
 }

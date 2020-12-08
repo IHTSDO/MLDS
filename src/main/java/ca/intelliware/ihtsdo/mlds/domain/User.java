@@ -73,6 +73,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "activation_key")
     private String activationKey;
 
+    @Column(name = "accept_notifications")
+    private Boolean acceptNotifications = true;
+
 	@JsonIgnore
 	@Column(name="inactive_at")
 	private
@@ -223,5 +226,13 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
 	public void setInactiveAt(Instant inactiveAt) {
 		this.inactiveAt = inactiveAt;
+	}
+
+	public Boolean getAcceptNotifications() {
+		return acceptNotifications;
+	}
+
+	public void setAcceptNotifications(Boolean acceptNotifications) {
+		this.acceptNotifications = acceptNotifications;
 	}
 }
