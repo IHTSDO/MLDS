@@ -1557,5 +1557,14 @@ $f$ language plpgsql;
     	<comment>Add additional IHTSDO and SE Member authority roles</comment>
 		<sql>INSERT INTO t_authority (name) values ('ROLE_MEMBER'), ('ROLE_MEMBER_SE'), ('ROLE_MEMBER_IHTSDO')</sql>
     </changeSet>
+	
+	<changeSet id="MLDS-962" author="PWI">
+		<comment>Add opt-out options for receiving release and manual notifications</comment>
+		<addColumn tableName="t_user">
+			<column name="accept_notifications" type="boolean" defaultValue="true">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+	</changeSet>
 
 </databaseChangeLog>
