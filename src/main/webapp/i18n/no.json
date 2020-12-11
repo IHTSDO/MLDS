@@ -499,7 +499,7 @@
             "username": "E-post eller brukernavn",
             "password": "Passord",
             "password.placeholder": "Ditt passord",
-            "husk meg": "Husk meg",
+            "rememberme": "Husk meg",
             "button": "Logg inn",
             "forgot": "Har du glemt ditt passord?"
         },
@@ -516,9 +516,9 @@
         "form": {
             "countryOfResidence": "Bostedsland",
             "countryOfResidence.placeholder": "Ditt bostedsland",
-            "fornavn": "Fornavn",
+            "firstname": "Fornavn",
             "firstname.placeholder": "Ditt fornavn",
-            "etternavn": "Etternavn",
+            "lastname": "Etternavn",
             "lastname.placeholder": "Ditt etternavn",
             "button": "Lagre"
         },
@@ -911,6 +911,7 @@
         },
         "contactInfo": {
             "title": "Kontoinformasjon",
+            "acceptNotifications": "Ja gi meg beskjed når en SNOMED-pakke er oppdatert.",
             "messages": {
                 "notApproved": {
                     "title": "Registreringen er ennå ikke godkjent",
@@ -1130,7 +1131,7 @@
                 "started": "Tatt i bruk",
                 "finished": "Avsluttet bruk",
                 "practices.title": "Klinikk(-er)",
-                "praksis": "Klinikker",
+                "practices": "Klinikker",
                 "dataAnalysis": {
                     "title": "Dataanalyse",
                     "staff": "Helseforetak som forsyner klinikker med personell",

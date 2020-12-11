@@ -218,6 +218,13 @@ public class AffiliateResource {
 		if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+		
+		//Populate the acceptNotifications field from the user object
+		String login = affiliate.getAffiliateDetails().getEmail();
+		User user = userRepository.findByLoginIgnoreCase(login);
+    	if (user != null) {
+    		affiliate.getAffiliateDetails().setAcceptNotifications(user.getAcceptNotifications());
+    	}
 		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
     }
 
@@ -291,7 +298,15 @@ public class AffiliateResource {
 	@Timed
     public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliatesMe() {
     	String username = sessionService.getUsernameOrNull();
-    	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreatorIgnoreCase(username), HttpStatus.OK);
+    	List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(username);
+    	//Notifications flag is held against the user object, which is primary source for email address
+    	for (Affiliate affiliate : affiliates) {
+    		User user = userRepository.findByLoginIgnoreCase(affiliate.getCreator());
+    		if (affiliate.getAffiliateDetails() != null) {
+    			affiliate.getAffiliateDetails().setAcceptNotifications(user.getAcceptNotifications());
+    		}
+    	}
+    	return new ResponseEntity<Collection<Affiliate>>(affiliates, HttpStatus.OK);
     }
 
 	@RolesAllowed({AuthoritiesConstants.USER})
@@ -403,7 +418,7 @@ public class AffiliateResource {
     	
     	User user = userRepository.findByLoginIgnoreCase(originalEmail);
     	if (user != null) {
-    		copyAffiliateDetailsNameFieldsToUser(user, body);
+    		copyAffiliateDetailsFieldsToUser(user, body);
     	}
     	
     	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate,body);
@@ -427,6 +442,7 @@ public class AffiliateResource {
     	affiliateDetails.setThirdEmail(body.getThirdEmail());
     	
     	affiliateDetails.setEmail(body.getEmail());
+    	affiliateDetails.setAcceptNotifications(body.isAcceptNotifications());
     	
 		if (currentSecurityContext.isStaffOrAdmin()) {
 	    	affiliateDetails.setType(body.getType());
@@ -447,10 +463,11 @@ public class AffiliateResource {
 		address.setStreet(body.getStreet());
 	}
 
-	private void copyAffiliateDetailsNameFieldsToUser(User user, AffiliateDetails body) {
-    	user.setFirstName(body.getFirstName());
-    	user.setLastName(body.getLastName());
+	private void copyAffiliateDetailsFieldsToUser(User user, AffiliateDetails body) {
+		user.setFirstName(body.getFirstName());
+		user.setLastName(body.getLastName());
 		user.setEmail(body.getEmail());
 		user.setLogin(body.getEmail());
+		user.setAcceptNotifications(body.isAcceptNotifications());
 	}
 }
