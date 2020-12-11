@@ -9,6 +9,7 @@
 </div>
 
 <form id="form" name="form" role="form" novalidate  bs-validation>
+
 	<div class="row" ng-hide="approved">
 		<div class="col-sm-12 col-md-12 col-lg-12"> 
 			<div class="alert alert-warning">
@@ -113,6 +114,13 @@
 					</div>
 				</div>
 			</div>
+			
+
+			<div class="form-group">
+				<input name="use" type="checkbox" ng-disabled="readOnly" ng-model="affiliateDetails.acceptNotifications">
+				<label translate="views.contactInfo.acceptNotifications">Yes notify me when a SNOMED package is updated.</label> 
+			</div>
+
 			
 			<div class="panel panel-default">
 				<div class="panel-heading">
