@@ -911,6 +911,7 @@
         },
         "contactInfo": {
             "title": "Información de Cuenta",
+            "acceptNotifications": "Sí, avíseme cuando se actualice un paquete de SNOMED.",
             "messages": {
                 "notApproved": {
                     "title": "Su Registro aún no ha sido aprobado",

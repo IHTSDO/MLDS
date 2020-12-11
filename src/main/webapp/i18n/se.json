@@ -906,6 +906,7 @@
         },
         "contactInfo": {
             "title": "Kontoinformation",
+            "acceptNotifications": "Ja meddela mig när ett SNOMED-paket uppdateras.",
             "messages": {
                 "notApproved": {
                     "title": "Registreringen har ännu inte godkänts",

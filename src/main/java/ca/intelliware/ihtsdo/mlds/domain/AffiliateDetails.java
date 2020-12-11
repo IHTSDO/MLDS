@@ -128,6 +128,16 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Embedded
 	@IndexedEmbedded
 	MailingAddress billingAddress;
+	
+	transient boolean acceptNotifications = true;
+	
+	public boolean isAcceptNotifications() {
+		return acceptNotifications;
+	}
+
+	public void setAcceptNotifications(boolean acceptNotifications) {
+		this.acceptNotifications = acceptNotifications;
+	}
 
 	public Long getAffiliateDetailsId() {
 		return affiliateDetailsId;

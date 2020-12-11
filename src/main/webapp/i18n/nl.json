@@ -911,6 +911,7 @@
         },
         "contactInfo": {
             "title": "Accountinformatie",
+            "acceptNotifications": "Ja, breng me op de hoogte wanneer een SNOMED-pakket is bijgewerkt.",
             "messages": {
                 "notApproved": {
                     "title": "Registratie nog niet goedgekeurd",
