@@ -953,7 +953,7 @@
                     "unique": "Email Addresses need to be unique.",
                     "invalid": "Invalid Email Address."
                 },
-                "alternativeEmail": {
+                "alternateEmail": {
                     "name": "Alternate Email",
                     "placeholder": "alternative@email.com"
                 },
@@ -1183,7 +1183,7 @@
                 "iPending.title": "Account Pending Invoice",
                 "iPending.msg": "Your account has a pending invoice. Release package downloads have been suspended. Please contact <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> to resolve the issue.",
                 "dPending.title": "Account Deactivation Pending",
-                "dPending.msg": "Your account is scheduled to be Deactivated.  Please contact <a href=\"mailto:mlds@ihtsdo.org\">mlds@ihtsdo.org</a> to resolve the issue."
+                "dPending.msg": "Your account is scheduled to be Deactivated.  Please contact <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> to resolve the issue."
             }
         },
         "postAnnouncement": {

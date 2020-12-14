@@ -360,8 +360,8 @@
             "newpassword": "Neues Passwort",
             "newpassword.placeholder": "Neues Passwort",
             "confirmpassword": "Passwort bestätigen",
-            "confirmpassword.placeholder": "Bestätigen Sie das neue Passwort",
-            "email": "E-Mail",
+            "confirmpassword.placeholder": "Passwort bestätigen",
+            "email": "E-Mail [Bitte beachten Sie die <a href=\https://www.bfarm.de/DE/Forschung/SNOMED-CT-NRC/_node.html target=\"_blank\">Hinweise zur Beantragung</a>]",
             "email.placeholder": "Ihre E-Mail-Adresse",
             "country": "Land"
         },
@@ -438,10 +438,10 @@
     },
     "register": {
         "title": "Registrieren",
-        "welcome": "Willkommen bei SNOMED International-MLDS",
+        "welcome": "Willkommen bei SNOMED International MLDS",
         "subwelcome": "Das Service-Portal für den Zugriff auf SNOMED CT",
         "form": {
-            "tos": "Ich stimme den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Nutzungsbedingungen</a> und den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Privacy+Policies\" target=\"_blank\">Datenschutzbestimmungen</a> für MLDS zu.",
+            "tos": "Ich stimme den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Nutzungsbedingungen</a> und den <a href=\https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Privacy+Policies\ target=\"_blank\">Datenschutzbestimmungen</a> für MLDS zu.",
             "button": "Starten Sie die Registrierung",
             "confirmemail": "E-Mail (bestätigen)"
         },
@@ -453,7 +453,7 @@
                     "maxlength": "Ihr Login darf nicht mehr als 50 Zeichen aufweisen."
                 },
                 "country": {
-                    "notMLDS": "Anträge für die Nutzung von SNOMED CT in Ihrem Land müssen beim zuständigen National Release Center Ihres Landes - <a href=\"{{link}}\" target=\"_blank\">hier</a> gestellt werden. Wenn Sie einen Antrag für eine Gemeinnützigkeits-Vereinbarung zur Nutzung von SNOMED CT in einem anderen Land stellen möchten oder weitere Fragen haben, wenden Sie sich bitte an SNOMED International über <a href=\"mailto:info@snomed.org\">info@snomed.org</a>."
+                    "notMLDS": "Anträge für die Nutzung von SNOMED CT in Ihrem Land müssen beim zuständigen National Release Center Ihres Landes - <a href=\"{{link}}\" target=\"_blank\">hier</a> gestellt werden. Wenn Sie einen Antrag für eine Gemeinnützigkeits-Sublizenz zur Nutzung von SNOMED CT in einem anderen Land stellen möchten oder weitere Fragen haben, wenden Sie sich bitte an SNOMED International über <a href=\"mailto:info@snomed.org\">info@snomed.org</a>."
                 },
                 "registration": {
                     "usagetyperequired": "Nutzungstyp xx",
@@ -469,13 +469,13 @@
         },
         "emailVerification": {
             "intro": "Wir haben Ihnen eine E-Mail gesendet.",
-            "detail": "Bitte öffnen Sie die E-Mail, die wir Ihnen soeben geschickt haben, um Ihr Konto zu überprüfen und Zugang zum MLDS zu erhalten."
+            "detail": "Bitte öffnen Sie die E-Mail, die wir Ihnen soeben gesendet haben, um Ihr Konto zu überprüfen und Zugang zum MLDS zu erhalten."
         },
         "affiliateRegistration": {
             "title": "Registrierung als Sublizenznehmer",
             "usageType": "Nutzungstyp",
             "conditions": "Bitte wählen Sie die Bedingungen, unter denen Ihr Produkt verwendet werden wird.",
-            "typeOfAgreement": "Art der Vereinbarung",
+            "typeOfAgreement": "Sublizensierungs-Typ",
             "validation": {
                 "other.required": "Anderes Feld ist erforderlich."
             },
@@ -483,10 +483,10 @@
                 "title": "Ihre Registrierung als Sublizenznehmer muss aktualisiert werden",
                 "text": "Ihre Registrierung als Sublizenznehmer muss aktualisiert werden, bevor sie verarbeitet werden kann. Bitte beachten Sie die an Sie versandte E-Mail. Diese enthält Hinweise zu den erforderlichen Änderungen."
             },
-            "license.title": "SNOMED CT-Vereinbarung",
-            "license": "SNOMED-Lizenz",
-            "license.confirm": "Ich stimme den Allgemeinen Geschäftsbedingungen zu.",
-            "license.error": "Sie müssen den Allgemeinen Geschäftsbedingungen für eine Nutzung der SNOMED CT-Lizenz zustimmen, um eine Registrierung vorzunehmen."
+            "license.title": "SNOMED CT-Sublizenz",
+            "license": "SNOMED-Sublizenz",
+            "license.confirm": "Ich stimme den Sublizensierungsbedingungen zu.",
+            "license.error": "Sie müssen den Sublizensierungsbedingungen für eine Nutzung der SNOMED CT-Lizenz zustimmen, um eine Registrierung vorzunehmen."
         },
         "affiliateRegistrationReview": {
             "title": "Antrag überprüfen",
@@ -515,7 +515,7 @@
         "title": "Kontaktinformation für [<b>{{username}}</b>]",
         "form": {
             "countryOfResidence": "Land",
-            "countryOfResidence.placeholder": "Deutschland",
+            "countryOfResidence.placeholder": "Ihr Land",
             "firstname": "Vorname",
             "firstname.placeholder": "Ihr Vorname",
             "lastname": "Name",
@@ -780,8 +780,8 @@
             "DEACTIVATION_PENDING": "Deaktivierung in Bearbeitung",
             "DEACTIVATED": "Deaktiviert",
             "DEREGISTERED": "Abgemeldet",
-            "PENDING_INVOICE": "nicht zutreffend",
-            "INVOICE_SENT": "nicht zutreffend"
+            "PENDING_INVOICE": "Rechnung offen",
+            "INVOICE_SENT": "Rechnung versandt"
         },
         "standingStateWithExplanation": {
             "APPLYING": " Antrag in Bearbeitung",
@@ -790,8 +790,8 @@
             "DEACTIVATION_PENDING": "Deaktivierung in Bearbeitung - Nur Zugang zum Konto, Download nicht möglich",
             "DEACTIVATED": "Deaktiviert - Nur Zugang zum Konto, Download nicht möglich ",
             "DEREGISTERED": "Abgemeldet - Kein Zugang zum MLDS-Konto",
-            "PENDING_INVOICE": "nicht zutreffend",
-            "INVOICE_SENT": "nicht zutreffend"
+            "PENDING_INVOICE": "Rechnung offen - Nur Zugang zum Konto, Zahlung fällig",
+            "INVOICE_SENT": "Rechnung versandt - Nur Zugang zum Konto, Zahlung fällig"
         }
     },
     "approval": {
@@ -812,9 +812,9 @@
             "SUBMITTED": "Eingereicht",
             "RESUBMITTED": "Erneut eingereicht",
             "REVIEW_REQUESTED": "Überprüfung angefordert",
-            "PENDING_INVOICE": "nicht zutreffend: Rechnung offen",
-            "INVOICE_SENT": "nicht zutreffend",
-            "PAID": "nicht zutreffend",
+            "PENDING_INVOICE": "Rechnung offen",
+            "INVOICE_SENT": "Rechnung versandt",
+            "PAID": "Bezahlt",
             "REJECTED": "Abgelehnt"
         }
     },
@@ -834,7 +834,7 @@
         "table": {
             "affiliateName": "Name des Sublizenznehmers",
             "applicationType": "Antragsart",
-            "agreementType": "Art der Vereinbarung",
+            "agreementType": "Sublizensierungs-Typ",
             "useType": "Nutzungstyp",
             "dateSubmitted": "Datum der Einreichung",
             "homeCountry": "Heimatland",
@@ -904,7 +904,7 @@
             "affiliateInformation": "Information zum Sublizenznehmer",
             "useType": "Nutzungstyp",
             "useSubType": "Nutzungs-Subtyp",
-            "billingInfo": "Informationen zur Rechnungstellung, nicht zutreffend",
+            "billingInfo": "Informationen zur Rechnungstellung",
             "context": "Informationen zum Nutzungskontext",
             "subLicence": "Nutzung in Unterlizenz",
             "applicationActivity": "Antrags-Aktivität"
@@ -933,7 +933,7 @@
                     "name": "Typ",
                     "required": "Nutzungstyp-Feld wird benötigt."
                 },
-                "agreementType": "Art der Vereinbarung",
+                "agreementType": "Sublizensierungs-Typ",
                 "accountStanding": "Kontostatus"
             },
             "contact": {
@@ -948,12 +948,12 @@
                     "placeholder": "Mustermann"
                 },
                 "email": {
-                    "name": "E-Mail-Adresse [Bitte beachten Sie die <a href=\"https://www.bfarm.de/DE/Forschung/SNOMED-CT-NRC/_node.html\" target=\"_blank\">Hinweise zur Beantragung</a>.]",
+                    "name": "E-Mail-Adresse",
                     "placeholder": "max.mustermann@organisationABC.de",
                     "unique": "E-Mail-Adressen müssen einmalig sein.",
                     "invalid": "Ungültige E-Mail-Adresse."
                 },
-                "alternativeEmail": {
+                "alternateEmail": {
                     "name": "Alternative E-Mail-Adresse",
                     "placeholder": "alternative@email.de"
                 },
@@ -1021,7 +1021,7 @@
                 "purpose": "Nutzungszweck",
                 "error": "Grund muss länger sein."
             },
-            "agreement": "Erweiterungsvereinbarung",
+            "agreement": "Erweiterungslizenz",
             "license": "Erweiterungslizenz",
             "warning": {
                 "change": "Erweiterungsregistrierung erfordert Änderung",
@@ -1044,19 +1044,19 @@
             "contact": "Kontaktieren Sie uns"
         },
         "landingPage": {
-            "appName": "Mitgliederlizenzierungs- und Vertriebs-Service",
+            "appName": "Mitglieder-Lizenzierungs- und Distributions-Service",
             "purpose": "SNOMED International stellt diesen Service für Organisationen und Personen zur Verfügung, um den Zugang zu beantragen, um ihre Berichtspflichten zu erfüllen und um bereitgestellte Releases von SNOMED CT zu beziehen.",
             "furtherDetails": "Weitere Einzelheiten finden Sie auf der <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-Website</a> oder in den <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ</a>.",
             "loginHere": "Login",
-            "member.purpose1": "MLDS ist ein Service vom National Release Center,",
-            "member.purpose2": " um die Sublizenznehmer-Lizenzierung für SNOMED CT zu verwalten. Hier beantragen und aktualisieren Sie Ihren Antrag und reichen die erforderlichen Nutzungserklärungen ein.",
-            "member.purpose3": " Hier haben Sie auch Zugang zu bereitgestellten Releases von SNOMED CT und Nationalen Erweiterungen. Über MLDS ist es auch möglich, Anträge für Lizenzen in Nicht-Mitgliedsstaaten an SNOMED International weiterzugeben."
+            "member.purpose1": "MLDS ist ein Service des National Release Centers in ",
+            "member.purpose2": " um die Sublizenznehmer-Lizenzierung für SNOMED CT zu verwalten. Hier beantragen und aktualisieren Sie Ihren Antrag und übermitteln die erforderlichen Nutzungserklärungen, hier haben Sie auch Zugang zu bereitgestellten Releases von SNOMED CT und Nationalen Erweiterungen für ",
+            "member.purpose3": " Über MLDS ist es auch möglich, Anträge für Lizenzen in Nicht-Mitgliedsstaaten an SNOMED International weiterzugeben."
         },
         "releases": {
             "title": "Für registrierte Benutzer verfügbare Releases",
             "noAuth": "<a href=\"#/login\">Loggen Sie sich ein</a> für den Download oder klicken Sie auf <a href=\"#/register\">register</a>, um den Antragsprozess zu starten.",
             "memberCountries": "Mitgliedsländer",
-            "countryIsMissing": "Wenn sich das gesuchte Land nicht auf dieser Liste befindet, entnehmen Sie bitte der <a href=\"http://www.snomed.org/\">SNOMED International-Website</a> die Informationen f�r das Herunterladen des Releases.",
+            "countryIsMissing": "Wenn sich das gesuchte Land nicht auf dieser Liste befindet, entnehmen Sie bitte der <a href=\"http://www.snomed.org/\">SNOMED International-Website</a> die Informationen für das Herunterladen des Releases.",
             "notAvailable": "Aktuell sind keine Release-Pakete verfügbar",
             "releasePackageLicense": "Lizenz für ein Release-Paket",
             "reviewLicense": "Bitte überprüfen Sie die folgende Lizenz und stimmen Sie ihr zu, bevor Sie das Release-Paket herunterladen:",
@@ -1084,7 +1084,7 @@
             "instructions": "Bitte vervollständigen Sie Ihre Nutzungserklärung für den ausgewählten Zeitraum.",
             "modal": {
                 "title": "Nutzungserklärung erstellen",
-                "instructions": "Bitte vervollständigen Sie Ihre Nutzungserklärungen für alle Zeiträume. Bitte ergänzen Sie die Nutzungserklärungen für die frühere und die aktuelle Nutzung.",
+                "instructions": "Bitte vervollständigen Sie Ihre Nutzungserklärungen für alle Zeiträume. Bitte ergänzen Sie die Nutzungserklärungen für die vergangene und die aktuelle Nutzung.",
                 "period": "Zeitraum für die Nutzungserklärung"
             },
             "submit": {
@@ -1125,31 +1125,31 @@
                 "noneSelected": "Es sind keine Länder ausgewählt worden.",
                 "country": "Land",
                 "deleteCountry": "Land entfernen",
-                "hospAndInst": "Unterlizenz für Organisationen (z.B. Krankenhaus, Krankenkasse, andere Einrichtung)",
-                "hospAndInst.title": "Unterlizenz für Organisationen (z.B. Krankenhaus, Krankenkasse, andere Einrichtung)",
-                "hospAndInst.plural": "Anwendungsplätze in Organisationen",
+                "hospAndInst": "Unterlizenzen für Organisationen",
+                "hospAndInst.title": "Unterlizenzen für Organisationen (z.B. Krankenhaus, Krankenkasse, andere Einrichtung)",
+                "hospAndInst.plural": "Unterlizenzen für Organisationen",
                 "started": "Nutzung aufgenommen",
                 "finished": "Nutzung eingestellt",
                 "practices.title": "Unterlizenz für Einzelnutzer (z.B. Praxis, Apotheke, Endanwender)",
-                "practices": "Unterlizenz für Einzelnutzer (z.B. Praxis, Apotheke, Endanwender)",
+                "practices": "Unterlizenzen für Einzelnutzer",
                 "dataAnalysis": {
                     "title": "Angaben zu Software-Anwendungen",
                     "staff": "Anzahl der unterschiedlichen Software-Anwendungen",
                     "dataCreation": "Anzahl der Softwarenutzer für Systeme zur Erfassung von Daten",
                     "independent": "Anwendungsplätze bei Einzelnutzern",
                     "dataAnalysis": "Anzahl der Softwarenutzer für Systeme zur Auswertung oder Aggregation von Daten",
-                    "systems": "Anwendungsplätze in Organisationen",
-                    "data": "Anwendungsplätze bei Einzelnutzern",
+                    "systems": "in Organisationen",
+                    "data": "bei Einzelnutzern",
                     "provideStaff": "Wie viele unterschiedliche Software-Anwendungen entwickeln/betreiben/vertreiben Sie, die SNOMED CT-Konzepte enthalten?",
                     "usingDCSNotHosp": "Wie viele Anwendungsplätze in den o.g. Organisationen nutzen Software, die SNOMED CT-Konzepte zur Erfassung von Daten enthalten (ungefähre Angabe reicht)?",
                     "usingDCSNotPract": "Wie viele Anwendungsplätze bei den o.g. Einzelnutzern nutzen Software, die SNOMED CT-Konzepte zur Erfassung von Daten enthalten (ungefähre Angabe reicht)?",
                     "howManyDAS": "Wie viele Anwendungsplätze insgesamt nutzen Software, die SNOMED CT-Konzepte auswertet oder aggregiert (ungefähre Angabe reicht)?"
                 },
                 "modal": {
-                    "subtitle": "Name des Spitals/der Einrichtung",
-                    "placeholder": "Name der Organisation",
+                    "subtitle": "Name der Organisation",
+                    "placeholder": "Name der Organisation eingeben",
                     "dateBefore": "Datum vor Nutzung aufgenommen-Datum",
-                    "sure": "Sind Sie sicher, dass Sie",
+                    "sure": "Sind Sie sicher, dass Sie ",
                     "andEntries": "und die damit verbundenen Einträge entfernen möchten?",
                     "addPractices": "Bitte fügen Sie die Zahl der Einzelnutzer hinzu, die SNOMED CT verwenden."
                 }
@@ -1180,8 +1180,8 @@
                 "declined.msg": "Ihre Registrierung als Sublizenznehmer wurde abgelehnt. Bitte entnehmen Sie der E-Mail die Details zu dieser Entscheidung.",
                 "deactivated.title": "Konto deaktiviert",
                 "deactivated.msg": "Ihr Konto wurde deaktiviert. Das Herunterladen von Release-Paketen und Anträgen für Erweiterungen wurden gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu l�sen.",
-                "iPending.title": "Nicht zutreffend",
-                "iPending.msg": "Nicht zutreffend. Das Herunterladen von Release-Paketen wurde gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu l�sen.",
+                "iPending.title": "Konto mit offener Rechnung",
+                "iPending.msg": "Ihr Konto weist eine offene Rechnung auf. Das Herunterladen von Release-Paketen wurde gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu l�sen.",
                 "dPending.title": "Kontodeaktivierung in Bearbeitung",
                 "dPending.msg": "Es ist vorgesehen, dass Ihr Konto deaktiviert wird. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu l�sen."
             }
