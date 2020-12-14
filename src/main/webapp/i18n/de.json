@@ -361,7 +361,7 @@
             "newpassword.placeholder": "Neues Passwort",
             "confirmpassword": "Passwort bestätigen",
             "confirmpassword.placeholder": "Passwort bestätigen",
-            "email": "E-Mail [Bitte beachten Sie die <a href=\https://www.bfarm.de/DE/Forschung/SNOMED-CT-NRC/_node.html target=\"_blank\">Hinweise zur Beantragung</a>]",
+            "email": "E-Mail [Bitte beachten Sie die <a href=\"https://www.bfarm.de/DE/Forschung/SNOMED-CT-NRC/_node.html\" target=\"_blank\">Hinweise zur Beantragung</a>]",
             "email.placeholder": "Ihre E-Mail-Adresse",
             "country": "Land"
         },
@@ -441,7 +441,7 @@
         "welcome": "Willkommen bei SNOMED International MLDS",
         "subwelcome": "Das Service-Portal für den Zugriff auf SNOMED CT",
         "form": {
-            "tos": "Ich stimme den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Nutzungsbedingungen</a> und den <a href=\https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Privacy+Policies\ target=\"_blank\">Datenschutzbestimmungen</a> für MLDS zu.",
+            "tos": "Ich stimme den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Nutzungsbedingungen</a> und den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Privacy+Policies\" target=\"_blank\">Datenschutzbestimmungen</a> für MLDS zu.",
             "button": "Starten Sie die Registrierung",
             "confirmemail": "E-Mail (bestätigen)"
         },
@@ -463,7 +463,7 @@
             "success": "<strong>Registrierung gespeichert!</strong> Bitte überprüfen Sie, ob Sie eine Bestätigungs-E-Mail erhalten haben.",
             "error": {
                 "fail": "<strong>Registrierung fehlgeschlagen!</strong> Bitte versuchen Sie es später noch einmal.",
-                "userexists": "<strong>Ein anderer Benutzer hat sich bereits mit dieser E-Mail-Adresse registriert.</strong> Wollten Sie sich <a href='#/login'>einloggen</a>?",
+                "userexists": "<strong>Ein anderer Benutzer hat sich bereits mit dieser E-Mail-Adresse registriert.</strong> Wollten Sie sich <a href=\"#/login\">einloggen</a>?",
                 "blocklist": "Aufgrund der IT-Richtlinien von SNOMED International können wir die eingegebene E-Mail-Adresse nicht verarbeiten. Für Support kontaktieren Sie bitte <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a>."
             }
         },
@@ -550,8 +550,8 @@
         },
         "messages": {
             "error": "<strong>Es ist ein Fehler aufgetreten!</strong> Das Passwort konnte nicht geändert werden.",
-            "success": "<strong>Passwort geändert!</strong>  Weiter zu <a href='#/contactInfo'>Kontoinformation</a>",
-            "expired": "<strong>Der Link, um das Passwort zurückzusetzen, ist abgelaufen oder war ungültig.</strong> <a href='#/requestPasswordReset'></a> Fordern Sie einen neuen Link an."
+            "success": "<strong>Passwort geändert!</strong>  Weiter zu <a href=\"#/contactInfo\">Kontoinformation</a>",
+            "expired": "<strong>Der Link, um das Passwort zurückzusetzen, ist abgelaufen oder war ungültig.</strong> <a href=\"#/requestPasswordReset\"></a> Fordern Sie einen neuen Link an."
         }
     },
     "sessions": {
