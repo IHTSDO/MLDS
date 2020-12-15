@@ -143,6 +143,12 @@ public class AffiliateSearchRepository {
 		//Analyzer searchtokenAnalyzer = getSearchFactory().getAnalyzer("searchtokenanalyzer");
 
 		try {
+			Query affiliateIdQuery = queryBuilder.keyword()
+					.onField("affiliateId")
+					.matching(q)
+					.createQuery();
+			bool.should(affiliateIdQuery);
+			
 			// We're letting the default analyzer tokenize the main query for the ALL field
 			Query allKeywordQuery = queryBuilder.keyword()
 					.onField(FIELD_ALL).ignoreFieldBridge().matching(q)
