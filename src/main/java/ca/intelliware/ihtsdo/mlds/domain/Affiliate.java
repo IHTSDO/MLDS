@@ -3,28 +3,13 @@ package ca.intelliware.ihtsdo.mlds.domain;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import org.apache.commons.lang.Validate;
 import org.apache.lucene.analysis.core.KeywordAnalyzer;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.FieldBridge;
-import org.hibernate.search.annotations.Fields;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.*;
 import org.joda.time.Instant;
 
 import ca.intelliware.ihtsdo.mlds.search.StandingStateFieldBridge;
@@ -45,9 +30,8 @@ public class Affiliate extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name="affiliate_id")
-	//@Fields({ @Field(name="ALL"), @Field()})
 	Long affiliateId;
-
+	
 	Instant created = Instant.now();
 	
 	@JsonIgnore
