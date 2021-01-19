@@ -1140,8 +1140,8 @@
                     "systems": "in Organisationen",
                     "data": "bei Einzelnutzern",
                     "provideStaff": "Wie viele unterschiedliche Software-Anwendungen entwickeln/betreiben/vertreiben Sie, die SNOMED CT-Konzepte enthalten?",
-                    "usingDCSNotHosp": "Wie viele Anwendungsplätze in den o.g. Organisationen nutzen Software, die SNOMED CT-Konzepte zur Erfassung von Daten enthalten (ungefähre Angabe reicht)?",
-                    "usingDCSNotPract": "Wie viele Anwendungsplätze bei den o.g. Einzelnutzern nutzen Software, die SNOMED CT-Konzepte zur Erfassung von Daten enthalten (ungefähre Angabe reicht)?",
+                    "usingDCSNotPract": "Wie viele Anwendungsplätze in den o.g. Organisationen nutzen Software, die SNOMED CT-Konzepte zur Erfassung von Daten enthalten (ungefähre Angabe reicht)?",
+                    "usingDCSNotHosp": "Wie viele Anwendungsplätze bei den o.g. Einzelnutzern nutzen Software, die SNOMED CT-Konzepte zur Erfassung von Daten enthalten (ungefähre Angabe reicht)?",
                     "howManyDAS": "Wie viele Anwendungsplätze insgesamt nutzen Software, die SNOMED CT-Konzepte auswertet oder aggregiert (ungefähre Angabe reicht)?"
                 },
                 "modal": {
