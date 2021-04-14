@@ -17,7 +17,7 @@
                 "logout": "Logout",
                 "apidocs": "API",
                 "register": "Registrieren",
-                "affiliates": "Sublizenznehmer",
+                "affiliates": "Affiliate-Lizenznehmer",
                 "dashboard": "Übersicht"
             },
             "dashboard": "Übersicht",
@@ -35,7 +35,7 @@
                 "dashboard": "Übersicht",
                 "pendingApplications": "Anträge in Bearbeitung",
                 "usageReports": "Nutzungserklärungen",
-                "affiliteUserManagement": "Nutzer-Verwaltung für Sublizenznehmer",
+                "affiliteUserManagement": "Nutzer-Verwaltung für Affiliate-Lizenznehmer",
                 "activityLog": "Aktivitäts-Log",
                 "packageManagement": "Paket-Verwaltung",
                 "licenseTC": "Lizenz T und C",
@@ -43,7 +43,7 @@
                 "logout": "Logout"
             },
             "admin": {
-                "importAffiliateRecords": "Datensätze der Sublizenznehmer importieren",
+                "importAffiliateRecords": "Datensätze der Affiliate-Lizenznehmer importieren",
                 "manageBlacklist": "Blacklist verwalten",
                 "nationalRegistrationList": "Nationale Registrierungsliste"
             },
@@ -453,7 +453,7 @@
                     "maxlength": "Ihr Login darf nicht mehr als 50 Zeichen aufweisen."
                 },
                 "country": {
-                    "notMLDS": "Anträge für die Nutzung von SNOMED CT in Ihrem Land müssen beim zuständigen National Release Center Ihres Landes - <a href=\"{{link}}\" target=\"_blank\">hier</a> gestellt werden. Wenn Sie einen Antrag für eine Gemeinnützigkeits-Sublizenz zur Nutzung von SNOMED CT in einem anderen Land stellen möchten oder weitere Fragen haben, wenden Sie sich bitte an SNOMED International über <a href=\"mailto:info@snomed.org\">info@snomed.org</a>."
+                    "notMLDS": "Anträge für die Nutzung von SNOMED CT in Ihrem Land müssen beim zuständigen National Release Center Ihres Landes - <a href=\"{{link}}\" target=\"_blank\">hier</a> gestellt werden. Wenn Sie einen Antrag für eine Gemeinnützigkeits-Lizenz zur Nutzung von SNOMED CT in einem anderen Land stellen möchten oder weitere Fragen haben, wenden Sie sich bitte an SNOMED International über <a href=\"mailto:info@snomed.org\">info@snomed.org</a>."
                 },
                 "registration": {
                     "usagetyperequired": "Nutzungstyp xx",
@@ -472,21 +472,21 @@
             "detail": "Bitte öffnen Sie die E-Mail, die wir Ihnen soeben gesendet haben, um Ihr Konto zu überprüfen und Zugang zum MLDS zu erhalten."
         },
         "affiliateRegistration": {
-            "title": "Registrierung als Sublizenznehmer",
+            "title": "Registrierung als Affiliate-Lizenznehmer",
             "usageType": "Nutzungstyp",
             "conditions": "Bitte wählen Sie die Bedingungen, unter denen Ihr Produkt verwendet werden wird.",
-            "typeOfAgreement": "Sublizensierungs-Typ",
+            "typeOfAgreement": "Lizensierungs-Typ",
             "validation": {
                 "other.required": "Anderes Feld ist erforderlich."
             },
             "changeRequestedWarning": {
-                "title": "Ihre Registrierung als Sublizenznehmer muss aktualisiert werden",
-                "text": "Ihre Registrierung als Sublizenznehmer muss aktualisiert werden, bevor sie verarbeitet werden kann. Bitte beachten Sie die vom NRC an Sie versandte E-Mail. Diese enthält Hinweise zu den erforderlichen Änderungen."
+                "title": "Ihre Registrierung als Affiliate-Lizenznehmer muss aktualisiert werden",
+                "text": "Ihre Registrierung als Affiliate-Lizenznehmer muss aktualisiert werden, bevor sie verarbeitet werden kann. Bitte beachten Sie die vom NRC an Sie versandte E-Mail. Diese enthält Hinweise zu den erforderlichen Änderungen."
             },
-            "license.title": "SNOMED CT-Sublizenz",
-            "license": "SNOMED-Sublizenz",
-            "license.confirm": "Ich stimme den Sublizensierungsbedingungen zu.",
-            "license.error": "Sie müssen den Sublizensierungsbedingungen für eine Nutzung der SNOMED CT-Lizenz zustimmen, um eine Registrierung vorzunehmen."
+            "license.title": "SNOMED CT-Affiliate-Lizenz",
+            "license": "SNOMED-Affiliate-Lizenz",
+            "license.confirm": "Ich stimme den Lizensierungsbedingungen zu.",
+            "license.error": "Sie müssen den Lizensierungsbedingungen für eine Nutzung der SNOMED CT-Lizenz zustimmen, um eine Registrierung vorzunehmen."
         },
         "affiliateRegistrationReview": {
             "title": "Antrag überprüfen",
@@ -698,16 +698,16 @@
             "AUTHORIZATION_FAILURE": "Genehmigung fehlgeschlagen",
             "AUTHENTICATION_SUCCESS": "Authentifizierung erfolgreich",
             "AUTHENTICATION_FAILURE": "Authentifizierung fehlgeschlagen",
-            "AFFILIATE_CREATED": "Sublizenznehmer erstellt",
-            "AFFILIATE_CREATED_BY_IMPORT": "Sublizenznehmer durch Import erstellt",
-            "AFFILIATE_UPDATED": "Sublizenznehmer aktualisiert",
-            "AFFILIATE_DELETED": "Sublizenznehmer gelöscht",
-            "AFFILIATE_UPDATED_BY_IMPORT": "Sublizenznehmer durch Import aktualisiert",
-            "AFFILIATEDETAILS_UPDATED": "Sublizenznehmer-Daten aktualisiert",
-            "AFFILIATE_EXPORT": "Sublizenznehmer-Batch-Export",
-            "AFFILIATE_IMPORT": "Sublizenznehmer-Batch-Import",
-            "AFFILIATE_LOGIN_CREATED": "Sublizenznehmer-Login erstellt",
-            "AFFILIATE_STANDING_STATE_CHANGED": "Sublizenznehmer-Status geändert",
+            "AFFILIATE_CREATED": "Affiliate-Lizenznehmer erstellt",
+            "AFFILIATE_CREATED_BY_IMPORT": "Affiliate-Lizenznehmer durch Import erstellt",
+            "AFFILIATE_UPDATED": "Affiliate-Lizenznehmer aktualisiert",
+            "AFFILIATE_DELETED": "Affiliate-Lizenznehmer gelöscht",
+            "AFFILIATE_UPDATED_BY_IMPORT": "Affiliate-Lizenznehmer durch Import aktualisiert",
+            "AFFILIATEDETAILS_UPDATED": "Affiliate-Lizenznehmer-Daten aktualisiert",
+            "AFFILIATE_EXPORT": "Affiliate-Lizenznehmer-Batch-Export",
+            "AFFILIATE_IMPORT": "Affiliate-Lizenznehmer-Batch-Import",
+            "AFFILIATE_LOGIN_CREATED": "Affiliate-Lizenznehmer-Login erstellt",
+            "AFFILIATE_STANDING_STATE_CHANGED": "Affiliate-Lizenznehmer-Status geändert",
             "APPLICATION_CREATED": "Antrag erstellt",
             "APPLICATION_APPROVAL_STATE_CHANGED": "Genehmigungsstatus des Antrags geändert",
             "ANNOUNCEMENT_POSTED": "Benachrichtigung versandt",
@@ -731,7 +731,7 @@
     },
     "footer": "Dies ist Ihre Fusszeile.",
     "affiliate": {
-        "title": "Sublizenznehmer",
+        "title": "Affiliate-Lizenznehmer",
         "type": {
             "title": "Typ",
             "COMMERCIAL": "Kommerzielle Nutzung",
@@ -755,9 +755,9 @@
             "VENDOR": "Software- oder Terminologie-Dienst-Anbieter"
         },
         "agreementType": {
-            "AFFILIATE_NORMAL": "Sublizenznehmer - Kommerziell (z.B. Nutzung durch kommerzielle Entwickler, Software- oder Terminologie-Dienst-Anbieter)",
-            "AFFILIATE_RESEARCH": "Sublizenznehmer - Forschung / nicht-kommerzielle Nutzung (z.B. interne Nutzung innerhalb einer Organisation im Bereich Bildung, Forschung, Entwicklung oder Leistungserbringer im Gesundheitswesen)",
-            "AFFILIATE_PUBLIC_GOOD": "Sublizenznehmer - Gemeinnützig, inkl. öffentlich finanzierte Software-Entwicklung"
+            "AFFILIATE_NORMAL": "Lizenznehmer - Kommerziell (z.B. Nutzung durch kommerzielle Entwickler, Software- oder Terminologie-Dienst-Anbieter)",
+            "AFFILIATE_RESEARCH": "Lizenznehmer - Forschung / nicht-kommerzielle Nutzung (z.B. interne Nutzung innerhalb einer Organisation im Bereich Bildung, Forschung, Entwicklung oder Leistungserbringer im Gesundheitswesen)",
+            "AFFILIATE_PUBLIC_GOOD": "Lizenznehmer - Gemeinnützig, inkl. öffentlich finanzierte Software-Entwicklung"
         },
         "organizationType": {
             "PUBLIC_HEALTH_ORGANIZATION": "Öffentliche Gesundheitsorganisation (z.B. Krankenhaus, Krankenversicherung, Behörde, Einrichtung der Sekundär-/Tertiärversorgung)",
@@ -832,9 +832,9 @@
             "allApplications": "Alle Anträge in Bearbeitung"
         },
         "table": {
-            "affiliateName": "Name des Sublizenznehmers",
+            "affiliateName": "Name des Affiliate-Lizenznehmers",
             "applicationType": "Antragsart",
-            "agreementType": "Sublizensierungs-Typ",
+            "agreementType": "Lizensierungs-Typ",
             "useType": "Nutzungstyp",
             "dateSubmitted": "Datum der Einreichung",
             "homeCountry": "Heimatland",
@@ -844,7 +844,7 @@
         }
     },
     "affiliateManagement": {
-        "title": "Sublizenznehmer-Management"
+        "title": "Affiliate-Lizenznehmer-Management"
     },
     "releaseManagement": {
         "title": "Release-Management"
@@ -865,7 +865,7 @@
         "title": "Aktivitäts-Log"
     },
     "importAffiliateRecords": {
-        "title": "Datensätze des Sublizenznehmers importieren"
+        "title": "Datensätze des Affiliate-Lizenznehmers importieren"
     },
     "manageBlocklist": {
         "title": "Blockliste verwalten"
@@ -900,8 +900,8 @@
             "title": "Zusammenfassung des Antrags",
             "ext.title": "Information über den Erweiterungsantrag",
             "reason": "Grund",
-            "affiliateInfo": "Info zum Sublizenznehmer",
-            "affiliateInformation": "Information zum Sublizenznehmer",
+            "affiliateInfo": "Info zum Affiliate-Lizenznehmer",
+            "affiliateInformation": "Information zum Affiliate-Lizenznehmer",
             "useType": "Nutzungstyp",
             "useSubType": "Nutzungs-Subtyp",
             "billingInfo": "Informationen zur Rechnungstellung",
@@ -914,7 +914,7 @@
             "messages": {
                 "notApproved": {
                     "title": "Registrierung noch nicht genehmigt",
-                    "body": "Sie können die Kontaktinformationen für einen Sublizenznehmer erst ändern, wenn die Registrierungs-Anforderung genehmigt worden ist."
+                    "body": "Sie können die Kontaktinformationen für einen Lizenznehmer erst ändern, wenn die Registrierungs-Anforderung genehmigt worden ist."
                 }
             },
             "admin": {
@@ -932,7 +932,7 @@
                     "name": "Typ",
                     "required": "Nutzungstyp-Feld wird benötigt."
                 },
-                "agreementType": "Sublizensierungs-Typ",
+                "agreementType": "Lizensierungs-Typ",
                 "accountStanding": "Kontostatus"
             },
             "contact": {
@@ -1044,12 +1044,12 @@
         },
         "landingPage": {
             "appName": "Mitglieder-Lizenzierungs- und Distributions-Service",
-            "purpose": "SNOMED International stellt diesen Service für Organisationen und Personen zur Verfügung, um den Zugang zu beantragen, um ihre Berichtspflichten zu erfüllen und um bereitgestellte Releases von SNOMED CT zu beziehen.",
+            "purpose": "SNOMED International stellt diesen Service für Organisationen und Personen zur Verfügung, um einen Zugang zu beantragen, um ihre Berichtspflichten zu erfüllen und um bereitgestellte Releases von SNOMED CT zu beziehen.",
             "furtherDetails": "Weitere Einzelheiten finden Sie auf der <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International-Website</a> oder in den <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">FAQ</a>.",
             "loginHere": "Login",
             "member.purpose1": "MLDS ist ein Service des National Release Centers in ",
-            "member.purpose2": ", um die Sublizenznehmer-Lizenzierung für SNOMED CT zu verwalten. Hier beantragen und aktualisieren Sie Ihren Antrag und übermitteln die erforderlichen Nutzungserklärungen, hier haben Sie auch Zugang zu bereitgestellten Releases von SNOMED CT und Nationalen Erweiterungen für ",
-            "member.purpose3": ". Über MLDS ist es auch möglich, Anträge für Lizenzen in Nicht-Mitgliedsstaaten an SNOMED International weiterzugeben."
+            "member.purpose2": ", um die Lizenzen für Affiliate-Lizenznehmer für SNOMED CT zu verwalten. Hier beantragen und aktualisieren Sie Ihren Antrag und übermitteln die erforderlichen Nutzungserklärungen, hier haben Sie auch Zugang zu bereitgestellten Releases von SNOMED CT und Nationalen Erweiterungen für ",
+            "member.purpose3": ". Über MLDS ist es auch möglich, Anträge für Lizenzen für andere Länder an SNOMED International weiterzugeben."
         },
         "releases": {
             "title": "Für registrierte Benutzer verfügbare Releases",
@@ -1112,25 +1112,25 @@
             "impStatus": "Implementierungsstatus",
             "countries": {
                 "title": "Länder, in denen SNOMED CT genutzt werden soll",
-                "subTitle": "Bitte tragen Sie die Nutzungsinformationen für Deutschland ein. Zusätzlich zum Heimatland können Sie hier auch eine Lizenz für ein Nicht-Mitgliedsland von SNOMED International beantragen, indem Sie hier ein anderes Land auswählen. Über das MLDS wird diese Information direkt an SNOMED International weitergegeben. Lizenzanfragen für Nicht-Mitgliedsländer werden vom BfArM nicht bearbeitet.",
+                "subTitle": "Bitte tragen Sie die Nutzungsinformationen für Deutschland ein. Zusätzlich zum Heimatland können Sie hier auch eine Lizenz für ein anderes Mitgliedsland, das ebenfalls den Service MLDS nutzt, und auch für ein Nicht-Mitgliedsland von SNOMED International beantragen, indem Sie hier ein anderes Land auswählen. Über das MLDS wird diese Information direkt an SNOMED International weitergegeben. Lizenzanfragen für andere Länder werden vom BfArM nicht bearbeitet.",
                 "list": "Länderliste",
                 "search": "Länder suchen",
                 "homeCountry": "Heimatland",
                 "button": "Land hinzufügen"
             },
             "institutions": {
-                "title": "Einrichtungen mit Unterlizenz",
-                "selectFirst": "Bevor Einrichtungen mit Unterlizenz erfasst werden können, muss ein Land ausgewählt werden.",
+                "title": "Einrichtungen mit Sublizenz",
+                "selectFirst": "Bevor Einrichtungen mit Sublizenz erfasst werden können, muss ein Land ausgewählt werden.",
                 "noneSelected": "Es sind keine Länder ausgewählt worden.",
                 "country": "Land",
                 "deleteCountry": "Land entfernen",
-                "hospAndInst": "Unterlizenzen für Organisationen",
-                "hospAndInst.title": "Unterlizenzen für Organisationen (z.B. Krankenhaus, Krankenkasse, andere Einrichtung)",
-                "hospAndInst.plural": "Unterlizenzen für Organisationen",
+                "hospAndInst": "Sublizenzen für Organisationen",
+                "hospAndInst.title": "Sublizenzen für Organisationen (z.B. Krankenhaus, Krankenkasse, andere Einrichtung)",
+                "hospAndInst.plural": "Sublizenzen für Organisationen",
                 "started": "Nutzung aufgenommen",
                 "finished": "Nutzung eingestellt",
-                "practices.title": "Unterlizenz für Einzelnutzer (z.B. Praxis, Apotheke, Endanwender)",
-                "practices": "Unterlizenzen für Einzelnutzer",
+                "practices.title": "Sublizenzen für Einzelnutzer (z.B. Praxis, Apotheke, Endanwender)",
+                "practices": "Sublizenzen für Einzelnutzer",
                 "dataAnalysis": {
                     "title": "Angaben zu Software-Anwendungen",
                     "staff": "Anzahl der unterschiedlichen Software-Anwendungen",
@@ -1154,29 +1154,29 @@
                 }
             },
             "otherActivities": "Andere Aktivitäten",
-            "notificationRequired": "Sublizenznehmer müssen SNOMED International Aktivitäten melden, welche nicht den bestehenden Kategorien zugeordnet werden können, bevor Sie diese ausführen.",
+            "notificationRequired": "Affiliate-Lizenznehmer müssen SNOMED International Aktivitäten melden, welche nicht den bestehenden Kategorien zugeordnet werden können, bevor Sie diese ausführen.",
             "pleaseDescribe": "Bitte beschreiben Sie die Aktivität unten.",
             "submitFor": "Einreichen der Erklärung für"
         },
         "usageReports": {
             "reportDate": "Berichtsdatum",
-            "hospitals": "Unterlizenz für Organisationen",
+            "hospitals": "Sublizenzen für Organisationen",
             "usageType": "Nutzungstyp",
             "countries": "Länder",
             "newReport": "Neue Nutzungserklärung"
         },
         "userDashboard": {
-            "affiliateNo": "Nummer des Sublizenznehmers",
-            "edit": "Antrag für Sublizenznehmer bearbeiten",
+            "affiliateNo": "Nummer des Affiliate-Lizenznehmers",
+            "edit": "Antrag für Affiliate-Lizenznehmer bearbeiten",
             "myPackages": "Meine Release-Pakete",
             "otherPackages": "Andere verfügbare Releases",
             "warning": {
                 "required.title": "Nutzungserklärung erforderlich",
                 "required.msg": "Ihr Entwurf der Nutzungserklärung ist gespeichert worden. Bitte beachten Sie, dass Sie Ihre endgültige Nutzungserklärung für das laufende Jahr bis zum 15. Januar des Folgejahres einreichen müssen. Um SNOMED CT herunterladen zu können, müssen alle bisherigen Nutzungserklärungen eingereicht worden sein.",
-                "change.title": "Ihr Registrierung als Sublizenznehmer erfordert eine Änderung",
-                "change.msg": "Ihre Registrierung als Sublizenznehmer muss aktualisiert werden, bevor sie bearbeitet werden kann. Bitte entnehmen Sie der vom NRC versandten E-Mail, welche Änderungen für die Vervollständigung Ihrer Registrierung erforderlich sind.",
-                "declined.title": "Registrierung als Sublizenznehmer abgelehnt",
-                "declined.msg": "Ihre Registrierung als Sublizenznehmer wurde abgelehnt. Bitte entnehmen Sie der vom NRC versandten E-Mail die Details zu dieser Entscheidung.",
+                "change.title": "Ihr Registrierung als Affiliate-Lizenznehmer erfordert eine Änderung",
+                "change.msg": "Ihre Registrierung als Affiliate-Lizenznehmer muss aktualisiert werden, bevor sie bearbeitet werden kann. Bitte entnehmen Sie der vom NRC versandten E-Mail, welche Änderungen für die Vervollständigung Ihrer Registrierung erforderlich sind.",
+                "declined.title": "Registrierung als Affiliate-Lizenznehmer abgelehnt",
+                "declined.msg": "Ihre Registrierung als Affiliate-Lizenznehmer wurde abgelehnt. Bitte entnehmen Sie der vom NRC versandten E-Mail die Details zu dieser Entscheidung.",
                 "deactivated.title": "Konto deaktiviert",
                 "deactivated.msg": "Ihr Konto wurde deaktiviert. Das Herunterladen von Release-Paketen und Anträgen für Erweiterungen wurden gesperrt. Bitte wenden Sie sich an <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>, um dieses Problem zu l�sen.",
                 "iPending.title": "Konto mit offener Rechnung",
@@ -1192,9 +1192,9 @@
             "emailBody": "Email Body",
             "salutationMessage": "Remember to add a salutation and valediction to the email body.",
             "audience": "Audience",
-            "affiliates": "Affiliates",
-            "myAffiliates": "My Affiliates",
-            "allAffiliates": "All Affiliates",
+            "affiliates": "Affiliate-Lizenznehmer",
+            "myAffiliates": "Meine Affiliate-Lizenznehmer",
+            "allAffiliates": "Alle Affiliate-Lizenznehmer",
             "affiliatesClarification": "Approved affiliates with an account standing of:",
             "additionalEmails": "Additional Email Addresses",
             "additionalEmailsHelp": "Send the announcement to additional email addressses.",
