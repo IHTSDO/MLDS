@@ -3,7 +3,7 @@
 	<groupId>org.ihtsdo.mlds</groupId>
 	<artifactId>mlds</artifactId>
 	<packaging>war</packaging>
-	<version>2.8.3-SNAPSHOT</version>
+	<version>3.0.0-SNAPSHOT</version>
 	<name>ihtsdo-mlds Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
@@ -47,26 +47,6 @@
 			</properties>
 			<build>
 				<plugins>
-					<!--<plugin>-->
-					<!--<groupId>com.github.trecloux</groupId>-->
-					<!--<artifactId>yeoman-maven-plugin</artifactId>-->
-					<!--<version>0.2</version>-->
-					<!--<configuration>-->
-					<!--<yeomanProjectDirectory>${project.basedir}</yeomanProjectDirectory>-->
-					<!--</configuration>-->
-					<!--<executions>-->
-					<!--<execution>-->
-					<!--<id>run-grunt</id>-->
-					<!--<phase>generate-resources</phase>-->
-					<!--<goals>-->
-					<!--<goal>build</goal>-->
-					<!--</goals>-->
-					<!--<configuration>-->
-					<!--<gruntBuildArgs>&#45;&#45;force</gruntBuildArgs>-->
-					<!--</configuration>-->
-					<!--</execution>-->
-					<!--</executions>-->
-					<!--</plugin>-->
 					<plugin>
 						<artifactId>maven-clean-plugin</artifactId>
 						<version>2.5</version>
@@ -229,6 +209,11 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>2.4.5</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>${apache-httpclient.version}</version>
@@ -246,19 +231,11 @@
 			<groupId>io.dropwizard.metrics</groupId>
 			<artifactId>metrics-graphite</artifactId>
 		</dependency>
-		<!--<dependency>-->
-		<!--<groupId>io.dropwizard.metrics</groupId>-->
-		<!--<artifactId>metrics-jvm</artifactId>-->
-		<!--</dependency>-->
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
 			<artifactId>metrics-servlet</artifactId>
 			<version>${dropwizard-metrics.version}</version>
 		</dependency>
-		<!--<dependency>-->
-		<!--<groupId>io.dropwizard.metrics</groupId>-->
-		<!--<artifactId>metrics-json</artifactId>-->
-		<!--</dependency>-->
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
 			<artifactId>metrics-servlets</artifactId>
@@ -331,11 +308,6 @@
 			<version>${joda-time-hibernate.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.geronimo.javamail</groupId>
-			<artifactId>geronimo-javamail_1.6_mail</artifactId>
-			<version>${geronimo-javamail_1.6_mail.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 		</dependency>
@@ -352,10 +324,6 @@
 			<artifactId>hibernate-search-orm</artifactId>
 			<version>${hibernate-search.version}</version>
 		</dependency>
-		<!--<dependency>-->
-		<!--<groupId>org.hibernate</groupId>-->
-		<!--<artifactId>hibernate-search-orm</artifactId>-->
-		<!--</dependency>-->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -423,6 +391,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
+			<version>5.2.8.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>io.github.jhipster.loaded</groupId>
@@ -713,11 +682,11 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
 					<configuration>
 						<debug>true</debug>
 						<!-- Want line numbers in so we can remote debug -->
-						<source>1.7</source>
-						<target>1.7</target>
+ 						<release>11</release>
 					</configuration>
 				</plugin>
 				<plugin>
