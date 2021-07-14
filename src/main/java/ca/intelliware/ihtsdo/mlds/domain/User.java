@@ -43,7 +43,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	private Long userId;
 
     @NotNull
-    @Size(min = 0, max = 50)
+    @Size(min = 0, max = 100)
     private String login;
 
     @JsonIgnore
