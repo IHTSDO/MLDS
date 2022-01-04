@@ -69,6 +69,7 @@
         },
         "member": {
             "IHTSDO": "SNOMED International",
+            "AE": "United Arab Emirates",
             "AM": "Armenia",
             "AR": "Argentina",
             "AT": "Austria",
@@ -1045,7 +1046,7 @@
         },
         "landingPage": {
             "appName": "Member Licensing and Distribution Service",
-            "purpose": "This service is provided by SNOMED International for organizations and individuals to request use and access to the International Release of SNOMED CT for use in non-Member countries.",
+            "purpose": "This service is provided by SNOMED International for organizations and individuals to request use and access to the International Release of SNOMED CT for use in non-Member and some Member countries.",
             "furtherDetails": "For further details, please refer to the <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International website</a> or the <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>.",
             "loginHere": "login here",
             "member.purpose1": "MLDS is a tool used by the NRC in ",

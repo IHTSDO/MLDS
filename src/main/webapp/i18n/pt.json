@@ -69,6 +69,8 @@
         },
         "member": {
             "IHTSDO": "SNOMED International",
+            "AE": "Emirados Árabes Unidos",
+            "AM": "Arménia",
             "AR": "Argentina",
             "AT": "Áustria",
             "AU": "Austrália",
