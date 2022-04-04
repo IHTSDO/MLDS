@@ -113,10 +113,10 @@
                 "audits": "การตรวจสอบ",
                 "logs": "Logs",
                 "metrics": "ตัวชี้วัด",
-                "sessions": "Sessions",
+                "sessions": "เซสชั่น",
                 "password": "รหัสผ่าน",
                 "contactInfo": "ข้อมูลติดต่อ",
-                "main": "บัญชีผู้ใช้งาน"
+                "main": "บัญชีผู้ใช้"
             },
             "cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/43e68e5dbb274c2d65ae9b31deb30d2a.js\"></script>",
             "language": "ภาษา",
@@ -147,7 +147,7 @@
             "privacyPolicy": "นโยบายความเป็นส่วนตัว",
             "help": "ขอความช่วยเหลือ",
             "dashboard": "Dashboard",
-            "home": "บ้าน"
+            "home": "หน้าหลัก"
         },
         "browsehappy": "คุณกำลังใช้เบราว์เซอร์ <strong>เวอร์ชั่นเก่า</strong> กรุณา<a href=\"http://browsehappy.com/?locale=en\">อัพเดตเบราว์เซอร์</a> ให้เป็นเวอร์ชั่นปัจจุบัน",
         "title": "mlds"
