@@ -65,7 +65,8 @@
             "pl": "Polaco",
             "pt": "Portugués",
             "ru": "Ruso",
-            "se": "Sueco"
+            "se": "Sueco",
+            "th": "Tailandés"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -92,7 +93,6 @@
             "NO": "Noruega",
             "IN": "India",
             "IL": "Israel",
-            "LT": "Lituania",
             "LT": "Luxemburgo",
             "MY": "Malasia",
             "MT": "Malta",
@@ -107,7 +107,8 @@
             "TH": "Tailandia",
             "GB": "Reino Unido",
             "US": "Estados Unidos",
-            "UY": "Uruguay"
+            "UY": "Uruguay",
+            "LU": "Luxemburgo"
         },
         "country": {
             "AC": "Ascensión",
@@ -374,7 +375,8 @@
             },
             "error": {
                 "dontmatch": "¡La contraseña y su confirmación no coinciden!",
-                "servidor": "Ha ocurrido un error. Intente nuevamente."
+                "servidor": "Ha ocurrido un error. Intente nuevamente.",
+                "server": "Se ha producido un error.  Por favor, inicie sesión de nuevo pulsando el botón de inicio de sesión de nuevo."
             },
             "validate": {
                 "newpassword": {
@@ -999,6 +1001,10 @@
                     "placeholder": "Dirección",
                     "sameAsAddress": "Usar Dirección como Dirección de Facturación",
                     "useOrganizationAddress": "Usar Dirección de la Organización como Dirección de Facturación"
+                },
+                "alternateEmail": {
+                    "placeholder": "alternative@email.com",
+                    "name": "Correo electrónico alternativo"
                 }
             },
             "organization": {
