@@ -65,7 +65,8 @@
             "pl": "Polaco",
             "pt": "Português",
             "ru": "Russo",
-            "se": "Sueco"
+            "se": "Sueco",
+            "th": "Tailandês"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -107,7 +108,9 @@
             "SE": "Suécia",
             "GB": "Reino Unido",
             "US": "Estados Unidos",
-            "UY": "Uruguai"
+            "UY": "Uruguai",
+            "TH": "Tailândia",
+            "KR": "Coreia do Sul"
         },
         "country": {
             "AC": "Ascenção",
@@ -999,6 +1002,10 @@
                     "placeholder": "Morada",
                     "sameAsAddress": "Use esta morada como morada de faturação",
                     "useOrganizationAddress": "Use a morada da organização como a morada de faturação"
+                },
+                "alternateEmail": {
+                    "placeholder": "alternative@email.com",
+                    "name": "E-mail alternativo"
                 }
             },
             "organization": {
