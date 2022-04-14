@@ -65,7 +65,8 @@
             "pl": "Polnisch",
             "pt": "Portugiesisch",
             "ru": "Russisch",
-            "se": "Schwedisch"
+            "se": "Schwedisch",
+            "th": "Thailändisch"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -999,6 +1000,10 @@
                     "placeholder": "Adresse",
                     "sameAsAddress": "Adresse als Rechnungsadresse verwenden",
                     "useOrganizationAddress": "Adresse der Organisation als Rechnungsadresse verwenden"
+                },
+                "alternateEmail": {
+                    "placeholder": "alternative@email.com",
+                    "name": "Alternative E-Mail"
                 }
             },
             "organization": {
