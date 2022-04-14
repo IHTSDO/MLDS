@@ -65,7 +65,8 @@
             "pl": "Polonais",
             "pt": "Portugais",
             "ru": "Russe",
-            "se": "Suédois"
+            "se": "Suédois",
+            "th": "Thaïlandais"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -999,6 +1000,10 @@
                     "placeholder": "Adresse",
                     "sameAsAddress": "Utiliser la même adresse pour l’adresse de facturation",
                     "useOrganizationAddress": "Utiliser l’adresse de l’organisation pour l’adresse de facturation"
+                },
+                "alternateEmail": {
+                    "placeholder": "alternative@email.com",
+                    "name": "E-mail alternatif"
                 }
             },
             "organization": {
