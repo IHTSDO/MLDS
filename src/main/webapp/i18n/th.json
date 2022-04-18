@@ -346,7 +346,7 @@
                 "changePassword": "เปลี่ยนรหัสผ่าน",
                 "accountInformation": "ข้อมูลเกี่ยวกับบัญชี"
             },
-            "releasePackages": "แพ็กเกจเผยแพร่",
+            "releasePackages": "ไฟล์เผยแพร่",
             "applications": "การสมัครใช้",
             "usageReports": "รายงานการใช้งาน",
             "privacyPolicy": "นโยบายความเป็นส่วนตัว",
@@ -418,12 +418,12 @@
                 "dontmatch": "รหัสผ่านและการยืนยันรหัสผ่านไม่ตรงกัน!"
             },
             "info": {
-                "register": "คุณยังไม่มีบัญชีผู้ใช้? <a href=\"#/register\">ลงทะเบียนบัญชีใหม่</a>",
+                "register": "ยังไม่มีบัญชีผู้ใช้งาน? <a href=\"#/register\">ลงทะเบียนบัญชีใหม่</a>",
                 "authenticated": "หากคุณต้องการ <a href=\"#/login\">ยืนยันตัวตน</a> คุณสามารถลองใช้บัญชีตั้งต้น:<br/>- ผู้ดูแลระบบ (บัญชีผู้ใช้=\"admin\" และรหัสผ่าน=\"admin\") <br/>- ผู้ใช้ (บัญชีผู้ใช้=\"ผู้ใช้\" และรหัสผ่าน =\"ผู้ใช้\")"
             }
         },
         "form": {
-            "country": "ประเทศที่พำนัก",
+            "country": "ประเทศที่อยู่อาศัย",
             "email.placeholder": "อีเมลของคุณ",
             "email": "อีเมล",
             "confirmpassword": "การยืนยันรหัสผ่านใหม่",
@@ -501,7 +501,7 @@
                 "required.title": "ต้องมีการเปิดเผยการใช้งาน"
             },
             "otherPackages": "ไฟล์เผยแพร่อื่น ๆ ที่พร้อมใช้",
-            "myPackages": "แพ็กเกจเผยแพร่ของฉัน",
+            "myPackages": "ไฟล์เผยแพร่ของฉัน",
             "edit": "แก้ไขใบสมัครเป็นผู้ใช้งานในเครือ",
             "affiliateNo": "หมายเลขผู้ใช้งานในเครือ"
         },
@@ -613,7 +613,7 @@
             "agreeToLicense": "ฉันยอมรับใบอนุญาต",
             "reviewLicense": "โปรดตรวจสอบใบอนุญาตต่อไปนี้และยอมรับก่อนที่จะดาวน์โหลดแพ็กเกจเผยแพร่:",
             "releasePackageLicense": "ใบอนุญาตของแพ็กเกจเผยแพร่",
-            "notAvailable": "ขณะนี้ยังไม่มีแพ็คเกจเผยแพร่ให้เข้าถึง",
+            "notAvailable": "ขณะนี้ยังไม่มีไฟล์เผยแพร่ที่สามารถเข้าถึงได้",
             "title": "ไฟล์เผยแพร่สำหรับผู้ใช้ที่ลงทะเบียน",
             "countryIsMissing": "หากประเทศที่คุณกำลังมองหาไม่อยู่ในรายการนี้ โปรดดูที่ <a href=\"http://www.snomed.org/\">เว็บไซต์ SNOMED International</a> สำหรับข้อมูลการดาวน์โหลดไฟล์เผยแพร่",
             "memberCountries": "ประเทศสมาชิก",
@@ -624,8 +624,8 @@
             "member.purpose2": " เพื่อจัดการใบอนุญาตผู้ใช้ในเครือ (Affiliate Licensing) ของ SNOMED CT รวมถึงการสมัครสมาชิกใหม่ การต่ออายุ และการรายงานการใช้งานภายใน ",
             "member.purpose1": "MLDS เป็นเครื่องมือที่ใช้โดย NRC ใน ",
             "loginHere": "เข้าสู่ระบบที่นี่",
-            "furtherDetails": "สำหรับรายละเอียดเพิ่มเติม โปรดดูที่ <a href=\"http://www.snomed.org\" target=\"_blank\">เว็บไซต์ SNOMED International</a> หรือ <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>",
-            "purpose": "บริการนี้จัดทำโดย SNOMED International สำหรับองค์กรและบุคคลเพื่อขอใช้และเข้าถึง SNOMED CT International Release สำหรับใช้ในประเทศที่ไม่ใช่สมาชิกและบางประเทศสมาชิก",
+            "furtherDetails": "สำหรับรายละเอียดเพิ่มเติม โปรดดูที่ <a href=\"http://www.snomed.org\" target=\"_blank\">เว็บไซต์ SNOMED International</a> หรือ <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">คำถามที่พบบ่อย</a>",
+            "purpose": "บริการนี้จัดทำโดย SNOMED International สำหรับองค์กรหรือบุคคลเพื่อขอใช้งาน SNOMED CT International Release ในประเทศที่ไม่ใช่สมาชิกและบางประเทศที่เป็นสมาชิก",
             "appName": "Member Licensing and Distribution Service"
         },
         "footer": {
@@ -730,7 +730,7 @@
                 },
                 "firstName": {
                     "placeholder": "จอห์น",
-                    "name": "ชื่อตัว"
+                    "name": "ชื่อ"
                 },
                 "fullName": "ชื่อ",
                 "title": "ข้อมูลติดต่อ"
@@ -1091,7 +1091,7 @@
                 "firstname": {
                     "maxlength": "ชื่อของคุณต้องมีความยาวไม่เกิน 50 ตัวอักษร",
                     "minlength": "ชื่อของคุณต้องมีอย่างน้อย 1 ตัวอักษร",
-                    "required": "ต้องระบุชื่อของคุณ"
+                    "required": "กรุณาระบุชื่อของคุณ"
                 }
             },
             "success": "<strong>บันทึกการตั้งค่าแล้ว!</strong>",
@@ -1101,10 +1101,10 @@
             "button": "บันทึก",
             "lastname.placeholder": "นามสกุลของคุณ",
             "lastname": "นามสกุล",
-            "firstname.placeholder": "ชื่อต้นของคุณ",
+            "firstname.placeholder": "ชื่อของคุณ",
             "firstname": "ชื่อ",
             "countryOfResidence.placeholder": "ประเทศที่คุณอาศัยอยู่",
-            "countryOfResidence": "ประเทศที่พำนัก"
+            "countryOfResidence": "ประเทศที่อยู่อาศัย"
         },
         "title": "ข้อมูลติดต่อสำหรับ [<b>{{username}}</b>]"
     },
@@ -1117,12 +1117,12 @@
             }
         },
         "form": {
-            "forgot": "ลืมรหัสผ่านหรือไม่?",
+            "forgot": "หากลืมรหัสผ่าน",
             "button": "เข้าสู่ระบบ",
             "rememberme": "จดจำการเข้าสู่ระบบ",
             "password.placeholder": "รหัสผ่านของคุณ",
             "password": "รหัสผ่าน",
-            "username": "อีเมล์หรือชื่อผู้ใช้"
+            "username": "อีเมล์หรือชื่อผู้ใช้งาน"
         },
         "title": "เข้าสู่ระบบ"
     },
@@ -1139,7 +1139,7 @@
                     "usagetyperequired": "ต้องระบุประเภทการใช้งาน"
                 },
                 "country": {
-                    "notMLDS": "การสมัครใช้งาน SNOMED CT ในประเทศที่คุณอาศัยอยู่จะต้องยื่นต่อตัวแทนที่ได้รับอนุญาตในประเทศของคุณ - <a href=\"{{link}}\" target=\"_blank\">ที่นี่</a> หากคุณต้องการสมัครทำข้อตกลงสาธารณะเพื่อใช้ SNOMED CT ในประเทศอื่น หรือต้องการสอบถามข้อมูลอื่นๆ โปรดติดต่อ SNOMED International ที่ <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
+                    "notMLDS": "การสมัครใช้งาน SNOMED CT ในประเทศที่คุณอาศัยอยู่จะต้องยื่นต่อตัวแทนที่ได้รับอนุญาตในประเทศของคุณ - <a href=\"{{link}}\" target=\"_blank\">ที่นี่</a> หากคุณต้องการสมัครทำข้อตกลงเพื่อใช้ SNOMED CT ในประเทศอื่น หรือต้องการสอบถามข้อมูลอื่นๆ โปรดติดต่อ SNOMED International ที่ <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
                 }
             },
             "error": {
