@@ -620,11 +620,11 @@
             "noAuth": "<a href=\"#/login\">เข้าสู่ระบบ</a> เพื่อดาวน์โหลดหรือคลิก <a href=\"#/register\">ลงทะเบียน</a> เพื่อเริ่มขั้นตอนการสมัคร"
         },
         "landingPage": {
-            "member.purpose3": " และการใช้งานที่เกี่ยวข้องในประเทศที่ไม่ใช่สมาชิก",
-            "member.purpose2": " เพื่อจัดการใบอนุญาตผู้ใช้ในเครือ (Affiliate Licensing) ของ SNOMED CT รวมถึงการสมัครสมาชิกใหม่ การต่ออายุ และการรายงานการใช้งานภายใน ",
-            "member.purpose1": "MLDS เป็นเครื่องมือที่ใช้โดย NRC ใน ",
+            "member.purpose3": " รวมถึงการเข้าใช้งานของผู้ใช้งานจากประเทศอื่นที่ไม่ใช่สมาชิก\n\nนอกจากนี้ สมสท. ยังใช้ MLDS ในการเผยแพร่มาตรฐานข้อมูลสุขภาพอื่นๆของประเทศไทย ได้แก่ บัญชีข้อมูลรายการยาและรหัสยามาตรฐานไทย (Thai Medicines Terminology: TMT) และ บัญชีรายการและรหัสมาตรฐานการตรวจทางห้องปฏิบัติการทางการแพทย์ไทย (Thai Medical Laboratory Terminology: TMLT)",
+            "member.purpose2": " ใช้สำหรับจัดการใบอนุญาตผู้ใช้งานที่เป็นเครือข่าย (Affiliate License) ของ SNOMED CT ในประเทศไทย ครอบคลุมตั้งแต่ การสมัครสมาชิกใหม่ การต่ออายุ การรายงานผลการเข้าใช้งานของผู้ใช้งานภายใน ",
+            "member.purpose1": "MLDS เป็นเครื่องมือที่ สำนักพัฒนามาตรฐานระบบข้อมูลสุขภาพไทย (สมสท.) ซึ่งเป็นหน่วยงานกลาง (National Release Center-NRC) ในการเผยแพร่ SNOMED CT ใน ",
             "loginHere": "เข้าสู่ระบบที่นี่",
-            "furtherDetails": "สำหรับรายละเอียดเพิ่มเติม โปรดดูที่ <a href=\"http://www.snomed.org\" target=\"_blank\">เว็บไซต์ SNOMED International</a> หรือ <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">คำถามที่พบบ่อย</a>",
+            "furtherDetails": "หากต้องการรายละเอียดเพิ่มเติม กรุณาติดตามที่ <a href=\"https://www.this.or.th/\" target=\"_blank\">เว็บไซต์ สมสท.</a>, <a href=\"http://www.snomed.org\" target=\"_blank\">เว็บไซต์ SNOMED International</a> หรือ <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">คำถามที่พบบ่อย</a>",
             "purpose": "บริการนี้จัดทำโดย SNOMED International สำหรับองค์กรหรือบุคคลเพื่อขอใช้งาน SNOMED CT International Release ในประเทศที่ไม่ใช่สมาชิกและบางประเทศที่เป็นสมาชิก",
             "appName": "Member Licensing and Distribution Service"
         },
