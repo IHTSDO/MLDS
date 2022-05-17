@@ -999,6 +999,9 @@
                     "placeholder": "Adresse",
                     "sameAsAddress": "Adresse als Rechnungsadresse verwenden",
                     "useOrganizationAddress": "Adresse der Organisation als Rechnungsadresse verwenden"
+                },
+                "alternateEmail": {
+                    "name": "Alternative E-Mail-Adresse"
                 }
             },
             "organization": {
