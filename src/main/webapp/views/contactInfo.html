@@ -28,7 +28,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <span class="col-sm-12 col-md-12 col-lg-12">
 
             <div class="panel panel-default" ng-show="$root.Session.isStaffOrAdmin()">
                 <div class="panel-heading">
@@ -94,6 +94,12 @@
             <div class="form-group">
                 <input name="use" type="checkbox" ng-disabled="readOnly" ng-model="affiliateDetails.acceptNotifications">
                 <label translate="views.contactInfo.acceptNotifications">Yes notify me when a SNOMED package is updated.</label>
+                <span ng-show="affiliateDetails.acceptNotifications">
+                    &nbsp;(
+                    <input name="use" type="checkbox" ng-disabled="readOnly" ng-model="affiliateDetails.countryNotificationsOnly" >
+                    <label translate="views.contactInfo.countryNotificationsOnly">Only notify me regarding my member country extension</label>
+                    )
+                </span>
             </div>
 
 

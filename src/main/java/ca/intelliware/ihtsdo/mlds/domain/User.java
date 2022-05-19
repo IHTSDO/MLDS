@@ -36,7 +36,7 @@ import com.google.common.base.Objects;
 @SQLDelete(sql="UPDATE T_USER SET inactive_at = now() WHERE user_id = ?")
 public class User extends AbstractAuditingEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name="user_id")
@@ -75,6 +75,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "accept_notifications")
     private Boolean acceptNotifications = true;
+
+    @Column(name = "country_notifications_only")
+    private Boolean countryNotificationsOnly = false;
 
 	@JsonIgnore
 	@Column(name="inactive_at")
@@ -166,7 +169,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
-    
+
     public Set<PersistentToken> getPersistentTokens() {
         return persistentTokens;
     }
@@ -235,4 +238,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	public void setAcceptNotifications(Boolean acceptNotifications) {
 		this.acceptNotifications = acceptNotifications;
 	}
+
+    public Boolean getCountryNotificationsOnly() {
+        return countryNotificationsOnly;
+    }
+
+    public void setCountryNotificationsOnly(Boolean countryNotificationsOnly) {
+        this.countryNotificationsOnly = countryNotificationsOnly;
+    }
 }
