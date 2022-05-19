@@ -760,6 +760,7 @@
                 }
             },
             "acceptNotifications": "ใช่ แจ้งให้ฉันทราบเมื่อมีการอัปเดตไฟล์เผยแพร่ของ SNOMED",
+            "countryNotificationsOnly": "สำหรับส่วนขยายประเทศของฉันเท่านั้น",
             "title": "ข้อมูลบัญชีผู้ใช้"
         },
         "activate": {
