@@ -915,6 +915,7 @@
         "contactInfo": {
             "title": "Account Information",
             "acceptNotifications": "Yes notify me when a SNOMED package is updated.",
+            "countryNotificationsOnly": "Only for my country extensions",
             "messages": {
                 "notApproved": {
                     "title": "Registration not approved yet",

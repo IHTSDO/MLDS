@@ -1567,4 +1567,13 @@ $f$ language plpgsql;
 		</addColumn>
 	</changeSet>
 
+    <changeSet id="MLDS-975" author="MLR">
+        <comment>Follow up to MLDS-962, allow user to opt for affiliate country release related emails only</comment>
+        <addColumn tableName="t_user">
+            <column name="country_notifications_only" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

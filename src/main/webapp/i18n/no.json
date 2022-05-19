@@ -914,6 +914,7 @@
         "contactInfo": {
             "title": "Kontoinformasjon",
             "acceptNotifications": "Ja gi meg beskjed når en SNOMED-pakke er oppdatert.",
+            "countryNotificationsOnly": "Bare for mine landutvidelser",
             "messages": {
                 "notApproved": {
                     "title": "Registreringen er ennå ikke godkjent",
