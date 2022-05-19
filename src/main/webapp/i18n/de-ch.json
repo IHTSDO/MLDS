@@ -915,6 +915,7 @@
         "contactInfo": {
             "title": "Kontoinformation",
             "acceptNotifications": "Ja, benachrichtigen Sie mich, wenn ein SNOMED-Paket aktualisiert wird.",
+            "countryNotificationsOnly": "Nur für meine Ländererweiterungen",
             "messages": {
                 "notApproved": {
                     "title": "Registrierung noch nicht genehmigt",

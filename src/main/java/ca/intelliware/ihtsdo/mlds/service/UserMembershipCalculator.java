@@ -25,10 +25,10 @@ public class UserMembershipCalculator {
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource UserRepository userRepository;
 	@Resource AffiliateMembershipCalculator affiliateMembershipCalculator;
-	
+
 	public Iterable<User> approvedReleaseUsersWithAnyMembership(Member member) {
 		Iterable<Affiliate> affiliates = anyApprovedMembership(member, releaseStandingStates());
-		return findMatchingUsers(affiliates);
+ 		return findMatchingUsers(affiliates);
 	}
 
 	public Iterable<User> approvedActiveUsersWithHomeMembership(Member member) {
@@ -49,7 +49,7 @@ public class UserMembershipCalculator {
 	}
 
 	private Iterable<User> findMatchingUsers(Iterable<Affiliate> affiliates) {
-		
+
 		List<String> logins = new ArrayList<String>();
 		for (Affiliate affiliate : affiliates) {
 			String creator = affiliate.getCreator();
@@ -62,18 +62,18 @@ public class UserMembershipCalculator {
 	}
 
 
-	
+
 	private List<StandingState> releaseStandingStates() {
 		return Arrays.asList(
-				StandingState.IN_GOOD_STANDING, 
+				StandingState.IN_GOOD_STANDING,
 				StandingState.DEACTIVATION_PENDING
 				);
 	}
-	
+
 	private List<StandingState> activeStandingStates() {
 		//NOTE: This list is duplicated in staff facing postAnnouncements.html and messages
 		return Arrays.asList(
-				StandingState.IN_GOOD_STANDING, 
+				StandingState.IN_GOOD_STANDING,
 				StandingState.PENDING_INVOICE,
 				StandingState.INVOICE_SENT,
 				StandingState.DEACTIVATION_PENDING

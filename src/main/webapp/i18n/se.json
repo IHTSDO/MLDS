@@ -909,6 +909,7 @@
         "contactInfo": {
             "title": "Kontoinformation",
             "acceptNotifications": "Ja meddela mig när ett SNOMED-paket uppdateras.",
+            "countryNotificationsOnly": "Endast för mina landsförlängningar",
             "messages": {
                 "notApproved": {
                     "title": "Registreringen har ännu inte godkänts",
