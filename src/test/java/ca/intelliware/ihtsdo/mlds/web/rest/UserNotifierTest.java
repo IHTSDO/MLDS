@@ -35,14 +35,11 @@ public class UserNotifierTest {
 	@Test
 	public void notifyReleasePackageUpdatedShouldEmailEachMatchingUser() {
 		Member member = new Member("se", 10L);
+        ReleasePackage releasePackage = withReleasePackage(member);
+        ReleaseVersion releaseVersion = releasePackage.getReleaseVersions().stream().findFirst().get();
 
-		ReleasePackage releasePackage = new ReleasePackage(1L);
-		releasePackage.setMember(member);
-		ReleaseVersion releaseVersion = new ReleaseVersion(2L);
-		releasePackage.addReleaseVersion(releaseVersion);
-
-		User user1 = withUser(1L);
-		User user2 = withUser(2L);
+		User user1 = withUser(1L, true, false);
+		User user2 = withUser(2L, true, false);
 
 		Mockito.when(userMembershipCalculator.approvedReleaseUsersWithAnyMembership(member)).thenReturn(Arrays.asList(user1, user2));
 
@@ -52,11 +49,54 @@ public class UserNotifierTest {
 		Mockito.verify(releasePackageUpdatedEmailSender, Mockito.times(1)).sendRelasePackageUpdatedEmail(user2, releasePackage, releaseVersion);
 	}
 
-	private User withUser(long id) {
+    @Test
+    public void notifyReleasePackageUpdatedShouldNotEmailUserOptingOut() {
+        Member member = new Member("se", 10L);
+        ReleasePackage releasePackage = withReleasePackage(member);
+        ReleaseVersion releaseVersion = releasePackage.getReleaseVersions().stream().findFirst().get();
+
+        User user1 = withUser(1L, true, false);
+        User user2 = withUser(2L, false, false);
+
+        Mockito.when(userMembershipCalculator.approvedReleaseUsersWithAnyMembership(member)).thenReturn(Arrays.asList(user1, user2));
+
+        userNotifier.notifyReleasePackageUpdated(releaseVersion);
+
+        Mockito.verify(releasePackageUpdatedEmailSender, Mockito.times(1)).sendRelasePackageUpdatedEmail(user1, releasePackage, releaseVersion);
+        Mockito.verify(releasePackageUpdatedEmailSender, Mockito.times(0)).sendRelasePackageUpdatedEmail(user2, releasePackage, releaseVersion);
+    }
+
+    @Test
+    public void notifyReleasePackageUpdatedShouldNotEmailUserWithCountryOnlyChoice() {
+        Member member = new Member("IHTSDO", 1L);
+        ReleasePackage releasePackage = withReleasePackage(member);
+        ReleaseVersion releaseVersion = releasePackage.getReleaseVersions().stream().findFirst().get();
+
+        User user1 = withUser(1L, true, true);
+        User user2 = withUser(2L, true, false);
+
+        Mockito.when(userMembershipCalculator.approvedReleaseUsersWithAnyMembership(member)).thenReturn(Arrays.asList(user1, user2));
+
+        userNotifier.notifyReleasePackageUpdated(releaseVersion);
+
+        Mockito.verify(releasePackageUpdatedEmailSender, Mockito.times(0)).sendRelasePackageUpdatedEmail(user1, releasePackage, releaseVersion);
+        Mockito.verify(releasePackageUpdatedEmailSender, Mockito.times(1)).sendRelasePackageUpdatedEmail(user2, releasePackage, releaseVersion);
+    }
+
+    private User withUser(long id, boolean accepNotifications, boolean countryNotificationsOnly) {
 		User user = new User();
 		user.setUserId(id);
-		user.setAcceptNotifications(true);
-        user.setCountryNotificationsOnly(false);
+		user.setAcceptNotifications(accepNotifications);
+        user.setCountryNotificationsOnly(countryNotificationsOnly);
         return user;
 	}
+
+    private ReleasePackage withReleasePackage(Member member) {
+        ReleasePackage releasePackage = new ReleasePackage(1L);
+        releasePackage.setMember(member);
+        ReleaseVersion releaseVersion = new ReleaseVersion(2L);
+        releasePackage.addReleaseVersion(releaseVersion);
+        releasePackage.getReleaseVersions().stream().findFirst();
+        return releasePackage;
+    }
 }
