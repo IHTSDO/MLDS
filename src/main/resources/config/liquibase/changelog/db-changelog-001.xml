@@ -1576,4 +1576,25 @@ $f$ language plpgsql;
         </addColumn>
     </changeSet>
 
+    <changeSet id="MLDS-973" author="MLR">
+        <preConditions>
+            <tableExists tableName="application"/>
+            <tableExists tableName="member"/>
+            <tableExists tableName="country"/>
+        </preConditions>
+
+        <comment>A view to help out with (text) indexing extra countries related to an affiliate</comment>
+
+        <createView viewName="vw_affiliate_approved_application_countries" >
+                select a.affiliate_id, 
+                       string_agg(common_name, ' ') as countries
+                from application a
+                , member m
+                , country c
+                where approval_state = 'APPROVED'
+                and m.member_id = a.member_id
+                and c.iso_code_2 = m.key
+                group by 1;
+        </createView>
+    </changeSet>
 </databaseChangeLog>
