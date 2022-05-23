@@ -67,7 +67,7 @@ public class AffiliateSearchRepository {
 	private Query buildQuery(String q, Member homeMember, StandingState standingState, boolean standingStateNot) {
 		QueryBuilder queryBuilder = getSearchFactory().buildQueryBuilder()
 				.forEntity(Affiliate.class).get();
-		
+
 		//Odd issue with Camel case text not finding exact matches. Workaround using lowercase.
 		Query textQuery = buildWildcardQueryForTokens(queryBuilder, q.toLowerCase());
 
@@ -148,7 +148,7 @@ public class AffiliateSearchRepository {
 					.matching(q)
 					.createQuery();
 			bool.should(affiliateIdQuery);
-			
+
 			// We're letting the default analyzer tokenize the main query for the ALL field
 			Query allKeywordQuery = queryBuilder.keyword()
 					.onField(FIELD_ALL).ignoreFieldBridge().matching(q)
@@ -186,6 +186,10 @@ public class AffiliateSearchRepository {
 					.wildcard()
 					.onField("email").matching(token+"*")
 					.createQuery());
+            bool.should(queryBuilder.keyword()
+                .wildcard()
+                .onField("approvedCountries.countries").matching(token+"*")
+                .createQuery());
 		}
 		Query textQuery = bool.createQuery();
 
