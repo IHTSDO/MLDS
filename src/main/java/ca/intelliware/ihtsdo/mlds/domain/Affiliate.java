@@ -31,9 +31,9 @@ public class Affiliate extends BaseEntity {
 	@GeneratedValue
 	@Column(name="affiliate_id")
 	Long affiliateId;
-	
+
 	Instant created = Instant.now();
-	
+
 	@JsonIgnore
 	@Column(name="inactive_at")
 	private
@@ -41,12 +41,12 @@ public class Affiliate extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	AffiliateType type;
-	
+
 	String creator;
-	
+
 	@Column(name="import_key")
 	String importKey;
-	
+
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="affiliate")
 	Set<CommercialUsage> commercialUsages = Sets.newHashSet();
 
@@ -54,7 +54,7 @@ public class Affiliate extends BaseEntity {
 	@JoinColumn(name="affiliate_details_id")
 	@IndexedEmbedded(prefix="")
 	AffiliateDetails affiliateDetails;
-	
+
 	@JsonIgnoreProperties({"affiliate"})
 	@OneToOne()
 	@JoinColumn(name="application_id")
@@ -74,21 +74,26 @@ public class Affiliate extends BaseEntity {
 	public String getHomeMemberKey() {
 		return homeMember!= null?homeMember.getKey():null;
 	}
-	
+
 	@Column(name="notes_internal")
 	String notesInternal;
 
-	@Fields({
+    @OneToOne()
+    @JoinColumn(name="affiliate_id")
+    @IndexedEmbedded  //(prefix="")
+    ViewAffiliateApplicationCountries approvedCountries;
+
+    @Fields({
 		@Field(name="standingState",bridge=@FieldBridge(impl=StandingStateFieldBridge.class)),
 		@Field(name="ALL",bridge=@FieldBridge(impl=StandingStateFieldBridge.class))
 	})
 	@Enumerated(EnumType.STRING)
 	@Column(name="standing_state")
 	StandingState standingState = StandingState.APPLYING;
-	
+
 	public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
-		
+
 		if (newEntryValue.affiliate != null) {
 			newEntryValue.affiliate.commercialUsages.remove(newEntryValue);
 		}
@@ -102,7 +107,7 @@ public class Affiliate extends BaseEntity {
 
 	public void addApplication(Application newEntryValue) {
 		Validate.notNull(newEntryValue.getApplicationId());
-		
+
 		if (newEntryValue.affiliate != null) {
 			newEntryValue.affiliate.applications.remove(newEntryValue);
 		}
@@ -115,14 +120,14 @@ public class Affiliate extends BaseEntity {
 	}
 
 	public Affiliate() {
-		
+
 	}
-	
+
 	//For Tests
 	public Affiliate(Long affiliateId) {
 		this.affiliateId = affiliateId;
 	}
-	
+
 	public String getCreator() {
 		return creator;
 	}
@@ -145,7 +150,7 @@ public class Affiliate extends BaseEntity {
 			addApplication(application);
 		}
 	}
-	
+
 	public AffiliateDetails getAffiliateDetails() {
 		return affiliateDetails;
 	}
@@ -157,7 +162,7 @@ public class Affiliate extends BaseEntity {
 	public AffiliateType getType() {
 		return type;
 	}
-	
+
 	public void setType(AffiliateType type) {
 		this.type = type;
 	}
