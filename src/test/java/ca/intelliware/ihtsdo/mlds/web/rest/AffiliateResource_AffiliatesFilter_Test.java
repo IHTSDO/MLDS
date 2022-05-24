@@ -49,32 +49,32 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
     @Mock
     private AffiliateRepository affiliateRepository;
-    
+
     @Mock
     private AffiliateSearchRepository affiliateSearchRepository;
-    
+
     @Mock
     private AffiliateDetailsRepository affiliateDetailsRepository;
-    
+
     @Mock
     private SessionService sessionService;
-    
+
     @Mock
     private MemberRepository memberRepository;
-    
+
     @Mock
     private UserRepository userRepository;
-    
+
     private MockMvc restUserMockMvc;
-    
+
     SecurityContextSetup securityContextSetup = new SecurityContextSetup();
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        
+
         AffiliateResource affiliateResource = new AffiliateResource();
-        
+
         affiliateResource.affiliateDetailsRepository = affiliateDetailsRepository;
         affiliateResource.affiliateRepository = affiliateRepository;
         affiliateResource.affiliateSearchRepository = affiliateSearchRepository;
@@ -85,7 +85,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
         affiliateResource.currentSecurityContext = new CurrentSecurityContext();
 
         securityContextSetup.asAdmin();
-		
+
 		this.restUserMockMvc = MockMvcBuilders
 				.standaloneSetup(affiliateResource)
         		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
@@ -101,20 +101,20 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$", Matchers.hasSize(1)))
+                .andExpect(jsonPath("$.affiliates", Matchers.hasSize(1)))
                 .andExpect(contentMatchesTestCreator());
 	}
 
 	private PageImpl<Affiliate> withAffiliateResultForTestCreator() {
 		Affiliate affiliate = createBlankAffiliate();
     	affiliate.setCreator("testCreator");
-    	
+
     	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
 		return matches;
 	}
-	
+
 	private ResultMatcher contentMatchesTestCreator() {
-		return jsonPath("$.[0].creator").value("testCreator");
+		return jsonPath("$.affiliates.[0].creator").value("testCreator");
 	}
 
 	@Test
@@ -126,7 +126,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$", Matchers.hasSize(0)));
+                .andExpect(jsonPath("$.affiliates", Matchers.hasSize(0)));
 	}
 
 	@Test
@@ -139,7 +139,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
-        
+
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
         verify(affiliateRepository).findAll(argument.capture());
 		assertThat(argument.getValue().getSort().toString(), is("affiliateId: ASC"));
@@ -156,7 +156,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
-        
+
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
         verify(affiliateRepository).findAll(argument.capture());
 		assertThat(argument.getValue().getSort().toString(), is("homeMember.key: ASC,affiliateId: ASC"));
@@ -173,7 +173,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
-        
+
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
         verify(affiliateRepository).findAll(argument.capture());
 		assertThat(argument.getValue().getSort().toString(), is("homeMember.key: DESC,affiliateId: ASC"));
@@ -189,7 +189,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
-        
+
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
         verify(affiliateRepository).findAll(argument.capture());
 		assertThat(argument.getValue().getPageNumber(), is(0));
@@ -209,7 +209,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
-        
+
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
         verify(affiliateRepository).findAll(argument.capture());
 		assertThat(argument.getValue().getPageNumber(), is(2));
@@ -255,12 +255,12 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(contentMatchesTestCreator());
 	}
-	
+
 	@Test
 	public void getAffiliatesShouldFilterByHomeMember() throws Exception {
 		Member member = new Member("SE", 1L);
 		when(memberRepository.findOneByKey("SE")).thenReturn(member);
-		
+
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findByHomeMember(Mockito.eq(member), Mockito.any(Pageable.class))).thenReturn(matches);
 
@@ -276,7 +276,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 	public void getAffiliatesShouldFilterByHomeMemberAndStandingState() throws Exception {
 		Member member = new Member("SE", 1L);
 		when(memberRepository.findOneByKey("SE")).thenReturn(member);
-		
+
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findByHomeMemberAndStandingState(Mockito.eq(member), Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
 
@@ -293,7 +293,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 	public void getAffiliatesShouldFilterByHomeMemberAndStandingStateNot() throws Exception {
 		Member member = new Member("SE", 1L);
 		when(memberRepository.findOneByKey("SE")).thenReturn(member);
-		
+
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
     	when(affiliateRepository.findByHomeMemberAndStandingStateNot(Mockito.eq(member), Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
 
@@ -309,17 +309,17 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
 	private Affiliate createBlankAffiliate() {
     	Affiliate affiliate = new Affiliate();
-    	
+
     	AffiliateDetails affiliateDetails = new AffiliateDetails();
     	affiliateDetails.setAddress(new MailingAddress());
     	affiliateDetails.setBillingAddress(new MailingAddress());
     	affiliate.setAffiliateDetails(affiliateDetails);
-    	
+
     	PrimaryApplication application = new PrimaryApplication(1L);
     	application.setApprovalState(ApprovalState.APPROVED);
     	affiliate.setApplication(application);
-    	
+
     	return affiliate;
     }
-	
+
 }

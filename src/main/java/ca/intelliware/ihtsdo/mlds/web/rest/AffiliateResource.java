@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.search.AffiliateSearchResult;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ObjectUtils;
@@ -122,7 +123,7 @@ public class AffiliateResource {
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-    public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliates(
+    public @ResponseBody ResponseEntity<AffiliateSearchResult> getAffiliates(
     		@RequestParam(required=false) String q,
     		@RequestParam(value="$page", defaultValue="0", required=false) Integer page,
     		@RequestParam(value="$pageSize", defaultValue="50", required=false) Integer pageSize,
@@ -180,7 +181,12 @@ public class AffiliateResource {
 				}
 			}
 		}
-		return new ResponseEntity<Collection<Affiliate>>(affiliates.getContent(), HttpStatus.OK);
+		AffiliateSearchResult result = new AffiliateSearchResult();
+		result.setAffiliates(affiliates.getContent());
+		result.setTotalResults(affiliates.getTotalElements());
+		result.setTotalPages(affiliates.getTotalPages());
+
+		return new ResponseEntity<AffiliateSearchResult>(result, HttpStatus.OK);
 	}
 
 	private static final Map<String,List<String>> ORDER_BY_FIELD_MAPPINGS = new HashMap<String,List<String>>();
