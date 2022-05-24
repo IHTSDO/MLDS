@@ -64,15 +64,18 @@ mldsApp.controller('AffiliateManagementController', [
             $scope.alerts = [];
             AffiliateService.filterAffiliates($scope.query, $scope.page, 50, $scope.showAllAffiliates == 1 ? null : $scope.homeMember, $scope.standingStateFilter, $scope.standingStateNotApplying, $scope.orderByField, $scope.reverseSort)
                 .then(function(response) {
-                    //$log.log("...appending "+response.data.length+" to existing "+$scope.affiliates.length+" page="+$scope.page);
-                    _.each(response.data, function(a) {
+                    //$log.log("...appending "+response.data.affiliates.length+" to existing "+$scope.affiliates.length+" page="+$scope.page);
+                    _.each(response.data.affiliates, function(a) {
                         $scope.affiliates.push(a);
                     });
                     if (_.size($scope.affiliates) > 0) {
                         $scope.noResults = false;
                     }
+                    //$log.log("...number of query results=" + response.data.totalResults);
+                    //$log.log("...total pages=" + response.data.totalPages);
                     $scope.page = $scope.page + 1;
                     $scope.downloadingAffiliates = false;
+                    $scope.totalResults=response.data.totalResults;
                     if ($scope.loadReset) {
                         loadAffiliates();
                     }
@@ -187,7 +190,7 @@ mldsApp.controller('AffiliateManagementController', [
                         $parse("affiliateActiveDetails.agreementType")
                     ];
                     var result = [];
-                    _.each(response.data, function(affiliate) {
+                    _.each(response.data.affiliates, function(affiliate) {
                         var row = [];
                         _.each(expressions, function(expression) {
                             row.push(expression({
