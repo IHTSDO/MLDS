@@ -59,6 +59,10 @@ mldsApp.controller('AffiliateManagementController', [
                 // If a loadAffiliates (loadReset === true) had been called then need to redownload once the current download is complete
                 return;
             }
+            if ($scope.allRetrieved) {
+                // When all affiliates are retrieved there's no reason to load more..
+                return;
+            }
             $scope.loadReset = false;
             $scope.downloadingAffiliates = true;
             $scope.alerts = [];
@@ -71,11 +75,14 @@ mldsApp.controller('AffiliateManagementController', [
                     if (_.size($scope.affiliates) > 0) {
                         $scope.noResults = false;
                     }
-                    //$log.log("...number of query results=" + response.data.totalResults);
-                    //$log.log("...total pages=" + response.data.totalPages);
                     $scope.page = $scope.page + 1;
                     $scope.downloadingAffiliates = false;
                     $scope.totalResults=response.data.totalResults;
+                    $scope.totalPages=response.data.totalPages;
+                    if ($scope.affiliates.length >= $scope.totalResults) {
+                        $log.log("all retrieved true" );
+                        $scope.allRetrieved = true;
+                    }
                     if ($scope.loadReset) {
                         loadAffiliates();
                     }
@@ -93,6 +100,10 @@ mldsApp.controller('AffiliateManagementController', [
             //Force clear - note loadMoreAffiliates works on alias
             $scope.affiliates = [];
             $scope.page = 0;
+            $scope.totalPages = 0;
+            $scope.totalResults = 0;
+            $scope.allRetrieved = false;
+
             $scope.noResults = true;
             $scope.canSort = !$scope.query;
 
