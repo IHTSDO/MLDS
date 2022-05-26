@@ -80,7 +80,7 @@ mldsApp.controller('AffiliateManagementController', [
                     $scope.totalResults=response.data.totalResults;
                     $scope.totalPages=response.data.totalPages;
                     if ($scope.affiliates.length >= $scope.totalResults) {
-                        $log.log("all retrieved true" );
+                        $log.log("All available affiliates retrieved." );
                         $scope.allRetrieved = true;
                     }
                     if ($scope.loadReset) {
