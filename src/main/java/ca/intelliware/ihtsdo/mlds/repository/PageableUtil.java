@@ -9,7 +9,7 @@ public class PageableUtil {
 
 	public int getStartPosition(Pageable pageable) {
 		//return (pageable.getPageNumber() * pageable.getPageSize()) + pageable.getOffset(); // MLDS-967, start position increases too fast
-		LOG.info("Paging affiliate query results, offset (start position)={}", pageable.getPageNumber() * pageable.getPageSize());
+		LOG.debug("Paging affiliate query results, offset (start position)={}", pageable.getPageNumber() * pageable.getPageSize());
 		return (pageable.getPageNumber() * pageable.getPageSize());
 	}
 }
