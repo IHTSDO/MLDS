@@ -1597,4 +1597,13 @@ $f$ language plpgsql;
                 group by 1;
         </createView>
     </changeSet>
+
+    <changeSet author="MLR" id="MLDS-971">
+        <modifyDataType
+          columnName="principal"
+          newDataType="varchar(255)"
+          tableName="t_persistent_audit_event"/>
+    </changeSet>
+
+
 </databaseChangeLog>
