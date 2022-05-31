@@ -65,7 +65,8 @@
             "pl": "polska",
             "pt": "portugisiska",
             "ru": "ryska",
-            "se": "svenska"
+            "se": "svenska",
+            "th": "Thai"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -995,6 +996,10 @@
                     "placeholder": "Adress",
                     "sameAsAddress": "Använd adressen som fakturaadress",
                     "useOrganizationAddress": "Använd organisationsadressen som fakturaadress"
+                },
+                "alternateEmail": {
+                    "placeholder": "alternative@email.com",
+                    "name": "Alternativ e-post"
                 }
             },
             "organization": {
@@ -1073,7 +1078,8 @@
             "title": "Återställning av lösenord",
             "detail": "Vi kommer att skicka ett meddelande med en länk till ett formulär för återställning av lösenord.",
             "button": "Begär återställning av lösenord",
-            "back": "Tillbaka till inloggningssidan"
+            "back": "Tillbaka till inloggningssidan",
+            "emailNotFound": "Angiven e-post hittades inte i systemet."
         },
         "usage": {
             "title": "Användningslogg",
