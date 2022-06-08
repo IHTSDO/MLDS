@@ -16,7 +16,7 @@
     </changeSet>
     <changeSet author="MB" id="MLDS-02-1">
     	<createTable tableName="application">
-            <column name="application_id" type="NUMBER">
+            <column name="application_id" type="INT8">
                 <constraints primaryKey="true" primaryKeyName="applicationPK"/>
             </column>
             <column name="username" type="VARCHAR(255)">
@@ -89,7 +89,7 @@
     </changeSet>
     <changeSet author="AC" id="MLDS-02-3">
         <createTable tableName="email_domain_blacklist">
-            <column autoIncrement="true" name="domain_id" type="NUMBER">
+            <column autoIncrement="true" name="domain_id" type="INT8">
                 <constraints primaryKey="true" primaryKeyName="email_domain_PK"/>
             </column>
             <column name="domainname" type="VARCHAR(255)"/>
