@@ -169,6 +169,7 @@
     </changeSet>
     -->
    	<changeSet id="MLDS-23-1" author="MB/DGJ">
+		<validCheckSum>7:82bea33baf9145b4837cc2d7029f8da8</validCheckSum>
    		<preConditions onFail="MARK_RAN">
    			<not><tableExists tableName="country"/></not>
    		</preConditions>
@@ -1024,6 +1025,7 @@
 	</changeSet>
 	
 	<changeSet id="MLDS-309-6" author="ac/mb">
+		<validCheckSum>7:0cd1c1b9366936b78ef329adf9d862db</validCheckSum>
 		<comment>Load up IHTSDO license</comment>
 		<createTable tableName="tmpblob">
       <column name="content" type="bytea"/>

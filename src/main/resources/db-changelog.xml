@@ -15,6 +15,7 @@
         </createTable>
     </changeSet>
     <changeSet author="MB" id="MLDS-02-1">
+	<validCheckSum>7:685a57551698e8e61c2667a2bbc55f89</validCheckSum>
     	<createTable tableName="application">
             <column name="application_id" type="INT8">
                 <constraints primaryKey="true" primaryKeyName="applicationPK"/>
@@ -88,6 +89,7 @@
         </createTable>
     </changeSet>
     <changeSet author="AC" id="MLDS-02-3">
+	<validCheckSum>7:178964a1a1c900a14b2cb2fadf1da5d3</validCheckSum>
         <createTable tableName="email_domain_blacklist">
             <column autoIncrement="true" name="domain_id" type="INT8">
                 <constraints primaryKey="true" primaryKeyName="email_domain_PK"/>
