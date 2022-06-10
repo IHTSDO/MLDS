@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +21,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
@@ -51,9 +51,9 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 @TestPropertySource(locations="classpath:test.application.properties")
 @ActiveProfiles("dev")
 @Transactional
-public class AffiliateDeleterTest {
+public class AffiliateDeleterTest extends PostgresTestContainerTest {
 	@Resource EntityManager entityManager;
-	
+
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource AffiliateDetailsRepository affiliateDetailsRepository;
 	@Resource ApplicationRepository applicationRepository;
@@ -63,43 +63,43 @@ public class AffiliateDeleterTest {
 	@Resource CommercialUsageEntryRepository commercialUsageEntryRepository;
 
 	@Resource MemberRepository memberRepository;
-	
+
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
-	
+
 	@Resource AffiliateDeleter affiliateDeleter;
-	
+
 	Random random = new Random();
 	private String uniqueKey;
 
 	private Member sweden;
 	private Member ihtsdo;
-	
+
 	@Before
 	public void setUp() {
 		ihtsdo = memberRepository.findOneByKey(Member.KEY_IHTSDO);
 		sweden = memberRepository.findOneByKey("SE");
-		
+
 		uniqueKey = ""+System.currentTimeMillis();
-		
+
 		securityContextSetup.asAdmin();
 	}
-	
+
 	@Test
 	public void deleteAffiliateWithAllData() throws Exception {
-		
+
 		securityContextSetup.asSwedenStaff();
-		
+
 		String userEmail = "test"+uniqueKey+"@email.com";
 		User user = withUser(userEmail);
 		Affiliate affiliate = withAffiliateUser(StandingState.APPLYING, ihtsdo, userEmail);
 		AffiliateDetails affiliateDetails = affiliate.getAffiliateDetails();
-		
+
 		Application primaryApplication = withPrimaryApplication(affiliate, ihtsdo, ApprovalState.APPROVED);
 		AffiliateDetails affiliatePrimaryDetails = primaryApplication.getAffiliateDetails();
-		
+
 		Application extensionApplication = withExtensionApplication(affiliate, sweden, ApprovalState.APPROVED);
 		AffiliateDetails affiliateExtensionDetails = extensionApplication.getAffiliateDetails();
-		
+
 		CommercialUsage commercialUsage = withCommercialUsage(affiliate);
 		CommercialUsageCountry commercialUsageCountry = commercialUsage.getCountries().iterator().next();
 		CommercialUsageEntry commercialUsageEntry = commercialUsage.getEntries().iterator().next();
@@ -108,7 +108,7 @@ public class AffiliateDeleterTest {
 		assertThat(affiliateDetails.getAffiliateDetailsId(), not(equalTo(affiliatePrimaryDetails.getAffiliateDetailsId())));
 		assertThat(affiliateDetails.getAffiliateDetailsId(), not(equalTo(affiliateExtensionDetails.getAffiliateDetailsId())));
 		assertThat(affiliatePrimaryDetails.getAffiliateDetailsId(), not(equalTo(affiliateExtensionDetails.getAffiliateDetailsId())));
-		
+
 		// Confirm data model accessible from JPA
 		assertThat(affiliateRepository.findOne(affiliate.getAffiliateId()), notNullValue(Affiliate.class));
 		assertThat(applicationRepository.findOne(primaryApplication.getApplicationId()), notNullValue(Application.class));
@@ -120,12 +120,12 @@ public class AffiliateDeleterTest {
 		assertThat(affiliateDetailsRepository.findOne(affiliateExtensionDetails.getAffiliateDetailsId()), notNullValue(AffiliateDetails.class));
 		assertThat(commercialUsageCountryRepository.findOne(commercialUsageCountry.getCommercialUsageCountId()), notNullValue(CommercialUsageCountry.class));
 		assertThat(commercialUsageEntryRepository.findOne(commercialUsageEntry.getCommercialUsageEntryId()), notNullValue(CommercialUsageEntry.class));
-		
+
 		assertThat(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), is(2));
-		
+
 		// Test
 		affiliateDeleter.deleteAffiliate(affiliate);
-		
+
 		// JPA should no longer match entities
 		assertThat(affiliateRepository.findOne(affiliate.getAffiliateId()), nullValue(Affiliate.class));
 		assertThat(applicationRepository.findOne(primaryApplication.getApplicationId()), nullValue(Application.class));
@@ -140,7 +140,7 @@ public class AffiliateDeleterTest {
 
 		// JPA should no longer find through custom repository
 		assertThat(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), is(0));
-		
+
 		// Records should still be present in the database
 		assertThat(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), is(1));
 		assertThat(matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+primaryApplication.getApplicationId()), is(1));
@@ -156,28 +156,28 @@ public class AffiliateDeleterTest {
 
 	@Test
 	public void deleteAffiliateWithMinimalData() throws Exception {
-		
+
 		securityContextSetup.asSwedenStaff();
-		
+
 		String userEmail = "test"+uniqueKey+"@email.com";
 		Affiliate affiliate = withAffiliateUser(StandingState.APPLYING, ihtsdo, userEmail);
 
 		assertThat(affiliateRepository.findOne(affiliate.getAffiliateId()), notNullValue(Affiliate.class));
-		
+
 		affiliateDeleter.deleteAffiliate(affiliate);
-		
+
 		// JPA should no longer match entities
 		assertThat(affiliateRepository.findOne(affiliate.getAffiliateId()), nullValue(Affiliate.class));
-		
+
 		// Records should still be present in the database
 		assertThat(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), is(1));
 	}
 
 	@Test
 	public void deleteAffiliateWithSharedAffiliateDetails() throws Exception {
-		
+
 		securityContextSetup.asSwedenStaff();
-		
+
 		String userEmail = "test"+uniqueKey+"@email.com";
 		User user = withUser(userEmail);
 		Affiliate affiliate = withAffiliateUser(StandingState.APPLYING, ihtsdo, userEmail);
@@ -197,12 +197,12 @@ public class AffiliateDeleterTest {
 		assertThat(commercialUsageRepository.findOne(commercialUsage.getCommercialUsageId()), notNullValue(CommercialUsage.class));
 		assertThat(affiliateDetailsRepository.findOne(affiliateSharedDetails.getAffiliateDetailsId()), notNullValue(AffiliateDetails.class));
 		assertThat(affiliateDetailsRepository.findOne(affiliateExtensionDetails.getAffiliateDetailsId()), notNullValue(AffiliateDetails.class));
-		
+
 		assertThat(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), is(2));
-		
+
 		// Test
 		affiliateDeleter.deleteAffiliate(affiliate);
-		
+
 		// JPA should no longer match entities
 		assertThat(affiliateRepository.findOne(affiliate.getAffiliateId()), nullValue(Affiliate.class));
 		assertThat(applicationRepository.findOne(primaryApplication.getApplicationId()), nullValue(Application.class));
@@ -211,10 +211,10 @@ public class AffiliateDeleterTest {
 		assertThat(commercialUsageRepository.findOne(commercialUsage.getCommercialUsageId()), nullValue(CommercialUsage.class));
 		assertThat(affiliateDetailsRepository.findOne(affiliateSharedDetails.getAffiliateDetailsId()), nullValue(AffiliateDetails.class));
 		assertThat(affiliateDetailsRepository.findOne(affiliateExtensionDetails.getAffiliateDetailsId()), nullValue(AffiliateDetails.class));
-		
+
 		// JPA should no longer find through custom repository
 		assertThat(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), is(0));
-		
+
 		// Records should still be present in the database
 		assertThat(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), is(1));
 		assertThat(matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+primaryApplication.getApplicationId()), is(1));
@@ -228,19 +228,19 @@ public class AffiliateDeleterTest {
 	private CommercialUsage withCommercialUsage(Affiliate affiliate) {
 		CommercialUsage commercialUsage = new CommercialUsage();
 		commercialUsage.setType(AffiliateType.COMMERCIAL);
-		
+
 		entityManager.persist(commercialUsage);
-		
+
 		CommercialUsageCountry count = new CommercialUsageCountry();
 		entityManager.persist(count);
 		commercialUsage.addCount(count);
-		
+
 		CommercialUsageEntry entry = new CommercialUsageEntry();
 		entityManager.persist(entry);
 		commercialUsage.addEntry(entry);
-		
+
 		affiliate.addCommercialUsage(commercialUsage);
-		affiliateRepository.save(affiliate);	
+		affiliateRepository.save(affiliate);
 
 		return commercialUsage;
 	}
@@ -256,11 +256,11 @@ public class AffiliateDeleterTest {
 		AffiliateDetails affiliateDetails = new AffiliateDetails();
 		affiliateDetails.setEmail(email);
 		affiliate.setAffiliateDetails(affiliateDetails);
-		
+
 		affiliate.setStandingState(standingState);
-		
+
 		entityManager.persist(affiliate.getAffiliateDetails());
-		affiliateRepository.save(affiliate);	
+		affiliateRepository.save(affiliate);
 
 		return affiliate;
 	}
@@ -273,7 +273,7 @@ public class AffiliateDeleterTest {
 
 		return user;
 	}
-	
+
 	private Application withPrimaryApplication(Affiliate affiliate, Member member, ApprovalState approvalState) {
 		PrimaryApplication application = new PrimaryApplication();
 		application.setMember(member);
@@ -283,8 +283,8 @@ public class AffiliateDeleterTest {
 		application.setAffiliateDetails(applicationAffiliateDetails);
 		entityManager.persist(application);
 		affiliate.setApplication(application);
-		
-		affiliateRepository.save(affiliate);	
+
+		affiliateRepository.save(affiliate);
 		return application;
 	}
 
@@ -304,7 +304,7 @@ public class AffiliateDeleterTest {
 	private void flush() {
 		entityManager.flush();
 	}
-	
+
 	Affiliate makeAffiliate() {
 		Affiliate affiliate = new Affiliate();
 		affiliate.setAffiliateDetails(new AffiliateDetails());
@@ -312,10 +312,10 @@ public class AffiliateDeleterTest {
 		affiliate.getAffiliateDetails().setLastName(randomString("lastName"));;
 		affiliate.getAffiliateDetails().setAddress(new MailingAddress());
 		affiliate.setHomeMember(ihtsdo);
-		
+
 		entityManager.persist(affiliate.getAffiliateDetails());
 		affiliateRepository.save(affiliate);
-		
+
 		return affiliate;
 	}
 
@@ -328,8 +328,8 @@ public class AffiliateDeleterTest {
 		application.setAffiliateDetails(affiliateDetails);
 		entityManager.persist(application);
 		affiliate.addApplication(application);
-		
-		affiliateRepository.save(affiliate);	
+
+		affiliateRepository.save(affiliate);
 		return application;
 	}
 
