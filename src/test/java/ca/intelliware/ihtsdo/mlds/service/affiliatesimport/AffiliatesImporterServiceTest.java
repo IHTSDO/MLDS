@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,15 +26,15 @@ import com.google.common.collect.Lists;
 @TestPropertySource(locations="classpath:test.application.properties")
 @ActiveProfiles("dev")
 @Transactional
-public class AffiliatesImporterServiceTest {
+public class AffiliatesImporterServiceTest extends PostgresTestContainerTest {
 	@Resource AffiliatesImporterService affiliatesImporterService;
 	@Resource AffiliatesMapper affiliatesMapper;
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource MemberRepository memberRepository;
-	
+
 	Member sweden;
 	private List<String> fields;
-	
+
 	@Before
 	public void setup() {
 		sweden = memberRepository.findOneByKey("SE");
@@ -41,42 +42,42 @@ public class AffiliatesImporterServiceTest {
 		setField(fields,"member", "SE");
 		setField(fields,"importKey", "XXX_Test");
 	}
-	
+
 	@Test
 	public void firstRunCreatesAffiliate() throws Exception {
 		// setup
 		setField(fields,"organizationName", "Our Name");
 		LineRecord record = new LineRecord(1, fields, false);
-		
+
 		// execution
 		affiliatesImporterService.processLineRecord(record, new ImportResult());
-		
+
 		Affiliate foundAffiliate = affiliateRepository.findByImportKeyAndHomeMember("XXX_Test", sweden);
-		
+
 		Assert.assertEquals("Our Name", foundAffiliate.getAffiliateDetails().getOrganizationName());
 	}
-	
+
 	@Test
 	public void secondRunUpdatesAffiliateDetails() throws Exception {
 		// setup
 		setField(fields,"organizationName", "Our Name");
 		LineRecord record = new LineRecord(1, fields, false);
-		
+
 		// execution #1
 		affiliatesImporterService.processLineRecord(record, new ImportResult());
-		
+
 		affiliateRepository.flush();
 		Affiliate firstAffiliate = affiliateRepository.findByImportKeyAndHomeMember("XXX_Test", sweden);
-		
+
 		// execution #2
 		setField(fields,"organizationName", "Our New Name");
 		LineRecord record2 = new LineRecord(1, fields, false);
-		
+
 		affiliatesImporterService.processLineRecord(record2, new ImportResult());
 
 		Affiliate secondAffiliate = affiliateRepository.findByImportKeyAndHomeMember("XXX_Test", sweden);
 		Assert.assertEquals("same affiliate", firstAffiliate.getAffiliateId(), secondAffiliate.getAffiliateId());
-		
+
 		Assert.assertEquals("organizationName changed", "Our New Name", secondAffiliate.getAffiliateDetails().getOrganizationName());
 	}
 
@@ -84,26 +85,26 @@ public class AffiliatesImporterServiceTest {
 	public void updateAddsAnImportApplicationAsLog() throws Exception {
 		setField(fields,"organizationName", "Our Name");
 		LineRecord record = new LineRecord(1, fields, false);
-		
+
 		// execution #1
 		affiliatesImporterService.processLineRecord(record, new ImportResult());
-		
+
 		affiliateRepository.flush();
-		
+
 		// execution #2
 		setField(fields,"organizationName", "Our New Name");
 		LineRecord record2 = new LineRecord(1, fields, false);
-		
+
 		affiliatesImporterService.processLineRecord(record2, new ImportResult());
 
 		// validation
 		Affiliate foundAffiliate = affiliateRepository.findByImportKeyAndHomeMember("XXX_Test", sweden);
-		
+
 		Assert.assertEquals("Has 2 applications - (primary and import)", 2, Iterables.size(foundAffiliate.getApplications()));
-		
+
 		Iterable<ImportApplication> importApplications = Iterables.filter(foundAffiliate.getApplications(), ImportApplication.class);
 		Assert.assertEquals("Has an import application", 1, Iterables.size(importApplications));
-		
+
 		Assert.assertEquals("Our New Name", importApplications.iterator().next().getAffiliateDetails().getOrganizationName());
 	}
 
@@ -112,10 +113,10 @@ public class AffiliatesImporterServiceTest {
 		// setup
 		setField(fields,"organizationName", "Our Name");
 		LineRecord record = new LineRecord(1, fields, false);
-		
+
 		// execution
 		affiliatesImporterService.processLineRecord(record, new ImportResult());
-		
+
 		Affiliate foundAffiliate = affiliateRepository.findByImportKeyAndHomeMember("XXX_Test", sweden);
 		Assert.assertEquals("should have created commercial usage", 1, foundAffiliate.getCommercialUsages().size());
 		CommercialUsage usage = foundAffiliate.getCommercialUsages().iterator().next();
@@ -129,18 +130,18 @@ public class AffiliatesImporterServiceTest {
 	private int columnIndexFor(final String columnName) {
 		Predicate<FieldMapping> columnNameMatchPredicate = new Predicate<FieldMapping>() {
 			String targetColumnName = columnName;
-			
+
 			@Override
 			public boolean apply(FieldMapping input) {
 				return input.columnName.equals(targetColumnName);
 			}
-			
+
 			@Override
 			public boolean test(FieldMapping input) {
 				return apply(input);
 			}
 		};
-		
+
 		return Iterables.indexOf(affiliatesMapper.getMappings(), columnNameMatchPredicate);
 	}
 
