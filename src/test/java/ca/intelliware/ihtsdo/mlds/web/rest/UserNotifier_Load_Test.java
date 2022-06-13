@@ -31,33 +31,33 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 public class UserNotifier_Load_Test {
 
 	@Resource EntityManager entityManager;
-	
+
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource UserRepository userRepository;
-	
+
 	@Resource MemberRepository memberRepository;
-	
+
 	@Resource CountryRepository countryRepository;
-	
+
 	@Resource UserNotifier userNotifier;
 
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
-	
+
 	Random random = new Random();
-	
+
 	List<Affiliate> affiliates = Lists.newArrayList();
 	Member ihtsdo;
 	Member sweden;
 	Member belgium;
 
 	private String uniqueKey;
-	
+
 	@Before
 	public void setUp() {
 		ihtsdo = memberRepository.findOneByKey(Member.KEY_IHTSDO);
 		sweden = memberRepository.findOneByKey("SE");
 		belgium = memberRepository.findOneByKey("BE");
-		
+
 		uniqueKey = ""+System.currentTimeMillis();
 	}
 
@@ -70,7 +70,7 @@ public class UserNotifier_Load_Test {
 	@Ignore("Slow running")
 	public void notifyReleasePackageUpdated() throws Exception {
 		securityContextSetup.asSwedenStaff();
-		
+
 		int NUMBER_OF_AFFILIATES = 5000;
 		System.out.print("Loading "+NUMBER_OF_AFFILIATES+" affiliates....");
 		for (int i = 0; i < NUMBER_OF_AFFILIATES; i++) {
@@ -86,10 +86,10 @@ public class UserNotifier_Load_Test {
 			}
 		}
 		System.out.println(" done");
-		
+
 		System.out.println("Start email processing....");
 		long start = System.currentTimeMillis();
-				
+
 		ReleasePackage releasePackage = new ReleasePackage(1L);
 		releasePackage.setMember(sweden);
 		ReleaseVersion releaseVersion = new ReleaseVersion(2L);
@@ -99,7 +99,7 @@ public class UserNotifier_Load_Test {
 		System.out.println("*** DONE **** "+ ((System.currentTimeMillis() - start) / 1000.0)+"s");
 	}
 
-	
+
 	private Affiliate withAffiliateUser(StandingState standingState, Member homeMember, String email) {
 		Affiliate affiliate = new Affiliate();
 		affiliate.setHomeMember(homeMember);
@@ -107,37 +107,37 @@ public class UserNotifier_Load_Test {
 		AffiliateDetails affiliateDetails = new AffiliateDetails();
 		affiliateDetails.setEmail(email);
 		affiliate.setAffiliateDetails(affiliateDetails);
-		
+
 		affiliate.setStandingState(standingState);
-		
+
 		entityManager.persist(affiliate.getAffiliateDetails());
-		affiliateRepository.save(affiliate);	
+		affiliateRepository.save(affiliate);
 
 		User user = new User();
 		user.setEmail(email);
 		user.setLogin(email);
 		user.setLangKey("en");
-		
+
 		userRepository.save(user);
 
 		return affiliate;
 	}
-	
+
 	private Application withExtensionApplication(Affiliate affiliate, Member member, ApprovalState approvalState) {
 		ExtensionApplication application = new ExtensionApplication();
 		application.setMember(member);
 		application.setApprovalState(approvalState);
 		entityManager.persist(application);
 		affiliate.addApplication(application);
-		
-		affiliateRepository.save(affiliate);	
+
+		affiliateRepository.save(affiliate);
 		return application;
 	}
 
 	private void flush() {
 		entityManager.flush();
 	}
-	
+
 	Affiliate makeAffiliate() {
 		Affiliate affiliate = new Affiliate();
 		affiliate.setAffiliateDetails(new AffiliateDetails());
@@ -145,10 +145,10 @@ public class UserNotifier_Load_Test {
 		affiliate.getAffiliateDetails().setLastName(randomString("lastName"));;
 		affiliate.getAffiliateDetails().setAddress(new MailingAddress());
 		affiliate.setHomeMember(ihtsdo);
-		
+
 		entityManager.persist(affiliate.getAffiliateDetails());
 		affiliateRepository.save(affiliate);
-		
+
 		return affiliate;
 	}
 
