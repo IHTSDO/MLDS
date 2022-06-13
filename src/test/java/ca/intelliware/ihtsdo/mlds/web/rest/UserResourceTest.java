@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +31,7 @@ import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 @TestPropertySource(locations="classpath:test.application.properties")
 @ActiveProfiles("dev")
 @Transactional
-public class UserResourceTest {
+public class UserResourceTest extends PostgresTestContainerTest {
 
     @Inject
     private UserRepository userRepository;
