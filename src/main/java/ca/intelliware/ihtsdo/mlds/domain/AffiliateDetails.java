@@ -35,7 +35,7 @@ import ca.intelliware.ihtsdo.mlds.search.OrganizationTypeFieldBridge;
 @Where(clause = "inactive_at IS NULL")
 @SQLDelete(sql="UPDATE affiliate_details SET inactive_at = now() WHERE affiliate_details_id = ?")
 public class AffiliateDetails extends BaseEntity implements Cloneable {
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name="affiliate_details_id")
@@ -45,7 +45,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Column(name="inactive_at")
 	private
 	Instant inactiveAt;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Field(name="ALL",bridge=@FieldBridge(impl=AffiliateTypeFieldBridge.class))
 	AffiliateType type;
@@ -53,7 +53,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	/** text for "Other" AffiliateType */
 	@Column(name = "other_text")
 	String otherText;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "subtype")
 	AffiliateSubType subType;
@@ -65,46 +65,46 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Column(name="first_name")
 	@Fields({ @Field(name="ALL"), @Field()})
 	String firstName;
-	
+
 	@Column(name="last_name")
 	@Fields({ @Field(name="ALL"), @Field()})
 	String lastName;
-	
-	@Fields({ 
-		@Field(name="ALL"),  // the default analyzer splits on @ 
+
+	@Fields({
+		@Field(name="ALL"),  // the default analyzer splits on @
 		@Field(analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
 		})
 	String email;
-	
+
 	@Column(name="alternate_email")
-	@Fields({ 
-		@Field(name="ALL"),  // the default analyzer splits on @ 
+	@Fields({
+		@Field(name="ALL"),  // the default analyzer splits on @
 		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
 		})
 	String alternateEmail;
-	
+
 	@Column(name="third_email")
-	@Fields({ 
-		@Field(name="ALL"),  // the default analyzer splits on @ 
+	@Fields({
+		@Field(name="ALL"),  // the default analyzer splits on @
 		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
 		})
 	String thirdEmail;
-	
+
 	@Column(name="landline_number")
 	String landlineNumber;
 	@Column(name="landline_extension")
 	String landlineExtension;
 	@Column(name="mobile_number")
 	String mobileNumber;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name="organization_type")
 	@Field(name="ALL",bridge=@FieldBridge(impl=OrganizationTypeFieldBridge.class))
 	OrganizationType organizationType;
-	
+
 	@Column(name="organization_type_other")
 	String organizationTypeOther;
-	
+
 	@AttributeOverrides({
 		@AttributeOverride(name="street", column=@Column(name="street")),
 		@AttributeOverride(name="city", column=@Column(name="city")),
@@ -114,11 +114,11 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Embedded
 	@IndexedEmbedded
 	MailingAddress address;
-	
+
 	@Column(name="organization_name")
 	@Fields({ @Field(name="ALL"), @Field()})
 	String organizationName;
-	
+
 	@AttributeOverrides({
 		@AttributeOverride(name="street", column=@Column(name="billing_street")),
 		@AttributeOverride(name="city", column=@Column(name="billing_city")),
@@ -128,9 +128,11 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Embedded
 	@IndexedEmbedded
 	MailingAddress billingAddress;
-	
+
 	transient boolean acceptNotifications = true;
-	
+
+    transient boolean countryNotificationsOnly = false;
+
 	public boolean isAcceptNotifications() {
 		return acceptNotifications;
 	}
@@ -139,7 +141,15 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 		this.acceptNotifications = acceptNotifications;
 	}
 
-	public Long getAffiliateDetailsId() {
+    public boolean isCountryNotificationsOnly() {
+        return countryNotificationsOnly;
+    }
+
+    public void setCountryNotificationsOnly(boolean countryNotificationsOnly) {
+        this.countryNotificationsOnly = countryNotificationsOnly;
+    }
+
+    public Long getAffiliateDetailsId() {
 		return affiliateDetailsId;
 	}
 
@@ -256,7 +266,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	public void setOrganizationTypeOther(String organizationTypeOther) {
 		this.organizationTypeOther = organizationTypeOther;
 	}
-	
+
 	public Object clone() {
 		try {
 			return super.clone();
@@ -280,7 +290,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	public void setType(AffiliateType type) {
 		this.type = type;
 	}
-	
+
 	public String getOtherText() {
 		return otherText;
 	}
@@ -296,7 +306,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	public void setSubType(AffiliateSubType subType) {
 		this.subType = subType;
 	}
-	
+
 	public AgreementType getAgreementType() {
 		return agreementType;
 	}

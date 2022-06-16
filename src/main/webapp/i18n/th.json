@@ -439,7 +439,7 @@
         "applicationSummary": {
             "ext.title": "ข้อมูลการสมัครใช้ Extension",
             "applicationActivity": "กิจกรรมการสมัคร",
-            "subLicence": "การใช้งานของผู้ได้รับใบอนุญาตย่อย",
+            "subLicence": "การใช้งานของผู้ที่ได้รับใบอนุญาตที่ได้สิทธิการใช้งานต่อ (sublicense)",
             "context": "บริบทการใช้งาน",
             "billingInfo": "ข้อมูลการเรียกเก็บเงิน",
             "useSubType": "ประเภทย่อย",
@@ -760,6 +760,7 @@
                 }
             },
             "acceptNotifications": "ใช่ แจ้งให้ฉันทราบเมื่อมีการอัปเดตไฟล์เผยแพร่ของ SNOMED",
+            "countryNotificationsOnly": "สำหรับส่วนขยายประเทศของฉันเท่านั้น",
             "title": "ข้อมูลบัญชีผู้ใช้"
         },
         "activate": {

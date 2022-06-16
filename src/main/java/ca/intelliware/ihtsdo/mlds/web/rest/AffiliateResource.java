@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.search.AffiliateSearchResult;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ObjectUtils;
@@ -69,13 +70,13 @@ import ca.intelliware.ihtsdo.mlds.web.SessionService;
 public class AffiliateResource {
 
     private final Logger log = LoggerFactory.getLogger(AffiliateResource.class);
-    
+
 	@Resource
 	AffiliateRepository affiliateRepository;
-	
+
 	@Resource
 	AffiliateSearchRepository affiliateSearchRepository;
-	
+
 	@Resource
 	AffiliateDetailsRepository affiliateDetailsRepository;
 
@@ -89,40 +90,40 @@ public class AffiliateResource {
 	AffiliateImportAuditEvents affiliateImportAuditEvents;
 
 	@Resource
-	AffiliatesImporterService affiliatesImporterService; 
+	AffiliatesImporterService affiliatesImporterService;
 
 	@Resource
-	AffiliatesExporterService affiliatesExporterService; 
-	
+	AffiliatesExporterService affiliatesExporterService;
+
 	@Resource
 	AffiliatesImportGenerator affiliatesImportGenerator;
-	
+
 	@Resource
 	UserRepository userRepository;
-	
+
 	@Resource
 	MemberRepository memberRepository;
-	
+
 	@Resource
 	AffiliateDeleter affiliateDeleter;
 
 	@Resource
 	SessionService sessionService;
-	
+
 	@Resource
 	CurrentSecurityContext currentSecurityContext;
 
 	public static final int DEFAULT_PAGE_SIZE = 50;
-	
+
 	public static final String FILTER_HOME_MEMBER = "homeMember eq '(\\w+)'";
 	public static final String FILTER_STANDING = "(not)?\\s?standingState eq '(\\w+)'";
-	
+
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.AFFILIATES,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-    public @ResponseBody ResponseEntity<Collection<Affiliate>> getAffiliates(
+    public @ResponseBody ResponseEntity<AffiliateSearchResult> getAffiliates(
     		@RequestParam(required=false) String q,
     		@RequestParam(value="$page", defaultValue="0", required=false) Integer page,
     		@RequestParam(value="$pageSize", defaultValue="50", required=false) Integer pageSize,
@@ -134,7 +135,7 @@ public class AffiliateResource {
 		Member member = null;
 		StandingState standingState = null;
 		boolean standingStateNot = false;
-		
+
 		if (filters != null && filters.size() > 0 && StringUtils.isNotBlank(filters.get(0))) {
 			for (String filter : filters) {
 				Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
@@ -153,7 +154,7 @@ public class AffiliateResource {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
-		
+
 		if (!StringUtils.isBlank(q)) {
 			//Note that sorting in the pageRequest is not currently respected by lucene
 			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest) ;
@@ -163,7 +164,7 @@ public class AffiliateResource {
 					affiliates = affiliateRepository.findAll(pageRequest);
 				} else {
 					if (standingStateNot) {
-						affiliates = affiliateRepository.findByStandingStateNot(standingState, pageRequest);						
+						affiliates = affiliateRepository.findByStandingStateNot(standingState, pageRequest);
 					} else {
 						affiliates = affiliateRepository.findByStandingState(standingState, pageRequest);
 					}
@@ -180,9 +181,14 @@ public class AffiliateResource {
 				}
 			}
 		}
-		return new ResponseEntity<Collection<Affiliate>>(affiliates.getContent(), HttpStatus.OK);
+		AffiliateSearchResult result = new AffiliateSearchResult();
+		result.setAffiliates(affiliates.getContent());
+		result.setTotalResults(affiliates.getTotalElements());
+		result.setTotalPages(affiliates.getTotalPages());
+
+		return new ResponseEntity<AffiliateSearchResult>(result, HttpStatus.OK);
 	}
-	
+
 	private static final Map<String,List<String>> ORDER_BY_FIELD_MAPPINGS = new HashMap<String,List<String>>();
 	static {
 		//FIXME using both the affiliateDetails and the application.affiliateDetails causes discrepancies in the order and text shown on the front end. Perhaps we should keep affiliateDetails up to date with primary application affiliateDetail updates?
@@ -207,7 +213,7 @@ public class AffiliateResource {
 				);
 		return new SortBuilder().createSort(orderby, ORDER_BY_FIELD_MAPPINGS, defaultSort);
 	}
-	
+
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.AFFILIATE,
     		method = RequestMethod.GET,
@@ -218,12 +224,13 @@ public class AffiliateResource {
 		if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
-		
-		//Populate the acceptNotifications field from the user object
+
+		//Populate the notifications fields from the user object
 		String login = affiliate.getAffiliateDetails().getEmail();
 		User user = userRepository.findByLoginIgnoreCase(login);
     	if (user != null) {
     		affiliate.getAffiliateDetails().setAcceptNotifications(user.getAcceptNotifications());
+            affiliate.getAffiliateDetails().setCountryNotificationsOnly(user.getCountryNotificationsOnly());
     	}
 		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
     }
@@ -239,11 +246,11 @@ public class AffiliateResource {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
     	applicationAuthorizationChecker.checkCanManageAffiliate(affiliate);
-    	
+
     	StandingState originalStanding = affiliate.getStandingState();
-    	
+
     	copyAffiliateFields(affiliate, body);
-    	
+
     	if (! Objects.equal(originalStanding, affiliate.getStandingState())) {
     		if (Objects.equal(originalStanding, StandingState.APPLYING)
     				|| Objects.equal(originalStanding, StandingState.REJECTED)) {
@@ -254,9 +261,9 @@ public class AffiliateResource {
     	}
 
     	affiliateRepository.save(affiliate);
-    	
+
     	affiliateAuditEvents.logUpdateOfAffiliate(affiliate);
-    	
+
     	return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
     }
 
@@ -279,15 +286,15 @@ public class AffiliateResource {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
     	applicationAuthorizationChecker.checkCanManageAffiliate(affiliate);
-    	
+
     	if (!ObjectUtils.equals(affiliate.getStandingState(), StandingState.APPLYING)) {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
     	}
 
     	affiliateAuditEvents.logDeleteOfAffiliate(affiliate);
-    	
+
     	affiliateDeleter.deleteAffiliate(affiliate);
-    	
+
     	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -304,6 +311,7 @@ public class AffiliateResource {
     		User user = userRepository.findByLoginIgnoreCase(affiliate.getCreator());
     		if (affiliate.getAffiliateDetails() != null) {
     			affiliate.getAffiliateDetails().setAcceptNotifications(user.getAcceptNotifications());
+                affiliate.getAffiliateDetails().setCountryNotificationsOnly(user.getCountryNotificationsOnly());
     		}
     	}
     	return new ResponseEntity<Collection<Affiliate>>(affiliates, HttpStatus.OK);
@@ -318,8 +326,8 @@ public class AffiliateResource {
     	applicationAuthorizationChecker.checkCanAccessAffiliate(username);
     	return new ResponseEntity<Collection<Affiliate>>(affiliateRepository.findByCreatorIgnoreCase(username), HttpStatus.OK);
     }
-	
-	
+
+
 	@RolesAllowed({AuthoritiesConstants.ADMIN})
     @RequestMapping(value = Routes.AFFILIATES_CSV,
     		method = RequestMethod.POST,
@@ -352,7 +360,7 @@ public class AffiliateResource {
 		affiliateImportAuditEvents.logExport();
 		return new ResponseEntity<String>(result, HttpStatus.OK);
     }
-	
+
 	//FIXME Would like to use custom produces to overload request path
 	@RolesAllowed({AuthoritiesConstants.ADMIN})
     @RequestMapping(value = Routes.AFFILIATES_CSV_SPEC,
@@ -364,7 +372,6 @@ public class AffiliateResource {
 		return new ResponseEntity<AffiliatesImportSpec>(result, HttpStatus.OK);
     }
 
-	
 	@RolesAllowed({AuthoritiesConstants.USER})
     @RequestMapping(value = Routes.AFFILIATE_DETAIL,
     		method = RequestMethod.GET,
@@ -392,17 +399,17 @@ public class AffiliateResource {
     	if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
-    	
+
     	AffiliateDetails affiliateDetails = affiliate.getAffiliateDetails();
     	if (affiliateDetails == null) {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
     	}
-    	
+
     	Application application = affiliate.getApplication();
     	if (application == null || !Objects.equal(application.getApprovalState(), ApprovalState.APPROVED)) {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
     	}
-    	
+
     	String originalEmail = affiliateDetails.getEmail();
     	String newEmail = body.getEmail();
 		boolean emailChanged = !Objects.equal(newEmail, originalEmail);
@@ -415,17 +422,17 @@ public class AffiliateResource {
     		}
     		affiliate.setCreator(newEmail);
     	}
-    	
+
     	User user = userRepository.findByLoginIgnoreCase(originalEmail);
     	if (user != null) {
     		copyAffiliateDetailsFieldsToUser(user, body);
     	}
-    	
+
     	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate,body);
     	copyAffiliateDetailsFields(affiliateDetails, body);
-    	
+
     	affiliateSearchRepository.reindex(affiliate);
-    	
+
     	return new ResponseEntity<AffiliateDetails>(affiliateDetails, HttpStatus.OK);
     }
 
@@ -437,13 +444,14 @@ public class AffiliateResource {
     	affiliateDetails.setLandlineNumber(body.getLandlineNumber());
     	affiliateDetails.setLastName(body.getLastName());
     	affiliateDetails.setMobileNumber(body.getMobileNumber());
-    	
+
     	affiliateDetails.setAlternateEmail(body.getAlternateEmail());
     	affiliateDetails.setThirdEmail(body.getThirdEmail());
-    	
+
     	affiliateDetails.setEmail(body.getEmail());
     	affiliateDetails.setAcceptNotifications(body.isAcceptNotifications());
-    	
+        affiliateDetails.setCountryNotificationsOnly(body.isCountryNotificationsOnly());
+
 		if (currentSecurityContext.isStaffOrAdmin()) {
 	    	affiliateDetails.setType(body.getType());
 	    	affiliateDetails.setOtherText(body.getOtherText());
@@ -469,5 +477,6 @@ public class AffiliateResource {
 		user.setEmail(body.getEmail());
 		user.setLogin(body.getEmail());
 		user.setAcceptNotifications(body.isAcceptNotifications());
+        user.setCountryNotificationsOnly(body.isCountryNotificationsOnly());
 	}
 }

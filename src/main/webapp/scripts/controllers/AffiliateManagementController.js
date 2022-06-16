@@ -59,13 +59,17 @@ mldsApp.controller('AffiliateManagementController', [
                 // If a loadAffiliates (loadReset === true) had been called then need to redownload once the current download is complete
                 return;
             }
+            if ($scope.allRetrieved) {
+                // When all affiliates are retrieved there's no reason to load more..
+                return;
+            }
             $scope.loadReset = false;
             $scope.downloadingAffiliates = true;
             $scope.alerts = [];
             AffiliateService.filterAffiliates($scope.query, $scope.page, 50, $scope.showAllAffiliates == 1 ? null : $scope.homeMember, $scope.standingStateFilter, $scope.standingStateNotApplying, $scope.orderByField, $scope.reverseSort)
                 .then(function(response) {
-                    //$log.log("...appending "+response.data.length+" to existing "+$scope.affiliates.length+" page="+$scope.page);
-                    _.each(response.data, function(a) {
+                    //$log.log("...appending "+response.data.affiliates.length+" to existing "+$scope.affiliates.length+" page="+$scope.page);
+                    _.each(response.data.affiliates, function(a) {
                         $scope.affiliates.push(a);
                     });
                     if (_.size($scope.affiliates) > 0) {
@@ -73,6 +77,12 @@ mldsApp.controller('AffiliateManagementController', [
                     }
                     $scope.page = $scope.page + 1;
                     $scope.downloadingAffiliates = false;
+                    $scope.totalResults=response.data.totalResults;
+                    $scope.totalPages=response.data.totalPages;
+                    if ($scope.affiliates.length >= $scope.totalResults) {
+                        $log.log("All available affiliates retrieved." );
+                        $scope.allRetrieved = true;
+                    }
                     if ($scope.loadReset) {
                         loadAffiliates();
                     }
@@ -90,6 +100,10 @@ mldsApp.controller('AffiliateManagementController', [
             //Force clear - note loadMoreAffiliates works on alias
             $scope.affiliates = [];
             $scope.page = 0;
+            $scope.totalPages = 0;
+            $scope.totalResults = 0;
+            $scope.allRetrieved = false;
+
             $scope.noResults = true;
             $scope.canSort = !$scope.query;
 
@@ -187,7 +201,7 @@ mldsApp.controller('AffiliateManagementController', [
                         $parse("affiliateActiveDetails.agreementType")
                     ];
                     var result = [];
-                    _.each(response.data, function(affiliate) {
+                    _.each(response.data.affiliates, function(affiliate) {
                         var row = [];
                         _.each(expressions, function(expression) {
                             row.push(expression({
