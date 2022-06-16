@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,17 +37,18 @@ import ca.intelliware.ihtsdo.mlds.search.AngularTranslateServiceSetup;
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("dev")
 @Transactional
-public class AffiliateRepositoryTest {
+public class AffiliateRepositoryTest extends PostgresTestContainerTest {
+
 	@Resource EntityManager entityManager;
-	
+
 	@Resource AffiliateRepository affiliateRepository;
-	
+
 	@Resource MemberRepository memberRepository;
-	
+
 	@Resource CountryRepository countryRepository;
 
 	Random random = new Random();
-	
+
 	List<Affiliate> affiliates = Lists.newArrayList();
 	Member ihtsdo;
 	Member sweden;
@@ -55,15 +57,15 @@ public class AffiliateRepositoryTest {
 	private Pageable pageable;
 
 	private String uniqueKey;
-	
+
 	@Before
 	public void setUp() {
 		ihtsdo = memberRepository.findOneByKey(Member.KEY_IHTSDO);
 		sweden = memberRepository.findOneByKey("SE");
 		belgium = memberRepository.findOneByKey("BE");
-		
+
 		pageable = new PageRequest(0, 10);
-		
+
 		uniqueKey = ""+System.currentTimeMillis();
 	}
 
@@ -71,15 +73,15 @@ public class AffiliateRepositoryTest {
 	public void setupTranslations() {
 		new AngularTranslateServiceSetup().setup();
 	}
-	
+
 	@Test
 	public void findByCheckByIdShouldMatchExtension() throws Exception {
 		Affiliate affiliate = withAffiliateUser(StandingState.IN_GOOD_STANDING, ihtsdo, "test"+uniqueKey+"@email.com");
-		
+
 		withExtensionApplication(affiliate, sweden, ApprovalState.APPROVED);
-		
+
 		persistAffiliate(affiliate);
-				
+
 		flush();
 
 		// test no-match based on email
@@ -95,107 +97,107 @@ public class AffiliateRepositoryTest {
 	@Test
 	public void findByUsersAndStandingStateInAndApprovedPrimaryApplication() throws Exception {
 		Affiliate affiliate = withAffiliateUser(StandingState.IN_GOOD_STANDING, sweden, "test"+uniqueKey+"@email.com");
-		
+
 		withPrimaryApplication(affiliate, sweden, ApprovalState.APPROVED);
-		
+
 		flush();
-		
+
 		Iterable<Affiliate> elements = affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(Arrays.asList(StandingState.IN_GOOD_STANDING));
 		HashSet<Affiliate> matches = Sets.newHashSet(elements);
-		
+
 		assertThat(matches, hasItem(affiliate));
 	}
 
 	@Test
 	public void findByUsersAndStandingStateInAndApprovedPrimaryApplicationShouldFailForNotStandingStateMatch() throws Exception {
 		Affiliate affiliate = withAffiliateUser(StandingState.INVOICE_SENT, sweden, "test"+uniqueKey+"@email.com");
-		
+
 		withPrimaryApplication(affiliate, sweden, ApprovalState.APPROVED);
-		
+
 		flush();
-		
+
 		Iterable<Affiliate> elements = affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(Arrays.asList(StandingState.IN_GOOD_STANDING));
 		HashSet<Affiliate> matches = Sets.newHashSet(elements);
-		
+
 		assertThat(matches, not(hasItem(affiliate)));
 	}
 
 	@Test
 	public void findByUsersAndStandingStateInAndApprovedPrimaryApplicationShouldFailForNonApproved() throws Exception {
 		Affiliate affiliate = withAffiliateUser(StandingState.IN_GOOD_STANDING, sweden, "test"+uniqueKey+"@email.com");
-		
+
 		withPrimaryApplication(affiliate, sweden, ApprovalState.REVIEW_REQUESTED);
-		
+
 		flush();
-		
+
 		Iterable<Affiliate> elements = affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(Arrays.asList(StandingState.IN_GOOD_STANDING));
 		HashSet<Affiliate> matches = Sets.newHashSet(elements);
-		
+
 		assertThat(matches, not(hasItem(affiliate)));
 	}
 
 	@Test
 	public void findByUsersAndStandingStateInAndApprovedHomeMembership() throws Exception {
 		Affiliate affiliate = withAffiliateUser(StandingState.IN_GOOD_STANDING, sweden, "test"+uniqueKey+"@email.com");
-		
+
 		withPrimaryApplication(affiliate, sweden, ApprovalState.APPROVED);
-		
+
 		flush();
-		
+
 		Iterable<Affiliate> elements = affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(Arrays.asList(StandingState.IN_GOOD_STANDING), sweden);
 		HashSet<Affiliate> matches = Sets.newHashSet(elements);
-		
+
 		assertThat(matches, hasItem(affiliate));
 	}
 
 	@Test
 	public void findByUsersAndStandingStateInAndApprovedHomeMembershipShouldIgnoreExtension() throws Exception {
 		Affiliate affiliateIhtsdo = withAffiliateUser(StandingState.IN_GOOD_STANDING, ihtsdo, "test"+uniqueKey+"@email.com");
-		
+
 		withExtensionApplication(affiliateIhtsdo, sweden, ApprovalState.APPROVED);
 
 		flush();
-		
+
 		Iterable<Affiliate> elements = affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(Arrays.asList(StandingState.IN_GOOD_STANDING), sweden);
 		HashSet<Affiliate> matches = Sets.newHashSet(elements);
-		
+
 		assertThat(matches, not(hasItem(affiliateIhtsdo)));
 	}
-	
+
 	@Test
 	public void findByUsersAndStandingStateInAndApprovedHomeMembershipShouldMatchStandingState() throws Exception {
 		Affiliate affiliate = withAffiliateUser(StandingState.DEACTIVATION_PENDING, sweden, "test"+uniqueKey+"@email.com");
-		
+
 		withPrimaryApplication(affiliate, sweden, ApprovalState.APPROVED);
-		
+
 		persistAffiliate(affiliate);
 
 		flush();
-		
+
 		Iterable<Affiliate> elements = affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(Arrays.asList(StandingState.IN_GOOD_STANDING), sweden);
 		HashSet<Affiliate> matches = Sets.newHashSet(elements);
-		
+
 		assertThat(matches, not(hasItem(affiliate)));
 	}
 
 	@Test
 	public void findByUsersAndStandingStateInAndApprovedHomeMembershipShouldMatchApprovalState() throws Exception {
 		Affiliate affiliate = withAffiliateUser(StandingState.IN_GOOD_STANDING, sweden, "test"+uniqueKey+"@email.com");
-		
+
 		withPrimaryApplication(affiliate, sweden, ApprovalState.REJECTED);
-		
+
 		persistAffiliate(affiliate);
 
 		flush();
-		
+
 		Iterable<Affiliate> elements = affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(Arrays.asList(StandingState.IN_GOOD_STANDING), sweden);
 		HashSet<Affiliate> matches = Sets.newHashSet(elements);
-		
+
 		assertThat(matches, not(hasItem(affiliate)));
 	}
 
 	private void persistAffiliate(Affiliate affiliate) {
-		affiliateRepository.save(affiliate);		
+		affiliateRepository.save(affiliate);
 	}
 
 	private Affiliate withAffiliateUser(StandingState standingState, Member homeMember, String email) {
@@ -205,23 +207,23 @@ public class AffiliateRepositoryTest {
 		AffiliateDetails affiliateDetails = new AffiliateDetails();
 		affiliateDetails.setEmail(email);
 		affiliate.setAffiliateDetails(affiliateDetails);
-		
+
 		affiliate.setStandingState(standingState);
-		
+
 		entityManager.persist(affiliate.getAffiliateDetails());
-		affiliateRepository.save(affiliate);	
-		
+		affiliateRepository.save(affiliate);
+
 		return affiliate;
 	}
-	
+
 	private Application withExtensionApplication(Affiliate affiliate, Member member, ApprovalState approvalState) {
 		ExtensionApplication application = new ExtensionApplication();
 		application.setMember(member);
 		application.setApprovalState(approvalState);
 		entityManager.persist(application);
 		affiliate.addApplication(application);
-		
-		affiliateRepository.save(affiliate);	
+
+		affiliateRepository.save(affiliate);
 		return application;
 	}
 
@@ -232,8 +234,8 @@ public class AffiliateRepositoryTest {
 		entityManager.persist(application);
 		affiliate.addApplication(application);
 		affiliate.setApplication(application);
-		
-		affiliateRepository.save(affiliate);	
+
+		affiliateRepository.save(affiliate);
 		return application;
 	}
 
@@ -245,7 +247,7 @@ public class AffiliateRepositoryTest {
 	private void flush() {
 		entityManager.flush();
 	}
-	
+
 	Affiliate makeAffiliate() {
 		Affiliate affiliate = new Affiliate();
 		affiliate.setAffiliateDetails(new AffiliateDetails());
@@ -253,10 +255,10 @@ public class AffiliateRepositoryTest {
 		affiliate.getAffiliateDetails().setLastName(randomString("lastName"));;
 		affiliate.getAffiliateDetails().setAddress(new MailingAddress());
 		affiliate.setHomeMember(ihtsdo);
-		
+
 		entityManager.persist(affiliate.getAffiliateDetails());
 		affiliateRepository.save(affiliate);
-		
+
 		return affiliate;
 	}
 

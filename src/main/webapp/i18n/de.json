@@ -914,6 +914,8 @@
         },
         "contactInfo": {
             "title": "Kontoinformation",
+            "acceptNotifications": "Ja, benachrichtigen Sie mich, wenn ein SNOMED-Paket aktualisiert wird.",
+            "countryNotificationsOnly": "Nur für meine Ländererweiterungen",
             "messages": {
                 "notApproved": {
                     "title": "Registrierung noch nicht genehmigt",
@@ -999,6 +1001,9 @@
                     "placeholder": "Adresse",
                     "sameAsAddress": "Adresse als Rechnungsadresse verwenden",
                     "useOrganizationAddress": "Adresse der Organisation als Rechnungsadresse verwenden"
+                },
+                "alternateEmail": {
+                    "name": "Alternative E-Mail-Adresse"
                 }
             },
             "organization": {

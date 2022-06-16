@@ -917,6 +917,7 @@
         "contactInfo": {
             "title": "Informação de Conta",
             "acceptNotifications": "Sim, avise-me quando um pacote SNOMED for atualizado.",
+            "countryNotificationsOnly": "Apenas para extensões do meu país",
             "messages": {
                 "notApproved": {
                     "title": "Registo ainda não aprovado",
