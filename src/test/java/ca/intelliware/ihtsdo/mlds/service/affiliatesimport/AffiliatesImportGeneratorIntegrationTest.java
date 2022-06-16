@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,19 +24,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ActiveProfiles("dev")
 @TestPropertySource(locations="classpath:test.application.properties")
 @Transactional
-public class AffiliatesImportGeneratorIntegrationTest {
+public class AffiliatesImportGeneratorIntegrationTest extends PostgresTestContainerTest {
 	@Resource AffiliatesImportGenerator affiliatesImportGenerator;
 	@Resource AffiliatesMapper affiliatesMapper;
-	
+
 	@Before
 	public void setup() {
 	}
-	
-	
+
+
 	@Test
 	public void generateFileShouldGeneratePopulatedHeaderAndDataRows() throws IOException {
 		String generated = affiliatesImportGenerator.generateFile(2);
-		
+
 		List<String> lines = IOUtils.readLines(new StringReader(generated));
 		assertEquals(lines.size(), 3);
 
@@ -56,7 +57,7 @@ public class AffiliatesImportGeneratorIntegrationTest {
 		assertEquals("DK", dataRow2[0]);
 		assertEquals("Example Other Text 1", dataRow2[5]);
 	}
-	
+
 	private String[] splitLine(String line) {
 		return line.split(AffiliateFileFormat.COLUMN_SEPARATOR_REGEX, -1);
 	}

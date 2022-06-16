@@ -914,6 +914,7 @@
         "contactInfo": {
             "title": "Accountinformatie",
             "acceptNotifications": "Ja, breng me op de hoogte wanneer een SNOMED-pakket is bijgewerkt.",
+            "countryNotificationsOnly": "Alleen voor mijn land extensies",
             "messages": {
                 "notApproved": {
                     "title": "Registratie nog niet goedgekeurd",

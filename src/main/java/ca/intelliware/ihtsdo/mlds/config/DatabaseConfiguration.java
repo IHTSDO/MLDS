@@ -37,9 +37,9 @@ public class DatabaseConfiguration implements EnvironmentAware {
     private RelaxedPropertyResolver propertyResolver;
 
     private Environment env;
-    
+
     private static DataSource dataSource;
-    
+
     private static LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
     @Override
@@ -98,9 +98,9 @@ public class DatabaseConfiguration implements EnvironmentAware {
         log.debug("Completed Liquibase configuration");
         return liquibase;
     }
-	
+
 	//See http://blog.netgloo.com/2014/10/06/spring-boot-data-access-with-jpa-hibernate-and-mysql/
-	
+
 	/**
 	 * Declare the JPA entity manager factory.
 	 */
@@ -113,17 +113,17 @@ public class DatabaseConfiguration implements EnvironmentAware {
 		}
 		log.debug("Configuring entityManagerFactory");
 		entityManagerFactory =  new LocalContainerEntityManagerFactoryBean();
-		
+
 		entityManagerFactory.setDataSource(dataSource());
-		
+
 		// Classpath scanning of @Component, @Service, etc annotated class
 		/*entityManagerFactory.setPackagesToScan(
 			env.getProperty("entitymanager.packagesToScan")); */
-		
+
 		// Vendor adapter
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
-		
+
 		// Hibernate properties -- add explicit check for new property
 		if (env.getProperty("hibernate.cache.region.factory_class") == null) {
 			throw new IllegalArgumentException("Configuration file is missing required parameter -hibernate.cache.region.factory_class" );
@@ -144,18 +144,18 @@ public class DatabaseConfiguration implements EnvironmentAware {
 	@Bean
 	public JpaTransactionManager transactionManager() {
 		log.debug("Configuring transactionManager");
-		JpaTransactionManager transactionManager = 
+		JpaTransactionManager transactionManager =
 			new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(
 			entityManagerFactory().getObject());
 		return transactionManager;
 	}
-	
+
 	/**
 	 * PersistenceExceptionTranslationPostProcessor is a bean post processor
 	 * which adds an advisor to any bean annotated with Repository so that any
 	 * platform-specific exceptions are caught and then rethrown as one
-	 * Spring's unchecked data access exceptions (i.e. a subclass of 
+	 * Spring's unchecked data access exceptions (i.e. a subclass of
 	 * DataAccessException).
 	 */
 	@Bean
@@ -163,5 +163,8 @@ public class DatabaseConfiguration implements EnvironmentAware {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
 
+    static void setDataSource(DataSource dataSource) {
+        DatabaseConfiguration.dataSource = dataSource;
+    }
 }
 
