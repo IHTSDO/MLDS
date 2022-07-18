@@ -1604,4 +1604,32 @@ $f$ language plpgsql;
     </changeSet>
 
 
+    <changeSet id="MLDS-981-1" author="MLR">
+        <comment>Prepare for a unique index on logins </comment>
+        <sql>
+            update t_user set inactive_at = last_modified_date
+            where user_id in (
+                select user_id
+                from   t_user a
+                where a.user_id &lt;
+                (
+                    select max(b.user_id)
+                    from t_user b
+                    where lower(a.login) = lower(b.login)
+                    and b.inactive_at is null
+                )
+                and a.inactive_at is null
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="MLDS-981-2" author="MLR">
+        <comment>Create unique index on active users</comment>
+        <sql>
+            CREATE UNIQUE INDEX idx_unique_active_login
+            ON t_user (lower(login), coalesce(inactive_at,'2000-01-01'))
+            WHERE (inactive_at is null);
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
