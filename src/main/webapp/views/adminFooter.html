@@ -1,6 +1,6 @@
 <footer role="admin">
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-        <p class="pull-left">&copy; SNOMED International 2022</p>
+        <p id="copyright" class="pull-left">Copyright © SNOMED International. All rights reserved.</p>
         <a class="btn btn-link pull-right" target="_blank" href="https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service" translate="views.footer.tos">Terms of Service</a>
         <a class="btn btn-link pull-right" href="http://www.iubenda.com/privacy-policy/104809" class="iubenda-nostyle no-brand iubenda-embed" target="privacy_policy_tab" title="Privacy Policy" translate="views.footer.pp">Privacy Policy</a>
 
@@ -20,6 +20,7 @@
                     w.onload = loader;
                 }
             })(window, document);
+            document.body.innerHTML = document.body.innerHTML.replace(document.getElementById("copyright").innerHTML, 'Copyright © ' + new Date().getFullYear() + ' SNOMED International. All rights reserved.');
         </script>
 
     </div>
