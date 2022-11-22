@@ -45,7 +45,7 @@ mldsApp.controller('SessionsController', ['$scope', 'resolvedSessions', 'Session
         $scope.success = null;
         $scope.error = null;
         $scope.sessions = resolvedSessions;
-        
+
         $scope.invalidate = function (series) {
             Sessions["delete"]({series: encodeURIComponent(series)},
                 function (value, responseHeaders) {
@@ -151,7 +151,7 @@ mldsApp.controller('LogsController', ['$scope', 'resolvedLogs', 'LogsService',
 mldsApp.controller('ActivityLogsController', ['$scope', '$translate', '$filter', 'AuditsService',
     function ($scope, $translate, $filter, AuditsService) {
 		$scope.submitting = false;
-		
+
 		function loadActivity() {
 			$scope.submitting = true;
 			AuditsService.findByDates($scope.fromDate, $scope.toDate)
@@ -162,13 +162,13 @@ mldsApp.controller('ActivityLogsController', ['$scope', '$translate', '$filter',
 			["catch"](function(message) {
 				$scope.submitting = false;
 			});
-			
+
 		}
-		
+
 		function toDateFilter(m) {
 			return $filter('date')(m.toDate(), "yyyy-MM-dd");
 		}
-		
+
         $scope.onChangeDate = loadActivity;
 
         // Date picker configuration
@@ -189,7 +189,11 @@ mldsApp.controller('ActivityLogsController', ['$scope', '$translate', '$filter',
         };
 
         $scope.previousWeek();
-        
+
         loadActivity();
     }]);
 
+mldsApp.controller('FooterController', ['$scope',
+    function ($scope) {
+        document.getElementById('copyright').innerHTML = 'Copyright © ' + new Date().getFullYear() + ' SNOMED International';
+    }]);
