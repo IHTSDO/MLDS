@@ -1,4 +1,4 @@
-<footer role="admin">
+<footer role="admin" ng-controller="FooterController">
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
         <p id="copyright" class="pull-left">Copyright © SNOMED International</p>
         <a class="btn btn-link pull-right" target="_blank" href="https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service" translate="views.footer.tos">Terms of Service</a>
@@ -20,9 +20,6 @@
                     w.onload = loader;
                 }
             })(window, document);
-        </script>
-        <script>
-            document.body.innerHTML = document.body.innerHTML.replace(document.getElementById("copyright").innerHTML, 'Copyright © ' + new Date().getFullYear() + ' SNOMED International');
         </script>
 
     </div>
