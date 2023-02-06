@@ -65,7 +65,8 @@
             "pl": "polsk",
             "pt": "portugisisk",
             "ru": "russisk",
-            "se": "svensk"
+            "se": "svensk",
+            "th": "Thai"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -107,7 +108,11 @@
             "SE": "Sverige",
             "GB": "Storbritannia",
             "US": "USA",
-            "UY": "Uruguay"
+            "UY": "Uruguay",
+            "TH": "Thailand",
+            "SV": "El Salvador",
+            "KR": "Sør-Korea",
+            "ID": "Indonesia"
         },
         "country": {
             "AC": "Ascension",
