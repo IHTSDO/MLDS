@@ -108,7 +108,10 @@
             "GB": "Reino Unido",
             "US": "Estados Unidos",
             "UY": "Uruguay",
-            "LU": "Luxemburgo"
+            "LU": "Luxemburgo",
+            "SV": "El Salvador",
+            "PL": "Polonia",
+            "ID": "Indonesia"
         },
         "country": {
             "AC": "Ascensión",
