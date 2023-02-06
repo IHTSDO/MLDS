@@ -108,7 +108,10 @@
             "TH": "Thailand",
             "GB": "Vereinigtes Königreich",
             "US": "Vereinigte Staaten",
-            "UY": "Uruguay"
+            "UY": "Uruguay",
+            "SV": "El Salvador",
+            "PL": "Polen",
+            "ID": "Indonesien"
         },
         "country": {
             "AC": "Ascension",
@@ -1003,7 +1006,8 @@
                     "useOrganizationAddress": "Adresse der Organisation als Rechnungsadresse verwenden"
                 },
                 "alternateEmail": {
-                    "name": "Alternative E-Mail-Adresse"
+                    "name": "Alternative E-Mail-Adresse",
+                    "placeholder": "alternative@email.com"
                 }
             },
             "organization": {
