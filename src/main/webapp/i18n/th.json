@@ -304,7 +304,10 @@
             "AR": "อาร์เจนตินา",
             "AM": "อาร์เมเนีย",
             "AE": "สหรัฐอาหรับเอมิเรตส์",
-            "IHTSDO": "SNOMED International"
+            "IHTSDO": "SNOMED International",
+            "SV": "เอลซัลวาดอร์",
+            "PL": "โปแลนด์",
+            "ID": "อินโดนีเซีย"
         },
         "menu": {
             "account": {
