@@ -1,1 +1,11 @@
-{}
+{
+    "global": {
+        "menu": {
+            "account": {
+                "sessions": "Sesi",
+                "main": "Akun"
+            }
+        },
+        "title": "mlds"
+    }
+}
