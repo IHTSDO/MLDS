@@ -108,7 +108,10 @@
             "TH": "Thailand",
             "GB": "Storbritannien",
             "US": "USA",
-            "UY": "Uruguay"
+            "UY": "Uruguay",
+            "SV": "El Salvador",
+            "PL": "Polen",
+            "ID": "Indonesien"
         },
         "country": {
             "AC": "Ascension",
