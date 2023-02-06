@@ -107,7 +107,10 @@
             "SE": "Zweden",
             "GB": "Verenigd Koninkrijk",
             "US": "Verenigde Staten van Amerika",
-            "UY": "Uruguay"
+            "UY": "Uruguay",
+            "SV": "El Salvador",
+            "PL": "Polen",
+            "ID": "Indonesië"
         },
         "country": {
             "AC": "Ascension",
@@ -1000,6 +1003,10 @@
                     "placeholder": "Adres",
                     "sameAsAddress": "Gebruik het adres als facturatieadres",
                     "useOrganizationAddress": "Gebruik het adres van de organisatie als facturatieadres"
+                },
+                "alternateEmail": {
+                    "placeholder": "alternatief@email.com",
+                    "name": "Alternatieve e-mail"
                 }
             },
             "organization": {
