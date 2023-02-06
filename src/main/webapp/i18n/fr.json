@@ -108,7 +108,10 @@
             "TH": "Thaïlande",
             "GB": "Royaume-Uni",
             "US": "Etats-Unis",
-            "UY": "Uruguay"
+            "UY": "Uruguay",
+            "SV": "El Salvador",
+            "PL": "Pologne",
+            "ID": "Indonésie"
         },
         "country": {
             "AC": "Ascension",
@@ -576,7 +579,8 @@
             "ipaddress": "Addresse IP",
             "useragent": "Agent utilisateur",
             "page": "Page actuelle",
-            "time": "Temps"
+            "time": "Temps",
+            "userAgent": "Agent utilisateur"
         }
     },
     "metrics": {
@@ -927,15 +931,18 @@
                 "other": {
                     "name": "Autre",
                     "placeholder": "Autre",
-                    "other.required": "Le champ « Autre » doit être rempli."
+                    "other.required": "Le champ « Autre » doit être rempli.",
+                    "required": "Un autre champ est requis."
                 },
                 "subtype": {
                     "name": "Sous-type",
-                    "other.required": "Le champ « Sous-type » doit être rempli."
+                    "other.required": "Le champ « Sous-type » doit être rempli.",
+                    "required": "Le champ sous-type est obligatoire."
                 },
                 "usageType": {
                     "name": "Type",
-                    "other.required": "Le champ « Type » doit être rempli."
+                    "other.required": "Le champ « Type » doit être rempli.",
+                    "required": "Le champ Type d'utilisation est obligatoire."
                 },
                 "agreementType": "Type d'accord",
                 "accountStanding": "Compte activé"
