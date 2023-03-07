@@ -3,9 +3,938 @@
         "menu": {
             "account": {
                 "sessions": "Sesi",
-                "main": "Akun"
+                "main": "Akun",
+                "dashboard": "Dashboard",
+                "affiliates": "Afiliasi",
+                "register": "Registrasi",
+                "apidocs": "API",
+                "logout": "Keluar",
+                "login": "Masuk",
+                "audits": "Audit",
+                "logs": "Log",
+                "metrics": "Metrik",
+                "tracker": "Traker pengguna",
+                "password": "Kata sandi",
+                "contactInfo": "Info kontak"
+            },
+            "cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/43e68e5dbb274c2d65ae9b31deb30d2a.js\"></script>",
+            "language": "Bahasa",
+            "admin": {
+                "nationalRegistrationList": "Daftar Registrasi Nasional",
+                "manageBlacklist": "Blacklist Manajemen",
+                "importAffiliateRecords": "Catatan impor afiliasi"
+            },
+            "staff": {
+                "logout": "Keluar",
+                "reportsExtracts": "Ekstrak dan laporan",
+                "licenseTC": "Lisensi T dan C",
+                "packageManagement": "Manajemen paket",
+                "activityLog": "Aktivitas log",
+                "affiliteUserManagement": "Manajemen pengguna afiliasi",
+                "usageReports": "Laporan pengguna",
+                "pendingApplications": "Aplikasi tertunda",
+                "dashboard": "Dashboard"
+            },
+            "affiliate": {
+                "logout": "Keluar",
+                "changePassword": "Mengganti kata sandi",
+                "accountInformation": "Informasi akun"
+            },
+            "releasePackages": "Paket pengeluaran",
+            "applications": "Aplikasi",
+            "usageReports": "Laporan pengguna",
+            "privacyPolicy": "Kebijakan privasi",
+            "help": "Bantuan",
+            "dashboard": "Dashboard",
+            "home": "Beranda"
+        },
+        "title": "mlds",
+        "word": {
+            "state": "Negara",
+            "back": "Kembali",
+            "license": "Lisensi",
+            "publishedOn": "Diterbitkan di",
+            "file": "File",
+            "download": "Unduh",
+            "apply": "Menerapkan",
+            "no": "Tidak",
+            "yes": "Ya",
+            "user": "Pengguna",
+            "date": "Tanggal",
+            "type": "Tipe",
+            "status": "Status",
+            "viewAll": "Lihat semua",
+            "viewlicense": "Lihat Lisensi",
+            "view": "Melihat",
+            "welcome": "Selamat datang",
+            "save": "Simpan",
+            "submit": "Kirim",
+            "ok": "Oke",
+            "from": "dari",
+            "update": "Memperbarui",
+            "delete": "Hapus",
+            "close": "tutup",
+            "notes": "Catatan",
+            "note": "Catatan",
+            "cancel": "Membatalkan",
+            "name": "Nama",
+            "edit": "Edit",
+            "add": "Menambahkan",
+            "or": "atau"
+        },
+        "messages": {
+            "validate": {
+                "email": {
+                    "invalid": "E-mail anda tidak valid.",
+                    "maxlength": "E-mail anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "E-mail anda harus minimal 1 karakter",
+                    "required": "E-mail anda diperlukan."
+                },
+                "confirmemail": {
+                    "match": "Konfirmasi E-mail anda tidak cocok dengan surel"
+                },
+                "confirmpassword": {
+                    "match": "Konfirmasi kata sandi tidak cocok dengan kata sandi",
+                    "maxlength": "Konfirmasi kata sandi anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Konfirmasi kata sandi anda harus minimal 5 karakter",
+                    "required": "Konfirmasi kata sandi anda diperlukan."
+                },
+                "newpassword": {
+                    "strength": "Kekuatan kata sandi:",
+                    "maxlength": "Kata sandi Anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Kata sandi Anda harus minimal 5 karakter",
+                    "required": "Kata sandi Anda diperlukan."
+                }
+            },
+            "error": {
+                "server": "Sebuah kesalahan telah terjadi. Silahkan masuk kembali dengan menekan tombol masuk kembali.",
+                "dontmatch": "Kata sandi dan konfirmasinya tidak cocok!"
+            },
+            "info": {
+                "register": "Anda belum memiliki akun? <a href=\"#/register\">Daftarkan akun baru</a>",
+                "authenticated": "Apabila Anda ingin <a href=\"#/login\"> mengautentikasi </a>, Anda dapat mencoba akun default: <br/>- Admnistrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" dan password =\"pengguna\")."
             }
         },
-        "title": "mlds"
+        "form": {
+            "email.placeholder": "Alamat E-mail anda",
+            "email": "E-mail",
+            "country": "Negara tempat tinggal",
+            "confirmpassword.placeholder": "Konfirmasi kata sandi baru",
+            "confirmpassword": "Konfirmasi kata sandi baru",
+            "newpassword.placeholder": "Kata sandi baru",
+            "newpassword": "Kata sandi baru",
+            "name.placeholder": "Nama anda",
+            "username.placeholder": "Login Anda",
+            "username": "Masuk"
+        },
+        "country": {
+            "ZW": "Zimbabwe",
+            "ZM": "Zambia",
+            "ZA": "Afrika Selatan",
+            "YT": "Mayotte",
+            "YE": "Yaman",
+            "WS": "Samoa",
+            "WF": "Wallis dan Futuna",
+            "VU": "Vanuatu",
+            "VN": "Vietnam",
+            "VI": "Kepulauan Virgin AS",
+            "VG": "Kepulauan Virgin Inggris",
+            "VE": "Venezuela",
+            "VC": "Saint Vincent dan Grenadines",
+            "VA": "Kota Vatikan",
+            "UZ": "Uzbekistan",
+            "UY": "Uruguay",
+            "US": "Amerika Serikat",
+            "UM": "Pulau Wake",
+            "UG": "Uganda",
+            "UA": "Ukraina",
+            "TZ": "Tanzania",
+            "TW": "Cina, Republik (Taiwan)",
+            "TV": "Tuvalu",
+            "TT": "Trinidad dan Tobago",
+            "TR": "Turki",
+            "TO": "Tonga",
+            "TN": "Tunisia",
+            "TM": "Turkmenistan",
+            "TL": "Timor-Leste (Timor Leste)",
+            "TK": "Tokelau",
+            "TJ": "Tajikistan",
+            "TH": "Thailand",
+            "TG": "Togo",
+            "TF": "Daratan Selatan dan Antartika Prancis",
+            "TD": "Chad",
+            "TC": "Kepulauan Turks dan Caicos",
+            "TA": "Tristan da Cunha",
+            "SZ": "Swaziland",
+            "SY": "Suriah",
+            "SV": "El Salvador",
+            "ST": "Sao Tome dan Principe",
+            "SR": "Suriname",
+            "SO": "Somalia",
+            "SN": "Senegal",
+            "SM": "San Marino",
+            "SL": "Sierra Leone",
+            "SK": "Slowakia",
+            "SJ": "Svalbard",
+            "SI": "Slovenia",
+            "SH": "Santo Helena",
+            "SG": "Singapura",
+            "SE": "Swedia",
+            "SD": "Sudan",
+            "SC": "Seychelles",
+            "SB": "Pulau Solomon",
+            "SA": "Arab Saudi",
+            "RW": "Rwanda",
+            "RU": "Rusia",
+            "RS": "Serbia",
+            "RO": "Rumania",
+            "RE": "Reuni",
+            "QA": "Qatar",
+            "PY": "Paraguay",
+            "PW": "Palau",
+            "PT": "Portugal",
+            "PR": "Puerto Riko",
+            "PN": "Kepulauan Pitcairn",
+            "PM": "Saint Pierre dan Miquelon",
+            "PL": "Polandia",
+            "PK": "Pakistan",
+            "PH": "Filipina",
+            "PG": "Papua Nugini",
+            "PF": "Polinesia Perancis",
+            "PE": "Peru",
+            "PA": "Panama",
+            "OM": "Oman",
+            "NZ": "Selandia Baru",
+            "NU": "Niue",
+            "NR": "Nauru",
+            "NP": "Nepal",
+            "NO": "Norwegia",
+            "NL": "Belanda",
+            "NI": "Nikaragua",
+            "NG": "Nigeria",
+            "NF": "Pulau Norfolk",
+            "NE": "Niger",
+            "NC": "Kaledonia Baru",
+            "KM": "Komoro",
+            "KI": "Kiribati",
+            "KH": "Kamboja",
+            "KG": "Kyrgyzstan",
+            "KE": "Kenya",
+            "JP": "Jepang",
+            "JO": "Yordania",
+            "JM": "Jamaika",
+            "JE": "Jersey",
+            "IT": "Italia",
+            "IS": "Islandia",
+            "IR": "Iran",
+            "IQ": "Irak",
+            "IO": "Teritori Samudra Hindia Inggris",
+            "IN": "India",
+            "IM": "Pulau manusia",
+            "IL": "Israel",
+            "IE": "Irlandia",
+            "ID": "Indonesia",
+            "HU": "Hungaria",
+            "HT": "Haiti",
+            "HR": "Kroasia",
+            "HN": "Honduras",
+            "HM": "Heard Island dan Kepulauan McDonald",
+            "HK": "Hongkong, Cina",
+            "GY": "Guyana",
+            "GW": "Guinea-Bissau",
+            "GU": "Guam",
+            "GT": "Guatemala",
+            "GS": "Georgia Selatan & Kepulauan Sandwich Selatan",
+            "GR": "Yunani",
+            "GQ": "Guinea ekuator",
+            "GP": "Guadeloupe",
+            "GN": "Guinea",
+            "GM": "Gambia",
+            "GL": "Greenland",
+            "GI": "Gibraltar",
+            "GH": "Ghana",
+            "GG": "Guernsey",
+            "GF": "Guyana Perancis",
+            "GE": "Georgia",
+            "GD": "Grenada",
+            "GB": "Britania Raya",
+            "GA": "Gabon",
+            "FR": "Perancis",
+            "FO": "Kepulauan Faroe",
+            "FM": "Mikronesia",
+            "FK": "Kepulauan Falkland (Islas Malvinas)",
+            "FJ": "Fiji",
+            "FI": "Finlandia",
+            "ET": "Etiopia",
+            "ES": "Spanyol",
+            "ER": "Eritrea",
+            "EG": "Mesir",
+            "EE": "Estonia",
+            "EC": "Ekuador",
+            "DZ": "Algeria",
+            "DO": "Republik Dominika",
+            "DM": "DominiKa",
+            "DK": "Denmark",
+            "DJ": "Djibouti",
+            "DE": "Jerman",
+            "CZ": "Republik Ceko",
+            "CY": "Siprus",
+            "CX": "Pulau Natal",
+            "CV": "Tanjung Verde",
+            "CU": "Kuba",
+            "CR": "Kosta Rika",
+            "CO": "Kolumbia",
+            "CN": "Republik Rakyat Cina",
+            "CM": "Kamerun",
+            "CL": "Chili",
+            "CK": "Kepulauan Cook",
+            "CI": "Cote d'Ivoire (Ivory Coast)",
+            "CH": "Swiss",
+            "CG": "Congo, (Congo Brazzaville)",
+            "CF": "Republik Afrika Tengah",
+            "CD": "Kongo, (Kongo Kinshasa)",
+            "CC": "Kepulauan Cocos (Keeling)",
+            "CA": "Kanada",
+            "BZ": "Belize",
+            "BY": "Belarus",
+            "BW": "Botswana",
+            "BV": "Pulau Bouvet",
+            "BT": "Bhutan",
+            "BS": "Bahamas",
+            "BR": "Brazil",
+            "BO": "Bolivia",
+            "BN": "Brunei",
+            "BM": "Bermuda",
+            "BJ": "Benin",
+            "BI": "Burundi",
+            "BH": "Bahrain",
+            "BG": "Bulgaria",
+            "BF": "Burkina Faso",
+            "BE": "Belgium",
+            "BD": "Bangladesh",
+            "BB": "Barbados",
+            "BA": "Bosnia dan Herzegovina",
+            "AZ": "Azerbaijan",
+            "AX": "Aland",
+            "AW": "Aruba",
+            "AU": "Australia",
+            "AT": "Austria",
+            "AS": "Samoa Amerika",
+            "AR": "Argentina",
+            "AQ": "Wilayah Antartika Australia",
+            "AO": "Angola",
+            "AN": "Antillen Belanda",
+            "AM": "Armenia",
+            "AL": "Albania",
+            "AI": "Anguila",
+            "AG": "Antigua dan Barbuda",
+            "AF": "Afganistan",
+            "AE": "Uni Emirat Arab",
+            "AD": "Andorra",
+            "AC": "Kenaikan",
+            "NA": "Namibia",
+            "MZ": "Mozambik",
+            "MY": "Malaysia",
+            "MX": "Meksiko",
+            "MW": "Malawi",
+            "MV": "Maladewa",
+            "MU": "Mauritius",
+            "MT": "Malta",
+            "MS": "Montserrat",
+            "MR": "Mauritania",
+            "MQ": "Martinik",
+            "MP": "Kepulauan Mariana Utara",
+            "MO": "Makau",
+            "MN": "Mongolia",
+            "MM": "Myanmar (Burma)",
+            "ML": "Mali",
+            "MK": "Makedonia",
+            "MH": "Pulau Marshall",
+            "MG": "Madagaskar",
+            "ME": "Montenegro",
+            "MD": "Moldova",
+            "MC": "Monako",
+            "MA": "Maroko",
+            "LY": "Libya",
+            "LV": "Latvia",
+            "LU": "Luksemburg",
+            "LT": "Lithuania",
+            "LS": "Lesotho",
+            "LR": "Liberia",
+            "LK": "Srilanka",
+            "LI": "Liechtenstein",
+            "LC": "Santo Lucia",
+            "LB": "Libanon",
+            "LA": "Laos",
+            "KZ": "Kazakstan",
+            "KY": "Pulau cayman",
+            "KW": "Kuwait",
+            "KR": "Korea Selatan",
+            "KP": "Korea Utara",
+            "KN": "Saint Kitts dan Nevis"
+        },
+        "member": {
+            "UY": "Uruguay",
+            "US": "Amerika Serikat",
+            "GB": "Britania Raya",
+            "TH": "Thailand",
+            "SV": "El Salvador",
+            "SE": "Swedia",
+            "ES": "Spanyol",
+            "SI": "Republik Slovenia",
+            "SK": "Republik Slovakia",
+            "SG": "Singapura",
+            "PT": "Portugal",
+            "PL": "Polandia",
+            "NZ": "Selandia Baru",
+            "NO": "Norwegia",
+            "NL": "Belanda",
+            "MT": "Malta",
+            "MY": "Malaysia",
+            "LU": "Luksemburg",
+            "LT": "Lithuania",
+            "KR": "Korea Selatan",
+            "KZ": "Kazakstan",
+            "IL": "Israel",
+            "IN": "India",
+            "IE": "Irlandia",
+            "ID": "Indonesia",
+            "IS": "Islandia",
+            "HK": "Hong Kong, Cina",
+            "FI": "Finlandia",
+            "EE": "Estonia",
+            "DE": "Jerman",
+            "DK": "Denmark",
+            "CZ": "Republik Ceko",
+            "CL": "Chili",
+            "CH": "Swiss",
+            "CA": "Kanada",
+            "BN": "Brunei",
+            "BE": "Belgia",
+            "AU": "Australia",
+            "AT": "Austria",
+            "AR": "Argentina",
+            "AM": "Armenia",
+            "AE": "United Arab Emirates",
+            "IHTSDO": "SNOMED Internasional"
+        },
+        "language": {
+            "th": "Thailand",
+            "se": "Swedia",
+            "ru": "Rusia",
+            "pt": "Portugis",
+            "pl": "Polandia",
+            "no": "Norwegia",
+            "nl": "Belanda",
+            "de": "Jerman",
+            "de-ch": "Jerman",
+            "de-at": "Jerman",
+            "fr": "Perancis",
+            "es": "Spanyol",
+            "en": "Bahas Inggris",
+            "ee": "Estonia",
+            "da": "Denmark",
+            "br": "Portugis"
+        },
+        "browsehappy": "Anda menggunakan <strong>browser <strong> tidak mutakhir. Dimohon <a href=\"http://browsehappy.com/?locale=en\"> melakukan pemutakhiran browser anda untuk kelancaran penelusuran anda."
+    },
+    "views": {
+        "applicationSummary": {
+            "affiliateInfo": "Info Afiliasi",
+            "reason": "Alasan",
+            "ext.title": "Info Aplikasi Ekstensi",
+            "title": "Ringkasan Aplikasi",
+            "applicationActivity": "Aktivitas Aplikasi",
+            "subLicence": "Penggunaan Sublisensi",
+            "context": "Informasi Konteks Penggunaan",
+            "billingInfo": "Informasi tagihan",
+            "useSubType": "Penggunaan subtipe",
+            "useType": "Tipe pengguna",
+            "affiliateInformation": "Informasi Afiliasi"
+        },
+        "activate": {
+            "messages": {
+                "error": {
+                    "body": "Silakan gunakan formulir pendaftaran untuk mendaftar. Jika Anda masih mengalami kesulitan, silakan hubungi dukungan.",
+                    "title": "User anda tidak dapat diaktifkan."
+                },
+                "success": {
+                    "body": "Sistem akan membawa anda untuk ke proses pendaftaran selanjutnya dalam beberapa saat. Jika anda tidak dialihkan secara otomatis, silakan {{linkbegin}}klik di sini.{{linkend}}",
+                    "title": "Akun pengguna telah dibuat."
+                }
+            },
+            "title": "Aktivasi"
+        },
+        "contactInfo": {
+            "admin": {
+                "usageType": {
+                    "required": "Kolom tipe penggunaan wajib diisi"
+                },
+                "subtype": {
+                    "required": "Kolom cabang tipe wajib diisi"
+                },
+                "other": {
+                    "required": "Kolom lain yang diperlukan"
+                }
+            },
+            "acceptNotifications": "Ya, tolong beritahu saya ketika paket SNOMED telah diperbarui.",
+            "title": "Informasi Akun"
+        },
+        "userDashboard": {
+            "warning": {
+                "declined.msg": "Pendaftaran afiliasi anda ditolak. Dimohon melihat E-mail mengenai rincian keputusan",
+                "declined.title": "Pendaftaran Afiliasi Ditolak"
+            }
+        }
+    },
+    "form": {
+        "pleaseFix": "Dimohon perbaiki kesalahan yang tercantum di atas.",
+        "invalidNumber": "Bukan nomor yang valid",
+        "tooLong": "Nilai input terlalu panjang",
+        "requiredField": "Kolom yang harus diisi."
+    },
+    "register": {
+        "affiliateRegistration": {
+            "validation": {
+                "other.required": "Kolom lain diperlukan."
+            },
+            "license.error": "Anda harus menyetujui syarat dan ketentuan lisensi SNOMED CT untuk mendaftar dan juga menyetujui potensi biaya yang mungkin diperlukan.",
+            "license.confirm": "Saya setuju dengan lisensinya",
+            "license": "Lisensi SNOMED",
+            "license.title": "Perjanjian SNOMED CT",
+            "changeRequestedWarning": {
+                "text": "Pendaftaran afiliasi anda perlu diperbarui sebelum dapat diproses. Silakan lihat email tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
+                "title": "Registrasi Afiliasi Memerlukan Amandemen"
+            },
+            "typeOfAgreement": "Jenis Perjanjian",
+            "conditions": "Silakan pilih kondisi untuk produk akan digunakan",
+            "usageType": "Jenis Penggunaan",
+            "title": "Pendaftaran Afiliasi"
+        },
+        "affiliateRegistrationReview": {
+            "editApp": "Edit Aplikasi",
+            "title": "Ulasan Aplikasi"
+        },
+        "emailVerification": {
+            "detail": "Silakan buka E-mail yang baru saja kami kirimkan untuk memverifikasi akun anda dan mendapatkan akses ke MLDS",
+            "intro": "Kami telah mengirimkan E-mail kepada Anda."
+        },
+        "messages": {
+            "error": {
+                "blocklist": "Dikarenakan kebijakan tim IT kami, kami tidak dapat memproses alamat E-mail yang dimasukkan. Silakan menghubungi <a href=\"mailto:support@snomed.org\">support@snomed.org</a> untuk bantuan lebih lanjut.",
+                "userexists": "<strong>Pengguna telah mendaftar dengan alamat email tersebut.</strong> Apakah anda bermaksud untuk <a href='#/login'>login</a>?",
+                "fail": "<strong>Pendaftaran gagal!</strong> Dimohon mencoba kembali nanti."
+            },
+            "success": "<strong>Pendaftaran disimpan!</strong> Harap periksa E-mail anda untuk konfirmasi.",
+            "validate": {
+                "registration": {
+                    "subtyperequired": "Diperlukan subtipe",
+                    "usagetyperequired": "Jenis penggunaan diperlukan"
+                },
+                "country": {
+                    "notMLDS": "Permohonan untuk penggunaan SNOMED CT di negara tempat tinggal anda harus diajukan ke perwakilan di negara anda - <a href=\"{{link}}\" target=\"_blank\">di sini</a>. Jika anda ingin mengajukan persetujuan publik menggunakan SNOMED CT di negara lain, atau ingin mengajukan pertanyaan lain, silakan hubungi SNOMED International di <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
+                },
+                "login": {
+                    "maxlength": "Login anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Login anda harus minimal 1 karakter",
+                    "required": "Login anda diperlukan."
+                }
+            }
+        },
+        "form": {
+            "confirmemail": "Surel (konfirmasi)",
+            "button": "Mulai Pendaftaran",
+            "tos": "Menyetujui<a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">syarat dan ketentuan kami</a> ."
+        },
+        "subwelcome": "Gerbang untuk mengakses orientasi CT SNOMED",
+        "welcome": "Selamat datang di SNOMED International-MLDS",
+        "title": "Daftar"
+    },
+    "systemLoggers": {
+        "title": "Pencatat Sistem"
+    },
+    "nationalRegistrationList": {
+        "title": "Daftar Registrasi Nasional"
+    },
+    "manageBlocklist": {
+        "title": "Kelola Daftar Blokir"
+    },
+    "importAffiliateRecords": {
+        "title": "Impor Catatan Afiliasi"
+    },
+    "activityLog": {
+        "title": "Log aktivitas"
+    },
+    "ihtsdoReleases": {
+        "title": "Merilis SNOMED"
+    },
+    "postAnnouncement": {
+        "title": "Posting Pengumuman"
+    },
+    "memberManagement": {
+        "title": "Manajemen Anggota"
+    },
+    "reviewUsageReports": {
+        "title": "Tinjauan laporan penggunaan"
+    },
+    "releaseManagement": {
+        "title": "Manajemen pengeluaran"
+    },
+    "affiliateManagement": {
+        "title": "Manajemen Afiliasi"
+    },
+    "pendingApplications": {
+        "table": {
+            "review": "Tinjauan",
+            "email": "E-mail",
+            "member": "Anggota",
+            "homeCountry": "Negara asal",
+            "dateSubmitted": "Tanggal Pengiriman",
+            "useType": "Tipe penggunaan",
+            "agreementType": "Jenis Perjanjian",
+            "applicationType": "tipe aplikasi",
+            "affiliateName": "Nama Afiliasi"
+        },
+        "show": {
+            "allApplications": "Semua Aplikasi Tertunda",
+            "myApplications": "Aplikasi Saya yang Tertunda"
+        },
+        "title": "Aplikasi Tertunda"
+    },
+    "application": {
+        "applicationType": {
+            "IMPORT": "Impor",
+            "EXTENSION": "Perpanjangan",
+            "PRIMARY": "Primer"
+        }
+    },
+    "usageReport": {
+        "state": {
+            "PAID": "Dibayar",
+            "INVOICE_SENT": "Invoice terkirim",
+            "PENDING_INVOICE": "Invoice tertunda",
+            "REVIEW_REQUESTED": "Tinjauan Diminta",
+            "RESUBMITTED": "Dikirim ulang",
+            "SUBMITTED": "Dikirim",
+            "CHANGE_REQUESTED": "Permintaan perubahan",
+            "NOT_SUBMITTED": "Tidak Dikirim",
+            "REJECTED": "Ditolak"
+        }
+    },
+    "approval": {
+        "state": {
+            "APPROVED": "Disetujui",
+            "REVIEW_REQUESTED": "Tinjauan Diminta",
+            "RESUBMITTED": "Dikirim ulang",
+            "SUBMITTED": "Dikirim",
+            "CHANGE_REQUESTED": "Permintaan perubahan",
+            "NOT_SUBMITTED": "Tidak Dikirim",
+            "REJECTED": "Ditolak"
+        }
+    },
+    "affiliate": {
+        "standingStateWithExplanation": {
+            "INVOICE_SENT": "Invoice terkirim - Akses ke akun saja, Proses pembayaran belum tuntas",
+            "PENDING_INVOICE": "Invoice tertunda - Akses ke akun saja, Proses pembayaran belum tuntas",
+            "DEREGISTERED": "Pembatalan registrasi - Tidak ada akses ke akun MLDS",
+            "DEACTIVATED": "Deaktivasi - Akses hanya ke akun saja, Tidak dapat mengunduh",
+            "DEACTIVATION_PENDING": "Deaktivasi Tertunda - Akses hanya ke akun saja, Tanpa dapat Mengunduh",
+            "REJECTED": "Ditolak",
+            "IN_GOOD_STANDING": "Pada keadaan stabil - Menyetujui akses penuh, Akun Berbayar, Pembayaran tidak diperlukan, atau Masalah Akun Terselesaikan",
+            "APPLYING": "Menerapkan"
+        },
+        "standingState": {
+            "INVOICE_SENT": "Invoice terkirim",
+            "PENDING_INVOICE": "Invoice tertunda",
+            "DEREGISTERED": "Pembatalan registrasi",
+            "DEACTIVATED": "Deaktivasi",
+            "DEACTIVATION_PENDING": "Penundaan penonaktifan",
+            "REJECTED": "Ditolak",
+            "IN_GOOD_STANDING": "Dalam keadaan stabil",
+            "APPLYING": "Menerapkan"
+        },
+        "implementationStatus": {
+            "PLANNING": "Dalam Tahap Perencanaan",
+            "DEVELOPMENT": "Dalam proses/Pengembangan",
+            "IMPLEMENTED": "Langsung/Diimplementasikan"
+        },
+        "organizationType": {
+            "OTHER": "Lainnya",
+            "EDUCATIONAL_INSTITUTE": "institusi pendidikan",
+            "GENERAL_PRACTITIONER_PRACTICE": "Praktek Dokter Umum",
+            "HEALTHERCARE_APPLICATION_DEVELOPER": "Pengembang Aplikasi Kesehatan",
+            "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Organisasi Penelitian dan Pengembangan",
+            "PRIVATE_HEALTH_ORGANIZATION": "Organisasi Kesehatan Swasta",
+            "PUBLIC_HEALTH_ORGANIZATION": "Organisasi Kesehatan Masyarakat"
+        },
+        "agreementType": {
+            "AFFILIATE_PUBLIC_GOOD": "Afiliasi - Publik",
+            "AFFILIATE_RESEARCH": "Afiliasi - Penelitian",
+            "AFFILIATE_NORMAL": "Afiliasi - Normal"
+        },
+        "subType": {
+            "VENDOR": "Vendor",
+            "RESEARCH": "Riset",
+            "PERSONAL": "Pribadi",
+            "HEALTHCAREPROVIDER": "Penyedia layanan kesehatan",
+            "EDUCATIONAL": "Pendidikan",
+            "DEVELOPMENT": "Perkembangan",
+            "DEVELOPER": "Pengembang"
+        },
+        "type.extended": {
+            "ACADEMIC": "Akademik - untuk penggunaan internal dalam suatu organisasi. (Pendidikan, Riset, Pengembangan atau Penyedia Layanan Kesehatan)",
+            "INDIVIDUAL": "Individu - Pribadi, Pendidikan atau Penelitian",
+            "OTHER": "Lainnya - gunakan pilihan ini apabila penggunaan tidak dinyatakan dalam opsi lainnya",
+            "COMMERCIAL": "Komersial - Penyedia sistem informasi atau terminologi"
+        },
+        "type": {
+            "INDIVIDUAL": "Individu",
+            "OTHER": "Lainnya",
+            "ACADEMIC": "Akademik",
+            "COMMERCIAL": "Komersial",
+            "title": "Jenis"
+        },
+        "title": "Afiliasi"
+    },
+    "footer": "Ini adalah footer anda.",
+    "errors": {
+        "title": "Halaman salah!",
+        "403": "Anda tidak berwenang untuk mengakses halaman."
+    },
+    "audits": {
+        "type": {
+            "USAGE_APPROVAL_STATE_CHANGED": "Persetujuan pengubahan bentuk usage",
+            "USAGE_CREATED": "Pembuatan usage",
+            "RELEASE_VERSION_DELETED": "Versi release dihapus",
+            "RELEASE_VERSION_CREATED": "Pembuatan versi release",
+            "RELEASE_VERSION_TAKEN_ONLINE": "Versi release diambil secara online",
+            "RELEASE_VERSION_TAKEN_OFFLINE": "Versi release diambil secara offline",
+            "RELEASE_PACKAGE_CREATED": "Pembuatan paket release",
+            "RELEASE_PACKAGE_DELETED": "Penghapusan release paket",
+            "RELEASE_FILE_DOWNLOADED": "Pengunduhan release file",
+            "RELEASE_FILE_DELETED": "Penghapusan release file",
+            "RELEASE_FILE_CREATED": "Pembuatan release file",
+            "APPLICATION_DELETED": "Aplikasi Dihapus",
+            "APPLICATION_APPROVAL_STATE_CHANGED": "Status Persetujuan Aplikasi telah diubah",
+            "APPLICATION_CREATED": "Aplikasi Dibuat",
+            "ANNOUNCEMENT_POSTED": "Pengunguman post",
+            "AFFILIATE_STANDING_STATE_CHANGED": "Bentuk afiliasi mandiri telah diubah",
+            "AFFILIATE_LOGIN_CREATED": "Login Afiliasi telah Dibuat",
+            "AFFILIATE_IMPORT": "Impor Batch Afiliasi",
+            "AFFILIATE_EXPORT": "Ekspor Batch Afiliasi",
+            "AFFILIATEDETAILS_UPDATED": "Detail Afiliasi Diperbarui",
+            "AFFILIATE_UPDATED_BY_IMPORT": "Afiliasi Diperbarui dari Impor",
+            "AFFILIATE_UPDATED": "Afiliasi Diperbarui",
+            "AFFILIATE_DELETED": "Afiliasi Dihapus",
+            "AFFILIATE_CREATED_BY_IMPORT": "Afiliasi Dibuat dari Impor",
+            "AFFILIATE_CREATED": "Afiliasi Dibuat",
+            "AUTHENTICATION_FAILURE": "Kegagalan Otentikasi",
+            "AUTHENTICATION_SUCCESS": "Sukses Otorisasi",
+            "AUTHORIZATION_FAILURE": "Kegagalan Otorisasi"
+        },
+        "table": {
+            "header": {
+                "status": "bentuk",
+                "data": "Data ekstra",
+                "date": "Tanggal (Lokal)",
+                "principal": "User"
+            },
+            "data": {
+                "remoteAddress": "Alamat remote:"
+            }
+        },
+        "filter": {
+            "button": {
+                "close": "menutup",
+                "clear": "Membersihkan",
+                "today": "Hari ini",
+                "weeks": "Minggu"
+            },
+            "to": "ke",
+            "from": "dari",
+            "title": "Filter per tanggal"
+        },
+        "title": "Audit"
+    },
+    "logs": {
+        "table": {
+            "level": "Tingkatan",
+            "name": "Nama"
+        },
+        "filter": "Filter",
+        "nbloggers": "Ada logger {{ total }}.",
+        "title": "Log"
+    },
+    "metrics": {
+        "ehcache": {
+            "mean": "Rata-rata get time (ms)",
+            "evictioncount": "Perhitungan eviction",
+            "misses": "Hilang",
+            "hits": "Hits",
+            "objects": "Objek",
+            "cachename": "Nama cache",
+            "title": "Statistik Ehcache"
+        },
+        "servicesstats": {
+            "table": {
+                "p99": "p99",
+                "p95": "p95",
+                "p75": "p75",
+                "p50": "p50",
+                "max": "Maksimum",
+                "min": "Minimum",
+                "mean": "Mean",
+                "count": "Menghitung",
+                "name": "Nama layanan"
+            },
+            "title": "Statistik layanan (waktu dalam milidetik)"
+        },
+        "jvm": {
+            "http": {
+                "code": {
+                    "servererror": "server error",
+                    "notfound": "Tidak ditemukan",
+                    "ok": "Oke"
+                },
+                "table": {
+                    "average": "Rata-rata",
+                    "mean": "Mean",
+                    "count": "Menghitung",
+                    "code": "Kode"
+                },
+                "total": "Jumlah permintaan",
+                "active": "Permintaan aktif",
+                "title": "Permintaan HTTP (proses per detik)"
+            },
+            "gc": {
+                "scavengetime": "Waktu data scavenge",
+                "scavengecount": "Perhitungan data scavenge",
+                "marksweeptime": "Menandai waktu sapuan",
+                "marksweepcount": "Menandai jumlah sapuan",
+                "title": "Pengumpulan sampah"
+            },
+            "threads": {
+                "dump": {
+                    "hide": "Tersembunyi",
+                    "show": "Menunjukkan",
+                    "stacktrace": "Stacktrace",
+                    "lockname": "Kunci nama",
+                    "waitedcount": "Hitungan Menunggu",
+                    "waitedtime": "Waktu Menunggu",
+                    "blockedcount": "Jumlah yang Diblokir",
+                    "blockedtime": "Waktu Diblokir",
+                    "id": "Id",
+                    "title": "Thread dibuang"
+                },
+                "blocked": "Diblokir",
+                "waiting": "Menunggu",
+                "timedwaiting": "Waktu menunggu",
+                "runnable": "Dapat dijalankan",
+                "all": "Semua",
+                "title": "Thread"
+            },
+            "memory": {
+                "nonheap": "Memori Non-Tumpukan",
+                "heap": "Tumpukan Memori",
+                "total": "Total memori",
+                "title": "Memori"
+            },
+            "title": "Metrik JVM"
+        },
+        "health": {
+            "stacktrace": "Stacktrace",
+            "email": "E-mail",
+            "database": "Basis data",
+            "title": "Pemeriksaan kesehatan"
+        },
+        "refresh.button": "Memuat kembali",
+        "title": "Sistem metrik"
+    },
+    "tracker": {
+        "table": {
+            "time": "Waktu",
+            "page": "Halaman saat ini",
+            "userAgent": "Agen pengguna",
+            "ipaddress": "Alamat IP",
+            "userlogin": "Pengguna"
+        },
+        "title": "Aktivitas pengguna secara langsung"
+    },
+    "sessions": {
+        "messages": {
+            "success": "<strong>Sesi dibatalkan!</strong>",
+            "error": "<strong>Terjadi kesalahan!</strong> Sesi tidak dapat dibatalkan validasinya."
+        },
+        "table": {
+            "button": "Tidak tervalidasi",
+            "useragent": "Agen pengguna",
+            "ipaddress": "alamat IP"
+        },
+        "title": "Sesi aktif untuk [<b>{{username}}</b>]"
+    },
+    "password": {
+        "messages": {
+            "expired": "<strong>Tautan pengaturan ulang telah kedaluwarsa atau tidak valid.</strong> <a href='#/requestPasswordReset'>Dimohon untuk mengatur ulang lagi</a>",
+            "success": "<strong>Kata sandi telah diubah!</strong> Lanjutkan ke <a href='#/contactInfo'>Informasi Akun</a>",
+            "error": "<strong>Terjadi kesalahan!</strong> Kata sandi tidak dapat diubah."
+        },
+        "reset": {
+            "instructions": "Masukkan kata sandi baru di bawah ini.",
+            "title": "Atur Ulang Kata Sandi Akun"
+        },
+        "form": {
+            "button": "Simpan"
+        },
+        "title": "Kata sandi untuk {{username}}"
+    },
+    "settings": {
+        "messages": {
+            "validate": {
+                "lastname": {
+                    "maxlength": "Nama belakang anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Nama belakang anda harus minimal 1 karakter",
+                    "required": "Nama belakang anda diperlukan."
+                },
+                "firstname": {
+                    "maxlength": "Nama depan anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Nama depan anda harus minimal ada 1 karakter",
+                    "required": "Nama depan anda diperlukan."
+                }
+            },
+            "success": "<strong>Pengaturan tersimpan!</strong>",
+            "error": "<strong>Terjadi kesalahan!</strong> Pengaturan tidak dapat disimpan."
+        },
+        "form": {
+            "button": "Simpan",
+            "lastname.placeholder": "Nama belakangmu",
+            "lastname": "Nama belakang",
+            "firstname.placeholder": "Nama pertama anda",
+            "firstname": "Nama depan",
+            "countryOfResidence.placeholder": "Negara tempat tinggal anda",
+            "countryOfResidence": "Negara tempat tinggal"
+        },
+        "title": "Info kontak untuk [<b>{{username}}</b>]"
+    },
+    "login": {
+        "messages": {
+            "error": {
+                "noPermissions": "<strong>Otentikasi gagal!</strong> Kami mengautentikasi anda, tetapi akun anda tidak memiliki akses ke aplikasi ini, atau ada salah dikonfigurasi. Silakan hubungi dukungan selanjutnya.",
+                "deregistered": "<strong>Otentikasi gagal!</strong> Akun ini telah dibatalkan pendaftarannya. Silakan hubungi untuk dukungan selanjutnya.",
+                "authentication": "<strong>Otentikasi gagal!</strong> Harap periksa kredensial anda dan coba lagi. Kata sandi peka huruf besar-kecil."
+            }
+        },
+        "form": {
+            "forgot": "Lupa kata sandi anda?",
+            "button": "Masuk",
+            "rememberme": "Ingat saya",
+            "password.placeholder": "Kata sandi Anda",
+            "password": "Kata sandi",
+            "username": "E-mail atau Username"
+        },
+        "title": "Masuk"
+    },
+    "logout": {
+        "subtitle": "Kami mengeluarkan anda dari sesi anda.",
+        "title": "MLDS-Keluar"
     }
 }
