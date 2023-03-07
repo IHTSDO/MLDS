@@ -13,7 +13,7 @@
                 "audits": "Audit",
                 "logs": "Log",
                 "metrics": "Metrik",
-                "tracker": "Traker pengguna",
+                "tracker": "Pelacak pengguna",
                 "password": "Kata sandi",
                 "contactInfo": "Info kontak"
             },
@@ -563,9 +563,11 @@
             },
             "messages": {
                 "notApproved": {
-                    "body": "Anda hanya dapat mengubah informasi kontak afiliasi setelah permintaan pendaftaran disetujui."
+                    "body": "Anda hanya dapat mengubah informasi kontak afiliasi setelah permintaan pendaftaran disetujui.",
+                    "title": "Pendaftaran belum disetujui"
                 }
-            }
+            },
+            "countryNotificationsOnly": "Hanya untuk ekstensi negara saya"
         },
         "userDashboard": {
             "warning": {
