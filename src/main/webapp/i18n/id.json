@@ -1008,11 +1008,11 @@
             "RELEASE_FILE_DELETED": "Penghapusan file rilis",
             "RELEASE_FILE_CREATED": "Pembuatan file rilis",
             "APPLICATION_DELETED": "Aplikasi Dihapus",
-            "APPLICATION_APPROVAL_STATE_CHANGED": "Status Persetujuan Aplikasi telah diubah",
+            "APPLICATION_APPROVAL_STATE_CHANGED": "Status Persetujuan Aplikasi Berubah",
             "APPLICATION_CREATED": "Aplikasi Dibuat",
-            "ANNOUNCEMENT_POSTED": "Pengumuman post",
-            "AFFILIATE_STANDING_STATE_CHANGED": "Status afiliasi tetap telah diubah",
-            "AFFILIATE_LOGIN_CREATED": "Login Afiliasi telah Dibuat",
+            "ANNOUNCEMENT_POSTED": "Pengumuman Diposting",
+            "AFFILIATE_STANDING_STATE_CHANGED": "Status Berdiri Afiliasi Berubah",
+            "AFFILIATE_LOGIN_CREATED": "Login Afiliasi Dibuat",
             "AFFILIATE_IMPORT": "Impor Batch Afiliasi",
             "AFFILIATE_EXPORT": "Ekspor Batch Afiliasi",
             "AFFILIATEDETAILS_UPDATED": "Detail Afiliasi Diperbarui",
@@ -1027,35 +1027,35 @@
         },
         "table": {
             "header": {
-                "status": "Bentuk",
+                "status": "Negara",
                 "data": "Data ekstra",
                 "date": "Tanggal (Lokal)",
-                "principal": "User"
+                "principal": "Pengguna"
             },
             "data": {
-                "remoteAddress": "Alamat remote:"
+                "remoteAddress": "Alamat Jarak Jauh:"
             }
         },
         "filter": {
             "button": {
                 "close": "menutup",
-                "clear": "Membersihkan",
+                "clear": "jernih",
                 "today": "Hari ini",
                 "weeks": "Minggu"
             },
             "to": "ke",
             "from": "dari",
-            "title": "Filter per tanggal"
+            "title": "Saring per tanggal"
         },
         "title": "Audit"
     },
     "logs": {
         "table": {
-            "level": "Tingkatan",
+            "level": "Tingkat",
             "name": "Nama"
         },
-        "filter": "Filter",
-        "nbloggers": "Ada logger {{ total }}.",
+        "filter": "Saring",
+        "nbloggers": "Ada {{ total }} penebang.",
         "title": "Log"
     },
     "metrics": {
@@ -1063,19 +1063,19 @@
             "mean": "Rata-rata get time (ms)",
             "evictioncount": "Perhitungan eviction",
             "misses": "Hilang",
-            "hits": "Hits",
+            "hits": "Hit",
             "objects": "Objek",
             "cachename": "Nama cache",
             "title": "Statistik Ehcache"
         },
         "servicesstats": {
             "table": {
-                "p99": "p99",
+                "p99": "hal99",
                 "p95": "p95",
                 "p75": "p75",
                 "p50": "p50",
-                "max": "Maksimum",
-                "min": "Minimum",
+                "max": "Maks",
+                "min": "Min",
                 "mean": "Mean",
                 "count": "Menghitung",
                 "name": "Nama layanan"
@@ -1097,11 +1097,11 @@
                 },
                 "total": "Jumlah permintaan",
                 "active": "Permintaan aktif",
-                "title": "Permintaan HTTP (events per detik)"
+                "title": "Permintaan HTTP (kejadian per detik)"
             },
             "gc": {
-                "scavengetime": "Waktu data scavenge",
-                "scavengecount": "Perhitungan data scavenge",
+                "scavengetime": "Waktu mengais",
+                "scavengecount": "Hitungan mengais",
                 "marksweeptime": "Tandai waktu Sapu",
                 "marksweepcount": "Tandai jumlah Sapuan",
                 "title": "Pengumpulan sampah"
@@ -1201,7 +1201,7 @@
             "button": "Menyimpan",
             "lastname.placeholder": "Nama belakang Anda",
             "lastname": "Nama keluarga",
-            "firstname.placeholder": "Nama depan Anda",
+            "firstname.placeholder": "Nama pertama Anda",
             "firstname": "Nama depan",
             "countryOfResidence.placeholder": "Negara tempat tinggal Anda",
             "countryOfResidence": "Negara tempat tinggal"
