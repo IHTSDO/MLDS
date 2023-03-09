@@ -839,7 +839,7 @@
             "button": "Mulai Pendaftaran",
             "tos": "Setujui <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Syarat dan Ketentuan</a> kami."
         },
-        "subwelcome": "Gerbang untuk mengakses Orientasi CT SNOMED",
+        "subwelcome": "Gerbang untuk mengakses Orientasi SNOMED CT",
         "welcome": "Selamat datang di SNOMED International-MLDS",
         "title": "Daftar"
     },
@@ -1185,7 +1185,7 @@
             "validate": {
                 "lastname": {
                     "maxlength": "Nama belakang Anda tidak boleh lebih dari 50 karakter",
-                    "minlength": "Nama belakang Anda harus minimal 1 karakter",
+                    "minlength": "Nama belakang Anda minimal harus ada 1 karakter",
                     "required": "Nama belakang Anda diperlukan."
                 },
                 "firstname": {
@@ -1199,9 +1199,9 @@
         },
         "form": {
             "button": "Menyimpan",
-            "lastname.placeholder": "Nama belakang anda",
+            "lastname.placeholder": "Nama belakang Anda",
             "lastname": "Nama keluarga",
-            "firstname.placeholder": "Nama depan anda",
+            "firstname.placeholder": "Nama depan Anda",
             "firstname": "Nama depan",
             "countryOfResidence.placeholder": "Negara tempat tinggal Anda",
             "countryOfResidence": "Negara tempat tinggal"
