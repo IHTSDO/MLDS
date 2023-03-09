@@ -958,7 +958,7 @@
             "HEALTHERCARE_APPLICATION_DEVELOPER": "Pengembang Aplikasi Kesehatan",
             "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Organisasi Penelitian dan Pengembangan",
             "PRIVATE_HEALTH_ORGANIZATION": "Organisasi Kesehatan Swasta",
-            "PUBLIC_HEALTH_ORGANIZATION": "Organisasi Kesehatan Masyarakat"
+            "PUBLIC_HEALTH_ORGANIZATION": "Organisasi Kesehatan Pemerintah"
         },
         "agreementType": {
             "AFFILIATE_PUBLIC_GOOD": "Afiliasi - Publik",
