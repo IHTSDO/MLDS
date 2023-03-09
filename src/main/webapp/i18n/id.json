@@ -61,7 +61,7 @@
             "yes": "Ya",
             "user": "Pengguna",
             "date": "Tanggal",
-            "type": "Jenis",
+            "type": "Tipe",
             "status": "Status",
             "viewAll": "Lihat semua",
             "viewlicense": "Lihat Lisensi",
@@ -116,7 +116,7 @@
             }
         },
         "form": {
-            "email.placeholder": "Alamat E-mail anda",
+            "email.placeholder": "Alamat E-mail Anda",
             "email": "E-mail",
             "country": "Negara tempat tinggal",
             "confirmpassword.placeholder": "Konfirmasi kata sandi baru",
@@ -469,7 +469,7 @@
             "admin": {
                 "usageType": {
                     "required": "Kolom tipe penggunaan wajib diisi.",
-                    "name": "Jenis"
+                    "name": "Tipe"
                 },
                 "subtype": {
                     "required": "Kolom subtipe wajib diisi.",
@@ -481,16 +481,16 @@
                     "name": "Lainnya"
                 },
                 "accountStanding": "Akun tetap",
-                "agreementType": "Jenis Perjanjian",
+                "agreementType": "Tipe Perjanjian",
                 "title": "Admin Dapat Diedit"
             },
             "acceptNotifications": "Ya, tolong beritahu saya ketika paket SNOMED telah diperbarui.",
             "title": "Informasi Akun",
             "organization": {
                 "type": {
-                    "placeholder": "Jenis Organisasi Lainnya",
-                    "required": "Jenis Organisasi wajib diisi",
-                    "name": "tipe organisasi"
+                    "placeholder": "Tipe Organisasi Lainnya",
+                    "required": "Tipe Organisasi wajib diisi",
+                    "name": "Tipe organisasi"
                 },
                 "name": {
                     "placeholder": "Nama organisasi",
@@ -635,7 +635,7 @@
         "usageReports": {
             "newReport": "Laporan baru",
             "countries": "Negara",
-            "usageType": "Jenis Penggunaan",
+            "usageType": "Tipe Penggunaan",
             "hospitals": "Rumah sakit",
             "reportDate": "Tanggal Laporan"
         },
@@ -799,7 +799,7 @@
                 "text": "Pendaftaran afiliasi Anda perlu diperbarui sebelum dapat diproses. Silakan lihat email tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran Anda.",
                 "title": "Registrasi Afiliasi Memerlukan Amandemen"
             },
-            "typeOfAgreement": "Jenis Perjanjian",
+            "typeOfAgreement": "Tipe Perjanjian",
             "conditions": "Silakan pilih kondisi di mana produk akan digunakan",
             "usageType": "Tipe Penggunaan",
             "title": "Pendaftaran Afiliasi"
@@ -884,8 +884,8 @@
             "homeCountry": "Negara asal",
             "dateSubmitted": "Tanggal Pengiriman",
             "useType": "Tipe penggunaan",
-            "agreementType": "Jenis Perjanjian",
-            "applicationType": "tipe aplikasi",
+            "agreementType": "Tipe Perjanjian",
+            "applicationType": "Tipe aplikasi",
             "affiliateName": "Nama Afiliasi"
         },
         "show": {
@@ -953,7 +953,7 @@
         },
         "organizationType": {
             "OTHER": "Lainnya",
-            "EDUCATIONAL_INSTITUTE": "institusi pendidikan",
+            "EDUCATIONAL_INSTITUTE": "Institusi pendidikan",
             "GENERAL_PRACTITIONER_PRACTICE": "Praktek Dokter Umum",
             "HEALTHERCARE_APPLICATION_DEVELOPER": "Pengembang Aplikasi Kesehatan",
             "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Organisasi Penelitian dan Pengembangan",
@@ -985,7 +985,7 @@
             "OTHER": "Lainnya",
             "ACADEMIC": "Akademik",
             "COMMERCIAL": "Komersial",
-            "title": "Jenis"
+            "title": "Tipe"
         },
         "title": "Afiliasi"
     },
@@ -998,15 +998,15 @@
         "type": {
             "USAGE_APPROVAL_STATE_CHANGED": "Persetujuan pengubahan bentuk usage",
             "USAGE_CREATED": "Pembuatan usage",
-            "RELEASE_VERSION_DELETED": "Versi rilis dihapus",
-            "RELEASE_VERSION_CREATED": "Pembuatan versi rilis",
+            "RELEASE_VERSION_DELETED": "Versi Rilis Dihapus",
+            "RELEASE_VERSION_CREATED": "Versi Rilis Dibuat",
             "RELEASE_VERSION_TAKEN_ONLINE": "Versi rilis diambil secara online",
             "RELEASE_VERSION_TAKEN_OFFLINE": "Versi rilis diambil secara offline",
-            "RELEASE_PACKAGE_CREATED": "Pembuatan paket rilis",
-            "RELEASE_PACKAGE_DELETED": "Penghapusan paket rilis",
-            "RELEASE_FILE_DOWNLOADED": "Pengunduhan file rilis",
-            "RELEASE_FILE_DELETED": "Penghapusan file rilis",
-            "RELEASE_FILE_CREATED": "Pembuatan file rilis",
+            "RELEASE_PACKAGE_CREATED": "Paket Rilis Dibuat",
+            "RELEASE_PACKAGE_DELETED": "Paket Rilis Dihapus",
+            "RELEASE_FILE_DOWNLOADED": "Rilis File Diunduh",
+            "RELEASE_FILE_DELETED": "Rilis File Dihapus",
+            "RELEASE_FILE_CREATED": "Rilis File Dibuat",
             "APPLICATION_DELETED": "Aplikasi Dihapus",
             "APPLICATION_APPROVAL_STATE_CHANGED": "Status Persetujuan Aplikasi Berubah",
             "APPLICATION_CREATED": "Aplikasi Dibuat",
@@ -1097,7 +1097,7 @@
                 },
                 "total": "Jumlah permintaan",
                 "active": "Permintaan aktif",
-                "title": "Permintaan HTTP (kejadian per detik)"
+                "title": "Permintaan HTTP (events per detik)"
             },
             "gc": {
                 "scavengetime": "Waktu mengais",
@@ -1117,14 +1117,14 @@
                     "blockedcount": "Jumlah yang Diblokir",
                     "blockedtime": "Waktu Diblokir",
                     "id": "Pengenal",
-                    "title": "Utas dibuang"
+                    "title": "Thread dibuang"
                 },
                 "blocked": "Diblokir",
                 "waiting": "Menunggu",
                 "timedwaiting": "Waktu menunggu",
                 "runnable": "Dapat dijalankan",
                 "all": "Semua",
-                "title": "Utas"
+                "title": "Thread"
             },
             "memory": {
                 "nonheap": "Memori Non-Tumpukan",
@@ -1200,7 +1200,7 @@
         "form": {
             "button": "Menyimpan",
             "lastname.placeholder": "Nama belakang Anda",
-            "lastname": "Nama keluarga",
+            "lastname": "Nama Belakang",
             "firstname.placeholder": "Nama pertama Anda",
             "firstname": "Nama depan",
             "countryOfResidence.placeholder": "Negara tempat tinggal Anda",
