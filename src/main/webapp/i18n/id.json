@@ -442,7 +442,7 @@
         "applicationSummary": {
             "affiliateInfo": "Info Afiliasi",
             "reason": "Alasan",
-            "ext.title": "Info Aplikasi Ekstensi",
+            "ext.title": "Info Aplikasi Extension",
             "title": "Ringkasan Aplikasi",
             "applicationActivity": "Aktivitas Aplikasi",
             "subLicence": "Penggunaan Sublisensi",
@@ -530,9 +530,9 @@
                     "name": "Nomor ponsel"
                 },
                 "landlineExtension": {
-                    "placeholder": "Perpanjangan",
-                    "short": "Ext",
-                    "name": "Perpanjangan"
+                    "placeholder": "Extension",
+                    "short": "Extension",
+                    "name": "Extension"
                 },
                 "landline": {
                     "invalid": "Nomor Telepon Tidak Valid.",
@@ -567,7 +567,7 @@
                     "title": "Pendaftaran belum disetujui"
                 }
             },
-            "countryNotificationsOnly": "Hanya untuk ekstensi negara saya"
+            "countryNotificationsOnly": "Hanya untuk Extension negara saya"
         },
         "userDashboard": {
             "warning": {
@@ -582,7 +582,7 @@
                 "required.msg": "Deklarasi penggunaan awal anda telah disimpan. Namun, harap diperhatikan bahwa anda harus mengirimkan deklarasi penggunaan akhir untuk tahun ini paling lambat tanggal 15 Januari. Dimohon diperhatikan bahwa semua laporan penggunaan tahun sebelumnya harus diserahkan untuk mengunduh SNOMED CT.",
                 "required.title": "Deklarasi Penggunaan Diperlukan",
                 "iPending.msg": "Akun anda memiliki invoice tertunda. Unduhan paket rilis telah ditunda. Harap hubungi <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> untuk mengatasi masalah tersebut.",
-                "deactivated.msg": "Akun Anda telah Dinonaktifkan. Unduhan paket rilis dan aplikasi perpanjangan telah ditunda. Harap hubungi <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> untuk mengatasi masalah tersebut."
+                "deactivated.msg": "Akun Anda telah Dinonaktifkan. Unduhan paket rilis dan extension aplikasi telah ditunda. Harap hubungi <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> untuk mengatasi masalah tersebut."
             },
             "edit": "Edit Aplikasi Afiliasi",
             "affiliateNo": "Nomor Afiliasi",
@@ -702,22 +702,22 @@
         "extensionApplication": {
             "warning": {
                 "approved.detail": "Permohonan Anda telah disetujui.",
-                "approved": "Pendaftaran Perpanjangan Disetujui",
-                "rejected.detail": "Pendaftaran ekstensi anda perlu diperbarui sebelum dapat diproses. Silakan lihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
-                "rejected": "Pendaftaran Perpanjangan Ditolak",
-                "change.detail": "Pendaftaran ekstensi anda perlu diperbarui sebelum dapat diproses. Silakan lihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
-                "change": "Registrasi perpanjangan membutuhkan perubahan"
+                "approved": "Pendaftaran Extension Disetujui",
+                "rejected.detail": "Pendaftaran extension anda perlu diperbarui sebelum dapat diproses. Silakan lihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
+                "rejected": "Pendaftaran Extension Ditolak",
+                "change.detail": "Pendaftaran extensionanda perlu diperbarui sebelum dapat diproses. Silakan lihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
+                "change": "Registrasi Extension membutuhkan perubahan"
             },
-            "license": "Lisensi Perpanjangan",
-            "agreement": "Perjanjian Perpanjangan",
+            "license": "Lisensi Extension",
+            "agreement": "Perjanjian Extension",
             "form": {
                 "error": "Alasannya harus lebih panjang.",
                 "purpose": "Tujuan penggunaan",
-                "why": "Dimohon menjelaskan alasan anda ingin mengakses ekstensi ini.",
-                "title": "Formulir Permohonan Perpanjangan"
+                "why": "Dimohon menjelaskan alasan anda ingin mengakses extension ini.",
+                "title": "Formulir Permohonan Extension"
             },
-            "sure": "Apakah Anda yakin ingin mengajukan Perpanjangan ini?",
-            "title": "Mulai Proses Permohonan Ekstensi",
+            "sure": "Apakah Anda yakin ingin mengajukan Extension ini?",
+            "title": "Mulai Proses Permohonan Extension",
             "delete": {
                 "sure.detail": "Melakukannya akan menyebabkan Anda kehilangan semua informasi yang tersimpan di aplikasi ini.",
                 "sure": "Anda yakin ingin membatalkan aplikasi ini?",
@@ -749,7 +749,7 @@
             "warning": {
                 "aAttention": "Aplikasi membutuhkan perhatian, klik untuk melanjutkan aplikasi",
                 "aProcessed": "Aplikasi sedang diproses",
-                "apply": "Penerapan untuk perpanjangan",
+                "apply": "Penerapan untuk extension",
                 "pProcessed": "Aplikasi primer sedang diproses",
                 "pAttention": "Aplikasi primer perlu diperhatikan",
                 "pending": "Invoice tertunda",
@@ -789,23 +789,23 @@
     "register": {
         "affiliateRegistration": {
             "validation": {
-                "other.required": "Kolom lain diperlukan."
+                "other.required": "Bidang lain diperlukan."
             },
-            "license.error": "Anda harus menyetujui syarat dan ketentuan lisensi SNOMED CT untuk mendaftar dan juga menyetujui potensi biaya yang mungkin diperlukan.",
+            "license.error": "Anda harus menyetujui syarat dan ketentuan Lisensi SNOMED CT untuk mendaftar, yang juga menunjukkan potensi biaya yang diperlukan.",
             "license.confirm": "Saya setuju dengan lisensinya",
             "license": "Lisensi SNOMED",
             "license.title": "Perjanjian SNOMED CT",
             "changeRequestedWarning": {
-                "text": "Pendaftaran afiliasi anda perlu diperbarui sebelum dapat diproses. Silakan lihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
+                "text": "Pendaftaran afiliasi Anda perlu diperbarui sebelum dapat diproses. Silakan lihat email tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran Anda.",
                 "title": "Registrasi Afiliasi Memerlukan Amandemen"
             },
             "typeOfAgreement": "Jenis Perjanjian",
-            "conditions": "Silakan pilih kondisi untuk produk yang akan digunakan",
+            "conditions": "Silakan pilih kondisi di mana produk akan digunakan",
             "usageType": "Tipe Penggunaan",
             "title": "Pendaftaran Afiliasi"
         },
         "affiliateRegistrationReview": {
-            "editApp": "Edit Aplikasi",
+            "editApp": "Sunting Aplikasi",
             "title": "Ulasan Aplikasi"
         },
         "emailVerification": {
@@ -897,7 +897,7 @@
     "application": {
         "applicationType": {
             "IMPORT": "Impor",
-            "EXTENSION": "Perpanjangan",
+            "EXTENSION": "Extension",
             "PRIMARY": "Primer"
         }
     },
@@ -1102,13 +1102,13 @@
             "gc": {
                 "scavengetime": "Waktu data scavenge",
                 "scavengecount": "Perhitungan data scavenge",
-                "marksweeptime": "Menandai waktu sapuan",
-                "marksweepcount": "Menandai jumlah sapuan",
+                "marksweeptime": "Tandai waktu Sapu",
+                "marksweepcount": "Tandai jumlah Sapuan",
                 "title": "Pengumpulan sampah"
             },
             "threads": {
                 "dump": {
-                    "hide": "Tersembunyi",
+                    "hide": "Bersembunyi",
                     "show": "Menunjukkan",
                     "stacktrace": "Stacktrace",
                     "lockname": "Kunci nama",
@@ -1116,32 +1116,32 @@
                     "waitedtime": "Waktu Menunggu",
                     "blockedcount": "Jumlah yang Diblokir",
                     "blockedtime": "Waktu Diblokir",
-                    "id": "Id",
-                    "title": "Thread dibuang"
+                    "id": "Pengenal",
+                    "title": "Utas dibuang"
                 },
                 "blocked": "Diblokir",
                 "waiting": "Menunggu",
                 "timedwaiting": "Waktu menunggu",
                 "runnable": "Dapat dijalankan",
                 "all": "Semua",
-                "title": "Thread"
+                "title": "Utas"
             },
             "memory": {
                 "nonheap": "Memori Non-Tumpukan",
                 "heap": "Tumpukan Memori",
-                "total": "Total memori",
-                "title": "Memori"
+                "total": "Memori Total",
+                "title": "Penyimpanan"
             },
             "title": "Metrik JVM"
         },
         "health": {
             "stacktrace": "Stacktrace",
-            "email": "E-mail",
+            "email": "Surel",
             "database": "Basis data",
             "title": "Pemeriksaan kesehatan"
         },
-        "refresh.button": "Memuat kembali",
-        "title": "Sistem metrik"
+        "refresh.button": "Menyegarkan",
+        "title": "Metrik Sistem"
     },
     "tracker": {
         "table": {
@@ -1151,7 +1151,7 @@
             "ipaddress": "Alamat IP",
             "userlogin": "Pengguna"
         },
-        "title": "Aktivitas pengguna secara langsung"
+        "title": "Aktivitas pengguna waktu nyata"
     },
     "sessions": {
         "messages": {
@@ -1159,7 +1159,7 @@
             "error": "<strong>Terjadi kesalahan!</strong> Sesi tidak dapat dibatalkan validasinya."
         },
         "table": {
-            "button": "Tidak tervalidasi",
+            "button": "Batalkan",
             "useragent": "Agen pengguna",
             "ipaddress": "alamat IP"
         },
@@ -1167,8 +1167,8 @@
     },
     "password": {
         "messages": {
-            "expired": "<strong>Tautan pengaturan ulang telah kedaluwarsa atau tidak valid.</strong> <a href='#/requestPasswordReset'>Dimohon untuk mengatur ulang lagi</a>",
-            "success": "<strong>Kata sandi telah diubah!</strong> Lanjutkan ke <a href='#/contactInfo'>Informasi Akun</a>",
+            "expired": "<strong>Tautan setel ulang telah kedaluwarsa atau tidak valid.</strong> <a href='#/requestPasswordReset'>Minta setel ulang lagi</a>",
+            "success": "<strong>Kata sandi diubah!</strong> Lanjutkan ke <a href='#/contactInfo'>Informasi Akun</a>",
             "error": "<strong>Terjadi kesalahan!</strong> Kata sandi tidak dapat diubah."
         },
         "reset": {
@@ -1176,7 +1176,7 @@
             "title": "Atur Ulang Kata Sandi Akun"
         },
         "form": {
-            "button": "Simpan"
+            "button": "Menyimpan"
         },
         "title": "Kata sandi untuk {{username}}"
     },
@@ -1191,40 +1191,40 @@
                 "firstname": {
                     "maxlength": "Nama depan Anda tidak boleh lebih dari 50 karakter",
                     "minlength": "Nama depan Anda harus minimal 1 karakter",
-                    "required": "Nama depan anda diperlukan."
+                    "required": "Nama depan Anda diperlukan."
                 }
             },
-            "success": "<strong>Pengaturan tersimpan!</strong>",
-            "error": "<strong>Terjadi kesalahan!</strong> Pengaturan tidak dapat disimpan."
+            "success": "<strong>Pengaturan disimpan!</strong>",
+            "error": "<strong>Terjadi kesalahan!</strong> Setelan tidak dapat disimpan."
         },
         "form": {
-            "button": "Simpan",
+            "button": "Menyimpan",
             "lastname.placeholder": "Nama belakang anda",
-            "lastname": "Nama belakang",
+            "lastname": "Nama keluarga",
             "firstname.placeholder": "Nama depan anda",
             "firstname": "Nama depan",
-            "countryOfResidence.placeholder": "Negara tempat tinggal anda",
+            "countryOfResidence.placeholder": "Negara tempat tinggal Anda",
             "countryOfResidence": "Negara tempat tinggal"
         },
-        "title": "Info kontak untuk [<b>{{username}}</b>]"
+        "title": "Info Kontak untuk [<b>{{username}}</b>]"
     },
     "login": {
         "messages": {
             "error": {
-                "noPermissions": "<strong>Otentikasi gagal!</strong> Kami mengautentikasi anda, tetapi akun anda tidak memiliki akses ke aplikasi ini, atau ada salah dikonfigurasi. Dimohon menghubungi bantuan untuk dukungan selanjutnya.",
-                "deregistered": "<strong>Otentikasi gagal!</strong> Akun ini telah dibatalkan pendaftarannya. Dimohon menghubungi bantuan untuk dukungan selanjutnya.",
-                "authentication": "<strong>Otentikasi gagal!</strong> Harap periksa kredensial anda dan coba lagi. Kata sandi peka huruf besar-kecil."
+                "noPermissions": "<strong>Otentikasi gagal!</strong> Kami mengautentikasi Anda, tetapi akun Anda tidak memiliki akses ke aplikasi ini, atau salah dikonfigurasi. Silakan hubungi dukungan.",
+                "deregistered": "<strong>Otentikasi gagal!</strong> Akun ini telah dibatalkan pendaftarannya. Silakan hubungi dukungan.",
+                "authentication": "<strong>Otentikasi gagal!</strong> Harap periksa kredensial Anda dan coba lagi. Kata sandi peka huruf besar-kecil."
             }
         },
         "form": {
-            "forgot": "Lupa kata sandi anda?",
-            "button": "Masuk",
+            "forgot": "lupa kata sandi Anda?",
+            "button": "Gabung",
             "rememberme": "Ingat saya",
             "password.placeholder": "Kata sandi Anda",
             "password": "Kata sandi",
-            "username": "E-mail atau Username"
+            "username": "Email atau nama pengguna"
         },
-        "title": "Masuk"
+        "title": "Gabung"
     },
     "logout": {
         "subtitle": "Kami mengeluarkan Anda dari sesi Anda.",
