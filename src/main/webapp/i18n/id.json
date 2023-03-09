@@ -293,7 +293,7 @@
             "CG": "Kongo, (Kongo Brazzaville)",
             "CF": "Republik Afrika Tengah",
             "CD": "Kongo, (Kongo Kinshasa)",
-            "CC": "Kepulauan Cocos (Keeling).",
+            "CC": "Kepulauan Cocos (Keeling)",
             "CA": "Kanada",
             "BZ": "Belize",
             "BY": "Belarusia",
@@ -972,7 +972,7 @@
             "HEALTHCAREPROVIDER": "Penyedia layanan kesehatan",
             "EDUCATIONAL": "Pendidikan",
             "DEVELOPMENT": "Pengembangan",
-            "DEVELOPER": "Pengembang"
+            "DEVELOPER": "Fasilitas Pelayanan Kesehatan"
         },
         "type.extended": {
             "ACADEMIC": "Akademik - untuk penggunaan internal dalam suatu organisasi. (Pendidikan, Riset, Pengembangan atau Penyedia Layanan Kesehatan)",
