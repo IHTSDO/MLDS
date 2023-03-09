@@ -4,12 +4,12 @@
             "account": {
                 "sessions": "Sesi",
                 "main": "Akun",
-                "dashboard": "Dashboard",
+                "dashboard": "Dasbor",
                 "affiliates": "Afiliasi",
                 "register": "Daftar",
                 "apidocs": "API",
                 "logout": "Keluar",
-                "login": "Masuk",
+                "login": "Gabung",
                 "audits": "Audit",
                 "logs": "Log",
                 "metrics": "Metrik",
@@ -21,32 +21,32 @@
             "language": "Bahasa",
             "admin": {
                 "nationalRegistrationList": "Daftar Registrasi Nasional",
-                "manageBlacklist": "Manajemen Blacklist",
-                "importAffiliateRecords": "Catatan impor afiliasi"
+                "manageBlacklist": "Kelola Daftar Hitam",
+                "importAffiliateRecords": "Impor Catatan Afiliasi"
             },
             "staff": {
                 "logout": "Keluar",
-                "reportsExtracts": "Ekstrak dan laporan",
+                "reportsExtracts": "Laporan dan Ekstrak",
                 "licenseTC": "Lisensi T dan C",
-                "packageManagement": "Manajemen paket",
-                "activityLog": "Aktivitas log",
-                "affiliteUserManagement": "Manajemen pengguna afiliasi",
-                "usageReports": "Laporan penggunaan",
-                "pendingApplications": "Aplikasi tertunda",
-                "dashboard": "Dashboard"
+                "packageManagement": "Manajemen Paket",
+                "activityLog": "Log aktivitas",
+                "affiliteUserManagement": "Manajemen Pengguna Afiliasi",
+                "usageReports": "Laporan Penggunaan",
+                "pendingApplications": "Aplikasi Tertunda",
+                "dashboard": "Dasbor"
             },
             "affiliate": {
                 "logout": "Keluar",
-                "changePassword": "Mengganti kata sandi",
-                "accountInformation": "Informasi akun"
+                "changePassword": "Ganti kata sandi",
+                "accountInformation": "Informasi Akun"
             },
-            "releasePackages": "Rilis Paket",
+            "releasePackages": "Paket Rilis",
             "applications": "Aplikasi",
-            "usageReports": "Laporan pengguna",
-            "privacyPolicy": "Kebijakan privasi",
-            "help": "Bantuan",
-            "dashboard": "Dashboard",
-            "home": "Beranda"
+            "usageReports": "Laporan Penggunaan",
+            "privacyPolicy": "Kebijakan pribadi",
+            "help": "Membantu",
+            "dashboard": "Dasbor",
+            "home": "Rumah"
         },
         "title": "mlds",
         "word": {
@@ -54,10 +54,10 @@
             "back": "Kembali",
             "license": "Lisensi",
             "publishedOn": "Diterbitkan di",
-            "file": "File",
+            "file": "Mengajukan",
             "download": "Unduh",
             "apply": "Menerapkan",
-            "no": "Tidak",
+            "no": "TIDAK",
             "yes": "Ya",
             "user": "Pengguna",
             "date": "Tanggal",
@@ -67,37 +67,37 @@
             "viewlicense": "Lihat Lisensi",
             "view": "Melihat",
             "welcome": "Selamat datang",
-            "save": "Simpan",
+            "save": "Menyimpan",
             "submit": "Kirim",
-            "ok": "Oke",
+            "ok": "OKE",
             "from": "dari",
             "update": "Memperbarui",
             "delete": "Hapus",
-            "close": "tutup",
+            "close": "menutup",
             "notes": "Catatan",
             "note": "Catatan",
             "cancel": "Membatalkan",
             "name": "Nama",
-            "edit": "Edit",
+            "edit": "Sunting",
             "add": "Menambahkan",
             "or": "atau"
         },
         "messages": {
             "validate": {
                 "email": {
-                    "invalid": "E-mail anda tidak valid.",
-                    "maxlength": "E-mail anda tidak boleh lebih dari 50 karakter",
-                    "minlength": "E-mail anda harus minimal 1 karakter",
-                    "required": "E-mail anda diperlukan."
+                    "invalid": "Email Anda tidak valid.",
+                    "maxlength": "Email Anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "E-mail Anda harus minimal 1 karakter",
+                    "required": "Email Anda diperlukan."
                 },
                 "confirmemail": {
-                    "match": "Konfirmasi E-mail anda tidak cocok dengan E-mail"
+                    "match": "Email konfirmasi Anda tidak cocok dengan email"
                 },
                 "confirmpassword": {
-                    "match": "Konfirmasi kata sandi tidak cocok dengan kata sandi",
-                    "maxlength": "Konfirmasi kata sandi anda tidak boleh lebih dari 50 karakter",
-                    "minlength": "Konfirmasi kata sandi anda harus minimal 5 karakter",
-                    "required": "Konfirmasi kata sandi anda diperlukan."
+                    "match": "Konfirmasi kata sandi Anda tidak cocok dengan kata sandi",
+                    "maxlength": "Kata sandi konfirmasi Anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Kata sandi konfirmasi Anda harus minimal 5 karakter",
+                    "required": "Kata sandi konfirmasi Anda diperlukan."
                 },
                 "newpassword": {
                     "strength": "Kekuatan kata sandi:",
@@ -107,12 +107,12 @@
                 }
             },
             "error": {
-                "server": "Sebuah kesalahan telah terjadi. Silahkan masuk kembali dengan menekan tombol masuk kembali.",
+                "server": "Sebuah kesalahan telah terjadi. Silahkan login kembali dengan menekan tombol Login kembali.",
                 "dontmatch": "Kata sandi dan konfirmasinya tidak cocok!"
             },
             "info": {
                 "register": "Anda belum memiliki akun? <a href=\"#/register\">Daftarkan akun baru</a>",
-                "authenticated": "Apabila Anda ingin <a href=\"#/login\"> mengautentikasi </a>, Anda dapat mencoba akun default: <br/>- Admnistrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" dan password =\"user\")."
+                "authenticated": "Jika Anda ingin <a href=\"#/login\"> mengautentikasi </a>, Anda dapat mencoba akun default: <br/>- Admnistrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" dan password =\"pengguna\")."
             }
         },
         "form": {
@@ -123,9 +123,9 @@
             "confirmpassword": "Konfirmasi kata sandi baru",
             "newpassword.placeholder": "Kata sandi baru",
             "newpassword": "Kata sandi baru",
-            "name.placeholder": "Nama anda",
+            "name.placeholder": "Namamu",
             "username.placeholder": "Login Anda",
-            "username": "Masuk"
+            "username": "Gabung"
         },
         "country": {
             "ZW": "Zimbabwe",
@@ -149,7 +149,7 @@
             "UG": "Uganda",
             "UA": "Ukraina",
             "TZ": "Tanzania",
-            "TW": "Cina, Republik (Taiwan)",
+            "TW": "Tiongkok, Republik (Taiwan)",
             "TV": "Tuvalu",
             "TT": "Trinidad dan Tobago",
             "TR": "Turki",
@@ -249,7 +249,7 @@
             "GQ": "Guinea ekuator",
             "GP": "Guadeloupe",
             "GN": "Guinea",
-            "GM": "Gambia",
+            "GM": "Gambia, The",
             "GL": "Greenland",
             "GI": "Gibraltar",
             "GH": "Ghana",
@@ -271,7 +271,7 @@
             "EG": "Mesir",
             "EE": "Estonia",
             "EC": "Ekuador",
-            "DZ": "Algeria",
+            "DZ": "Aljazair",
             "DO": "Republik Dominika",
             "DM": "Dominika",
             "DK": "Denmark",
@@ -284,23 +284,23 @@
             "CU": "Kuba",
             "CR": "Kosta Rika",
             "CO": "Kolumbia",
-            "CN": "Republik Rakyat Cina",
+            "CN": "Cina, Republik Rakyat",
             "CM": "Kamerun",
             "CL": "Chili",
             "CK": "Kepulauan Cook",
-            "CI": "Cote d'Ivoire (Ivory Coast)",
+            "CI": "Pantai Gading (Pantai Gading)",
             "CH": "Swiss",
-            "CG": "Congo, (Congo Brazzaville)",
+            "CG": "Kongo, (Kongo Brazzaville)",
             "CF": "Republik Afrika Tengah",
             "CD": "Kongo, (Kongo Kinshasa)",
-            "CC": "Kepulauan Cocos (Keeling)",
+            "CC": "Kepulauan Cocos (Keeling).",
             "CA": "Kanada",
             "BZ": "Belize",
-            "BY": "Belarus",
+            "BY": "Belarusia",
             "BW": "Botswana",
             "BV": "Pulau Bouvet",
             "BT": "Bhutan",
-            "BS": "Bahamas",
+            "BS": "Bahama, The",
             "BR": "Brazil",
             "BO": "Bolivia",
             "BN": "Brunei",
@@ -387,7 +387,7 @@
             "PT": "Portugal",
             "PL": "Polandia",
             "NZ": "Selandia Baru",
-            "NO": "Norwegia",
+            "NO": "Norway",
             "NL": "Belanda",
             "MT": "Malta",
             "MY": "Malaysia",
@@ -400,7 +400,7 @@
             "IE": "Irlandia",
             "ID": "Indonesia",
             "IS": "Islandia",
-            "HK": "Hong Kong, Cina",
+            "HK": "Hongkong, Cina",
             "FI": "Finlandia",
             "EE": "Estonia",
             "DE": "Jerman",
@@ -415,12 +415,12 @@
             "AT": "Austria",
             "AR": "Argentina",
             "AM": "Armenia",
-            "AE": "United Arab Emirates",
+            "AE": "Uni Emirat Arab",
             "IHTSDO": "SNOMED Internasional"
         },
         "language": {
-            "th": "Thailand",
-            "se": "Swedia",
+            "th": "Thai",
+            "se": "Orang Swedia",
             "ru": "Rusia",
             "pt": "Portugis",
             "pl": "Polandia",
@@ -430,13 +430,13 @@
             "de-ch": "Jerman",
             "de-at": "Jerman",
             "fr": "Perancis",
-            "es": "Spanyol",
-            "en": "Bahasa Inggris",
+            "es": "Orang Spanyol",
+            "en": "Bahasa inggris",
             "ee": "Estonia",
-            "da": "Denmark",
+            "da": "Orang Denmark",
             "br": "Portugis"
         },
-        "browsehappy": "Anda menggunakan <strong>browser <strong> tidak mutakhir. Dimohon <a href=\"http://browsehappy.com/?locale=en\"> melakukan pemutakhiran browser anda</a> untuk kelancaran penelusuran anda."
+        "browsehappy": "Anda menggunakan browser <strong>kedaluwarsa</strong>. Harap <a href=\"http://browsehappy.com/?locale=en\">tingkatkan versi browser Anda</a> untuk meningkatkan pengalaman Anda."
     },
     "views": {
         "applicationSummary": {
@@ -809,37 +809,37 @@
             "title": "Ulasan Aplikasi"
         },
         "emailVerification": {
-            "detail": "Silakan buka E-mail yang baru saja kami kirimkan untuk memverifikasi akun anda dan mendapatkan akses ke MLDS",
-            "intro": "Kami telah mengirimkan E-mail kepada Anda."
+            "detail": "Silakan buka email yang baru saja kami kirimkan untuk memverifikasi akun Anda dan mendapatkan akses ke MLDS",
+            "intro": "Kami telah mengirimkan email kepada Anda."
         },
         "messages": {
             "error": {
-                "blocklist": "Dikarenakan kebijakan tim IT kami, kami tidak dapat memproses alamat E-mail yang dimasukkan. Dimohon menghubungi <a href=\"mailto:support@snomed.org\">support@snomed.org</a> untuk bantuan lebih lanjut.",
-                "userexists": "<strong>Pengguna telah mendaftar dengan alamat E-mail tersebut.</strong> Apakah anda bermaksud untuk <a href='#/login'>login</a>?",
-                "fail": "<strong>Pendaftaran gagal!</strong> Dimohon mencoba kembali nanti."
+                "blocklist": "Karena kebijakan TI kami, kami tidak dapat memproses alamat email yang dimasukkan. Silakan hubungi <a href=\"mailto:support@snomed.org\">support@snomed.org</a> untuk bantuan lebih lanjut.",
+                "userexists": "<strong>Pengguna telah mendaftar dengan alamat email tersebut.</strong> Apakah maksud Anda <a href='#/login'>login</a>?",
+                "fail": "<strong>Pendaftaran gagal!</strong> Coba lagi nanti."
             },
-            "success": "<strong>Pendaftaran tersimpan!</strong> Harap periksa E-mail anda untuk konfirmasi.",
+            "success": "<strong>Pendaftaran disimpan!</strong> Harap periksa email Anda untuk konfirmasi.",
             "validate": {
                 "registration": {
                     "subtyperequired": "Diperlukan subtipe",
                     "usagetyperequired": "Tipe penggunaan diperlukan"
                 },
                 "country": {
-                    "notMLDS": "Permohonan untuk penggunaan SNOMED CT di negara tempat tinggal anda harus diajukan ke perwakilan di negara anda - <a href=\"{{link}}\" target=\"_blank\">di sini</a>. Jika anda ingin mengajukan persetujuan publik menggunakan SNOMED CT di negara lain, atau ingin mengajukan pertanyaan lain, silakan hubungi SNOMED International di <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
+                    "notMLDS": "Permohonan untuk penggunaan SNOMED CT di negara tempat tinggal Anda harus diajukan ke perwakilan yang sesuai dari negara Anda - <a href=\"{{link}}\" target=\"_blank\">di sini</a>. Jika Anda ingin mengajukan persetujuan Barang Publik untuk menggunakan SNOMED CT di negara lain, atau ingin mengajukan pertanyaan lain, silakan hubungi SNOMED International di <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
                 },
                 "login": {
-                    "maxlength": "Login anda tidak boleh lebih dari 50 karakter",
-                    "minlength": "Login anda harus minimal 1 karakter",
-                    "required": "Login anda diperlukan."
+                    "maxlength": "Login Anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Login Anda harus minimal 1 karakter",
+                    "required": "Login Anda diperlukan."
                 }
             }
         },
         "form": {
-            "confirmemail": "E-mail (konfirmasi)",
+            "confirmemail": "Email (konfirmasi)",
             "button": "Mulai Pendaftaran",
-            "tos": "Menyetujui <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">syarat dan ketentuan</a> ."
+            "tos": "Setujui <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Syarat dan Ketentuan</a> kami."
         },
-        "subwelcome": "Gerbang untuk mengakses orientasi CT SNOMED",
+        "subwelcome": "Gerbang untuk mengakses Orientasi CT SNOMED",
         "welcome": "Selamat datang di SNOMED International-MLDS",
         "title": "Daftar"
     },
@@ -1227,7 +1227,7 @@
         "title": "Masuk"
     },
     "logout": {
-        "subtitle": "Kami mengeluarkan anda dari sesi anda.",
-        "title": "MLDS-Keluar"
+        "subtitle": "Kami mengeluarkan Anda dari sesi Anda.",
+        "title": "MLDS-Logout"
     }
 }
