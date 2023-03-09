@@ -6,7 +6,7 @@
                 "main": "Akun",
                 "dashboard": "Dashboard",
                 "affiliates": "Afiliasi",
-                "register": "Registrasi",
+                "register": "Daftar",
                 "apidocs": "API",
                 "logout": "Keluar",
                 "login": "Masuk",
@@ -801,7 +801,7 @@
             },
             "typeOfAgreement": "Jenis Perjanjian",
             "conditions": "Silakan pilih kondisi untuk produk yang akan digunakan",
-            "usageType": "Jenis Penggunaan",
+            "usageType": "Tipe Penggunaan",
             "title": "Pendaftaran Afiliasi"
         },
         "affiliateRegistrationReview": {
@@ -822,7 +822,7 @@
             "validate": {
                 "registration": {
                     "subtyperequired": "Diperlukan subtipe",
-                    "usagetyperequired": "Jenis penggunaan diperlukan"
+                    "usagetyperequired": "Tipe penggunaan diperlukan"
                 },
                 "country": {
                     "notMLDS": "Permohonan untuk penggunaan SNOMED CT di negara tempat tinggal anda harus diajukan ke perwakilan di negara anda - <a href=\"{{link}}\" target=\"_blank\">di sini</a>. Jika anda ingin mengajukan persetujuan publik menggunakan SNOMED CT di negara lain, atau ingin mengajukan pertanyaan lain, silakan hubungi SNOMED International di <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
@@ -933,7 +933,7 @@
             "DEACTIVATED": "Deaktivasi - Akses hanya ke akun saja, Tidak dapat mengunduh",
             "DEACTIVATION_PENDING": "Deaktivasi Tertunda - Akses hanya ke akun saja, Tanpa dapat Mengunduh",
             "REJECTED": "Ditolak",
-            "IN_GOOD_STANDING": "Dalam keadaan baik - Menyetujui akses penuh, Akun Berbayar, Pembayaran tidak diperlukan, atau Masalah Akun Terselesaikan",
+            "IN_GOOD_STANDING": "In Good Standing - Akses penuh yang disetujui, Akun Dibayar, Tidak Diperlukan Pembayaran atau Masalah Akun Terselesaikan",
             "APPLYING": "Menerapkan"
         },
         "standingState": {
@@ -971,7 +971,7 @@
             "PERSONAL": "Pribadi",
             "HEALTHCAREPROVIDER": "Penyedia layanan kesehatan",
             "EDUCATIONAL": "Pendidikan",
-            "DEVELOPMENT": "Perkembangan",
+            "DEVELOPMENT": "Pengembangan",
             "DEVELOPER": "Pengembang"
         },
         "type.extended": {
@@ -1184,13 +1184,13 @@
         "messages": {
             "validate": {
                 "lastname": {
-                    "maxlength": "Nama belakang anda tidak boleh lebih dari 50 karakter",
-                    "minlength": "Nama belakang anda harus minimal 1 karakter",
-                    "required": "Nama belakang anda diperlukan."
+                    "maxlength": "Nama belakang Anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Nama belakang Anda harus minimal 1 karakter",
+                    "required": "Nama belakang Anda diperlukan."
                 },
                 "firstname": {
-                    "maxlength": "Nama depan anda tidak boleh lebih dari 50 karakter",
-                    "minlength": "Nama depan anda harus minimal ada 1 karakter",
+                    "maxlength": "Nama depan Anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Nama depan Anda harus minimal 1 karakter",
                     "required": "Nama depan anda diperlukan."
                 }
             },
@@ -1199,9 +1199,9 @@
         },
         "form": {
             "button": "Simpan",
-            "lastname.placeholder": "Nama belakangmu",
+            "lastname.placeholder": "Nama belakang anda",
             "lastname": "Nama belakang",
-            "firstname.placeholder": "Nama pertama anda",
+            "firstname.placeholder": "Nama depan anda",
             "firstname": "Nama depan",
             "countryOfResidence.placeholder": "Negara tempat tinggal anda",
             "countryOfResidence": "Negara tempat tinggal"
