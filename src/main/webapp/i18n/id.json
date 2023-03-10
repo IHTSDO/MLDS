@@ -416,7 +416,8 @@
             "AR": "Argentina",
             "AM": "Armenia",
             "AE": "Uni Emirat Arab",
-            "IHTSDO": "SNOMED Internasional"
+            "IHTSDO": "SNOMED Internasional",
+            "JM": "Jamaika"
         },
         "language": {
             "th": "Thai",
@@ -434,7 +435,8 @@
             "en": "Bahasa inggris",
             "ee": "Estonia",
             "da": "Orang Denmark",
-            "br": "Portugis"
+            "br": "Portugis",
+            "id": "Bahasa Indonesia"
         },
         "browsehappy": "Anda menggunakan browser <strong>kedaluwarsa</strong>. Harap <a href=\"http://browsehappy.com/?locale=en\">tingkatkan versi browser Anda</a> untuk meningkatkan pengalaman Anda."
     },
