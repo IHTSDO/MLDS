@@ -494,7 +494,7 @@
                 },
                 "name": {
                     "placeholder": "Nama organisasi",
-                    "name": "Nama Organisasi"
+                    "name": "Nama Organisasi (Untuk Fasilitas Pelayanan Kesehatan tuliskan \"Kode Registrasi Faskes - Nama Faskes\")"
                 },
                 "title": "Organisasi"
             },
