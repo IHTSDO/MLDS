@@ -43,8 +43,8 @@
             "releasePackages": "Paket Rilis",
             "applications": "Aplikasi",
             "usageReports": "Laporan Penggunaan",
-            "privacyPolicy": "Kebijakan pribadi",
-            "help": "Membantu",
+            "privacyPolicy": "Kebijakan Pribadi",
+            "help": "Bantuan",
             "dashboard": "Dasbor",
             "home": "Beranda"
         },
@@ -66,7 +66,7 @@
             "viewAll": "Lihat semua",
             "viewlicense": "Lihat Lisensi",
             "view": "Melihat",
-            "welcome": "Selamat datang",
+            "welcome": "Selamat Datang",
             "save": "Menyimpan",
             "submit": "Kirim",
             "ok": "OKE",
@@ -421,7 +421,7 @@
         },
         "language": {
             "th": "Thai",
-            "se": "Orang Swedia",
+            "se": "Swedia",
             "ru": "Rusia",
             "pt": "Portugis",
             "pl": "Polandia",
@@ -431,12 +431,12 @@
             "de-ch": "Jerman",
             "de-at": "Jerman",
             "fr": "Perancis",
-            "es": "Orang Spanyol",
+            "es": "Spanyol",
             "en": "Bahasa inggris",
             "ee": "Estonia",
             "da": "Orang Denmark",
             "br": "Portugis",
-            "id": "Bahasa Indonesia"
+            "id": "Indonesia"
         },
         "browsehappy": "Anda menggunakan browser <strong>kedaluwarsa</strong>. Harap <a href=\"http://browsehappy.com/?locale=en\">tingkatkan versi browser Anda</a> untuk meningkatkan pengalaman Anda."
     },
@@ -495,7 +495,7 @@
                     "name": "Tipe organisasi"
                 },
                 "name": {
-                    "placeholder": "Nama organisasi",
+                    "placeholder": "Nama Organisasi",
                     "name": "Nama Organisasi (Untuk Fasilitas Pelayanan Kesehatan tuliskan \"Kode Registrasi Faskes - Nama Faskes\")"
                 },
                 "title": "Organisasi"
@@ -554,11 +554,11 @@
                 },
                 "lastName": {
                     "placeholder": "Smith",
-                    "name": "Nama belakang"
+                    "name": "Nama Belakang"
                 },
                 "firstName": {
                     "placeholder": "John",
-                    "name": "Nama depan"
+                    "name": "Nama Depan"
                 },
                 "fullName": "Nama",
                 "title": "Kontak informasi"
@@ -776,8 +776,8 @@
             "appName": "Layanan Perizinan Anggota dan Distribusi"
         },
         "footer": {
-            "contact": "Hubungi kami",
-            "register": "Daftarkan penerapan Anda",
+            "contact": "Hubungi Kami",
+            "register": "Daftarkan Deployment Anda",
             "pp": "Kebijakan privasi",
             "tos": "Ketentuan Layanan"
         }
@@ -816,7 +816,7 @@
         },
         "messages": {
             "error": {
-                "blocklist": "Karena kebijakan TI kami, kami tidak dapat memproses alamat email yang dimasukkan. Silakan hubungi <a href=\"mailto:support@snomed.org\">support@snomed.org</a> untuk bantuan lebih lanjut.",
+                "blocklist": "Karena kebijakan TI kami, kami tidak dapat memproses alamat E-mail yang dimasukkan. Silakan hubungi <a href=\"mailto:support@snomed.org\">support@snomed.org</a> untuk bantuan lebih lanjut.",
                 "userexists": "<strong>Pengguna telah mendaftar dengan alamat email tersebut.</strong> Apakah maksud Anda <a href='#/login'>login</a>?",
                 "fail": "<strong>Pendaftaran gagal!</strong> Coba lagi nanti."
             },
@@ -842,7 +842,7 @@
             "tos": "Setujui <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Syarat dan Ketentuan</a> kami."
         },
         "subwelcome": "Gerbang untuk mengakses Orientasi SNOMED CT",
-        "welcome": "Selamat datang di SNOMED International-MLDS",
+        "welcome": "Selamat Datang di SNOMED International-MLDS",
         "title": "Daftar"
     },
     "systemLoggers": {
@@ -1113,7 +1113,7 @@
                     "hide": "Bersembunyi",
                     "show": "Menunjukkan",
                     "stacktrace": "Stacktrace",
-                    "lockname": "Kunci nama",
+                    "lockname": "Kunci Nama",
                     "waitedcount": "Hitungan Menunggu",
                     "waitedtime": "Waktu Menunggu",
                     "blockedcount": "Jumlah yang Diblokir",
@@ -1186,14 +1186,14 @@
         "messages": {
             "validate": {
                 "lastname": {
-                    "maxlength": "Nama belakang Anda tidak boleh lebih dari 50 karakter",
-                    "minlength": "Nama belakang Anda minimal harus ada 1 karakter",
-                    "required": "Nama belakang Anda diperlukan."
+                    "maxlength": "Nama Belakang Anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Nama Belakang Anda minimal harus ada 1 karakter",
+                    "required": "Nama Belakang Anda diperlukan."
                 },
                 "firstname": {
-                    "maxlength": "Nama depan Anda tidak boleh lebih dari 50 karakter",
-                    "minlength": "Nama depan Anda harus minimal 1 karakter",
-                    "required": "Nama depan Anda diperlukan."
+                    "maxlength": "Nama Depan Anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Nama Depan Anda harus minimal 1 karakter",
+                    "required": "Nama Depan Anda diperlukan."
                 }
             },
             "success": "<strong>Pengaturan disimpan!</strong>",
@@ -1201,10 +1201,10 @@
         },
         "form": {
             "button": "Menyimpan",
-            "lastname.placeholder": "Nama belakang Anda",
+            "lastname.placeholder": "Nama Belakang Anda",
             "lastname": "Nama Belakang",
-            "firstname.placeholder": "Nama pertama Anda",
-            "firstname": "Nama depan",
+            "firstname.placeholder": "Nama Pertama Anda",
+            "firstname": "Nama Depan",
             "countryOfResidence.placeholder": "Negara tempat tinggal Anda",
             "countryOfResidence": "Negara tempat tinggal"
         },
