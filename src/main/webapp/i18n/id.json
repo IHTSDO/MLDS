@@ -770,7 +770,7 @@
             "purpose": "Layanan ini disediakan oleh SNOMED International untuk organisasi dan individu untuk meminta penggunaan dan akses ke rilis Internasional SNOMED CT untuk digunakan di negara non-anggota serta beberapa negara anggota.",
             "member.purpose3": " dan jika relevan di negara-negara non-anggota.",
             "member.purpose2": " untuk mengelola Lisensi Afiliasi SNOMED CT termasuk aplikasi baru, pembaruan, dan pelaporan penggunaan di dalam ",
-            "member.purpose1": "MLDS adalah sarana yang digunakan oleh NRC di ",
+            "member.purpose1": "MLDS adalah sarana yang digunakan oleh National Release Center (NRC) di ",
             "loginHere": "masuk disini",
             "furtherDetails": "Untuk perincian lebih lanjut, silakan merujuk ke <a href=\"http://www.snomed.org\" target=\"_blank\">Situs web SNOMED International</a> atau <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Pertanyaan yang sering ditanyakan</a>.",
             "appName": "Layanan Perizinan Anggota dan Distribusi"
