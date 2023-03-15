@@ -66,7 +66,8 @@
             "pt": "Português",
             "ru": "Russo",
             "se": "Sueco",
-            "th": "Tailandês"
+            "th": "Tailandês",
+            "id": "indonésio"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -112,7 +113,8 @@
             "TH": "Tailândia",
             "KR": "Coreia do Sul",
             "SV": "El Salvador",
-            "ID": "Indonésia"
+            "ID": "Indonésia",
+            "JM": "Jamaica"
         },
         "country": {
             "AC": "Ascenção",
