@@ -1062,7 +1062,7 @@
         },
         "landingPage": {
             "appName": "Service de distribution et d’attribution des licences de membres",
-            "purpose": "Ce service est fourni par SNOMED International pour des organisations et des personnes qui souhaitent utiliser et accéder à la version internationale de SNOMED CT pour une utilisation dans des pays non-membres.",
+            "purpose": "Ce service est fourni par la SNOMED International pour permettre aux organisations et aux individus de demander l'utilisation et l'accès à la version internationale de la SNOMED CT pour une utilisation dans les pays non-membres ainsi que dans certains pays membres.",
             "furtherDetails": "Pour plus de détails, veuillez consulter le <a href=\"http://www.snomed.org\" target=\"_blank\">site Internet SNOMED International</a> ou les <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Questions fréquemment posées</a>.",
             "loginHere": "Connectez-vous ici.",
             "member.purpose1": "Le MLDS est un outil utilisé par le NRC ",
