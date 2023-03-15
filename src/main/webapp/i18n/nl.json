@@ -65,7 +65,8 @@
             "pl": "Pools",
             "pt": "Portugees",
             "ru": "Russisch",
-            "se": "Zweeds"
+            "se": "Zweeds",
+            "id": "Indonesisch"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -110,7 +111,8 @@
             "UY": "Uruguay",
             "SV": "El Salvador",
             "PL": "Polen",
-            "ID": "Indonesië"
+            "ID": "Indonesië",
+            "JM": "Jamaica"
         },
         "country": {
             "AC": "Ascension",
