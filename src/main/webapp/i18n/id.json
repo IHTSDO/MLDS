@@ -14,7 +14,7 @@
                 "logs": "Log",
                 "metrics": "Metrik",
                 "tracker": "Pelacak pengguna",
-                "password": "Kata sandi",
+                "password": "Kata Sandi",
                 "contactInfo": "Info kontak"
             },
             "cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/43e68e5dbb274c2d65ae9b31deb30d2a.js\"></script>",
@@ -37,7 +37,7 @@
             },
             "affiliate": {
                 "logout": "Keluar",
-                "changePassword": "Ganti kata sandi",
+                "changePassword": "Ganti Kata Sandi",
                 "accountInformation": "Informasi Akun"
             },
             "releasePackages": "Paket Rilis",
@@ -85,33 +85,33 @@
         "messages": {
             "validate": {
                 "email": {
-                    "invalid": "Email Anda tidak valid.",
-                    "maxlength": "Email Anda tidak boleh lebih dari 50 karakter",
+                    "invalid": "E-mail Anda Tidak Valid.",
+                    "maxlength": "E-mail Anda tidak boleh lebih dari 50 karakter",
                     "minlength": "E-mail Anda harus minimal 1 karakter",
-                    "required": "Email Anda diperlukan."
+                    "required": "E-mail Anda Diperlukan."
                 },
                 "confirmemail": {
-                    "match": "Email konfirmasi Anda tidak cocok dengan email"
+                    "match": "E-mail konfirmasi Anda tidak cocok dengan E-mail"
                 },
                 "confirmpassword": {
-                    "match": "Konfirmasi kata sandi Anda tidak cocok dengan kata sandi",
-                    "maxlength": "Kata sandi konfirmasi Anda tidak boleh lebih dari 50 karakter",
-                    "minlength": "Kata sandi konfirmasi Anda harus minimal 5 karakter",
-                    "required": "Kata sandi konfirmasi Anda diperlukan."
+                    "match": "Konfirmasi Kata Sandi Anda tidak cocok dengan kata sandi",
+                    "maxlength": "Kata Sandi konfirmasi Anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Kata Sandi konfirmasi Anda harus minimal 5 karakter",
+                    "required": "Kata Sandi konfirmasi Anda diperlukan."
                 },
                 "newpassword": {
-                    "strength": "Kekuatan kata sandi:",
-                    "maxlength": "Kata sandi Anda tidak boleh lebih dari 50 karakter",
-                    "minlength": "Kata sandi Anda harus minimal 5 karakter",
-                    "required": "Kata sandi Anda diperlukan."
+                    "strength": "Kekuatan Kata Sandi:",
+                    "maxlength": "Kata Sandi Anda tidak boleh lebih dari 50 karakter",
+                    "minlength": "Kata Sandi Anda harus minimal 5 karakter",
+                    "required": "Kata Sandi Anda diperlukan."
                 }
             },
             "error": {
                 "server": "Sebuah kesalahan telah terjadi. Silahkan login kembali dengan menekan tombol Login kembali.",
-                "dontmatch": "Kata sandi dan konfirmasinya tidak cocok!"
+                "dontmatch": "Kata Sandi Dan Konfirmasinya Tidak Cocok!"
             },
             "info": {
-                "register": "Anda belum memiliki akun? <a href=\"#/register\">Daftarkan akun baru</a>",
+                "register": "Anda belum memiliki akun? <a href=\"#/register\">Daftarkan Akun Baru</a>",
                 "authenticated": "Jika Anda ingin <a href=\"#/login\"> mengautentikasi </a>, Anda dapat mencoba akun default: <br/>- Admnistrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" dan password =\"pengguna\")."
             }
         },
@@ -119,10 +119,10 @@
             "email.placeholder": "Alamat E-mail Anda",
             "email": "E-mail",
             "country": "Negara tempat tinggal",
-            "confirmpassword.placeholder": "Konfirmasi kata sandi baru",
-            "confirmpassword": "Konfirmasi kata sandi baru",
-            "newpassword.placeholder": "Kata sandi baru",
-            "newpassword": "Kata sandi baru",
+            "confirmpassword.placeholder": "Konfirmasi Kata Sandi Baru",
+            "confirmpassword": "Konfirmasi Kata Sandi Baru",
+            "newpassword.placeholder": "Kata Sandi Baru",
+            "newpassword": "Kata Sandi Baru",
             "name.placeholder": "Namamu",
             "username.placeholder": "Login Anda",
             "username": "Gabung"
@@ -432,7 +432,7 @@
             "de-at": "Jerman",
             "fr": "Perancis",
             "es": "Spanyol",
-            "en": "Bahasa inggris",
+            "en": "Inggris",
             "ee": "Estonia",
             "da": "Orang Denmark",
             "br": "Portugis",
@@ -491,22 +491,22 @@
             "organization": {
                 "type": {
                     "placeholder": "Tipe Organisasi Lainnya",
-                    "required": "Tipe Organisasi wajib diisi",
-                    "name": "Tipe organisasi"
+                    "required": "Tipe Organisasi Wajib Diisi",
+                    "name": "Tipe Organisasi"
                 },
                 "name": {
                     "placeholder": "Nama Organisasi",
-                    "name": "Nama Organisasi (Untuk Fasilitas Pelayanan Kesehatan tuliskan \"Kode Registrasi Faskes - Nama Faskes\")"
+                    "name": "Nama Organisasi (Untuk Fasilitas Pelayanan Kesehatan Tuliskan \"Kode Registrasi Faskes - Nama Faskes\")"
                 },
                 "title": "Organisasi"
             },
             "contact": {
                 "billingAddress": {
-                    "useOrganizationAddress": "Gunakan Alamat Organisasi sebagai Alamat Penagihan",
-                    "sameAsAddress": "Gunakan Alamat sebagai Alamat Penagihan",
+                    "useOrganizationAddress": "Gunakan Alamat Organisasi Sebagai Alamat Penagihan",
+                    "sameAsAddress": "Gunakan Alamat Sebagai Alamat Penagihan",
                     "placeholder": "Alamat",
                     "country": "Negara Penagihan",
-                    "name": "alamat tagihan"
+                    "name": "Alamat Tagihan"
                 },
                 "country": {
                     "unrecognized": "Negara tidak dikenal.",
@@ -539,15 +539,15 @@
                 "landline": {
                     "invalid": "Nomor Telepon Tidak Valid.",
                     "short": "Nomor telepon",
-                    "name": "Nomor Telepon kabel"
+                    "name": "Nomor Telepon Kabel"
                 },
                 "thirdEmail": "E-mail Ketiga",
                 "alternateEmail": {
                     "placeholder": "alternatif@email.com",
-                    "name": "E-mail alternatif"
+                    "name": "E-mail Alternatif"
                 },
                 "email": {
-                    "invalid": "Alamat E-mail salah.",
+                    "invalid": "Alamat E-mail Salah.",
                     "unique": "Alamat E-mail harus unik.",
                     "placeholder": "JohnSmith@OrganizationABC.com",
                     "name": "E-mail"
@@ -573,15 +573,15 @@
         },
         "userDashboard": {
             "warning": {
-                "declined.msg": "Pendaftaran afiliasi anda ditolak. Dimohon melihat E-mail mengenai rincian keputusan.",
+                "declined.msg": "Pendaftaran afiliasi anda ditolak. Mohon melihat E-mail mengenai rincian keputusan.",
                 "declined.title": "Pendaftaran Afiliasi Ditolak",
                 "dPending.msg": "Akun anda dijadwalkan untuk Dinonaktifkan. Harap hubungi <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> untuk mengatasi masalah tersebut.",
                 "dPending.title": "Penonaktifan Akun Tertunda",
                 "iPending.title": "Invoice Penundaan Akun",
                 "deactivated.title": "Akun Dinonaktifkan",
-                "change.msg": "Pendaftaran afiliasi anda perlu diperbarui sebelum dapat diproses. Dimohon melihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
+                "change.msg": "Pendaftaran afiliasi anda perlu diperbarui sebelum dapat diproses. Mohon melihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
                 "change.title": "Pendaftaran Afiliasi Memerlukan Perubahan",
-                "required.msg": "Deklarasi penggunaan awal anda telah disimpan. Namun, harap diperhatikan bahwa anda harus mengirimkan deklarasi penggunaan akhir untuk tahun ini paling lambat tanggal 15 Januari. Dimohon diperhatikan bahwa semua laporan penggunaan tahun sebelumnya harus diserahkan untuk mengunduh SNOMED CT.",
+                "required.msg": "Deklarasi penggunaan awal anda telah disimpan. Namun, harap diperhatikan bahwa anda harus mengirimkan deklarasi penggunaan akhir untuk tahun ini paling lambat tanggal 15 Januari. Mohon diperhatikan bahwa semua laporan penggunaan tahun sebelumnya harus diserahkan untuk mengunduh SNOMED CT.",
                 "required.title": "Deklarasi Penggunaan Diperlukan",
                 "iPending.msg": "Akun anda memiliki invoice tertunda. Unduhan paket rilis telah ditunda. Harap hubungi <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> untuk mengatasi masalah tersebut.",
                 "deactivated.msg": "Akun Anda telah Dinonaktifkan. Unduhan paket rilis dan extension aplikasi telah ditunda. Harap hubungi <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> untuk mengatasi masalah tersebut."
@@ -592,21 +592,21 @@
             "myPackages": "Paket Rilis Saya"
         },
         "usage": {
-            "instructions": "Dimohon anda melengkapi deklarasi penggunaan untuk jangka waktu yang dipilih.",
+            "instructions": "Mohon anda melengkapi deklarasi penggunaan untuk jangka waktu yang dipilih.",
             "retract": {
                 "button": "Cabut Deklarasi",
-                "instructions": "Apakah anda yakin ingin mencabut kembali laporan ini? Anda akan kembali ke laporan penggunaan yang sama untuk mengedit dan mengirim ulang. Akan tetapi untuk kedepannya, anda diwajibkan mengirimkan laporan deklarasi baru.",
+                "instructions": "Apakah anda yakin ingin mencabut kembali laporan ini? Anda akan kembali ke laporan penggunaan yang sama untuk mengedit dan mengirim ulang. \nNamun kedepannya, anda diwajibkan mengirimkan laporan deklarasi baru.",
                 "title": "Pencabutan Deklarasi Penggunaan"
             },
             "submit": {
                 "button": "Kirim Deklarasi",
                 "declarationForPeriod": "Deklarasi untuk Periode",
-                "instructions": "Dimohon untuk diperiksa dan dipastikan deklarasi penggunaan anda yang ditampilkan di bawah ini sudah benar sebelum dikirimkan.",
+                "instructions": "Mohon untuk diperiksa dan dipastikan kembali deklarasi penggunaan anda yang ditampilkan di bawah ini sudah benar sebelum dikirimkan.",
                 "title": "Kirim Deklarasi Penggunaan"
             },
             "modal": {
                 "period": "Periode Deklarasi",
-                "instructions": "Dimohon untuk melengkapi deklarasi penggunaan anda untuk semua periode waktu. Diharapkan untuk mensertakan laporan penggunaan sebelumnya dan saat ini.",
+                "instructions": "Mohon melengkapi deklarasi penggunaan anda untuk semua periode waktu. Diharapkan untuk mensertakan laporan penggunaan sebelumnya dan saat ini.",
                 "title": "Buat Deklarasi Penggunaan"
             },
             "title": "Log Penggunaan"
@@ -622,14 +622,14 @@
             "newAnnouncement": "Pengumuman Baru",
             "post": "Posting Pengumuman",
             "additionalEmailsHelp": "Kirim pengumuman ke alamat E-mail tambahan.",
-            "additionalEmails": "Alamat Email Tambahan",
+            "additionalEmails": "Alamat E-mail Tambahan",
             "allAffiliates": "Semua Afiliasi",
             "myAffiliates": "Afiliasi Saya",
             "affiliates": "Afiliasi",
             "audience": "Hadirin",
-            "salutationMessage": "Dimohon untuk menambahkan kata pembuka dan penutup ke badan email.",
-            "emailBody": "Badan Email",
-            "emailSubject": "Subjek Email",
+            "salutationMessage": "Mohon untuk menambahkan kata pembuka dan penutup ke badan E-mail.",
+            "emailBody": "Badan E-mail",
+            "emailSubject": "Subjek E-mail",
             "messageContent": "Isi pesan",
             "title": "Posting Pengumuman",
             "affiliatesClarification": "Afiliasi yang disetujui dengan reputasi akun tetap:"
@@ -648,7 +648,7 @@
             "otherActivities": "Aktifitas lain",
             "institutions": {
                 "modal": {
-                    "addPractices": "Dimohon untuk menambahkan jumlah praktek menggunakan SNOMED",
+                    "addPractices": "Mohon untuk menambahkan jumlah praktik yang menggunakan SNOMED",
                     "andEntries": "dan entri yang terkait?",
                     "sure": "Anda yakin ingin menghapus",
                     "dateBefore": "Tanggal sebelum Mulai Menggunakan",
@@ -657,33 +657,33 @@
                 },
                 "dataAnalysis": {
                     "howManyDAS": "Berapa banyak sistem data analsis yang telah ditempatkan di daerah dan berapa banyak data penyimpanan (database) pada setiap penempatannya?",
-                    "usingDCSNotPract": "Berapa banyak rumah sakit atau institusi lain dalam penggunaan sistem data kreasi (data creation system) dan tidak terperinci sebagai praktek yang berlisensi?",
-                    "usingDCSNotHosp": "Berapak banyak praktek yang menggunakan data kreasi (Data creation) dan bukan bagian dari organisasi rumah sakit?",
-                    "provideStaff": "Berapa banyak rumah sakit yang menyediakan praktek untuk staff ?",
+                    "usingDCSNotPract": "Berapa banyak rumah sakit atau institusi lain dalam penggunaan Sistem Pembuatan Data (Data Creation System) dan tidak terperinci sebagai praktik yang berlisensi?",
+                    "usingDCSNotHosp": "Berapa banyak praktik yang menggunakan Sistem Pembuatan Data (Data Creation System) dan bukan bagian dari organisasi rumah sakit?",
+                    "provideStaff": "Berapa banyak rumah sakit yang menyediakan praktik untuk staff ?",
                     "data": "Data",
                     "systems": "Sistem",
                     "dataAnalysis": "Sistem Analisis Data",
-                    "independent": "Praktek Mandiri",
+                    "independent": "Praktik Mandiri",
                     "dataCreation": "Sistem Pembuatan Data",
-                    "staff": "Rumah sakit menyediakan praktek untuk staff",
+                    "staff": "Rumah Sakit Menyediakan Praktik Untuk Staff",
                     "title": "Analisis data"
                 },
-                "practices": "Praktek",
-                "practices.title": "Latihan",
-                "finished": "Dihentikan Penggunaannya",
+                "practices": "Praktik",
+                "practices.title": "Praktik",
+                "finished": "Berhenti Digunakan",
                 "started": "Mulai Digunakan",
                 "hospAndInst.plural": "Rumah Sakit/Institusi",
-                "hospAndInst.title": "Rumah Sakit/Lembaga",
+                "hospAndInst.title": "Rumah Sakit/Institusi",
                 "hospAndInst": "Rumah Sakit/Instansi",
                 "deleteCountry": "Hapus Negara",
                 "country": "Negara",
                 "noneSelected": "Tidak ada negara yang dipilih.",
-                "selectFirst": "Negara perlu dipilih sebelum memasuki Institusi Bersublisensi.",
-                "title": "Institusi yang Disublisensikan"
+                "selectFirst": "Negara Perlu Dipilih Sebelum Memasuki Institusi Bersublisensi.",
+                "title": "Institusi Yang Disublisensikan"
             },
             "countries": {
                 "button": "Tambahkan Negara",
-                "homeCountry": "Negara domisili",
+                "homeCountry": "Negara Domisili",
                 "search": "Cari Negara",
                 "list": "Daftar Negara",
                 "subTitle": "Pilih negara non-anggota di mana SNOMED CT akan digunakan.",
@@ -691,15 +691,15 @@
             },
             "impStatus": "Status Implementasi",
             "purpose": "Tujuan",
-            "plannedUsage": "Penggunaan yang Direncanakan",
+            "plannedUsage": "Penggunaan Yang Direncanakan",
             "currentUsage": "Penggunaan Saat Ini",
             "licenseType": "Tipe lisensi",
-            "pleaseFill": "Dimohon isi informasi penggunaan yang diketahui saat ini, Anda akan diminta untuk mengkonfirmasi penggunaan setelah aplikasi anda disetujui.",
+            "pleaseFill": "Mohon isi informasi penggunaan yang diketahui saat ini, Anda akan diminta untuk mengkonfirmasi penggunaan setelah aplikasi anda disetujui.",
             "usageFor": "Penggunaan Untuk",
             "subTitle": "Penggunaan Lisensi",
             "usage": "Penggunaan",
             "retract": "Cabut Deklarasi",
-            "title": "Laporan Penggunaan yang Dikirim"
+            "title": "Laporan Penggunaan Yang Dikirim"
         },
         "extensionApplication": {
             "warning": {
@@ -707,7 +707,7 @@
                 "approved": "Pendaftaran Extension Disetujui",
                 "rejected.detail": "Pendaftaran extension anda perlu diperbarui sebelum dapat diproses. Silakan lihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
                 "rejected": "Pendaftaran Extension Ditolak",
-                "change.detail": "Pendaftaran extensionanda perlu diperbarui sebelum dapat diproses. Silakan lihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
+                "change.detail": "Pendaftaran extension anda perlu diperbarui sebelum dapat diproses. Silakan lihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
                 "change": "Registrasi Extension membutuhkan perubahan"
             },
             "license": "Lisensi Extension",
@@ -715,7 +715,7 @@
             "form": {
                 "error": "Alasannya harus lebih panjang.",
                 "purpose": "Tujuan penggunaan",
-                "why": "Dimohon menjelaskan alasan anda ingin mengakses extension ini.",
+                "why": "Mohon dijelaskan alasan anda ingin mengakses extension ini.",
                 "title": "Formulir Permohonan Extension"
             },
             "sure": "Apakah Anda yakin ingin mengajukan Extension ini?",
@@ -727,11 +727,11 @@
             }
         },
         "requestPasswordReset": {
-            "resetEmailSent": "Proses pengaturan ulang kata sandi telah dilakukan, silakan periksa email anda.",
-            "emailNotFound": "Email yang dimasukkan tidak ditemukan di sistem.",
+            "resetEmailSent": "Proses pengaturan ulang kata sandi telah dilakukan, silakan periksa E-mail anda.",
+            "emailNotFound": "E-mail yang dimasukkan tidak ditemukan di sistem.",
             "back": "Kembali ke halaman login",
             "button": "Minta Reset Kata Sandi",
-            "detail": "Kami akan mengirimkan anda email yang berisi tautan ke formulir pengaturan ulang kata sandi.",
+            "detail": "Kami akan mengirimkan anda E-mail yang berisi tautan ke formulir pengaturan ulang kata sandi.",
             "title": "Atur Ulang Kata Sandi"
         },
         "ihtsdoReleases": {
@@ -771,8 +771,8 @@
             "member.purpose3": " dan jika relevan di negara-negara non-anggota.",
             "member.purpose2": " untuk mengelola Lisensi Afiliasi SNOMED CT termasuk aplikasi baru, pembaruan, dan pelaporan penggunaan di dalam ",
             "member.purpose1": "MLDS adalah sarana yang digunakan oleh National Release Center (NRC) di ",
-            "loginHere": "masuk disini",
-            "furtherDetails": "Untuk perincian lebih lanjut, silakan merujuk ke <a href=\"http://www.snomed.org\" target=\"_blank\">Situs web SNOMED International</a> atau <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Pertanyaan yang sering ditanyakan</a>.",
+            "loginHere": "Masuk Disini",
+            "furtherDetails": "Untuk perincian lebih lanjut, silakan merujuk ke <a href=\"http://www.snomed.org\" target=\"_blank\">Situs web SNOMED International</a> atau <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Pertanyaan yang sering ditanyakan</a>.\nUntuk perincian SNOMED CT di SATU SEHAT, silahkan merujuk <a href=\"/id/terminology/snomed-ct/affiliate-license\" target=\"_blank\">Situs Satu Sehat</a>.",
             "appName": "Layanan Perizinan Anggota dan Distribusi"
         },
         "footer": {
@@ -783,7 +783,7 @@
         }
     },
     "form": {
-        "pleaseFix": "Dimohon perbaiki kesalahan yang tercantum di atas.",
+        "pleaseFix": "Mohon perbaiki kesalahan yang tercantum di atas.",
         "invalidNumber": "Bukan nomor yang valid",
         "tooLong": "Nilai input terlalu panjang.",
         "requiredField": "Kolom yang harus diisi."
@@ -794,11 +794,11 @@
                 "other.required": "Bidang lain diperlukan."
             },
             "license.error": "Anda harus menyetujui syarat dan ketentuan Lisensi SNOMED CT untuk mendaftar, yang juga menunjukkan potensi biaya yang diperlukan.",
-            "license.confirm": "Saya setuju dengan lisensinya",
+            "license.confirm": "Saya menyetujui lisensinya",
             "license": "Lisensi SNOMED",
             "license.title": "Perjanjian SNOMED CT",
             "changeRequestedWarning": {
-                "text": "Pendaftaran afiliasi Anda perlu diperbarui sebelum dapat diproses. Silakan lihat email tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran Anda.",
+                "text": "Pendaftaran afiliasi Anda perlu diperbarui sebelum dapat diproses. Silakan lihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran Anda.",
                 "title": "Registrasi Afiliasi Memerlukan Amandemen"
             },
             "typeOfAgreement": "Tipe Perjanjian",
@@ -811,16 +811,16 @@
             "title": "Ulasan Aplikasi"
         },
         "emailVerification": {
-            "detail": "Silakan buka email yang baru saja kami kirimkan untuk memverifikasi akun Anda dan mendapatkan akses ke MLDS",
-            "intro": "Kami telah mengirimkan email kepada Anda."
+            "detail": "Silakan buka E-mail yang baru saja kami kirimkan untuk memverifikasi akun Anda dan mendapatkan akses ke MLDS",
+            "intro": "Kami telah mengirimkan E-mail kepada Anda."
         },
         "messages": {
             "error": {
                 "blocklist": "Karena kebijakan TI kami, kami tidak dapat memproses alamat E-mail yang dimasukkan. Silakan hubungi <a href=\"mailto:support@snomed.org\">support@snomed.org</a> untuk bantuan lebih lanjut.",
-                "userexists": "<strong>Pengguna telah mendaftar dengan alamat email tersebut.</strong> Apakah maksud Anda <a href='#/login'>login</a>?",
+                "userexists": "<strong>Pengguna telah mendaftar dengan alamat E-mail tersebut.</strong> Apakah maksud Anda <a href='#/login'>login</a>?",
                 "fail": "<strong>Pendaftaran gagal!</strong> Coba lagi nanti."
             },
-            "success": "<strong>Pendaftaran disimpan!</strong> Harap periksa email Anda untuk konfirmasi.",
+            "success": "<strong>Pendaftaran tersimpan!</strong> Harap periksa E-mail Anda untuk konfirmasi.",
             "validate": {
                 "registration": {
                     "subtyperequired": "Diperlukan subtipe",
@@ -837,7 +837,7 @@
             }
         },
         "form": {
-            "confirmemail": "Email (konfirmasi)",
+            "confirmemail": "E-mail (konfirmasi)",
             "button": "Mulai Pendaftaran",
             "tos": "Setujui <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Syarat dan Ketentuan</a> kami."
         },
@@ -949,13 +949,13 @@
             "APPLYING": "Menerapkan"
         },
         "implementationStatus": {
-            "PLANNING": "Dalam Tahap Perencanaan",
-            "DEVELOPMENT": "Dalam proses/Pengembangan",
-            "IMPLEMENTED": "Langsung/Diimplementasikan"
+            "PLANNING": "Dalam Tahap Perencanaan/ In Planning Stage",
+            "DEVELOPMENT": "In Progress/Pengembangan",
+            "IMPLEMENTED": "Live/Diimplementasikan"
         },
         "organizationType": {
             "OTHER": "Lainnya",
-            "EDUCATIONAL_INSTITUTE": "Institusi pendidikan",
+            "EDUCATIONAL_INSTITUTE": "Institusi Pendidikan",
             "GENERAL_PRACTITIONER_PRACTICE": "Praktek Dokter Umum",
             "HEALTHERCARE_APPLICATION_DEVELOPER": "Pengembang Aplikasi Kesehatan",
             "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Organisasi Penelitian dan Pengembangan",
@@ -971,16 +971,16 @@
             "VENDOR": "Vendor",
             "RESEARCH": "Riset",
             "PERSONAL": "Pribadi",
-            "HEALTHCAREPROVIDER": "Penyedia layanan kesehatan",
+            "HEALTHCAREPROVIDER": "Penyedia Layanan Kesehatan",
             "EDUCATIONAL": "Pendidikan",
             "DEVELOPMENT": "Pengembangan",
             "DEVELOPER": "Fasilitas Pelayanan Kesehatan"
         },
         "type.extended": {
-            "ACADEMIC": "Akademik - untuk penggunaan internal dalam suatu organisasi. (Pendidikan, Riset, Pengembangan atau Penyedia Layanan Kesehatan)",
+            "ACADEMIC": "Akademik - Untuk Penggunaan Internal Dalam Suatu Organisasi. (Pendidikan, Riset, Pengembangan atau Penyedia Layanan Kesehatan)",
             "INDIVIDUAL": "Individu - Pribadi, Pendidikan atau Penelitian",
-            "OTHER": "Lainnya - gunakan pilihan ini apabila penggunaan tidak dinyatakan dalam opsi lainnya",
-            "COMMERCIAL": "Komersial - Penyedia sistem informasi atau terminologi"
+            "OTHER": "Lainnya - Gunakan Pilihan Ini Apabila Penggunaan Tidak Dinyatakan Dalam Opsi Lainnya",
+            "COMMERCIAL": "Komersial - Penyedia Sistem Informasi atau Terminologi"
         },
         "type": {
             "INDIVIDUAL": "Individu",
@@ -1138,7 +1138,7 @@
         },
         "health": {
             "stacktrace": "Stacktrace",
-            "email": "Surel",
+            "email": "E-mail",
             "database": "Basis data",
             "title": "Pemeriksaan kesehatan"
         },
@@ -1170,17 +1170,17 @@
     "password": {
         "messages": {
             "expired": "<strong>Tautan setel ulang telah kedaluwarsa atau tidak valid.</strong> <a href='#/requestPasswordReset'>Minta setel ulang lagi</a>",
-            "success": "<strong>Kata sandi diubah!</strong> Lanjutkan ke <a href='#/contactInfo'>Informasi Akun</a>",
-            "error": "<strong>Terjadi kesalahan!</strong> Kata sandi tidak dapat diubah."
+            "success": "<strong>Kata Sandi diubah!</strong> Lanjutkan ke <a href='#/contactInfo'>Informasi Akun</a>",
+            "error": "<strong>Terjadi kesalahan!</strong> Kata Sandi tidak dapat diubah."
         },
         "reset": {
-            "instructions": "Masukkan kata sandi baru di bawah ini.",
+            "instructions": "Masukkan Kata Sandi baru di bawah ini.",
             "title": "Atur Ulang Kata Sandi Akun"
         },
         "form": {
             "button": "Menyimpan"
         },
-        "title": "Kata sandi untuk {{username}}"
+        "title": "Kata Sandi untuk {{username}}"
     },
     "settings": {
         "messages": {
@@ -1215,16 +1215,16 @@
             "error": {
                 "noPermissions": "<strong>Otentikasi gagal!</strong> Kami mengautentikasi Anda, tetapi akun Anda tidak memiliki akses ke aplikasi ini, atau salah dikonfigurasi. Silakan hubungi dukungan.",
                 "deregistered": "<strong>Otentikasi gagal!</strong> Akun ini telah dibatalkan pendaftarannya. Silakan hubungi dukungan.",
-                "authentication": "<strong>Otentikasi gagal!</strong> Harap periksa kredensial Anda dan coba lagi. Kata sandi peka huruf besar-kecil."
+                "authentication": "<strong>Otentikasi gagal!</strong> Harap periksa kredensial Anda dan coba lagi. Kata Sandi peka huruf besar-kecil."
             }
         },
         "form": {
-            "forgot": "lupa kata sandi Anda?",
+            "forgot": "Lupa Kata Sandi Anda?",
             "button": "Gabung",
-            "rememberme": "Ingat saya",
-            "password.placeholder": "Kata sandi Anda",
-            "password": "Kata sandi",
-            "username": "Email atau nama pengguna"
+            "rememberme": "Ingat Saya",
+            "password.placeholder": "Kata Sandi Anda",
+            "password": "Kata Sandi",
+            "username": "E-mail Atau Nama Pengguna"
         },
         "title": "Gabung"
     },
