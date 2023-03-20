@@ -118,7 +118,7 @@
         "form": {
             "email.placeholder": "Alamat E-mail Anda",
             "email": "E-mail",
-            "country": "Negara tempat tinggal",
+            "country": "Negara Tempat Tinggal",
             "confirmpassword.placeholder": "Konfirmasi Kata Sandi Baru",
             "confirmpassword": "Konfirmasi Kata Sandi Baru",
             "newpassword.placeholder": "Kata Sandi Baru",
@@ -539,7 +539,7 @@
                 "landline": {
                     "invalid": "Nomor Telepon Tidak Valid.",
                     "short": "Nomor Telepon",
-                    "name": "Nomor Telepon Kabel"
+                    "name": "Nomor Telepon Kantor/Rumah"
                 },
                 "thirdEmail": "E-mail Ketiga",
                 "alternateEmail": {
@@ -772,7 +772,7 @@
             "member.purpose2": " untuk mengelola Lisensi Afiliasi SNOMED CT termasuk aplikasi baru, pembaruan, dan pelaporan penggunaan di dalam ",
             "member.purpose1": "MLDS adalah sarana yang digunakan oleh National Release Center (NRC) di ",
             "loginHere": "Masuk Disini",
-            "furtherDetails": "Untuk perincian lebih lanjut, silakan merujuk ke <a href=\"http://www.snomed.org\" target=\"_blank\">Situs web SNOMED International</a> atau <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Pertanyaan yang sering ditanyakan</a>.\nUntuk perincian SNOMED CT di SATU SEHAT, silahkan merujuk <a href=\"/id/terminology/snomed-ct/affiliate-license\" target=\"_blank\">Situs Satu Sehat</a>.",
+            "furtherDetails": "Untuk perincian lebih lanjut, silakan merujuk ke <a href=\"http://www.snomed.org\" target=\"_blank\">Situs web SNOMED International</a> atau <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Pertanyaan yang sering ditanyakan</a>.\n<br> Untuk perincian SNOMED CT di SATU SEHAT, silahkan merujuk <a href=\"/id/terminology/snomed-ct/affiliate-license\" target=\"_blank\">Situs Satu Sehat</a>.",
             "appName": "Layanan Perizinan Anggota dan Distribusi"
         },
         "footer": {
@@ -1205,8 +1205,8 @@
             "lastname": "Nama Belakang",
             "firstname.placeholder": "Nama Pertama Anda",
             "firstname": "Nama Depan",
-            "countryOfResidence.placeholder": "Negara tempat tinggal Anda",
-            "countryOfResidence": "Negara tempat tinggal"
+            "countryOfResidence.placeholder": "Negara Tempat Tinggal Anda",
+            "countryOfResidence": "Negara Tempat Tinggal"
         },
         "title": "Info Kontak untuk [<b>{{username}}</b>]"
     },
