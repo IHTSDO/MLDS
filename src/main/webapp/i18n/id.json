@@ -13,7 +13,7 @@
                 "audits": "Audit",
                 "logs": "Log",
                 "metrics": "Metrik",
-                "tracker": "Pelacak pengguna",
+                "tracker": "Pelacak Pengguna",
                 "password": "Kata Sandi",
                 "contactInfo": "Info kontak"
             },
@@ -69,7 +69,7 @@
             "welcome": "Selamat Datang",
             "save": "Menyimpan",
             "submit": "Kirim",
-            "ok": "OKE",
+            "ok": "Ok",
             "from": "dari",
             "update": "Memperbarui",
             "delete": "Hapus",
@@ -450,8 +450,8 @@
             "subLicence": "Penggunaan Sublisensi",
             "context": "Informasi Konteks Penggunaan",
             "billingInfo": "Informasi tagihan",
-            "useSubType": "Penggunaan subtipe",
-            "useType": "Tipe pengguna",
+            "useSubType": "Penggunaan Subtipe",
+            "useType": "Tipe Pengguna",
             "affiliateInformation": "Informasi Afiliasi"
         },
         "activate": {
@@ -482,7 +482,7 @@
                     "placeholder": "Lainnya",
                     "name": "Lainnya"
                 },
-                "accountStanding": "Akun tetap",
+                "accountStanding": "Account Standing",
                 "agreementType": "Tipe Perjanjian",
                 "title": "Admin Dapat Diedit"
             },
@@ -529,7 +529,7 @@
                 },
                 "mobile": {
                     "placeholder": "nomor",
-                    "name": "Nomor ponsel"
+                    "name": "Nomor Ponsel"
                 },
                 "landlineExtension": {
                     "placeholder": "Extension",
@@ -538,7 +538,7 @@
                 },
                 "landline": {
                     "invalid": "Nomor Telepon Tidak Valid.",
-                    "short": "Nomor telepon",
+                    "short": "Nomor Telepon",
                     "name": "Nomor Telepon Kabel"
                 },
                 "thirdEmail": "E-mail Ketiga",
@@ -606,7 +606,7 @@
             },
             "modal": {
                 "period": "Periode Deklarasi",
-                "instructions": "Mohon melengkapi deklarasi penggunaan anda untuk semua periode waktu. Diharapkan untuk mensertakan laporan penggunaan sebelumnya dan saat ini.",
+                "instructions": "Mohon melengkapi deklarasi penggunaan anda untuk semua periode waktu. Diharapkan untuk menyertakan laporan penggunaan sebelumnya dan saat ini.",
                 "title": "Buat Deklarasi Penggunaan"
             },
             "title": "Log Penggunaan"
@@ -626,10 +626,10 @@
             "allAffiliates": "Semua Afiliasi",
             "myAffiliates": "Afiliasi Saya",
             "affiliates": "Afiliasi",
-            "audience": "Hadirin",
+            "audience": "Audience",
             "salutationMessage": "Mohon untuk menambahkan kata pembuka dan penutup ke badan E-mail.",
             "emailBody": "Badan E-mail",
-            "emailSubject": "Subjek E-mail",
+            "emailSubject": "Subyek E-mail",
             "messageContent": "Isi pesan",
             "title": "Posting Pengumuman",
             "affiliatesClarification": "Afiliasi yang disetujui dengan reputasi akun tetap:"
@@ -693,13 +693,13 @@
             "purpose": "Tujuan",
             "plannedUsage": "Penggunaan Yang Direncanakan",
             "currentUsage": "Penggunaan Saat Ini",
-            "licenseType": "Tipe lisensi",
+            "licenseType": "Tipe Lisensi",
             "pleaseFill": "Mohon isi informasi penggunaan yang diketahui saat ini, Anda akan diminta untuk mengkonfirmasi penggunaan setelah aplikasi anda disetujui.",
             "usageFor": "Penggunaan Untuk",
             "subTitle": "Penggunaan Lisensi",
             "usage": "Penggunaan",
             "retract": "Cabut Deklarasi",
-            "title": "Laporan Penggunaan Yang Dikirim"
+            "title": "Laporan Pengajuan Penggunaan"
         },
         "extensionApplication": {
             "warning": {
@@ -714,7 +714,7 @@
             "agreement": "Perjanjian Extension",
             "form": {
                 "error": "Alasannya harus lebih panjang.",
-                "purpose": "Tujuan penggunaan",
+                "purpose": "Tujuan Penggunaan",
                 "why": "Mohon dijelaskan alasan anda ingin mengakses extension ini.",
                 "title": "Formulir Permohonan Extension"
             },
@@ -824,7 +824,7 @@
             "validate": {
                 "registration": {
                     "subtyperequired": "Diperlukan subtipe",
-                    "usagetyperequired": "Tipe penggunaan diperlukan"
+                    "usagetyperequired": "Tipe Penggunaan Diperlukan"
                 },
                 "country": {
                     "notMLDS": "Permohonan untuk penggunaan SNOMED CT di negara tempat tinggal Anda harus diajukan ke perwakilan yang sesuai dari negara Anda - <a href=\"{{link}}\" target=\"_blank\">di sini</a>. Jika Anda ingin mengajukan persetujuan Barang Publik untuk menggunakan SNOMED CT di negara lain, atau ingin mengajukan pertanyaan lain, silakan hubungi SNOMED International di <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
@@ -870,10 +870,10 @@
         "title": "Manajemen Anggota"
     },
     "reviewUsageReports": {
-        "title": "Tinjauan laporan penggunaan"
+        "title": "Tinjauan Laporan Penggunaan"
     },
     "releaseManagement": {
-        "title": "Manajemen rilis"
+        "title": "Manajemen Rilis"
     },
     "affiliateManagement": {
         "title": "Manajemen Afiliasi"
@@ -883,11 +883,11 @@
             "review": "Tinjauan",
             "email": "E-mail",
             "member": "Anggota",
-            "homeCountry": "Negara asal",
-            "dateSubmitted": "Tanggal Pengiriman",
-            "useType": "Tipe penggunaan",
+            "homeCountry": "Negara Asal",
+            "dateSubmitted": "Tanggal Pengajuan",
+            "useType": "Tipe Penggunaan",
             "agreementType": "Tipe Perjanjian",
-            "applicationType": "Tipe aplikasi",
+            "applicationType": "Tipe Aplikasi",
             "affiliateName": "Nama Afiliasi"
         },
         "show": {
@@ -909,10 +909,10 @@
             "INVOICE_SENT": "Invoice terkirim",
             "PENDING_INVOICE": "Invoice tertunda",
             "REVIEW_REQUESTED": "Tinjauan Diminta",
-            "RESUBMITTED": "Dikirim ulang",
-            "SUBMITTED": "Dikirim",
+            "RESUBMITTED": "Pengajuan Dikirim Ulang",
+            "SUBMITTED": "Dalam Pengajuan",
             "CHANGE_REQUESTED": "Permintaan perubahan",
-            "NOT_SUBMITTED": "Tidak Dikirim",
+            "NOT_SUBMITTED": "Tidak Ada Pengajuan",
             "REJECTED": "Ditolak"
         }
     },
@@ -920,36 +920,36 @@
         "state": {
             "APPROVED": "Disetujui",
             "REVIEW_REQUESTED": "Tinjauan Diminta",
-            "RESUBMITTED": "Dikirim ulang",
-            "SUBMITTED": "Dikirim",
+            "RESUBMITTED": "Pengajuan Dikirim Ulang",
+            "SUBMITTED": "Dalam Pengajuan",
             "CHANGE_REQUESTED": "Permintaan perubahan",
-            "NOT_SUBMITTED": "Tidak Dikirim",
+            "NOT_SUBMITTED": "Tidak Ada Pengajuan",
             "REJECTED": "Ditolak"
         }
     },
     "affiliate": {
         "standingStateWithExplanation": {
-            "INVOICE_SENT": "Invoice terkirim - Akses ke akun saja, Proses pembayaran belum tuntas",
-            "PENDING_INVOICE": "Invoice tertunda - Akses ke akun saja, Proses pembayaran belum tuntas",
-            "DEREGISTERED": "Pembatalan registrasi - Tidak ada akses ke akun MLDS",
-            "DEACTIVATED": "Deaktivasi - Akses hanya ke akun saja, Tidak dapat mengunduh",
-            "DEACTIVATION_PENDING": "Deaktivasi Tertunda - Akses hanya ke akun saja, Tanpa dapat Mengunduh",
-            "REJECTED": "Ditolak",
+            "INVOICE_SENT": "Invoice Sent - Akses ke akun saja, Proses pembayaran belum tuntas",
+            "PENDING_INVOICE": "Pending Invoice - Akses ke akun saja, Proses pembayaran belum tuntas",
+            "DEREGISTERED": "Deregistered - Tidak ada akses ke akun MLDS",
+            "DEACTIVATED": "Deactivated - Akses hanya ke akun saja, Tidak dapat mengunduh",
+            "DEACTIVATION_PENDING": "Deactivation Pending - Akses hanya ke akun saja, Tanpa dapat Mengunduh",
+            "REJECTED": "Declined",
             "IN_GOOD_STANDING": "In Good Standing - Akses penuh yang disetujui, Akun Dibayar, Tidak Diperlukan Pembayaran atau Masalah Akun Terselesaikan",
-            "APPLYING": "Menerapkan"
+            "APPLYING": "Applying"
         },
         "standingState": {
-            "INVOICE_SENT": "Invoice terkirim",
-            "PENDING_INVOICE": "Invoice tertunda",
-            "DEREGISTERED": "Pembatalan registrasi",
-            "DEACTIVATED": "Deaktivasi",
-            "DEACTIVATION_PENDING": "Penundaan penonaktifan",
-            "REJECTED": "Ditolak",
-            "IN_GOOD_STANDING": "Dalam keadaan baik",
-            "APPLYING": "Menerapkan"
+            "INVOICE_SENT": "Invoice Sent",
+            "PENDING_INVOICE": "Pending Invoice",
+            "DEREGISTERED": "Deregistered",
+            "DEACTIVATED": "Deactivated",
+            "DEACTIVATION_PENDING": "Deactivation Pending",
+            "REJECTED": "Declined",
+            "IN_GOOD_STANDING": "In Good Standing",
+            "APPLYING": "Applying"
         },
         "implementationStatus": {
-            "PLANNING": "Dalam Tahap Perencanaan/ In Planning Stage",
+            "PLANNING": "In Planning Stage/Dalam Tahap Perencanaan",
             "DEVELOPMENT": "In Progress/Pengembangan",
             "IMPLEMENTED": "Live/Diimplementasikan"
         },
@@ -998,7 +998,7 @@
     },
     "audits": {
         "type": {
-            "USAGE_APPROVAL_STATE_CHANGED": "Persetujuan pengubahan bentuk usage",
+            "USAGE_APPROVAL_STATE_CHANGED": "Status Persetujuan Penggunaan Berubah",
             "USAGE_CREATED": "Pembuatan usage",
             "RELEASE_VERSION_DELETED": "Versi Rilis Dihapus",
             "RELEASE_VERSION_CREATED": "Versi Rilis Dibuat",
@@ -1089,7 +1089,7 @@
                 "code": {
                     "servererror": "server error",
                     "notfound": "Tidak ditemukan",
-                    "ok": "Oke"
+                    "ok": "Ok"
                 },
                 "table": {
                     "average": "Rata-rata",
