@@ -656,10 +656,10 @@
                     "subtitle": "Nama Rumah Sakit/Instansi"
                 },
                 "dataAnalysis": {
-                    "howManyDAS": "Berapa banyak sistem data analsis yang telah ditempatkan di daerah dan berapa banyak data penyimpanan (database) pada setiap penempatannya?",
-                    "usingDCSNotPract": "Berapa banyak rumah sakit atau institusi lain dalam penggunaan Sistem Pembuatan Data (Data Creation System) dan tidak terperinci sebagai praktik yang berlisensi?",
+                    "howManyDAS": "Berapa banyak sistem data analisis yang telah ditempatkan di area dan berapa banyak data penyimpanan (database) pada setiap penempatannya?",
+                    "usingDCSNotPract": "Berapa banyak rumah sakit atau institusi lain yang menggunakan Sistem Pembuatan Data (Data Creation System) dan tidak dapat didefinisikan sebagai Praktik berdasarkan definisi lisensi ini?",
                     "usingDCSNotHosp": "Berapa banyak praktik yang menggunakan Sistem Pembuatan Data (Data Creation System) dan bukan bagian dari organisasi rumah sakit?",
-                    "provideStaff": "Berapa banyak rumah sakit yang menyediakan praktik untuk staff ?",
+                    "provideStaff": "Berapa jumlah rumah sakit yang menyediakan staf untuk praktik?",
                     "data": "Data",
                     "systems": "Sistem",
                     "dataAnalysis": "Sistem Analisis Data",
@@ -772,7 +772,7 @@
             "member.purpose2": " untuk mengelola Lisensi Afiliasi SNOMED CT termasuk aplikasi baru, pembaruan, dan pelaporan penggunaan di dalam ",
             "member.purpose1": "MLDS adalah sarana yang digunakan oleh National Release Center (NRC) di ",
             "loginHere": "Masuk Disini",
-            "furtherDetails": "Untuk perincian lebih lanjut, silakan merujuk ke <a href=\"http://www.snomed.org\" target=\"_blank\">Situs web SNOMED International</a> atau <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Pertanyaan yang sering ditanyakan</a>.\n<br> Untuk perincian SNOMED CT di SATU SEHAT, silahkan merujuk <a href=\"/id/terminology/snomed-ct/affiliate-license\" target=\"_blank\">Situs Satu Sehat</a>.",
+            "furtherDetails": "Untuk perincian lebih lanjut, silakan merujuk ke <a href=\"http://www.snomed.org\" target=\"_blank\">Situs web SNOMED International</a> atau <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Pertanyaan yang sering ditanyakan</a>.\n<br> Untuk perincian SNOMED CT di SATUSEHAT, silahkan merujuk <a href=\"/id/terminology/snomed-ct/affiliate-license\" target=\"_blank\">Situs SATUSEHAT</a>.",
             "appName": "Layanan Perizinan Anggota dan Distribusi"
         },
         "footer": {
