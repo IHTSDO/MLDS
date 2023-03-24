@@ -9,7 +9,7 @@
                 "register": "Daftar",
                 "apidocs": "API",
                 "logout": "Keluar",
-                "login": "Gabung",
+                "login": "Masuk",
                 "audits": "Audit",
                 "logs": "Log",
                 "metrics": "Metrik",
@@ -66,7 +66,7 @@
             "viewAll": "Lihat semua",
             "viewlicense": "Lihat Lisensi",
             "view": "Melihat",
-            "welcome": "Selamat Datang",
+            "welcome": "",
             "save": "Menyimpan",
             "submit": "Kirim",
             "ok": "Ok",
@@ -125,7 +125,7 @@
             "newpassword": "Kata Sandi Baru",
             "name.placeholder": "Namamu",
             "username.placeholder": "Login Anda",
-            "username": "Gabung"
+            "username": "Masuk"
         },
         "country": {
             "ZW": "Zimbabwe",
@@ -576,7 +576,7 @@
                 "declined.msg": "Pendaftaran afiliasi anda ditolak. Mohon melihat E-mail mengenai rincian keputusan.",
                 "declined.title": "Pendaftaran Afiliasi Ditolak",
                 "dPending.msg": "Akun anda dijadwalkan untuk Dinonaktifkan. Harap hubungi <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> untuk mengatasi masalah tersebut.",
-                "dPending.title": "Penonaktifan Akun Tertunda",
+                "dPending.title": "Account Deactivation Pending",
                 "iPending.title": "Invoice Penundaan Akun",
                 "deactivated.title": "Akun Dinonaktifkan",
                 "change.msg": "Pendaftaran afiliasi anda perlu diperbarui sebelum dapat diproses. Mohon melihat E-mail tentang perubahan yang diperlukan untuk menyelesaikan pendaftaran anda.",
@@ -770,10 +770,10 @@
             "purpose": "Layanan ini disediakan oleh SNOMED International untuk organisasi dan individu untuk meminta penggunaan dan akses ke rilis Internasional SNOMED CT untuk digunakan di negara non-anggota serta beberapa negara anggota.",
             "member.purpose3": " dan jika relevan di negara-negara non-anggota.",
             "member.purpose2": " untuk mengelola Lisensi Afiliasi SNOMED CT termasuk aplikasi baru, pembaruan, dan pelaporan penggunaan di dalam ",
-            "member.purpose1": "MLDS adalah sarana yang digunakan oleh National Release Center (NRC) di ",
+            "member.purpose1": "Layanan Lisensi Anggota dan Distribusi SNOMED CT (MLDS) adalah sarana yang digunakan oleh National Release Center (NRC) di ",
             "loginHere": "Masuk Disini",
-            "furtherDetails": "Untuk perincian lebih lanjut, silakan merujuk ke <a href=\"http://www.snomed.org\" target=\"_blank\">Situs web SNOMED International</a> atau <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Pertanyaan yang sering ditanyakan</a>.\n<br> Untuk perincian SNOMED CT di SATUSEHAT, silahkan merujuk <a href=\"/id/terminology/snomed-ct/affiliate-license\" target=\"_blank\">Situs SATUSEHAT</a>.",
-            "appName": "Layanan Perizinan Anggota dan Distribusi"
+            "furtherDetails": "Untuk perincian lebih lanjut, silakan merujuk ke <a href=\"http://www.snomed.org\" target=\"_blank\">Situs web SNOMED International</a> atau <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Pertanyaan yang sering ditanyakan</a>.\n<br> <br> Untuk perincian SNOMED CT di SATUSEHAT, silahkan merujuk <a href=\"/id/terminology/snomed-ct/affiliate-license\" target=\"_blank\">Situs SATUSEHAT</a>.",
+            "appName": "Selamat Datang Di Portal Layanan Lisensi Anggota dan Distribusi SNOMED CT"
         },
         "footer": {
             "contact": "Hubungi Kami",
@@ -929,13 +929,13 @@
     },
     "affiliate": {
         "standingStateWithExplanation": {
-            "INVOICE_SENT": "Invoice Sent - Akses ke akun saja, Proses pembayaran belum tuntas",
-            "PENDING_INVOICE": "Pending Invoice - Akses ke akun saja, Proses pembayaran belum tuntas",
-            "DEREGISTERED": "Deregistered - Tidak ada akses ke akun MLDS",
-            "DEACTIVATED": "Deactivated - Akses hanya ke akun saja, Tidak dapat mengunduh",
-            "DEACTIVATION_PENDING": "Deactivation Pending - Akses hanya ke akun saja, Tanpa dapat Mengunduh",
+            "INVOICE_SENT": "Invoice Sent - Hanya Akses ke Akun Saja/Proses Pembayaran Belum Tuntas",
+            "PENDING_INVOICE": "Pending Invoice - Hanya Akses ke Akun Saja/Proses Pembayaran Belum Tuntas",
+            "DEREGISTERED": "Deregistered - Tidak Ada Akses Ke Akun MLDS",
+            "DEACTIVATED": "Deactivated - Hanya Akses Ke Akun Saja/Tidak Dapat Mengunduh",
+            "DEACTIVATION_PENDING": "Deactivation Pending - Hanya Akses Ke Akun Saja/Tidak Dapat Mengunduh",
             "REJECTED": "Declined",
-            "IN_GOOD_STANDING": "In Good Standing - Akses penuh yang disetujui, Akun Dibayar, Tidak Diperlukan Pembayaran atau Masalah Akun Terselesaikan",
+            "IN_GOOD_STANDING": "In Good Standing - Akses Penuh Disetujui/Akun Telah Dibayar/Tidak Diperlukan Pembayaran/Masalah Akun Terselesaikan",
             "APPLYING": "Applying"
         },
         "standingState": {
@@ -1220,13 +1220,13 @@
         },
         "form": {
             "forgot": "Lupa Kata Sandi Anda?",
-            "button": "Gabung",
+            "button": "Masuk",
             "rememberme": "Ingat Saya",
             "password.placeholder": "Kata Sandi Anda",
             "password": "Kata Sandi",
             "username": "E-mail Atau Nama Pengguna"
         },
-        "title": "Gabung"
+        "title": "Masuk"
     },
     "logout": {
         "subtitle": "Kami mengeluarkan Anda dari sesi Anda.",
