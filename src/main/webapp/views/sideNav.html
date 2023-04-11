@@ -2,28 +2,43 @@
   <ul class="nav nav-sidebar" ng-show="$root.Session.isStaffOrAdmin()">
     <li>
 		<a href="#/pendingApplications">
-			<i class="fa fa-tasks"></i> 
+			<i class="fa fa-tasks"></i>
 			<span translate="pendingApplications.title">Pending Applications</span>
 		</a>
 	</li>
     <li>
 		<a href="#/affiliateManagement">
-			<i class="fa fa-users"></i> 
+			<i class="fa fa-users"></i>
 			<span translate="affiliateManagement.title">Affiliate Management</span>
 		</a>
 	</li>
     <li>
 		<a href="#/releaseManagement">
-			<i class="fa fa-cube"></i> 
+			<i class="fa fa-cube"></i>
 			<span translate="releaseManagement.title">Release Management</span>
 		</a>
 	</li>
-    <li>
+
+      <!--MLDS-985 Review Usage Reports-->
+      <li>
+          <a href="#/usageReportsReview" ng-show="$root.Session.isAdmin()">
+              <i class="fa fa-file-text"></i>
+              <span translate="reviewUsageReports.title">Review Usage Reports</span>
+          </a>
+      </li>
+      <li ng-show="$root.Session.isStaff()">
+          <a href="#/usageReportsReview">
+              <i class="fa fa-file-text"></i>
+              <span>Reports</span>
+          </a>
+      </li>
+     <!-- MLDS-985 Review Usage Reports-->
+   <!-- <li>
     	<a href="#/usageReportsReview">
     		<i class="fa fa-file-text"></i>
     		<span translate="reviewUsageReports.title">Review Usage Reports</span>
     	</a>
-    </li>
+    </li>-->
     <li>
     	<a href="#/memberManagement">
     		<i class="fa fa-institution"></i>
@@ -74,7 +89,7 @@
   <ul class="nav nav-sidebar" ng-show="$root.Session.isAdmin()">
     <li>
 		<a href="#/metrics">
-			<i class="fa fa-exchange"></i> 
+			<i class="fa fa-exchange"></i>
 			<span translate="metrics.title">System Metrics</span>
 		</a>
 	</li>

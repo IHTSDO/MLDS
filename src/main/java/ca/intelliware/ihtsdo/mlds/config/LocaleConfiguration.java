@@ -28,6 +28,10 @@ public class LocaleConfiguration extends WebMvcConfigurerAdapter implements Envi
     public LocaleResolver localeResolver() {
         final AngularCookieLocaleResolver cookieLocaleResolver = new AngularCookieLocaleResolver();
         cookieLocaleResolver.setCookieName("NG_TRANSLATE_LANG_KEY");
+        /*MLDS-992 Missing Cookie*/
+        cookieLocaleResolver.setCookieSecure(true);
+        cookieLocaleResolver.setCookieHttpOnly(true);
+        /*MLDS-992 Missing Cookie*/
         return cookieLocaleResolver;
     }
 

@@ -77,7 +77,7 @@ public class CustomPersistentRememberMeServices extends
 
     @Inject
     public CustomPersistentRememberMeServices(Environment env, org.springframework.security.core.userdetails.UserDetailsService userDetailsService) {
-    
+
         super(env.getProperty("jhipster.security.rememberme.key"), userDetailsService);
         random = new SecureRandom();
     }
@@ -203,6 +203,7 @@ public class CustomPersistentRememberMeServices extends
     }
 
     private void addCookie(PersistentToken token, HttpServletRequest request, HttpServletResponse response) {
+        this.setUseSecureCookie(true);
         setCookie(
                 new String[]{token.getSeries(), token.getTokenValue()},
                 TOKEN_VALIDITY_SECONDS, request, response);

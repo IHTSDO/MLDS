@@ -10,6 +10,11 @@ jhipster.security.rememberme.key: mlds
 
 server:
     port: 8080
+    #/*MLDS-992 Missing Cookie*/
+    session:
+       cookie:
+         secure: true
+    #/*MLDS-992 Missing Cookie*/
 
 
 # For mail sending
@@ -43,7 +48,7 @@ spring:
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
             hibernate.generate_statistics: true
             hibernate.search.default.directory_provider: ram
-# for debugging            
+# for debugging
 #            hibernate.search.default.directory_provider: filesystem
             hibernate.search.default.indexBase: ./target/lucene
 
