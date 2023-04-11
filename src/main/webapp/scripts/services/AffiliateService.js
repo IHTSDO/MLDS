@@ -5,13 +5,20 @@ angular.module('MLDS')
                                     function($http, $rootScope, $log, $q, Session, $resource, ApplicationUtilsService){
 
 	var service = {};
-	
-	service.affiliatesResource = $resource('/api/affiliates');
 
+//	service.affiliatesResource = $resource('/api/affiliates');
+
+/*MLDS-996 - Front End Bug*/
+  service.affiliatesResource = $resource('/api/affiliates', {}, {
+         query: {
+            isArray: false
+        }
+  });
+/*MLDS-996 - Front End Bug*/
 	service.allAffiliates = function(q) {
 		return $http.get('/api/affiliates?q='+encodeURIComponent(q));
 	};
-	
+
 	service.filterAffiliates = function(q, page, pageSize, member, standingState, standingStateNot, orderBy, reverseSort) {
 		return $http.get('/api/affiliates?q='+encodeURIComponent(q)+
 				'&$page='+encodeURIComponent(page)+
@@ -33,11 +40,11 @@ angular.module('MLDS')
     				return result;
     			} else {
     				result.data = null;
-    				return result; 
+    				return result;
     			}
 			});
 	};
-	
+
 	service.updateAffiliate = function(affiliate) {
 		//FIXME workaround for unmodifiable collection issue..
 		var affiliateCopy = angular.copy(affiliate);
@@ -57,7 +64,7 @@ angular.module('MLDS')
 	service.createLogin = function createLogin(affiliate) {
 		return $http.post('/api/account/create', affiliate);
 	};
-	
+
 	service.updateAffiliateDetails = function(affiliateId, affiliateDetails) {
 		var promise = $http.put('/api/affiliates/'+encodeURIComponent(affiliateId)+'/detail', affiliateDetails);
 		promise.then(function(result) {
@@ -77,7 +84,7 @@ angular.module('MLDS')
 	service.affiliate = function(affiliateId) {
 		return $http.get('/api/affiliates/'+ encodeURIComponent(affiliateId));
 	};
-	
+
 	service.affiliates = function(username) {
 		return $http.get('/api/affiliates/creator/'+encodeURIComponent(username));
 	};
@@ -85,7 +92,7 @@ angular.module('MLDS')
 	service.affiliateIsCommercial = function(affiliate) {
 		return affiliate.type === 'COMMERCIAL';
 	};
-	
+
 	service.isApplicationApproved = function(affiliate) {
 		return affiliate && ApplicationUtilsService.isApplicationApproved(affiliate.application);
 	};
