@@ -9,6 +9,9 @@ mldsApp.controller('AdminController', ['$scope',
 mldsApp.controller('LanguageController', ['$scope', '$translate', 'CountryService',
     function ($scope, $translate, CountryService) {
         $scope.changeLanguage = function (languageKey) {
+        /*MLDS-957- Sweden Language issue*/
+            window.setTimeout('window.location.reload()',200);
+        /*MLDS-957- Sweden Language issue*/
             $translate.use(languageKey);
             var countries = CountryService.countries;
         };
