@@ -457,7 +457,7 @@ public class CommercialUsageResource {
     @RequestMapping(value = Routes.REVIEW_USAGE_REPORTS,
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed({AuthoritiesConstants.STAFF })
+    @RolesAllowed({AuthoritiesConstants.STAFF,AuthoritiesConstants.ADMIN })
     @Timed
     @Transactional
     public @ResponseBody Collection<Collections> reviewUsageReportCsv(){
