@@ -475,6 +475,13 @@
                 "fail": "<strong>Registration failed!</strong> Please try again later.",
                 "userexists": "<strong>A user has already registered with that email address.</strong> Did you mean to <a href='#/login'>login</a>?",
                 "blocklist": "Due to our IT policies we are unable to process the entered email address. Please contact <a href=\"mailto:support@snomed.org\">support@snomed.org</a> for further assistance."
+            },
+            "excludemessage": {
+                "confirm":"Confirmation",
+                "link": "does not use MLDS to distribute SNOMED CT. To register to download SNOMED CT, you can find more information by going to this link -",
+                "userConfirm": "To continue your registration on MLDS, please can you confirm that you would like to deploy SNOMED CT in a different country.",
+                "cancel": "Cancel",
+                "accept": "I confirm that I would like to use and deploy SNOMED CT in a country other than"
             }
         },
         "emailVerification": {
