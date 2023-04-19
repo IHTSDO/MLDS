@@ -148,10 +148,18 @@
                 </tbody>
             </table>
         </div>
-        <div ng-if="!isAdmin">
-        <a class="btn btn-primary btn-sm" ng-click="generateCsv()"><i class="fa fa-download"></i> Export as CSV</a>
-        <h5>Click the above button, to generate commercial usage report of the affiliates.</h5>
-    </div>
+
+        <table class="table table-striped" ng-if="!isAdmin">
+            <thead> <tr> <th></th> </tr> </thead>
+            <tbody>
+            <tr>
+                <td><b>Affiliate Usage Report</b>
+                    <br>This report contains the usage report for the affiliates of <span ng-show="Session.member" ng-bind="Session.member.key | enum:'global.member.'"></span>
+                    <span ng-hide="Session.member" ng-bind="'global.member.IHTSDO' | translate"></span></td>
+                <td style="text-align:right"> <a class="btn btn-primary btn-sm" ng-click="generateCsv()"><i class="fa fa-download"></i> Export as CSV</a></td>
+            </tr>
+            </tbody>
+        </table>
 
 
 
