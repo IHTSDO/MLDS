@@ -475,6 +475,13 @@
                 "fail": "<strong>Registreringen misslyckades!</strong> Försök igen senare.",
                 "userexists": "<strong>En användare har redan registrerat sig med den e-postadressen.</strong> Ville du egentligen <a href='#/logga in'>login</a>?",
                 "blocklist": "På grund av vår it-policy kan vi inte behandla den angivna e-postadressen. Var god kontakta <a href=\"mailto:support@snomed.org\">support@snomed.org</a> för att få ytterligare hjälp."
+            },
+            "excludemessage": {
+                "confirm":"Bekräftelse",
+                "link": "använder inte MLDS för att distribuera SNOMED CT. För att registrera dig för att ladda ner SNOMED CT kan du hitta mer information genom att gå till denna länk -",
+                "userConfirm": "För att fortsätta din registrering på MLDS, kan du bekräfta att du vill distribuera SNOMED CT i ett annat land.",
+                "cancel": "Annullera",
+                "accept": "Jag bekräftar att jag skulle vilja använda och distribuera SNOMED CT i ett annat land än"
             }
         },
         "emailVerification": {

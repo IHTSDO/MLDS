@@ -471,6 +471,13 @@
                 "fail": "<strong>Registrierung fehlgeschlagen!</strong> Bitte versuchen Sie es später noch einmal.",
                 "userexists": "<strong>Ein anderer Benutzer hat sich bereits mit dieser E-Mail-Adresse registriert.</strong> Wollten Sie sich <a href='#/login'>einloggen</a>?",
                 "blocklist": "Aufgrund unserer IT-Richtlinien können wir die eingegebene E-Mail-Adresse nicht verarbeiten. Für weitere Hilfe kontaktieren Sie bitte <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a>."
+            },
+            "excludemessage": {
+                "confirm":"Bestätigung",
+                "link": "MLDS wird nicht verwendet, um SNOMED CT zu verteilen. Um sich für den Download von SNOMED CT zu registrieren, finden Sie weitere Informationen, indem Sie diesem Link folgen -",
+                "userConfirm": "Um Ihre Registrierung auf MLDS fortzusetzen, können Sie bitte bestätigen, dass Sie beabsichtigen, SNOMED CT in einem anderen Land bereitzustellen.",
+                "cancel": "Abbrechen",
+                "accept": "Ich bestätige, dass ich beabsichtige, SNOMED CT in einem anderen Land zu verwenden und bereitzustellen"
             }
         },
         "emailVerification": {
