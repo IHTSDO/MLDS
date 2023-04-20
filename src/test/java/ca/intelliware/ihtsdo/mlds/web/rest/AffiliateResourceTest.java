@@ -50,13 +50,13 @@ public class AffiliateResourceTest {
 
     @Mock
     private AffiliateRepository affiliateRepository;
-    
+
     @Mock
     private AffiliateSearchRepository affiliateSearchRepository;
-    
+
     @Mock
     private AffiliateDetailsRepository affiliateDetailsRepository;
-    
+
     @Mock
     private AffiliateAuditEvents affiliateAuditEvents;
 
@@ -68,26 +68,26 @@ public class AffiliateResourceTest {
 
     @Mock
     private AffiliatesImportGenerator affiliatesImportGenerator;
-    
+
     @Mock
     private AffiliateDeleter affiliateDeleter;
 
     @Mock
     private SessionService sessionService;
-    
+
     @Mock
     private UserRepository userRepository;
-    
+
     private MockMvc restUserMockMvc;
-    
+
     SecurityContextSetup securityContextSetup = new SecurityContextSetup();
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        
+
         AffiliateResource affiliateResource = new AffiliateResource();
-        
+
         affiliateResource.affiliateDetailsRepository = affiliateDetailsRepository;
         affiliateResource.affiliateRepository = affiliateRepository;
         affiliateResource.affiliateSearchRepository = affiliateSearchRepository;
@@ -102,14 +102,14 @@ public class AffiliateResourceTest {
         affiliateResource.currentSecurityContext = new CurrentSecurityContext();
 
         securityContextSetup.asAdmin();
-		
+
 		this.restUserMockMvc = MockMvcBuilders
 				.standaloneSetup(affiliateResource)
         		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
         		.build();
     }
 
-    
+
 	@Test
 	public void getAffiliateShouldFailForUnknownAffiliate() throws Exception {
         when(affiliateRepository.findOne(999L)).thenReturn(null);
@@ -134,7 +134,7 @@ public class AffiliateResourceTest {
                 .andExpect(jsonPath("$.affiliateDetails.address.street").value("Test Street"));
 	}
 
-    
+
 	@Test
     public void updateAffiliateDetailShouldFailForUnknownAffiliate() throws Exception {
         when(affiliateRepository.findOne(999L)).thenReturn(null);
@@ -178,7 +178,7 @@ public class AffiliateResourceTest {
     	affiliate.getAffiliateDetails().setFirstName("Original FirstName");
     	affiliate.getAffiliateDetails().getAddress().setStreet("Original Street");
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"firstName\": \"Updated FirstName\", \"address\": { \"street\":\"Updated Street\" }, \"billingAddress\": {} }")
@@ -188,7 +188,7 @@ public class AffiliateResourceTest {
                 .andExpect(jsonPath("$.firstName").value("Updated FirstName"))
                 .andExpect(jsonPath("$.address.street").value("Updated Street"))
                 ;
-    	
+
     }
 
     @Test
@@ -198,11 +198,11 @@ public class AffiliateResourceTest {
     	user.setFirstName("Original FirstName");
     	user.setLastName("Original LastName");
     	when(userRepository.findByLoginIgnoreCase("user@email.com")).thenReturn(user);
-    	
+
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.getAffiliateDetails().setEmail("user@email.com");
 		when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"email\":\"new@email.com\", \"firstName\": \"Updated FirstName\", \"lastName\": \"Updated LastName\", \"address\": { \"street\":\"Updated Street\" }, \"billingAddress\": {} }")
@@ -210,28 +210,28 @@ public class AffiliateResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 ;
-    	
-    	
+
+
     	Assert.assertEquals("Updated FirstName", user.getFirstName());
     	Assert.assertEquals("Updated LastName", user.getLastName());
-    	
+
     	// FIXME MLDS-540 who can change the login?  What notifications do we need?
     	Assert.assertEquals("new@email.com", user.getLogin());
     }
 
     @Test
-    public void updateAffiliateDetailShouldIgnoreOrganizationFieldUpdates() throws Exception {
+    public void updateAffiliateDetailShouldUpdateOrganizationField() throws Exception {
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.getAffiliateDetails().setOrganizationName("Original OrganizationName");
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"organizationName\": \"Updated OrganizationName\", \"address\": {}, \"billingAddress\": {} }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.organizationName").value("Original OrganizationName"))
+                .andExpect(jsonPath("$.organizationName").value("Updated OrganizationName"))
                 ;
     }
 
@@ -241,7 +241,7 @@ public class AffiliateResourceTest {
     	affiliate.getAffiliateDetails().getAddress().setCountry(createCountry("CA"));
     	affiliate.getAffiliateDetails().getBillingAddress().setCountry(createCountry("CA"));
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"address\": { \"country\": {\"isoCode2\":\"DK\"}}, \"billingAddress\": {\"country\": {\"isoCode2\":\"DK\"}} }")
@@ -252,13 +252,13 @@ public class AffiliateResourceTest {
                 .andExpect(jsonPath("$.billingAddress.country.isoCode2").value("DK")) /* Updated billing country */
                 ;
     }
-    
+
     @Test
     public void getAffiliatesImportSpec() throws Exception {
     	AffiliatesImportSpec spec = new AffiliatesImportSpec();
     	spec.setExample("Example File Content");
 		when(affiliatesExporterService.exportSpec()).thenReturn(spec);
-    	
+
     	restUserMockMvc.perform(get(Routes.AFFILIATES_CSV_SPEC)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
@@ -270,7 +270,7 @@ public class AffiliateResourceTest {
     @Test
     public void exportAffiliatesShouldExportAllAffiliatesInCSVFormat() throws Exception {
 		when(affiliatesExporterService.exportToCSV()).thenReturn("affiliates file content");
-    	
+
     	restUserMockMvc.perform(get(Routes.AFFILIATES_CSV)
                 .accept("application/csv"))
                 .andExpect(status().isOk())
@@ -282,7 +282,7 @@ public class AffiliateResourceTest {
     @Test
     public void exportAffiliatesShouldGenerateSpecifiedNumberOfAffiliatesInCSVFormat() throws Exception {
 		when(affiliatesImportGenerator.generateFile(Mockito.eq(10))).thenReturn("generated affiliates file content");
-    	
+
     	restUserMockMvc.perform(get(Routes.AFFILIATES_CSV)
     			.param("generate", "10")
                 .accept("application/csv"))
@@ -299,19 +299,19 @@ public class AffiliateResourceTest {
 
 	private Affiliate createBlankAffiliate() {
     	Affiliate affiliate = new Affiliate();
-    	
+
     	AffiliateDetails affiliateDetails = new AffiliateDetails();
     	affiliateDetails.setAddress(new MailingAddress());
     	affiliateDetails.setBillingAddress(new MailingAddress());
     	affiliate.setAffiliateDetails(affiliateDetails);
-    	
+
     	PrimaryApplication application = new PrimaryApplication(1L);
     	application.setApprovalState(ApprovalState.APPROVED);
     	affiliate.setApplication(application);
-    	
+
     	return affiliate;
     }
-	
+
 	@Test
 	public void updateAffiliateShouldFailForUnknownAffiliate() throws Exception {
         when(affiliateRepository.findOne(999L)).thenReturn(null);
@@ -345,7 +345,7 @@ public class AffiliateResourceTest {
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.setNotesInternal("Original Notes");
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"notesInternal\": \"Updated Notes\" }")
@@ -354,7 +354,7 @@ public class AffiliateResourceTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.notesInternal").value("Updated Notes"))
                 ;
-    	
+
     	Mockito.verify(affiliateRepository).save(Mockito.any(Affiliate.class));
 	}
 
@@ -363,7 +363,7 @@ public class AffiliateResourceTest {
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.setStandingState(StandingState.IN_GOOD_STANDING);
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"standingState\": \"DEACTIVATED\" }")
@@ -372,7 +372,7 @@ public class AffiliateResourceTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.standingState").value("DEACTIVATED"))
                 ;
-    	
+
     	Mockito.verify(affiliateRepository).save(Mockito.any(Affiliate.class));
 	}
 
@@ -381,7 +381,7 @@ public class AffiliateResourceTest {
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.setStandingState(StandingState.IN_GOOD_STANDING);
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"standingState\": null }")
@@ -390,7 +390,7 @@ public class AffiliateResourceTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.standingState").value("IN_GOOD_STANDING"))
                 ;
-    	
+
     	Mockito.verify(affiliateRepository).save(Mockito.any(Affiliate.class));
 	}
 
@@ -399,7 +399,7 @@ public class AffiliateResourceTest {
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.setStandingState(StandingState.APPLYING);
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"standingState\": \"IN_GOOD_STANDING\" }")
@@ -412,7 +412,7 @@ public class AffiliateResourceTest {
 	public void updateAffiliateShouldAuditLogWithAffiliateUpdate() throws Exception {
     	Affiliate affiliate = createBlankAffiliate();
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"notesInternal\": \"Updated Notes\" }")
@@ -420,7 +420,7 @@ public class AffiliateResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 ;
-    	
+
     	Mockito.verify(affiliateAuditEvents).logUpdateOfAffiliate(Mockito.any(Affiliate.class));
 	}
 
@@ -429,7 +429,7 @@ public class AffiliateResourceTest {
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.setStandingState(StandingState.IN_GOOD_STANDING);
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"standingState\": \"DEACTIVATED\" }")
@@ -437,7 +437,7 @@ public class AffiliateResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 ;
-    	
+
     	Mockito.verify(affiliateAuditEvents).logStandingStateChange(Mockito.any(Affiliate.class));
 	}
 
@@ -446,7 +446,7 @@ public class AffiliateResourceTest {
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.setStandingState(StandingState.APPLYING);
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"standingState\": \"APPLYING\" }")
@@ -454,7 +454,7 @@ public class AffiliateResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 ;
-    	
+
     	Mockito.verify(affiliateAuditEvents, Mockito.never()).logStandingStateChange(Mockito.any(Affiliate.class));
 	}
 
@@ -463,7 +463,7 @@ public class AffiliateResourceTest {
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.setCreator("original@email.com");
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(put(Routes.AFFILIATE, 1L)
     			.contentType(MediaType.APPLICATION_JSON_UTF8)
     			.content("{ \"creator\": \"updated@email.com\" }")
@@ -472,7 +472,7 @@ public class AffiliateResourceTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.creator").value("original@email.com"))
                 ;
-    	
+
     	Mockito.verify(affiliateRepository).save(Mockito.any(Affiliate.class));
 	}
 
@@ -499,13 +499,13 @@ public class AffiliateResourceTest {
         	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("not allowed"));
         }
 	}
-	
+
 	@Test
 	public void deleteAffiliateShouldFailWhenAffiliateStandingStateNotApplying() throws Exception {
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.setStandingState(StandingState.IN_GOOD_STANDING);
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(delete(Routes.AFFILIATE, 1L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isConflict())
@@ -519,11 +519,11 @@ public class AffiliateResourceTest {
     	affiliate.addApplication(new PrimaryApplication(1L));
     	affiliate.addApplication(new ExtensionApplication(1L));
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(delete(Routes.AFFILIATE, 1L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNoContent());
-    	
+
     	Mockito.verify(affiliateDeleter).deleteAffiliate(Mockito.any(Affiliate.class));
 	}
 
@@ -532,11 +532,11 @@ public class AffiliateResourceTest {
     	Affiliate affiliate = createBlankAffiliate();
     	affiliate.setStandingState(StandingState.APPLYING);
     	when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
-    	
+
     	restUserMockMvc.perform(delete(Routes.AFFILIATE, 1L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNoContent());
-    	
+
     	Mockito.verify(affiliateAuditEvents).logDeleteOfAffiliate(Mockito.any(Affiliate.class));
 	}
 }
