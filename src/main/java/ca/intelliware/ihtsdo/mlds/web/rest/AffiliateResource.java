@@ -286,16 +286,12 @@ public class AffiliateResource {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
     	applicationAuthorizationChecker.checkCanManageAffiliate(affiliate);
-
-    	if (!ObjectUtils.equals(affiliate.getStandingState(), StandingState.APPLYING)) {
+        if (!ObjectUtils.equals(affiliate.getStandingState(), StandingState.APPLYING)) {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
-    	}
-
-    	affiliateAuditEvents.logDeleteOfAffiliate(affiliate);
-
-    	affiliateDeleter.deleteAffiliate(affiliate);
-
-    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        affiliateDeleter.deleteAffiliate(affiliate);
+        affiliateAuditEvents.logDeleteOfAffiliate(affiliate);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 	@RolesAllowed({AuthoritiesConstants.USER})
@@ -451,6 +447,9 @@ public class AffiliateResource {
     	affiliateDetails.setEmail(body.getEmail());
     	affiliateDetails.setAcceptNotifications(body.isAcceptNotifications());
         affiliateDetails.setCountryNotificationsOnly(body.isCountryNotificationsOnly());
+         /*MLDS-994 Updating of User Details*/
+        affiliateDetails.setOrganizationName(body.getOrganizationName());
+        /*MLDS-994 Updating of User Details*/
 
 		if (currentSecurityContext.isStaffOrAdmin()) {
 	    	affiliateDetails.setType(body.getType());
