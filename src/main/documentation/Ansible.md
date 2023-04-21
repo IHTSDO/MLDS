@@ -16,16 +16,25 @@ repositories
 Nexus as deb
 
 try to get 
-[14-05-29 10:42:58 AM] Matt Willsher: [snomed_release_service_api]
+
+[14-05-29 10:42:58 AM] Matt Willsher: [snomed_release_service_api]
 uat-release.ihtsdotools.org snomed_release_service_api_version=latest ihtsdo_repository=snapshot
 
 [snomed_release_service_web]
 uat-release.ihtsdotools.org snomed_release_service_web_version=latest ihtsdo_repository=snapshot
 
 [snomed_release_service_builder]
-uat-release.ihtsdotools.org snomed_release_service_builder_version=latest ihtsdo_repository=snapshot[14-05-29 10:44:17 AM] Matt Willsher: group_vars/snomed_release_service_web[14-05-29 10:44:18 AM] Matt Willsher: ---
-snomed_release_service_web_nginx_servername: "{{ inventory_hostname }}"[14-05-29 10:45:56 AM] Matt Willsher: hosts_vars/uat-release.ihtsdotool.org[14-05-29 10:46:10 AM] Matt Willsher: ---
-snomed_release_service_api_aws_privateKey: poiewfjowiefjwe[14-05-29 10:46:15 AM] Matt Willsher: snomed_release_service_api_aws_key: foiwjefjwef[14-05-29 10:51:50 AM] Matt Willsher: https://galaxy.ansible.com/[14-05-29 10:56:06 AM] Matt Willsher: https://github.com/IHTSDO/snomed-release-service/tree/master/api
+uat-release.ihtsdotools.org snomed_release_service_builder_version=latest ihtsdo_repository=snapshot
+[14-05-29 10:44:17 AM] Matt Willsher: group_vars/snomed_release_service_web
+[14-05-29 10:44:18 AM] Matt Willsher: ---
+snomed_release_service_web_nginx_servername: "{{ inventory_hostname }}"
+[14-05-29 10:45:56 AM] Matt Willsher: hosts_vars/uat-release.ihtsdotool.org
+[14-05-29 10:46:10 AM] Matt Willsher: ---
+
+[//]: # (snomed_release_service_api_aws_privateKey: poiewfjowiefjwe)
+[//]: # ([14-05-29 10:46:15 AM] Matt Willsher: snomed_release_servic e_api_aws_key: foiwjefjwef)
+[14-05-29 10:51:50 AM] Matt Willsher: https://galaxy.ansible.com/
+[14-05-29 10:56:06 AM] Matt Willsher: https://github.com/IHTSDO/snomed-release-service/tree/master/api
 
 
 Added apt repository to /etc/apt/
