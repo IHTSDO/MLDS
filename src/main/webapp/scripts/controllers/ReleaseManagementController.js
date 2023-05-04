@@ -1,33 +1,33 @@
 'use strict';
 
-angular.module('MLDS').controller('ReleaseManagementController', 
+angular.module('MLDS').controller('ReleaseManagementController',
 		['$scope', '$log', '$modal', 'PackagesService', '$location', '$translate', 'PackageUtilsService', 'Session', 'MemberService', 'SessionStateService',
     function ($scope, $log, $modal, PackagesService, $location, $translate, PackageUtilsService, Session, MemberService, SessionStateService) {
 
 		$scope.utils = PackageUtilsService;
 		$scope.isAdmin = Session.isAdmin();
-		
+
 		$scope.releaseManagementFilter = SessionStateService.sessionState.releaseManagementFilter;
-		
+
 		$scope.alerts = [];
-		
+
 		$scope.memberPackages = [];
 		$scope.packages = [];
 		$scope.onlineMemberPackages = [];
-		
+
 		$scope.packagesByMember = [];
-		
+
 		function reloadPackages() {
 			$scope.packages = PackagesService.query();
 			$scope.packages.$promise.then(extractPackages);
 		}
-		
+
 		function extractPackages() {
 			var packages = $scope.packages;
 			if (!packages.$resolved) {
 				return;
 			}
-			
+
 			var memberFiltered = _.chain(packages).filter(function(p){ return $scope.releaseManagementFilter.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); });
 
 		    $scope.packagesByMember = _.chain(memberFiltered)
@@ -40,7 +40,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
 				        .sortBy('createdAt')
 				        .value();
 		            return {
-		                member: MemberService.membersByKey[memberKey], 
+		                member: MemberService.membersByKey[memberKey],
 		                onlinePackages: onlinePackages,
 		                offlinePackages: offlinePackages
 		             };})
@@ -49,7 +49,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
 
 		    fixReleasePackagesWithoutPriority(memberFiltered);
 		}
-		
+
 		function fixReleasePackagesWithoutPriority(memberFiltered) {
 		    var firstMissing = _.chain(memberFiltered)
 		    	.filter(PackageUtilsService.isPackagePublished)
@@ -62,11 +62,11 @@ angular.module('MLDS').controller('ReleaseManagementController',
 				updatePackagePriority(firstMissing, 0);
 			}
 		}
-		
+
 		$scope.$watch('releaseManagementFilter.showAllMembers', extractPackages);
-				
+
 		reloadPackages();
-		
+
 		$scope.addReleasePackage = function() {
 			var modalInstance = $modal.open({
 				templateUrl: 'views/admin/addReleaseModal.html',
@@ -96,11 +96,11 @@ angular.module('MLDS').controller('ReleaseManagementController',
             	reloadPackages();
             });
         };
-        
+
         $scope.goToPackage = function(packageEntity) {
         	$location.path('/releaseManagement/release/'+encodeURIComponent(packageEntity.releasePackageId));
         };
-        
+
         $scope.deleteReleasePackage = function(releasePackage) {
             var modalInstance = $modal.open({
                 templateUrl: 'views/admin/deletePackageModal.html',
@@ -118,11 +118,11 @@ angular.module('MLDS').controller('ReleaseManagementController',
             	reloadPackages();
             });
         };
-        
+
         $scope.isEditableReleasePackage = function(p) {
         	PackageUtilsService.isEditableReleasePackage(p);
         };
-        
+
         function findHigherPriorityPackage(memberEntry, p) {
         	var i = memberEntry.onlinePackages.indexOf(p);
         	if (i > 0) {
@@ -131,7 +131,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
         		return null;
         	}
         }
-        
+
         function findLowerPriorityPackage(memberEntry, p) {
         	var i = memberEntry.onlinePackages.indexOf(p);
         	if (i !== -1 && i < memberEntry.onlinePackages.length -1) {
@@ -144,7 +144,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
         function exchangePackages(p, replace) {
         	updatePackagePriority(p, replace.priority);
         };
-        
+
         function updatePackagePriority(p, priority) {
         	$scope.alerts.splice(0, $scope.alerts.length);
         	p.priority = priority;
@@ -153,37 +153,37 @@ angular.module('MLDS').controller('ReleaseManagementController',
 	        	reloadPackages();
 			})
 			["catch"](function(message) {
-				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+				$scope.alerts.push({type: 'danger', msg: 'Network request failure [12]: please try again later.'});
 			});
 		}
-        
+
         $scope.canPromotePackage = function canPromotePackage(memberEntry, p) {
         	return findHigherPriorityPackage(memberEntry, p);
         };
-        
+
         $scope.promotePackage = function promotePackage(memberEntry, p) {
     		var higherPriority = findHigherPriorityPackage(memberEntry, p);
     		exchangePackages(p, higherPriority);
         };
-        
+
         $scope.canDemotePackage = function canDemotePackage(memberEntry, p) {
         	return findLowerPriorityPackage(memberEntry, p);
         };
-        
+
         $scope.demotePackage = function demotePackage(memberEntry, p) {
         	var lower = findLowerPriorityPackage(memberEntry, p);
         	exchangePackages(lower, p);
         };
-        
+
         $scope.promoteMemberPackagesChanged = function promoteMemberPackagesChanged(member) {
 			MemberService.updateMember(member)
 			.then(function(result) {
 	        	// updated
 			})
 			["catch"](function(message) {
-				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+				$scope.alerts.push({type: 'danger', msg: 'Network request failure [45]: please try again later.'});
 			});
-        }; 
+        };
 
     }]);
 

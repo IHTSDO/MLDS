@@ -25,7 +25,7 @@ mldsApp.controller('ImportAffiliatesController',
         			["catch"](function(message) {
         				$log.log(message);
         				$scope.importResult = JSON.stringify(message.data, undefined, 2);
-        				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+        				$scope.alerts.push({type: 'danger', msg: 'Network request failure [14]: please try again later.'});
         				$scope.submitting = false;
                 		loadAudits();
         			});

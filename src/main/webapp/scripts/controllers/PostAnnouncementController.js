@@ -66,7 +66,7 @@ mldsApp.controller('PostAnnouncementController', [
 	    				});
 	    			})
 				["catch"](function(message) {
-					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+					$scope.alerts.push({type: 'danger', msg: 'Network request failure [7]: please try again later.'});
 					$scope.submitting = false;
 				});
 	        };

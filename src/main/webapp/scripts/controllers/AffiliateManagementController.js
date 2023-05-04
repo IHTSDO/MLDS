@@ -89,7 +89,7 @@ mldsApp.controller('AffiliateManagementController', [
                 })["catch"](function(message) {
                     $scope.downloadingAffiliates = false;
                     $log.log("affiliates download failure: " + message);
-                    $scope.alerts.push({ type: 'danger', msg: 'Network request failure, please try again later.' });
+                    $scope.alerts.push({ type: 'danger', msg: 'Network request failure [28]: please try again later.' });
                     if ($scope.loadReset) {
                         loadAffiliates();
                     }
@@ -216,7 +216,7 @@ mldsApp.controller('AffiliateManagementController', [
                 })["catch"](function(message) {
                     $scope.generatingCsv = false;
                     $log.log("csv generation failure: " + message);
-                    $scope.alerts.push({ type: 'danger', msg: 'Network request failure, please try again later.' });
+                    $scope.alerts.push({ type: 'danger', msg: 'Network request failure [46]: please try again later.' });
                 });
         };
 
