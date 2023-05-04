@@ -19,7 +19,7 @@ angular.module('MLDS').controller('EditReleaseModalController', ['$scope', '$log
 					$modalInstance.close(result);
 				})
 				["catch"](function(message) {
-					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+					$scope.alerts.push({type: 'danger', msg: 'Network request failure [18]: please try again later.'});
 					$scope.submitting = false;
 				});
 		};

@@ -1,48 +1,48 @@
 'use strict';
 
 angular.module('MLDS').controller('EmbeddableUsageLogController',
-		['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 'UsageReportStateUtils', 'UsageReportsService', 'StandingStateUtils', 
+		['$scope', '$log', '$modal', '$parse', 'CountryService', 'CommercialUsageService', 'Events', 'Session', '$routeParams', '$location', 'UsageReportStateUtils', 'UsageReportsService', 'StandingStateUtils',
         function($scope, $log, $modal, $parse, CountryService, CommercialUsageService, Events, Session, $routeParams, $location, UsageReportStateUtils, UsageReportsService, StandingStateUtils){
 	$scope.collapsePanel = {};
-	
+
 	$scope.usageLogForm = {};
 	$scope.selectedCountryCodesToAdd = [];
 	$scope.selectedCountryCodesToRemove = [];
 	$scope.geographicAdding = 0;
 	$scope.geographicRemoving = 0;
 	$scope.geographicAlerts = [];
-	
+
 	//FIXME retrieve from service?
 	$scope.agreementTypeOptions = ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD'];
 	$scope.implementationStatusOptions = ['IMPLEMENTED', 'DEVELOPMENT', 'PLANNING'];
-	
+
 	$scope.availableCountries = [];
 	$scope.currentCountries = [];
-	
+
 	// Usage Model
 	$scope.commercialUsageReport = {};
 	$scope.usageByCountry = {};
 	$scope.usageByCountryList = [];
-	
+
 	$scope.readOnly = false;
 	$scope.commercialType = false;
 	$scope.isActiveUsage = true;
-	
+
 	$scope.isEditable = true;
-	
+
 	$scope.homeCountry = null;
-	
+
 	//FIXME apparently not recommended to share controller state through scope
 	$scope.canSubmit = $scope.$parent.usageLogCanSubmit;
 
 	loadParentsUsageReport();
 	setupNotificions();
-	
+
 	function setupNotificions() {
 		$scope.$on(Events.commercialUsageUpdated, onCommercialUsageUpdated);
 		$scope.$on(Events.affiliateTypeUpdated, onAffiliateTypeUpdated);
 	}
-	
+
 	function onCommercialUsageUpdated() {
 		CommercialUsageService.getUsageReport($scope.commercialUsageReport.commercialUsageId)
 			.then(function(result) {
@@ -54,7 +54,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 			});
 
 	}
-	
+
 	function onAffiliateTypeUpdated(event, newType) {
 		if (newType !== $scope.commercialUsageReport.type) {
 			$scope.commercialUsageReport.type = newType;
@@ -66,7 +66,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 			});
 		}
 	}
-	
+
 	function addHomeCountryIfNotSelected() {
 		if ($scope.homeCountry) {
 			if($scope.canAddSelectedCountries([$scope.homeCountry.isoCode2])) {
@@ -74,7 +74,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 			};
 		}
 	}
-	
+
 	function loadParentsUsageReport() {
 		//FIXME apparently not recommended to share controller state through scope
 		$scope.$parent.usageReportReady
@@ -87,16 +87,16 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				$log.error('Failed to get initial usage log by param');
 			});
 	}
-	
+
 	function isCountryAlreadyPresent(country) {
 		return ($scope.usageByCountry[country.isoCode2]);
-	} 
-	
+	}
+
 	function lookupUsageByCountryOrNull(country) {
 		var countryCode = country.isoCode2;
 		return $scope.usageByCountry[countryCode];
 	}
-	
+
 	function lookupUsageByCountryOrCreate(country) {
 		var countryCode = country.isoCode2;
 		var countrySection = lookupUsageByCountryOrNull(country);
@@ -120,7 +120,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		}
 		return countrySection;
 	};
-	
+
 	function sortByNameProperty(array, expression) {
 		var accessor = $parse(expression);
 		array.sort(function(a, b) {
@@ -129,7 +129,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		    return x < y ? -1 : x > y ? 1 : 0;
 		});
 	}
-	
+
 	function updateFromUsageReport(usageReport) {
 		$scope.usageByCountry = {};
 		$scope.usageByCountryList = [];
@@ -141,10 +141,10 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		$scope.readOnly = $scope.isEditable ? !UsageReportStateUtils.isWaitingForApplicant(usageReport.state) : true;
 		$scope.commercialType = usageReport.type === 'COMMERCIAL';
 		$scope.isAffiliateApplying = Session.isUser() && usageReport.affiliate && StandingStateUtils.isApplying(usageReport.affiliate.standingState) && $scope.$parent.usageReportRegistration;
-		
+
 		var previousHomeCountry = $scope.homeCountry;
 		$scope.homeCountry = (usageReport.affiliate.affiliateDetails) ? usageReport.affiliate.affiliateDetails.address.country : $scope.affiliateform.affiliateDetails.address.country;
-		
+
 		usageReport.countries.forEach(function(usageCount) {
 			var countrySection = lookupUsageByCountryOrCreate(usageCount.country);
 			countrySection.count = usageCount;
@@ -162,31 +162,31 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		sortByNameProperty($scope.availableCountries, 'commonName');
 		sortByNameProperty($scope.usageByCountryList, 'country.commonName');
 		sortByNameProperty($scope.currentCountries, 'commonName');
-		
+
 		//FIXME some strange timing about registration setting form Country - work out how to remove this workaround
 		if (!previousHomeCountry && $scope.homeCountry) {
 			addHomeCountryIfNotSelected();
-		} 
+		}
 	};
-	
-	
+
+
 	function countryFromCode(countryCode) {
 		return CountryService.countriesByIsoCode2[countryCode];
 	}
-	
+
 	$scope.saveUsage = function() {
 		//Skip Broadcast for direct edit of context fields to reduce the chance of input value changing under user as they are typing
-		//FIXME is there a better way of handling this scenario? 
+		//FIXME is there a better way of handling this scenario?
 		CommercialUsageService.updateUsageReportContext($scope.commercialUsageReport, {skipBroadcast: true})
 			["catch"](function(message) {
 				//FIXME
 				$log.error('Failed to put usage context');
 			});
 	};
-	
+
 	//FIXME required simply for preliminary auto-submit directive
 	$scope.submit = $scope.saveUsage;
-	
+
 	$scope.canAddSelectedCountries = function(countryCodes) {
 		if ($scope.geographicAdding) {
 			return false;
@@ -200,16 +200,16 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		});
 		return canAdd;
 	};
-	
+
 	$scope.addSelectedCountries = function(countryCodes) {
 		$scope.geographicAdding = 0;
 		$scope.geographicAlerts.splice(0, $scope.geographicAlerts.length);
-		
+
 		countryCodes.forEach(function(countryCode){
 			var country = countryFromCode(countryCode);
 			if (country && !isCountryAlreadyPresent(country)) {
 				$scope.geographicAdding += 1;
-				CommercialUsageService.addUsageCount($scope.commercialUsageReport, 
+				CommercialUsageService.addUsageCount($scope.commercialUsageReport,
 						{
 						snomedPractices: 0,
 						hospitalsStaffingPractices: 0,
@@ -226,7 +226,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 					}
 				})
 				['catch'](function() {
-					$scope.geographicAlerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+					$scope.geographicAlerts.push({type: 'danger', msg: 'Network request failure [11]: please try again later.'});
 					$scope.geographicAdding = Math.max($scope.geographicAdding - 1, 0);
 					if ($scope.geographicAdding === 0) {
 						CommercialUsageService.broadcastCommercialUsageUpdate();
@@ -255,7 +255,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 	function removeCountry(country) {
 		$scope.geographicRemoving = 0;
 		$scope.geographicAlerts.splice(0, $scope.geographicAlerts.length);
-		
+
 		if (country && isCountryAlreadyPresent(country)) {
 			var countrySection = lookupUsageByCountryOrCreate(country);
 			$scope.geographicRemoving += 1;
@@ -267,7 +267,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				}
 			})
 			['catch'](function() {
-				$scope.geographicAlerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+				$scope.geographicAlerts.push({type: 'danger', msg: 'Network request failure [49]: please try again later.'});
 				$scope.geographicRemoving = Math.max($scope.geographicRemoving - 1, 0);
 				if ($scope.geographicRemoving === 0) {
 					CommercialUsageService.broadcastCommercialUsageUpdate();
@@ -292,7 +292,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 			}
 		});
 	};
-	
+
 	$scope.editInstitutionModal = function(institution, country) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/editInstitutionModal.html',
@@ -311,9 +311,9 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				}
 			}
 		});
-		
+
 	};
-	
+
 	$scope.deleteInstitutionModal = function(institution, country) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/deleteInstitutionModal.html',
@@ -350,7 +350,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				}
 			}
 		});
-		
+
 	};
 
 	$scope.editCountDataAalysisModal = function(count, country) {
@@ -371,15 +371,15 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				hospitalsCount: function() {
 					var countrySection = lookupUsageByCountryOrCreate(count.country);
 					return countrySection.entries.length;
-					
+
 				},
 				practicesCount: function() {
 					return count.snomedPractices;
-					
+
 				}
 			}
 		});
-		
+
 	};
 
 	$scope.removeCountryModal = function(count) {
@@ -398,18 +398,18 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				hospitalsCount: function() {
 					var countrySection = lookupUsageByCountryOrCreate(count.country);
 					return countrySection.entries.length;
-					
+
 				},
 				practicesCount: function() {
 					return count.snomedPractices;
-					
+
 				}
 
 			}
 		});
 	};
 
-		
+
 	$scope.submitUsageReport = function(form) {
 		if (form.$invalid) {
 			form.attempted = true;
@@ -430,7 +430,7 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 				}
 			}
 		});
-		
+
 	};
 
 	$scope.retractUsageReport = function() {

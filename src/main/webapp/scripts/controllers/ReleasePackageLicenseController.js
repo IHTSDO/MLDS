@@ -45,7 +45,7 @@ angular.module('MLDS').controller('ReleasePackageLicenseController',
 		        })
 		        ["catch"](function(message) {
 					$log.log(message);
-					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later. ['+ message.statusText+']'});
+					$scope.alerts.push({type: 'danger', msg: 'Network request failure [37]: please try again later. ['+ message.statusText+']'});
 					$scope.submitStatus = {notSubmitted: true};
 				});
 		}

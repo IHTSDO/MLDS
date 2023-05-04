@@ -71,7 +71,7 @@ angular.module('MLDS').controller('PendingApplicationsController', [
                 })["catch"](function(message) {
                     $scope.downloadingApplications = false;
                     $log.log("affiliates download failure: " + message);
-                    $scope.alerts.push({ type: 'danger', msg: 'Network request failure, please try again later.' });
+                    $scope.alerts.push({ type: 'danger', msg: 'Network request failure [23]: please try again later.' });
                     if ($scope.loadReset) {
                         loadApplications();
                     }
@@ -160,7 +160,7 @@ angular.module('MLDS').controller('PendingApplicationsController', [
                 })["catch"](function(message) {
                     $scope.generatingCsv = false;
                     $log.log("csv generation failure: " + message);
-                    $scope.alerts.push({ type: 'danger', msg: 'Network request failure, please try again later.' });
+                    $scope.alerts.push({ type: 'danger', msg: 'Network request failure [48]: please try again later.' });
                 });
         };
 
