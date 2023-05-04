@@ -20,7 +20,7 @@ angular.module('MLDS').controller('StartExtensionApplicationModalController',
 				$modalInstance.close(result);
 			})
 			["catch"](function(message) {
-				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+				$scope.alerts.push({type: 'danger', msg: 'Network request failure [21]: please try again later.'});
 				$scope.submitting = false;
 			});
 	};

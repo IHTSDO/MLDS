@@ -12,9 +12,9 @@ mldsApp.controller('EditAffiliateController', [
 		'ApplicationUtilsService',
 		'CountryService',
 		function($scope, $log, $location, $modal, $routeParams, $timeout, Session, AffiliateService, ApplicationUtilsService, CountryService) {
-			
+
 			var affiliateId = $routeParams.affiliateId && parseInt($routeParams.affiliateId, 10);
-			
+
 			$scope.alerts = [];
 			$scope.affiliate = {};
 			$scope.affiliateDetails = {};
@@ -25,10 +25,10 @@ mldsApp.controller('EditAffiliateController', [
 	        $scope.loading = true;
 
 	    	$scope.agreementTypeOptions = ['AFFILIATE_NORMAL', 'AFFILIATE_RESEARCH', 'AFFILIATE_PUBLIC_GOOD'];
-	    	
+
 			function loadAffiliate() {
 				var queryPromise = AffiliateService.affiliate(affiliateId);
-				
+
 				queryPromise.success(function(affiliate) {
 					$scope.affiliate = affiliate;
 					$scope.approved = ApplicationUtilsService.isApplicationApproved(affiliate.application);
@@ -36,19 +36,19 @@ mldsApp.controller('EditAffiliateController', [
 					$scope.readOnly = !ApplicationUtilsService.isApplicationApproved(affiliate.application) || !$scope.isEditable;
 					$scope.type = affiliate.type;
 					$scope.loading = false;
-					
+
 					if (affiliate.affiliateDetails) {
 						$scope.affiliateDetails = affiliate.affiliateDetails;
 					}
 				});
-					
+
 			}
 
-			loadAffiliate(); 
-			
+			loadAffiliate();
+
 			$scope.form = {};
 	    	$scope.form.attempted = false;
-	    	
+
 	    	$scope.save = function () {
 	    		if ($scope.form.$invalid) {
 	    			$scope.form.attempted = true;
@@ -63,7 +63,7 @@ mldsApp.controller('EditAffiliateController', [
 	    				$scope.affiliateDetails = result.data;
 	    				$scope.submitting = false;
 	    				$location.path('/affiliateManagement/'+ affiliateId);
-	    				/* FIXME MB introduce an alerts service, put the alerts on the root scope, and prune 
+	    				/* FIXME MB introduce an alerts service, put the alerts on the root scope, and prune
 	    				 * dismissed alerts on route change
 	    				 */
 	    				$timeout(function(){
@@ -71,13 +71,23 @@ mldsApp.controller('EditAffiliateController', [
 	    				});
 	    			})
 				["catch"](function(message) {
-					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+                    let errorMessage = 'Edit record failure: If this user exists already then the update will not be successful.  Please ensure when changing emails that the user is not already in the system.  ';
+
+                    if (message && message.data && message.data.message) {
+                        errorMessage += "Message=" + message.data.message;
+                    }
+
+                    if (message && message.statusText) {
+                        errorMessage += "Status Test=" + message.statusText;
+                    }
+
+                    $scope.alerts.push({type: 'danger', msg: errorMessage});
 					$scope.submitting = false;
 				});
 	        };
-	        
+
 	        $scope.cancel = function() {
 	        	$location.path('/affiliateManagement/'+ affiliateId);
 	        };
-			
+
 		} ]);

@@ -102,7 +102,7 @@ angular.module('MLDS').controller('UsageReportReviewController',
 				})
 				["catch"](function(message) {
 					$log.log("failed to update usage report: "+message.statusText);
-					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+					$scope.alerts.push({type: 'danger', msg: 'Network request failure [31]: please try again later.'});
 					$scope.submitting = false;
 				});
 		};

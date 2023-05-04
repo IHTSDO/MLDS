@@ -19,7 +19,7 @@ angular.module('MLDS').controller('EditAffiliateStandingModalController', ['$sco
 					$scope.submitting = false;
 				})
 				["catch"](function(message) {
-					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+					$scope.alerts.push({type: 'danger', msg: 'Network request failure [34]: please try again later.'});
 					$scope.submitting = false;
 				});
 		};

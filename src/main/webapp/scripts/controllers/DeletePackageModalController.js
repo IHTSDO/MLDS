@@ -21,7 +21,7 @@ angular.module('MLDS').controller('DeletePackageModalController', ['$scope', '$m
 				$modalInstance.close(result);
 			})
 			["catch"](function(message) {
-				$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+				$scope.alerts.push({type: 'danger', msg: 'Network request failure [27]: please try again later.'});
 				$scope.submitting = false;
 			});
 	};
