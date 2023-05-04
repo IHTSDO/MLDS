@@ -16,16 +16,16 @@ mldsApp.controller('ApplicationReviewController', [
 				PackagesService, ApplicationUtilsService, AuditsService) {
 
 			var applicationId = $routeParams.applicationId && parseInt($routeParams.applicationId, 10);
-			
+
 			$scope.application = {};
 			$scope.audits = [];
-			
+
 			$scope.commercialUsageInstitutionsByCountry = {};
 			$scope.usageCountryCountslist = [];
-			
+
 			$scope.alerts = [];
 			$scope.submitting = false;
-			
+
 			$scope.isNoteReadOnly = true;
 			$scope.isActionDisabled = true;
 			$scope.showNonMemberAlert = false;
@@ -37,7 +37,7 @@ mldsApp.controller('ApplicationReviewController', [
             		$scope.audits = result;
             	})
     			["catch"](function(message) {
-    				$scope.alerts.push({type: 'danger', msg: 'Network request failure retrieving audit logs, please try again later.'});
+    				$scope.alerts.push({type: 'danger', msg: 'Network request failure [42] retrieving audit logs, please try again later.'});
     				$log.error('Failed to update audit list: '+message);
     			});
 	        }
@@ -50,26 +50,26 @@ mldsApp.controller('ApplicationReviewController', [
 						//$log.log("getapplicationbyid.... success");
 						//$log.log('loadApplication', application);
 						$scope.application = application;
-						
+
 						if (Session.isAdmin() || (Session.member.key === application.member.key)) {
 							$scope.isNoteReadOnly = false;
 							$scope.isActionDisabled = false;
 						} else {
 							$scope.showNonMemberAlert = true;
 						}
-						
+
 						if (!ApplicationUtilsService.isApplicationPending(application)) {
 							 $scope.showNonPendingAlert = true;
 						}
-						
+
 						loadApplicationAudits(application.applicationId);
 
 						if (application.affiliate) {
 							$scope.standingState = application.affiliate.standingState;
 						}
-						
+
 						if (application.commercialUsage) {
-							$scope.commercialUsageInstitutionsByCountry = _.groupBy(application.commercialUsage.entries, 
+							$scope.commercialUsageInstitutionsByCountry = _.groupBy(application.commercialUsage.entries,
 			        				function(entry){ return entry.country.isoCode2;});
 							_.each($scope.commercialUsageInstitutionsByCountry, function(list, key) {
 								$scope.commercialUsageInstitutionsByCountry[key] = _.sortBy(list, function(entry) {
@@ -85,17 +85,17 @@ mldsApp.controller('ApplicationReviewController', [
 			}
 
 			loadApplication();
-        	
+
 			$scope.submit = function() {
 				$scope.alerts.splice(0, $scope.alerts.length);
 				$scope.submitting = true;
-				
+
 				UserRegistrationService.updateApplicationNoteInternal($scope.application)
 					.then(function(result) {
 						$scope.submitting = false;
 					})
 					["catch"](function(message) {
-						$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+						$scope.alerts.push({type: 'danger', msg: 'Network request failure [3]: please try again later.'});
 						$scope.submitting = false;
 					});
 			};
@@ -124,10 +124,10 @@ mldsApp.controller('ApplicationReviewController', [
 							}
 						}
 					}).result.then(function(result) {
-						goToPendingApplications();						
+						goToPendingApplications();
 					})
 					["catch"](function(message) {
-						goToPendingApplications();	
+						goToPendingApplications();
 					});
 				});
 			};

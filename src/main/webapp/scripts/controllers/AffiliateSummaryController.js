@@ -12,23 +12,23 @@ mldsApp.controller('AffiliateSummaryController', [
 		'AuditsService',
 		'StandingStateUtils',
 		function($scope, $log, $location, $modal, $routeParams, Session, AffiliateService, ApplicationUtilsService, AuditsService, StandingStateUtils) {
-			
+
 			var affiliateId = $routeParams.affiliateId && parseInt($routeParams.affiliateId, 10);
-			
+
 			$scope.alerts = [];
 			$scope.affiliate = {};
 			$scope.approved = false;
 			$scope.isApplicationApproved = ApplicationUtilsService.isApplicationApproved;
 			$scope.isApplicationPending = ApplicationUtilsService.isApplicationPending;
 			$scope.isApplicationWaitingForApplicant =  ApplicationUtilsService.isApplicationWaitingForApplicant;
-			
+
 			$scope.audits = [];
-			
-			$scope.standingStateUtils = StandingStateUtils; 
+
+			$scope.standingStateUtils = StandingStateUtils;
 
 			$scope.alerts = [];
 			$scope.submitting = false;
-			
+
 			$scope.loading = true;
 
 			$scope.invoiceSent = function() {
@@ -64,15 +64,15 @@ mldsApp.controller('AffiliateSummaryController', [
             		$scope.audits = result;
             	})
     			["catch"](function(message) {
-    				$scope.alerts.push({type: 'danger', msg: 'Network request failure retrieving audit logs, please try again later.'});
+    				$scope.alerts.push({type: 'danger', msg: 'Network request failure [47] retrieving audit logs, please try again later.'});
     				$log.error('Failed to update audit list: '+message);
     			});
 	        }
-			
+
 			function loadAffiliate() {
-				
+
 				var queryPromise = AffiliateService.affiliate(affiliateId);
-				
+
 				queryPromise.success(function(affiliate) {
 					$scope.loading = false;
 					$scope.affiliate = affiliate;
@@ -80,21 +80,21 @@ mldsApp.controller('AffiliateSummaryController', [
 					$scope.isEditable = Session.isAdmin() || (Session.member.key == affiliate.application.member.key);
 					loadAffiliateAudits(affiliate.affiliateId);
 				});
-					
+
 			}
 
-			loadAffiliate(); 
-			
+			loadAffiliate();
+
 			$scope.editAffiliate = function editAffiliate() {
 				$location.path('/affiliateManagement/' + affiliateId + '/edit');
 			};
-			
+
 			$scope.changeStanding = function changeStanding() {
 				// FIXME: should the button be just disabled?
 				if ($scope.standingStateUtils.isApplying($scope.affiliate.standingState)) {
 					return;
 				}
-				
+
 				var modalInstance = $modal.open({
         			templateUrl: 'views/admin/editAffiliateStandingModal.html',
         			controller: 'EditAffiliateStandingModalController',
@@ -110,7 +110,7 @@ mldsApp.controller('AffiliateSummaryController', [
     		    });
 
 			};
-			
+
 			$scope.viewApplication = function viewApplication(application) {
         		$modal.open({
         			templateUrl: 'views/applicationSummaryModal.html',
@@ -129,35 +129,35 @@ mldsApp.controller('AffiliateSummaryController', [
         			}
         		});
 			};
-			
+
 			$scope.approveApplication = function approveApplication(application) {
 				$location.path('/applicationReview/' + application.applicationId);
 			};
-			
+
 			$scope.submit = function submit() {
 				$scope.alerts.splice(0, $scope.alerts.length);
 				$scope.submitting = true;
-				
+
 				AffiliateService.updateAffiliate($scope.affiliate)
 				.then(function(result) {
 					$scope.submitting = false;
 				})
 				["catch"](function(message) {
-					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
+					$scope.alerts.push({type: 'danger', msg: 'Network request failure [2]: please try again later.'});
 					$scope.submitting = false;
 				});
 			};
-			
+
 			$scope.createLogin = function createLogin(){
 				if (!$scope.affiliate.affiliateDetails.email) {
 					$log.error('no email!');
 					createLoginModal({noEmail: 'true'});
 					return;
 				}
-				
+
 				requestLoginCreation();
 			};
-			
+
 			function requestLoginCreation() {
 				AffiliateService.createLogin($scope.affiliate)
 				.success(function(result) {
@@ -170,8 +170,8 @@ mldsApp.controller('AffiliateSummaryController', [
 					createLoginModal({duplicateEmail: 'true'});
 				});
 			};
-			
-			
+
+
 			function createLoginModal(reason) {
         		var modalInstance = $modal.open({
         			templateUrl: 'views/admin/createLoginModal.html',
@@ -186,10 +186,10 @@ mldsApp.controller('AffiliateSummaryController', [
         				}
         			}
         		});
-        		
+
         		modalInstance.result.then(function () {
         			requestLoginCreation();
     		    });
 			};
-			
+
 		} ]);
