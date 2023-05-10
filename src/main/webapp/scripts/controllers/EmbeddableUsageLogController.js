@@ -167,6 +167,11 @@ angular.module('MLDS').controller('EmbeddableUsageLogController',
 		if (!previousHomeCountry && $scope.homeCountry) {
 			addHomeCountryIfNotSelected();
 		}
+		/*MLDS-983 Issue removing sub-license usage countries other than India from MLDS application*/
+        if ($scope.affiliateform.approvalState === "CHANGE_REQUESTED") {
+            $scope.readOnly = false;
+        }
+        /*MLDS-983 Issue removing sub-license usage countries other than India from MLDS application*/
 	};
 
 
