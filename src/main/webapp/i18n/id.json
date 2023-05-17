@@ -417,7 +417,9 @@
             "AM": "Armenia",
             "AE": "Uni Emirat Arab",
             "IHTSDO": "SNOMED Internasional",
-            "JM": "Jamaika"
+            "JM": "Jamaika",
+            "HR": "Kroasia",
+            "AD": "Andorra"
         },
         "language": {
             "th": "Thai",
