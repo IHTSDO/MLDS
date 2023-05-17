@@ -71,6 +71,7 @@
         },
         "member": {
             "IHTSDO": "SNOMED International",
+            "AD": "Andorra",
             "AE": "United Arab Emirates",
             "AM": "Armenia",
             "AR": "Argentina",
@@ -86,6 +87,7 @@
             "DE": "Germany",
             "EE": "Estonia",
             "FI": "Finland",
+            "HR": "Croatia",
             "HK": "Hong Kong, China",
             "IS": "Iceland",
             "ID": "Indonesia",
