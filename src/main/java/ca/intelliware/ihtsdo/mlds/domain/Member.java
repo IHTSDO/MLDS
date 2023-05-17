@@ -25,7 +25,7 @@ public class Member extends BaseEntity {
 	@GeneratedValue
 	@Column(name="member_id")
 	Long memberId;
-
+    @Column(name="`key`")
     String key;
 
     @Column(name="created_at")
