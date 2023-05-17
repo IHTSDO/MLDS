@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -26,7 +27,7 @@ import com.google.common.collect.Lists;
 @TestPropertySource(locations="classpath:test.application.properties")
 @ActiveProfiles("dev")
 @Transactional
-public class AffiliatesImporterServiceTest extends PostgresTestContainerTest {
+public class AffiliatesImporterServiceTest extends MySqlTestContainerTest {
 	@Resource AffiliatesImporterService affiliatesImporterService;
 	@Resource AffiliatesMapper affiliatesMapper;
 	@Resource AffiliateRepository affiliateRepository;

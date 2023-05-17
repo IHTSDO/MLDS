@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,7 +52,7 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 @TestPropertySource(locations="classpath:test.application.properties")
 @ActiveProfiles("dev")
 @Transactional
-public class AffiliateDeleterTest extends PostgresTestContainerTest {
+public class AffiliateDeleterTest extends MySqlTestContainerTest {
 	@Resource EntityManager entityManager;
 
 	@Resource AffiliateRepository affiliateRepository;

@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import org.testcontainers.containers.MySQLContainer;
 
 /**
  * Test class for the UserResource REST controller.
@@ -31,7 +33,7 @@ import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 @TestPropertySource(locations="classpath:test.application.properties")
 @ActiveProfiles("dev")
 @Transactional
-public class UserResourceTest extends PostgresTestContainerTest {
+public class UserResourceTest extends MySqlTestContainerTest {
 
     @Inject
     private UserRepository userRepository;
