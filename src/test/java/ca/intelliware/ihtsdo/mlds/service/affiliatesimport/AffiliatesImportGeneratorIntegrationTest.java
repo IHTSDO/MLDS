@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
@@ -24,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ActiveProfiles("dev")
 @TestPropertySource(locations="classpath:test.application.properties")
 @Transactional
-public class AffiliatesImportGeneratorIntegrationTest extends PostgresTestContainerTest {
+public class AffiliatesImportGeneratorIntegrationTest extends MySqlTestContainerTest {
 	@Resource AffiliatesImportGenerator affiliatesImportGenerator;
 	@Resource AffiliatesMapper affiliatesMapper;
 
