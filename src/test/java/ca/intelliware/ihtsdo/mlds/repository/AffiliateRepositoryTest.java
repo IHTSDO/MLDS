@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,7 @@ import ca.intelliware.ihtsdo.mlds.search.AngularTranslateServiceSetup;
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("dev")
 @Transactional
-public class AffiliateRepositoryTest extends PostgresTestContainerTest {
+public class AffiliateRepositoryTest extends MySqlTestContainerTest {
 
 	@Resource EntityManager entityManager;
 

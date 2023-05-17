@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
@@ -34,7 +35,7 @@ import com.google.common.collect.Lists;
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("dev")
 @Transactional
-public class AffiliateFullTextSearchTest extends PostgresTestContainerTest {
+public class AffiliateFullTextSearchTest extends MySqlTestContainerTest {
 	@Resource EntityManager entityManager;
 
 	@Resource AffiliateRepository affiliateRepository;
