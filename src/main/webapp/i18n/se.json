@@ -66,7 +66,8 @@
             "pt": "portugisiska",
             "ru": "ryska",
             "se": "svenska",
-            "th": "Thai"
+            "th": "Thai",
+            "id": "Indonesien"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -111,7 +112,10 @@
             "UY": "Uruguay",
             "SV": "El Salvador",
             "PL": "Polen",
-            "ID": "Indonesien"
+            "ID": "Indonesien",
+            "AD": "Andorra",
+            "JM": "Jamaica",
+            "HR": "Kroatien"
         },
         "country": {
             "AC": "Ascension",
