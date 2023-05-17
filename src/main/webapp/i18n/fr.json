@@ -113,7 +113,9 @@
             "SV": "El Salvador",
             "PL": "Pologne",
             "ID": "Indonésie",
-            "JM": "Jamaïque"
+            "JM": "Jamaïque",
+            "AD": "Andorre",
+            "HR": "Croatie"
         },
         "country": {
             "AC": "Ascension",
