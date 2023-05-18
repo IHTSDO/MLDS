@@ -26,12 +26,12 @@ async:
 spring:
 
     datasource:
-        dataSourceClassName: com.mysql.cj.jdbc.Driver
-        url: <database url>
+        dataSourceClassName: com.mysql.cj.jdbc.MysqlDataSource
+        url: jdbc:mysql://127.0.0.1:3306/mlds
         databaseName: mlds
         serverName: localhost
         username: mlds
-        password: <password>
+        password: Telliant@345
 
     jpa:
         database-platform: org.hibernate.dialect.MySQLDialect
