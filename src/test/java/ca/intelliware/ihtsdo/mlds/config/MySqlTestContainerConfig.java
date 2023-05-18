@@ -3,6 +3,8 @@ package ca.intelliware.ihtsdo.mlds.config;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.testcontainers.containers.MySQLContainer;
 
+import java.sql.SQLException;
+
 public enum MySqlTestContainerConfig {
     INSTANCE();
 
@@ -10,17 +12,24 @@ public enum MySqlTestContainerConfig {
     private MysqlDataSource dataSource;
 
     MySqlTestContainerConfig() {
-        this.mySQLContainer = new MySQLContainer<>("mysql:8.0.27")
+        this.mySQLContainer = new MySQLContainer<>("mysql:8.0.26")
             .withDatabaseName("mldsInDockerTestContainer")
             .withUsername("abe")
             .withPassword("sapien")
-            .withExposedPorts(3306);
+            .withExposedPorts(3306)
+            .withCommand("--character-set-server=utf8mb4", "--collation-server=utf8mb4_general_ci");
+
 
         this.mySQLContainer.start();
         this.dataSource = new MysqlDataSource();
         this.dataSource.setUrl(mySQLContainer.getJdbcUrl());
         this.dataSource.setUser(mySQLContainer.getUsername());
         this.dataSource.setPassword(mySQLContainer.getPassword());
+        try {
+            this.dataSource.setConnectionCollation("utf8mb4_general_ci");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static MySqlTestContainerConfig getInstance() {
