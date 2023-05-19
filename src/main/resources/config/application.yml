@@ -27,11 +27,11 @@ spring:
 
     datasource:
         dataSourceClassName: com.mysql.cj.jdbc.MysqlDataSource
-        url: jdbc:mysql://127.0.0.1:3306/mlds
+        url: <Change me>
         databaseName: mlds
         serverName: localhost
         username: mlds
-        password: Telliant@345
+        password: <Change me>
 
     jpa:
         database-platform: org.hibernate.dialect.MySQLDialect
