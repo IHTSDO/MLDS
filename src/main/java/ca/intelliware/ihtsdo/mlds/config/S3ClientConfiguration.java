@@ -2,6 +2,8 @@ package ca.intelliware.ihtsdo.mlds.config;
 
 import java.io.IOException;
 
+import com.amazonaws.auth.InstanceProfileCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.ihtsdo.otf.dao.s3.OfflineS3ClientImpl;
 import org.ihtsdo.otf.dao.s3.S3Client;
 import org.ihtsdo.otf.dao.s3.S3ClientImpl;
@@ -47,6 +49,9 @@ public class S3ClientConfiguration implements EnvironmentAware {
 //			String awsPrivateKey = propertyResolver.getProperty(PROP_AWS_PRIVATEKEY);
 //			BasicAWSCredentials credentials = new BasicAWSCredentials(awsKey, awsPrivateKey);
 //			s3Client = new S3ClientImpl(credentials);
+            s3Client = (S3Client) AmazonS3ClientBuilder.standard()
+                .withCredentials(new InstanceProfileCredentialsProvider(false))
+                .build();
 		}
 
 		log.debug("Done:Configuring S3 Client");
