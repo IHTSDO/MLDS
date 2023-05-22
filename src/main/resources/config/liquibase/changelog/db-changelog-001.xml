@@ -1692,10 +1692,10 @@
         </preConditions>
 
         <!--        <comment>A view to help out with (text) indexing extra countries related to an affiliate</comment>-->
-        <!--<sql>
-            SET GLOBAL group_concat_max_len = 255;
-            SET group_concat_max_len = 255;
-        </sql>-->
+<!--        <sql>-->
+<!--            SET GLOBAL group_concat_max_len = 255;-->
+<!--            SET group_concat_max_len = 255;-->
+<!--        </sql>-->
         <createView viewName="vw_affiliate_approved_application_countries">
             SELECT a.affiliate_id, GROUP_CONCAT(c.common_name SEPARATOR ' ') AS countries
             FROM application a
@@ -1783,5 +1783,106 @@
     <!--        </sql>-->
 
     <!--    </changeSet>-->
+
+    <changeSet id="MLDS-372-5" author="MB">
+        <comment>Add Column to ReleasePackage</comment>
+        <addColumn tableName="release_package">
+            <column name="copyrights" type="varchar(1000)">
+            </column>
+        </addColumn>
+        <addColumn tableName="release_package">
+            <column name="releasePackageURI" type="varchar(500)">
+            </column>
+        </addColumn>
+        <addColumn tableName="release_package">
+            <column name="updated_at" type="timestamp">
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="MLDS-372-6" author="MB">
+        <comment>Add Column to Member</comment>
+        <addColumn tableName="member">
+            <column name="contactEmail" type="varchar(500)">
+            </column>
+        </addColumn>
+        <addColumn tableName="member">
+            <column name="memberOrgName" type="varchar(500)">
+            </column>
+        </addColumn>
+        <addColumn tableName="member">
+            <column name="memberOrgURL" type="varchar(500)">
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="MLDS-372-7" author="MB">
+        <comment>Add Column to ReleaseVersion</comment>
+        <addColumn tableName="release_version">
+            <column name="summary" type="varchar(2000)">
+            </column>
+        </addColumn>
+        <addColumn tableName="release_version">
+            <column name="versionDependentDerivativeURI" type="varchar(500)">
+            </column>
+        </addColumn>
+        <addColumn tableName="release_version">
+            <column name="versionDependentURI" type="varchar(500)">
+            </column>
+        </addColumn>
+        <addColumn tableName="release_version">
+            <column name="versionURI" type="varchar(500)">
+            </column>
+        </addColumn>
+        <addColumn tableName="release_version">
+            <column name="id" type="varchar(500)">
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="MLDS-372-8" author="MB">
+        <comment>Alter column type in affiliate table</comment>
+        <modifyDataType tableName="affiliate" columnName="creator" newDataType="varchar(255)"/>
+        <modifyDataType tableName="affiliate" columnName="notes_internal" newDataType="varchar(5000)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-9" author="MB">
+        <comment>Alter column type in application</comment>
+        <modifyDataType tableName="application" columnName="username" newDataType="varchar(255)"/>
+        <modifyDataType tableName="application" columnName="notes_internal" newDataType="varchar(5000)"/>
+        <modifyDataType tableName="application" columnName="reason" newDataType="varchar(5000)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-10" author="MB">
+        <comment>Alter column type in release_file</comment>
+        <modifyDataType tableName="release_file" columnName="download_url" newDataType="varchar(5000)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-12" author="MB">
+        <comment>Alter column type in release_package</comment>
+        <modifyDataType tableName="release_package" columnName="description" newDataType="varchar(5000)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-13" author="MB">
+        <comment>Alter column type in release_version</comment>
+        <modifyDataType tableName="release_version" columnName="description" newDataType="varchar(5000)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-14" author="MB">
+        <comment>Alter column type in commercial_usage</comment>
+        <modifyDataType tableName="commercial_usage" columnName="note" newDataType="varchar(1000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="current_usage" newDataType="varchar(1000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="planned_usage" newDataType="varchar(1000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="purpose" newDataType="varchar(1000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="other_activities" newDataType="varchar(1000)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-15" author="MB">
+        <comment>Alter column type in commercial_usage_count</comment>
+        <modifyDataType tableName="commercial_usage_count" columnName="notes" newDataType="varchar(5000)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-16" author="MB">
+        <comment>Alter column type in commercial_usage_entry</comment>
+        <modifyDataType tableName="commercial_usage_entry" columnName="note" newDataType="varchar(5000)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-17" author="MB">
+        <comment>Alter column type in t_persistent_audit_event</comment>
+        <modifyDataType tableName="t_persistent_audit_event" columnName="principal" newDataType="varchar(255)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-18" author="MB">
+        <comment>Alter column type in t_persistent_audit_event_data</comment>
+        <modifyDataType tableName="t_persistent_audit_event_data" columnName="name" newDataType="varchar(255)"/>
+    </changeSet>
 
 </databaseChangeLog>
