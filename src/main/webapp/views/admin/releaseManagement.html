@@ -33,6 +33,7 @@
                     <div class="pull-right">
                         <button type="button" class="btn btn-sm" ng-click="promotePackage(memberEntry, package)" ng-show="canPromotePackage(memberEntry, package) || canDemotePackage(memberEntry, package)" ng-disabled="!canPromotePackage(memberEntry, package)"><span class="glyphicon glyphicon-chevron-up"></span></button>
                         <button type="button" class="btn btn-sm" ng-click="demotePackage(memberEntry, package)" ng-show="canPromotePackage(memberEntry, package) || canDemotePackage(memberEntry, package)" ng-disabled="!canDemotePackage(memberEntry, package)"><span class="glyphicon glyphicon-chevron-down"></span></button>
+
                         <div class="dropdown" ng-show="isEditableReleasePackage(package)">
                             <button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 							<span class="caret"></span>
@@ -68,10 +69,39 @@
             <div class="alert alert-warning" ng-show="memberEntry.onlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no public releases available</div>
         </div>
     </div>
+<!--    release management-->
     <div class="row">
         <div class="col-lg-8">
             <div class="page-header">
-                <h3>Offline & Alpha/Beta Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
+                <h3>Alpha/Beta Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
+                <p>Releases that do not have any online versions are taken offline or made available for alpha/beta reviews. To take a release online, select a release below and set one or more versions online.</p>
+            </div>
+            <div class="panel panel-default" ng-repeat="package in memberEntry.alphabetaPackages">
+                <div class="panel-heading">
+                    <div class="dropdown pull-right" ng-show="isEditableReleasePackage(package)">
+                        <button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a ng-click="editReleasePackage(package)">Edit</a></li>
+                            <li class="divider"></li>
+                            <li><a ng-click="deleteReleasePackage(package)">Remove</a></li>
+                        </ul>
+                    </div>
+                    <h4 class="panel-title"><a ng-click="goToPackage(package)"> {{package.name}} - {{package.member.key | enum:'global.member.'}}</a></h4>
+                </div>
+                <div class="panel-body">
+                    <div ng-bind-html="package.description"></div>
+                </div>
+            </div>
+            <div class="alert alert-warning" ng-show="memberEntry.alphabetaPackages.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no Alpha/Beta releases available </div>
+        </div>
+    </div>
+<!--    release management-->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="page-header">
+                <h3>Offline Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
                 <p>Releases that do not have any online versions are taken offline or made available for alpha/beta reviews. To take a release online, select a release below and set one or more versions online.</p>
             </div>
             <div class="panel panel-default" ng-repeat="package in memberEntry.offlinePackages">
@@ -92,7 +122,7 @@
                     <div ng-bind-html="package.description"></div>
                 </div>
             </div>
-            <div class="alert alert-warning" ng-show="memberEntry.offlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline or alpha releases available </div>
+            <div class="alert alert-warning" ng-show="memberEntry.offlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no offline releases available</div>
         </div>
     </div>
 </div>

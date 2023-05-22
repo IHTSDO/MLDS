@@ -26,13 +26,15 @@ public class ReleasePackageAuditEvents {
 	private static final String EVENT_RELEASE_VERSION_TAKEN_ONLINE = "RELEASE_VERSION_TAKEN_ONLINE";
 	private static final String EVENT_RELEASE_VERSION_CREATED = "RELEASE_VERSION_CREATED";
 	private static final String EVENT_RELEASE_VERSION_DELETED = "RELEASE_VERSION_DELETED";
-	
+
+    private static final String EVENT_RELEASE_VERSION_TAKEN_ALPHA_AND_BETA="RELEASE_VERSION_TAKEN_ALPHA/BETA";
+
 	@Resource
 	AuditEventService auditEventService;
-	
+
 	//////////////////////////////////////////////////////////////////////////////////////
 	// Release Package
-	
+
 	public void logCreationOf(ReleasePackage releasePackage) {
 		logReleasePackageEvent(EVENT_RELEASE_PACKAGE_CREATED, releasePackage);
 	}
@@ -47,7 +49,7 @@ public class ReleasePackageAuditEvents {
 		auditEvent.setReleasePackageId(releasePackage.getReleasePackageId());
 		auditEventService.logAuditableEvent(auditEvent);
 	}
-	
+
 	private Map<String, String> createReleasePackageData(ReleasePackage releasePackage) {
 		return AuditDataBuilder.start()
 				.addReleasePackageName(releasePackage)
@@ -71,7 +73,11 @@ public class ReleasePackageAuditEvents {
 
 	public void logTakenOffline(ReleaseVersion releaseVersion) {
 		logReleaseVersionEvent(EVENT_RELEASE_VERSION_TAKEN_OFFLINE, releaseVersion);
-	}
+    }
+
+    public void logTakenAlphaAndBeta(ReleaseVersion releaseVersion) {
+        logReleaseVersionEvent(EVENT_RELEASE_VERSION_TAKEN_ALPHA_AND_BETA, releaseVersion);
+    }
 
 	private void logReleaseVersionEvent(String eventType, ReleaseVersion releaseVersion) {
 		Map<String, String> auditData = createReleaseVersionData(releaseVersion);
@@ -80,7 +86,7 @@ public class ReleasePackageAuditEvents {
 		auditEvent.setReleasePackageId(releaseVersion.getReleasePackage().getReleasePackageId());
 		auditEventService.logAuditableEvent(auditEvent);
 	}
-	
+
 	private Map<String, String> createReleaseVersionData(ReleaseVersion releaseVersion) {
 		return AuditDataBuilder.start()
 			.addReleaseVersionName(releaseVersion)
@@ -89,7 +95,7 @@ public class ReleasePackageAuditEvents {
 	}
 
 
-	
+
 
 	//////////////////////////////////////////////////////////////////////////////////////
 	// Release File
