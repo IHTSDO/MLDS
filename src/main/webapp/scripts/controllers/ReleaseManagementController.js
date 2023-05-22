@@ -21,7 +21,6 @@ angular.module('MLDS').controller('ReleaseManagementController',
 			$scope.packages = PackagesService.query();
 			$scope.packages.$promise.then(extractPackages);
 		}
-
 		function extractPackages() {
 			var packages = $scope.packages;
 			if (!packages.$resolved) {
@@ -35,13 +34,21 @@ angular.module('MLDS').controller('ReleaseManagementController',
 		        .map(function(memberPackages, memberKey) {
 		        	var onlinePackages = PackageUtilsService.releasePackageSort(
 		        			_.filter(memberPackages, PackageUtilsService.isPackagePublished));
-		        	var offlinePackages = _.chain(memberPackages)
+		        	var alphabetaPackages = _.chain(memberPackages)
+			        	.reject(PackageUtilsService.isPackageOffline) //offline
+			        	.reject(PackageUtilsService.isPackagePublished) //online
+			        	.reject(PackageUtilsService.isPackageEmpty) //versions
+				        .sortBy('createdAt')
+				        .value();
+                    var offlinePackages = _.chain(memberPackages)
+			        	.reject(PackageUtilsService.isPackageNotPublished)
 			        	.reject(PackageUtilsService.isPackagePublished)
 				        .sortBy('createdAt')
 				        .value();
 		            return {
 		                member: MemberService.membersByKey[memberKey],
 		                onlinePackages: onlinePackages,
+		                alphabetaPackages: alphabetaPackages,
 		                offlinePackages: offlinePackages
 		             };})
 		         .sortBy(function(memberEntry) {return memberEntry.member.key === 'IHTSDO' ? '!IHTSDO' : $translate.instant('global.member.'+memberEntry.member.key);})

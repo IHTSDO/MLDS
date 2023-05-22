@@ -20,6 +20,15 @@
           	ng-model="releasePackage.member" ng-options="m as (m.key | enum:'global.member.') for m in members track by m.key">
           </select>
       </div>
+      <div class="form-group">
+              <label>Release Package URI</label>
+              <input class="form-control" placeholder="Enter Release Package URI" name="releasePackageURI" ng-model="releasePackage.releasePackageURI">
+              <!--              <span ng-show="formPackage.name.$error.required && submitAttempted" class="help-block">Required Field</span>-->
+      </div>
+      <div class="form-group">
+              <label>Copyrights</label>
+              <textarea class="form-control" rows="3" name="copyrights" ng-model="releasePackage.copyrights"></textarea>
+      </div>
 	</form>
  	
  </div>
