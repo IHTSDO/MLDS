@@ -208,4 +208,10 @@ public class Routes {
     /*MLDS 985---To Download Commercial usage CSV files*/
     public static final String REVIEW_USAGE_REPORTS = "/api/reviewUsageReports";
     /*MLDS 985---To Download Commercial usage CSV files */
+
+    public static final String MEMBER_FEED_URL ="/api/members/{memberKey}/memberFeedUrl" ;
+
+    public static final String FEED_URL="/api/feed";
+
+
 }

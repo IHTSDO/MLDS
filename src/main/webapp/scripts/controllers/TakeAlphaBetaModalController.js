@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('MLDS').controller('TakeOfflineModalController', ['$scope', '$log', '$modalInstance', 'releasePackage', 'releaseVersion', 'ReleaseVersionsService',
+angular.module('MLDS').controller('TakeAlphaBetaModalController', ['$scope', '$log', '$modalInstance', 'releasePackage', 'releaseVersion', 'ReleaseVersionsService',
     function ($scope, $log, $modalInstance, releasePackage, releaseVersion, ReleaseVersionsService) {
 		$scope.releasePackage = releasePackage;
 		$scope.releaseVersion = releaseVersion;
@@ -9,15 +9,14 @@ angular.module('MLDS').controller('TakeOfflineModalController', ['$scope', '$log
 		$scope.ok = function() {
 			$scope.submitting = true;
 			$scope.alerts.splice(0, $scope.alerts.length);
-
-			$scope.releaseVersion.releaseType = "offline";
+			$scope.releaseVersion.releaseType = "alpha/beta";
 
 			ReleaseVersionsService['update']({releasePackageId : releasePackage.releasePackageId}, $scope.releaseVersion)
 				.$promise.then(function(result) {
 					$modalInstance.close(result);
 				})
 				["catch"](function(message) {
-					$scope.alerts.push({type: 'danger', msg: 'Network request failure [33]: please try again later.'});
+					$scope.alerts.push({type: 'danger', msg: 'Network request failure, please try again later.'});
 					$scope.submitting = false;
 				});
 		};
