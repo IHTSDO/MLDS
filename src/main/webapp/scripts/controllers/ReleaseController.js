@@ -1,22 +1,24 @@
 'use strict';
 
-angular.module('MLDS').controller('ReleaseController', 
+angular.module('MLDS').controller('ReleaseController',
 		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService', 'ReleaseFilesService', 'PackageUtilsService', 'ReleasePackageService',
 		 function($scope, $log, $routeParams, $location, $modal, PackagesService, ReleaseFilesService, PackageUtilsService, ReleasePackageService) {
 
 	$scope.versions = {
 			online: [],
-			offline: []
+			offline: [],
+			alphabeta: []
 		};
+
 	$scope.packageEntity = {releaseVersions:[]};
-	
+
 	$scope.updateVersionsLists = PackageUtilsService.updateVersionsLists;
-	
+
 	$scope.$watch('packageEntity', function(newValue, oldValue) {
 		$scope.versions = $scope.updateVersionsLists(newValue);
 	});
-	
-			
+
+
 	var releasePackageId = $routeParams.packageId && parseInt($routeParams.packageId, 10);
 	//$log.log('releasePackageId', releasePackageId);
 	var loadReleasePackage = function loadReleasePackage() {
@@ -26,8 +28,8 @@ angular.module('MLDS').controller('ReleaseController',
 				if (PackageUtilsService.isReleasePackageInactive(result)) {
 					$log.info('Selected ReleasePackage is inactive');
 					$scope.goToReleaseManagement();
-				} 
-				
+				}
+
 				$scope.packageEntity = result;
 				$scope.isEditableReleasePackage = PackageUtilsService.isEditableReleasePackage(result);
 				$scope.isRemovableReleasePackage = PackageUtilsService.isRemovableReleasePackage(result);
@@ -43,7 +45,7 @@ angular.module('MLDS').controller('ReleaseController',
 	};
 
 	loadReleasePackage();
-	
+
 	$scope.addReleaseVersion = function addReleaseVersion() {
         var modalInstance = $modal.open({
             templateUrl: 'views/admin/addEditReleaseVersionModal.html',
@@ -59,9 +61,10 @@ angular.module('MLDS').controller('ReleaseController',
               releaseVersion: function() { return {}; }
             }
           });
+    debugger;
       modalInstance.result.then(loadReleasePackage);
 	};
-	
+
 	$scope.editReleaseVersion = function editReleaseVersion(selectedReleaseVersion) {
         var modalInstance = $modal.open({
             templateUrl: 'views/admin/addEditReleaseVersionModal.html', // FM
@@ -78,7 +81,7 @@ angular.module('MLDS').controller('ReleaseController',
           });
       modalInstance.result.then(loadReleasePackage);
 	};
-	
+
     $scope.editReleasePackage = function() {
         var modalInstance = $modal.open({
               templateUrl: 'views/admin/editReleaseModal.html',
@@ -97,7 +100,7 @@ angular.module('MLDS').controller('ReleaseController',
         	$scope.packageEntity = updatedReleasePackage;
         });
     };
-    
+
     $scope.removeReleasePackage = function() {
         var modalInstance = $modal.open({
               templateUrl: 'views/admin/removeReleaseModal.html',
@@ -116,7 +119,7 @@ angular.module('MLDS').controller('ReleaseController',
         	$scope.goToReleaseManagement();
         });
     };
-    
+
     $scope.addReleaseFile = function addReleaseFile(selectedReleaseVersion) {
         var modalInstance = $modal.open({
             templateUrl: 'views/admin/addReleaseFileModal.html', // FM
@@ -131,7 +134,7 @@ angular.module('MLDS').controller('ReleaseController',
           });
       modalInstance.result.then(loadReleasePackage);
     };
-    
+
     $scope.deleteReleaseFile = function deletePackageFile(releaseVersion, releaseFile) {
     	ReleaseFilesService['delete'](
     			{
@@ -155,8 +158,8 @@ angular.module('MLDS').controller('ReleaseController',
   	    });
     	modalInstance.result.then(loadReleasePackage);
     };
-    
-    
+
+
     $scope.takeOnlineModal = function takeOnlineModal(selectedReleaseVersion) {
     	var modalInstance = $modal.open({
   	      	templateUrl: 'views/admin/takeOnlineModal.html',
@@ -171,7 +174,7 @@ angular.module('MLDS').controller('ReleaseController',
   	    });
     	modalInstance.result.then(loadReleasePackage);
     };
-    
+
     $scope.takeOfflineModal = function takeOfflineModal(selectedReleaseVersion) {
     	var modalInstance = $modal.open({
   	      	templateUrl: 'views/admin/takeOfflineModal.html',
@@ -186,7 +189,26 @@ angular.module('MLDS').controller('ReleaseController',
   	    });
     	modalInstance.result.then(loadReleasePackage);
     };
-    
+
+
+    $scope.takeAlphaBetaModal = function takeAlphaBetaModal(selectedReleaseVersion) {
+        	var modalInstance = $modal.open({
+      	      	templateUrl: 'views/admin/takeAlphaBetaModal.html',
+      	      	controller: 'TakeAlphaBetaModalController',
+      	      	scope: $scope,
+      	      	size: 'sm',
+      	      	backdrop: 'static',
+      	      	resolve: {
+                  releasePackage: function() { return angular.copy($scope.packageEntity); },
+                  releaseVersion: function() { return angular.copy(selectedReleaseVersion); }
+                }
+      	    });
+        	modalInstance.result.then(loadReleasePackage);
+        };
+
+
+
+
     $scope.updateLicense = function() {
     	$log.log('Update License');
     	var modalInstance = $modal.open({
@@ -201,11 +223,11 @@ angular.module('MLDS').controller('ReleaseController',
   	    });
     	modalInstance.result.then();
     };
-    
+
     $scope.viewLicense = function() {
 		ReleasePackageService.getReleaseLicense($scope.packageEntity.releasePackageId);
 	};
-        
+
     $scope.goToReleaseManagement = function() {
     	$location.path('/releaseManagement');
     };
