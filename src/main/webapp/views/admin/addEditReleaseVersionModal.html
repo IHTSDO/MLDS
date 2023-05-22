@@ -17,6 +17,47 @@
           <div text-angular name="description" ng-model="releaseVersion.description"></div>
           <span ng-show="formPackageVersion.description.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
+
+      <div class="form-group">
+      <label>Summary</label>
+      <input class="form-control" placeholder="Summary About this Version"
+      name="summary" ng-model="releaseVersion.summary">
+<!--      <span ng-show="formPackageVersion.name.$error.required && submitAttempted" class="help-block">Required Field</span>-->
+      </div>
+
+      <div class="form-group">
+       <label>Release Version URI</label>
+       <input class="form-control" placeholder="Enter Release Version URI"
+        name="versionURI" ng-model="releaseVersion.versionURI">
+              <!--      <span ng-show="formPackageVersion.name.$error.required && submitAttempted" class="help-block">Required Field</span>-->
+      </div>
+
+      <div class="form-group">
+              <label>Release Version Dependent URI</label>
+              <input class="form-control" placeholder="Enter Release Version Dependent URI"
+                     name="versionDependentURI" ng-model="releaseVersion.versionDependentURI">
+              <!--      <span ng-show="formPackageVersion.name.$error.required && submitAttempted" class="help-block">Required Field</span>-->
+      </div>
+
+      <div class="form-group">
+              <label>Release Version Dependent Derivative URI</label>
+              <input class="form-control" placeholder="Enter Release Version Dependent Derivative URI"
+                     name="versionDependentDerivativeURI" ng-model="releaseVersion.versionDependentDerivativeURI">
+              <!--      <span ng-show="formPackageVersion.name.$error.required && submitAttempted" class="help-block">Required Field</span>-->
+      </div>
+          <!--          release package-->
+
+          <div class="form-group">
+              <label>Release Type</label>
+              <select class="form-control" name="releaseType" ng-model="releaseVersion.releaseType" ng-required="true">
+                  <option value="">Select Release Type</option>
+                  <option value="online">Online</option>
+                  <option value="offline">Offline</option>
+                  <option value="alpha/beta">Alpha/Beta</option>
+              </select>
+              <span ng-show="formPackageVersion.releaseType.$error.required && submitAttempted" class="help-block">Required Field</span>
+          </div>
+          <!--          release package-->
       <div class="form-group datepicker">
           <label>Release Date</label>
           <div class="input-group datepicker col-md-3">
