@@ -74,9 +74,75 @@
 		<div class="alert alert-warning" ng-show="versions.online.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no online version of this release.</div>
 	</div>
 
+<!--    RELEASE PACKAGE-->
+    <div class="col-lg-12">
+        <h3>Alpha/Beta Versions</h3>
+        <p>Set one or more versions of a release to public view by selecting "Publish Online" from the drop down menu. Set one or more versions online to move this release to public view. </p>
+        <table class="table table-striped" >
+            <thead>
+            <tr>
+                <th class="col-sm-2">Version</th>
+                <th class="col-sm-5">Description</th>
+                <th class="col-sm-3">Download Files</th>
+                <th class="col-sm-2">Date Added</th>
+                <th >
+                    <i class="fa fa-cog"></i>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr ng-repeat="releaseVersion in versions.alphabeta">
+                <td>{{releaseVersion.name}}</td>
+                <td ng-bind-html="releaseVersion.description"></td>
+                <td>
+                    <p>
+                        <button class="btn btn-success btn-xs" ng-click="addReleaseFile(releaseVersion)" ng-hide="!isEditableReleasePackage">
+                            <i class="fa fa-plus"></i> Add File
+                        </button>
+                    </p>
+                    <span class="release" ng-repeat="releaseFile in releaseVersion.releaseFiles">
+							<p>
+								<i class="fa fa-file"></i>
+													<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a></p>
+								<button class="btn btn-danger btn-xs pull-right"
+                                        ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
+									<i class="fa fa-times"></i> Remove
+								</button>
+                        </p>
+						</span>
+                </td>
+                <td>{{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</td>
+                <td>
+                    <div class="dropdown pull-right" ng-show="isEditableReleasePackage">
+                        <button class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
+                            <li><a ng-click="takeOnlineModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Publish Online</a></li>
+<!--                            <li><a><i class="fa fa-check-circle-o"></i> Publish Alpha & Beta</a></li>-->
+                            <li><a ng-click="deleteVersionModal(releaseVersion)"><i class="fa fa-times"></i> Delete</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+
+    </div>
+    <div class="col-md-10">
+        <div class="alert alert-warning" ng-show="versions.alphabeta.length == 0"><i class="fa fa-exclamation-circle"></i> There are currently no Alpha/Beta versions of this release.</div>
+    </div>
+
+<!--    RELEASE PACKAGE-->
+
 	<div class="col-lg-12">
-		<h3>Offline & Alpha Versions</h3>
-<p>Set one or more versions of a release to public view by selecting "Publish Online" from the drop down menu. Set one or more versions online to move this release to public view. </p>
+		<h3>Offline Versions</h3>
+<!--<p>Set one or more versions of a release to public view by selecting "Publish Online" from the drop down menu. Set one or more versions online to move this release to public view. </p>-->
 	<table class="table table-striped" >
 				<thead>
 					<tr>
@@ -119,7 +185,8 @@
 								</button>
 								<ul class="dropdown-menu">
 									<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
-									<li><a ng-click="takeOnlineModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Publish Online</a></li>
+<!--									<li><a ng-click="takeOnlineModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Publish Online</a></li>-->
+                                    <li><a ng-click="takeAlphaBetaModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Publish Alpha/Beta</a></li>
 									<li><a ng-click="deleteVersionModal(releaseVersion)"><i class="fa fa-times"></i> Delete</a></li>
 								</ul>
 							</div>

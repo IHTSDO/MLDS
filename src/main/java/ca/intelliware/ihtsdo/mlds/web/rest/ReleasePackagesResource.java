@@ -5,6 +5,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -52,28 +53,28 @@ public class ReleasePackagesResource {
 	@Resource BlobHelper blobHelper;
 	@Resource FileRepository fileRepository;
 	@Resource SessionService sessionService;
-	
+
 	@Resource
 	ReleasePackageRepository releasePackageRepository;
 
 	@Resource
 	ReleasePackageAuthorizationChecker authorizationChecker;
-	
+
 	@Resource
 	CurrentSecurityContext currentSecurityContext;
 
 	@Resource
 	ReleasePackageAuditEvents releasePackageAuditEvents;
-	
+
 	@Resource
 	UserMembershipAccessor userMembershipAccessor;
-	
+
 	@Resource
 	ReleaseFilePrivacyFilter releaseFilePrivacyFilter;
-	
+
 	@Resource
 	ReleasePackagePrioritizer releasePackagePrioritizer;
-	
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Packages
 
@@ -83,19 +84,19 @@ public class ReleasePackagesResource {
 	@PermitAll
 	@Timed
     public @ResponseBody ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
-		
+
     	Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
-    	
+
 		releasePackages = filterReleasePackagesByOnline(releasePackages);
-    	
+
     	return new ResponseEntity<Collection<ReleasePackage>>(releasePackages, HttpStatus.OK);
     }
 
 	private Collection<ReleasePackage> filterReleasePackagesByOnline(
 			Collection<ReleasePackage> releasePackages) {
-		
+
 		Collection<ReleasePackage> result = releasePackages;
-		
+
 		if (!authorizationChecker.shouldSeeOfflinePackages()) {
 			result = new ArrayList<>();
 			for(ReleasePackage releasePackage : releasePackages){
@@ -104,18 +105,26 @@ public class ReleasePackagesResource {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 
-	private boolean isPackagePublished(ReleasePackage releasePackage) {
-		for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
-			if (version.isOnline()) {
-				return true;
-			}
-		}
-		return false;
-	}
+//	private boolean isPackagePublished(ReleasePackage releasePackage) {
+//		for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
+//			if (version.isOnline()) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+    private boolean isPackagePublished(ReleasePackage releasePackage) {
+        for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
+            if (version.getReleaseType().equalsIgnoreCase("online") || version.getReleaseType().equalsIgnoreCase("alpha/beta")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 	@RequestMapping(value = Routes.RELEASE_PACKAGES,
     		method = RequestMethod.POST,
@@ -124,54 +133,70 @@ public class ReleasePackagesResource {
 	@Timed
     public @ResponseBody ResponseEntity<ReleasePackage> createReleasePackage(@RequestBody ReleasePackage releasePackage) {
     	authorizationChecker.checkCanCreateReleasePackages();
-    	
+
     	releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
-    	
+
     	// MLDS-740 - Allow Admin to specify the member
     	if (releasePackage.getMember() == null || !currentSecurityContext.isAdmin()) {
     		releasePackage.setMember(userMembershipAccessor.getMemberAssociatedWithUser());
     	}
-    	
+
     	releasePackagePrioritizer.prioritize(releasePackage, ReleasePackagePrioritizer.END_PRIORITY);
-    	
+
     	releasePackageRepository.save(releasePackage);
 
     	releasePackageAuditEvents.logCreationOf(releasePackage);
-    	
+
     	ResponseEntity<ReleasePackage> result = new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
 		return result;
     }
-	
+
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Timed
     public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
-    	//FIXME should we check children being consistent?		
+    	//FIXME should we check children being consistent?
     	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
     	if (releasePackage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	} 
-    	
+    	}
+
     	releasePackage = filterReleasePackageByAuthority(releasePackage);
-    	
+
     	return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     }
 
 	private ReleasePackage filterReleasePackageByAuthority(ReleasePackage releasePackage) {
 		ReleasePackage result = releasePackage;
 		Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
-		
-		if (!authorizationChecker.shouldSeeOfflinePackages()) {
+
+		/*if (!authorizationChecker.shouldSeeOfflinePackages()) {
 			for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
 				if (version.isOnline()) {
 					releaseVersions.add(releaseFilePrivacyFilter.filterReleaseVersionByAuthority(version));
 				}
 			}
 			result.setReleaseVersions(releaseVersions);
-		}
-		
+		}*/
+        if (!authorizationChecker.shouldSeeOfflinePackages()) {
+            Set responses=new HashSet<>();
+            for (ReleaseVersion version : releasePackage.getReleaseVersions()) {
+                if (version.getReleaseType().equalsIgnoreCase("online")) {
+                    releaseVersions.add(releaseFilePrivacyFilter.filterReleaseVersionByAuthority(version));
+                    responses.addAll(releaseVersions);
+                }
+                if(authorizationChecker.shouldSeeAlphaBetaPackages()){
+                    if(version.getReleaseType().equalsIgnoreCase("alpha/beta")){
+                        releaseVersions.add(releaseFilePrivacyFilter.filterReleaseVersionByAuthority(version));
+                        responses.addAll(releaseVersions);
+                    }
+                }
+            }
+            result.setReleaseVersions(responses);
+        }
+
 		return result;
 	}
 
@@ -181,51 +206,53 @@ public class ReleasePackagesResource {
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	@Timed
     public @ResponseBody ResponseEntity<ReleasePackage> updateReleasePackage(@PathVariable long releasePackageId, @RequestBody ReleasePackage body) {
-    	
+
     	ReleasePackage releasePackage = releasePackageRepository.findOne(body.getReleasePackageId());
     	if (releasePackage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	} 
-    	//FIXME should we check children being consistent?		
+    	}
+    	//FIXME should we check children being consistent?
     	authorizationChecker.checkCanEditReleasePackage(releasePackage);
-    	
+
     	releasePackage.setName(body.getName());
     	releasePackage.setDescription(body.getDescription());
+        releasePackage.setReleasePackageURI(body.getReleasePackageURI());
+        releasePackage.setCopyrights(body.getCopyrights());
     	if (currentSecurityContext.isAdmin()) {
     		releasePackage.setMember(body.getMember());
     	}
     	releasePackagePrioritizer.prioritize(releasePackage, body.getPriority());
-    	
+
     	releasePackageRepository.save(releasePackage);
-    	
+
     	return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     }
-	
+
 	@RequestMapping(value = Routes.RELEASE_PACKAGE,
     		method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	@Timed
     public @ResponseBody ResponseEntity<?> deactivateReleasePackage(@PathVariable long releasePackageId) {
-    	
+
     	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
     	if (releasePackage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
-    	
+
     	authorizationChecker.checkCanEditReleasePackage(releasePackage);
-    	
+
     	for (ReleaseVersion releaseVersion : releasePackage.getReleaseVersions()) {
 			if (releaseVersion.isOnline()) {
-				return new ResponseEntity<>(HttpStatus.CONFLICT);	
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
 			}
 		}
-    	
+
     	releasePackageAuditEvents.logDeletionOf(releasePackage);
 
     	// Actually mark releasePackage as being inactive and then hide from subsequent calls rather than sql delete from the db
     	releasePackageRepository.delete(releasePackage);
-    	
+
     	return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -236,10 +263,10 @@ public class ReleasePackagesResource {
     @Timed
     public ResponseEntity<?> getReleasePackageLicense(@PathVariable long releasePackageId, HttpServletRequest request) throws SQLException, IOException {
     	File license = releasePackageRepository.findOne(releasePackageId).getLicenceFile();
-    	
+
     	return downloadFile(request, license);
     }
-	
+
 	private ResponseEntity<?> downloadFile(HttpServletRequest request, File file) throws SQLException, IOException {
 		if (file == null) {
     		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -250,7 +277,7 @@ public class ReleasePackagesResource {
 				return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     		}
     	}
-		
+
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.valueOf(file.getMimetype()));
 		httpHeaders.setContentLength(file.getContent().length());
@@ -258,12 +285,12 @@ public class ReleasePackagesResource {
 		if (file.getLastUpdated() != null) {
 			httpHeaders.setLastModified(file.getLastUpdated().getMillis());
 		}
-    	
+
     	byte[] byteArray = IOUtils.toByteArray(file.getContent().getBinaryStream());
     	org.springframework.core.io.Resource contents = new ByteArrayResource(byteArray);
 		return new ResponseEntity<org.springframework.core.io.Resource>(contents, httpHeaders, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = Routes.RELEASE_PACKAGE_LICENSE,
             method = RequestMethod.POST,
     		headers = "content-type=multipart/*",

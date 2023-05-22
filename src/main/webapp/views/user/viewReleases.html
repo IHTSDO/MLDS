@@ -80,6 +80,80 @@
 	</div>
 </div>
 
+
+<!--release management-->
+<div ng-show="$root.authenticated">
+    <div ng-repeat="alphamemberReleases in alphaReleasePackagesByMember | orderBy: releasePackageOrderBy | limitTo: 1">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="release-header">
+                <h2 id="{{'section-'+alphamemberReleases.member.key}}">
+                    {{alphamemberReleases.member.key | enum:'global.member.'}} -Alpha/Beta Releases
+                    <a class="btn btn-sm btn-link" ng-click="viewLicense(alphamemberReleases.packages[0].member.key)"><span translate="global.word.viewlicense">View License</span></a>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-repeat="releasePackage in alphamemberReleases.packages" ng-controller="ViewReleaseController">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-default release-package">
+                <div class="panel-heading">
+                    <div ng-class="{'status text-muted': !isMembershipInGoodStanding}">
+
+                        <!-- Warnings and action invitations -->
+                        <span class="alert-danger-flag pull-right"
+                              ng-show="$root.authenticated && isAccountDeactivated"
+                              translate="views.releases.warning.deactivated">
+						Account Deactivated
+					</span>
+                        <span class="alert-danger-flag pull-right"
+                              ng-show="$root.authenticated && isPendingInvoice && isMembershipApproved"
+                              translate="views.releases.warning.pending">
+						Pending Invoice
+					</span>
+                        <a class="btn btn-sm btn-warning pull-right"
+                           href="#/affiliateRegistration"
+                           ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationWaitingForApplicant"
+                           translate="views.releases.warning.pAttention">
+                            Primary application needs attention
+                        </a>
+                        <span class="alert-danger-flag pull-right"
+                              ng-show="$root.authenticated && !isAccountDeactivated && !isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved"
+                              translate="views.releases.warning.pProcessed">
+						Primary application is being processed
+					</span>
+                        <button class="btn btn-sm btn-success pull-right"
+                                ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipUnstarted"
+                                ng-click="utils.openExtensionApplication(releasePackage)"
+                                translate="views.releases.warning.apply">
+                            Apply for extension
+                        </button>
+                        <span class="alert-danger-flag pull-right"
+                              ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && !isApplicationWaitingForApplicant"
+                              translate="views.releases.warning.aProcessed">
+						Application being processed
+					</span>
+                        <button class="btn btn-sm btn-warning pull-right"
+                                ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && isApplicationWaitingForApplicant"
+                                ng-click="goToExtensionApplication()"
+                                translate="views.releases.warning.aAttention">
+                            Application needs attention, click to continue application
+                        </button>
+                        <div>
+                            <h3 class="panel-title"><span class="panel-title-link" ng-click="goToViewPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div ng-bind-html="releasePackage.description"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--release management-->
+
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="release-divider">
@@ -157,6 +231,91 @@
         </accordion-group>
     </accordion>
 </div>
+
+
+<!--release management-->
+<div ng-show="$root.authenticated">
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="release-divider">
+<!--            <h2 translate="views.releases.memberCountries">Member Countries -Alpha/Beta Releases</h2>-->
+            <h2>Member Countries -Alpha/Beta Releases</h2>
+            <p translate="views.releases.countryIsMissing">If the country you're looking for is not in this list, please refer to the <a href="http://www.ihtsdo.org/">IHTSDO website</a>
+                for release download information.</p>
+        </div>
+    </div>
+</div>
+<div id="accordion-override">
+    <accordion ng-repeat="alphamemberReleases in alphaReleasePackagesByMember | orderBy: releasePackageOrderBy" ng-show="!$first">
+        <accordion-group is-open="status.open">
+            <accordion-heading>
+                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                <h2 id="{{'section-'+alphamemberReleases.member.key}}">
+                    {{alphamemberReleases.member.key | enum:'global.member.'}}
+                    <a class="btn btn-sm btn-link" ng-click="viewLicense(memberReleases.packages[0].member.key)"><span translate="global.word.viewlicense">View License</span></a>
+                </h2>
+            </accordion-heading>
+            <div ng-repeat="releasePackage in alphamemberReleases.packages" ng-controller="ViewReleaseController">
+                <div class="">
+                    <div class="panel-heading inner-heading">
+                        <div ng-class="{'status text-muted': !isMembershipInGoodStanding}">
+
+                            <!-- Warnings and action invitations -->
+                            <span class="alert-danger-flag pull-right"
+                                  ng-show="$root.authenticated && isAccountDeactivated"
+                                  translate="views.releases.warning.deactivated">
+                                Account Deactivated
+                            </span>
+                            <span class="alert-danger-flag pull-right"
+                                  ng-show="$root.authenticated && isPendingInvoice && isMembershipApproved"
+                                  translate="views.releases.warning.pending">
+                                Pending Invoice
+                            </span>
+                            <a class="btn btn-sm btn-warning pull-right"
+                               href="#/affiliateRegistration"
+                               ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationWaitingForApplicant"
+                               translate="views.releases.warning.pAttention">
+                                Primary application needs attention
+                            </a>
+                            <span class="alert-danger-flag pull-right"
+                                  ng-show="$root.authenticated && !isAccountDeactivated && !isPrimaryApplicationWaitingForApplicant && !isPrimaryApplicationApproved"
+                                  translate="views.releases.warning.pProcessed">
+                                Primary application is being processed
+                            </span>
+                            <button class="btn btn-sm btn-success pull-right"
+                                    ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipUnstarted"
+                                    ng-click="utils.openExtensionApplication(releasePackage)"
+                                    translate="views.releases.warning.apply">
+                                Apply for extension
+                            </button>
+                            <span class="alert-danger-flag pull-right"
+                                  ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && !isApplicationWaitingForApplicant"
+                                  translate="views.releases.warning.aProcessed">
+                                Application being processed
+                            </span>
+                            <button class="btn btn-sm btn-warning pull-right"
+                                    ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && isApplicationWaitingForApplicant"
+                                    ng-click="goToExtensionApplication()"
+                                    translate="views.releases.warning.aAttention">
+                                Application needs attention, click to continue application
+                            </button>
+                            <div>
+                                <h3 class="panel-title"><span class="panel-title-link" ng-click="goToViewPackagePage(releasePackage.releasePackageId)">{{releasePackage.name}}</span></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="" style="border-top:4px solid #8dccdc; padding-top:5px;">
+                        <div ng-bind-html="releasePackage.description"></div>
+                    </div>
+                </div>
+            </div>
+</div>
+</accordion-group>
+</accordion>
+</div>
+</div>
+
+<!--release management-->
 
 <div ng-show="releasePackagesByMember.length == 0">
 	<div class="alert alert-warning">
