@@ -1684,7 +1684,7 @@
     </changeSet>
 
     <changeSet id="MLDS-973" author="MLR">
-        <validCheckSum>7:7346ea37b93ade89d66dc4c8260849de</validCheckSum>
+        <validCheckSum>7:6809811a4fcff2b377c73c675e95b631</validCheckSum>
         <preConditions>
             <tableExists tableName="application"/>
             <tableExists tableName="member"/>
@@ -1692,10 +1692,10 @@
         </preConditions>
 
         <!--        <comment>A view to help out with (text) indexing extra countries related to an affiliate</comment>-->
-        <sql>
+        <!--<sql>
             SET GLOBAL group_concat_max_len = 255;
             SET group_concat_max_len = 255;
-        </sql>
+        </sql>-->
         <createView viewName="vw_affiliate_approved_application_countries">
             SELECT a.affiliate_id, GROUP_CONCAT(c.common_name SEPARATOR ' ') AS countries
             FROM application a
