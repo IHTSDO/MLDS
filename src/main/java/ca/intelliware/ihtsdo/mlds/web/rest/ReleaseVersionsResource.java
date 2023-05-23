@@ -129,14 +129,6 @@ public class ReleaseVersionsResource {
         releaseVersion.setVersionDependentDerivativeURI(body.getVersionDependentDerivativeURI());
         releaseVersion.setVersionURI(body.getVersionURI());
 
-    	/*if (!Objects.equal(preOnline, releaseVersion.isOnline())) {
-    		if (releaseVersion.isOnline()) {
-    			releasePackageAuditEvents.logTakenOnline(releaseVersion);
-    		} else {
-    			releasePackageAuditEvents.logTakenOffline(releaseVersion);
-    		}
-    	}
-*/
         if (!Objects.equal(preOnline, releaseVersion.getReleaseType())) {
             if (releaseVersion.getReleaseType().equalsIgnoreCase("online")) {
                 releasePackageAuditEvents.logTakenOnline(releaseVersion);
@@ -182,22 +174,11 @@ public class ReleaseVersionsResource {
 		if (releaseVersion == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-
 		authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
-
-//		if (releaseVersion.isOnline()) {
-//			return new ResponseEntity<>(HttpStatus.CONFLICT);
-
         if (releaseVersion.getReleaseType().equalsIgnoreCase("online")) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-
 		releasePackageAuditEvents.logDeletionOf(releaseVersion);
-
-		// Actually mark releasePackage as being inactive and then hide from
-		// subsequent calls rather than sql delete from the db
-		releaseVersionRepository.delete(releaseVersion);
-
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
