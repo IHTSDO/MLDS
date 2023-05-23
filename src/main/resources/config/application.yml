@@ -27,11 +27,11 @@ spring:
 
     datasource:
         dataSourceClassName: com.mysql.cj.jdbc.MysqlDataSource
-        url: <Change me>
+        url: <change me>
         databaseName: mlds
         serverName: localhost
         username: mlds
-        password: <Change me>
+        password: <change me>
 
     jpa:
         database-platform: org.hibernate.dialect.MySQLDialect
@@ -40,6 +40,8 @@ spring:
         openInView: true
         generate-ddl: false
         hibernate:
+            dialect: org.hibernate.dialect.MySQLDialect
+            format_sql: true
             ddl-auto: none
             naming-strategy: org.springframework.boot.orm.jpa.SpringNamingStrategy
         properties:
