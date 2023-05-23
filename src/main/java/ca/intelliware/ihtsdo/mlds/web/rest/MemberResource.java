@@ -44,13 +44,13 @@ import ca.intelliware.ihtsdo.mlds.web.rest.dto.MemberDTO;
 @RestController
 public class MemberResource {
     private final Logger log = LoggerFactory.getLogger(MemberResource.class);
-    
+
 	@Resource MemberRepository memberRepository;
 	@Resource FileRepository fileRepository;
 	@Resource SessionService sessionService;
 	@Resource BlobHelper blobHelper;
 	@Resource EntityManager entityManager;
-	
+
     @RequestMapping(value = Routes.MEMBERS,
             method = RequestMethod.GET,
             produces = "application/json")
@@ -59,13 +59,13 @@ public class MemberResource {
     @Timed
     public List<MemberDTO> getMembers() {
     	List<MemberDTO> memberDTOs = new ArrayList<MemberDTO>();
-    	
+
     	for (Member member : memberRepository.findAll()) {
 			memberDTOs.add(new MemberDTO(member));
 		}
     	return memberDTOs;
     }
-    
+
     @RequestMapping(value = Routes.MEMBER_LICENSE,
             method = RequestMethod.GET)
     @PermitAll
@@ -73,7 +73,7 @@ public class MemberResource {
     @Timed
     public ResponseEntity<?> getMemberLicense(@PathVariable String memberKey, HttpServletRequest request) throws SQLException, IOException {
     	File license = memberRepository.findOneByKey(memberKey).getLicense();
-    	
+
     	return downloadFile(request, license);
     }
 
@@ -87,7 +87,7 @@ public class MemberResource {
 				return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     		}
     	}
-		
+
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.valueOf(file.getMimetype()));
 		httpHeaders.setContentLength(file.getContent().length());
@@ -95,12 +95,12 @@ public class MemberResource {
 		if (file.getLastUpdated() != null) {
 			httpHeaders.setLastModified(file.getLastUpdated().getMillis());
 		}
-    	
+
     	byte[] byteArray = IOUtils.toByteArray(file.getContent().getBinaryStream());
     	org.springframework.core.io.Resource contents = new ByteArrayResource(byteArray);
 		return new ResponseEntity<org.springframework.core.io.Resource>(contents, httpHeaders, HttpStatus.OK);
 	}
-    
+
     @RequestMapping(value = Routes.MEMBER_LICENSE,
             method = RequestMethod.POST,
     		headers = "content-type=multipart/*",
@@ -118,7 +118,7 @@ public class MemberResource {
 
 		member.setLicenseName(licenseName);
 		member.setLicenseVersion(licenseVersion);
-		
+
 		memberRepository.save(member);
 
 		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
@@ -131,7 +131,7 @@ public class MemberResource {
     @Timed
     public ResponseEntity<?> getMemberLogo(@PathVariable String memberKey, HttpServletRequest request) throws SQLException, IOException {
     	File logo = memberRepository.findOneByKey(memberKey).getLogo();
-    	
+
     	return downloadFile(request, logo);
     }
 
@@ -151,7 +151,7 @@ public class MemberResource {
 		}
 
 		member.setName(name);
-		
+
 		memberRepository.save(member);
 
 		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
@@ -185,7 +185,7 @@ public class MemberResource {
 		Member member = memberRepository.findOneByKey(memberKey);
 
 		member.setStaffNotificationEmail(body.getStaffNotificationEmail());
-		
+
 		memberRepository.save(member);
 
 		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
@@ -201,14 +201,25 @@ public class MemberResource {
 		Member member = memberRepository.findOneByKey(memberKey);
     	if (member == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	} 
+    	}
 
     	member.setPromotePackages(body.getPromotePackages());
 		member.setStaffNotificationEmail(body.getStaffNotificationEmail());
-		
+
 		memberRepository.save(member);
 
 		return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
 	}
+
+    @RequestMapping(value = Routes.MEMBER_FEED_URL, method = RequestMethod.PUT, produces = "application/json")
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Transactional @Timed
+    public ResponseEntity<?> updateMemberFeedURL(@PathVariable String memberKey, @RequestBody MemberDTO body) throws IOException {
+        Member member = memberRepository.findOneByKey(memberKey);
+        member.setContactEmail(body.getContactEmail());
+        member.setMemberOrgURL(body.getMemberOrgURL());
+        member.setMemberOrgName(body.getMemberOrgName());
+        memberRepository.save(member);
+        return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK); }
 
 }

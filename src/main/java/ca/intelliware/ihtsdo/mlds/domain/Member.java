@@ -31,6 +31,15 @@ public class Member extends BaseEntity {
     @Column(name="created_at")
     Instant createdAt = Instant.now();
 
+    @Column(name="contactEmail")
+    public String contactEmail;
+
+    @Column(name="memberOrgName")
+    public String memberOrgName;
+
+    @Column(name="memberOrgURL")
+    public String memberOrgURL;
+
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="license_file")
@@ -153,5 +162,13 @@ public class Member extends BaseEntity {
 	public void setPromotePackages(Boolean promotePackages) {
 		this.promotePackages = promotePackages;
 	}
+
+    public String getContactEmail() { return contactEmail; }
+    public void setContactEmail(String contactEmail)
+    { this.contactEmail = contactEmail; }
+    public String getMemberOrgName() { return memberOrgName; }
+    public void setMemberOrgName(String memberOrgName) { this.memberOrgName = memberOrgName; }
+    public String getMemberOrgURL() { return memberOrgURL; }
+    public void setMemberOrgURL(String memberOrgURL) { this.memberOrgURL = memberOrgURL; }
 
 }
