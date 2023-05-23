@@ -1,17 +1,17 @@
 'use strict';
 
 angular.module('MLDS').controller('MemberManagementController',
-		['$scope', '$log', '$modal', '$location', 'MemberService', 'Session', 
+		['$scope', '$log', '$modal', '$location', 'MemberService', 'Session',
 		 function ($scope, $log, $modal, $location, MemberService, Session) {
 		$scope.members = MemberService.members;
 		$scope.canAccess = function(member) {
 			return Session.isAdmin() || member.key === Session.member.key;
 		};
-		
+
 		$scope.viewLicense = function (memberKey) {
 			MemberService.getMemberLicense(memberKey);
 		};
-		
+
 		$scope.editLicense = function editLicense(member) {
 			var modalInstance = $modal.open({
                 templateUrl: 'views/admin/editLicense.html',
@@ -66,5 +66,23 @@ angular.module('MLDS').controller('MemberManagementController',
                 }
               });
 		};
+
+		$scope.editMemberFeedData = function editMemberFeedData(member) {
+            var modalInstance = $modal.open({
+            templateUrl: 'views/admin/editMemberFeedData.html',
+                controller: 'EditMemberFeedDataController',
+                scope: $scope,
+                size: 'lg',
+            backdrop: 'static',
+            resolve: {
+            member: function() {
+            return angular.copy(member);
+            }
+            }
+        });
+        };
+
 	}]);
+
+
 

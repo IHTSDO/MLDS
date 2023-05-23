@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('MemberService', ['$http', '$rootScope', '$log', '$q', '$window', '$location', 
+.factory('MemberService', ['$http', '$rootScope', '$log', '$q', '$window', '$location',
                            function($http, $rootScope, $log, $q, $window, $location){
-	
-		var membersListQ = 
+
+		var membersListQ =
 			$http.get('/api/members')
 				.then(function(d){return d.data;});
 		var service = {};
@@ -12,24 +12,24 @@ angular.module('MLDS')
 		service.members = [];
 		service.membersByKey = {};
 		service.ready = membersListQ;
-		
+
 		membersListQ.then(function(members){
 			// append to members list
 			Array.prototype.push.apply(service.members, members);
-			
+
 			service.members.sort(function(a, b) {
 				var x = a.key.toLowerCase();
 			    var y = b.key.toLowerCase();
 			    return x < y ? -1 : x > y ? 1 : 0;
 			});
-			
+
 			// fill membersByKey map
 			service.members.map(function(m){
 				service.membersByKey[m.key] = m;
 			});
-			
+
 		});
-		
+
 		function updateMemberEntry(updatedMember) {
 			// Update collections in place - assuming only minor updates to the member
 			service.membersByKey[updatedMember.key] = updatedMember;
@@ -39,31 +39,31 @@ angular.module('MLDS')
 				}
 			});
 		}
-		
+
 		function reloadMembers() {
 			$http.get('/api/members')
 			.then(function(result){
 				_.each(result.data, function(member, index) {
 					updateMemberEntry(member);
 				});
-			});	
+			});
 		};
 
 		/* Members object has role specific fields only available after login*/
 		$rootScope.$on('event:auth-loginConfirmed', reloadMembers);
-		
+
 		//FIXME is there a better way to indicate the IHTSDO/international member?
 		service.ihtsdoMemberKey = 'IHTSDO';
 		service.ihtsdoMember = {key: service.ihtsdoMemberKey};
-		
+
 		service.isIhtsdoMember = function isIhtsdoMember(member) {
 			return member && member.key === service.ihtsdoMemberKey;
 		};
-		
+
 		service.isMemberEqual = function isMemberEqual(a, b) {
 			return a && b && a.key === b.key;
 		};
-		
+
 		service.getMemberLicense = function getMemberLicense(memberKey) {
 			$window.open('/api/members/' + encodeURIComponent(memberKey) + '/license', '_blank');
 		};
@@ -75,13 +75,13 @@ angular.module('MLDS')
 		service.openMemberLogo = function openMemberLogo(memberKey) {
 			$window.open(service.getMemberLogoUrl(memberKey), '_blank');
 		};
-		
+
 		service.getMemberLandingPage = function getMemberLandingPage(member) {
 			var url = $location.absUrl();
 			var hashIndex = url.indexOf('#');
 			if (hashIndex != -1) {
 				url = url.slice(0, hashIndex+1);
-				
+
 			}
 			url += '/landing/'+member.key;
 			return url;
@@ -115,7 +115,7 @@ angular.module('MLDS')
 	        });
 	        return promise;
 		};
-		
+
 		service.updateMemberNotifications = function updateMemberNotifications(memberKey, staffNotificationEmail) {
 			var member = {}
 			member.staffNotificationEmail = staffNotificationEmail;
@@ -126,6 +126,18 @@ angular.module('MLDS')
 	        return promise;
 		};
 
+		service.updateMemberFeedData = function updateMemberFeedData(memberKey, memberOrgName, memberOrgURL, contactEmail) {
+            var member = {}
+            member.memberOrgName = memberOrgName;
+            member.memberOrgURL = memberOrgURL;
+            member.contactEmail = contactEmail;
+            var promise = $http.put('/api/members/' + encodeURIComponent(memberKey) + '/memberFeedUrl', member);
+            promise.then(function(result) {
+                updateMemberEntry(result.data);
+               });
+            return promise;
+        };
+
 		service.updateMember = function updateMember(member) {
 	        var promise = $http.put('/api/members/' + encodeURIComponent(member.key), member);
 	        promise.then(function(result) {
@@ -135,5 +147,5 @@ angular.module('MLDS')
 		};
 
 		return service;
-		
+
 	}]);
