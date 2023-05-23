@@ -1884,5 +1884,21 @@
         <comment>Alter column type in t_persistent_audit_event_data</comment>
         <modifyDataType tableName="t_persistent_audit_event_data" columnName="name" newDataType="varchar(255)"/>
     </changeSet>
+    <changeSet id="MLDS-372-19" author="MB">
+        <comment>Alter column type in T_USER</comment>
+        <modifyDataType tableName="T_USER" columnName="login" newDataType="varchar(255)"/>
+        <modifyDataType tableName="T_USER" columnName="first_name" newDataType="varchar(255)"/>
+        <modifyDataType tableName="T_USER" columnName="last_name" newDataType="varchar(255)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-20" author="MB">
+        <comment>Alter column type in commercial_usage</comment>
+        <modifyDataType tableName="commercial_usage" columnName="created" newDataType="timestamp"/>
+    </changeSet>
+    <changeSet id="MLDS-372-21" author="MB">
+        <comment>Alter column type in T_PERSISTENT_AUDIT_EVENT</comment>
+        <modifyDataType tableName="T_PERSISTENT_AUDIT_EVENT" columnName="event_type" newDataType="varchar(255)"/>
+    </changeSet>
+
+
 
 </databaseChangeLog>
