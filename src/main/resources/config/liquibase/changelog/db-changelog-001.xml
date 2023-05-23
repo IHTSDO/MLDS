@@ -1898,6 +1898,14 @@
         <comment>Alter column type in T_PERSISTENT_AUDIT_EVENT</comment>
         <modifyDataType tableName="T_PERSISTENT_AUDIT_EVENT" columnName="event_type" newDataType="varchar(255)"/>
     </changeSet>
+    <changeSet id="MLDS-372-22" author="MB">
+        <comment>Alter column type in release_package</comment>
+        <modifyDataType tableName="release_package" columnName="description" newDataType="varchar(10000)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-23" author="MB">
+        <comment>Alter column type in release_version</comment>
+        <modifyDataType tableName="release_version" columnName="description" newDataType="varchar(10000)"/>
+    </changeSet>
 
 
 
