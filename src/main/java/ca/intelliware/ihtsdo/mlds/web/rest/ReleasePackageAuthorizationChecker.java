@@ -55,7 +55,7 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 		} else if (isMember()
 				&& Objects.equal(releaseVersion.getReleasePackage().getMember().getKey(), Member.KEY_IHTSDO)) {
 			return;
-		} else if (releaseVersion.getReleaseType().equalsIgnoreCase("online")
+		} else if ((releaseVersion.getReleaseType().equalsIgnoreCase("online") ||(releaseVersion.getReleaseType().equalsIgnoreCase("alpha/beta")))
 				&& !userStandingCalculator.isLoggedInUserAffiliateDeactivated()
 				&& !userStandingCalculator.isLoggedInUserAffiliateDeregistered()
 				&& !userStandingCalculator.isLoggedInUserAffiliatePendingInvoice()
