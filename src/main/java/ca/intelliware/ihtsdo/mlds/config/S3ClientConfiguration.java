@@ -40,7 +40,7 @@ public class S3ClientConfiguration implements EnvironmentAware {
 	public S3Client s3Client() throws IOException {
 		log.debug("Configuring S3 client");
 		S3Client s3Client = null;
-		Boolean s3Offline = propertyResolver.getProperty(PROP_OFFLINE_MODE, Boolean.class, true);
+		Boolean s3Offline = propertyResolver.getProperty(PROP_OFFLINE_MODE, Boolean.class, false);
 		log.info("Configuring " + (s3Offline ? "offline" : "online") + " s3 client.");
 		if (s3Offline) {
 			s3Client = new OfflineS3ClientImpl();
