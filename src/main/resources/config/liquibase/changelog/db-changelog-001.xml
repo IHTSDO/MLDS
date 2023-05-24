@@ -1938,13 +1938,21 @@
         <comment>Alter column type in commercial_usage_entry</comment>
         <modifyDataType tableName="commercial_usage_entry" columnName="note" newDataType="varchar(6000)"/>
     </changeSet>
-    <changeSet id="MLDS-372-27" author="MB">
+<!--    <changeSet id="MLDS-372-27" author="MB">-->
+<!--        <comment>Alter column type in commercial_usage</comment>-->
+<!--        <modifyDataType tableName="commercial_usage" columnName="note" newDataType="varchar(2000)"/>-->
+<!--        <modifyDataType tableName="commercial_usage" columnName="current_usage" newDataType="varchar(2000)"/>-->
+<!--        <modifyDataType tableName="commercial_usage" columnName="planned_usage" newDataType="varchar(2000)"/>-->
+<!--        <modifyDataType tableName="commercial_usage" columnName="purpose" newDataType="varchar(2000)"/>-->
+<!--        <modifyDataType tableName="commercial_usage" columnName="other_activities" newDataType="varchar(2000)"/>-->
+<!--    </changeSet>-->
+    <changeSet id="MLDS-372-30" author="MB">
         <comment>Alter column type in commercial_usage</comment>
-        <modifyDataType tableName="commercial_usage" columnName="note" newDataType="varchar(2000)"/>
-        <modifyDataType tableName="commercial_usage" columnName="current_usage" newDataType="varchar(2000)"/>
-        <modifyDataType tableName="commercial_usage" columnName="planned_usage" newDataType="varchar(2000)"/>
-        <modifyDataType tableName="commercial_usage" columnName="purpose" newDataType="varchar(2000)"/>
-        <modifyDataType tableName="commercial_usage" columnName="other_activities" newDataType="varchar(2000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="note" newDataType="varchar(5000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="current_usage" newDataType="varchar(5000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="planned_usage" newDataType="varchar(5000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="purpose" newDataType="varchar(5000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="other_activities" newDataType="varchar(5000)"/>
     </changeSet>
 
 
