@@ -27,9 +27,9 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAuthenticationProvider
 @Configuration
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	
+
     private final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
-    
+
     @Inject
     private Environment env;
 
@@ -47,10 +47,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     private UserDetailsService userDetailsService;
-    
+
     @Inject
     private RememberMeServices rememberMeServices;
-    
+
     @Inject
     private HttpAuthAuthenticationProvider httpAuthAuthenticationProvider;
 
@@ -72,7 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
     	logger.debug("Configuring URL Security");
         web.ignoring()
-            .antMatchers("/bower_components/**")
+//            .antMatchers("/bower_components/**")
             .antMatchers("/fonts/**")
             .antMatchers("/images/**")
             .antMatchers("/scripts/**")
@@ -80,10 +80,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/views/**")
             .antMatchers("/swagger-ui/**");
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	
+
     	logger.debug("Configuring HTTP Security");
         http
             .exceptionHandling()
@@ -130,6 +130,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                .antMatchers("/protected/**").authenticated();
+                .antMatchers("/protected/**").authenticated()
+        //MLDS-988
+                .antMatchers("/.htaccess/**").denyAll()
+                .antMatchers("/bower_components/html5shiv/package.json").denyAll()
+                .antMatchers("/bower_components/es5-shim/package.json").denyAll()
+                .antMatchers("/bower_components/placeholders/package.json").denyAll()
+                .antMatchers("/bower_components/ng-csv/package.json").denyAll()
+                .antMatchers("/bower_components/jquery/package.json").denyAll()
+                .antMatchers("/bower_components/intl-tel-input/package.json").denyAll()
+                .antMatchers("/bower_components/angular-dynamic-locale/package.json").denyAll()
+                .antMatchers("/bower_components/ngInfiniteScroll/package.json").denyAll()
+                .antMatchers("/bower_components/ng-csv/package.json").denyAll()
+                .antMatchers("/bower_components/modernizr/.travis.yml").denyAll()
+                .antMatchers("/bower_components/ng-csv/.travis.yml").denyAll()
+                .antMatchers("/bower_components/intl-tel-input/.travis.yml").denyAll()
+                .antMatchers("/bower_components/angular-dynamic-locale/.travis.yml").denyAll()
+                .antMatchers("/bower_components/ngInfiniteScroll/.travis.yml").denyAll()
+                .antMatchers("/bower_components/jquery/composer.json").denyAll();
+        //MLDS-988
     }
 }
