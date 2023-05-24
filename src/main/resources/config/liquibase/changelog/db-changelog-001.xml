@@ -1906,6 +1906,22 @@
         <comment>Alter column type in release_version</comment>
         <modifyDataType tableName="release_version" columnName="description" newDataType="varchar(10000)"/>
     </changeSet>
+    <changeSet id="MLDS-372-24" author="MB">
+        <comment>Alter column type in commercial_usage</comment>
+        <modifyDataType tableName="commercial_usage" columnName="note" newDataType="varchar(10000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="current_usage" newDataType="varchar(10000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="planned_usage" newDataType="varchar(10000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="purpose" newDataType="varchar(10000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="other_activities" newDataType="varchar(10000)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-25" author="MB">
+        <comment>Alter column type in commercial_usage_count</comment>
+        <modifyDataType tableName="commercial_usage_count" columnName="notes" newDataType="varchar(10000)"/>
+    </changeSet>
+    <changeSet id="MLDS-372-26" author="MB">
+        <comment>Alter column type in commercial_usage_entry</comment>
+        <modifyDataType tableName="commercial_usage_entry" columnName="note" newDataType="varchar(10000)"/>
+    </changeSet>
 
 
 
