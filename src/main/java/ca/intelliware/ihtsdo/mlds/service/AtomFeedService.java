@@ -44,9 +44,21 @@ public class AtomFeedService extends AbstractAtomFeedView {
 
     private ReleaseVersionRepository releaseVersionRepository;
 
+    private String feedTitle;
 
-    public AtomFeedService(ReleaseVersionRepository releaseVersionRepository) {
+    private String feedLink;
+
+    private String feedGenerator;
+
+    private String feedProfile;
+
+
+    public AtomFeedService(ReleaseVersionRepository releaseVersionRepository, Environment environment) {
         this.releaseVersionRepository = releaseVersionRepository;
+        this.feedTitle = environment.getProperty("feedTitle");
+        this.feedLink = environment.getProperty("feedLink");
+        this.feedGenerator = environment.getProperty("feedGenerator");
+        this.feedProfile = environment.getProperty("feedProfile");
     }
 
     @Override
@@ -54,10 +66,10 @@ public class AtomFeedService extends AbstractAtomFeedView {
         super.buildFeedMetadata(model, feed, request);
         SyndFeed syndFeed = (SyndFeed) model.get("feed");
 
-        feed.setTitle(syndFeed.getTitle()); //for title
+        feed.setTitle(feedTitle); //for title
         List<Link> links = new ArrayList<>(); //for link
         Link link = new Link();
-        link.setHref("https://api.snomed.org/syndication/v1/syndication.xml");
+        link.setHref(feedLink);
         link.setType("application/atom+xml");
         links.add(link);
         feed.setAlternateLinks(links);
@@ -66,7 +78,7 @@ public class AtomFeedService extends AbstractAtomFeedView {
         feed.setId(uuid);
 
         Generator generator = new Generator(); //for generator
-        generator.setValue("SNOMED International");
+        generator.setValue(feedGenerator);
         feed.setGenerator(generator);
 
 
@@ -85,7 +97,7 @@ public class AtomFeedService extends AbstractAtomFeedView {
         Element atomSyndicationFormatProfile = new Element("atomSyndicationFormatProfile", nctsNamespace);
         atomSyndicationFormatProfile.setNamespace(nctsNamespace);
 
-        atomSyndicationFormatProfile.setText("http://ns.electronichealth.net.au/ncts/syndication/asf/profile/1.0.0");
+        atomSyndicationFormatProfile.setText(feedProfile);
 
         List<Element> foreignMarkup = feed.getForeignMarkup();
         foreignMarkup.add(atomSyndicationFormatProfile);

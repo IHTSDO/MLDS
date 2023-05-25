@@ -24,6 +24,7 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.jsoup.Jsoup;
 import org.jsoup.parser.Parser;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +52,9 @@ public class AtomFeedResource {
     @Resource
     ReleaseVersionRepository releaseVersionRepository;
 
+    @Resource
+    Environment environment;
+
 
     @GetMapping(produces = MediaType.APPLICATION_ATOM_XML_VALUE)
     public ModelAndView getReleaseFeed() {
@@ -58,10 +62,9 @@ public class AtomFeedResource {
 
         SyndFeed feed = new SyndFeedImpl();
         feed.setFeedType("atom_1.0");
-        feed.setTitle("SNOMED International Terminology Service Syndication Feed");
         List<SyndEntry> entries = new ArrayList<>();
         feed.setEntries(entries);
-        return new ModelAndView(new AtomFeedService(releaseVersionRepository), "feed", feed);
+        return new ModelAndView(new AtomFeedService(releaseVersionRepository, environment), "feed", feed);
      }
 
 }
