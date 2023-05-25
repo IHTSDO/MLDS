@@ -77,3 +77,9 @@ spring:
 
 webauth:
     url: https://dev-ims.ihtsdotools.org/
+
+# Syndication feed datas
+feedTitle: SNOMED International Terminology Service Syndication Feed
+feedLink: https://api.snomed.org/syndication/v1/syndication.xml
+feedGenerator: SNOMED International
+feedProfile: http://ns.electronichealth.net.au/ncts/syndication/asf/profile/1.0.0
