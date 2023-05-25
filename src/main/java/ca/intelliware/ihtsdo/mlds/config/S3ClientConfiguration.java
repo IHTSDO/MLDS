@@ -45,13 +45,17 @@ public class S3ClientConfiguration implements EnvironmentAware {
 		if (s3Offline) {
 			s3Client = new OfflineS3ClientImpl();
 		} else {
+
+            log.info("inside online implementation");
+            s3Client =  new S3ClientImpl(new InstanceProfileCredentialsProvider(false).getCredentials());
+            log.info("s3Client:",s3Client);
 //			String awsKey = propertyResolver.getProperty(PROP_AWS_KEY);
 //			String awsPrivateKey = propertyResolver.getProperty(PROP_AWS_PRIVATEKEY);
 //			BasicAWSCredentials credentials = new BasicAWSCredentials(awsKey, awsPrivateKey);
 //			s3Client = new S3ClientImpl(credentials);
-            s3Client = (S3Client) AmazonS3ClientBuilder.standard()
-                .withCredentials(new InstanceProfileCredentialsProvider(false))
-                .build();
+//            s3Client = (S3Client) AmazonS3ClientBuilder.standard()
+//                .withCredentials(new InstanceProfileCredentialsProvider(false))
+//                .build();
 		}
 
 		log.debug("Done:Configuring S3 Client");
