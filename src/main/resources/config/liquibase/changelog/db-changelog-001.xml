@@ -1946,17 +1946,21 @@
 <!--        <modifyDataType tableName="commercial_usage" columnName="purpose" newDataType="varchar(2000)"/>-->
 <!--        <modifyDataType tableName="commercial_usage" columnName="other_activities" newDataType="varchar(2000)"/>-->
 <!--    </changeSet>-->
-    <changeSet id="MLDS-372-30" author="MB">
+    <changeSet id="MLDS-372-31" author="MB">
         <comment>Alter column type in commercial_usage</comment>
-        <modifyDataType tableName="commercial_usage" columnName="note" newDataType="varchar(5000)"/>
-        <modifyDataType tableName="commercial_usage" columnName="current_usage" newDataType="varchar(5000)"/>
-        <modifyDataType tableName="commercial_usage" columnName="planned_usage" newDataType="varchar(5000)"/>
-        <modifyDataType tableName="commercial_usage" columnName="purpose" newDataType="varchar(5000)"/>
-        <modifyDataType tableName="commercial_usage" columnName="other_activities" newDataType="varchar(5000)"/>
+        <modifyDataType tableName="commercial_usage" columnName="note" newDataType="TEXT"/>
+        <modifyDataType tableName="commercial_usage" columnName="current_usage" newDataType="TEXT"/>
+        <modifyDataType tableName="commercial_usage" columnName="planned_usage" newDataType="TEXT"/>
+        <modifyDataType tableName="commercial_usage" columnName="purpose" newDataType="TEXT"/>
+        <modifyDataType tableName="commercial_usage" columnName="other_activities" newDataType="TEXT"/>
     </changeSet>
-
-
-
-
+    <changeSet id="MLDS-372-32" author="MB">
+        <comment>Alter column type in commercial_usage_count</comment>
+        <modifyDataType tableName="commercial_usage_count" columnName="notes" newDataType="TEXT"/>
+    </changeSet>
+    <changeSet id="MLDS-372-33" author="MB">
+        <comment>Alter column type in commercial_usage_entry</comment>
+        <modifyDataType tableName="commercial_usage_entry" columnName="note" newDataType="TEXT"/>
+    </changeSet>
 
 </databaseChangeLog>
