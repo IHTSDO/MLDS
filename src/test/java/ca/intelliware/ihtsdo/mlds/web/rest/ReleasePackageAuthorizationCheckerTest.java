@@ -20,10 +20,10 @@ import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReleasePackageAuthorizationCheckerTest {
-	
+
 	@Mock
 	private UserMembershipAccessor userMembershipAccessor;
-	
+
 	@Mock
 	private UserStandingCalculator userStandingCalculator;
 
@@ -42,16 +42,17 @@ public class ReleasePackageAuthorizationCheckerTest {
 		authorizationChecker.setCurrentSecurityContext(new CurrentSecurityContext());
 		authorizationChecker.userMembershipAccessor = userMembershipAccessor;
 		authorizationChecker.userStandingCalculator = userStandingCalculator;
-		
+
 		sweden = new Member("SE", 1);
 		ihtsdo = new Member("IHTSDO", 2);
-		
+
 		ihtsdoReleasePackage = new ReleasePackage();
 		ihtsdoReleasePackage.setMember(ihtsdo);
 		swedenReleasePackage = new ReleasePackage();
 		swedenReleasePackage.setMember(sweden);
 		offlineReleaseVersion = new ReleaseVersion();
-		offlineReleaseVersion.setOnline(false);
+//		offlineReleaseVersion.setOnline(false);
+        offlineReleaseVersion.setReleaseType("offline");
 		onlineReleaseVersion = new ReleaseVersion();
 		onlineReleaseVersion.setOnline(true);
 	}
@@ -60,7 +61,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 	public void onlyMemberAndStaffAndAdminCanSeeOfflinePackages() {
 		securityContextSetup.asAdmin();
 		assertTrue("Admin should see offline packages", authorizationChecker.shouldSeeOfflinePackages());
-		
+
 		securityContextSetup.asIHTSDOStaff();
 		assertTrue("Staff should see offline packages", authorizationChecker.shouldSeeOfflinePackages());
 
@@ -69,87 +70,87 @@ public class ReleasePackageAuthorizationCheckerTest {
 
 		securityContextSetup.asAffiliateUser();
 		assertFalse("Users should not see offline packages", authorizationChecker.shouldSeeOfflinePackages());
-		
+
 		securityContextSetup.asAnonymous();
 		assertFalse("Public should not see offline packages", authorizationChecker.shouldSeeOfflinePackages());
 	}
-	
+
 	@Test
 	public void adminCanCreatePackages() {
 		securityContextSetup.asAdmin();
-		
+
 		authorizationChecker.checkCanCreateReleasePackages();
 	}
-	
+
 	@Test
 	public void staffCanCreatePackages() {
 		securityContextSetup.asIHTSDOStaff();
-		
+
 		authorizationChecker.checkCanCreateReleasePackages();
 	}
-	
+
 	@Test(expected=IllegalStateException.class)
 	public void userCanNotCreatePackages() {
 		securityContextSetup.asAffiliateUser();
-		
+
 		authorizationChecker.checkCanCreateReleasePackages();
 	}
-	
+
 	@Test(expected=IllegalStateException.class)
 	public void anonymousCanNotCreatePackages() {
 		securityContextSetup.asAnonymous();
-		
+
 		authorizationChecker.checkCanCreateReleasePackages();
 	}
 
 	@Test
 	public void adminCanEditPackages() {
 		securityContextSetup.asAdmin();
-		
+
 		authorizationChecker.checkCanEditReleasePackage(ihtsdoReleasePackage);
 		authorizationChecker.checkCanEditReleasePackage(swedenReleasePackage);
 	}
-	
+
 	@Test
 	public void staffCanEditOwnMemberPackages() {
 		securityContextSetup.asIHTSDOStaff();
-		
+
 		authorizationChecker.checkCanEditReleasePackage(ihtsdoReleasePackage);
 	}
-	
+
 	@Test(expected=IllegalStateException.class)
 	public void staffCanNotEditOtherMemberPackages() {
 		securityContextSetup.asIHTSDOStaff();
-		
+
 		authorizationChecker.checkCanEditReleasePackage(swedenReleasePackage);
 	}
-	
+
 	@Test(expected=IllegalStateException.class)
 	public void userCanNotEditPackages() {
 		securityContextSetup.asAffiliateUser();
-		
+
 		authorizationChecker.checkCanEditReleasePackage(ihtsdoReleasePackage);
 	}
-	
+
 
 	@Test
 	public void staffCanViewOfflinePackageVersion() {
 		securityContextSetup.asIHTSDOStaff();
-		
+
 		authorizationChecker.checkCanAccessReleaseVersion(offlineReleaseVersion);
 	}
 
 	@Test
 	public void AdminCanDownloadPackageVersion() {
 		securityContextSetup.asAdmin();
-		
+
 		authorizationChecker.checkCanDownloadReleaseVersion(offlineReleaseVersion);
 	}
 
 	@Test
 	public void staffCanDownloadPackageVersion() {
 		securityContextSetup.asIHTSDOStaff();
-		
+
 		authorizationChecker.checkCanDownloadReleaseVersion(offlineReleaseVersion);
 	}
 
@@ -158,7 +159,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
 		securityContextSetup.asIHTSDOMember();
-		
+
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
@@ -166,9 +167,9 @@ public class ReleasePackageAuthorizationCheckerTest {
 	public void memberCannotDownloadOtherPackageVersion() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 		onlineIhtsdoVersion.getReleasePackage().setMember(sweden);
-		
+
 		securityContextSetup.asIHTSDOMember();
-		
+
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
@@ -177,9 +178,9 @@ public class ReleasePackageAuthorizationCheckerTest {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
 		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
-		
+
 		securityContextSetup.asAffiliateUser();
-		
+
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
@@ -189,6 +190,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 		ReleaseVersion onlineIhtsdoVersion = new ReleaseVersion(2L);
 		releasePackage.addReleaseVersion(onlineIhtsdoVersion);
 		onlineIhtsdoVersion.setOnline(true);
+        onlineIhtsdoVersion.setReleaseType("online");
 		return onlineIhtsdoVersion;
 	}
 
@@ -197,9 +199,9 @@ public class ReleasePackageAuthorizationCheckerTest {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
 		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(false);
-		
+
 		securityContextSetup.asAffiliateUser();
-		
+
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
@@ -208,11 +210,11 @@ public class ReleasePackageAuthorizationCheckerTest {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
 		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
-		
+
 		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeactivated()).thenReturn(true);
-		
+
 		securityContextSetup.asAffiliateUser();
-		
+
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
@@ -221,11 +223,11 @@ public class ReleasePackageAuthorizationCheckerTest {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
 		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
-		
+
 		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeregistered()).thenReturn(true);
-		
+
 		securityContextSetup.asAffiliateUser();
-		
+
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
@@ -234,11 +236,11 @@ public class ReleasePackageAuthorizationCheckerTest {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
 		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
-		
+
 		Mockito.when(userStandingCalculator.isLoggedInUserAffiliatePendingInvoice()).thenReturn(true);
-		
+
 		securityContextSetup.asAffiliateUser();
-		
+
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 }
