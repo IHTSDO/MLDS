@@ -179,6 +179,7 @@ public class ReleaseVersionsResource {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 		releasePackageAuditEvents.logDeletionOf(releaseVersion);
+        releaseVersionRepository.delete(releaseVersion);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

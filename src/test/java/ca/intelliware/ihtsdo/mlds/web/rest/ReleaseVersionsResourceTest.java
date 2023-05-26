@@ -38,13 +38,13 @@ public class ReleaseVersionsResourceTest {
 
 	@Mock
 	ReleasePackageAuthorizationChecker authorizationChecker;
-	
+
 	@Mock
 	CurrentSecurityContext currentSecurityContext;
 
 	@Mock
 	ReleasePackageAuditEvents releasePackageAuditEvents;
-	
+
 	@Mock
 	UserNotifier userNotifier;
 
@@ -53,9 +53,9 @@ public class ReleaseVersionsResourceTest {
 	@Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        
+
         releaseVersionsResource = new ReleaseVersionsResource();
-        
+
         releaseVersionsResource.releasePackageRepository = releasePackageRepository;
         releaseVersionsResource.releaseVersionRepository = releaseVersionRepository;
         releaseVersionsResource.authorizationChecker = authorizationChecker;
@@ -74,10 +74,10 @@ public class ReleaseVersionsResourceTest {
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_VERSIONS, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
-				.content("{ \"name\": \"name\", \"description\": \"description\" }")
+				.content("{ \"name\": \"name\", \"description\": \"description\", \"releaseType\": \"releaseType\"}")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		Mockito.verify(releaseVersionRepository).save(Mockito.any(ReleaseVersion.class));
 		Assert.assertThat(releasePackage.getReleaseVersions(), Matchers.hasItem(new ReleaseVersion(2L)));
 	}
@@ -95,7 +95,7 @@ public class ReleaseVersionsResourceTest {
 
 	private ReleasePackage withReleasePackageWithIdOf(long id) {
 		ReleasePackage releasePackage = new ReleasePackage();
-		
+
 		Mockito.when(releasePackageRepository.findOne(id)).thenReturn(releasePackage);
 		Mockito.when(releasePackageRepository.getOne(id)).thenReturn(releasePackage);
 		return releasePackage;
@@ -111,7 +111,7 @@ public class ReleaseVersionsResourceTest {
 				.content("{ \"name\": \"name\", \"description\": \"description\" }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		Mockito.verify(releasePackageAuditEvents).logCreationOf(Mockito.any(ReleaseVersion.class));
 	}
 
@@ -119,13 +119,13 @@ public class ReleaseVersionsResourceTest {
 	public void testReleaseVersionUpdateFailsForUnknownId() throws Exception {
 		withReleasePackageWithIdOf(1L);
 		Mockito.when(releaseVersionRepository.findOne(999L)).thenReturn(null);
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_VERSION, 1L, 999L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{ \"releaseVersionId\": 999, \"name\": \"name\", \"description\": \"description\" }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
-		
+
 		Mockito.verify(releaseVersionRepository, Mockito.never()).save(Mockito.any(ReleaseVersion.class));
 	}
 
@@ -135,34 +135,36 @@ public class ReleaseVersionsResourceTest {
 		releaseVersion.setName("originalName");
 		releaseVersion.setDescription("originalDescription");
 		releaseVersion.setCreatedBy("originalCreatedBy");
-		
+        releaseVersion.setReleaseType("originalReleaseType");
+
 		Mockito.when(releaseVersionRepository.findOne(2L)).thenReturn(releaseVersion);
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_VERSION, 1L, 2L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
-				.content("{ \"releaseVersionId\": 1, \"name\": \"newName\", \"description\": \"newDescription\", \"createdBy\": \"newCreatedBy\" }")
+				.content("{ \"releaseVersionId\": 1, \"name\": \"newName\", \"description\": \"newDescription\", \"createdBy\": \"newCreatedBy\", \"createdBy\": \"newCreatedBy\", \"releaseType\": \"newReleaseType\" }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
-		
+
+
 		Assert.assertEquals("newName", releaseVersion.getName());
 		Assert.assertEquals("newDescription", releaseVersion.getDescription());
-		
+
 		Assert.assertEquals("originalCreatedBy", releaseVersion.getCreatedBy());
+        Assert.assertEquals("newReleaseType", releaseVersion.getReleaseType());
 	}
-	
+
 	@Test
 	public void testReleaseVersionNotification() throws Exception {
 		ReleaseVersion releaseVersion = new ReleaseVersion();
 		releaseVersion.setOnline(false);
-		
+
 		Mockito.when(releaseVersionRepository.findOne(2L)).thenReturn(releaseVersion);
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_VERSION_NOTIFICATIONS, 1L, 2L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		Mockito.verify(userNotifier, Mockito.times(1)).notifyReleasePackageUpdated(Mockito.any(ReleaseVersion.class));
 	}
 
@@ -170,41 +172,44 @@ public class ReleaseVersionsResourceTest {
 	public void testReleaseVersionDeleteShouldFailForActiveVersion() throws Exception {
 		ReleasePackage releasePackage = new ReleasePackage();
 		ReleaseVersion activeVersion = new ReleaseVersion(2L);
-		activeVersion.setOnline(true);
+//		activeVersion.setOnline(true);
+        activeVersion.setReleaseType("online");
 		releasePackage.addReleaseVersion(activeVersion);
-		
+
 		Mockito.when(releasePackageRepository.findOne(1L)).thenReturn(releasePackage);
 		Mockito.when(releaseVersionRepository.findOne(2L)).thenReturn(activeVersion);
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_VERSION, 1L, 2L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isConflict());
-		
+
 		Mockito.verify(releaseVersionRepository, Mockito.never()).delete(Mockito.any(ReleaseVersion.class));
 	}
 
 	@Test
 	public void testReleaseVersionDeleteShouldSucceedForInactiveVersion() throws Exception {
 		ReleaseVersion inactiveVersion = new ReleaseVersion(2L);
-		inactiveVersion.setOnline(false);
-		
+//		inactiveVersion.setOnline(false);
+        inactiveVersion.setReleaseType("offline");
+
 		Mockito.when(releaseVersionRepository.findOne(2L)).thenReturn(inactiveVersion);
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_VERSION, 1L, 2L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		Mockito.verify(releaseVersionRepository).delete(Mockito.any(ReleaseVersion.class));
 	}
-	
+
 	@Test
 	public void testReleaseVersionDeleteLogsAuditEvent() throws Exception {
 		ReleaseVersion releaseVersion = new ReleaseVersion();
-		
+        releaseVersion.setReleaseType("offline");
+
 		Mockito.when(releaseVersionRepository.findOne(1L)).thenReturn(releaseVersion);
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_VERSION, 55L, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
