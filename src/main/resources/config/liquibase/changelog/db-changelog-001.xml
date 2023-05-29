@@ -699,8 +699,9 @@
     </changeSet>
 
     <changeSet id="MLDS-372-1" author="DGJ">
+        <validCheckSum>7:bb7e7c9b2ebc522af79cf8b182c976ae</validCheckSum>
         <comment>Add Member</comment>
-        <createTable schemaName="mlds" tableName="member">
+        <createTable tableName="member">
             <column name="member_id" type="INT8">
                 <constraints nullable="false"/>
             </column>
@@ -709,8 +710,8 @@
             </column>
             <column name="created_at" type="timestamp"/>
         </createTable>
-        <addPrimaryKey columnNames="member_id" constraintName="member_PK" schemaName="mlds" tableName="member"/>
-        <addUniqueConstraint schemaName="mlds" tableName="member" columnNames="key" constraintName="member_name_unique"/>
+        <addPrimaryKey columnNames="member_id" constraintName="member_PK" tableName="member"/>
+        <addUniqueConstraint tableName="member" columnNames="key" constraintName="member_name_unique"/>
     </changeSet>
 
     <!--    <changeSet id="MLDS-372-2" author="DGJ">-->
@@ -867,10 +868,11 @@
     </changeSet>
 
     <changeSet id="MLDS-372-4" author="MB">
+        <validCheckSum>7:dbdfacc92f0e198d33370aface457398</validCheckSum>
         <comment>Add member to ReleasePackage</comment>
         <addColumn tableName="release_package">
             <column name="member_id" type="INT8">
-                <constraints foreignKeyName="release_package_member" referencedTableName="mlds.member" referencedColumnNames="member_id"/>
+                <constraints foreignKeyName="release_package_member" referencedTableName="member" referencedColumnNames="member_id"/>
             </column>
         </addColumn>
         <!--		<sql>-->
@@ -903,10 +905,11 @@
     </changeSet>
 
     <changeSet id="MLDS-300-1" author="DGJ">
+        <validCheckSum>7:e52966585df5ff06cc7e5778dddc85fe</validCheckSum>
         <comment>Associate Country with Member</comment>
         <addColumn tableName="country">
             <column name="member_id" type="INT8">
-                <constraints foreignKeyName="country_member" referencedTableName="mlds.member" referencedColumnNames="member_id"/>
+                <constraints foreignKeyName="country_member" referencedTableName="member" referencedColumnNames="member_id"/>
             </column>
         </addColumn>
         <!--		<sql>-->
@@ -924,15 +927,16 @@
     </changeSet>
 
     <changeSet id="MLDS-300-2" author="DGJ">
+        <validCheckSum>7:35df04bc7955ed8eeb7e38ae839be73e</validCheckSum>
         <comment>Associate Member with Affiliate and Application</comment>
         <addColumn tableName="application">
             <column name="member_id" type="INT8">
-                <constraints foreignKeyName="application_member" referencedTableName="mlds.member" referencedColumnNames="member_id"/>
+                <constraints foreignKeyName="application_member" referencedTableName="member" referencedColumnNames="member_id"/>
             </column>
         </addColumn>
         <addColumn tableName="affiliate">
             <column name="home_member_id" type="INT8">
-                <constraints foreignKeyName="affiliate_home_member" referencedTableName="mlds.member" referencedColumnNames="member_id"/>
+                <constraints foreignKeyName="affiliate_home_member" referencedTableName="member" referencedColumnNames="member_id"/>
             </column>
         </addColumn>
         <!--		<sql>-->
@@ -1094,6 +1098,7 @@
     </changeSet>
 
     <changeSet id="MLDS-309-1" author="AC">
+        <validCheckSum>7:c0219001408a8386d94953a25cb961bb</validCheckSum>
         <comment>creating new file table for member licenses</comment>
         <createTable tableName="file">
             <column name="file_id" type="int8">
@@ -1105,14 +1110,15 @@
             <column name="creator" type="varchar(100)"></column>
             <column name="mimetype" type="varchar(50)"></column>
         </createTable>
-        <addColumn schemaName="mlds" tableName="member">
+        <addColumn tableName="member">
             <column name="file_id" type="INT8">
                 <constraints foreignKeyName="member_file" referencedTableName="file" referencedColumnNames="file_id"/>
             </column>
         </addColumn>
     </changeSet>
     <changeSet id="MLDS-309-2" author="AC">
-        <renameColumn schemaName="mlds" tableName="member" oldColumnName="file_id" newColumnName="license_file" columnDataType="INT8"/>
+        <validCheckSum>7:95288150b0f7a2775f86f0745b7ef652</validCheckSum>
+        <renameColumn tableName="member" oldColumnName="file_id" newColumnName="license_file" columnDataType="INT8"/>
     </changeSet>
     <changeSet id="MLDS-309-3" author="AC">
         <renameColumn tableName="file" oldColumnName="blob" newColumnName="content" columnDataType="text"/>
@@ -1157,8 +1163,9 @@
     <!--	</changeSet>-->
 
     <changeSet id="MLDS-309-7" author="AC">
+        <validCheckSum>7:e4b44e8f3d8ba2396423b775883f3948</validCheckSum>
         <comment>Fixing licence spelling</comment>
-        <renameColumn schemaName="mlds" tableName="member" oldColumnName="license_file" newColumnName="licence_file" columnDataType="INT8"/>
+        <renameColumn tableName="member" oldColumnName="license_file" newColumnName="licence_file" columnDataType="INT8"/>
     </changeSet>
 
     <changeSet id="MLDS-325-7" author="DGJ">
@@ -1264,8 +1271,9 @@
     </changeSet>
 
     <changeSet id="MLDS-322-1" author="DGJ">
+        <validCheckSum>7:8f3f0c3bd6bd5fead8e236093724352e</validCheckSum>
         <comment>Add commercial usage entity references to audit log</comment>
-        <addColumn tableName="t_persistent_audit_event">
+        <addColumn tableName="T_PERSISTENT_AUDIT_EVENT">
             <column name="commercial_usage_id" type="bigint">
                 <constraints foreignKeyName="FK_t_persistent_audit_event_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
             </column>
@@ -1542,21 +1550,23 @@
     </changeSet>
 
     <changeSet id="MLDS-706-1" author="DGJ">
+        <validCheckSum>7:7eaed7665b3a5ae60c7458576af12607</validCheckSum>
         <comment>Add name and version fields for member terms and conditions</comment>
-        <addColumn schemaName="mlds" tableName="member" >
+        <addColumn tableName="member">
             <column name="licence_name" type="VARCHAR(255)"></column>
         </addColumn>
-        <addColumn schemaName="mlds" tableName="member" >
+        <addColumn tableName="member">
             <column name="licence_version" type="VARCHAR(255)"></column>
         </addColumn>
     </changeSet>
 
     <changeSet id="MLDS-738-1" author="DGJ">
+        <validCheckSum>7:f18fba5272dda99b31c68f6f9b015cf2</validCheckSum>
         <comment>Add name and logo file to member</comment>
-        <addColumn schemaName="mlds" tableName="member" >
+        <addColumn tableName="member" >
             <column name="name" type="VARCHAR(255)"></column>
         </addColumn>
-        <addColumn schemaName="mlds" tableName="member">
+        <addColumn tableName="member">
             <column name="logo_file" type="INT8">
                 <constraints foreignKeyName="logo_file" referencedTableName="file" referencedColumnNames="file_id"/>
             </column>
@@ -1565,9 +1575,10 @@
 
     <changeSet id="MLDS-863-1" author="DGJ">
         <!--    	<comment>Consistent spelling of license</comment>-->
-        <renameColumn schemaName="mlds" tableName="member" oldColumnName="licence_file" newColumnName="license_file" columnDataType="INT8"/>
-        <renameColumn schemaName="mlds" tableName="member" oldColumnName="licence_name" newColumnName="license_name" columnDataType="VARCHAR(255)"/>
-        <renameColumn schemaName="mlds" tableName="member" oldColumnName="licence_version" newColumnName="license_version" columnDataType="VARCHAR(255)"/>
+        <validCheckSum>7:9bc460c8724368ce857e91f3fbba3971</validCheckSum>
+        <renameColumn tableName="member" oldColumnName="licence_file" newColumnName="license_file" columnDataType="INT8"/>
+        <renameColumn tableName="member" oldColumnName="licence_name" newColumnName="license_name" columnDataType="VARCHAR(255)"/>
+        <renameColumn tableName="member" oldColumnName="licence_version" newColumnName="license_version" columnDataType="VARCHAR(255)"/>
     </changeSet>
 
     <changeSet id="MLDS-868-1" author="DGJ">
@@ -1606,8 +1617,9 @@
     </changeSet>
 
     <changeSet id="MLDS-918" author="DGJ">
+        <validCheckSum>7:2cf0f515bca4595b9c51cc66376d01d6</validCheckSum>
         <comment>Add notification "mailing list" email for member's staff. Rely on IHTSDO mail server to handle mapping of mailing list to individual staff accounts.</comment>
-        <addColumn schemaName="mlds" tableName="member" >
+        <addColumn tableName="member" >
             <column name="staff_notification_email" type="VARCHAR(255)"></column>
         </addColumn>
     </changeSet>
@@ -1653,8 +1665,9 @@
     </changeSet>
 
     <changeSet id="MLDS-928-2" author="DGJ">
+        <validCheckSum>7:371bb1c72c9fd959f4a08971ccdaefce</validCheckSum>
         <comment>Choose order when combining ihtsdo and member release packages</comment>
-        <addColumn schemaName="mlds" tableName="member">
+        <addColumn tableName="member">
             <column name="promote_packages" type="boolean" defaultValue="false">
                 <constraints nullable="false"/>
             </column>
@@ -1668,8 +1681,9 @@
     <!--    </changeSet>-->
 
     <changeSet id="MLDS-962" author="PWI">
+        <validCheckSum>7:7228fd34f3ee567d58c45e565a396ee3</validCheckSum>
         <comment>Add opt-out options for receiving release and manual notifications</comment>
-        <addColumn tableName="t_user">
+        <addColumn tableName="T_USER">
             <column name="accept_notifications" type="boolean" defaultValue="true">
                 <constraints nullable="false"/>
             </column>
@@ -1677,8 +1691,9 @@
     </changeSet>
 
     <changeSet id="MLDS-975" author="MLR">
+        <validCheckSum>7:db5282328a768bad4e0d20b167440090</validCheckSum>
         <comment>Follow up to MLDS-962, allow user to opt for affiliate country release related emails only</comment>
-        <addColumn tableName="t_user">
+        <addColumn tableName="T_USER">
             <column name="country_notifications_only" type="boolean" defaultValue="false">
                 <constraints nullable="false"/>
             </column>
@@ -1879,12 +1894,14 @@
         <modifyDataType tableName="commercial_usage_entry" columnName="note" newDataType="varchar(5000)"/>
     </changeSet>
     <changeSet id="MLDS-372-17" author="MB">
+        <validCheckSum>7:f32affaf219a2b053f1f7b9d07ad96b7</validCheckSum>
         <comment>Alter column type in t_persistent_audit_event</comment>
-        <modifyDataType tableName="t_persistent_audit_event" columnName="principal" newDataType="varchar(255)"/>
+        <modifyDataType tableName="T_PERSISTENT_AUDIT_EVENT" columnName="principal" newDataType="varchar(255)"/>
     </changeSet>
     <changeSet id="MLDS-372-18" author="MB">
+        <validCheckSum>7:fcb619abeab8b0b4d77eacc830cc7cc4</validCheckSum>
         <comment>Alter column type in t_persistent_audit_event_data</comment>
-        <modifyDataType tableName="t_persistent_audit_event_data" columnName="name" newDataType="varchar(255)"/>
+        <modifyDataType tableName="T_PERSISTENT_AUDIT_EVENT_DATA" columnName="name" newDataType="varchar(255)"/>
     </changeSet>
     <changeSet id="MLDS-372-19" author="MB">
         <comment>Alter column type in T_USER</comment>
