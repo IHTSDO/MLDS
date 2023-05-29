@@ -131,7 +131,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
         Properties additionalProperties = new Properties();
         additionalProperties.put("hibernate.dialect", this.env.getProperty("spring.jpa.hibernate.dialect"));
         additionalProperties.put("hibernate.show_sql", this.env.getProperty("spring.jpa.show_sql"));
-        additionalProperties.put("hibernate.hbm2ddl.auto", this.env.getProperty("spring.jpa.hibernate.ddl-auto"));
+        additionalProperties.put("hibernate.hbm2ddl.auto", this.env.getProperty("spring.jpa.ddl-auto"));
         additionalProperties.put("hibernate.cache.region.factory_class", this.env.getProperty("spring.jpa.properties.hibernate.cache.region.factory_class"));
         entityManagerFactory.setJpaProperties(additionalProperties);
         log.debug("Completed entityManagerFactory configuration");
