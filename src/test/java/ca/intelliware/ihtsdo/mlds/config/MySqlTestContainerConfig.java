@@ -14,8 +14,8 @@ public enum MySqlTestContainerConfig {
     MySqlTestContainerConfig() {
         this.mySQLContainer = new MySQLContainer<>("mysql:8.0.26")
             .withDatabaseName("mldsInDockerTestContainer")
-            .withUsername("abe")
-            .withPassword("sapien")
+            .withUsername("root")
+            .withPassword("test")
             .withExposedPorts(3306)
             .withCommand("--character-set-server=utf8mb4", "--collation-server=utf8mb4_general_ci");
 
