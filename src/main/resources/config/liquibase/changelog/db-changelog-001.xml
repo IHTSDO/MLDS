@@ -1982,4 +1982,11 @@
         <modifyDataType tableName="commercial_usage_entry" columnName="note" newDataType="TEXT"/>
     </changeSet>
 
+    <changeSet id="MLDS-372-38" author="AC">
+        <sql>
+            INSERT IGNORE INTO member (member_id, `key`, created_at) VALUES (2, 'SE', now());
+        </sql>
+    </changeSet>
+
+
 </databaseChangeLog>

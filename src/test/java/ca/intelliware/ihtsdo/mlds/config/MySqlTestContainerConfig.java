@@ -17,7 +17,7 @@ public enum MySqlTestContainerConfig {
             .withUsername("root")
             .withPassword("test")
             .withExposedPorts(3306)
-            .withCommand("--character-set-server=utf8mb4", "--collation-server=utf8mb4_general_ci");
+            .withCommand("--character-set-server=utf8mb4", "--collation-server=utf8mb4_general_ci", "--lower-case-table-names=1");
 
 
         this.mySQLContainer.start();
@@ -39,4 +39,6 @@ public enum MySqlTestContainerConfig {
     public void setupDataSource() {
         DatabaseConfiguration.setDataSource(dataSource);
     }
+
+
 }
