@@ -99,7 +99,7 @@ public class AffiliatesImporterService {
 			application = updateAffiliate(affiliate,record);
 			result.updatedRecords += 1;
 		}
-//		result.setSourceMemberKey(application.getMember().getKey());
+		result.setSourceMemberKey(application.getMember().getKey());
 
 		clearSession();
 	}
