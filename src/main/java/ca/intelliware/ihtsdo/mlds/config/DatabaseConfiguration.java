@@ -93,43 +93,43 @@ public class DatabaseConfiguration implements EnvironmentAware {
     }
 
     @Bean
-    public SpringLiquibase liquibase() throws SQLException{
+    public SpringLiquibase liquibase(){
         log.debug("Configuring Liquibase");
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource());
         liquibase.setChangeLog("classpath:config/liquibase/master.xml");
         liquibase.setContexts("development, production");
-        releaseChangelogLock(liquibase.getDataSource());
+//        releaseChangelogLock(liquibase.getDataSource());
         log.debug("Completed Liquibase configuration");
         return liquibase;
     }
 
 
 
-    private void releaseChangelogLock(DataSource dataSource) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            boolean dbExist = databaseExists(connection,"databasechangeloglock");
-            if(dbExist) {
-                String releaseLock = "UPDATE DATABASECHANGELOGLOCK SET LOCKED = FALSE, LOCKEDBY = NULL, LOCKGRANTED = NULL";
-                try (PreparedStatement statement = connection.prepareStatement(releaseLock)) {
-                    statement.executeUpdate();
-                }
-            }
-        }
-    }
-
-    private static boolean databaseExists(Connection connection, String tableName) throws SQLException {
-
-        String query = "SELECT 1 FROM " + tableName + " LIMIT 1";
-
-        try (Statement statement = connection.createStatement()) {
-            statement.executeQuery(query);
-            return true;
-        }
-
-        catch (SQLException e) { return false; }
-
-    }
+//    private void releaseChangelogLock(DataSource dataSource) throws SQLException {
+//        try (Connection connection = dataSource.getConnection()) {
+//            boolean dbExist = databaseExists(connection,"databasechangeloglock");
+//            if(dbExist) {
+//                String releaseLock = "UPDATE DATABASECHANGELOGLOCK SET LOCKED = FALSE, LOCKEDBY = NULL, LOCKGRANTED = NULL";
+//                try (PreparedStatement statement = connection.prepareStatement(releaseLock)) {
+//                    statement.executeUpdate();
+//                }
+//            }
+//        }
+//    }
+//
+//    private static boolean databaseExists(Connection connection, String tableName) throws SQLException {
+//
+//        String query = "SELECT 1 FROM " + tableName + " LIMIT 1";
+//
+//        try (Statement statement = connection.createStatement()) {
+//            statement.executeQuery(query);
+//            return true;
+//        }
+//
+//        catch (SQLException e) { return false; }
+//
+//    }
 
 	//See http://blog.netgloo.com/2014/10/06/spring-boot-data-access-with-jpa-hibernate-and-mysql/
 
