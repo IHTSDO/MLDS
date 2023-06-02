@@ -24,6 +24,9 @@ import javax.transaction.Transactional;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,6 +55,8 @@ public class AtomFeedService extends AbstractAtomFeedView {
 
     private String feedProfile;
 
+    private String feedBaseUrl;
+
 
     public AtomFeedService(ReleaseVersionRepository releaseVersionRepository, Environment environment) {
         this.releaseVersionRepository = releaseVersionRepository;
@@ -59,6 +64,7 @@ public class AtomFeedService extends AbstractAtomFeedView {
         this.feedLink = environment.getProperty("feedLink");
         this.feedGenerator = environment.getProperty("feedGenerator");
         this.feedProfile = environment.getProperty("feedProfile");
+        this.feedBaseUrl = environment.getProperty("feedBaseUrl");
     }
 
     @Override
@@ -125,19 +131,40 @@ public class AtomFeedService extends AbstractAtomFeedView {
             String versionURI = (String) entry[11];
             String versionDependentURI = (String) entry[12];
             String versionDependentDerivativeURI = (String) entry[13];
+            BigInteger packageId = (BigInteger) entry[14];
+            BigInteger versionId = (BigInteger) entry[15];
+            BigInteger fileId = (BigInteger) entry[16];
+
+
             Entry atomFeedEntry = new Entry();
             atomFeedEntry.setTitle(title);
+
             List<Link> finalLink = new ArrayList<>(); //for link
+            String finalUrl = feedBaseUrl + "api/releasePackages/" + packageId + "/releaseVersions/" + versionId + "/releaseFiles/" + fileId + "/download";
+            String fileExtension = downloadUrl.substring(downloadUrl.lastIndexOf('.') + 1);
             Link link = new Link();
-            link.setHref(downloadUrl);
-            link.setType("application/atom+xml");
+            link.setHref(finalUrl);
+            link.setType("application/"+fileExtension);
+            long fileSize = getFileSize(finalUrl);
+            link.setLength(fileSize);
             finalLink.add(link);
             atomFeedEntry.setAlternateLinks(finalLink);
+
+
+            List<Category> finalCategory = new ArrayList<>();
+            Category category = new Category();
+            category.setTerm("SCT_RF2_SNAPSHOT");
+            category.setLabel("SNOMED CT RF2 Snapshot");
+            category.setScheme("http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0");
+            finalCategory.add(category);
+            atomFeedEntry.setCategories(finalCategory);
+
             Person author = new Person();
             author.setName(memberOrgName);
             author.setUri(memberOrgURL);
             author.setEmail(contactEmail);
             atomFeedEntry.setAuthors(Collections.singletonList(author));
+
             atomFeedEntry.setId(id);
             atomFeedEntry.setRights(copyrights);
             atomFeedEntry.setUpdated(updated);
@@ -178,7 +205,26 @@ public class AtomFeedService extends AbstractAtomFeedView {
         model.put("entries", entries);
         return entries;
     }
+
+    private long getFileSize(String finalUrl) {
+        try {
+            URL url = new URL(finalUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("HEAD");
+            connection.connect();
+            int contentLength = connection.getContentLength();
+            connection.disconnect();
+
+            return contentLength;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // Return -1 if file size calculation fails
+        }
+    }
 }
+
+
+
 
 
 
