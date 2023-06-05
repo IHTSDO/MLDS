@@ -294,7 +294,7 @@ public class AffiliateResource {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-	@RolesAllowed({AuthoritiesConstants.USER})
+    @RolesAllowed({AuthoritiesConstants.USER,AuthoritiesConstants.STAFF,AuthoritiesConstants.ADMIN})
     @RequestMapping(value = Routes.AFFILIATES_ME,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
