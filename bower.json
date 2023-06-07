@@ -35,6 +35,7 @@
   },
   "resolutions": {
     "angular-translate": "~2.1.x",
-    "angular": "~1.2.16"
+    "angular": "~1.2.16",
+    "moment": "2.29.4"
   }
 }
