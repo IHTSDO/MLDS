@@ -1988,5 +1988,12 @@
         </sql>
     </changeSet>
 
+    <changeSet id="MLDS-372-39" author="MB">
+        <comment>Add Updated Column to ReleaseVersion</comment>
+        <addColumn tableName="release_version">
+            <column name="updated_at" type="timestamp">
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
