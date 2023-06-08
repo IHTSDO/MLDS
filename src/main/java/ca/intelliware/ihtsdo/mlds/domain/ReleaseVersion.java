@@ -69,6 +69,9 @@ public class ReleaseVersion extends BaseEntity {
 	@Column(name="published_at")
 	LocalDate publishedAt;
 
+    @Column(name="updated_at")
+    Instant updatedAt = Instant.now();
+
 	@OneToMany(mappedBy="releaseVersion")
 	Set<ReleaseFile> releaseFiles = Sets.newHashSet();
 
@@ -213,5 +216,17 @@ public class ReleaseVersion extends BaseEntity {
 
     public void setVersionURI(String versionURI) {
         this.versionURI = versionURI;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public Instant getLastUpdated() {
+        return updatedAt;
+    }
+
+    public void setLastUpdated(Instant lastUpdated) {
+        this.updatedAt = lastUpdated;
     }
 }

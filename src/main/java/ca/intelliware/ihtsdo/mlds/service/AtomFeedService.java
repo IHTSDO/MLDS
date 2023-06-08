@@ -165,7 +165,9 @@ public class AtomFeedService extends AbstractAtomFeedView {
             author.setEmail(contactEmail);
             atomFeedEntry.setAuthors(Collections.singletonList(author));
 
-            atomFeedEntry.setId(id);
+            String finalId = "urn:uuid:" + id;
+            atomFeedEntry.setId(finalId);
+
             atomFeedEntry.setRights(copyrights);
             atomFeedEntry.setUpdated(updated);
             atomFeedEntry.setPublished(publisedAt);
