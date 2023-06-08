@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 
+import org.joda.time.Instant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -128,6 +129,8 @@ public class ReleaseVersionsResource {
         releaseVersion.setVersionDependentURI(body.getVersionDependentURI());
         releaseVersion.setVersionDependentDerivativeURI(body.getVersionDependentDerivativeURI());
         releaseVersion.setVersionURI(body.getVersionURI());
+        releaseVersion.setId(String.valueOf(UUID.randomUUID()));
+        releaseVersion.setLastUpdated(Instant.now());
 
         if (!Objects.equal(preOnline, releaseVersion.getReleaseType())) {
             if (releaseVersion.getReleaseType().equalsIgnoreCase("online")) {
