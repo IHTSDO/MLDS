@@ -35,18 +35,21 @@ public class ReleaseFile extends BaseEntity {
 
 	@Column(name="created_at")
 	Instant createdAt = Instant.now();
-	
+
 	String label;
-	
+
 	@Column(name="download_url")
 	String downloadUrl;
 
+    @Column(name="`primary`")
+    boolean primary;
+
 	public ReleaseFile() { }
-	
+
 	public ReleaseFile(long releaseFileId) {
 		this.releaseFileId = releaseFileId;
 	}
-	
+
 	// Note:
 	// String clientDownloadUrl = rest endpoint calculated in JSON JacksonConfigurer
 
@@ -81,7 +84,15 @@ public class ReleaseFile extends BaseEntity {
 		this.downloadUrl = downloadUrl;
 	}
 
-	@Override
+    public boolean isPrimary() {
+        return primary;
+    }
+
+    public void setPrimary(boolean primary) {
+        this.primary = primary;
+    }
+
+    @Override
 	protected Object getPK() {
 		return releaseFileId;
 	}
