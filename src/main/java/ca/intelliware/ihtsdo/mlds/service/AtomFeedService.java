@@ -114,8 +114,9 @@ public class AtomFeedService extends AbstractAtomFeedView {
     public List<Entry> buildFeedEntries(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
         SyndFeed syndFeed = (SyndFeed) model.get("feed");
         List<SyndEntry> syndEntries = syndFeed.getEntries();
-   Collection<Object[]> atomFeed = releaseVersionRepository.listAtomFeed();
-        List<Entry> entries = new ArrayList<>();
+        Collection<Object[]> atomFeed = releaseVersionRepository.listAtomFeed();
+        Map<BigInteger, Entry> entryMap = new HashMap<>();
+
         for (Object[] entry : atomFeed) {
             String title = (String) entry[0];
             String downloadUrl = (String) entry[1];
@@ -125,7 +126,7 @@ public class AtomFeedService extends AbstractAtomFeedView {
             String id = (String) entry[5];
             String copyrights = (String) entry[6];
             Date updated = (Date) entry[7];
-            Date publisedAt = (Date) entry[8];
+            Date publishedAt = (Date) entry[8];
             String summaryValue = (String) entry[9];
             String releasePackageURI = (String) entry[10];
             String versionURI = (String) entry[11];
@@ -134,78 +135,88 @@ public class AtomFeedService extends AbstractAtomFeedView {
             BigInteger packageId = (BigInteger) entry[14];
             BigInteger versionId = (BigInteger) entry[15];
             BigInteger fileId = (BigInteger) entry[16];
+            boolean primaryFile = (boolean) entry[17];
+
+            Entry atomFeedEntry = entryMap.get(versionId);
+            if (atomFeedEntry == null) {
+                atomFeedEntry = new Entry();
+                atomFeedEntry.setTitle(title);
+                atomFeedEntry.setId("urn:uuid:" + id);
+                atomFeedEntry.setRights(copyrights);
+                atomFeedEntry.setUpdated(updated);
+                atomFeedEntry.setPublished(publishedAt);
+                Content summary = new Content();
+                summary.setValue(summaryValue);
+                atomFeedEntry.setSummary(summary);
+                atomFeedEntry.getForeignMarkup().add(createElement("contentItemIdentifier", "ncts", "http://ns.electronichealth.net.au/ncts/syndication/asf/extensions/1.0.0", releasePackageURI));
+                atomFeedEntry.getForeignMarkup().add(createElement("contentItemVersion", "ncts", "http://ns.electronichealth.net.au/ncts/syndication/asf/extensions/1.0.0", versionURI));
 
 
-            Entry atomFeedEntry = new Entry();
-            atomFeedEntry.setTitle(title);
+                if ((versionDependentURI != null && !versionDependentURI.isEmpty())
+                    || (versionDependentDerivativeURI != null && !versionDependentDerivativeURI.isEmpty())) {
+                    Namespace sctNamespaceVersion = Namespace.getNamespace("sct", "http://snomed.info/syndication/sct-extension/1.0.0");
+                    Element packageDependencyElement = new Element("packageDependency", sctNamespaceVersion);
+                    if (versionDependentURI != null && !versionDependentURI.isEmpty()) {
+                        Namespace nctsNamespaceVersionDURI = Namespace.getNamespace("sct", "http://snomed.info/syndication/sct-extension/1.0.0");
+                        Element editionDependencyElement = new Element("editionDependency", nctsNamespaceVersionDURI);
+                        editionDependencyElement.setText(versionDependentURI);
+                        packageDependencyElement.addContent(editionDependencyElement);
+                    }
+                    if (versionDependentDerivativeURI != null && !versionDependentDerivativeURI.isEmpty()) {
+                        Namespace nctsNamespaceVersionDDURI = Namespace.getNamespace("sct", "http://snomed.info/syndication/sct-extension/1.0.0");
+                        Element derivativeDependencyElement = new Element("derivativeDependency", nctsNamespaceVersionDDURI);
+                        derivativeDependencyElement.setText(versionDependentDerivativeURI);
+                        packageDependencyElement.addContent(derivativeDependencyElement);
+                    }
+                    atomFeedEntry.getForeignMarkup().add(packageDependencyElement);
+                }
 
-            List<Link> finalLink = new ArrayList<>(); //for link
+                List<Link> finalLink = new ArrayList<>();
+                atomFeedEntry.setAlternateLinks(finalLink);
+
+                List<Category> finalCategory = new ArrayList<>();
+                Category category = new Category();
+                category.setTerm("SCT_RF2_SNAPSHOT");
+                category.setLabel("SNOMED CT RF2 Snapshot");
+                category.setScheme("http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0");
+                finalCategory.add(category);
+                atomFeedEntry.setCategories(finalCategory);
+
+                Person author = new Person();
+                author.setName(memberOrgName);
+                author.setUri(memberOrgURL);
+                author.setEmail(contactEmail);
+                atomFeedEntry.setAuthors(Collections.singletonList(author));
+
+                entryMap.put(versionId, atomFeedEntry);
+            }
+
             String finalUrl = feedBaseUrl + "api/releasePackages/" + packageId + "/releaseVersions/" + versionId + "/releaseFiles/" + fileId + "/download";
             String fileExtension = downloadUrl.substring(downloadUrl.lastIndexOf('.') + 1);
             Link link = new Link();
             link.setHref(finalUrl);
-            link.setType("application/"+fileExtension);
+            if (primaryFile) {
+                link.setRel("alternate");
+            } else {
+                link.setRel("related");
+            }
+            link.setType("application/" + fileExtension);
             long fileSize = getFileSize(finalUrl);
             link.setLength(fileSize);
-            finalLink.add(link);
-            atomFeedEntry.setAlternateLinks(finalLink);
-
-
-            List<Category> finalCategory = new ArrayList<>();
-            Category category = new Category();
-            category.setTerm("SCT_RF2_SNAPSHOT");
-            category.setLabel("SNOMED CT RF2 Snapshot");
-            category.setScheme("http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0");
-            finalCategory.add(category);
-            atomFeedEntry.setCategories(finalCategory);
-
-            Person author = new Person();
-            author.setName(memberOrgName);
-            author.setUri(memberOrgURL);
-            author.setEmail(contactEmail);
-            atomFeedEntry.setAuthors(Collections.singletonList(author));
-
-            String finalId = "urn:uuid:" + id;
-            atomFeedEntry.setId(finalId);
-
-            atomFeedEntry.setRights(copyrights);
-            atomFeedEntry.setUpdated(updated);
-            atomFeedEntry.setPublished(publisedAt);
-            Content summary = new Content();
-            summary.setValue(summaryValue);
-            atomFeedEntry.setSummary(summary);
-            Namespace nctsNamespace = Namespace.getNamespace("ncts", "http://ns.electronichealth.net.au/ncts/syndication/asf/extensions/1.0.0");
-            Element contentItemIdentifierElement = new Element("contentItemIdentifier", nctsNamespace);
-            contentItemIdentifierElement.setText(releasePackageURI);
-            atomFeedEntry.getForeignMarkup().add(contentItemIdentifierElement);
-            Namespace nctsNamespaceVersion = Namespace.getNamespace("ncts", "http://ns.electronichealth.net.au/ncts/syndication/asf/extensions/1.0.0");
-            Element contentItemVersionElement = new Element("contentItemVersion", nctsNamespaceVersion);
-            contentItemVersionElement.setText(versionURI);
-            atomFeedEntry.getForeignMarkup().add(contentItemVersionElement);
-
-            if ((versionDependentURI != null && !versionDependentURI.isEmpty())
-                || (versionDependentDerivativeURI != null && !versionDependentDerivativeURI.isEmpty())){
-                Namespace sctNamespaceVersion = Namespace.getNamespace("sct", "http://snomed.info/syndication/sct-extension/1.0.0");
-                Element packageDependencyElement = new Element("packageDependency", sctNamespaceVersion);
-                if (versionDependentURI != null && !versionDependentURI.isEmpty()) {
-                    Namespace nctsNamespaceVersionDURI = Namespace.getNamespace("sct", "http://snomed.info/syndication/sct-extension/1.0.0");
-                    Element editionDependencyElement = new Element("editionDependency", nctsNamespaceVersionDURI);
-                    editionDependencyElement.setText(versionDependentURI);
-                    packageDependencyElement.addContent(editionDependencyElement);
-
-                }
-                if (versionDependentDerivativeURI != null && !versionDependentDerivativeURI.isEmpty()) {
-                    Namespace nctsNamespaceVersionDDURI = Namespace.getNamespace("sct", "http://snomed.info/syndication/sct-extension/1.0.0");
-                    Element derivativeDependencyElement = new Element("derivativeDependency", nctsNamespaceVersionDDURI);
-                    derivativeDependencyElement.setText(versionDependentDerivativeURI);
-                    packageDependencyElement.addContent(derivativeDependencyElement);
-                }
-                atomFeedEntry.getForeignMarkup().add(packageDependencyElement);
-            }
-            entries.add(atomFeedEntry);
+            atomFeedEntry.getAlternateLinks().add(link);
         }
+
+        List<Entry> entries = new ArrayList<>(entryMap.values());
         model.put("entries", entries);
         return entries;
+    }
+
+
+    private Element createElement(String name, String prefix, String namespace, String value) {
+        Namespace ns = Namespace.getNamespace(prefix, namespace);
+        Element element = new Element(name, ns);
+        element.setText(value);
+        return element;
     }
 
     private long getFileSize(String finalUrl) {
