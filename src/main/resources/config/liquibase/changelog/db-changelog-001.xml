@@ -1996,4 +1996,13 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="MLDS-372-50" author="MB">
+        <comment>Added Primary column for primary file boolean</comment>
+        <addColumn tableName="release_file">
+            <column name="primary" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
