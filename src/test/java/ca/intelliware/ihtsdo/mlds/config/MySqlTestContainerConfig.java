@@ -13,7 +13,7 @@ public enum MySqlTestContainerConfig {
 
     MySqlTestContainerConfig() {
         this.mySQLContainer = new MySQLContainer<>("mysql:8.0.26")
-            .withDatabaseName("mldsInDockerTestContainer")
+            .withDatabaseName("mlds")
             .withUsername("root")
             .withPassword("test")
             .withExposedPorts(3306)
