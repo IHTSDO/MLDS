@@ -41,8 +41,8 @@ public class ReleaseFile extends BaseEntity {
 	@Column(name="download_url")
 	String downloadUrl;
 
-    @Column(name="`primary`")
-    boolean primary;
+    @Column(name="primary_file")
+    boolean primaryFile;
 
 	public ReleaseFile() { }
 
@@ -84,12 +84,12 @@ public class ReleaseFile extends BaseEntity {
 		this.downloadUrl = downloadUrl;
 	}
 
-    public boolean isPrimary() {
-        return primary;
+    public boolean isPrimaryFile() {
+        return primaryFile;
     }
 
-    public void setPrimary(boolean primary) {
-        this.primary = primary;
+    public void setPrimaryFile(boolean primaryFile) {
+        this.primaryFile = primaryFile;
     }
 
     @Override
