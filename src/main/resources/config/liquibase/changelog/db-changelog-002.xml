@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="MLDS-986" author="JJ">
+        <comment>Add hibernate_sequence table and load member data</comment>
+        <createTable tableName="hibernate_sequence">
+            <column name="sequence_name" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="next_val" type="BIGINT" defaultValueNumeric="1" />
+        </createTable>
+
+        <insert tableName="hibernate_sequence">
+            <column name="sequence_name" valueNumeric="1"/>
+            <column name="next_val" value="1"/>
+        </insert>
+
+        <sql>
+            INSERT INTO member (member_id, `key`, created_at)
+            VALUES (1, 'IHTSDO', now());
+        </sql>
+
+        <sql>
+            INSERT INTO member (member_id, `key`, created_at)
+            VALUES (2, 'SE', now());
+        </sql>
+
+        <sql>
+            update release_package
+            set member_id = (select member_id from member where `key` = 'IHTSDO')
+        </sql>
+
+        <sql>
+            update country
+            set member_id = (select member_id from member where `key` = 'SE')
+            where iso_code_2 = 'SE'
+        </sql>
+
+        <sql>
+            update application
+            set member_id = (select member_id from member where `key` = 'IHTSDO')
+        </sql>
+
+        <sql>
+            update affiliate
+            set home_member_id = (select member_id from member where `key` = 'IHTSDO')
+        </sql>
+
+        <sql>
+            INSERT INTO member (member_id, `key`, created_at) VALUES (3, 'AU', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (4, 'BE', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (5, 'BN', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (6, 'CA', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (7, 'CL', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (8, 'CZ', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (9, 'DK', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (10, 'EE', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (11, 'HK', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (12, 'IS', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (13, 'IN', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (14, 'IL', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (15, 'LT', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (16, 'MY', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (17, 'MT', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (18, 'NL', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (19, 'NZ', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (20, 'PL', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (21, 'PT', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (22, 'SG', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (23, 'SK', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (24, 'SI', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (25, 'ES', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (26, 'GB', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (27, 'US', now());
+            INSERT INTO member (member_id, `key`, created_at) VALUES (28, 'UY', now());
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="MLDS-987" author="JJ">
+        <comment>Add columns in release packages table</comment>
+        <addColumn tableName="release_package">
+            <column name="copyrights" type="TEXT" />
+            <column name="releasePackageURI" type="VARCHAR(255)" />
+            <column name="updated_at" type="timestamp" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-987-1" author="JJ">
+        <comment>Add columns in member table</comment>
+        <addColumn tableName="member">
+            <column name="contactEmail" type="VARCHAR(255)" />
+            <column name="memberOrgName" type="VARCHAR(255)"/>
+            <column name="memberOrgURL" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-987-2" author="JJ">
+        <comment>Add columns in release version table</comment>
+        <addColumn tableName="release_version">
+            <column name="release_type" type="VARCHAR(255)" />
+            <column name="summary" type="TEXT" />
+            <column name="versionDependentDerivativeURI" type="VARCHAR(255)" />
+            <column name="versionDependentURI" type="VARCHAR(255)" />
+            <column name="versionURI" type="VARCHAR(255)" />
+            <column name="id" type="VARCHAR(255)" />
+            <column name="updated_at" type="timestamp" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-987-3" author="JJ">
+        <comment>Add column in release file table</comment>
+        <addColumn tableName="release_file">
+            <column name="primary_file" type="boolean" defaultValue="false">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
