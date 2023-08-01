@@ -16,7 +16,7 @@
         </preConditions>
         <comment>Modified version -- don't create default users.</comment>
         <createTable tableName="T_USER">
-            <column name="login" type="varchar(50)">
+            <column name="login" type="varchar(100)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="password" type="varchar(100)"/>
@@ -132,7 +132,7 @@
             </column>
             <column name="lang_key" type="varchar(5)"/>
             <column name="activation_key" type="varchar(20)"/>
-            <column name="created_by" type="varchar(50)" defaultValue="system">
+            <column name="created_by" type="varchar(100)" defaultValue="system">
                 <constraints nullable="false"/>
             </column>
             <column name="created_date" type="timestamp" defaultValueDate="${now}">
