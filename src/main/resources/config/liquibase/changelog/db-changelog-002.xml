@@ -79,6 +79,18 @@
         </sql>
     </changeSet>
 
+    <changeSet id="MLDS-986-1" author="JJ">
+        <comment>Add default values and index</comment>
+        <addDefaultValue tableName="application" columnName="approval_state" defaultValue="NOT_SUBMITTED" columnDataType="varchar(255)"/>
+        <addDefaultValue tableName="commercial_usage" columnName="state" defaultValue="NOT_SUBMITTED" columnDataType="varchar(255)" />
+        <addDefaultValue tableName="country" columnName="exclude_usage"  defaultValueBoolean="false" columnDataType="BOOLEAN"/>
+
+        <createIndex indexName="idx_persistent_audit_event_data_name"
+                         tableName="T_PERSISTENT_AUDIT_EVENT_DATA"
+                         unique="false">
+                <column name="name" type="varchar(255)"/>
+        </createIndex>
+    </changeSet>
 
     <changeSet id="MLDS-987" author="JJ">
         <comment>Add columns in release packages table</comment>
