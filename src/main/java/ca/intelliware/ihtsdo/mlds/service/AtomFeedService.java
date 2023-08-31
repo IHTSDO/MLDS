@@ -57,14 +57,17 @@ public class AtomFeedService extends AbstractAtomFeedView {
 
     private String feedBaseUrl;
 
+    private String feedUUID;
+
 
     public AtomFeedService(ReleaseVersionRepository releaseVersionRepository, Environment environment) {
         this.releaseVersionRepository = releaseVersionRepository;
-        this.feedTitle = environment.getProperty("feedTitle");
-        this.feedLink = environment.getProperty("feedLink");
-        this.feedGenerator = environment.getProperty("feedGenerator");
-        this.feedProfile = environment.getProperty("feedProfile");
-        this.feedBaseUrl = environment.getProperty("feedBaseUrl");
+        this.feedTitle = environment.getProperty("atom.feed.title");
+        this.feedLink = environment.getProperty("atom.feed.link");
+        this.feedGenerator = environment.getProperty("atom.feed.generator");
+        this.feedProfile = environment.getProperty("atom.feed.profile");
+        this.feedBaseUrl = environment.getProperty("atom.feed.baseUrl");
+        this.feedUUID = environment.getProperty("atom.feed.UUID");
     }
 
     @Override
@@ -80,7 +83,7 @@ public class AtomFeedService extends AbstractAtomFeedView {
         links.add(link);
         feed.setAlternateLinks(links);
 
-        String uuid = "urn:uuid:" + UUID.randomUUID().toString(); //for id
+        String uuid = "urn:uuid:" + feedUUID;
         feed.setId(uuid);
 
         Generator generator = new Generator(); //for generator
@@ -95,7 +98,7 @@ public class AtomFeedService extends AbstractAtomFeedView {
             Date updatedDate = dateFormat.parse(formattedDate);
             feed.setUpdated(updatedDate);
         } catch (ParseException e) {
-
+             e.printStackTrace();
         }
 
 
