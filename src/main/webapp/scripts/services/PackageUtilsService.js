@@ -232,41 +232,46 @@ angular.module('MLDS').factory('PackageUtilsService',
 //	    	};
 
             service.updateVersionsLists = function updateVersionsLists(packgeEntity) {
-//	    		var results = { online: [], offline: [] };
-//	    		var publishedOfflineVersions = [];
-//	    		var nonPublishedOfflineVersions = [];
+	    		var publishedOfflineVersions = [];
+	    		var nonPublishedOfflineVersions = [];
+	    		var publishedAlphaBetaVersions = [];
+	    		var nonPublishedAlphaBetaVersions = [];
 	    		var results = { online: [], alphabeta: [], offline: []} ;
 
-//	    		for(var i = 0; i < packgeEntity.releaseVersions.length; i++) {
-//	    			if (packgeEntity.releaseVersions[i].online) {
-//	    				results.online.push(packgeEntity.releaseVersions[i]);
-//	    			} else {
-//	    				if (packgeEntity.releaseVersions[i].publishedAt) {
-//	    					publishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
-//	    				} else {
-//	    					nonPublishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
-//	    				}
-//	    			}
-//	    		};
 
 	    		for(var i = 0; i < packgeEntity.releaseVersions.length; i++) {
                 	    			if (packgeEntity.releaseVersions[i].releaseType === "online") {
                 	    				results.online.push(packgeEntity.releaseVersions[i]);
                 	    			}
+
                 	    			if (packgeEntity.releaseVersions[i].releaseType === "offline") {
-                	    				results.offline.push(packgeEntity.releaseVersions[i]);
+	    				                    if (packgeEntity.releaseVersions[i].publishedAt) {
+	    					                    publishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
+	    				                    } else {
+	    					                    nonPublishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
+	    				                    }
                 	    			}
+
                 	    			if (packgeEntity.releaseVersions[i].releaseType === "alpha/beta") {
-                	    				results.alphabeta.push(packgeEntity.releaseVersions[i]);
+                	    			        if (packgeEntity.releaseVersions[i].publishedAt) {
+                                    	    	publishedAlphaBetaVersions.push(packgeEntity.releaseVersions[i]);
+                                    	    } else {
+                                    	    	nonPublishedAlphaBetaVersions.push(packgeEntity.releaseVersions[i]);
+                                    	    	}
                 	    			}
 
 
                 	    		};
-//
-//	    		results.online.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
-//	    		publishedOfflineVersions.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
-//	    		nonPublishedOfflineVersions.sort(function(a,b){return new Date(b.createdAt) - new Date(a.createdAt);});
-//	    		results.offline = publishedOfflineVersions.concat(nonPublishedOfflineVersions);
+
+	    		results.online.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
+
+	    		publishedOfflineVersions.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
+	    		nonPublishedOfflineVersions.sort(function(a,b){return new Date(b.createdAt) - new Date(a.createdAt);});
+	    		results.offline = publishedOfflineVersions.concat(nonPublishedOfflineVersions);
+
+	    		publishedAlphaBetaVersions.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
+	    		nonPublishedAlphaBetaVersions.sort(function(a,b){return new Date(b.createdAt) - new Date(a.createdAt);});
+	    		results.alphabeta = publishedAlphaBetaVersions.concat(nonPublishedAlphaBetaVersions);
 
 	    		return results;
 //	    		return results2;
