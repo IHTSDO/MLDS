@@ -46,9 +46,8 @@ public class S3ClientConfiguration implements EnvironmentAware {
 			s3Client = new OfflineS3ClientImpl();
 		} else {
 
-            log.info("inside online implementation");
-            s3Client =  new S3ClientImpl(new InstanceProfileCredentialsProvider(false).getCredentials());
-            log.info("s3Client:",s3Client);
+            s3Client =  new S3ClientImpl(new InstanceProfileCredentialsProvider(true).getCredentials());
+            log.debug("s3Client:",s3Client);
 //			String awsKey = propertyResolver.getProperty(PROP_AWS_KEY);
 //			String awsPrivateKey = propertyResolver.getProperty(PROP_AWS_PRIVATEKEY);
 //			BasicAWSCredentials credentials = new BasicAWSCredentials(awsKey, awsPrivateKey);
@@ -62,5 +61,4 @@ public class S3ClientConfiguration implements EnvironmentAware {
 
 		return s3Client;
 	}
-
 }
