@@ -19,12 +19,21 @@
           <span ng-show="formReleaseFile.downloadUrl.$error.url && submitAttempted" class="help-block">Invalid URL</span>
       </div>
       <div class="form-group">
-           <label for="isPrimaryCheckbox">
-           <input id="isPrimaryCheckbox" name="isPrimary" ng-model="releaseFile.primaryFile" type="checkbox" />
-           Is Primary file
-           </label>
+           <label>MD5 Hash</label>
+           <input class="form-control" rows="3" placeholder="Enter File MD5 Hash" name="md5Hash" ng-model="releaseFile.md5Hash" ng-required="releaseFile.primaryFile">
+           <span ng-show="formReleaseFile.md5Hash.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
+      <div class="form-group">
+            <label>File Size in Octets
+              <input class="form-control col-2" placeholder="File Size" name="fileSize" ng-model="releaseFile.fileSize" ng-required="releaseFile.primaryFile">
+              <span ng-show="formReleaseFile.fileSize.$error.required && submitAttempted" class="help-block">Required Field</span>
+            </label>
+            <label style="margin-left: 40px;" for="isPrimaryCheckbox">
+              <input id="isPrimaryCheckbox" name="isPrimary" ng-model="releaseFile.primaryFile" type="checkbox" />
+              Is Primary file
+            </label>
       </div>
+     </div>
 	</form>
 </div>
  </div>
