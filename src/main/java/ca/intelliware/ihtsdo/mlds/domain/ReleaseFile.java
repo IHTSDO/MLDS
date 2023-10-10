@@ -44,6 +44,12 @@ public class ReleaseFile extends BaseEntity {
     @Column(name="primary_file")
     boolean primaryFile;
 
+    @Column(name="md5_hash")
+    String md5Hash;
+
+    @Column(name="file_size")
+    String fileSize;
+
 	public ReleaseFile() { }
 
 	public ReleaseFile(long releaseFileId) {
@@ -90,6 +96,22 @@ public class ReleaseFile extends BaseEntity {
 
     public void setPrimaryFile(boolean primaryFile) {
         this.primaryFile = primaryFile;
+    }
+
+    public String getMd5Hash() {
+        return md5Hash;
+    }
+
+    public void setMd5Hash(String md5Hash) {
+        this.md5Hash = md5Hash;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
     }
 
     @Override

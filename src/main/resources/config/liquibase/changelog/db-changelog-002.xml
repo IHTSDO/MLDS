@@ -132,4 +132,12 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="MLDS-1021" author="JJ">
+        <comment>Add md5Hash and file size column in release file table</comment>
+        <addColumn tableName="release_file">
+            <column name="md5_hash" type="VARCHAR(255)" />
+            <column name="file_size" type="VARCHAR(255)" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
