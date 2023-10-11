@@ -98,6 +98,8 @@ public class ReleaseFile extends BaseEntity {
         this.primaryFile = primaryFile;
     }
 
+    public boolean getPrimaryFile() { return primaryFile; }
+
     public String getMd5Hash() {
         return md5Hash;
     }

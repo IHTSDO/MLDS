@@ -140,4 +140,11 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="MLDS-1021-01" author="JJ">
+        <comment>Add package type column in release version table</comment>
+        <addColumn tableName="release_version">
+            <column name="package_type" type="VARCHAR(255)" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

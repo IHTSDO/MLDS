@@ -98,6 +98,7 @@ public class AtomFeedService {
                     entry.setPrimaryFile((Boolean) entryData[17]);
                     entry.setMd5Hash(String.valueOf(entryData[18]));
                     entry.setFileSize(String.valueOf(entryData[19]));
+                    entry.setPackageType(String.valueOf(entryData[20]));
                 }
 
                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");

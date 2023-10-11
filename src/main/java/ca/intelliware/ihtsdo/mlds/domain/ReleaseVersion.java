@@ -72,6 +72,9 @@ public class ReleaseVersion extends BaseEntity {
     @Column(name="updated_at")
     Instant updatedAt = Instant.now();
 
+    @Column(name="package_type")
+    String packageType;
+
 	@OneToMany(mappedBy="releaseVersion")
 	Set<ReleaseFile> releaseFiles = Sets.newHashSet();
 
@@ -228,5 +231,13 @@ public class ReleaseVersion extends BaseEntity {
 
     public void setLastUpdated(Instant lastUpdated) {
         this.updatedAt = lastUpdated;
+    }
+
+    public String getPackageType() {
+        return packageType;
+    }
+
+    public void setPackageType(String packageType) {
+        this.packageType = packageType;
     }
 }

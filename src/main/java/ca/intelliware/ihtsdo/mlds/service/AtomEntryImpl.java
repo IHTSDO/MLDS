@@ -24,6 +24,7 @@ public class AtomEntryImpl {
     private boolean primaryFile;
     private String md5Hash;
     private String fileSize;
+    private String packageType;
     private String feedBaseUrl;
 
 
@@ -187,6 +188,14 @@ public class AtomEntryImpl {
         this.fileSize = fileSize;
     }
 
+    public String getPackageType() {
+        return packageType;
+    }
+
+    public void setPackageType(String packageType) {
+        this.packageType = packageType;
+    }
+
     public String getFeedBaseUrl() {
         return feedBaseUrl;
     }
@@ -229,7 +238,7 @@ public class AtomEntryImpl {
                 String fileHash = fileIdToFileHash.get(fileId);
                 String fileExtension = getFileExtension(fileUrl);
 
-                if (!"null".equals(checkFileSize) && !"null".equals(fileHash)) {
+                if (!"null".equals(checkFileSize) && !"null".equals(fileHash) && !checkFileSize.isEmpty() && !fileHash.isEmpty()) {
                     if (checkPrimaryFile) {
                         entryXml.append("        <link rel=\"alternate\" type=\"application/").append(fileExtension).append("\" href=\"").append(downloadUrl).append("\" length=\"").append(checkFileSize).append("\" sct:md5Hash=\"").append(fileHash).append("\" />\n");
                     } else {
@@ -237,7 +246,7 @@ public class AtomEntryImpl {
                     }
                 }
 
-                else{
+                else {
                     if(checkPrimaryFile){
                         entryXml.append("        <link rel=\"alternate\" type=\"application/").append(fileExtension).append("\" href=\"").append(downloadUrl).append("\" />\n");
                     }
@@ -248,7 +257,17 @@ public class AtomEntryImpl {
             }
         }
 
-        entryXml.append("        <category term=\"SCT_RF2_SNAPSHOT\" label=\"SNOMED CT RF2 Snapshot\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
+        //for category
+        if(packageType.equals("SCT_RF2_SNAPSHOT")) {
+            entryXml.append("        <category term=\"").append(packageType).append("\" label=\"SNOMED CT RF2 Snapshot Package\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
+        }
+        if(packageType.equals("SCT_RF2_FULL")) {
+            entryXml.append("        <category term=\"").append(packageType).append("\" label=\"SNOMED CT RF2 Full Package\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
+        }
+        if(!packageType.equals("SCT_RF2_SNAPSHOT") && !packageType.equals("SCT_RF2_FULL")) {
+            entryXml.append("        <category term=\"OTHER\" label=\"Other Package\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
+        }
+
         entryXml.append("        <author>\n");
         entryXml.append("            <name>").append(memberOrgName).append("</name>\n");
         entryXml.append("            <uri>").append(memberOrgURL).append("</uri>\n");
