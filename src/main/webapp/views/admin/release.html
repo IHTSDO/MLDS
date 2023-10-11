@@ -49,9 +49,9 @@
 					<td class="col-sm-5" ng-bind-html="releaseVersion.description"></td>
 					<td class="col-sm-3">
 						<div ng-repeat="releaseFile in releaseVersion.releaseFiles">
-							<p><i class="fa fa-file"> </i>
+							<p style="display:flex; gap:10px; align-items:center;"><i class="fa fa-file" style="margin-bottom:10px;"> </i>
 								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a>
-                                <button class="btn btn-success btn-xs pull-right"
+                                <button class="btn btn-success btn-xs pull-right" style="margin-bottom:10px;"
                                         ng-click="editReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
                                     <i class="fa fa-edit"></i> Edit
                                 </button></p>
@@ -106,14 +106,14 @@
                         </button>
                     </p>
                     <span class="release" ng-repeat="releaseFile in releaseVersion.releaseFiles">
-							<p>
-								<i class="fa fa-file"></i>
-													<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a></p>
-								<button class="btn btn-danger btn-xs pull-right" style="margin-left: 5px;"
+							<p style="display:flex; gap:10px; align-items:center;">
+								<i class="fa fa-file" style="margin-bottom:10px;"></i>
+													<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a>
+								<button class="btn btn-danger btn-xs pull-right" style="margin-left: 5px; margin-bottom:10px;"
                                         ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-times"></i> Remove
 								</button>
-                                <button class="btn btn-success btn-xs pull-right"
+                                <button class="btn btn-success btn-xs pull-right" style="margin-bottom: 10px;"
                                         ng-click="editReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-edit"></i> Edit
 								</button>
@@ -175,16 +175,16 @@
 							</button>
 						</p>
 						<span class="release" ng-repeat="releaseFile in releaseVersion.releaseFiles">
-							<p>
-								<i class="fa fa-file"></i>
+							<p style="display:flex; gap:10px; align-items:center;">
+								<i class="fa fa-file" style="margin-bottom: 10px;"></i>
 
-								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a></p>
+								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a>
 
-                                <button class="btn btn-danger btn-xs pull-right" style="margin-left: 5px;"
+                                <button class="btn btn-danger btn-xs pull-right" style="margin-left: 5px;margin-bottom: 10px"
 									ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-times"></i> Remove
 								</button>
-                                <button class="btn btn-success btn-xs pull-right"
+                                <button class="btn btn-success btn-xs pull-right" style="margin-bottom: 10px;"
                                     ng-click="editReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-edit"></i> Edit
 								</button>
