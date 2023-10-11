@@ -50,7 +50,11 @@
 					<td class="col-sm-3">
 						<div ng-repeat="releaseFile in releaseVersion.releaseFiles">
 							<p><i class="fa fa-file"> </i>
-								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a></p>
+								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a>
+                                <button class="btn btn-success btn-xs pull-right"
+                                        ng-click="editReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
+                                    <i class="fa fa-edit"></i> Edit
+                                </button></p>
 						</div>
 					</td>
 					<td class="col-sm-2">{{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</td>
@@ -105,9 +109,13 @@
 							<p>
 								<i class="fa fa-file"></i>
 													<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a></p>
-								<button class="btn btn-danger btn-xs pull-right"
+								<button class="btn btn-danger btn-xs pull-right" style="margin-left: 5px;"
                                         ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-times"></i> Remove
+								</button>
+                                <button class="btn btn-success btn-xs pull-right"
+                                        ng-click="editReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
+									<i class="fa fa-edit"></i> Edit
 								</button>
                         </p>
 						</span>
@@ -169,10 +177,16 @@
 						<span class="release" ng-repeat="releaseFile in releaseVersion.releaseFiles">
 							<p>
 								<i class="fa fa-file"></i>
-													<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a></p>
-								<button class="btn btn-danger btn-xs pull-right"
+
+								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a></p>
+
+                                <button class="btn btn-danger btn-xs pull-right" style="margin-left: 5px;"
 									ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-times"></i> Remove
+								</button>
+                                <button class="btn btn-success btn-xs pull-right"
+                                    ng-click="editReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
+									<i class="fa fa-edit"></i> Edit
 								</button>
 							</p>
 						</span>

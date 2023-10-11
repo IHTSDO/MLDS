@@ -40,34 +40,34 @@ public class ReleaseFilesResource {
 
 	@Resource
 	ReleasePackageAuthorizationChecker authorizationChecker;
-	
+
 	@Resource
 	UriDownloader uriDownloader;
-	
+
 	@Resource
 	UserMembershipAccessor userMembershipAccessor;
-	
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Release Files
-	
+
 	@RequestMapping(value = Routes.RELEASE_FILE,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	@Timed
     public @ResponseBody ResponseEntity<ReleaseFile> getReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
-    	
+
     	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
     	if (releaseFile == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
-    	
+
     	//FIXME should we check children being consistent?
     	authorizationChecker.checkCanEditReleasePackage(releaseFile.getReleaseVersion().getReleasePackage());
-    	
+
     	return new ResponseEntity<ReleaseFile>(releaseFile, HttpStatus.OK);
     }
-	
+
 	@RequestMapping(value = Routes.RELEASE_FILES,
     		method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,21 +75,49 @@ public class ReleaseFilesResource {
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	@Timed
     public @ResponseBody ResponseEntity<ReleaseFile> createReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseFile body) {
-		
+
 		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
     	if (releaseVersion == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
-    	
+
     	authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
-    	
+
     	releaseFileRepository.save(body);
     	releaseVersion.addReleaseFile(body);
-    	
+
     	releasePackageAuditEvents.logCreationOf(body);
 
     	return new ResponseEntity<ReleaseFile>(body, HttpStatus.OK);
     }
+
+    @RequestMapping(value = Routes.RELEASE_FILES,
+    method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    @RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @Timed
+    public @ResponseBody ResponseEntity<ReleaseFile> updateReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseFile body) {
+
+        ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
+
+        if (releaseVersion == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
+
+        ReleaseFile releaseFile = releaseFileRepository.findOne(body.getReleaseFileId());
+
+        if(releaseFile == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        releaseFile.setLabel(body.getLabel());
+        releaseFile.setDownloadUrl(body.getDownloadUrl());
+        releaseFile.setMd5Hash(body.getMd5Hash());
+        releaseFile.setFileSize(body.getFileSize());
+        releaseFile.setPrimaryFile(body.getPrimaryFile());
+        return new ResponseEntity<ReleaseFile>(releaseFile, HttpStatus.OK);
+    }
+
 
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@RequestMapping(value = Routes.RELEASE_FILE,
@@ -98,21 +126,21 @@ public class ReleaseFilesResource {
 	@Transactional
 	@Timed
 	public @ResponseBody ResponseEntity<ReleaseFile> deleteReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
-		
+
 		ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
 		if (releaseFile == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+
 		authorizationChecker.checkCanEditReleasePackage(releaseFile.getReleaseVersion().getReleasePackage());
-		
+
 		releaseFileRepository.delete(releaseFile);
-		
+
 		releasePackageAuditEvents.logDeletionOf(releaseFile);
-		
+
 		return new ResponseEntity<ReleaseFile>(HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = Routes.RELEASE_FILE_DOWNLOAD,
     		method = RequestMethod.GET)
 	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
@@ -120,16 +148,16 @@ public class ReleaseFilesResource {
 	public @ResponseBody
 	void downloadReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId,
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	
+
     	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
     	if (releaseFile == null) {
     		//TODO better 404 handling
     		throw new RuntimeException("no such file found");
     	}
-    	
+
     	//FIXME should we check children being consistent?
     	authorizationChecker.checkCanDownloadReleaseVersion(releaseFile.getReleaseVersion());
-    	
+
     	int statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
     	try {
 	    	String downloadUrl = releaseFile.getDownloadUrl();

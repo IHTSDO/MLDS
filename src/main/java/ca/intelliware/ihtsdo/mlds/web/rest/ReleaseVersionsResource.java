@@ -131,6 +131,7 @@ public class ReleaseVersionsResource {
         releaseVersion.setVersionURI(body.getVersionURI());
         releaseVersion.setId(String.valueOf(UUID.randomUUID()));
         releaseVersion.setLastUpdated(Instant.now());
+        releaseVersion.setPackageType(body.getPackageType());
 
         if (!Objects.equal(preOnline, releaseVersion.getReleaseType())) {
             if (releaseVersion.getReleaseType().equalsIgnoreCase("online")) {
