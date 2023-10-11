@@ -144,6 +144,22 @@ angular.module('MLDS').controller('ReleaseController',
 			.$promise.then(loadReleasePackage);
     };
 
+    $scope.editReleaseFile = function editReleaseFile(releaseVersion, releaseFile) {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/admin/editReleaseFileModal.html',
+            controller: 'EditReleaseFileModalController',
+            scope: $scope,
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                releasePackage: function() { return angular.copy($scope.packageEntity); },
+                releaseFile: function() { return angular.copy(releaseFile); },
+                releaseVersion: function() { return angular.copy(releaseVersion);},
+            }
+        });
+        modalInstance.result.then(loadReleasePackage);
+    };
+
     $scope.deleteVersionModal = function deleteVersionModal(selectedReleaseVersion) {
     	var modalInstance = $modal.open({
   	      	templateUrl: 'views/admin/deleteVersionModal.html',
