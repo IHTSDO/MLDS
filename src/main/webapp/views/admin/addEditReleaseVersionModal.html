@@ -22,8 +22,9 @@
          <label>Package Type</label>
          <select class="form-control" name="packageType" ng-model="releaseVersion.packageType" ng-required="true">
            <option value="">Select Package Type</option>
-           <option value="SCT_RF2_SNAPSHOT">SNOMED CT RF2 Snapshot Package</option>
-           <option value="SCT_RF2_FULL" selected>SNOMED CT RF2 Full Package</option>
+           <option value="SCT_RF2_ALL" selected>SNOMED CT RF2 All</option>
+           <option value="SCT_RF2_SNAPSHOT">SNOMED CT RF2 Snapshot</option>
+           <option value="SCT_RF2_FULL" selected>SNOMED CT RF2 Full</option>
            <option value="OTHER">Other Package</option>
          </select>
           <span ng-show="formPackageVersion.packageType.$error.required && submitAttempted" class="help-block">Required Field</span>
