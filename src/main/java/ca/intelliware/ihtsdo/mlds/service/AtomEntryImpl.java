@@ -259,12 +259,15 @@ public class AtomEntryImpl {
 
         //for category
         if(packageType.equals("SCT_RF2_SNAPSHOT")) {
-            entryXml.append("        <category term=\"").append(packageType).append("\" label=\"SNOMED CT RF2 Snapshot Package\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
+            entryXml.append("        <category term=\"").append(packageType).append("\" label=\"SNOMED CT RF2 Snapshot\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
         }
         if(packageType.equals("SCT_RF2_FULL")) {
-            entryXml.append("        <category term=\"").append(packageType).append("\" label=\"SNOMED CT RF2 Full Package\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
+            entryXml.append("        <category term=\"").append(packageType).append("\" label=\"SNOMED CT RF2 Full\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
         }
-        if(!packageType.equals("SCT_RF2_SNAPSHOT") && !packageType.equals("SCT_RF2_FULL")) {
+        if(packageType.equals("SCT_RF2_ALL")) {
+            entryXml.append("        <category term=\"").append(packageType).append("\" label=\"SNOMED CT RF2 All\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
+        }
+        if(!packageType.equals("SCT_RF2_SNAPSHOT") && !packageType.equals("SCT_RF2_FULL") && !packageType.equals("SCT_RF2_ALL")) {
             entryXml.append("        <category term=\"OTHER\" label=\"Other Package\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
         }
 
