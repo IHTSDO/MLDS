@@ -1063,8 +1063,8 @@
             "purpose": "Este servicio es proporcionado por la SNOMED International para que las organizaciones e individuos puedan solicitar y acceder a la Versión Internacional de  SNOMED CT para uso en los Países no miembros.",
             "furtherDetails": "Por más información, por favor dirigirse a  <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International website</a> o  <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/Preguntas+Frecuentes\" target=\"_blank\">Preguntas Frecuentes</a>.",
             "loginHere": "Inicie sesión",
-            "member.purpose1": "Esta es una herramienta utilizada por el National Release Center ",
-            "member.purpose2": " para gestionar las Licencias de Afiliación de SNOMED CT. Incluye nuevas solicitudes, renovaciones y reportes dentro de ",
+            "member.purpose1": "Esta es una herramienta utilizada por Centro Nacional de Publicaciones de la terminología clínica de SNOMED CT en ",
+            "member.purpose2": " (National Release Center) para gestionar las Licencias de Afiliación de SNOMED CT. Incluye nuevas solicitudes, renovaciones y reportes dentro de ",
             "member.purpose3": " y de ser relevante en los paises no miembros."
         },
         "releases": {
