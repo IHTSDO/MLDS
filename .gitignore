@@ -5,6 +5,8 @@ local-*
 .c9
 node
 node_modules
+Affiliate
+AffiliateDetails
 .idea
 *.iml
 .classpath

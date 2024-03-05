@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web;
 
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,7 @@ public class SessionService {
 		if (principal instanceof String) {
 			username = (String) principal;
 		}
-		return username;
+//		String username = null;
+	return username;
 	}
 }

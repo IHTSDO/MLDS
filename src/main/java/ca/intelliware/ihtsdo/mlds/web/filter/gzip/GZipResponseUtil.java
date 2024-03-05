@@ -1,10 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.web.filter.gzip;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+
 
 public final class GZipResponseUtil {
 
@@ -49,19 +50,19 @@ public final class GZipResponseUtil {
         }
     }
 
-    /**
-     * Performs a number of checks to ensure response saneness according to the rules of RFC2616:
-     * <ol>
-     * <li>If the response code is {@link javax.servlet.http.HttpServletResponse#SC_NO_CONTENT} then it is illegal for the body
-     * to contain anything. See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5
-     * <li>If the response code is {@link javax.servlet.http.HttpServletResponse#SC_NOT_MODIFIED} then it is illegal for the body
-     * to contain anything. See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.5
-     * </ol>
-     *
-     * @param request        the client HTTP request
-     * @param responseStatus the responseStatus
-     * @return true if the response should be 0, even if it is isn't.
-     */
+//    /**
+//     * Performs a number of checks to ensure response saneness according to the rules of RFC2616:
+//     * <ol>
+//     * <li>If the response code is {@link javax.servlet.http.HttpServletResponse#SC_NO_CONTENT} then it is illegal for the body
+//     * to contain anything. See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5
+//     * <li>If the response code is {@link javax.servlet.http.HttpServletResponse#SC_NOT_MODIFIED} then it is illegal for the body
+//     * to contain anything. See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.5
+//     * </ol>
+//     *
+//     * @param request        the client HTTP request
+//     * @param responseStatus the responseStatus
+//     * @return true if the response should be 0, even if it is isn't.
+//     */
     public static boolean shouldBodyBeZero(HttpServletRequest request, int responseStatus) {
 
         //Check for NO_CONTENT
@@ -84,18 +85,18 @@ public final class GZipResponseUtil {
         return false;
     }
 
-    /**
-     * Adds the gzip HTTP header to the response.
-     * <p/>
-     * <p>
-     * This is need when a gzipped body is returned so that browsers can properly decompress it.
-     * </p>
-     *
-     * @param response the response which will have a header added to it. I.e this method changes its parameter
-     * @throws GzipResponseHeadersNotModifiableException Either the response is committed or we were called using the include method
-     *                                                   from a {@link javax.servlet.RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
-     *                                                   method and the set header is ignored.
-     */
+//    /**
+//     * Adds the gzip HTTP header to the response.
+//     * <p/>
+//     * <p>
+//     * This is need when a gzipped body is returned so that browsers can properly decompress it.
+//     * </p>
+//     *
+//     * @param response the response which will have a header added to it. I.e this method changes its parameter
+//     * @throws GzipResponseHeadersNotModifiableException Either the response is committed or we were called using the include method
+//     *                                                   from a {@link javax.servlet.RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
+//     *                                                   method and the set header is ignored.
+//     */
     public static void addGzipHeader(final HttpServletResponse response) throws GzipResponseHeadersNotModifiableException {
         response.setHeader("Content-Encoding", "gzip");
         boolean containsEncoding = response.containsHeader("Content-Encoding");

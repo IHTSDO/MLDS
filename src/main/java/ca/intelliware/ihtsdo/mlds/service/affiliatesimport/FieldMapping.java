@@ -1,8 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
-import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+
+
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 /**
  * Maps an individual CSV column to an entity field
@@ -25,7 +29,7 @@ public class FieldMapping {
 		required = true;
 		return this;
 	}
-	
+
 	public void validateDataValue(String valueString, LineRecord lineRecord, ImportResult result) {
 		if (required && StringUtils.isBlank(valueString)) {
 			result.addError(lineRecord, this, "Missing required field");
@@ -38,7 +42,7 @@ public class FieldMapping {
 		Object value = valueConverter.toObject(valueString);
 		accessor.setValue(rootObject, value);
 	}
-	
+
 	public List<String> getOptions() {
 		return valueConverter.getOptions();
 	}

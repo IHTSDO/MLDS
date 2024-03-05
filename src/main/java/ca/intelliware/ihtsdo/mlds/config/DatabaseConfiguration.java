@@ -1,18 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.*;
-
-import javax.sql.DataSource;
-
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -27,18 +20,24 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories({"ca.intelliware.ihtsdo.mlds.repository", "ca.intelliware.ihtsdo.mlds.registration", "ca.intelliware.ihtsdo.commons.event"})
-@EnableTransactionManagement
-@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
+@EnableJpaRepositories({"ca.intelliware.ihtsdo.mlds.repository", "ca.intelliware.ihtsdo.mlds.registration"})
+//@EnableTransactionManagement
+//@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class DatabaseConfiguration implements EnvironmentAware {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
-    private RelaxedPropertyResolver propertyResolver;
+//    private RelaxedPropertyResolver propertyResolver;
 
     private Environment env;
 
@@ -49,7 +48,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
     @Override
     public void setEnvironment(Environment environment) {
         this.env = environment;
-        this.propertyResolver = new RelaxedPropertyResolver(environment, "spring.datasource.");
+//        this.propertyResolver = new RelaxedPropertyResolver(environment, "spring.datasource.");
     }
 
     @Bean
@@ -59,7 +58,10 @@ public class DatabaseConfiguration implements EnvironmentAware {
     		return dataSource;
     	}
         log.debug("Configuring Datasource");
-        if (propertyResolver.getProperty("url") == null && propertyResolver.getProperty("databaseName") == null) {
+        Binder binder = Binder.get(env);
+        String url = binder.bind("spring.datasource.url", String.class).orElse(null);
+        String databaseName = binder.bind("spring.datasource.database-name", String.class).orElse(null);
+        if (url == null && databaseName == null) {
             log.error("Your database connection pool configuration is incorrect! The application" +
                     "cannot start. Please check your Spring profile, current profiles are: {}",
                     Arrays.toString(env.getActiveProfiles()));
@@ -67,15 +69,21 @@ public class DatabaseConfiguration implements EnvironmentAware {
             throw new ApplicationContextException("Database connection pool is not configured correctly");
         }
         HikariConfig config = new HikariConfig();
-        config.setDataSourceClassName(propertyResolver.getProperty("dataSourceClassName"));
-        if (propertyResolver.getProperty("url") == null || "".equals(propertyResolver.getProperty("url"))) {
-            config.addDataSourceProperty("databaseName", propertyResolver.getProperty("databaseName"));
-            config.addDataSourceProperty("serverName", propertyResolver.getProperty("serverName"));
+//        config.setDataSourceClassName(propertyResolver.getProperty("dataSourceClassName"));
+        config.setDataSourceClassName(binder.bind("spring.datasource.data-source-class-name", String.class).orElse(null));
+        if (url == null || "".equals(url)) {
+//            config.addDataSourceProperty("databaseName", propertyResolver.getProperty("databaseName"));
+            config.addDataSourceProperty("databaseName", binder.bind("spring.datasource.database-name", String.class).orElse(null));
+//            config.addDataSourceProperty("serverName", propertyResolver.getProperty("serverName"));
+            config.addDataSourceProperty("serverName", binder.bind("spring.datasource.serverName", String.class).orElse(null));
         } else {
-            config.addDataSourceProperty("url", propertyResolver.getProperty("url"));
+//            config.addDataSourceProperty("url", propertyResolver.getProperty("url"));
+            config.addDataSourceProperty("url", url);
         }
-        config.addDataSourceProperty("user", propertyResolver.getProperty("username"));
-        config.addDataSourceProperty("password", propertyResolver.getProperty("password"));
+//        config.addDataSourceProperty("user", propertyResolver.getProperty("username"));
+        config.addDataSourceProperty("user", binder.bind("spring.datasource.username", String.class).orElse(null));
+//        config.addDataSourceProperty("password", propertyResolver.getProperty("password"));
+        config.addDataSourceProperty("password", binder.bind("spring.datasource.password", String.class).orElse(null));
         dataSource = new HikariDataSource(config);
         log.debug("Datasource configuration complete");
         return dataSource;
@@ -157,14 +165,14 @@ public class DatabaseConfiguration implements EnvironmentAware {
         entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
 
         // Hibernate properties -- add explicit check for new property
-        if (this.env.getProperty("spring.jpa.properties.hibernate.cache.region.factory_class") == null) {
-            throw new IllegalArgumentException("Configuration file is missing required parameter -hibernate.cache.region.factory_class");
-        }
+//        if (this.env.getProperty("spring.jpa.properties.hibernate.cache.region.factory_class") == null) {
+//            throw new IllegalArgumentException("Configuration file is missing required parameter -hibernate.cache.region.factory_class");
+//        }
         Properties additionalProperties = new Properties();
         additionalProperties.put("hibernate.dialect", this.env.getProperty("spring.jpa.hibernate.dialect"));
         additionalProperties.put("hibernate.show_sql", this.env.getProperty("spring.jpa.show_sql"));
         additionalProperties.put("hibernate.hbm2ddl.auto", this.env.getProperty("spring.jpa.hibernate.ddl-auto"));
-        additionalProperties.put("hibernate.cache.region.factory_class", this.env.getProperty("spring.jpa.properties.hibernate.cache.region.factory_class"));
+//        additionalProperties.put("hibernate.cache.region.factory_class", this.env.getProperty("spring.jpa.properties.hibernate.cache.region.factory_class"));
         entityManagerFactory.setJpaProperties(additionalProperties);
         log.debug("Completed entityManagerFactory configuration");
         return entityManagerFactory;

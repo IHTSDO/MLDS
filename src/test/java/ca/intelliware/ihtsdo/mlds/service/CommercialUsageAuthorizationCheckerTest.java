@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
@@ -17,6 +16,9 @@ import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuthorizationChecker;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommercialUsageAuthorizationCheckerTest {
@@ -156,20 +158,20 @@ public class CommercialUsageAuthorizationCheckerTest {
     private CommercialUsageCountry withCommercialCountForAffiliate(Affiliate affiliate) {
     	CommercialUsage commercialUsage = withCommercialUsageForAffiliate(affiliate);
     	CommercialUsageCountry commercialUsageCountry = new CommercialUsageCountry(COMMERCIAL_USAGE_COUNTRY_ID, commercialUsage);
-    	Mockito.when(commercialUsageCountryRepository.findOne(COMMERCIAL_USAGE_COUNTRY_ID)).thenReturn(commercialUsageCountry);
+    	Mockito.when(commercialUsageCountryRepository.findById(COMMERCIAL_USAGE_COUNTRY_ID)).thenReturn(Optional.of(commercialUsageCountry));
     	return commercialUsageCountry;
     }
 
     private CommercialUsageEntry withCommercialEntryForAffiliate(Affiliate affiliate) {
     	CommercialUsage commercialUsage = withCommercialUsageForAffiliate(affiliate);
     	CommercialUsageEntry commercialUsageEntry = new CommercialUsageEntry(COMMERCIAL_USAGE_ENTRY_ID, commercialUsage);
-    	Mockito.when(commercialUsageEntryRepository.findOne(COMMERCIAL_USAGE_ENTRY_ID)).thenReturn(commercialUsageEntry);
+    	Mockito.when(commercialUsageEntryRepository.findById(COMMERCIAL_USAGE_ENTRY_ID)).thenReturn(Optional.of(commercialUsageEntry));
     	return commercialUsageEntry;
     }
 
     private CommercialUsage withCommercialUsageForAffiliate(Affiliate affiliate) {
     	CommercialUsage commercialUsage = new CommercialUsage(COMMERCIAL_USAGE_ID, affiliate);
-    	Mockito.when(commercialUsageRepository.findOne(COMMERCIAL_USAGE_ID)).thenReturn(commercialUsage);
+    	Mockito.when(commercialUsageRepository.findById(COMMERCIAL_USAGE_ID)).thenReturn(Optional.of(commercialUsage));
     	return commercialUsage;
     }
     

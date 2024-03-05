@@ -1,24 +1,20 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import java.sql.Timestamp;
-
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public abstract class Event extends BaseEntity {
 
-	@Id @GeneratedValue @Column(name="event_id")
+	@Id
+	@GeneratedValue
+	@Column(name="event_id")
 	private Long id;
 	
-	@Type(type="timestamp")
+//	@Type(type="timestamp")
 	@Column(nullable=false,updatable=false)
 	private Timestamp timestamp;
 	

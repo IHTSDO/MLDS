@@ -1,14 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.util.HashSet;
-import java.util.Map;
-
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
-
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+
+import java.util.HashSet;
+import java.util.Map;
 
 public class AffiliateDetailsDifferenceCalculator {
 	Map<String, String> oldValues = Maps.newHashMap();

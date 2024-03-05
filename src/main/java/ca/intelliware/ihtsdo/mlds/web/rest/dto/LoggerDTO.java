@@ -1,7 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 
 import ch.qos.logback.classic.Logger;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 public class LoggerDTO {

@@ -1,23 +1,21 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
+import com.google.common.collect.Maps;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
-import com.google.common.collect.Maps;
+import java.util.Map;
 
 @Service
 public class AffiliateImportAuditEvents {
 	static final String EVENT_AFFILIATE_EXPORT = "AFFILIATE_EXPORT";
 	static final String EVENT_AFFILIATE_IMPORT = "AFFILIATE_IMPORT";
-	
-	@Resource
+
+	@Autowired
 	AuditEventService auditEventService;
-	
+
 	public void logImport(ImportResult importResult) {
 		Map<String,String> auditData = Maps.newHashMap();
 		auditData.put("import.success", Boolean.toString(importResult.isSuccess()));
@@ -34,5 +32,5 @@ public class AffiliateImportAuditEvents {
 		Map<String,String> auditData = Maps.newHashMap();
 		auditEventService.logAuditableEvent(EVENT_AFFILIATE_EXPORT, auditData);
 	}
-	
+
 }

@@ -1,20 +1,19 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.AuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.UserStandingCalculator;
-import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationResource.CreateApplicationDTO;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
+
+
 
 @Service
 public class ApplicationAuthorizationChecker extends AuthorizationChecker {
-	
+
 	@Resource
-	UserStandingCalculator userStandingCalculator;
-	
+    UserStandingCalculator userStandingCalculator;
+
 	public void checkCanAccessApplication(Application application) {
 		if (isStaffOrAdmin()) {
 			return;
@@ -29,7 +28,7 @@ public class ApplicationAuthorizationChecker extends AuthorizationChecker {
 		failCheck("Not authorized to approve application");
 	}
 
-	public void checkCanCreateApplication(CreateApplicationDTO createApplicationDTO) {
+	public void checkCanCreateApplication(ApplicationResource.CreateApplicationDTO createApplicationDTO) {
 		if (isAdminOrStaffOfMember(createApplicationDTO.getMemberKey())) {
 			return;
 		} else if (isUser() && !userStandingCalculator.isLoggedInUserAffiliateDeactivated()) {

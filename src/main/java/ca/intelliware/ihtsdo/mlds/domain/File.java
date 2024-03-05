@@ -1,23 +1,19 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
+import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.sql.Blob;
+import java.time.Instant;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import org.joda.time.Instant;
 
 @Entity
 @Table(name="file")
 public class File extends BaseEntity {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="file_id")
     private long fileId;
 	
@@ -85,7 +81,7 @@ public class File extends BaseEntity {
 	
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this,ToStringStyle.SHORT_PREFIX_STYLE)
+		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 			.append("fileId", fileId)
 			.append("filename", filename)
 			.append("updatedAt", updatedAt)

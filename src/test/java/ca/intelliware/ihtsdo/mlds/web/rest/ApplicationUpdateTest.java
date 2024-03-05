@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -23,6 +23,9 @@ import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.Optional;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ApplicationUpdateTest {
 	private MockMvc mockMvc;
@@ -90,7 +93,7 @@ public class ApplicationUpdateTest {
 	}
 
 	private void withApplication(Application application) {
-		Mockito.stub(applicationRepository.findOne(22L)).toReturn(application);
+		Mockito.when(applicationRepository.findById(22L)).thenReturn(Optional.ofNullable(application));
 	}
 
 	private ResultActions makeUpdateRequest(String requestBody)

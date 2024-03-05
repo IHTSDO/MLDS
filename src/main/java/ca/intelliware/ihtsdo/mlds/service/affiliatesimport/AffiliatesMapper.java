@@ -1,29 +1,26 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.annotation.Resource;
-
+import ca.intelliware.ihtsdo.mlds.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
-import ca.intelliware.ihtsdo.mlds.domain.Application;
-import ca.intelliware.ihtsdo.mlds.domain.Country;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Holds the mappings from the CSV file columns to entity objects
  */
 @Service
 public class AffiliatesMapper {
-	
-	@Resource MemberValueConverter memberValueConverter;
-	@Resource CountryValueConverter countryValueConverter;
+
+	@Autowired
+	MemberValueConverter memberValueConverter;
+	@Autowired
+	CountryValueConverter countryValueConverter;
 
 	private List<FieldMapping> mappings;
-	
+
 	public AffiliatesMapper() {
 	}
 
@@ -63,9 +60,9 @@ public class AffiliatesMapper {
 		getMappings().add(createField("billingPost", AffiliateDetails.class, "billingAddress.post"));
 		getMappings().add(createField("billingCountry", AffiliateDetails.class, "billingAddress.country"));
 		// FIXME MLDS-303 Should we add agreementType here?  Or default it
-		
+
 	}
-	
+
 	ValueConverter createValueConvert(Class<?> attributeClazz) {
 		if (attributeClazz.isEnum()) {
 			return new EnumValueConverter(attributeClazz);
@@ -78,7 +75,7 @@ public class AffiliatesMapper {
 		}
 
 	}
-	
+
 	FieldMapping createField(String columnName, Class<?> rootClazz) {
 		return createField(columnName, rootClazz, columnName);
 	}

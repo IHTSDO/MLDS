@@ -2,8 +2,7 @@ package ca.intelliware.ihtsdo.mlds.service;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.joda.time.Instant;
-import org.joda.time.LocalDate;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,13 +11,17 @@ import org.mockito.AdditionalAnswers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommercialUsageServiceTest {
@@ -192,7 +195,7 @@ public class CommercialUsageServiceTest {
 		Affiliate affiliate = new Affiliate(1L);
 		CommercialUsage commercialUsage = new CommercialUsage(commercialUsageId, affiliate);
 		commercialUsage.setState(approvalState);
-		Mockito.when(commercialUsageRepository.findOne(commercialUsageId)).thenReturn(commercialUsage);
+		Mockito.when(commercialUsageRepository.findById(commercialUsageId)).thenReturn(Optional.of(commercialUsage));
 		return commercialUsage;
 	}
 }

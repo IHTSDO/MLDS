@@ -8,14 +8,13 @@ import static org.junit.Assert.*;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
+
 
 import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.Search;
+import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +35,8 @@ import com.google.common.collect.Lists;
 @ActiveProfiles("dev")
 @Transactional
 public class AffiliateFullTextSearchTest extends MySqlTestContainerTest {
-	@Resource EntityManager entityManager;
+	@Resource
+	EntityManager entityManager;
 
 	@Resource AffiliateRepository affiliateRepository;
 
@@ -276,16 +276,16 @@ public class AffiliateFullTextSearchTest extends MySqlTestContainerTest {
 	 */
 	private void flush() {
 		entityManager.flush();
-		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-		fullTextEntityManager.flushToIndexes();
+//		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+//		fullTextEntityManager.flushToIndexes();
 	}
 
-	private List<Affiliate> search(String query) {
+	private List<Affiliate> search(String query) throws InterruptedException {
 		return search(query, null, null, false);
 	}
 
-	private List<Affiliate> search(String query, Member member, StandingState standingState, boolean standingStateNot) {
-		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),member,standingState,standingStateNot,new PageRequest(0, 50)).getContent();
+	private List<Affiliate> search(String query, Member member, StandingState standingState, boolean standingStateNot) throws InterruptedException {
+		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),member,standingState,standingStateNot,PageRequest.of(0, 50)).getContent();
 		return resultList;
 	}
 

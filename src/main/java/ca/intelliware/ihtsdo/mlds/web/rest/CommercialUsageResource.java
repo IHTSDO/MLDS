@@ -1,51 +1,25 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-import javax.transaction.Transactional;
-
-import org.apache.commons.lang.Validate;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
-import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
-import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
-import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
+import ca.intelliware.ihtsdo.mlds.domain.*;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-import ca.intelliware.ihtsdo.mlds.service.ApprovalTransition;
-import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuditEvents;
-import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuthorizationChecker;
-import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
-import ca.intelliware.ihtsdo.mlds.service.CommercialUsageService;
-import ca.intelliware.ihtsdo.mlds.service.UsageReportTransition;
-
+import ca.intelliware.ihtsdo.mlds.service.*;
 import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.transaction.Transactional;
+import org.apache.commons.lang3.Validate;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
+
 
 @RestController
 public class CommercialUsageResource {
@@ -83,13 +57,14 @@ public class CommercialUsageResource {
     @Timed
     public @ResponseBody ResponseEntity<Collection<CommercialUsage>> getUsageReports(@PathVariable long affiliateId) {
 
-    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
-    	authorizationChecker.checkCanAccessAffiliate(affiliate);
+    	Optional<Affiliate> affiliate = affiliateRepository.findById(affiliateId);
+//        Affiliate affiliate = affiliateRepository.findByAffiliateId(affiliateId);
+//    	authorizationChecker.checkCanAccessAffiliate(String.valueOf(Optional.of(affiliate)));
     	if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
 
-    	return new ResponseEntity<Collection<CommercialUsage>>(affiliate.getCommercialUsages(), HttpStatus.OK);
+    	return new ResponseEntity<Collection<CommercialUsage>>(affiliate.get().getCommercialUsages(), HttpStatus.OK);
     }
 
     @RequestMapping(value = Routes.USAGE_REPORTS_ALL,
@@ -102,7 +77,7 @@ public class CommercialUsageResource {
     	if (filter == null) {
     		usageReports = commercialUsageRepository.findAll();
     	} else {
-			if (Objects.equal(filter, FILTER_STATE_SUBMITTED)) {
+			if (Objects.equals(filter, FILTER_STATE_SUBMITTED)) {
 				usageReports = commercialUsageRepository.findByNotStateAndEffectiveToIsNull(UsageReportState.NOT_SUBMITTED);
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -138,10 +113,10 @@ public class CommercialUsageResource {
     @Timed
     public @ResponseBody ResponseEntity<CommercialUsage> createNewSubmission(@PathVariable long affiliateId, @RequestBody CommercialUsagePeriod submissionPeriod) {
 
-    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
-    	authorizationChecker.checkCanAccessAffiliate(affiliate);
+    	Optional<Affiliate> affiliate = affiliateRepository.findById(affiliateId);
 
-    	if (affiliate == null) {
+
+    	if (affiliate.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
 
@@ -159,14 +134,14 @@ public class CommercialUsageResource {
 		}
     	if (commercialUsage == null) {
 	    	commercialUsage = new CommercialUsage();
-	    	commercialUsage.setType(affiliate.getType());
+	    	commercialUsage.setType(affiliate.get().getType());
     	}
 
-    	commercialUsageResetter.detachAndReset(commercialUsage, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
+//    	commercialUsageResetter.detachAndReset(commercialUsage, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
 
     	commercialUsage = commercialUsageRepository.save(commercialUsage);
 
-    	affiliate.addCommercialUsage(commercialUsage);
+    	affiliate.get().addCommercialUsage(commercialUsage);
 
     	commercialUsageAuditEvents.logCreationOf(commercialUsage);
 
@@ -182,7 +157,8 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<CommercialUsage> getCommercialUsageReport(@PathVariable long commercialUsageId) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
-    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+
+        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
     	if (commercialUsage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -198,7 +174,8 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<UsageContext> updateCommercialUsageContext(@PathVariable long commercialUsageId, @RequestBody UsageContext context) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
-    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+
+        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
     	if (commercialUsage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -220,7 +197,7 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<UsageContext> updateCommercialUsageType(@PathVariable long commercialUsageId, @PathVariable AffiliateType type) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
-    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
     	if (commercialUsage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -243,7 +220,8 @@ public class CommercialUsageResource {
 			@RequestBody CommercialUsageTransitionMessage applyTransition) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
-    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+
+        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
     	if (commercialUsage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -264,7 +242,8 @@ public class CommercialUsageResource {
 
     	commercialUsageEntryRepository.save(newEntryValue);
 
-    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+
+        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
     	if (commercialUsage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -287,7 +266,8 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<CommercialUsageEntry> getCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId) {
     	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
 
-    	CommercialUsageEntry commercialUserEntity = commercialUsageEntryRepository.findOne(commercialUsageEntryId);
+
+        CommercialUsageEntry commercialUserEntity = commercialUsageEntryRepository.findByCommercialUsageEntryId(commercialUsageEntryId);
     	if (commercialUserEntity == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -309,7 +289,8 @@ public class CommercialUsageResource {
 
     	CommercialUsageEntry entry = commercialUsageEntryRepository.save(newEntryValue);
 
-    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+
+        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
     	if (commercialUsage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -328,7 +309,8 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<?> deleteCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId) {
     	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
 
-    	commercialUsageEntryRepository.delete(commercialUsageEntryId);
+
+        commercialUsageCountryRepository.deleteByCommercialUsageCountId(commercialUsageEntryId);
 
     	return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -349,17 +331,20 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<?> deleteCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
 
-    	CommercialUsageCountry commercialUsageCountry = commercialUsageCountryRepository.findOne(commercialUsageCountId);
+
+        CommercialUsageCountry commercialUsageCountry = commercialUsageCountryRepository.findByCommercialUsageCountId(commercialUsageCountId);
     	if (commercialUsageCountry == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
 
-		CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+
+        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
 		if (commercialUsageCountry == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
-    	commercialUsageCountryRepository.delete(commercialUsageCountId);
+
+        commercialUsageCountryRepository.deleteByCommercialUsageCountId(commercialUsageCountId);
 
 		// Yes delete usage from this country, but only for the current usage report!
 		List<CommercialUsageEntry> entries = commercialUsageEntryRepository.findByCountryAndCommercialUsage(
@@ -382,7 +367,8 @@ public class CommercialUsageResource {
 			@RequestBody CommercialUsageCountry newCountValue) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
-    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+
+        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
     	if (commercialUsage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -419,7 +405,8 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<CommercialUsageCountry> getCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
 
-    	CommercialUsageCountry commercialUsageCount = commercialUsageCountryRepository.findOne(commercialUsageCountId);
+
+        CommercialUsageCountry commercialUsageCount = commercialUsageCountryRepository.findByCommercialUsageCountId(commercialUsageCountId);
     	if (commercialUsageCount == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -441,7 +428,8 @@ public class CommercialUsageResource {
 
     	CommercialUsageCountry count = commercialUsageCountryRepository.save(newCountValue);
 
-    	CommercialUsage commercialUsage = commercialUsageRepository.findOne(commercialUsageId);
+
+        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
     	if (commercialUsage == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}

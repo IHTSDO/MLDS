@@ -1,21 +1,19 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
-
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
+
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class AffiliateMembershipCalculator {
