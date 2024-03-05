@@ -1,8 +1,10 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
-import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 /**
  * Holds the field values read from a single line of the CSV file
@@ -17,11 +19,11 @@ public class LineRecord {
 		this.fields = fields;
 		this.isBlank = isBlank;
 	}
-	
+
 	private String fieldValue(int fieldIndex) {
 		return fields.get(fieldIndex);
 	}
-	
+
 	public void validate(ImportResult result, AffiliatesMapper affiliatesMapper) {
 		if (isBlank) {
 			return;
@@ -41,7 +43,7 @@ public class LineRecord {
 			mapping.validateDataValue(valueString, this, result);
 		}
 	}
-	
+
 	private void validateHeaderRecord(ImportResult result, AffiliatesMapper affiliatesMapper) {
 		for (FieldMapping mapping : affiliatesMapper.getMappings()) {
 			String valueString = fieldValue(mapping.columnIndex);
@@ -50,7 +52,7 @@ public class LineRecord {
 			}
 		}
 	}
-	
+
 	public void setValuesOfMatchingClass(Object rootObject, Class<?> matchingClazz, AffiliatesMapper affiliatesMapper) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		for (FieldMapping mapping : affiliatesMapper.getMappings()) {
 			if (matchingClazz.equals(mapping.rootClazz)) {

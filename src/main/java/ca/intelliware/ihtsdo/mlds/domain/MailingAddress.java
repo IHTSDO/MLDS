@@ -1,8 +1,8 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
 
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.ManyToOne;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Fields;
 import org.hibernate.search.annotations.IndexedEmbedded;

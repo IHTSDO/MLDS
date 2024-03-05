@@ -1,13 +1,14 @@
 package ca.intelliware.ihtsdo.mlds.service.mail;
 
-import javax.annotation.Resource;
 
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ClientLinkBuilder {
-	@Resource TemplateEvaluator templateEvaluator;
-	
+	@Resource
+	TemplateEvaluator templateEvaluator;
+
 	public String buildPasswordResetLink(String tokenKey) {
 		return templateEvaluator.getUrlBase() + "#/resetPassword?token="+tokenKey;
 	}
@@ -15,7 +16,7 @@ public class ClientLinkBuilder {
 	public String buildLoginLink() {
 		return templateEvaluator.getUrlBase() + "#/login";
 	}
-	
+
 	public String buildViewReleasesLink() {
 		return templateEvaluator.getUrlBase() + "#/viewReleases";
 	}
@@ -23,7 +24,7 @@ public class ClientLinkBuilder {
 	public String buildViewApplication(long applicationId) {
 		return templateEvaluator.getUrlBase() + "#/applicationReview/"+applicationId;
 	}
-	
+
 	public String buildViewReleasePackageLink(long releasePackageId) {
 		return templateEvaluator.getUrlBase() + "#/viewReleases/viewRelease/"+releasePackageId;
 	}

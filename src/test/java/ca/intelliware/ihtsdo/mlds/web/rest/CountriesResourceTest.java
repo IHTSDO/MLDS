@@ -5,14 +5,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
 
+import jakarta.transaction.Transactional;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
@@ -31,7 +31,7 @@ public class CountriesResourceTest {
 
     private MockMvc restUserMockMvc;
     
-    @Inject
+    @Autowired
     private ApplicationContext context;
 
     @Before

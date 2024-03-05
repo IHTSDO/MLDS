@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.intelliware.ihtsdo.mlds.Application;
+import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.web.rest.CountriesResource;
 
 import com.google.common.collect.ImmutableSet;

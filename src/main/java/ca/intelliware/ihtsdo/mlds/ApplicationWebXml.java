@@ -1,12 +1,11 @@
 package ca.intelliware.ihtsdo.mlds;
 
+import ca.intelliware.ihtsdo.mlds.config.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
-
-import ca.intelliware.ihtsdo.mlds.config.Constants;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
  * This is an helper Java class that provides an alternative to creating a web.xml.

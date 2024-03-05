@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import org.joda.time.LocalDate;
+
+import java.time.LocalDate;
 
 public class CommercialUsagePeriod {
 	LocalDate startDate;

@@ -1,12 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.web.filter.gzip;
 
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.WriteListener;
+import org.apache.commons.lang.NotImplementedException;
+
 import java.io.IOException;
 import java.io.OutputStream;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.WriteListener;
-
-import org.apache.commons.lang.NotImplementedException;
 
 class GZipServletOutputStream extends ServletOutputStream {
     private OutputStream stream;

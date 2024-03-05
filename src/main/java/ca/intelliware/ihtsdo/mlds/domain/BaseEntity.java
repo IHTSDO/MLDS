@@ -1,7 +1,8 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 abstract public class BaseEntity {
 
@@ -37,7 +38,7 @@ abstract public class BaseEntity {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 }

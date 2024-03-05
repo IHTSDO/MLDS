@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.domain.application;
 
+
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 

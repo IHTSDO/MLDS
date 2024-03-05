@@ -1,12 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.inject.Inject;
-
+import ca.intelliware.ihtsdo.mlds.domain.Authority;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
+import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import ca.intelliware.ihtsdo.mlds.security.UserNotActivatedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,11 +15,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.intelliware.ihtsdo.mlds.domain.Authority;
-import ca.intelliware.ihtsdo.mlds.domain.StandingState;
-import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.security.UserNotActivatedException;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Authenticate a user from the database.
@@ -28,16 +27,17 @@ public class DBUserDetailsService implements org.springframework.security.core.u
 
     private final Logger log = LoggerFactory.getLogger(DBUserDetailsService.class);
 
-    @Inject
+    @Autowired
     private UserRepository userRepository;
-    
-    @Inject
+
+    @Autowired
     private UserStandingCalculator userStandingCalculator;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Attepting to authenticate '{}' using local database", login);
+        System.out.println("Attepting to authenticate '{}' using local database");
         String lowercaseLogin = login.toLowerCase();
 
         User userFromDatabase = userRepository.findByLoginIgnoreCase(lowercaseLogin);

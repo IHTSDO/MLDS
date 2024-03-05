@@ -1,9 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.domain.application;
 
-import org.joda.time.Instant;
+
 
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
+import java.time.Instant;
+
 
 public class UserApprovalStateChangeStrategy implements ApplicationChangeEdit {
 	@Override

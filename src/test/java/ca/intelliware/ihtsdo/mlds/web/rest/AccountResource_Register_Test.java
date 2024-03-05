@@ -14,9 +14,10 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.*;
 import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
+
 import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;

@@ -1,39 +1,29 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
-import org.apache.commons.lang.StringUtils;
+import ca.intelliware.ihtsdo.mlds.domain.*;
+import ca.intelliware.ihtsdo.mlds.repository.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
-import ca.intelliware.ihtsdo.mlds.domain.Application;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
-import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
-import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
-import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
-import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
-import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 
 @Service
 @Transactional
 public class AffiliateDeleter {
 
-	@Resource AffiliateRepository affiliateRepository;
-	@Resource AffiliateDetailsRepository affiliateDetailsRepository;
-	@Resource ApplicationRepository applicationRepository;
-	@Resource UserRepository userRepository;
-	@Resource CommercialUsageRepository commercialUsageRepository;
-	@Resource CommercialUsageCountryRepository commercialUsageCountryRepository;
-	@Resource CommercialUsageEntryRepository commercialUsageEntryRepository;
-	
-	@PersistenceContext private EntityManager entityManager;
+	@Autowired
+	AffiliateRepository affiliateRepository;
+	@Autowired AffiliateDetailsRepository affiliateDetailsRepository;
+	@Autowired ApplicationRepository applicationRepository;
+	@Autowired UserRepository userRepository;
+	@Autowired CommercialUsageRepository commercialUsageRepository;
+	@Autowired CommercialUsageCountryRepository commercialUsageCountryRepository;
+	@Autowired CommercialUsageEntryRepository commercialUsageEntryRepository;
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	public void deleteAffiliate(Affiliate affiliate) {
 		deleteUser(affiliate);
@@ -64,8 +54,8 @@ public class AffiliateDeleter {
 
 	private void deleteCommercialUsage(Affiliate affiliate) {
 		for (CommercialUsage commercialUsage : affiliate.getCommercialUsages()) {
-			commercialUsageCountryRepository.delete(commercialUsage.getCountries());
-			commercialUsageEntryRepository.delete(commercialUsage.getEntries());
+			commercialUsageCountryRepository.deleteAll(commercialUsage.getCountries());
+			commercialUsageEntryRepository.deleteAll(commercialUsage.getEntries());
 			commercialUsageRepository.delete(commercialUsage);
 		}
 	}
@@ -78,5 +68,5 @@ public class AffiliateDeleter {
 			}
 		}
 	}
-	
+
 }

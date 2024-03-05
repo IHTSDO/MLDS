@@ -9,13 +9,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
 import com.google.common.collect.Maps;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AuditEventServiceTest {
@@ -62,7 +62,7 @@ public class AuditEventServiceTest {
 
 	@Test
 	public void createAuditEventSetsUsername() {
-		Mockito.stub(mockCurrentSecurityContext.getCurrentUserName()).toReturn("our_username");
+		Mockito.when(mockCurrentSecurityContext.getCurrentUserName()).thenReturn("our_username");
 		
 		PersistentAuditEvent event =  auditEventService.createAuditEvent(eventType,data);
 		

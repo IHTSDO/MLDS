@@ -1,11 +1,10 @@
 package ca.intelliware.ihtsdo.mlds.registration;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Component
 @Transactional

@@ -1,17 +1,16 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.google.common.base.Objects;
 
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
+import com.google.common.base.Objects;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -19,7 +18,8 @@ public class ReleasePackagePrioritizer {
 	
 	public static final int END_PRIORITY = 0;
 	
-	@Resource ReleasePackageRepository releasePackageRepository;
+	@Autowired
+	ReleasePackageRepository releasePackageRepository;
 
 	public void prioritize(ReleasePackage releasePackage, Integer priority) {
 		if (priority != null && Objects.equal(releasePackage.getPriority(), priority)) {

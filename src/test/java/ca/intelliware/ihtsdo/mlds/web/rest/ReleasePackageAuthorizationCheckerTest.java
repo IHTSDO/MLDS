@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
@@ -17,6 +16,7 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.UserStandingCalculator;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReleasePackageAuthorizationCheckerTest {

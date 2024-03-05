@@ -1,29 +1,22 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import jakarta.persistence.*;
 
-import ca.intelliware.ihtsdo.mlds.domain.json.ReleaseFileSerializer;
+import java.time.Instant;
 
 @Entity
 @Table(name="release_file")
 @JsonIgnoreProperties(ignoreUnknown=true) // we're attaching a clientDownloadUrl that we should ignore when de-serializing
-@JsonSerialize(using = ReleaseFileSerializer.class)
+//@JsonSerialize(using = ReleaseFileSerializer.class)
 public class ReleaseFile extends BaseEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="release_file_id")
 	Long releaseFileId;
 
@@ -59,7 +52,7 @@ public class ReleaseFile extends BaseEntity {
 	// Note:
 	// String clientDownloadUrl = rest endpoint calculated in JSON JacksonConfigurer
 
-	public Instant getCreatedAt() {
+	public Object getCreatedAt() {
 		return createdAt;
 	}
 

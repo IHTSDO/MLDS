@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+//import org.thymeleaf.spring4.SpringTemplateEngine;
+//import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
@@ -47,7 +49,7 @@ public class ThymeleafConfiguration {
     @Bean
     @Description("Thymeleaf template resolver serving HTML 5")
     public ClassLoaderTemplateResolver webTemplateResolver() {
-    	ClassLoaderTemplateResolver webTemplateResolver = new ClassLoaderTemplateResolver();
+        ClassLoaderTemplateResolver webTemplateResolver = new ClassLoaderTemplateResolver();
         webTemplateResolver.setPrefix("templates/");
         webTemplateResolver.setSuffix(".html");
         webTemplateResolver.setTemplateMode("HTML5");

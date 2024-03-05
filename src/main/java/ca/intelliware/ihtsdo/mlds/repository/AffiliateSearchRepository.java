@@ -1,199 +1,55 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-
-import org.apache.lucene.search.Query;
-import org.hibernate.search.SearchFactory;
-import org.hibernate.search.exception.EmptyQueryException;
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.FullTextQuery;
-import org.hibernate.search.jpa.Search;
-import org.hibernate.search.query.dsl.BooleanJunction;
-import org.hibernate.search.query.dsl.MustJunction;
-import org.hibernate.search.query.dsl.QueryBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
+import jakarta.persistence.EntityManager;
+import org.hibernate.search.engine.search.query.SearchResult;
+import org.hibernate.search.mapper.orm.Search;
+import org.hibernate.search.mapper.orm.massindexing.MassIndexer;
+import org.hibernate.search.mapper.orm.schema.management.SearchSchemaManager;
+import org.hibernate.search.mapper.orm.session.SearchSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.StandingState;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Turn on trace level logging to get lucene score and explain info on query.
- *
- * @author buckleym
- */
 @Service
 public class AffiliateSearchRepository {
-	private static final String FIELD_ALL = "ALL";
 
-	static final Logger LOG = LoggerFactory.getLogger(AffiliateSearchRepository.class);
+    @Autowired
+    EntityManager entityManager;
 
-	@Resource
-	EntityManager entityManager;
+    public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, StandingState standingState, boolean standingStateNot, Pageable pageable) throws InterruptedException {
 
-	PageableUtil pageableUtil = new PageableUtil();
+        SearchSession searchSession = Search.session( entityManager );
 
-	public void reindex(Affiliate a) {
-		getFullTextEntityManager().index(a);
-	}
+        SearchSchemaManager schemaManager = searchSession.schemaManager();
 
-	public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, StandingState standingState, boolean standingStateNot, Pageable pageable) {
-		Query query = buildQuery(q, homeMember, standingState, standingStateNot);
-		LOG.debug("Query: {}", query);
-		FullTextQuery ftQuery = getFullTextEntityManager().createFullTextQuery(query, Affiliate.class);
+        schemaManager.createIfMissing();
+        MassIndexer indexer = searchSession.massIndexer(Affiliate.class)
+                .threadsToLoadObjects(4);
 
-		ftQuery.setFirstResult(pageableUtil.getStartPosition(pageable));
-		ftQuery.setMaxResults(pageable.getPageSize());
+        indexer.startAndWait();
 
-		@SuppressWarnings("unchecked")
-		List<Affiliate> resultList = ftQuery.getResultList();
+        List resultList = new ArrayList();
 
-		dumpDebugInfoWithScores(ftQuery);
-
-		LOG.debug("Found {} results for query: {}", ftQuery.getResultSize(), q);
-
-		return new PageImpl<>(resultList, pageable, ftQuery.getResultSize());
-	}
-
-	private Query buildQuery(String q, Member homeMember, StandingState standingState, boolean standingStateNot) {
-		QueryBuilder queryBuilder = getSearchFactory().buildQueryBuilder()
-				.forEntity(Affiliate.class).get();
-
-		//Odd issue with Camel case text not finding exact matches. Workaround using lowercase.
-		Query textQuery = buildWildcardQueryForTokens(queryBuilder, q.toLowerCase());
-
-		if (homeMember == null && standingState == null) {
-			return textQuery;
-		} else {
-			BooleanJunction <MustJunction> building = queryBuilder
-					.bool()
-					.must(textQuery);
-
-			if (homeMember != null) {
-				Query homeMemberQuery = buildQueryMatchingHomeMember(queryBuilder, homeMember);
-				building = building.must(homeMemberQuery);
-			}
-			if (standingState != null) {
-				Query standingStateQuery = buildQueryMatchingStandingState(queryBuilder, standingState);
-				MustJunction standingStateBuilding = building.must(standingStateQuery);
-				if (standingStateNot) {
-					// Caught up in .not() returning boolean rather than must...
-					building = standingStateBuilding.not();
-				} else {
-					building = standingStateBuilding;
-				}
-			}
-			return building.createQuery();
-		}
-	}
-
-	private SearchFactory getSearchFactory() {
-		return getFullTextEntityManager().getSearchFactory();
-	}
-
-	private FullTextEntityManager getFullTextEntityManager() {
-		return Search.getFullTextEntityManager(entityManager);
-	}
-
-	@SuppressWarnings("unchecked")
-	void dumpDebugInfoWithScores(FullTextQuery ftQuery) {
-		if (LOG.isTraceEnabled()) {
-
-			ftQuery.setProjection(
-					FullTextQuery.DOCUMENT_ID,
-					FullTextQuery.SCORE,
-					FullTextQuery.EXPLANATION,
-					"affiliateDetails.organizationName"
-					);
-
-			for (Object[] projection : (List<Object[]>) ftQuery.getResultList()) {
-				LOG.trace("Projection: {}",Arrays.asList(projection));
-			}
-
-		}
-	}
-
-	Query buildQueryMatchingHomeMember(QueryBuilder queryBuilder, Member homeMember) {
-		Query homeMemberQuery = queryBuilder.keyword()
-				.onField("homeMember")
-				.matching(homeMember.getKey())
-				.createQuery();
-		return homeMemberQuery;
-	}
-
-	Query buildQueryMatchingStandingState(QueryBuilder queryBuilder, StandingState standingState) {
-		Query standingStateQuery = queryBuilder.keyword()
-				.onField("standingState").matching(standingState)
-				.createQuery();
-		return standingStateQuery;
-	}
-
-	Query buildWildcardQueryForTokens(QueryBuilder queryBuilder, String q) {
-		BooleanJunction<?> bool = queryBuilder.bool();
-
-		//Analyzer searchtokenAnalyzer = getSearchFactory().getAnalyzer("searchtokenanalyzer");
-
-		try {
-			Query affiliateIdQuery = queryBuilder.keyword()
-					.onField("affiliateId")
-					.matching(q)
-					.createQuery();
-			bool.should(affiliateIdQuery);
-
-			// We're letting the default analyzer tokenize the main query for the ALL field
-			Query allKeywordQuery = queryBuilder.keyword()
-					.onField(FIELD_ALL).ignoreFieldBridge().matching(q)
-					.createQuery();
-			bool.should(allKeywordQuery);
-		} catch (EmptyQueryException e) {
-			// ignore it, and allow the full query since we have a limit.
-		}
-
-		// And then we do a dumb split on whitespace and turn every string into a wildcard query
-		// on all the fields.
-		String[] tokens = q.split("\\s+");
-		for (String token : tokens) {
-			bool.should(queryBuilder.keyword()
-					.wildcard()
-					.onField(FIELD_ALL).ignoreFieldBridge().matching(token+"*")
-					.createQuery());
-			bool.should(queryBuilder.keyword()
-					.wildcard()
-					.onField("address.ALL").ignoreFieldBridge().matching(token+"*")
-					.createQuery());
-			bool.should(queryBuilder.keyword()
-					.wildcard()
-					.onField("address.country.commonName").ignoreFieldBridge().matching(token+"*")
-					.createQuery());
-			bool.should(queryBuilder.keyword()
-					.wildcard()
-					.onField("billingAddress.ALL").matching(token+"*")
-					.createQuery());
-			bool.should(queryBuilder.keyword()
-					.wildcard()
-					.onField("billingAddress.country.commonName").matching(token+"*")
-					.createQuery());
-			bool.should(queryBuilder.keyword()
-					.wildcard()
-					.onField("email").matching(token+"*")
-					.createQuery());
-            bool.should(queryBuilder.keyword()
-                .wildcard()
-                .onField("approvedCountries.countries").matching(token+"*")
-                .createQuery());
-		}
-		Query textQuery = bool.createQuery();
-
-		return textQuery;
-	}
+        if(homeMember == null && standingState == null ){
+            SearchResult<Affiliate> result =Search.session(entityManager)
+                    .search(Affiliate.class)
+                    .where( f -> f.simpleQueryString()
+                            .fields( "affiliateDetails.firstName")
+//                            .fields("affiliateId")
+                            .matching( q ) )
+                    .fetch( 20 );
+//            resultList.add(result.hits());
+            resultList.addAll(result.hits());
+        }
+        return new PageImpl<>(resultList, pageable, resultList.size());
+    }
 
 }

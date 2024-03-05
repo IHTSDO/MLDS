@@ -1,12 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
+import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 
 @Service
 @Transactional

@@ -1,13 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
-import java.io.StringWriter;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
+import com.google.common.base.Objects;
 import org.apache.commons.lang.WordUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import com.google.common.base.Objects;
+import java.io.StringWriter;
+import java.util.List;
 
 /**
  * Generate a valid affiliates import file with a specified number of rows.
@@ -18,7 +17,7 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 	public String generateFile(int rows) {
 		GeneratorContext context = new GeneratorContext();
 		context.rows = rows;
-		
+
 		return generateFile(context);
 	}
 
@@ -71,7 +70,7 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "last")) {
 			stringValue = generateLastName(fieldMapping, i, context);
 		}
-		
+
 		return stringValue;
 	}
 
@@ -88,8 +87,8 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 			return capitalizedExample;
 		}
 	}
-	
-	
+
+
 	private String generateExtensionNumber(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		return StringUtils.leftPad(Integer.toString(hashOfColumnName(fieldMapping)%1000), 3, '0');
 	}
@@ -120,7 +119,7 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 	private String appendUniquenessHint(int hint) {
 		return appendUniquenessHint(hint, " ");
 	}
-	
+
 	private String appendUniquenessHint(int hint, String separator) {
 		return hint > 0 ? separator+hint : "";
 	}
@@ -133,7 +132,7 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 		return Integer.toString(9000 + hashOfColumnName(fieldMapping)%1000);
 	}
 
-	
+
 	private String generateTelephoneNumber(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		return "+1 416 "+StringUtils.leftPad(Integer.toString(hashOfColumnName(fieldMapping)%1000), 3, '0')+" "+StringUtils.leftPad(Integer.toString(i), 4, '0');
 	}
@@ -143,7 +142,7 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 		// http://findbugs.blogspot.ca/2006/09/is-mathabs-broken.html
 		return fieldMapping.columnName.hashCode() & Integer.MAX_VALUE;
 	}
-	
+
 	private String generateEmail(FieldMapping fieldMapping, int i, GeneratorContext context) {
 		return fieldMapping.columnName+appendUniquenessHint(i, "+")+"@email.com";
 	}
@@ -154,7 +153,7 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 		private String baseKey = "AFFILIATE-";
 		private String sourceMemberKey = "DK";
 		private String sourceCountryKey = "DK";
-		
+
 		public int getRows() {
 			return rows;
 		}

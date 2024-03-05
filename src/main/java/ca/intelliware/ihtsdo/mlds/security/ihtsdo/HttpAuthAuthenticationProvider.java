@@ -4,6 +4,7 @@ import ca.intelliware.ihtsdo.mlds.domain.ApplicationErrorCodes;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -14,9 +15,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+
 import java.io.IOException;
-import java.net.HttpCookie;
 import java.util.List;
 
 /**
@@ -24,8 +24,11 @@ import java.util.List;
  */
 @Service
 public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
-	@Resource
+	@Autowired
 	HttpAuthAdaptor httpAuthAdaptor;
+
+	@Autowired
+	DBUserDetailsService dbUserDetailsService;
 	
 	private final Logger logger = LoggerFactory.getLogger(HttpAuthAuthenticationProvider.class);
 
@@ -40,6 +43,7 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 			
 			try {
 				String authenticatedToken = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
+//				String authenticatedToken=null;
 				if (authenticatedToken == null) {
 					throw new BadCredentialsException(ApplicationErrorCodes.MLDS_ERR_AUTH_BAD_PASSWORD
 							+ ": Password for remote user was invalid: " + username);
@@ -61,6 +65,7 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 			} catch (IOException e) {
 				throw new RuntimeException("MLDS_ERR_AUTH_SYSTEM: Failed to contact authentication system.", e);
 			} catch (Exception e) {
+				dbUserDetailsService.loadUserByUsername(username);
 				logger.info("Returning {} due to {}", e.getClass().getName(), e.getMessage());
 				throw (e);
 			}

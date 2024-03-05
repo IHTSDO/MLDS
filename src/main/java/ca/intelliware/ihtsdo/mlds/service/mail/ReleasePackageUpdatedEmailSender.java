@@ -1,21 +1,19 @@
 package ca.intelliware.ihtsdo.mlds.service.mail;
 
-import java.util.Locale;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.domain.User;
-
 import com.google.common.collect.Maps;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
+
+import java.util.Locale;
+import java.util.Map;
 
 @Service
 public class ReleasePackageUpdatedEmailSender {
-	@Resource MailService mailService;
+	@Resource
+	MailService mailService;
 	@Resource TemplateEvaluator templateEvaluator;
 	@Resource ClientLinkBuilder clientLinkBuilder;
 
@@ -30,8 +28,8 @@ public class ReleasePackageUpdatedEmailSender {
 		variables.put(EmailVariables.VIEW_PACKAGES_URL, clientLinkBuilder.buildViewReleasesLink());
 		String content = templateEvaluator.evaluateTemplate("releasePackageUpdatedEmail", locale, variables);
 		String subject = templateEvaluator.getTitleFor("releasePackageUpdated", locale);
-		
-		mailService.sendEmail(user.getEmail(), subject, content, false, true);
+
+//		mailService.sendEmail(user.getEmail(), subject, content, false, true);
 	}
 
 }

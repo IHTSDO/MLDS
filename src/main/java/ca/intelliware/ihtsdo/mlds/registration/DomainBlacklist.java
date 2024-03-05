@@ -1,18 +1,15 @@
 package ca.intelliware.ihtsdo.mlds.registration;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 import ca.intelliware.ihtsdo.mlds.domain.BaseEntity;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="email_domain_blacklist")
 public class DomainBlacklist extends BaseEntity {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="domain_id")
     private Long domainId;
 	

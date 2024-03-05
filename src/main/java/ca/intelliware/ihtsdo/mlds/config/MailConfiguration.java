@@ -1,15 +1,15 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
-import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+
+import java.util.Properties;
 
 @Configuration
 public class MailConfiguration implements EnvironmentAware {
@@ -30,26 +30,37 @@ public class MailConfiguration implements EnvironmentAware {
 
     private final Logger log = LoggerFactory.getLogger(MailConfiguration.class);
 
-    private RelaxedPropertyResolver propertyResolver;
+//    private RelaxedPropertyResolver propertyResolver;
+
+    private Environment env;
 
     public MailConfiguration() {
     }
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_SPRING_MAIL);
+//        this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_SPRING_MAIL);
+        this.env = environment;
     }
 
     @Bean
     public JavaMailSenderImpl javaMailSender() {
         log.debug("Configuring mail server");
-        String host = propertyResolver.getProperty(PROP_HOST, DEFAULT_PROP_HOST);
-        int port = propertyResolver.getProperty(PROP_PORT, Integer.class, 0);
-        String user = propertyResolver.getProperty(PROP_USER);
-        String password = propertyResolver.getProperty(PROP_PASSWORD);
-        String protocol = propertyResolver.getProperty(PROP_PROTO);
-        Boolean tls = propertyResolver.getProperty(PROP_TLS, Boolean.class, false);
-        Boolean auth = propertyResolver.getProperty(PROP_AUTH, Boolean.class, false);
+        Binder binder = Binder.get(env);
+//        String host = propertyResolver.getProperty(PROP_HOST, DEFAULT_PROP_HOST);
+        String host = binder.bind(ENV_SPRING_MAIL + PROP_HOST, String.class).orElse(DEFAULT_PROP_HOST);
+//        int port = propertyResolver.getProperty(PROP_PORT, Integer.class, 0);
+        int port = binder.bind(ENV_SPRING_MAIL + PROP_PORT, Integer.class).orElse(0);
+//        String user = propertyResolver.getProperty(PROP_USER);
+        String user = binder.bind(ENV_SPRING_MAIL + PROP_USER, String.class).orElse(null);
+//        String password = propertyResolver.getProperty(PROP_PASSWORD);
+        String password = binder.bind(ENV_SPRING_MAIL + PROP_PASSWORD, String.class).orElse(null);
+//        String protocol = propertyResolver.getProperty(PROP_PROTO);
+        String protocol = binder.bind(ENV_SPRING_MAIL + PROP_PROTO, String.class).orElse(null);
+//        Boolean tls = propertyResolver.getProperty(PROP_TLS, Boolean.class, false);
+        Boolean tls = binder.bind(ENV_SPRING_MAIL + PROP_TLS, Boolean.class).orElse(false);
+//        Boolean auth = propertyResolver.getProperty(PROP_AUTH, Boolean.class, false);
+        Boolean auth = binder.bind(ENV_SPRING_MAIL + PROP_AUTH, Boolean.class).orElse(false);
 
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
         if (host != null && !host.isEmpty()) {
@@ -68,9 +79,9 @@ public class MailConfiguration implements EnvironmentAware {
         sendProperties.setProperty(PROP_STARTTLS, tls.toString());
         sendProperties.setProperty(PROP_TRANSPORT_PROTO, protocol);
         sender.setJavaMailProperties(sendProperties);
-        
+
         log.debug("Done:Configuring mail server");
-        
+
         return sender;
     }
 

@@ -11,7 +11,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -28,6 +28,8 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.ReleasePackagePrioritizer;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
+
+import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReleasePackagesResourceTest {
@@ -79,7 +81,7 @@ public class ReleasePackagesResourceTest {
         releasePackagesResource.userMembershipAccessor = userMembershipAccessor;
         releasePackagesResource.releasePackagePrioritizer = releasePackagePrioritizer;
         
-        Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(new Member("IHTSDO", 1));
+        Mockito.when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(new Member("IHTSDO", 1));
 
         MockMvcJacksonTestSupport mockMvcJacksonTestSupport = new MockMvcJacksonTestSupport();
         mockMvcJacksonTestSupport.memberRepository = memberRepository;
@@ -103,7 +105,7 @@ public class ReleasePackagesResourceTest {
 	@Test
 	public void testReleasePackageCreateIgnoresBodyMemberAndAttachesPackageToUserMember() throws Exception {
         Member userMember = new Member("SE", 1);
-		Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(userMember);
+		Mockito.when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(userMember);
         
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -119,8 +121,8 @@ public class ReleasePackagesResourceTest {
 	public void testReleasePackageCreateUsesBodyMemberForAdmin() throws Exception {
 		Member userMember = new Member("SE", 1);
 		Member bodyMember = new Member("DK", 2);
-		Mockito.stub(memberRepository.findOneByKey("DK")).toReturn(bodyMember);
-		Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(userMember);
+		Mockito.when(memberRepository.findOneByKey("DK")).thenReturn(bodyMember);
+		Mockito.when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(userMember);
 		securityContextSetup.asAdmin();
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
@@ -136,7 +138,7 @@ public class ReleasePackagesResourceTest {
 	@Test
 	public void testReleasePackageCreateDefaultsMemberForAdminIfNotInBody() throws Exception {
 		Member userMember = new Member("XX", 1);
-		Mockito.stub(userMembershipAccessor.getMemberAssociatedWithUser()).toReturn(userMember);
+		Mockito.when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(userMember);
 		securityContextSetup.asAdmin();
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
@@ -176,7 +178,7 @@ public class ReleasePackagesResourceTest {
 	
 	@Test
 	public void testReleasePackageUpdateFailsForUnknownId() throws Exception {
-		Mockito.when(releasePackageRepository.findOne(999L)).thenReturn(null);
+		Mockito.when(releasePackageRepository.findById(999L)).thenReturn(null);
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 999L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -191,7 +193,7 @@ public class ReleasePackagesResourceTest {
 	public void testReleasePackageUpdateShouldSave() throws Exception {
 		ReleasePackage releasePackage = new ReleasePackage();
 		
-		Mockito.when(releasePackageRepository.findOne(1L)).thenReturn(releasePackage);
+		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -209,7 +211,7 @@ public class ReleasePackagesResourceTest {
 		releasePackage.setDescription("originalDescription");
 		releasePackage.setCreatedBy("originalCreatedBy");
 		
-		Mockito.when(releasePackageRepository.findOne(1L)).thenReturn(releasePackage);
+		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -234,7 +236,7 @@ public class ReleasePackagesResourceTest {
 		releasePackage.setCreatedBy("originalCreatedBy");
 		releasePackage.setPriority(5);
 		
-		Mockito.when(releasePackageRepository.findOne(1L)).thenReturn(releasePackage);
+		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -255,7 +257,7 @@ public class ReleasePackagesResourceTest {
 		activeVersion.setOnline(true);
 		releasePackage.addReleaseVersion(activeVersion);
 		
-		Mockito.when(releasePackageRepository.findOne(1L)).thenReturn(releasePackage);
+		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -272,7 +274,7 @@ public class ReleasePackagesResourceTest {
 		inactiveVersion.setOnline(false);
 		releasePackage.addReleaseVersion(inactiveVersion);
 		
-		Mockito.when(releasePackageRepository.findOne(1L)).thenReturn(releasePackage);
+		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -286,7 +288,7 @@ public class ReleasePackagesResourceTest {
 	public void testReleasePackageDeleteLogsAuditEvent() throws Exception {
 		ReleasePackage releasePackage = new ReleasePackage();
 		
-		Mockito.when(releasePackageRepository.findOne(1L)).thenReturn(releasePackage);
+		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 		
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)

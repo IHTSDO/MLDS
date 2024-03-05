@@ -2,9 +2,9 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,6 +26,8 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
+
+import java.util.Optional;
 
 public class ReleaseFilesResourceTest {
 
@@ -88,7 +90,7 @@ public class ReleaseFilesResourceTest {
 
 	private ReleaseFile withReleaseFileWithIdOf(long id) {
 		ReleaseFile releaseFile = new ReleaseFile();
-		Mockito.when(releaseFileRepository.findOne(id)).thenReturn(releaseFile);
+		Mockito.when(releaseFileRepository.findById(id)).thenReturn(Optional.of(releaseFile));
 		return releaseFile;
 	}
 	

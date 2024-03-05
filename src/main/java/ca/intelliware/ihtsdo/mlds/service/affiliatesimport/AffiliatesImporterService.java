@@ -1,51 +1,42 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-import org.joda.time.Instant;
-import org.joda.time.LocalDate;
-import org.springframework.stereotype.Service;
-
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateType;
-import ca.intelliware.ihtsdo.mlds.domain.Application;
+import ca.intelliware.ihtsdo.mlds.domain.*;
 import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
-import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
-import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
-import ca.intelliware.ihtsdo.mlds.domain.UsageContext;
-import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 @Transactional
 public class AffiliatesImporterService {
 
-	@Resource ApplicationRepository applicationRepository;
-	@Resource AffiliateRepository affiliateRepository;
-	@Resource AffiliateDetailsRepository affiliateDetailsRepository;
-	@Resource CommercialUsageRepository commercialUsageRepository;
-	@Resource AffiliateAuditEvents affiliateAuditEvents;
+	@Autowired
+	ApplicationRepository applicationRepository;
+	@Autowired AffiliateRepository affiliateRepository;
+	@Autowired AffiliateDetailsRepository affiliateDetailsRepository;
+	@Autowired CommercialUsageRepository commercialUsageRepository;
+	@Autowired AffiliateAuditEvents affiliateAuditEvents;
 
 
-	@Resource AffiliatesMapper affiliatesMapper;
+	@Autowired AffiliatesMapper affiliatesMapper;
 
 	@PersistenceContext
     private EntityManager entityManager;
@@ -246,15 +237,18 @@ public class AffiliatesImporterService {
 
 
 	//FIXME move this code to a more appropriate service...
-	private CommercialUsagePeriod createCurrentCommercialUsagePeriod() {
-		CommercialUsagePeriod period = new CommercialUsagePeriod();
-		if (LocalDate.now().getMonthOfYear() <= 6) {
-			period.setStartDate(LocalDate.now().dayOfYear().withMinimumValue());
-			period.setEndDate(LocalDate.now().monthOfYear().setCopy(6).dayOfMonth().withMaximumValue());
-		} else {
-			period.setStartDate(LocalDate.now().monthOfYear().setCopy(7).dayOfMonth().withMinimumValue());
-			period.setEndDate(LocalDate.now().monthOfYear().setCopy(12).dayOfMonth().withMaximumValue());
-		}
-		return period;
-	}
+    private CommercialUsagePeriod createCurrentCommercialUsagePeriod() {
+        CommercialUsagePeriod period = new CommercialUsagePeriod();
+        LocalDate currentDate = LocalDate.now();
+
+        if (currentDate.getMonthValue() <= 6) {
+            period.setStartDate(LocalDate.of(currentDate.getYear(), 1, 1));
+            period.setEndDate(LocalDate.of(currentDate.getYear(), 6, 30));
+        } else {
+            period.setStartDate(LocalDate.of(currentDate.getYear(), 7, 1));
+            period.setEndDate(LocalDate.of(currentDate.getYear(), 12, 31));
+        }
+
+        return period;
+    }
 }

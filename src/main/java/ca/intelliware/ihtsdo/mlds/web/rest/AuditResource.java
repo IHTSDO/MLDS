@@ -1,29 +1,24 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
-
-import org.apache.commons.lang.StringUtils;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
+import com.codahale.metrics.annotation.Timed;
+import jakarta.annotation.security.RolesAllowed;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Instant;
 import org.joda.time.format.ISODateTimeFormat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.codahale.metrics.annotation.Timed;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 
 /**
  * REST controller for getting the audit events.
@@ -31,8 +26,8 @@ import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 @RestController
 public class AuditResource {
 
-    @Inject
-    AuditEventService auditEventService;
+    @Autowired
+	AuditEventService auditEventService;
 
     public static final String FILTER_BY_AUDIT_EVENT_TYPE = "auditEventType eq '(\\w+)'";
     public static final String FILTER_BY_AFFILIATE_ID = "affiliateId eq '(\\w+)'";
