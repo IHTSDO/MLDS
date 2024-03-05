@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+
 import ca.intelliware.ihtsdo.mlds.domain.*;
 import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
 import ca.intelliware.ihtsdo.mlds.repository.*;
@@ -14,7 +15,14 @@ import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
 import ca.intelliware.ihtsdo.mlds.service.mail.PasswordResetEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
 import com.codahale.metrics.annotation.Timed;
-import org.apache.commons.lang.StringUtils;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +31,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.context.IWebContext;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.context.SpringWebContext;
-import org.thymeleaf.util.Validate;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -44,6 +44,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class AccountResource {
 
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
@@ -54,31 +55,34 @@ public class AccountResource {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Inject
+    @Autowired
     private SpringTemplateEngine templateEngine;
 
-    @Inject
-    UserRepository userRepository;
+    @Autowired
+	UserRepository userRepository;
 
-    @Inject
+    @Autowired
     private UserService userService;
 
-    @Inject
+    @Autowired
     private PersistentTokenRepository persistentTokenRepository;
 
-    @Inject MailService mailService;
-    
-    @Resource DuplicateRegistrationEmailSender duplicateRegistrationEmailSender;
-    
-    @Inject DomainBlacklistService domainBlacklistService;
-    
+    @Autowired
+	MailService mailService;
+
+    @Resource
+	DuplicateRegistrationEmailSender duplicateRegistrationEmailSender;
+
+    @Autowired
+	DomainBlacklistService domainBlacklistService;
+
     @Resource
 	AffiliateRepository affiliateRepository;
     @Resource
-    ApplicationRepository applicationRepository;
-	@Resource 
+	ApplicationRepository applicationRepository;
+	@Resource
 	PasswordResetService passwordResetService;
-	@Resource 
+	@Resource
 	PasswordResetEmailSender passwordResetEmailSender;
 	@Resource
 	CommercialUsageRepository commercialUsageRepository;
@@ -91,15 +95,15 @@ public class AccountResource {
 
 	@Resource
 	UserMembershipAccessor userMembershipAccessor;
-	
+
 	@Resource
 	HttpAuthAdaptor httpAuthAdaptor;
-	
+
 	CurrentSecurityContext currentSecurityContext = new CurrentSecurityContext();
 
     /**
      * POST  /rest/register -> register the user.
-     * @throws IOException 
+     * @throws IOException
      */
     @RequestMapping(value = "/register",
             method = RequestMethod.POST,
@@ -108,7 +112,7 @@ public class AccountResource {
     //FIXME: JH-add account to stormpath wrapper
     @RolesAllowed({ AuthoritiesConstants.ANONYMOUS })
     public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO, HttpServletRequest request,
-                                             HttpServletResponse response) throws IOException {
+											 HttpServletResponse response) throws IOException {
         User user = userRepository.findByLoginIgnoreCase(userDTO.getLogin());
         if (user != null) {
         	String passwordResetToken = passwordResetService.createTokenForUser(user);
@@ -121,7 +125,7 @@ public class AccountResource {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
-    
+
 	private void createUserAccount(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response) {
 		List<Application> applications = applicationRepository.findByUsernameIgnoreCase(userDTO.getLogin());
 		List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(userDTO.getLogin());
@@ -129,16 +133,16 @@ public class AccountResource {
 		Affiliate affiliate = new Affiliate();
 		AffiliateDetails affiliateDetails = new AffiliateDetails();
 		MailingAddress mailingAddress = new MailingAddress();
-		
+
 		if (applications.size() > 0) {
 			// FIXME MLDS-308 can we assume the first one is the primary?
 			application = (PrimaryApplication) applications.get(0);
 		}
-		
+
 		if (affiliates.size() > 0) {
 			affiliate = affiliates.get(0);
 		}
-		        	
+
 		application.setUsername(userDTO.getLogin());
 		affiliateDetails.setFirstName(userDTO.getFirstName());
 		affiliateDetails.setLastName(userDTO.getLastName());
@@ -146,39 +150,39 @@ public class AccountResource {
 		mailingAddress.setCountry(userDTO.getCountry());
 		affiliateDetails.setAddress(mailingAddress);
 		application.setAffiliateDetails(affiliateDetails);
-		
+
 		//set a default type for application to create affiliate and usagelog
 		affiliate.setCreator(userDTO.getLogin());
 		// MLDS-719 don't default type affiliateDetails.setType(AffiliateType.COMMERCIAL);
 		//affiliate.setType(AffiliateType.COMMERCIAL);
-		
+
 		Validate.notNull(userDTO.getCountry(), "Country is mandatory");
 		Member member = userDTO.getCountry().getMember();
 		Validate.notNull(member, "Country must have a responsible member");
 		application.setMember(member);
 		affiliate.setHomeMember(member);
-		
+
 		affiliateRepository.save(affiliate);
 		affiliateDetailsRepository.save(affiliateDetails);
 
 		applicationRepository.save(application);
-		
+
 		affiliate.setApplication(application);
 		affiliateRepository.save(affiliate);
-		
+
 		CommercialUsage commercialUsage = new CommercialUsage();
 		commercialUsage.setType(affiliate.getType());
-		
+
 		commercialUsageResetter.detachAndReset(commercialUsage, userDTO.getInitialUsagePeriod().getStartDate(), userDTO.getInitialUsagePeriod().getEndDate());
-		
+
 		commercialUsage = commercialUsageRepository.save(commercialUsage);
-		
+
 		affiliate.addCommercialUsage(commercialUsage);
-		
+
 		application.setCommercialUsage(commercialUsage);
-		
+
 		affiliateAuditEvents.logCreationOf(affiliate);
-		
+
 		//FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
 		User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
 		        userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey(), false);
@@ -239,14 +243,14 @@ public class AccountResource {
             	return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         	}
         }
-        
+
 		return new ResponseEntity<>(userDto,HttpStatus.OK);
     }
 	private UserDTO createUserDtoFromRemoteUserInfo(CentralAuthUserInfo userInfo) {
 		Member member = userMembershipAccessor.getMemberAssociatedWithUser();
-		
+
 		List<String> roles = currentSecurityContext.getRolesList();
-		
+
 		UserDTO userDto = new UserDTO(
 				userInfo.getLogin(),
 				"XX",
@@ -260,13 +264,13 @@ public class AccountResource {
 				);
 		return userDto;
 	}
-    
+
 	private UserDTO createUserDtoFromUser(User user) {
 		Set<Authority> authorities = user.getAuthorities();
 		List<String> roles = rolesFromAuthorities(authorities);
-        
+
         Member member = userMembershipAccessor.getMemberAssociatedWithUser();
-        
+
         UserDTO userDto = new UserDTO(
 		    user.getLogin(),
 		    "XXX",
@@ -280,7 +284,7 @@ public class AccountResource {
 		    );
 		return userDto;
 	}
-	
+
 	private List<String> rolesFromAuthorities(Set<Authority> authorities) {
 		List<String> roles = new ArrayList<>();
 		for (Authority authority : authorities) {
@@ -348,8 +352,23 @@ public class AccountResource {
      *   There is an API to invalidate the current session, but there is no API to check which session uses which
      *   cookie.
      */
+//    @RequestMapping(value = "/account/sessions/{series}",
+//            method = RequestMethod.DELETE)
+//    @Timed
+//    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+//    public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
+//        String decodedSeries = URLDecoder.decode(series, "UTF-8");
+//        User user = userRepository.findByLoginIgnoreCase(SecurityUtils.getCurrentLogin());
+//        List<PersistentToken> persistentTokens = persistentTokenRepository.findByUser(user);
+//        for (PersistentToken persistentToken : persistentTokens) {
+//            if (StringUtils.equals(persistentToken.getSeries(), decodedSeries)) {
+//                persistentTokenRepository.delete(decodedSeries);
+//            }
+//        }
+//    }
+
     @RequestMapping(value = "/account/sessions/{series}",
-            method = RequestMethod.DELETE)
+        method = RequestMethod.DELETE)
     @Timed
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
@@ -358,7 +377,7 @@ public class AccountResource {
         List<PersistentToken> persistentTokens = persistentTokenRepository.findByUser(user);
         for (PersistentToken persistentToken : persistentTokens) {
             if (StringUtils.equals(persistentToken.getSeries(), decodedSeries)) {
-                persistentTokenRepository.delete(decodedSeries);
+                persistentTokenRepository.delete(persistentToken);
             }
         }
     }
@@ -370,35 +389,38 @@ public class AccountResource {
         variables.put("baseUrl", request.getScheme() + "://" +   // "http" + "://
                                  request.getServerName() +       // "myhost"
                                  ":" + request.getServerPort());
-        IWebContext context = new SpringWebContext(request, response, servletContext,
-                locale, variables, applicationContext);
+//        IWebContext context = new SpringWebContext(request, response, servletContext,
+//                locale, variables, applicationContext);
+        Context context = new Context(locale);
         return templateEngine.process(MailService.EMAIL_ACTIVATION_PREFIX + MailService.TEMPLATE_SUFFIX, context);
     }
-    
+
     @RequestMapping(value = "/account/create", method = RequestMethod.POST)
     @RolesAllowed({AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<?> createLogin(@RequestBody Affiliate body, HttpServletRequest request, HttpServletResponse response) {
-    	Affiliate affiliate = affiliateRepository.findOne(body.getAffiliateId());
+
+		Optional<Affiliate> optionalAffiliate = affiliateRepository.findById(body.getAffiliateId());
+        Affiliate affiliate = optionalAffiliate.get();
     	User user = userRepository.findByLoginIgnoreCase(body.getAffiliateDetails().getEmail());
-    	
+
     	if (user != null) {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
     	}
-    	
+
     	affiliate.setCreator(body.getAffiliateDetails().getEmail().toLowerCase());
     	affiliate.getAffiliateDetails().setEmail(body.getAffiliateDetails().getEmail().toLowerCase());
     	user = userService.createUserInformation(body.getAffiliateDetails().getEmail().toLowerCase(), "", body.getAffiliateDetails().getFirstName(),
     			body.getAffiliateDetails().getLastName(), body.getAffiliateDetails().getEmail().toLowerCase(), "en", true);
-    	
+
     	final String tokenKey = passwordResetService.createTokenForUser(user);
 		passwordResetEmailSender.sendPasswordResetEmail(user, tokenKey);
-    	
+
 		affiliateAuditEvents.logCreationOfAffiliateLogin(affiliate);
-		
+
     	return new ResponseEntity<>(HttpStatus.CREATED);
-    	
-    	
+
+
     }
-    
+
 }

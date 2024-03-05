@@ -1,20 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.joda.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.time.Instant;
 
 @Entity
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -22,14 +15,15 @@ public class Member extends BaseEntity {
 	public static final String KEY_IHTSDO = "IHTSDO";
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="member_id")
 	Long memberId;
     @Column(name="`key`")
     String key;
 
     @Column(name="created_at")
-    Instant createdAt = Instant.now();
+	Instant createdAt = Instant.now();
 
     @Column(name="contactEmail")
     public String contactEmail;
@@ -52,7 +46,7 @@ public class Member extends BaseEntity {
     String licenseVersion;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="logo_file")
 	private
     File logoFile;
@@ -108,7 +102,7 @@ public class Member extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this,ToStringStyle.SHORT_PREFIX_STYLE)
+		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 			.append("key", key)
 			.append("memberId", memberId)
 			.toString();

@@ -3,10 +3,10 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
+import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -30,7 +30,8 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 @Transactional
 public class UserNotifier_Load_Test {
 
-	@Resource EntityManager entityManager;
+	@Resource
+	EntityManager entityManager;
 
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource UserRepository userRepository;

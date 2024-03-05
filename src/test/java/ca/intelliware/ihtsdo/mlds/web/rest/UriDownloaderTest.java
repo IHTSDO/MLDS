@@ -1,13 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
+import jakarta.transaction.Transactional;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
@@ -22,7 +22,7 @@ import ca.intelliware.ihtsdo.mlds.web.rest.UriDownloader.S3Location;
 @Transactional
 public class UriDownloaderTest extends MySqlTestContainerTest {
 
-	@Inject
+	@Autowired
 	UriDownloader downloader;
 
 	@Test

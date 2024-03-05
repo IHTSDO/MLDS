@@ -1,19 +1,17 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-
 import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Get the primary member for the current user.
@@ -21,16 +19,16 @@ import com.google.common.collect.Lists;
 @Service
 public class UserMembershipAccessor {
 
-	@Resource
+	@Autowired
 	protected CurrentSecurityContext currentSecurityContext;
-	
-	@Resource
+
+	@Autowired
 	AffiliateRepository affiliateRepository;
-	
-	@Resource
+
+	@Autowired
 	MemberRepository memberRepository;
-	
-	@Resource
+
+	@Autowired
 	AffiliateMembershipCalculator affiliateMembershipCalculator;
 
 	public Member getMemberAssociatedWithUser() {
@@ -64,9 +62,9 @@ public class UserMembershipAccessor {
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Collection of accepted membership applications. Note that this 
+	 * Collection of accepted membership applications. Note that this
 	 * might not include the "home member" if the extension application
 	 * for a non-ihtsdo member has not been accepted yet.
 	 */
@@ -81,7 +79,7 @@ public class UserMembershipAccessor {
 	public boolean isAffiliateMemberApplicationAccepted(Member member) {
 		return getAcceptedAffiliateMembershipsOfUser().contains(member);
 	}
-	
+
 	private Collection<Member> getAffiliateMemberships() {
 		Affiliate affiliate = getAffiliate();
 		if (affiliate != null) {

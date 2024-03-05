@@ -1,14 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.Map;
 
 @Service
 public class AffiliateAuditEvents {
@@ -20,11 +17,11 @@ public class AffiliateAuditEvents {
 	static final String EVENT_AFFILIATE_LOGIN_CREATED = "AFFILIATE_LOGIN_CREATED";
 	static final String EVENT_AFFILIATE_STANDING_STATE_CHANGED = "AFFILIATE_STANDING_STATE_CHANGED";
 	static final String EVENT_AFFILIATE_DELETED = "AFFILIATE_DELETED";
-	
-	@Resource
+
+	@Autowired
 	AuditEventService auditEventService;
 
-	
+
 	public void logCreationOf(Affiliate affiliate) {
 		logEvent(EVENT_AFFILIATE_CREATED, affiliate);
 	}
@@ -57,7 +54,7 @@ public class AffiliateAuditEvents {
 		auditEvent.setAffiliateId(affiliate.getAffiliateId());
 		auditEventService.logAuditableEvent(auditEvent);
 	}
-	
+
 	private Map<String, String> createAffiliateData(Affiliate affiliate) {
 		return AuditDataBuilder.start()
 			.addAffiliateCreator(affiliate)
@@ -65,7 +62,7 @@ public class AffiliateAuditEvents {
 			.addAffiliateHomeMember(affiliate)
 			.toAuditData();
 	}
-	
+
 	public void logUpdateOfAffiliate(Affiliate affiliate) {
 		logAffiliateUpdate(EVENT_AFFILIATE_UPDATED, affiliate);
 	}
@@ -87,17 +84,17 @@ public class AffiliateAuditEvents {
 
 	private Map<String, String> createAffiliateDetailsData(Affiliate affiliate, AffiliateDetails newDetails) {
 		Map<String,String> auditData = createAffiliateData(affiliate);
-		
+
     	AffiliateDetailsDifferenceCalculator affiliateDetailsDifferenceCalculator = new AffiliateDetailsDifferenceCalculator();
 		affiliateDetailsDifferenceCalculator.calculateDifferences(affiliate.getAffiliateDetails(), newDetails);
 		affiliateDetailsDifferenceCalculator.addDifferencesTo(auditData);
-		
+
 		return auditData;
 	}
 
 	public void logDeleteOfAffiliate(Affiliate affiliate) {
 		logEvent(EVENT_AFFILIATE_DELETED, affiliate);
-		
+
 	}
 
 	

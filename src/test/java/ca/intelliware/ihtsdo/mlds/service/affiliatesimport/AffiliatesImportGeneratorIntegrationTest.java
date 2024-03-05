@@ -6,11 +6,10 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.transaction.Transactional;
-
 import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
+import jakarta.annotation.Resource;
+import jakarta.transaction.Transactional;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +25,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @TestPropertySource(locations="classpath:test.application.properties")
 @Transactional
 public class AffiliatesImportGeneratorIntegrationTest extends MySqlTestContainerTest {
-	@Resource AffiliatesImportGenerator affiliatesImportGenerator;
+	@Resource
+	AffiliatesImportGenerator affiliatesImportGenerator;
 	@Resource AffiliatesMapper affiliatesMapper;
 
 	@Before

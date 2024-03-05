@@ -1,15 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.domain.json;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.MemberSerializer;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MLDSJacksonModule extends SimpleModule {
 	

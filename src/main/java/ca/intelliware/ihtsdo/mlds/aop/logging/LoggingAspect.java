@@ -1,9 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.aop.logging;
 
-import java.util.Arrays;
 
-import javax.inject.Inject;
-
+import ca.intelliware.ihtsdo.mlds.config.Constants;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -12,9 +10,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
-import ca.intelliware.ihtsdo.mlds.config.Constants;
+
+import java.util.Arrays;
 
 /**
  * Aspect for logging execution of service and repository Spring components.
@@ -24,7 +24,7 @@ public class LoggingAspect {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Inject
+    @Autowired
     private Environment env;
 
     @Pointcut("within(ca.intelliware.ihtsdo.mlds.repository..*) || within(ca.intelliware.ihtsdo.mlds.service..*) || within(ca.intelliware.ihtsdo.mlds.web.rest..*)")

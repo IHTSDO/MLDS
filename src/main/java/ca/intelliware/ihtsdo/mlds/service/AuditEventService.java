@@ -1,19 +1,18 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
-
-import org.joda.time.Instant;
-import org.springframework.boot.actuate.audit.AuditEvent;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import ca.intelliware.ihtsdo.mlds.config.audit.AuditEventConverter;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import org.joda.time.Instant;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * Service for managing audit events.
@@ -26,14 +25,14 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 @Transactional
 public class AuditEventService {
 
-    @Inject
+    @Autowired
     PersistenceAuditEventRepository persistenceAuditEventRepository;
 
-    @Inject
+    @Autowired
     AuditEventConverter auditEventConverter;
 
-	@Inject
-	CurrentSecurityContext currentSecurityContext;
+	@Autowired
+    CurrentSecurityContext currentSecurityContext;
 
     public List<AuditEvent> findAll() {
         return auditEventConverter.convertToAuditEvent(persistenceAuditEventRepository.findAll());

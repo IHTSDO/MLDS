@@ -5,17 +5,18 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
 
 import com.google.common.collect.Lists;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CountryValueConverterTest {
@@ -69,14 +70,14 @@ public class CountryValueConverterTest {
 
     @Test
     public void toObjectShouldReturnCountry() {
-    	when(countryRepository.findOne("AB")).thenReturn(countryAB);
+    	when(countryRepository.findById("AB")).thenReturn(Optional.ofNullable(countryAB));
     	
     	assertEquals(fixture.toObject("AB"), countryAB);
     }
     
     @Test
     public void validateShouldPassForKnownCountry() {
-    	when(countryRepository.findOne("AB")).thenReturn(countryAB);
+    	when(countryRepository.findById("AB")).thenReturn(Optional.ofNullable(countryAB));
     	
     	fixture.validate("AB", lineRecord, fieldMapping, result);
     	
@@ -85,7 +86,7 @@ public class CountryValueConverterTest {
 
     @Test
     public void validateShouldAddErrorForUnknownCountry() {
-    	when(countryRepository.findOne("ZZ")).thenReturn(null);
+    	when(countryRepository.findById("ZZ")).thenReturn(null);
     	
     	fixture.validate("ZZ", lineRecord, fieldMapping, result);
     	

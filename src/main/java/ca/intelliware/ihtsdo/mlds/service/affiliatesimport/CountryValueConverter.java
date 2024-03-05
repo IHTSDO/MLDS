@@ -1,25 +1,27 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
+import ca.intelliware.ihtsdo.mlds.domain.Country;
+import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
-import ca.intelliware.ihtsdo.mlds.domain.Country;
-import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
+import java.util.Optional;
 
 @Service
 public class CountryValueConverter extends ValueConverter {
 	
-	@Resource 
+	@Resource
 	CountryRepository countryRepository;
 
 	@Override
 	public Country toObject(String valueString) {
-		return countryRepository.findOne(valueString);
+		Optional<Country> countryOptional = countryRepository.findById(valueString);
+		Country country = countryOptional.get();
+		return country;
 	}
 
 	@Override

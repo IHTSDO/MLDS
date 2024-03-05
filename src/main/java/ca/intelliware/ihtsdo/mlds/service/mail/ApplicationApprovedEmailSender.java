@@ -1,19 +1,17 @@
 package ca.intelliware.ihtsdo.mlds.service.mail;
 
+import ca.intelliware.ihtsdo.mlds.domain.User;
+import com.google.common.collect.Maps;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
+
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
-import ca.intelliware.ihtsdo.mlds.domain.User;
-
-import com.google.common.collect.Maps;
-
 @Service
 public class ApplicationApprovedEmailSender {
-	@Resource MailService mailService;
+	@Resource
+	MailService mailService;
 	@Resource TemplateEvaluator templateEvaluator;
 	@Resource ClientLinkBuilder clientLinkBuilder;
 
@@ -27,7 +25,7 @@ public class ApplicationApprovedEmailSender {
 		variables.put(EmailVariables.VIEW_PACKAGES_URL, clientLinkBuilder.buildViewReleasesLink());
 		String content = templateEvaluator.evaluateTemplate("applicationApprovedEmail", locale, variables);
 		String subject = templateEvaluator.getTitleFor("applicationApproved", locale);
-		
+
 		mailService.sendEmail(user.getEmail(), subject, content, false, true);
 	}
 

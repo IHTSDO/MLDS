@@ -1,12 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsagePeriod;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.List;
 
 @JsonIgnoreProperties({"confirmemail"})
 public class UserDTO {
@@ -50,6 +49,8 @@ public class UserDTO {
         this.initialUsagePeriod = submissionPeriod;
         this.member = staffOrAdminMember;
     }
+
+
 
     public String getPassword() {
         return password;

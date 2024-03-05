@@ -1,22 +1,21 @@
 package ca.intelliware.ihtsdo.mlds.config.audit;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
-import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.*;
+
 
 @Configuration
 public class AuditEventConverter {
 
     /**
      * Convert a list of PersistentAuditEvent to a list of AuditEvent
+     *
      * @param persistentAuditEvents the list to convert
      * @return the converted list.
      */
@@ -28,8 +27,20 @@ public class AuditEventConverter {
         List<AuditEvent> auditEvents = new ArrayList<>();
 
         for (PersistentAuditEvent persistentAuditEvent : persistentAuditEvents) {
-            AuditEvent auditEvent = new AuditEvent(persistentAuditEvent.getAuditEventDate().toDate(), persistentAuditEvent.getPrincipal(),
-                    persistentAuditEvent.getAuditEventType(), convertDataToObjects(persistentAuditEvent.getData()));
+            /*AuditEvent auditEvent = new AuditEvent(persistentAuditEvent.getAuditEventDate().atOffset().toInstant(), persistentAuditEvent.getPrincipal(),
+                    persistentAuditEvent.getAuditEventType(), convertDataToObjects(persistentAuditEvent.getData()));*/
+            LocalDateTime auditEventDate = LocalDateTime.from(persistentAuditEvent.getAuditEventDate());
+
+// Convert LocalDateTime to Instant
+            Instant instant = auditEventDate.toInstant(ZoneOffset.UTC);
+
+// Create AuditEvent object
+            AuditEvent auditEvent = new AuditEvent(
+                    instant,
+                    persistentAuditEvent.getPrincipal(),
+                    persistentAuditEvent.getAuditEventType(),
+                    convertDataToObjects(persistentAuditEvent.getData())
+            );
             auditEvents.add(auditEvent);
         }
 
@@ -68,14 +79,14 @@ public class AuditEventConverter {
             for (String key : data.keySet()) {
                 Object object = data.get(key);
 
-                // Extract the data that will be saved.
+               /* // Extract the data that will be saved.
                 if (object instanceof WebAuthenticationDetails) {
                     WebAuthenticationDetails authenticationDetails = (WebAuthenticationDetails) object;
                     results.put("remoteAddress", authenticationDetails.getRemoteAddress());
                     results.put("sessionId", authenticationDetails.getSessionId());
                 } else {
                     results.put(key, object.toString());
-                }
+                }*/
             }
         }
 

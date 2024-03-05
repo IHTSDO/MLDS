@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
+
+import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.Validate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 
-import com.google.common.collect.Lists;
 
 @Service
 public class CurrentSecurityContext {
@@ -49,7 +50,7 @@ public class CurrentSecurityContext {
 		}
 		return false;
 	}
-	
+
 	public boolean isUser() {
 		return hasRole(AuthoritiesConstants.USER);
 	}
@@ -92,7 +93,7 @@ public class CurrentSecurityContext {
 				} else if (a.startsWith(AuthoritiesConstants.MEMBER) &&
 						!a.equals(AuthoritiesConstants.MEMBER)) {
 						return a.substring(AuthoritiesConstants.MEMBER.length()+1); // +1 for underscore
-					} 
+					}
 			}
 		}
 		throw new IllegalStateException("User does not represent member");
@@ -118,5 +119,5 @@ public class CurrentSecurityContext {
 	public void logout() {
 		SecurityContextHolder.getContext().setAuthentication(null);
 	}
-	
+
 }

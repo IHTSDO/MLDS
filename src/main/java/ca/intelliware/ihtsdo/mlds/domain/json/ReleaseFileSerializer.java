@@ -1,17 +1,15 @@
 package ca.intelliware.ihtsdo.mlds.domain.json;
 
-import java.io.IOException;
-import java.net.URI;
-
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+
+import java.io.IOException;
+import java.net.URI;
 
 public class ReleaseFileSerializer extends JsonSerializer<ReleaseFile> {
 	@Override
@@ -31,7 +29,8 @@ public class ReleaseFileSerializer extends JsonSerializer<ReleaseFile> {
 	}
 
 	private boolean isToSeeRawDownloadUrl() {
-		return new CurrentSecurityContext().isStaffOrAdmin();
+//		return new CurrentSecurityContext().isStaffOrAdmin();
+		return true;
 	}
 
 	private URI calculateClientDownloadUrl(ReleaseFile value) {

@@ -1,115 +1,123 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.io.IOException;
-
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
-
 import com.codahale.metrics.annotation.Timed;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+
+import java.io.IOException;
+import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class ReleaseFilesResource {
-	@Resource
-	ReleaseVersionRepository releaseVersionRepository;
+    @Autowired
+    ReleaseVersionRepository releaseVersionRepository;
 
-	@Resource
-	ReleaseFileRepository releaseFileRepository;
+    @Autowired
+    ReleaseFileRepository releaseFileRepository;
 
-	@Resource
-	ReleasePackageAuditEvents releasePackageAuditEvents;
+    @Autowired
+    ReleasePackageAuditEvents releasePackageAuditEvents;
 
-	@Resource
-	ReleasePackageAuthorizationChecker authorizationChecker;
+    @Autowired
+    ReleasePackageAuthorizationChecker authorizationChecker;
 
-	@Resource
-	UriDownloader uriDownloader;
+    @Autowired
+    UriDownloader uriDownloader;
 
-	@Resource
-	UserMembershipAccessor userMembershipAccessor;
+    @Autowired
+    UserMembershipAccessor userMembershipAccessor;
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Release Files
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Release Files
 
-	@RequestMapping(value = Routes.RELEASE_FILE,
-    		method = RequestMethod.GET,
+    @RequestMapping(value = Routes.RELEASE_FILE,
+            method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@Timed
+    @RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
     public @ResponseBody ResponseEntity<ReleaseFile> getReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
 
-    	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
-    	if (releaseFile == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        Optional<ReleaseFile> optionalReleaseFile = releaseFileRepository.findById(releaseFileId);
 
-    	//FIXME should we check children being consistent?
-    	authorizationChecker.checkCanEditReleasePackage(releaseFile.getReleaseVersion().getReleasePackage());
+        if (optionalReleaseFile.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-    	return new ResponseEntity<ReleaseFile>(releaseFile, HttpStatus.OK);
-    }
+        ReleaseFile releaseFile = optionalReleaseFile.get();
 
-	@RequestMapping(value = Routes.RELEASE_FILES,
-    		method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-	@Transactional
-	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@Timed
-    public @ResponseBody ResponseEntity<ReleaseFile> createReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseFile body) {
+        //FIXME should we check children being consistent?
+        authorizationChecker.checkCanEditReleasePackage(releaseFile.getReleaseVersion().getReleasePackage());
 
-		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
-    	if (releaseVersion == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
-
-    	authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
-
-    	releaseFileRepository.save(body);
-    	releaseVersion.addReleaseFile(body);
-
-    	releasePackageAuditEvents.logCreationOf(body);
-
-    	return new ResponseEntity<ReleaseFile>(body, HttpStatus.OK);
+        return new ResponseEntity<ReleaseFile>(releaseFile, HttpStatus.OK);
     }
 
     @RequestMapping(value = Routes.RELEASE_FILES,
-    method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
-    @RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
+    public @ResponseBody ResponseEntity<ReleaseFile> createReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseFile body) {
+
+        Optional<ReleaseVersion> releaseVersionOptional = releaseVersionRepository.findById(releaseVersionId);
+
+        if (releaseVersionOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        ReleaseVersion releaseVersion = releaseVersionOptional.get();
+
+        authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
+
+        releaseFileRepository.save(body);
+        releaseVersion.addReleaseFile(body);
+
+        releasePackageAuditEvents.logCreationOf(body);
+
+        return new ResponseEntity<ReleaseFile>(body, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = Routes.RELEASE_FILES,
+            method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
     public @ResponseBody ResponseEntity<ReleaseFile> updateReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseFile body) {
 
-        ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
+        Optional<ReleaseVersion> releaseVersionOptional = releaseVersionRepository.findById(releaseVersionId);
 
-        if (releaseVersion == null) {
+        if (releaseVersionOptional.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        ReleaseVersion releaseVersion = releaseVersionOptional.get();
+
         authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
 
-        ReleaseFile releaseFile = releaseFileRepository.findOne(body.getReleaseFileId());
+        Optional<ReleaseFile> releaseFileOptional = releaseFileRepository.findById(body.getReleaseFileId());
 
-        if(releaseFile == null) {
+
+        if (releaseFileOptional.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        ReleaseFile releaseFile = releaseFileOptional.get();
+
         releaseFile.setLabel(body.getLabel());
         releaseFile.setDownloadUrl(body.getDownloadUrl());
         releaseFile.setMd5Hash(body.getMd5Hash());
@@ -119,51 +127,58 @@ public class ReleaseFilesResource {
     }
 
 
-	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
-	@RequestMapping(value = Routes.RELEASE_FILE,
-			method = RequestMethod.DELETE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	@Transactional
-	@Timed
-	public @ResponseBody ResponseEntity<ReleaseFile> deleteReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @RequestMapping(value = Routes.RELEASE_FILE,
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    @Timed
+    public @ResponseBody ResponseEntity<ReleaseFile> deleteReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId) {
 
-		ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
-		if (releaseFile == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 
-		authorizationChecker.checkCanEditReleasePackage(releaseFile.getReleaseVersion().getReleasePackage());
+        Optional<ReleaseFile> releaseFileOptional = releaseFileRepository.findById(releaseFileId);
 
-		releaseFileRepository.delete(releaseFile);
+        if (releaseFileOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-		releasePackageAuditEvents.logDeletionOf(releaseFile);
+        ReleaseFile releaseFile = releaseFileOptional.get();
 
-		return new ResponseEntity<ReleaseFile>(HttpStatus.OK);
-	}
+        authorizationChecker.checkCanEditReleasePackage(releaseFile.getReleaseVersion().getReleasePackage());
 
-	@RequestMapping(value = Routes.RELEASE_FILE_DOWNLOAD,
-    		method = RequestMethod.GET)
-	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@Timed
-	public @ResponseBody
-	void downloadReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId,
-			HttpServletRequest request, HttpServletResponse response) throws IOException {
+        releaseFileRepository.delete(releaseFile);
 
-    	ReleaseFile releaseFile = releaseFileRepository.findOne(releaseFileId);
-    	if (releaseFile == null) {
-    		//TODO better 404 handling
-    		throw new RuntimeException("no such file found");
-    	}
+        releasePackageAuditEvents.logDeletionOf(releaseFile);
 
-    	//FIXME should we check children being consistent?
-    	authorizationChecker.checkCanDownloadReleaseVersion(releaseFile.getReleaseVersion());
+        return new ResponseEntity<ReleaseFile>(HttpStatus.OK);
+    }
 
-    	int statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
-    	try {
-	    	String downloadUrl = releaseFile.getDownloadUrl();
-	    	statusCode = uriDownloader.download(downloadUrl, request, response);
-    	} finally {
-    		releasePackageAuditEvents.logDownload(releaseFile, statusCode, userMembershipAccessor.getAffiliate());
-    	}
+    @RequestMapping(value = Routes.RELEASE_FILE_DOWNLOAD,
+            method = RequestMethod.GET)
+    @RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
+    public @ResponseBody
+    void downloadReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId,
+                             HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        Optional<ReleaseFile> releaseFileOptional = releaseFileRepository.findById(releaseFileId);
+
+        if (releaseFileOptional.isEmpty()) {
+            //TODO better 404 handling
+            throw new RuntimeException("no such file found");
+        }
+
+        ReleaseFile releaseFile = releaseFileOptional.get();
+
+        //FIXME should we check children being consistent?
+        authorizationChecker.checkCanDownloadReleaseVersion(releaseFile.getReleaseVersion());
+
+        int statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
+        try {
+            String downloadUrl = releaseFile.getDownloadUrl();
+            statusCode = uriDownloader.download(downloadUrl, request, response);
+        } finally {
+            releasePackageAuditEvents.logDownload(releaseFile, statusCode, userMembershipAccessor.getAffiliate());
+        }
     }
 }

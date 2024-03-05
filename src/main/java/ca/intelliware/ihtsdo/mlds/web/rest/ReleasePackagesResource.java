@@ -1,38 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.annotation.Resource;
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
-
-import org.apache.commons.io.IOUtils;
-import org.joda.time.Instant;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.codahale.metrics.annotation.Timed;
-import com.google.common.collect.Sets;
 
 import ca.intelliware.ihtsdo.mlds.domain.File;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
@@ -45,71 +12,99 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.ReleasePackagePrioritizer;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
+import com.codahale.metrics.annotation.Timed;
+import com.google.common.collect.Sets;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.persistence.EntityManager;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
+import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.util.*;
 
 @RestController
+@CrossOrigin
 public class ReleasePackagesResource {
 
-	@Resource EntityManager entityManager;
-	@Resource BlobHelper blobHelper;
-	@Resource FileRepository fileRepository;
-	@Resource SessionService sessionService;
+    @Autowired
+    EntityManager entityManager;
+    @Autowired
+    BlobHelper blobHelper;
+    @Autowired
+    FileRepository fileRepository;
+    @Autowired
+    SessionService sessionService;
 
-	@Resource
-	ReleasePackageRepository releasePackageRepository;
+    @Autowired
+    ReleasePackageRepository releasePackageRepository;
 
-	@Resource
-	ReleasePackageAuthorizationChecker authorizationChecker;
+    @Resource
+    ReleasePackageAuthorizationChecker authorizationChecker;
 
-	@Resource
-	CurrentSecurityContext currentSecurityContext;
+    @Resource
+    CurrentSecurityContext currentSecurityContext;
 
-	@Resource
-	ReleasePackageAuditEvents releasePackageAuditEvents;
+    @Resource
+    ReleasePackageAuditEvents releasePackageAuditEvents;
 
-	@Resource
-	UserMembershipAccessor userMembershipAccessor;
+    @Resource
+    UserMembershipAccessor userMembershipAccessor;
 
-	@Resource
-	ReleaseFilePrivacyFilter releaseFilePrivacyFilter;
+    @Autowired
+    ReleaseFilePrivacyFilter releaseFilePrivacyFilter;
 
-	@Resource
-	ReleasePackagePrioritizer releasePackagePrioritizer;
+    @Autowired
+    ReleasePackagePrioritizer releasePackagePrioritizer;
+//
+//	////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	// Release Packages
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Release Packages
-
-	@RequestMapping(value = Routes.RELEASE_PACKAGES,
-    		method = RequestMethod.GET,
+    @RequestMapping(value = Routes.RELEASE_PACKAGES,
+            method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@PermitAll
-	@Timed
+    @PermitAll
+    @Timed
     public @ResponseBody ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
 
-    	Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
+        Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
 
-		releasePackages = filterReleasePackagesByOnline(releasePackages);
+        releasePackages = filterReleasePackagesByOnline(releasePackages);
 
-    	return new ResponseEntity<Collection<ReleasePackage>>(releasePackages, HttpStatus.OK);
+        return new ResponseEntity<Collection<ReleasePackage>>(releasePackages, HttpStatus.OK);
     }
 
-	private Collection<ReleasePackage> filterReleasePackagesByOnline(
-			Collection<ReleasePackage> releasePackages) {
+    private Collection<ReleasePackage> filterReleasePackagesByOnline(
+            Collection<ReleasePackage> releasePackages) {
 
-		Collection<ReleasePackage> result = releasePackages;
+        Collection<ReleasePackage> result = releasePackages;
 
-		if (!authorizationChecker.shouldSeeOfflinePackages()) {
-			result = new ArrayList<>();
-			for(ReleasePackage releasePackage : releasePackages){
-				if(isPackagePublished(releasePackage)) {
-					result.add(filterReleasePackageByAuthority(releasePackage));
-				}
-			}
-		}
+        if (!authorizationChecker.shouldSeeOfflinePackages()) {
+            result = new ArrayList<>();
+            for (ReleasePackage releasePackage : releasePackages) {
+                if (isPackagePublished(releasePackage)) {
+                    result.add(filterReleasePackageByAuthority(releasePackage));
+                }
+            }
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-//	private boolean isPackagePublished(ReleasePackage releasePackage) {
+    //	private boolean isPackagePublished(ReleasePackage releasePackage) {
 //		for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
 //			if (version.isOnline()) {
 //				return true;
@@ -118,7 +113,7 @@ public class ReleasePackagesResource {
 //		return false;
 //	}
     private boolean isPackagePublished(ReleasePackage releasePackage) {
-        for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
+        for (ReleaseVersion version : releasePackage.getReleaseVersions()) {
             if (version.getReleaseType().equalsIgnoreCase("online") || version.getReleaseType().equalsIgnoreCase("alpha/beta")) {
                 return true;
             }
@@ -126,51 +121,58 @@ public class ReleasePackagesResource {
         return false;
     }
 
-	@RequestMapping(value = Routes.RELEASE_PACKAGES,
-    		method = RequestMethod.POST,
+
+    @RequestMapping(value = Routes.RELEASE_PACKAGES,
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@Timed
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
     public @ResponseBody ResponseEntity<ReleasePackage> createReleasePackage(@RequestBody ReleasePackage releasePackage) {
-    	authorizationChecker.checkCanCreateReleasePackages();
+        authorizationChecker.checkCanCreateReleasePackages();
 
-    	releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
+//      TODO Need change here
+        releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
 
-    	// MLDS-740 - Allow Admin to specify the member
-    	if (releasePackage.getMember() == null || !currentSecurityContext.isAdmin()) {
-    		releasePackage.setMember(userMembershipAccessor.getMemberAssociatedWithUser());
-    	}
+        releasePackage.setCreatedBy("admin");
 
-    	releasePackagePrioritizer.prioritize(releasePackage, ReleasePackagePrioritizer.END_PRIORITY);
+        // MLDS-740 - Allow Admin to specify the member
+        if (releasePackage.getMember() == null || !currentSecurityContext.isAdmin()) {
+            releasePackage.setMember(userMembershipAccessor.getMemberAssociatedWithUser());
+        }
 
-    	releasePackageRepository.save(releasePackage);
+        releasePackagePrioritizer.prioritize(releasePackage, ReleasePackagePrioritizer.END_PRIORITY);
 
-    	releasePackageAuditEvents.logCreationOf(releasePackage);
+        releasePackageRepository.save(releasePackage);
 
-    	ResponseEntity<ReleasePackage> result = new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
-		return result;
+        releasePackageAuditEvents.logCreationOf(releasePackage);
+
+        ResponseEntity<ReleasePackage> result = new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
+        return result;
     }
 
-	@RequestMapping(value = Routes.RELEASE_PACKAGE,
-    		method = RequestMethod.GET,
+    @RequestMapping(value = Routes.RELEASE_PACKAGE,
+            method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
-	@Timed
+    @RolesAllowed({AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
     public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
-    	//FIXME should we check children being consistent?
-    	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
-    	if (releasePackage == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        //FIXME should we check children being consistent?
+        Optional<ReleasePackage> optionalReleasePackage = releasePackageRepository.findById(releasePackageId);
 
-    	releasePackage = filterReleasePackageByAuthority(releasePackage);
+        if (optionalReleasePackage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-    	return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
+        ReleasePackage releasePackage = filterReleasePackageByAuthority(optionalReleasePackage.get());
+
+        releasePackage = filterReleasePackageByAuthority(releasePackage);
+
+        return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     }
 
-	private ReleasePackage filterReleasePackageByAuthority(ReleasePackage releasePackage) {
-		ReleasePackage result = releasePackage;
-		Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
+    private ReleasePackage filterReleasePackageByAuthority(ReleasePackage releasePackage) {
+        ReleasePackage result = releasePackage;
+        Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
 
 		/*if (!authorizationChecker.shouldSeeOfflinePackages()) {
 			for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
@@ -181,14 +183,14 @@ public class ReleasePackagesResource {
 			result.setReleaseVersions(releaseVersions);
 		}*/
         if (!authorizationChecker.shouldSeeOfflinePackages()) {
-            Set responses=new HashSet<>();
+            Set responses = new HashSet<>();
             for (ReleaseVersion version : releasePackage.getReleaseVersions()) {
                 if (version.getReleaseType().equalsIgnoreCase("online")) {
                     releaseVersions.add(releaseFilePrivacyFilter.filterReleaseVersionByAuthority(version));
                     responses.addAll(releaseVersions);
                 }
-                if(authorizationChecker.shouldSeeAlphaBetaPackages()){
-                    if(version.getReleaseType().equalsIgnoreCase("alpha/beta")){
+                if (authorizationChecker.shouldSeeAlphaBetaPackages()) {
+                    if (version.getReleaseType().equalsIgnoreCase("alpha/beta")) {
                         releaseVersions.add(releaseFilePrivacyFilter.filterReleaseVersionByAuthority(version));
                         responses.addAll(releaseVersions);
                     }
@@ -197,138 +199,161 @@ public class ReleasePackagesResource {
             result.setReleaseVersions(responses);
         }
 
-		return result;
-	}
+        return result;
+    }
 
-	@RequestMapping(value = Routes.RELEASE_PACKAGE,
-    		method = RequestMethod.PUT,
+
+    @RequestMapping(value = Routes.RELEASE_PACKAGE,
+            method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@Timed
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
     public @ResponseBody ResponseEntity<ReleasePackage> updateReleasePackage(@PathVariable long releasePackageId, @RequestBody ReleasePackage body) {
 
-    	ReleasePackage releasePackage = releasePackageRepository.findOne(body.getReleasePackageId());
-    	if (releasePackage == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
-    	//FIXME should we check children being consistent?
-    	authorizationChecker.checkCanEditReleasePackage(releasePackage);
+        Optional<ReleasePackage> optionalReleasePackage = releasePackageRepository.findById(releasePackageId);
 
-    	releasePackage.setName(body.getName());
-    	releasePackage.setDescription(body.getDescription());
+        if (optionalReleasePackage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        ReleasePackage releasePackage = optionalReleasePackage.get();
+
+        //FIXME should we check children being consistent?
+        authorizationChecker.checkCanEditReleasePackage(releasePackage);
+
+        releasePackage.setName(body.getName());
+        releasePackage.setDescription(body.getDescription());
         releasePackage.setReleasePackageURI(body.getReleasePackageURI());
         releasePackage.setCopyrights(body.getCopyrights());
-    	if (currentSecurityContext.isAdmin()) {
-    		releasePackage.setMember(body.getMember());
-    	}
-    	releasePackagePrioritizer.prioritize(releasePackage, body.getPriority());
+        if (currentSecurityContext.isAdmin()) {
+            releasePackage.setMember(body.getMember());
+        }
+        releasePackagePrioritizer.prioritize(releasePackage, body.getPriority());
 
-    	releasePackageRepository.save(releasePackage);
+        releasePackageRepository.save(releasePackage);
 
-    	return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
+        return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     }
 
-	@RequestMapping(value = Routes.RELEASE_PACKAGE,
-    		method = RequestMethod.DELETE,
+    @RequestMapping(value = Routes.RELEASE_PACKAGE,
+            method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@Timed
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
     public @ResponseBody ResponseEntity<?> deactivateReleasePackage(@PathVariable long releasePackageId) {
 
-    	ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
-    	if (releasePackage == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        Optional<ReleasePackage> optionalReleasePackage = releasePackageRepository.findById(releasePackageId);
 
-    	authorizationChecker.checkCanEditReleasePackage(releasePackage);
+        if (optionalReleasePackage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-    	for (ReleaseVersion releaseVersion : releasePackage.getReleaseVersions()) {
-			if (releaseVersion.isOnline()) {
-				return new ResponseEntity<>(HttpStatus.CONFLICT);
-			}
-		}
+        ReleasePackage releasePackage = optionalReleasePackage.get();
 
-    	releasePackageAuditEvents.logDeletionOf(releasePackage);
+        authorizationChecker.checkCanEditReleasePackage(releasePackage);
 
-    	// Actually mark releasePackage as being inactive and then hide from subsequent calls rather than sql delete from the db
-    	releasePackageRepository.delete(releasePackage);
+        for (ReleaseVersion releaseVersion : releasePackage.getReleaseVersions()) {
+            if (releaseVersion.isOnline()) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
 
-    	return new ResponseEntity<>(HttpStatus.OK);
+        releasePackageAuditEvents.logDeletionOf(releasePackage);
+
+        // Actually mark releasePackage as being inactive and then hide from subsequent calls rather than sql delete from the db
+        releasePackageRepository.delete(releasePackage);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-	@RequestMapping(value = Routes.RELEASE_PACKAGE_LICENSE,
+    @RequestMapping(value = Routes.RELEASE_PACKAGE_LICENSE,
             method = RequestMethod.GET)
     @PermitAll
     @Transactional
     @Timed
     public ResponseEntity<?> getReleasePackageLicense(@PathVariable long releasePackageId, HttpServletRequest request) throws SQLException, IOException {
-    	File license = releasePackageRepository.findOne(releasePackageId).getLicenceFile();
 
-    	return downloadFile(request, license);
+        Optional<ReleasePackage> optionalReleasePackage = releasePackageRepository.findById(releasePackageId);
+        if (optionalReleasePackage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        File license = optionalReleasePackage.get().getLicenceFile();
+        return downloadFile(request, license);
     }
 
-	private ResponseEntity<?> downloadFile(HttpServletRequest request, File file) throws SQLException, IOException {
-		if (file == null) {
-    		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    	} else if (file.getLastUpdated() != null) {
-    		long ifModifiedSince = request.getDateHeader("If-Modified-Since");
-    		long lastUpdatedSecondsFloor = file.getLastUpdated().getMillis() / 1000 * 1000;
-			if (ifModifiedSince != -1 && lastUpdatedSecondsFloor <= ifModifiedSince) {
-				return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-    		}
-    	}
+    private ResponseEntity<?> downloadFile(HttpServletRequest request, File file) throws SQLException, IOException {
+        if (file == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else if (file.getLastUpdated() != null) {
+            long ifModifiedSince = request.getDateHeader("If-Modified-Since");
+            Instant lastUpdatedInstant = file.getLastUpdated();
+            long lastUpdatedMillis = lastUpdatedInstant.toEpochMilli();
+            long lastUpdatedSecondsFloor = (lastUpdatedMillis / 1000) * 1000;
+//    		long lastUpdatedSecondsFloor = file.getLastUpdated().getMillis() / 1000 * 1000;
+            if (ifModifiedSince != -1 && lastUpdatedSecondsFloor <= ifModifiedSince) {
+                return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+            }
+        }
 
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.setContentType(MediaType.valueOf(file.getMimetype()));
-		httpHeaders.setContentLength(file.getContent().length());
-		httpHeaders.setContentDispositionFormData("file", file.getFilename());
-		if (file.getLastUpdated() != null) {
-			httpHeaders.setLastModified(file.getLastUpdated().getMillis());
-		}
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.valueOf(file.getMimetype()));
+        httpHeaders.setContentLength(file.getContent().length());
+        httpHeaders.setContentDispositionFormData("file", file.getFilename());
+        if (file.getLastUpdated() != null) {
+//			httpHeaders.setLastModified(file.getLastUpdated().getMillis());
+            Date lastUpdatedDate = Date.from(file.getLastUpdated());
+            long lastModified = lastUpdatedDate.getTime();
+            httpHeaders.setLastModified(lastModified);
+        }
 
-    	byte[] byteArray = IOUtils.toByteArray(file.getContent().getBinaryStream());
-    	org.springframework.core.io.Resource contents = new ByteArrayResource(byteArray);
-		return new ResponseEntity<org.springframework.core.io.Resource>(contents, httpHeaders, HttpStatus.OK);
-	}
+        byte[] byteArray = IOUtils.toByteArray(file.getContent().getBinaryStream());
+        org.springframework.core.io.Resource contents = new ByteArrayResource(byteArray);
+        return new ResponseEntity<org.springframework.core.io.Resource>(contents, httpHeaders, HttpStatus.OK);
+    }
 
-	@RequestMapping(value = Routes.RELEASE_PACKAGE_LICENSE,
+    @RequestMapping(value = Routes.RELEASE_PACKAGE_LICENSE,
             method = RequestMethod.POST,
-    		headers = "content-type=multipart/*",
+            headers = "content-type=multipart/*",
             produces = "application/json")
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
-	@Transactional
-	@Timed
-    public ResponseEntity<?> updateReleasePackageLicense(@PathVariable long releasePackageId, @RequestParam(value="file", required = false) MultipartFile multipartFile) throws IOException {
-		ReleasePackage releasePackage = releasePackageRepository.findOne(releasePackageId);
-    	if (releasePackage == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+    @Transactional
+    @Timed
+    public ResponseEntity<?> updateReleasePackageLicense(@PathVariable long releasePackageId, @RequestParam(value = "file", required = false) MultipartFile multipartFile) throws IOException {
 
-		if (multipartFile != null && !multipartFile.isEmpty()) {
-			File licenseFile = updateFile(multipartFile, releasePackage.getLicenceFile());
-			releasePackage.setLicenceFile(licenseFile);
-		}
+        Optional<ReleasePackage> optionalReleasePackage = releasePackageRepository.findById(releasePackageId);
 
-		releasePackageRepository.save(releasePackage);
+        if (optionalReleasePackage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+        ReleasePackage releasePackage = optionalReleasePackage.get();
 
-	private File updateFile(MultipartFile multipartFile, File existingFile) throws IOException {
-		File newFile = new File();
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            File licenseFile = updateFile(multipartFile, releasePackage.getLicenceFile());
+            releasePackage.setLicenceFile(licenseFile);
+        }
 
-		if (existingFile != null) {
-			entityManager.detach(existingFile);
-		}
+        releasePackageRepository.save(releasePackage);
 
-		Blob blob = blobHelper.createBlobFrom(multipartFile);
-		newFile.setContent(blob);
-		newFile.setCreator(sessionService.getUsernameOrNull());
-		newFile.setFilename(multipartFile.getOriginalFilename());
-		newFile.setMimetype(multipartFile.getContentType());
-		newFile.setLastUpdated(Instant.now());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-		fileRepository.save(newFile);
-		return newFile;
-	}
+    private File updateFile(MultipartFile multipartFile, File existingFile) throws IOException {
+        File newFile = new File();
+
+        if (existingFile != null) {
+            entityManager.detach(existingFile);
+        }
+
+        Blob blob = blobHelper.createBlobFrom(multipartFile);
+        newFile.setContent(blob);
+        newFile.setCreator(sessionService.getUsernameOrNull());
+        newFile.setFilename(multipartFile.getOriginalFilename());
+        newFile.setMimetype(multipartFile.getContentType());
+        newFile.setLastUpdated(Instant.now());
+
+        fileRepository.save(newFile);
+        return newFile;
+    }
 }

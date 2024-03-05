@@ -1,128 +1,134 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-import javax.transaction.Transactional;
-
-import org.joda.time.Instant;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Objects;
-
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import com.codahale.metrics.annotation.Timed;
+import com.google.common.base.Objects;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+
+import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin
 public class ReleaseVersionsResource {
-	@Resource
-	ReleasePackageRepository releasePackageRepository;
+    @Autowired
+    ReleasePackageRepository releasePackageRepository;
 
-	@Resource
-	ReleaseVersionRepository releaseVersionRepository;
+    @Autowired
+    ReleaseVersionRepository releaseVersionRepository;
 
-	@Resource
-	ReleasePackageAuthorizationChecker authorizationChecker;
+    @Resource
+    ReleasePackageAuthorizationChecker authorizationChecker;
 
-	@Resource
-	CurrentSecurityContext currentSecurityContext;
+    @Resource
+    CurrentSecurityContext currentSecurityContext;
 
-	@Resource
-	ReleasePackageAuditEvents releasePackageAuditEvents;
+    @Resource
+    ReleasePackageAuditEvents releasePackageAuditEvents;
 
-	@Resource
-	ReleaseFilePrivacyFilter releaseFilePrivacyFilter;
+    @Autowired
+    ReleaseFilePrivacyFilter releaseFilePrivacyFilter;
 
-	@Resource
-	UserNotifier userNotifier;
+    @Resource
+    UserNotifier userNotifier;
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Release Versions
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Release Versions
 
-	@RequestMapping(value = Routes.RELEASE_VERSIONS,
-    		method = RequestMethod.POST,
+    @RequestMapping(value = Routes.RELEASE_VERSIONS,
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@Transactional
-	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@Timed
+    @Transactional
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
     public @ResponseBody ResponseEntity<ReleaseVersion> createReleaseVersion(@PathVariable long releasePackageId, @RequestBody ReleaseVersion releaseVersion) {
 
-		ReleasePackage releasePackage = releasePackageRepository.getOne(releasePackageId);
-		if (releasePackage == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		authorizationChecker.checkCanEditReleasePackage(releasePackage);
+        Optional<ReleasePackage> releasePackageOptional = releasePackageRepository.findById(releasePackageId);
+
+        if (releasePackageOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        ReleasePackage releasePackage = releasePackageOptional.get();
+
+        authorizationChecker.checkCanEditReleasePackage(releasePackage);
 
         releaseVersion.setId(String.valueOf(UUID.randomUUID()));
 
-    	releaseVersion.setCreatedBy(currentSecurityContext.getCurrentUserName());
+        releaseVersion.setCreatedBy(currentSecurityContext.getCurrentUserName());
 
-    	releaseVersionRepository.save(releaseVersion);
+        releaseVersionRepository.save(releaseVersion);
 
-    	releasePackage.addReleaseVersion(releaseVersion);
+        releasePackage.addReleaseVersion(releaseVersion);
 
-    	releasePackageAuditEvents.logCreationOf(releaseVersion);
+        releasePackageAuditEvents.logCreationOf(releaseVersion);
 
-    	ResponseEntity<ReleaseVersion> result = new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
-		return result;
+        ResponseEntity<ReleaseVersion> result = new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+        return result;
     }
 
-	@RequestMapping(value = Routes.RELEASE_VERSION,
-    		method = RequestMethod.GET,
+    @RequestMapping(value = Routes.RELEASE_VERSION,
+            method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@Timed
+    @RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
     public @ResponseBody ResponseEntity<ReleaseVersion> getReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
-    	//FIXME should we check children being consistent?
+        //FIXME should we check children being consistent?
 
-    	ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
-    	if (releaseVersion == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
 
-    	authorizationChecker.checkCanAccessReleaseVersion(releaseVersion);
-    	releaseVersion = releaseFilePrivacyFilter.filterReleaseVersionByAuthority(releaseVersion);
+        Optional<ReleaseVersion> releaseVersionOptional = releaseVersionRepository.findById(releaseVersionId);
 
-    	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+        if (releaseVersionOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        ReleaseVersion releaseVersion = releaseVersionOptional.get();
+        authorizationChecker.checkCanAccessReleaseVersion(releaseVersion);
+        releaseVersion = releaseFilePrivacyFilter.filterReleaseVersionByAuthority(releaseVersion);
+
+        return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
     }
 
-	@RequestMapping(value = Routes.RELEASE_VERSION,
-    		method = RequestMethod.PUT,
+    @RequestMapping(value = Routes.RELEASE_VERSION,
+            method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@Transactional
-	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@Timed
+    @Transactional
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
     public @ResponseBody ResponseEntity<ReleaseVersion> updateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @RequestBody ReleaseVersion body) {
 
-		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
-    	if (releaseVersion == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        Optional<ReleaseVersion> releaseVersionOptional = releaseVersionRepository.findById(releaseVersionId);
 
-    	authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
-/*MLDS*/
-        String preOnline = String.valueOf(releaseVersion.getReleaseType()=="offline "
-            ||releaseVersion.getReleaseType()=="alpha/beta");
+        if (releaseVersionOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-    	releaseVersion.setName(body.getName());
-    	releaseVersion.setDescription(body.getDescription());
+        ReleaseVersion releaseVersion = releaseVersionOptional.get();
+
+        authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
+        /*MLDS*/
+        String preOnline = String.valueOf(releaseVersion.getReleaseType() == "offline "
+                || releaseVersion.getReleaseType() == "alpha/beta");
+
+        releaseVersion.setName(body.getName());
+        releaseVersion.setDescription(body.getDescription());
         releaseVersion.setReleaseType(body.getReleaseType());
 //    	releaseVersion.setOnline(body.isOnline());
-    	releaseVersion.setPublishedAt(body.getPublishedAt());
+        releaseVersion.setPublishedAt(body.getPublishedAt());
 
         releaseVersion.setSummary(body.getSummary());
         releaseVersion.setReleaseType(body.getReleaseType());
@@ -136,54 +142,61 @@ public class ReleaseVersionsResource {
         if (!Objects.equal(preOnline, releaseVersion.getReleaseType())) {
             if (releaseVersion.getReleaseType().equalsIgnoreCase("online")) {
                 releasePackageAuditEvents.logTakenOnline(releaseVersion);
-            }
-            else if(releaseVersion.getReleaseType().equalsIgnoreCase("offline")){
+            } else if (releaseVersion.getReleaseType().equalsIgnoreCase("offline")) {
                 releasePackageAuditEvents.logTakenOffline(releaseVersion);
+            } else {
+                releasePackageAuditEvents.logTakenAlphaAndBeta(releaseVersion);
             }
-            else{releasePackageAuditEvents.logTakenAlphaAndBeta(releaseVersion);}
         }
-    	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+        return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
     }
 
-	@RequestMapping(value = Routes.RELEASE_VERSION_NOTIFICATIONS,
-    		method = RequestMethod.POST,
+    @RequestMapping(value = Routes.RELEASE_VERSION_NOTIFICATIONS,
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@Transactional
-	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@Timed
+    @Transactional
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
     public @ResponseBody ResponseEntity<ReleaseVersion> updateReleaseVersionNotification(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
 
-		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
-    	if (releaseVersion == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        Optional<ReleaseVersion> releaseVersionOptional = releaseVersionRepository.findById(releaseVersionId);
 
-    	authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
+        if (releaseVersionOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-		userNotifier.notifyReleasePackageUpdated(releaseVersion);
+        ReleaseVersion releaseVersion = releaseVersionOptional.get();
 
-    	return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+        authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
+
+        userNotifier.notifyReleasePackageUpdated(releaseVersion);
+
+        return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
     }
 
-	@RequestMapping(value = Routes.RELEASE_VERSION,
-    		method = RequestMethod.DELETE,
+    @RequestMapping(value = Routes.RELEASE_VERSION,
+            method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@Transactional
-	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@Timed
-	public @ResponseBody
-	ResponseEntity<?> deactivateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
+    @Transactional
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
+    public @ResponseBody
+    ResponseEntity<?> deactivateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
 
-		ReleaseVersion releaseVersion = releaseVersionRepository.findOne(releaseVersionId);
-		if (releaseVersion == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
+        Optional<ReleaseVersion> releaseVersionOptional = releaseVersionRepository.findById(releaseVersionId);
+
+        if (releaseVersionOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        ReleaseVersion releaseVersion = releaseVersionOptional.get();
+
+        authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
         if (releaseVersion.getReleaseType().equalsIgnoreCase("online")) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-		releasePackageAuditEvents.logDeletionOf(releaseVersion);
+        releasePackageAuditEvents.logDeletionOf(releaseVersion);
         releaseVersionRepository.delete(releaseVersion);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
