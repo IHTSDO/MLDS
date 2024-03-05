@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import org.apache.commons.lang.ClassUtils;
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,12 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AuditDataBuilder {
 	final Map<String, String> auditData;

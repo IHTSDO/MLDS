@@ -1,8 +1,10 @@
 package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 
-import org.joda.time.Instant;
+
 
 import ca.intelliware.ihtsdo.mlds.domain.File;
+
+import java.time.Instant;
 
 public class FileDTO {
     private long fileId;

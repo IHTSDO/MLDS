@@ -1,30 +1,18 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import java.io.Serializable;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.base.Objects;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.hibernate.validator.constraints.Email;
-import org.joda.time.Instant;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.base.Objects;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.Set;
 
 /**
  * A user.
@@ -35,10 +23,12 @@ import com.google.common.base.Objects;
 @Where(clause = "inactive_at IS NULL")
 @SQLDelete(sql="UPDATE T_USER SET inactive_at = now() WHERE user_id = ?")
 public class User extends AbstractAuditingEntity implements Serializable {
+//public class User  implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+    @SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="user_id")
 	private Long userId;
 
@@ -82,7 +72,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	@JsonIgnore
 	@Column(name="inactive_at")
 	private
-	Instant inactiveAt;
+    Instant inactiveAt;
 
     @JsonIgnore
     @ManyToMany

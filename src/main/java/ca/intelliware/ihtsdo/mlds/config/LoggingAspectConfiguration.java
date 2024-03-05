@@ -1,10 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
+import ca.intelliware.ihtsdo.mlds.aop.logging.LoggingAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Profile;
-
-import ca.intelliware.ihtsdo.mlds.aop.logging.LoggingAspect;
 
 //@Configuration
 @EnableAspectJAutoProxy

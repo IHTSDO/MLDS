@@ -1,43 +1,27 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
 
-import org.apache.lucene.analysis.standard.UAX29URLEmailAnalyzer;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.FieldBridge;
-import org.hibernate.search.annotations.Fields;
-import org.hibernate.search.annotations.IndexedEmbedded;
-import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+//import org.hibernate.search.annotations.*;
+import org.hibernate.search.engine.backend.types.Sortable;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.*;
 
-import ca.intelliware.ihtsdo.mlds.search.AffiliateTypeFieldBridge;
-import ca.intelliware.ihtsdo.mlds.search.OrganizationTypeFieldBridge;
+import java.time.Instant;
 
 
 @Entity
 @Table(name="affiliate_details")
-@Where(clause = "inactive_at IS NULL")
-@SQLDelete(sql="UPDATE affiliate_details SET inactive_at = now() WHERE affiliate_details_id = ?")
+@Indexed
+//@Where(clause = "inactive_at IS NULL")
+//@SQLDelete(sql="UPDATE affiliate_details SET inactive_at = now() WHERE affiliate_details_id = ?")
 public class AffiliateDetails extends BaseEntity implements Cloneable {
 
 	@Id
-	@GeneratedValue
+//	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="affiliate_details_id")
     Long affiliateDetailsId;
 
@@ -47,7 +31,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	Instant inactiveAt;
 
 	@Enumerated(EnumType.STRING)
-	@Field(name="ALL",bridge=@FieldBridge(impl=AffiliateTypeFieldBridge.class))
+//	@Field(name="ALL",bridge=@FieldBridge(impl= AffiliateTypeFieldBridge.class))
 	AffiliateType type;
 
 	/** text for "Other" AffiliateType */
@@ -63,31 +47,32 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	AgreementType agreementType = AgreementType.AFFILIATE_NORMAL;
 
 	@Column(name="first_name")
-	@Fields({ @Field(name="ALL"), @Field()})
+//	@Fields({ @Field(name="ALL"), @Field()})
+	@FullTextField
 	String firstName;
 
 	@Column(name="last_name")
-	@Fields({ @Field(name="ALL"), @Field()})
+//	@Fields({ @Field(name="ALL"), @Field()})
 	String lastName;
 
-	@Fields({
-		@Field(name="ALL"),  // the default analyzer splits on @
-		@Field(analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
-		})
+//	@Fields({
+//		@Field(name="ALL"),  // the default analyzer splits on @
+//		@Field(analyzer=@Analyzer(impl= UAX29URLEmailAnalyzer.class))
+//		})
 	String email;
 
 	@Column(name="alternate_email")
-	@Fields({
-		@Field(name="ALL"),  // the default analyzer splits on @
-		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
-		})
+//	@Fields({
+//		@Field(name="ALL"),  // the default analyzer splits on @
+//		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
+//		})
 	String alternateEmail;
 
 	@Column(name="third_email")
-	@Fields({
-		@Field(name="ALL"),  // the default analyzer splits on @
-		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
-		})
+//	@Fields({
+//		@Field(name="ALL"),  // the default analyzer splits on @
+//		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
+//		})
 	String thirdEmail;
 
 	@Column(name="landline_number")
@@ -99,7 +84,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="organization_type")
-	@Field(name="ALL",bridge=@FieldBridge(impl=OrganizationTypeFieldBridge.class))
+//	@Field(name="ALL",bridge=@FieldBridge(impl= OrganizationTypeFieldBridge.class))
 	OrganizationType organizationType;
 
 	@Column(name="organization_type_other")
@@ -116,7 +101,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	MailingAddress address;
 
 	@Column(name="organization_name")
-	@Fields({ @Field(name="ALL"), @Field()})
+//	@Fields({ @Field(name="ALL"), @Field()})
 	String organizationName;
 
 	@AttributeOverrides({
@@ -128,6 +113,11 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Embedded
 	@IndexedEmbedded
 	MailingAddress billingAddress;
+
+
+	@OneToOne(mappedBy = "affiliateDetails")
+	private Affiliate affiliate;
+
 
 	transient boolean acceptNotifications = true;
 

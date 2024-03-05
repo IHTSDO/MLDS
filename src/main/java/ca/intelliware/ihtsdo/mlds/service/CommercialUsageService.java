@@ -1,20 +1,22 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import javax.annotation.Resource;
-import javax.transaction.Transactional;
 
-import org.joda.time.Instant;
+import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
+import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
+import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
+import jakarta.annotation.Resource;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
-import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
-import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
+import java.time.Instant;
+
 
 @Service
 @Transactional
 public class CommercialUsageService {
 	
-	@Resource CommercialUsageRepository commercialUsageRepository;
+	@Resource
+	CommercialUsageRepository commercialUsageRepository;
 	@Resource CommercialUsageResetter commercialUsageResetter;
 	@Resource CommercialUsageAuthorizationChecker authorizationChecker;
 	@Resource CommercialUsageAuditEvents commercialUsageAuditEvents;

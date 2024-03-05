@@ -1,21 +1,21 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 /**
  * Lookup our webapp maven metadata to include on pages for debugging.
  */
-public class MavenWebappMetadataLookup implements ServletContextListener{
+public class MavenWebappMetadataLookup implements ServletContextListener {
     final Logger log = LoggerFactory.getLogger(MavenWebappMetadataLookup.class);
     
 	ServletContext servletContext;

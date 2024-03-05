@@ -1,15 +1,16 @@
 package ca.intelliware.ihtsdo.mlds.security;
 
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Optional;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.joda.time.LocalDate;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
@@ -69,13 +70,13 @@ public class CustomPersistentRememberMeServices extends
 
     private SecureRandom random;
 
-    @Inject
+    @Autowired
     private PersistentTokenRepository persistentTokenRepository;
 
-    @Inject
+    @Autowired
     private UserRepository userRepository;
 
-    @Inject
+    @Autowired
     public CustomPersistentRememberMeServices(Environment env, org.springframework.security.core.userdetails.UserDetailsService userDetailsService) {
 
         super(env.getProperty("jhipster.security.rememberme.key"), userDetailsService);
@@ -92,7 +93,7 @@ public class CustomPersistentRememberMeServices extends
 
         // Token also matches, so login is valid. Update the token value, keeping the *same* series number.
         log.debug("Refreshing persistent login token for user '{}', series '{}'", login, token.getSeries());
-        token.setTokenDate(new LocalDate());
+        token.setTokenDate(LocalDate.now());
         token.setTokenValue(generateTokenData());
         token.setIpAddress(request.getRemoteAddr());
         token.setUserAgent(request.getHeader("User-Agent"));
@@ -121,7 +122,7 @@ public class CustomPersistentRememberMeServices extends
         token.setSeries(generateSeriesData());
         token.setUser(user);
         token.setTokenValue(generateTokenData());
-        token.setTokenDate(new LocalDate());
+        token.setTokenDate(LocalDate.now());
         token.setIpAddress(request.getRemoteAddr());
         token.setUserAgent(request.getHeader("User-Agent"));
         try {
@@ -168,12 +169,14 @@ public class CustomPersistentRememberMeServices extends
         final String presentedSeries = cookieTokens[0];
         final String presentedToken = cookieTokens[1];
 
-        PersistentToken token = persistentTokenRepository.findOne(presentedSeries);
+        Optional<PersistentToken> tokenOptional = persistentTokenRepository.findBySeries(presentedSeries);
 
-        if (token == null) {
+        if (tokenOptional.isEmpty()) {
             // No series match, so we can't authenticate using this cookie
             throw new RememberMeAuthenticationException("No persistent token found for series id: " + presentedSeries);
         }
+
+        PersistentToken token = tokenOptional.get();
 
         // We have a match for this user/series combination
         log.info("presentedToken={} / tokenValue={}", presentedToken, token.getTokenValue());

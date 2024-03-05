@@ -1,35 +1,31 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.util.List;
 
-import javax.annotation.Resource;
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
-
+import ca.intelliware.ihtsdo.mlds.domain.Country;
+import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import com.codahale.metrics.annotation.Timed;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import ca.intelliware.ihtsdo.mlds.domain.Country;
-import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-
-import com.codahale.metrics.annotation.Timed;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class CountriesResource {
     private final Logger log = LoggerFactory.getLogger(CountriesResource.class);
-    
+
 	@Resource
-	CountryRepository countryRepository;
-	
+    CountryRepository countryRepository;
+
     @RequestMapping(value = Routes.COUNTRIES,
             method = RequestMethod.GET,
             produces = "application/json")
@@ -45,10 +41,11 @@ public class CountriesResource {
     @PermitAll
     public ResponseEntity<Country> get(@PathVariable String isoCode2) {
         log.debug("REST request to get Country : {}", isoCode2);
-        Country country = countryRepository.findOne(isoCode2);
-        if (country == null) {
+        Optional<Country> optionalCountry = countryRepository.findById(isoCode2);
+        if (optionalCountry.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        Country country = optionalCountry.get();
         return new ResponseEntity<>(country, HttpStatus.OK);
     }
 
@@ -63,14 +60,31 @@ public class CountriesResource {
         countryRepository.save(country);
     }
 
+//    @RequestMapping(value = Routes.COUNTRIES + "/{isoCode2}",
+//            method = RequestMethod.DELETE,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    @Timed
+//    @RolesAllowed(AuthoritiesConstants.ADMIN)
+//    public ResponseEntity<Void> delete(@PathVariable String isoCode2) {
+//        log.debug("REST request to delete Country : {}", isoCode2);
+//        Optional<Country> optionalCountry = countryRepository.findById(isoCode2);
+//        if (optionalCountry.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        Country country = optionalCountry.get();
+//        countryRepository.delete(country);
+////        countryRepository.delete(isoCode2);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
+
     @RequestMapping(value = Routes.COUNTRIES + "/{isoCode2}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.DELETE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public void delete(@PathVariable String isoCode2) {
         log.debug("REST request to delete Country : {}", isoCode2);
-        countryRepository.delete(isoCode2);
+        countryRepository.deleteByIsoCode2(isoCode2);
     }
 
 }

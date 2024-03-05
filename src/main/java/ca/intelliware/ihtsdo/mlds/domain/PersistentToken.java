@@ -1,31 +1,22 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 
 /**
  * Persistent tokens are used by Spring Security to automatically log in users.
  *
- * @see ca.intelliware.ihtsdo.mlds.security.CustomPersistentRememberMeServices
+
  */
 @Entity
 @Table(name = "T_PERSISTENT_TOKEN")
@@ -47,7 +38,8 @@ public class PersistentToken implements Serializable {
 
     @JsonIgnore
     @Column(name = "token_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+//    @JdbcTypeCode(org.jadira.usertype.dateandtime.joda.PersistentLocalDate)
     private LocalDate tokenDate;
 
     //an IPV6 address max length is 39 characters
@@ -87,10 +79,10 @@ public class PersistentToken implements Serializable {
         this.tokenDate = tokenDate;
     }
 
-    @JsonGetter
-    public String getFormattedTokenDate() {
-        return DATE_TIME_FORMATTER.print(this.tokenDate);
-    }
+//    @JsonGetter
+//    public String getFormattedTokenDate() {
+//        return DATE_TIME_FORMATTER.print(this.tokenDate);
+//    }
 
     public String getIpAddress() {
         return ipAddress;

@@ -1,17 +1,16 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
-import java.util.Collection;
-import java.util.List;
-
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.StandingState;
+import java.util.Collection;
+import java.util.List;
 
 public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 	static final long AFFILIATE_ID_OPTIONAL_VALUE = -1L;
@@ -35,14 +34,14 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 				+ "OR LOWER(a.application.affiliateDetails.address.street) like :q)")
 	Page<Affiliate> findByHomeMemberAndTextQuery(@Param("homeMember") Member homeMember, @Param("q") String q, Pageable pageable);
 
-	@Query(value="SELECT a from Affiliate a where "
-			+ "(LOWER(a.application.affiliateDetails.lastName) like '%' || :q || '%' "
-			+ "OR LOWER(a.application.affiliateDetails.firstName) like '%' || :q || '%' "
-			+ "OR LOWER(a.application.affiliateDetails.organizationName) like '%' || :q || '%' "
-			+ "OR LOWER(a.application.affiliateDetails.address.street) like '%' || :q || '%' ))"
-			+ "OR CAST(:q, as INT) = a.affiliateId )"
-			)
-	Page<Affiliate> findByTextQuery(@Param("q") String q, Pageable pageable);
+//	@Query(value="SELECT a from Affiliate a where "
+//			+ "(LOWER(a.application.affiliateDetails.lastName) like '%' || :q || '%' "
+//			+ "OR LOWER(a.application.affiliateDetails.firstName) like '%' || :q || '%' "
+//			+ "OR LOWER(a.application.affiliateDetails.organizationName) like '%' || :q || '%' "
+//			+ "OR LOWER(a.application.affiliateDetails.address.street) like '%' || :q || '%' ))"
+//			+ "OR CAST(:q, as INT) = a.affiliateId )"
+//			)
+//	Page<Affiliate> findByTextQuery(@Param("q") String q, Pageable pageable);
 
 	@Query(value = "SELECT a FROM Affiliate a LEFT JOIN a.applications b"
 			+ " WHERE a.homeMember = :homeMember "

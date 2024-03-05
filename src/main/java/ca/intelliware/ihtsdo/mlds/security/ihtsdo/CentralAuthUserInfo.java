@@ -1,9 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Bean to wrap json response from https://ims.ihtsdotools.org:443/api/account
