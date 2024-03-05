@@ -1,116 +1,85 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-import javax.transaction.Transactional;
-
+import ca.intelliware.ihtsdo.mlds.domain.*;
+import ca.intelliware.ihtsdo.mlds.repository.*;
 import ca.intelliware.ihtsdo.mlds.search.AffiliateSearchResult;
-import org.apache.commons.io.Charsets;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Objects;
-import com.google.common.base.Strings;
-
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
-import ca.intelliware.ihtsdo.mlds.domain.Application;
-import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
-import ca.intelliware.ihtsdo.mlds.domain.MailingAddress;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.StandingState;
-import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateSearchRepository;
-import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
-import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.AffiliateDeleter;
-import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliateImportAuditEvents;
-import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesExporterService;
-import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportGenerator;
-import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImportSpec;
-import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.AffiliatesImporterService;
-import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.ImportResult;
+import ca.intelliware.ihtsdo.mlds.service.affiliatesimport.*;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
+import com.codahale.metrics.annotation.Timed;
+import com.google.common.base.Strings;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.transaction.Transactional;
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+
+import java.io.IOException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 public class AffiliateResource {
 
     private final Logger log = LoggerFactory.getLogger(AffiliateResource.class);
 
-	@Resource
+	@Autowired
 	AffiliateRepository affiliateRepository;
 
-	@Resource
+	@Autowired
 	AffiliateSearchRepository affiliateSearchRepository;
 
-	@Resource
+	@Autowired
 	AffiliateDetailsRepository affiliateDetailsRepository;
 
-	@Resource
+	@Autowired
 	ApplicationAuthorizationChecker applicationAuthorizationChecker;
 
-	@Resource
+	@Autowired
 	AffiliateAuditEvents affiliateAuditEvents;
 
-	@Resource
+	@Autowired
 	AffiliateImportAuditEvents affiliateImportAuditEvents;
 
-	@Resource
+	@Autowired
 	AffiliatesImporterService affiliatesImporterService;
 
-	@Resource
+	@Autowired
 	AffiliatesExporterService affiliatesExporterService;
 
-	@Resource
+	@Autowired
 	AffiliatesImportGenerator affiliatesImportGenerator;
 
-	@Resource
+	@Autowired
 	UserRepository userRepository;
 
-	@Resource
+	@Autowired
 	MemberRepository memberRepository;
 
-	@Resource
+	@Autowired
 	AffiliateDeleter affiliateDeleter;
 
-	@Resource
+	@Autowired
 	SessionService sessionService;
 
-	@Resource
+	@Autowired
 	CurrentSecurityContext currentSecurityContext;
 
 	public static final int DEFAULT_PAGE_SIZE = 50;
@@ -128,10 +97,11 @@ public class AffiliateResource {
     		@RequestParam(value="$page", defaultValue="0", required=false) Integer page,
     		@RequestParam(value="$pageSize", defaultValue="50", required=false) Integer pageSize,
     		@RequestParam(value="$filter", required=false) List<String> filters,
-    		@RequestParam(value="$orderby", required=false) String orderby) {
+    		@RequestParam(value="$orderby", required=false) String orderby) throws InterruptedException {
 		Page<Affiliate> affiliates;
 		Sort sort = createAffiliatesSort(orderby);
-		PageRequest pageRequest = new PageRequest(page, pageSize, sort);
+//		PageRequest pageRequest = new PageRequest(page, pageSize, sort);
+		PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
 		Member member = null;
 		StandingState standingState = null;
 		boolean standingStateNot = false;
@@ -157,7 +127,10 @@ public class AffiliateResource {
 
 		if (!StringUtils.isBlank(q)) {
 			//Note that sorting in the pageRequest is not currently respected by lucene
-			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest) ;
+//			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest) ;
+			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest);
+//			affiliates = affiliateRepository.findAll(pageRequest);
+			System.out.println("entered if");
 		} else {
 			if (member == null) {
 				if (standingState == null) {
@@ -202,15 +175,16 @@ public class AffiliateResource {
 	}
 
 	private Sort createAffiliatesSort(String orderby) {
-		Sort defaultSort = new Sort(
-//				new Order(Direction.ASC, "affiliateDetails.organizationName"),
-//				new Order(Direction.ASC, "affiliateDetails.firstName"),
-//				new Order(Direction.ASC, "affiliateDetails.lastName"),
-//				new Order(Direction.ASC, "application.affiliateDetails.organizationName"),
-//				new Order(Direction.ASC, "application.affiliateDetails.firstName"),
-//				new Order(Direction.ASC, "application.affiliateDetails.lastName"),
-				new Order(Direction.ASC, "affiliateId")
-				);
+//		Sort defaultSort = new Sort(
+////				new Order(Direction.ASC, "affiliateDetails.organizationName"),
+////				new Order(Direction.ASC, "affiliateDetails.firstName"),
+////				new Order(Direction.ASC, "affiliateDetails.lastName"),
+////				new Order(Direction.ASC, "application.affiliateDetails.organizationName"),
+////				new Order(Direction.ASC, "application.affiliateDetails.firstName"),
+////				new Order(Direction.ASC, "application.affiliateDetails.lastName"),
+//				new Order(Sort.Direction.ASC, "affiliateId")
+//				);
+		Sort defaultSort = Sort.by(Sort.Order.asc("affiliateId"));
 		return new SortBuilder().createSort(orderby, ORDER_BY_FIELD_MAPPINGS, defaultSort);
 	}
 
@@ -218,12 +192,15 @@ public class AffiliateResource {
     @RequestMapping(value = Routes.AFFILIATE,
     		method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
+    @Timed
     public @ResponseBody ResponseEntity<Affiliate> getAffiliate(@PathVariable long affiliateId) {
-		Affiliate affiliate = affiliateRepository.findOne(affiliateId);
-		if (affiliate == null) {
+
+		Optional<Affiliate> optionalAffiliate = affiliateRepository.findById(affiliateId);
+		if (optionalAffiliate.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+
+		Affiliate affiliate = optionalAffiliate.get();
 
 		//Populate the notifications fields from the user object
 		String login = affiliate.getAffiliateDetails().getEmail();
@@ -232,6 +209,7 @@ public class AffiliateResource {
     		affiliate.getAffiliateDetails().setAcceptNotifications(user.getAcceptNotifications());
             affiliate.getAffiliateDetails().setCountryNotificationsOnly(user.getCountryNotificationsOnly());
     	}
+		System.out.println("print" + affiliate);
 		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
     }
 
@@ -241,21 +219,24 @@ public class AffiliateResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
     public @ResponseBody ResponseEntity<Affiliate> updateAffiliate(@PathVariable Long affiliateId, @RequestBody Affiliate body) {
-    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
-    	if (affiliate == null) {
+//    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+		Optional<Affiliate> affiliateOptional = affiliateRepository.findById(affiliateId);
+    	if (affiliateOptional.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+		Affiliate affiliate = affiliateOptional.get();
+
     	applicationAuthorizationChecker.checkCanManageAffiliate(affiliate);
 
     	StandingState originalStanding = affiliate.getStandingState();
 
     	copyAffiliateFields(affiliate, body);
 
-    	if (! Objects.equal(originalStanding, affiliate.getStandingState())) {
-    		if (Objects.equal(originalStanding, StandingState.APPLYING)
-    				|| Objects.equal(originalStanding, StandingState.REJECTED)) {
+    	if (! Objects.equals(originalStanding, affiliate.getStandingState())) {
+    		if (Objects.equals(originalStanding, StandingState.APPLYING)){
     			return new ResponseEntity<>(HttpStatus.CONFLICT);
-    		} else {
+            }
+            else {
     			affiliateAuditEvents.logStandingStateChange(affiliate);
     		}
     	}
@@ -281,10 +262,14 @@ public class AffiliateResource {
 	@Transactional
 	@Timed
     public @ResponseBody ResponseEntity<Affiliate> deleteAffiliate(@PathVariable Long affiliateId) {
-    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
-    	if (affiliate == null) {
+//    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
+		Optional<Affiliate> affiliateOptional = affiliateRepository.findById(affiliateId);
+
+    	if (affiliateOptional.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+
+		Affiliate affiliate = affiliateOptional.get();
     	applicationAuthorizationChecker.checkCanManageAffiliate(affiliate);
         if (!ObjectUtils.equals(affiliate.getStandingState(), StandingState.APPLYING)) {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -357,7 +342,7 @@ public class AffiliateResource {
 		return new ResponseEntity<String>(result, HttpStatus.OK);
     }
 
-	//FIXME Would like to use custom produces to overload request path
+//	//FIXME Would like to use custom produces to overload request path
 	@RolesAllowed({AuthoritiesConstants.ADMIN})
     @RequestMapping(value = Routes.AFFILIATES_CSV_SPEC,
     		method = RequestMethod.GET,
@@ -374,11 +359,13 @@ public class AffiliateResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
     public @ResponseBody ResponseEntity<AffiliateDetails> updateAffiliateDetail(@PathVariable Long affiliateId) {
-    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
-    	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
-    	if (affiliate == null) {
+		Optional<Affiliate> affiliateOptional = affiliateRepository.findById(affiliateId);
+
+    	if (affiliateOptional.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+		Affiliate affiliate = affiliateOptional.get();
+		applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
     	return new ResponseEntity<AffiliateDetails>(affiliate.getAffiliateDetails(), HttpStatus.OK);
     }
 
@@ -390,11 +377,15 @@ public class AffiliateResource {
 	@Timed
 	@Transactional
     public @ResponseBody ResponseEntity<?> updateAffiliateDetail(@PathVariable Long affiliateId, @RequestBody AffiliateDetails body) {
-    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
-    	applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
-    	if (affiliate == null) {
+
+		Optional<Affiliate> optionalAffiliate = affiliateRepository.findById(affiliateId);
+
+    	if (optionalAffiliate.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+
+		Affiliate affiliate = optionalAffiliate.get();
+		applicationAuthorizationChecker.checkCanAccessAffiliate(affiliate);
 
     	AffiliateDetails affiliateDetails = affiliate.getAffiliateDetails();
     	if (affiliateDetails == null) {
@@ -402,13 +393,13 @@ public class AffiliateResource {
     	}
 
     	Application application = affiliate.getApplication();
-    	if (application == null || !Objects.equal(application.getApprovalState(), ApprovalState.APPROVED)) {
+    	if (application == null || !Objects.equals(application.getApprovalState(), ApprovalState.APPROVED)) {
     		return new ResponseEntity<>(HttpStatus.CONFLICT);
     	}
 
     	String originalEmail = affiliateDetails.getEmail();
     	String newEmail = body.getEmail();
-		boolean emailChanged = !Objects.equal(newEmail, originalEmail);
+		boolean emailChanged = !Objects.equals(newEmail, originalEmail);
     	if (emailChanged) {
     		if (!currentSecurityContext.isStaffOrAdmin()) {
         		return new ResponseEntity<>("Users may not change their primary email address",HttpStatus.FORBIDDEN);
@@ -427,7 +418,7 @@ public class AffiliateResource {
     	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate,body);
     	copyAffiliateDetailsFields(affiliateDetails, body);
 
-    	affiliateSearchRepository.reindex(affiliate);
+//    	affiliateSearchRepository.reindex(affiliate);
 
     	return new ResponseEntity<AffiliateDetails>(affiliateDetails, HttpStatus.OK);
     }

@@ -1,26 +1,18 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import java.util.Collections;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.apache.commons.lang.Validate;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
+import jakarta.persistence.*;
+import org.apache.commons.lang3.Validate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
+import java.time.Instant;
+import java.util.Collections;
+import java.util.Set;
 
 @Entity
 @Where(clause = "inactive_at IS NULL")
@@ -29,7 +21,8 @@ import com.google.common.collect.Sets;
 public class ReleasePackage extends BaseEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="release_package_id")
 	Long releasePackageId;
 
@@ -69,6 +62,7 @@ public class ReleasePackage extends BaseEntity {
 	private File licenceFile;
 
 	@OneToMany(mappedBy="releasePackage")
+	@Fetch(FetchMode.SELECT)
 	Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
 
 	public ReleasePackage() {

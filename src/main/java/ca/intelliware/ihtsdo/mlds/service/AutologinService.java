@@ -1,10 +1,8 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.util.Collection;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import ca.intelliware.ihtsdo.mlds.domain.User;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,7 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsChecker;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import ca.intelliware.ihtsdo.mlds.domain.User;
+
+import java.util.Collection;
 
 /**
  * Service to log a user in from application code.

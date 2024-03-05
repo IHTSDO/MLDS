@@ -1,16 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
-
 import com.google.common.collect.Maps;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class ApplicationAuditEvents {

@@ -1,20 +1,18 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.envers.Audited;
-import org.joda.time.DateTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.time.Instant;
 
 /**
  * Base abstract class for entities which will hold definitions for created, last modified by and created,
@@ -23,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * Created by mkh1973.
  */
 @MappedSuperclass
-@Audited
+//@Audited
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditingEntity {
 
@@ -35,18 +33,18 @@ public abstract class AbstractAuditingEntity {
 
     @CreatedDate
     @NotNull
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "created_date")
-    private DateTime createdDate = DateTime.now();
+    private Instant createdDate = Instant.now();
 
     @LastModifiedBy
     @Column(name = "last_modified_by")
     private String lastModifiedBy;
 
     @LastModifiedDate
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "last_modified_date")
-    private DateTime lastModifiedDate = DateTime.now();
+    private Instant lastModifiedDate = Instant.now();
 
     public String getCreatedBy() {
         return createdBy;
@@ -56,13 +54,7 @@ public abstract class AbstractAuditingEntity {
         this.createdBy = createdBy;
     }
 
-    public DateTime getCreatedDate() {
-        return createdDate;
-    }
 
-    public void setCreatedDate(DateTime createdDate) {
-        this.createdDate = createdDate;
-    }
 
     public String getLastModifiedBy() {
         return lastModifiedBy;
@@ -72,11 +64,19 @@ public abstract class AbstractAuditingEntity {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public DateTime getLastModifiedDate() {
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Instant getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(DateTime lastModifiedDate) {
+    public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 }

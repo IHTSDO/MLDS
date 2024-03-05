@@ -1,10 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
-import java.io.StringWriter;
-
-import javax.annotation.Resource;
-
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import java.io.StringWriter;
 
 @Service
 public class BaseAffiliatesGenerator {

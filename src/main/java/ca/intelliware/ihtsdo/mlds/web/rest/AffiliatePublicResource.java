@@ -1,34 +1,29 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-
-import org.apache.commons.lang.StringUtils;
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.AffiliateCheckDTO;
+import com.codahale.metrics.annotation.Timed;
+import jakarta.annotation.security.RolesAllowed;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.codahale.metrics.annotation.Timed;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
-import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-import ca.intelliware.ihtsdo.mlds.web.rest.dto.AffiliateCheckDTO;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 public class AffiliatePublicResource {
@@ -38,8 +33,9 @@ public class AffiliatePublicResource {
 
 	private final Logger log = LoggerFactory.getLogger(AffiliatePublicResource.class);
 	   
-		@Resource AffiliateRepository affiliateRepository;
-		@Resource MemberRepository memberRepository;
+		@Autowired
+		AffiliateRepository affiliateRepository;
+		@Autowired MemberRepository memberRepository;
 
 		@RequestMapping(value = Routes.AFFILIATES_CHECK,
 	    		method = RequestMethod.GET,
@@ -91,7 +87,8 @@ public class AffiliatePublicResource {
 
 		private PageRequest createZeroOneManyPageRequest() {
 			// Limit number of results to tell difference between 0, 1, many results
-			PageRequest pageRequest = new PageRequest(0, ZERO_ONE_MANY_RESULTS_LENGTH);
+//			PageRequest pageRequest = new PageRequest(0, ZERO_ONE_MANY_RESULTS_LENGTH);
+			PageRequest pageRequest = PageRequest.of(0, ZERO_ONE_MANY_RESULTS_LENGTH);
 			return pageRequest;
 		}
 

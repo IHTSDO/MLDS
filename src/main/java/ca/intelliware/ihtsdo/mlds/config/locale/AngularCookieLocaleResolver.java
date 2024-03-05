@@ -1,17 +1,19 @@
 package ca.intelliware.ihtsdo.mlds.config.locale;
 
-import java.util.Locale;
-import java.util.TimeZone;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.TimeZoneAwareLocaleContext;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.util.WebUtils;
+
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Angular cookie saved the locale with a double quote (%22en%22).
@@ -21,6 +23,8 @@ import org.springframework.web.util.WebUtils;
  * This class will check if a double quote has been added, if so it will remove it.
  */
 public class AngularCookieLocaleResolver extends CookieLocaleResolver {
+
+    protected final Log logger = LogFactory.getLog(this.getClass());
 
     @Override
     public Locale resolveLocale(HttpServletRequest request) {
@@ -43,7 +47,7 @@ public class AngularCookieLocaleResolver extends CookieLocaleResolver {
         };
     }
 
-    @Override
+//    @Override
     public void addCookie(HttpServletResponse response, String cookieValue) {
         // Mandatory cookie modification for angular to support the locale switching on the server side.
         cookieValue = "%22" + cookieValue + "%22";
@@ -51,13 +55,13 @@ public class AngularCookieLocaleResolver extends CookieLocaleResolver {
         this.setCookieSecure(true);
         this.setCookieHttpOnly(true);
         /*MLDS-992 Missing Cookie*/
-        super.addCookie(response, cookieValue);
+//        super.addCookie(response, cookieValue);
     }
 
     private void parseLocaleCookieIfNecessary(HttpServletRequest request) {
         if (request.getAttribute(LOCALE_REQUEST_ATTRIBUTE_NAME) == null) {
             // Retrieve and parse cookie value.
-            Cookie cookie = WebUtils.getCookie(request, getCookieName());
+            Cookie cookie = WebUtils.getCookie(request, "NG_TRANSLATE_LANG_KEY");
             Locale locale = null;
             TimeZone timeZone = null;
             if (cookie != null) {

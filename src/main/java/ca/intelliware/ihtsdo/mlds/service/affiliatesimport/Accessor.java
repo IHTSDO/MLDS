@@ -1,10 +1,10 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
+import org.springframework.util.ReflectionUtils;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.util.ReflectionUtils;
 
 /**
  * Read/Write object values based on a simple expression from a rooted class

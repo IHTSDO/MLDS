@@ -1,21 +1,20 @@
 package ca.intelliware.ihtsdo.mlds.service.mail;
 
-import java.util.Locale;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.mail.internet.MimeMessage;
-
-import org.apache.commons.lang.CharEncoding;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
+import jakarta.mail.internet.MimeMessage;
+import org.apache.commons.lang3.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.util.Locale;
 
 /**
  * Service for sending e-mails.
@@ -32,18 +31,18 @@ public class MailService {
 
     private final Logger log = LoggerFactory.getLogger(MailService.class);
 
-    @Inject
+    @Autowired
     private Environment env;
 
-    @Inject
+    @Autowired
     private JavaMailSenderImpl javaMailSender;
 
-    @Inject
+    @Autowired
     private MessageSource messageSource;
 
 	@Resource
 	TemplateEvaluator templateEvaluator;
-	
+
     /**
      * System default email address that sends the e-mails.
      */
@@ -80,6 +79,6 @@ public class MailService {
         final String subject = messageSource.getMessage(EMAIL_ACTIVATION_PREFIX + ".title", null, locale);
         sendEmail(email, subject, content, false, true);
     }
-    
+
 
 }

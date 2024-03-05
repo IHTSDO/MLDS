@@ -1,35 +1,40 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import java.util.Collections;
-import java.util.Set;
 
-import javax.persistence.*;
 
-import org.apache.commons.lang.Validate;
-import org.apache.lucene.analysis.core.KeywordAnalyzer;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-import org.hibernate.search.annotations.*;
-import org.joda.time.Instant;
 
-import ca.intelliware.ihtsdo.mlds.search.StandingStateFieldBridge;
-
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Sets;
+import jakarta.persistence.*;
+import org.apache.commons.lang3.Validate;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import org.hibernate.search.engine.backend.types.Projectable;
+import org.hibernate.search.engine.backend.types.Searchable;
+import org.hibernate.search.engine.backend.types.Sortable;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.*;
+
+
+import java.time.Instant;
+import java.util.Collections;
+import java.util.Set;
+
 
 @Entity
 @Indexed
-@JsonFilter("affiliatePrivacyFilter")
-@Where(clause = "inactive_at IS NULL")
-@SQLDelete(sql="UPDATE affiliate SET inactive_at = now() WHERE affiliate_id = ?")
+//@JsonFilter("affiliatePrivacyFilter")
+//@Where(clause = "inactive_at IS NULL")
+//@SQLDelete(sql="UPDATE affiliate SET inactive_at = now() WHERE affiliate_id = ?")
 public class Affiliate extends BaseEntity {
 	public static final String[] PRIVATE_FIELDS = {"notesInternal"};
 
 	@Id
-	@GeneratedValue
+//	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="affiliate_id")
+//	@GenericField(searchable = Searchable.YES)
 	Long affiliateId;
 
 	Instant created = Instant.now();
@@ -50,15 +55,15 @@ public class Affiliate extends BaseEntity {
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="affiliate")
 	Set<CommercialUsage> commercialUsages = Sets.newHashSet();
 
-	@OneToOne()
+	@OneToOne
 	@JoinColumn(name="affiliate_details_id")
-	@IndexedEmbedded(prefix="")
+	@IndexedEmbedded
 	AffiliateDetails affiliateDetails;
 
 	@JsonIgnoreProperties({"affiliate"})
 	@OneToOne()
 	@JoinColumn(name="application_id")
-	@IndexedEmbedded(prefix="")
+	@IndexedEmbedded
 	PrimaryApplication application;
 
 	@JsonIgnoreProperties({"affiliate"})
@@ -70,7 +75,7 @@ public class Affiliate extends BaseEntity {
     Member homeMember;
 
 	@JsonIgnore
-	@Field(name="homeMember", analyzer=@Analyzer(impl=KeywordAnalyzer.class))
+//	@Field(name="homeMember", analyzer=@Analyzer(impl= KeywordAnalyzer.class))
 	public String getHomeMemberKey() {
 		return homeMember!= null?homeMember.getKey():null;
 	}
@@ -80,13 +85,14 @@ public class Affiliate extends BaseEntity {
 
     @OneToOne()
     @JoinColumn(name="affiliate_id")
-    @IndexedEmbedded  //(prefix="")
+//    @IndexedEmbedded  //(prefix="")
+	@IndexedEmbedded
     ViewAffiliateApplicationCountries approvedCountries;
 
-    @Fields({
-		@Field(name="standingState",bridge=@FieldBridge(impl=StandingStateFieldBridge.class)),
-		@Field(name="ALL",bridge=@FieldBridge(impl=StandingStateFieldBridge.class))
-	})
+//    @Fields({
+//		@Field(name="standingState",bridge=@FieldBridge(impl= StandingStateFieldBridge.class)),
+//		@Field(name="ALL",bridge=@FieldBridge(impl= StandingStateFieldBridge.class))
+//	})
 	@Enumerated(EnumType.STRING)
 	@Column(name="standing_state")
 	StandingState standingState = StandingState.APPLYING;

@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -24,6 +24,8 @@ import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
+
+import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommercialUsageResource_GetUsageReports_Test {
@@ -64,7 +66,7 @@ public class CommercialUsageResource_GetUsageReports_Test {
 
 	@Test
 	public void getUsageReportsShouldReturn404ForUnknownAffiliate() throws Exception {
-		Mockito.when(affiliateRepository.findOne(999L)).thenReturn(null);
+		Mockito.when(affiliateRepository.findById(999L)).thenReturn(null);
 		
 		restCommercialUsageResource.perform(MockMvcRequestBuilders.get(Routes.USAGE_REPORTS, 999L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -81,7 +83,7 @@ public class CommercialUsageResource_GetUsageReports_Test {
 		CommercialUsageEntry commercialUsageEntry = new CommercialUsageEntry(4L, commercialUsage);
 		commercialUsageEntry.setName("Test Name");
 		affiliate.addCommercialUsage(commercialUsage);
-		Mockito.when(affiliateRepository.findOne(1L)).thenReturn(affiliate);
+		Mockito.when(affiliateRepository.findById(1L)).thenReturn(Optional.of(affiliate));
 		
 		restCommercialUsageResource.perform(MockMvcRequestBuilders.get(Routes.USAGE_REPORTS, 1L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))

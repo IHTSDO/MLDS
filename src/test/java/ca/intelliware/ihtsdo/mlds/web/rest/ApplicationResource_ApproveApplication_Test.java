@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -153,7 +154,7 @@ public class ApplicationResource_ApproveApplication_Test {
 		PrimaryApplication primaryApplication = new PrimaryApplication(primaryApplicationId);
 		primaryApplication.setAffiliateDetails(new AffiliateDetails());
 		primaryApplication.setMember(sweden);
-		Mockito.when(applicationRepository.findOne(primaryApplicationId)).thenReturn(primaryApplication);
+		Mockito.when(applicationRepository.findById(primaryApplicationId)).thenReturn(Optional.of(primaryApplication));
 		return primaryApplication;
 	}
 

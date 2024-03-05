@@ -1,17 +1,16 @@
 package ca.intelliware.ihtsdo.mlds.service.mail;
 
+import ca.intelliware.ihtsdo.mlds.domain.Application;
+import ca.intelliware.ihtsdo.mlds.domain.Member;
+import com.google.common.base.Strings;
+import com.google.common.collect.Maps;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
+
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Resource;
 
-import org.springframework.stereotype.Service;
-
-import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
-
-import ca.intelliware.ihtsdo.mlds.domain.Application;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
 
 /*
  * Send email notification to the relevant Member staff when an affiliate has applied in their space.
@@ -25,7 +24,8 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 
 @Service
 public class ApplicationPendingEmailSender {
-	@Resource MailService mailService;
+	@Resource
+	MailService mailService;
 	@Resource TemplateEvaluator templateEvaluator;
 	@Resource ClientLinkBuilder clientLinkBuilder;
 
@@ -38,7 +38,7 @@ public class ApplicationPendingEmailSender {
 		variables.put(EmailVariables.VIEW_APPLICATION_URL, clientLinkBuilder.buildViewApplication(application.getApplicationId()));
 		String content = templateEvaluator.evaluateTemplate("applicationPendingEmail", locale, variables);
 		String subject = templateEvaluator.getTitleFor("applicationPending", locale);
-		
+
 		mailService.sendEmail(mailingListEmail, subject, content, false, true);
 	}
 

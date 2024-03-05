@@ -1,29 +1,28 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import javax.annotation.Resource;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Service;
-
-import com.google.common.base.Objects;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationPendingEmailSender;
+import com.google.common.base.Objects;
+import jakarta.annotation.Resource;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+
 
 @Service
 public class ApplicationApprovalStateChangeNotifier {
 
 	@Resource
 	ApplicationPendingEmailSender applicationPendingEmailSender;
-	
+
 	public void applicationApprovalStateChange(ApprovalState before, Application application) {
 		ApprovalState after = application.getApprovalState();
-		if (Objects.equal(after, ApprovalState.SUBMITTED) && !Objects.equal(before, after)) { 
+		if (Objects.equal(after, ApprovalState.SUBMITTED) && !Objects.equal(before, after)) {
 			pendingNotification(application);
-		} 
+		}
 	}
 
 	private void pendingNotification(Application application) {

@@ -1,5 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.web;
 
+import com.google.common.collect.Maps;
+import org.apache.commons.lang3.Validate;
+import org.springframework.stereotype.Service;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -7,11 +11,6 @@ import java.net.URLEncoder;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import org.apache.commons.lang.Validate;
-import org.springframework.stereotype.Service;
-
-import com.google.common.collect.Maps;
 
 @Service
 public class RouteLinkBuilder {

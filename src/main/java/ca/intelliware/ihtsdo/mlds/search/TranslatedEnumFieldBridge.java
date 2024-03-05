@@ -1,10 +1,10 @@
 package ca.intelliware.ihtsdo.mlds.search;
 
-import java.util.Locale;
-
 import org.hibernate.search.bridge.StringBridge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Locale;
 
 /**
  * Dumb mapping of our enums to search, assuming English.

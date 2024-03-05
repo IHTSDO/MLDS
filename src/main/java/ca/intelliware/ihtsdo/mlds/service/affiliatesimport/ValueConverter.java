@@ -1,9 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 
 public class ValueConverter {

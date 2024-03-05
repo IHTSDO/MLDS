@@ -2,11 +2,11 @@ package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.transaction.Transactional;
 
 import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
+import jakarta.annotation.Resource;
+import jakarta.transaction.Transactional;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +28,8 @@ import com.google.common.collect.Lists;
 @ActiveProfiles("dev")
 @Transactional
 public class AffiliatesImporterServiceTest extends MySqlTestContainerTest {
-	@Resource AffiliatesImporterService affiliatesImporterService;
+	@Resource
+	AffiliatesImporterService affiliatesImporterService;
 	@Resource AffiliatesMapper affiliatesMapper;
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource MemberRepository memberRepository;

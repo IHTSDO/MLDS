@@ -1,13 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.domain.json;
 
-import java.util.Set;
-
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.PropertyWriter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.google.common.collect.Sets;
+
+
+import java.util.Set;
 
 /**
  * Simple filter that excludes the listed properties unless the user is staff or admin.
@@ -23,7 +23,7 @@ public class InternalPrivacyFilter extends SimpleBeanPropertyFilter {
 	}
 	@Override
 	protected boolean include(PropertyWriter writer) {
-		
+
 		if (new CurrentSecurityContext().isStaffOrAdmin()) {
 			return true;
 		}
