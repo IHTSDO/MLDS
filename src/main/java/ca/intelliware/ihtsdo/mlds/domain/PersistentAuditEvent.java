@@ -1,26 +1,18 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
+import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.joda.time.Instant;
 
 /**
  * Persist AuditEvent managed by the Spring Boot actuator
- * @see org.springframework.boot.actuate.audit.AuditEvent
+
  */
 
 @Entity
@@ -29,7 +21,8 @@ import org.joda.time.Instant;
 public class PersistentAuditEvent extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+    @SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
     @Column(name = "event_id")
     private long id;
 

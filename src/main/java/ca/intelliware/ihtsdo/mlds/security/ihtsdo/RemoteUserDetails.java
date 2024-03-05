@@ -1,9 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
-import java.util.Collection;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 
 /**
  * Adapt the CentralAuthUserInfo to the Spring UserDetails interface.

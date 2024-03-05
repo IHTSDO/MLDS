@@ -1,44 +1,32 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-import org.hibernate.search.annotations.ContainedIn;
-import org.hibernate.search.annotations.IndexedEmbedded;
-import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import jakarta.persistence.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
+
+import java.time.Instant;
+
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy= InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="application_type")
 // Note that concrete subclass MUST set @Where and @SQLDelete for soft-delete functionality
 @Where(clause = "inactive_at IS NULL")
 @SQLDelete(sql="UPDATE application SET inactive_at = now() WHERE application_id = ?")
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=As.PROPERTY, property="applicationType")
 @JsonSubTypes({
-	@Type(value=PrimaryApplication.class, name="PRIMARY"),
-	@Type(value=ExtensionApplication.class, name="EXTENSION"),
-	@Type(value=ImportApplication.class, name="IMPORT")
+	@JsonSubTypes.Type(value=PrimaryApplication.class, name="PRIMARY"),
+	@JsonSubTypes.Type(value=ExtensionApplication.class, name="EXTENSION"),
+	@JsonSubTypes.Type(value=ImportApplication.class, name="IMPORT")
 	})
 public abstract class Application extends BaseEntity {
 	public static enum ApplicationType {
@@ -46,7 +34,9 @@ public abstract class Application extends BaseEntity {
 	}
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="application_id", columnDefinition = "BIGINT")
     Long applicationId;
 	
@@ -181,13 +171,13 @@ public abstract class Application extends BaseEntity {
 		switch (applicationType) {
 		case PRIMARY:
 			return new PrimaryApplication();
-			
+
 		case EXTENSION:
 			return new ExtensionApplication();
 
 		case IMPORT:
 			return new ImportApplication();
-			
+
 		default:
 			throw new RuntimeException("Unsupported applicationType " + applicationType);
 		}

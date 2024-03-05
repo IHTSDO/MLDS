@@ -1,20 +1,18 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
+import ca.intelliware.ihtsdo.mlds.domain.Member;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
-
 @Service
 public class MemberValueConverter extends ValueConverter {
 	
-	@Resource 
+	@Resource
 	MemberRepository memberRepository;
 
 	@Override

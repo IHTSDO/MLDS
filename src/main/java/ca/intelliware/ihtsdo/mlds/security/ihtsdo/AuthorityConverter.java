@@ -1,13 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
-import java.util.List;
-
+import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import com.google.common.collect.Lists;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
-
-import com.google.common.collect.Lists;
+import java.util.List;
 
 /**
  * Converts permissions from the remote system into simple role Strings for local consumption.

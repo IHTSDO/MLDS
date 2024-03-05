@@ -1,20 +1,18 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.util.Set;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
-import org.joda.time.LocalDate;
-import org.springframework.stereotype.Service;
-
-import com.google.common.collect.Sets;
 
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Reset a persisted CommercialUsageReport and its CommercialUsageEntries
@@ -42,7 +40,7 @@ public class CommercialUsageResetter {
 	public void detach(CommercialUsage commercialUsage) {
 
 		//INFRA-2075 Create new collections to hold these objects and reassign
-		Set<CommercialUsageEntry> usageEntryCollection = Sets.newHashSet();
+		Set<CommercialUsageEntry> usageEntryCollection = new HashSet<>();
 		for (CommercialUsageEntry entry : commercialUsage.getEntries()) {
 			em.detach(entry);
 			entry.setCommercialUsageEntryId(null);
@@ -50,7 +48,7 @@ public class CommercialUsageResetter {
 		}
 		commercialUsage.setUsage(usageEntryCollection);
 		
-		Set<CommercialUsageCountry> countryCollection = Sets.newHashSet();
+		Set<CommercialUsageCountry> countryCollection = new HashSet<>();
 		for (CommercialUsageCountry country : commercialUsage.getCountries()) {
 			em.detach(country);
 			country.setCommercialUsageCountId(null);

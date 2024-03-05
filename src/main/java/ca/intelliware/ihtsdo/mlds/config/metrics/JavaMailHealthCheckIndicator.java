@@ -1,12 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.config.metrics;
 
-import javax.mail.MessagingException;
-
+import jakarta.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+
 
 /**
  * SpringBoot Actuator HealthIndicator check for JavaMail.

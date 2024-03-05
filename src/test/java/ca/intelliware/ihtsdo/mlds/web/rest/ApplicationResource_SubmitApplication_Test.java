@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -104,7 +105,7 @@ public class ApplicationResource_SubmitApplication_Test {
         Mockito.when(memberRepository.findOneByKey("SE")).thenReturn(swedenMember);
         sweden = new Country("SE", "SWE", "Sweden");
         sweden.setMember(swedenMember);
-        Mockito.when(countryRepository.findOne("SE")).thenReturn(sweden);
+        Mockito.when(countryRepository.findById("SE")).thenReturn(Optional.ofNullable(sweden));
 
 		Mockito.when(sessionService.getUsernameOrNull()).thenReturn("user");
 	}
@@ -239,7 +240,7 @@ public class ApplicationResource_SubmitApplication_Test {
 		CommercialUsage commercialUsage = new CommercialUsage(10L, affiliate);
 		commercialUsage.setType(affiliate.getType());
 		primaryApplication.setCommercialUsage(commercialUsage);
-		Mockito.when(applicationRepository.findOne(primaryApplicationId)).thenReturn(primaryApplication);
+		Mockito.when(applicationRepository.findById(primaryApplicationId)).thenReturn(Optional.of(primaryApplication));
 		return primaryApplication;
 	}
 

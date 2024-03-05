@@ -1,9 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import javax.annotation.Resource;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.springframework.stereotype.Service;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
@@ -13,6 +9,11 @@ import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.AuthorizationChecker;
+import jakarta.annotation.Resource;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CommercialUsageAuthorizationChecker extends AuthorizationChecker {
@@ -36,35 +37,45 @@ public class CommercialUsageAuthorizationChecker extends AuthorizationChecker {
 		if (isStaffOrAdmin()) {
 			return;
 		}
-		CommercialUsage commercialUsage = commercialUsageRepository.findOne(usageReportId);
-		if (commercialUsage != null) {
+//		CommercialUsage commercialUsage = commercialUsageRepository.findOne(usageReportId);
+        Optional<CommercialUsage> optionalCommercialUsage = commercialUsageRepository.findById(usageReportId);
+//		if (commercialUsage != null) {
+        if (optionalCommercialUsage.isPresent()) {
+            CommercialUsage commercialUsage = optionalCommercialUsage.get();
 			Affiliate affiliate = commercialUsage.getAffiliate();
 			checkCurrentUserIsMemberOfAffiliate(affiliate);
 		}
-		
+
 	}
 
 	public void checkCanAccessCommercialUsageEntry(long commercialUsageId, long commercialUsageEntryId) {
 		if (isStaffOrAdmin()) {
 			return;
 		}
-		CommercialUsageEntry commercialUsageEntry = commercialUsageEntryRepository.findOne(commercialUsageEntryId);
-		if (commercialUsageEntry != null) {
-			CommercialUsage commercialUsage = commercialUsageEntry.getCommercialUsage();
+
+        Optional<CommercialUsageEntry> optionalCommercialUsageEntry = commercialUsageEntryRepository.findById(commercialUsageEntryId);
+//        if (commercialUsageEntry != null) {
+        if (optionalCommercialUsageEntry.isPresent()) {
+//			CommercialUsage commercialUsage = commercialUsageEntry.getCommercialUsage();
+            CommercialUsageEntry commercialUsageEntry = optionalCommercialUsageEntry.get();
+            CommercialUsage commercialUsage = commercialUsageEntry.getCommercialUsage();
 			checkCommercialUsageMatches(commercialUsageId, commercialUsage);
 			if (commercialUsage != null) {
 				checkCurrentUserIsMemberOfAffiliate(commercialUsage.getAffiliate());
 			}
 		}
-	
+
 	}
 
 	public void checkCanAccessCommercialUsageCount(long commercialUsageId, long commercialUsageCountId) {
 		if (isStaffOrAdmin()) {
 			return;
 		}
-		CommercialUsageCountry commercialUsageCount = commercialUsageCountRepository.findOne(commercialUsageCountId);
-		if (commercialUsageCount != null) {
+
+        Optional<CommercialUsageCountry> optionalCommercialUsageCount = commercialUsageCountRepository.findById(commercialUsageCountId);
+//        if (commercialUsageCount != null) {
+        if (optionalCommercialUsageCount.isPresent()) {
+            CommercialUsageCountry commercialUsageCount = optionalCommercialUsageCount.get();
 			CommercialUsage commercialUsage = commercialUsageCount.getCommercialUsage();
 			checkCommercialUsageMatches(commercialUsageId, commercialUsage);
 			if (commercialUsage != null) {
@@ -79,6 +90,6 @@ public class CommercialUsageAuthorizationChecker extends AuthorizationChecker {
 		} else {
 			failCheck("user does not have permissions to review usage reports.");
 		}
-		
+
 	}
 }

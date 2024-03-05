@@ -1,17 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import java.io.Serializable;
-import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.Instant;
+
+import jakarta.persistence.*;
+import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * A ResetToken.

@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -24,6 +24,8 @@ import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.service.*;
+
+import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
@@ -100,7 +102,7 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
 
 	private CommercialUsage withCommercialUsage(long commercialUsageId, UsageReportState state) {
 		CommercialUsage commercialUsage = createCommercialUsage(commercialUsageId, state);
-		Mockito.when(commercialUsageRepository.findOne(commercialUsageId)).thenReturn(commercialUsage);
+		Mockito.when(commercialUsageRepository.findById(commercialUsageId)).thenReturn(Optional.of(commercialUsage));
 		return commercialUsage;
 	}
 

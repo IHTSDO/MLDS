@@ -1,18 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
+import java.time.Instant;
 
 @Entity
 @Table(name="commercial_usage_count")
@@ -20,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @SQLDelete(sql="UPDATE commercial_usage_count SET inactive_at = now() WHERE commercial_usage_count_id = ?")
 public class CommercialUsageCountry extends BaseEntity {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="commercial_usage_count_id")
 	Long commercialUsageCountId;
 

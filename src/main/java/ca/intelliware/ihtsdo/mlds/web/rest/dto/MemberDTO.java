@@ -1,10 +1,10 @@
 package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 
-import org.joda.time.Instant;
-
-import com.fasterxml.jackson.annotation.JsonFilter;
 
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+import com.fasterxml.jackson.annotation.JsonFilter;
+
+import java.time.Instant;
 
 /*
  * DTO for transporting the entire member record to/from the client as JSON with Jackson.
@@ -18,7 +18,7 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
  * staffNotificationEmal, from being serialized to JSON.
  */
 
-@JsonFilter("memberDtoPrivacyFilter")
+//@JsonFilter("memberDtoPrivacyFilter")
 public class MemberDTO {
 	public static final String[] PRIVATE_FIELDS = {"staffNotificationEmail"};
 

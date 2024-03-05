@@ -1,40 +1,33 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import java.util.Collections;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.apache.commons.lang.Validate;
-import org.joda.time.Instant;
-import org.joda.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
+import jakarta.persistence.*;
+import org.apache.commons.lang3.Validate;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Set;
 
 @Entity
 @Table(name="release_version")
 public class ReleaseVersion extends BaseEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="release_version_id")
 	Long releaseVersionId;
 
-    @GeneratedValue
+
     @Column(name = "id")
     private String id;
 
 	// the parent
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="release_package_id")
 	ReleasePackage releasePackage;
 
@@ -151,13 +144,21 @@ public class ReleaseVersion extends BaseEntity {
 		return online;
 	}
 
-	public void setOnline(boolean online) {
-		if (online && publishedAt == null) {
-			this.publishedAt = new LocalDate();
-		}
-
-		this.online = online;
+//	public void setOnline(boolean online) {
+//		if (online && publishedAt == null) {
+//			this.publishedAt = new LocalDate();
+//		}
+//
+//		this.online = online;
+//	}
+public void setOnline(boolean online) {
+	if (online && publishedAt == null) {
+		// Set publishedAt to current date if online is true and publishedAt is null
+		this.publishedAt = LocalDate.now();
 	}
+
+	this.online = online;
+}
 
 	@Override
 	protected Object getPK() {

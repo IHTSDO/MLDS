@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
@@ -20,6 +19,7 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserMembershipAccessorTest {

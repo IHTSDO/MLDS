@@ -1,20 +1,15 @@
 package ca.intelliware.ihtsdo.mlds.web.filter.gzip;
 
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.GZIPOutputStream;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class GZipServletFilter implements Filter {
 
@@ -104,7 +99,7 @@ public class GZipServletFilter implements Filter {
      * Checks if the request uri is an include. These cannot be gzipped.
      */
     private boolean isIncluded(final HttpServletRequest request) {
-        final String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
+        final String uri = (String) request.getAttribute("jakarta.servlet.include.request_uri");
         final boolean includeRequest = !(uri == null);
 
         if (includeRequest && log.isDebugEnabled()) {

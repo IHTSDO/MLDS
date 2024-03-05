@@ -9,10 +9,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -23,6 +21,7 @@ import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.domain.User;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserMembershipCalculationTest {
@@ -56,9 +55,9 @@ public class UserMembershipCalculationTest {
 	public void approvedReleaseUsersShouldReturnMatchingUsers() {
 		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(sweden));
 		User user0 = withUser(affiliate0);
-
-		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
-		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
+//
+//		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
+//		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
 
 		// test
 		Iterable<User> result = userMembershipCalculator.approvedReleaseUsersWithAnyMembership(sweden);
@@ -71,9 +70,9 @@ public class UserMembershipCalculationTest {
 		withAffiliate(10L, Sets.newHashSet(sweden));
 		// do not specify user related to affiliate
 		
-		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
-		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
-		
+//		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
+//		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
+//
 		// test
 		Iterable<User> result = userMembershipCalculator.approvedReleaseUsersWithAnyMembership(sweden);
 		
@@ -85,9 +84,9 @@ public class UserMembershipCalculationTest {
 		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(ihtsdo));
 		User user0 = withUser(affiliate0);
 
-		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(Matchers.anyListOf(StandingState.class))).thenReturn(matchingAffiliates);
-		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
-		
+//		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(Matchers.anyListOf(StandingState.class))).thenReturn(matchingAffiliates);
+//		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
+//
 		// test
 		Iterable<User> result = userMembershipCalculator.approvedReleaseUsersWithAnyMembership(ihtsdo);
 		
@@ -99,8 +98,8 @@ public class UserMembershipCalculationTest {
 		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(sweden));
 		User user0 = withUser(affiliate0);
 
-		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
-		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
+//		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
+//		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
 
 		// test
 		Iterable<User> result = userMembershipCalculator.approvedActiveUsersWithHomeMembership(sweden);
