@@ -1,8 +1,8 @@
 package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 
-import java.util.List;
-
 import ca.intelliware.ihtsdo.mlds.domain.Member;
+
+import java.util.List;
 
 public class AnnouncementDTO {
 	private String subject;

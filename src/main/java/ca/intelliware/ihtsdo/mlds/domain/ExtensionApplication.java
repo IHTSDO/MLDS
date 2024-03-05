@@ -1,10 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
+
 
 @Entity
 @DiscriminatorValue("EXTENSION")
@@ -29,7 +30,7 @@ public class ExtensionApplication extends Application {
 	
 	@Override
 	public ApplicationType getApplicationType() {
-		return Application.ApplicationType.EXTENSION;
+		return ApplicationType.EXTENSION;
 	}
 
 }

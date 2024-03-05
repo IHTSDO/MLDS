@@ -1,24 +1,23 @@
 package ca.intelliware.ihtsdo.mlds.search;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.ServletContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.TextNode;
-import com.google.common.collect.Maps;
+import jakarta.annotation.Resource;
+import jakarta.servlet.ServletContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 
 /**
  * Make the angular-translate bundles available server-side. 
@@ -36,7 +35,8 @@ public class AngularTranslateService {
 	@Resource
 	ObjectMapper objectMapper = new ObjectMapper();
 	
-	Map<String,TreeNode> loaded = Maps.newHashMap();
+//	Map<String,TreeNode> loaded = Maps.newHashMap();
+	Map<String, TreeNode> loaded = new HashMap<>();
 
 	public static AngularTranslateService getInstance() {
 		return instance;

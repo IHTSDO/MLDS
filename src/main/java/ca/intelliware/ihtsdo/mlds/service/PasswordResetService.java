@@ -1,19 +1,19 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import javax.annotation.Resource;
-
+import ca.intelliware.ihtsdo.mlds.domain.PasswordResetToken;
+import ca.intelliware.ihtsdo.mlds.domain.User;
+import ca.intelliware.ihtsdo.mlds.repository.PasswordResetTokenRepository;
+import jakarta.annotation.Resource;
 import org.apache.commons.lang.Validate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.intelliware.ihtsdo.mlds.domain.PasswordResetToken;
-import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.repository.PasswordResetTokenRepository;
+
 
 @Service
 @Transactional
 public class PasswordResetService {
-	@Resource 
+	@Resource
 	PasswordResetTokenRepository passwordResetTokenRepository;
 	
 	@Resource

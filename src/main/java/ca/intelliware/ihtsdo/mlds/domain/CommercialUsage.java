@@ -1,31 +1,20 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-import java.util.Collections;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.apache.commons.lang.Validate;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-import org.joda.time.Instant;
-import org.joda.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.Sets;
+import jakarta.persistence.*;
+import org.apache.commons.lang3.Validate;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 @Table(name="commercial_usage")
@@ -33,7 +22,9 @@ import com.google.common.collect.Sets;
 @SQLDelete(sql="UPDATE commercial_usage SET inactive_at = now() WHERE commercial_usage_id = ?")
 public class CommercialUsage extends BaseEntity {
 	@Id
-	@GeneratedValue
+//	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
+	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="commercial_usage_id")
 	Long commercialUsageId;
 
@@ -78,12 +69,12 @@ public class CommercialUsage extends BaseEntity {
 	@JsonProperty("entries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	@Where(clause = "inactive_at IS NULL")
-	Set<CommercialUsageEntry> usage = Sets.newHashSet();
+	Set<CommercialUsageEntry> usage = new HashSet<>() /*Sets.newHashSet()*/;
 	
 	@JsonProperty("countries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	@Where(clause = "inactive_at IS NULL")
-	Set<CommercialUsageCountry> countries = Sets.newHashSet();
+	Set<CommercialUsageCountry> countries = new HashSet<>() /*Sets.newHashSet()*/;
 	
 	public CommercialUsage() {
 		

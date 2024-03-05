@@ -1,15 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
-import com.google.common.collect.Maps;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Service
 public class CommercialUsageAuditEvents {
@@ -21,7 +19,7 @@ public class CommercialUsageAuditEvents {
 	AuditEventService auditEventService;
 
 	private Map<String, String> createAuditData(CommercialUsage usage) {
-		Map<String,String> auditData = Maps.newHashMap();
+		Map<String,String> auditData = new HashMap<>();
 		auditData.put("usage.type", ""+usage.getType());
     	auditData.put("usage.commercialUsageId", ""+usage.getCommercialUsageId());
     	auditData.put("usage.period.start", ""+usage.getStartDate());

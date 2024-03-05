@@ -1,9 +1,17 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
-import java.util.Collection;
-
-import javax.annotation.PostConstruct;
-
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.json.InternalPrivacyFilter;
+import ca.intelliware.ihtsdo.mlds.domain.json.MLDSJacksonModule;
+import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.MemberDTO;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
@@ -14,18 +22,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.json.InternalPrivacyFilter;
-import ca.intelliware.ihtsdo.mlds.domain.json.MLDSJacksonModule;
-import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-import ca.intelliware.ihtsdo.mlds.web.rest.dto.MemberDTO;
+import java.util.Collection;
 
 @Configuration
 @ConditionalOnClass(ObjectMapper.class)
@@ -37,7 +35,7 @@ public class JacksonConfigurer {
 	@Autowired
 	private ListableBeanFactory beanFactory;
 	
-	@Autowired 
+//	@Autowired
 	ObjectMapper objectMapper;
 
 	@Bean

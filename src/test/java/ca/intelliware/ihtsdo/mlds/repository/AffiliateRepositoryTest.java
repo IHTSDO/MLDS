@@ -10,12 +10,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
+import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +40,8 @@ import ca.intelliware.ihtsdo.mlds.search.AngularTranslateServiceSetup;
 @Transactional
 public class AffiliateRepositoryTest extends MySqlTestContainerTest {
 
-	@Resource EntityManager entityManager;
+	@Resource
+	EntityManager entityManager;
 
 	@Resource AffiliateRepository affiliateRepository;
 
@@ -65,7 +66,7 @@ public class AffiliateRepositoryTest extends MySqlTestContainerTest {
 		sweden = memberRepository.findOneByKey("SE");
 		belgium = memberRepository.findOneByKey("BE");
 
-		pageable = new PageRequest(0, 10);
+		pageable = PageRequest.of(0, 10);
 
 		uniqueKey = ""+System.currentTimeMillis();
 	}

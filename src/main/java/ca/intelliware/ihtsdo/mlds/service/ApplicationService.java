@@ -1,12 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.service;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Service;
-
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
@@ -19,12 +12,19 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
+import jakarta.annotation.Resource;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
+
+
+import java.util.List;
 
 @Service
 @Transactional
 public class ApplicationService {
 
-	@Resource ApplicationRepository applicationRepository;
+	@Resource
+	ApplicationRepository applicationRepository;
 	@Resource SessionService sessionService;
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource MemberRepository memberRepository;

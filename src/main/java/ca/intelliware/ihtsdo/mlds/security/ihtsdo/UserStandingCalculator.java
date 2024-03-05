@@ -1,24 +1,22 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
-import com.google.common.base.Objects;
-
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
+import com.google.common.base.Objects;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import java.util.List;
 
 @Service
 public class UserStandingCalculator {
 
-	@Resource
+	@Autowired
 	protected CurrentSecurityContext currentSecurityContext;
-	
-	@Resource
+
+	@Autowired
 	AffiliateRepository affiliateRepository;
 
 	public boolean isLoggedInUserAffiliateDeactivated() {
