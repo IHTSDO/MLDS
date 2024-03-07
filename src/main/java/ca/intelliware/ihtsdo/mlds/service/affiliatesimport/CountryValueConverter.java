@@ -13,13 +13,16 @@ import java.util.Optional;
 
 @Service
 public class CountryValueConverter extends ValueConverter {
-	
+
 	@Resource
 	CountryRepository countryRepository;
 
 	@Override
 	public Country toObject(String valueString) {
 		Optional<Country> countryOptional = countryRepository.findById(valueString);
+        if(countryOptional.isEmpty()){
+            return null;
+        }
 		Country country = countryOptional.get();
 		return country;
 	}
@@ -31,7 +34,7 @@ public class CountryValueConverter extends ValueConverter {
 			result.addError(lineRecord, mapping, "Field value="+valueString+" not one of the recognized ISO 3166-1 alpha-2 country codes");
 		}
 	}
-	
+
 	@Override
 	public String toString(Object value) {
 		if (value != null) {
@@ -41,7 +44,7 @@ public class CountryValueConverter extends ValueConverter {
 			return "";
 		}
 	}
-	
+
 	@Override
 	public List<String> getOptions() {
 		List<String> options = new ArrayList<String>();
