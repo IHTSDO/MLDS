@@ -19,24 +19,24 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserStandingCalculatorTest {
-    
+
 	@Mock
     private AffiliateRepository affiliateRepository;
 
 	@Mock
 	private CurrentSecurityContext currentSecurityContext;
-	
+
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
 
 	private UserStandingCalculator userStandingCalculator;
-    
+
     @Before
     public void setup() {
         userStandingCalculator = new UserStandingCalculator();
-        
+
         userStandingCalculator.affiliateRepository = affiliateRepository;
         userStandingCalculator.currentSecurityContext = currentSecurityContext;
-        
+
         userStandingCalculator.currentSecurityContext = new CurrentSecurityContext();
     }
 
@@ -47,29 +47,29 @@ public class UserStandingCalculatorTest {
     	Mockito.when(affiliateRepository.findByCreatorIgnoreCase("user")).thenReturn(Lists.newArrayList(affiliate));
 
     	securityContextSetup.asAffiliateUser();
-    	
+
     	StandingState standingState = userStandingCalculator.getLoggedInUserAffiliateStanding();
-    	
+
     	Assert.assertThat(standingState, Matchers.equalTo(StandingState.IN_GOOD_STANDING));
     }
 
     @Test
     public void shouldReturnNullStandingForStaff() {
-    	Mockito.when(affiliateRepository.findByCreatorIgnoreCase("IHTSDO")).thenReturn(Lists.<Affiliate>newArrayList());
+//    	Mockito.when(affiliateRepository.findByCreatorIgnoreCase("IHTSDO")).thenReturn(Lists.<Affiliate>newArrayList());
 
     	securityContextSetup.asIHTSDOStaff();
-    	
+
     	StandingState standingState = userStandingCalculator.getLoggedInUserAffiliateStanding();
-    	
+
     	Assert.assertThat(standingState, Matchers.nullValue(StandingState.class));
     }
 
     @Test
     public void shouldReturnNotDeactivatedForAffiliate() {
     	withAffiliateInStandingState(StandingState.IN_GOOD_STANDING);
-    	
+
     	boolean isDeactivated = userStandingCalculator.isLoggedInUserAffiliateDeactivated();
-    	
+
     	Assert.assertThat(isDeactivated, Matchers.equalTo(false));
     }
 
@@ -84,27 +84,27 @@ public class UserStandingCalculatorTest {
     @Test
     public void shouldReturnDeactivatedForAffiliate() {
     	withAffiliateInStandingState(StandingState.DEACTIVATED);
-    	
+
     	boolean isDeactivated = userStandingCalculator.isLoggedInUserAffiliateDeactivated();
-    	
+
     	Assert.assertThat(isDeactivated, Matchers.equalTo(true));
     }
 
     @Test
     public void shouldReturnPendingInvocieForAffiliate() {
     	withAffiliateInStandingState(StandingState.PENDING_INVOICE);
-    	
+
     	boolean isPendingInvoice = userStandingCalculator.isLoggedInUserAffiliatePendingInvoice();
-    	
+
     	Assert.assertThat(isPendingInvoice, Matchers.equalTo(true));
     }
 
     @Test
     public void shouldReturnDeregisteredForAffiliate() {
     	withAffiliateInStandingState(StandingState.DEREGISTERED);
-    	
+
     	boolean isDerigestered = userStandingCalculator.isLoggedInUserAffiliateDeregistered();
-    	
+
     	Assert.assertThat(isDerigestered, Matchers.equalTo(true));
     }
 }
