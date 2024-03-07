@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.domain.json;
 
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.rest.Routes;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -29,8 +30,7 @@ public class ReleaseFileSerializer extends JsonSerializer<ReleaseFile> {
 	}
 
 	private boolean isToSeeRawDownloadUrl() {
-//		return new CurrentSecurityContext().isStaffOrAdmin();
-		return true;
+		return new CurrentSecurityContext().isStaffOrAdmin();
 	}
 
 	private URI calculateClientDownloadUrl(ReleaseFile value) {

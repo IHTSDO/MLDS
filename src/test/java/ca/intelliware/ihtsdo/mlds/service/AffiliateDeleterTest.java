@@ -43,6 +43,8 @@ import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations="classpath:test.application.properties")
@@ -104,10 +106,23 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
  // TODO Need to change assertThat
 //		// Confirm unique affiliate details
 //		assertThat(affiliateDetails.getAffiliateDetailsId(), not(equalTo(affiliatePrimaryDetails.getAffiliateDetailsId())));
+        assertNotEquals(affiliateDetails.getAffiliateDetailsId(),affiliatePrimaryDetails.getAffiliateDetailsId());
 //		assertThat(affiliateDetails.getAffiliateDetailsId(), not(equalTo(affiliateExtensionDetails.getAffiliateDetailsId())));
+        assertNotEquals(affiliateDetails.getAffiliateDetailsId(),affiliateExtensionDetails.getAffiliateDetailsId());
 //		assertThat(affiliatePrimaryDetails.getAffiliateDetailsId(), not(equalTo(affiliateExtensionDetails.getAffiliateDetailsId())));
+        assertNotEquals(affiliatePrimaryDetails.getAffiliateDetailsId(),affiliateExtensionDetails.getAffiliateDetailsId());
 //
 //		// Confirm data model accessible from JPA
+        assertNotNull(affiliateRepository.findById(affiliate.getAffiliateId()));
+        assertNotNull(applicationRepository.findById(primaryApplication.getApplicationId()));
+        assertNotNull(applicationRepository.findById(extensionApplication.getApplicationId()));
+        assertNotNull(userRepository.findByLoginIgnoreCase(userEmail));
+        assertNotNull(commercialUsageRepository.findById(commercialUsage.getCommercialUsageId()));
+        assertNotNull(affiliateDetailsRepository.findById(affiliateDetails.getAffiliateDetailsId()));
+        assertNotNull(affiliateDetailsRepository.findById(affiliatePrimaryDetails.getAffiliateDetailsId()));
+        assertNotNull(affiliateDetailsRepository.findById(affiliateExtensionDetails.getAffiliateDetailsId()));
+        assertNotNull(commercialUsageCountryRepository.findById(commercialUsageCountry.getCommercialUsageCountId()));
+        assertNotNull(commercialUsageEntryRepository.findById(commercialUsageEntry.getCommercialUsageEntryId()));
 //		assertThat(affiliateRepository.findById(affiliate.getAffiliateId()), notNullValue(Affiliate.class));
 //		assertThat(applicationRepository.findById(primaryApplication.getApplicationId()), notNullValue(Application.class));
 //		assertThat(applicationRepository.findById(extensionApplication.getApplicationId()), notNullValue(Application.class));
@@ -120,9 +135,11 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
 //		assertThat(commercialUsageEntryRepository.findById(commercialUsageEntry.getCommercialUsageEntryId()), notNullValue(CommercialUsageEntry.class));
 //
 //		assertThat(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), is(2));
+        assertEquals(applicationRepository.findByUsernameIgnoreCase(userEmail).size(),2);
+
 //
 //		// Test
-//		affiliateDeleter.deleteAffiliate(affiliate);
+		affiliateDeleter.deleteAffiliate(affiliate);
 //
 //		// JPA should no longer match entities
 //		assertThat(affiliateRepository.findById(affiliate.getAffiliateId()), nullValue(Affiliate.class));
@@ -135,6 +152,20 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
 //		assertThat(affiliateDetailsRepository.findById(affiliateExtensionDetails.getAffiliateDetailsId()), nullValue(AffiliateDetails.class));
 //		assertThat(commercialUsageCountryRepository.findById(commercialUsageCountry.getCommercialUsageCountId()), nullValue(CommercialUsageCountry.class));
 //		assertThat(commercialUsageEntryRepository.findById(commercialUsageEntry.getCommercialUsageEntryId()), nullValue(CommercialUsageEntry.class));
+
+        assertNull(affiliateRepository.findById(affiliate.getAffiliateId()));
+        assertNull(applicationRepository.findById(primaryApplication.getApplicationId()));
+        assertNull(applicationRepository.findById(extensionApplication.getApplicationId()));
+        assertNull(userRepository.findByLoginIgnoreCase(userEmail));
+        assertNull(commercialUsageRepository.findById(commercialUsage.getCommercialUsageId()));
+        assertNull(affiliateDetailsRepository.findById(affiliateDetails.getAffiliateDetailsId()));
+        assertNull(affiliateDetailsRepository.findById(affiliatePrimaryDetails.getAffiliateDetailsId()));
+        assertNull(affiliateDetailsRepository.findById(affiliateExtensionDetails.getAffiliateDetailsId()));
+        assertNull(commercialUsageCountryRepository.findById(commercialUsageCountry.getCommercialUsageCountId()));
+        assertNull(commercialUsageEntryRepository.findById(commercialUsageEntry.getCommercialUsageEntryId()));
+
+        assertEquals(applicationRepository.findByUsernameIgnoreCase(userEmail).size(),0);
+
 //
 //		// JPA should no longer find through custom repository
 //		assertThat(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), is(0));
@@ -150,6 +181,17 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
 //		assertThat(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateExtensionDetails.getAffiliateDetailsId()), is(1));
 //		assertThat(matchingNativeRecords("SELECT commercial_usage_count_id FROM commercial_usage_count WHERE commercial_usage_count_id="+commercialUsageCountry.getCommercialUsageCountId()), is(1));
 //		assertThat(matchingNativeRecords("SELECT commercial_usage_entry_id FROM commercial_usage_entry WHERE commercial_usage_entry_id="+commercialUsageEntry.getCommercialUsageEntryId()), is(1));
+        assertEquals(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), 1);
+        assertEquals(matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+primaryApplication.getApplicationId()), 1);
+        assertEquals(matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+extensionApplication.getApplicationId()), 1);
+        assertEquals(matchingNativeRecords("SELECT user_id FROM T_USER WHERE user_id="+user.getUserId()), 1);
+        assertEquals(matchingNativeRecords("SELECT commercial_usage_id FROM commercial_usage WHERE commercial_usage_id="+commercialUsage.getCommercialUsageId()), 1);
+        assertEquals(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateDetails.getAffiliateDetailsId()), 1);
+        assertEquals(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateExtensionDetails.getAffiliateDetailsId()), 1);
+        assertEquals(matchingNativeRecords("SELECT commercial_usage_count_id FROM commercial_usage_count WHERE commercial_usage_count_id="+commercialUsageCountry.getCommercialUsageCountId()), 1);
+        assertEquals(matchingNativeRecords("SELECT commercial_usage_entry_id FROM commercial_usage_entry WHERE commercial_usage_entry_id="+commercialUsageEntry.getCommercialUsageEntryId()), 1);
+        assertEquals(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliatePrimaryDetails.getAffiliateDetailsId()), 1);
+
 	}
 
 	@Test
@@ -161,11 +203,15 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
 		Affiliate affiliate = withAffiliateUser(StandingState.APPLYING, ihtsdo, userEmail);
 
 //		assertThat(affiliateRepository.findById(affiliate.getAffiliateId()), notNullValue(Affiliate.class));
+        assertNotNull(affiliateRepository.findById(affiliate.getAffiliateId()));
 //
-//		affiliateDeleter.deleteAffiliate(affiliate);
+		affiliateDeleter.deleteAffiliate(affiliate);
 //
 //		// JPA should no longer match entities
 //		assertThat(affiliateRepository.findById(affiliate.getAffiliateId()), nullValue(Affiliate.class));
+        assertNull(affiliateRepository.findById(affiliate.getAffiliateId()));
+
+        assertEquals(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), 1);
 //
 //		// Records should still be present in the database
 //		assertThat(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), is(1));

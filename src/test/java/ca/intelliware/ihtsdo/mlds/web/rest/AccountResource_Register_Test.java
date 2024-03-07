@@ -17,6 +17,8 @@ import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
 
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -47,17 +49,17 @@ public class AccountResource_Register_Test {
     @Mock private MailService mailService;
 
     private MockMvc restUserMockMvc;
-    
+
     private SecurityContextSetup securityContextSetup = new SecurityContextSetup();
-    
+
     private Member swedenMember = new Member("SE", 1);
     private Country country = null;
-    
-    @Before
+
+    @BeforeEach
     public void setup() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         AccountResource accountResource = new AccountResource();
-        
+
         ReflectionTestUtils.setField(accountResource, "userService", userService);
         accountResource.userRepository = userRepository;
         accountResource.userMembershipAccessor = userMembershipAccessor;
@@ -71,12 +73,12 @@ public class AccountResource_Register_Test {
         accountResource.commercialUsageResetter = commercialUsageResetter;
         accountResource.affiliateAuditEvents = affiliateAuditEvents;
         accountResource.mailService = mailService;
-        
+
         this.restUserMockMvc = MockMvcBuilders
         		.standaloneSetup(accountResource)
         		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
         		.build();
-        
+
         country = new Country("SE", "SWE", "Sweden");
         country.setMember(swedenMember);
     }
@@ -84,7 +86,7 @@ public class AccountResource_Register_Test {
     @Test
     public void shouldFailWhenRegisteringWithExistingLocalAccountEmail() throws Exception {
     	Mockito.when(userRepository.findByLoginIgnoreCase(Mockito.eq("existing@test.com"))).thenReturn(new User());
-    	
+
     	postRegister("existing@test.com")
     		.andExpect(status().isNotModified());
     }
@@ -92,19 +94,19 @@ public class AccountResource_Register_Test {
     @Test
     public void shouldSendDuplicateEmailNotificationWhenAttemptingToRegisterWithExistingLocalAccountEmail() throws Exception {
     	Mockito.when(userRepository.findByLoginIgnoreCase(Mockito.eq("existing@test.com"))).thenReturn(new User());
-    	
+
     	Mockito.when(passwordResetService.createTokenForUser(Mockito.any(User.class))).thenReturn("TEST_TOKEN");
-    	
+
     	postRegister("existing@test.com")
     		.andExpect(status().isNotModified());
-    	
+
     	Mockito.verify(duplicateRegistrationEmailSender, Mockito.times(1)).sendDuplicateRegistrationEmail(Mockito.any(User.class), Mockito.eq("TEST_TOKEN"));
     }
 
     @Test
     public void shouldFailForBlacklistedEmailAddress() throws Exception {
     	Mockito.when(domainBlacklistService.isDomainBlacklisted(Mockito.eq("bad@test.com"))).thenReturn(true);
-    	
+
     	postRegister("bad@test.com")
     		.andExpect(status().isNotAcceptable());
     }
@@ -112,15 +114,15 @@ public class AccountResource_Register_Test {
 /*    @Test  //No longer using stormpath
     public void shouldFailWhenRegisteringWithExistingStormpathAccountEmail() throws Exception {
     	Mockito.when(httpAuthAdaptor.getUserAccountInfo(Mockito.eq("staff@test.com"), null)).thenReturn(new CentralAuthUserInfo());
-    	
+
     	postRegister("staff@test.com")
     		.andExpect(status().isNotAcceptable());
     }*/
 
     @Test
-    @Ignore
+    @Disabled
     public void shouldCreateAffiliateAndRelatedRecords() throws Exception {
-    	
+
     	postRegister("user@test.com")
     		.andExpect(status().isOk());
     }

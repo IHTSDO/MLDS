@@ -295,10 +295,9 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER})
 	@Timed
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
-//		PrimaryApplication application = (PrimaryApplication) applicationRepository.findOne(applicationId);
-//        PrimaryApplication application = (PrimaryApplication) applicationRepository.findOneById(applicationId);
-		Optional<Application> applicationOptional = applicationRepository.findById(applicationId);
-		PrimaryApplication application = (PrimaryApplication) applicationOptional.get();
+        Optional<Application> optionalApplication = applicationRepository.findById(applicationId);
+        PrimaryApplication application = (PrimaryApplication) optionalApplication.orElse(null);
+
 		if (application == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

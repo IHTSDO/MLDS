@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
 
+import ca.intelliware.ihtsdo.mlds.domain.json.ReleaseFileSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -11,7 +12,7 @@ import java.time.Instant;
 @Entity
 @Table(name="release_file")
 @JsonIgnoreProperties(ignoreUnknown=true) // we're attaching a clientDownloadUrl that we should ignore when de-serializing
-//@JsonSerialize(using = ReleaseFileSerializer.class)
+@JsonSerialize(using = ReleaseFileSerializer.class)
 public class ReleaseFile extends BaseEntity {
 
 	@Id

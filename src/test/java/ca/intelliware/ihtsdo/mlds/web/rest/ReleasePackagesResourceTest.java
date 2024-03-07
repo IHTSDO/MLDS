@@ -12,6 +12,8 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -47,24 +49,24 @@ public class ReleasePackagesResourceTest {
 
 	@Mock
 	ReleasePackageAuthorizationChecker authorizationChecker;
-	
+
     @Mock
     private UserMembershipAccessor userMembershipAccessor;
-	
+
 	CurrentSecurityContext currentSecurityContext = new CurrentSecurityContext();
 
 	@Mock
 	ReleasePackageAuditEvents releasePackageAuditEvents;
-	
+
 	@Mock
 	MemberRepository memberRepository;
-	
+
 	@Mock
 	ReleasePackagePrioritizer releasePackagePrioritizer;
-	
+
 	@Captor
 	ArgumentCaptor<ReleasePackage> releasePacakgeCaptor;
-	
+
 	ReleasePackagesResource releasePackagesResource;
 
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
@@ -73,14 +75,14 @@ public class ReleasePackagesResourceTest {
 	@Before
     public void setup() {
         releasePackagesResource = new ReleasePackagesResource();
-        
+
         releasePackagesResource.releasePackageRepository = releasePackageRepository;
         releasePackagesResource.authorizationChecker = authorizationChecker;
         releasePackagesResource.currentSecurityContext = currentSecurityContext;
         releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
         releasePackagesResource.userMembershipAccessor = userMembershipAccessor;
         releasePackagesResource.releasePackagePrioritizer = releasePackagePrioritizer;
-        
+
         Mockito.when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(new Member("IHTSDO", 1));
 
         MockMvcJacksonTestSupport mockMvcJacksonTestSupport = new MockMvcJacksonTestSupport();
@@ -98,7 +100,7 @@ public class ReleasePackagesResourceTest {
 				.content("{ \"name\": \"name\", \"description\": \"description\" }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		Mockito.verify(releasePackageRepository).save(Mockito.any(ReleasePackage.class));
 	}
 
@@ -106,51 +108,51 @@ public class ReleasePackagesResourceTest {
 	public void testReleasePackageCreateIgnoresBodyMemberAndAttachesPackageToUserMember() throws Exception {
         Member userMember = new Member("SE", 1);
 		Mockito.when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(userMember);
-        
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{ \"name\": \"name\", \"description\": \"description\", \"member\": { \"key\": \"DK\" } }")
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk());
-		
+
 		Mockito.verify(releasePackageRepository).save(releasePacakgeCaptor.capture());
 		assertEquals(releasePacakgeCaptor.getValue().getMember(), userMember);
 	}
-	
+
 	@Test
 	public void testReleasePackageCreateUsesBodyMemberForAdmin() throws Exception {
 		Member userMember = new Member("SE", 1);
 		Member bodyMember = new Member("DK", 2);
 		Mockito.when(memberRepository.findOneByKey("DK")).thenReturn(bodyMember);
-		Mockito.when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(userMember);
+//		Mockito.when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(userMember);
 		securityContextSetup.asAdmin();
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{ \"name\": \"name\", \"description\": \"description\", \"member\": { \"key\": \"DK\"} }")
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk());
-		
+
 		Mockito.verify(releasePackageRepository).save(releasePacakgeCaptor.capture());
 		assertEquals(bodyMember, releasePacakgeCaptor.getValue().getMember());
 	}
-	
+
 	@Test
 	public void testReleasePackageCreateDefaultsMemberForAdminIfNotInBody() throws Exception {
 		Member userMember = new Member("XX", 1);
 		Mockito.when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(userMember);
 		securityContextSetup.asAdmin();
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{ \"name\": \"name\", \"description\": \"description\"}")
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk());
-		
+
 		Mockito.verify(releasePackageRepository).save(releasePacakgeCaptor.capture());
 		assertEquals(releasePacakgeCaptor.getValue().getMember(), userMember);
 	}
-	
+
 	@Test
 	public void testReleasePackageLogsAuditEvent() throws Exception {
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
@@ -158,7 +160,7 @@ public class ReleasePackagesResourceTest {
 				.content("{ \"name\": \"name\", \"description\": \"description\" }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		Mockito.verify(releasePackageAuditEvents).logCreationOf(Mockito.any(ReleasePackage.class));
 	}
 
@@ -169,38 +171,38 @@ public class ReleasePackagesResourceTest {
 				.content("{ \"name\": \"name\", \"description\": \"description\" }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		Mockito.verify(releasePackageRepository).save(Mockito.any(ReleasePackage.class));
-		
+
 		Mockito.verify(releasePackagePrioritizer).prioritize(Mockito.any(ReleasePackage.class), Mockito.eq(ReleasePackagePrioritizer.END_PRIORITY));
 	}
 
-	
+
 	@Test
 	public void testReleasePackageUpdateFailsForUnknownId() throws Exception {
-		Mockito.when(releasePackageRepository.findById(999L)).thenReturn(null);
-		
+		Mockito.when(releasePackageRepository.findById(999L)).thenReturn(Optional.empty());
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 999L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{ \"releasePackageId\": 999, \"name\": \"name\", \"description\": \"description\" }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
-		
+
 		Mockito.verify(releasePackageRepository, Mockito.never()).save(Mockito.any(ReleasePackage.class));
 	}
 
 	@Test
 	public void testReleasePackageUpdateShouldSave() throws Exception {
 		ReleasePackage releasePackage = new ReleasePackage();
-		
+
 		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{ \"releasePackageId\": 1, \"name\": \"newName\", \"description\": \"newDescription\" }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		Mockito.verify(releasePackageRepository).save(Mockito.any(ReleasePackage.class));
 	}
 
@@ -210,21 +212,21 @@ public class ReleasePackagesResourceTest {
 		releasePackage.setName("originalName");
 		releasePackage.setDescription("originalDescription");
 		releasePackage.setCreatedBy("originalCreatedBy");
-		
+
 		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{ \"releasePackageId\": 1, \"name\": \"newName\", \"description\": \"newDescription\", \"createdBy\": \"newCreatedBy\" }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		ArgumentCaptor<ReleasePackage> savedReleasePackage = ArgumentCaptor.forClass(ReleasePackage.class);
 		Mockito.verify(releasePackageRepository).save(savedReleasePackage.capture());
-		
+
 		Assert.assertEquals("newName", savedReleasePackage.getValue().getName());
 		Assert.assertEquals("newDescription", savedReleasePackage.getValue().getDescription());
-		
+
 		Assert.assertEquals("originalCreatedBy", savedReleasePackage.getValue().getCreatedBy());
 	}
 
@@ -235,18 +237,18 @@ public class ReleasePackagesResourceTest {
 		releasePackage.setDescription("originalDescription");
 		releasePackage.setCreatedBy("originalCreatedBy");
 		releasePackage.setPriority(5);
-		
+
 		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{ \"releasePackageId\": 1, \"priority\": 9 }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		ArgumentCaptor<ReleasePackage> savedReleasePackage = ArgumentCaptor.forClass(ReleasePackage.class);
 		Mockito.verify(releasePackageRepository).save(savedReleasePackage.capture());
-		
+
 		Mockito.verify(releasePackagePrioritizer).prioritize(releasePackage, 9);
 	}
 
@@ -256,14 +258,14 @@ public class ReleasePackagesResourceTest {
 		ReleaseVersion activeVersion = new ReleaseVersion(2L);
 		activeVersion.setOnline(true);
 		releasePackage.addReleaseVersion(activeVersion);
-		
+
 		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isConflict());
-		
+
 		Mockito.verify(releasePackageRepository, Mockito.never()).delete(Mockito.any(ReleasePackage.class));
 	}
 
@@ -273,23 +275,23 @@ public class ReleasePackagesResourceTest {
 		ReleaseVersion inactiveVersion = new ReleaseVersion(2L);
 		inactiveVersion.setOnline(false);
 		releasePackage.addReleaseVersion(inactiveVersion);
-		
+
 		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		Mockito.verify(releasePackageRepository).delete(Mockito.any(ReleasePackage.class));
 	}
 
 	@Test
 	public void testReleasePackageDeleteLogsAuditEvent() throws Exception {
 		ReleasePackage releasePackage = new ReleasePackage();
-		
+
 		Mockito.when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
-		
+
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
