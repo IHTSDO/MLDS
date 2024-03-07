@@ -114,7 +114,7 @@ public class AffiliateResourceTest {
 
 	@Test
 	public void getAffiliateShouldFailForUnknownAffiliate() throws Exception {
-        when(affiliateRepository.findById(999L)).thenReturn(null);
+        when(affiliateRepository.findById(999L)).thenReturn(Optional.empty());
 
         restUserMockMvc.perform(get(Routes.AFFILIATE, 999L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -139,7 +139,7 @@ public class AffiliateResourceTest {
 
 	@Test
     public void updateAffiliateDetailShouldFailForUnknownAffiliate() throws Exception {
-        when(affiliateRepository.findById(999L)).thenReturn(null);
+        when(affiliateRepository.findById(999L)).thenReturn(Optional.empty());
 
         restUserMockMvc.perform(put(Routes.AFFILIATE_DETAIL, 999L)
         		.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -316,7 +316,7 @@ public class AffiliateResourceTest {
 
 	@Test
 	public void updateAffiliateShouldFailForUnknownAffiliate() throws Exception {
-        when(affiliateRepository.findById(999L)).thenReturn(null);
+        when(affiliateRepository.findById(999L)).thenReturn(Optional.empty());
 
         restUserMockMvc.perform(put(Routes.AFFILIATE, 999L)
         		.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -480,7 +480,7 @@ public class AffiliateResourceTest {
 
 	@Test
 	public void deleteAffiliateShouldFailForUnknownAffiliate() throws Exception {
-        when(affiliateRepository.findById(999L)).thenReturn(null);
+        when(affiliateRepository.findById(999L)).thenReturn(Optional.empty());
 
         restUserMockMvc.perform(delete(Routes.AFFILIATE, 999L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))

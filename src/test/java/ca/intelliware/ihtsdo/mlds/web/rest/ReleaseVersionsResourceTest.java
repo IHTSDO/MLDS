@@ -120,7 +120,7 @@ public class ReleaseVersionsResourceTest {
 	@Test
 	public void testReleaseVersionUpdateFailsForUnknownId() throws Exception {
 		withReleasePackageWithIdOf(1L);
-		Mockito.when(releaseVersionRepository.findById(999L)).thenReturn(null);
+		Mockito.when(releaseVersionRepository.findById(999L)).thenReturn(Optional.empty());
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_VERSION, 1L, 999L)
 						.contentType(MediaType.APPLICATION_JSON_UTF8)
