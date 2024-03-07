@@ -29,11 +29,11 @@ public class ImportResult {
 		return errors;
 	}
 	public void addError(LineRecord lineRecord, FieldMapping mapping, String error) {
-//		addError("Line:"+lineRecord.lineNumber+" Col:"+mapping.columnIndex+":"+mapping.columnName+" "+error);
+		addError("Line:"+lineRecord.lineNumber+" Col:"+mapping.columnIndex+":"+mapping.columnName+" "+error);
 	}
 	public void addError(LineRecord lineRecord, String error) {
 
-//		addError("Line:"+lineRecord.lineNumber+" "+error);
+		addError("Line:"+lineRecord.lineNumber+" "+error);
 	}
 	public void addException(Exception e) {
 		addError("Exception "+e);
