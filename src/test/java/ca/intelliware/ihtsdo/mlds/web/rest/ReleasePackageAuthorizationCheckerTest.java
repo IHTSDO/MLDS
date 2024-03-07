@@ -209,7 +209,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 	public void userCannotDownloadApprovedPackageVersionWhenAccountDeactivated() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
-		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
+//		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
 
 		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeactivated()).thenReturn(true);
 
@@ -222,7 +222,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 	public void userCannotDownloadApprovedPackageVersionWhenAccountDeregistered() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
-		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
+//		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
 
 		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeregistered()).thenReturn(true);
 
@@ -235,7 +235,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 	public void userCannotDownloadApprovedPackageVersionWhenAccountPendingInvoice() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
-		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
+//		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
 
 		Mockito.when(userStandingCalculator.isLoggedInUserAffiliatePendingInvoice()).thenReturn(true);
 

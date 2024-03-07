@@ -22,9 +22,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class CountryValueConverterTest {
     @Mock
     private CountryRepository countryRepository;
-    
+
 	private CountryValueConverter fixture;
-	
+
 	private Country countryAB;
 	private Country countryST;
 
@@ -37,17 +37,17 @@ public class CountryValueConverterTest {
     @Before
     public void setup() {
     	fixture = new CountryValueConverter();
-    	
+
     	fixture.countryRepository = countryRepository;
-    	
+
     	countryAB = new Country("AB", "ABC", "AB Country");
     	countryST = new Country("ST", "STT", "ST Country");
-    	
+
 		lineRecord = new LineRecord(1, Arrays.asList("field"), false);
 		fieldMapping = new FieldMapping(2, "columnName", null, null, null);
 		result = new ImportResult();
     }
-    
+
     @Test
     public void toStringShouldReturnEmptyStringForNull() {
     	assertEquals(fixture.toString(null), "");
@@ -71,32 +71,32 @@ public class CountryValueConverterTest {
     @Test
     public void toObjectShouldReturnCountry() {
     	when(countryRepository.findById("AB")).thenReturn(Optional.ofNullable(countryAB));
-    	
+
     	assertEquals(fixture.toObject("AB"), countryAB);
     }
-    
+
     @Test
     public void validateShouldPassForKnownCountry() {
     	when(countryRepository.findById("AB")).thenReturn(Optional.ofNullable(countryAB));
-    	
+
     	fixture.validate("AB", lineRecord, fieldMapping, result);
-    	
+
     	assertTrue(result.errors.isEmpty());
     }
 
     @Test
     public void validateShouldAddErrorForUnknownCountry() {
-    	when(countryRepository.findById("ZZ")).thenReturn(null);
-    	
+    	when(countryRepository.findById("ZZ")).thenReturn(Optional.empty());
+
     	fixture.validate("ZZ", lineRecord, fieldMapping, result);
-    	
+
     	assertEquals(result.errors.size(), 1);
     }
-    
+
     @Test
     public void getOptionsShouldProvideSortedListOfOptionsAsStrings() {
     	when(countryRepository.findAll()).thenReturn(Lists.newArrayList(countryST, countryAB));
-    	
+
     	assertEquals(fixture.getOptions(), Lists.newArrayList("AB", "ST"));
     }
 }
