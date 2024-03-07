@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.domain;
 
 
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Sets;
@@ -23,7 +24,7 @@ import java.util.Set;
 
 @Entity
 @Indexed
-//@JsonFilter("affiliatePrivacyFilter")
+@JsonFilter("affiliatePrivacyFilter")
 //@Where(clause = "inactive_at IS NULL")
 //@SQLDelete(sql="UPDATE affiliate SET inactive_at = now() WHERE affiliate_id = ?")
 public class Affiliate extends BaseEntity {
