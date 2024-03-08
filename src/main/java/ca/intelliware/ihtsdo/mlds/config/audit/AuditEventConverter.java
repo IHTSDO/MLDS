@@ -27,20 +27,8 @@ public class AuditEventConverter {
         List<AuditEvent> auditEvents = new ArrayList<>();
 
         for (PersistentAuditEvent persistentAuditEvent : persistentAuditEvents) {
-            /*AuditEvent auditEvent = new AuditEvent(persistentAuditEvent.getAuditEventDate().atOffset().toInstant(), persistentAuditEvent.getPrincipal(),
-                    persistentAuditEvent.getAuditEventType(), convertDataToObjects(persistentAuditEvent.getData()));*/
-            LocalDateTime auditEventDate = LocalDateTime.from(persistentAuditEvent.getAuditEventDate());
-
-// Convert LocalDateTime to Instant
-            Instant instant = auditEventDate.toInstant(ZoneOffset.UTC);
-
-// Create AuditEvent object
-            AuditEvent auditEvent = new AuditEvent(
-                    instant,
-                    persistentAuditEvent.getPrincipal(),
-                    persistentAuditEvent.getAuditEventType(),
-                    convertDataToObjects(persistentAuditEvent.getData())
-            );
+            AuditEvent auditEvent = new AuditEvent(persistentAuditEvent.getAuditEventDate(), persistentAuditEvent.getPrincipal(),
+                persistentAuditEvent.getAuditEventType(), convertDataToObjects(persistentAuditEvent.getData()));
             auditEvents.add(auditEvent);
         }
 
