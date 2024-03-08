@@ -337,8 +337,8 @@ public class AffiliateResourceTest {
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().is5xxServerError());
         	Assert.fail();
-        } catch (NestedServletException e) {
-        	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("not allowed"));
+        } catch (Exception e) {
+        	Assert.assertThat(e.getMessage(), Matchers.containsString("not allowed"));
         }
 	}
 
@@ -497,8 +497,8 @@ public class AffiliateResourceTest {
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().is5xxServerError());
         	Assert.fail();
-        } catch (NestedServletException e) {
-        	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("not allowed"));
+        } catch (Exception e) {
+        	Assert.assertThat(e.getMessage(), Matchers.containsString("not allowed"));
         }
 	}
 
