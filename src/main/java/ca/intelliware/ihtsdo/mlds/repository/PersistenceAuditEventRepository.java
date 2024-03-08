@@ -1,10 +1,10 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
-import org.joda.time.Instant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.Instant;
 import java.util.List;
 
 
@@ -17,10 +17,10 @@ import java.util.List;
     List<PersistentAuditEvent> findByPrincipal(String principal);
 
     List<PersistentAuditEvent> findByPrincipalAndAuditEventDateGreaterThan(String principal, Instant after);
-    
+
     @Query("select p from PersistentAuditEvent p where p.auditEventDate >= ?1 and p.auditEventDate <= ?2")
     List<PersistentAuditEvent> findByDates(Instant fromDate, Instant toDate);
-    
+
     List<PersistentAuditEvent> findByAuditEventType(String auditEventType);
 
 	List<PersistentAuditEvent> findByAffiliateId(Long affiliateId);

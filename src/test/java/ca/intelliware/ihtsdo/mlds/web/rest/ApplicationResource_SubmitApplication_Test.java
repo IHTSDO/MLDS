@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.hamcrest.Matchers;
@@ -50,7 +51,7 @@ import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 public class ApplicationResource_SubmitApplication_Test {
 	private MockMvc mockMvc;
-	
+
 	@Mock ApplicationRepository applicationRepository;
 	@Mock ApplicationAuditEvents applicationAuditEvents;
 	@Mock ApplicationAuthorizationChecker applicationAuthorizationChecker;
@@ -66,18 +67,18 @@ public class ApplicationResource_SubmitApplication_Test {
 	@Mock ApplicationApprovedEmailSender applicationApprovedEmailSender;
 	@Mock ApplicationApprovalStateChangeNotifier applicationApprovalStateChangeNotifier;
 	@Mock CommercialUsageService commercialUsageService;
-	
+
 	ApplicationResource applicationResource;
-	
+
 	Member swedenMember;
 	Country sweden;
-	
+
 	@Before
 	public void setup() {
         MockitoAnnotations.initMocks(this);
-        
+
         applicationResource = new ApplicationResource();
-        
+
         applicationResource.applicationRepository = applicationRepository;
         applicationResource.applicationAuditEvents = applicationAuditEvents;
         applicationResource.authorizationChecker = applicationAuthorizationChecker;
@@ -93,7 +94,7 @@ public class ApplicationResource_SubmitApplication_Test {
         applicationResource.applicationApprovalStateChangeNotifier = applicationApprovalStateChangeNotifier;
         applicationResource.sessionService = sessionService;
         applicationResource.commercialUsageService = commercialUsageService;
-        
+
         applicationResource.routeLinkBuilder = new RouteLinkBuilder();
 
         this.mockMvc = MockMvcBuilders
@@ -105,9 +106,11 @@ public class ApplicationResource_SubmitApplication_Test {
         Mockito.when(memberRepository.findOneByKey("SE")).thenReturn(swedenMember);
         sweden = new Country("SE", "SWE", "Sweden");
         sweden.setMember(swedenMember);
-        Mockito.when(countryRepository.findById("SE")).thenReturn(Optional.ofNullable(sweden));
+//        Mockito.when(countryRepository.findById("SE")).thenReturn(Optional.ofNullable(sweden));
+        Mockito.when(countryRepository.findById("SE")).thenReturn(Optional.of(Objects.requireNonNull(sweden)));
 
-		Mockito.when(sessionService.getUsernameOrNull()).thenReturn("user");
+
+        Mockito.when(sessionService.getUsernameOrNull()).thenReturn("user");
 	}
 
 	@Test
@@ -125,19 +128,19 @@ public class ApplicationResource_SubmitApplication_Test {
 		PrimaryApplication application = withExistingSwedishPrimaryApplication(1L, affiliate);
 		application.setApprovalState(ApprovalState.NOT_SUBMITTED);
 		application.getCommercialUsage().setState(UsageReportState.NOT_SUBMITTED);
-		
+
 		Mockito.doThrow(new IllegalStateException("NO_ACCESS")).when(applicationAuthorizationChecker).checkCanAccessApplication(Mockito.any(Application.class));
 
 		try {
 			postSubmitApplication(1L, applicationRequestBody())
 				.andExpect(status().is5xxServerError());
 			Assert.fail();
-        } catch (NestedServletException e) {
-        	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("NO_ACCESS"));
+        } catch (Exception e) {
+        	Assert.assertThat(e.getMessage(), Matchers.containsString("NO_ACCESS"));
         }
 	}
 
-	
+
 	@Test
 	public void submitApplicationShouldPromoteApplicationToSubmitted() throws Exception {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING, AffiliateType.ACADEMIC);
