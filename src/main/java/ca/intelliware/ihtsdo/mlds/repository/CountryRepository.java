@@ -13,8 +13,8 @@ public interface CountryRepository extends JpaRepository<Country, String> {
 
 	List<Country> findByCommonName(String commonName);
 
-    @Query(value = "SELECT * FROM mlds.country WHERE iso_code_2 = :isoCode2", nativeQuery = true)
-    Country findByIsoCode2(@Param("isoCode2") String isoCode2);
+    Country findByIsoCode2(String isoCode2);
+
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM mlds.country WHERE iso_code_2 = :isoCode2", nativeQuery = true)

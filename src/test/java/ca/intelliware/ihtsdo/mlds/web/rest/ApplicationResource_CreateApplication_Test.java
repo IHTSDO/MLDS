@@ -29,39 +29,39 @@ import ca.intelliware.ihtsdo.mlds.web.rest.ApplicationResource.CreateApplication
 
 public class ApplicationResource_CreateApplication_Test {
 	private MockMvc mockMvc;
-	
+
 	@Mock
 	ApplicationRepository applicationRepository;
-	
+
 	@Mock
 	ApplicationAuditEvents applicationAuditEvents;
-	
+
 	@Mock
 	ApplicationAuthorizationChecker applicationAuthorizationChecker;
-	
+
 	@Mock
 	MemberRepository memberRepository;
-	
+
 	@Mock
 	ApplicationService applicationService;
-	
-	
+
+
 	ApplicationResource applicationResource;
-	
+
 	Member sweden;
-	
+
 	@Before
 	public void setup() {
         MockitoAnnotations.initMocks(this);
-        
+
         applicationResource = new ApplicationResource();
-        
+
         applicationResource.applicationRepository = applicationRepository;
         applicationResource.applicationAuditEvents = applicationAuditEvents;
         applicationResource.authorizationChecker = applicationAuthorizationChecker;
         applicationResource.applicationService = applicationService;
         applicationResource.memberRepository = memberRepository;
-        
+
         applicationResource.routeLinkBuilder = new RouteLinkBuilder();
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(applicationResource).build();
@@ -79,8 +79,8 @@ public class ApplicationResource_CreateApplication_Test {
 			postRequestForStartSwedishExtension()
 				.andExpect(status().is5xxServerError());
 			Assert.fail();
-        } catch (NestedServletException e) {
-        	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("ACCOUNT DEACTIVATED"));
+        } catch (Exception e) {
+        	Assert.assertThat(e.getMessage(), Matchers.containsString("ACCOUNT DEACTIVATED"));
         }
 	}
 
@@ -99,7 +99,7 @@ public class ApplicationResource_CreateApplication_Test {
 
 		postRequestForStartSwedishExtension()
 			.andExpect(status().isCreated());
-		
+
 		Mockito.verify(applicationAuditEvents).logCreationOf(Mockito.any(ExtensionApplication.class));
 	}
 
@@ -125,5 +125,5 @@ public class ApplicationResource_CreateApplication_Test {
 		ExtensionApplication application = new ExtensionApplication(applicationId);
 		Mockito.when(applicationService.startNewApplication(ApplicationType.EXTENSION, sweden)).thenReturn(application);
 	}
-	
+
 }

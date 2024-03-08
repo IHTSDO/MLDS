@@ -36,25 +36,25 @@ import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class CommercialUsageResource_CreateNewSubmission_Test {
     @Mock
     AffiliateRepository affiliateRepository;
-    
+
     @Mock
 	CommercialUsageAuthorizationChecker authorizationChecker;
-    
+
     @Mock
     CommercialUsageRepository commercialUsageRepository;
-    
+
     @Mock
     CommercialUsageAuditEvents commercialUsageAuditEvents;
-    
+
     @Mock
     CommercialUsageResetter commercialUsageResetter;
-    
+
 	CommercialUsageResource commercialUsageResource;
-	
+
 	private MockMvc restCommercialUsageResource;
 
 	private Affiliate affiliate;
@@ -62,21 +62,21 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 	@Before
     public void setup() {
         commercialUsageResource = new CommercialUsageResource();
-        
+
         commercialUsageResource.affiliateRepository = affiliateRepository;
         commercialUsageResource.authorizationChecker = authorizationChecker;
         commercialUsageResource.commercialUsageRepository = commercialUsageRepository;
         commercialUsageResource.commercialUsageAuditEvents = commercialUsageAuditEvents;
         commercialUsageResource.commercialUsageResetter = commercialUsageResetter;
-        
+
         this.restCommercialUsageResource = MockMvcBuilders
         		.standaloneSetup(commercialUsageResource)
         		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
         		.build();
-        
+
         Mockito.when(commercialUsageRepository.save(Mockito.any(CommercialUsage.class))).then(AdditionalAnswers.returnsFirstArg());
         Mockito.when(commercialUsageRepository.saveAndFlush(Mockito.any(CommercialUsage.class))).then(AdditionalAnswers.returnsFirstArg());
-        
+
 		withCommercialUsageResetter();
 
 		affiliate = new Affiliate(1L);
@@ -87,14 +87,13 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 	@Test
 	public void createNewSubmissionShouldCreateNewBlankUsageWhenNoExistingUsages() throws Exception {
 		CommercialUsagePeriod usagePeriod = withUsagePeriod("2014-01-01", "2014-06-30");
-		
-		Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Optional.ofNullable(Mockito.any(Affiliate.class)), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
-		
-		Mockito.when(commercialUsageRepository.findActiveByMostRecentPeriod(Optional.ofNullable(Mockito.any(Affiliate.class)))).thenReturn(Arrays.<CommercialUsage>asList());
-		
+
+        Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
+
+        Mockito.when(commercialUsageRepository.findActiveByMostRecentPeriod(Mockito.any(Affiliate.class))).thenReturn(Arrays.<CommercialUsage>asList());
 		final long newCommercialUsageId = 123L;
 		saveCommercialUsageAndAssignIdForNewEntities(newCommercialUsageId);
-		
+
 		postCreateNewSubmission(affiliate.getAffiliateId(), usagePeriod)
 					.andExpect(status().isOk())
 					.andExpect(jsonPath("$.commercialUsageId").value(123))
@@ -114,7 +113,7 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 				}
 				return commercialUsage;
 			}
-			
+
 		});
 	}
 
@@ -123,31 +122,30 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 		CommercialUsagePeriod usagePeriod = withUsagePeriod("2014-01-01", "2014-06-30");
 		CommercialUsage commercialUsage = new CommercialUsage(2L, affiliate);
 		commercialUsage.setState(UsageReportState.SUBMITTED);
-		
-		Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Optional.ofNullable(Mockito.any(Affiliate.class)), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList(commercialUsage));
-		
+
+        Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList(commercialUsage));
+
 		postCreateNewSubmission(affiliate.getAffiliateId(), usagePeriod)
 					.andExpect(status().isOk())
 					.andExpect(jsonPath("$.commercialUsageId").value(2));
 	}
-	
+
 	@Test
 	public void createNewSubmissionShouldCreateDuplicateUsageWhenNoMatchingPeriodButMostRecentPeriodPresent() throws Exception {
 		CommercialUsagePeriod usagePeriod = withUsagePeriod("2014-01-01", "2014-06-30");
-		
+
 		CommercialUsage otherCommercialUsage = new CommercialUsage(2L, affiliate);
 		otherCommercialUsage.setStartDate(LocalDate.parse("2014-07-01"));
 		otherCommercialUsage.setEndDate(LocalDate.parse("2014-12-31"));
 		otherCommercialUsage.setType(AffiliateType.COMMERCIAL);
 		otherCommercialUsage.setState(UsageReportState.SUBMITTED);
 
-		Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Optional.ofNullable(Mockito.any(Affiliate.class)), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
-		
-		Mockito.when(commercialUsageRepository.findActiveByMostRecentPeriod(Optional.ofNullable(Mockito.any(Affiliate.class)))).thenReturn(Arrays.<CommercialUsage>asList(otherCommercialUsage));
-		
+        Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
+
+        Mockito.when(commercialUsageRepository.findActiveByMostRecentPeriod(Mockito.any(Affiliate.class))).thenReturn(Arrays.<CommercialUsage>asList(otherCommercialUsage));
 		final long newCommercialUsageId = 123L;
 		saveCommercialUsageAndAssignIdForNewEntities(newCommercialUsageId);
-		
+
 		postCreateNewSubmission(affiliate.getAffiliateId(), usagePeriod)
 					.andExpect(status().isOk())
 					.andExpect(jsonPath("$.commercialUsageId").value(123))
@@ -159,18 +157,18 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 	@Test
 	public void createNewSubmissionShouldLogWhenNewUsageIsCreated() throws Exception {
 		CommercialUsagePeriod usagePeriod = withUsagePeriod("2014-01-01", "2014-06-30");
-		
-		Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Optional.ofNullable(Mockito.any(Affiliate.class)), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
-		
-		Mockito.when(commercialUsageRepository.findActiveByMostRecentPeriod(Optional.ofNullable(Mockito.any(Affiliate.class)))).thenReturn(Arrays.<CommercialUsage>asList());
-		
-		final long newCommercialUsageId = 123L;
+
+        Mockito.when(commercialUsageRepository.findActiveBySamePeriod(Mockito.any(Affiliate.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class))).thenReturn(Arrays.<CommercialUsage>asList());
+
+        Mockito.when(commercialUsageRepository.findActiveByMostRecentPeriod(Mockito.any(Affiliate.class))).thenReturn(Arrays.<CommercialUsage>asList());
+
+        final long newCommercialUsageId = 123L;
 		saveCommercialUsageAndAssignIdForNewEntities(newCommercialUsageId);
-		
+
 		postCreateNewSubmission(affiliate.getAffiliateId(), usagePeriod)
 					.andExpect(status().isOk())
 					.andExpect(jsonPath("$.commercialUsageId").value(123));
-		
+
 		Mockito.verify(commercialUsageAuditEvents).logCreationOf(Mockito.any(CommercialUsage.class));
 	}
 
@@ -179,7 +177,7 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 		LocalDate localDate = LocalDate.parse(date);
 		return org.hamcrest.Matchers.contains(localDate.getYear(),localDate.getMonthValue(),localDate.getDayOfMonth());
 	}
-	
+
 	private CommercialUsagePeriod withUsagePeriod(String startDate, String endDate) {
 		CommercialUsagePeriod usagePeriod = new CommercialUsagePeriod();
 		usagePeriod.setStartDate(LocalDate.parse(startDate));

@@ -17,10 +17,10 @@ import java.util.Optional;
 
 public interface CommercialUsageRepository extends JpaRepository<CommercialUsage, Long> {
     @Query("SELECT p FROM CommercialUsage p WHERE p.affiliate = ?1 AND p.startDate = ?2 AND p.endDate = ?3 AND p.effectiveTo IS NULL")
-    List<CommercialUsage> findActiveBySamePeriod(Optional<Affiliate> affiliate, LocalDate startDate, LocalDate endDate);
+    List<CommercialUsage> findActiveBySamePeriod(Affiliate affiliate, LocalDate startDate, LocalDate endDate);
 
     @Query("SELECT p FROM CommercialUsage p WHERE p.affiliate = ?1 AND p.effectiveTo IS NULL ORDER BY p.startDate DESC")
-    List<CommercialUsage> findActiveByMostRecentPeriod(Optional<Affiliate> affiliate);
+    List<CommercialUsage> findActiveByMostRecentPeriod(Affiliate affiliate);
 
 	Collection<CommercialUsage> findByStateIn(Collection<UsageReportState> states);
 

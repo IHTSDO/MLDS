@@ -44,16 +44,16 @@ public class ReleaseFilesResourceTest {
 
 	@Mock
 	ReleasePackageAuthorizationChecker authorizationChecker;
-	
+
 	@Mock
 	CurrentSecurityContext currentSecurityContext;
 
 	@Mock
 	ReleasePackageAuditEvents releasePackageAuditEvents;
-	
+
 	@Mock
 	UriDownloader uriDownloader;
-	
+
 	@Mock
 	UserMembershipAccessor userMembershipAccessor;
 
@@ -62,9 +62,9 @@ public class ReleaseFilesResourceTest {
 	@Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        
+
         releaseFilesResource = new ReleaseFilesResource();
-        
+
         releaseFilesResource.releaseVersionRepository = releaseVersionRepository;
         releaseFilesResource.releaseFileRepository = releaseFileRepository;
         releaseFilesResource.authorizationChecker = authorizationChecker;
@@ -84,7 +84,7 @@ public class ReleaseFilesResourceTest {
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
-		
+
 		Mockito.verify(uriDownloader).download(Mockito.eq("http://test.com/file"), Mockito.any(HttpServletRequest.class), Mockito.any(HttpServletResponse.class));
 	}
 
@@ -93,11 +93,11 @@ public class ReleaseFilesResourceTest {
 		Mockito.when(releaseFileRepository.findById(id)).thenReturn(Optional.of(releaseFile));
 		return releaseFile;
 	}
-	
+
 	@Test
 	public void downloadReleaseFileShouldLogToAudit() throws Exception {
 		withReleaseFileWithIdOf(3L);
-		
+
 		restReleaseFilesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -105,24 +105,24 @@ public class ReleaseFilesResourceTest {
 
 		Mockito.verify(releasePackageAuditEvents).logDownload(Mockito.any(ReleaseFile.class), Mockito.anyInt(), Mockito.any(Affiliate.class));
 	}
-	
+
 	@Test
 	public void downloadReleaseFileShouldFailIfCheckDenied() throws Exception {
 		ReleaseFile releaseFile = withReleaseFileWithIdOf(3L);
 		releaseFile.setDownloadUrl("http://test.com/file");
-		
+
 		Mockito.doThrow(new IllegalStateException("ACCOUNT DEACTIVATED")).when(authorizationChecker).checkCanDownloadReleaseVersion(Mockito.any(ReleaseVersion.class));
 
 		try {
 			restReleaseFilesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-	                .accept(MediaType.APPLICATION_JSON_UTF8))
+					.contentType(MediaType.APPLICATION_JSON)
+	                .accept(MediaType.APPLICATION_JSON))
 	                .andExpect(status().is5xxServerError());
 			Assert.fail();
         } catch (NestedServletException e) {
         	Assert.assertThat(e.getRootCause().getMessage(), Matchers.containsString("ACCOUNT DEACTIVATED"));
         }
-		
+
 		Mockito.verify(uriDownloader, Mockito.never()).download(Mockito.eq("http://test.com/file"), Mockito.any(HttpServletRequest.class), Mockito.any(HttpServletResponse.class));
 	}
 
