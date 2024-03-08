@@ -29,13 +29,13 @@ import java.util.Collection;
 @ConditionalOnClass(ObjectMapper.class)
 @DependsOn("passwordEncoder")
 public class JacksonConfigurer {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(JacksonConfigurer.class);
 
 	@Autowired
 	private ListableBeanFactory beanFactory;
-	
-//	@Autowired
+
+	@Autowired
 	ObjectMapper objectMapper;
 
 	@Bean
@@ -44,11 +44,11 @@ public class JacksonConfigurer {
 		SimpleModule mldsModule = new MLDSJacksonModule(memberRepository, securityContext);
 		return mldsModule;
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		logger.debug("Initialising Jackson Mappers using {}", beanFactory.getClass().getName());
-		
+
 		Collection<ObjectMapper> mappers = BeanFactoryUtils
 				.beansOfTypeIncludingAncestors(beanFactory, ObjectMapper.class,true, true)
 				.values();
@@ -59,7 +59,7 @@ public class JacksonConfigurer {
 			registerFilters(mapper);
 			mappersConfigured++;
 		}
-		
+
 		if (mappersConfigured == 0) {
 			logger.error("*** NO MAPPERS FOUND TO CONFIGURE! ***");
 		}

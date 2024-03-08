@@ -476,8 +476,9 @@ public class ApplicationResource {
 		if (addressJsonNode != null) {
 			JsonNode country = addressJsonNode.get("country");
 			if (checkIfValidField(country, "isoCode2")) {
-//				mailingAddress.setCountry(countryRepository.findOne(getStringField(country, "isoCode2")));
-                mailingAddress.setCountry(countryRepository.findByIsoCode2(getStringField(country, "isoCode2")));
+                Optional<Country> countryOptional = countryRepository.findById(getStringField(country, "isoCode2"));
+                Country countrySet = countryOptional.get();
+                mailingAddress.setCountry(countrySet);
 			}
 		}
 
@@ -492,8 +493,9 @@ public class ApplicationResource {
 		if(billingJsonNode != null) {
 			JsonNode billingCountry = billingJsonNode.get("country");
 			if (checkIfValidField(billingCountry, "isoCode2")) {
-//				billingAddress.setCountry(countryRepository.findOne(getStringField(billingCountry, "isoCode2")));
-                billingAddress.setCountry(countryRepository.findByIsoCode2(getStringField(billingCountry, "isoCode2")));
+                Optional<Country> countryOptional = countryRepository.findById(getStringField(billingCountry, "isoCode2"));
+                Country countrySet = countryOptional.get();
+                billingAddress.setCountry(countrySet);
 			}
 		}
 

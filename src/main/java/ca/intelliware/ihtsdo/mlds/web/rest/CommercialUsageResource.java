@@ -113,13 +113,15 @@ public class CommercialUsageResource {
     @Timed
     public @ResponseBody ResponseEntity<CommercialUsage> createNewSubmission(@PathVariable long affiliateId, @RequestBody CommercialUsagePeriod submissionPeriod) {
 
-    	Optional<Affiliate> affiliate = affiliateRepository.findById(affiliateId);
+    	Optional<Affiliate> affiliateOptional = affiliateRepository.findById(affiliateId);
 
 
-    	if (affiliate.isEmpty()) {
+    	if (affiliateOptional.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
 
+        Affiliate affiliate = affiliateOptional.get();
+        authorizationChecker.checkCanAccessAffiliate(affiliate);
     	CommercialUsage commercialUsage = null;
 		List<CommercialUsage> commercialUsages = commercialUsageRepository.findActiveBySamePeriod(affiliate, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
 		if (commercialUsages.size() > 0) {
@@ -134,14 +136,14 @@ public class CommercialUsageResource {
 		}
     	if (commercialUsage == null) {
 	    	commercialUsage = new CommercialUsage();
-	    	commercialUsage.setType(affiliate.get().getType());
+	    	commercialUsage.setType(affiliate.getType());
     	}
 
-//    	commercialUsageResetter.detachAndReset(commercialUsage, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
+    	commercialUsageResetter.detachAndReset(commercialUsage, submissionPeriod.getStartDate(), submissionPeriod.getEndDate());
 
     	commercialUsage = commercialUsageRepository.save(commercialUsage);
 
-    	affiliate.get().addCommercialUsage(commercialUsage);
+    	affiliate.addCommercialUsage(commercialUsage);
 
     	commercialUsageAuditEvents.logCreationOf(commercialUsage);
 
