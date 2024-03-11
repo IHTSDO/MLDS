@@ -23,14 +23,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @TestPropertySource(locations="classpath:test.application.properties")
 @ActiveProfiles("dev")
 @Transactional
 public class CountriesResourceTest {
-
     private MockMvc restUserMockMvc;
-    
+
     @Autowired
     private ApplicationContext context;
 
@@ -50,14 +49,14 @@ public class CountriesResourceTest {
                 .andExpect(jsonPath("[?(@.isoCode2=='DK')]").exists());
 
     }
-    
+
     @Test
     public void nonAuthenticatedUserCanFetchListOfCountries() throws Exception {
     	restUserMockMvc.perform(get(Routes.COUNTRIES)
     			.accept(MediaType.APPLICATION_JSON_UTF8))
     			.andExpect(status().isOk())
     			.andExpect(content().string(Matchers.not(Matchers.isEmptyOrNullString())));
-    	
+
     }
 
 }

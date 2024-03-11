@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,13 +31,13 @@ import java.util.Optional;
 public class ApplicationUpdateTest {
 	private MockMvc mockMvc;
 	private ExtensionApplication extensionApplication = new ExtensionApplication();
-	
+
 	@Mock
 	ApplicationRepository applicationRepository;
-	
+
 	@Mock
 	ApplicationAuditEvents applicationAuditEvents;
-	
+
 	@Mock ApplicationApprovalStateChangeNotifier applicationApprovalStateChangeNotifier;
 
 	@Before
@@ -47,6 +48,7 @@ public class ApplicationUpdateTest {
 		applicationResource.applicationAuditEvents = applicationAuditEvents;
 		applicationResource.applicationApprovalStateChangeNotifier = applicationApprovalStateChangeNotifier;
 		applicationResource.objectMapper = new ObjectMapper();
+        applicationResource.objectMapper.registerModule(new JavaTimeModule());
 		applicationResource.applicationService = new ApplicationService();
 
 		this.mockMvc = MockMvcBuilders
@@ -59,10 +61,9 @@ public class ApplicationUpdateTest {
 	public void userUpdatesReasonOnExtension() throws Exception {
 		withAuthorities(AuthoritiesConstants.USER_ONLY);
 		withApplication(extensionApplication);
-		
 		makeUpdateRequest("{ \"reason\": \"new reason\" }")
 		.andExpect(status().isOk());
-		
+
 		assertEquals("new reason", extensionApplication.getReason());
 	}
 
@@ -71,23 +72,24 @@ public class ApplicationUpdateTest {
 		withAuthorities(AuthoritiesConstants.USER_ONLY);
 		withApplication(extensionApplication);
 		extensionApplication.setApprovalState(ApprovalState.NOT_SUBMITTED);
-		
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
 		makeUpdateRequest("{ \"approvalState\": \"SUBMITTED\"}")
 		.andExpect(status().isOk());
-				
+
 		assertEquals(ApprovalState.SUBMITTED, extensionApplication.getApprovalState());
 	}
-	
+
 	@Test
 	public void rejectionStatusCanNotBeChangedByUser() throws Exception {
 		withAuthorities(AuthoritiesConstants.USER_ONLY);
 		withApplication(extensionApplication);
 		extensionApplication.setApprovalState(ApprovalState.REJECTED);
-		
+
 		makeUpdateRequest("{ \"approvalState\": \"SUBMITTED\"}")
 		.andExpect(status().isConflict());
 	}
-	
+
 	private void withAuthorities(String[] userOnly) {
 		// noop until we support staff
 	}
