@@ -35,7 +35,7 @@ import ca.intelliware.ihtsdo.mlds.search.AngularTranslateServiceSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestPropertySource(locations="classpath:test.application.properties")
-@SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @ActiveProfiles("dev")
 @Transactional
 public class AffiliateRepositoryTest extends MySqlTestContainerTest {
