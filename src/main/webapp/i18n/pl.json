@@ -5,7 +5,10 @@
             "account": {
                 "contactInfo": "Kontakt",
                 "main": "Konto",
-                "password": "Hasło"
+                "password": "Hasło",
+                "sessions": "Sesje",
+                "metrics": "Metryka",
+                "logs": "Dzienniki"
             }
         }
     }
