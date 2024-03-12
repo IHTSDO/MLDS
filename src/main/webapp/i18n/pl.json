@@ -412,7 +412,8 @@
             "update": "Aktualizacja",
             "from": "z",
             "ok": "OK",
-            "save": "Ratować"
+            "save": "Ratować",
+            "welcome": "Powitanie"
         }
     }
 }
