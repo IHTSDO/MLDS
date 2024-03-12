@@ -160,10 +160,11 @@ public class CommercialUsageResource {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
 
-        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
-    	if (commercialUsage == null) {
+        Optional<CommercialUsage> commercialUsageOptional = commercialUsageRepository.findById(commercialUsageId);
+    	if (commercialUsageOptional.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+        CommercialUsage commercialUsage = commercialUsageOptional.get();
 
     	return new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
     }
@@ -176,11 +177,11 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<UsageContext> updateCommercialUsageContext(@PathVariable long commercialUsageId, @RequestBody UsageContext context) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
-
-        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
-    	if (commercialUsage == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        Optional<CommercialUsage> commercialUsageOptional = commercialUsageRepository.findById(commercialUsageId);
+        if (commercialUsageOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        CommercialUsage commercialUsage = commercialUsageOptional.get();
 
     	commercialUsage.setContext(context);
 
@@ -199,10 +200,11 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<UsageContext> updateCommercialUsageType(@PathVariable long commercialUsageId, @PathVariable AffiliateType type) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
-        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
-    	if (commercialUsage == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        Optional<CommercialUsage> commercialUsageOptional = commercialUsageRepository.findById(commercialUsageId);
+        if (commercialUsageOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        CommercialUsage commercialUsage = commercialUsageOptional.get();
 
     	commercialUsage.setType(type);
 
@@ -223,10 +225,12 @@ public class CommercialUsageResource {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
 
-        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
-    	if (commercialUsage == null) {
+//        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
+        Optional<CommercialUsage> commercialUsageOptional = commercialUsageRepository.findById(commercialUsageId);
+    	if (commercialUsageOptional.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+        CommercialUsage commercialUsage = commercialUsageOptional.get();
 
     	commercialUsage = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, applyTransition.getTransition());
 
@@ -245,10 +249,11 @@ public class CommercialUsageResource {
     	commercialUsageEntryRepository.save(newEntryValue);
 
 
-        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
-    	if (commercialUsage == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        Optional<CommercialUsage> commercialUsageOptional = commercialUsageRepository.findById(commercialUsageId);
+        if (commercialUsageOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        CommercialUsage commercialUsage = commercialUsageOptional.get();
 
     	commercialUsage.addEntry(newEntryValue);
 
@@ -292,10 +297,11 @@ public class CommercialUsageResource {
     	CommercialUsageEntry entry = commercialUsageEntryRepository.save(newEntryValue);
 
 
-        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
-    	if (commercialUsage == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        Optional<CommercialUsage> commercialUsageOptional = commercialUsageRepository.findById(commercialUsageId);
+        if (commercialUsageOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        CommercialUsage commercialUsage = commercialUsageOptional.get();
 
     	commercialUsage.addEntry(entry);
 
@@ -340,10 +346,11 @@ public class CommercialUsageResource {
     	}
 
 
-        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
-		if (commercialUsageCountry == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+        Optional<CommercialUsage> commercialUsageOptional = commercialUsageRepository.findById(commercialUsageId);
+        if (commercialUsageOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        CommercialUsage commercialUsage = commercialUsageOptional.get();
 
 
         commercialUsageCountryRepository.deleteByCommercialUsageCountId(commercialUsageCountId);
@@ -370,10 +377,11 @@ public class CommercialUsageResource {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
 
-        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
-    	if (commercialUsage == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        Optional<CommercialUsage> commercialUsageOptional = commercialUsageRepository.findById(commercialUsageId);
+        if (commercialUsageOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        CommercialUsage commercialUsage = commercialUsageOptional.get();
 
 		// MLDS-889 We're seeing duplicate country counts being created which I'm guessing happens when they come in without a primary key
 		// but already exist in the database. I'll also sync this block, in case we're looking at double clicking.
@@ -431,10 +439,11 @@ public class CommercialUsageResource {
     	CommercialUsageCountry count = commercialUsageCountryRepository.save(newCountValue);
 
 
-        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
-    	if (commercialUsage == null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        Optional<CommercialUsage> commercialUsageOptional = commercialUsageRepository.findById(commercialUsageId);
+        if (commercialUsageOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        CommercialUsage commercialUsage = commercialUsageOptional.get();
 
     	commercialUsage.addCount(count);
 
