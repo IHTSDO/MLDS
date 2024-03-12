@@ -31,7 +31,7 @@
             "staff": {
                 "dashboard": "Panel",
                 "pendingApplications": "Oczekujące wnioski",
-                "usageReports": "Raporty użytkowania",
+                "usageReports": "Raporty użycia",
                 "activityLog": "Dziennik aktywności",
                 "packageManagement": "Zarządzanie pakietami",
                 "licenseTC": "Licencja T i C",
