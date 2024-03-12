@@ -15,7 +15,8 @@
                 "apidocs": "API",
                 "register": "Zarejestruj się",
                 "affiliates": "Partnerzy",
-                "dashboard": "Panel"
+                "dashboard": "Panel",
+                "tracker": "Śledzenie użytkownika"
             },
             "dashboard": "Panel",
             "help": "Pomoc",
@@ -36,14 +37,16 @@
                 "packageManagement": "Zarządzanie pakietami",
                 "licenseTC": "Licencja T i C",
                 "reportsExtracts": "Raporty i wyciągi",
-                "logout": "Wyloguj"
+                "logout": "Wyloguj",
+                "affiliteUserManagement": "Zarządzanie użytkownikami partnerskimi"
             },
             "admin": {
                 "importAffiliateRecords": "Importuj rekordy partnerów",
                 "manageBlacklist": "Zarządzaj czarną listą",
                 "nationalRegistrationList": "Krajowa lista rejestracyjna"
             },
-            "language": "Język"
+            "language": "Język",
+            "home": "Strona główna"
         },
         "member": {
             "AE": "Zjednoczone Emiraty Arabskie",
@@ -213,7 +216,7 @@
             "FJ": "Fidżi",
             "GB": "Zjednoczone Królestwo",
             "FI": "Finlandia",
-            "GS": "Georgia Południowa i Sandwich Południowy",
+            "GS": "Georgia Południowa i Wyspy Sandwich Południowy",
             "IM": "Wyspa Man",
             "IN": "Indie",
             "IO": "Brytyjskie Terytorium Oceanu Indyjskiego"
