@@ -431,5 +431,12 @@
             "license": "Licencja",
             "back": "Powrót"
         }
+    },
+    "logout": {
+        "title": "Wylogowanie z MLDS",
+        "subtitle": "Wylogowujemy Cię z sesji."
+    },
+    "register": {
+        "title": "Rejestr"
     }
 }
