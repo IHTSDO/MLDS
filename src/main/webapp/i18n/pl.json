@@ -25,7 +25,7 @@
             "applications": "Aplikacje",
             "releasePackages": "Wydaj pakiety",
             "affiliate": {
-                "accountInformation": "informacje o koncie",
+                "accountInformation": "Informacje o koncie",
                 "changePassword": "Zmień hasło",
                 "logout": "Wyloguj"
             },
@@ -38,7 +38,7 @@
                 "licenseTC": "Licencja T i C",
                 "reportsExtracts": "Raporty i wyciągi",
                 "logout": "Wyloguj",
-                "affiliteUserManagement": "Zarządzanie użytkownikami partnerskimi"
+                "affiliteUserManagement": "Zarządzanie partnerami"
             },
             "admin": {
                 "importAffiliateRecords": "Importuj rekordy partnerów",
@@ -363,7 +363,7 @@
         },
         "browsehappy": "Używasz nieaktualnej przeglądarki <strong></strong> . Prosimy o <a href=\"http://browsehappy.com/?locale=en\">uaktualnienie przeglądarki</a> w celu poprawy komfortu użytkowania.",
         "form": {
-            "username": "Zaloguj sie"
+            "username": "Zaloguj się"
         }
     }
 }
