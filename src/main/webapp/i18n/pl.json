@@ -8,7 +8,12 @@
                 "password": "Hasło",
                 "sessions": "Sesje",
                 "metrics": "Metryka",
-                "logs": "Dzienniki"
+                "logs": "Dzienniki",
+                "audits": "Audyty",
+                "login": "Zaloguj sie",
+                "logout": "Wyloguj",
+                "apidocs": "API",
+                "register": "Rejestr"
             }
         }
     }
