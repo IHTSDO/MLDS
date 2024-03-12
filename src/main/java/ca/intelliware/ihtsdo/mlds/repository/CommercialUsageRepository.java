@@ -35,12 +35,12 @@ public interface CommercialUsageRepository extends JpaRepository<CommercialUsage
     Collection<Collections> findUsageReport();
     /*MLDS 985---To Download Commercial usage CSV files this below code is used*/
 
-    @Query(value = "SELECT * FROM mlds.commercial_usage WHERE commercial_usage_id = :commercialUsageId", nativeQuery = true)
-    CommercialUsage findByCommercialUsageId(@Param("commercialUsageId") Long commercialUsageId);
+//    @Query(value = "SELECT * FROM commercial_usage WHERE commercial_usage_id = :commercialUsageId", nativeQuery = true)
+//    CommercialUsage findByCommercialUsageId(@Param("commercialUsageId") Long commercialUsageId);
 
-    @Modifying
-    @Transactional
-    @Query(value = "DELETE FROM mlds.application WHERE application_id = :applicationId", nativeQuery = true)
-    void deleteByApplicationId(@Param("applicationId") Long applicationId);
+//    @Modifying
+//    @Transactional
+//    @Query(value = "DELETE FROM mlds.application WHERE application_id = :applicationId", nativeQuery = true)
+//    void deleteByApplicationId(@Param("applicationId") Long applicationId);
 
 }

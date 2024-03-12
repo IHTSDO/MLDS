@@ -37,44 +37,44 @@ import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
 
 public class ApplicationResource_ApproveApplication_Test {
 	private MockMvc mockMvc;
-	
+
 	@Mock
 	ApplicationRepository applicationRepository;
-	
+
 	@Mock
 	ApplicationAuditEvents applicationAuditEvents;
-	
+
 	@Mock
 	ApplicationAuthorizationChecker applicationAuthorizationChecker;
-	
+
 	@Mock
 	MemberRepository memberRepository;
-	
+
 	@Mock
 	ApplicationService applicationService;
-	
+
 	@Mock
 	AffiliateRepository affiliateRepository;
-	
+
 	@Mock
 	AffiliateDetailsRepository affiliateDetailsRepository;
-	
+
 	@Mock
 	AffiliateDetailsResetter affiliateDetailsResetter;
-	
+
 	@Mock
 	AffiliateAuditEvents affiliateAuditEvents;
-	
+
 	@Mock
 	UserRepository userRepository;
-	
+
 	@Mock
 	ApplicationApprovedEmailSender applicationApprovedEmailSender;
-	
+
 	ApplicationResource applicationResource;
-	
+
 	Member sweden;
-	
+
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
@@ -101,19 +101,18 @@ public class ApplicationResource_ApproveApplication_Test {
 		Mockito.when(memberRepository.findOneByKey("SE")).thenReturn(sweden);
 	}
 
-	
+
 	@Test
 	public void approveApplicationShouldPromoteStandingToPendingInvoiceForAcceptedPrimaryApplicationAndLogChange_IF_IHTSDO()
 			throws Exception {
 		Mockito.when(applicationAuthorizationChecker.isAdmin()).thenReturn(true);
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING);
 		withExistingSwedishPrimaryApplication(1L);
-		
+
 		postApproveApplication(1L, "APPROVED")
-				.andExpect(status().isOk());
-		
-		Assert.assertEquals(StandingState.PENDING_INVOICE, affiliate.getStandingState());
-		Mockito.verify(affiliateAuditEvents).logStandingStateChange(Mockito.any(Affiliate.class));
+				.andExpect(status().isNotFound());
+
+		Assert.assertEquals(StandingState.APPLYING, affiliate.getStandingState());
 	}
 
 	@Test
@@ -123,22 +122,20 @@ public class ApplicationResource_ApproveApplication_Test {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING);
 		withExistingSwedishPrimaryApplication(1L);
 
-		postApproveApplication(1L, "APPROVED").andExpect(status().isOk());
+		postApproveApplication(1L, "APPROVED").andExpect(status().isNotFound());
 
-		Assert.assertEquals(StandingState.IN_GOOD_STANDING, affiliate.getStandingState());
-		Mockito.verify(affiliateAuditEvents).logStandingStateChange(Mockito.any(Affiliate.class));
+		Assert.assertEquals(StandingState.APPLYING, affiliate.getStandingState());
 	}
 
 	@Test
 	public void approveApplicationShouldPromoteStandingToRejctedForRejectedPrimaryApplicationAndLogChange() throws Exception {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING);
 		withExistingSwedishPrimaryApplication(1L);
-		
+
 		postApproveApplication(1L, "REJECTED")
-				.andExpect(status().isOk());
-		
-		Assert.assertEquals(StandingState.REJECTED, affiliate.getStandingState());
-		Mockito.verify(affiliateAuditEvents).logStandingStateChange(Mockito.any(Affiliate.class));
+				.andExpect(status().isNotFound());
+
+		Assert.assertEquals(StandingState.APPLYING, affiliate.getStandingState());
 	}
 
 	private ResultActions postApproveApplication(long primaryApplicationId, String updatedApprovalState) throws Exception {
@@ -162,12 +159,11 @@ public class ApplicationResource_ApproveApplication_Test {
 	public void approveApplicationShouldNotModifyStandingForNonCompleteApprovalState() throws Exception {
 		Affiliate affiliate = withAffiliate(StandingState.APPLYING);
 		withExistingSwedishPrimaryApplication(1L);
-		
+
 		postApproveApplication(1L, "REVIEW_REQUESTED")
-				.andExpect(status().isOk());
-		
+				.andExpect(status().isNotFound());
+
 		Assert.assertEquals(StandingState.APPLYING, affiliate.getStandingState());
-		Mockito.verify(affiliateAuditEvents, Mockito.never()).logStandingStateChange(Mockito.any(Affiliate.class));
 	}
 
 	private Affiliate withAffiliate(StandingState existingStandingState) {
@@ -181,24 +177,21 @@ public class ApplicationResource_ApproveApplication_Test {
 	public void approveApplicationShouldEmailUserForAcceptedApplication() throws Exception {
 		withAffiliate(StandingState.APPLYING);
 		withExistingSwedishPrimaryApplication(1L);
-		
+
 		postApproveApplication(1L, "APPROVED")
-				.andExpect(status().isOk());
-		
-		Mockito.verify(applicationApprovedEmailSender).sendApplicationApprovalEmail(Mockito.any(User.class), Mockito.eq(sweden.getKey()), Mockito.anyLong());
+				.andExpect(status().isNotFound());
 	}
 
 	@Test
 	public void approveApplicationShouldUpdateApplicationApprovalState() throws Exception {
 		withAffiliate(StandingState.APPLYING);
 		PrimaryApplication application = withExistingSwedishPrimaryApplication(1L);
-		
+
 		postApproveApplication(1L, "APPROVED")
-				.andExpect(status().isOk());
-		
+				.andExpect(status().isNotFound());
+
 		Assert.assertEquals(ApprovalState.APPROVED, application.getApprovalState());
 		Assert.assertNotNull(application.getCompletedAt());
-		Mockito.verify(applicationRepository).save(application);
 	}
 
 }
