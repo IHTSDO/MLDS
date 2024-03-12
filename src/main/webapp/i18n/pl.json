@@ -425,7 +425,11 @@
             "yes": "Tak",
             "no": "NIE",
             "apply": "Stosować",
-            "download": "Pobierać"
+            "download": "Pobierać",
+            "file": "Plik",
+            "publishedOn": "Opublikowano dnia",
+            "license": "Licencja",
+            "back": "Z powrotem"
         }
     }
 }
