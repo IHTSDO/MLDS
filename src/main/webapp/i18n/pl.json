@@ -455,7 +455,7 @@
                     "subtyperequired": "Wymagany podtyp"
                 }
             },
-            "success": "<strong>Rejestracja zapisana!</strong> Sprawdź swoją pocztę e-mail w celu potwierdzenia.",
+            "success": "<strong>Rejestracja zapisana!</strong> Sprawdź swoją pocztę w celu potwierdzenia.",
             "error": {
                 "fail": "<strong>Rejestracja nie powiodła się!</strong> Spróbuj ponownie później."
             }
