@@ -363,7 +363,56 @@
         },
         "browsehappy": "Używasz nieaktualnej przeglądarki <strong></strong> . Prosimy o <a href=\"http://browsehappy.com/?locale=en\">uaktualnienie przeglądarki</a> w celu poprawy komfortu użytkowania.",
         "form": {
-            "username": "Zaloguj się"
+            "username": "Zaloguj się",
+            "username.placeholder": "Twój login",
+            "name.placeholder": "Twoje imię",
+            "newpassword": "Nowe hasło",
+            "newpassword.placeholder": "Nowe hasło",
+            "confirmpassword": "Potwierdzenie nowego hasła",
+            "confirmpassword.placeholder": "Potwierdź nowe hasło",
+            "email": "E-mail",
+            "email.placeholder": "Twój adres email",
+            "country": "Kraj zamieszkania"
+        },
+        "messages": {
+            "validate": {
+                "newpassword": {
+                    "required": "Twoje hasło jest wymagane.",
+                    "strength": "Siła hasła:",
+                    "minlength": "Twoje hasło musi mieć co najmniej 5 znaków",
+                    "maxlength": "Twoje hasło nie może być dłuższe niż 50 znaków"
+                },
+                "confirmpassword": {
+                    "required": "Wymagane jest hasło potwierdzające.",
+                    "minlength": "Hasło potwierdzające musi składać się z co najmniej 5 znaków",
+                    "maxlength": "Twoje hasło potwierdzające nie może być dłuższe niż 50 znaków",
+                    "match": "Potwierdzenie hasła nie jest zgodne z hasłem"
+                },
+                "email": {
+                    "required": "Twój adres e-mail jest wymagany.",
+                    "minlength": "Twój adres e-mail musi mieć co najmniej 1 znak",
+                    "maxlength": "Twój e-mail nie może być dłuższy niż 50 znaków",
+                    "invalid": "Twój email jest niepoprawny."
+                },
+                "confirmemail": {
+                    "match": "Twój e-mail z potwierdzeniem nie jest zgodny z e-mailem"
+                }
+            }
+        },
+        "word": {
+            "or": "Lub",
+            "add": "Dodać",
+            "edit": "Edytować",
+            "name": "Nazwa",
+            "cancel": "Anulować",
+            "note": "Notatka",
+            "notes": "Notatki",
+            "close": "zamknąć",
+            "delete": "Usunąć",
+            "update": "Aktualizacja",
+            "from": "z",
+            "ok": "OK",
+            "save": "Ratować"
         }
     }
 }
