@@ -214,6 +214,7 @@
             "GB": "Zjednoczone Królestwo",
             "FI": "Finlandia",
             "GS": "Georgia Południowa i Sandwich Południowy"
-        }
+        },
+        "browsehappy": "Używasz nieaktualnej przeglądarki <strong></strong> . Prosimy o <a href=\"http://browsehappy.com/?locale=en\">uaktualnienie przeglądarki</a> w celu poprawy komfortu użytkowania."
     }
 }
