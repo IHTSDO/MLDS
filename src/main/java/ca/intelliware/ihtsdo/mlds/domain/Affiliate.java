@@ -25,8 +25,8 @@ import java.util.Set;
 @Entity
 @Indexed
 @JsonFilter("affiliatePrivacyFilter")
-//@Where(clause = "inactive_at IS NULL")
-//@SQLDelete(sql="UPDATE affiliate SET inactive_at = now() WHERE affiliate_id = ?")
+@Where(clause = "inactive_at IS NULL")
+@SQLDelete(sql="UPDATE affiliate SET inactive_at = now() WHERE affiliate_id = ?")
 public class Affiliate extends BaseEntity {
 	public static final String[] PRIVATE_FIELDS = {"notesInternal"};
 
