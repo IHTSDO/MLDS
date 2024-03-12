@@ -13,7 +13,25 @@
                 "login": "Zaloguj sie",
                 "logout": "Wyloguj",
                 "apidocs": "API",
-                "register": "Rejestr"
+                "register": "Rejestr",
+                "affiliates": "Partnerzy",
+                "dashboard": "Panel"
+            },
+            "dashboard": "Panel",
+            "help": "Pomoc",
+            "privacyPolicy": "Polityka prywatności",
+            "usageReports": "Raporty użytkowania",
+            "applications": "Aplikacje",
+            "releasePackages": "Wydaj pakiety",
+            "affiliate": {
+                "accountInformation": "informacje o koncie",
+                "changePassword": "Zmień hasło",
+                "logout": "Wyloguj"
+            },
+            "staff": {
+                "dashboard": "Panel",
+                "pendingApplications": "Oczekujące wnioski",
+                "usageReports": "Raporty użytkowania"
             }
         }
     }
