@@ -35,49 +35,49 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
     @Mock CommercialUsageAuditEvents commercialUsageAuditEvents;
     @Mock CommercialUsageResetter commercialUsageResetter;
     @Mock CommercialUsageService commercialUsageService;
-    
+
 	CommercialUsageResource commercialUsageResource;
-	
+
 	private MockMvc restCommercialUsageResource;
-	
+
 	Affiliate affiliate;
 
 	@Before
     public void setup() {
         commercialUsageResource = new CommercialUsageResource();
-        
+
         commercialUsageResource.affiliateRepository = affiliateRepository;
         commercialUsageResource.authorizationChecker = authorizationChecker;
         commercialUsageResource.commercialUsageRepository = commercialUsageRepository;
         commercialUsageResource.commercialUsageAuditEvents = commercialUsageAuditEvents;
         commercialUsageResource.commercialUsageResetter = commercialUsageResetter;
         commercialUsageResource.commercialUsageService = commercialUsageService;
-        
+
         this.restCommercialUsageResource = MockMvcBuilders
         		.standaloneSetup(commercialUsageResource)
         		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
         		.build();
-        
+
         affiliate = new Affiliate(1L);
     }
 
 	@Test
 	public void transitionCommercialUsageApprovalShouldFailForUnknownCommercialUsage() throws Exception {
-		
+
 		postTransitionCommercialUsageApproval(999L, ApprovalTransition.SUBMIT)
 			.andExpect(status().isNotFound());
 	}
 
-	
+
 	@Test
 	public void transitionCommercialUsageApprovalShouldPerformTransition() throws Exception {
 		withCommercialUsage(2L, UsageReportState.NOT_SUBMITTED);
-		
+
 		CommercialUsage transformedCommercialUsage = createCommercialUsage(2L, UsageReportState.SUBMITTED);
 		Mockito.when(
 				commercialUsageService.transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class),
 						Mockito.eq(UsageReportTransition.SUBMIT))).thenReturn(transformedCommercialUsage);
-		
+
 		postTransitionCommercialUsageApproval(2L, ApprovalTransition.SUBMIT)
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.state").value("SUBMITTED"));
@@ -86,17 +86,17 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
 	@Test
 	public void transitionCommercialUsageApprovalShouldFailForUnsupportedTransitions() throws Exception {
 		withCommercialUsage(2L, UsageReportState.NOT_SUBMITTED);
-		
+
 		Mockito.when(
 				commercialUsageService.transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class),
 						Mockito.eq(UsageReportTransition.SUBMIT))).thenThrow(new IllegalStateException("UNSUPPORTED TRANSITION"));
-		
+
 		try {
 			postTransitionCommercialUsageApproval(2L, ApprovalTransition.SUBMIT)
 				.andExpect(status().is5xxServerError());
 			Assert.fail();
-		} catch (NestedServletException e) {
-			Assert.assertThat(e.getCause().getMessage(), Matchers.containsString("UNSUPPORTED TRANSITION"));
+		} catch (Exception e) {
+			Assert.assertThat(e.getMessage(), Matchers.containsString("UNSUPPORTED TRANSITION"));
 		}
 	}
 
