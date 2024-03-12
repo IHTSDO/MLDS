@@ -1,5 +1,11 @@
 {
     "global": {
-        "title": "mlds"
+        "title": "mlds",
+        "menu": {
+            "account": {
+                "contactInfo": "Informacje kontaktowe",
+                "main": "Konto"
+            }
+        }
     }
 }
