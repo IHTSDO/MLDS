@@ -413,7 +413,19 @@
             "from": "z",
             "ok": "OK",
             "save": "Zapisz",
-            "welcome": "Witaj"
+            "welcome": "Witaj",
+            "view": "Pogląd",
+            "viewlicense": "Zobacz licencję",
+            "viewAll": "Pokaż wszystkie",
+            "state": "Państwo",
+            "status": "Status",
+            "type": "Typ",
+            "date": "Data",
+            "user": "Użytkownik",
+            "yes": "Tak",
+            "no": "NIE",
+            "apply": "Stosować",
+            "download": "Pobierać"
         }
     }
 }
