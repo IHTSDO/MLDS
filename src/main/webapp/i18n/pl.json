@@ -437,6 +437,25 @@
         "subtitle": "Wylogowujemy Cię z sesji."
     },
     "register": {
-        "title": "Rejestr"
+        "title": "Rejestr",
+        "form": {
+            "button": "Rozpocznij rejestrację"
+        },
+        "welcome": "Witamy w SNOMED International-MLDS",
+        "subwelcome": "Brama dostępu do orientacji SNOMED CT",
+        "messages": {
+            "validate": {
+                "login": {
+                    "minlength": "Twój login musi składać się z co najmniej 1 znaku",
+                    "required": "Wymagany jest Twój login.",
+                    "maxlength": "Twój login nie może być dłuższy niż 50 znaków"
+                },
+                "registration": {
+                    "usagetyperequired": "Wymagany typ użycia",
+                    "subtyperequired": "Wymagany podtyp"
+                }
+            },
+            "success": "<strong>Rejestracja zapisana!</strong> Sprawdź swoją pocztę e-mail w celu potwierdzenia."
+        }
     }
 }
