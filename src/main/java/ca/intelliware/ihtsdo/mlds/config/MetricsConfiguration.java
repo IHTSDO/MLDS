@@ -60,18 +60,18 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
         binder = Binder.get(environment);
     }
 
-    @Override
-    @Bean
-    public MetricRegistry getMetricRegistry() {
-        return METRIC_REGISTRY;
-    }
-
-    @Override
-    @Bean
-    public HealthCheckRegistry getHealthCheckRegistry() {
-        logger.debug("Creating metrics health check registry");
-        return HEALTH_CHECK_REGISTRY;
-    }
+//    @Override
+//    @Bean
+//    public MetricRegistry getMetricRegistry() {
+//        return METRIC_REGISTRY;
+//    }
+//
+//    @Override
+//    @Bean
+//    public HealthCheckRegistry getHealthCheckRegistry() {
+//        logger.debug("Creating metrics health check registry");
+//        return HEALTH_CHECK_REGISTRY;
+//    }
 
     @PostConstruct
     public void init() {
