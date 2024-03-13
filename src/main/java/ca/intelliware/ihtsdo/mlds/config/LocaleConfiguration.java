@@ -41,15 +41,15 @@ public class LocaleConfiguration implements EnvironmentAware, WebMvcConfigurer {
     }
 
     @Bean
-    public MessageSource messageSource() {
-        final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+    public MessageSource messageSources() {
+        final ReloadableResourceBundleMessageSource messageSources = new ReloadableResourceBundleMessageSource();
         //FIXME DGJ workaround - why?
-        messageSource.setBasenames("classpath:/i18n/messages", "classpath:/mails/messages/messages");
-        messageSource.setDefaultEncoding("UTF-8");
+        messageSources.setBasenames("classpath:/i18n/messages", "classpath:/mails/messages/messages");
+        messageSources.setDefaultEncoding("UTF-8");
 //        messageSource.setCacheSeconds(propertyResolver.getProperty("cacheSeconds", Integer.class, 1));
         Binder binder = Binder.get(env);
-        messageSource.setCacheSeconds(binder.bind("spring.messageSource.cacheSeconds", Integer.class).orElse(1));
-        return messageSource;
+        messageSources.setCacheSeconds(binder.bind("spring.messagesource.cacheseconds", Integer.class).orElse(1));
+        return messageSources;
     }
 
     @Override
