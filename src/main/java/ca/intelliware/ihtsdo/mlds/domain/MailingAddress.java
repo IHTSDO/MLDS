@@ -3,25 +3,22 @@ package ca.intelliware.ihtsdo.mlds.domain;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Fields;
-import org.hibernate.search.annotations.IndexedEmbedded;
 
 @Embeddable
 public class MailingAddress implements Cloneable {
 
-	@Fields({ @Field(name="ALL"), @Field()})
+
 	String street;
-	
-	@Fields({ @Field(name="ALL"), @Field()})
+
+
 	String city;
-	
-	@IndexedEmbedded
+
+
 	@ManyToOne
 	Country country;
-	
+
 	String post;
-	
+
 	public String getStreet() {
 		return street;
 	}
@@ -46,7 +43,7 @@ public class MailingAddress implements Cloneable {
 	public void setCountry(Country country) {
 		this.country = country;
 	}
-	
+
 	public Object clone() {
 		try {
 			return super.clone();
