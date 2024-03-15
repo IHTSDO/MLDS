@@ -9,8 +9,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.hibernate.search.annotations.ContainedIn;
-import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
 
 
 import java.time.Instant;
@@ -32,35 +31,34 @@ public abstract class Application extends BaseEntity {
 	public static enum ApplicationType {
 		PRIMARY, EXTENSION, IMPORT
 	}
-	
+
 	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
 	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="application_id", columnDefinition = "BIGINT")
     Long applicationId;
-	
+
 	// the parent
 	@JsonIgnoreProperties({"application", "applications"})
 	@ManyToOne
 	@JoinColumn(name="affiliate_id")
-	@ContainedIn
 	Affiliate affiliate;
 
 	String username;
-		
+
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="affiliate_details_id")
-	@IndexedEmbedded(prefix="")
+//	@IndexedEmbedded(prefix="")
 	AffiliateDetails affiliateDetails;
-	
+
 	@Column(name="notes_internal")
 	String notesInternal;
-	
+
 	@Column(name="created_at")
 	private
 	Instant createdAt = Instant.now();
-	
+
 	@JsonIgnore
 	@Column(name="inactive_at")
 	Instant inactiveAt;
@@ -76,7 +74,7 @@ public abstract class Application extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name="approval_state")
 	ApprovalState approvalState = ApprovalState.NOT_SUBMITTED;
-	
+
 	@ManyToOne
 	@JoinColumn(name="member_id")
     Member member;
@@ -84,16 +82,16 @@ public abstract class Application extends BaseEntity {
 	@Column(name="application_type", insertable=false, updatable=false)
 	String applicationTypeValue;
 
-	
+
 	public Application() {
-		
+
 	}
-	
+
 	// For tests
 	public Application(Long applicationId) {
 		this.applicationId = applicationId;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -158,7 +156,7 @@ public abstract class Application extends BaseEntity {
 	public void setAffiliate(Affiliate affiliate) {
 		affiliate.addApplication(this);
 	}
-	
+
 	public Member getMember() {
 		return member;
 	}
@@ -186,10 +184,10 @@ public abstract class Application extends BaseEntity {
 	public Instant getCreatedAt() {
 		return createdAt;
 	}
-	
+
 	@JsonIgnore
 	public abstract ApplicationType getApplicationType();
-	
+
 	@JsonIgnore
 	public String getApplicationTypeValue() {
 		return applicationTypeValue;

@@ -5,8 +5,6 @@ package ca.intelliware.ihtsdo.mlds.domain;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.search.annotations.Field;
-//import org.hibernate.search.annotations.Field;
 
 
 @Entity
@@ -16,20 +14,20 @@ public class Country extends BaseEntity {
     @Id
     @Column(name="iso_code_2")
     private String isoCode2;
-    
+
     @Column(name="iso_code_3")
     private String isoCode3;
 
-    @Field
+
     @Column(name="common_name")
     private String commonName;
-    
+
     @Column(name="exclude_usage")
     private boolean excludeUsage;
-    
+
     @Column(name="alternate_registration_url")
     private String alternateRegistrationUrl;
-    
+
 	@ManyToOne
 	@JoinColumn(name="member_id")
     private Member member;
@@ -37,7 +35,7 @@ public class Country extends BaseEntity {
     /* for hibernate */
 	protected Country() {
 	}
-	
+
 	public Country(String isoCode2, String isoCode3, String commonName) {
 		super();
 		this.isoCode2 = isoCode2;
