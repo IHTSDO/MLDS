@@ -4,8 +4,6 @@ package ca.intelliware.ihtsdo.mlds.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-//import org.hibernate.search.annotations.*;
-import org.hibernate.search.engine.backend.types.Sortable;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.*;
 
 import java.time.Instant;
@@ -52,6 +50,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	String firstName;
 
 	@Column(name="last_name")
+    @FullTextField
 //	@Fields({ @Field(name="ALL"), @Field()})
 	String lastName;
 
@@ -59,9 +58,11 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 //		@Field(name="ALL"),  // the default analyzer splits on @
 //		@Field(analyzer=@Analyzer(impl= UAX29URLEmailAnalyzer.class))
 //		})
+    @FullTextField
 	String email;
 
 	@Column(name="alternate_email")
+    @FullTextField
 //	@Fields({
 //		@Field(name="ALL"),  // the default analyzer splits on @
 //		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
@@ -69,6 +70,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	String alternateEmail;
 
 	@Column(name="third_email")
+    @FullTextField
 //	@Fields({
 //		@Field(name="ALL"),  // the default analyzer splits on @
 //		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
@@ -84,6 +86,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="organization_type")
+    @FullTextField
 //	@Field(name="ALL",bridge=@FieldBridge(impl= OrganizationTypeFieldBridge.class))
 	OrganizationType organizationType;
 
@@ -102,6 +105,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 
 	@Column(name="organization_name")
 //	@Fields({ @Field(name="ALL"), @Field()})
+    @FullTextField
 	String organizationName;
 
 	@AttributeOverrides({

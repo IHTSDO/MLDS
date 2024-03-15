@@ -26,30 +26,64 @@ public class AffiliateSearchRepository {
 
     public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, StandingState standingState, boolean standingStateNot, Pageable pageable) throws InterruptedException {
 
-        SearchSession searchSession = Search.session( entityManager );
+        SearchSession searchSession = Search.session(entityManager);
 
         SearchSchemaManager schemaManager = searchSession.schemaManager();
 
         schemaManager.createIfMissing();
         MassIndexer indexer = searchSession.massIndexer(Affiliate.class)
-                .threadsToLoadObjects(4);
+            .threadsToLoadObjects(4);
 
         indexer.startAndWait();
 
         List resultList = new ArrayList();
 
-        if(homeMember == null && standingState == null ){
-            SearchResult<Affiliate> result =Search.session(entityManager)
-                    .search(Affiliate.class)
-                    .where( f -> f.simpleQueryString()
-                            .fields( "affiliateDetails.firstName")
-//                            .fields("affiliateId")
-                            .matching( q ) )
-                    .fetch( 20 );
-//            resultList.add(result.hits());
-            resultList.addAll(result.hits());
+
+        SearchResult<Affiliate> result = Search.session(entityManager)
+            .search(Affiliate.class)
+            .where(f -> f.simpleQueryString()
+                .fields("affiliateDetails.firstName")
+                .fields("affiliateDetails.lastName")
+                .fields("affiliateDetails.email")
+                .fields("affiliateDetails.alternateEmail")
+                .fields("affiliateDetails.thirdEmail")
+                .fields("affiliateDetails.organizationName")
+                .fields("affiliateDetails.organizationType")
+                .matching(q + "*"))
+            .fetch(pageable.getPageSize());
+        resultList.addAll(result.hits());
+
+// filter homemeber
+        if (homeMember != null && standingState == null) {
+            for (int i = resultList.size() - 1; i >= 0; i--) {
+                Affiliate affiliate = (Affiliate) resultList.get(i);
+                if (affiliate.getHomeMember() == null || !affiliate.getHomeMember().equals(homeMember)) {
+                    resultList.remove(i);
+                }
+            }
         }
+
+// filter standingstate
+        if (homeMember == null && standingState != null) {
+            for (int i = resultList.size() - 1; i >= 0; i--) {
+                Affiliate affiliate = (Affiliate) resultList.get(i);
+                if (affiliate.getStandingState() == null || !affiliate.getStandingState().equals(standingState)) {
+                    resultList.remove(i);
+                }
+            }
+        }
+
+//filter homemember & standingstate
+        if (homeMember != null && standingState != null) {
+            for (int i = resultList.size() - 1; i >= 0; i--) {
+                Affiliate affiliate = (Affiliate) resultList.get(i);
+                if (affiliate.getHomeMember() == null || !affiliate.getHomeMember().equals(homeMember) ||
+                    affiliate.getStandingState() == null || !affiliate.getStandingState().equals(standingState)) {
+                    resultList.remove(i);
+                }
+            }
+        }
+
         return new PageImpl<>(resultList, pageable, resultList.size());
     }
-
 }
