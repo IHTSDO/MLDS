@@ -747,5 +747,50 @@
             "REJECTED": "Odrzucono",
             "IN_GOOD_STANDING": "W dobrej kondycji - Zatwierdzony pełny dostęp, Konto opłacone, Brak wymaganej płatności lub Problem z kontem rozwiązany"
         }
+    },
+    "views": {
+        "extensionApplication": {
+            "warning": {
+                "approved.detail": "Twój wniosek został zatwierdzony.",
+                "approved": "Zatwierdzono rozszerzoną rejestrację"
+            },
+            "delete": {
+                "title": "Anuluj wniosek",
+                "sure.detail": "Spowoduje to utratę wszystkich zapisanych informacji w tej aplikacji.",
+                "sure": "Czy na pewno chcesz anulować ten wniosek?"
+            }
+        },
+        "footer": {
+            "tos": "Warunki świadczenia usług",
+            "pp": "Polityka prywatności",
+            "register": "Zarejestruj swoje wdrożenie",
+            "contact": "Skontaktuj się z nami"
+        },
+        "landingPage": {
+            "appName": "Usługa licencji członkowskich i dystrybucji",
+            "loginHere": "Zaloguj się tutaj",
+            "member.purpose1": "MLDS jest narzędziem wykorzystywanym przez NRC w ",
+            "member.purpose2": " do zarządzania licencjonowaniem partnerskim SNOMED CT, w tym nowymi aplikacjami, odnowieniami i raportowaniem użytkowania ",
+            "purpose": "Usługa ta jest świadczona przez SNOMED International dla organizacji i osób fizycznych w celu ubiegania się o korzystanie i dostęp do międzynarodowego wydania SNOMED CT do użytku w krajach niebędących członkami, jak również w niektórych krajach członkowskich.",
+            "furtherDetails": "Więcej informacji można znaleźć na stronie internetowej <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International</a> lub na stronie <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>.",
+            "member.purpose3": " oraz, w stosownych przypadkach, w krajach niebędących członkami."
+        },
+        "releases": {
+            "memberCountries": "Państwa członkowskie",
+            "countryIsMissing": "Jeśli kraju, którego szukasz, nie ma na tej liście, odwiedź międzynarodową witrynę <a href=\"http://www.snomed.org/\">SNOMED</a>, aby uzyskać informacje dotyczące pobierania wersji.",
+            "notAvailable": "Obecnie nie są dostępne żadne pakiety wydań",
+            "releasePackageLicense": "Licencja na pakiet wydania",
+            "reviewLicense": "Zapoznaj się z poniższą licencją i zaakceptuj ją przed pobraniem pakietu wydania:",
+            "agreeToLicense": "Wyrażam zgodę na licencję",
+            "warning": {
+                "deactivated": "Konto dezaktywowane",
+                "pAttention": "Podstawowa aplikacja wymaga uwagi",
+                "pProcessed": "Podstawowy wniosek jest przetwarzany",
+                "apply": "Wniosek o przedłużenie",
+                "pending": "Faktura oczekująca"
+            },
+            "noAuth": "<a href=\"#/login\">Zaloguj się na</a>, aby pobrać lub kliknij <a href=\"#/register\">zarejestruj się</a>, aby rozpocząć proces aplikacji.",
+            "title": "Wydania dostępne dla zarejestrowanych użytkowników"
+        }
     }
 }
