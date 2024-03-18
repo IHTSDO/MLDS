@@ -791,6 +791,46 @@
             },
             "noAuth": "<a href=\"#/login\">Zaloguj się na</a>, aby pobrać lub kliknij <a href=\"#/register\">zarejestruj się</a>, aby rozpocząć proces aplikacji.",
             "title": "Wydania dostępne dla zarejestrowanych użytkowników"
+        },
+        "usageLog": {
+            "usage": "Stosowanie",
+            "subTitle": "Wykorzystanie licencyjne",
+            "usageFor": "Zastosowanie dla",
+            "pleaseFill": "Prosimy o wypełnienie wszelkich znanych informacji o użytkowaniu w tej chwili, zostaniesz poproszony o potwierdzenie użycia po zatwierdzeniu wniosku.",
+            "licenseType": "Rodzaj licencji",
+            "currentUsage": "Bieżące użycie",
+            "countries": {
+                "list": "Lista państw",
+                "search": "Wyszukaj państwa",
+                "homeCountry": "Kraj macierzysty",
+                "button": "Dodaj kraj",
+                "subTitle": "Wybierz kraje niebędące członkami, w których będzie używany SNOMED CT.",
+                "title": "Kraje w użyciu"
+            },
+            "institutions": {
+                "title": "Instytucje sublicencjonowane",
+                "dataAnalysis": {
+                    "dataAnalysis": "Systemy analizy danych",
+                    "systems": "Systemy",
+                    "data": "Dane",
+                    "provideStaff": "Ile szpitali zapewnia personel do wskazanych praktyk?",
+                    "usingDCSNotHosp": "Ile praktyk korzysta z systemów tworzenia danych i NIE jest częścią organizacji szpitala?",
+                    "usingDCSNotPract": "Ile szpitali lub innych instytucji korzysta z systemów tworzenia danych i nie można ich zdefiniować jako Praktyki zgodnie z definicją w licencji?"
+                },
+                "modal": {
+                    "subtitle": "Nazwa szpitala/instytucji",
+                    "placeholder": "Wprowadź nazwę szpitala/instytucji",
+                    "dateBefore": "Data przed datą rozpoczęcia użytkowania",
+                    "sure": "Czy na pewno chcesz usunąć",
+                    "andEntries": "i powiązane z nim wpisy?",
+                    "addPractices": "Dodaj liczbę praktyk korzystających z SNOMED"
+                },
+                "selectFirst": "Należy wybrać państwo przed wprowadzeniem instytucji sublicencjonowanych."
+            },
+            "otherActivities": "Inne czynności",
+            "plannedUsage": "Planowane użycie",
+            "purpose": "Cel",
+            "impStatus": "Stan wdrożenia"
         }
     }
 }
