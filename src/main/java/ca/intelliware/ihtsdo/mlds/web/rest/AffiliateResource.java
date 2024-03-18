@@ -43,8 +43,8 @@ public class AffiliateResource {
 	@Autowired
 	AffiliateRepository affiliateRepository;
 
-	@Autowired
-	AffiliateSearchRepository affiliateSearchRepository;
+//	@Autowired
+//	AffiliateSearchRepository affiliateSearchRepository;
 
 	@Autowired
 	AffiliateDetailsRepository affiliateDetailsRepository;
@@ -128,8 +128,8 @@ public class AffiliateResource {
 		if (!StringUtils.isBlank(q)) {
 			//Note that sorting in the pageRequest is not currently respected by lucene
 //			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest) ;
-			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest);
-//			affiliates = affiliateRepository.findAll(pageRequest);
+//			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest);
+			affiliates = affiliateRepository.findAll(pageRequest);
 			System.out.println("entered if");
 		} else {
 			if (member == null) {
