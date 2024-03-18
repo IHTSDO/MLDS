@@ -180,13 +180,20 @@
 			<version>7.0.2.Final</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.hibernate.search</groupId>
-			<artifactId>hibernate-search-mapper-orm-orm6</artifactId>
-			<version>6.2.1.Final</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.hibernate.search</groupId>-->
+<!--			<artifactId>hibernate-search-mapper-orm-orm6</artifactId>-->
+<!--			<version>6.2.1.Final</version>-->
+<!--		</dependency>-->
 
-		<dependency>
+        <dependency>
+            <groupId>org.hibernate.search</groupId>
+            <artifactId>hibernate-search-mapper-orm-orm6</artifactId>
+            <version>6.2.3.Final</version>
+        </dependency>
+
+
+        <dependency>
 			<groupId>org.hibernate.search</groupId>
 			<artifactId>hibernate-search-backend-lucene</artifactId>
 			<version>6.2.1.Final</version>
