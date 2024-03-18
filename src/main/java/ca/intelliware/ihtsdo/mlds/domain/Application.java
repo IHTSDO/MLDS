@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
+//import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
 
 
 import java.time.Instant;
