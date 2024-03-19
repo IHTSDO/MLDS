@@ -515,7 +515,8 @@
         "messages": {
             "error": {
                 "authentication": "<strong>Uwierzytelnienie nie powiodło się!</strong> Sprawdź swoje dane uwierzytelniające i spróbuj ponownie. W hasłach rozróżniane są duże i małe litery.",
-                "deregistered": "<strong>Uwierzytelnienie nie powiodło się!</strong> To konto zostało wyrejestrowane. Skontaktuj się z pomocą techniczną."
+                "deregistered": "<strong>Uwierzytelnienie nie powiodło się!</strong> To konto zostało wyrejestrowane. Skontaktuj się z pomocą techniczną.",
+                "noPermissions": "<strong>Uwierzytelnianie nie powiodło się!</strong> Uwierzytelniliśmy Cię, ale Twoje konto nie ma dostępu do tej aplikacji lub jest źle skonfigurowane.  Prosimy o kontakt z pomocą techniczną."
             }
         }
     },
@@ -528,6 +529,10 @@
             "success": "<strong>Hasło zostało zmienione!</strong> Przejdź do <a href='#/contactInfo'>Informacji o koncie</a>",
             "error": "<strong>Wystąpił błąd!</strong> Nie można zmienić hasła.",
             "expired": "<strong> Link resetowania wygasł lub był nieprawidłowy. </strong> <a href='#/requestPasswordReset'> Poproś o kolejny reset </a>"
+        },
+        "title": "Hasło dla {{username}}",
+        "form": {
+            "button": "Zapisz"
         }
     },
     "sessions": {
@@ -580,10 +585,12 @@
                     "hide": "Ukryj",
                     "id": "Id",
                     "blockedtime": "Zablokowany czas",
-                    "title": "Zrzut wątków"
+                    "title": "Zrzut wątków",
+                    "waitedcount": "Licznik Oczekiwania",
+                    "stacktrace": "Stacktrace"
                 },
                 "blocked": "Blokada",
-                "runnable": "Wykonywalny",
+                "runnable": "Możliwość uruchomienia",
                 "timedwaiting": "Czas oczekiwania",
                 "waiting": "Oczekiwanie"
             },
@@ -591,7 +598,7 @@
                 "marksweepcount": "Licznik Mark Sweep",
                 "marksweeptime": "Czas Mark Sweep",
                 "scavengecount": "Liczba zrzutów",
-                "scavengetime": "Czas zbierania",
+                "scavengetime": "Czas poszukiwania",
                 "title": "śmietnik"
             },
             "http": {
@@ -630,7 +637,7 @@
             "objects": "Obiekty",
             "hits": "Trafienia",
             "misses": "Chybienia",
-            "evictioncount": "Liczba eksmisji",
+            "evictioncount": "Licznik eksmisji",
             "mean": "Średni czas pobierania (ms)"
         }
     },
@@ -663,7 +670,7 @@
             "AFFILIATE_CREATED_BY_IMPORT": "Partner utworzony z importu",
             "AFFILIATE_DELETED": "Partner usunięty",
             "AFFILIATE_UPDATED": "Zaktualizowano partnera",
-            "AFFILIATE_UPDATED_BY_IMPORT": "Partner Zaktualizowano z importu",
+            "AFFILIATE_UPDATED_BY_IMPORT": "Partner zaktualizowany z importu",
             "AFFILIATEDETAILS_UPDATED": "Zaktualizowano dane partnera",
             "AFFILIATE_IMPORT": "Batch Import Partnera",
             "AFFILIATE_LOGIN_CREATED": "Utworzono login partnera",
@@ -757,9 +764,14 @@
             "INVOICE_SENT": "Wysłana faktura"
         },
         "standingStateWithExplanation": {
-            "APPLYING": "Stosowanie",
+            "APPLYING": "Wnioskowanie",
             "REJECTED": "Odrzucono",
-            "IN_GOOD_STANDING": "W dobrej kondycji - Zatwierdzony pełny dostęp, Konto opłacone, Brak wymaganej płatności lub Problem z kontem rozwiązany"
+            "IN_GOOD_STANDING": "W dobrej kondycji - Zatwierdzony pełny dostęp, Konto opłacone, Brak wymaganej płatności lub Problem z kontem rozwiązany",
+            "DEACTIVATION_PENDING": "Dezaktywacja w toku - dostęp tylko do konta, brak możliwości pobierania",
+            "DEACTIVATED": "Dezaktywowany - dostęp tylko do konta, brak możliwości pobierania",
+            "DEREGISTERED": "Wyrejestrowany - brak dostępu do konta MLDS",
+            "PENDING_INVOICE": "Faktura oczekująca - dostęp tylko do konta, zaległe płatności",
+            "INVOICE_SENT": "Wysłana faktura - dostęp tylko do konta, zaległe płatności"
         }
     },
     "views": {
@@ -829,7 +841,12 @@
                     "data": "Dane",
                     "provideStaff": "Ile szpitali zapewnia personel do wskazanych praktyk?",
                     "usingDCSNotHosp": "Ile praktyk korzysta z systemów tworzenia danych i NIE jest częścią organizacji szpitala?",
-                    "usingDCSNotPract": "Ile szpitali lub innych instytucji korzysta z systemów tworzenia danych i nie można ich zdefiniować jako Praktyki zgodnie z definicją w licencji?"
+                    "usingDCSNotPract": "Ile szpitali lub innych instytucji korzysta z systemów tworzenia danych i nie można ich zdefiniować jako Praktyki zgodnie z definicją w licencji?",
+                    "title": "Analiza danych",
+                    "staff": "Szpitale dostarczają personel do praktyk",
+                    "dataCreation": "Systemy tworzenia danych",
+                    "independent": "Niezależne praktyki",
+                    "howManyDAS": "Ile systemów analizy danych wdrożono w tym regionie i ile baz danych przypada na jedno wdrożenie?"
                 },
                 "modal": {
                     "subtitle": "Nazwa szpitala/instytucji",
@@ -839,20 +856,173 @@
                     "andEntries": "i powiązane z nim wpisy?",
                     "addPractices": "Dodaj liczbę praktyk korzystających z SNOMED"
                 },
-                "selectFirst": "Należy wybrać państwo przed wprowadzeniem instytucji sublicencjonowanych."
+                "selectFirst": "Należy wybrać państwo przed wprowadzeniem instytucji sublicencjonowanych.",
+                "noneSelected": "Nie wybrano żadnego kraju.",
+                "country": "Państwo",
+                "deleteCountry": "Usuń kraj",
+                "hospAndInst": "Szpital/instytucja",
+                "hospAndInst.title": "Szpital(e)/Instytucja(e)",
+                "hospAndInst.plural": "Szpitale/instytucje",
+                "started": "Zaczęto używać",
+                "finished": "Zaprzestano używania",
+                "practices.title": "Praktyki",
+                "practices": "Praktyki"
             },
             "otherActivities": "Inne czynności",
             "plannedUsage": "Planowane użycie",
             "purpose": "Cel",
-            "impStatus": "Stan wdrożenia"
+            "impStatus": "Stan wdrożenia",
+            "notificationRequired": "Partnerzy mają obowiązek powiadomić SNOMED International przed podjęciem jakichkolwiek działań, które nie mieszczą się w istniejących kategoriach, a wtedy SNOMED International ustali odpowiednią strukturę opłat dla danej działalności.",
+            "pleaseDescribe": "Proszę opisać aktywność poniżej.",
+            "submitFor": "Prześlij oświadczenie dot"
         },
         "applicationSummary": {
             "billingInfo": "Informacje rozliczeniowe"
+        },
+        "activate": {
+            "title": "Aktywacja",
+            "messages": {
+                "error": {
+                    "title": "Nie można aktywować użytkownika."
+                },
+                "success": {
+                    "title": "Konto użytkownika zostało utworzone.",
+                    "body": "System w ciągu kilku chwil przeniesie Cię do kontynuowania procesu rejestracji. Jeśli nie nastąpi automatyczne przekierowanie, {{linkbegin}}kliknij tutaj.{{linkend}}"
+                }
+            }
+        },
+        "usageReports": {
+            "reportDate": "Data raportu",
+            "hospitals": "Szpitale",
+            "usageType": "Rodzaj użycia",
+            "countries": "Kraje",
+            "newReport": "Nowy raport"
+        },
+        "userDashboard": {
+            "myPackages": "Moje pakiety wydań",
+            "otherPackages": "Inne dostępne wydania",
+            "warning": {
+                "required.title": "Wymagana deklaracja użytkowania",
+                "required.msg": "Wstępna deklaracja użytkowania została zapisana. Należy jednak pamiętać, że ostateczną deklarację użycia za bieżący rok należy przesłać do 15 stycznia. Należy pamiętać, że wszystkie raporty użycia z poprzednich lat muszą zostać przesłane w celu pobrania SNOMED CT."
+            },
+            "affiliateNo": "Nr Partnera",
+            "edit": "Edytuj aplikację partnerską"
         }
     },
     "application": {
         "applicationType": {
-            "PRIMARY": "Podstawowy"
+            "PRIMARY": "Podstawowy",
+            "EXTENSION": "Rozszerzenie",
+            "IMPORT": "Import"
         }
+    },
+    "settings": {
+        "title": "Informacje kontaktowe dla [<b>{{username}}</b> ]",
+        "form": {
+            "countryOfResidence": "Państwo zamieszkania",
+            "countryOfResidence.placeholder": "Twoje państwo zamieszkania",
+            "firstname": "Imię",
+            "firstname.placeholder": "Twoje imię",
+            "lastname": "Nazwisko",
+            "lastname.placeholder": "Twoje nazwisko",
+            "button": "Zapisz"
+        },
+        "messages": {
+            "error": "<strong>Wystąpił błąd!</strong> Nie można zapisać ustawień.",
+            "success": "<strong>Ustawienia zapisane!</strong>",
+            "validate": {
+                "firstname": {
+                    "required": "Twoje imię jest wymagane.",
+                    "minlength": "Twoje imię musi zawierać co najmniej 1 znak",
+                    "maxlength": "Twoje imię nie może być dłuższe niż 50 znaków"
+                },
+                "lastname": {
+                    "required": "Twoje nazwisko jest wymagane.",
+                    "minlength": "Nazwisko musi składać się z co najmniej 1 znaku.",
+                    "maxlength": "Twoje nazwisko nie może być dłuższe niż 50 znaków"
+                }
+            }
+        }
+    },
+    "approval": {
+        "state": {
+            "NOT_SUBMITTED": "Nie przesłano",
+            "CHANGE_REQUESTED": "Zażądano zmiany",
+            "SUBMITTED": "Przesłane",
+            "RESUBMITTED": "Przesłano ponownie",
+            "REVIEW_REQUESTED": "Wymagany przegląd",
+            "APPROVED": "Zatwierdzony",
+            "REJECTED": "Odrzucono"
+        }
+    },
+    "usageReport": {
+        "state": {
+            "NOT_SUBMITTED": "Nie przesłano",
+            "CHANGE_REQUESTED": "Wymagana zmiana",
+            "SUBMITTED": "Przesłane",
+            "RESUBMITTED": "Przesłano ponownie",
+            "REVIEW_REQUESTED": "Wymagany przegląd",
+            "PENDING_INVOICE": "Faktura oczekująca",
+            "INVOICE_SENT": "Faktura Wysłana",
+            "PAID": "Zapłacono",
+            "REJECTED": "Odrzucono"
+        }
+    },
+    "pendingApplications": {
+        "title": "Wnioski oczekujące",
+        "show": {
+            "myApplications": "Moje oczekujące wnioski",
+            "allApplications": "Wszystkie oczekujące wnioski"
+        },
+        "table": {
+            "affiliateName": "Nazwa Partnera",
+            "agreementType": "Rodzaj umowy",
+            "useType": "Typ użytkowania",
+            "dateSubmitted": "Data przesłania",
+            "homeCountry": "Kraj macierzysty",
+            "member": "Członek",
+            "email": "E-mail",
+            "review": "Przegląd",
+            "applicationType": "Rodzaj aplikacji"
+        }
+    },
+    "affiliateManagement": {
+        "title": "Zarządzanie partnerami"
+    },
+    "releaseManagement": {
+        "title": "Zarządzanie wydaniami"
+    },
+    "memberManagement": {
+        "title": "Zarządzanie członkami"
+    },
+    "postAnnouncement": {
+        "title": "Opublikuj Ogłoszenie"
+    },
+    "ihtsdoReleases": {
+        "title": "Wydania SNOMED"
+    },
+    "activityLog": {
+        "title": "Dziennik aktywności"
+    },
+    "importAffiliateRecords": {
+        "title": "Importuj rekordy partnerów"
+    },
+    "manageBlocklist": {
+        "title": "Zarządzanie listą blokad"
+    },
+    "systemLoggers": {
+        "title": "Rejestratory systemowe"
+    },
+    "form": {
+        "requiredField": "Pole wymagane.",
+        "tooLong": "Wartość wejściowa jest za długa.",
+        "invalidNumber": "Nieprawidłowy numer",
+        "pleaseFix": "Popraw błędy wymienione powyżej."
+    },
+    "reviewUsageReports": {
+        "title": "Przejrzyj raporty użytkowania"
+    },
+    "nationalRegistrationList": {
+        "title": "Krajowa lista rejestracyjna"
     }
 }
