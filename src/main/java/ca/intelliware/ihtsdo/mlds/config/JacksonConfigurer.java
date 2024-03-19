@@ -21,9 +21,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.core.annotation.Order;
 
 
 import java.util.Collection;
+import java.util.Map;
 
 @Configuration
 @ConditionalOnClass(ObjectMapper.class)
@@ -35,8 +38,9 @@ public class JacksonConfigurer {
 	@Autowired
 	private ListableBeanFactory beanFactory;
 
-	@Autowired
-	ObjectMapper objectMapper;
+
+//	@Autowired
+//	private ObjectMapper objectMapper;
 
 	@Bean
 	public Module mldsModule(final MemberRepository memberRepository, CurrentSecurityContext securityContext) {
@@ -46,14 +50,18 @@ public class JacksonConfigurer {
 	}
 
 	@PostConstruct
+    @Order(Integer.MAX_VALUE)
 	public void init() {
 		logger.debug("Initialising Jackson Mappers using {}", beanFactory.getClass().getName());
 
-		Collection<ObjectMapper> mappers = BeanFactoryUtils
+		Collection<ObjectMapper> mappersValue = BeanFactoryUtils
 				.beansOfTypeIncludingAncestors(beanFactory, ObjectMapper.class,true, true)
 				.values();
+        logger.info("mapper values {}", mappersValue.stream().count());
+        Map<String, ObjectMapper> mappers = beanFactory.getBeansOfType(ObjectMapper.class);
 		int mappersConfigured = 0;
-		for (ObjectMapper mapper : mappers) {
+        logger.info("mapper values {}", mappers.values());
+		for (ObjectMapper mapper : mappers.values()) {
 			logger.debug("Configuring Jackson mapper: {} with type factory {}", mapper.toString(), mapper.getTypeFactory().getClass().getName());
 			mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 			registerFilters(mapper);
