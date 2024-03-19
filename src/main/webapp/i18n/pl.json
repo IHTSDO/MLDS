@@ -845,6 +845,9 @@
             "plannedUsage": "Planowane użycie",
             "purpose": "Cel",
             "impStatus": "Stan wdrożenia"
+        },
+        "applicationSummary": {
+            "billingInfo": "Informacje rozliczeniowe"
         }
     },
     "application": {
