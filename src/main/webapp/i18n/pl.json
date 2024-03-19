@@ -846,5 +846,10 @@
             "purpose": "Cel",
             "impStatus": "Stan wdrożenia"
         }
+    },
+    "application": {
+        "applicationType": {
+            "PRIMARY": "Podstawowy"
+        }
     }
 }
