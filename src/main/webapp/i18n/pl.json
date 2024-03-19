@@ -503,7 +503,21 @@
         }
     },
     "login": {
-        "title": "Zaloguj się"
+        "title": "Zaloguj się",
+        "form": {
+            "username": "E-mail lub nazwa użytkownika",
+            "password": "Hasło",
+            "password.placeholder": "Twoje hasło",
+            "rememberme": "Zapamiętaj mnie",
+            "button": "Zaloguj sie",
+            "forgot": "Zapomniałeś hasła?"
+        },
+        "messages": {
+            "error": {
+                "authentication": "<strong>Uwierzytelnienie nie powiodło się!</strong> Sprawdź swoje dane uwierzytelniające i spróbuj ponownie. W hasłach rozróżniane są duże i małe litery.",
+                "deregistered": "<strong>Uwierzytelnienie nie powiodło się!</strong> To konto zostało wyrejestrowane. Skontaktuj się z pomocą techniczną."
+            }
+        }
     },
     "password": {
         "reset": {
