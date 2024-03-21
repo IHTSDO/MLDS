@@ -42,7 +42,7 @@ public class AffiliateFullTextSearchTest extends MySqlTestContainerTest {
 
 	@Resource AffiliateRepository affiliateRepository;
 
-//	@Resource AffiliateSearchRepository affiliateSearchRepository;
+	@Resource AffiliateSearchRepository affiliateSearchRepository;
 
 	@Resource MemberRepository memberRepository;
 
@@ -282,14 +282,14 @@ public class AffiliateFullTextSearchTest extends MySqlTestContainerTest {
 //		fullTextEntityManager.flushToIndexes();
 	}
 
-//	private List<Affiliate> search(String query) throws InterruptedException {
-//		return search(query, null, null, false);
-//	}
+	private List<Affiliate> search(String query) throws InterruptedException {
+		return search(query, null, null, false);
+	}
 
-//	private List<Affiliate> search(String query, Member member, StandingState standingState, boolean standingStateNot) throws InterruptedException {
-//		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),member,standingState,standingStateNot,PageRequest.of(0, 50)).getContent();
-//		return resultList;
-//	}
+	private List<Affiliate> search(String query, Member member, StandingState standingState, boolean standingStateNot) throws InterruptedException {
+		List<Affiliate> resultList = affiliateSearchRepository.findFullTextAndMember(query.toLowerCase(),member,standingState,standingStateNot,PageRequest.of(0, 50)).getContent();
+		return resultList;
+	}
 
 	Affiliate makeAffiliate() {
 		Affiliate affiliate = new Affiliate();
