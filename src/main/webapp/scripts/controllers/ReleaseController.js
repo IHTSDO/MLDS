@@ -61,7 +61,6 @@ angular.module('MLDS').controller('ReleaseController',
               releaseVersion: function() { return {}; }
             }
           });
-    debugger;
       modalInstance.result.then(loadReleasePackage);
 	};
 

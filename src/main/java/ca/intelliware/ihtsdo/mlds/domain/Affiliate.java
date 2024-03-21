@@ -11,6 +11,8 @@ import jakarta.persistence.*;
 import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
 //import org.hibernate.search.engine.backend.types.Projectable;
 //import org.hibernate.search.engine.backend.types.Searchable;
 //import org.hibernate.search.engine.backend.types.Sortable;
@@ -23,7 +25,7 @@ import java.util.Set;
 
 
 @Entity
-//@Indexed
+@Indexed
 @JsonFilter("affiliatePrivacyFilter")
 @Where(clause = "inactive_at IS NULL")
 @SQLDelete(sql="UPDATE affiliate SET inactive_at = now() WHERE affiliate_id = ?")
@@ -58,13 +60,13 @@ public class Affiliate extends BaseEntity {
 
 	@OneToOne
 	@JoinColumn(name="affiliate_details_id")
-//	@IndexedEmbedded
+	@IndexedEmbedded
 	AffiliateDetails affiliateDetails;
 
 	@JsonIgnoreProperties({"affiliate"})
 	@OneToOne()
 	@JoinColumn(name="application_id")
-//	@IndexedEmbedded
+	@IndexedEmbedded
 	PrimaryApplication application;
 
 	@JsonIgnoreProperties({"affiliate"})
@@ -87,7 +89,7 @@ public class Affiliate extends BaseEntity {
     @OneToOne()
     @JoinColumn(name="affiliate_id")
 //    @IndexedEmbedded  //(prefix="")
-//	@IndexedEmbedded
+	@IndexedEmbedded
     ViewAffiliateApplicationCountries approvedCountries;
 
 //    @Fields({
