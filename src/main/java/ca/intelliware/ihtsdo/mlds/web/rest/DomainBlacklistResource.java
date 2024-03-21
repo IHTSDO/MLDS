@@ -52,7 +52,7 @@ public class DomainBlacklistResource {
 	@RequestMapping(value="api/domain-blacklist/remove", method=RequestMethod.POST)
 	@Timed
 	public Object removeDomainFromBlacklist(@RequestParam String domain) {
-		domainBlacklistRespository.delete((DomainBlacklist) domainBlacklistRespository.findByDomainname(domain));
+		domainBlacklistRespository.deleteAll(domainBlacklistRespository.findByDomainname(domain));
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
