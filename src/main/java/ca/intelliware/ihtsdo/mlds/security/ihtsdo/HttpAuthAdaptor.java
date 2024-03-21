@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,16 @@ import java.util.Map;
  * HTTP query marshaller for the IHTSDO shared web authentication service.
  */
 public class HttpAuthAdaptor implements HeaderConstants {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(HttpAuthAdaptor.class);
-	
+
 	private static final String PARAM_LOGIN_USERNAME = "login";
     private static final String PARAM_LOGIN_PASSWORD = "password";
 
 	private String queryUrl;
     private RestTemplate restTemplate;
+
+    private String storedCookie;
 
 	@Value("${ims.cookie}")
     private String authenticatedCookieName;
@@ -68,16 +71,24 @@ public class HttpAuthAdaptor implements HeaderConstants {
 		return null;
 	}
 
-	public CentralAuthUserInfo getUserAccountInfo(String username, String authenticationCookie) throws IOException {
-        Map<String, String> headers = new HashMap<>();
-        headers.put(COOKIE, authenticationCookie);
+    public CentralAuthUserInfo getUserAccountInfo(String username, String authenticationCookie) throws IOException {
+//        Map<String, String> headers = new HashMap<>();
+        HttpHeaders headers = new HttpHeaders();
+        if (authenticationCookie != null) {
+            headers.add("Cookie", authenticationCookie);
+            storedCookie = authenticationCookie;
+        } else if (storedCookie != null) {
+            headers.add("Cookie", storedCookie);
+        }
+//        headers.put("Cookie",authenticationCookie);
         try {
             ResponseEntity<CentralAuthUserInfo> exchange = restTemplate.exchange(new RequestEntity<>(headers, HttpMethod.GET, URI.create(queryUrl + "api/account")), CentralAuthUserInfo.class);
             logger.info("Made remote call to get user details for {} HTTP {}", username, exchange.getStatusCodeValue());
+
             return exchange.getBody();
         } catch (HttpClientErrorException e) {
             throw new IOException("Unable to recover user account details for " + username + " received: " + e.getRawStatusCode());
         }
-	}
+    }
 
 }
