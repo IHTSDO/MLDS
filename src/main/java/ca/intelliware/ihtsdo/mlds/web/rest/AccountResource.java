@@ -391,6 +391,9 @@ public class AccountResource {
 //        IWebContext context = new SpringWebContext(request, response, servletContext,
 //                locale, variables, applicationContext);
         Context context = new Context(locale);
+        context.setVariable("user", user);
+        context.setVariable("baseUrl", request.getScheme() + "://" + request.getServerName() +
+            ":" + request.getServerPort());
         return templateEngine.process(MailService.EMAIL_ACTIVATION_PREFIX + MailService.TEMPLATE_SUFFIX, context);
     }
 
