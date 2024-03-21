@@ -27,9 +27,7 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 	@Autowired
 	HttpAuthAdaptor httpAuthAdaptor;
 
-	@Autowired
-	DBUserDetailsService dbUserDetailsService;
-	
+
 	private final Logger logger = LoggerFactory.getLogger(HttpAuthAuthenticationProvider.class);
 
 	@Override
@@ -37,10 +35,10 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 		String username;
 		if (authentication instanceof UsernamePasswordAuthenticationToken) {
 			UsernamePasswordAuthenticationToken usernamePassword = (UsernamePasswordAuthenticationToken) authentication;
-			
+
 			username = usernamePassword.getName();
 			String password = (String) usernamePassword.getCredentials();
-			
+
 			try {
 				String authenticatedToken = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
 //				String authenticatedToken=null;
@@ -50,31 +48,30 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 				}
 				CentralAuthUserInfo remoteUserInfo = httpAuthAdaptor.getUserAccountInfo(username, authenticatedToken);
 				List<GrantedAuthority> authorities = AuthorityConverter.buildAuthoritiesList(remoteUserInfo.getRoles());
-				
+
 				if (authorities.isEmpty()) {
 					throw new DisabledException(ApplicationErrorCodes.MLDS_ERR_AUTH_NO_PERMISSIONS
 							+ ": Users exists, but has no permissions assigned: "+ username);
 				}
-				
+
 				//If the user has logged in, also give them the USER role
 				authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
-				
+
 				RemoteUserDetails user = new RemoteUserDetails(remoteUserInfo, authorities);
 				return new UsernamePasswordAuthenticationToken(user, password,authorities);
-				
+
 			} catch (IOException e) {
 				throw new RuntimeException("MLDS_ERR_AUTH_SYSTEM: Failed to contact authentication system.", e);
 			} catch (Exception e) {
-				dbUserDetailsService.loadUserByUsername(username);
 				logger.info("Returning {} due to {}", e.getClass().getName(), e.getMessage());
 				throw (e);
 			}
-			
+
 		} else {
 			throw new IllegalArgumentException("Unsupported type of authentication request: " + authentication.getClass());
 		}
 	}
-	
+
 	@Override
 	public boolean supports(Class<?> authentication) {
         return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
