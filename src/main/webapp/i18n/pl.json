@@ -907,6 +907,15 @@
             },
             "affiliateNo": "Nr Partnera",
             "edit": "Edytuj aplikację partnerską"
+        },
+        "ihtsdoReleases": {
+            "offlineReleases": "Wydania offline i Alpha/Beta",
+            "noPublicReleases": "Obecnie nie są dostępne żadne publiczne wersje.",
+            "backToReleases": "Powrót do wydań SNOMED",
+            "publicVersions": "Wersje publiczne",
+            "noOnlineVersions": "Obecnie nie ma wersji online tego wydania.",
+            "noOfflineReleases": "Obecnie nie są dostępne wersje offline i alfa/beta.",
+            "noOfflineVersions": "Obecnie nie ma wersji offline i alfa/beta tego wydania."
         }
     },
     "application": {
