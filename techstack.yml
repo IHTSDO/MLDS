@@ -1,0 +1,1998 @@
+repo_name: IHTSDO/MLDS
+report_id: ea45968d704df4abf9f47fd5f3f4145c
+version: 0.1
+repo_type: Public
+timestamp: '2024-03-21T12:57:39+00:00'
+requested_by: dmcgihtsdo
+provider: github
+branch: master
+detected_tools_count: 147
+tools:
+- name: CSS 3
+  description: The latest evolution of the Cascading Style Sheets language
+  website_url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/6727/css.png
+  detection_source_url: https://github.com/IHTSDO/MLDS
+  detection_source: Repo Metadata
+- name: CoffeeScript
+  description: A little language that compiles into JavaScript
+  website_url: http://coffeescript.org/
+  version: 1.4.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1178/slQydAMv.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/ngInfiniteScroll/package.json
+  detection_source: src/main/webapp/bower_components/ngInfiniteScroll/Gruntfile.coffee
+  last_updated_by: David Jones
+  last_updated_on: 2014-08-18 14:34:52.000000000 Z
+- name: EJS
+  description: An Embedded JavaScript templating Language
+  website_url: https://ejs.co/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Templating Languages & Extensions
+  image_url: https://img.stackshare.io/no-img-open-source.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/intl-tel-input/package.json
+  detection_source: src/main/webapp/bower_components/intl-tel-input/package.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-07-21 18:43:57.000000000 Z
+- name: Java
+  description: A concurrent, class-based, object-oriented, language specifically designed
+    to have as few implementation dependencies as possible
+  website_url: https://www.java.com
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/995/K85ZWV2F.png
+  detection_source_url: https://github.com/IHTSDO/MLDS
+  detection_source: Repo Metadata
+- name: JavaScript
+  description: Lightweight, interpreted, object-oriented language with first-class
+    functions
+  website_url: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/IHTSDO/MLDS
+  detection_source: Repo Metadata
+- name: SQL
+  description: It is a domain-specific language used in programming
+  website_url: https://en.wikipedia.org/wiki/SQL
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/backup.sql
+  detection_source: backup.sql
+  last_updated_by: David Jones
+  last_updated_on: 2014-08-19 14:27:06.000000000 Z
+- name: Spring Framework
+  description: An application framework and inversion of control container for the
+    Java platform
+  website_url: https://spring.io/projects/spring-framework
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Frameworks (Full Stack)
+  image_url: https://img.stackshare.io/service/2006/spring-framework-project-logo.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: pgwilliams
+  last_updated_on: 2021-05-18 13:31:11.000000000 Z
+- name: guava
+  description: Google Core Libraries for Java 6+
+  website_url: https://github.com/google/guava
+  version: '30.0'
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Java Tools
+  image_url: https://img.stackshare.io/service/2970/wBjKn0ol.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-08-27 16:16:06.000000000 Z
+- name: jQuery
+  description: The Write Less, Do More, JavaScript Library.
+  website_url: http://jquery.com/
+  version: 1.10.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Javascript UI Libraries
+  image_url: https://img.stackshare.io/service/1021/lxEKmMnB_400x400.jpg
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: anson-chung
+  last_updated_on: 2014-06-18 17:25:16.000000000 Z
+- name: Ehcache
+  description: Java's Most Widely-Used Cache
+  website_url: http://ehcache.org/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Cache
+  image_url: https://img.stackshare.io/service/3093/EhcacheTwitterIcon.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Peter Groves Williams
+  last_updated_on: 2017-07-28 10:57:23.000000000 Z
+- name: H2 Database
+  description: A relational database management system written in Java
+  website_url: http://www.h2database.com/
+  open_source: false
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Databases
+  image_url: https://img.stackshare.io/service/3105/h2-logo_square_400x400.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-17 14:34:56.000000000 Z
+- name: Hibernate
+  description: Idiomatic persistence for Java and relational databases.
+  website_url: http://hibernate.org/
+  open_source: false
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Object Relational Mapper (ORM)
+  image_url: https://img.stackshare.io/service/1756/1uNl_IZX.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-17 14:34:56.000000000 Z
+- name: Liquibase
+  description: Easily track, version &amp; deploy database changes
+  website_url: https://www.liquibase.com
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Database Tools
+  image_url: https://img.stackshare.io/service/1398/y1As8_s5_400x400.jpg
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-17 14:34:56.000000000 Z
+- name: MySQL
+  description: The world's most popular open source database
+  website_url: http://www.mysql.com
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Databases
+  image_url: https://img.stackshare.io/service/1025/logo-mysql-170x170.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-05-22 14:52:39.000000000 Z
+- name: Ansible
+  description: Radically simple configuration-management, application deployment,
+    task-execution, and multi-node orchestration engine
+  website_url: http://www.ansible.com/
+  license: GPL-3.0
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Server Configuration and Automation
+  image_url: https://img.stackshare.io/service/663/ElOjna20.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/ansible/ansible.cfg
+  detection_source: src/main/ansible/ansible.cfg
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-06-03 19:22:06.000000000 Z
+- name: Bower
+  description: A package manager for the web
+  website_url: http://bower.io
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/service/847/66db62603f426a8fc6664081811be6d4.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: Chai
+  description: A BDD / TDD assertion library
+  website_url: http://chaijs.com/
+  version: 1.4.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Javascript Testing Framework
+  image_url: https://img.stackshare.io/service/1725/chai.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/ngInfiniteScroll/package.json
+  detection_source: src/main/webapp/bower_components/ngInfiniteScroll/package.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-08-18 14:34:52.000000000 Z
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/IHTSDO/MLDS
+  detection_source: Repo Metadata
+- name: Grunt
+  description: The JavaScript Task Runner
+  website_url: http://gruntjs.com/
+  version: 1.3.0
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: JS Build Tools / JS Task Runners
+  image_url: https://img.stackshare.io/service/845/falgg2jybmhgk16y62lr.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: Jasmine
+  description: DOM-less simple JavaScript testing framework
+  website_url: http://jasmine.github.io/
+  open_source: false
+  hosted_saas: true
+  category: Build, Test, Deploy
+  sub_category: Javascript Testing Framework
+  image_url: https://img.stackshare.io/service/831/7c0b595409af531b9cdeb07f8c513e8b.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: Karma
+  description: Spectacular Test Runner for JavaScript
+  website_url: http://karma-runner.github.io/
+  version: 6.3.16
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Browser Testing
+  image_url: https://img.stackshare.io/service/1420/TidYGd6a.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: LiveReload
+  description: CSS edits and image changes apply live. CoffeeScript, SASS, LESS and
+    others just work.
+  website_url: http://livereload.com
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Live Reloading
+  image_url: https://img.stackshare.io/service/2601/128.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/ng-csv/package.json
+  detection_source: src/main/webapp/bower_components/ng-csv/package.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-12-29 21:40:10.000000000 Z
+- name: Logback
+  description: A logging framework for Java applications
+  website_url: https://logback.qos.ch/
+  open_source: false
+  hosted_saas: false
+  category: Monitoring
+  sub_category: Log Management
+  image_url: https://img.stackshare.io/service/2923/05518ecaa42841e834421e9d6987b04f_400x400.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/resources/logback.xml
+  detection_source: src/main/resources/logback.xml
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-06-10 18:50:21.000000000 Z
+- name: PhantomJS
+  description: Scriptable Headless WebKit
+  website_url: https://phantomjs.org/
+  license: BSD-3-Clause
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Headless Browsers
+  image_url: https://img.stackshare.io/service/1832/phantomjs.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: RequireJS
+  description: JavaScript file and module loader
+  website_url: http://requirejs.org/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Front End Package Manager
+  image_url: https://img.stackshare.io/service/852/1781835.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: Travis CI
+  description: A hosted continuous integration service for open source and private
+    projects
+  website_url: http://travis-ci.com/
+  open_source: false
+  hosted_saas: true
+  category: Build, Test, Deploy
+  sub_category: Continuous Integration
+  image_url: https://img.stackshare.io/service/460/Lu6cGu0z_400x400.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/angular-dynamic-locale/.travis.yml
+  detection_source: src/main/webapp/bower_components/angular-dynamic-locale/.travis.yml
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-06-10 18:50:21.000000000 Z
+- name: Vagrant
+  description: A tool for building and distributing development environments
+  website_url: http://www.vagrantup.com/
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Virtual Machine Management
+  image_url: https://img.stackshare.io/service/768/150px-Vagrant.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/ansible/Vagrantfile
+  detection_source: src/main/ansible/Vagrantfile
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-06-03 19:22:06.000000000 Z
+- name: npm
+  description: The package manager for JavaScript.
+  website_url: https://www.npmjs.com/
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Front End Package Manager
+  image_url: https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/ngInfiniteScroll/package.json
+  detection_source: src/main/webapp/bower_components/ngInfiniteScroll/package.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-08-18 14:34:52.000000000 Z
+- name: Apache Camel
+  description: A versatile open source integration framework
+  website_url: https://camel.apache.org/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Application Hosting
+  sub_category: Platform as a Service
+  image_url: https://img.stackshare.io/service/3276/xWt1RFo6_400x400.jpg
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/resources/config/application.properties
+  detection_source: src/main/resources/config/application.properties
+  last_updated_by: jaykamal
+  last_updated_on: 2023-05-29 08:07:48.000000000 Z
+- name: Firefox
+  description: Mozilla's Web Browser
+  website_url: https://www.mozilla.org/en-US/firefox/
+  open_source: false
+  hosted_saas: false
+  category: Back Office
+  sub_category: Web Browser
+  image_url: https://img.stackshare.io/service/8705/768px-Firefox_Logo__2017.svg.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/angular-dynamic-locale/package.json
+  detection_source: src/main/webapp/bower_components/angular-dynamic-locale/package.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-06-10 18:50:21.000000000 Z
+- name: Font Awesome
+  description: The internet's most popular icon toolkit
+  website_url: https://fontawesome.com/
+  version: 4.2.0
+  open_source: true
+  hosted_saas: false
+  category: Design
+  sub_category: Fonts
+  image_url: https://img.stackshare.io/service/3244/1_Mr1Fy00XjPGNf1Kkp_hWtw_2x.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-12-29 21:40:24.000000000 Z
+- name: Modernizr
+  description: Respond to your user’s browser features
+  website_url: https://modernizr.com/
+  version: 3.7.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Javascript Utilities & Libraries
+  image_url: https://img.stackshare.io/service/2440/9TeXWBzR_400x400.jpg
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-10 07:23:48.000000000 Z
+- name: Moment.js
+  description: A JavaScript date library for parsing, validating, manipulating, and
+    formatting dates
+  website_url: http://momentjs.com/
+  version: 2.11.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Javascript Utilities & Libraries
+  image_url: https://img.stackshare.io/service/3643/Xrtdc94q_400x400.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: Shell
+  description: A shell is a text-based terminal, used for manipulating programs and
+    files. Shell scripts typically manage program execution.
+  website_url: https://en.wikipedia.org/wiki/Shell_script
+  open_source: false
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/4631/default_c2062d40130562bdc836c13dbca02d318205a962.png
+  detection_source_url: https://github.com/IHTSDO/MLDS
+  detection_source: Repo Metadata
+- name: com.fasterxml.jackson.datatype:jackson-datatype-joda
+  description: Add-on module for Jackson
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: com.fasterxml.jackson.datatype:jackson-datatype-json-org
+  description: Support for datatypes of "org.json" JSON library
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: com.google.guava:guava
+  description: Guava is a suite of core and expanded libraries that include utility
+    classes
+  version: '30.0'
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+  vulnerabilities:
+  - name: Guava vulnerable to insecure use of temporary directory
+    cve_id: CVE-2023-2976
+    cve_url: https://github.com/advisories/GHSA-7g45-4rm6-3mm3
+    detected_date: Jun 15
+    severity: moderate
+    first_patched: 32.0.0-android
+  - name: Information Disclosure in Guava
+    cve_id: CVE-2020-8908
+    cve_url: https://github.com/advisories/GHSA-5mg8-w23w-74h3
+    detected_date: Aug 22
+    severity: low
+    first_patched: 32.0.0-android
+- name: com.h2database:h2
+  description: H2 Database Engine
+  license: MIT-feh
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: com.jayway.awaitility:awaitility
+  description: A Java DSL for synchronizing asynchronous operations
+  version: 1.4.0
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: com.jayway.jsonpath:json-path
+  description: Java port of Stefan Goessner JsonPath
+  version: 2.2.0
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+  vulnerabilities:
+  - name: json-path Out-of-bounds Write vulnerability
+    cve_id: CVE-2023-51074
+    cve_url: https://github.com/advisories/GHSA-pfh2-hfmq-phg5
+    detected_date: Jan 18
+    severity: moderate
+    first_patched: 2.9.0
+- name: com.mattbertolini:liquibase-slf4j
+  description: Liquibase SLF4J Logger
+  version: 1.2.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: com.rometools:rome
+  description: All Roads Lead to ROME
+  version: 1.15.0
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: com.ryantenney.metrics:metrics-spring
+  description: Spring integration for Coda Hale's Metrics Library
+  version: 3.0.0
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: com.zaxxer:HikariCP
+  description: Ultimate JDBC Connection Pool
+  version: 1.3.8
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: commons-io:commons-io
+  description: The Apache Commons IO library contains utility classes
+  version: '2.4'
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Peter G. Williams
+  last_updated_on: 2015-01-13 14:39:14.000000000 Z
+  vulnerabilities:
+  - name: Path Traversal and Improper Input Validation in Apache Commons IO
+    cve_id: CVE-2021-29425
+    cve_url: https://github.com/advisories/GHSA-gwrp-pvrq-jmwv
+    detected_date: Aug 22
+    severity: moderate
+    first_patched: '2.7'
+- name: commons-lang:commons-lang
+  description: Commons Lang
+  version: '2.6'
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Peter G. Williams
+  last_updated_on: 2015-01-13 14:39:14.000000000 Z
+- name: io.dropwizard.metrics:metrics-core
+  description: Metrics is a Java library which gives you unparalleled insight into
+    what your code does in production
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-17 14:34:56.000000000 Z
+- name: io.dropwizard.metrics:metrics-graphite
+  description: A reporter for Metrics which announces measurements to a Graphite server
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Peter Groves Williams
+  last_updated_on: 2017-07-03 14:23:20.000000000 Z
+- name: io.dropwizard.metrics:metrics-servlets
+  description: A set of utility servlets for Metrics
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Rory Davidson
+  last_updated_on: 2017-11-21 09:23:56.000000000 Z
+- name: javax.inject:javax.inject
+  description: The javax.inject API
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-17 14:34:56.000000000 Z
+- name: javax.xml.bind:jaxb-api
+  description: JAXB
+  version: 2.3.1
+  license: CDDL-1.1,CNRI-Python-GPL-Compatible
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-17 14:34:56.000000000 Z
+- name: joda-time:joda-time
+  description: Date and time library to replace JDK date handling
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: pgwilliams
+  last_updated_on: 2020-11-30 17:38:54.000000000 Z
+- name: joda-time:joda-time-hibernate
+  description: Contribution to Joda-Time that adds Hibernate support
+  version: '1.3'
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-17 14:34:56.000000000 Z
+- name: mysql:mysql-connector-java
+  description: MySQL JDBC Type 4 driver
+  version: 8.0.22
+  license: GPL-3.0-only
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-17 14:34:56.000000000 Z
+  vulnerabilities:
+  - name: Incorrect Authorization in MySQL Connector Java
+    cve_id: CVE-2021-2471
+    cve_url: https://github.com/advisories/GHSA-w6f2-8wx4-47r5
+    detected_date: Jun 23
+    severity: moderate
+    first_patched: 8.0.27
+  - name: Improper Handling of Insufficient Permissions or Privileges in MySQL Connectors
+      Java
+    cve_id: CVE-2022-21363
+    cve_url: https://github.com/advisories/GHSA-g76j-4cxx-23h9
+    detected_date: Jun 21
+    severity: moderate
+    first_patched: 8.0.28
+- name: net.java.dev.jna:jna
+  description: Java Native Access
+  version: 5.7.0
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-17 14:34:56.000000000 Z
+- name: org.apache.httpcomponents:httpclient
+  description: Apache HttpComponents Client
+  version: 4.5.2
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+  vulnerabilities:
+  - name: Cross-site scripting in Apache HttpClient
+    cve_id: CVE-2020-13956
+    cve_url: https://github.com/advisories/GHSA-7r82-7xv7-xcpj
+    detected_date: Aug 22
+    severity: moderate
+    first_patched: 4.5.13
+- name: org.assertj:assertj-core
+  description: Rich and fluent assertions for testing for Java
+  version: 1.6.0
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.hibernate:hibernate-core
+  description: Hibernate's core ORM functionality
+  license: LGPL-2.0-only,GPL-3.0-or-later
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.hibernate:hibernate-ehcache
+  description: Integration for using Ehcache 2.x as a Hibernate second-level-cache
+    provider
+  license: LGPL-2.0-only,GPL-3.0-or-later
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.hibernate:hibernate-entitymanager
+  description: ''
+  license: LGPL-2.0-only,GPL-3.0-or-later
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.hibernate:hibernate-validator
+  description: Hibernate's Bean Validation
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.jadira.usertype:usertype.core
+  description: Classes utilising Joda Time
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.jsoup:jsoup
+  description: Jsoup is a Java library for working with real-world HTML
+  version: 1.14.3
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+  vulnerabilities:
+  - name: jsoup may not sanitize code injection XSS attempts if SafeList.preserveRelativeLinks
+      is enabled
+    cve_id: CVE-2022-36033
+    cve_url: https://github.com/advisories/GHSA-gp7f-rwcx-9369
+    detected_date: Sep 2
+    severity: moderate
+    first_patched: 1.15.3
+- name: org.liquibase:liquibase-core
+  description: Liquibase is a tool for managing and executing database changes
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-actuator
+  description: Spring Boot Actuator
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-autoconfigure
+  description: Spring Boot AutoConfigure
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-loader-tools
+  description: Spring Boot Loader Tools
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-aop
+  description: Starter for aspect-oriented programming with Spring AOP and AspectJ
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-data-jpa
+  description: Starter for using Spring Data JPA with Hibernate
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-logging
+  description: Starter for logging using Logback. Default logging starter
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-mail
+  description: Starter for using Java Mail and Spring Framework's email sending support
+  version: 2.4.5
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-security
+  description: Starter for using Spring Security
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-test
+  description: Starter for testing Spring Boot applications with libraries including
+    JUnit
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-thymeleaf
+  description: Starter for building MVC web applications using Thymeleaf views
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-tomcat
+  description: Starter for using Tomcat as the embedded servlet container
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-web
+  description: Starter for building web, including RESTful, applications using Spring
+    MVC
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.springframework:spring-context-support
+  description: Spring Context Support
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.testcontainers:postgresql
+  description: Testcontainers is a Java library that supports JUnit tests
+  version: 1.17.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: org.testcontainers:testcontainers
+  description: Isolated container management for Java code testing
+  version: 1.17.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-23 08:27:14.000000000 Z
+- name: archiver
+  description: A streaming interface for archive generation
+  package_url: https://www.npmjs.com/archiver
+  version: 0.4.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16407/default_4cc3f31b8c64a6268fc123f0965a09d1b11180af.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/jquery/package.json
+  detection_source: src/main/webapp/bower_components/jquery/package.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-05-22 15:17:05.000000000 Z
+- name: bower
+  description: The browser package manager
+  package_url: https://www.npmjs.com/bower
+  version: 1.8.8
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16205/default_b4f5b6f31c5ab1ffee4bacf20842cd41a8f2658d.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: coffee-script
+  description: Unfancy JavaScript
+  package_url: https://www.npmjs.com/coffee-script
+  version: 1.4.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15920/default_1d65e37e65b7f80761374f0202776043277d505d.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/ngInfiniteScroll/package.json
+  detection_source: src/main/webapp/bower_components/ngInfiniteScroll/package.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-08-18 14:34:52.000000000 Z
+- name: connect-livereload
+  description: Connect middleware for adding the livereload script to the response
+  package_url: https://www.npmjs.com/connect-livereload
+  version: 0.2.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17161/default_9746cbb559e39df4afd8298f9a252dff8519e646.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/ng-csv/package.json
+  detection_source: src/main/webapp/bower_components/ng-csv/package.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-12-29 21:40:10.000000000 Z
+- name: event-stream
+  description: Construct pipes of streams of events
+  package_url: https://www.npmjs.com/event-stream
+  version: 3.1.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16246/default_dc80ff0a17bac19253430a4f0f586714841116db.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-autoprefixer
+  description: Parse CSS and add vendor-prefixed CSS properties using the Can I Use
+    database
+  package_url: https://www.npmjs.com/grunt-autoprefixer
+  version: 0.7.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17148/default_9746cbb559e39df4afd8298f9a252dff8519e646.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-bower-task
+  description: Install Bower packages
+  package_url: https://www.npmjs.com/grunt-bower-task
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/18665/default_1695d30317b82fb72729beb3a193adbd20fc0195.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/intl-tel-input/package.json
+  detection_source: src/main/webapp/bower_components/intl-tel-input/package.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-07-21 18:43:57.000000000 Z
+- name: grunt-bump
+  description: Bump package version
+  package_url: https://www.npmjs.com/grunt-bump
+  version: 0.0.13
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16360/default_92302d1bbf4c0f67b862869662b4f69002c94aad.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/intl-tel-input/package.json
+  detection_source: src/main/webapp/bower_components/intl-tel-input/package.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-07-21 18:43:57.000000000 Z
+- name: grunt-cli
+  description: The grunt command line interface
+  package_url: https://www.npmjs.com/grunt-cli
+  version: 0.1.13
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16021/default_924b66c04aa848a4028c1a5753a23dae0f835f86.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-coffeelint
+  description: Lint your Coffee
+  package_url: https://www.npmjs.com/grunt-coffeelint
+  version: 0.0.5
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16862/default_1b078765f7b7ae4ccce598a7251eb06451511e5e.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/ngInfiniteScroll/package.json
+  detection_source: src/main/webapp/bower_components/ngInfiniteScroll/package.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-08-18 14:34:52.000000000 Z
+- name: grunt-concurrent
+  description: Run grunt tasks concurrently
+  package_url: https://www.npmjs.com/grunt-concurrent
+  version: 0.5.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16823/default_9a5182350af29cb82b3344853e865051f508ac6c.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-contrib-clean
+  description: Clean files and folders
+  package_url: https://www.npmjs.com/grunt-contrib-clean
+  version: 0.5.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15939/default_8b5680d4e916298d08363c291a0d6e34c07ceb15.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-contrib-coffee
+  description: Compile CoffeeScript files to JavaScript
+  package_url: https://www.npmjs.com/grunt-contrib-coffee
+  version: 0.7.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16284/default_9924e5da1d50ea01e52b48e4fae4b1347af5e4ff.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/ng-csv/package.json
+  detection_source: src/main/webapp/bower_components/ng-csv/package.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-12-29 21:40:10.000000000 Z
+- name: grunt-contrib-compass
+  description: Compile Sass to CSS using Compass
+  package_url: https://www.npmjs.com/grunt-contrib-compass
+  version: 0.7.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17938/default_e0b07170ab7d7ea66954ff35fdeaae5255c4c0aa.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-contrib-concat
+  description: Concatenate files
+  package_url: https://www.npmjs.com/grunt-contrib-concat
+  version: 0.3.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16075/default_d4e765f8a43dcfd232c8b9ee9732058bc27c727a.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-contrib-connect
+  description: Start a connect web server
+  package_url: https://www.npmjs.com/grunt-contrib-connect
+  version: 0.7.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16236/default_380ae3d73e22c7ca1f42b96479bcd0095dabc0d3.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-contrib-copy
+  description: Copy files and folders
+  package_url: https://www.npmjs.com/grunt-contrib-copy
+  version: 0.5.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16056/default_c7b204838197013798409fa2b4dafce450edc7fb.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-contrib-cssmin
+  description: Minify CSS
+  package_url: https://www.npmjs.com/grunt-contrib-cssmin
+  version: 0.9.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16324/default_b5c8f3c8e46d368f74a982d06d7f13291fe651ea.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-contrib-htmlmin
+  description: Minify HTML
+  package_url: https://www.npmjs.com/grunt-contrib-htmlmin
+  version: 0.2.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17474/default_e5adc22c59a44962e41dfaec51edeb42c083f2f4.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-contrib-imagemin
+  description: Minify images
+  package_url: https://www.npmjs.com/grunt-contrib-imagemin
+  version: 0.5.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17791/default_abcc2eea82e62d338a749f334647866df76198b8.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-contrib-jasmine
+  description: Run jasmine specs headlessly through Headless Chrome
+  package_url: https://www.npmjs.com/grunt-contrib-jasmine
+  version: 0.6.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16820/default_1b078765f7b7ae4ccce598a7251eb06451511e5e.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/intl-tel-input/package.json
+  detection_source: src/main/webapp/bower_components/intl-tel-input/package.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-07-21 18:43:57.000000000 Z
+- name: grunt-contrib-jshint
+  description: Validate files with JSHint
+  package_url: https://www.npmjs.com/grunt-contrib-jshint
+  version: 0.9.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15898/default_59a1b5716eefa3750c20936c3d53ff13a6390ee1.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-contrib-sass
+  description: Compile Sass to CSS
+  package_url: https://www.npmjs.com/grunt-contrib-sass
+  version: 0.7.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16843/default_768abdabb94806c932ace6262b6bbc8241907245.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/intl-tel-input/package.json
+  detection_source: src/main/webapp/bower_components/intl-tel-input/package.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-07-21 18:43:57.000000000 Z
+- name: grunt-contrib-uglify
+  description: Minify JavaScript files with UglifyJS
+  package_url: https://www.npmjs.com/grunt-contrib-uglify
+  version: 0.4.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15954/default_ac622bc364a601d766b9a6f6039f191492f54d65.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-contrib-watch
+  description: Run predefined tasks whenever watched file patterns are added
+  package_url: https://www.npmjs.com/grunt-contrib-watch
+  version: 0.6.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15932/default_4dc9671df0093fd7061f6455afdf054e6cc9dacb.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-karma
+  description: Grunt plugin for karma test runner
+  package_url: https://www.npmjs.com/grunt-karma
+  version: 0.8.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16328/default_e8196e273db814cf9be505b35dec386fafb0dbaa.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+  vulnerabilities:
+  - name: Grunt-karma vulnerable to prototype pollution
+    cve_id: CVE-2022-37602
+    cve_url: https://github.com/advisories/GHSA-hcj4-xf6x-63wj
+    detected_date: Oct 20
+    severity: critical
+    first_patched:
+- name: grunt-open
+  description: Open urls and files from a grunt task
+  package_url: https://www.npmjs.com/grunt-open
+  version: 0.2.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17401/default_7b8a4dd0459c1d55636639cb97d216b33a363a7f.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/ng-csv/package.json
+  detection_source: src/main/webapp/bower_components/ng-csv/package.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-12-29 21:40:10.000000000 Z
+- name: grunt-svgmin
+  description: Minify SVG
+  package_url: https://www.npmjs.com/grunt-svgmin
+  version: 0.4.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/18677/default_ee6b4297c393c737b2e05ae6453ec620a6c456eb.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-text-replace
+  description: Replace text in files using strings, regexs or functions
+  package_url: https://www.npmjs.com/grunt-text-replace
+  version: 0.3.11
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17667/default_894a45ad01fa93ac472db719cb1ef1b89f2924f0.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: grunt-usemin
+  description: Replaces references to non-optimized scripts or stylesheets into a
+    set of HTML files
+  package_url: https://www.npmjs.com/grunt-usemin
+  version: 2.1.0
+  license: BSD-2-Clause
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17796/default_abcc2eea82e62d338a749f334647866df76198b8.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: karma-chrome-launcher
+  description: A Karma plugin. Launcher for Chrome and Chrome Canary
+  package_url: https://www.npmjs.com/karma-chrome-launcher
+  version: 3.1.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15860/default_6743ba96cf149a3c3c68a185199f9705d6eff80e.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: karma-firefox-launcher
+  description: A Karma plugin. Launcher for Firefox
+  package_url: https://www.npmjs.com/karma-firefox-launcher
+  version: 0.0.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16026/default_924b66c04aa848a4028c1a5753a23dae0f835f86.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/angular-dynamic-locale/package.json
+  detection_source: src/main/webapp/bower_components/angular-dynamic-locale/package.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-06-10 18:50:21.000000000 Z
+- name: karma-html2js-preprocessor
+  description: A Karma plugin
+  package_url: https://www.npmjs.com/karma-html2js-preprocessor
+  version: 1.1.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17231/default_f32012d99e98300650172d76a20c554617f1031d.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: karma-jasmine
+  description: A Karma plugin - adapter for Jasmine testing framework
+  package_url: https://www.npmjs.com/karma-jasmine
+  version: 5.0.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15886/default_7c39a83d4acd952df89b1ebfdb94c8646324fbf1.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: karma-phantomjs-launcher
+  description: A Karma plugin. Launcher for PhantomJS
+  package_url: https://www.npmjs.com/karma-phantomjs-launcher
+  version: 1.0.4
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15947/default_54b691c123fc8979741e800e4dcd3936c0f3b246.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: karma-requirejs
+  description: A Karma plugin. Adapter for RequireJS framework
+  package_url: https://www.npmjs.com/karma-requirejs
+  version: 1.1.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16817/default_31a4e0e11d348225088320f3a5c5ea6fa49c27ad.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: karma-script-launcher
+  description: A Karma plugin. Launcher for shell scripts
+  package_url: https://www.npmjs.com/karma-script-launcher
+  version: 1.0.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17382/default_b39374c3a74b433364bfdbff07be26214bf186fd.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: load-grunt-config
+  description: Grunt plugin that lets you break up your Gruntfile config by task
+  package_url: https://www.npmjs.com/load-grunt-config
+  version: 0.7.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17079/default_32da0e64c9ec90f8f302a76668f802f1f4d08177.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/intl-tel-input/package.json
+  detection_source: src/main/webapp/bower_components/intl-tel-input/package.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-07-21 18:43:57.000000000 Z
+- name: load-grunt-tasks
+  description: Load multiple grunt tasks using globbing patterns
+  package_url: https://www.npmjs.com/load-grunt-tasks
+  version: 0.4.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16062/default_924b66c04aa848a4028c1a5753a23dae0f835f86.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: matchdep
+  description: Use micromatch to filter npm module dependencies by name
+  package_url: https://www.npmjs.com/matchdep
+  version: 0.1.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16416/default_aa91da3cee4d961f0eea8ca5de77f399ec7ec794.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/ng-csv/package.json
+  detection_source: src/main/webapp/bower_components/ng-csv/package.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-12-29 21:40:10.000000000 Z
+- name: time-grunt
+  description: Display the elapsed execution time of grunt tasks
+  package_url: https://www.npmjs.com/time-grunt
+  version: 0.2.7
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16275/default_ab17554b7e80af3d234b14168ed61e75d43f8eee.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Rory Davidson
+  last_updated_on: 2022-04-14 09:33:02.000000000 Z
+- name: angular
+  description: Bower package for AngularJS
+  package_url: http://bower.io/angular
+  version: 1.2.16
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-bootstrap
+  description: Native AngularJS
+  package_url: http://bower.io/angular-bootstrap
+  version: 0.11.0
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-cookies
+  description: Angular-cookies bower repo
+  package_url: http://bower.io/angular-cookies
+  version: 1.2.16
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-dynamic-locale
+  description: Angular Dynamic Locale
+  package_url: http://bower.io/angular-dynamic-locale
+  version: 0.1.1
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-i18n
+  description: Internationalization module for AngularJS
+  package_url: http://bower.io/angular-i18n
+  version: 1.2.5
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-mocks
+  description: Angular-mocks.js bower repo
+  package_url: http://bower.io/angular-mocks
+  version: 1.2.13
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-resource
+  description: Angular-resource bower repo
+  package_url: http://bower.io/angular-resource
+  version: 1.2.16
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-route
+  description: Angular-route bower repo
+  package_url: http://bower.io/angular-route
+  version: 1.2.16
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-sanitize
+  description: Angular-sanitize bower repo
+  package_url: http://bower.io/angular-sanitize
+  version: 1.2.16
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-scenario
+  description: Bower repo for angular-scenario.js
+  package_url: http://bower.io/angular-scenario
+  version: 1.2.13
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-translate
+  description: A translation module for AngularJS
+  package_url: http://bower.io/angular-translate
+  version: 2.0.0
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/angular-translate-loader-static-files/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-translate-loader-static-files
+  description: A plugin for Angular Translate
+  package_url: http://bower.io/angular-translate-loader-static-files
+  version: 2.0.0
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: angular-translate-storage-cookie
+  description: A plugin for Angular Translate
+  package_url: http://bower.io/angular-translate-storage-cookie
+  version: 2.0.0
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: es5-shim
+  description: ECMAScript 5 compatibility shims for legacy JavaScript engines
+  package_url: http://bower.io/es5-shim
+  version: 2.0.8
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: anson-chung
+  last_updated_on: 2014-06-18 17:25:16.000000000 Z
+- name: html5shiv
+  description: This script is the defacto way to enable use of HTML5 sectioning elements
+    in legacy Internet Explorer
+  package_url: http://bower.io/html5shiv
+  version: 3.7.0
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: anson-chung
+  last_updated_on: 2014-06-18 17:25:16.000000000 Z
+- name: intl-tel-input
+  description: A jQuery plugin for entering and validating international telephone
+    numbers
+  package_url: http://bower.io/intl-tel-input
+  version: 2.0.6
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-08-18 14:34:52.000000000 Z
+- name: jasmine-jquery
+  description: JQuery matchers and fixture loader for Jasmine framework
+  package_url: http://bower.io/jasmine-jquery
+  version: 2.0.2
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/intl-tel-input/bower.json
+  detection_source: src/main/webapp/bower_components/intl-tel-input/bower.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-07-21 18:43:57.000000000 Z
+- name: js-base64
+  description: Base64 implementation for JavaScript
+  package_url: http://bower.io/js-base64
+  version: 2.1.2
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: anson-chung
+  last_updated_on: 2014-06-18 17:25:16.000000000 Z
+- name: json3
+  description: A modern JSON implementation compatible with nearly all JavaScript
+    platforms
+  package_url: http://bower.io/json3
+  version: 3.2.4
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: anson-chung
+  last_updated_on: 2014-06-18 17:25:16.000000000 Z
+- name: modernizr
+  description: Modernizr is a JavaScript library that detects HTML5 and CSS3 features
+    in the user’s browser
+  package_url: http://bower.io/modernizr
+  version: 3.7.0
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-10 07:23:48.000000000 Z
+- name: moment
+  description: Parse
+  package_url: http://bower.io/moment
+  version: 2.11.2
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: jaykamal
+  last_updated_on: 2023-06-07 08:21:16.000000000 Z
+- name: ng-csv
+  description: Simple directive that turns arrays and objects into downloadable CSV
+    files
+  package_url: http://bower.io/ng-csv
+  version: 0.3.1
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: David Jones
+  last_updated_on: 2014-12-29 21:40:24.000000000 Z
+- name: ngInfiniteScroll
+  description: Infinite Scrolling for AngularJS
+  package_url: http://bower.io/ngInfiniteScroll
+  version: 1.0.0
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-09-23 18:50:36.000000000 Z
+- name: placeholders
+  description: A JavaScript polyfill for the HTML5 placeholder attribute
+  package_url: http://bower.io/placeholders
+  version: 3.0.2
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-22 08:09:15.000000000 Z
+- name: respond
+  description: A fast &amp; lightweight polyfill for min/max-width CSS3 Media Queries
+  package_url: http://bower.io/respond
+  version: 1.3.0
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: anson-chung
+  last_updated_on: 2014-06-18 17:25:16.000000000 Z
+- name: underscore
+  description: JavaScript's utility _ belt
+  package_url: http://bower.io/underscore
+  version: 1.13.6
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/bower/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/bower.json
+  detection_source: bower.json
+  last_updated_by: Aravinth Aasai
+  last_updated_on: 2023-05-22 08:09:15.000000000 Z
+- name: robloach/component-installer
+  description: Allows installation of Components via Composer
+  package_url: https://packagist.org/robloach/component-installer
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/packagist/image.png
+  detection_source_url: https://github.com/IHTSDO/MLDS/blob/master/src/main/webapp/bower_components/jquery/composer.json
+  detection_source: src/main/webapp/bower_components/jquery/composer.json
+  last_updated_by: Michael Buckley
+  last_updated_on: 2014-05-22 15:17:05.000000000 Z
