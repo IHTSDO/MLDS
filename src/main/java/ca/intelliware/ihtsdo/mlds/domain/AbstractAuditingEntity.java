@@ -21,7 +21,6 @@ import java.time.Instant;
  * Created by mkh1973.
  */
 @MappedSuperclass
-//@Audited
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditingEntity {
 
