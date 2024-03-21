@@ -46,7 +46,8 @@
                 "nationalRegistrationList": "Krajowa lista rejestracyjna"
             },
             "language": "Język",
-            "home": "Strona główna"
+            "home": "Strona główna",
+            "cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/43e68e5dbb274c2d65ae9b31deb30d2a.js\"></script>"
         },
         "member": {
             "AE": "Zjednoczone Emiraty Arabskie",
@@ -628,7 +629,8 @@
                 "p50": "p50",
                 "p75": "p75",
                 "p99": "p99",
-                "mean": "Średni"
+                "mean": "Średni",
+                "p95": "p95"
             }
         },
         "ehcache": {
@@ -778,13 +780,27 @@
         "extensionApplication": {
             "warning": {
                 "approved.detail": "Twój wniosek został zatwierdzony.",
-                "approved": "Zatwierdzono rozszerzoną rejestrację"
+                "approved": "Zatwierdzono rozszerzoną rejestrację",
+                "change": "Rejestracja rozszerzenia wymaga zmian",
+                "change.detail": "Rejestracja rozszerzenia musi zostać zaktualizowana, zanim będzie mogła zostać przetworzona. Zapoznaj się z e-mailem dotyczącym niezbędnych zmian, aby zakończyć rejestrację.",
+                "rejected": "Odrzucono rejestrację rozszerzenia",
+                "rejected.detail": "Rejestracja przedłużenia musi zostać zaktualizowana przed jej przetworzeniem. Prosimy o zapoznanie się z wiadomością e-mail dotyczącą zmian niezbędnych do ukończenia rejestracji."
             },
             "delete": {
                 "title": "Anuluj wniosek",
                 "sure.detail": "Spowoduje to utratę wszystkich zapisanych informacji w tej aplikacji.",
                 "sure": "Czy na pewno chcesz anulować ten wniosek?"
-            }
+            },
+            "title": "Rozpocznij proces składania wniosku o rozszerzenie",
+            "sure": "Czy na pewno chcesz ubiegać się o to rozszerzenie?",
+            "form": {
+                "title": "Formularz wniosku o rozszerzenie",
+                "why": "Proszę opisać, dlaczego chcesz uzyskać dostęp do tego rozszerzenia.",
+                "purpose": "Przeznaczenie",
+                "error": "Powód powinien być dłuższy."
+            },
+            "agreement": "Umowa rozszerzenia",
+            "license": "Licencja rozszerzająca"
         },
         "footer": {
             "tos": "Warunki świadczenia usług",
@@ -813,15 +829,17 @@
                 "pAttention": "Podstawowa aplikacja wymaga uwagi",
                 "pProcessed": "Podstawowy wniosek jest przetwarzany",
                 "apply": "Wniosek o przedłużenie",
-                "pending": "Faktura oczekująca"
+                "pending": "Faktura oczekująca",
+                "aProcessed": "Wniosek jest przetwarzany",
+                "aAttention": "Aplikacja wymaga uwagi, kliknij, aby kontynuować"
             },
             "noAuth": "<a href=\"#/login\">Zaloguj się na</a>, aby pobrać lub kliknij <a href=\"#/register\">zarejestruj się</a>, aby rozpocząć proces aplikacji.",
             "title": "Wydania dostępne dla zarejestrowanych użytkowników"
         },
         "usageLog": {
-            "usage": "Stosowanie",
+            "usage": "Użycie",
             "subTitle": "Wykorzystanie licencyjne",
-            "usageFor": "Zastosowanie dla",
+            "usageFor": "Użytkowanie dla",
             "pleaseFill": "Prosimy o wypełnienie wszelkich znanych informacji o użytkowaniu w tej chwili, zostaniesz poproszony o potwierdzenie użycia po zatwierdzeniu wniosku.",
             "licenseType": "Rodzaj licencji",
             "currentUsage": "Bieżące użycie",
@@ -874,16 +892,29 @@
             "impStatus": "Stan wdrożenia",
             "notificationRequired": "Partnerzy mają obowiązek powiadomić SNOMED International przed podjęciem jakichkolwiek działań, które nie mieszczą się w istniejących kategoriach, a wtedy SNOMED International ustali odpowiednią strukturę opłat dla danej działalności.",
             "pleaseDescribe": "Proszę opisać aktywność poniżej.",
-            "submitFor": "Prześlij oświadczenie dot"
+            "submitFor": "Prześlij oświadczenie dot",
+            "title": "Przesłany raport użytkowania",
+            "retract": "Wycofaj deklarację"
         },
         "applicationSummary": {
-            "billingInfo": "Informacje rozliczeniowe"
+            "billingInfo": "Informacje rozliczeniowe",
+            "title": "Podsumowanie aplikacji",
+            "ext.title": "Informacje o rozszerzeniu aplikacji",
+            "reason": "Powód",
+            "affiliateInfo": "Informacje partnerskie",
+            "affiliateInformation": "Informacje partnerskie",
+            "useType": "Typ użytkowania",
+            "useSubType": "Użyj podtypu",
+            "context": "Informacje o kontekście użycia",
+            "subLicence": "Korzystanie z sublicencji",
+            "applicationActivity": "Aktywność aplikacji"
         },
         "activate": {
             "title": "Aktywacja",
             "messages": {
                 "error": {
-                    "title": "Nie można aktywować użytkownika."
+                    "title": "Nie można aktywować użytkownika.",
+                    "body": "Użyj formularza rejestracyjnego, aby się zarejestrować. Jeśli nadal napotykasz trudności, skontaktuj się z pomocą techniczną."
                 },
                 "success": {
                     "title": "Konto użytkownika zostało utworzone.",
@@ -903,7 +934,17 @@
             "otherPackages": "Inne dostępne wydania",
             "warning": {
                 "required.title": "Wymagana deklaracja użytkowania",
-                "required.msg": "Wstępna deklaracja użytkowania została zapisana. Należy jednak pamiętać, że ostateczną deklarację użycia za bieżący rok należy przesłać do 15 stycznia. Należy pamiętać, że wszystkie raporty użycia z poprzednich lat muszą zostać przesłane w celu pobrania SNOMED CT."
+                "required.msg": "Wstępna deklaracja użytkowania została zapisana. Należy jednak pamiętać, że ostateczną deklarację użycia za bieżący rok należy przesłać do 15 stycznia. Należy pamiętać, że wszystkie raporty użycia z poprzednich lat muszą zostać przesłane w celu pobrania SNOMED CT.",
+                "change.title": "Rejestracja partnera wymaga zmian",
+                "change.msg": "Rejestracja partnera musi zostać zaktualizowana, zanim będzie mogła zostać przetworzona. Zapoznaj się z e-mailem dotyczącym niezbędnych zmian, aby zakończyć rejestrację.",
+                "declined.title": "Odrzucono rejestrację partnera",
+                "deactivated.title": "Konto dezaktywowane",
+                "iPending.title": "Konto oczekujące na fakturę",
+                "iPending.msg": "Twoje konto ma oczekującą fakturę. Pobieranie pakietu wersji zostało zawieszone. Prosimy o kontakt pod adresem <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> w celu rozwiązania problemu.",
+                "dPending.title": "Oczekiwanie na dezaktywację konta",
+                "dPending.msg": "Twoje konto ma zostać dezaktywowane. Aby rozwiązać problem, skontaktuj się z <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>.",
+                "deactivated.msg": "Twoje konto zostało dezaktywowane. Pobieranie pakietów wydania i aplikacje rozszerzeń zostały zawieszone. Prosimy o kontakt z <a href=\"mailto:mlds@snomed.org\"> mlds@snomed.org </a> w celu rozwiązania problemu.",
+                "declined.msg": "Twoja rejestracja partnerska została odrzucona. Prosimy o zapoznanie się ze szczegółami decyzji w wiadomości e-mail."
             },
             "affiliateNo": "Nr Partnera",
             "edit": "Edytuj aplikację partnerską"
@@ -915,7 +956,166 @@
             "publicVersions": "Wersje publiczne",
             "noOnlineVersions": "Obecnie nie ma wersji online tego wydania.",
             "noOfflineReleases": "Obecnie nie są dostępne wersje offline i alfa/beta.",
-            "noOfflineVersions": "Obecnie nie ma wersji offline i alfa/beta tego wydania."
+            "noOfflineVersions": "Obecnie nie ma wersji offline i alfa/beta tego wydania.",
+            "title": "Wydania SNOMED",
+            "offline": "Offline",
+            "publicReleases": "Publiczne wydania",
+            "latest": "Najnowsze"
+        },
+        "contactInfo": {
+            "title": "Informacje o koncie",
+            "countryNotificationsOnly": "Tylko dla rozszerzeń w moim kraju",
+            "messages": {
+                "notApproved": {
+                    "body": "Dane kontaktowe partnera można zmodyfikować dopiero po zatwierdzeniu wniosku o rejestrację.",
+                    "title": "Rejestracja nie została jeszcze zatwierdzona"
+                }
+            },
+            "admin": {
+                "title": "Możliwość edycji przez administratora",
+                "other": {
+                    "name": "Inny",
+                    "placeholder": "Inny",
+                    "required": "Inne pole jest wymagane."
+                },
+                "subtype": {
+                    "name": "Podtyp",
+                    "required": "Pole podtypu jest wymagane."
+                },
+                "usageType": {
+                    "name": "Typ",
+                    "required": "Pole Typ użycia jest wymagane."
+                },
+                "agreementType": "Rodzaj umowy",
+                "accountStanding": "Stan konta"
+            },
+            "contact": {
+                "title": "Informacje kontaktowe",
+                "fullName": "Nazwa",
+                "firstName": {
+                    "name": "Imię",
+                    "placeholder": "John"
+                },
+                "lastName": {
+                    "name": "Nazwisko",
+                    "placeholder": "Smith"
+                },
+                "email": {
+                    "name": "E-mail",
+                    "placeholder": "JohnSmith@OrganizationABC.com",
+                    "unique": "Adresy e-mail muszą być unikalne.",
+                    "invalid": "Nieprawidłowy adres e-mail."
+                },
+                "alternateEmail": {
+                    "name": "Alternatywny adres e-mail",
+                    "placeholder": "alternative@email.com"
+                },
+                "thirdEmail": "Trzeci e-mail",
+                "landline": {
+                    "name": "Numer telefonu stacjonarnego",
+                    "short": "Numer telefonu",
+                    "invalid": "Nieprawidłowy numer telefonu."
+                },
+                "landlineExtension": {
+                    "name": "Rozszerzenie",
+                    "short": "Zew",
+                    "placeholder": "Rozszerzenie"
+                },
+                "mobile": {
+                    "placeholder": "numer",
+                    "name": "Numer telefonu komórkowego"
+                },
+                "address": {
+                    "title": "Adres",
+                    "name": "Adres",
+                    "placeholder": "123 Somewhere Avenue"
+                },
+                "city": {
+                    "name": "Miasto",
+                    "placeholder": "Miasto"
+                },
+                "postcode": {
+                    "name": "Kod pocztowy",
+                    "placeholder": "Kod pocztowy",
+                    "tooLong": "Kod pocztowy jest zbyt długi."
+                },
+                "country": {
+                    "name": "Państwo",
+                    "placeholder": "Państwo",
+                    "unrecognized": "Nieuznawane państwo."
+                },
+                "billingAddress": {
+                    "name": "Adres rozliczeniowy",
+                    "country": "Kraj rozliczeniowy",
+                    "placeholder": "Adres",
+                    "sameAsAddress": "Użyj adresu jako adresu rozliczeniowego",
+                    "useOrganizationAddress": "Użyj adresu organizacji jako adresu rozliczeniowego"
+                }
+            },
+            "organization": {
+                "title": "Organizacja",
+                "name": {
+                    "name": "Nazwa organizacji",
+                    "placeholder": "Nazwa organizacji"
+                },
+                "type": {
+                    "name": "Typ organizacji",
+                    "required": "Wymagany jest typ organizacji",
+                    "placeholder": "Inny typ organizacji"
+                }
+            },
+            "acceptNotifications": "Tak, powiadom mnie, gdy pakiet SNOMED zostanie zaktualizowany."
+        },
+        "requestPasswordReset": {
+            "title": "Resetowanie hasła",
+            "detail": "Wyślemy Ci wiadomość e-mail zawierającą łącze do formularza resetowania hasła.",
+            "button": "Poproś o zresetowanie hasła",
+            "back": "Powrót do strony logowania",
+            "emailNotFound": "Wprowadzony adres e-mail nie został znaleziony w systemie.",
+            "resetEmailSent": "Rozpoczął się proces resetowania hasła, sprawdź swoją skrzynkę e-mail."
+        },
+        "usage": {
+            "title": "Dziennik użytkowania",
+            "instructions": "Prosimy o wypełnienie deklaracji użytkowania dla wybranego okresu.",
+            "modal": {
+                "title": "Utwórz deklarację użytkowania",
+                "instructions": "Proszę wypełnić deklarację użytkowania dla wszystkich okresów. Prosimy o dołączenie raportów dotyczących przeszłego i bieżącego wykorzystania.",
+                "period": "Okres deklaracji"
+            },
+            "submit": {
+                "title": "Prześlij deklarację użytkowania",
+                "instructions": "Przed wysłaniem prosimy o sprawdzenie i upewnienie się, że poniższa deklaracja użytkowania jest poprawna.",
+                "declarationForPeriod": "Deklaracja na okres",
+                "button": "Prześlij deklarację"
+            },
+            "retract": {
+                "title": "Wycofaj deklarację użytkowania",
+                "instructions": "Czy na pewno chcesz wycofać ten raport? Powrócisz do tego samego raportu użycia, aby go edytować i przesłać ponownie. Za nowy okres należy złożyć nowy raport deklaracji.",
+                "button": "Wycofaj deklarację"
+            }
+        },
+        "postAnnouncement": {
+            "title": "Opublikuj Ogłoszenie",
+            "messageContent": "Treść wiadomości",
+            "emailSubject": "Temat wiadomości e-mail",
+            "emailBody": "Treść e-maila",
+            "salutationMessage": "Pamiętaj, aby dodać wstęp i podsumowanie do treści wiadomości e-mail.",
+            "audience": "Odbiorcy",
+            "affiliates": "Partnerzy",
+            "myAffiliates": "Moi partnerzy",
+            "allAffiliates": "Wszyscy partnerzy",
+            "affiliatesClarification": "Zatwierdzeni partnerzy ze stanem konta:",
+            "additionalEmails": "Dodatkowe adresy e-mail",
+            "post": "Opublikuj Ogłoszenie",
+            "newAnnouncement": "Nowe ogłoszenie",
+            "additionalEmailsHelp": "Wyślij wiadomość na dodatkowe adresy e-mail."
+        },
+        "affiliateSummary": {
+            "deleteAffiliate": "Usuń partnera",
+            "deleteAffiliateModal": {
+                "sure": "Czy na pewno chcesz usunąć partnera?",
+                "explanation": "Usunięcie Partnera spowoduje również usunięcie jego Aplikacji i Informacji o użytkowaniu. Użytkownik nie będzie już mógł zalogować się na konto."
+            }
         }
     },
     "application": {
