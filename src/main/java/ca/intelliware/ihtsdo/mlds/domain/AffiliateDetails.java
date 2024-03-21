@@ -4,6 +4,9 @@ package ca.intelliware.ihtsdo.mlds.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
 //import org.hibernate.search.mapper.pojo.mapping.definition.annotation.*;
 
 import java.time.Instant;
@@ -11,7 +14,7 @@ import java.time.Instant;
 
 @Entity
 @Table(name="affiliate_details")
-//@Indexed
+@Indexed
 //@Where(clause = "inactive_at IS NULL")
 //@SQLDelete(sql="UPDATE affiliate_details SET inactive_at = now() WHERE affiliate_details_id = ?")
 public class AffiliateDetails extends BaseEntity implements Cloneable {
@@ -46,11 +49,11 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 
 	@Column(name="first_name")
 //	@Fields({ @Field(name="ALL"), @Field()})
-//	@FullTextField
+	@FullTextField
 	String firstName;
 
 	@Column(name="last_name")
-//    @FullTextField
+    @FullTextField
 //	@Fields({ @Field(name="ALL"), @Field()})
 	String lastName;
 
@@ -58,11 +61,11 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 //		@Field(name="ALL"),  // the default analyzer splits on @
 //		@Field(analyzer=@Analyzer(impl= UAX29URLEmailAnalyzer.class))
 //		})
-//    @FullTextField
+    @FullTextField
 	String email;
 
 	@Column(name="alternate_email")
-//    @FullTextField
+    @FullTextField
 //	@Fields({
 //		@Field(name="ALL"),  // the default analyzer splits on @
 //		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
@@ -70,7 +73,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	String alternateEmail;
 
 	@Column(name="third_email")
-//    @FullTextField
+    @FullTextField
 //	@Fields({
 //		@Field(name="ALL"),  // the default analyzer splits on @
 //		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
@@ -86,7 +89,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="organization_type")
-//    @FullTextField
+    @FullTextField
 //	@Field(name="ALL",bridge=@FieldBridge(impl= OrganizationTypeFieldBridge.class))
 	OrganizationType organizationType;
 
@@ -100,12 +103,12 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	})
 	@AssociationOverrides(@AssociationOverride(name="country", joinColumns=@JoinColumn(name="country_iso_code_2")))
 	@Embedded
-//	@IndexedEmbedded
+	@IndexedEmbedded
 	MailingAddress address;
 
 	@Column(name="organization_name")
 //	@Fields({ @Field(name="ALL"), @Field()})
-//    @FullTextField
+    @FullTextField
 	String organizationName;
 
 	@AttributeOverrides({
@@ -115,7 +118,7 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	})
 	@AssociationOverrides(@AssociationOverride(name="country", joinColumns=@JoinColumn(name="billing_country_iso_code_2")))
 	@Embedded
-//	@IndexedEmbedded
+	@IndexedEmbedded
 	MailingAddress billingAddress;
 
 
