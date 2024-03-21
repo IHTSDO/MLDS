@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//import ca.intelliware.ihtsdo.mlds.repository.AffiliateSearchRepository;
+import ca.intelliware.ihtsdo.mlds.repository.AffiliateSearchRepository;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -53,8 +53,8 @@ public class AffiliateResourceTest {
     @Mock
     private AffiliateRepository affiliateRepository;
 
-//    @Mock
-//    private AffiliateSearchRepository affiliateSearchRepository;
+    @Mock
+    private AffiliateSearchRepository affiliateSearchRepository;
 
     @Mock
     private AffiliateDetailsRepository affiliateDetailsRepository;
@@ -92,7 +92,7 @@ public class AffiliateResourceTest {
 
         affiliateResource.affiliateDetailsRepository = affiliateDetailsRepository;
         affiliateResource.affiliateRepository = affiliateRepository;
-//        affiliateResource.affiliateSearchRepository = affiliateSearchRepository;
+        affiliateResource.affiliateSearchRepository = affiliateSearchRepository;
         affiliateResource.applicationAuthorizationChecker = applicationAuthorizationChecker;
         affiliateResource.affiliateAuditEvents = affiliateAuditEvents;
         affiliateResource.affiliatesExporterService = affiliatesExporterService;
