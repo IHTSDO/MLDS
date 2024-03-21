@@ -46,8 +46,8 @@ public class AffiliateResource_AffiliatesFilter_Test {
     @Mock
     private AffiliateRepository affiliateRepository;
 
-//    @Mock
-//    private AffiliateSearchRepository affiliateSearchRepository;
+    @Mock
+    private AffiliateSearchRepository affiliateSearchRepository;
 
     @Mock
     private AffiliateDetailsRepository affiliateDetailsRepository;
@@ -73,7 +73,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 
         affiliateResource.affiliateDetailsRepository = affiliateDetailsRepository;
         affiliateResource.affiliateRepository = affiliateRepository;
-//        affiliateResource.affiliateSearchRepository = affiliateSearchRepository;
+        affiliateResource.affiliateSearchRepository = affiliateSearchRepository;
         affiliateResource.applicationAuthorizationChecker = applicationAuthorizationChecker;
         affiliateResource.userRepository = userRepository;
         affiliateResource.sessionService = sessionService;
@@ -213,18 +213,18 @@ public class AffiliateResource_AffiliatesFilter_Test {
 	}
 
 
-//	@Test
-//	public void getAffiliatesShouldFilterByQuery() throws Exception {
-//    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
-//    	when(affiliateSearchRepository.findFullTextAndMember(Mockito.eq("test"), Mockito.eq((Member)null), Mockito.eq((StandingState)null), Mockito.eq(false), Mockito.any(Pageable.class))).thenReturn(matches);
-//
-//        restUserMockMvc.perform(get(Routes.AFFILIATES)
-//        		.param("q", "test")
-//                .accept(MediaType.APPLICATION_JSON_UTF8))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-//                .andExpect(contentMatchesTestCreator());
-//	}
+	@Test
+	public void getAffiliatesShouldFilterByQuery() throws Exception {
+    	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
+    	when(affiliateSearchRepository.findFullTextAndMember(Mockito.eq("test"), Mockito.eq((Member)null), Mockito.eq((StandingState)null), Mockito.eq(false), Mockito.any(Pageable.class))).thenReturn(matches);
+
+        restUserMockMvc.perform(get(Routes.AFFILIATES)
+        		.param("q", "test")
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(contentMatchesTestCreator());
+	}
 
 	@Test
 	public void getAffiliatesShouldFilterByStandingState() throws Exception {
