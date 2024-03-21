@@ -31,8 +31,8 @@ import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories({"ca.intelliware.ihtsdo.mlds.repository", "ca.intelliware.ihtsdo.mlds.registration"})
-//@EnableTransactionManagement
-//@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
+@EnableTransactionManagement
+@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class DatabaseConfiguration implements EnvironmentAware {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
