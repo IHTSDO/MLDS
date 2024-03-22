@@ -1,7 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.http.Header;
@@ -21,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
+import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -106,10 +106,9 @@ public class UriDownloader {
         if (s3Offline) {
             s3Client = new OfflineS3ClientImpl();
         } else {
-            InstanceProfileCredentialsProvider instanceProfileCredentialsProvider = new InstanceProfileCredentialsProvider(true);
-            instanceProfileCredentialsProvider.refresh();
-            AWSCredentials awsCredentials = instanceProfileCredentialsProvider.getCredentials();
-            s3Client = new S3ClientImpl(awsCredentials);
+            s3Client = new S3ClientImpl(software.amazon.awssdk.services.s3.S3Client.builder()
+                .credentialsProvider(InstanceProfileCredentialsProvider.create())
+                .build());
             log.debug("s3Client:", s3Client);
         }
         return s3Client;

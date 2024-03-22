@@ -2,69 +2,55 @@ package ca.intelliware.ihtsdo.mlds.config;
 
 import java.io.IOException;
 
-import com.amazonaws.auth.InstanceProfileCredentialsProvider;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.ihtsdo.otf.dao.s3.OfflineS3ClientImpl;
 import org.ihtsdo.otf.dao.s3.S3Client;
 import org.ihtsdo.otf.dao.s3.S3ClientImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import com.amazonaws.auth.BasicAWSCredentials;
+import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
 
 @Configuration
 public class S3ClientConfiguration implements EnvironmentAware {
 
-	private static final String ENV_S3_API = "s3.api.";
-	private static final String PROP_OFFLINE_MODE = "offline-mode";
-//	private static final String PROP_AWS_KEY = "default.aws.key";
-//	private static final String PROP_AWS_PRIVATEKEY = " ";
+    private static final String ENV_S3_API = "s3.api.";
+    private static final String PROP_OFFLINE_MODE = "offline-mode";
 
-	private final Logger log = LoggerFactory.getLogger(S3ClientConfiguration.class);
+    private final Logger log = LoggerFactory.getLogger(S3ClientConfiguration.class);
 
-//	private RelaxedPropertyResolver propertyResolver;
 
-	private Environment environment;
+    private Environment environment;
 
-	public S3ClientConfiguration() {
-	}
+    public S3ClientConfiguration() {
+    }
 
-	@Override
-	public void setEnvironment(Environment environment) {
-//		this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_S3_API);
-		this.environment = environment;
-	}
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 
-	@Bean
-	public S3Client s3Client() throws IOException {
-		log.debug("Configuring S3 client");
-		S3Client s3Client = null;
-		Binder binder = Binder.get(environment);
-//		Boolean s3Offline = propertyResolver.getProperty(PROP_OFFLINE_MODE, Boolean.class, true);
-		Boolean s3Offline = binder.bind(ENV_S3_API + PROP_OFFLINE_MODE, Boolean.class).orElse(true);
-		log.info("Configuring " + (s3Offline ? "offline" : "online") + " s3 client.");
-		if (s3Offline) {
-			s3Client = new OfflineS3ClientImpl();
-		} else {
+    @Bean
+    public S3Client s3ClientImplementation() throws IOException {
+        log.debug("Configuring S3 client");
+        S3Client s3Client = null;
+        Binder binder = Binder.get(environment);
+        Boolean s3Offline = binder.bind(ENV_S3_API + PROP_OFFLINE_MODE, Boolean.class).orElse(true);
+        log.info("Configuring " + (s3Offline ? "offline" : "online") + " s3 client.");
+        if (s3Offline) {
+            s3Client = new OfflineS3ClientImpl();
+        } else {
+            s3Client = new S3ClientImpl(software.amazon.awssdk.services.s3.S3Client.builder()
+                .credentialsProvider(InstanceProfileCredentialsProvider.create())
+                .build());
+            log.debug("s3Client:", s3Client);
+        }
 
-			s3Client =  new S3ClientImpl(new InstanceProfileCredentialsProvider(true).getCredentials());
-			log.debug("s3Client:",s3Client);
-//			String awsKey = propertyResolver.getProperty(PROP_AWS_KEY);
-//			String awsPrivateKey = propertyResolver.getProperty(PROP_AWS_PRIVATEKEY);
-//			BasicAWSCredentials credentials = new BasicAWSCredentials(awsKey, awsPrivateKey);
-//			s3Client = new S3ClientImpl(credentials);
-//            s3Client = (S3Client) AmazonS3ClientBuilder.standard()
-//                .withCredentials(new InstanceProfileCredentialsProvider(false))
-//                .build();
-		}
+        log.debug("Done:Configuring S3 Client");
 
-		log.debug("Done:Configuring S3 Client");
-
-		return s3Client;
-	}
+        return s3Client;
+    }
 }
