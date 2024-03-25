@@ -4,7 +4,6 @@ import java.util.List;
 
 
 import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
-import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
 import org.junit.*;

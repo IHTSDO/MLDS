@@ -11,7 +11,6 @@ import java.util.Random;
 
 
 import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
-import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
