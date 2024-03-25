@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
-import software.amazon.awssdk.regions.providers.DefaultAwsRegionProviderChain;
+import software.amazon.awssdk.regions.Region;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +39,9 @@ public class UriDownloader {
 
     @Value("${s3.api.offline-mode}")
     private boolean s3Offline;
+
+    @Value("${aws.region}")
+    private String awsRegion;
 
     private final Logger log = LoggerFactory.getLogger(UriDownloader.class);
 
@@ -108,7 +111,7 @@ public class UriDownloader {
         } else {
             s3Client = new S3ClientImpl(software.amazon.awssdk.services.s3.S3Client.builder()
                 .credentialsProvider(InstanceProfileCredentialsProvider.create())
-                .region(DefaultAwsRegionProviderChain.builder().build().getRegion())
+                .region(Region.of(awsRegion))
                 .build());
             log.debug("s3Client:", s3Client);
         }
