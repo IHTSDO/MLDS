@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
+import software.amazon.awssdk.regions.providers.DefaultAwsRegionProviderChain;
 
 @Configuration
 public class S3ClientConfiguration implements EnvironmentAware {
@@ -45,6 +46,7 @@ public class S3ClientConfiguration implements EnvironmentAware {
         } else {
             s3Client = new S3ClientImpl(software.amazon.awssdk.services.s3.S3Client.builder()
                 .credentialsProvider(InstanceProfileCredentialsProvider.create())
+                .region(DefaultAwsRegionProviderChain.builder().build().getRegion())
                 .build());
             log.debug("s3Client:", s3Client);
         }
