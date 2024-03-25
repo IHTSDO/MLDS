@@ -2,7 +2,6 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 
 
 import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
-import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import jakarta.transaction.Transactional;
 import org.junit.Assert;
 import org.junit.Test;
