@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
-import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import jakarta.transaction.Transactional;
 import org.junit.Before;
 import org.junit.Test;
