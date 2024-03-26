@@ -1,10 +1,10 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.joda.time.Instant;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.UUID;
 
 /**
@@ -22,7 +22,7 @@ public class PasswordResetToken implements Serializable {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
-    
+
     private Instant created = Instant.now();
 
 	public static PasswordResetToken createFor(User user) {
@@ -34,11 +34,11 @@ public class PasswordResetToken implements Serializable {
 	public String getPasswordResetTokenId() {
 		return passwordResetTokenId;
 	}
-	
+
 	public User getUser() {
 		return user;
 	}
-	
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
