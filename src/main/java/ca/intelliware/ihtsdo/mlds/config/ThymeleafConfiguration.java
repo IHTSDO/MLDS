@@ -63,7 +63,7 @@ public class ThymeleafConfiguration {
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.addTemplateResolver(emailTemplateResolver());
-        templateEngine.addTemplateResolver(webTemplateResolver());
+//        templateEngine.addTemplateResolver(webTemplateResolver());
         return templateEngine;
     }
 
