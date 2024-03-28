@@ -459,8 +459,8 @@ public class CommercialUsageResource {
     @RolesAllowed({AuthoritiesConstants.STAFF,AuthoritiesConstants.ADMIN })
     @Timed
     @Transactional
-    public @ResponseBody Collection<Collections> reviewUsageReportCsv(){
-        Collection collections=commercialUsageRepository.findUsageReport();
+    public @ResponseBody Collection<Object[]> reviewUsageReportCsv(){
+        Collection<Object[]> collections=commercialUsageRepository.findUsageReport();
         return ResponseEntity.ok().body(collections).getBody();
     }
     /*MLDS 985---To Download Commercial usage CSV files this below code is used*/
