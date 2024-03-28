@@ -23,12 +23,9 @@ import org.springframework.core.env.Environment;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.health.HealthCheckRegistry;
-import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
-import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
 
 @Configuration
-@EnableMetrics(proxyTargetClass = true)
-public class MetricsConfiguration extends MetricsConfigurerAdapter implements EnvironmentAware {
+public class MetricsConfiguration implements EnvironmentAware {
 
     private static final String ENV_METRICS = "metrics.";
     private static final String ENV_METRICS_GRAPHITE = "metrics.graphite.";
@@ -60,18 +57,17 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
         binder = Binder.get(environment);
     }
 
-//    @Override
-//    @Bean
-//    public MetricRegistry getMetricRegistry() {
-//        return METRIC_REGISTRY;
-//    }
-//
-//    @Override
-//    @Bean
-//    public HealthCheckRegistry getHealthCheckRegistry() {
-//        logger.debug("Creating metrics health check registry");
-//        return HEALTH_CHECK_REGISTRY;
-//    }
+    @Bean
+    public MetricRegistry getMetricRegistry() {
+        return METRIC_REGISTRY;
+    }
+
+
+    @Bean
+    public HealthCheckRegistry getHealthCheckRegistry() {
+        logger.debug("Creating metrics health check registry");
+        return HEALTH_CHECK_REGISTRY;
+    }
 
     @PostConstruct
     public void init() {
