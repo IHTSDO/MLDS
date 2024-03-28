@@ -11,7 +11,7 @@ import ca.intelliware.ihtsdo.mlds.web.filter.CachingHttpHeadersFilter;
 import ca.intelliware.ihtsdo.mlds.web.filter.StaticResourcesProductionFilter;
 import ca.intelliware.ihtsdo.mlds.web.filter.gzip.GZipServletFilter;
 import com.codahale.metrics.MetricRegistry;
-import com.codahale.metrics.servlet.InstrumentedFilter;
+import io.dropwizard.metrics.servlet.InstrumentedFilter;
 import io.dropwizard.metrics.servlets.MetricsServlet;
 import jakarta.servlet.*;
 import org.apache.coyote.http11.Http11NioProtocol;
@@ -105,13 +105,13 @@ public class WebConfigurer implements ServletContextInitializer {
         log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
 
-//        initMetrics(servletContext, disps);
+        initMetrics(servletContext, disps);
 //        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
         if (env.acceptsProfiles(Profiles.of(Constants.SPRING_PROFILE_DEVELOPMENT))) {
             initStaticResourcesProductionFilter(servletContext, disps);
             initCachingHttpHeadersFilter(servletContext, disps);
         }
-//        initGzipFilter(servletContext, disps);
+        initGzipFilter(servletContext, disps);
 
         log.info("Web application fully configured");
     }
@@ -122,7 +122,7 @@ public class WebConfigurer implements ServletContextInitializer {
     private void initGzipFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
         log.debug("Registering GZip Filter");
 
-        FilterRegistration.Dynamic compressingFilter = servletContext.addFilter("gzipFilter", new GZipServletFilter().toString());
+        FilterRegistration.Dynamic compressingFilter = servletContext.addFilter("gzipFilter", new GZipServletFilter());
         Map<String, String> parameters = new HashMap<>();
 
         compressingFilter.setInitParameters(parameters);
@@ -189,8 +189,7 @@ public class WebConfigurer implements ServletContextInitializer {
 
         log.debug("Registering Metrics Filter");
         FilterRegistration.Dynamic metricsFilter = servletContext.addFilter("webappMetricsFilter",
-                String.valueOf(new InstrumentedFilter()));
-
+               new InstrumentedFilter());
         metricsFilter.addMappingForUrlPatterns(disps, true, "/*");
         metricsFilter.setAsyncSupported(true);
 
