@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -61,90 +60,94 @@ public class SecurityConfiguration {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         logger.debug("Configuring Global Security");
         auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(passwordEncoder());
         auth.authenticationProvider(httpAuthAuthenticationProvider);
     }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .requestMatchers("/fonts/**")
-                .requestMatchers("/images/**")
-                .requestMatchers("/scripts/**")
-                .requestMatchers("/styles/**")
-                .requestMatchers("/views/**")
-                .requestMatchers("/swagger-ui/**");
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/fonts/**"))
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/images/**"))
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/scripts/**"))
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/styles/**"))
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/views/**"))
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui/**"));
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .exceptionHandling((exception)-> exception.authenticationEntryPoint(authenticationEntryPoint))
-                .rememberMe(rememberMe -> rememberMe
+            .exceptionHandling((exception) -> exception.authenticationEntryPoint(authenticationEntryPoint))
+            .rememberMe(rememberMe -> rememberMe
                 .rememberMeServices(rememberMeServices)
                 .key(env.getProperty("jhipster.security.rememberme.key")))
-                .formLogin(formLogin -> formLogin
+            .formLogin(formLogin -> formLogin
 //                                .loginPage("/login")
-                                .loginProcessingUrl("/app/authentication")
-                                .successHandler(ajaxAuthenticationSuccessHandler)
-                                .failureHandler(ajaxAuthenticationFailureHandler)
-                                .usernameParameter("j_username")
-                                .passwordParameter("j_password")
-                                .permitAll()
-                ).logout(
-                        logout -> logout
-                                .logoutUrl("/app/logout")
-                                .deleteCookies("JSESSIONID")
-                                .logoutSuccessHandler(ajaxLogoutSuccessHandler)
-                                .permitAll()
-                )
-                .cors(httpSecurityCorsConfigurer -> {
-                    CorsConfiguration configuration = new CorsConfiguration();
-                    configuration.setAllowedOrigins(Arrays.asList("*"));
-                    configuration.setAllowedMethods(Arrays.asList("*"));
-                    configuration.setAllowedHeaders(Arrays.asList("*"));
-                    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-                    source.registerCorsConfiguration("/**", configuration);
-                    httpSecurityCorsConfigurer.configurationSource(source);
-                })
-                .csrf(csrf -> csrf.disable())
+                    .loginProcessingUrl("/app/authentication")
+                    .successHandler(ajaxAuthenticationSuccessHandler)
+                    .failureHandler(ajaxAuthenticationFailureHandler)
+                    .usernameParameter("j_username")
+                    .passwordParameter("j_password")
+                    .permitAll()
+            )
+            .securityContext((securityContext) -> securityContext
+                .requireExplicitSave(true)
+            )
+            .logout(
+                logout -> logout
+                    .logoutUrl("/app/logout")
+                    .deleteCookies("JSESSIONID")
+                    .logoutSuccessHandler(ajaxLogoutSuccessHandler)
+                    .permitAll()
+            )
+            .cors(httpSecurityCorsConfigurer -> {
+                CorsConfiguration configuration = new CorsConfiguration();
+                configuration.setAllowedOrigins(Arrays.asList("*"));
+                configuration.setAllowedMethods(Arrays.asList("*"));
+                configuration.setAllowedHeaders(Arrays.asList("*"));
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", configuration);
+                httpSecurityCorsConfigurer.configurationSource(source);
+            })
+            .csrf(csrf -> csrf.disable())
 //                .authorizeHttpRequests((authorize) ->
 //                        authorize
-                .authorizeRequests()
-                                .requestMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/api/**").permitAll()
-                                .requestMatchers("/websocket/tracker").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/websocket/**").permitAll()
-                                .requestMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/dump/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/shutdown/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/beans/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/info/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/autoconfig/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("/protected/**").authenticated()
-                                //MLDS-988
-                                .requestMatchers("/.htaccess/**").denyAll()
-                                .requestMatchers("/bower_components/html5shiv/package.json").denyAll()
-                                .requestMatchers("/bower_components/es5-shim/package.json").denyAll()
-                                .requestMatchers("/bower_components/placeholders/package.json").denyAll()
-                                .requestMatchers("/bower_components/ng-csv/package.json").denyAll()
-                                .requestMatchers("/bower_components/jquery/package.json").denyAll()
-                                .requestMatchers("/bower_components/intl-tel-input/package.json").denyAll()
-                                .requestMatchers("/bower_components/angular-dynamic-locale/package.json").denyAll()
-                                .requestMatchers("/bower_components/ngInfiniteScroll/package.json").denyAll()
-                                .requestMatchers("/bower_components/ng-csv/package.json").denyAll()
-                                .requestMatchers("/bower_components/modernizr/.travis.yml").denyAll()
-                                .requestMatchers("/bower_components/ng-csv/.travis.yml").denyAll()
-                                .requestMatchers("/bower_components/intl-tel-input/.travis.yml").denyAll()
-                                .requestMatchers("/bower_components/angular-dynamic-locale/.travis.yml").denyAll()
-                                .requestMatchers("/bower_components/ngInfiniteScroll/.travis.yml").denyAll()
-                                .requestMatchers("/bower_components/jquery/composer.json").denyAll();
+            .authorizeRequests()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/api/logs/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/api/**")).permitAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/websocket/tracker")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/websocket/**")).permitAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/metrics/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/health/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/trace/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/dump/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/shutdown/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/beans/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/info/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/autoconfig/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/env/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/trace/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/api-docs/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/protected/**")).authenticated()
+            //MLDS-988
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/.htaccess/**")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/html5shiv/package.json")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/es5-shim/package.json")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/placeholders/package.json")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/ng-csv/package.json")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/jquery/package.json")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/intl-tel-input/package.json")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/angular-dynamic-locale/package.json")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/ngInfiniteScroll/package.json")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/ng-csv/package.json")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/modernizr/.travis.yml")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/ng-csv/.travis.yml")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/intl-tel-input/.travis.yml")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/angular-dynamic-locale/.travis.yml")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/ngInfiniteScroll/.travis.yml")).denyAll()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/bower_components/jquery/composer.json")).denyAll();
 //                );
         return http.build();
     }
