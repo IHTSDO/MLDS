@@ -6,11 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.stereotype.Component;
 
 
 /**
  * SpringBoot Actuator HealthIndicator check for JavaMail.
  */
+@Component
 public class JavaMailHealthCheckIndicator extends AbstractHealthIndicator {
 
     private final Logger log = LoggerFactory.getLogger(JavaMailHealthCheckIndicator.class);
@@ -22,7 +24,7 @@ public class JavaMailHealthCheckIndicator extends AbstractHealthIndicator {
     }
 
     @Override
-    protected void doHealthCheck(Health.Builder builder) throws Exception {
+    public void doHealthCheck(Health.Builder builder) throws Exception {
         log.debug("Initializing JavaMail health indicator");
 
         try {
