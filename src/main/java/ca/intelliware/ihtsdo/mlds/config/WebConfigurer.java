@@ -146,7 +146,7 @@ public class WebConfigurer implements ServletContextInitializer {
         log.debug("Registering static resources production Filter");
         FilterRegistration.Dynamic staticResourcesProductionFilter =
                 servletContext.addFilter("staticResourcesProductionFilter",
-                        new StaticResourcesProductionFilter().toString());
+                        new StaticResourcesProductionFilter());
 
         staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/");
         staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/index.html");
@@ -168,7 +168,7 @@ public class WebConfigurer implements ServletContextInitializer {
         log.debug("Registering Cachig HTTP Headers Filter");
         FilterRegistration.Dynamic cachingHttpHeadersFilter =
                 servletContext.addFilter("cachingHttpHeadersFilter",
-                        new CachingHttpHeadersFilter().toString());
+                        new CachingHttpHeadersFilter());
 
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/images/*");
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
