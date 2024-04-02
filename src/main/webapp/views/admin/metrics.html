@@ -10,44 +10,44 @@
     <div class="col-md-3">
         <div class="alert alert-success"><strong >Version info:</strong> <span maven-version>OK</span></div>
     </div>
-    <div class="col-md-3" ng-show="healthCheck.database.healthy">
-        <div class="alert alert-success"><strong translate="metrics.health.database">Database: </strong>OK</div>
+    <div class="col-md-3" ng-show="healthCheck.details.database.status === 'UP'">
+        <div class="alert alert-success"><strong translate="metrics.health.database">Database: </strong>    OK</div>
     </div>
-    <div class="col-md-3" ng-show="!healthCheck.database.healthy">
+    <div class="col-md-3" ng-show="healthCheck.details.database.status !== 'UP'">
         <div class="alert alert-danger">
-            <strong translate="metrics.health.database">Database: </strong>{{healthCheck.database.message}}
-            <span ng-show="healthCheck.email.exception">
+            <strong translate="metrics.health.database">Database: </strong>   {{healthCheck.details.database.status}}
+            <span ng-show="healthCheck.details.database.details.error">
                 <a class="hand" ng-click="showDatabaseException = !showDatabaseException">
                     <i class="glyphicon glyphicon-eye-open"></i>
                 </a>
-                <div class="popover" ng-show="showEmailException">
+                <div class="popover" ng-show="healthCheck.details.database.details.error">
                     <div class="popover-title">
                         <h4>{{'metrics.health.stacktrace' | translate}}<button type="button" class="close" ng-click="showDatabaseException = !showDatabaseException">x</button></h4>
                     </div>
                     <div class="popover-content">
-                        <pre>{{healthCheck.email.exception}}</pre>
+                        <pre>{{healthCheck.details.database.details.error}}</pre>
                     </div>
                 </div>
             </span>
 
         </div>
     </div>
-    <div class="col-md-3" ng-show="healthCheck.email.healthy" >
+    <div class="col-md-3" ng-show="healthCheck.details.mail.status === 'UP'" >
         <div class="alert alert-success"><strong translate="metrics.health.email">Email: </strong>OK</div>
     </div>
-    <div class="col-md-3" ng-show="!healthCheck.email.healthy">
+    <div class="col-md-3" ng-show="healthCheck.details.mail.status !== 'UP'">
         <div class="alert alert-danger">
-            <strong translate="metrics.health.email">Email: </strong>{{healthCheck.email.message}}
-            <span ng-show="healthCheck.email.exception">
+            <strong translate="metrics.health.email">Email: </strong>   {{healthCheck.details.mail.status}}
+            <span ng-show="healthCheck.details.mail.details.error">
                 <a class="hand" ng-click="showEmailException = !showEmailException">
                     <i class="glyphicon glyphicon-eye-open"></i>
                 </a>
-                <div class="popover" ng-show="showEmailException">
+                <div class="popover" ng-show="healthCheck.details.mail.details.error">
                     <div class="popover-title">
                         <h4>{{'metrics.health.stacktrace' | translate}}<button type="button" class="close" ng-click="showEmailException = !showEmailException">x</button></h4>
                     </div>
                     <div class="popover-content">
-                        <pre>{{healthCheck.email.exception}}</pre>
+                        <pre>{{healthCheck.details.mail.details.error}}</pre>
                     </div>
                 </div>
             </span>
@@ -137,25 +137,25 @@
         <b translate="metrics.jvm.gc.title">Garbage collections</b>
         <div class="row">
             <div class="col-md-9" translate="metrics.jvm.gc.marksweepcount">Mark Sweep count</div>
-            <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-MarkSweep.count'].value}}</div>
+            <div class="col-md-3">{{metrics.gauges['jvm.garbage.G1-Old-Generation.count'].value}}</div>
         </div>
         <div class="row">
             <div class="col-md-9" translate="metrics.jvm.gc.marksweeptime">Mark Sweep time</div>
-            <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-MarkSweep.time'].value}}ms</div>
+            <div class="col-md-3">{{metrics.gauges['jvm.garbage.G1-Old-Generation.time'].value}}ms</div>
         </div>
         <div class="row">
             <div class="col-md-9" translate="metrics.jvm.gc.scavengecount">Scavenge count</div>
-            <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-Scavenge.count'].value}}</div>
+            <div class="col-md-3">{{metrics.gauges['jvm.garbage.G1-Young-Generation.count'].value}}</div>
         </div>
         <div class="row">
             <div class="col-md-9" translate="metrics.jvm.gc.scavengetime">Scavenge time</div>
-            <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-Scavenge.time'].value}}ms</div>
+            <div class="col-md-3">{{metrics.gauges['jvm.garbage.G1-Young-Generation.time'].value}}ms</div>
         </div>
     </div>
 </div>
 
 <h3 translate="metrics.jvm.http.title">HTTP requests (events per second)</h3>
-<p>{{'metrics.jvm.http.active' | translate}} <b>{{metrics.counters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.activeRequests'].count | number:0}}</b> - {{'metrics.jvm.http.total' | translate}} <b>{{metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count | number:0}}</b></p>
+<p>{{'metrics.jvm.http.active' | translate}} <b>{{metrics.counters['io.dropwizard.metrics.servlet.InstrumentedFilter.activeRequests'].count | number:0}}</b> - {{'metrics.jvm.http.total' | translate}} <b>{{metrics.timers['io.dropwizard.metrics.servlet.InstrumentedFilter.requests'].count | number:0}}</b></p>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
@@ -174,23 +174,23 @@
             <td>
                 <div class="progress progress-striped">
                     <div class="progress-bar progress-bar-success" role="progressbar"
-                         aria-valuenow="{{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].count * 100 / metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count}}"
+                         aria-valuenow="{{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.ok'].count * 100 / metrics.timers['io.dropwizard.metrics.servlet.InstrumentedFilter.requests'].count}}"
                          aria-valuemin="0"
-                         aria-valuemax="{{metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count}}"
+                         aria-valuemax="{{metrics.timers['io.dropwizard.metrics.servlet.InstrumentedFilter.requests'].count}}"
                          style="width: {{(metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].count * 100 / metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count) | number:0}}%">
-                        {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].count}}
+                        {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.ok'].count}}
                     </div>
                 </div>
             </td>
             <td>
-                {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].mean_rate | number:2}}
+                {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.ok'].mean_rate | number:2}}
             </td>
-            <td>{{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].m1_rate | number:2}}
+            <td>{{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.ok'].m1_rate | number:2}}
             </td>
-            <td>{{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].m5_rate | number:2}}
+            <td>{{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.ok'].m5_rate | number:2}}
             </td>
             <td>
-                {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].m15_rate | number:2}}
+                {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.ok'].m15_rate | number:2}}
             </td>
         </tr>
         <tr>
@@ -198,25 +198,25 @@
             <td>
                 <div class="progress progress-striped">
                     <div class="progress-bar progress-bar-warning" role="progressbar"
-                         aria-valuenow="{{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.notFound'].count * 100 / metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count}}"
+                         aria-valuenow="{{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].count * 100 / metrics.timers['io.dropwizard.metrics.servlet.InstrumentedFilter.requests'].count}}"
                          aria-valuemin="0"
-                         aria-valuemax="{{metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count}}"
+                         aria-valuemax="{{metrics.timers['io.dropwizard.metrics.servlet.InstrumentedFilter.requests'].count}}"
                          style="width:{{(metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.notFound'].count * 100 / metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count) | number:0}}%">
-                        {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.notFound'].count}}
+                        {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].count}}
                     </div>
                 </div>
             </td>
             <td>
-                {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.notFound'].mean_rate | number:2}}
+                {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].mean_rate | number:2}}
             </td>
             <td>
-                {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.notFound'].m1_rate | number:2}}
+                {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].m1_rate | number:2}}
             </td>
             <td>
-                {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.notFound'].m5_rate | number:2}}
+                {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].m5_rate | number:2}}
             </td>
             <td>
-                {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.notFound'].m15_rate | number:2}}
+                {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].m15_rate | number:2}}
             </td>
         </tr>
         <tr>
@@ -224,25 +224,25 @@
             <td>
                 <div class="progress progress-striped">
                     <div class="progress-bar progress-bar-danger" role="progressbar"
-                         aria-valuenow="{{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.serverError'].count * 100 / metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count}}"
+                         aria-valuenow="{{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].count * 100 / metrics.timers['io.dropwizard.metrics.servlet.InstrumentedFilter.requests'].count}}"
                          aria-valuemin="0"
-                         aria-valuemax="{{metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count}}"
+                         aria-valuemax="{{metrics.timers['io.dropwizard.metrics.servlet.InstrumentedFilter.requests'].count}}"
                          style="width:{{(metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.serverError'].count * 100 / metrics.timers['com.codahale.metrics.servlet.AbstractInstrumentedFilter.requests'].count) | number:0}}%">
-                        {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.serverError'].count}}
+                        {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].count}}
                     </div>
                 </div>
             </td>
             <td>
-                {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.serverError'].mean_rate | number:2}}
+                {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].mean_rate | number:2}}
             </td>
             <td>
-                {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.serverError'].m1_rate | number:2}}
+                {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].m1_rate | number:2}}
             </td>
             <td>
-                {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.serverError'].m5_rate | number:2}}
+                {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].m5_rate | number:2}}
             </td>
             <td>
-                {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.serverError'].m15_rate | number:2}}
+                {{metrics.meters['io.dropwizard.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].m15_rate | number:2}}
             </td>
         </tr>
         </tbody>

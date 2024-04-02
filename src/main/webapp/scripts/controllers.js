@@ -78,7 +78,7 @@ mldsApp.controller('SessionsController', ['$scope', 'resolvedSessions', 'Session
                 $scope.servicesStats = {};
                 $scope.cachesStats = {};
                 angular.forEach(items.timers, function(value, key) {
-                    if (key.indexOf("web.rest") != -1 || key.indexOf("service") != -1) {
+                    if (key.indexOf("web.rest") != -1 || key.indexOf("service") != -1 || key === "io.dropwizard.metrics.servlet.InstrumentedFilter.requests") {
                         $scope.servicesStats[key] = value;
                     }
 
