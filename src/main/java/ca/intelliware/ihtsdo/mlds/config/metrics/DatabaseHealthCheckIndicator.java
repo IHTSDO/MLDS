@@ -7,6 +7,8 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
 import java.sql.Connection;
@@ -17,10 +19,11 @@ import java.util.Map;
 /**
  * SpringBoot Actuator HealthIndicator check for the Database.
  */
+@Component
 public class DatabaseHealthCheckIndicator extends AbstractHealthIndicator {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseHealthCheckIndicator.class);
-    
+
     private static Map<String, String> queries = new HashMap<>();
 
     static {
@@ -43,7 +46,7 @@ public class DatabaseHealthCheckIndicator extends AbstractHealthIndicator {
     }
 
     @Override
-    protected void doHealthCheck(Health.Builder builder) throws Exception {
+    public void doHealthCheck(Health.Builder builder) throws Exception {
         log.debug("Initializing Database health indicator");
         try {
             String dataBaseProductName = jdbcTemplate.execute(new ConnectionCallback<String>() {
