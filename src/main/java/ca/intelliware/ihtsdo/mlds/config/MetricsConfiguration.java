@@ -9,6 +9,8 @@ import com.codahale.metrics.graphite.Graphite;
 import com.codahale.metrics.graphite.GraphiteReporter;
 import com.codahale.metrics.jmx.JmxReporter;
 import com.codahale.metrics.jvm.*;
+import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
+import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +27,8 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.health.HealthCheckRegistry;
 
 @Configuration
-public class MetricsConfiguration implements EnvironmentAware {
+@EnableMetrics(proxyTargetClass = true)
+public class MetricsConfiguration  extends MetricsConfigurerAdapter implements EnvironmentAware {
 
     private static final String ENV_METRICS = "metrics.";
     private static final String ENV_METRICS_GRAPHITE = "metrics.graphite.";
@@ -57,13 +60,13 @@ public class MetricsConfiguration implements EnvironmentAware {
         binder = Binder.get(environment);
     }
 
-    @Bean
+//    @Bean
     public MetricRegistry getMetricRegistry() {
         return METRIC_REGISTRY;
     }
 
 
-    @Bean
+//    @Bean
     public HealthCheckRegistry getHealthCheckRegistry() {
         logger.debug("Creating metrics health check registry");
         return HEALTH_CHECK_REGISTRY;
