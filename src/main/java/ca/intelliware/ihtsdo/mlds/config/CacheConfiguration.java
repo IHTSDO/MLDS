@@ -19,6 +19,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
@@ -42,7 +43,10 @@ public class CacheConfiguration {
     @PreDestroy
     public void destroy() {
         log.info("Remove Cache Manager metrics");
-        // Clear metrics if necessary
+        SortedSet<String> names = metricRegistry.getNames();
+        for (String name : names) {
+            metricRegistry.remove(name);
+        }
     }
 
     @Bean
@@ -62,7 +66,6 @@ public class CacheConfiguration {
                 String name = entity.getName();
                 if (name == null || entity.getJavaType() != null) {
                     name = entity.getJavaType().getName();
-                    log.info("name {}",name);
                 }
                 Assert.notNull(name, "entity cannot exist without an identifier");
 
