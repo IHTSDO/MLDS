@@ -37,7 +37,6 @@ public class DBUserDetailsService implements org.springframework.security.core.u
     @Transactional
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Attepting to authenticate '{}' using local database", login);
-        System.out.println("Attepting to authenticate '{}' using local database");
         String lowercaseLogin = login.toLowerCase();
 
         User userFromDatabase = userRepository.findByLoginIgnoreCase(lowercaseLogin);
@@ -59,9 +58,8 @@ public class DBUserDetailsService implements org.springframework.security.core.u
 
         StandingState standingState = userStandingCalculator.getUserAffiliateStanding(login);
         boolean enabled = standingState == null || standingState.canLogin();
-        
 		return new org.springframework.security.core.userdetails.User(lowercaseLogin, userFromDatabase.getPassword(),
-        		enabled , true, true, true, 
+        		enabled , true, true, true,
                 grantedAuthorities);
     }
 }
