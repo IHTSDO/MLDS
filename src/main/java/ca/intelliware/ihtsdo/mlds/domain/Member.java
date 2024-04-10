@@ -46,7 +46,7 @@ public class Member extends BaseEntity {
     String licenseVersion;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="logo_file")
 	private
     File logoFile;

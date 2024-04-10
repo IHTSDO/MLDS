@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FileRepository extends JpaRepository<File,Long> {
-//        PagingAndSortingRepository<File, Long>{
 }
