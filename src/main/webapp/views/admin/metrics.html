@@ -281,32 +281,6 @@
     </table>
 </div>
 
-<h3 translate="metrics.ehcache.title">Ehcache statistics</h3>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th translate="metrics.ehcache.cachename">Cache name</th>
-            <th translate="metrics.ehcache.objects">Objects</th>
-            <th translate="metrics.ehcache.hits">Hits</th>
-            <th translate="metrics.ehcache.misses">Misses</th>
-            <th translate="metrics.ehcache.evictioncount">Eviction count</th>
-            <th translate="metrics.ehcache.mean">Mean get time (ms)</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="(k, v) in cachesStats" ng-once>
-            <td>{{v.name}}</td>
-            <td>{{metrics.gauges[k + '.objects'].value}}</td>
-            <td>{{metrics.gauges[k + '.hits'].value}}</td>
-            <td>{{metrics.gauges[k + '.misses'].value}}</td>
-            <td>{{metrics.gauges[k + '.eviction-count'].value}}</td>
-            <td>{{metrics.gauges[k + '.mean-get-time'].value | number:2}}</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
 </div>
 <!-- Modal used to display the threads dump -->
 <div id="threadDump" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
