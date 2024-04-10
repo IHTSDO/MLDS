@@ -127,10 +127,7 @@ public class AffiliateResource {
 
 		if (!StringUtils.isBlank(q)) {
 			//Note that sorting in the pageRequest is not currently respected by lucene
-//			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest) ;
 			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest);
-//			affiliates = affiliateRepository.findAll(pageRequest);
-			System.out.println("entered if");
 		} else {
 			if (member == null) {
 				if (standingState == null) {
@@ -209,7 +206,6 @@ public class AffiliateResource {
     		affiliate.getAffiliateDetails().setAcceptNotifications(user.getAcceptNotifications());
             affiliate.getAffiliateDetails().setCountryNotificationsOnly(user.getCountryNotificationsOnly());
     	}
-		System.out.println("print" + affiliate);
 		return new ResponseEntity<Affiliate>(affiliate, HttpStatus.OK);
     }
 
@@ -219,7 +215,6 @@ public class AffiliateResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
     public @ResponseBody ResponseEntity<Affiliate> updateAffiliate(@PathVariable Long affiliateId, @RequestBody Affiliate body) {
-//    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
 		Optional<Affiliate> affiliateOptional = affiliateRepository.findById(affiliateId);
     	if (affiliateOptional.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -262,7 +257,6 @@ public class AffiliateResource {
 	@Transactional
 	@Timed
     public @ResponseBody ResponseEntity<Affiliate> deleteAffiliate(@PathVariable Long affiliateId) {
-//    	Affiliate affiliate = affiliateRepository.findOne(affiliateId);
 		Optional<Affiliate> affiliateOptional = affiliateRepository.findById(affiliateId);
 
     	if (affiliateOptional.isEmpty()) {
@@ -342,7 +336,7 @@ public class AffiliateResource {
 		return new ResponseEntity<String>(result, HttpStatus.OK);
     }
 
-//	//FIXME Would like to use custom produces to overload request path
+	//FIXME Would like to use custom produces to overload request path
 	@RolesAllowed({AuthoritiesConstants.ADMIN})
     @RequestMapping(value = Routes.AFFILIATES_CSV_SPEC,
     		method = RequestMethod.GET,
@@ -417,8 +411,6 @@ public class AffiliateResource {
 
     	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate,body);
     	copyAffiliateDetailsFields(affiliateDetails, body);
-
-//    	affiliateSearchRepository.reindex(affiliate);
 
     	return new ResponseEntity<AffiliateDetails>(affiliateDetails, HttpStatus.OK);
     }
