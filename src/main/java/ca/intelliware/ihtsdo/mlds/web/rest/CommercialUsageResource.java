@@ -58,8 +58,7 @@ public class CommercialUsageResource {
     public @ResponseBody ResponseEntity<Collection<CommercialUsage>> getUsageReports(@PathVariable long affiliateId) {
 
     	Optional<Affiliate> affiliate = affiliateRepository.findById(affiliateId);
-//        Affiliate affiliate = affiliateRepository.findByAffiliateId(affiliateId);
-//    	authorizationChecker.checkCanAccessAffiliate(String.valueOf(Optional.of(affiliate)));
+    	authorizationChecker.checkCanAccessAffiliate(String.valueOf(Optional.of(affiliate)));
     	if (affiliate == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
@@ -316,10 +315,7 @@ public class CommercialUsageResource {
     @Timed
     public @ResponseBody ResponseEntity<?> deleteCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId) {
     	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
-
-
-        commercialUsageCountryRepository.deleteByCommercialUsageCountId(commercialUsageEntryId);
-
+        commercialUsageEntryRepository.deleteById(commercialUsageEntryId);
     	return new ResponseEntity<>(HttpStatus.OK);
     }
 
