@@ -351,21 +351,6 @@ public class AccountResource {
      *   There is an API to invalidate the current session, but there is no API to check which session uses which
      *   cookie.
      */
-//    @RequestMapping(value = "/account/sessions/{series}",
-//            method = RequestMethod.DELETE)
-//    @Timed
-//    @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-//    public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
-//        String decodedSeries = URLDecoder.decode(series, "UTF-8");
-//        User user = userRepository.findByLoginIgnoreCase(SecurityUtils.getCurrentLogin());
-//        List<PersistentToken> persistentTokens = persistentTokenRepository.findByUser(user);
-//        for (PersistentToken persistentToken : persistentTokens) {
-//            if (StringUtils.equals(persistentToken.getSeries(), decodedSeries)) {
-//                persistentTokenRepository.delete(decodedSeries);
-//            }
-//        }
-//    }
-
     @RequestMapping(value = "/account/sessions/{series}",
         method = RequestMethod.DELETE)
     @Timed

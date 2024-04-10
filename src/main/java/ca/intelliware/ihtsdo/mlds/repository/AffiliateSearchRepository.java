@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -33,57 +34,50 @@ public class AffiliateSearchRepository {
         schemaManager.createIfMissing();
         MassIndexer indexer = searchSession.massIndexer(Affiliate.class)
             .threadsToLoadObjects(4);
-
         indexer.startAndWait();
 
-        List resultList = new ArrayList();
+        List<Affiliate> resultList = new ArrayList<>();
 
+        SearchResult<Affiliate> result;
 
-        SearchResult<Affiliate> result = Search.session(entityManager)
-            .search(Affiliate.class)
-            .where(f -> f.simpleQueryString()
-                .fields("affiliateDetails.firstName")
-                .fields("affiliateDetails.lastName")
-                .fields("affiliateDetails.email")
-                .fields("affiliateDetails.alternateEmail")
-                .fields("affiliateDetails.thirdEmail")
-                .fields("affiliateDetails.organizationName")
-                .fields("affiliateDetails.organizationType")
-                .matching(q + "*"))
-            .fetch(pageable.getPageSize());
+        if (isNumeric(q)) {
+            long affiliateId = Long.parseLong(q);
+            result = searchSession.search(Affiliate.class)
+                .where(f -> f.match().field("affiliateId").matching(affiliateId))
+                .fetch(pageable.getPageSize());
+        } else {
+            result = searchSession.search(Affiliate.class)
+                .where(f -> f.bool()
+                    .should(f.simpleQueryString()
+                        .fields("affiliateDetails.firstName", "affiliateDetails.lastName", "affiliateDetails.email", "affiliateDetails.alternateEmail", "affiliateDetails.thirdEmail", "affiliateDetails.organizationName", "affiliateDetails.organizationType")
+                        .matching(q + "*"))
+                )
+                .fetch(pageable.getPageSize());
+        }
+
         resultList.addAll(result.hits());
 
-// filter homemeber
-        if (homeMember != null && standingState == null) {
-            for (int i = resultList.size() - 1; i >= 0; i--) {
-                Affiliate affiliate = (Affiliate) resultList.get(i);
-                if (affiliate.getHomeMember() == null || !affiliate.getHomeMember().equals(homeMember)) {
-                    resultList.remove(i);
-                }
-            }
-        }
-
-// filter standingstate
-        if (homeMember == null && standingState != null) {
-            for (int i = resultList.size() - 1; i >= 0; i--) {
-                Affiliate affiliate = (Affiliate) resultList.get(i);
-                if (affiliate.getStandingState() == null || !affiliate.getStandingState().equals(standingState)) {
-                    resultList.remove(i);
-                }
-            }
-        }
-
-//filter homemember & standingstate
-        if (homeMember != null && standingState != null) {
-            for (int i = resultList.size() - 1; i >= 0; i--) {
-                Affiliate affiliate = (Affiliate) resultList.get(i);
-                if (affiliate.getHomeMember() == null || !affiliate.getHomeMember().equals(homeMember) ||
-                    affiliate.getStandingState() == null || !affiliate.getStandingState().equals(standingState)) {
-                    resultList.remove(i);
+        // Apply filters based on homeMember and standingState
+        Iterator<Affiliate> iterator = resultList.iterator();
+        while (iterator.hasNext()) {
+            Affiliate affiliate = iterator.next();
+            if (homeMember != null && !homeMember.equals(affiliate.getHomeMember())) {
+                iterator.remove(); // Remove if not matching homeMember
+            } else if (standingState != null) {
+                if (standingStateNot && affiliate.getStandingState() == StandingState.APPLYING) {
+                    iterator.remove(); // Remove APPLYING if standingStateNot is true
+                } else if (!standingStateNot && !affiliate.getStandingState().equals(standingState)) {
+                    iterator.remove(); // Remove if not matching standingState and standingStateNot is false
                 }
             }
         }
 
         return new PageImpl<>(resultList, pageable, resultList.size());
+    }
+
+
+    // Method to check if a string is numeric
+    private boolean isNumeric(String str) {
+        return str != null && str.matches("-?\\d+(\\.\\d+)?");
     }
 }
