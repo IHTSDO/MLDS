@@ -34,14 +34,6 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 				+ "OR LOWER(a.application.affiliateDetails.address.street) like :q)")
 	Page<Affiliate> findByHomeMemberAndTextQuery(@Param("homeMember") Member homeMember, @Param("q") String q, Pageable pageable);
 
-//	@Query(value="SELECT a from Affiliate a where "
-//			+ "(LOWER(a.application.affiliateDetails.lastName) like '%' || :q || '%' "
-//			+ "OR LOWER(a.application.affiliateDetails.firstName) like '%' || :q || '%' "
-//			+ "OR LOWER(a.application.affiliateDetails.organizationName) like '%' || :q || '%' "
-//			+ "OR LOWER(a.application.affiliateDetails.address.street) like '%' || :q || '%' ))"
-//			+ "OR CAST(:q, as INT) = a.affiliateId )"
-//			)
-//	Page<Affiliate> findByTextQuery(@Param("q") String q, Pageable pageable);
 
 	@Query(value = "SELECT a FROM Affiliate a LEFT JOIN a.applications b"
 			+ " WHERE a.homeMember = :homeMember "
