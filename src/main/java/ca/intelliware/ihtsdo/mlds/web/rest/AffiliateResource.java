@@ -100,7 +100,6 @@ public class AffiliateResource {
     		@RequestParam(value="$orderby", required=false) String orderby) throws InterruptedException {
 		Page<Affiliate> affiliates;
 		Sort sort = createAffiliatesSort(orderby);
-//		PageRequest pageRequest = new PageRequest(page, pageSize, sort);
 		PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
 		Member member = null;
 		StandingState standingState = null;
@@ -172,15 +171,6 @@ public class AffiliateResource {
 	}
 
 	private Sort createAffiliatesSort(String orderby) {
-//		Sort defaultSort = new Sort(
-////				new Order(Direction.ASC, "affiliateDetails.organizationName"),
-////				new Order(Direction.ASC, "affiliateDetails.firstName"),
-////				new Order(Direction.ASC, "affiliateDetails.lastName"),
-////				new Order(Direction.ASC, "application.affiliateDetails.organizationName"),
-////				new Order(Direction.ASC, "application.affiliateDetails.firstName"),
-////				new Order(Direction.ASC, "application.affiliateDetails.lastName"),
-//				new Order(Sort.Direction.ASC, "affiliateId")
-//				);
 		Sort defaultSort = Sort.by(Sort.Order.asc("affiliateId"));
 		return new SortBuilder().createSort(orderby, ORDER_BY_FIELD_MAPPINGS, defaultSort);
 	}

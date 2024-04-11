@@ -12,24 +12,24 @@ import java.time.Instant;
 @Table(name="file")
 public class File extends BaseEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
-	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence_generator")
+	@SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="file_id")
     private long fileId;
-	
+
 	private String filename;
-	
+
 	@Lob
 	private Blob content;
-	
+
 	private String creator;
-	
+
 	private String mimetype;
-	
+
 	@Column(name="updated_at")
 	Instant updatedAt;
-	
-	
+
+
 	@Override
 	protected Object getPK() {
 		return fileId;
@@ -78,7 +78,7 @@ public class File extends BaseEntity {
 	public void setLastUpdated(Instant lastUpdated) {
 		this.updatedAt = lastUpdated;
 	}
-	
+
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)

@@ -30,7 +30,7 @@ public class MailConfiguration implements EnvironmentAware {
 
     private final Logger log = LoggerFactory.getLogger(MailConfiguration.class);
 
-//    private RelaxedPropertyResolver propertyResolver;
+
 
     private Environment env;
 
@@ -39,7 +39,6 @@ public class MailConfiguration implements EnvironmentAware {
 
     @Override
     public void setEnvironment(Environment environment) {
-//        this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_SPRING_MAIL);
         this.env = environment;
     }
 
@@ -47,19 +46,12 @@ public class MailConfiguration implements EnvironmentAware {
     public JavaMailSenderImpl javaMailSender() {
         log.debug("Configuring mail server");
         Binder binder = Binder.get(env);
-//        String host = propertyResolver.getProperty(PROP_HOST, DEFAULT_PROP_HOST);
         String host = binder.bind(ENV_SPRING_MAIL + PROP_HOST, String.class).orElse(DEFAULT_PROP_HOST);
-//        int port = propertyResolver.getProperty(PROP_PORT, Integer.class, 0);
         int port = binder.bind(ENV_SPRING_MAIL + PROP_PORT, Integer.class).orElse(0);
-//        String user = propertyResolver.getProperty(PROP_USER);
         String user = binder.bind(ENV_SPRING_MAIL + PROP_USER, String.class).orElse(null);
-//        String password = propertyResolver.getProperty(PROP_PASSWORD);
         String password = binder.bind(ENV_SPRING_MAIL + PROP_PASSWORD, String.class).orElse(null);
-//        String protocol = propertyResolver.getProperty(PROP_PROTO);
         String protocol = binder.bind(ENV_SPRING_MAIL + PROP_PROTO, String.class).orElse(null);
-//        Boolean tls = propertyResolver.getProperty(PROP_TLS, Boolean.class, false);
         Boolean tls = binder.bind(ENV_SPRING_MAIL + PROP_TLS, Boolean.class).orElse(false);
-//        Boolean auth = propertyResolver.getProperty(PROP_AUTH, Boolean.class, false);
         Boolean auth = binder.bind(ENV_SPRING_MAIL + PROP_AUTH, Boolean.class).orElse(false);
 
         JavaMailSenderImpl sender = new JavaMailSenderImpl();

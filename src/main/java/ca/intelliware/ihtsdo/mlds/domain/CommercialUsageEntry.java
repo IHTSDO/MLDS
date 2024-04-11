@@ -15,8 +15,8 @@ import java.time.LocalDate;
 @SQLDelete(sql="UPDATE commercial_usage_entry SET inactive_at = now() WHERE commercial_usage_entry_id = ?")
 public class CommercialUsageEntry extends BaseEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
-	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence_generator")
+	@SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="commercial_usage_entry_id")
 	Long commercialUsageEntryId;
 
@@ -25,37 +25,37 @@ public class CommercialUsageEntry extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name="commercial_usage_id")
 	CommercialUsage commercialUsage;
-	
+
 	String name;
-	
+
 	String note;
-	
+
 	@Column(name="start_date")
 	LocalDate startDate;
-	
+
 	@Column(name="end_date")
 	LocalDate endDate;
-	
+
 	@ManyToOne
 	Country country;
-	
+
 	Instant created = Instant.now();
-	
+
 	@JsonIgnore
 	@Column(name="inactive_at")
 	private
 	Instant inactiveAt;
-	
+
 	public CommercialUsageEntry() {
-		
+
 	}
-	
+
 	//For testing
 	public CommercialUsageEntry(long commercialUsageEntryId, CommercialUsage commercialUsage) {
 		this.commercialUsageEntryId = commercialUsageEntryId;
 		commercialUsage.addEntry(this);
 	}
-	
+
 	public Long getCommercialUsageEntryId() {
 		return commercialUsageEntryId;
 	}
@@ -63,7 +63,7 @@ public class CommercialUsageEntry extends BaseEntity {
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}

@@ -31,12 +31,10 @@ public class SortBuilder {
                 if ("desc".equalsIgnoreCase(directionString)) {
                     direction = Direction.DESC;
                 }
-//	    		List<Order> orders = new ArrayList<Order>();
                 List<Order> orders = new ArrayList<>();
                 for (String field : fields) {
                     orders.add(new Order(direction, field));
                 }
-//	    		sort = new Sort(orders);
                 sort = Sort.by(orders);
 
             } else {

@@ -6,7 +6,6 @@ import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 import com.codahale.metrics.annotation.Timed;
 import jakarta.annotation.security.RolesAllowed;
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.format.ISODateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,26 +62,9 @@ public class AuditResource {
             }
             Matcher auditEventDateBetweenMatcher = Pattern.compile(FILTER_BY_AUDIT_EVENT_DATE_BETWEEN).matcher(filter);
             if (auditEventDateBetweenMatcher.matches()) {
-//    		Instant fromDate = Instant.parse(auditEventDateBetweenMatcher.group(1), ISODateTimeFormat.date());
-//    		Instant toDate = Instant.parse(auditEventDateBetweenMatcher.group(2), ISODateTimeFormat.date());
-                // date format 2024-02-29
-//            Date fromDateParse = new SimpleDateFormat("yyyy-MM-dd").parse(auditEventDateBetweenMatcher.group(1));
-//            Date toDateParse = new SimpleDateFormat("yyyy-MM-dd").parse(auditEventDateBetweenMatcher.group(2));
-//            Instant fromDate = fromDateParse.toInstant();
-//            Instant toDate = toDateParse.toInstant();
-
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-
-                Date fromDateParse = dateFormat.parse(auditEventDateBetweenMatcher.group(1));
-                Date toDateParse = dateFormat.parse(auditEventDateBetweenMatcher.group(2));
-
-
-                Instant fromDate = fromDateParse.toInstant();
-                Instant toDate = toDateParse.toInstant();
-
-                System.out.println("From Date: " + fromDate);
-                System.out.println("To Date: " + toDate);
+                Instant fromDate = dateFormat.parse(auditEventDateBetweenMatcher.group(1)).toInstant();
+                Instant toDate = dateFormat.parse(auditEventDateBetweenMatcher.group(2)).toInstant();
                 return new ResponseEntity<List<AuditEvent>>(auditEventService.findByDates(fromDate, toDate), HttpStatus.OK);
             }
             //TODO support more kinds of audit event filters...

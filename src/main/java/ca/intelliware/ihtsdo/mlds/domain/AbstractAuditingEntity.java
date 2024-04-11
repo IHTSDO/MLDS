@@ -32,7 +32,6 @@ public abstract class AbstractAuditingEntity {
 
     @CreatedDate
     @NotNull
-//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "created_date")
     private Instant createdDate = Instant.now();
 
@@ -41,7 +40,6 @@ public abstract class AbstractAuditingEntity {
     private String lastModifiedBy;
 
     @LastModifiedDate
-//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "last_modified_date")
     private Instant lastModifiedDate = Instant.now();
 

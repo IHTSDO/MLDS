@@ -23,7 +23,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin
 public class ReleaseVersionsResource {
     @Autowired
     ReleasePackageRepository releasePackageRepository;
@@ -127,7 +126,6 @@ public class ReleaseVersionsResource {
         releaseVersion.setName(body.getName());
         releaseVersion.setDescription(body.getDescription());
         releaseVersion.setReleaseType(body.getReleaseType());
-//    	releaseVersion.setOnline(body.isOnline());
         releaseVersion.setPublishedAt(body.getPublishedAt());
 
         releaseVersion.setSummary(body.getSummary());

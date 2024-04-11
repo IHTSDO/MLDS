@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-//import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
 
 
 import java.time.Instant;
@@ -33,9 +32,8 @@ public abstract class Application extends BaseEntity {
 	}
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
-	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence_generator")
+	@SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="application_id", columnDefinition = "BIGINT")
     Long applicationId;
 
@@ -49,7 +47,6 @@ public abstract class Application extends BaseEntity {
 
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="affiliate_details_id")
-//	@IndexedEmbedded(prefix="")
 	AffiliateDetails affiliateDetails;
 
 	@Column(name="notes_internal")

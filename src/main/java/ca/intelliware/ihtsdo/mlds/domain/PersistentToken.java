@@ -23,9 +23,9 @@ import java.time.LocalDate;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class PersistentToken implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
-    
+
     private static final int MAX_USER_AGENT_LEN = 255;
 
     @Id
@@ -38,8 +38,6 @@ public class PersistentToken implements Serializable {
 
     @JsonIgnore
     @Column(name = "token_date")
-//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-//    @JdbcTypeCode(org.jadira.usertype.dateandtime.joda.PersistentLocalDate)
     private LocalDate tokenDate;
 
     //an IPV6 address max length is 39 characters

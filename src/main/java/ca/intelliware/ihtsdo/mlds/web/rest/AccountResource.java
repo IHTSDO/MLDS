@@ -16,7 +16,6 @@ import ca.intelliware.ihtsdo.mlds.service.mail.PasswordResetEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
 import com.codahale.metrics.annotation.Timed;
 import jakarta.annotation.Resource;
-import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -373,8 +372,6 @@ public class AccountResource {
         variables.put("baseUrl", request.getScheme() + "://" +   // "http" + "://
                                  request.getServerName() +       // "myhost"
                                  ":" + request.getServerPort());
-//        IWebContext context = new SpringWebContext(request, response, servletContext,
-//                locale, variables, applicationContext);
         Context context = new Context(locale);
         context.setVariable("user", user);
         context.setVariable("baseUrl", request.getScheme() + "://" + request.getServerName() +

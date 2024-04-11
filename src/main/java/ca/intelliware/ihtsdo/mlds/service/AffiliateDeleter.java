@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 @Transactional
 public class AffiliateDeleter {
 
-	@Autowired
-	AffiliateRepository affiliateRepository;
+	@Autowired AffiliateRepository affiliateRepository;
 	@Autowired AffiliateDetailsRepository affiliateDetailsRepository;
 	@Autowired ApplicationRepository applicationRepository;
 	@Autowired UserRepository userRepository;

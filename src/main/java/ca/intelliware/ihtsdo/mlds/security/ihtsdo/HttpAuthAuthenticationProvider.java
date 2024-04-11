@@ -41,7 +41,6 @@ public class HttpAuthAuthenticationProvider implements AuthenticationProvider{
 
 			try {
 				String authenticatedToken = httpAuthAdaptor.checkUsernameAndPasswordValid(username, password);
-//				String authenticatedToken=null;
 				if (authenticatedToken == null) {
 					throw new BadCredentialsException(ApplicationErrorCodes.MLDS_ERR_AUTH_BAD_PASSWORD
 							+ ": Password for remote user was invalid: " + username);
