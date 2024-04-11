@@ -59,7 +59,7 @@ public class CommercialUsageResource {
 
     	Optional<Affiliate> affiliate = affiliateRepository.findById(affiliateId);
     	authorizationChecker.checkCanAccessAffiliate(String.valueOf(Optional.of(affiliate)));
-    	if (affiliate == null) {
+    	if (affiliate.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
 
@@ -224,7 +224,6 @@ public class CommercialUsageResource {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
 
-//        CommercialUsage commercialUsage = commercialUsageRepository.findByCommercialUsageId(commercialUsageId);
         Optional<CommercialUsage> commercialUsageOptional = commercialUsageRepository.findById(commercialUsageId);
     	if (commercialUsageOptional.isEmpty()) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);

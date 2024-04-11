@@ -12,8 +12,7 @@ import java.util.Map;
 
 @Service
 public class ReleasePackageUpdatedEmailSender {
-	@Resource
-	MailService mailService;
+	@Resource MailService mailService;
 	@Resource TemplateEvaluator templateEvaluator;
 	@Resource ClientLinkBuilder clientLinkBuilder;
 
@@ -29,7 +28,7 @@ public class ReleasePackageUpdatedEmailSender {
 		String content = templateEvaluator.evaluateTemplate("releasePackageUpdatedEmail", locale, variables);
 		String subject = templateEvaluator.getTitleFor("releasePackageUpdated", locale);
 
-//		mailService.sendEmail(user.getEmail(), subject, content, false, true);
+		mailService.sendEmail(user.getEmail(), subject, content, false, true);
 	}
 
 }

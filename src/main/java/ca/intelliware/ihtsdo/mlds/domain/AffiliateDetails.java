@@ -4,10 +4,11 @@ package ca.intelliware.ihtsdo.mlds.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
-//import org.hibernate.search.mapper.pojo.mapping.definition.annotation.*;
 
 import java.time.Instant;
 
@@ -15,14 +16,13 @@ import java.time.Instant;
 @Entity
 @Table(name="affiliate_details")
 @Indexed
-//@Where(clause = "inactive_at IS NULL")
-//@SQLDelete(sql="UPDATE affiliate_details SET inactive_at = now() WHERE affiliate_details_id = ?")
+@Where(clause = "inactive_at IS NULL")
+@SQLDelete(sql="UPDATE affiliate_details SET inactive_at = now() WHERE affiliate_details_id = ?")
 public class AffiliateDetails extends BaseEntity implements Cloneable {
 
 	@Id
-//	@GeneratedValue
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
-	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence_generator")
+	@SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="affiliate_details_id")
     Long affiliateDetailsId;
 
@@ -32,7 +32,6 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	Instant inactiveAt;
 
 	@Enumerated(EnumType.STRING)
-//	@Field(name="ALL",bridge=@FieldBridge(impl= AffiliateTypeFieldBridge.class))
 	AffiliateType type;
 
 	/** text for "Other" AffiliateType */
@@ -48,36 +47,22 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	AgreementType agreementType = AgreementType.AFFILIATE_NORMAL;
 
 	@Column(name="first_name")
-//	@Fields({ @Field(name="ALL"), @Field()})
 	@FullTextField
 	String firstName;
 
 	@Column(name="last_name")
     @FullTextField
-//	@Fields({ @Field(name="ALL"), @Field()})
 	String lastName;
 
-//	@Fields({
-//		@Field(name="ALL"),  // the default analyzer splits on @
-//		@Field(analyzer=@Analyzer(impl= UAX29URLEmailAnalyzer.class))
-//		})
     @FullTextField
 	String email;
 
 	@Column(name="alternate_email")
     @FullTextField
-//	@Fields({
-//		@Field(name="ALL"),  // the default analyzer splits on @
-//		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
-//		})
 	String alternateEmail;
 
 	@Column(name="third_email")
     @FullTextField
-//	@Fields({
-//		@Field(name="ALL"),  // the default analyzer splits on @
-//		@Field(name="email",analyzer=@Analyzer(impl=UAX29URLEmailAnalyzer.class))
-//		})
 	String thirdEmail;
 
 	@Column(name="landline_number")
@@ -90,7 +75,6 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	@Enumerated(EnumType.STRING)
 	@Column(name="organization_type")
     @FullTextField
-//	@Field(name="ALL",bridge=@FieldBridge(impl= OrganizationTypeFieldBridge.class))
 	OrganizationType organizationType;
 
 	@Column(name="organization_type_other")
@@ -107,7 +91,6 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 	MailingAddress address;
 
 	@Column(name="organization_name")
-//	@Fields({ @Field(name="ALL"), @Field()})
     @FullTextField
 	String organizationName;
 

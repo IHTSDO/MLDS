@@ -18,8 +18,7 @@ import java.util.List;
 @Service
 public class UserMembershipCalculator {
 
-	@Resource
-	AffiliateRepository affiliateRepository;
+	@Resource AffiliateRepository affiliateRepository;
 	@Resource UserRepository userRepository;
 	@Resource AffiliateMembershipCalculator affiliateMembershipCalculator;
 

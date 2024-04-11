@@ -31,17 +31,13 @@ public class MailService {
 
     private final Logger log = LoggerFactory.getLogger(MailService.class);
 
-    @Autowired
-    private Environment env;
+    @Autowired private Environment env;
 
-    @Autowired
-    private JavaMailSenderImpl javaMailSender;
+    @Autowired private JavaMailSenderImpl javaMailSender;
 
-    @Autowired
-    private MessageSource messageSource;
+    @Autowired private MessageSource messageSource;
 
-	@Resource
-	TemplateEvaluator templateEvaluator;
+	@Resource TemplateEvaluator templateEvaluator;
 
     /**
      * System default email address that sends the e-mails.

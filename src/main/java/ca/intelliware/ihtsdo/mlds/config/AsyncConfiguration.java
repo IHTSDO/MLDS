@@ -22,13 +22,10 @@ public class AsyncConfiguration extends AsyncConfigurerSupport implements Enviro
 
     private final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);
 
-//    private RelaxedPropertyResolver propertyResolver;
-
     private Environment environment;
 
     @Override
     public void setEnvironment(Environment environment) {
-//        this.propertyResolver = new RelaxedPropertyResolver(environment, "async.");
         this.environment = environment;
     }
 
@@ -36,9 +33,6 @@ public class AsyncConfiguration extends AsyncConfigurerSupport implements Enviro
     public Executor getAsyncExecutor() {
         log.debug("Creating Async Task Executor");
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-//        executor.setCorePoolSize(propertyResolver.getProperty("corePoolSize", Integer.class, 2));
-//        executor.setMaxPoolSize(propertyResolver.getProperty("maxPoolSize", Integer.class, 50));
-//        executor.setQueueCapacity(propertyResolver.getProperty("queueCapacity", Integer.class, 10000));
         Binder binder = Binder.get(environment);
         executor.setCorePoolSize(binder.bind("async.core-pool-size", Integer.class).orElse(2));
         executor.setMaxPoolSize(binder.bind("async.max-pool-size", Integer.class).orElse(50));

@@ -1,7 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
-//import org.springframework.boot.bind.RelaxedPropertyResolver;
-//import com.snomed.mlds.config.locale.AngularCookieLocaleResolver;
 import ca.intelliware.ihtsdo.mlds.config.locale.AngularCookieLocaleResolver;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.EnvironmentAware;
@@ -19,13 +17,11 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 @Configuration
 public class LocaleConfiguration implements EnvironmentAware, WebMvcConfigurer {
 
-//    private RelaxedPropertyResolver propertyResolver;
 
     private Environment env;
 
     @Override
     public void setEnvironment(Environment environment) {
-//        this.propertyResolver = new RelaxedPropertyResolver(environment, "spring.messageSource.");
         this.env = environment;
     }
 
@@ -46,7 +42,6 @@ public class LocaleConfiguration implements EnvironmentAware, WebMvcConfigurer {
         //FIXME DGJ workaround - why?
         messageSources.setBasenames("classpath:/i18n/messages", "classpath:/mails/messages/messages");
         messageSources.setDefaultEncoding("UTF-8");
-//        messageSource.setCacheSeconds(propertyResolver.getProperty("cacheSeconds", Integer.class, 1));
         Binder binder = Binder.get(env);
         messageSources.setCacheSeconds(binder.bind("spring.messagesource.cacheseconds", Integer.class).orElse(1));
         return messageSources;

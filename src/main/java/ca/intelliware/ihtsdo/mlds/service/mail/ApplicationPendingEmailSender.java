@@ -14,18 +14,17 @@ import java.util.Map;
 
 /*
  * Send email notification to the relevant Member staff when an affiliate has applied in their space.
- * 
+ *
  * Use a shared email mailing list rather than to individual MLDS users as staff/admin are not registered
  * directly in the MLDS system, so we instead use an IHTSDO hosted mailing list email address for the
  * member organization.
- * 
+ *
  * https://jira.ihtsdotools.org/browse/MLDS-918
  */
 
 @Service
 public class ApplicationPendingEmailSender {
-	@Resource
-	MailService mailService;
+	@Resource MailService mailService;
 	@Resource TemplateEvaluator templateEvaluator;
 	@Resource ClientLinkBuilder clientLinkBuilder;
 

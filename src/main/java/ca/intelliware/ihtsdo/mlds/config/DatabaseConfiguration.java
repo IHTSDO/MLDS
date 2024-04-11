@@ -37,7 +37,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
-//    private RelaxedPropertyResolver propertyResolver;
 
     private Environment env;
 
@@ -48,7 +47,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
     @Override
     public void setEnvironment(Environment environment) {
         this.env = environment;
-//        this.propertyResolver = new RelaxedPropertyResolver(environment, "spring.datasource.");
     }
 
     @Bean
@@ -69,20 +67,14 @@ public class DatabaseConfiguration implements EnvironmentAware {
             throw new ApplicationContextException("Database connection pool is not configured correctly");
         }
         HikariConfig config = new HikariConfig();
-//        config.setDataSourceClassName(propertyResolver.getProperty("dataSourceClassName"));
         config.setDataSourceClassName(binder.bind("spring.datasource.data-source-class-name", String.class).orElse(null));
         if (url == null || "".equals(url)) {
-//            config.addDataSourceProperty("databaseName", propertyResolver.getProperty("databaseName"));
             config.addDataSourceProperty("databaseName", binder.bind("spring.datasource.database-name", String.class).orElse(null));
-//            config.addDataSourceProperty("serverName", propertyResolver.getProperty("serverName"));
             config.addDataSourceProperty("serverName", binder.bind("spring.datasource.serverName", String.class).orElse(null));
         } else {
-//            config.addDataSourceProperty("url", propertyResolver.getProperty("url"));
             config.addDataSourceProperty("url", url);
         }
-//        config.addDataSourceProperty("user", propertyResolver.getProperty("username"));
         config.addDataSourceProperty("user", binder.bind("spring.datasource.username", String.class).orElse(null));
-//        config.addDataSourceProperty("password", propertyResolver.getProperty("password"));
         config.addDataSourceProperty("password", binder.bind("spring.datasource.password", String.class).orElse(null));
         dataSource = new HikariDataSource(config);
         log.debug("Datasource configuration complete");
