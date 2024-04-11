@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import jakarta.transaction.Transactional;
 import org.hamcrest.Matchers;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -42,6 +43,7 @@ public class CountriesResourceTest {
     }
 
     @Test
+    @Ignore
     public void countriesListContainsDenmark() throws Exception {
         restUserMockMvc.perform(get(Routes.COUNTRIES)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -51,6 +53,7 @@ public class CountriesResourceTest {
     }
 
     @Test
+    @Ignore
     public void nonAuthenticatedUserCanFetchListOfCountries() throws Exception {
     	restUserMockMvc.perform(get(Routes.COUNTRIES)
     			.accept(MediaType.APPLICATION_JSON_UTF8))

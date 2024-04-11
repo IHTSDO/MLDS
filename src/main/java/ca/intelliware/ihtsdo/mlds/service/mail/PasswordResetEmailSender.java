@@ -10,8 +10,7 @@ import java.util.Map;
 
 @Service
 public class PasswordResetEmailSender {
-	@Resource
-	MailService mailService;
+	@Resource MailService mailService;
 	@Resource TemplateEvaluator templateEvaluator;
 	@Resource ClientLinkBuilder clientLinkBuilder;
 

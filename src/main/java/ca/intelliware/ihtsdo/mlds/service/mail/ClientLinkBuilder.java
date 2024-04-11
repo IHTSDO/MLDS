@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClientLinkBuilder {
-	@Resource
-	TemplateEvaluator templateEvaluator;
+	@Resource TemplateEvaluator templateEvaluator;
 
 	public String buildPasswordResetLink(String tokenKey) {
 		return templateEvaluator.getUrlBase() + "#/resetPassword?token="+tokenKey;
@@ -28,5 +27,5 @@ public class ClientLinkBuilder {
 	public String buildViewReleasePackageLink(long releasePackageId) {
 		return templateEvaluator.getUrlBase() + "#/viewReleases/viewRelease/"+releasePackageId;
 	}
-	
+
 }

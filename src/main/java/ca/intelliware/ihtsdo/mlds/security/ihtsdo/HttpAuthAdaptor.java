@@ -72,7 +72,6 @@ public class HttpAuthAdaptor implements HeaderConstants {
 	}
 
     public CentralAuthUserInfo getUserAccountInfo(String username, String authenticationCookie) throws IOException {
-//        Map<String, String> headers = new HashMap<>();
         HttpHeaders headers = new HttpHeaders();
         if (authenticationCookie != null) {
             headers.add("Cookie", authenticationCookie);
@@ -80,7 +79,6 @@ public class HttpAuthAdaptor implements HeaderConstants {
         } else if (storedCookie != null) {
             headers.add("Cookie", storedCookie);
         }
-//        headers.put("Cookie",authenticationCookie);
         try {
             ResponseEntity<CentralAuthUserInfo> exchange = restTemplate.exchange(new RequestEntity<>(headers, HttpMethod.GET, URI.create(queryUrl + "api/account")), CentralAuthUserInfo.class);
             logger.info("Made remote call to get user details for {} HTTP {}", username, exchange.getStatusCodeValue());
