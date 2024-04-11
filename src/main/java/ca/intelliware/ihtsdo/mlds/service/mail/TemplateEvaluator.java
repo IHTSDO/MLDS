@@ -15,14 +15,11 @@ import java.util.Map;
 
 @Service
 public class TemplateEvaluator {
-    @Resource
-    SpringTemplateEngine templateEngine;
+    @Resource SpringTemplateEngine templateEngine;
     @Resource MessageSource messageSource;
 
-    @Resource
-    HttpServletRequest request;
-	@Resource
-    ServletContext servletContext;
+    @Resource HttpServletRequest request;
+	@Resource ServletContext servletContext;
 	@Resource ApplicationContext applicationContext;
 
 	public String getUrlBase() {
@@ -32,7 +29,6 @@ public class TemplateEvaluator {
 	}
 
     public String evaluateTemplate(String templateName, Locale locale, Map<String,?> variables) {
-//    	IWebContext context = new SpringWebContext(request, null, servletContext, locale, variables, applicationContext);
         Context context = new Context(locale, (Map<String, Object>) variables);
         return templateEngine.process(templateName, context);
 

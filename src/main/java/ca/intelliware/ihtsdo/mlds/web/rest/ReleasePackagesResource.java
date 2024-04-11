@@ -37,7 +37,6 @@ import java.time.Instant;
 import java.util.*;
 
 @RestController
-@CrossOrigin
 public class ReleasePackagesResource {
 
     @Autowired
@@ -74,8 +73,8 @@ public class ReleasePackagesResource {
 //	// Release Packages
 
     @RequestMapping(value = Routes.RELEASE_PACKAGES,
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @PermitAll
     @Timed
     public @ResponseBody ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
@@ -88,7 +87,7 @@ public class ReleasePackagesResource {
     }
 
     private Collection<ReleasePackage> filterReleasePackagesByOnline(
-            Collection<ReleasePackage> releasePackages) {
+        Collection<ReleasePackage> releasePackages) {
 
         Collection<ReleasePackage> result = releasePackages;
 
@@ -123,17 +122,14 @@ public class ReleasePackagesResource {
 
 
     @RequestMapping(value = Routes.RELEASE_PACKAGES,
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
     public @ResponseBody ResponseEntity<ReleasePackage> createReleasePackage(@RequestBody ReleasePackage releasePackage) {
         authorizationChecker.checkCanCreateReleasePackages();
 
-//      TODO Need change here
         releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
-
-        releasePackage.setCreatedBy("admin");
 
         // MLDS-740 - Allow Admin to specify the member
         if (releasePackage.getMember() == null || !currentSecurityContext.isAdmin()) {
@@ -151,8 +147,8 @@ public class ReleasePackagesResource {
     }
 
     @RequestMapping(value = Routes.RELEASE_PACKAGE,
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
     public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
@@ -204,8 +200,8 @@ public class ReleasePackagesResource {
 
 
     @RequestMapping(value = Routes.RELEASE_PACKAGE,
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
     public @ResponseBody ResponseEntity<ReleasePackage> updateReleasePackage(@PathVariable long releasePackageId, @RequestBody ReleasePackage body) {
@@ -236,8 +232,8 @@ public class ReleasePackagesResource {
     }
 
     @RequestMapping(value = Routes.RELEASE_PACKAGE,
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.DELETE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
     public @ResponseBody ResponseEntity<?> deactivateReleasePackage(@PathVariable long releasePackageId) {
@@ -267,7 +263,7 @@ public class ReleasePackagesResource {
     }
 
     @RequestMapping(value = Routes.RELEASE_PACKAGE_LICENSE,
-            method = RequestMethod.GET)
+        method = RequestMethod.GET)
     @PermitAll
     @Transactional
     @Timed
@@ -290,7 +286,6 @@ public class ReleasePackagesResource {
             Instant lastUpdatedInstant = file.getLastUpdated();
             long lastUpdatedMillis = lastUpdatedInstant.toEpochMilli();
             long lastUpdatedSecondsFloor = (lastUpdatedMillis / 1000) * 1000;
-//    		long lastUpdatedSecondsFloor = file.getLastUpdated().getMillis() / 1000 * 1000;
             if (ifModifiedSince != -1 && lastUpdatedSecondsFloor <= ifModifiedSince) {
                 return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
             }
@@ -301,7 +296,6 @@ public class ReleasePackagesResource {
         httpHeaders.setContentLength(file.getContent().length());
         httpHeaders.setContentDispositionFormData("file", file.getFilename());
         if (file.getLastUpdated() != null) {
-//			httpHeaders.setLastModified(file.getLastUpdated().getMillis());
             Date lastUpdatedDate = Date.from(file.getLastUpdated());
             long lastModified = lastUpdatedDate.getTime();
             httpHeaders.setLastModified(lastModified);
@@ -313,9 +307,9 @@ public class ReleasePackagesResource {
     }
 
     @RequestMapping(value = Routes.RELEASE_PACKAGE_LICENSE,
-            method = RequestMethod.POST,
-            headers = "content-type=multipart/*",
-            produces = "application/json")
+        method = RequestMethod.POST,
+        headers = "content-type=multipart/*",
+        produces = "application/json")
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Transactional
     @Timed

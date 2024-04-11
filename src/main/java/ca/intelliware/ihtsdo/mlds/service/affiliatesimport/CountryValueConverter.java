@@ -19,12 +19,7 @@ public class CountryValueConverter extends ValueConverter {
 
 	@Override
 	public Country toObject(String valueString) {
-		Optional<Country> countryOptional = countryRepository.findById(valueString);
-        if(countryOptional.isEmpty()){
-            return null;
-        }
-		Country country = countryOptional.get();
-		return country;
+        return countryRepository.findById(valueString).orElse(null);
 	}
 
 	@Override

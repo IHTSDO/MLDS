@@ -18,7 +18,7 @@ import java.time.Instant;
  * staffNotificationEmal, from being serialized to JSON.
  */
 
-//@JsonFilter("memberDtoPrivacyFilter")
+@JsonFilter("memberDtoPrivacyFilter")
 public class MemberDTO {
 	public static final String[] PRIVATE_FIELDS = {"staffNotificationEmail"};
 

@@ -32,7 +32,7 @@ public class AffiliatePublicResource {
 	private static final int MINIMUM_MATCH_LENGTH = 3;
 
 	private final Logger log = LoggerFactory.getLogger(AffiliatePublicResource.class);
-	   
+
 		@Autowired
 		AffiliateRepository affiliateRepository;
 		@Autowired MemberRepository memberRepository;
@@ -46,9 +46,9 @@ public class AffiliatePublicResource {
 	    		@RequestParam(value="member", defaultValue="") String memberKey,
 	    		@RequestParam(value="affiliateId", defaultValue="", required=false) String affiliateId,
 	    		@RequestParam(value="match", defaultValue="") String match) {
-			
+
 			AffiliateCheckDTO response = new AffiliateCheckDTO();
-			
+
 			if (StringUtils.isBlank(memberKey)) {
 				return badRequest(response, "Missing mandatory parameter: member");
 			}
@@ -63,7 +63,7 @@ public class AffiliatePublicResource {
 			if (member == null) {
 				return badRequest(response, "Unknown member: '"+memberKey+"'. Valid options: "+memberOptions());
 			}
-			
+
 			long affilateIdOptional = AffiliateRepository.AFFILIATE_ID_OPTIONAL_VALUE;
 			if (StringUtils.isNotBlank(affiliateId)) {
 				try {
@@ -77,7 +77,7 @@ public class AffiliatePublicResource {
 
 			Page<Affiliate> matchingAffiliates = affiliateRepository.findForCheck(affilateIdOptional, member, match, createZeroOneManyPageRequest());
 			response.setMatched(isSingleAffiliateMatch(matchingAffiliates));
-			
+
 			return new ResponseEntity<AffiliateCheckDTO>(response, HttpStatus.OK);
 		}
 
@@ -87,7 +87,6 @@ public class AffiliatePublicResource {
 
 		private PageRequest createZeroOneManyPageRequest() {
 			// Limit number of results to tell difference between 0, 1, many results
-//			PageRequest pageRequest = new PageRequest(0, ZERO_ONE_MANY_RESULTS_LENGTH);
 			PageRequest pageRequest = PageRequest.of(0, ZERO_ONE_MANY_RESULTS_LENGTH);
 			return pageRequest;
 		}

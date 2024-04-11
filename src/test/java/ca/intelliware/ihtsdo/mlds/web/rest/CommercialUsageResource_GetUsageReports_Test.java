@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -31,33 +32,33 @@ import java.util.Optional;
 public class CommercialUsageResource_GetUsageReports_Test {
     @Mock
     AffiliateRepository affiliateRepository;
-    
+
     @Mock
 	CommercialUsageAuthorizationChecker authorizationChecker;
-    
+
     @Mock
     CommercialUsageRepository commercialUsageRepository;
-    
+
     @Mock
     CommercialUsageAuditEvents commercialUsageAuditEvents;
-    
+
     @Mock
     CommercialUsageResetter commercialUsageResetter;
-    
+
 	CommercialUsageResource commercialUsageResource;
-	
+
 	private MockMvc restCommercialUsageResource;
 
 	@Before
     public void setup() {
         commercialUsageResource = new CommercialUsageResource();
-        
+
         commercialUsageResource.affiliateRepository = affiliateRepository;
         commercialUsageResource.authorizationChecker = authorizationChecker;
         commercialUsageResource.commercialUsageRepository = commercialUsageRepository;
         commercialUsageResource.commercialUsageAuditEvents = commercialUsageAuditEvents;
         commercialUsageResource.commercialUsageResetter = commercialUsageResetter;
-        
+
         this.restCommercialUsageResource = MockMvcBuilders
         		.standaloneSetup(commercialUsageResource)
         		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
@@ -66,8 +67,8 @@ public class CommercialUsageResource_GetUsageReports_Test {
 
 	@Test
 	public void getUsageReportsShouldReturn404ForUnknownAffiliate() throws Exception {
-		Mockito.when(affiliateRepository.findById(999L)).thenReturn(null);
-		
+		Mockito.when(affiliateRepository.findById(999L)).thenReturn(Optional.empty());
+
 		restCommercialUsageResource.perform(MockMvcRequestBuilders.get(Routes.USAGE_REPORTS, 999L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
@@ -84,7 +85,7 @@ public class CommercialUsageResource_GetUsageReports_Test {
 		commercialUsageEntry.setName("Test Name");
 		affiliate.addCommercialUsage(commercialUsage);
 		Mockito.when(affiliateRepository.findById(1L)).thenReturn(Optional.of(affiliate));
-		
+
 		restCommercialUsageResource.perform(MockMvcRequestBuilders.get(Routes.USAGE_REPORTS, 1L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())

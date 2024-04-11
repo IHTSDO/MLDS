@@ -11,7 +11,7 @@ public class SessionService {
 	public boolean isLoggedIn() {
 		return getUsernameOrNull() != null;
 	}
-	
+
 	public String getUsernameOrNull() {
 		Authentication authentication = SecurityContextHolder
 				.getContext()
@@ -28,7 +28,6 @@ public class SessionService {
 		if (principal instanceof String) {
 			username = (String) principal;
 		}
-//		String username = null;
 	return username;
 	}
 }
