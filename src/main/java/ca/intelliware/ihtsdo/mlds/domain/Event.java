@@ -1,7 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
 
 
 import java.sql.Timestamp;
@@ -15,7 +14,6 @@ public abstract class Event extends BaseEntity {
 	@Column(name="event_id")
 	private Long id;
 
-//	@Type(type="timestamp")
 	@Column(nullable=false,updatable=false)
 	private Timestamp timestamp;
 

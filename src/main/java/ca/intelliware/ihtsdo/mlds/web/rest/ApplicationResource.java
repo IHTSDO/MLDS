@@ -180,7 +180,6 @@ public class ApplicationResource {
 
 		Page<Application> applications;
 		Sort sort = createApplicationsSort(orderby);
-//		PageRequest pageRequest = new PageRequest(page, pageSize, sort);
         Pageable pageRequest = PageRequest.of(page, pageSize, sort);
         Member member = null;
 		List<ApprovalState> approvalStates = null;
@@ -231,12 +230,6 @@ public class ApplicationResource {
 		ORDER_BY_FIELD_MAPPINGS.put("email", Arrays.asList("affiliateDetails.email"));
 	}
 
-//	private Sort createApplicationsSort(String orderby) {
-//		Sort defaultSort = new Sort(
-//				new Order(Direction.ASC, "applicationId")
-//			);
-//		return new SortBuilder().createSort(orderby, ORDER_BY_FIELD_MAPPINGS, defaultSort);
-//	}
 
     private Sort createApplicationsSort(String orderby) {
         Sort defaultSort = Sort.by(Sort.Order.asc("applicationId"));
@@ -353,8 +346,6 @@ public class ApplicationResource {
 	@RolesAllowed({AuthoritiesConstants.USER})
 	@Timed
 	public @ResponseBody ResponseEntity<Application> saveApplication(@PathVariable long applicationId, @RequestBody JsonNode request) {
-//		Application application = applicationRepository.findOne(applicationId);
-//        Application application = applicationRepository.findOneById(applicationId);
 		Optional<Application> applicationOptional = applicationRepository.findById(applicationId);
 		Application application = applicationOptional.get();
 		if (application == null) {
@@ -389,8 +380,6 @@ public class ApplicationResource {
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
 	@Timed
 	public @ResponseBody ResponseEntity<Application> submitApplication(@PathVariable long applicationId, @RequestBody String notesInternal) {
-//		Application application = applicationRepository.findOne(applicationId);
-//        Application application = applicationRepository.findOneById(applicationId);
 		Optional<Application> applicationOptional = applicationRepository.findById(applicationId);
 		Application application = applicationOptional.get();
 		if (application == null) {
@@ -568,8 +557,6 @@ public class ApplicationResource {
 	@Transactional
 	@Timed
 	public ResponseEntity<?> updateApplication(@PathVariable long applicationId, @RequestBody ObjectNode requestBody) throws IOException {
-//		Application original = applicationRepository.findOne(applicationId);
-//        Application original = applicationRepository.findOneById(applicationId);
 		Optional<Application> applicationOptional = applicationRepository.findById(applicationId);
 		Application original = applicationOptional.get();
 		Application updatedApplication = constructUpdatedApplication(requestBody, original);
@@ -595,8 +582,6 @@ public class ApplicationResource {
 	@Transactional
 	@Timed
 	public ResponseEntity<?> deleteApplication(@PathVariable long applicationId) throws IOException {
-//		Application application = applicationRepository.findOne(applicationId);
-//        Application application = applicationRepository.findOneById(applicationId);
 		Optional<Application> applicationOptional = applicationRepository.findById(applicationId);
 		Application application = applicationOptional.get();
 
@@ -604,8 +589,6 @@ public class ApplicationResource {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-//		applicationRepository.delete(applicationId);
-//        applicationRepository.deleteByApplicationId(applicationId);
 		applicationRepository.delete(application);
 		applicationAuditEvents.logDeletionOf(application);
 		return new ResponseEntity<Application>(HttpStatus.OK);

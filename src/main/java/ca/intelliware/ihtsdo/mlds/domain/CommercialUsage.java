@@ -22,9 +22,8 @@ import java.util.Set;
 @SQLDelete(sql="UPDATE commercial_usage SET inactive_at = now() WHERE commercial_usage_id = ?")
 public class CommercialUsage extends BaseEntity {
 	@Id
-//	@GeneratedValue
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
-	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence_generator")
+	@SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="commercial_usage_id")
 	Long commercialUsageId;
 
@@ -38,13 +37,12 @@ public class CommercialUsage extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	AffiliateType type;
 
-	//@Type(type="jodatimeInstant")
 	Instant created = Instant.now();
-	
+
 	@JsonIgnore
 	@Column(name="inactive_at")
 	Instant inactiveAt;
-	
+
 	@Column(name="start_date")
 	LocalDate startDate;
 
@@ -54,38 +52,37 @@ public class CommercialUsage extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "state")
 	private UsageReportState state;
-	
+
 	private String note;
-	
+
 	@Column(name="effective_to")
 	private Instant effectiveTo;
 
 	@Embedded
 	UsageContext context;
-	
-	//@Type(type="jodatimeInstant")
+
 	private Instant submitted = null;
 
 	@JsonProperty("entries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	@Where(clause = "inactive_at IS NULL")
 	Set<CommercialUsageEntry> usage = new HashSet<>() /*Sets.newHashSet()*/;
-	
+
 	@JsonProperty("countries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
 	@Where(clause = "inactive_at IS NULL")
 	Set<CommercialUsageCountry> countries = new HashSet<>() /*Sets.newHashSet()*/;
-	
+
 	public CommercialUsage() {
-		
+
 	}
-	
+
 	// For Testing
 	public CommercialUsage(Long commercialUsageId, Affiliate affiliate) {
 		this.commercialUsageId = commercialUsageId;
 		this.affiliate = affiliate;
 	}
-	
+
 	public Long getCommercialUsageId() {
 		return commercialUsageId;
 	}
@@ -112,7 +109,7 @@ public class CommercialUsage extends BaseEntity {
 
 	public void addEntry(CommercialUsageEntry newEntryValue) {
 		Validate.notNull(newEntryValue.commercialUsageEntryId);
-		
+
 		if (newEntryValue.commercialUsage != null) {
 			newEntryValue.commercialUsage.usage.remove(newEntryValue);
 		}
@@ -128,7 +125,7 @@ public class CommercialUsage extends BaseEntity {
 
 	public void addCount(CommercialUsageCountry newCountryValue) {
 		Validate.notNull(newCountryValue.commercialUsageCountId);
-		
+
 		if (newCountryValue.commercialUsage != null) {
 			//Not sure why we're asking the incoming object for a reference to 'this'
 			//Think I'll blow up if the two aren't one and the same object
@@ -208,7 +205,7 @@ public class CommercialUsage extends BaseEntity {
 	public void setEffectiveTo(Instant effectiveTo) {
 		this.effectiveTo = effectiveTo;
 	}
-	
+
 	@JsonIgnore
 	public boolean isActive() {
 		return getEffectiveTo() == null;
@@ -228,7 +225,7 @@ public class CommercialUsage extends BaseEntity {
 	public void setCountries(Set<CommercialUsageCountry> countries) {
 		this.countries = countries;
 	}
-	
+
 	public void setUsage(Set<CommercialUsageEntry> usage) {
 		this.usage = usage;
 	}

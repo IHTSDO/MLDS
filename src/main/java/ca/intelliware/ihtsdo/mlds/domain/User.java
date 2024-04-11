@@ -23,12 +23,11 @@ import java.util.Set;
 @Where(clause = "inactive_at IS NULL")
 @SQLDelete(sql="UPDATE T_USER SET inactive_at = now() WHERE user_id = ?")
 public class User extends AbstractAuditingEntity implements Serializable {
-//public class User  implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
-    @SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence_generator")
+    @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="user_id")
 	private Long userId;
 

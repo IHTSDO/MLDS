@@ -37,9 +37,7 @@ public class CommercialUsageAuthorizationChecker extends AuthorizationChecker {
 		if (isStaffOrAdmin()) {
 			return;
 		}
-//		CommercialUsage commercialUsage = commercialUsageRepository.findOne(usageReportId);
         Optional<CommercialUsage> optionalCommercialUsage = commercialUsageRepository.findById(usageReportId);
-//		if (commercialUsage != null) {
         if (optionalCommercialUsage.isPresent()) {
             CommercialUsage commercialUsage = optionalCommercialUsage.get();
 			Affiliate affiliate = commercialUsage.getAffiliate();
@@ -54,9 +52,7 @@ public class CommercialUsageAuthorizationChecker extends AuthorizationChecker {
 		}
 
         Optional<CommercialUsageEntry> optionalCommercialUsageEntry = commercialUsageEntryRepository.findById(commercialUsageEntryId);
-//        if (commercialUsageEntry != null) {
         if (optionalCommercialUsageEntry.isPresent()) {
-//			CommercialUsage commercialUsage = commercialUsageEntry.getCommercialUsage();
             CommercialUsageEntry commercialUsageEntry = optionalCommercialUsageEntry.get();
             CommercialUsage commercialUsage = commercialUsageEntry.getCommercialUsage();
 			checkCommercialUsageMatches(commercialUsageId, commercialUsage);
@@ -73,7 +69,6 @@ public class CommercialUsageAuthorizationChecker extends AuthorizationChecker {
 		}
 
         Optional<CommercialUsageCountry> optionalCommercialUsageCount = commercialUsageCountRepository.findById(commercialUsageCountId);
-//        if (commercialUsageCount != null) {
         if (optionalCommercialUsageCount.isPresent()) {
             CommercialUsageCountry commercialUsageCount = optionalCommercialUsageCount.get();
 			CommercialUsage commercialUsage = commercialUsageCount.getCommercialUsage();

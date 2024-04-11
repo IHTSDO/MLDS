@@ -11,12 +11,10 @@ import jakarta.persistence.*;
 import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.search.engine.backend.types.Searchable;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
-//import org.hibernate.search.engine.backend.types.Projectable;
-//import org.hibernate.search.engine.backend.types.Searchable;
-//import org.hibernate.search.engine.backend.types.Sortable;
-//import org.hibernate.search.mapper.pojo.mapping.definition.annotation.*;
 
 
 import java.time.Instant;
@@ -33,11 +31,10 @@ public class Affiliate extends BaseEntity {
 	public static final String[] PRIVATE_FIELDS = {"notesInternal"};
 
 	@Id
-//	@GeneratedValue
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
-	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence_generator")
+	@SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="affiliate_id")
-//	@GenericField(searchable = Searchable.YES)
+	@GenericField(searchable = Searchable.YES)
 	Long affiliateId;
 
 	Instant created = Instant.now();
@@ -78,7 +75,6 @@ public class Affiliate extends BaseEntity {
     Member homeMember;
 
 	@JsonIgnore
-//	@Field(name="homeMember", analyzer=@Analyzer(impl= KeywordAnalyzer.class))
 	public String getHomeMemberKey() {
 		return homeMember!= null?homeMember.getKey():null;
 	}
@@ -88,14 +84,9 @@ public class Affiliate extends BaseEntity {
 
     @OneToOne()
     @JoinColumn(name="affiliate_id")
-//    @IndexedEmbedded  //(prefix="")
 	@IndexedEmbedded
     ViewAffiliateApplicationCountries approvedCountries;
 
-//    @Fields({
-//		@Field(name="standingState",bridge=@FieldBridge(impl= StandingStateFieldBridge.class)),
-//		@Field(name="ALL",bridge=@FieldBridge(impl= StandingStateFieldBridge.class))
-//	})
 	@Enumerated(EnumType.STRING)
 	@Column(name="standing_state")
 	StandingState standingState = StandingState.APPLYING;
