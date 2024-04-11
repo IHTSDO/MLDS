@@ -35,7 +35,6 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin
 public class MemberResource {
     private final Logger log = LoggerFactory.getLogger(MemberResource.class);
 
@@ -81,7 +80,6 @@ public class MemberResource {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else if (file.getLastUpdated() != null) {
             long ifModifiedSince = request.getDateHeader("If-Modified-Since");
-            /*long lastUpdatedSecondsFloor = file.getLastUpdated().getMillis() / 1000 * 1000;*/
             long lastUpdatedSecondsFloor = file.getLastUpdated().toEpochMilli() / 1000 * 1000;
 
             if (ifModifiedSince != -1 && lastUpdatedSecondsFloor <= ifModifiedSince) {

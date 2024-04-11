@@ -12,14 +12,13 @@ import java.util.Map;
 
 /*
  * Send email announcement to the relevant Member affiliates.
- * 
+ *
  * https://jira.ihtsdotools.org/browse/MLDS-860
  */
 
 @Service
 public class AnnouncementEmailSender {
-	@Resource
-	MailService mailService;
+	@Resource MailService mailService;
 	@Resource TemplateEvaluator templateEvaluator;
 	@Resource ClientLinkBuilder clientLinkBuilder;
 

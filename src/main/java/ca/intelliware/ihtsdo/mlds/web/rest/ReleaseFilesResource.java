@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
 public class ReleaseFilesResource {
     @Autowired
     ReleaseVersionRepository releaseVersionRepository;

@@ -59,8 +59,6 @@ public class UserMembershipCalculationTest {
 		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(sweden));
 		User user0 = withUser(affiliate0);
 
-//		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
-//		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
         Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(anyList(), eq(sweden)))
             .thenReturn(matchingAffiliates);
         Mockito.when(userRepository.findByLoginIgnoreCaseIn(anyList()))
@@ -78,7 +76,6 @@ public class UserMembershipCalculationTest {
 
 //		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
 //		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
-//
 		// test
 		Iterable<User> result = userMembershipCalculator.approvedReleaseUsersWithAnyMembership(sweden);
 
@@ -90,9 +87,6 @@ public class UserMembershipCalculationTest {
 		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(ihtsdo));
 		User user0 = withUser(affiliate0);
 
-//		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(Matchers.anyListOf(StandingState.class))).thenReturn(matchingAffiliates);
-//		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
-//
         Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedPrimaryApplication(anyList()))
             .thenReturn(matchingAffiliates);
         Mockito.when(userRepository.findByLoginIgnoreCaseIn(anyList()))
@@ -107,9 +101,6 @@ public class UserMembershipCalculationTest {
 	public void approvedActiveUsersShouldReturnMatchingUsers() {
 		Affiliate affiliate0 = withAffiliate(10L, Sets.newHashSet(sweden));
 		User user0 = withUser(affiliate0);
-
-//		Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(Matchers.anyListOf(StandingState.class), Matchers.eq(sweden))).thenReturn(matchingAffiliates);
-//		Mockito.when(userRepository.findByLoginIgnoreCaseIn(Matchers.anyListOf(String.class))).thenReturn(matchingUsers);
 
         Mockito.when(affiliateRepository.findByUsersAndStandingStateInAndApprovedHomeMembership(anyList(), eq(sweden)))
             .thenReturn(matchingAffiliates);
@@ -133,7 +124,6 @@ public class UserMembershipCalculationTest {
 		Affiliate affiliate = new Affiliate(id);
 		affiliate.setCreator("affiliate"+id+"@test.com");
 		matchingAffiliates.add(affiliate);
-//		Mockito.when(affiliateMembershipCalculator.acceptedMemberships(affiliate)).thenReturn(members);
 		return affiliate;
 	}
 

@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
 public class CountriesResource {
     private final Logger log = LoggerFactory.getLogger(CountriesResource.class);
 
@@ -60,22 +59,6 @@ public class CountriesResource {
         countryRepository.save(country);
     }
 
-//    @RequestMapping(value = Routes.COUNTRIES + "/{isoCode2}",
-//            method = RequestMethod.DELETE,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    @Timed
-//    @RolesAllowed(AuthoritiesConstants.ADMIN)
-//    public ResponseEntity<Void> delete(@PathVariable String isoCode2) {
-//        log.debug("REST request to delete Country : {}", isoCode2);
-//        Optional<Country> optionalCountry = countryRepository.findById(isoCode2);
-//        if (optionalCountry.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        Country country = optionalCountry.get();
-//        countryRepository.delete(country);
-////        countryRepository.delete(isoCode2);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
 
     @RequestMapping(value = Routes.COUNTRIES + "/{isoCode2}",
         method = RequestMethod.DELETE,

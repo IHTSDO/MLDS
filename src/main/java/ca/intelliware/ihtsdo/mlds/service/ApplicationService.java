@@ -23,22 +23,21 @@ import java.util.List;
 @Transactional
 public class ApplicationService {
 
-	@Resource
-	ApplicationRepository applicationRepository;
+	@Resource ApplicationRepository applicationRepository;
 	@Resource SessionService sessionService;
 	@Resource AffiliateRepository affiliateRepository;
 	@Resource MemberRepository memberRepository;
 
 	public Application startNewApplication(ApplicationType applicationType, Member member) {
 		Application application = Application.create(applicationType);
-		
+
 		application.setUsername(sessionService.getUsernameOrNull());
 		application.setMember(member);
 		// FIXME MLDS-308 MB fill in more details
 		// FIXME MLDS-310 MB copy affiliate details
-		
+
 		applicationRepository.save(application);
-		
+
 		if (applicationType.equals(ApplicationType.EXTENSION)){
 			// FIXME MLDS-308 MB should the affiliate be passed in?
 			List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(sessionService.getUsernameOrNull());
@@ -60,7 +59,7 @@ public class ApplicationService {
 	 */
 	public void doUpdate(Application original, Application updatedApplication) throws IllegalArgumentException {
 		new ExtensionApplicationUpdateStrategy().applyChangeOrFail(original, updatedApplication);
-		
+
 		ApplicationChangeEdit stateChangeStrategy = new UserApprovalStateChangeStrategy();
 		//FIXME MLDS-310 Implement StaffApprovalStateChangeStrategy
 		stateChangeStrategy.applyChangeOrFail(original, updatedApplication);

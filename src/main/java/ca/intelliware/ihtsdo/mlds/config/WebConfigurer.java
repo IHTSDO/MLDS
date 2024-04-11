@@ -20,10 +20,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-//import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
-//import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-//import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
-//import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -67,10 +63,6 @@ public class WebConfigurer implements ServletContextInitializer {
      * Wire up the Jackson serialization for Jodatime
      * @return
      */
-//    @Bean
-//    public Module jodaModule() {
-//        return new JodaModule();
-//    }
 
 
     // you can run this with SSL/TLS. For example, build the application (`mvn clean install`) in the `oauth` directory, then run:
@@ -106,7 +98,6 @@ public class WebConfigurer implements ServletContextInitializer {
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
 
         initMetrics(servletContext, disps);
-//        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
         if (env.acceptsProfiles(Profiles.of(Constants.SPRING_PROFILE_DEVELOPMENT))) {
             initStaticResourcesProductionFilter(servletContext, disps);
             initCachingHttpHeadersFilter(servletContext, disps);

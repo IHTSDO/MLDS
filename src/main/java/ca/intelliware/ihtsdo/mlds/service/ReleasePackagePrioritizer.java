@@ -15,11 +15,10 @@ import java.util.List;
 @Service
 @Transactional
 public class ReleasePackagePrioritizer {
-	
+
 	public static final int END_PRIORITY = 0;
-	
-	@Autowired
-	ReleasePackageRepository releasePackageRepository;
+
+	@Autowired ReleasePackageRepository releasePackageRepository;
 
 	public void prioritize(ReleasePackage releasePackage, Integer priority) {
 		if (priority != null && Objects.equal(releasePackage.getPriority(), priority)) {
@@ -48,7 +47,7 @@ public class ReleasePackagePrioritizer {
 			}
 		}
 		existing.add(matchedIndex, releasePackage);
-		
+
 		updateAllPriorities(existing);
 	}
 

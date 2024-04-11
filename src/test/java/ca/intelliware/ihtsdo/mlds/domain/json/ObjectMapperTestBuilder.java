@@ -18,7 +18,6 @@ public class ObjectMapperTestBuilder {
 	public ObjectMapper buildObjectMapper() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		new JacksonConfigurer().registerFilters(objectMapper);
-//		objectMapper.registerModule(new JodaModule());
         objectMapper.registerModule(new JavaTimeModule());
 		objectMapper.registerModule(new MLDSJacksonModule(memberRepository, new CurrentSecurityContext()));
 		return objectMapper;

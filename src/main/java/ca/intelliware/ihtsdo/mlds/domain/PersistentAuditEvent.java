@@ -21,8 +21,8 @@ import java.util.Map;
 public class PersistentAuditEvent extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
-    @SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence_generator")
+    @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
     @Column(name = "event_id")
     private long id;
 
@@ -31,7 +31,7 @@ public class PersistentAuditEvent extends BaseEntity {
 
     @Column(name = "event_date")
     private Instant auditEventDate = Instant.now();
-    
+
     @Column(name = "event_type")
     private String auditEventType;
 
@@ -40,7 +40,7 @@ public class PersistentAuditEvent extends BaseEntity {
     @Column(name="value")
     @CollectionTable(name="T_PERSISTENT_AUDIT_EVENT_DATA", joinColumns=@JoinColumn(name="event_id"))
     private Map<String, String> data = new HashMap<>();
-    
+
 	@Column(name="affiliate_id")
     private Long affiliateId;
 
@@ -52,7 +52,7 @@ public class PersistentAuditEvent extends BaseEntity {
 
 	@Column(name="release_package_id")
     private Long releasePackageId;
-    
+
 	@Column(name="release_version_id")
     private Long releaseVersionId;
 
@@ -138,7 +138,7 @@ public class PersistentAuditEvent extends BaseEntity {
 	public void setReleaseFileId(Long releaseFileId) {
 		this.releaseFileId = releaseFileId;
 	}
-	
+
 	@Override
 	protected Object getPK() {
 		return id;
