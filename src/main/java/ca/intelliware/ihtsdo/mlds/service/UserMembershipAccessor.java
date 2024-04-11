@@ -19,17 +19,13 @@ import java.util.List;
 @Service
 public class UserMembershipAccessor {
 
-	@Autowired
-	protected CurrentSecurityContext currentSecurityContext;
+	@Autowired protected CurrentSecurityContext currentSecurityContext;
 
-	@Autowired
-	AffiliateRepository affiliateRepository;
+	@Autowired AffiliateRepository affiliateRepository;
 
-	@Autowired
-	MemberRepository memberRepository;
+	@Autowired MemberRepository memberRepository;
 
-	@Autowired
-	AffiliateMembershipCalculator affiliateMembershipCalculator;
+	@Autowired AffiliateMembershipCalculator affiliateMembershipCalculator;
 
 	public Member getMemberAssociatedWithUser() {
 		if (currentSecurityContext.isMemberOrStaffOrAdmin()) {

@@ -14,8 +14,8 @@ import java.time.Instant;
 @SQLDelete(sql="UPDATE commercial_usage_count SET inactive_at = now() WHERE commercial_usage_count_id = ?")
 public class CommercialUsageCountry extends BaseEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_demo")
-	@SequenceGenerator(name = "hibernate_demo", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence_generator")
+	@SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
 	@Column(name="commercial_usage_count_id")
 	Long commercialUsageCountId;
 
@@ -24,54 +24,54 @@ public class CommercialUsageCountry extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name="commercial_usage_id")
 	CommercialUsage commercialUsage;
-	
+
 	@ManyToOne
 	Country country;
 
 	Instant created = Instant.now();
-	
+
 	@JsonIgnore
 	@Column(name="inactive_at")
 	private
 	Instant inactiveAt;
-	
+
 	String notes;
-	
+
 	@Column(name="snomed_practices")
 	Integer snomedPractices = 0;
-	
-	
+
+
 	// Data Analysis
-	
+
 	@Column(name="hospitals_staffing_practices")
 	Integer hospitalsStaffingPractices = 0;
-	
+
 	@Column(name="data_creation_practices_not_part_of_hospital")
 	Integer dataCreationPracticesNotPartOfHospital = 0;
-	
+
 	@Column(name="non_practice_data_creation_systems")
 	Integer nonPracticeDataCreationSystems = 0;
-	
+
 	@Column(name="deployed_data_analysis_systems")
 	Integer deployedDataAnalysisSystems = 0;
-	
+
 	@Column(name="databases_per_deployment")
 	Integer databasesPerDeployment = 0;
-	
+
 	public CommercialUsageCountry() {
-		
+
 	}
-	
+
 	// For Testing
 	public CommercialUsageCountry(long commercialUsageCountId, CommercialUsage commercialUsage) {
 		this.commercialUsageCountId = commercialUsageCountId;
 		commercialUsage.addCount(this);
 	}
-	
+
 	public Long getCommercialUsageCountId() {
 		return commercialUsageCountId;
 	}
-	
+
 	public void setCommercialUsageCountId(Long commercialUsageCountId) {
 		this.commercialUsageCountId = commercialUsageCountId;
 	}
@@ -83,7 +83,7 @@ public class CommercialUsageCountry extends BaseEntity {
 	public CommercialUsage getCommercialUsage() {
 		return commercialUsage;
 	}
-		
+
 	@Override
 	protected Object getPK() {
 		return commercialUsageCountId;

@@ -24,7 +24,6 @@ public class BlobHelper {
 	public Blob createBlob(InputStream inputStream, long size) {
 		Blob blob = null;
 		Session session = (Session) entityManager.getDelegate();
-//		blob = Hibernate.getLobCreator(session).createBlob(inputStream, size);
 		 blob = session.getLobHelper().createBlob(inputStream, size);
 		return blob;
 	}
