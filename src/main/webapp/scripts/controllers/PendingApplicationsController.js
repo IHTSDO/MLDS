@@ -19,8 +19,9 @@ angular.module('MLDS').controller('PendingApplicationsController', [
         $scope.homeMember = Session.member || { member: 'NONE' };
 
         $scope.downloadingApplications = false;
-        $scope.page = 0;
-        $scope.loadReset = false;
+        $scope.page = 0; // Current page (starts from 0)
+        $scope.pageSize = 50; // Number of applications per page
+        $scope.hasMoreData = true; // Flag to indicate if more data is available
         $scope.noResults = false;
 
         $scope.generatingCsv = false;
@@ -44,50 +45,45 @@ angular.module('MLDS').controller('PendingApplicationsController', [
             store.reverseSort = $scope.reverseSort;
         }
 
+        function loadApplications() {
+            // Force clear when reloading the data
+            $scope.applications = [];
+            $scope.page = 0;
+            $scope.hasMoreData = true;
+            $scope.noResults = true;
+            $scope.canSort = !$scope.query;
+
+            loadMoreApplications();
+        }
+
         function loadMoreApplications() {
             saveVisualState();
-
-            if ($scope.downloadingApplications) {
-                // If a loadAffiliates (loadReset === true) had been called then need to redownload once the current download is complete
+            if ($scope.downloadingApplications || !$scope.hasMoreData) {
                 return;
             }
-            $scope.loadReset = false;
             $scope.downloadingApplications = true;
             $scope.alerts = [];
-            UserRegistrationService.filterPendingApplications($scope.query, $scope.page, 50, $scope.showAllApplications == 1 ? null : $scope.homeMember, $scope.orderByField, $scope.reverseSort)
+
+            UserRegistrationService.filterPendingApplications($scope.query, $scope.page, $scope.pageSize, $scope.showAllApplications == 1 ? null : $scope.homeMember, $scope.orderByField, $scope.reverseSort)
                 .then(function(response) {
-                    //$log.log("...appending "+response.data.length+" to existing "+$scope.applications.length+" page="+$scope.page);
-                    _.each(response.data, function(a) {
-                        $scope.applications.push(a);
-                    });
-                    if (_.size($scope.applications) > 0) {
-                        $scope.noResults = false;
-                    }
-                    $scope.page = $scope.page + 1;
+                    $scope.applications = $scope.applications.concat(response.data); // Append new data
+                    $scope.page++;
+                    $scope.hasMoreData = response.data.length === $scope.pageSize;
+                    $scope.noResults = _.size($scope.applications) === 0; // Check for empty results
                     $scope.downloadingApplications = false;
+
                     if ($scope.loadReset) {
-                        loadApplications();
+                        loadApplications(); // Reset if needed
                     }
-                })["catch"](function(message) {
+                })
+                .catch(function(message) {
                     $scope.downloadingApplications = false;
                     $log.log("affiliates download failure: " + message);
                     $scope.alerts.push({ type: 'danger', msg: 'Network request failure [23]: please try again later.' });
                     if ($scope.loadReset) {
-                        loadApplications();
+                        loadApplications(); // Reset if needed
                     }
                 });
-        }
-
-        function loadApplications() {
-            //Force clear - note loadMoreApplications works on alias
-            $scope.applications = [];
-            $scope.page = 0;
-            $scope.noResults = true;
-            $scope.canSort = !$scope.query;
-
-            $scope.loadReset = true;
-
-            loadMoreApplications();
         }
 
         loadApplications();
@@ -95,7 +91,9 @@ angular.module('MLDS').controller('PendingApplicationsController', [
         $scope.$watch('showAllApplications', loadApplications);
 
         $scope.nextPage = function() {
-            return loadMoreApplications();
+            if ($scope.hasMoreData) {
+                loadMoreApplications();
+            }
         };
 
         $scope.toggleField = function(fieldName) {
