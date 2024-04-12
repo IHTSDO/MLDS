@@ -80,4 +80,9 @@ public class AffiliateSearchRepository {
     private boolean isNumeric(String str) {
         return str != null && str.matches("-?\\d+(\\.\\d+)?");
     }
+
+    public void reindex(Affiliate a) {
+        SearchSession searchSession = Search.session(entityManager);
+        searchSession.indexingPlan().addOrUpdate(a);
+    }
 }
