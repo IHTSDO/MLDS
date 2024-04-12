@@ -401,7 +401,7 @@ public class AffiliateResource {
 
     	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate,body);
     	copyAffiliateDetailsFields(affiliateDetails, body);
-
+        affiliateSearchRepository.reindex(affiliate);
     	return new ResponseEntity<AffiliateDetails>(affiliateDetails, HttpStatus.OK);
     }
 
