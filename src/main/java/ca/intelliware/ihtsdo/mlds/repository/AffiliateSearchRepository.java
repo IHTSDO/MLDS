@@ -6,8 +6,6 @@ import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import jakarta.persistence.EntityManager;
 import org.hibernate.search.engine.search.query.SearchResult;
 import org.hibernate.search.mapper.orm.Search;
-import org.hibernate.search.mapper.orm.massindexing.MassIndexer;
-import org.hibernate.search.mapper.orm.schema.management.SearchSchemaManager;
 import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,16 +23,9 @@ public class AffiliateSearchRepository {
     @Autowired
     EntityManager entityManager;
 
-    public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, StandingState standingState, boolean standingStateNot, Pageable pageable) throws InterruptedException {
+    public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, StandingState standingState, boolean standingStateNot, Pageable pageable) {
 
         SearchSession searchSession = Search.session(entityManager);
-
-        SearchSchemaManager schemaManager = searchSession.schemaManager();
-
-        schemaManager.createIfMissing();
-        MassIndexer indexer = searchSession.massIndexer(Affiliate.class)
-            .threadsToLoadObjects(4);
-        indexer.startAndWait();
 
         List<Affiliate> resultList = new ArrayList<>();
 

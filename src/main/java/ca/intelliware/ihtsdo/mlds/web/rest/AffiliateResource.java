@@ -326,7 +326,6 @@ public class AffiliateResource {
 		return new ResponseEntity<String>(result, HttpStatus.OK);
     }
 
-	//FIXME Would like to use custom produces to overload request path
 	@RolesAllowed({AuthoritiesConstants.ADMIN})
     @RequestMapping(value = Routes.AFFILIATES_CSV_SPEC,
     		method = RequestMethod.GET,
