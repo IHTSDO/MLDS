@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
  *
  * Uses the client-side translations to generate search text.
  */
-abstract public class TranslatedEnumFieldBridge implements AttributeConverter<Enum<?>, String> {
+public abstract class TranslatedEnumFieldBridge implements AttributeConverter<Enum<?>, String> {
     final Logger log = LoggerFactory.getLogger(TranslatedEnumFieldBridge.class);
 
-    public TranslatedEnumFieldBridge() {
+    protected TranslatedEnumFieldBridge() {
     }
 
     @Override
@@ -36,5 +36,5 @@ abstract public class TranslatedEnumFieldBridge implements AttributeConverter<En
         throw new UnsupportedOperationException("Conversion from String to Enum is not supported.");
     }
 
-    abstract protected String getBundleKeyPrefix();
+    protected abstract String getBundleKeyPrefix();
 }
