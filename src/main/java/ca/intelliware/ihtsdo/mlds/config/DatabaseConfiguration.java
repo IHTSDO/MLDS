@@ -21,10 +21,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -119,16 +116,16 @@ public class DatabaseConfiguration implements EnvironmentAware {
     }
 
     private static boolean databaseExists(Connection connection, String tableName) throws SQLException {
+        String query = "SELECT 1 FROM ? LIMIT 1";
 
-        String query = "SELECT 1 FROM " + tableName + " LIMIT 1";
-
-        try (Statement statement = connection.createStatement()) {
-            statement.executeQuery(query);
-            return true;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1,tableName);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next();
+            }
+        } catch (SQLException e) {
+            return false;
         }
-
-        catch (SQLException e) { return false; }
-
     }
 
 	//See http://blog.netgloo.com/2014/10/06/spring-boot-data-access-with-jpa-hibernate-and-mysql/
