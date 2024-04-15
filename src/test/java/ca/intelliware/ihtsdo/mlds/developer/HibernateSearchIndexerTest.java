@@ -13,15 +13,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("dev")
-public class HibernateSearchIndexer {
+public class HibernateSearchIndexerTest {
     @Resource
     EntityManager entityManager;
 
     @Test
     public void recreateIndex() throws Exception {
         SearchSession fullTextEntityManager = Search.session(entityManager);
-
-        //fullTextEntityManager.createIndexer().startAndWait();
         fullTextEntityManager.toString();
     }
 
