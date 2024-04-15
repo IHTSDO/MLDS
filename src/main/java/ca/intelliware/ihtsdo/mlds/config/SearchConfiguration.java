@@ -35,7 +35,7 @@ public class SearchConfiguration {
     @Resource AngularTranslateService angularTranslateService;
 
     @PostConstruct
-    public void recreateIndex() throws Exception {
+    public void recreateIndex() {
         log.debug("SearchConfiguration - creating full-text index");
 
         SearchSession fullTextEntityManager = Search.session(entityManagerFactory.createEntityManager());
