@@ -122,7 +122,7 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
         assertNotNull(affiliateDetailsRepository.findById(affiliateExtensionDetails.getAffiliateDetailsId()));
         assertNotNull(commercialUsageCountryRepository.findById(commercialUsageCountry.getCommercialUsageCountId()));
         assertNotNull(commercialUsageEntryRepository.findById(commercialUsageEntry.getCommercialUsageEntryId()));
-        assertEquals(applicationRepository.findByUsernameIgnoreCase(userEmail).size(),2);
+        assertEquals(2,applicationRepository.findByUsernameIgnoreCase(userEmail).size());
 
 
 //		// Test
@@ -138,19 +138,19 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
         assertEquals(commercialUsageCountryRepository.findById(commercialUsageCountry.getCommercialUsageCountId()), Optional.empty());
         assertEquals(commercialUsageEntryRepository.findById(commercialUsageEntry.getCommercialUsageEntryId()), Optional.empty());
 
-        assertEquals(applicationRepository.findByUsernameIgnoreCase(userEmail).size(),0);
+        assertEquals(0,applicationRepository.findByUsernameIgnoreCase(userEmail).size());
 
 		// JPA should no longer find through custom repository
-        assertEquals(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), 1);
-        assertEquals(matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+primaryApplication.getApplicationId()), 1);
-        assertEquals(matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+extensionApplication.getApplicationId()), 1);
-        assertEquals(matchingNativeRecords("SELECT user_id FROM T_USER WHERE user_id="+user.getUserId()), 1);
-        assertEquals(matchingNativeRecords("SELECT commercial_usage_id FROM commercial_usage WHERE commercial_usage_id="+commercialUsage.getCommercialUsageId()), 1);
-        assertEquals(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateDetails.getAffiliateDetailsId()), 1);
-        assertEquals(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateExtensionDetails.getAffiliateDetailsId()), 1);
-        assertEquals(matchingNativeRecords("SELECT commercial_usage_count_id FROM commercial_usage_count WHERE commercial_usage_count_id="+commercialUsageCountry.getCommercialUsageCountId()), 1);
-        assertEquals(matchingNativeRecords("SELECT commercial_usage_entry_id FROM commercial_usage_entry WHERE commercial_usage_entry_id="+commercialUsageEntry.getCommercialUsageEntryId()), 1);
-        assertEquals(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliatePrimaryDetails.getAffiliateDetailsId()), 1);
+        assertEquals(1,matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()));
+        assertEquals(1,matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+primaryApplication.getApplicationId()));
+        assertEquals(1,matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+extensionApplication.getApplicationId()));
+        assertEquals(1,matchingNativeRecords("SELECT user_id FROM T_USER WHERE user_id="+user.getUserId()));
+        assertEquals(1,matchingNativeRecords("SELECT commercial_usage_id FROM commercial_usage WHERE commercial_usage_id="+commercialUsage.getCommercialUsageId()));
+        assertEquals(1,matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateDetails.getAffiliateDetailsId()));
+        assertEquals(1,matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateExtensionDetails.getAffiliateDetailsId()));
+        assertEquals(1,matchingNativeRecords("SELECT commercial_usage_count_id FROM commercial_usage_count WHERE commercial_usage_count_id="+commercialUsageCountry.getCommercialUsageCountId()));
+        assertEquals(1,matchingNativeRecords("SELECT commercial_usage_entry_id FROM commercial_usage_entry WHERE commercial_usage_entry_id="+commercialUsageEntry.getCommercialUsageEntryId()));
+        assertEquals(1,matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliatePrimaryDetails.getAffiliateDetailsId()));
 
 	}
 
@@ -170,7 +170,7 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
 
         assertEquals(affiliateRepository.findById(affiliate.getAffiliateId()), Optional.empty());
 
-        assertEquals(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), 1);
+        assertEquals(1,matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()));
 	}
 
 	@Test
@@ -198,7 +198,7 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
         assertNotNull(affiliateDetailsRepository.findById(affiliateSharedDetails.getAffiliateDetailsId()));
         assertNotNull(affiliateDetailsRepository.findById(affiliateExtensionDetails.getAffiliateDetailsId()));
 
-        assertEquals(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), 2);
+        assertEquals(2,applicationRepository.findByUsernameIgnoreCase(userEmail).size());
 
         // Test
         affiliateDeleter.deleteAffiliate(affiliate);
@@ -213,16 +213,16 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
         assertEquals(affiliateDetailsRepository.findById(affiliateExtensionDetails.getAffiliateDetailsId()), Optional.empty());
 
         // JPA should no longer find through custom repository
-        assertEquals(applicationRepository.findByUsernameIgnoreCase(userEmail).size(), 0);
+        assertEquals(0,applicationRepository.findByUsernameIgnoreCase(userEmail).size());
 
         // Records should still be present in the database
-        assertEquals(matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()), 1);
-        assertEquals(matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+primaryApplication.getApplicationId()), 1);
-        assertEquals(matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+extensionApplication.getApplicationId()), 1);
-        assertEquals(matchingNativeRecords("SELECT user_id FROM T_USER WHERE user_id="+user.getUserId()), 1);
-        assertEquals(matchingNativeRecords("SELECT commercial_usage_id FROM commercial_usage WHERE commercial_usage_id="+commercialUsage.getCommercialUsageId()), 1);
-        assertEquals(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateSharedDetails.getAffiliateDetailsId()), 1);
-        assertEquals(matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateExtensionDetails.getAffiliateDetailsId()), 1);
+        assertEquals(1,matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()));
+        assertEquals(1,matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+primaryApplication.getApplicationId()));
+        assertEquals(1,matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+extensionApplication.getApplicationId()));
+        assertEquals(1,matchingNativeRecords("SELECT user_id FROM T_USER WHERE user_id="+user.getUserId()));
+        assertEquals(1,matchingNativeRecords("SELECT commercial_usage_id FROM commercial_usage WHERE commercial_usage_id="+commercialUsage.getCommercialUsageId()));
+        assertEquals(1,matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateSharedDetails.getAffiliateDetailsId()));
+        assertEquals(1,matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateExtensionDetails.getAffiliateDetailsId()));
 	}
 
 	private CommercialUsage withCommercialUsage(Affiliate affiliate) {
