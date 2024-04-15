@@ -97,7 +97,7 @@ public class AffiliateResource {
     		@RequestParam(value="$page", defaultValue="0", required=false) Integer page,
     		@RequestParam(value="$pageSize", defaultValue="50", required=false) Integer pageSize,
     		@RequestParam(value="$filter", required=false) List<String> filters,
-    		@RequestParam(value="$orderby", required=false) String orderby) throws InterruptedException {
+    		@RequestParam(value="$orderby", required=false) String orderby) {
 		Page<Affiliate> affiliates;
 		Sort sort = createAffiliatesSort(orderby);
 		PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
