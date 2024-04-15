@@ -21,13 +21,18 @@ public class UserMembershipAccessor {
 
 	@Autowired protected CurrentSecurityContext currentSecurityContext;
 
-	@Autowired AffiliateRepository affiliateRepository;
+	private final AffiliateRepository affiliateRepository;
 
-	@Autowired MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
 	@Autowired AffiliateMembershipCalculator affiliateMembershipCalculator;
 
-	public Member getMemberAssociatedWithUser() {
+    public UserMembershipAccessor(AffiliateRepository affiliateRepository, MemberRepository memberRepository) {
+        this.affiliateRepository = affiliateRepository;
+        this.memberRepository = memberRepository;
+    }
+
+    public Member getMemberAssociatedWithUser() {
 		if (currentSecurityContext.isMemberOrStaffOrAdmin()) {
 			return getStaffOrAdminMembership();
 		} else if (currentSecurityContext.isUser()) {

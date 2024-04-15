@@ -33,9 +33,9 @@ public class MailService {
 
     @Autowired private Environment env;
 
-    @Autowired private JavaMailSenderImpl javaMailSender;
+     private final JavaMailSenderImpl javaMailSender;
 
-    @Autowired private MessageSource messageSource;
+     private final MessageSource messageSource;
 
 	@Resource TemplateEvaluator templateEvaluator;
 
@@ -43,6 +43,11 @@ public class MailService {
      * System default email address that sends the e-mails.
      */
     private String from;
+
+    public MailService(JavaMailSenderImpl javaMailSender, MessageSource messageSource) {
+        this.javaMailSender = javaMailSender;
+        this.messageSource = messageSource;
+    }
 
     @PostConstruct
     public void init() {
