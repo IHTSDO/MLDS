@@ -5,7 +5,7 @@ package ca.intelliware.ihtsdo.mlds.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
@@ -16,7 +16,7 @@ import java.time.Instant;
 @Entity
 @Table(name="affiliate_details")
 @Indexed
-@Where(clause = "inactive_at IS NULL")
+@SQLRestriction("inactive_at IS NULL")
 @SQLDelete(sql="UPDATE affiliate_details SET inactive_at = now() WHERE affiliate_details_id = ?")
 public class AffiliateDetails extends BaseEntity implements Cloneable {
 
