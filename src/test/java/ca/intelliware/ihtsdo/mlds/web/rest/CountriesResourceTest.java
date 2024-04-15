@@ -1,65 +1,52 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-import jakarta.transaction.Transactional;
-import org.hamcrest.Matchers;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
-@TestPropertySource(locations="classpath:test.application.properties")
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 @ActiveProfiles("dev")
-@Transactional
 public class CountriesResourceTest {
-    private MockMvc restUserMockMvc;
 
     @Autowired
-    private ApplicationContext context;
+    private MockMvc mockMvc;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        CountriesResource countryResource = new CountriesResource();
-        context.getAutowireCapableBeanFactory().autowireBean(countryResource);
-        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(countryResource).build();
     }
 
     @Test
-    @Ignore
     public void countriesListContainsDenmark() throws Exception {
-        restUserMockMvc.perform(get(Routes.COUNTRIES)
+        mockMvc.perform(get(Routes.COUNTRIES)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("[?(@.isoCode2=='DK')]").exists());
-
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("[?(@.isoCode2=='DK')]").exists());
     }
 
     @Test
-    @Ignore
     public void nonAuthenticatedUserCanFetchListOfCountries() throws Exception {
-    	restUserMockMvc.perform(get(Routes.COUNTRIES)
-    			.accept(MediaType.APPLICATION_JSON_UTF8))
-    			.andExpect(status().isOk())
-    			.andExpect(content().string(Matchers.not(Matchers.isEmptyOrNullString())));
-
+        mockMvc.perform(get(Routes.COUNTRIES)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+            .andExpect(status().isOk())
+            .andExpect(content().string(not(isEmptyOrNullString())));
     }
-
 }
