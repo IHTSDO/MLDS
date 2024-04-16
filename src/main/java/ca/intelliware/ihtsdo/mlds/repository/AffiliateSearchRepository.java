@@ -7,28 +7,25 @@ import jakarta.persistence.EntityManager;
 import org.hibernate.search.engine.search.query.SearchResult;
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class AffiliateSearchRepository {
 
-    @Autowired
-    EntityManager entityManager;
+
+    public final EntityManager entityManager;
+
+    public AffiliateSearchRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     public Page<Affiliate> findFullTextAndMember(String q, Member homeMember, StandingState standingState, boolean standingStateNot, Pageable pageable) {
-
         SearchSession searchSession = Search.session(entityManager);
-
-        List<Affiliate> resultList = new ArrayList<>();
-
         SearchResult<Affiliate> result;
 
         if (isNumeric(q)) {
@@ -46,25 +43,31 @@ public class AffiliateSearchRepository {
                 .fetch(pageable.getPageSize());
         }
 
-        resultList.addAll(result.hits());
+        List<Affiliate> resultList = result.hits();
 
         // Apply filters based on homeMember and standingState
-        Iterator<Affiliate> iterator = resultList.iterator();
-        while (iterator.hasNext()) {
-            Affiliate affiliate = iterator.next();
-            if (homeMember != null && !homeMember.equals(affiliate.getHomeMember())) {
-                iterator.remove(); // Remove if not matching homeMember
-            } else if (standingState != null) {
-                if (standingStateNot && affiliate.getStandingState() == StandingState.APPLYING) {
-                    iterator.remove(); // Remove APPLYING if standingStateNot is true
-                } else if (!standingStateNot && !affiliate.getStandingState().equals(standingState)) {
-                    iterator.remove(); // Remove if not matching standingState and standingStateNot is false
-                }
+        List<Affiliate> filteredList = resultList.stream()
+            .filter(affiliate -> isAffiliateMatching(affiliate, homeMember, standingState, standingStateNot))
+            .toList(); // Convert stream to List
+
+        return new PageImpl<>(filteredList, pageable, filteredList.size());
+    }
+
+    private boolean isAffiliateMatching(Affiliate affiliate, Member homeMember, StandingState standingState, boolean standingStateNot) {
+        if (homeMember != null && !homeMember.equals(affiliate.getHomeMember())) {
+            return false; // Not matching homeMember
+        }
+        if (standingState != null) {
+            if (standingStateNot && affiliate.getStandingState() == StandingState.APPLYING) {
+                return false; // Not matching if standingStateNot is true and affiliate is applying
+            }
+            if (!standingStateNot && !affiliate.getStandingState().equals(standingState)) {
+                return false; // Not matching if not matching standingState and standingStateNot is false
             }
         }
-
-        return new PageImpl<>(resultList, pageable, resultList.size());
+        return true; // Matches all conditions
     }
+
 
 
     // Method to check if a string is numeric
