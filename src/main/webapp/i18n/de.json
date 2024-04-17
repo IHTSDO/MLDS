@@ -371,7 +371,7 @@
             "newpassword.placeholder": "Neues Passwort",
             "confirmpassword": "Passwort bestätigen",
             "confirmpassword.placeholder": "Passwort bestätigen",
-            "email": "E-Mail [Bitte beachten Sie die <a href=\"https://www.bfarm.de/SharedDocs/Downloads/DE/Forschung/SNOMED-CT/Hinweise_Lizenzbeantragung\" target=\"_blank\">Hinweise zur Beantragung</a>]",
+            "email": "E-Mail [Bitte beachten Sie die <a href=\"https://www.bfarm.de/SharedDocs/Downloads/DE/Kodiersysteme/SNOMED-CT/Hinweise_Lizenzbeantragung.pdf\" target=\"_blank\">Hinweise zur Beantragung</a>]",
             "email.placeholder": "Ihre E-Mail-Adresse",
             "country": "Land"
         },
@@ -475,13 +475,6 @@
                 "fail": "<strong>Registrierung fehlgeschlagen!</strong> Bitte versuchen Sie es später noch einmal.",
                 "userexists": "<strong>Ein anderer Benutzer hat sich bereits mit dieser E-Mail-Adresse registriert.</strong> Wollten Sie sich <a href='#/login'>einloggen</a>?",
                 "blocklist": "Aufgrund der IT-Richtlinien von SNOMED International können wir die eingegebene E-Mail-Adresse nicht verarbeiten. Für Support kontaktieren Sie bitte <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a>."
-            },
-            "excludemessage": {
-                "confirm":"Bestätigung",
-                "link": "MLDS wird nicht verwendet, um SNOMED CT zu verteilen. Um sich für den Download von SNOMED CT zu registrieren, finden Sie weitere Informationen unter diesem Link -",
-                "userConfirm": "Um Ihre Registrierung auf MLDS fortzusetzen, können Sie bitte bestätigen, dass Sie SNOMED CT in einem anderen Land bereitstellen möchten.",
-                "cancel": "Abbrechen",
-                "accept": "Ich bestätige, dass ich SNOMED CT in einem anderen Land verwenden und bereitstellen möchte"
             }
         },
         "emailVerification": {
