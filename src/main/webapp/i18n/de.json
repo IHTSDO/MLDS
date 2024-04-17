@@ -371,7 +371,7 @@
             "newpassword.placeholder": "Neues Passwort",
             "confirmpassword": "Passwort bestätigen",
             "confirmpassword.placeholder": "Passwort bestätigen",
-            "email": "E-Mail [Bitte beachten Sie die <a href=\"https://www.bfarm.de/SharedDocs/Downloads/DE/Forschung/SNOMED-CT/Hinweise_Lizenzbeantragung\" target=\"_blank\">Hinweise zur Beantragung</a>]",
+            "email": "E-Mail [Bitte beachten Sie die <a href=\"https://www.bfarm.de/SharedDocs/Downloads/DE/Kodiersysteme/SNOMED-CT/Hinweise_Lizenzbeantragung.pdf\" target=\"_blank\">Hinweise zur Beantragung</a>]",
             "email.placeholder": "Ihre E-Mail-Adresse",
             "country": "Land"
         },
