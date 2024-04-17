@@ -7,7 +7,7 @@
                 "main": "Konto",
                 "password": "Hasło",
                 "sessions": "Sesje",
-                "metrics": "Metryka",
+                "metrics": "Metryki",
                 "logs": "Logi",
                 "audits": "Audyty",
                 "login": "Zaloguj sie",
@@ -22,8 +22,8 @@
             "help": "Pomoc",
             "privacyPolicy": "Polityka prywatności",
             "usageReports": "Raporty użytkowania",
-            "applications": "Aplikacje",
-            "releasePackages": "Wydaj pakiety",
+            "applications": "Wnioski",
+            "releasePackages": "Pakiety wydań",
             "affiliate": {
                 "accountInformation": "Informacje o koncie",
                 "changePassword": "Zmień hasło",
@@ -67,7 +67,7 @@
             "LT": "Litwa",
             "LU": "Luksemburg",
             "MT": "Malta",
-            "IHTSDO": "Międzynarodowy SNOMED",
+            "IHTSDO": "SNOMED International",
             "AR": "Argentyna",
             "AT": "Austria",
             "BE": "Belgia",
@@ -101,7 +101,7 @@
             "br": "portugalski",
             "da": "duński",
             "ee": "estoński",
-            "en": "język angielski",
+            "en": "angielski",
             "es": "hiszpański",
             "fr": "Francuski",
             "de-at": "Niemiecki",
@@ -112,8 +112,8 @@
             "nl": "Holenderski",
             "no": "norweski",
             "pt": "portugalski",
-            "pl": "Polski",
-            "ru": "Rosyjski",
+            "pl": "polski",
+            "ru": "rosyjski",
             "th": "tajski"
         },
         "country": {
@@ -121,7 +121,7 @@
             "AT": "Austria",
             "AU": "Australia",
             "AW": "Aruba",
-            "AX": "Ziemia",
+            "AX": "Wyspy Alandzkie",
             "AZ": "Azerbejdżan",
             "BA": "Bośnia i Hercegowina",
             "BB": "Barbados",
@@ -135,7 +135,7 @@
             "BN": "Brunei",
             "BO": "Boliwia",
             "BR": "Brazylia",
-            "BS": "Bahamy, The",
+            "BS": "Bahamy",
             "BT": "Bhutan",
             "BV": "Wyspa Bouveta",
             "BW": "Botswana",
@@ -146,7 +146,7 @@
             "CF": "Republika Środkowoafrykańska",
             "CG": "Kongo, (Kongo Brazzaville)",
             "CH": "Szwajcaria",
-            "CI": "Wybrzeże Kości Słoniowej (Wybrzeże Kości Słoniowej)",
+            "CI": "Wybrzeże Kości Słoniowej",
             "CK": "Wyspy Cooka",
             "CL": "Chile",
             "CM": "Kamerun",
@@ -176,7 +176,7 @@
             "GH": "Ghana",
             "GI": "Gibraltar",
             "GL": "Grenlandia",
-            "GM": "Gambia, The",
+            "GM": "Gambia",
             "GN": "Gwinea",
             "GP": "Gwadelupa",
             "GQ": "Gwinea Równikowa",
@@ -203,11 +203,11 @@
             "BM": "Bermudy",
             "CD": "Kongo, (Kongo Kinszasa)",
             "AL": "Albania",
-            "CN": "Chiny, Republika Ludowa",
+            "CN": "Chińska Republika Ludowa",
             "ES": "Hiszpania",
             "ET": "Etiopia",
             "FK": "Falklandy (Wyspy Malwiny)",
-            "AC": "Wniebowstąpienie",
+            "AC": "Wyspa Wniebowstąpienia",
             "AD": "Andora",
             "AF": "Afganistan",
             "AI": "Anguilla",
@@ -225,7 +225,7 @@
             "IR": "Iran",
             "IS": "Islandia",
             "IT": "Włochy",
-            "JE": "Golf",
+            "JE": "Jersey",
             "JM": "Jamajka",
             "JO": "Jordania",
             "JP": "Japonia",
@@ -240,20 +240,20 @@
             "KW": "Kuwejt",
             "KY": "Kajmany",
             "KZ": "Kazachstan",
-            "TG": "Iść",
+            "TG": "Togo",
             "TH": "Tajlandia",
             "TK": "Tokelau",
-            "TL": "Timor Wschodni (Timor Wschodni)",
-            "TM": "Turkmenia",
+            "TL": "Timor Wschodni",
+            "TM": "Turkmenistan",
             "TN": "Tunezja",
             "TO": "Tonga",
-            "TR": "Indyk",
+            "TR": "Turcja",
             "TT": "Trynidad i Tobago",
             "TV": "Tuvalu",
             "TZ": "Tanzania",
             "UA": "Ukraina",
             "UG": "Uganda",
-            "UM": "Wyspa Obudź",
+            "UM": "Wyspa Wake",
             "US": "Stany Zjednoczone",
             "UY": "Urugwaj",
             "UZ": "Uzbekistan",
@@ -293,10 +293,10 @@
             "NR": "Nauru",
             "PA": "Panama",
             "PE": "Peru",
-            "LC": "święta Lucia",
+            "LC": "Saint Lucia",
             "LT": "Litwa",
             "LY": "Libia",
-            "MD": "Moldova",
+            "MD": "Mołdawia",
             "MH": "Wyspy Marshalla",
             "MK": "Macedonia",
             "MP": "Mariany Północne",
@@ -319,11 +319,11 @@
             "LU": "Luksemburg",
             "LV": "Łotwa",
             "MG": "Madagaskar",
-            "MM": "Birma (Birma)",
+            "MM": "Myanmar (Birma)",
             "MV": "Malediwy",
             "MX": "Meksyk",
             "MZ": "Mozambik",
-            "NU": "Nie",
+            "NU": "Niue",
             "OM": "Oman",
             "PG": "Papua Nowa Gwinea",
             "PN": "Wyspy Pitcairn",
@@ -339,12 +339,12 @@
             "SR": "Surinam",
             "ST": "Wyspy Świętego Tomasza i Książęca",
             "SZ": "Suazi",
-            "TA": "Tristana da Cunha",
+            "TA": "Tristan da Cunha",
             "TF": "Francuskie Ziemie Południowe i Antarktyczne",
             "TJ": "Tadżykistan",
             "PF": "Polinezja Francuska",
             "PY": "Paragwaj",
-            "RE": "Zjazd",
+            "RE": "Reunion",
             "SK": "Słowacja",
             "SL": "Sierra Leone",
             "SM": "San Marino",
@@ -355,11 +355,11 @@
             "SG": "Singapur",
             "SI": "Słowenia",
             "SJ": "Svalbard",
-            "SO": "Somali",
+            "SO": "Somalia",
             "SV": "Salwador",
             "TC": "Wyspy Turks i Caicos",
             "TD": "Czad",
-            "TW": "Chiny, Republika (Tajwan)",
+            "TW": "Republika Chińska (Tajwan)",
             "VI": "Wyspy Dziewicze Stanów Zjednoczonych"
         },
         "browsehappy": "Używasz nieaktualnej przeglądarki <strong></strong> . Prosimy o <a href=\"http://browsehappy.com/?locale=en\">uaktualnienie przeglądarki</a> w celu poprawy komfortu użytkowania.",
@@ -393,14 +393,14 @@
                     "required": "Twój adres e-mail jest wymagany.",
                     "minlength": "Twój adres e-mail musi mieć co najmniej 1 znak",
                     "maxlength": "Twój e-mail nie może być dłuższy niż 50 znaków",
-                    "invalid": "Twój email jest niepoprawny."
+                    "invalid": "Twój e-mail jest niepoprawny."
                 },
                 "confirmemail": {
-                    "match": "Twój e-mail z potwierdzeniem nie jest zgodny z e-mailem"
+                    "match": "Twoje potwierdzenie adresu e-mail nie jest zgodne z podanym e-mailem"
                 }
             },
             "info": {
-                "authenticated": "Jeśli chcesz <a href=\"#/login\"> uwierzytelnić </a>, możesz wypróbować domyślne konta: <br/> - Admnistrator (login=\"admin” i hasło=\"admin”) <br/> - User (login=\"user” i password=\"user”).",
+                "authenticated": "Jeśli chcesz <a href=\"#/login\"> uwierzytelnić </a>, możesz wypróbować domyślne konta: <br/> - Administrator (login=\"admin” i hasło=\"admin”) <br/> - Użytkownik (login=\"user” i hasło=\"user”).",
                 "register": "Nie masz jeszcze konta? <a href=\"#/register\">Zarejestruj nowe konto</a>"
             },
             "error": {
@@ -409,15 +409,15 @@
             }
         },
         "word": {
-            "or": "Lub",
-            "add": "Dodać",
-            "edit": "Edytować",
+            "or": "lub",
+            "add": "Dodaj",
+            "edit": "Edycja",
             "name": "Nazwa",
-            "cancel": "Anulować",
+            "cancel": "Anuluj",
             "note": "Notatka",
             "notes": "Notatki",
-            "close": "zamknąć",
-            "delete": "Usunąć",
+            "close": "zamknij",
+            "delete": "Usuń",
             "update": "Aktualizacja",
             "from": "z",
             "ok": "OK",
@@ -433,7 +433,7 @@
             "user": "Użytkownik",
             "yes": "Tak",
             "no": "NIE",
-            "apply": "Stosować",
+            "apply": "Zawnioskuj",
             "download": "Pobierz",
             "file": "Plik",
             "publishedOn": "Opublikowano dnia",
@@ -450,11 +450,11 @@
         "title": "Rejestracja",
         "form": {
             "button": "Rozpocznij rejestrację",
-            "tos": "Zaakceptuj nasze <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Warunki korzystania z usługi</a>.",
+            "tos": "Zaakceptuj nasze <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Warunki korzystania</a>.",
             "confirmemail": "E-mail (potwierdź)"
         },
         "welcome": "Witamy w SNOMED International-MLDS",
-        "subwelcome": "Brama dostępu do orientacji SNOMED CT",
+        "subwelcome": "Bramka dostępowa do SNOMED CT Orientation",
         "messages": {
             "validate": {
                 "login": {
@@ -470,11 +470,11 @@
                     "notMLDS": "Wnioski o możliwość korzystania z SNOMED CT w kraju zamieszkania należy składać u odpowiedniego przedstawiciela w Twoim kraju – <a href=\"{{link}}\" target=\"_blank\">tutaj</a>. Jeśli chcesz ubiegać się o umowę dotyczącą dobra publicznego na korzystanie z SNOMED CT w innym kraju lub chcesz zadać inne pytania, skontaktuj się z SNOMED International pod adresem <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
                 }
             },
-            "success": "<strong>Rejestracja zapisana!</strong> Sprawdź swoją pocztę w celu potwierdzenia.",
+            "success": "<strong>Rejestracja zapisana!</strong> Sprawdź swój e-mail w celu potwierdzenia.",
             "error": {
                 "fail": "<strong>Rejestracja nie powiodła się!</strong> Spróbuj ponownie później.",
                 "userexists": "<strong>Użytkownik zarejestrował się już przy użyciu tego adresu e-mail.</strong> Czy miałeś na myśli <a href='#/login'>login</a>?",
-                "blocklist": "Ze względu na nasze zasady informatyczne nie jesteśmy w stanie przetworzyć wprowadzonego adresu e-mail. Prosimy o kontakt z <a href=\"mailto:support@snomed.org\"> support@snomed.org </a> w celu uzyskania dalszej pomocy."
+                "blocklist": "Ze względu na nasze regulacje IT nie jesteśmy w stanie przetworzyć wprowadzonego adresu e-mail. Prosimy o kontakt z <a href=\"mailto:support@snomed.org\"> support@snomed.org </a> w celu uzyskania dalszej pomocy."
             }
         },
         "emailVerification": {
@@ -490,13 +490,13 @@
                 "other.required": "Inne pole jest wymagane."
             },
             "changeRequestedWarning": {
-                "title": "Rejestracja partnera wymaga poprawek",
+                "title": "Rejestracja Partnera wymaga zmian",
                 "text": "Rejestracja partnera musi zostać zaktualizowana przed jej przetworzeniem. Prosimy o zapoznanie się z wiadomością e-mail dotyczącą zmian niezbędnych do ukończenia rejestracji."
             },
             "license.title": "Umowa SNOMED CT",
             "license": "Licencja SNOMED",
-            "license.confirm": "Zgadzam się z licencją",
-            "license.error": "Aby się zarejestrować, należy wyrazić zgodę na warunki licencji SNOMED CT, która wskazuje również potencjalne wymagane opłaty."
+            "license.confirm": "Wyrażam zgodę na licencję",
+            "license.error": "Aby się zarejestrować, musisz zaakceptować warunki licencji SNOMED CT, które wskazują również potencjalne wymagane opłaty."
         },
         "affiliateRegistrationReview": {
             "title": "Przegląd wniosku",
@@ -510,7 +510,7 @@
             "password": "Hasło",
             "password.placeholder": "Twoje hasło",
             "rememberme": "Zapamiętaj mnie",
-            "button": "Zaloguj sie",
+            "button": "Logowanie",
             "forgot": "Zapomniałeś hasła?"
         },
         "messages": {
@@ -573,10 +573,10 @@
                 "title": "Pamięć",
                 "total": "Pamięć całkowita",
                 "nonheap": "Pamięć Non-Heap",
-                "heap": "Pamięć sterty"
+                "heap": "Heap Memory"
             },
             "threads": {
-                "title": "Wątki",
+                "title": "Threads",
                 "all": "Wszystko",
                 "dump": {
                     "blockedcount": "Liczba zablokowanych",
@@ -586,7 +586,7 @@
                     "hide": "Ukryj",
                     "id": "Id",
                     "blockedtime": "Zablokowany czas",
-                    "title": "Zrzut wątków",
+                    "title": "Threads dump",
                     "waitedcount": "Licznik Oczekiwania",
                     "stacktrace": "Stacktrace"
                 },
@@ -653,7 +653,7 @@
         "nbloggers": "Jest logujących {{ total }}."
     },
     "audits": {
-        "title": "Kontrole",
+        "title": "Audyty",
         "filter": {
             "title": "Filtruj według daty",
             "from": "od",
@@ -676,7 +676,7 @@
             "AFFILIATEDETAILS_UPDATED": "Zaktualizowano dane partnera",
             "AFFILIATE_IMPORT": "Batch Import Partnera",
             "AFFILIATE_LOGIN_CREATED": "Utworzono login partnera",
-            "AFFILIATE_STANDING_STATE_CHANGED": "Stan stałego partnera został zmieniony",
+            "AFFILIATE_STANDING_STATE_CHANGED": "Zmieniono stan partnerstwa",
             "ANNOUNCEMENT_POSTED": "Ogłoszenie opublikowane",
             "APPLICATION_CREATED": "Wniosek utworzony",
             "APPLICATION_DELETED": "Wniosek usunięty",
@@ -731,7 +731,7 @@
             "DEVELOPER": "Deweloper",
             "DEVELOPMENT": "Rozwój",
             "EDUCATIONAL": "Edukacyjny",
-            "HEALTHCAREPROVIDER": "Świadczeniodawca",
+            "HEALTHCAREPROVIDER": "Świadczeniodawca opieki zdrowotnej",
             "PERSONAL": "Osobiste",
             "RESEARCH": "Badania",
             "VENDOR": "Dostawca"
@@ -746,7 +746,7 @@
             "PRIVATE_HEALTH_ORGANIZATION": "Prywatna organizacja zdrowotna",
             "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Jednostka badawczo-rozwojowa",
             "HEALTHERCARE_APPLICATION_DEVELOPER": "Twórca aplikacji dla opieki zdrowotnej",
-            "EDUCATIONAL_INSTITUTE": "Instytut Edukacji",
+            "EDUCATIONAL_INSTITUTE": "Instytut Edukacyjny",
             "OTHER": "Inny",
             "GENERAL_PRACTITIONER_PRACTICE": "Lekarz pierwszego kontaktu"
         },
@@ -780,11 +780,11 @@
         "extensionApplication": {
             "warning": {
                 "approved.detail": "Twój wniosek został zatwierdzony.",
-                "approved": "Zatwierdzono rozszerzoną rejestrację",
+                "approved": "Rejestracja rozszerzenia została zatwierdzona",
                 "change": "Rejestracja rozszerzenia wymaga zmian",
                 "change.detail": "Rejestracja rozszerzenia musi zostać zaktualizowana, zanim będzie mogła zostać przetworzona. Zapoznaj się z e-mailem dotyczącym niezbędnych zmian, aby zakończyć rejestrację.",
                 "rejected": "Odrzucono rejestrację rozszerzenia",
-                "rejected.detail": "Rejestracja przedłużenia musi zostać zaktualizowana przed jej przetworzeniem. Prosimy o zapoznanie się z wiadomością e-mail dotyczącą zmian niezbędnych do ukończenia rejestracji."
+                "rejected.detail": "Rejestracja rozszerzenia musi zostać zaktualizowana, zanim będzie mogła zostać przetworzona. Zapoznaj się z e-mailem dotyczącym niezbędnych zmian, aby zakończyć rejestrację."
             },
             "delete": {
                 "title": "Anuluj wniosek",
@@ -809,7 +809,7 @@
             "contact": "Skontaktuj się z nami"
         },
         "landingPage": {
-            "appName": "Usługa licencji członkowskich i dystrybucji",
+            "appName": "Obsługa licencji członkowskich i dystrybucji",
             "loginHere": "Zaloguj się tutaj",
             "member.purpose1": "MLDS jest narzędziem wykorzystywanym przez NRC w ",
             "member.purpose2": " do zarządzania licencjonowaniem partnerskim SNOMED CT, w tym nowymi aplikacjami, odnowieniami i raportowaniem użytkowania ",
@@ -828,7 +828,7 @@
                 "deactivated": "Konto dezaktywowane",
                 "pAttention": "Podstawowa aplikacja wymaga uwagi",
                 "pProcessed": "Podstawowy wniosek jest przetwarzany",
-                "apply": "Wniosek o przedłużenie",
+                "apply": "Wniosek o rozszerzenie",
                 "pending": "Faktura oczekująca",
                 "aProcessed": "Wniosek jest przetwarzany",
                 "aAttention": "Aplikacja wymaga uwagi, kliknij, aby kontynuować"
@@ -849,7 +849,7 @@
                 "homeCountry": "Kraj macierzysty",
                 "button": "Dodaj kraj",
                 "subTitle": "Wybierz kraje niebędące członkami, w których będzie używany SNOMED CT.",
-                "title": "Kraje w użyciu"
+                "title": "Kraje użytkowania"
             },
             "institutions": {
                 "title": "Instytucje sublicencjonowane",
@@ -861,7 +861,7 @@
                     "usingDCSNotHosp": "Ile praktyk korzysta z systemów tworzenia danych i NIE jest częścią organizacji szpitala?",
                     "usingDCSNotPract": "Ile szpitali lub innych instytucji korzysta z systemów tworzenia danych i nie można ich zdefiniować jako Praktyki zgodnie z definicją w licencji?",
                     "title": "Analiza danych",
-                    "staff": "Szpitale dostarczają personel do praktyk",
+                    "staff": "Szpitale dostarczające personel do praktyk",
                     "dataCreation": "Systemy tworzenia danych",
                     "independent": "Niezależne praktyki",
                     "howManyDAS": "Ile systemów analizy danych wdrożono w tym regionie i ile baz danych przypada na jedno wdrożenie?"
@@ -877,7 +877,7 @@
                 "selectFirst": "Należy wybrać państwo przed wprowadzeniem instytucji sublicencjonowanych.",
                 "noneSelected": "Nie wybrano żadnego kraju.",
                 "country": "Państwo",
-                "deleteCountry": "Usuń kraj",
+                "deleteCountry": "Usuń państwo",
                 "hospAndInst": "Szpital/instytucja",
                 "hospAndInst.title": "Szpital(e)/Instytucja(e)",
                 "hospAndInst.plural": "Szpitale/instytucje",
@@ -904,7 +904,7 @@
             "affiliateInfo": "Informacje partnerskie",
             "affiliateInformation": "Informacje partnerskie",
             "useType": "Typ użytkowania",
-            "useSubType": "Użyj podtypu",
+            "useSubType": "Podtyp użycia",
             "context": "Informacje o kontekście użycia",
             "subLicence": "Korzystanie z sublicencji",
             "applicationActivity": "Aktywność aplikacji"
@@ -926,7 +926,7 @@
             "reportDate": "Data raportu",
             "hospitals": "Szpitale",
             "usageType": "Rodzaj użycia",
-            "countries": "Kraje",
+            "countries": "Państwa",
             "newReport": "Nowy raport"
         },
         "userDashboard": {
@@ -940,10 +940,10 @@
                 "declined.title": "Odrzucono rejestrację partnera",
                 "deactivated.title": "Konto dezaktywowane",
                 "iPending.title": "Konto oczekujące na fakturę",
-                "iPending.msg": "Twoje konto ma oczekującą fakturę. Pobieranie pakietu wersji zostało zawieszone. Prosimy o kontakt pod adresem <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> w celu rozwiązania problemu.",
+                "iPending.msg": "Twoje konto ma oczekującą fakturę. Pobieranie pakietu wydania zostało zawieszone. Prosimy o kontakt pod adresem <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a> w celu rozwiązania problemu.",
                 "dPending.title": "Oczekiwanie na dezaktywację konta",
                 "dPending.msg": "Twoje konto ma zostać dezaktywowane. Aby rozwiązać problem, skontaktuj się z <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>.",
-                "deactivated.msg": "Twoje konto zostało dezaktywowane. Pobieranie pakietów wydania i aplikacje rozszerzeń zostały zawieszone. Prosimy o kontakt z <a href=\"mailto:mlds@snomed.org\"> mlds@snomed.org </a> w celu rozwiązania problemu.",
+                "deactivated.msg": "Twoje konto zostało dezaktywowane. Pobieranie pakietów wydań i wnioski o rozszerzenia zostały zawieszone. Prosimy o kontakt z <a href=\"mailto:mlds@snomed.org\"> mlds@snomed.org </a> w celu rozwiązania problemu.",
                 "declined.msg": "Twoja rejestracja partnerska została odrzucona. Prosimy o zapoznanie się ze szczegółami decyzji w wiadomości e-mail."
             },
             "affiliateNo": "Nr Partnera",
@@ -951,11 +951,11 @@
         },
         "ihtsdoReleases": {
             "offlineReleases": "Wydania offline i Alpha/Beta",
-            "noPublicReleases": "Obecnie nie są dostępne żadne publiczne wersje.",
+            "noPublicReleases": "Obecnie nie są dostępne żadne publiczne wydania.",
             "backToReleases": "Powrót do wydań SNOMED",
             "publicVersions": "Wersje publiczne",
             "noOnlineVersions": "Obecnie nie ma wersji online tego wydania.",
-            "noOfflineReleases": "Obecnie nie są dostępne wersje offline i alfa/beta.",
+            "noOfflineReleases": "Obecnie nie są dostępne wydania offline i alfa/beta.",
             "noOfflineVersions": "Obecnie nie ma wersji offline i alfa/beta tego wydania.",
             "title": "Wydania SNOMED",
             "offline": "Offline",
@@ -1018,7 +1018,7 @@
                 },
                 "landlineExtension": {
                     "name": "Rozszerzenie",
-                    "short": "Zew",
+                    "short": "Rozszerzenie",
                     "placeholder": "Rozszerzenie"
                 },
                 "mobile": {
@@ -1156,7 +1156,7 @@
     "approval": {
         "state": {
             "NOT_SUBMITTED": "Nie przesłano",
-            "CHANGE_REQUESTED": "Zażądano zmiany",
+            "CHANGE_REQUESTED": "Wymagana zmiana",
             "SUBMITTED": "Przesłane",
             "RESUBMITTED": "Przesłano ponownie",
             "REVIEW_REQUESTED": "Wymagany przegląd",
@@ -1220,7 +1220,7 @@
         "title": "Zarządzanie listą blokad"
     },
     "systemLoggers": {
-        "title": "Rejestratory systemowe"
+        "title": "Logowania systemowe"
     },
     "form": {
         "requiredField": "Pole wymagane.",
