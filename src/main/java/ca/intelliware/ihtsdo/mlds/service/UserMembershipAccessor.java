@@ -6,7 +6,6 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import com.google.common.collect.Lists;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -19,17 +18,19 @@ import java.util.List;
 @Service
 public class UserMembershipAccessor {
 
-	@Autowired protected CurrentSecurityContext currentSecurityContext;
+	protected CurrentSecurityContext currentSecurityContext;
 
 	private final AffiliateRepository affiliateRepository;
 
     private final MemberRepository memberRepository;
 
-	@Autowired AffiliateMembershipCalculator affiliateMembershipCalculator;
+	AffiliateMembershipCalculator affiliateMembershipCalculator;
 
-    public UserMembershipAccessor(AffiliateRepository affiliateRepository, MemberRepository memberRepository) {
+    public UserMembershipAccessor(CurrentSecurityContext currentSecurityContext, AffiliateRepository affiliateRepository, MemberRepository memberRepository, AffiliateMembershipCalculator affiliateMembershipCalculator) {
+        this.currentSecurityContext = currentSecurityContext;
         this.affiliateRepository = affiliateRepository;
         this.memberRepository = memberRepository;
+        this.affiliateMembershipCalculator = affiliateMembershipCalculator;
     }
 
     public Member getMemberAssociatedWithUser() {
@@ -58,7 +59,7 @@ public class UserMembershipAccessor {
 
 	public Affiliate getAffiliate() {
 		List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(currentSecurityContext.getCurrentUserName());
-		if (affiliates.size() > 0) {
+		if (!affiliates.isEmpty()) {
 			return affiliates.get(0);
 		}
 		return null;
