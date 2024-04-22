@@ -130,6 +130,7 @@ public class SecurityConfiguration {
             .requestMatchers(AntPathRequestMatcher.antMatcher("/env/**")).hasAuthority(AuthoritiesConstants.ADMIN)
             .requestMatchers(AntPathRequestMatcher.antMatcher("/trace/**")).hasAuthority(AuthoritiesConstants.ADMIN)
             .requestMatchers(AntPathRequestMatcher.antMatcher("/api-docs/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/actuator/**")).hasAuthority(AuthoritiesConstants.ADMIN)
             .requestMatchers(AntPathRequestMatcher.antMatcher("/protected/**")).authenticated()
             //MLDS-988
             .requestMatchers(AntPathRequestMatcher.antMatcher("/.htaccess/**")).denyAll()
