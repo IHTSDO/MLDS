@@ -40,8 +40,7 @@ public class UserMembershipAccessorTest {
 	private UserMembershipAccessor userMembershipAccessor;
     @Before
     public void setup() {
-        userMembershipAccessor = new UserMembershipAccessor(affiliateRepository,memberRespository);
-        userMembershipAccessor.currentSecurityContext = currentSecurityContext;
+        userMembershipAccessor = new UserMembershipAccessor(currentSecurityContext, affiliateRepository, memberRespository, affiliateMembershipCalculator);
         userMembershipAccessor.affiliateMembershipCalculator = affiliateMembershipCalculator;
         userMembershipAccessor.currentSecurityContext = new CurrentSecurityContext();
 		sweden = new Member("SE", 1);
