@@ -15,6 +15,8 @@ import io.dropwizard.metrics.servlet.InstrumentedFilter;
 import io.dropwizard.metrics.servlets.MetricsServlet;
 import jakarta.servlet.*;
 import org.apache.coyote.http11.Http11NioProtocol;
+import org.apache.tomcat.util.net.SSLHostConfig;
+import org.apache.tomcat.util.net.SSLHostConfigCertificate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,7 @@ public class WebConfigurer implements ServletContextInitializer {
 
     // you can run this with SSL/TLS. For example, build the application (`mvn clean install`) in the `oauth` directory, then run:
     //   java -Dspring.profiles.active=production -Dserver.keystore.file=file:///`pwd`/src/main/resources/keystore.p12 -jar target/oauth-1.0.0.BUILD-SNAPSHOT.jar
+    // In SB3 Migration, this following setKeystoreFile, setKeystorePass methods are deprecated, so we modified code accordingly it compatable with SB3.
     @Bean
     @Profile("ssl")
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> containerCustomizer(
@@ -84,10 +87,13 @@ public class WebConfigurer implements ServletContextInitializer {
 
                 Http11NioProtocol proto = (Http11NioProtocol) connector.getProtocolHandler();
                 proto.setSSLEnabled(true);
-//             proto.setKeystoreFile(absoluteKeystoreFile);
-//             proto.setKeystorePass(keystorePass);
-                //proto.setKeystoreType("jks");
-                //proto.setKeyAlias("tomcat");
+                SSLHostConfig sslHostConfig = new SSLHostConfig();
+                SSLHostConfigCertificate sslHostConfigCertificate = new SSLHostConfigCertificate(sslHostConfig, SSLHostConfigCertificate.Type.UNDEFINED);
+
+                sslHostConfigCertificate.setCertificateKeystoreFile(absoluteKeystoreFile);
+                sslHostConfigCertificate.setCertificateKeystorePassword(keystorePass);
+                sslHostConfig.addCertificate(sslHostConfigCertificate);
+                proto.addSslHostConfig(sslHostConfig);
             });
         };
     }
@@ -98,7 +104,7 @@ public class WebConfigurer implements ServletContextInitializer {
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
 
         initMetrics(servletContext, disps);
-        if (env.acceptsProfiles(Profiles.of(Constants.SPRING_PROFILE_DEVELOPMENT))) {
+        if (env.acceptsProfiles(Profiles.of(Constants.SPRING_PROFILE_PRODUCTION))) {
             initStaticResourcesProductionFilter(servletContext, disps);
             initCachingHttpHeadersFilter(servletContext, disps);
         }
