@@ -3,10 +3,8 @@ package ca.intelliware.ihtsdo.mlds.config.audit;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.*;
 
 
@@ -67,14 +65,13 @@ public class AuditEventConverter {
             for (String key : data.keySet()) {
                 Object object = data.get(key);
 
-               /* // Extract the data that will be saved.
-                if (object instanceof WebAuthenticationDetails) {
-                    WebAuthenticationDetails authenticationDetails = (WebAuthenticationDetails) object;
+                // Extract the data that will be saved.
+                if (object instanceof WebAuthenticationDetails authenticationDetails) {
                     results.put("remoteAddress", authenticationDetails.getRemoteAddress());
                     results.put("sessionId", authenticationDetails.getSessionId());
                 } else {
                     results.put(key, object.toString());
-                }*/
+                }
             }
         }
 
