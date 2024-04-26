@@ -419,7 +419,12 @@
             "IHTSDO": "SNOMED Internasional",
             "JM": "Jamaika",
             "HR": "Kroasia",
-            "AD": "Andorra"
+            "AD": "Andorra",
+            "CY": "Siprus",
+            "HU": "Hongaria",
+            "JO": "Yordania",
+            "SA": "Arab Saudi",
+            "FR": "Prancis"
         },
         "language": {
             "th": "Thai",
