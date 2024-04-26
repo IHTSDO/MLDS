@@ -477,7 +477,7 @@
                 "blocklist": "Aufgrund der IT-Richtlinien von SNOMED International können wir die eingegebene E-Mail-Adresse nicht verarbeiten. Für Support kontaktieren Sie bitte <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a>."
             },
             "excludemessage": {
-                "confirm":"Bestätigung",
+                "confirm": "Bestätigung",
                 "link": "MLDS wird nicht verwendet, um SNOMED CT zu verteilen. Um sich für den Download von SNOMED CT zu registrieren, finden Sie weitere Informationen unter diesem Link -",
                 "userConfirm": "Um Ihre Registrierung auf MLDS fortzusetzen, können Sie bitte bestätigen, dass Sie SNOMED CT in einem anderen Land bereitstellen möchten.",
                 "cancel": "Abbrechen",
