@@ -66,7 +66,8 @@
             "pt": "Portugiesisch",
             "ru": "Russisch",
             "se": "Schwedisch",
-            "th": "Thailändisch"
+            "th": "Thailändisch",
+            "id": "Indonesisch"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -111,7 +112,15 @@
             "UY": "Uruguay",
             "SV": "El Salvador",
             "PL": "Polen",
-            "ID": "Indonesien"
+            "ID": "Indonesien",
+            "AD": "Andorra",
+            "CY": "Zypern",
+            "FR": "Frankreich",
+            "HR": "Kroatien",
+            "HU": "Ungarn",
+            "JM": "Jamaika",
+            "JO": "Jordanien",
+            "SA": "Saudi-Arabien"
         },
         "country": {
             "AC": "Ascension",
@@ -473,7 +482,7 @@
                 "blocklist": "Aufgrund unserer IT-Richtlinien können wir die eingegebene E-Mail-Adresse nicht verarbeiten. Für weitere Hilfe kontaktieren Sie bitte <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a>."
             },
             "excludemessage": {
-                "confirm":"Bestätigung",
+                "confirm": "Bestätigung",
                 "link": "MLDS wird nicht verwendet, um SNOMED CT zu verteilen. Um sich für den Download von SNOMED CT zu registrieren, finden Sie weitere Informationen, indem Sie diesem Link folgen -",
                 "userConfirm": "Um Ihre Registrierung auf MLDS fortzusetzen, können Sie bitte bestätigen, dass Sie beabsichtigen, SNOMED CT in einem anderen Land bereitzustellen.",
                 "cancel": "Abbrechen",
