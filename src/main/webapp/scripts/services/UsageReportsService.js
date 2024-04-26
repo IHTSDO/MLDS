@@ -1,11 +1,11 @@
  'use strict';
 
 angular.module('MLDS')
-.factory('UsageReportsService', [ '$location', '$log', '$modal', 'AffiliateService', 'UsageReportStateUtils',
-                                    function($location, $log, $modal, AffiliateService, UsageReportStateUtils){
+.factory('UsageReportsService', [ '$location', '$log','$http', '$modal', 'AffiliateService', 'UsageReportStateUtils',
+                                    function($location, $log, $http, $modal, AffiliateService, UsageReportStateUtils){
 
 	var service = {};
-	
+
 	service.usageReportCountries = function(usageReport) {
 		return usageReport.countries.length;
 	};
@@ -19,15 +19,15 @@ angular.module('MLDS')
 			return total + (count.snomedPractices || 0);
 		}, 0);
 	};
-	
+
 	service.isInvoiceSent = function(usageReport) {
 		return UsageReportStateUtils.isInvoiceSent(usageReport.state);
 	};
-	
+
 	service.isPendingInvoice = function(usageReport) {
 		return UsageReportStateUtils.isPendingInvoice(usageReport.state);
 	};
-	
+
 	service.isSubmitted = function(usageReport) {
 		return UsageReportStateUtils.isSubmitted(usageReport.state);
 	};
@@ -49,23 +49,23 @@ angular.module('MLDS')
 	service.goToUsageReport = function(usageReport) {
 		$location.path('/usageReports/usageLog/'+encodeURIComponent(usageReport.commercialUsageId));
 	};
-	
+
 	service.goToReviewUsageReport = function(usageReport) {
 		$location.path('/usageReportsReview/'+encodeURIComponent(usageReport.commercialUsageId));
 	};
-	
+
 	service.affiliateIsCommercial = function(affiliate) {
 		return AffiliateService.affiliateIsCommercial(affiliate);
 	};
-	
+
 	service.anySubmittedUsageReports = function(affiliate) {
 		return _.some(affiliate.commercialUsages, function(usageReport) {
 			return !UsageReportStateUtils.isWaitingForApplicant(usageReport.state) && !usageReport.effectiveTo;
 		});
 	};
 
-	
-	
+
+
 	service.retractUsageReport = function(commercialUsageReport) {
 		var modalInstance = $modal.open({
 			templateUrl: 'views/user/retractUsageReportModal.html',
@@ -78,7 +78,7 @@ angular.module('MLDS')
 				}
 			}
 		});
-		
+
 		modalInstance.result
 		.then(function(result) {
 			if(result.data && result.data.commercialUsageId) {
@@ -87,7 +87,13 @@ angular.module('MLDS')
 		});
 
 	};
-	
+
+/*MLDS-985 Review Usage Reports*/
+    service.getReviewUsageReport = function(){
+    return $http.get('/api/reviewUsageReports');
+    }
+/*MLDS-985 Review Usage Reports*/
+
 	return service;
 }]);
 

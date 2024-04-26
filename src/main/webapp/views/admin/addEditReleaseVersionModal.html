@@ -7,29 +7,77 @@
  	  <form name="formPackageVersion" bs-validation>
 
       <div class="form-group">
-          <label>Name</label> 
-          <input class="form-control" placeholder="Enter Version Name" 
+          <label>Name</label>
+          <input class="form-control" placeholder="Enter Version Name"
           	name="name" ng-model="releaseVersion.name" ng-required="true">
           <span ng-show="formPackageVersion.name.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
       <div class="form-group">
-          <label>Description</label> 
+          <label>Description</label>
           <div text-angular name="description" ng-model="releaseVersion.description"></div>
           <span ng-show="formPackageVersion.description.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
+
+      <div class="form-group">
+         <label>Package Type</label>
+         <select class="form-control" name="packageType" ng-model="releaseVersion.packageType" ng-required="true">
+           <option value="">Select Package Type</option>
+           <option value="SCT_RF2_SNAPSHOT">SNOMED CT RF2 Snapshot Package</option>
+           <option value="SCT_RF2_FULL" selected>SNOMED CT RF2 Full Package</option>
+           <option value="OTHER">Other Package</option>
+         </select>
+          <span ng-show="formPackageVersion.packageType.$error.required && submitAttempted" class="help-block">Required Field</span>
+      </div>
+
+      <div class="form-group">
+      <label>Summary</label>
+      <input class="form-control" placeholder="Summary About this Version"
+      name="summary" ng-model="releaseVersion.summary">
+      </div>
+
+      <div class="form-group">
+       <label>Release Version URI</label>
+       <input class="form-control" placeholder="Enter Release Version URI"
+        name="versionURI" ng-model="releaseVersion.versionURI">
+      </div>
+
+      <div class="form-group">
+              <label>Release Version Dependent URI</label>
+              <input class="form-control" placeholder="Enter Release Version Dependent URI"
+                     name="versionDependentURI" ng-model="releaseVersion.versionDependentURI">
+      </div>
+
+      <div class="form-group">
+              <label>Release Version Dependent Derivative URI</label>
+              <input class="form-control" placeholder="Enter Release Version Dependent Derivative URI"
+                     name="versionDependentDerivativeURI" ng-model="releaseVersion.versionDependentDerivativeURI">
+      </div>
+          <!--          release package-->
+
+          <div class="form-group">
+              <label>Release Type</label>
+              <select class="form-control" name="releaseType" ng-model="releaseVersion.releaseType" ng-required="true">
+                  <option value="">Select Release Type</option>
+                  <option value="online">Online</option>
+                  <option value="offline">Offline</option>
+                  <option value="alpha/beta">Alpha/Beta</option>
+              </select>
+              <span ng-show="formPackageVersion.releaseType.$error.required && submitAttempted" class="help-block">Required Field</span>
+          </div>
+          <!--          release package-->
       <div class="form-group datepicker">
           <label>Release Date</label>
           <div class="input-group datepicker col-md-3">
           	<input class="form-control" type="text"
-          		datepicker-popup="yyyy-MM-dd" 
-          		is-open="dateOpen['publishedAt']" close-text="Close" 
+          		datepicker-popup="yyyy-MM-dd"
+          		is-open="dateOpen['publishedAt']" close-text="Close"
           		name="publishedAt" ng-model="releaseVersion.publishedAt"></input>
        		<span class="input-group-addon" ng-click="openDate($event, 'publishedAt')"><i class="fa fa-calendar"></i></span>
    			</div>
           <span ng-show="formPackageVersion.publishedAt.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
 	</form>
- 	
+
  </div>
  <div class="modal-footer">
      <button class="btn btn-secondary btn-link" ng-click="$dismiss()">Cancel</button>

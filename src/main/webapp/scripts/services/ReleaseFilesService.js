@@ -11,7 +11,8 @@ angular.module('MLDS').factory('ReleaseFilesService',
 					releaseFileId : '@releaseFileId'
 				}, {
 					update : {
-						method : 'PUT'
+						method : 'PUT',
+						url: 'api/releasePackages/:releasePackageId/releaseVersions/:releaseVersionId/releaseFiles'
 					}
 				});
 } ]);

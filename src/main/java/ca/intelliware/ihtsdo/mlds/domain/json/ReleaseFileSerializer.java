@@ -21,6 +21,9 @@ public class ReleaseFileSerializer extends JsonSerializer<ReleaseFile> {
 		jgen.writeObjectField("label", value.getLabel());
 		jgen.writeObjectField("createdAt", value.getCreatedAt());
 		jgen.writeObjectField("clientDownloadUrl", calculateClientDownloadUrl(value));
+        jgen.writeObjectField("md5Hash", value.getMd5Hash());
+        jgen.writeObjectField("fileSize", value.getFileSize());
+        jgen.writeObjectField("primaryFile",value.isPrimaryFile());
 		if (isToSeeRawDownloadUrl()) {
 			jgen.writeObjectField("downloadUrl", value.getDownloadUrl());
 		}
@@ -34,7 +37,7 @@ public class ReleaseFileSerializer extends JsonSerializer<ReleaseFile> {
 	private URI calculateClientDownloadUrl(ReleaseFile value) {
 		RouteLinkBuilder routeLinkBuilder = new RouteLinkBuilder();
 		return routeLinkBuilder.toURLWithKeyValues(
-				Routes.RELEASE_FILE_DOWNLOAD, 
+				Routes.RELEASE_FILE_DOWNLOAD,
 				"releasePackageId", value.getReleaseVersion().getReleasePackage().getReleasePackageId(),
 				"releaseVersionId", value.getReleaseVersion().getReleaseVersionId(),
 				"releaseFileId", value.getReleaseFileId()

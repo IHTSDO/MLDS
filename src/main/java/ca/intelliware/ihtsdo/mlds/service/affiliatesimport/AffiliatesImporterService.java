@@ -44,12 +44,12 @@ public class AffiliatesImporterService {
 	@Resource CommercialUsageRepository commercialUsageRepository;
 	@Resource AffiliateAuditEvents affiliateAuditEvents;
 
-	
+
 	@Resource AffiliatesMapper affiliatesMapper;
-	
+
 	@PersistenceContext
     private EntityManager entityManager;
-	
+
 	public ImportResult importFromCSV(String contents) throws IOException {
 		ImportResult result = new ImportResult();
 		long start = System.currentTimeMillis();
@@ -69,7 +69,7 @@ public class AffiliatesImporterService {
 		if (result.success) {
 			processAffiliateRecords(lines, result);
 		}
-		
+
 	}
 
 	private void processAffiliateRecords(List<LineRecord> lines, ImportResult result) {
@@ -122,49 +122,49 @@ public class AffiliatesImporterService {
 	private Application updateAffiliate(Affiliate affiliate, LineRecord record) throws IllegalAccessException, InstantiationException {
 		populateWithAll(affiliate, record, Affiliate.class);
 		populateWithAll(affiliate.getAffiliateDetails(), record, AffiliateDetails.class);
-		
+
 		PrimaryApplication importApplication = createApprovedPrimaryApplication(record, ApplicationType.IMPORT);
 		applicationRepository.save(importApplication);
 		affiliate.addApplication(importApplication);
-		
+
 		affiliateAuditEvents.logUpdateByImport(affiliate);
-		
+
 		return importApplication;
 	}
 
 	private Application createApprovedAffiliate(LineRecord record) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
-		
+
 		//FIXME use services for much of this where possible... with a create and approve steps
-		
+
 		PrimaryApplication application = createApprovedPrimaryApplication(record, ApplicationType.PRIMARY);
 		application = applicationRepository.save(application);
-		
+
 		CommercialUsage commercialUsage = createCommercialUsage(record, application.getType());
 		commercialUsage = commercialUsageRepository.save(commercialUsage);
-		
+
 		application.setCommercialUsage(commercialUsage);
 		application = applicationRepository.save(application);
 
 		AffiliateDetails affiliateDetails = createPopulateAffiliateDetails(record);
 		affiliateDetails = affiliateDetailsRepository.save(affiliateDetails);
-		
+
 		Affiliate affiliate = createAffiliate(record, application, affiliateDetails);
 		affiliate = affiliateRepository.save(affiliate);
-		
+
 		affiliateAuditEvents.logCreationByImport(affiliate);
-		
+
 		return application;
 	}
 
 	private Affiliate createAffiliate(LineRecord record, PrimaryApplication application, AffiliateDetails affiliateDetails) throws IllegalAccessException, InstantiationException {
 		Affiliate affiliate = new Affiliate();
-		
+
 		affiliate.setAffiliateDetails(affiliateDetails);
 		populateWithAll(affiliate, record, Affiliate.class);
-		
+
 		affiliate.addApplication(application);
 		affiliate.setApplication(application);
-		
+
 		affiliate.setHomeMember(application.getMember());
 		affiliate.setType(application.getType());
 		affiliate.addCommercialUsage(application.getCommercialUsage());
@@ -243,7 +243,7 @@ public class AffiliatesImporterService {
 		}
 		return Arrays.asList(elements);
 	}
-	
+
 
 	//FIXME move this code to a more appropriate service...
 	private CommercialUsagePeriod createCurrentCommercialUsagePeriod() {

@@ -35,14 +35,16 @@
                                 <div class="form-group" ng-show="affiliateform.type && affiliateform.type!='OTHER'">
                                     <label translate="views.contactInfo.admin.subtype.name.label">Subtype:</label>
                                     <select class="form-control input-md" name="usageSubType" ng-model="affiliateform.subType" ng-required="affiliateform.type!='OTHER'" auto-submit>
-						<option value="DEVELOPER" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.DEVELOPER">Developer</option>
-						<option value="DEVELOPMENT" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.DEVELOPMENT">Development</option>
-						<option value="EDUCATIONAL" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.EDUCATIONAL">Educational</option>
-						<option value="HEALTHCAREPROVIDER" ng-show="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.HEALTHCAREPROVIDER">Healthcare Provider</option>
-						<option value="PERSONAL" ng-show="affiliateform.type=='INDIVIDUAL'" translate="affiliate.subType.PERSONAL">Personal</option>
-						<option value="RESEARCH" ng-show="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.RESEARCH">Research</option>
-						<option value="VENDOR" ng-show="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.VENDOR">Vendor</option>
+                                        <!--MLDS-997 Safari Issue-->
+						<option value="DEVELOPER" ng-if="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.DEVELOPER">Developer</option>
+						<option value="DEVELOPMENT" ng-if="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.DEVELOPMENT">Development</option>
+						<option value="EDUCATIONAL" ng-if="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.EDUCATIONAL">Educational</option>
+						<option value="HEALTHCAREPROVIDER" ng-if="affiliateform.type=='ACADEMIC'" translate="affiliate.subType.HEALTHCAREPROVIDER">Healthcare Provider</option>
+						<option value="PERSONAL" ng-if="affiliateform.type=='INDIVIDUAL'" translate="affiliate.subType.PERSONAL">Personal</option>
+						<option value="RESEARCH" ng-if="affiliateform.type!='COMMERCIAL'" translate="affiliate.subType.RESEARCH">Research</option>
+						<option value="VENDOR" ng-if="affiliateform.type=='COMMERCIAL'" translate="affiliate.subType.VENDOR">Vendor</option>
 					</select>
+                                    <!--MLDS-997 Safari Issue-->
                                     <p ng-show="affiliateApplicationForm.usageSubType.$error.required && affiliateApplicationForm.attempted" class="help-block" translate="register.messages.validate.registration.subtyperequired">
                                         Subtype field is required.
                                     </p>

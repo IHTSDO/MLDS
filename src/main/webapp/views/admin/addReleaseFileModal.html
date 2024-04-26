@@ -7,18 +7,33 @@
  	  <div class="row">
        <div class="col-md-12">
       <div class="form-group">
-          <label>Label</label> 
+          <label>Label</label>
           <div text-angular name="description" ng-model="releaseFile.label"></div>
           <span ng-show="formReleaseFile.label.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
       <div class="form-group">
-   
-          <label>Download URL</label> 
+
+          <label>Download URL</label>
           <input class="form-control" rows="3" placeholder="Enter File Download URL" name="downloadUrl" ng-model="releaseFile.downloadUrl" ng-required="true" type="url"/>
           <span ng-show="formReleaseFile.downloadUrl.$error.required && submitAttempted" class="help-block">Required Field</span>
           <span ng-show="formReleaseFile.downloadUrl.$error.url && submitAttempted" class="help-block">Invalid URL</span>
       </div>
+      <div class="form-group">
+           <label>MD5 Hash</label>
+           <input class="form-control" rows="3" placeholder="Enter File MD5 Hash" name="md5Hash" ng-model="releaseFile.md5Hash" ng-required="releaseFile.primaryFile">
+           <span ng-show="formReleaseFile.md5Hash.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
+      <div class="form-group">
+            <label>File Size in Octets
+              <input class="form-control col-2" placeholder="File Size" name="fileSize" ng-model="releaseFile.fileSize" ng-required="releaseFile.primaryFile">
+              <span ng-show="formReleaseFile.fileSize.$error.required && submitAttempted" class="help-block">Required Field</span>
+            </label>
+            <label style="margin-left: 40px;" for="isPrimaryCheckbox">
+              <input id="isPrimaryCheckbox" name="isPrimary" ng-model="releaseFile.primaryFile" type="checkbox" />
+              Is Primary file
+            </label>
+      </div>
+     </div>
 	</form>
 </div>
  </div>

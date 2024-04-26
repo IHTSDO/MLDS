@@ -11,6 +11,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -19,26 +21,28 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.ihtsdo.otf.dao.s3.OfflineS3ClientImpl;
 import org.ihtsdo.otf.dao.s3.S3Client;
+import org.ihtsdo.otf.dao.s3.S3ClientImpl;
 import org.ihtsdo.otf.dao.s3.helper.FileHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 
 @Service
 public class UriDownloader {
 
-	@Resource
-	S3Client s3Client;
-
 	private static final String HEADER_CONTENT_DISPOSITION = "Content-Disposition";
 	// TODO These should be owned by S3ClientHelper and configured at runtime, but don't want to break SRS
 	private static final String S3_PROTOCOL = "s3://";
 	private static final String S3_BASE_LOCATION = ".s3.amazonaws.com";
 
-	private final Logger log = LoggerFactory.getLogger(UriDownloader.class);
+    @Value("${s3.api.offlineMode}")
+    private boolean s3Offline;
 
+    private final Logger log = LoggerFactory.getLogger(UriDownloader.class);
 	public int download(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) throws IOException {
 		// Are we dealing with an HTTP request or S3?
 		// Can we determine an S3 Bucket?
@@ -81,20 +85,36 @@ public class UriDownloader {
 
 	public int downloadS3(S3Location s3Location, String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse)
 			throws IOException {
-		log.debug("Attempting to download {} from S3", s3Location.toString());
-		FileHelper s3Helper = new FileHelper(s3Location.bucket, s3Client);
-		InputStream fileContents = s3Helper.getFileStream(s3Location.filePath);
-		if (fileContents != null) {
-			// Recover the filename from the path
-			Path p = Paths.get(s3Location.filePath);
-			String fileName = p.getFileName().toString();
-			clientResponse.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-			StreamUtils.copy(fileContents, clientResponse.getOutputStream());
-		} else {
-			clientResponse.sendError(HttpStatus.SC_NOT_FOUND);
-		}
-		return clientResponse.getStatus();
-	}
+        log.debug("Attempting to download {} from S3", s3Location.toString());
+        S3Client s3Client = getS3Client();
+        FileHelper s3Helper = new FileHelper(s3Location.bucket, s3Client);
+        InputStream fileContents = s3Helper.getFileStream(s3Location.filePath);
+        if (fileContents != null) {
+            // Recover the filename from the path
+            Path p = Paths.get(s3Location.filePath);
+            String fileName = p.getFileName().toString();
+            clientResponse.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+            StreamUtils.copy(fileContents, clientResponse.getOutputStream());
+        } else {
+            clientResponse.sendError(HttpStatus.SC_NOT_FOUND);
+        }
+        return clientResponse.getStatus();
+    }
+
+    public S3Client getS3Client() throws IOException {
+        S3Client s3Client = null;
+        log.debug("Configuring " + (s3Offline ? "offline" : "online") + " s3 client.");
+        if (s3Offline) {
+            s3Client = new OfflineS3ClientImpl();
+        } else {
+            InstanceProfileCredentialsProvider instanceProfileCredentialsProvider = new InstanceProfileCredentialsProvider(true);
+            instanceProfileCredentialsProvider.refresh();
+            AWSCredentials awsCredentials =  instanceProfileCredentialsProvider.getCredentials();
+            s3Client =  new S3ClientImpl(awsCredentials);
+            log.debug("s3Client:",s3Client);
+        }
+        return s3Client;
+    }
 
 	public int downloadHTTP(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) {
 		log.debug("Attempting to download {} via HTTP", downloadUrl);
@@ -155,7 +175,7 @@ public class UriDownloader {
 		copyClientHeaderToHostingRequest(HttpHeaders.IF_MODIFIED_SINCE, clientRequest, hostingRequest);
 		copyClientHeaderToHostingRequest(HttpHeaders.IF_NONE_MATCH, clientRequest, hostingRequest);
 		copyClientHeaderToHostingRequest(HttpHeaders.IF_UNMODIFIED_SINCE, clientRequest, hostingRequest);
-		
+
 	}
 
 	private void copyClientHeaderToHostingRequest(String key,

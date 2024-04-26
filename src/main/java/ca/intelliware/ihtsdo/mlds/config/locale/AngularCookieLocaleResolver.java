@@ -47,6 +47,10 @@ public class AngularCookieLocaleResolver extends CookieLocaleResolver {
     public void addCookie(HttpServletResponse response, String cookieValue) {
         // Mandatory cookie modification for angular to support the locale switching on the server side.
         cookieValue = "%22" + cookieValue + "%22";
+        /*MLDS-992 Missing Cookie*/
+        this.setCookieSecure(true);
+        this.setCookieHttpOnly(true);
+        /*MLDS-992 Missing Cookie*/
         super.addCookie(response, cookieValue);
     }
 
@@ -69,7 +73,7 @@ public class AngularCookieLocaleResolver extends CookieLocaleResolver {
                     localePart = value.substring(0, spaceIndex);
                     timeZonePart = value.substring(spaceIndex + 1);
                 }
-                
+
                 locale = null;
                 if (!"-".equals(localePart)) {
                 	//Spring expects locale variations to use underscore rather than dash
@@ -86,7 +90,7 @@ public class AngularCookieLocaleResolver extends CookieLocaleResolver {
             }
             request.setAttribute(LOCALE_REQUEST_ATTRIBUTE_NAME,
                     (locale != null ? locale: determineDefaultLocale(request)));
-            
+
             request.setAttribute(TIME_ZONE_REQUEST_ATTRIBUTE_NAME,
                     (timeZone != null ? timeZone : determineDefaultTimeZone(request)));
         }

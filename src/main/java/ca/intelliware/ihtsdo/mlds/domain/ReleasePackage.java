@@ -35,10 +35,19 @@ public class ReleasePackage extends BaseEntity {
 
 	@Column(name="created_at")
 	Instant createdAt = Instant.now();
-	
+
 	@JsonIgnore
 	@Column(name="created_by")
 	String createdBy;
+
+    @Column(name="copyrights")
+    String copyrights;
+
+    @Column(name="releasePackageURI")
+    String releasePackageURI;
+
+    @Column(name="updated_at")
+    Instant updatedAt = Instant.now();
 
 	@JsonIgnore
 	@Column(name="inactive_at")
@@ -47,30 +56,30 @@ public class ReleasePackage extends BaseEntity {
 	@ManyToOne(optional=false)
 	@JoinColumn(name="member_id")
 	Member member;
-	
+
 	String name;
-	
+
 	String description;
-	
+
 	private Integer priority;
-	
+
 	@JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="licence_file")
-	private File licenceFile;  
-	
+	private File licenceFile;
+
 	@OneToMany(mappedBy="releasePackage")
 	Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
 
 	public ReleasePackage() {
-		
+
 	}
-	
+
 	//For tests
-	public ReleasePackage(Long releasePackageId) {
+
+    public ReleasePackage(Long releasePackageId) {
 		this.releasePackageId = releasePackageId;
 	}
-	
 	public Long getReleasePackageId() {
 		return releasePackageId;
 	}
@@ -93,7 +102,7 @@ public class ReleasePackage extends BaseEntity {
 
 	public void addReleaseVersion(ReleaseVersion newReleaseVersion) {
 		Validate.notNull(newReleaseVersion.releaseVersionId);
-		
+
 		if (newReleaseVersion.releasePackage != null) {
 			newReleaseVersion.releasePackage.releaseVersions.remove(newReleaseVersion);
 		}
@@ -129,7 +138,7 @@ public class ReleasePackage extends BaseEntity {
 	public Member getMember() {
 		return member;
 	}
-	
+
 	public void setMember(Member member) {
 		this.member = member;
 	}
@@ -150,5 +159,28 @@ public class ReleasePackage extends BaseEntity {
 	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
-	
+
+    public String getCopyrights() {
+        return copyrights;
+    }
+
+    public void setCopyrights(String copyrights) {
+        this.copyrights = copyrights;
+    }
+
+    public String getReleasePackageURI() {
+        return releasePackageURI;
+    }
+
+    public void setReleasePackageURI(String releasePackageURI) {
+        this.releasePackageURI = releasePackageURI;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

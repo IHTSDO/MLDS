@@ -1,5 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.config;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 import javax.sql.DataSource;
@@ -89,14 +93,42 @@ public class DatabaseConfiguration implements EnvironmentAware {
     }
 
     @Bean
-    public SpringLiquibase liquibase() {
+    public SpringLiquibase liquibase() throws SQLException {
         log.debug("Configuring Liquibase");
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource());
         liquibase.setChangeLog("classpath:config/liquibase/master.xml");
         liquibase.setContexts("development, production");
+        releaseChangelogLock(liquibase.getDataSource());
         log.debug("Completed Liquibase configuration");
         return liquibase;
+    }
+
+
+
+    private void releaseChangelogLock(DataSource dataSource) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            boolean dbExist = databaseExists(connection,"databasechangeloglock");
+            if(dbExist) {
+                String releaseLock = "UPDATE DATABASECHANGELOGLOCK SET LOCKED = FALSE, LOCKEDBY = NULL, LOCKGRANTED = NULL";
+                try (PreparedStatement statement = connection.prepareStatement(releaseLock)) {
+                    statement.executeUpdate();
+                }
+            }
+        }
+    }
+
+    private static boolean databaseExists(Connection connection, String tableName) throws SQLException {
+
+        String query = "SELECT 1 FROM " + tableName + " LIMIT 1";
+
+        try (Statement statement = connection.createStatement()) {
+            statement.executeQuery(query);
+            return true;
+        }
+
+        catch (SQLException e) { return false; }
+
     }
 
 	//See http://blog.netgloo.com/2014/10/06/spring-boot-data-access-with-jpa-hibernate-and-mysql/
@@ -107,36 +139,36 @@ public class DatabaseConfiguration implements EnvironmentAware {
 	@Bean
 	@DependsOn("liquibase")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		if (entityManagerFactory != null) {
-			log.debug("Skipping entityManagerFactory configuration - already configured.");
-			return entityManagerFactory;
-		}
-		log.debug("Configuring entityManagerFactory");
-		entityManagerFactory =  new LocalContainerEntityManagerFactoryBean();
+        if (entityManagerFactory != null) {
+            log.debug("Skipping entityManagerFactory configuration - already configured.");
+            return entityManagerFactory;
+        }
+        log.debug("Configuring entityManagerFactory");
+        entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
 
-		entityManagerFactory.setDataSource(dataSource());
+        entityManagerFactory.setDataSource(dataSource());
 
-		// Classpath scanning of @Component, @Service, etc annotated class
+        // Classpath scanning of @Component, @Service, etc annotated class
 		/*entityManagerFactory.setPackagesToScan(
 			env.getProperty("entitymanager.packagesToScan")); */
 
-		// Vendor adapter
-		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
+        // Vendor adapter
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
 
-		// Hibernate properties -- add explicit check for new property
-		if (env.getProperty("hibernate.cache.region.factory_class") == null) {
-			throw new IllegalArgumentException("Configuration file is missing required parameter -hibernate.cache.region.factory_class" );
-		}
-		Properties additionalProperties = new Properties();
-		additionalProperties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-		additionalProperties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-		additionalProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-		additionalProperties.put("hibernate.cache.region.factory_class", env.getProperty("hibernate.cache.region.factory_class"));
-		entityManagerFactory.setJpaProperties(additionalProperties);
-		log.debug("Completed entityManagerFactory configuration");
-		return entityManagerFactory;
-	}
+        // Hibernate properties -- add explicit check for new property
+        if (this.env.getProperty("spring.jpa.properties.hibernate.cache.region.factory_class") == null) {
+            throw new IllegalArgumentException("Configuration file is missing required parameter -hibernate.cache.region.factory_class");
+        }
+        Properties additionalProperties = new Properties();
+        additionalProperties.put("hibernate.dialect", this.env.getProperty("spring.jpa.hibernate.dialect"));
+        additionalProperties.put("hibernate.show_sql", this.env.getProperty("spring.jpa.show_sql"));
+        additionalProperties.put("hibernate.hbm2ddl.auto", this.env.getProperty("spring.jpa.hibernate.ddl-auto"));
+        additionalProperties.put("hibernate.cache.region.factory_class", this.env.getProperty("spring.jpa.properties.hibernate.cache.region.factory_class"));
+        entityManagerFactory.setJpaProperties(additionalProperties);
+        log.debug("Completed entityManagerFactory configuration");
+        return entityManagerFactory;
+    }
 
 	/**
 	 * Declare the transaction manager.

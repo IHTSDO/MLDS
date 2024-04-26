@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <property name="now" value="now()" dbms="mysql,h2"/>
     <property name="now" value="current_timestamp" dbms="postgresql"/>
 
     <!-- JHipster core -->
     <changeSet id="1-2" author="jhipster">
-    	<preConditions onFail="MARK_RAN">
-    		<not>
-	    		<tableExists tableName="T_USER"/>
-    		</not>
-    	</preConditions>
-    	<comment>Modified version -- don't create default users.</comment>
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_USER"/>
+            </not>
+        </preConditions>
+        <comment>Modified version -- don't create default users.</comment>
         <createTable tableName="T_USER">
-            <column name="login" type="varchar(50)">
+            <column name="login" type="varchar(100)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="password" type="varchar(100)"/>
@@ -57,13 +57,6 @@
             <column name="sequence_next_hi_value" type="integer"/>
         </createTable>
 
-        <createIndex indexName="idx_user_authority"
-                     tableName="T_USER_AUTHORITY"
-                     unique="true">
-            <column name="login" type="varchar(50)"/>
-            <column name="name" type="varchar(255)"/>
-        </createIndex>
-
         <addForeignKeyConstraint baseColumnNames="name"
                                  baseTableName="T_USER_AUTHORITY"
                                  constraintName="fk_authority_name"
@@ -81,12 +74,6 @@
                                  constraintName="fk_user_persistent_token"
                                  referencedColumnNames="login"
                                  referencedTableName="T_USER"/>
-
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/authorities.csv"
-                  separator=";"
-                  tableName="T_AUTHORITY"/>
-
     </changeSet>
 
     <!-- Manage the new Springboot actuator Audit event -->
@@ -130,22 +117,22 @@
                                  referencedColumnNames="event_id"
                                  referencedTableName="T_PERSISTENT_AUDIT_EVENT"/>
     </changeSet>
-    
+
 
     <!-- Manage the new registration facility -->
     <changeSet id="4-2" author="jhipster">
-    	<preConditions onFail="MARK_RAN">
-    		<not>
-    			<columnExists tableName="T_USER" columnName="activated"/>
-    		</not>
-    	</preConditions>
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="T_USER" columnName="activated"/>
+            </not>
+        </preConditions>
         <addColumn tableName="T_USER">
             <column name="activated" type="boolean" defaultValue="true">
                 <constraints nullable="false"/>
             </column>
             <column name="lang_key" type="varchar(5)"/>
             <column name="activation_key" type="varchar(20)"/>
-            <column name="created_by" type="varchar(50)" defaultValue="system">
+            <column name="created_by" type="varchar(100)" defaultValue="system">
                 <constraints nullable="false"/>
             </column>
             <column name="created_date" type="timestamp" defaultValueDate="${now}">
@@ -157,7 +144,7 @@
     </changeSet>
 
     <!-- Sample changeSet for creating a new Entity with the entity sub-generator -->
-    <!-- 
+    <!--
     <changeSet id="100" author="jhipster">
 	    <createTable tableName="T_FOO">
             <column name="id" type="varchar(255)">
@@ -168,37 +155,37 @@
         </createTable>
     </changeSet>
     -->
-   	<changeSet id="MLDS-23-1" author="MB/DGJ">
-		<validCheckSum>7:82bea33baf9145b4837cc2d7029f8da8</validCheckSum>
-   		<preConditions onFail="MARK_RAN">
-   			<not><tableExists tableName="country"/></not>
-   		</preConditions>
-		<comment>Downloaded from http://datahub.io/dataset/iso-3166-1-alpha-2-country-codes/resource/9c3b30dd-f5f3-4bbe-a3cb-d7b2c21d66ce.</comment>
-		<!-- removed unused columns, and deleted rows with duplicate iso_code_2 values (e.g. South Ossetia) -->
-		<createTable tableName="country">
-			<column name="iso_code_2" type="varchar(2)">
-				<constraints primaryKey="true" nullable="false" />
-			</column>
-			<column name="iso_code_3" type="varchar(3)" />
-			<column name="common_name" type="varchar(255)" />
-		</createTable>
-
-		<loadData encoding="UTF-8" file="config/liquibase/iso_3166_1_countries.csv" separator="," tableName="country"/>
-	</changeSet>
+    <changeSet id="MLDS-23-1" author="MB/DGJ">
+        <validCheckSum>7:82bea33baf9145b4837cc2d7029f8da8</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="country"/></not>
+        </preConditions>
+        <comment>Downloaded from http://datahub.io/dataset/iso-3166-1-alpha-2-country-codes/resource/9c3b30dd-f5f3-4bbe-a3cb-d7b2c21d66ce.</comment>
+        <!-- removed unused columns, and deleted rows with duplicate iso_code_2 values (e.g. South Ossetia) -->
+        <createTable tableName="country">
+            <column name="iso_code_2" type="varchar(2)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="iso_code_3" type="varchar(3)" />
+            <column name="common_name" type="varchar(255)" />
+        </createTable>
+        <loadData encoding="UTF-8" file="config/liquibase/iso_3166_1_countries.csv" separator="," tableName="country"/>
+    </changeSet>
 
     <changeSet author="MB/DGJ" id="MLDS-23-2">
-        <createTable  schemaName="public" tableName="commercial_usage">
+        <validCheckSum>7:cc67bc998038648d10405786c3bd9fda</validCheckSum>
+        <createTable tableName="commercial_usage">
             <column name="commercial_usage_id" type="INT8">
                 <constraints nullable="false"/>
             </column>
             <column name="created" type="timestamp"/>
             <column name="key" type="VARCHAR(255)"/>
         </createTable>
-        <addPrimaryKey columnNames="commercial_usage_id" constraintName="commercial_usage_PK" schemaName="public" tableName="commercial_usage"/>
-        
+        <addPrimaryKey columnNames="commercial_usage_id" constraintName="commercial_usage_PK" tableName="commercial_usage"/>
+
     </changeSet>
     <changeSet author="MB/DGL" id="MLDS-23-3" logicalFilePath="none">
-        <createTable   schemaName="public" tableName="commercial_usage_entry">
+        <createTable tableName="commercial_usage_entry">
             <column name="commercial_usage_entry_id" type="INT8">
                 <constraints nullable="false"/>
             </column>
@@ -213,11 +200,11 @@
             <column name="end_date" type="date"/>
             <column name="country_iso_code_2" type="VARCHAR(255)"/>
         </createTable>
-        <addPrimaryKey columnNames="commercial_usage_entry_id" constraintName="commercial_usage_entry_PK" schemaName="public" tableName="commercial_usage_entry"/>
+        <addPrimaryKey columnNames="commercial_usage_entry_id" constraintName="commercial_usage_entry_PK" tableName="commercial_usage_entry"/>
     </changeSet>
-    
+
     <changeSet author="MB/DGL" id="MLDS-23-4">
-        <createTable   schemaName="public" tableName="commercial_usage_commercial_usage_entry">
+        <createTable tableName="commercial_usage_commercial_usage_entry">
             <column name="commercial_usage_id" type="INT8">
                 <constraints nullable="false"/>
             </column>
@@ -227,203 +214,203 @@
         </createTable>
         <addPrimaryKey columnNames="commercial_usage_id, commercial_usage_entry_id" constraintName="commercial_usage_commercial_usage_entry_PK" tableName="commercial_usage_commercial_usage_entry"/>
     </changeSet>
-    
+
     <changeSet author="MB/DGL" id="MLDS-23-5" logicalFilePath="none">
-        <addForeignKeyConstraint baseColumnNames="commercial_usage_id" baseTableName="commercial_usage_commercial_usage_entry" baseTableSchemaName="public" constraintName="FK_1xn3ghkhcaywjhij48jdypi5p" deferrable="false" initiallyDeferred="false" referencedColumnNames="commercial_usage_id" referencedTableName="commercial_usage" referencedTableSchemaName="public"/>
-        <addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="commercial_usage_entry" baseTableSchemaName="public" constraintName="FK_commercial_usage_entry_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
-        <addForeignKeyConstraint baseColumnNames="commercial_usage_entry_id" baseTableName="commercial_usage_commercial_usage_entry" baseTableSchemaName="public" constraintName="FK_og8u9xh3tsghu0metiigxaa6d" deferrable="false" initiallyDeferred="false" referencedColumnNames="commercial_usage_entry_id" referencedTableName="commercial_usage_entry" referencedTableSchemaName="public"/>
-    </changeSet>    
+        <addForeignKeyConstraint baseColumnNames="commercial_usage_id" baseTableName="commercial_usage_commercial_usage_entry" constraintName="FK_1xn3ghkhcaywjhij48jdypi5p" deferrable="false" initiallyDeferred="false" referencedColumnNames="commercial_usage_id" referencedTableName="commercial_usage"/>
+        <addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="commercial_usage_entry" constraintName="FK_commercial_usage_entry_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country"/>
+        <addForeignKeyConstraint baseColumnNames="commercial_usage_entry_id" baseTableName="commercial_usage_commercial_usage_entry" constraintName="FK_og8u9xh3tsghu0metiigxaa6d" deferrable="false" initiallyDeferred="false" referencedColumnNames="commercial_usage_entry_id" referencedTableName="commercial_usage_entry"/>
+    </changeSet>
 
     <changeSet author="MB/DGL" id="MLDS-23-6" logicalFilePath="none">
-    	<comment>Add date range to usage report</comment>
-    	<addColumn tableName="commercial_usage">
-    		<column name="start_date" type="DATE"/>
-    	</addColumn>
-    	<addColumn tableName="commercial_usage">
-    		<column name="end_date" type="DATE"/>
-    	</addColumn>
+        <comment>Add date range to usage report</comment>
+        <addColumn tableName="commercial_usage">
+            <column name="start_date" type="DATE"/>
+        </addColumn>
+        <addColumn tableName="commercial_usage">
+            <column name="end_date" type="DATE"/>
+        </addColumn>
     </changeSet>
-    
+
     <changeSet id="MB" author="MLDS-23-7">
-    	<comment>Change entry mapping</comment>
-    	<dropTable tableName="commercial_usage_commercial_usage_entry"/>
-    	<dropColumn tableName="commercial_usage_entry" columnName="public_id"/>
-    	<addColumn tableName="commercial_usage_entry">
-    		<column name="commercial_usage_id" type="bigint">
-    			<constraints foreignKeyName="FK_commercial_usage_entry_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
-    		</column>
-   		</addColumn>
+        <comment>Change entry mapping</comment>
+        <dropTable tableName="commercial_usage_commercial_usage_entry"/>
+        <dropColumn tableName="commercial_usage_entry" columnName="public_id"/>
+        <addColumn tableName="commercial_usage_entry">
+            <column name="commercial_usage_id" type="bigint">
+                <constraints foreignKeyName="FK_commercial_usage_entry_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
+            </column>
+        </addColumn>
     </changeSet>
-    
+
     <changeSet id="MB" author="MLDS-23-8">
-    	<comment>Delete obsolete jhipster table</comment>
-    	<dropTable tableName="hibernate_sequences"/>
+        <comment>Delete obsolete jhipster table</comment>
+        <dropTable tableName="hibernate_sequences"/>
     </changeSet>
-    
+
     <changeSet id="MB" author="MLDS-23-9">
-    	<comment>Add type to usage entry</comment>
-    	<addColumn tableName="commercial_usage_entry">
-    		<column name="type" type="VARCHAR(255)"/>
-   		</addColumn>
+        <comment>Add type to usage entry</comment>
+        <addColumn tableName="commercial_usage_entry">
+            <column name="type" type="VARCHAR(255)"/>
+        </addColumn>
     </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-10">
-    	<comment>Add note to usage entry</comment>
-    	<addColumn tableName="commercial_usage_entry">
-    		<column name="note" type="TEXT"/>
-   		</addColumn>
+        <comment>Add note to usage entry</comment>
+        <addColumn tableName="commercial_usage_entry">
+            <column name="note" type="TEXT"/>
+        </addColumn>
     </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-11">
-    	<comment>Add note to commercial usage</comment>
-    	<addColumn tableName="commercial_usage">
-    		<column name="note" type="TEXT"/>
-   		</addColumn>
+        <comment>Add note to commercial usage</comment>
+        <addColumn tableName="commercial_usage">
+            <column name="note" type="TEXT"/>
+        </addColumn>
     </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-12">
-    	<comment>Add approval state to commercial usage</comment>
-    	<addColumn tableName="commercial_usage">
-    		<column name="approval_state" type="VARCHAR(255)" defaultValue="NOT_SUBMITTED"/>
-			<column name="submitted" type="timestamp"/>
-   		</addColumn>
+        <comment>Add approval state to commercial usage</comment>
+        <addColumn tableName="commercial_usage">
+            <column name="approval_state" type="VARCHAR(255)" defaultValue="NOT_SUBMITTED"/>
+            <column name="submitted" type="timestamp"/>
+        </addColumn>
     </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-13">
-    	<comment>Introduce Affiliate as owner of commercialUsageReports</comment>
-        <createTable schemaName="public" tableName="licensee">
+        <comment>Introduce Affiliate as owner of commercialUsageReports</comment>
+        <createTable tableName="licensee">
             <column name="licensee_id" type="INT8">
                 <constraints nullable="false"/>
             </column>
             <column name="created" type="timestamp"/>
         </createTable>
-        <addPrimaryKey columnNames="licensee_id" constraintName="licensee_PK" schemaName="public" tableName="licensee"/>
+        <addPrimaryKey columnNames="licensee_id" constraintName="licensee_PK" tableName="licensee"/>
 
-    	<addColumn tableName="commercial_usage">
-    		<column name="licensee_id" type="INT8">
-    		</column>
-    	</addColumn>
-        <addForeignKeyConstraint baseColumnNames="licensee_id" baseTableName="commercial_usage" baseTableSchemaName="public" constraintName="FK_commercial_usage_licensee" deferrable="false" initiallyDeferred="false" referencedColumnNames="licensee_id" referencedTableName="licensee" referencedTableSchemaName="public"/>
-	</changeSet>
-	
-   <changeSet id="DGJ" author="MLDS-23-14">
-    	<comment>Add basic link from licensee to creator</comment>
-    	<addColumn tableName="licensee">
-    		<column name="creator" type="VARCHAR(255)">
-    			<constraints nullable="false"/>
-    		</column>
-   		</addColumn>
+        <addColumn tableName="commercial_usage">
+            <column name="licensee_id" type="INT8">
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="licensee_id" baseTableName="commercial_usage" constraintName="FK_commercial_usage_licensee" deferrable="false" initiallyDeferred="false" referencedColumnNames="licensee_id" referencedTableName="licensee"/>
+    </changeSet>
+
+    <changeSet id="DGJ" author="MLDS-23-14">
+        <comment>Add basic link from licensee to creator</comment>
+        <addColumn tableName="licensee">
+            <column name="creator" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-15">
-    	<comment>Add basic link from licensee to current application</comment>
-    	<addColumn tableName="licensee">
-    		<column name="application_id" type="INT8">
-    		</column>
-    	</addColumn>
-        <addForeignKeyConstraint baseColumnNames="application_id" baseTableName="licensee" baseTableSchemaName="public" constraintName="FK_licensee_application" deferrable="false" initiallyDeferred="false" referencedColumnNames="application_id" referencedTableName="application" referencedTableSchemaName="public"/>
-	</changeSet>
+        <comment>Add basic link from licensee to current application</comment>
+        <addColumn tableName="licensee">
+            <column name="application_id" type="INT8">
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="application_id" baseTableName="licensee" constraintName="FK_licensee_application" deferrable="false" initiallyDeferred="false" referencedColumnNames="application_id" referencedTableName="application"/>
+    </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-16">
-    	<comment>Add Country Counts for Commercial Usage Report</comment>
-    	<createTable schemaName="public" tableName="commercial_usage_count">
+        <comment>Add Country Counts for Commercial Usage Report</comment>
+        <createTable tableName="commercial_usage_count">
             <column name="commercial_usage_count_id" type="INT8">
                 <constraints nullable="false"/>
             </column>
-    		<column name="commercial_usage_id" type="bigint">
-    			<constraints foreignKeyName="FK_commercial_usage_count_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
-    		</column>
+            <column name="commercial_usage_id" type="bigint">
+                <constraints foreignKeyName="FK_commercial_usage_count_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
+            </column>
             <column name="created" type="timestamp"/>
             <column name="practices" type="integer" defaultValue="0"/>
         </createTable>
-        <addPrimaryKey columnNames="commercial_usage_count_id" constraintName="commercial_usage_count_PK" schemaName="public" tableName="commercial_usage_count"/>
-	</changeSet>
+        <addPrimaryKey columnNames="commercial_usage_count_id" constraintName="commercial_usage_count_PK" tableName="commercial_usage_count"/>
+    </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-17">
-    	<comment>Add Country Counts should be related to the country list</comment>
-    	<addColumn tableName="commercial_usage_count">
-    		<column name="country_iso_code_2" type="VARCHAR(255)"/>
-    	</addColumn>
-        <addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="commercial_usage_count" baseTableSchemaName="public" constraintName="FK_commercial_usage_count_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
-	</changeSet>
+        <comment>Add Country Counts should be related to the country list</comment>
+        <addColumn tableName="commercial_usage_count">
+            <column name="country_iso_code_2" type="VARCHAR(255)"/>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="commercial_usage_count" constraintName="FK_commercial_usage_count_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country"/>
+    </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-18">
-    	<comment>Practices are now just counts rather than type of commercial usage entry</comment>
-		<dropColumn tableName="commercial_usage_entry" columnName="type"/>
-	</changeSet>
+        <comment>Practices are now just counts rather than type of commercial usage entry</comment>
+        <dropColumn tableName="commercial_usage_entry" columnName="type"/>
+    </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-19">
-    	<comment>Mark type of licensee</comment>
-    	<addColumn tableName="licensee">
-    		<column name="type" type="VARCHAR(255)"/>
-   		</addColumn>
-   		<update tableName="licensee">
-   			<column name="type" value="COMMERCIAL"/>
-   		</update>
-	</changeSet>
+        <comment>Mark type of licensee</comment>
+        <addColumn tableName="licensee">
+            <column name="type" type="VARCHAR(255)"/>
+        </addColumn>
+        <update tableName="licensee">
+            <column name="type" value="COMMERCIAL"/>
+        </update>
+    </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-20">
-    	<comment>Generalize usage with context fields</comment>
-    	<addColumn tableName="commercial_usage">
-    		<column name="current_usage" type="TEXT"/>
-    		<column name="future_usage" type="TEXT"/>
-    		<column name="purpose" type="TEXT"/>
-    		<column name="agreement_type" type="VARCHAR(255)"/>
-   		</addColumn>
-	</changeSet>
-	
+        <comment>Generalize usage with context fields</comment>
+        <addColumn tableName="commercial_usage">
+            <column name="current_usage" type="TEXT"/>
+            <column name="future_usage" type="TEXT"/>
+            <column name="purpose" type="TEXT"/>
+            <column name="agreement_type" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="DGJ" author="MLDS-23-21">
-    	<comment>Generalize usage with context fields</comment>
-    	<renameColumn tableName="commercial_usage" oldColumnName="future_usage" newColumnName="planned_usage"/>
-	</changeSet>
+        <comment>Generalize usage with context fields</comment>
+        <renameColumn tableName="commercial_usage" oldColumnName="future_usage" newColumnName="planned_usage" columnDataType="TEXT"/>
+    </changeSet>
 
     <changeSet id="DGJ" author="MLDS-23-22">
-    	<comment>Include licensee type on usage report</comment>
-    	<addColumn tableName="commercial_usage">
-    		<column name="type" type="VARCHAR(255)"/>
-    	</addColumn>
-   		<update tableName="commercial_usage">
-   			<column name="type" value="COMMERCIAL"/>
-   		</update>
-	</changeSet>
-	
-    <changeSet id="MLDS-20-1" author="MB">
-    	<comment>Storage for password reset tokens</comment>
-    	<createTable tableName="password_reset_token">
-    		<column name="password_reset_token_id" type="VARCHAR(255)">
-    			<constraints primaryKey="true" primaryKeyName="password_reset_tokenPK"/>
-    		</column>
-    		<column name="user_login" type="VARCHAR(255)"/>
-            <column name="created" type="timestamp"/>
-    	</createTable>
-	</changeSet>
+        <comment>Include licensee type on usage report</comment>
+        <addColumn tableName="commercial_usage">
+            <column name="type" type="VARCHAR(255)"/>
+        </addColumn>
+        <update tableName="commercial_usage">
+            <column name="type" value="COMMERCIAL"/>
+        </update>
+    </changeSet>
 
-	<changeSet id="MLDS-234-1" author="MB">
-		<comment>Add flags to Country to identify Members that aren't signed up to use MLDS</comment>
-		<addColumn tableName="country">
-			<column name="exclude_registration" type="BOOLEAN" defaultValueBoolean="false">
-				<constraints nullable="false"/>
-			</column>
-			<column name="alternate_registration_url" type="VARCHAR(255)"/>
-		</addColumn>
-	</changeSet>
-	<changeSet id="MLDS-234-2" author="MB">
-		<comment>Put US and UK entries in for alternative registration locations</comment>
-		<sql>
-			UPDATE country 
-			SET exclude_registration=true, alternate_registration_url='http://www.nlm.nih.gov/'
-			WHERE iso_code_2='US';
-		</sql>
-		<sql>
-			UPDATE country 
-			SET exclude_registration=true, alternate_registration_url='http://systems.hscic.gov.uk/data/uktc'
-			WHERE iso_code_2='GB';
-		</sql>
-	</changeSet>
-	
+    <changeSet id="MLDS-20-1" author="MB">
+        <comment>Storage for password reset tokens</comment>
+        <createTable tableName="password_reset_token">
+            <column name="password_reset_token_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="password_reset_tokenPK"/>
+            </column>
+            <column name="user_login" type="VARCHAR(255)"/>
+            <column name="created" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="MLDS-234-1" author="MB">
+        <comment>Add flags to Country to identify Members that aren't signed up to use MLDS</comment>
+        <addColumn tableName="country">
+            <column name="exclude_registration" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="alternate_registration_url" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="MLDS-234-2" author="MB">
+        <comment>Put US and UK entries in for alternative registration locations</comment>
+        <sql>
+            UPDATE country
+            SET exclude_registration=true, alternate_registration_url='http://www.nlm.nih.gov/'
+            WHERE iso_code_2='US';
+        </sql>
+        <sql>
+            UPDATE country
+            SET exclude_registration=true, alternate_registration_url='http://systems.hscic.gov.uk/data/uktc'
+            WHERE iso_code_2='GB';
+        </sql>
+    </changeSet>
+
     <changeSet id="MLDS-256-1" author="DGJ">
-    	<comment>Add Package</comment>
-    	<createTable schemaName="public" tableName="package">
+        <comment>Add Package</comment>
+        <createTable tableName="package">
             <column name="package_id" type="INT8">
                 <constraints nullable="false"/>
             </column>
@@ -432,24 +419,24 @@
             <column name="name" type="VARCHAR(255)"/>
             <column name="description" type="TEXT"/>
         </createTable>
-        <addPrimaryKey columnNames="package_id" constraintName="package_PK" schemaName="public" tableName="package"/>
-        <addForeignKeyConstraint baseColumnNames="created_by" baseTableName="package" baseTableSchemaName="public" constraintName="FK_package_t_user" deferrable="false" initiallyDeferred="false" referencedColumnNames="login" referencedTableName="t_user" referencedTableSchemaName="public"/>
-	</changeSet>
+        <addPrimaryKey columnNames="package_id" constraintName="package_PK" tableName="package"/>
+        <addForeignKeyConstraint baseColumnNames="created_by" baseTableName="package" constraintName="FK_package_t_user" deferrable="false" initiallyDeferred="false" referencedColumnNames="login" referencedTableName="t_user"/>
+    </changeSet>
 
     <changeSet id="MLDS-256-2" author="DGJ">
-    	<comment>Rename Package to ReleasePackage</comment>
-    	<renameTable schemaName="public" oldTableName="package" newTableName="release_package"/>
-    	<renameColumn schemaName="public" tableName="release_package" oldColumnName="package_id" newColumnName="release_package_id"/>
-	</changeSet>
+        <comment>Rename Package to ReleasePackage</comment>
+        <renameTable oldTableName="package" newTableName="release_package"/>
+        <renameColumn tableName="release_package" oldColumnName="package_id" newColumnName="release_package_id" columnDataType="INT8"/>
+    </changeSet>
 
     <changeSet id="MLDS-256-3" author="DGJ">
-    	<comment>Add ReleaseVersion as child of ReleasePackage</comment>
-    	<createTable schemaName="public" tableName="release_version">
+        <comment>Add ReleaseVersion as child of ReleasePackage</comment>
+        <createTable tableName="release_version">
             <column name="release_version_id" type="INT8">
                 <constraints nullable="false"/>
             </column>
             <column name="release_package_id" type="INT8">
-       			<constraints foreignKeyName="FK_release_version_release_package" references="release_package(release_package_id)"/>
+                <constraints foreignKeyName="FK_release_version_release_package" references="release_package(release_package_id)"/>
             </column>
             <column name="created_by" type="VARCHAR(255)"/>
             <column name="created_at" type="timestamp"/>
@@ -457,1113 +444,840 @@
             <column name="description" type="TEXT"/>
             <column name="published_at" type="timestamp"/>
         </createTable>
-        <addPrimaryKey columnNames="release_version_id" constraintName="release_version_PK" schemaName="public" tableName="release_version"/>
-        <addForeignKeyConstraint baseColumnNames="created_by" baseTableName="release_version" baseTableSchemaName="public" constraintName="FK_release_version_t_user" deferrable="false" initiallyDeferred="false" referencedColumnNames="login" referencedTableName="t_user" referencedTableSchemaName="public"/>
-	</changeSet>
+        <addPrimaryKey columnNames="release_version_id" constraintName="release_version_PK" tableName="release_version"/>
+        <addForeignKeyConstraint baseColumnNames="created_by" baseTableName="release_version" constraintName="FK_release_version_t_user" deferrable="false" initiallyDeferred="false" referencedColumnNames="login" referencedTableName="t_user"/>
+    </changeSet>
 
     <changeSet id="MLDS-256-4" author="DGJ">
-    	<comment>Add ReleaseFile as child of ReleaseVersion</comment>
-    	<createTable schemaName="public" tableName="release_file">
+        <comment>Add ReleaseFile as child of ReleaseVersion</comment>
+        <createTable tableName="release_file">
             <column name="release_file_id" type="INT8">
                 <constraints nullable="false"/>
             </column>
             <column name="release_version_id" type="INT8">
-       			<constraints foreignKeyName="FK_release_file_release_version" references="release_version(release_version_id)"/>
+                <constraints foreignKeyName="FK_release_file_release_version" references="release_version(release_version_id)"/>
             </column>
             <column name="created_at" type="timestamp"/>
             <column name="label" type="VARCHAR(255)"/>
             <column name="download_url" type="TEXT"/>
         </createTable>
-        <addPrimaryKey columnNames="release_file_id" constraintName="release_file_PK" schemaName="public" tableName="release_file"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-256-5" author="MB">
-		<comment>Fix JH type definition of timestamp column</comment>
-		<modifyDataType tableName="t_persistent_audit_event" columnName="event_date" newDataType="timestamp"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-256-6" author="MB">
-		<comment>Add online flag to ReleaseVersion</comment>
-		<addColumn tableName="release_version">
-			<column name="online" type="BOOLEAN" defaultValueBoolean="false">
-				<constraints nullable="false"/>
-			</column>
-		</addColumn>
-	</changeSet>
+        <addPrimaryKey columnNames="release_file_id" constraintName="release_file_PK" tableName="release_file"/>
+    </changeSet>
 
-	<changeSet id="MLDS-256-7" author="DGJ">
-		<comment>Add inactive_at flag/timestamp to release</comment>
-		<addColumn tableName="release_version">
-			<column name="inactive_at" type="timestamp"/>
-		</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-256-5" author="MB">
+        <comment>Fix JH type definition of timestamp column</comment>
+        <modifyDataType tableName="t_persistent_audit_event" columnName="event_date" newDataType="timestamp"/>
+    </changeSet>
 
-	<changeSet id="MLDS-256-8" author="DGJ">
-		<comment>Add inactive_at flag/timestamp to release</comment>
-		<addColumn tableName="release_package">
-			<column name="inactive_at" type="timestamp"/>
-		</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-256-6" author="MB">
+        <comment>Add online flag to ReleaseVersion</comment>
+        <addColumn tableName="release_version">
+            <column name="online" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
-	<changeSet id="MLDS-274-1" author="DGJ">
-		<comment>Add mgmt fields to application to support pending applications</comment>
-		<addColumn tableName="application">
-			<column name="submitted_at" type="timestamp"/>
-			<column name="notes_internal" type="TEXT"/>
-		</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-256-7" author="DGJ">
+        <comment>Add inactive_at flag/timestamp to release</comment>
+        <addColumn tableName="release_version">
+            <column name="inactive_at" type="timestamp"/>
+        </addColumn>
+    </changeSet>
 
-	<changeSet id="MLDS-274-2" author="DGJ">
-		<comment>Migrate to application approval state</comment>
-		<addColumn tableName="application">
-			<column name="completed_at" type="timestamp"/>
-			<column name="approval_state" type="VARCHAR(255)" defaultValue="NOT_SUBMITTED"/>
-		</addColumn>
-		<sql>
-			UPDATE application 
-			SET approval_state='NOT_SUBMITTED',submitted_at=now()
-			WHERE is_submitted=FALSE;
-		</sql>
-		<sql>
-			UPDATE application 
-			SET approval_state='SUBMITTED',submitted_at=now()
-			WHERE is_submitted=TRUE;
-		</sql>
-		<sql>
-			UPDATE application 
-			SET approval_state='APPROVED',completed_at=now()
-			WHERE approved=TRUE;
-		</sql>
-		<dropColumn tableName="application" columnName="is_submitted"/>
-		<dropColumn tableName="application" columnName="approved"/>
-	</changeSet>
+    <changeSet id="MLDS-256-8" author="DGJ">
+        <comment>Add inactive_at flag/timestamp to release</comment>
+        <addColumn tableName="release_package">
+            <column name="inactive_at" type="timestamp"/>
+        </addColumn>
+    </changeSet>
 
-	<changeSet id="MLDS-274-3" author="DGJ">
-		<comment>Associate application with the usage at time of submission</comment>
-		<addColumn tableName="application">
-    		<column name="commercial_usage_id" type="bigint">
-    			<constraints foreignKeyName="FK_application_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
-    		</column>
-		</addColumn>
-	</changeSet>
-	
-	<changeSet id="MLDS-304-1" author="DGJ">
-		<comment>Add implementation status</comment>
-		<addColumn tableName="commercial_usage">
-    		<column name="implementation_status" type="VARCHAR(255)"/>
-		</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-274-1" author="DGJ">
+        <comment>Add mgmt fields to application to support pending applications</comment>
+        <addColumn tableName="application">
+            <column name="submitted_at" type="timestamp"/>
+            <column name="notes_internal" type="TEXT"/>
+        </addColumn>
+    </changeSet>
 
-	<changeSet id="MLDS-274-4" author="DGJ">
-		<comment>Stricter application approval state</comment>
-		<addNotNullConstraint 
+    <changeSet id="MLDS-274-2" author="DGJ">
+        <comment>Migrate to application approval state</comment>
+        <addColumn tableName="application">
+            <column name="completed_at" type="timestamp"/>
+            <column name="approval_state" type="VARCHAR(255)" defaultValue="NOT_SUBMITTED"/>
+        </addColumn>
+        <sql>
+            UPDATE application
+            SET approval_state='NOT_SUBMITTED',submitted_at=now()
+            WHERE is_submitted=FALSE;
+        </sql>
+        <sql>
+            UPDATE application
+            SET approval_state='SUBMITTED',submitted_at=now()
+            WHERE is_submitted=TRUE;
+        </sql>
+        <sql>
+            UPDATE application
+            SET approval_state='APPROVED',completed_at=now()
+            WHERE approved=TRUE;
+        </sql>
+        <dropColumn tableName="application" columnName="is_submitted"/>
+        <dropColumn tableName="application" columnName="approved"/>
+    </changeSet>
+
+    <changeSet id="MLDS-274-3" author="DGJ">
+        <comment>Associate application with the usage at time of submission</comment>
+        <addColumn tableName="application">
+            <column name="commercial_usage_id" type="bigint">
+                <constraints foreignKeyName="FK_application_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-304-1" author="DGJ">
+        <comment>Add implementation status</comment>
+        <addColumn tableName="commercial_usage">
+            <column name="implementation_status" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-274-4" author="DGJ">
+        <comment>Stricter application approval state</comment>
+        <addNotNullConstraint
             columnDataType="VARCHAR(255)"
             columnName="approval_state"
             defaultNullValue="NOT_SUBMITTED"
-            schemaName="public"
             tableName="application"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-259-1" author="AC">
-		<comment>Renaming Licensee table to Affiliate</comment>
-		<renameTable newTableName="affiliate"
-           oldTableName="licensee"
-           schemaName="public"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-259-2" author="AC">
-		<comment>Renaming Licensee columns to Affiliate</comment>
-		<renameColumn             
+    </changeSet>
+
+    <changeSet id="MLDS-259-1" author="AC">
+        <comment>Renaming Licensee table to Affiliate</comment>
+        <renameTable newTableName="affiliate"
+                     oldTableName="licensee"/>
+    </changeSet>
+
+    <changeSet id="MLDS-259-2" author="AC">
+        <comment>Renaming Licensee columns to Affiliate</comment>
+        <renameColumn
             newColumnName="affiliate_id"
             oldColumnName="licensee_id"
+            columnDataType="BIGINT"
             remarks="A String"
-            schemaName="public"
             tableName="affiliate"/>
-    <renameColumn             
+        <renameColumn
             newColumnName="affiliate_id"
             oldColumnName="licensee_id"
+            columnDataType="BIGINT"
             remarks="A String"
-            schemaName="public"
             tableName="commercial_usage"/>
-	</changeSet>
+    </changeSet>
 
-	<changeSet id="MLDS-259-3" author="DGJ">
-		<comment>Add entity references audit log</comment>
-		<addColumn tableName="t_persistent_audit_event">
-    		<column name="application_id" type="bigint">
-    			<constraints foreignKeyName="FK_t_persistent_audit_event_application" references="application(application_id)"/>
-    		</column>
-		</addColumn>
-		<addColumn tableName="t_persistent_audit_event">
-    		<column name="affiliate_id" type="bigint">
-    			<constraints foreignKeyName="FK_t_persistent_audit_event_affiliate" references="affiliate(affiliate_id)"/>
-    		</column>
-		</addColumn>
-		<addColumn tableName="t_persistent_audit_event">
-    		<column name="release_package_id" type="bigint">
-    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_package" references="release_package(release_package_id)"/>
-    		</column>
-		</addColumn>
-		<addColumn tableName="t_persistent_audit_event">
-    		<column name="release_version_id" type="bigint">
-    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_version" references="release_version(release_version_id)"/>
-    		</column>
-		</addColumn>
-		<addColumn tableName="t_persistent_audit_event">
-    		<column name="release_file_id" type="bigint">
-    			<constraints foreignKeyName="FK_t_persistent_audit_event_release_file" references="release_file(release_file_id)"/>
-    		</column>
-		</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-259-3" author="DGJ">
+        <comment>Add entity references audit log</comment>
+        <addColumn tableName="t_persistent_audit_event">
+            <column name="application_id" type="bigint">
+                <constraints foreignKeyName="FK_t_persistent_audit_event_application" references="application(application_id)"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="t_persistent_audit_event">
+            <column name="affiliate_id" type="bigint">
+                <constraints foreignKeyName="FK_t_persistent_audit_event_affiliate" references="affiliate(affiliate_id)"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="t_persistent_audit_event">
+            <column name="release_package_id" type="bigint">
+                <constraints foreignKeyName="FK_t_persistent_audit_event_release_package" references="release_package(release_package_id)"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="t_persistent_audit_event">
+            <column name="release_version_id" type="bigint">
+                <constraints foreignKeyName="FK_t_persistent_audit_event_release_version" references="release_version(release_version_id)"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="t_persistent_audit_event">
+            <column name="release_file_id" type="bigint">
+                <constraints foreignKeyName="FK_t_persistent_audit_event_release_file" references="release_file(release_file_id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
-	<changeSet id="MLDS-259-4" author="DGJ">
-		<comment>Remove entity foreign key constraints from audit log</comment>
-		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_application"/>
-		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_affiliate"/>
-		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_package"/>
-		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_version"/>
-		<dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_file"/>
-	</changeSet>
+    <changeSet id="MLDS-259-4" author="DGJ">
+        <comment>Remove entity foreign key constraints from audit log</comment>
+        <dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_application"/>
+        <dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_affiliate"/>
+        <dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_package"/>
+        <dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_version"/>
+        <dropForeignKeyConstraint baseTableName="t_persistent_audit_event" constraintName="FK_t_persistent_audit_event_release_file"/>
+    </changeSet>
 
     <changeSet id="MLDS-372-1" author="DGJ">
-    	<comment>Add Member</comment>
-    	<createTable schemaName="public" tableName="member">
+        <comment>Add Member</comment>
+        <createTable tableName="member">
             <column name="member_id" type="INT8">
                 <constraints nullable="false"/>
             </column>
             <column name="key" type="VARCHAR(255)">
-				<constraints nullable="false"/>
+                <constraints nullable="false"/>
             </column>
             <column name="created_at" type="timestamp"/>
         </createTable>
-        <addPrimaryKey columnNames="member_id" constraintName="member_PK" schemaName="public" tableName="member"/>
-        <addUniqueConstraint schemaName="public" tableName="member" columnNames="key" constraintName="member_name_unique"/>
-	</changeSet>
+        <addPrimaryKey columnNames="member_id" constraintName="member_PK" tableName="member"/>
+        <addUniqueConstraint tableName="member" columnNames="key" constraintName="member_name_unique"/>
+    </changeSet>
 
     <changeSet id="MLDS-372-2" author="DGJ">
-    	<comment>Load Member users</comment>
-    	<sql>
-			INSERT INTO member (member_id, key, created_at)
-			VALUES (nextval('hibernate_sequence'), 'IHTSDO', now()); 
-		</sql>
-    	<sql>
-			INSERT INTO member (member_id, key, created_at)
-			VALUES (nextval('hibernate_sequence'), 'SE', now()); 
-		</sql>
+        <comment>Load Member users</comment>
     </changeSet>
     <changeSet id="MLDS-372-3" author="MB">
-    	<comment>Create login users for the IHTSDO and demo SWEDEN members</comment>
-		<sql>INSERT INTO t_authority (name) values ('ROLE_STAFF'), ('ROLE_STAFF_SE'), ('ROLE_STAFF_IHTSDO')</sql>
-    	<sql>
-			INSERT INTO t_user (login, password, created_date)
-			VALUES ('staff', 'edca6651ee089a1e0b9320988f72e62dc5339f90dcc6dbbfd82a3127d2727610b52d2b0743d9b7ff', now()),
-			('sweden', 'e6b4dc6acaa889021ab202e417245c0880c66b254ad5758a298d310d15d38f1385bc0d82fc6f5e62', now()); 
-		</sql>
-		<sql>
-			INSERT INTO t_user_authority (login, name)
-			VALUES 
-				('staff', 'ROLE_STAFF'),
-				('staff', 'ROLE_STAFF_IHTSDO'),
-				('sweden', 'ROLE_STAFF'),
-				('sweden', 'ROLE_STAFF_SE')
-		</sql>
+        <validCheckSum>7:d41d8cd98f00b204e9800998ecf8427e</validCheckSum>
+        <comment>Create login users for the IHTSDO and demo SWEDEN members</comment>
     </changeSet>
-	
-	
-	<changeSet id="MLDS-259-3" author="AC">
-		<comment>Extract details object from Application and share with Affiliate</comment>
-		<createTable tableName="affiliate_details">
-			<column name="affiliate_details_id" type="INT8">
-				<constraints nullable="false"/>
-			</column>
-			<column name="first_name" type="varchar(50)"/>
-      <column name="last_name" type="varchar(50)"/>
-      <column name="email" type="varchar(100)"/>
-      <column name="alternate_email" type="varchar(100)"/>
-      <column name="third_email" type="varchar(100)"/>
-	  </createTable>
-    <addPrimaryKey columnNames="affiliate_details_id" constraintName="affiliate_details_PK" schemaName="public" tableName="affiliate_details"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-259-4" author="AC">
-		<comment>Extract details object from Application and share with Affiliate</comment>
-		<createTable tableName="mailing_address">
-	    <column name="address_id" type="INT8">
-				<constraints nullable="false"/>
-			</column>
-			<column name="street" type="varchar(50)"/>
-      <column name="city" type="varchar(50)"/>
-    	<column name="country_iso_code_2" type="VARCHAR(255)"/>
-      <column name="post" type="varchar(100)"/>
-    </createTable>
-    <addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="mailing_address" baseTableSchemaName="public" constraintName="FK_mailing_address_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-259-5" author="AC">
-		<comment>removing table address table</comment>
-		<dropTable tableName="mailing_address"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-259-6" author="AC">
-		<comment>removing table address table</comment>
-		<addColumn tableName="affiliate_details">
-			<column name="street" type="varchar(50)"></column>
-		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="city" type="varchar(50)"></column>
-		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="post" type="varchar(50)"></column>
-		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="billing_street" type="varchar(50)"></column>
-		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="billing_city" type="varchar(50)"></column>
-		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="billing_post" type="varchar(50)"></column>
-		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="country_iso_code_2" type="VARCHAR(255)"/>
-		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="billing_country_iso_code_2" type="VARCHAR(255)"/>
-		</addColumn>
-	</changeSet>
-	
-	<changeSet id="MLDS-259-7" author="AC">
-		<comment>adding in affiliate_details_id column</comment>
-		<addColumn tableName="affiliate">
-			<column name="affiliate_details_id" type="INT8"></column>
-		</addColumn>
-		<addForeignKeyConstraint baseColumnNames="affiliate_details_id" baseTableName="affiliate" baseTableSchemaName="public" constraintName="FK_affiliate_affiliate_details" deferrable="false" initiallyDeferred="false" referencedColumnNames="affiliate_details_id" referencedTableName="affiliate_details" referencedTableSchemaName="public"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-259-8" author="AC">
-		<comment>adding foreign keys to countries in addresses</comment>
-		<addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="affiliate_details" baseTableSchemaName="public" constraintName="FK_affiliate_details_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
-		<addForeignKeyConstraint baseColumnNames="billing_country_iso_code_2" baseTableName="affiliate_details" baseTableSchemaName="public" constraintName="FK_affiliate_details_billing_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country" referencedTableSchemaName="public"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-259-9" author="AC">
-		<comment>adding missed column and updating affiliate address column types</comment>
-		<addColumn tableName="affiliate">
-			<column name="organization_name" type="VARCHAR(255)"></column>
-		</addColumn>
-		<modifyDataType tableName="affiliate_details" columnName="street" newDataType="VARCHAR(255)"/>
-		<modifyDataType tableName="affiliate_details" columnName="city" newDataType="VARCHAR(255)"/>
-		<modifyDataType tableName="affiliate_details" columnName="billing_street" newDataType="VARCHAR(255)"/>
-		<modifyDataType tableName="affiliate_details" columnName="billing_city" newDataType="VARCHAR(255)"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-259-10" author="AC">
-		<comment>dropping affiliate organization column and adding it to affiliate details</comment>
-		<dropColumn tableName="affiliate" columnName="organization_name"/>
-		<addColumn tableName="affiliate_details">
-			<column name="organization_name" type="VARCHAR(255)"></column>
-		</addColumn>
-	</changeSet>
-	
-	<changeSet id="MLDS-372-4" author="MB">
-		<comment>Add member to ReleasePackage</comment>
-		<addColumn tableName="release_package">
-			<column name="member_id" type="INT8">
-				<constraints foreignKeyName="release_package_member" referencedTableName="member" referencedColumnNames="member_id"/>
-			</column>
-		</addColumn>
-		<sql>
-			update release_package
-			set member_id = (select member_id from member where key = 'IHTSDO')
-		</sql>
-		<addNotNullConstraint tableName="release_package" columnName="member_id"/>
-	</changeSet>
- 
-	<changeSet id="MLDS-259-11" author="AC">
-		<comment>adding missing columns to affiliate details and adding affiliate details to application</comment>
-		<addColumn tableName="affiliate_details">
-			<column name="landline_number" type="VARCHAR(255)"></column>
-		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="landline_extension" type="VARCHAR(255)"></column>
-		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="mobile_number" type="VARCHAR(255)"></column>
-		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="organization_type" type="VARCHAR(255)"></column>
-		</addColumn>
-		<addColumn tableName="affiliate_details">
-			<column name="organization_type_other" type="VARCHAR(255)"></column>
-		</addColumn>
-		<addColumn tableName="application">
-			<column name="affiliate_details_id" type="INT8"></column>
-		</addColumn>
-	</changeSet>
 
-	<changeSet id="MLDS-300-1" author="DGJ">
-		<comment>Associate Country with Member</comment>
-		<addColumn tableName="country">
-			<column name="member_id" type="INT8">
-				<constraints foreignKeyName="country_member" referencedTableName="member" referencedColumnNames="member_id"/>
-			</column>
-		</addColumn>
-		<sql>
-			<![CDATA[
-			update country
-			set member_id = (select member_id from member where key = 'IHTSDO')
-			where iso_code_2 <> 'SE' AND exclude_registration = FALSE
-			]]>
-		</sql>
-		<sql>
-			update country
-			set member_id = (select member_id from member where key = 'SE')
-			where iso_code_2 = 'SE' AND exclude_registration = FALSE
-		</sql>
-	</changeSet>
 
-	<changeSet id="MLDS-300-2" author="DGJ">
-		<comment>Associate Member with Affiliate and Application</comment>
-		<addColumn tableName="application">
-			<column name="member_id" type="INT8">
-				<constraints foreignKeyName="application_member" referencedTableName="member" referencedColumnNames="member_id"/>
-			</column>
-		</addColumn>
-		<addColumn tableName="affiliate">
-			<column name="home_member_id" type="INT8">
-				<constraints foreignKeyName="affiliate_home_member" referencedTableName="member" referencedColumnNames="member_id"/>
-			</column>
-		</addColumn>
-		<sql>
-			update application
-			set member_id = (select member_id from member where key = 'IHTSDO')
-		</sql>
-		<sql>
-			update affiliate
-			set home_member_id = (select member_id from member where key = 'IHTSDO')
-		</sql>
-		<addNotNullConstraint tableName="application" columnName="member_id"/>
-		<addNotNullConstraint tableName="affiliate" columnName="home_member_id"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-308-1" author="MB">
-		<comment>Convert application to class heirarchy.  Add discriminator column.</comment>
-		<addColumn tableName="application">
-			<column name="application_type" type="VARCHAR(255)" value="PRIMARY" />
-		</addColumn>
-		<addNotNullConstraint tableName="application" columnName="application_type" />
-	</changeSet>
-	
-	<changeSet id="MLDS-308-2" author="MB">
-		<comment>Add reason column for Extension application</comment>
-		<addColumn tableName="application">
-			<column name="reason" type="TEXT" />
-		</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-259-3" author="AC">
+        <comment>Extract details object from Application and share with Affiliate</comment>
+        <createTable tableName="affiliate_details">
+            <column name="affiliate_details_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="email" type="varchar(100)"/>
+            <column name="alternate_email" type="varchar(100)"/>
+            <column name="third_email" type="varchar(100)"/>
+        </createTable>
+        <addPrimaryKey columnNames="affiliate_details_id" constraintName="affiliate_details_PK" tableName="affiliate_details"/>
+    </changeSet>
 
-	<changeSet id="MLDS-308-3" author="MB/DGJ">
-    	<addColumn tableName="application">
-    		<column name="affiliate_id" type="INT8">
-    		</column>
-    	</addColumn>
-        <addForeignKeyConstraint baseColumnNames="affiliate_id" baseTableName="application" baseTableSchemaName="public" constraintName="FK_application_affiliate" deferrable="false" initiallyDeferred="false" referencedColumnNames="affiliate_id" referencedTableName="affiliate" referencedTableSchemaName="public"/>
+    <changeSet id="MLDS-259-4" author="AC">
+        <comment>Extract details object from Application and share with Affiliate</comment>
+        <createTable tableName="mailing_address">
+            <column name="address_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street" type="varchar(50)"/>
+            <column name="city" type="varchar(50)"/>
+            <column name="country_iso_code_2" type="VARCHAR(255)"/>
+            <column name="post" type="varchar(100)"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="mailing_address" constraintName="FK_mailing_address_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country"/>
+    </changeSet>
+
+    <changeSet id="MLDS-259-5" author="AC">
+        <comment>removing table address table</comment>
+        <dropTable tableName="mailing_address"/>
+    </changeSet>
+
+    <changeSet id="MLDS-259-6" author="AC">
+        <comment>removing table address table</comment>
+        <addColumn tableName="affiliate_details">
+            <column name="street" type="varchar(50)"></column>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="city" type="varchar(50)"></column>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="post" type="varchar(50)"></column>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="billing_street" type="varchar(50)"></column>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="billing_city" type="varchar(50)"></column>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="billing_post" type="varchar(50)"></column>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="country_iso_code_2" type="VARCHAR(255)"/>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="billing_country_iso_code_2" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-259-7" author="AC">
+        <comment>adding in affiliate_details_id column</comment>
+        <addColumn tableName="affiliate">
+            <column name="affiliate_details_id" type="INT8"></column>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="affiliate_details_id" baseTableName="affiliate" constraintName="FK_affiliate_affiliate_details" deferrable="false" initiallyDeferred="false" referencedColumnNames="affiliate_details_id" referencedTableName="affiliate_details"/>
+    </changeSet>
+
+    <changeSet id="MLDS-259-8" author="AC">
+        <comment>adding foreign keys to countries in addresses</comment>
+        <addForeignKeyConstraint baseColumnNames="country_iso_code_2" baseTableName="affiliate_details" constraintName="FK_affiliate_details_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country"/>
+        <addForeignKeyConstraint baseColumnNames="billing_country_iso_code_2" baseTableName="affiliate_details" constraintName="FK_affiliate_details_billing_country" deferrable="false" initiallyDeferred="false" referencedColumnNames="iso_code_2" referencedTableName="country"/>
+    </changeSet>
+
+    <changeSet id="MLDS-259-9" author="AC">
+        <comment>adding missed column and updating affiliate address column types</comment>
+        <addColumn tableName="affiliate">
+            <column name="organization_name" type="VARCHAR(255)"></column>
+        </addColumn>
+        <modifyDataType tableName="affiliate_details" columnName="street" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="affiliate_details" columnName="city" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="affiliate_details" columnName="billing_street" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="affiliate_details" columnName="billing_city" newDataType="VARCHAR(255)"/>
+    </changeSet>
+
+    <changeSet id="MLDS-259-10" author="AC">
+        <comment>dropping affiliate organization column and adding it to affiliate details</comment>
+        <dropColumn tableName="affiliate" columnName="organization_name"/>
+        <addColumn tableName="affiliate_details">
+            <column name="organization_name" type="VARCHAR(255)"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-372-4" author="MB">
+        <comment>Add member to ReleasePackage</comment>
+        <addColumn tableName="release_package">
+            <column name="member_id" type="INT8">
+                <constraints foreignKeyName="release_package_member" referencedTableName="member" referencedColumnNames="member_id"/>
+            </column>
+        </addColumn>
+        <addNotNullConstraint tableName="release_package" columnName="member_id" columnDataType="BIGINT"/>
+    </changeSet>
+
+    <changeSet id="MLDS-259-11" author="AC">
+        <comment>adding missing columns to affiliate details and adding affiliate details to application</comment>
+        <addColumn tableName="affiliate_details">
+            <column name="landline_number" type="VARCHAR(255)"></column>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="landline_extension" type="VARCHAR(255)"></column>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="mobile_number" type="VARCHAR(255)"></column>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="organization_type" type="VARCHAR(255)"></column>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="organization_type_other" type="VARCHAR(255)"></column>
+        </addColumn>
+        <addColumn tableName="application">
+            <column name="affiliate_details_id" type="INT8"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-300-1" author="DGJ">
+        <comment>Associate Country with Member</comment>
+        <addColumn tableName="country">
+            <column name="member_id" type="INT8">
+                <constraints foreignKeyName="country_member" referencedTableName="member" referencedColumnNames="member_id"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-300-2" author="DGJ">
+        <comment>Associate Member with Affiliate and Application</comment>
+        <addColumn tableName="application">
+            <column name="member_id" type="INT8">
+                <constraints foreignKeyName="application_member" referencedTableName="member" referencedColumnNames="member_id"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="affiliate">
+            <column name="home_member_id" type="INT8">
+                <constraints foreignKeyName="affiliate_home_member" referencedTableName="member" referencedColumnNames="member_id"/>
+            </column>
+        </addColumn>
+        <addNotNullConstraint tableName="application" columnName="member_id" columnDataType="BIGINT"/>
+        <addNotNullConstraint tableName="affiliate" columnName="home_member_id" columnDataType="BIGINT"/>
+    </changeSet>
+
+    <changeSet id="MLDS-308-1" author="MB">
+        <comment>Convert application to class heirarchy.  Add discriminator column.</comment>
+        <addColumn tableName="application">
+            <column name="application_type" type="VARCHAR(255)" value="PRIMARY" />
+        </addColumn>
+        <addNotNullConstraint tableName="application" columnName="application_type" columnDataType="VARCHAR(255)"/>
+    </changeSet>
+
+    <changeSet id="MLDS-308-2" author="MB">
+        <comment>Add reason column for Extension application</comment>
+        <addColumn tableName="application">
+            <column name="reason" type="TEXT" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-308-3" author="MB/DGJ">
+        <addColumn tableName="application">
+            <column name="affiliate_id" type="INT8">
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="affiliate_id" baseTableName="application" constraintName="FK_application_affiliate" deferrable="false" initiallyDeferred="false" referencedColumnNames="affiliate_id" referencedTableName="affiliate"/>
         <sql>
-        	delete from application as ap where not exists (select 1 from affiliate af where af.creator = ap.username)
+            delete from application as ap where not exists (select 1 from affiliate af where af.creator = ap.username)
         </sql>
         <sql>
-        	update application
-        	set affiliate_id = (select af.affiliate_id from affiliate af where af.creator = username)
+            update application
+            set affiliate_id = (select af.affiliate_id from affiliate af where af.creator = username)
         </sql>
-        <addNotNullConstraint tableName="application" columnName="affiliate_id" />
-	</changeSet>
-	<changeSet id="MLDS-308-4" author="AC">
-		<comment>Removing not null contraint</comment>
-	  <dropNotNullConstraint tableName="application" columnName="affiliate_id" />
-	</changeSet>
+        <addNotNullConstraint tableName="application" columnName="affiliate_id" columnDataType="BIGINT"/>
+    </changeSet>
+    <changeSet id="MLDS-308-4" author="AC">
+        <comment>Removing not null contraint</comment>
+        <dropNotNullConstraint tableName="application" columnName="affiliate_id" columnDataType="BIGINT"/>
+    </changeSet>
 
-	<changeSet id="MLDS-325-1" author="DGJ">
-		<comment>Imported affiliates may not have related user in this system</comment>
-	  	<dropNotNullConstraint tableName="affiliate" columnName="creator" />
-	  	<dropNotNullConstraint tableName="application" columnName="username" />
-	</changeSet>
+    <changeSet id="MLDS-325-1" author="DGJ">
+        <comment>Imported affiliates may not have related user in this system</comment>
+        <dropNotNullConstraint tableName="affiliate" columnName="creator" columnDataType="VARCHAR(255)"/>
+        <dropNotNullConstraint tableName="application" columnName="username" columnDataType="VARCHAR(255)"/>
+    </changeSet>
 
-	<changeSet id="MLDS-325-2" author="DGJ">
-		<comment>Record import source key</comment>
-    	<addColumn tableName="application">
-    		<column name="import_key" type="VARCHAR(255)">
-    		</column>
-    	</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-325-2" author="DGJ">
+        <comment>Record import source key</comment>
+        <addColumn tableName="application">
+            <column name="import_key" type="VARCHAR(255)">
+            </column>
+        </addColumn>
+    </changeSet>
 
-	<changeSet id="MLDS-325-3" author="DGJ">
-		<comment>Record import source key</comment>
-		<dropColumn tableName="application" columnName="import_key"/>
-    	<addColumn tableName="affiliate">
-    		<column name="import_key" type="VARCHAR(255)">
-    		</column>
-    	</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-325-3" author="DGJ">
+        <comment>Record import source key</comment>
+        <dropColumn tableName="application" columnName="import_key"/>
+        <addColumn tableName="affiliate">
+            <column name="import_key" type="VARCHAR(255)">
+            </column>
+        </addColumn>
+    </changeSet>
 
-	<changeSet id="MLDS-325-4" author="DGJ">
-		<comment>Add remaining members</comment>
-		<sql>
-			UPDATE country SET exclude_registration=true, alternate_registration_url='https://nehta.org.au/aht/' WHERE iso_code_2='AU';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.health.belgium.be/eportal' WHERE iso_code_2='BE';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.moh.gov.bn/' WHERE iso_code_2='BN';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://sl.infoway-inforoute.ca/content/disppage.asp?cw_page=secure_snomedct_standards_e' WHERE iso_code_2='CA';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.ocis.cl/' WHERE iso_code_2='CL';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.ksrzis.cz/' WHERE iso_code_2='CZ';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.ssi.dk/snomedct' WHERE iso_code_2='DK';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.e-tervis.ee/index.php/en/' WHERE iso_code_2='EE';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.ehr.gov.hk/' WHERE iso_code_2='HK';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.landlaeknir.is/' WHERE iso_code_2='IS';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.nic.in/' WHERE iso_code_2='IN';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.health.gov.il/English' WHERE iso_code_2='IL';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.vpc.lt/' WHERE iso_code_2='LT';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.moh.gov.my/' WHERE iso_code_2='MY';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.ehealth.gov.mt/' WHERE iso_code_2='MT';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.nictiz.nl/' WHERE iso_code_2='NL';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.nzhis.govt.nz/moh.nsf/pagesns/497' WHERE iso_code_2='NZ';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.csioz.gov.pl/' WHERE iso_code_2='PL';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.spms.pt/' WHERE iso_code_2='PT';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.mohh.com.sg/' WHERE iso_code_2='SG';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.nczisk.sk/' WHERE iso_code_2='SK';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.mz.gov.si/en/' WHERE iso_code_2='SI';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.msps.es/profesionales/hcdsns/areaRecursosSem/snomed-ct/' WHERE iso_code_2='ES';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.socialstyrelsen.se/facksprak' WHERE iso_code_2='SE';
-			UPDATE country SET exclude_registration=true, alternate_registration_url='http://www.agesic.gub.uy/' WHERE iso_code_2='UY';
-		</sql>
-	</changeSet>
+    <changeSet id="MLDS-325-4" author="DGJ">
+        <comment>Add remaining members</comment>
+    </changeSet>
 
-	<changeSet id="MLDS-325-5" author="DGJ">
-		<comment>Add matching members</comment>
-		<sql>
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'AU', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'BE', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'BN', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'CA', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'CL', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'CZ', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'DK', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'EE', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'HK', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'IS', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'IN', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'IL', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'LT', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'MY', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'MT', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'NL', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'NZ', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'PL', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'PT', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'SG', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'SK', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'SI', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'ES', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'GB', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'US', now()); 
-			INSERT INTO member (member_id, key, created_at) VALUES (nextval('hibernate_sequence'), 'UY', now()); 
-		</sql>
-	</changeSet>
+    <changeSet id="MLDS-325-5" author="DGJ">
+        <comment>Add matching members</comment>
+    </changeSet>
 
-	<changeSet id="MLDS-325-6" author="DGJ">
-		<comment>Re-enable sign-up for Sweden to support manual testing...</comment>
-		<sql>
-			UPDATE country SET exclude_registration=false WHERE iso_code_2='SE';
-		</sql>
-	</changeSet>
-	
-	<changeSet id="MLDS-325-4" author="MB">
-		<comment>Unique constraint on homeMember/importKey</comment>
-		<addUniqueConstraint tableName="affiliate" columnNames="import_key, home_member_id"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-325-6" author="MB">
-		<comment>Add missing constraint</comment>
-		<addForeignKeyConstraint constraintName="FK_application_affiliate_details"
-			baseTableName="application" 
-			baseColumnNames="affiliate_details_id" 
-			referencedTableName="affiliate_details" 
-			referencedColumnNames="affiliate_details_id"
-			 />
- 	</changeSet>
- 	
-	<changeSet id="MLDS-309-1" author="AC">
-		<comment>creating new file table for member licenses</comment>
-		<createTable tableName="file">
-      <column name="file_id" type="int8">
-          <constraints primaryKey="true" nullable="false"/>
-      </column>
-      <column name="filename" type="varchar(255)"/>
-      <column name="updated_at" type="timestamp"/>
-      <column name="blob" type="blob"/>
-      <column name="creator" type="varchar(100)"></column>
-      <column name="mimetype" type="varchar(50)"></column>
-    </createTable>
-    <addColumn tableName="member">
-    	<column name="file_id" type="INT8">
-    		<constraints foreignKeyName="member_file" referencedTableName="file" referencedColumnNames="file_id"/>
-    	</column>
-    </addColumn>
-	</changeSet>
-	<changeSet id="MLDS-309-2" author="AC">
-		<renameColumn tableName="member" oldColumnName="file_id" newColumnName="license_file"/>
-	</changeSet>
-	<changeSet id="MLDS-309-3" author="AC">
-		<renameColumn tableName="file" oldColumnName="blob" newColumnName="content"/>
-	</changeSet>
-	<changeSet id="MLDS-309-4" author="AC/MB">
-		<comment>Use blob storage for files</comment>
-		<dropColumn tableName="file" columnName="content"/>
-		<addColumn tableName="file">
-			<column name="content" type="oid"></column>
-		</addColumn>
-	</changeSet>
-	<changeSet id="MLDS-309-5" author="AC">
-		<modifyDataType tableName="file" columnName="mimetype" newDataType="varchar(150)"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-309-6" author="ac/mb">
-		<validCheckSum>7:0cd1c1b9366936b78ef329adf9d862db</validCheckSum>
-		<comment>Load up IHTSDO license</comment>
-		<createTable tableName="tmpblob">
-      <column name="content" type="bytea"/>
-      <column name="o" type="oid"/>
-		</createTable>
-		<insert tableName="tmpblob">
-      <column name="content" valueBlobFile="../../../config/Ihtsdo_AffiliateLicenceAgreement_v11.pdf"/>
-		</insert>
-		<sql>
-			update tmpblob
-				set o = lo_create(-1);
-		</sql>
-		<sql>
-			select lowrite(lo_open((select o from tmpblob),131072), (select content from tmpblob));
-		</sql>
-		<sql>
-			insert into file (file_id, filename, updated_at, creator, mimetype, content)
-			values (nextval('hibernate_sequence'), 'Ihtsdo_AffiliateLicenceAgreement_v11.pdf', now(), 'system', 'application/pdf', (select o from tmpblob))
-		</sql>
-		<sql>
-			update member 
-			set license_file = (select file_id from file where file.filename = 'Ihtsdo_AffiliateLicenceAgreement_v11.pdf' limit 1)
-		</sql>
-		<dropTable tableName="tmpblob"/>
-	</changeSet>
-	
-	<changeSet id="MLDS-309-7" author="AC">
-		<comment>Fixing licence spelling</comment>
-		<renameColumn tableName="member" oldColumnName="license_file" newColumnName="licence_file"/>
-	</changeSet>
+    <changeSet id="MLDS-325-6" author="DGJ">
+        <comment>Re-enable sign-up for Sweden to support manual testing...</comment>
+        <sql>
+            UPDATE country SET exclude_registration=false WHERE iso_code_2='SE';
+        </sql>
+    </changeSet>
 
-	<changeSet id="MLDS-325-7" author="DGJ">
-		<comment>Add creation timestamp for applications</comment>
-    	<addColumn tableName="application">
-			<column name="created_at" type="timestamp"/>
-    	</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-325-4" author="MB">
+        <comment>Unique constraint on homeMember/importKey</comment>
+        <addUniqueConstraint tableName="affiliate" columnNames="import_key, home_member_id"/>
+    </changeSet>
+
+    <changeSet id="MLDS-325-6" author="MB">
+        <comment>Add missing constraint</comment>
+        <addForeignKeyConstraint constraintName="FK_application_affiliate_details"
+                                 baseTableName="application"
+                                 baseColumnNames="affiliate_details_id"
+                                 referencedTableName="affiliate_details"
+                                 referencedColumnNames="affiliate_details_id"
+        />
+    </changeSet>
+
+    <changeSet id="MLDS-309-1" author="AC">
+        <comment>creating new file table for member licenses</comment>
+        <createTable tableName="file">
+            <column name="file_id" type="int8">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="filename" type="varchar(255)"/>
+            <column name="updated_at" type="timestamp"/>
+            <column name="blob" type="blob"/>
+            <column name="creator" type="varchar(100)"></column>
+            <column name="mimetype" type="varchar(50)"></column>
+        </createTable>
+        <addColumn tableName="member">
+            <column name="file_id" type="INT8">
+                <constraints foreignKeyName="member_file" referencedTableName="file" referencedColumnNames="file_id"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="MLDS-309-2" author="AC">
+        <renameColumn tableName="member" oldColumnName="file_id" newColumnName="license_file" columnDataType="BIGINT"/>
+    </changeSet>
+    <changeSet id="MLDS-309-3" author="AC">
+        <renameColumn tableName="file" oldColumnName="blob" newColumnName="content" columnDataType="LONGBLOB"/>
+    </changeSet>
+    <changeSet id="MLDS-309-4" author="AC/MB">
+        <comment>Use blob storage for files</comment>
+        <dropColumn tableName="file" columnName="content"/>
+        <addColumn tableName="file">
+            <column name="content" type="LONGBLOB"></column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="MLDS-309-5" author="AC">
+        <modifyDataType tableName="file" columnName="mimetype" newDataType="varchar(150)"/>
+    </changeSet>
+
+    <changeSet id="MLDS-309-7" author="AC">
+        <comment>Fixing licence spelling</comment>
+        <renameColumn tableName="member" oldColumnName="license_file" newColumnName="licence_file" columnDataType="BIGINT"/>
+    </changeSet>
+
+    <changeSet id="MLDS-325-7" author="DGJ">
+        <comment>Add creation timestamp for applications</comment>
+        <addColumn tableName="application">
+            <column name="created_at" type="timestamp"/>
+        </addColumn>
+    </changeSet>
 
     <changeSet id="MLDS-323" author="MB">
-    	<comment>Move subType from PrimaryApplication to AffiliateDetails</comment>
-    	<addColumn tableName="affiliate_details">
-    		<column name="subtype" type="VARCHAR(255)" afterColumn="affiliate_details_id"/>
-    	</addColumn>
-    	<!-- copy PA to affiliate.affilliateDetails -->
-    	<sql>
-    		UPDATE affiliate_details
-    		SET subtype = pa.subtype
-    		FROM affiliate_details AS af_ad
-    		JOIN affiliate AS af ON af.affiliate_details_id = af_ad.affiliate_details_id
-    		JOIN application AS pa ON pa.application_id = af.application_id
-    	</sql>
-    	<!-- copy pa.subtype to all applications.affiliateDetails -->
-    	<sql>
-    		UPDATE affiliate_details
-    		SET subtype = pa.subtype
-    		FROM affiliate_details AS application_ad
-    		JOIN application ON application.affiliate_details_id = application_ad.affiliate_details_id
-    		JOIN affiliate ON application.affiliate_id = affiliate.affiliate_id
-    		JOIN application AS pa ON affiliate.application_id = pa.application_id
-    	</sql>
-    	<dropColumn tableName="application" columnName="subtype"/>
-    </changeSet>
-    
-    <changeSet id="MLDS-323-2" author="MB">
-    	<comment>Move type and other_text from PrimaryApplication to AffiliateDetails</comment>
-    	<addColumn tableName="affiliate_details">
-    		<column name="type" type="VARCHAR(255)" afterColumn="affiliate_details_id"/>
-    	</addColumn>
-    	<addColumn tableName="affiliate_details">
-    		<column name="other_text" type="VARCHAR(255)" afterColumn="type"/>
-    	</addColumn>
-    	<!-- copy PA to affiliate.affilliateDetails -->
-    	<sql>
-    		UPDATE affiliate_details
-    		SET type = pa.type
-    		FROM affiliate_details AS af_ad
-    		JOIN affiliate AS af ON af.affiliate_details_id = af_ad.affiliate_details_id
-    		JOIN application AS pa ON pa.application_id = af.application_id
-    	</sql>
-    	<!-- copy pa.subtype to all applications.affiliateDetails -->
-    	<sql>
-    		UPDATE affiliate_details
-    		SET type = pa.type, other_text = pa.other_text
-    		FROM affiliate_details AS application_ad
-    		JOIN application ON application.affiliate_details_id = application_ad.affiliate_details_id
-    		JOIN affiliate ON application.affiliate_id = affiliate.affiliate_id
-    		JOIN application AS pa ON affiliate.application_id = pa.application_id
-    	</sql>
-    	<dropColumn tableName="application" columnName="type"/>
-    	<dropColumn tableName="application" columnName="other_text"/>
-    </changeSet>
-    
-    <changeSet id="MLDS-329-1" author="DGJ">
-		<comment>Add staff notes to affiliate</comment>
-		<addColumn tableName="affiliate">
-			<column name="notes_internal" type="TEXT"/>
-		</addColumn>
-	</changeSet>
-    
-    <changeSet id="MLDS-303" author="MB" >
-    	<validCheckSum>7:30044a9ffda07bc50605ba9c9331f37c</validCheckSum>
-    	<comment>Move agreementType from usage to affiliate_details.  Changed to default agreement_type if no other source found.</comment>
-    	<addColumn tableName="affiliate_details">
-    		<column name="agreement_type" type="VARCHAR(255)" value="AFFILIATE_NORMAL"/>
-    	</addColumn>
-    	<!-- copy existing values to affiliate_details under affiliate and applications -->
-    	<sql>
-    		UPDATE affiliate_details
-    		SET agreement_type = u.agreement_type
-    		FROM affiliate_details as ad
-    		JOIN affiliate as a ON a.affiliate_details_id = ad.affiliate_details_id
-    		JOIN commercial_usage as u ON u.affiliate_id = a.affiliate_id
-    	</sql>
-    	<sql>
-    		UPDATE affiliate_details
-    		SET agreement_type = u.agreement_type
-    		FROM affiliate_details as ad
-    		JOIN application as app ON app.affiliate_details_id = ad.affiliate_details_id
-    		JOIN commercial_usage as u ON u.affiliate_id = app.affiliate_id
-    	</sql>
-    	<sql>
-    		UPDATE affiliate_details
-    		SET agreement_type = 'AFFILIATE_NORMAL'
-    		WHERE agreement_type is null
-    	</sql>
-    	<dropColumn tableName="commercial_usage" columnName="agreement_type"/>
-    	<addNotNullConstraint tableName="affiliate_details" columnName="agreement_type"/>
-    </changeSet>
-    <changeSet id="MLDS-303-1" author="MB">
-    	<comment>Drop not-null constraint to support import</comment>
-    	<dropNotNullConstraint tableName="affiliate_details" columnName="agreement_type"/>
-    </changeSet>
-    
-    <changeSet id="MLDS-322-1" author="DGJ">
-		<comment>Add commercial usage entity references to audit log</comment>
-		<addColumn tableName="t_persistent_audit_event">
-    		<column name="commercial_usage_id" type="bigint">
-    			<constraints foreignKeyName="FK_t_persistent_audit_event_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
-    		</column>
-		</addColumn>
-    </changeSet>
-    
-    <changeSet id="MLDS-314-1" author="DGJ" >
-    	<comment>Add affiliate standing state</comment>
-    	<addColumn tableName="affiliate">
-    		<column name="standing_state" type="VARCHAR(255)" value="APPLYING"/>
-    	</addColumn>
-    	<!--  based initial values on the primary application outcome -->
-    	<sql>
-    		UPDATE affiliate
-    		SET standing_state='APPLYING'
-    	</sql>
-    	<sql>
-    		UPDATE affiliate a
-    		SET standing_state='REJECTED'
-    		FROM application app
-    		WHERE a.affiliate_id = app.affiliate_id AND 
-    			app.application_type='PRIMARY' AND
-    			app.approval_state='REJECTED'
-    	</sql>
-    	<sql>
-    		UPDATE affiliate a
-    		SET standing_state='IN_GOOD_STANDING'
-    		FROM application app
-    		WHERE a.affiliate_id = app.affiliate_id AND 
-    			app.application_type='PRIMARY' AND
-    			app.approval_state='APPROVED'
-    	</sql>
-    	<addNotNullConstraint tableName="affiliate" columnName="standing_state"/>
+        <comment>Move subType from PrimaryApplication to AffiliateDetails</comment>
+        <addColumn tableName="affiliate_details">
+            <column name="subtype" type="VARCHAR(255)" afterColumn="affiliate_details_id"/>
+        </addColumn>
+        <dropColumn tableName="application" columnName="subtype"/>
     </changeSet>
 
-		<changeSet id="MLDS-307-1" author="DGJ" >
-    	<comment>Add effectiveTo marker for usages</comment>
-    	<addColumn tableName="commercial_usage">
-    		<column name="effective_to" type="timestamp"/>
-    	</addColumn>
+    <changeSet id="MLDS-323-2" author="MB">
+        <comment>Move type and other_text from PrimaryApplication to AffiliateDetails</comment>
+        <addColumn tableName="affiliate_details">
+            <column name="type" type="VARCHAR(255)" afterColumn="affiliate_details_id"/>
+        </addColumn>
+        <addColumn tableName="affiliate_details">
+            <column name="other_text" type="VARCHAR(255)" afterColumn="type"/>
+        </addColumn>
+        <dropColumn tableName="application" columnName="type"/>
+        <dropColumn tableName="application" columnName="other_text"/>
     </changeSet>
-    
+
+    <changeSet id="MLDS-329-1" author="DGJ">
+        <comment>Add staff notes to affiliate</comment>
+        <addColumn tableName="affiliate">
+            <column name="notes_internal" type="TEXT"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-303" author="MB" >
+        <validCheckSum>7:30044a9ffda07bc50605ba9c9331f37c</validCheckSum>
+        <comment>Move agreementType from usage to affiliate_details.  Changed to default agreement_type if no other source found.</comment>
+        <addColumn tableName="affiliate_details">
+            <column name="agreement_type" type="VARCHAR(255)" value="AFFILIATE_NORMAL"/>
+        </addColumn>
+        <dropColumn tableName="commercial_usage" columnName="agreement_type"/>
+        <addNotNullConstraint tableName="affiliate_details" columnName="agreement_type" columnDataType="VARCHAR(255)"/>
+    </changeSet>
+    <changeSet id="MLDS-303-1" author="MB">
+        <comment>Drop not-null constraint to support import</comment>
+        <dropNotNullConstraint tableName="affiliate_details" columnName="agreement_type" columnDataType="VARCHAR(255)"/>
+    </changeSet>
+
+    <changeSet id="MLDS-322-1" author="DGJ">
+        <comment>Add commercial usage entity references to audit log</comment>
+        <addColumn tableName="t_persistent_audit_event">
+            <column name="commercial_usage_id" type="bigint">
+                <constraints foreignKeyName="FK_t_persistent_audit_event_commercial_usage" references="commercial_usage(commercial_usage_id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-314-1" author="DGJ" >
+        <comment>Add affiliate standing state</comment>
+        <addColumn tableName="affiliate">
+            <column name="standing_state" type="VARCHAR(255)" value="APPLYING"/>
+        </addColumn>
+        <addNotNullConstraint tableName="affiliate" columnName="standing_state" columnDataType="VARCHAR(255)"/>
+    </changeSet>
+
+    <changeSet id="MLDS-307-1" author="DGJ" >
+        <comment>Add effectiveTo marker for usages</comment>
+        <addColumn tableName="commercial_usage">
+            <column name="effective_to" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="MLDS-343" author="AC">
-    	<comment>Add sublicense type to hospital</comment>
-    	<addColumn tableName="commercial_usage_entry" >
-    		<column name="sublicence_type" type="VARCHAR(255)" value="DATA_ANALYSIS_SYSTEM"></column>
-    	</addColumn>
-    	<addNotNullConstraint tableName="commercial_usage_entry" columnName="sublicence_type"/>
+        <comment>Add sublicense type to hospital</comment>
+        <addColumn tableName="commercial_usage_entry" >
+            <column name="sublicence_type" type="VARCHAR(255)" value="DATA_ANALYSIS_SYSTEM"></column>
+        </addColumn>
+        <addNotNullConstraint tableName="commercial_usage_entry" columnName="sublicence_type" columnDataType="VARCHAR(255)"/>
     </changeSet>
-    
+
     <changeSet id="MLDS-343-2" author="AC">
-    	<comment>split practices into separate fields</comment>
-    	<addColumn tableName="commercial_usage_count" >
-    		<column name="creation_practices" type="int" value="0"></column>
-    	</addColumn>
-    	<renameColumn tableName="commercial_usage_count" oldColumnName="practices" newColumnName="analysis_practices"/>
+        <comment>split practices into separate fields</comment>
+        <addColumn tableName="commercial_usage_count" >
+            <column name="creation_practices" type="int" value="0"></column>
+        </addColumn>
+        <renameColumn tableName="commercial_usage_count" oldColumnName="practices" newColumnName="analysis_practices" columnDataType="INT"/>
     </changeSet>
-    
+
     <changeSet id="MLDS-343-3" author="AC">
-    	<comment>adding notes to commercial usage count</comment>
-    	<addColumn tableName="commercial_usage_count" >
-    		<column name="notes" type="TEXT"/>
-    	</addColumn>
+        <comment>adding notes to commercial usage count</comment>
+        <addColumn tableName="commercial_usage_count" >
+            <column name="notes" type="TEXT"/>
+        </addColumn>
     </changeSet>
-    
+
     <changeSet id="MLDS-343-4" author="AC">
-    	<comment>add other activites notes to commercial_usage</comment>
-    	<addColumn tableName="commercial_usage" >
-    		<column name="other_activities" type="TEXT"/>
-    	</addColumn>
+        <comment>add other activites notes to commercial_usage</comment>
+        <addColumn tableName="commercial_usage" >
+            <column name="other_activities" type="TEXT"/>
+        </addColumn>
     </changeSet>
 
     <changeSet id="MLDS-666-1" author="DGJ">
-    	<comment>Commercial usage entry start date should be optional</comment>
-    	<dropNotNullConstraint tableName="commercial_usage_entry" columnName="start_date"/>
+        <comment>Commercial usage entry start date should be optional</comment>
+        <dropNotNullConstraint tableName="commercial_usage_entry" columnName="start_date" columnDataType="DATE"/>
     </changeSet>
-        
     <changeSet id="MLDS-540" author="MB">
-    	<comment>Introduce sequence pk to T_USER so login can be easily edited</comment>
-		<dropForeignKeyConstraint baseTableName="T_USER_AUTHORITY" constraintName="fk_user_login"/>
-		<dropForeignKeyConstraint baseTableName="T_PERSISTENT_TOKEN" constraintName="fk_user_persistent_token"/>
-		<dropForeignKeyConstraint baseTableName="RELEASE_PACKAGE" constraintName="FK_package_t_user"/>
-		<dropForeignKeyConstraint baseTableName="RELEASE_VERSION" constraintName="FK_release_version_t_user"/>
-		
-    	<dropPrimaryKey tableName="T_USER" constraintName="pk_t_user"/>
-    	<addColumn tableName="T_USER">
+        <comment>Introduce sequence pk to T_USER so login can be easily edited</comment>
+        <dropForeignKeyConstraint baseTableName="T_USER_AUTHORITY" constraintName="fk_user_login"/>
+        <dropForeignKeyConstraint baseTableName="T_PERSISTENT_TOKEN" constraintName="fk_user_persistent_token"/>
+        <dropForeignKeyConstraint baseTableName="RELEASE_PACKAGE" constraintName="FK_package_t_user"/>
+        <dropForeignKeyConstraint baseTableName="RELEASE_VERSION" constraintName="FK_release_version_t_user"/>
+
+        <dropPrimaryKey tableName="T_USER" constraintName="pk_t_user"/>
+        <addColumn tableName="T_USER">
             <column name="user_id" type="bigint"/>
-    	</addColumn>
-    	<sql>
-    		update t_user
-    		set user_id = nextval('hibernate_sequence')
-    	</sql>
-    	<addNotNullConstraint tableName="T_USER" columnName="user_id"/>
-    	<addPrimaryKey tableName="T_USER" columnNames="user_id"/>
-    	
-    	<addColumn tableName="T_USER_AUTHORITY">
+        </addColumn>
+        <addNotNullConstraint tableName="T_USER" columnName="user_id" columnDataType="BIGINT"/>
+        <addPrimaryKey tableName="T_USER" columnNames="user_id"/>
+        <addColumn tableName="T_USER_AUTHORITY">
             <column name="user_id" type="bigint"/>
-    	</addColumn>
-    	<sql>
-    		update t_user_authority
-    		set user_id = u.user_id
-    		from t_user as u 
-    		where u.login = t_user_authority.login 
-    	</sql>
-    	<dropPrimaryKey tableName="T_USER_AUTHORITY"/>
-    	<addPrimaryKey tableName="T_USER_AUTHORITY" columnNames="user_id,name"/>
-    	<dropColumn tableName="T_USER_AUTHORITY" columnName="login"/>
+        </addColumn>
+        <dropPrimaryKey tableName="T_USER_AUTHORITY"/>
+        <addPrimaryKey tableName="T_USER_AUTHORITY" columnNames="user_id,name"/>
+        <dropColumn tableName="T_USER_AUTHORITY" columnName="login"/>
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="T_USER_AUTHORITY"
-                                 constraintName="fk_user_id"
+                                 constraintName="fk_user_authority_user_id"
                                  referencedColumnNames="user_id"
                                  referencedTableName="T_USER"/>
-                                 
-    	<addColumn tableName="T_PERSISTENT_TOKEN">
+
+        <addColumn tableName="T_PERSISTENT_TOKEN">
             <column name="user_id" type="bigint"/>
-    	</addColumn>
-    	<sql>
-    		update T_PERSISTENT_TOKEN
-    		set user_id = u.user_id
-    		from t_user as u 
-    		where u.login = T_PERSISTENT_TOKEN.user_login 
-    	</sql>
+        </addColumn>
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="T_PERSISTENT_TOKEN"
-                                 constraintName="fk_user_id"
+                                 constraintName="fk_persistent_token_user_id"
                                  referencedColumnNames="user_id"
                                  referencedTableName="T_USER"/>
-                                 
+
     </changeSet>
-    
     <changeSet id="MLDS-540-1" author="MB">
-    	<comment>Extend user_id sequence change to password_reset table</comment>
-    	<addColumn tableName="password_reset_token">
+        <comment>Extend user_id sequence change to password_reset table</comment>
+        <addColumn tableName="password_reset_token">
             <column name="user_id" type="bigint"/>
-    	</addColumn>
-    	<sql>
-    		update password_reset_token
-    		set user_id = u.user_id
-    		from t_user as u 
-    		where u.login = user_login 
-    	</sql>
-    	<addNotNullConstraint tableName="password_reset_token" columnName="user_id"/>
-    	<dropColumn tableName="password_reset_token" columnName="user_login"/>
+        </addColumn>
+        <addNotNullConstraint tableName="password_reset_token" columnName="user_id" columnDataType="BIGINT"/>
+        <dropColumn tableName="password_reset_token" columnName="user_login"/>
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="password_reset_token"
-                                 constraintName="fk_user_id"
+                                 constraintName="fk_password_reset_token_user_id"
                                  referencedColumnNames="user_id"
                                  referencedTableName="T_USER"/>
-                                 
-    	<dropColumn tableName="T_PERSISTENT_TOKEN" columnName="user_login"/>
-   	</changeSet>
-   	
-    <changeSet id="MLDS-668" author="MB">
-    	<comment>Allow longer keys in audit data to hold "original." items</comment>
-    	<modifyDataType tableName="t_persistent_audit_event_data" columnName="name" newDataType="VARCHAR(255)"/>
-    </changeSet>
-    
-    <changeSet id="MLDS-681-1" author="MB">
-    	<comment>Better blob support for pdf handling</comment>
-    	<createProcedure >
-    	create or replace function blob_write(lbytea bytea) returns oid volatile as $f$
-   declare
-      loid oid;
-      lfd integer;
-      lsize integer;
-begin
-   if(lbytea is null) then
-      return null;
-   end if;
- 
-   loid := lo_create(0);
-   lfd := lo_open(loid,131072);
-   lsize := lowrite(lfd,lbytea);
-   perform lo_close(lfd);
-   return loid;
-end;
-$f$ language plpgsql; 
-    	</createProcedure>
+
+        <dropColumn tableName="T_PERSISTENT_TOKEN" columnName="user_login"/>
     </changeSet>
 
-	<changeSet id="MLDS-681-2" author="MB">
-		<comment>Re-load IHTSDO license -- it was corrupt.</comment>
-		<createTable tableName="tmpblob">
-			<column name="content" type="bytea" />
-			<column name="o" type="oid" />
-		</createTable>
-		<insert tableName="tmpblob">
-			<column name="content"
-				valueBlobFile="../../../config/Ihtsdo_AffiliateLicenceAgreement_v11.pdf" />
-		</insert>
-		<sql>
-			update tmpblob
-			set o = blob_write(content);
-		</sql>
-		<sql>
-			update file
-			set content = (select o from tmpblob)
-			where filename = 'Ihtsdo_AffiliateLicenceAgreement_v11.pdf'
-		</sql>
-		 <dropTable tableName="tmpblob" />
-	</changeSet>
-	
-	<changeSet id="MLDS-635" author="MB">
-		<comment>Clean out our test users</comment>
-		<sql>
-			delete from t_persistent_token
-			where user_id in 
-				(select user_id from t_user where
-				  login in ('system','anonymousUser','admin','user','staff','sweden'))
-		</sql>
-		<sql>
-			delete from password_reset_token
-			where user_id in 
-				(select user_id from t_user where
-				  login in ('system','anonymousUser','admin','user','staff','sweden'))
-		</sql>
-		<sql>
-			delete from t_user_authority
-			where user_id in 
-				(select user_id from t_user where
-				  login in ('system','anonymousUser','admin','user','staff','sweden'))
-		</sql>
-		<sql>
-			delete from t_user
-			where user_id in
-				(select user_id from t_user where
-				  login in ('system','anonymousUser','admin','user','staff','sweden'))
-		</sql>
-	</changeSet>
-	
-	<changeSet id="MLDS-729" author="MB">
-		<comment>Making published_at editable - change from timestamp to calendar dat to better match usage</comment>
-		<modifyDataType tableName="release_version" columnName="published_at" newDataType="date"/>
-	</changeSet>
+    <changeSet id="MLDS-668" author="MB">
+        <comment>Allow longer keys in audit data to hold "original." items</comment>
+        <modifyDataType tableName="t_persistent_audit_event_data" columnName="name" newDataType="VARCHAR(255)"/>
+    </changeSet>
+
+    <changeSet id="MLDS-681-2" author="MB">
+        <comment>Re-load IHTSDO license -- it was corrupt.</comment>
+        <createTable tableName="tmpblob">
+            <column name="content" type="BLOB" />
+            <column name="o" type="BLOB" />
+        </createTable>
+        <dropTable tableName="tmpblob" />
+    </changeSet>
+
+    <changeSet id="MLDS-635" author="MB">
+        <comment>Clean out our test users</comment>
+        <sql>
+            delete from t_persistent_token
+            where user_id in
+            (select user_id from t_user where
+            login in ('system','anonymousUser','admin','user','staff','sweden'))
+        </sql>
+        <sql>
+            delete from password_reset_token
+            where user_id in
+            (select user_id from t_user where
+            login in ('system','anonymousUser','admin','user','staff','sweden'))
+        </sql>
+        <sql>
+            delete from t_user_authority
+            where user_id in
+            (select user_id from t_user where
+            login in ('system','anonymousUser','admin','user','staff','sweden'))
+        </sql>
+    </changeSet>
+
+    <changeSet id="MLDS-729" author="MB">
+        <comment>Making published_at editable - change from timestamp to calendar dat to better match usage</comment>
+        <modifyDataType tableName="release_version" columnName="published_at" newDataType="date"/>
+    </changeSet>
 
     <changeSet id="MLDS-857-1" author="DGJ">
-    	<comment>Remove Sublicence type from commercial usage entry</comment>
-    	<dropColumn tableName="commercial_usage_entry" columnName="sublicence_type"/>
+        <comment>Remove Sublicence type from commercial usage entry</comment>
+        <dropColumn tableName="commercial_usage_entry" columnName="sublicence_type"/>
     </changeSet>
 
     <changeSet id="MLDS-857-2" author="DGJ">
-    	<comment>Replace sub-practices fields with single practice</comment>
-    	<addColumn tableName="commercial_usage_count" >
-    		<column name="snomed_practices" type="int" value="0"></column>
-    	</addColumn>
-    	<dropColumn tableName="commercial_usage_count" columnName="analysis_practices"/>
-    	<dropColumn tableName="commercial_usage_count" columnName="creation_practices"/>
+        <comment>Replace sub-practices fields with single practice</comment>
+        <addColumn tableName="commercial_usage_count" >
+            <column name="snomed_practices" type="int" value="0"></column>
+        </addColumn>
+        <dropColumn tableName="commercial_usage_count" columnName="analysis_practices"/>
+        <dropColumn tableName="commercial_usage_count" columnName="creation_practices"/>
     </changeSet>
 
     <changeSet id="MLDS-857-4" author="DGJ">
-    	<comment>Add data analysis capture for country</comment>
-    	<addColumn tableName="commercial_usage_count" >
-    		<column name="hospitals_staffing_practices" type="int" value="0"></column>
-    	</addColumn>
-    	<addColumn tableName="commercial_usage_count" >
-    		<column name="data_creation_practices_not_part_of_hospital" type="int" value="0"></column>
-    	</addColumn>
-    	<addColumn tableName="commercial_usage_count" >
-    		<column name="non_practice_data_creation_systems" type="int" value="0"></column>
-    	</addColumn>
-    	<addColumn tableName="commercial_usage_count" >
-    		<column name="deployed_data_analysis_systems" type="int" value="0"></column>
-    	</addColumn>
-    	<addColumn tableName="commercial_usage_count" >
-    		<column name="databases_per_deployment" type="int" value="0"></column>
-    	</addColumn>
+        <comment>Add data analysis capture for country</comment>
+        <addColumn tableName="commercial_usage_count" >
+            <column name="hospitals_staffing_practices" type="int" value="0"></column>
+        </addColumn>
+        <addColumn tableName="commercial_usage_count" >
+            <column name="data_creation_practices_not_part_of_hospital" type="int" value="0"></column>
+        </addColumn>
+        <addColumn tableName="commercial_usage_count" >
+            <column name="non_practice_data_creation_systems" type="int" value="0"></column>
+        </addColumn>
+        <addColumn tableName="commercial_usage_count" >
+            <column name="deployed_data_analysis_systems" type="int" value="0"></column>
+        </addColumn>
+        <addColumn tableName="commercial_usage_count" >
+            <column name="databases_per_deployment" type="int" value="0"></column>
+        </addColumn>
     </changeSet>
-    
+
     <changeSet id="MLDS-706-1" author="DGJ">
-    	<comment>Add name and version fields for member terms and conditions</comment>
-    	<addColumn tableName="member" >
-    		<column name="licence_name" type="VARCHAR(255)"></column>
-    	</addColumn>
-    	<addColumn tableName="member" >
-    		<column name="licence_version" type="VARCHAR(255)"></column>
-    	</addColumn>
+        <comment>Add name and version fields for member terms and conditions</comment>
+        <addColumn tableName="member" >
+            <column name="licence_name" type="VARCHAR(255)"></column>
+        </addColumn>
+        <addColumn tableName="member" >
+            <column name="licence_version" type="VARCHAR(255)"></column>
+        </addColumn>
     </changeSet>
 
     <changeSet id="MLDS-738-1" author="DGJ">
-    	<comment>Add name and logo file to member</comment>
-    	<addColumn tableName="member" >
-    		<column name="name" type="VARCHAR(255)"></column>
-    	</addColumn>
-    <addColumn tableName="member">
-    	<column name="logo_file" type="INT8">
-    		<constraints foreignKeyName="logo_file" referencedTableName="file" referencedColumnNames="file_id"/>
-    	</column>
-    </addColumn>
+        <comment>Add name and logo file to member</comment>
+        <addColumn tableName="member" >
+            <column name="name" type="VARCHAR(255)"></column>
+        </addColumn>
+        <addColumn tableName="member">
+            <column name="logo_file" type="INT8">
+                <constraints foreignKeyName="logo_file" referencedTableName="file" referencedColumnNames="file_id"/>
+            </column>
+        </addColumn>
     </changeSet>
 
     <changeSet id="MLDS-863-1" author="DGJ">
-    	<comment>Consistent spelling of license</comment>
-    	<renameColumn tableName="member" oldColumnName="licence_file" newColumnName="license_file"/>
-    	<renameColumn tableName="member" oldColumnName="licence_name" newColumnName="license_name"/>
-    	<renameColumn tableName="member" oldColumnName="licence_version" newColumnName="license_version"/>
+        <comment>Consistent spelling of license</comment>
+        <renameColumn tableName="member" oldColumnName="licence_file" newColumnName="license_file" columnDataType="BIGINT"/>
+        <renameColumn tableName="member" oldColumnName="licence_name" newColumnName="license_name" columnDataType="VARCHAR(255)"/>
+        <renameColumn tableName="member" oldColumnName="licence_version" newColumnName="license_version" columnDataType="VARCHAR(255)"/>
     </changeSet>
 
     <changeSet id="MLDS-868-1" author="DGJ">
-    	<comment>Remove DEREGISTRATION_PENDING standing state</comment>
-    	<sql>
-			update affiliate
-			set standing_state = 'IN_GOOD_STANDING'
-			where standing_state = 'DEREGISTRATION_PENDING'
-    	</sql>
+        <comment>Remove DEREGISTRATION_PENDING standing state</comment>
+        <sql>
+            update affiliate
+            set standing_state = 'IN_GOOD_STANDING'
+            where standing_state = 'DEREGISTRATION_PENDING'
+        </sql>
     </changeSet>
-    
+
     <changeSet id="MLDS-864-1" author="AC">
-    	<comment>Add licence file to Release Package</comment>
-    	<addColumn tableName="release_package">
-    		<column name="licence_file" type="INT8">
-    			<constraints foreignKeyName="licence_file" referencedTableName="file" referencedColumnNames="file_id"/>
-    		</column>
-    	</addColumn>
+        <comment>Add licence file to Release Package</comment>
+        <addColumn tableName="release_package">
+            <column name="licence_file" type="INT8">
+                <constraints foreignKeyName="licence_file" referencedTableName="file" referencedColumnNames="file_id"/>
+            </column>
+        </addColumn>
     </changeSet>
-    
+
     <changeSet id="MLDS-880" author="PGW">
-    	<comment>Usage Reports to have own set of statuses</comment>
-    	<renameColumn tableName="commercial_usage" oldColumnName="approval_state" newColumnName="state"/>
+        <comment>Usage Reports to have own set of statuses</comment>
+        <renameColumn tableName="commercial_usage" oldColumnName="approval_state" newColumnName="state" columnDataType="VARCHAR(255)"/>
     </changeSet>
 
     <changeSet id="MLDS-880-2" author="PGW">
-		<update tableName="commercial_usage">
-			<column name="state" value='PENDING_INVOICE'/>
-			<where>state='APPROVED'</where>
-    	</update>
+        <update tableName="commercial_usage">
+            <column name="state" value='PENDING_INVOICE'/>
+            <where>state='APPROVED'</where>
+        </update>
     </changeSet>
 
     <changeSet id="MLDS-875" author="PGW">
-    	<comment>Repurposing excludeRegistration to excludeUsage as all countries can now register</comment>
-    	<renameColumn tableName="country" oldColumnName="exclude_registration" newColumnName="exclude_usage"/>
+        <comment>Repurposing excludeRegistration to excludeUsage as all countries can now register</comment>
+        <renameColumn tableName="country" oldColumnName="exclude_registration" newColumnName="exclude_usage" columnDataType="BOOLEAN"/>
     </changeSet>
-    
+
     <changeSet id="MLDS-918" author="DGJ">
-    	<comment>Add notification "mailing list" email for member's staff. Rely on IHTSDO mail server to handle mapping of mailing list to individual staff accounts.</comment>
-    	<addColumn tableName="member" >
-    		<column name="staff_notification_email" type="VARCHAR(255)"></column>
-    	</addColumn>
+        <comment>Add notification "mailing list" email for member's staff. Rely on IHTSDO mail server to handle mapping of mailing list to individual staff accounts.</comment>
+        <addColumn tableName="member" >
+            <column name="staff_notification_email" type="VARCHAR(255)"></column>
+        </addColumn>
     </changeSet>
 
-	<changeSet id="MLDS-920" author="DGJ">
-		<comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
-		<addColumn tableName="affiliate">
-			<column name="inactive_at" type="timestamp"/>
-		</addColumn>
-		<addColumn tableName="T_USER">
-			<column name="inactive_at" type="timestamp"/>
-		</addColumn>
-		<addColumn tableName="application">
-			<column name="inactive_at" type="timestamp"/>
-		</addColumn>
-		<addColumn tableName="commercial_usage">
-			<column name="inactive_at" type="timestamp"/>
-		</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-920" author="DGJ">
+        <comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
+        <addColumn tableName="affiliate">
+            <column name="inactive_at" type="timestamp"/>
+        </addColumn>
+        <addColumn tableName="T_USER">
+            <column name="inactive_at" type="timestamp"/>
+        </addColumn>
+        <addColumn tableName="application">
+            <column name="inactive_at" type="timestamp"/>
+        </addColumn>
+        <addColumn tableName="commercial_usage">
+            <column name="inactive_at" type="timestamp"/>
+        </addColumn>
+    </changeSet>
 
-	<changeSet id="MLDS-920-2" author="DGJ">
-		<comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
-		<addColumn tableName="affiliate_details">
-			<column name="inactive_at" type="timestamp"/>
-		</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-920-2" author="DGJ">
+        <comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
+        <addColumn tableName="affiliate_details">
+            <column name="inactive_at" type="timestamp"/>
+        </addColumn>
+    </changeSet>
 
-	<changeSet id="MLDS-920-3" author="DGJ">
-		<comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
-		<addColumn tableName="commercial_usage_entry">
-			<column name="inactive_at" type="timestamp"/>
-		</addColumn>
-		<addColumn tableName="commercial_usage_count">
-			<column name="inactive_at" type="timestamp"/>
-		</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-920-3" author="DGJ">
+        <comment>Add inactive_at flag/timestamp for soft delete of affiliates</comment>
+        <addColumn tableName="commercial_usage_entry">
+            <column name="inactive_at" type="timestamp"/>
+        </addColumn>
+        <addColumn tableName="commercial_usage_count">
+            <column name="inactive_at" type="timestamp"/>
+        </addColumn>
+    </changeSet>
 
-	<changeSet id="MLDS-928" author="DGJ">
-		<comment>Add priority to release packages to help with visual ordering for affiliates</comment>
-		<addColumn tableName="release_package">
-			<column name="priority" type="integer" defaultValue="-1"/>
-		</addColumn>
-	</changeSet>
+    <changeSet id="MLDS-928" author="DGJ">
+        <comment>Add priority to release packages to help with visual ordering for affiliates</comment>
+        <addColumn tableName="release_package">
+            <column name="priority" type="integer" defaultValue="-1"/>
+        </addColumn>
+    </changeSet>
 
-	<changeSet id="MLDS-928-2" author="DGJ">
-		<comment>Choose order when combining ihtsdo and member release packages</comment>
-		<addColumn tableName="member">
-			<column name="promote_packages" type="boolean" defaultValue="false">
+    <changeSet id="MLDS-928-2" author="DGJ">
+        <comment>Choose order when combining ihtsdo and member release packages</comment>
+        <addColumn tableName="member">
+            <column name="promote_packages" type="boolean" defaultValue="false">
                 <constraints nullable="false"/>
             </column>
 
-		</addColumn>
-	</changeSet>
+        </addColumn>
+    </changeSet>
 
     <changeSet id="MLDS-935" author="DGJ">
-    	<comment>Add additional IHTSDO and SE Member authority roles</comment>
-		<sql>INSERT INTO t_authority (name) values ('ROLE_MEMBER'), ('ROLE_MEMBER_SE'), ('ROLE_MEMBER_IHTSDO')</sql>
+        <comment>Add additional IHTSDO and SE Member authority roles</comment>
     </changeSet>
-	
-	<changeSet id="MLDS-962" author="PWI">
-		<comment>Add opt-out options for receiving release and manual notifications</comment>
-		<addColumn tableName="t_user">
-			<column name="accept_notifications" type="boolean" defaultValue="true">
-				<constraints nullable="false"/>
-			</column>
-		</addColumn>
-	</changeSet>
+
+    <changeSet id="MLDS-962" author="PWI">
+        <comment>Add opt-out options for receiving release and manual notifications</comment>
+        <addColumn tableName="t_user">
+            <column name="accept_notifications" type="boolean" defaultValue="true">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
     <changeSet id="MLDS-975" author="MLR">
         <comment>Follow up to MLDS-962, allow user to opt for affiliate country release related emails only</comment>
@@ -1584,51 +1298,32 @@ $f$ language plpgsql;
         <comment>A view to help out with (text) indexing extra countries related to an affiliate</comment>
 
         <createView viewName="vw_affiliate_approved_application_countries" >
-                select a.affiliate_id, 
-                       string_agg(common_name, ' ') as countries
-                from application a
-                , member m
-                , country c
-                where approval_state = 'APPROVED'
-                and m.member_id = a.member_id
-                and c.iso_code_2 = m.key
-                group by 1;
+            SELECT `a`.`affiliate_id` AS `affiliate_id`, GROUP_CONCAT(`c`.`common_name` SEPARATOR ' ') AS `countries`
+            FROM ((`mlds`.`application` `a` JOIN `mlds`.`member` `m`
+            ON ((`m`.`member_id` = `a`.`member_id`))) JOIN `mlds`.`country` `c` ON ((`c`.`iso_code_2` = `m`.`key`)))
+            WHERE (`a`.`approval_state` = 'APPROVED')
+            GROUP BY `a`.`affiliate_id`;
         </createView>
     </changeSet>
 
     <changeSet author="MLR" id="MLDS-971">
         <modifyDataType
-          columnName="principal"
-          newDataType="varchar(255)"
-          tableName="t_persistent_audit_event"/>
+            columnName="principal"
+            newDataType="varchar(255)"
+            tableName="t_persistent_audit_event"/>
     </changeSet>
-
 
     <changeSet id="MLDS-981-1" author="MLR">
         <comment>Prepare for a unique index on logins </comment>
-        <sql>
-            update t_user set inactive_at = last_modified_date
-            where user_id in (
-                select user_id
-                from   t_user a
-                where a.user_id &lt;
-                (
-                    select max(b.user_id)
-                    from t_user b
-                    where lower(a.login) = lower(b.login)
-                    and b.inactive_at is null
-                )
-                and a.inactive_at is null
-            );
-        </sql>
     </changeSet>
 
     <changeSet id="MLDS-981-2" author="MLR">
         <comment>Create unique index on active users</comment>
         <sql>
+            <![CDATA[
             CREATE UNIQUE INDEX idx_unique_active_login
-            ON t_user (lower(login), coalesce(inactive_at,'2000-01-01'))
-            WHERE (inactive_at is null);
+                ON mlds.t_user ((LOWER(login)), (case when inactive_at is null and `inactive_at` < '2000-01-01' then COALESCE(inactive_at, '2000-01-01') end));
+            ]]>
         </sql>
     </changeSet>
 
