@@ -18,7 +18,7 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 
 	@Resource UserMembershipAccessor userMembershipAccessor;
 	@Resource UserStandingCalculator userStandingCalculator;
-	
+
 	public void checkCanCreateReleasePackages() {
 		if (isStaffOrAdmin()) {
 			return;
@@ -27,7 +27,7 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 	}
 
 	public void checkCanEditReleasePackage(ReleasePackage releasePackage) {
-		if (currentSecurityContext.isAdmin() 
+		if (currentSecurityContext.isAdmin()
 				|| currentSecurityContext.isStaffFor(releasePackage.getMember())) {
 			return;
 		}
@@ -38,8 +38,12 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 		return currentSecurityContext.isMemberOrStaffOrAdmin();
 	}
 
+    boolean shouldSeeAlphaBetaPackages(){
+        return currentSecurityContext.isUser();
+    }
+
 	public void checkCanAccessReleaseVersion(ReleaseVersion releaseVersion) {
-		if (releaseVersion.isOnline() || shouldSeeOfflinePackages()) {
+		if (releaseVersion.getReleaseType().equalsIgnoreCase("online") || shouldSeeOfflinePackages()) {
 			return;
 		}
 		failCheck("User not authorized to access offline release version.");
@@ -51,7 +55,7 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 		} else if (isMember()
 				&& Objects.equal(releaseVersion.getReleasePackage().getMember().getKey(), Member.KEY_IHTSDO)) {
 			return;
-		} else if (releaseVersion.isOnline() 
+		} else if ((releaseVersion.getReleaseType().equalsIgnoreCase("online") ||(releaseVersion.getReleaseType().equalsIgnoreCase("alpha/beta")))
 				&& !userStandingCalculator.isLoggedInUserAffiliateDeactivated()
 				&& !userStandingCalculator.isLoggedInUserAffiliateDeregistered()
 				&& !userStandingCalculator.isLoggedInUserAffiliatePendingInvoice()

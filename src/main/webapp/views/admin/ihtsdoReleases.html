@@ -23,10 +23,10 @@
 			</div>
 			<div class="panel-footer" ng-repeat="version in package.releaseVersions | filter: utils.isVersionOnline" ng-show="utils.isLatestVersion(version, (package.releaseVersions | filter: utils.isVersionOnline))">
 				<div class="row">
-					<div class="col-lg-1">
+					<div class="col-lg-2">
 						<div class="current"><span translate="views.ihtsdoReleases.latest">Latest</span>:</div>
 					</div>
-						<div class="col-lg-10">
+						<div class="col-lg-10" style="padding-left:0px">
 						<h4 class="version">{{version.name}} </h4>
 						<span><strong><span translate="global.word.publishedOn">Published On</span>:</strong> {{version.publishedAt | date: 'yyyy-MM-dd'}}</span>
 						<p class="download-files" ng-repeat="file in version.releaseFiles">
@@ -36,12 +36,27 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel-footer" ng-repeat="version in package.releaseVersions | filter: !utils.isVersionOnline">
+            <div class="panel-footer" ng-repeat="version in package.releaseVersions | filter: utils.isVersionAlphaBeta">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="current"><span>Alpha/Beta</span>:</div>
+                    </div>
+                    <div class="col-lg-10" style="padding-left:0px">
+                        <h4 class="version">{{version.name}} </h4>
+                        <span><strong><span translate="global.word.publishedOn">Published On</span>:</strong> {{version.publishedAt | date: 'yyyy-MM-dd'}}</span>
+                        <p class="download-files" ng-repeat="file in version.releaseFiles">
+                            <i class="fa fa-file"></i>
+                            <a href="{{file.clientDownloadUrl}}" target="_blank" ng-bind-html="file.label"></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer" ng-repeat="version in package.releaseVersions | filter: utils.isVersionOffline">
 				<div class="row">
-					<div class="col-lg-1">
+					<div class="col-lg-2">
 						<div class="current"><span translate="views.ihtsdoReleases.offline">Offline</span>:</div>
 					</div>
-						<div class="col-lg-10">
+						<div class="col-lg-10" style="padding-left:0px">
 						<h4 class="version">{{version.name}} </h4>
 						<span><strong><span translate="global.word.publishedOn">Published On</span>:</strong> {{version.publishedAt | date: 'yyyy-MM-dd'}}</span>
 						<p class="download-files" ng-repeat="file in version.releaseFiles">
@@ -50,17 +65,49 @@
 						</p>
 					</div>
 				</div>
-			</div>		
+			</div>
 		</div>
 		<div class="alert alert-warning" ng-show="onlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> <span translate="views.ihtsdoReleases.noPublicReleases">There are currently no public releases available.</span></div>
 	</div>
 </div>
-
+<!--release management-->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="page-header">
+            <h3>Alpha/Beta Releases</h3>
+        </div>
+        <div class="panel panel-default" ng-repeat="package in alphabetaPackages">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a ng-click="goToPackage(package)"> {{package.name}} - {{package.member.key | enum:'global.member.'}}</a></h4>
+            </div>
+            <div class="panel-body">
+                <div ng-bind-html="package.description"></div>
+            </div>
+                <div class="panel-footer" ng-repeat="version in package.releaseVersions | filter: utils.isVersionAlphaBeta">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="current"><span>Alpha/Beta</span>:</div>
+                    </div>
+                    <div class="col-lg-10" style="padding-left:0px">
+                        <h4 class="version">{{version.name}} </h4>
+                        <span><strong><span translate="global.word.publishedOn">Published On</span>:</strong> {{version.publishedAt | date: 'yyyy-MM-dd'}}</span>
+                        <p class="download-files" ng-repeat="file in version.releaseFiles">
+                            <i class="fa fa-file"></i>
+                            <a href="{{file.clientDownloadUrl}}" target="_blank" ng-bind-html="file.label"></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-warning" ng-show="alphabetaPackages.length == 0"><i class="fa fa-exclamation-circle"></i> <span>There are currently no alpha/beta releases available</span></div>
+    </div>
+</div>
+<!--relese management-->
 <div class="row">
 	<div class="col-lg-8">
 		<div class="page-header">
-			<h3><span translate="views.ihtsdoReleases.offlineReleases">Offline &map; Alpha/Beta Releases</span></span></h3>
-		</div>
+		<h3>Offline Releases</h3>
+        </div>
 			<div class="panel panel-default" ng-repeat="package in offlinePackages">
 				<div class="panel-heading">
 					<h4 class="panel-title"><a ng-click="goToPackage(package)"> {{package.name}} - {{package.member.key | enum:'global.member.'}}</a></h4>
@@ -70,10 +117,10 @@
 				</div>
 				<div class="panel-footer" ng-repeat="version in package.releaseVersions | filter: !utils.isVersionOnline">
 					<div class="row">
-						<div class="col-lg-1">
+						<div class="col-lg-2">
 							<div class="current"><span translate="views.ihtsdoReleases.offline">Offline</span>:</div>
 						</div>
-							<div class="col-lg-10">
+							<div class="col-lg-10" style="padding-left:0px">
 							<h4 class="version">{{version.name}} </h4>
 							<span><strong><span translate="global.word.publishedOn">Published On</span>:</strong> {{version.publishedAt | date: 'yyyy-MM-dd'}}</span>
 							<p class="download-files" ng-repeat="file in version.releaseFiles">
@@ -84,6 +131,6 @@
 					</div>
 				</div>
 			</div>
-		<div class="alert alert-warning" ng-show="offlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> <span translate="views.ihtsdoReleases.noOfflineReleases">There are currently no offline or alpha releases available</span></div>
+        <div class="alert alert-warning" ng-show="offlinePackages.length == 0"><i class="fa fa-exclamation-circle"></i> <span translate="views.ihtsdoReleases.noOfflineReleases">There are currently no offline releases available</span></div>
 	</div>
 </div>

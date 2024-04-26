@@ -2,6 +2,8 @@ package ca.intelliware.ihtsdo.mlds.config;
 
 import java.io.IOException;
 
+import com.amazonaws.auth.InstanceProfileCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.ihtsdo.otf.dao.s3.OfflineS3ClientImpl;
 import org.ihtsdo.otf.dao.s3.S3Client;
 import org.ihtsdo.otf.dao.s3.S3ClientImpl;
@@ -19,8 +21,8 @@ public class S3ClientConfiguration implements EnvironmentAware {
 
 	private static final String ENV_S3_API = "s3.api.";
 	private static final String PROP_OFFLINE_MODE = "offlineMode";
-	private static final String PROP_AWS_KEY = "default.aws.key";
-	private static final String PROP_AWS_PRIVATEKEY = "default.aws.privateKey";
+//	private static final String PROP_AWS_KEY = "default.aws.key";
+//	private static final String PROP_AWS_PRIVATEKEY = " ";
 
 	private final Logger log = LoggerFactory.getLogger(S3ClientConfiguration.class);
 
@@ -43,15 +45,20 @@ public class S3ClientConfiguration implements EnvironmentAware {
 		if (s3Offline) {
 			s3Client = new OfflineS3ClientImpl();
 		} else {
-			String awsKey = propertyResolver.getProperty(PROP_AWS_KEY);
-			String awsPrivateKey = propertyResolver.getProperty(PROP_AWS_PRIVATEKEY);
-			BasicAWSCredentials credentials = new BasicAWSCredentials(awsKey, awsPrivateKey);
-			s3Client = new S3ClientImpl(credentials);
+
+            s3Client =  new S3ClientImpl(new InstanceProfileCredentialsProvider(true).getCredentials());
+            log.debug("s3Client:",s3Client);
+//			String awsKey = propertyResolver.getProperty(PROP_AWS_KEY);
+//			String awsPrivateKey = propertyResolver.getProperty(PROP_AWS_PRIVATEKEY);
+//			BasicAWSCredentials credentials = new BasicAWSCredentials(awsKey, awsPrivateKey);
+//			s3Client = new S3ClientImpl(credentials);
+//            s3Client = (S3Client) AmazonS3ClientBuilder.standard()
+//                .withCredentials(new InstanceProfileCredentialsProvider(false))
+//                .build();
 		}
 
 		log.debug("Done:Configuring S3 Client");
 
 		return s3Client;
 	}
-
 }

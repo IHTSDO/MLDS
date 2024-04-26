@@ -822,6 +822,13 @@
                 "userexists": "<strong>Pengguna telah mendaftar dengan alamat E-mail tersebut.</strong> Apakah maksud Anda <a href='#/login'>login</a>?",
                 "fail": "<strong>Pendaftaran gagal!</strong> Coba lagi nanti."
             },
+            "excludemessage": {
+                "confirm":"Konfirmasi",
+                "link": "tidak menggunakan MLDS untuk mendistribusikan SNOMED CT. Untuk mendaftar mengunduh SNOMED CT, Anda dapat menemukan informasi lebih lanjut dengan membuka tautan ini -",
+                "userConfirm": "Untuk melanjutkan pendaftaran Anda di MLDS, harap Anda dapat mengonfirmasi bahwa Anda ingin menggunakan SNOMED CT di negara lain.",
+                "cancel": "Membatalkan",
+                "accept": "Saya mengonfirmasi bahwa saya ingin menggunakan dan menerapkan SNOMED CT di negara selain"
+            },
             "success": "<strong>Pendaftaran tersimpan!</strong> Harap periksa E-mail Anda untuk konfirmasi.",
             "validate": {
                 "registration": {

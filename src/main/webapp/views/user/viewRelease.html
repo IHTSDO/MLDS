@@ -72,13 +72,6 @@
 						<button class="btn btn-link disabled no-padding" disabled="disabled"
 							ng-show="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding" ng-bind-html="releaseFile.label">
 						</button>
-
-<!-- 						<a href="{{releaseFile.clientDownloadUrl}}"  -->
-<!-- 							ng-hide="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding"  -->
-<!-- 							target="_blank"> -->
-<!-- 							{{releaseFile.label}} -->
-<!-- 						</a> -->
-
 						<button class="btn btn-link" ng-hide="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding"
 							ng-click="downloadReleaseFile(releaseFile.clientDownloadUrl)" ng-bind-html="releaseFile.label">
 						</button>
@@ -89,4 +82,77 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+
+<!--release version-->
+<h4 ng-show="$root.authenticated" ng-hide="releaseVersions.alphabeta.length == 0">Alpha/Beta Versions</h4>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default release-package package" ng-repeat="releaseVersion in releaseVersions.alphabeta">
+            <div class="panel-heading status">
+                <div class="status">
+                    <!-- Warnings and action invitations -->
+                    <span class="alert-danger-flag pull-right"
+                          ng-show="$root.authenticated && isAccountDeactivated"
+                          translate="views.releases.warning.deactivated">
+						Account Deactivated
+					</span>
+                    <span class="alert-danger-flag pull-right"
+                          ng-show="$root.authenticated && isPendingInvoice && isMembershipApproved"
+                          translate="views.releases.warning.pending">
+						Pending Invoice
+					</span>
+                    <span class="alert-danger-flag pull-right"
+                          ng-show="$root.authenticated && !isAccountDeactivated && !isPrimaryApplicationApproved"
+                          translate="views.releases.warning.pProcessed">
+						Primary application is being processed
+					</span>
+                    <button class="btn btn-sm btn-success pull-right"
+                            ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipUnstarted"
+                            ng-click="utils.openExtensionApplication(releasePackage)"
+                            translate="views.releases.warning.apply">
+                        Apply for extension
+                    </button>
+                    <span class="alert-danger-flag pull-right"
+                          ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && !isApplicationWaitingForApplicant"
+                          translate="views.releases.warning.aProcessed">
+						Application being processed
+					</span>
+                    <button class="btn btn-sm btn-warning pull-right"
+                            ng-show="$root.authenticated && !isAccountDeactivated && isPrimaryApplicationApproved && !isIHTSDOPackage && isMembershipIncomplete && isApplicationWaitingForApplicant"
+                            ng-click="goToExtensionApplication()"
+                            translate="views.releases.warning.aAttention">
+                        Application needs attention, click to continue application
+                    </button>
+
+                    <h3 class="panel-title">{{releaseVersion.name}}</h3>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p ng-bind-html="releaseVersion.description"></p>
+                <span><strong><span translate="global.word.publishedOn">Published On</span>:</strong> {{releaseVersion.publishedAt | date: 'yyyy-MM-dd'}}</span>
+            </div>
+            <div class="panel-footer"
+                 ng-show="$root.authenticated">
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="version-title" translate="global.word.file">File:</span>
+                    </div>
+                    <div class="col-md-10">
+                        <div ng-repeat="releaseFile in releaseVersion.releaseFiles">
+                            <i class="fa fa-file"></i>
+                            <button class="btn btn-link disabled no-padding" disabled="disabled"
+                                    ng-show="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding" ng-bind-html="releaseFile.label">
+                            </button>
+                            <button class="btn btn-link" ng-hide="!releaseFile.clientDownloadUrl || !isMembershipInGoodStanding"
+                                    ng-click="downloadReleaseFile(releaseFile.clientDownloadUrl)" ng-bind-html="releaseFile.label">
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

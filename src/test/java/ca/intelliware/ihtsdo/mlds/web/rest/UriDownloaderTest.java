@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import ca.intelliware.ihtsdo.mlds.config.PostgresTestContainerTest;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,7 +20,7 @@ import ca.intelliware.ihtsdo.mlds.web.rest.UriDownloader.S3Location;
 @TestPropertySource(locations="classpath:test.application.properties")
 @ActiveProfiles("dev")
 @Transactional
-public class UriDownloaderTest extends PostgresTestContainerTest {
+public class UriDownloaderTest extends MySqlTestContainerTest {
 
 	@Inject
 	UriDownloader downloader;

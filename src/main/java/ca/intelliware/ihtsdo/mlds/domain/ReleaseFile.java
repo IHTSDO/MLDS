@@ -35,18 +35,27 @@ public class ReleaseFile extends BaseEntity {
 
 	@Column(name="created_at")
 	Instant createdAt = Instant.now();
-	
+
 	String label;
-	
+
 	@Column(name="download_url")
 	String downloadUrl;
 
+    @Column(name="primary_file")
+    boolean primaryFile;
+
+    @Column(name="md5_hash")
+    String md5Hash;
+
+    @Column(name="file_size")
+    String fileSize;
+
 	public ReleaseFile() { }
-	
+
 	public ReleaseFile(long releaseFileId) {
 		this.releaseFileId = releaseFileId;
 	}
-	
+
 	// Note:
 	// String clientDownloadUrl = rest endpoint calculated in JSON JacksonConfigurer
 
@@ -81,7 +90,33 @@ public class ReleaseFile extends BaseEntity {
 		this.downloadUrl = downloadUrl;
 	}
 
-	@Override
+    public boolean isPrimaryFile() {
+        return primaryFile;
+    }
+
+    public void setPrimaryFile(boolean primaryFile) {
+        this.primaryFile = primaryFile;
+    }
+
+    public boolean getPrimaryFile() { return primaryFile; }
+
+    public String getMd5Hash() {
+        return md5Hash;
+    }
+
+    public void setMd5Hash(String md5Hash) {
+        this.md5Hash = md5Hash;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    @Override
 	protected Object getPK() {
 		return releaseFileId;
 	}

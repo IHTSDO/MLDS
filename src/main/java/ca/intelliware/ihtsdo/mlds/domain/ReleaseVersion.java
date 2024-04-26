@@ -28,6 +28,10 @@ public class ReleaseVersion extends BaseEntity {
 	@Column(name="release_version_id")
 	Long releaseVersionId;
 
+    @GeneratedValue
+    @Column(name = "id")
+    private String id;
+
 	// the parent
 	@JsonIgnore
 	@ManyToOne
@@ -36,46 +40,67 @@ public class ReleaseVersion extends BaseEntity {
 
 	@Column(name="created_at")
 	Instant createdAt = Instant.now();
-	
+
 	@JsonIgnore
 	@Column(name="created_by")
 	String createdBy;
 
 	String name;
-	
+
+    @Column(name="summary")
+    String summary;
+
+    @Column(name="release_type")
+    String releaseType;
+
 	String description;
-	
+
 	boolean online;
+
+    @Column(name="versionDependentDerivativeURI")
+    String versionDependentDerivativeURI;
+
+    @Column(name="versionDependentURI")
+    String versionDependentURI;
+
+    @Column(name="versionURI")
+    String versionURI;
 
 	@Column(name="published_at")
 	LocalDate publishedAt;
-	
+
+    @Column(name="updated_at")
+    Instant updatedAt = Instant.now();
+
+    @Column(name="package_type")
+    String packageType;
+
 	@OneToMany(mappedBy="releaseVersion")
 	Set<ReleaseFile> releaseFiles = Sets.newHashSet();
 
 	public ReleaseVersion() {
-		
+
 	}
 
 	//For tests
-	public ReleaseVersion(Long releaseVersionId) {
+
+    public ReleaseVersion(Long releaseVersionId) {
 		this();
 		this.releaseVersionId = releaseVersionId;
 	}
-	
 	public Long getReleaseVersionId() {
 		return releaseVersionId;
 	}
 
 	// for tests
-	public void setReleaseVersionId(Long releaseVersionId) {
+
+    public void setReleaseVersionId(Long releaseVersionId) {
 		this.releaseVersionId = releaseVersionId;
 	}
-
 	public ReleasePackage getReleasePackage() {
 		return releasePackage;
 	}
-	
+
 	public Instant getCreatedAt() {
 		return createdAt;
 	}
@@ -91,7 +116,7 @@ public class ReleaseVersion extends BaseEntity {
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -110,7 +135,7 @@ public class ReleaseVersion extends BaseEntity {
 
 	public void addReleaseFile(ReleaseFile newReleaseFile) {
 		Validate.notNull(newReleaseFile.releaseFileId);
-		
+
 		if (newReleaseFile.releaseVersion != null) {
 			newReleaseFile.releaseVersion.releaseFiles.remove(newReleaseFile);
 		}
@@ -130,7 +155,7 @@ public class ReleaseVersion extends BaseEntity {
 		if (online && publishedAt == null) {
 			this.publishedAt = new LocalDate();
 		}
-		
+
 		this.online = online;
 	}
 
@@ -147,4 +172,72 @@ public class ReleaseVersion extends BaseEntity {
 		publishedAt = publishedAt2;
 	}
 
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getReleaseType() {
+        return releaseType;
+    }
+
+    public void setReleaseType(String releaseType) {
+        this.releaseType = releaseType;
+    }
+
+    public String getVersionDependentDerivativeURI() {
+        return versionDependentDerivativeURI;
+    }
+
+    public void setVersionDependentDerivativeURI(String versionDependentDerivativeURI) {
+        this.versionDependentDerivativeURI = versionDependentDerivativeURI;
+    }
+
+    public String getVersionDependentURI() {
+        return versionDependentURI;
+    }
+
+    public void setVersionDependentURI(String versionDependentURI) {
+        this.versionDependentURI = versionDependentURI;
+    }
+
+    public String getVersionURI() {
+        return versionURI;
+    }
+
+    public void setVersionURI(String versionURI) {
+        this.versionURI = versionURI;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public Instant getLastUpdated() {
+        return updatedAt;
+    }
+
+    public void setLastUpdated(Instant lastUpdated) {
+        this.updatedAt = lastUpdated;
+    }
+
+    public String getPackageType() {
+        return packageType;
+    }
+
+    public void setPackageType(String packageType) {
+        this.packageType = packageType;
+    }
 }

@@ -3,7 +3,7 @@
 	<groupId>org.ihtsdo.mlds</groupId>
 	<artifactId>mlds</artifactId>
 	<packaging>war</packaging>
-	<version>3.2.4</version>
+    <version>4.1.0</version>
 	<name>ihtsdo-mlds Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
@@ -101,7 +101,8 @@
 		<jhipster-loaded.version>0.8</jhipster-loaded.version>
 		<liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
 		<metrics-spring.version>3.0.0</metrics-spring.version>
-		<postgresql.version>42.2.6</postgresql.version>
+<!--		<postgresql.version>42.2.6</postgresql.version>-->
+        <mysql.version>8.0.26</mysql.version>
 		<usertype.core.version>5.0.0.GA</usertype.core.version>
 		<apache-httpclient.version>4.5.2</apache-httpclient.version>
 	</properties>
@@ -196,7 +197,18 @@
 	</prerequisites>
 
 	<dependencies>
-		<dependency>
+        <dependency>
+            <groupId>com.rometools</groupId>
+            <artifactId>rome</artifactId>
+            <version>1.15.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.14.3</version>
+        </dependency>
+
+        <dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.1</version>
@@ -388,6 +400,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.2.1.Final</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.22</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
@@ -404,18 +427,18 @@
 			<version>1.2.0.RELEASE</version>
 		</dependency>
 
-		<!-- Database dependencies -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>${postgresql.version}</version>
-		</dependency>
+<!--		&lt;!&ndash; Database dependencies &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.postgresql</groupId>-->
+<!--			<artifactId>postgresql</artifactId>-->
+<!--			<version>${postgresql.version}</version>-->
+<!--		</dependency>-->
 
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<!-- <version>5.1.37</version> -->
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>mysql</groupId>-->
+<!--			<artifactId>mysql-connector-java</artifactId>-->
+<!--			&lt;!&ndash; <version>5.1.37</version> &ndash;&gt;-->
+<!--		</dependency>-->
 
 		<!-- Test dependencies -->
 		<dependency>
@@ -449,6 +472,12 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
+            <version>1.17.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mysql</artifactId>
             <version>1.17.2</version>
             <scope>test</scope>
         </dependency>
