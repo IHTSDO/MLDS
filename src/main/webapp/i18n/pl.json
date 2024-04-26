@@ -95,7 +95,11 @@
             "DE": "Niemcy",
             "HK": "Hongkong, Chiny",
             "NL": "Holandia",
-            "SI": "Republika Słowenii"
+            "SI": "Republika Słowenii",
+            "CY": "Cypr",
+            "HU": "Węgry",
+            "SA": "Arabia Saudyjska",
+            "FR": "Francja"
         },
         "language": {
             "br": "portugalski",
