@@ -823,7 +823,7 @@
                 "fail": "<strong>Pendaftaran gagal!</strong> Coba lagi nanti."
             },
             "excludemessage": {
-                "confirm":"Konfirmasi",
+                "confirm": "Konfirmasi",
                 "link": "tidak menggunakan MLDS untuk mendistribusikan SNOMED CT. Untuk mendaftar mengunduh SNOMED CT, Anda dapat menemukan informasi lebih lanjut dengan membuka tautan ini -",
                 "userConfirm": "Untuk melanjutkan pendaftaran Anda di MLDS, harap Anda dapat mengonfirmasi bahwa Anda ingin menggunakan SNOMED CT di negara lain.",
                 "cancel": "Membatalkan",
