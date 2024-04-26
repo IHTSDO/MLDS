@@ -66,7 +66,8 @@
             "pt": "Portugués",
             "ru": "Ruso",
             "se": "Sueco",
-            "th": "Tailandés"
+            "th": "Tailandés",
+            "id": "Indonesia"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -114,7 +115,12 @@
             "ID": "Indonesia",
             "JM": "Jamaica",
             "AD": "Andorra",
-            "HR": "Croacia"
+            "HR": "Croacia",
+            "FR": "Francia",
+            "HU": "Hungría",
+            "JO": "Jordan",
+            "CY": "Chipre",
+            "SA": "Arabia Saudí"
         },
         "country": {
             "AC": "Ascensión",
@@ -476,9 +482,8 @@
                 "userexists": "<strong>Un usuario ya se ha registrado con esta dirección de correo electrónico.</strong>¿Quiso decir  <a href='#/login'>login</a>?",
                 "blocklist": "Debido a nuestras políticas de TI no podemos procesar la dirección de correo electrónico ingresada. Por favor contáctese con  <a href=\"mailto:support@snomed.org\">support@snomed.org</a> por más asistencia."
             },
-
             "excludemessage": {
-                "confirm":"Confirmación",
+                "confirm": "Confirmación",
                 "link": "no utiliza MLDS para distribuir SNOMED CT. Para registrarse para descargar SNOMED CT, puede encontrar más información en este enlace -",
                 "userConfirm": "Para continuar con su registro en MLDS, puede confirmar que le gustaría implementar SNOMED CT en un país diferente.",
                 "cancel": "Cancelar",
