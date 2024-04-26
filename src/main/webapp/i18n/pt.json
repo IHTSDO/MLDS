@@ -114,7 +114,14 @@
             "KR": "Coreia do Sul",
             "SV": "El Salvador",
             "ID": "Indonésia",
-            "JM": "Jamaica"
+            "JM": "Jamaica",
+            "AD": "Andorra",
+            "HR": "Croácia",
+            "SA": "Arábia Saudita",
+            "CY": "Chipre",
+            "FR": "França",
+            "JO": "Jordânia",
+            "HU": "Hungria"
         },
         "country": {
             "AC": "Ascenção",
@@ -476,7 +483,7 @@
                 "blocklist": "Devido às nossas políticas de TIC, não é possível processar o e-mail que introduziu <a href=\"mailto:Support@snomed.org\">Support@snomed.org</a> para mais assistência"
             },
             "excludemessage": {
-                "confirm":"Confirmação",
+                "confirm": "Confirmação",
                 "link": "não usa MLDS para distribuir SNOMED CT. Para se registrar para baixar o SNOMED CT, você pode encontrar mais informações acessando este link -",
                 "userConfirm": "Para continuar seu registro no MLDS, confirme que deseja implantar o SNOMED CT em um país diferente.",
                 "cancel": "cancelar",
