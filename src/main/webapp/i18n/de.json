@@ -115,7 +115,12 @@
             "ID": "Indonesien",
             "JM": "Jamaika",
             "AD": "Andorra",
-            "HR": "Kroatien"
+            "HR": "Kroatien",
+            "JO": "Jordanien",
+            "CY": "Zypern",
+            "FR": "Frankreich",
+            "HU": "Ungarn",
+            "SA": "Saudi-Arabien"
         },
         "country": {
             "AC": "Ascension",
