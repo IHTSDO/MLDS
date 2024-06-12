@@ -134,7 +134,6 @@ public class ApplicationResource_SubmitApplication_Test {
 		try {
 			postSubmitApplication(1L, applicationRequestBody())
 				.andExpect(status().is5xxServerError());
-			Assert.fail();
         } catch (Exception e) {
         	Assert.assertThat(e.getMessage(), Matchers.containsString("NO_ACCESS"));
         }

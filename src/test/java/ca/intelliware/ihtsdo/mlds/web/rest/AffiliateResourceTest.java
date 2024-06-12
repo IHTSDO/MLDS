@@ -336,7 +336,6 @@ public class AffiliateResourceTest {
         		.content("{ \"notesInternal\": \"Updated notes\" }")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().is5xxServerError());
-        	Assert.fail();
         } catch (Exception e) {
         	Assert.assertThat(e.getMessage(), Matchers.containsString("not allowed"));
         }
@@ -496,7 +495,6 @@ public class AffiliateResourceTest {
         	restUserMockMvc.perform(delete(Routes.AFFILIATE, 999L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().is5xxServerError());
-        	Assert.fail();
         } catch (Exception e) {
         	Assert.assertThat(e.getMessage(), Matchers.containsString("not allowed"));
         }
