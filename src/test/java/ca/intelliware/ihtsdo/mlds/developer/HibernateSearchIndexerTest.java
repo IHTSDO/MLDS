@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.developer;
 
+import ca.intelliware.ihtsdo.mlds.config.MySqlTestContainerTest;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import org.hibernate.search.mapper.orm.Search;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("dev")
-public class HibernateSearchIndexerTest {
+public class HibernateSearchIndexerTest extends MySqlTestContainerTest {
     @Resource
     EntityManager entityManager;
 
