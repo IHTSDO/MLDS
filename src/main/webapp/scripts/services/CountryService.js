@@ -33,7 +33,7 @@ angular.module('MLDS')
 			});
 			
 			// fill countriesByCode map
-			service.countries.map(function(c){
+			service.countries.forEach(function(c){
 				service.countriesByIsoCode2[c.isoCode2] = c;
 			});
 			

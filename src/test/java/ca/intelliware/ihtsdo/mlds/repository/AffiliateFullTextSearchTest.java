@@ -252,7 +252,7 @@ public class AffiliateFullTextSearchTest extends MySqlTestContainerTest {
 		flush();
 
 //		List<Affiliate> resultList = search("firstName", null, StandingState.IN_GOOD_STANDING, true);
-        assertNotEquals("IN_GOOD_STANDING",affiliates.get(5).getStandingState());
+        assertNotEquals("IN_GOOD_STANDING",affiliates.get(5).getStandingState().toString());
 //		assertThat(resultList.size(), is(2));
 //		assertThat(resultList, containsInAnyOrder(affiliates.get(3), affiliates.get(5)));
 	}
