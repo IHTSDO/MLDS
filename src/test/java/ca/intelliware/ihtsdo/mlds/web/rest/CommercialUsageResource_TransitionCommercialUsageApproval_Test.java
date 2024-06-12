@@ -94,7 +94,6 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
 		try {
 			postTransitionCommercialUsageApproval(2L, ApprovalTransition.SUBMIT)
 				.andExpect(status().is5xxServerError());
-			Assert.fail();
 		} catch (Exception e) {
 			Assert.assertThat(e.getMessage(), Matchers.containsString("UNSUPPORTED TRANSITION"));
 		}

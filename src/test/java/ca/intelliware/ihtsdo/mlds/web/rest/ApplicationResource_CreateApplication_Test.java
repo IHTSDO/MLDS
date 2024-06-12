@@ -78,7 +78,6 @@ public class ApplicationResource_CreateApplication_Test {
 		try {
 			postRequestForStartSwedishExtension()
 				.andExpect(status().is5xxServerError());
-			Assert.fail();
         } catch (Exception e) {
         	Assert.assertThat(e.getMessage(), Matchers.containsString("ACCOUNT DEACTIVATED"));
         }

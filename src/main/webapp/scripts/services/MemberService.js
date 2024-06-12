@@ -24,7 +24,7 @@ angular.module('MLDS')
 			});
 
 			// fill membersByKey map
-			service.members.map(function(m){
+			service.members.forEach(function(m){
 				service.membersByKey[m.key] = m;
 			});
 

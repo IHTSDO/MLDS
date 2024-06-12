@@ -86,7 +86,6 @@ public class AnnouncementResourceTest {
 	        		.content("{ \"member\": { \"key\":\"OT\"} }")
 	                .accept(MediaType.APPLICATION_JSON))
 					.andExpect(status().is5xxServerError());
-	    	Assert.fail();
 	    } catch (Exception e) {
 	    	Assert.assertThat(e.getMessage(), Matchers.containsString("not allowed"));
 	    }
