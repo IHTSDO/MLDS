@@ -1,7 +1,7 @@
 # Data Management
 
 ## Database
-The system uses a Postgres database.  On system startup, the application connects via the configured database/username/password parameters.  It then launches the Liquibase databsae configuration tool configured by the [master changelog](../resources/config/liquibase/master.xml).  See [DatabaseConfiguration.java](../java/ca/intelliware/ihtsdo/mlds/config/DatabaseConfiguration.java)
+The system uses a MySQL database.  On system startup, the application connects via the configured database/username/password parameters.  It then launches the Liquibase databsae configuration tool configured by the [master changelog](../resources/config/liquibase/master.xml).  See [DatabaseConfiguration.java](../java/ca/intelliware/ihtsdo/mlds/config/DatabaseConfiguration.java)
 
 Liquibase runs from an empty database and:
 
@@ -11,7 +11,7 @@ Liquibase runs from an empty database and:
 Liquibase runs every time the application starts, doing nothing of there are no new entries defined.
 
 ## Hibernate
-The application accesses the database via the Hiberate JPA provider.  The provider uses the standard Spring Boot configuration, using a persistence unit named "default".  We use the [Jadira Usertypes](http://jadira.sourceforge.net/usertype-userguide.html) to map fields defined with [Joda Time](http://www.joda.org/joda-time/) types.  This is turned on in [persistence.xml](../resources/META-INF/persistence.xml).
+The application accesses the database via the Hiberate JPA provider.  The provider uses the standard Spring Boot configuration, using a persistence unit named "default".  We use the [Jadira Usertypes](http://jadira.sourceforge.net/usertype-userguide.html) to map fields defined with [Java Native Time Module](https://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html) types.  This is turned on in [persistence.xml](../resources/META-INF/persistence.xml).
 
 ## Key tables
 The system has a few important roots:
