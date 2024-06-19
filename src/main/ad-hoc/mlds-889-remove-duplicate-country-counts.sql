@@ -1,9 +1,10 @@
 /*
 Before running, take a full database backup with
-sudo -u mlds  pg_dump mlds > dev_mlds_20150121.sql
+sudo mysql -u mlds -p mlds < mlds-889-remove-duplicate-country-counts.sql
 
-The run this script with 
-sudo -u mlds psql < mlds-889-remove-duplicate-country-counts.sql
+
+The run this script with
+sudo -u mlds mysql < mlds-889-remove-duplicate-country-counts.sql
 
 Expected results:
 SELECT 67
@@ -12,11 +13,11 @@ DELETE 17
 */
 
 create table mlds_889_usage_count_backup
-as 
+as
 select * from commercial_usage_count;
 
 create table mlds_889_usage_count_deleted
-as 
+as
 SELECT DISTINCT b.*
 FROM commercial_usage_count a, commercial_usage_count b
 WHERE a.country_iso_code_2 = b.country_iso_code_2

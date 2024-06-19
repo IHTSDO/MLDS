@@ -1,8 +1,8 @@
 ## Environmental Dependencies
 The core application requires:
 
-- a recent Java 7 JVM 
-- a Postgres database and user with ddl permissions for connecting and configuring storage. See [database docs](./database.md) for more.
+- a recent Java 17 JVM 
+- a MySQL database and user with ddl permissions for connecting and configuring storage. See [database docs](./database.md) for more.
 - an outbound email connection (normally SMTP or ESMTP)
 - the IHTSDO user management application
 

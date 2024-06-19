@@ -5,7 +5,7 @@ The project is built with Maven, producing a war file.
 ##Build dependencies:
 To run Maven, we need:
 
-- a recent JDK (>=6)
+- a recent JDK (>=17)
 - Maven
 - NodeJS: apt-get install nodejs (or nodejs-legacy, depending on os version).  Make sure that "node --version" returns something > 0.10.10
 - ruby: apt-get install ruby
@@ -13,7 +13,7 @@ To run Maven, we need:
 - bower: npm install -g bower
 - grunt: npm install -g grunt-cli
 
-Note:  If JHipster tell you it requires at least JDK 1.7 and you think you have that already, then check what's actually being used 
+Note:  It requires at least JDK 17 and you think you have that already, then check what's actually being used 
 by typing 
 	mvn -version
 If maven is using the wrong version of java, then you might want to set the JAVA_HOME environmental variable in your ~/.bash_profile file.
@@ -67,7 +67,7 @@ The install the software with
 
 	apt-get install mlds
 
-Note: when installing manually, you will need to configure a Postgres database.  By default, the db name is mlds, connecting via a user named mlds.
+Note: when installing manually, you will need to configure a MySQL database.  By default, the db name is mlds, connecting via a user named mlds.
 
 The application provides default configuration values in [config.properties](../deb/config.properties).  Comments inline.
 
