@@ -329,6 +329,17 @@
                         <signPackage>false</signPackage>
                         <dataSet>
                             <data>
+                                <src>${basedir}/src/main/resources/config/application.properties</src>
+                                <dst>/opt/${packageName}/application.properties</dst>
+                                <type>file</type>
+                                <conffile>true</conffile>
+                                <mapper>
+                                    <type>perm</type>
+                                    <group>${packageName}</group>
+                                    <filemode>0640</filemode>
+                                </mapper>
+                            </data>
+                            <data>
                                 <src>${project.build.directory}/${project.build.finalName}.war</src>
                                 <dst>app.war</dst>
                                 <type>file</type>
