@@ -152,6 +152,7 @@ public class Routes {
 
     public static final String RELEASE_FILE_DOWNLOAD = "/api/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/releaseFiles/{releaseFileId}/download";
 
+    public static final String CHECK_IHTSDO_FILE = "/api/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/releaseFiles/{releaseFileId}/check";
 
     public static final String PASSWORD_RESET = "/api/passwordReset";
     public static final String PASSWORD_RESET_ITEM = "/api/passwordReset/{token}";
