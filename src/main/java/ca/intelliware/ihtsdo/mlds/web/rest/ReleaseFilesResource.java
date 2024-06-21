@@ -180,4 +180,19 @@ public class ReleaseFilesResource {
             releasePackageAuditEvents.logDownload(releaseFile, statusCode, userMembershipAccessor.getAffiliate());
         }
     }
+    /*MLDS-1013 Add disclaimers or warnings for externally linked release packages -- Check whether file is from IHTSDO Domain*/
+    @RequestMapping(value = Routes.CHECK_IHTSDO_FILE,
+        method = RequestMethod.GET)
+    @RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
+    public @ResponseBody Boolean checkIhtsdoFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId,
+                                                 HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Optional<ReleaseFile> releaseFileOptional = releaseFileRepository.findById(releaseFileId);
+        if (releaseFileOptional.isEmpty()) {
+            throw new RuntimeException("no such file found");
+        }
+        ReleaseFile releaseFile = releaseFileOptional.get();
+        String downloadUrl = releaseFile.getDownloadUrl();
+        return downloadUrl.contains("ihtsdo");
+    }
 }

@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h3 class="modal-title"><span translate="views.releases.releasePackageLicense">Release Package License</span></h3>
+</div>
+<div class="modal-body">
+    <p><span translate="views.releases.reviewLicense">Please review the following license and accept them before downloading the release package:</span></p>
+    <button ng-click="viewReleaseLicense()" class="btn btn-muted btn-default btn-block">
+        {{releasePackage.name}} <span translate="global.word.license">License</span>
+    </button>
+    <br>
+    <strong>Disclaimer:</strong>
+    <p>The files you are about to download are provided by external sources that are not under our control. We cannot guarantee the accuracy, completeness, or security of the content provided by these external sources. By proceeding with the download, you acknowledge and agree to the following:</p>
+    <ol>
+        <li><strong>No Warranty:</strong> The files are provided "as is" without any warranty of any kind, either express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</li>
+        <li><strong>Security Risks:</strong> Downloading files from external sources carries inherent risks, including but not limited to the possibility of viruses, malware, or other malicious software. We recommend that you use appropriate and up-to-date antivirus and security software to protect your device.</li>
+        <li><strong>Responsibility:</strong> You are solely responsible for any damage to your device or loss of data that may result from downloading or using these files. We disclaim any and all liability for any harm, damage, or loss arising from your download or use of these files.</li>
+        <li><strong>External Links:</strong> Links to external websites are provided for your convenience and do not constitute an endorsement by us of the content, products, or services offered by these websites. We are not responsible for the content or privacy practices of these external websites.</li>
+        <li><strong>Updates and Changes:</strong> The content of the files and the external sources providing them may change without notice. We are not responsible for keeping the files up-to-date or ensuring their continued availability.</li>
+    </ol>
+    <p>By downloading, you signify your acceptance of these terms and conditions. If you do not agree with any part of this disclaimer, please do not download the files.</p>
+    <br>
+    <label>
+        <input type="checkbox" ng-model="isLicenseAccepted" value="1"> <span translate="views.releases.agreeToLicense">I agree to the license</span>.
+    </label>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-muted btn-success" ng-click="$close()" ng-disabled="!isLicenseAccepted"><span translate="global.word.download">Download</span></button>
+    <button class="btn btn-muted btn-link pull-left" ng-click="$dismiss()"><span translate="global.word.cancel">Cancel</span></button>
+</div>

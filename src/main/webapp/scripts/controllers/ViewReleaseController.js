@@ -2,8 +2,8 @@
 
 angular.module('MLDS')
     .controller('ViewReleaseController',
-    		['$scope', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location', '$log', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService', 'StandingStateUtils', '$modal', 'ReleasePackageService', '$window',
-          function($scope, $routeParams, PackagesService, PackageUtilsService, $location, $log, UserAffiliateService, ApplicationUtilsService, MemberService, StandingStateUtils, $modal, ReleasePackageService, $window) {
+    		['$scope', '$http', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location', '$log', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService', 'StandingStateUtils', '$modal', 'ReleasePackageService', '$window',
+          function($scope, $http, $routeParams, PackagesService, PackageUtilsService, $location, $log, UserAffiliateService, ApplicationUtilsService, MemberService, StandingStateUtils, $modal, ReleasePackageService, $window) {
 
 	var releasePackageId = $routeParams.releasePackageId && parseInt($routeParams.releasePackageId, 10);
 
@@ -96,17 +96,23 @@ angular.module('MLDS')
 		ReleasePackageService.getReleaseLicense(releasePackageId);
 	};
 
-	$scope.downloadReleaseFile = function(downloadUrl) {
-		var modalInstance = $modal.open({
-	      templateUrl: 'views/user/reviewReleaseLicenseModal.html',
-	      size: 'lg',
-	      scope: $scope
-	    });
-
-	    modalInstance.result.then(function () {
-	    	$window.open(downloadUrl, '_blank');
-	    });
-	};
+    $scope.downloadReleaseFile = function(downloadUrl) {
+        var checkUrl = downloadUrl.replace('/download', '/check');
+        $http.get(checkUrl).then(function(response) {
+            var isIhtsdoPresent = response.data === "true";
+            var modalTemplateUrl = isIhtsdoPresent
+                ? 'views/user/reviewReleaseLicenseModal.html'
+                : 'views/user/reviewReleaseLicenseWithDisclaimerModal.html';
+            var modalInstance = $modal.open({
+                templateUrl: modalTemplateUrl,
+                size: 'lg',
+                scope: $scope
+            });
+                modalInstance.result.then(function() {
+                $window.open(downloadUrl, '_blank');
+            });
+        });
+    };
 
 }]);
 
