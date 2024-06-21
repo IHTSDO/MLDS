@@ -5,18 +5,18 @@
  <div class="modal-body">
  	  <form name="formPackage" bs-validation>
       <div class="form-group">
-        <label>Name</label> 
+        <label>Name</label>
         <input class="form-control" placeholder="Enter Release Name" name="name" ng-model="releasePackage.name" ng-required="true">
         <span ng-show="formPackage.name.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
       <div class="form-group">
-        <label>Description</label> 
-        <div text-angular name="description" ng-model="releasePackage.description"></div>
+        <label>Description</label>
+        <div text-angular name="description" ng-model="releasePackage.description" auto-link></div>
         <span ng-show="formPackage.description.$error.required && submitAttempted" class="help-block">Required Field</span>
       </div>
       <div class="form-group" ng-show="Session.isAdmin">
           <label>Member</label>
-          <select class="form-control" name="member" 
+          <select class="form-control" name="member"
           	ng-model="releasePackage.member" ng-options="m as (m.key | enum:'global.member.') for m in members track by m.key">
           </select>
       </div>
@@ -30,7 +30,7 @@
               <textarea class="form-control" rows="3" name="copyrights" ng-model="releasePackage.copyrights"></textarea>
       </div>
 	</form>
- 	
+
  </div>
  <div class="modal-footer">
      <button class="btn btn-secondary btn-link" ng-click="$dismiss()">Cancel</button>
