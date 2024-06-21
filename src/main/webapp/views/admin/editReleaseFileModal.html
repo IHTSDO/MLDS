@@ -25,9 +25,11 @@
                 </div>
                 <div class="form-group">
                     <label>File Size in Octets
-                        <input class="form-control col-2" placeholder="File Size" name="fileSize" ng-model="releaseFile.fileSize">
+                        <input class="form-control col-2" placeholder="File Size" name="fileSize" ng-model="releaseFile.fileSize" ng-required="releaseFile.primaryFile" ng-pattern="/^\d+$/">
                         <span ng-show="formReleaseFile.fileSize.$error.required && submitAttempted" class="help-block">Required Field</span>
+                        <span ng-show="formReleaseFile.fileSize.$error.pattern && submitAttempted" class="help-block">Only numbers are allowed.Remove Commas/Special Characters if Entered.</span>
                     </label>
+
                     <label style="margin-left: 40px;" for="isPrimaryCheckbox">
                         <input id="isPrimaryCheckbox" name="isPrimary" ng-model="releaseFile.primaryFile" type="checkbox" />
                         Is Primary file
