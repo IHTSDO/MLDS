@@ -2,10 +2,10 @@
 
 angular.module('MLDS')
     .controller('ViewReleaseController',
-    		['$scope', '$http', '$routeParams', 'PackagesService', 'PackageUtilsService', '$location', '$log', 'UserAffiliateService', 'ApplicationUtilsService', 'MemberService', 'StandingStateUtils', '$modal', 'ReleasePackageService', '$window',
-          function($scope, $http, $routeParams, PackagesService, PackageUtilsService, $location, $log, UserAffiliateService, ApplicationUtilsService, MemberService, StandingStateUtils, $modal, ReleasePackageService, $window) {
+    		['$scope', '$http', '$routeParams', '$location', 'ServicesUtils','ServicesBundle',
+          function($scope, $http, $routeParams, $location, ServicesUtils, ServicesBundle) {
 
-	var releasePackageId = $routeParams.releasePackageId && parseInt($routeParams.releasePackageId, 10);
+	let releasePackageId = $routeParams.releasePackageId && parseInt($routeParams.releasePackageId, 10);
 
 	$scope.releaseVersions = {
 			online: [],
@@ -15,7 +15,7 @@ angular.module('MLDS')
 	$scope.releasePackage = $scope.releasePackage || {releaseVersions:[]};
 
 	$scope.viewLicense = function (memberKey) {
-		MemberService.getMemberLicense(memberKey);
+		ServicesBundle.MemberService.getMemberLicense(memberKey);
 	};
 
 	$scope.isMembershipInGoodStanding = false;
@@ -23,14 +23,14 @@ angular.module('MLDS')
 	$scope.isMembershipIncomplete = false;
 	$scope.isMembershipUnstarted = false;
 
-	$scope.utils = PackageUtilsService;
+	$scope.utils = ServicesBundle.PackageUtilsService;
 
 	$scope.$watch('releasePackage', function(newValue, oldValue) {
 		$scope.releaseVersions = $scope.utils.updateVersionsLists(newValue);
 	});
 
-	var getLatestMatchingMemberApplication = function getStatusOfLatestMatchingMemberApplication(releasePackage) {
-		return _.chain(UserAffiliateService.affiliate.applications)
+	let getLatestMatchingMemberApplication = function getStatusOfLatestMatchingMemberApplication(releasePackage) {
+		return _.chain(ServicesBundle.UserAffiliateService.affiliate.applications)
 				.filter(function(application){return application.member.key === releasePackage.member.key;})
 				.max(function(application){return new Date(application.submittedAt);})
 				.value();
@@ -45,40 +45,39 @@ angular.module('MLDS')
 		$location.path('/extensionApplication/'+$scope.matchingExtensionApplication.applicationId);
 	};
 
-	var initReleasePackageState = function initReleasePackageState(releasePackage) {
-		UserAffiliateService.promise.then(function() {
-			$scope.isAccountDeactivated = StandingStateUtils.isDeactivated(UserAffiliateService.affiliate.standingState);
-			$scope.isPendingInvoice = StandingStateUtils.isPendingInvoice(UserAffiliateService.affiliate.standingState);
-			$scope.isMembershipApproved = UserAffiliateService.isMembershipApproved(releasePackage.member);
+	let initReleasePackageState = function initReleasePackageState(releasePackage) {
+		ServicesBundle.UserAffiliateService.promise.then(function() {
+			$scope.isAccountDeactivated = ServicesBundle.StandingStateUtils.isDeactivated(ServicesBundle.UserAffiliateService.affiliate.standingState);
+			$scope.isPendingInvoice = ServicesBundle.StandingStateUtils.isPendingInvoice(ServicesBundle.UserAffiliateService.affiliate.standingState);
+			$scope.isMembershipApproved = ServicesBundle.UserAffiliateService.isMembershipApproved(releasePackage.member);
 			$scope.isMembershipInGoodStanding = $scope.isMembershipApproved && !$scope.isAccountDeactivated && !$scope.isPendingInvoice;
-			$scope.isMembershipIncomplete = UserAffiliateService.isMembershipIncomplete(releasePackage.member);
-			$scope.isMembershipUnstarted = UserAffiliateService.isMembershipNotStarted(releasePackage.member);
-			$scope.isPrimaryApplicationApproved = ApplicationUtilsService.isApplicationApproved(UserAffiliateService.affiliate.application);
-			$scope.isPrimaryApplicationWaitingForApplicant = ApplicationUtilsService.isApplicationWaitingForApplicant(UserAffiliateService.affiliate.application);
+			$scope.isMembershipIncomplete = ServicesBundle.UserAffiliateService.isMembershipIncomplete(releasePackage.member);
+			$scope.isMembershipUnstarted = ServicesBundle.UserAffiliateService.isMembershipNotStarted(releasePackage.member);
+			$scope.isPrimaryApplicationApproved = ServicesBundle.ApplicationUtilsService.isApplicationApproved(ServicesBundle.UserAffiliateService.affiliate.application);
+			$scope.isPrimaryApplicationWaitingForApplicant = ServicesBundle.ApplicationUtilsService.isApplicationWaitingForApplicant(ServicesBundle.UserAffiliateService.affiliate.application);
 			$scope.matchingExtensionApplication = getLatestMatchingMemberApplication(releasePackage);
-			$scope.isApplicationWaitingForApplicant = ApplicationUtilsService.isApplicationWaitingForApplicant($scope.matchingExtensionApplication);
-			$scope.isIHTSDOPackage = MemberService.isIhtsdoMember(releasePackage.member);
+			$scope.isApplicationWaitingForApplicant = ServicesBundle.ApplicationUtilsService.isApplicationWaitingForApplicant($scope.matchingExtensionApplication);
+			$scope.isIHTSDOPackage = ServicesBundle.MemberService.isIhtsdoMember(releasePackage.member);
 		});
 	};
 
-	var setReleasePackage = function setReleasePackage(releasePackage) {
+	let setReleasePackage = function setReleasePackage(releasePackage) {
 		$scope.releasePackage = releasePackage;
 		initReleasePackageState(releasePackage);
 	};
 
-	var loadReleasePackage = function loadReleasePackage() {
-		if ($scope.releasePackage && $scope.releasePackage.releasePackageId) {
+	let loadReleasePackage = function loadReleasePackage() {
+		if ($scope.releasePackage?.releasePackageId) {
 			// Already initialized as sub-controller
 			initReleasePackageState($scope.releasePackage);
 		} else if (releasePackageId) {
 			// Main controller
-			PackagesService.get({releasePackageId: releasePackageId})
+			ServicesBundle.PackagesService.get({releasePackageId: releasePackageId})
 			.$promise.then(function(result) {
 				setReleasePackage(result);
 				})
 			["catch"](function(message) {
-				//FIXME how to handle errors + not present
-				$log.log('ReleasePackage not found');
+				ServicesUtils.$log.log('ReleasePackage not found');
 				$scope.goToViewPackages();
 			});
 		} else {
@@ -93,23 +92,23 @@ angular.module('MLDS')
 	};
 
 	$scope.viewReleaseLicense = function() {
-		ReleasePackageService.getReleaseLicense(releasePackageId);
+		ServicesBundle.ReleasePackageService.getReleaseLicense(releasePackageId);
 	};
 
     $scope.downloadReleaseFile = function(downloadUrl) {
-        var checkUrl = downloadUrl.replace('/download', '/check');
+        let checkUrl = downloadUrl.replace('/download', '/check');
         $http.get(checkUrl).then(function(response) {
-            var isIhtsdoPresent = response.data === "true";
-            var modalTemplateUrl = isIhtsdoPresent
+            let isIhtsdoPresent = response.data === "true";
+            let modalTemplateUrl = isIhtsdoPresent
                 ? 'views/user/reviewReleaseLicenseModal.html'
                 : 'views/user/reviewReleaseLicenseWithDisclaimerModal.html';
-            var modalInstance = $modal.open({
+            let modalInstance = ServicesUtils.$modal.open({
                 templateUrl: modalTemplateUrl,
                 size: 'lg',
                 scope: $scope
             });
                 modalInstance.result.then(function() {
-                $window.open(downloadUrl, '_blank');
+                ServicesUtils.$window.open(downloadUrl, '_blank');
             });
         });
     };

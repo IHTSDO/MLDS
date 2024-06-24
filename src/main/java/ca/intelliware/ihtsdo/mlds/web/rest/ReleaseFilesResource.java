@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -181,15 +182,14 @@ public class ReleaseFilesResource {
         }
     }
     /*MLDS-1013 Add disclaimers or warnings for externally linked release packages -- Check whether file is from IHTSDO Domain*/
-    @RequestMapping(value = Routes.CHECK_IHTSDO_FILE,
-        method = RequestMethod.GET)
+    @GetMapping(value = Routes.CHECK_IHTSDO_FILE)
     @RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
-    public @ResponseBody Boolean checkIhtsdoFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId,
-                                                 HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public Boolean checkIhtsdoFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId,
+                                                 HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException {
         Optional<ReleaseFile> releaseFileOptional = releaseFileRepository.findById(releaseFileId);
         if (releaseFileOptional.isEmpty()) {
-            throw new RuntimeException("no such file found");
+            throw new FileNotFoundException("no such file found");
         }
         ReleaseFile releaseFile = releaseFileOptional.get();
         String downloadUrl = releaseFile.getDownloadUrl();
