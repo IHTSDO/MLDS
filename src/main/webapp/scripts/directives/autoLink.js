@@ -10,17 +10,17 @@ angular.module('MLDS')
 
                 function linkifyTextNodes(node) {
                     if (node.nodeType === 3) { // Text node
-                        var urlPattern = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-                        var text = node.nodeValue;
-                        var newHtml = text.replace(urlPattern, function(url) {
+                        let urlPattern = /\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|]/ig;
+                        let text = node.nodeValue;
+                        let newHtml = text.replace(urlPattern, function(url) {
                             return '<a href="' + url + '" target="_blank">' + url + '</a>';
                         });
 
                         if (newHtml !== text) {
-                            var tempDiv = document.createElement('div');
+                            let tempDiv = document.createElement('div');
                             tempDiv.innerHTML = newHtml;
 
-                            var newNodes = Array.prototype.slice.call(tempDiv.childNodes);
+                            let newNodes = Array.prototype.slice.call(tempDiv.childNodes);
                             newNodes.forEach(function(newNode) {
                                 node.parentNode.insertBefore(newNode, node);
                             });
@@ -35,14 +35,14 @@ angular.module('MLDS')
                 function linkifyHtml(html) {
                     if (!html) return html;
 
-                    var tempDiv = document.createElement('div');
+                    let tempDiv = document.createElement('div');
                     tempDiv.innerHTML = html;
                     Array.prototype.slice.call(tempDiv.childNodes).forEach(linkifyTextNodes);
                     return tempDiv.innerHTML;
                 }
 
                 function updateViewValue(value) {
-                    var linkedValue = linkifyHtml(value);
+                    let linkedValue = linkifyHtml(value);
                     if (linkedValue !== value) {
                         ngModel.$setViewValue(linkedValue);
                         ngModel.$render();
