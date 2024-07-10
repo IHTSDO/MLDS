@@ -134,7 +134,8 @@ public class Routes {
      * - PUT
      */
     static final String RELEASE_VERSION = "/api/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}";
-    static final String RELEASE_VERSION_NOTIFICATIONS = "/api/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/notifications";
+    static final String RELEASE_VERSION_NOTIFICATIONS = "/api/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/notifications"; static final String RELEASE_VERSION_DEPENDENCY = "/api/checkVersionDependency/{releaseVersionId}";
+
 
     /**
      * control endpoint for release files in version:
