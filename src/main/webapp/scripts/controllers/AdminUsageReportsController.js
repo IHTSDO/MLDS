@@ -1,48 +1,75 @@
 'use strict';
 
-angular.module('MLDS').controller('AdminUsageReportsController',
-		['$scope', '$log', 'CommercialUsageService', 'UsageReportsService', 'StandingStateUtils', 'Session',
-    function ($scope, $log, CommercialUsageService,UsageReportsService, StandingStateUtils, Session) {
+angular.module('MLDS').controller('AdminUsageReportsController', ['$scope', '$log', 'CommercialUsageService', 'UsageReportsService', 'StandingStateUtils', 'Session',
+    function ($scope, $log, CommercialUsageService, UsageReportsService, StandingStateUtils, Session) {
 
-			$scope.usageReportsUtils = UsageReportsService;
-			$scope.isAdmin = Session.isAdmin();
+        $scope.usageReportsUtils = UsageReportsService;
+        $scope.isAdmin = Session.isAdmin();
 
-			$scope.usageReports = [];
+        $scope.usageReports = [];
+        $scope.orderByField = 'submitted';
+        $scope.reverseSort = false;
+        $scope.page = 0;
+        $scope.pageSize = 20;
+        $scope.hasMoreData = true;
+        $scope.downloadingReports = false;
 
-			$scope.orderByField = 'submitted';
-			$scope.reverseSort = false;
+        let memberKey = Session?.member?.key || 'NONE';
+        $scope.reportSearch = function() {
+            return function(report) {
+                if ($scope.isAdmin) {
+                    return true;
+                }
+                return report.affiliate.homeMember.key === memberKey;
+            };
+        };
 
-			let memberKey = Session?.member?.key || 'NONE';
-			$scope.reportSearch = function() {
-				return (function(report) {
-					if ($scope.isAdmin){
-						return true;
-					}
-					return report.affiliate.homeMember.key === memberKey;
-				});
-			};
+        $scope.loadMoreUsageReports = function(reset) {
+            if ($scope.downloadingReports || !$scope.hasMoreData) {
+                return;
+            }
+            $scope.downloadingReports = true;
+            if (reset) {
+                $scope.page = 0;
+                $scope.usageReports = [];
+                $scope.hasMoreData = true;
+            }
+            let orderByParam = $scope.orderByField + ',' + ($scope.reverseSort ? 'desc' : 'asc');
+            CommercialUsageService.getSubmittedUsageReports($scope.page, $scope.pageSize, orderByParam)
+                .then(function(results) {
+                    if (results.data.length < $scope.pageSize) {
+                        $scope.hasMoreData = false;
+                    }
+                    $scope.usageReports = $scope.usageReports.concat(results.data);
+                    $scope.page++;
+                })
+                .finally(function() {
+                    $scope.downloadingReports = false;
+                });
+        };
 
-			function loadUsageReports(){
-				CommercialUsageService.getSubmittedUsageReports()
-					.then(function(results) {
-						$scope.usageReports = results.data;
-					});
-			}
+        $scope.toggleField = function(field) {
+            if ($scope.orderByField === field) {
+                $scope.reverseSort = !$scope.reverseSort;
+            } else {
+                $scope.orderByField = field;
+                $scope.reverseSort = false;
+            }
+            $scope.loadMoreUsageReports(true);
+        };
 
-			loadUsageReports();
 
-			$scope.affiliateDetails = function(usageReport) {
-				if (!usageReport?.affiliate) {
-					return {};
-				}
-				let affiliate = usageReport.affiliate;
-				if (StandingStateUtils.wasApproved(affiliate.standingState)) {
-					return affiliate.affiliateDetails;
-				} else {
-					return affiliate?.application?.affiliateDetails || {};
-				}
-			};
-			/*MLDS-985 Review Usage Reports*/
+        $scope.affiliateDetails = function(usageReport) {
+            if (!usageReport?.affiliate) {
+                return {};
+            }
+            let affiliate = usageReport.affiliate;
+            if (StandingStateUtils.wasApproved(affiliate.standingState)) {
+                return affiliate.affiliateDetails;
+            } else {
+                return affiliate?.application?.affiliateDetails || {};
+            }
+        };			/*MLDS-985 Review Usage Reports*/
             $scope.generateCsv = function() {
                 $scope.generatingCsv = true;
                 return UsageReportsService.getReviewUsageReport()
