@@ -197,8 +197,7 @@ public class ReleaseVersionsResource {
         releaseVersionRepository.delete(releaseVersion);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @RequestMapping(value = Routes.RELEASE_VERSION_DEPENDENCY,
-        method = RequestMethod.GET,
+    @GetMapping(value = Routes.RELEASE_VERSION_DEPENDENCY,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
