@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('MLDS')
-.factory('CommercialUsageService', ['$http', '$rootScope', '$log', '$q', 'Events', 
+.factory('CommercialUsageService', ['$http', '$rootScope', '$log', '$q', 'Events',
                                     function($http, $rootScope, $log, $q, Events){
 		function serializeDate(date) {
 			if (date) {
@@ -10,7 +10,7 @@ angular.module('MLDS')
 				return null;
 			}
 		};
-		
+
 		function serializeCommercialEntry(entry) {
 			var serializable = angular.copy(entry);
 			serializable.startDate = serializeDate(serializable.startDate);
@@ -20,12 +20,12 @@ angular.module('MLDS')
 
 		function serializeCommercialCount(count) {
 			$log.log('count', count);
-			
+
 			return count;
 		};
 
 		var service = {};
-		
+
 		function broadcastCommercialUsageUpdate() {
 			$rootScope.$broadcast(Events.commercialUsageUpdated);
 		}
@@ -46,10 +46,16 @@ angular.module('MLDS')
 			return $http.get('/api/affiliates/'+affiliateId+'/commercialUsages');
 		};
 
-		service.getSubmittedUsageReports = function() {			
-			return $http.get('/api/commercialUsages/?$filter='+encodeURIComponent('approvalState/not submitted eq false'));
-		};
-		
+		service.getSubmittedUsageReports = function(page, pageSize, orderby) {
+             let params = {
+                  page: page,
+                  size: pageSize,
+                  orderby: orderby,
+                  $filter: "approvalState/not submitted eq false"
+                  };
+             return $http.get('/api/commercialUsages/', { params: params });
+        };
+
 		service.createUsageReport = function(affiliateId, startDate, endDate) {
 			return $http.post('/api/affiliates/'+affiliateId+'/commercialUsages',
 					{
@@ -59,15 +65,15 @@ angular.module('MLDS')
 		};
 
 		service.currentCommercialUsageReport = {};
-		
+
 		// Ensure that stateful service state is cleared on logout
 		$rootScope.$on('event:auth-loginConfirmed', resetCurrerntCommercialUsageReport);
 		$rootScope.$on('event:auth-loginCancelled', resetCurrerntCommercialUsageReport);
 
 		function resetCurrerntCommercialUsageReport() {
-			service.currentCommercialUsageReport = {};	
+			service.currentCommercialUsageReport = {};
 		}
-		
+
 		service.getUsageReport = function(reportId) {
 		   var usagePromise = $http.get('/api/commercialUsages/'+reportId);
 		   usagePromise.then(function(response){
@@ -93,8 +99,8 @@ angular.module('MLDS')
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
-		
-		
+
+
 		service.updateUsageEntry = function(usageReport, entry, options) {
 			var httpPromise = $http.put('/api/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId,
 					serializeCommercialEntry(entry)
@@ -103,21 +109,21 @@ angular.module('MLDS')
 			return httpPromise;
 		};
 
-		
+
 		service.deleteUsageEntry = function(usageReport, entry, options) {
 			var httpPromise = $http['delete']('/api/commercialUsages/'+usageReport.commercialUsageId+'/entries/'+entry.commercialUsageEntryId);
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 
-		
+
 		service.addUsageCount = function(usageReport, count, options) {
 			var httpPromise = $http.post('/api/commercialUsages/'+usageReport.commercialUsageId+'/countries', serializeCommercialCount(count));
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
-		
-		
+
+
 		service.updateUsageCount = function(usageReport, count, options) {
 			var httpPromise = $http.put('/api/commercialUsages/'+usageReport.commercialUsageId+'/countries/'+count.commercialUsageCountId,
 					serializeCommercialCount(count)
@@ -126,14 +132,14 @@ angular.module('MLDS')
 			return httpPromise;
 		};
 
-		
+
 		service.deleteUsageCount = function(usageReport, count, options) {
 			var httpPromise = $http['delete']('/api/commercialUsages/'+usageReport.commercialUsageId+'/countries/'+count.commercialUsageCountId);
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
 
-		
+
 		service.submitUsageReport = function(usageReport, options) {
 			var httpPromise = $http.post('/api/commercialUsages/'+usageReport.commercialUsageId+'/approval',
 					{
@@ -143,7 +149,7 @@ angular.module('MLDS')
 			notifyUsageUpdatedIfRequired(httpPromise, options);
 			return httpPromise;
 		};
-		
+
 		service.retractUsageReport = function(usageReport, options) {
 			var httpPromise = $http.post('/api/commercialUsages/'+usageReport.commercialUsageId+'/approval',
 					{
@@ -161,7 +167,7 @@ angular.module('MLDS')
 					}
 				);
 		};
-		
+
 		function generateRangeEntry(start, end) {
 			return {
 				description: ''+start.format('YYYY-MM')+' - '+end.format('YYYY-MM'),
@@ -169,8 +175,8 @@ angular.module('MLDS')
 				endDate: end.toDate()
 			};
 		};
-		
-		
+
+
 		function biannaulPeriods(periods) {
 			var ranges = [];
 			var date = moment().local();
@@ -189,31 +195,31 @@ angular.module('MLDS')
 			}
 			return ranges;
 		};
-		
+
 		function annualPeriods(periods) {
 			var ranges = [];
 			var date = moment().local();
-			
+
 			for (var i = 0; i < periods; i++) {
 				date = date.startOf('year');
 				var end = date.clone().endOf('year');
 				ranges.push(generateRangeEntry(date, end));
-				
+
 				date = date.clone().subtract(2, 'months');
 			}
-			
+
 			return ranges;
 		};
-		
+
 		service.generateRanges = function generateRanges() {
 			var periods = 6;
-			
+
 			//return biannaulPeriods(periods);
-			
+
 			return annualPeriods(periods);
 		};
-		
-		
-		
+
+
+
 		return service;
 	}]);

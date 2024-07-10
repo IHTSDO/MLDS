@@ -13,7 +13,6 @@ import ca.intelliware.ihtsdo.mlds.service.ReleasePackagePrioritizer;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 import com.codahale.metrics.annotation.Timed;
-import com.google.common.collect.Sets;
 import jakarta.annotation.Resource;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
@@ -35,6 +34,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class ReleasePackagesResource {
@@ -72,52 +72,31 @@ public class ReleasePackagesResource {
 //	////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	// Release Packages
 
-    @RequestMapping(value = Routes.RELEASE_PACKAGES,
-        method = RequestMethod.GET,
+    @GetMapping(value = Routes.RELEASE_PACKAGES,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @PermitAll
     @Timed
-    public @ResponseBody ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
-
+    public ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
         Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
-
-        releasePackages = filterReleasePackagesByOnline(releasePackages);
-
-        return new ResponseEntity<Collection<ReleasePackage>>(releasePackages, HttpStatus.OK);
+        Collection<ReleasePackage> filteredPackages = filterReleasePackagesByOnline(releasePackages);
+        return new ResponseEntity<>(filteredPackages, HttpStatus.OK);
     }
 
-    private Collection<ReleasePackage> filterReleasePackagesByOnline(
-        Collection<ReleasePackage> releasePackages) {
-
-        Collection<ReleasePackage> result = releasePackages;
-
-        if (!authorizationChecker.shouldSeeOfflinePackages()) {
-            result = new ArrayList<>();
-            for (ReleasePackage releasePackage : releasePackages) {
-                if (isPackagePublished(releasePackage)) {
-                    result.add(filterReleasePackageByAuthority(releasePackage));
-                }
-            }
+    private Collection<ReleasePackage> filterReleasePackagesByOnline(Collection<ReleasePackage> releasePackages) {
+        if (authorizationChecker.shouldSeeOfflinePackages()) {
+            return releasePackages;  // No filtering needed if offline packages are allowed
         }
 
-        return result;
+        // Use parallel stream for better performance
+        return releasePackages.parallelStream()
+            .filter(this::isPackagePublished)
+            .map(this::filterReleasePackageByAuthority).toList();
     }
 
-    //	private boolean isPackagePublished(ReleasePackage releasePackage) {
-//		for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
-//			if (version.isOnline()) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
     private boolean isPackagePublished(ReleasePackage releasePackage) {
-        for (ReleaseVersion version : releasePackage.getReleaseVersions()) {
-            if (version.getReleaseType().equalsIgnoreCase("online") || version.getReleaseType().equalsIgnoreCase("alpha/beta")) {
-                return true;
-            }
-        }
-        return false;
+        return releasePackage.getReleaseVersions().stream()
+            .anyMatch(version -> version.getReleaseType().equalsIgnoreCase("online") ||
+                version.getReleaseType().equalsIgnoreCase("alpha/beta"));
     }
 
 
@@ -146,13 +125,11 @@ public class ReleasePackagesResource {
         return result;
     }
 
-    @RequestMapping(value = Routes.RELEASE_PACKAGE,
-        method = RequestMethod.GET,
+    @GetMapping(value = Routes.RELEASE_PACKAGE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
-    public @ResponseBody ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
-        //FIXME should we check children being consistent?
+    public ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
         Optional<ReleasePackage> optionalReleasePackage = releasePackageRepository.findById(releasePackageId);
 
         if (optionalReleasePackage.isEmpty()) {
@@ -161,43 +138,23 @@ public class ReleasePackagesResource {
 
         ReleasePackage releasePackage = filterReleasePackageByAuthority(optionalReleasePackage.get());
 
-        releasePackage = filterReleasePackageByAuthority(releasePackage);
-
-        return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
+        return new ResponseEntity<>(releasePackage, HttpStatus.OK);
     }
 
     private ReleasePackage filterReleasePackageByAuthority(ReleasePackage releasePackage) {
-        ReleasePackage result = releasePackage;
-        Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
-
-		/*if (!authorizationChecker.shouldSeeOfflinePackages()) {
-			for(ReleaseVersion version : releasePackage.getReleaseVersions()) {
-				if (version.isOnline()) {
-					releaseVersions.add(releaseFilePrivacyFilter.filterReleaseVersionByAuthority(version));
-				}
-			}
-			result.setReleaseVersions(releaseVersions);
-		}*/
-        if (!authorizationChecker.shouldSeeOfflinePackages()) {
-            Set responses = new HashSet<>();
-            for (ReleaseVersion version : releasePackage.getReleaseVersions()) {
-                if (version.getReleaseType().equalsIgnoreCase("online")) {
-                    releaseVersions.add(releaseFilePrivacyFilter.filterReleaseVersionByAuthority(version));
-                    responses.addAll(releaseVersions);
-                }
-                if (authorizationChecker.shouldSeeAlphaBetaPackages()) {
-                    if (version.getReleaseType().equalsIgnoreCase("alpha/beta")) {
-                        releaseVersions.add(releaseFilePrivacyFilter.filterReleaseVersionByAuthority(version));
-                        responses.addAll(releaseVersions);
-                    }
-                }
-            }
-            result.setReleaseVersions(responses);
+        if (authorizationChecker.shouldSeeOfflinePackages()) {
+            return releasePackage;
         }
 
-        return result;
-    }
+        Set<ReleaseVersion> releaseVersions = releasePackage.getReleaseVersions().stream()
+            .filter(version -> version.getReleaseType().equalsIgnoreCase("online") ||
+                (authorizationChecker.shouldSeeAlphaBetaPackages() && version.getReleaseType().equalsIgnoreCase("alpha/beta")))
+            .map(releaseFilePrivacyFilter::filterReleaseVersionByAuthority)
+            .collect(Collectors.toSet());
 
+        releasePackage.setReleaseVersions(releaseVersions);
+        return releasePackage;
+    }
 
     @RequestMapping(value = Routes.RELEASE_PACKAGE,
         method = RequestMethod.PUT,

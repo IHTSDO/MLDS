@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('MLDS').controller('ReleaseController',
-		['$scope', '$log', '$routeParams', '$location', '$modal', 'PackagesService', 'ReleaseFilesService', 'PackageUtilsService', 'ReleasePackageService',
-		 function($scope, $log, $routeParams, $location, $modal, PackagesService, ReleaseFilesService, PackageUtilsService, ReleasePackageService) {
+		['$scope', 'ServicesUtils','PackagesService', 'ReleaseFilesService', 'PackageUtilsService', 'ReleasePackageService','ReleaseVersionsService' ,
+		 function($scope, ServicesUtils,PackagesService, ReleaseFilesService, PackageUtilsService, ReleasePackageService, ReleaseVersionsService) {
 
 	$scope.versions = {
 			online: [],
@@ -19,14 +19,13 @@ angular.module('MLDS').controller('ReleaseController',
 	});
 
 
-	var releasePackageId = $routeParams.packageId && parseInt($routeParams.packageId, 10);
-	//$log.log('releasePackageId', releasePackageId);
-	var loadReleasePackage = function loadReleasePackage() {
+	let releasePackageId = ServicesUtils.$routeParams.packageId && parseInt(ServicesUtils.$routeParams.packageId, 10);
+	let loadReleasePackage = function loadReleasePackage() {
 		if (releasePackageId) {
 			PackagesService.get({releasePackageId: releasePackageId})
 			.$promise.then(function(result) {
 				if (PackageUtilsService.isReleasePackageInactive(result)) {
-					$log.info('Selected ReleasePackage is inactive');
+					ServicesUtils.$log.info('Selected ReleasePackage is inactive');
 					$scope.goToReleaseManagement();
 				}
 
@@ -35,8 +34,7 @@ angular.module('MLDS').controller('ReleaseController',
 				$scope.isRemovableReleasePackage = PackageUtilsService.isRemovableReleasePackage(result);
 				})
 					["catch"](function(message) {
-						//FIXME how to handle errors + not present
-						$log.error('ReleasePackage not found');
+						ServicesUtils.$log.error('ReleasePackage not found');
 						$scope.goToReleaseManagement();
 					});
 		} else {
@@ -47,7 +45,7 @@ angular.module('MLDS').controller('ReleaseController',
 	loadReleasePackage();
 
 	$scope.addReleaseVersion = function addReleaseVersion() {
-        var modalInstance = $modal.open({
+        let modalInstance = ServicesUtils.$modal.open({
             templateUrl: 'views/admin/addEditReleaseVersionModal.html',
             controller: 'AddEditReleaseVersionModalController',
             scope: $scope,
@@ -55,7 +53,6 @@ angular.module('MLDS').controller('ReleaseController',
             backdrop: 'static',
             resolve: {
               releasePackage: function() {
-              	// FIXME not sure about copy - needed to support modal cancel or network failure
               	return angular.copy($scope.packageEntity);
               },
               releaseVersion: function() { return {}; }
@@ -65,7 +62,7 @@ angular.module('MLDS').controller('ReleaseController',
 	};
 
 	$scope.editReleaseVersion = function editReleaseVersion(selectedReleaseVersion) {
-        var modalInstance = $modal.open({
+        let modalInstance = ServicesUtils.$modal.open({
             templateUrl: 'views/admin/addEditReleaseVersionModal.html', // FM
             controller: 'AddEditReleaseVersionModalController', // FM
             scope: $scope,
@@ -82,7 +79,7 @@ angular.module('MLDS').controller('ReleaseController',
 	};
 
     $scope.editReleasePackage = function() {
-        var modalInstance = $modal.open({
+        let modalInstance = ServicesUtils.$modal.open({
               templateUrl: 'views/admin/editReleaseModal.html',
               controller: 'EditReleaseModalController',
               scope: $scope,
@@ -90,7 +87,6 @@ angular.module('MLDS').controller('ReleaseController',
               backdrop: 'static',
               resolve: {
                 releasePackage: function() {
-                	// FIXME not sure about copy - needed to support modal cancel or network failure
                 	return angular.copy($scope.packageEntity);
                 }
               }
@@ -101,7 +97,7 @@ angular.module('MLDS').controller('ReleaseController',
     };
 
     $scope.removeReleasePackage = function() {
-        var modalInstance = $modal.open({
+        let modalInstance = ServicesUtils.$modal.open({
               templateUrl: 'views/admin/removeReleaseModal.html',
               controller: 'RemoveReleaseModalController',
               scope: $scope,
@@ -109,7 +105,6 @@ angular.module('MLDS').controller('ReleaseController',
               backdrop: 'static',
               resolve: {
                 releasePackage: function() {
-                	// FIXME not sure about copy - needed to support modal cancel or network failure
                 	return angular.copy($scope.packageEntity);
                 }
               }
@@ -120,7 +115,7 @@ angular.module('MLDS').controller('ReleaseController',
     };
 
     $scope.addReleaseFile = function addReleaseFile(selectedReleaseVersion) {
-        var modalInstance = $modal.open({
+        let modalInstance = ServicesUtils.$modal.open({
             templateUrl: 'views/admin/addReleaseFileModal.html', // FM
             controller: 'AddReleaseFileModalController', // FM
             scope: $scope,
@@ -144,7 +139,7 @@ angular.module('MLDS').controller('ReleaseController',
     };
 
     $scope.editReleaseFile = function editReleaseFile(releaseVersion, releaseFile) {
-        var modalInstance = $modal.open({
+        let modalInstance = ServicesUtils.$modal.open({
             templateUrl: 'views/admin/editReleaseFileModal.html',
             controller: 'EditReleaseFileModalController',
             scope: $scope,
@@ -159,24 +154,43 @@ angular.module('MLDS').controller('ReleaseController',
         modalInstance.result.then(loadReleasePackage);
     };
 
-    $scope.deleteVersionModal = function deleteVersionModal(selectedReleaseVersion) {
-    	var modalInstance = $modal.open({
-  	      	templateUrl: 'views/admin/deleteVersionModal.html',
-  	      	controller: 'DeleteVersionModalController',
-  	      	scope: $scope,
-  	      	size: 'sm',
-  	      	backdrop: 'static',
-  	      	resolve: {
-              releasePackage: function() { return angular.copy($scope.packageEntity); },
-              releaseVersion: function() { return angular.copy(selectedReleaseVersion); }
+    $scope.deleteVersionModal = function(selectedReleaseVersion) {
+        determineDependencyPresence(selectedReleaseVersion).then(function(isDependencyPresent){
+        let modalTemplateUrl = (isDependencyPresent === 'true')
+            ? 'views/admin/deleteVersionModalDependent.html'
+            : 'views/admin/deleteVersionModal.html';
+            let modalInstance = ServicesUtils.$modal.open({
+            templateUrl: modalTemplateUrl,
+            controller: 'DeleteVersionModalController',
+            scope: $scope,
+            size: 'lg',
+            backdrop: 'static',
+            resolve: {
+                releasePackage: function() { return angular.copy($scope.packageEntity); },
+                releaseVersion: function() { return angular.copy(selectedReleaseVersion); }
             }
-  	    });
-    	modalInstance.result.then(loadReleasePackage);
+        });
+        modalInstance.result.then(loadReleasePackage);
+        }).catch(function(error){
+        console.error('Error checking dependency:', error);
+        });
     };
 
 
+    function determineDependencyPresence(selectedReleaseVersion) {
+        let releaseVersionId = selectedReleaseVersion.releaseVersionId;
+                return ServicesUtils.$http.get('api/checkVersionDependency/' + releaseVersionId)
+                    .then(function(response) {
+                        return response.data;
+                    })
+                    .catch(function(error) {
+                        console.error('Error checking dependency:', error);
+                        return false;
+                    });
+    }
+
     $scope.takeOnlineModal = function takeOnlineModal(selectedReleaseVersion) {
-    	var modalInstance = $modal.open({
+    	let modalInstance = ServicesUtils.$modal.open({
   	      	templateUrl: 'views/admin/takeOnlineModal.html',
   	      	controller: 'TakeOnlineModalController',
   	      	scope: $scope,
@@ -191,7 +205,7 @@ angular.module('MLDS').controller('ReleaseController',
     };
 
     $scope.takeOfflineModal = function takeOfflineModal(selectedReleaseVersion) {
-    	var modalInstance = $modal.open({
+    	let modalInstance = ServicesUtils.$modal.open({
   	      	templateUrl: 'views/admin/takeOfflineModal.html',
   	      	controller: 'TakeOfflineModalController',
   	      	scope: $scope,
@@ -207,7 +221,7 @@ angular.module('MLDS').controller('ReleaseController',
 
 
     $scope.takeAlphaBetaModal = function takeAlphaBetaModal(selectedReleaseVersion) {
-        	var modalInstance = $modal.open({
+        	let modalInstance = ServicesUtils.$modal.open({
       	      	templateUrl: 'views/admin/takeAlphaBetaModal.html',
       	      	controller: 'TakeAlphaBetaModalController',
       	      	scope: $scope,
@@ -225,8 +239,8 @@ angular.module('MLDS').controller('ReleaseController',
 
 
     $scope.updateLicense = function() {
-    	$log.log('Update License');
-    	var modalInstance = $modal.open({
+    	ServicesUtils.$log.log('Update License');
+    	let modalInstance = ServicesUtils.$modal.open({
   	      	templateUrl: 'views/admin/releasePackageLicenseModal.html',
   	      	controller: 'ReleasePackageLicenseController',
   	      	scope: $scope,
@@ -244,6 +258,6 @@ angular.module('MLDS').controller('ReleaseController',
 	};
 
     $scope.goToReleaseManagement = function() {
-    	$location.path('/releaseManagement');
+    	ServicesUtils.$location.path('/releaseManagement');
     };
 }]);
