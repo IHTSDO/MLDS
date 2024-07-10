@@ -197,4 +197,19 @@ public class ReleaseVersionsResource {
         releaseVersionRepository.delete(releaseVersion);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @RequestMapping(value = Routes.RELEASE_VERSION_DEPENDENCY,
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
+    public Boolean checkVersionDependency( @PathVariable long releaseVersionId) {
+        Optional<ReleaseVersion> releaseVersionOptional = releaseVersionRepository.findById(releaseVersionId);
+        if (releaseVersionOptional.isEmpty()) {
+            return false;
+        }
+        String versionURI=releaseVersionOptional.get().getVersionURI();
+        Long response = releaseVersionRepository.checkDependent(versionURI);
+        return response != null && response == 1;
+    }
 }
