@@ -1,87 +1,12 @@
-<!--
-<div class="row">
-	<div class="col-lg-12">
-		<div class="page-header">
-			<h2>Review Usage Reports</h2>
-		</div>
-		<div class="table-responsive">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Affiliate Name</th>
-						<th>
-							<a ng-click="orderByField='submitted'; reverseSort = !reverseSort">
-								Date Submitted
-								<span ng-hide="orderByField == 'submitted'"><i class="fa fa-sort"></i></span>
-								<span ng-show="orderByField == 'submitted'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
-							</a>
-						</th>
-						<th>
-							<a ng-click="orderByField='state'; reverseSort = !reverseSort">
-								Status
-								<span ng-hide="orderByField == 'state'"><i class="fa fa-sort"></i></span>
-								<span ng-show="orderByField == 'state'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
-							</a>
-						</th>
-						<th>
-							<a ng-click="orderByField='type'; reverseSort = !reverseSort">
-								Type
-								<span ng-hide="orderByField == 'type'"><i class="fa fa-sort"></i></span>
-								<span ng-show="orderByField == 'type'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
-							</a>
-						</th>
-						<th>Implementation Status</th>
-						<th>
-							<a ng-click="orderByField='startDate'; reverseSort = !reverseSort">
-								Start Date
-								<span ng-hide="orderByField == 'startDate'"><i class="fa fa-sort"></i></span>
-								<span ng-show="orderByField == 'startDate'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
-							</a>
-						</th>
-						<th>
-							<a ng-click="orderByField='endDate'; reverseSort = !reverseSort">
-								End Date
-								<span ng-hide="orderByField == 'endDate'"><i class="fa fa-sort"></i></span>
-								<span ng-show="orderByField == 'endDate'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
-							</a>
-						</th>
-						<th>Hospitals</th>
-						<th>Practices</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="usageReport in usageReports | orderBy:orderByField:reverseSort | filter:reportSearch()"  ng-click="usageReportsUtils.goToReviewUsageReport(usageReport)">
-					<td>{{usageReport.affiliate.affiliateDetails.firstName + ' ' + usageReport.affiliate.affiliateDetails.lastName}}</td>
-					<td>{{usageReport.submitted | date: 'yyyy-MM-dd'}}</td>
-					<td>{{usageReport.state | enum:'usageReport.state.'}}</td>
-					<td>{{usageReport.type | enum:'affiliate.type.'}}</td>
-					<td>{{usageReport.context.implementationStatus | enum:'affiliate.implementationStatus.'}}</td>
-					<td>{{usageReport.startDate}}</td>
-					<td>{{usageReport.endDate}}</td>
-					<td>{{usageReportsUtils.usageReportHospitals(usageReport)}}</td>
-					<td>{{usageReportsUtils.usageReportPractices(usageReport)}}</td>
-
-					<td> <a class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> Review</a></td>
-				</tr>
-				</tbody>
-			</table>
-		</div>
-
-
-	</div>
-</div>-->
-
-<!--MLDS-985 Review Usage Reports-->
 <div class="row">
     <div class="col-lg-12">
         <div class="page-header">
             <h2 ng-if="!isAdmin">
-            <span>Reports</span>
-        </h2>
+                <span>Reports</span>
+            </h2>
             <h2 ng-if="isAdmin">
-            <span>Review Usage Reports</span>
-        </h2>
+                <span>Review Usage Reports</span>
+            </h2>
         </div>
         <div class="table-responsive" ng-if="isAdmin">
             <table class="table table-striped">
@@ -89,39 +14,54 @@
                 <tr>
                     <th>Affiliate Name</th>
                     <th>
-                        <a ng-click="orderByField='submitted'; reverseSort = !reverseSort">
-                           Date Submitted
+                        <a ng-click="toggleField('submitted')">
+                            Date Submitted
                             <span ng-hide="orderByField == 'submitted'"><i class="fa fa-sort"></i></span>
-                            <span ng-show="orderByField == 'submitted'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+                            <span ng-show="orderByField == 'submitted'">
+                                    <span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+                                </span>
                         </a>
                     </th>
                     <th>
-                        <a ng-click="orderByField='state'; reverseSort = !reverseSort">
+                        <a ng-click="toggleField('state')">
                             Status
                             <span ng-hide="orderByField == 'state'"><i class="fa fa-sort"></i></span>
-                            <span ng-show="orderByField == 'state'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+                            <span ng-show="orderByField == 'state'">
+                                    <span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+                                </span>
                         </a>
                     </th>
                     <th>
-                        <a ng-click="orderByField='type'; reverseSort = !reverseSort">
+                        <a ng-click="toggleField('type')">
                             Type
                             <span ng-hide="orderByField == 'type'"><i class="fa fa-sort"></i></span>
-                            <span ng-show="orderByField == 'type'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+                            <span ng-show="orderByField == 'type'">
+                                    <span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+                                </span>
                         </a>
                     </th>
                     <th>Implementation Status</th>
                     <th>
-                        <a ng-click="orderByField='startDate'; reverseSort = !reverseSort">
+                        <a ng-click="toggleField('startDate')">
                             Start Date
                             <span ng-hide="orderByField == 'startDate'"><i class="fa fa-sort"></i></span>
-                            <span ng-show="orderByField == 'startDate'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+                            <span ng-show="orderByField == 'startDate'">
+                                    <span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+                                </span>
                         </a>
                     </th>
                     <th>
-                        <a ng-click="orderByField='endDate'; reverseSort = !reverseSort">
-                           End Date
+                        <a ng-click="toggleField('endDate')">
+                            End Date
                             <span ng-hide="orderByField == 'endDate'"><i class="fa fa-sort"></i></span>
-                            <span ng-show="orderByField == 'endDate'"><span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span><span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span></span>
+                            <span ng-show="orderByField == 'endDate'">
+                                    <span ng-show="!reverseSort"><i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
+                                </span>
                         </a>
                     </th>
                     <th>Hospitals</th>
@@ -129,8 +69,8 @@
                     <th></th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr ng-repeat="usageReport in usageReports | orderBy:orderByField:reverseSort | filter:reportSearch()"  ng-click="usageReportsUtils.goToReviewUsageReport(usageReport)">
+                <tbody infinite-scroll="loadMoreUsageReports()" infinite-scroll-distance="1" infinite-scroll-disabled="downloadingReports">
+                <tr ng-repeat="usageReport in usageReports | filter:reportSearch()" ng-click="usageReportsUtils.goToReviewUsageReport(usageReport)">
                     <td>{{usageReport.affiliate.affiliateDetails.firstName + ' ' + usageReport.affiliate.affiliateDetails.lastName}}</td>
                     <td>{{usageReport.submitted | date: 'yyyy-MM-dd'}}</td>
                     <td>{{usageReport.state | enum:'usageReport.state.'}}</td>
@@ -140,32 +80,27 @@
                     <td>{{usageReport.endDate}}</td>
                     <td>{{usageReportsUtils.usageReportHospitals(usageReport)}}</td>
                     <td>{{usageReportsUtils.usageReportPractices(usageReport)}}</td>
-
-
-
-                     <td> <a class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> Review</a></td>
+                    <td><a class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> Review</a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
         <table class="table table-striped" ng-if="!isAdmin">
-            <thead> <tr> <th></th> </tr> </thead>
+            <thead>
+            <tr>
+                <th></th>
+            </tr>
+            </thead>
             <tbody>
             <tr>
                 <td><b>Affiliate Usage Report</b>
                     <br>This report contains the usage report for the affiliates of <span ng-show="Session.member" ng-bind="Session.member.key | enum:'global.member.'"></span>
-                    <span ng-hide="Session.member" ng-bind="'global.member.IHTSDO' | translate"></span></td>
+                    <span ng-hide="Session.member" ng-bind="'global.member.IHTSDO' | translate"></span>
+                </td>
                 <td style="text-align:right"> <a class="btn btn-primary btn-sm" ng-click="generateCsv()"><i class="fa fa-download"></i> Export as CSV</a></td>
             </tr>
             </tbody>
         </table>
-
-
-
-
     </div>
 </div>
-
-
-<!--MLDS-985 Review Usage Reports-->

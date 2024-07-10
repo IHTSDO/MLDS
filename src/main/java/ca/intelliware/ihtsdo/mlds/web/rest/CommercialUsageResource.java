@@ -12,6 +12,10 @@ import jakarta.annotation.Resource;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import org.apache.commons.lang3.Validate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -66,27 +70,39 @@ public class CommercialUsageResource {
     	return new ResponseEntity<Collection<CommercialUsage>>(affiliate.get().getCommercialUsages(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = Routes.USAGE_REPORTS_ALL,
-    		method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = Routes.USAGE_REPORTS_ALL, produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @Timed
-    public @ResponseBody ResponseEntity<Collection<CommercialUsage>> getAllUsageReports(@RequestParam(value="$filter") String filter) {
-    	Collection<CommercialUsage> usageReports = null;
-    	if (filter == null) {
-    		usageReports = commercialUsageRepository.findAll();
-    	} else {
-			if (Objects.equals(filter, FILTER_STATE_SUBMITTED)) {
-				usageReports = commercialUsageRepository.findByNotStateAndEffectiveToIsNull(UsageReportState.NOT_SUBMITTED);
-			} else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-    	}
+    public ResponseEntity<CommercialUsageCollection> getAllUsageReports(
+        @RequestParam(value="$filter", required=false) String filter,
+        @RequestParam(value="page", defaultValue="0") int page,
+        @RequestParam(value="size", defaultValue="50") int size,
+        @RequestParam(value="orderby", required=false) String orderby) {
 
-    	return new ResponseEntity<Collection<CommercialUsage>>(usageReports, HttpStatus.OK);
+        Page<CommercialUsage> usageReports;
+        Sort sort = createUsageReportsSort(orderby);
+        Pageable pageRequest = PageRequest.of(page, size, sort);
+
+        if (filter == null) {
+            usageReports = commercialUsageRepository.findAll(pageRequest);
+        } else if (Objects.equals(filter, FILTER_STATE_SUBMITTED)) {
+            usageReports = commercialUsageRepository.findByNotStateAndEffectiveToIsNull(UsageReportState.NOT_SUBMITTED, pageRequest);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(new CommercialUsageCollection(usageReports), HttpStatus.OK);
     }
 
-	public static class CommercialUsageTransitionMessage {
+    private Sort createUsageReportsSort(String orderby) {
+        if (orderby == null || orderby.isEmpty()) {
+            return Sort.by(Sort.Direction.DESC, "startDate"); // Default sort
+        }
+        String[] orderParams = orderby.split(",");
+        return Sort.by(orderParams[1].equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, orderParams[0]);
+    }
+
+    public static class CommercialUsageTransitionMessage {
 		UsageReportTransition transition;
 
 		public UsageReportTransition getTransition() {
