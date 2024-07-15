@@ -6,7 +6,7 @@
 			<div>
 				<div class="btn-group pull-right" dropdown ng-show="isEditableReleasePackage">
 					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Edit  <i class="caret"></i></button>
-					<ul class="dropdown-menu dropdown-menu-right" role="menu">
+					<ul class="dropdown-menu dropdown-menu-right">
 	   				<li><a ng-click="editReleasePackage()"><i class="fa fa-edit"></i> Edit Package</a></li>
 						<li class="divider"></li>
 						<li><a ng-click="viewLicense()"><i class="fa fa-gavel"></i> View License</a></li>
@@ -31,6 +31,7 @@
 			<h3>Public Versions</h3>
 			<p>To take a version offline, click the dropdown of a version below and select "Take Offline". Take all versions offline to remove this release from public view.  </p>
 			<table class="table table-striped" >
+                <caption></caption>
 				<thead>
 					<tr>
 						<th>Version</th>
@@ -50,7 +51,7 @@
 					<td class="col-sm-3">
 						<div ng-repeat="releaseFile in releaseVersion.releaseFiles">
 							<p style="display:flex; gap:10px; align-items:center;"><i class="fa fa-file" style="margin-bottom:10px;"> </i>
-								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a>
+								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label">{{releaseFile.label}}</a>
                                 <button class="btn btn-success btn-xs pull-right" style="margin-bottom:10px;"
                                         ng-click="editReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
                                     <i class="fa fa-edit"></i> Edit
@@ -66,6 +67,7 @@
 								<ul class="dropdown-menu">
 									<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
 									<li><a ng-click="takeOfflineModal(releaseVersion)"><i class="fa fa-times-circle-o"></i> Take Offline</a></li>
+                                    <li><a ng-click="moveToReleaseManagement(releaseVersion)"><i class="fa fa-archive"></i> Move to Archive</a></li>
 								</ul>
 							</div></td>
 				</tr>
@@ -83,6 +85,7 @@
         <h3>Alpha/Beta Versions</h3>
         <p>Set one or more versions of a release to public view by selecting "Publish Online" from the drop down menu. Set one or more versions online to move this release to public view. </p>
         <table class="table table-striped" >
+            <caption></caption>
             <thead>
             <tr>
                 <th class="col-sm-2">Version</th>
@@ -108,7 +111,7 @@
                     <span class="release" ng-repeat="releaseFile in releaseVersion.releaseFiles">
 							<p style="display:flex; gap:10px; align-items:center;">
 								<i class="fa fa-file" style="margin-bottom:10px;"></i>
-													<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a>
+								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label">{{releaseFile.label}}</a>
 								<button class="btn btn-danger btn-xs pull-right" style="margin-left: 5px; margin-bottom:10px;"
                                         ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
 									<i class="fa fa-times"></i> Remove
@@ -129,7 +132,7 @@
                         <ul class="dropdown-menu">
                             <li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
                             <li><a ng-click="takeOnlineModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Publish Online</a></li>
-<!--                            <li><a><i class="fa fa-check-circle-o"></i> Publish Alpha & Beta</a></li>-->
+                            <li><a ng-click="moveToReleaseManagement(releaseVersion)"><i class="fa fa-archive"></i> Move to Archive</a></li>
                             <li><a ng-click="deleteVersionModal(releaseVersion)"><i class="fa fa-times"></i> Delete</a></li>
                         </ul>
                     </div>
@@ -150,8 +153,8 @@
 
 	<div class="col-lg-12">
 		<h3>Offline Versions</h3>
-<!--<p>Set one or more versions of a release to public view by selecting "Publish Online" from the drop down menu. Set one or more versions online to move this release to public view. </p>-->
 	<table class="table table-striped" >
+        <caption></caption>
 				<thead>
 					<tr>
 						<th class="col-sm-2">Version</th>
@@ -178,7 +181,7 @@
 							<p style="display:flex; gap:10px; align-items:center;">
 								<i class="fa fa-file" style="margin-bottom: 10px;"></i>
 
-								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label"></a>
+								<a href="{{releaseFile.clientDownloadUrl}}" target="_blank"  ng-hide="!releaseFile.clientDownloadUrl" ng-bind-html="releaseFile.label">{{releaseFile.label}}</a>
 
                                 <button class="btn btn-danger btn-xs pull-right" style="margin-left: 5px;margin-bottom: 10px"
 									ng-click="deleteReleaseFile(releaseVersion,releaseFile)" ng-hide="!isEditableReleasePackage">
@@ -199,8 +202,8 @@
 								</button>
 								<ul class="dropdown-menu">
 									<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
-<!--									<li><a ng-click="takeOnlineModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Publish Online</a></li>-->
                                     <li><a ng-click="takeAlphaBetaModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Publish Alpha/Beta</a></li>
+                                    <li><a ng-click="moveToReleaseManagement(releaseVersion)"><i class="fa fa-archive"></i> Move to Archive</a></li>
 									<li><a ng-click="deleteVersionModal(releaseVersion)"><i class="fa fa-times"></i> Delete</a></li>
 								</ul>
 							</div>

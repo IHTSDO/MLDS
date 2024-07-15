@@ -30,6 +30,7 @@ angular.module('MLDS')
 	        .filter(function (p) {return MemberService.isIhtsdoMember(p.member);})
 	        .reject(PackageUtilsService.isPackagePublished)
 	        .reject(PackageUtilsService.isPackageNotPublished)
+	        .reject(PackageUtilsService.isPackageFullyArchived)
 			.sortBy('createdAt')
 	        .value();
     $scope.alphabetaPackages =
