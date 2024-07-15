@@ -77,28 +77,39 @@ public class ReleasePackagesResource {
     @PermitAll
     @Timed
     public ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
+
         Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
-        Collection<ReleasePackage> filteredPackages = filterReleasePackagesByOnline(releasePackages);
-        return new ResponseEntity<>(filteredPackages, HttpStatus.OK);
+
+        releasePackages = filterReleasePackagesByOnline(releasePackages);
+
+        return new ResponseEntity<>(releasePackages, HttpStatus.OK);
     }
 
-    private Collection<ReleasePackage> filterReleasePackagesByOnline(Collection<ReleasePackage> releasePackages) {
-        if (authorizationChecker.shouldSeeOfflinePackages()) {
-            return releasePackages;  // No filtering needed if offline packages are allowed
+    private Collection<ReleasePackage> filterReleasePackagesByOnline(
+        Collection<ReleasePackage> releasePackages) {
+
+        Collection<ReleasePackage> result = releasePackages;
+
+        if (!authorizationChecker.shouldSeeOfflinePackages()) {
+            result = new ArrayList<>();
+            for (ReleasePackage releasePackage : releasePackages) {
+                if (isPackagePublished(releasePackage)) {
+                    result.add(filterReleasePackageByAuthority(releasePackage));
+                }
+            }
         }
 
-        // Use parallel stream for better performance
-        return releasePackages.parallelStream()
-            .filter(this::isPackagePublished)
-            .map(this::filterReleasePackageByAuthority).toList();
+        return result;
     }
 
     private boolean isPackagePublished(ReleasePackage releasePackage) {
-        return releasePackage.getReleaseVersions().stream()
-            .anyMatch(version -> version.getReleaseType().equalsIgnoreCase("online") ||
-                version.getReleaseType().equalsIgnoreCase("alpha/beta"));
+        for (ReleaseVersion version : releasePackage.getReleaseVersions()) {
+            if (version.getReleaseType().equalsIgnoreCase("online") || version.getReleaseType().equalsIgnoreCase("alpha/beta")) {
+                return true;
+            }
+        }
+        return false;
     }
-
 
     @RequestMapping(value = Routes.RELEASE_PACKAGES,
         method = RequestMethod.POST,

@@ -7,7 +7,8 @@ angular.module('MLDS').controller('ReleaseController',
 	$scope.versions = {
 			online: [],
 			offline: [],
-			alphabeta: []
+			alphabeta: [],
+			archive: []
 		};
 
 	$scope.packageEntity = {releaseVersions:[]};
@@ -260,4 +261,16 @@ angular.module('MLDS').controller('ReleaseController',
     $scope.goToReleaseManagement = function() {
     	ServicesUtils.$location.path('/releaseManagement');
     };
+
+    $scope.goToArchiveReleases = function() {
+        ServicesUtils.$location.path('/archiveReleases');
+    };
+
+    $scope.moveToReleaseManagement = function(selectedReleaseVersion) {
+         let releaseVersionId = selectedReleaseVersion.releaseVersionId;
+         let archiveValue = !selectedReleaseVersion.archive;
+         let requestData = archiveValue;
+         ReleasePackageService.updateArchive(releaseVersionId, requestData)
+         .then(loadReleasePackage);
+    }
 }]);

@@ -211,4 +211,26 @@ public class ReleaseVersionsResource {
         Long response = releaseVersionRepository.checkDependent(versionURI);
         return response != null && response == 1;
     }
+
+    @PostMapping(value = Routes.RELEASE_VERSION_ARCHIVE_UPDATE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
+    public ResponseEntity<ReleaseVersion> updateArchive(@PathVariable long releaseVersionId, @RequestParam boolean isArchive) {
+
+        Optional<ReleaseVersion> releaseVersionOptional = releaseVersionRepository.findById(releaseVersionId);
+
+        if (releaseVersionOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        ReleaseVersion releaseVersion = releaseVersionOptional.get();
+
+        authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
+
+        releaseVersion.setArchive(isArchive);
+
+        return new ResponseEntity<>(releaseVersion, HttpStatus.OK);
+    }
 }

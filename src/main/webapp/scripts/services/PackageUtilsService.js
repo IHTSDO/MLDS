@@ -4,7 +4,7 @@ angular.module('MLDS').factory('PackageUtilsService',
 		[ '$rootScope', '$resource', '$q', '$log', '$location', '$modal', 'Session', 'UserRegistrationService', 'MemberService', 'UserAffiliateService', '$filter',
 		  function($rootScope, $resource, $q, $log, $location, $modal, Session, UserRegistrationService, MemberService, UserAffiliateService, $filter) {
 
-			var service = {};
+			let service = {};
 
 			service.isReleasePackageInactive = function isReleasePackageInactive(packageEntity) {
 				return (packageEntity.inactiveAt) ? true : false;
@@ -14,7 +14,7 @@ angular.module('MLDS').factory('PackageUtilsService',
 				if (packageEntity.member.key === 'IHTSDO') {
 					return 0;
 				} else {
-					var member = MemberService.membersByKey[packageEntity.member.key];
+					let member = MemberService.membersByKey[packageEntity.member.key];
 					if (member && member.promotePackages) {
 						return 1;
 					} else {
@@ -33,145 +33,95 @@ angular.module('MLDS').factory('PackageUtilsService',
 				return $filter('orderBy')(releasePackages, service.releasePackageOrder, true);
 			};
 
-//			service.isPackagePublished = function isPackagePublished(packageEntity) {
-//	        	for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-//	        		if (packageEntity.releaseVersions[i].online) {
-//	        			return true;
-//	        		};
-//	        	}
-//	        	return false;
-//	        };
+
 
 
 	        service.isPackagePublished = function isPackagePublished(packageEntity) {
-            	        	for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-            	        		if (packageEntity.releaseVersions[i].releaseType === "online") {
+            	        	for(const element of packageEntity.releaseVersions) {
+            	        		if (element.releaseType === "online" && !element.archive) {
             	        			return true;
             	        		};
             	        	}
             	        	return false;
             };
 
-//            service.isPackageOffline = function isPackageOffline(packageEntity) {
-//                            for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-//                                if (packageEntity.releaseVersions[i].releaseType === "offline") {
-//                                    return true;
-//                                };
-//                            }
-//                            return false;
-//            };
+
 
 
               service.isPackageOffline = function isPackageOffline(packageEntity) {
             				let offlineCount =0 ;
             				let alphabetaCount = 0;
-                                        for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-                                            if (packageEntity.releaseVersions[i].releaseType === "offline") {
-            									offlineCount++;
-
+                                        for (const releaseVersion of packageEntity.releaseVersions) {
+                                            if (releaseVersion.releaseType === "offline" && !releaseVersion.archive) {
+                                                offlineCount++;
+                                            } else if (releaseVersion.releaseType === "alpha/beta" && !releaseVersion.archive) {
+                                                alphabetaCount++;
                                             }
-            								else if(packageEntity.releaseVersions[i].releaseType === "alpha/beta")
-            								{
-            									alphabetaCount++;
-            								}
                                         }
-            				if(alphabetaCount >0)
-            				{
-            					return false;
-            				}
-            				else{
-            					 return true;
-            				}
-
+            				return alphabetaCount <= 0;
                         };
 
 
-//            service.isPackageAlphaBetaOffline = function isPackageAlphaBeta(packageEntity) {
-//                                        for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-//                                            if (packageEntity.releaseVersions[i].releaseType === "offline" &&
-//                                            packageEntity.releaseVersions[i].releaseType === "offline") {
-//                                                return true;
-//                                            };
-//                                        }
-//                                        return false;
-//                        };
+               service.isPackageFullyArchived = function isPackageFullyArchived(packageEntity){
+               let archivePackageCount = 0;
+                  for (const releaseVersion of packageEntity.releaseVersions) {
+                      if (releaseVersion.archive) {
+                          archivePackageCount++;
+                      }
+                  }
+                   return archivePackageCount === packageEntity.releaseVersions.length && packageEntity.releaseVersions.length !== 0;
+               }
 
 
 
 
-            service.isPackageEmpty = function isPackageEmpty(packageEntity) {
-//                for (var i = 0; i < packageEntity.length; i++) {
-                    if (packageEntity.releaseVersions.length === 0) {
-                        return true;
-                    }
-//                }
-                return false;
-            };
 
-//            service.isNoVersions = function isNoVersions(packageEntity){
-//                        for(var i = 0; i < packageEntity.releaseVersions.length; i++;)
-//            }
+           service.isPackageEmpty = function isPackageEmpty(packageEntity) {
+               return packageEntity.releaseVersions.length === 0;
+           };
+
+
 
 
             service.isPackageNotPublished = function isPackageNotPublished(packageEntity) {
-                              for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-                        	        		if (packageEntity.releaseVersions[i].releaseType === "alpha/beta") {
-                        	        			return true;
-                        	        		};
-                        	        	}
-                        	        	return false;
+                for (const releaseVersion of packageEntity.releaseVersions) {
+                    if (releaseVersion.releaseType === "alpha/beta" && !releaseVersion.archive) {
+                        return true;
+                    }
+                }
+                return false;
             };
 
 
-//            service.isPackageAlphaOffline = function isPackageAlphaOffline(packageEntity){
-//                 for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-//                                    	        		if (packageEntity.releaseVersions[i].releaseType === "alpha/beta"
-//                                    	        		|| packageEntity.releaseVersions[i].releaseType === "offline") {
-//                                    	        			if(packageEntity.releaseVersions[i].releaseType === "alpha/beta"){
-//                                    	        			return true;
-//                                    	        			}
-//                                    	        		};
-//                                    	        	}
-//                                    	        	return false;
-//            }
-
 	        service.getLatestPublishedDate = function getLatestPublishedDate(packageEntity) {
-	    		var latestPublishDate = null;
-	    		for(var i = 0; i < packageEntity.releaseVersions.length; i++) {
-	    			if (latestPublishDate == null) {
-	    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
-	    			} else if (new Date(packageEntity.releaseVersions[i].publishedAt) > new Date(latestPublishDate) ) {
-	    				latestPublishDate = packageEntity.releaseVersions[i].publishedAt;
-	    			};
-	    		};
-	    		latestPublishDate = latestPublishDate || new Date();
-	    		return latestPublishDate;
-	        };
+                let latestPublishDate = null;
 
-//	        service.isVersionOnline = function isVersionOnline(releaseVersion) {
-//	        	return releaseVersion.online ? true : false;
-//	        };
-
-            service.isVersionOnline = function isVersionOnline(releaseVersion){
-                if(releaseVersion.releaseType === "online"){
-                return true;
+                for (const releaseVersion of packageEntity.releaseVersions) {
+                    const publishDate = new Date(releaseVersion.publishedAt);
+                    if (!latestPublishDate || publishDate > new Date(latestPublishDate)) {
+                        latestPublishDate = releaseVersion.publishedAt;
+                    }
                 }
-                return false;
+
+                return latestPublishDate || new Date();
+            };
+
+
+
+          service.isVersionOnline = function isVersionOnline(releaseVersion) {
+              return releaseVersion.releaseType === "online" && !releaseVersion.archive;
+          };
+
+
+            service.isVersionAlphaBeta = function isVersionAlphaBeta(releaseVersion) {
+                return releaseVersion.releaseType === "alpha/beta" && !releaseVersion.archive;
+            };
+
+
+            service.isVersionOffline = function isVersionOffline(releaseVersion) {
+                return releaseVersion.releaseType === "offline" && !releaseVersion.archive;
             }
 
-            service.isVersionAlphaBeta = function isVersionAlphaBeta(releaseVersion){
-                if(releaseVersion.releaseType === "alpha/beta"){
-                return true;
-                }
-                return false;
-            }
-
-            service.isVersionOffline = function isVersionOffline(releaseVersion){
-                if(releaseVersion.releaseType === "offline"){
-                return true;
-                }
-                return false;
-            }
 
 
 
@@ -179,10 +129,10 @@ angular.module('MLDS').factory('PackageUtilsService',
 	        	if (!version.publishedAt) {
 	        		return false;
 	        	}
-	        	var versionPublishedDate = new Date(version.publishedAt);
-	        	for(var i = 0; i < versions.length; i++) {
-	        		if (versions[i].publishedAt &&
-	    				(versionPublishedDate < new Date(versions[i].publishedAt) )) {
+	        	let versionPublishedDate = new Date(version.publishedAt);
+	        	for(const element of versions) {
+	        		if (element.publishedAt &&
+	    				(versionPublishedDate < new Date(element.publishedAt) )) {
 	    				return false;
 	    			};
 	        	};
@@ -190,97 +140,94 @@ angular.module('MLDS').factory('PackageUtilsService',
 	        };
 
 
-//	        service.updateVersionsLists = function updateVersionsLists(packgeEntity) {
-//	    		var results = { online: [], offline: [] };
-//	    		var publishedOfflineVersions = [];
-//	    		var nonPublishedOfflineVersions = [];
-//	    		var results2 = { online1: [], alphabeta1: [], offline1: []} ;
-//
-//	    		for(var i = 0; i < packgeEntity.releaseVersions.length; i++) {
-//	    			if (packgeEntity.releaseVersions[i].online) {
-//	    				results.online.push(packgeEntity.releaseVersions[i]);
-//	    			} else {
-//	    				if (packgeEntity.releaseVersions[i].publishedAt) {
-//	    					publishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
-//	    				} else {
-//	    					nonPublishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
-//	    				}
-//	    			}
-//	    		};
-//
-//	    		for(var i = 0; i < packgeEntity.releaseVersions.length; i++) {
-//                	    			if (packgeEntity.releaseVersions[i].releaseType === "online") {
-//                	    				results2.online1.push(packgeEntity.releaseVersions[i]);
-//                	    			}
-//                	    			if (packgeEntity.releaseVersions[i].releaseType === "offline") {
-//                	    				results2.offline1.push(packgeEntity.releaseVersions[i]);
-//                	    			}
-//                	    			if (packgeEntity.releaseVersions[i].releaseType === "alpha/beta") {
-//                	    				results2.alphabeta1.push(packgeEntity.releaseVersions[i]);
-//                	    			}
-//
-//
-//                	    		};
-//
-//	    		results.online.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
-//	    		publishedOfflineVersions.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
-//	    		nonPublishedOfflineVersions.sort(function(a,b){return new Date(b.createdAt) - new Date(a.createdAt);});
-//	    		results.offline = publishedOfflineVersions.concat(nonPublishedOfflineVersions);
-//
-//	    		return results;
-//	    		return results2;
-//	    	};
+        service.updateVersionsLists = function updateVersionsLists(packgeEntity) {
+            let results = { online: [], alphabeta: [], offline: [], archive: [] };
 
-            service.updateVersionsLists = function updateVersionsLists(packgeEntity) {
-	    		var publishedOfflineVersions = [];
-	    		var nonPublishedOfflineVersions = [];
-	    		var publishedAlphaBetaVersions = [];
-	    		var nonPublishedAlphaBetaVersions = [];
-	    		var results = { online: [], alphabeta: [], offline: []} ;
+            function sortByPublishedDateDesc(a, b) {
+                return new Date(b.publishedAt || b.createdAt) - new Date(a.publishedAt || a.createdAt);
+            }
+
+            function categorizeArchive(releaseVersion, categorizedVersions) {
+                if (releaseVersion.archive) {
+                    categorizedVersions.archive.push(releaseVersion);
+                    return true;
+                }
+                return false;
+            }
+
+            function categorizeByReleaseType(releaseVersion, categorizedVersions) {
+                switch (releaseVersion.releaseType) {
+                    case "online":
+                        categorizedVersions.online.push(releaseVersion);
+                        break;
+                    case "offline":
+                        if (releaseVersion.publishedAt) {
+                            categorizedVersions.publishedOffline.push(releaseVersion);
+                        } else {
+                            categorizedVersions.nonPublishedOffline.push(releaseVersion);
+                        }
+                        break;
+                    case "alpha/beta":
+                        if (releaseVersion.publishedAt) {
+                            categorizedVersions.publishedAlphaBeta.push(releaseVersion);
+                        } else {
+                            categorizedVersions.nonPublishedAlphaBeta.push(releaseVersion);
+                        }
+                        break;
+                    default:
+                        // Handle unexpected release types if necessary
+                        break;
+                }
+            }
+
+            function categorizeReleaseVersions(releaseVersions) {
+                let categorizedVersions = {
+                    archive: [],
+                    publishedOffline: [],
+                    nonPublishedOffline: [],
+                    publishedAlphaBeta: [],
+                    nonPublishedAlphaBeta: [],
+                    online: []
+                };
+
+                for (const releaseVersion of releaseVersions) {
+                    if (!categorizeArchive(releaseVersion, categorizedVersions)) {
+                        categorizeByReleaseType(releaseVersion, categorizedVersions);
+                    }
+                }
+
+                return categorizedVersions;
+            }
+
+            function sortVersions(categorizedVersions) {
+                categorizedVersions.online.sort(sortByPublishedDateDesc);
+                categorizedVersions.publishedOffline.sort(sortByPublishedDateDesc);
+                categorizedVersions.nonPublishedOffline.sort(sortByPublishedDateDesc);
+                categorizedVersions.publishedAlphaBeta.sort(sortByPublishedDateDesc);
+                categorizedVersions.nonPublishedAlphaBeta.sort(sortByPublishedDateDesc);
+            }
+
+            function concatenateSortedArrays(categorizedVersions) {
+                results.offline = categorizedVersions.publishedOffline.concat(categorizedVersions.nonPublishedOffline);
+                results.alphabeta = categorizedVersions.publishedAlphaBeta.concat(categorizedVersions.nonPublishedAlphaBeta);
+            }
+
+            const categorizedVersions = categorizeReleaseVersions(packgeEntity.releaseVersions);
+            sortVersions(categorizedVersions);
+            concatenateSortedArrays(categorizedVersions);
+            results.archive = categorizedVersions.archive;
+            results.online = categorizedVersions.online;
+
+            return results;
+        };
 
 
-	    		for(var i = 0; i < packgeEntity.releaseVersions.length; i++) {
-                	    			if (packgeEntity.releaseVersions[i].releaseType === "online") {
-                	    				results.online.push(packgeEntity.releaseVersions[i]);
-                	    			}
 
-                	    			if (packgeEntity.releaseVersions[i].releaseType === "offline") {
-	    				                    if (packgeEntity.releaseVersions[i].publishedAt) {
-	    					                    publishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
-	    				                    } else {
-	    					                    nonPublishedOfflineVersions.push(packgeEntity.releaseVersions[i]);
-	    				                    }
-                	    			}
-
-                	    			if (packgeEntity.releaseVersions[i].releaseType === "alpha/beta") {
-                	    			        if (packgeEntity.releaseVersions[i].publishedAt) {
-                                    	    	publishedAlphaBetaVersions.push(packgeEntity.releaseVersions[i]);
-                                    	    } else {
-                                    	    	nonPublishedAlphaBetaVersions.push(packgeEntity.releaseVersions[i]);
-                                    	    	}
-                	    			}
-
-
-                	    		};
-
-	    		results.online.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
-
-	    		publishedOfflineVersions.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
-	    		nonPublishedOfflineVersions.sort(function(a,b){return new Date(b.createdAt) - new Date(a.createdAt);});
-	    		results.offline = publishedOfflineVersions.concat(nonPublishedOfflineVersions);
-
-	    		publishedAlphaBetaVersions.sort(function(a,b){return new Date(b.publishedAt) - new Date(a.publishedAt);});
-	    		nonPublishedAlphaBetaVersions.sort(function(a,b){return new Date(b.createdAt) - new Date(a.createdAt);});
-	    		results.alphabeta = publishedAlphaBetaVersions.concat(nonPublishedAlphaBetaVersions);
-
-	    		return results;
-//	    		return results2;
-	    	};
 
 	    	service.isEditableReleasePackage = function isEditableReleasePackage(releasePackage) {
-	    		var userMember = Session.member;
-	    		var memberMatches = angular.equals(userMember, releasePackage.member);
-	    		//$log.log('isEditableReleasePackage', releasePackage, Session, memberMatches);
+	    		let userMember = Session.member;
+	    		let memberMatches = angular.equals(userMember, releasePackage.member);
+
 	    		return Session.isAdmin() || memberMatches;
 	    	};
 
@@ -289,8 +236,8 @@ angular.module('MLDS').factory('PackageUtilsService',
 	    	};
 
 	    	service.isReleasePackageMatchingMember = function isReleasePackageMatchingMember(releasePackage) {
-	    		var userMember = Session.member;
-	    		var memberMatches = angular.equals(userMember, releasePackage.member);
+	    		let userMember = Session.member;
+	    		let memberMatches = angular.equals(userMember, releasePackage.member);
 	    		return memberMatches;
 	    	};
 
@@ -300,7 +247,7 @@ angular.module('MLDS').factory('PackageUtilsService',
 
 	    	service.openExtensionApplication = function openExtensionApplication(releasePackage) {
 
-	    		var modalInstance = $modal.open({
+	    		let modalInstance = $modal.open({
 	    		      templateUrl: 'views/user/startExtensionApplicationModal.html',
 	    		      controller: 'StartExtensionApplicationModalController',
 	    		      size: 'sm',
@@ -315,7 +262,7 @@ angular.module('MLDS').factory('PackageUtilsService',
 				modalInstance.result
 					.then(function(result) {
 						UserAffiliateService.refreshAffiliate();
-		    			if(result.data && result.data.applicationId) {
+		    			if(result.data?.applicationId) {
 		    				$location.path('/extensionApplication/'+ result.data.applicationId);
 		    			}
 		    	});

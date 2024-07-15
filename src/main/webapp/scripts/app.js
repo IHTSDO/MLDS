@@ -177,6 +177,16 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                .when('/archiveReleases', {
+                    templateUrl: 'views/admin/archiveRelease.html',
+                    controller: 'ArchiveManagementController',
+                    access: {
+                       authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
                 // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
                 .when('/releaseManagement/release/:packageId', {
                     templateUrl: 'views/admin/release.html',
@@ -186,6 +196,16 @@ mldsApp
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                    }
+                })
+                .when('/archiveReleases/archivePackage/:packageId', {
+                    templateUrl: 'views/admin/archiveVersions.html',
+                    controller: 'ReleaseController',
+                    access: {
+                       authorizedRoles: USER_ROLES.staffOrAdmin
+                    },
+                    resolve: {
+                       lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
                 .when('/releaseManagement/release/:packageId/:edit', {
