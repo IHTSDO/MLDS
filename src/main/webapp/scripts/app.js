@@ -2,7 +2,7 @@
 
 /* App Module */
 
-var mldsApp = angular.module('MLDS', ['http-auth-interceptor', 'tmh.dynamicLocale',
+let mldsApp = angular.module('MLDS', ['http-auth-interceptor', 'tmh.dynamicLocale',
     'ngResource', 'ngRoute', 'ngCookies', 'ngSanitize', 'mldsAppUtils', 'pascalprecht.translate', 'truncate',  'ui.bootstrap', 'infinite-scroll', 'ngCsv', 'textAngular']);
 mldsApp
     .config(['$routeProvider', '$httpProvider', '$translateProvider',  'tmhDynamicLocaleProvider', 'USER_ROLES',
@@ -187,8 +187,7 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
-                .when('/releaseManagement/release/:packageId', {
+               .when('/releaseManagement/release/:packageId', {
                     templateUrl: 'views/admin/release.html',
                     controller: 'ReleaseController',
                     access: {
@@ -218,7 +217,6 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
-                // FIXME MLDS-50 MB can we push these routes down to /admin and leave these names for the user?
                 .when('/viewReleases', {
                     templateUrl: 'views/user/viewReleases.html',
                     controller: 'ViewReleasesController',
@@ -249,7 +247,7 @@ mldsApp
                     },
                     resolve: {
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}],
-                    	application:['$route','UserRegistrationService', function($route, UserRegistrationService) { 
+                    	application:['$route','UserRegistrationService', function($route, UserRegistrationService) {
                     		return UserRegistrationService.getApplicationById($route.current.params.applicationId).then(function(resp){return resp.data});
                 		}]
                     }
@@ -390,6 +388,16 @@ mldsApp
                     	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
                     }
                 })
+                 .when('/fileDownloadReport', {
+                                                    templateUrl: 'views/admin/releaseFileDownloadCount.html',
+                                                    controller: 'ReleaseFileDownloadCountController',
+                                                    access: {
+                                                        authorizedRoles: [USER_ROLES.admin]
+                                                    },
+                                                    resolve: {
+                                                    	lookupsLoaded:['LookupCollector', function(LookupCollector){return LookupCollector.promise;}]
+                                                    }
+                                                })
                 .when('/logout', {
                     templateUrl: 'views/logout.html',
                     controller: 'LogoutController',
@@ -477,17 +485,16 @@ mldsApp
 
             tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js')
             tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
-            
-            var delayHandlerFactory = function($q, $timeout) {
-                var apiDelay = 2000;
-                var otherDelay = 1000;
-                var errorMethodMatches = /xPUT|xDELETE|xPOST/;
-                
+
+                let apiDelay = 2000;
+                let otherDelay = 1000;
+                let errorMethodMatches = /xPUT|xDELETE|xPOST/;
+
                 return function(promise) {
                     return promise.then(function(response) {
                         return $timeout(function() {
                         	if (errorMethodMatches.test(response.config.method)) {
-                        		return $q.reject(response);		
+                        		return $q.reject(response);
                         	} else {
                         		return response;
                         	}
@@ -496,9 +503,7 @@ mldsApp
                         return $q.reject(response);
                     });
                 };
-            };
-            //$httpProvider.responseInterceptors.push(delayHandlerFactory);
-            
+
         }])
         .run(['datepickerConfig', function(datepickerConfig){
         	// change default date config to ISO8601 and Euro Monday weeks.
@@ -506,15 +511,13 @@ mldsApp
         	datepickerConfig.startingDay=1;
         	datepickerConfig.formatYear='yy';
         }])
-        .run(['$rootScope', '$location', '$http', '$log', 'AuthenticationSharedService', 'Session', 'USER_ROLES', 'LandingRedirectService',
-            function($rootScope, $location, $http, $log, AuthenticationSharedService, Session, USER_ROLES, LandingRedirectService) {
-        		//$log.log('app.js startup');
-        		
+        .run(['$rootScope', '$location', '$http', 'AuthenticationSharedService', 'Session', 'USER_ROLES', 'LandingRedirectService',
+            function($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES, LandingRedirectService) {
+
                 $rootScope.$on('$routeChangeStart', function (event, next) {
-                	//$log.log('in $routeChangeStart', event, next, $location.path(), window.location.hash);
-                    $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
+                	 $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
                     $rootScope.userRoles = USER_ROLES;
-                    if (next.access && next.access.authorizedRoles) {
+                    if (next.access?.authorizedRoles) {
                     	AuthenticationSharedService.valid(next.access.authorizedRoles);
                     }
                 });
@@ -524,7 +527,7 @@ mldsApp
                     $rootScope.authenticated = true;
                     if ($location.path() === "/login") {
                     	LandingRedirectService.redirect(Session);
-                    	//$location.path('/'); // redirect landing page                    		
+                    	//$location.path('/'); // redirect landing page
                     }
                 });
 
@@ -532,12 +535,11 @@ mldsApp
                 $rootScope.$on('event:auth-loginRequired', function(rejection) {
                     Session.invalidate();
                     $rootScope.authenticated = false;
-                    
-                    if ($location.path() !== "/" && 
-                    		$location.path() !== "" && 
+
+                    if ($location.path() !== "/" &&
+                    		$location.path() !== "" &&
                     		$location.path() !== "/landing" &&
                     		$location.path() !== "/register" &&
-                    		// FIXME MB is there a better way to register anonymous pages?
                     		$location.path() !== "/requestPasswordReset" &&
                     		$location.path() !== "/resetPassword" &&
                     		$location.path().indexOf("/viewRelease") == -1 &&

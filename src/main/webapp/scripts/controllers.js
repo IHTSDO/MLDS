@@ -13,7 +13,6 @@ mldsApp.controller('LanguageController', ['$scope', '$translate', 'CountryServic
             window.setTimeout('window.location.reload()',200);
         /*MLDS-957- Sweden Language issue*/
             $translate.use(languageKey);
-            var countries = CountryService.countries;
         };
     }]);
 
@@ -84,8 +83,8 @@ mldsApp.controller('SessionsController', ['$scope', 'resolvedSessions', 'Session
 
                     if (key.indexOf("net.sf.ehcache.Cache") != -1) {
                         // remove gets or puts
-                        var index = key.lastIndexOf(".");
-                        var newKey = key.substr(0, index);
+                        let index = key.lastIndexOf(".");
+                        let newKey = key.substr(0, index);
 
                         // Keep the name of the domain
                         index = newKey.lastIndexOf(".");
@@ -194,6 +193,82 @@ mldsApp.controller('ActivityLogsController', ['$scope', '$translate', '$filter',
         $scope.previousWeek();
 
         loadActivity();
+    }]);
+    mldsApp.controller('ReleaseFileDownloadCountController', ['$scope', '$http', '$filter', 'ReleaseFileDownloadCountService', function ($scope, $http, $filter, ReleaseFileDownloadCountService) {
+        $scope.submitting = false;
+        $scope.omitUsers = [];
+        $scope.userList = []; // Initially empty
+
+        $scope.loadReleaseFileDownloadCounts = function() {
+            $scope.submitting = true;
+            let params = {
+                startDate: $scope.fromDate,
+                endDate: $scope.toDate,
+                omitUsers: $scope.omitUsers
+            };
+
+            ReleaseFileDownloadCountService.findReleaseFileDownloadCounts(params)
+            .then(function(data) {
+                $scope.releaseFileDownloadCounts = data;
+                $scope.submitting = false;
+            })
+            .catch(function(message) {
+                $scope.submitting = false;
+            });
+        };
+
+        function toDateFilter(m) {
+            return $filter('date')(m.toDate(), "yyyy-MM-dd");
+        }
+
+        // Date picker configuration
+        $scope.today = function() {
+            // Today + 1 day - needed if the current day must be included
+            $scope.fromDate = toDateFilter(moment());
+            $scope.toDate = toDateFilter(moment().add(1, 'days'));
+        };
+
+        $scope.previousWeek = function() {
+            $scope.fromDate = toDateFilter(moment().subtract(1, 'weeks'));
+            $scope.toDate = toDateFilter(moment().add(1, 'days'));
+        };
+
+        $scope.previousMonth = function() {
+            $scope.fromDate = toDateFilter(moment().subtract(1, 'months'));
+            $scope.toDate = toDateFilter(moment().add(1, 'days'));
+        };
+
+        // Function to load user list based on startDate and endDate
+        $scope.loadUsers = function() {
+        $scope.userList = [];
+        $scope.omitUsers = [];
+             let params = {
+                        startDate: $scope.fromDate,
+                        endDate: $scope.toDate,
+                    };
+
+            // Adjust the URL to include startDate and endDate as query parameters
+            let url = '/api/audits/getAllUsersonSelectedDate?startDate=' + params.startDate + '&endDate=' +params.endDate;
+
+            $http.get(url).then(function(response) {
+                $scope.userList = response.data;
+            }, function(error) {
+                // Handle error
+                console.error('Error loading users:', error);
+            });
+        };
+
+        $scope.toggleSelection = function(user) {
+            let index = $scope.omitUsers.indexOf(user);
+            if (index === -1) {
+                $scope.omitUsers.push(user);
+            } else {
+                $scope.omitUsers.splice(index, 1);
+            }
+        };
+
+        // Initial load
+        $scope.previousWeek(); // Set initial date range
     }]);
 
 mldsApp.controller('FooterController', ['$scope',

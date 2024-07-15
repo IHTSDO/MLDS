@@ -140,86 +140,79 @@ angular.module('MLDS').factory('PackageUtilsService',
 	        };
 
 
-        service.updateVersionsLists = function updateVersionsLists(packgeEntity) {
-            let results = { online: [], alphabeta: [], offline: [], archive: [] };
+       service.updateVersionsLists = function updateVersionsLists(packgeEntity) {
+           const results = { online: [], alphabeta: [], offline: [], archive: [] };
 
-            function sortByPublishedDateDesc(a, b) {
-                return new Date(b.publishedAt || b.createdAt) - new Date(a.publishedAt || a.createdAt);
-            }
+           function sortByPublishedDateDesc(a, b) {
+               return new Date(b.publishedAt || b.createdAt) - new Date(a.publishedAt || a.createdAt);
+           }
 
-            function categorizeArchive(releaseVersion, categorizedVersions) {
-                if (releaseVersion.archive) {
-                    categorizedVersions.archive.push(releaseVersion);
-                    return true;
-                }
-                return false;
-            }
+           function categorizeReleaseVersions(releaseVersions) {
+               const categorizedVersions = {
+                   archive: [],
+                   publishedOffline: [],
+                   nonPublishedOffline: [],
+                   publishedAlphaBeta: [],
+                   nonPublishedAlphaBeta: [],
+                   online: []
+               };
 
-            function categorizeByReleaseType(releaseVersion, categorizedVersions) {
-                switch (releaseVersion.releaseType) {
-                    case "online":
-                        categorizedVersions.online.push(releaseVersion);
-                        break;
-                    case "offline":
-                        if (releaseVersion.publishedAt) {
-                            categorizedVersions.publishedOffline.push(releaseVersion);
-                        } else {
-                            categorizedVersions.nonPublishedOffline.push(releaseVersion);
-                        }
-                        break;
-                    case "alpha/beta":
-                        if (releaseVersion.publishedAt) {
-                            categorizedVersions.publishedAlphaBeta.push(releaseVersion);
-                        } else {
-                            categorizedVersions.nonPublishedAlphaBeta.push(releaseVersion);
-                        }
-                        break;
-                    default:
-                        // Handle unexpected release types if necessary
-                        break;
-                }
-            }
+               releaseVersions.forEach(releaseVersion => {
+                   if (releaseVersion.archive) {
+                       categorizedVersions.archive.push(releaseVersion);
+                   } else {
+                       categorizeByReleaseType(releaseVersion, categorizedVersions);
+                   }
+               });
 
-            function categorizeReleaseVersions(releaseVersions) {
-                let categorizedVersions = {
-                    archive: [],
-                    publishedOffline: [],
-                    nonPublishedOffline: [],
-                    publishedAlphaBeta: [],
-                    nonPublishedAlphaBeta: [],
-                    online: []
-                };
+               return categorizedVersions;
+           }
 
-                for (const releaseVersion of releaseVersions) {
-                    if (!categorizeArchive(releaseVersion, categorizedVersions)) {
-                        categorizeByReleaseType(releaseVersion, categorizedVersions);
-                    }
-                }
+           function categorizeByReleaseType(releaseVersion, categorizedVersions) {
+               const { publishedAt, releaseType } = releaseVersion;
 
-                return categorizedVersions;
-            }
+               const categorizationMap = {
+                   "online": () => categorizedVersions.online.push(releaseVersion),
+                   "offline": () => {
+                       if (publishedAt) {
+                           categorizedVersions.publishedOffline.push(releaseVersion);
+                       } else {
+                           categorizedVersions.nonPublishedOffline.push(releaseVersion);
+                       }
+                   },
+                   "alpha/beta": () => {
+                       if (publishedAt) {
+                           categorizedVersions.publishedAlphaBeta.push(releaseVersion);
+                       } else {
+                           categorizedVersions.nonPublishedAlphaBeta.push(releaseVersion);
+                       }
+                   }
+               };
 
-            function sortVersions(categorizedVersions) {
-                categorizedVersions.online.sort(sortByPublishedDateDesc);
-                categorizedVersions.publishedOffline.sort(sortByPublishedDateDesc);
-                categorizedVersions.nonPublishedOffline.sort(sortByPublishedDateDesc);
-                categorizedVersions.publishedAlphaBeta.sort(sortByPublishedDateDesc);
-                categorizedVersions.nonPublishedAlphaBeta.sort(sortByPublishedDateDesc);
-            }
+               if (categorizationMap[releaseType]) {
+                   categorizationMap[releaseType]();
+               }
+           }
 
-            function concatenateSortedArrays(categorizedVersions) {
-                results.offline = categorizedVersions.publishedOffline.concat(categorizedVersions.nonPublishedOffline);
-                results.alphabeta = categorizedVersions.publishedAlphaBeta.concat(categorizedVersions.nonPublishedAlphaBeta);
-            }
+           function sortVersions(categorizedVersions) {
+               Object.values(categorizedVersions).forEach(list => list.sort(sortByPublishedDateDesc));
+           }
 
-            const categorizedVersions = categorizeReleaseVersions(packgeEntity.releaseVersions);
-            sortVersions(categorizedVersions);
-            concatenateSortedArrays(categorizedVersions);
-            results.archive = categorizedVersions.archive;
-            results.online = categorizedVersions.online;
+           function concatenateSortedArrays(categorizedVersions) {
+               results.offline = categorizedVersions.publishedOffline.concat(categorizedVersions.nonPublishedOffline);
+               results.alphabeta = categorizedVersions.publishedAlphaBeta.concat(categorizedVersions.nonPublishedAlphaBeta);
+           }
 
-            return results;
-        };
+           const categorizedVersions = categorizeReleaseVersions(packgeEntity.releaseVersions);
+           sortVersions(categorizedVersions);
+           concatenateSortedArrays(categorizedVersions);
+
+           results.archive = categorizedVersions.archive;
+           results.online = categorizedVersions.online;
+
+           return results;
+       };
+
 
 
 
