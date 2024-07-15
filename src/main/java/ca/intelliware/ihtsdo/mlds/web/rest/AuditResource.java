@@ -1,24 +1,35 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 
+import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
+import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.AuditEventRequestDTO;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.ReleaseFileCountDTO;
 import com.codahale.metrics.annotation.Timed;
 import jakarta.annotation.security.RolesAllowed;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.boot.actuate.audit.AuditEventRepository;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 
 /**
@@ -30,10 +41,17 @@ public class AuditResource {
     @Autowired
     AuditEventService auditEventService;
 
+
+    private final PersistenceAuditEventRepository persistenceAuditEventRepository;
+
     public static final String FILTER_BY_AUDIT_EVENT_TYPE = "auditEventType eq '(\\w+)'";
     public static final String FILTER_BY_AFFILIATE_ID = "affiliateId eq '(\\w+)'";
     public static final String FILTER_BY_APPLICATION_ID = "applicationId eq '(\\w+)'";
     public static final String FILTER_BY_AUDIT_EVENT_DATE_BETWEEN = "auditEventDate ge '(.*)' and auditEventDate le '(.*)'";
+
+    public AuditResource(PersistenceAuditEventRepository persistenceAuditEventRepository) {
+        this.persistenceAuditEventRepository = persistenceAuditEventRepository;
+    }
 
     @RequestMapping(value = Routes.AUDITS,
         method = RequestMethod.GET,
@@ -74,4 +92,49 @@ public class AuditResource {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping(value = Routes.AUDITSEVENTS, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
+    public List<ReleaseFileCountDTO> findReleaseFileDownloadAuditData(@RequestBody AuditEventRequestDTO request) {
+        LocalDate startDate = request.getStartDate();
+        LocalDate endDate = request.getEndDate();
+        List<String> excludeUsers = request.getExcludeUsers();
+
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+        Instant start = startDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        Instant end = endDateTime.atZone(ZoneId.systemDefault()).toInstant();
+
+        List<PersistentAuditEvent> response = persistenceAuditEventRepository.findTypeAndEventDate(start, end);
+        var result = response.stream()
+            .filter(a -> excludeUsers == null || !excludeUsers.contains(a.getPrincipal()))
+            .toList();
+        Map<String, ReleaseFileCountDTO> countMap = new HashMap<>();
+        for (PersistentAuditEvent event : result) {
+            Map<String, String> data = event.getData();
+            String key = data.get("releaseFile.label");
+
+            countMap.computeIfAbsent(key, k -> {
+                ReleaseFileCountDTO countDTO = new ReleaseFileCountDTO();
+                countDTO.setReleaseFileName(data.get("releaseFile.label"));
+                countDTO.setReleaseVersionName(data.get("releaseVersion.name"));
+                countDTO.setReleasePackageName(data.get("releasePackage.name"));
+                countDTO.setCount(0); // Initialize count
+                return countDTO;
+            }).setCount(countMap.get(key).getCount() + 1); // Increment count
+        }
+        return new ArrayList<>(countMap.values());
+    }
+    @GetMapping(value = Routes.RELEASEDOWNLOADUSERS, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyAuthority('STAFF', 'ADMIN')")
+    public Set<String> findReleaseFileDownloadUserLists(
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        Instant start = startDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        Instant end = endDate.atTime(23, 59, 59).atZone(ZoneId.systemDefault()).toInstant();
+        return persistenceAuditEventRepository.findUniqueUsersByTypeAndEventDate(start, end);
+    }
 }
+
+
