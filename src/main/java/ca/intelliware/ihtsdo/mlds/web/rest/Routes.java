@@ -136,6 +136,7 @@ public class Routes {
     static final String RELEASE_VERSION = "/api/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}";
     static final String RELEASE_VERSION_NOTIFICATIONS = "/api/releasePackages/{releasePackageId}/releaseVersions/{releaseVersionId}/notifications";
     static final String RELEASE_VERSION_DEPENDENCY = "/api/checkVersionDependency/{releaseVersionId}";
+    static final String RELEASE_VERSION_ARCHIVE_UPDATE = "/api/updateArchive/{releaseVersionId}";
 
 
     /**

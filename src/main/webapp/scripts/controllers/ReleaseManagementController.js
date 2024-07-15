@@ -22,27 +22,28 @@ angular.module('MLDS').controller('ReleaseManagementController',
 			$scope.packages.$promise.then(extractPackages);
 		}
 		function extractPackages() {
-			var packages = $scope.packages;
+			let packages = $scope.packages;
 			if (!packages.$resolved) {
 				return;
 			}
 
-			var memberFiltered = _.chain(packages).filter(function(p){ return $scope.releaseManagementFilter.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); });
+			let memberFiltered = _.chain(packages).filter(function(p){ return $scope.releaseManagementFilter.showAllMembers || PackageUtilsService.isReleasePackageMatchingMember(p); });
 
 		    $scope.packagesByMember = _.chain(memberFiltered)
 		        .groupBy(function(value) {return value.member.key;})
 		        .map(function(memberPackages, memberKey) {
-		        	var onlinePackages = PackageUtilsService.releasePackageSort(
+		        	let onlinePackages = PackageUtilsService.releasePackageSort(
 		        			_.filter(memberPackages, PackageUtilsService.isPackagePublished));
-		        	var alphabetaPackages = _.chain(memberPackages)
+		        	let alphabetaPackages = _.chain(memberPackages)
 			        	.reject(PackageUtilsService.isPackageOffline) //offline
 			        	.reject(PackageUtilsService.isPackagePublished) //online
 			        	.reject(PackageUtilsService.isPackageEmpty) //versions
 				        .sortBy('createdAt')
 				        .value();
-                    var offlinePackages = _.chain(memberPackages)
+                    let offlinePackages = _.chain(memberPackages)
 			        	.reject(PackageUtilsService.isPackageNotPublished)
 			        	.reject(PackageUtilsService.isPackagePublished)
+			        	.reject(PackageUtilsService.isPackageFullyArchived)
 				        .sortBy('createdAt')
 				        .value();
 		            return {
@@ -58,7 +59,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
 		}
 
 		function fixReleasePackagesWithoutPriority(memberFiltered) {
-		    var firstMissing = _.chain(memberFiltered)
+		    let firstMissing = _.chain(memberFiltered)
 		    	.filter(PackageUtilsService.isPackagePublished)
 		    	.sortBy(PackageUtilsService.getLatestPublishedDate)
 		    	.filter(function(p) {return p.priority === -1 || p.priority === null;})
@@ -86,7 +87,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
 		};
 
         $scope.editReleasePackage = function editReleasePackage(releasePackage) {
-            var modalInstance = $modal.open({
+            let modalInstance = $modal.open({
                   templateUrl: 'views/admin/editPackageModal.html',
                   controller: 'EditPackageModalController',
                   scope: $scope,
@@ -109,7 +110,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
         };
 
         $scope.deleteReleasePackage = function(releasePackage) {
-            var modalInstance = $modal.open({
+            let modalInstance = $modal.open({
                 templateUrl: 'views/admin/deletePackageModal.html',
                 controller: 'DeletePackageModalController',
                 scope: $scope,
@@ -131,7 +132,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
         };
 
         function findHigherPriorityPackage(memberEntry, p) {
-        	var i = memberEntry.onlinePackages.indexOf(p);
+        	let i = memberEntry.onlinePackages.indexOf(p);
         	if (i > 0) {
         		return memberEntry.onlinePackages[i - 1];
         	} else {
@@ -140,7 +141,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
         }
 
         function findLowerPriorityPackage(memberEntry, p) {
-        	var i = memberEntry.onlinePackages.indexOf(p);
+        	let i = memberEntry.onlinePackages.indexOf(p);
         	if (i !== -1 && i < memberEntry.onlinePackages.length -1) {
         		return memberEntry.onlinePackages[i + 1];
         	} else {
@@ -169,7 +170,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
         };
 
         $scope.promotePackage = function promotePackage(memberEntry, p) {
-    		var higherPriority = findHigherPriorityPackage(memberEntry, p);
+    		let higherPriority = findHigherPriorityPackage(memberEntry, p);
     		exchangePackages(p, higherPriority);
         };
 
@@ -178,7 +179,7 @@ angular.module('MLDS').controller('ReleaseManagementController',
         };
 
         $scope.demotePackage = function demotePackage(memberEntry, p) {
-        	var lower = findLowerPriorityPackage(memberEntry, p);
+        	let lower = findLowerPriorityPackage(memberEntry, p);
         	exchangePackages(lower, p);
         };
 

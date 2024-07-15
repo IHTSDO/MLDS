@@ -71,6 +71,9 @@ public class ReleaseVersion extends BaseEntity {
 	@OneToMany(mappedBy="releaseVersion")
 	Set<ReleaseFile> releaseFiles = Sets.newHashSet();
 
+    @Column(name="archive")
+    boolean archive;
+
 	public ReleaseVersion() {
 
 	}
@@ -144,13 +147,6 @@ public class ReleaseVersion extends BaseEntity {
 		return online;
 	}
 
-//	public void setOnline(boolean online) {
-//		if (online && publishedAt == null) {
-//			this.publishedAt = new LocalDate();
-//		}
-//
-//		this.online = online;
-//	}
 public void setOnline(boolean online) {
 	if (online && publishedAt == null) {
 		// Set publishedAt to current date if online is true and publishedAt is null
@@ -240,5 +236,13 @@ public void setOnline(boolean online) {
 
     public void setPackageType(String packageType) {
         this.packageType = packageType;
+    }
+
+    public boolean isArchive() {
+        return archive;
+    }
+
+    public void setArchive(boolean archive) {
+        this.archive = archive;
     }
 }

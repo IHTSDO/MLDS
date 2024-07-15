@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h2>Archive Release Management</h2>
+            <div ng-if="isAdmin">
+                <span>Show releases for: </span>
+                <select ng-model="releaseManagementFilter.showAllMembers">
+                    <option value="" selected="selected" ng-bind="Session.member.key | enum:'global.member.'">Only my releases</option>
+                    <option value="1">All Members</option>
+                </select>
+                <a popover-placement="top" popover="Switch between your releases and releases from all members" class="btn btn-link" style="position: sticky"><i class="fa fa-question-circle fa-2x"></i></a>
+            </div>
+        </div>
+        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    </div>
+</div>
+
+<div ng-repeat="memberEntry in packagesByMember" ng-show="memberEntry.archivePackages.length > 0">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="">
+                <h3>Archive Releases: <span>{{memberEntry.member.key | enum:'global.member.'}}</span></h3>
+            </div>
+            <div class="panel panel-default" ng-repeat="package in memberEntry.archivePackages">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> <a ng-click="goToArchivePackage(package)">{{package.name}} - {{package.member.key | enum:'global.member.'}}</a>
+                    </h3>
+                    <p>Please click on the release title above to manage the release packages.</p>
+                </div>
+                <div class="panel-body">
+                    <div ng-bind-html="package.description"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
