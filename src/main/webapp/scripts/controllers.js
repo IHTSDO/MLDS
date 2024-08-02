@@ -204,7 +204,7 @@ mldsApp.controller('ActivityLogsController', ['$scope', '$translate', '$filter',
             let params = {
                 startDate: $scope.fromDate,
                 endDate: $scope.toDate,
-                omitUsers: $scope.omitUsers
+                excludeUsers: $scope.omitUsers
             };
 
             ReleaseFileDownloadCountService.findReleaseFileDownloadCounts(params)
