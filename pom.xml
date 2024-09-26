@@ -5,7 +5,7 @@
     <groupId>org.ihtsdo.mlds</groupId>
     <artifactId>mlds</artifactId>
     <packaging>war</packaging>
-    <version>5.0.1</version>
+    <version>5.0.2-SNAPSHOT</version>
     <name>ihtsdo-mlds Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
