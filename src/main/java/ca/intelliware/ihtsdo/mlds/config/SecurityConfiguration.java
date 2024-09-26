@@ -112,6 +112,8 @@ public class SecurityConfiguration {
                 httpSecurityCorsConfigurer.configurationSource(source);
             })
             .csrf(csrf -> csrf.disable())
+            .httpBasic(httpBasic -> httpBasic
+                    .authenticationEntryPoint(authenticationEntryPoint))
 //                .authorizeHttpRequests((authorize) ->
 //                        authorize
             .authorizeRequests()
