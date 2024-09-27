@@ -1085,7 +1085,7 @@
             "member.purpose1": "MLDS er et værktøj anvendt af NRC i ",
             "loginHere": "Login her",
             "member.purpose3": " og hvor det er relevant i ikke-medlemslande.",
-            "appName": "Member Licensing og Distribution Service",
+            "appName": "Member Licensing og Distribution Service (MLDS)",
             "purpose": "Denne service er leveret af SNOMED International til organisationer og personer, der efterspørger anvendelse af og adgang til den internationale udgivelse af SNOMED CT til brug i et ikke-medlemsland samt i visse medlemslande.",
             "furtherDetails": "Se venligst <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED Internationals hjemmeside </a> for mere information eller <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>."
         },
