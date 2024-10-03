@@ -67,7 +67,7 @@
 								<ul class="dropdown-menu">
 									<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
 									<li><a ng-click="takeOfflineModal(releaseVersion)"><i class="fa fa-times-circle-o"></i> Take Offline</a></li>
-                                    <li><a ng-click="moveToReleaseManagement(releaseVersion)"><i class="fa fa-archive"></i> Move to Archive</a></li>
+<!--                                    <li><a ng-click="moveToReleaseManagement(releaseVersion)" ng-show="$root.Session.isAdmin()"><i class="fa fa-archive"></i> Move to Archive</a></li>-->
 								</ul>
 							</div></td>
 				</tr>
@@ -132,7 +132,7 @@
                         <ul class="dropdown-menu">
                             <li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
                             <li><a ng-click="takeOnlineModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Publish Online</a></li>
-                            <li><a ng-click="moveToReleaseManagement(releaseVersion)"><i class="fa fa-archive"></i> Move to Archive</a></li>
+                            <li><a ng-click="moveToReleaseManagement(releaseVersion)" ng-show="$root.Session.isAdmin()"><i class="fa fa-archive"></i> Move to Archive</a></li>
                             <li><a ng-click="deleteVersionModal(releaseVersion)"><i class="fa fa-times"></i> Delete</a></li>
                         </ul>
                     </div>
@@ -203,7 +203,7 @@
 								<ul class="dropdown-menu">
 									<li><a ng-click="editReleaseVersion(releaseVersion)"><i class="fa fa-pencil"></i> Edit</a></li>
                                     <li><a ng-click="takeAlphaBetaModal(releaseVersion)"><i class="fa fa-check-circle-o"></i> Publish Alpha/Beta</a></li>
-                                    <li><a ng-click="moveToReleaseManagement(releaseVersion)"><i class="fa fa-archive"></i> Move to Archive</a></li>
+                                    <li><a ng-click="moveToReleaseManagement(releaseVersion)" ng-show="$root.Session.isAdmin()"><i class="fa fa-archive"></i> Move to Archive</a></li>
 									<li><a ng-click="deleteVersionModal(releaseVersion)"><i class="fa fa-times"></i> Delete</a></li>
 								</ul>
 							</div>
