@@ -17,6 +17,4 @@ Some notes:
 
 To generate a new ddl dump:
 
-    pg_dump -U mlds mlds -s > mlds.ddl
-
-    
+    mysqldump -u mlds -p --no-data mlds > mlds.ddl
