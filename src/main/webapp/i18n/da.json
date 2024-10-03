@@ -7,7 +7,7 @@
             "account": {
                 "main": "Konto",
                 "settings": "Indstillinger",
-                "password": "Kodeord",
+                "password": "Adgangskode",
                 "sessions": "Sessioner",
                 "tracker": "Brugersporing",
                 "metrics": "Metrik",
@@ -35,7 +35,7 @@
             "releasePackages": "Udgivelsespakker",
             "affiliate": {
                 "accountInformation": "Kontoinformation",
-                "changePassword": "Skift kodeord",
+                "changePassword": "Skift adgangskode",
                 "logout": "Log ud"
             },
             "staff": {
@@ -73,10 +73,10 @@
         "form": {
             "username": "Brugernavn",
             "username.placeholder": "Dit brugernavn",
-            "newpassword": "Nyt kodeord",
-            "newpassword.placeholder": "Nyt kodeord",
-            "confirmpassword": "Bekræft nyt kodeord",
-            "confirmpassword.placeholder": "Bekræft nyt kodeord",
+            "newpassword": "Ny adgangskode",
+            "newpassword.placeholder": "Ny adgangskode",
+            "confirmpassword": "Bekræft ny adgangskode",
+            "confirmpassword.placeholder": "Bekræft ny adgangskode",
             "email": "E-mail",
             "email.placeholder": "Din e-mail adresse",
             "name.placeholder": "Dit navn",
@@ -84,25 +84,25 @@
         },
         "messages": {
             "info": {
-                "authenticated": "Hvis du ønsker at <a href=\"#/login\">verificere</a>, kan du prøve det med:<br/>- Administrator (login=\"admin\" og kodeord=\"admin\") <br/>- Bruger (login=\"user\" and password=\"user\").",
+                "authenticated": "Hvis du ønsker at <a href=\"#/login\">verificere</a>, kan du prøve det med:<br/>- Administrator (login=\"admin\" og adgangskode=\"admin\") <br/>- Bruger (login=\"user\" and password=\"user\").",
                 "register": "Har du ikke en konto endnu? <a href=\"#/register\">Registrer en konto</a>"
             },
             "error": {
-                "dontmatch": "Kodeordet og bekræftelsen er ikke ens!",
+                "dontmatch": "Adgangskode og bekræftelsen er ikke ens!",
                 "server": "Der er opstået en fejl.  Log venligst ind igen ved at trykke på Log ind-knappen igen."
             },
             "validate": {
                 "newpassword": {
-                    "required": "Kodeord skal angives.",
-                    "minlength": "Kodeordet skal minimum være på 5 tegn",
-                    "maxlength": "Kodeordet må maksimalt være 50 tegn",
-                    "strength": "Kodeords styrke:"
+                    "required": "Adgangskode skal angives.",
+                    "minlength": "Adgangskode skal minimum være på 5 tegn",
+                    "maxlength": "Adgangskode må maksimalt være 50 tegn",
+                    "strength": "Adgangskodes styrke:"
                 },
                 "confirmpassword": {
-                    "required": "Kodeordet skal bekræftes.",
-                    "minlength": "Det bekræftede kodeord skal minimum være på 5 tegn",
-                    "maxlength": "Det bekræftede kodeord må maksimalt være 50 tegn",
-                    "match": "Bekræftelsen stemmer ikke overens med kodeordet"
+                    "required": "Adgangskode skal bekræftes.",
+                    "minlength": "Den bekræftede adgangskode skal minimum være på 5 tegn",
+                    "maxlength": "Den bekræftede adgangskode må maksimalt være 50 tegn",
+                    "match": "Bekræftelsen stemmer ikke overens med adgangskoden"
                 },
                 "email": {
                     "required": "Din e-mailadresse skal angives.",
@@ -538,16 +538,16 @@
     "login": {
         "title": "Login",
         "form": {
-            "password": "Kodeord",
-            "password.placeholder": "Dit kodeord",
+            "password": "Adgangskode",
+            "password.placeholder": "Din adgangskode",
             "rememberme": "Husk mig",
             "button": "Login",
-            "forgot": "Har du glemt dit kodeord?",
+            "forgot": "Har du glemt din adgangskode?",
             "username": "E-mail eller brugernavn"
         },
         "messages": {
             "error": {
-                "authentication": "<strong>Verifikationen mislykkedes!</strong> Kontroller venligst brugernavn og kodeord og prøv igen. Kodeord er case sensitive.",
+                "authentication": "<strong>Verifikationen mislykkedes!</strong> Kontroller venligst brugernavn og adgangskode og prøv igen. Adgangskode er case sensitive.",
                 "deregistered": "<strong>Verifikationen mislykkedes!</strong> Denne konto er blevet slettet.  Kontakt venligst support.",
                 "noPermissions": "<strong>Verifikationen mislykkedes!</strong> Vi har verificeret dig, men din konto har ikke adgang til denne applikation eller er fejlkonfigureret.  Kontakt venligst support."
             }
@@ -582,18 +582,18 @@
         }
     },
     "password": {
-        "title": "Kodeord for [<b>{{username}}</b>]",
+        "title": "Adgangskode for [<b>{{username}}</b>]",
         "form": {
             "button": "Gem"
         },
         "messages": {
-            "error": "<strong>Der opstod en fejl!</strong> Kodeordet kunne ikke ændres.",
-            "success": "<strong>Kodeord er blevet ændret!</strong>  Fortsæt til <a href='#/contactInfo'>Kontonformation</a>",
+            "error": "<strong>Der opstod en fejl!</strong> Adgangskoden kunne ikke ændres.",
+            "success": "<strong>Adgangskode er blevet ændret!</strong>  Fortsæt til <a href='#/contactInfo'>Kontonformation</a>",
             "expired": "<strong>Nulstillingslinket er udløbet eller ugyldigt.</strong> <a href='#/requestPasswordReset'>Anmod om ny nulstilling</a>"
         },
         "reset": {
-            "title": "Nulstil kodeord til kontoen",
-            "instructions": "Indtast nyt kodeord nedenfor."
+            "title": "Nulstil adgangskode til kontoen",
+            "instructions": "Indtast ny adgangskode nedenfor."
         }
     },
     "sessions": {
@@ -729,7 +729,7 @@
         "table": {
             "header": {
                 "principal": "Bruger",
-                "date": "Dato",
+                "date": "Dato (lokal)",
                 "status": "Tilstand",
                 "data": "Ekstra data"
             },
@@ -1166,12 +1166,12 @@
             "countryIsMissing": "Hvis det land du søger ikke er på listen, kan du finde information om download af udgivelser på <a href=\"http://www.snomed.org/\">SNOMED Internationals hjemmeside</a> ."
         },
         "requestPasswordReset": {
-            "title": "Nulstil kodeord",
+            "title": "Nulstil adgangskode",
             "emailNotFound": "Den indtastede e-mail kan ikke findes i systemet.",
-            "resetEmailSent": "Processen for nulstilling af kodeord er begyndt, tjek venligst din e-mail.",
+            "resetEmailSent": "Processen for nulstilling af adgangskode er begyndt, tjek venligst din e-mail.",
             "back": "Returner til log ind-side",
-            "button": "Anmod om nulstilling af kodeord",
-            "detail": "Vi vil sende dig en e-mail med et link til en formular til nulstilling af kodeord."
+            "button": "Anmod om nulstilling af adgangskode",
+            "detail": "Vi vil sende dig en e-mail med et link til en formular til nulstilling af adgangskode."
         },
         "affiliateSummary": {
             "deleteAffiliate": "Slet licenshaver",
