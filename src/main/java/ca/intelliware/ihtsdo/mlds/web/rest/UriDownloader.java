@@ -45,6 +45,8 @@ public class UriDownloader {
 
     private final Logger log = LoggerFactory.getLogger(UriDownloader.class);
 
+    private S3Location s3BucketName;
+
     public int download(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) throws IOException {
         // Are we dealing with an HTTP request or S3?
         // Can we determine an S3 Bucket?
@@ -88,6 +90,8 @@ public class UriDownloader {
     public int downloadS3(S3Location s3Location, String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse)
             throws IOException {
         log.debug("Attempting to download {} from S3", s3Location.toString());
+        log.debug(s3Location.bucket);
+        this.s3BucketName = s3Location;
         S3Client s3Client = getS3Client();
         FileHelper s3Helper = new FileHelper(s3Location.bucket, s3Client);
         InputStream fileContents = s3Helper.getFileStream(s3Location.filePath);
@@ -106,12 +110,18 @@ public class UriDownloader {
     public S3Client getS3Client() throws IOException {
         S3Client s3Client = null;
         log.debug("Configuring " + (s3Offline ? "offline" : "online") + " s3 client.");
+        String regionToUse = awsRegion;
+        if ("ihtsdo-mlds.de".equals(s3BucketName.bucket)) {
+            regionToUse = "eu-central-1";
+        }
+
+
         if (s3Offline) {
             s3Client = new OfflineS3ClientImpl();
         } else {
             s3Client = new S3ClientImpl(software.amazon.awssdk.services.s3.S3Client.builder()
                 .credentialsProvider(InstanceProfileCredentialsProvider.create())
-                .region(Region.of(awsRegion))
+                .region(Region.of(regionToUse))
                 .build());
             log.debug("s3Client:", s3Client);
         }
