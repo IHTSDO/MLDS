@@ -456,6 +456,7 @@
         "welcome": "Willkommen bei SNOMED International-MLDS",
         "subwelcome": "Das Tor für den Zugriff auf die SNOMED CT-Einführung",
         "form": {
+            "tc": "Um fortzufahren, müssen Sie den Allgemeinen Geschäftsbedingungen von SNOMED International zustimmen.",
             "tos": "Stimmen Sie unseren <a href=\"/tos.html\" target=\"_blank\">allgemeinen Geschäftsbedingungen zu</a>.",
             "button": "Starten Sie die Registrierung",
             "confirmemail": "E-Mail (bestätigen)"

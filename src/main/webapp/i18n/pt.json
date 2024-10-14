@@ -457,6 +457,7 @@
         "welcome": "Benvindo à MLDS (Serviço de Licenciamento e Distribuição) da SNOMED International",
         "subwelcome": "A porta de entrada para ter acesso ao SNOMED CT",
         "form": {
+            "tc": "Você deve concordar com os Termos e Condições da SNOMED International para continuar.",
             "tos": "Concorda com os nossos <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Termos e Condições</a>.",
             "button": "Início do registo",
             "confirmemail": "e-mail (confirmar)"

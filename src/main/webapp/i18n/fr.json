@@ -456,6 +456,7 @@
         "welcome": "Bienvenue sur le MLDS SNOMED International",
         "subwelcome": "La passerelle d’accès à SNOMED CT Orientation",
         "form": {
+            "tc": "Vous devez accepter les conditions générales de SNOMED International pour continuer.",
             "tos": "Accepter nos <a href=\"/tos.html\" target=\"_blank\">conditions générales</a>.",
             "button": "Commencer l’inscription",
             "confirmemail": "E-mail (confirmer)"
