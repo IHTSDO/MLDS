@@ -111,7 +111,7 @@ public class UriDownloader {
         S3Client s3Client = null;
         log.debug("Configuring " + (s3Offline ? "offline" : "online") + " s3 client.");
         String regionToUse = awsRegion;
-        if ("ihtsdo.mlds-de".equals(s3BucketName.bucket)) {
+        if ("ihtsdo-mlds.de".equals(s3BucketName.bucket)) {
             regionToUse = "eu-central-1";
         }
 
