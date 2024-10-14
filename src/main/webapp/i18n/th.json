@@ -1166,6 +1166,7 @@
             "success": "<strong>บันทึกการลงทะเบียนแล้ว!</strong> โปรดตรวจสอบอีเมลของคุณเพื่อยืนยัน"
         },
         "form": {
+            "tc": "คุณต้องยอมรับข้อกำหนดและเงื่อนไขของ SNOMED International เพื่อดำเนินการต่อ",
             "confirmemail": "อีเมล (ยืนยัน)",
             "button": "เริ่มการลงทะเบียน",
             "tos": "ยอมรับ <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">ข้อกำหนดและเงื่อนไข</a> ของเรา"
