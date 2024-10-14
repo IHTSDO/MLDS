@@ -457,6 +457,7 @@
         "welcome": "Bienvenido a SNOMED International-Centro de Servicios de Salud - NRC - Licenciamiento y distribución de SNOMED-CT",
         "subwelcome": "Orientación sobre SNOMED CT ",
         "form": {
+            "tc": "Debe aceptar los Términos y condiciones internacionales de SNOMED para continuar.",
             "tos": "Debe estar de acuerdo con nuestros <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service#MLDSTermsofService-Español\" target=\"_blank\">Términos y Condiciones</a>.",
             "button": "Iniciar registro",
             "confirmemail": "Correo electrónico de la Unidad que administra SNOMED CT (confirmar)"

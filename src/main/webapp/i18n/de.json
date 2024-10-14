@@ -456,6 +456,7 @@
         "welcome": "Willkommen bei SNOMED International MLDS",
         "subwelcome": "Das Service-Portal für den Zugriff auf SNOMED CT",
         "form": {
+            "tc": "Um fortzufahren, müssen Sie den Allgemeinen Geschäftsbedingungen von SNOMED International zustimmen.",
             "tos": "Ich stimme den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Nutzungsbedingungen</a> und den <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Privacy+Policies\" target=\"_blank\">Datenschutzbestimmungen</a> für MLDS zu.",
             "button": "Starten Sie die Registrierung",
             "confirmemail": "E-Mail (bestätigen)"

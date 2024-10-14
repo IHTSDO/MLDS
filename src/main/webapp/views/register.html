@@ -39,7 +39,7 @@
 										typeahead-editable="false">
 
 									<div ng-show="createUserForm.$error">
-										<div ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="help-block">Required field.</div>
+										<div ng-show="createUserForm.country.$error.required && createUserForm.attempted" class="help-block" translate="form.requiredField">Required field.</div>
 										<div ng-show="createUserForm.country.$error.editable && createUserForm.attempted" class="help-block">Unrecognized country</div>
 										<div class="help-block"
 											ng-show="createUserForm.country.$error.excluded"
@@ -193,7 +193,7 @@
 						<a href="https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service" target="_blank">Terms and Conditions</a>.
 					</small></label>
 					<div ng-show="createUserForm.tos.$error.required && createUserForm.attempted">
-						<div class="help-block">You must agree to the IHTSDO Terms and Conditions to continue.</div>
+						<div class="help-block" translate="register.form.tc">You must agree to the SNOMED International Terms and Conditions to continue.</div>
 					</div>
 
 				</div>

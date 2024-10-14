@@ -851,6 +851,7 @@
             }
         },
         "form": {
+            "tc": "Anda harus menyetujui Syarat dan Ketentuan Internasional SNOMED untuk melanjutkan.",
             "confirmemail": "E-mail (konfirmasi)",
             "button": "Mulai Pendaftaran",
             "tos": "Setujui <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">Syarat dan Ketentuan</a> kami."
