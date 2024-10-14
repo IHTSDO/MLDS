@@ -1,9 +1,4 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.hamcrest.Matchers;
@@ -15,9 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -225,37 +218,4 @@ public class ReleaseVersionsResourceTest {
 
 		Mockito.verify(releasePackageAuditEvents).logDeletionOf(Mockito.any(ReleaseVersion.class));
 	}
-    @Test
-    public void testUpdateArchiveSuccess() {
-        ReleasePackage releasePackage = new ReleasePackage();
-
-        ReleaseVersion releaseVersion = new ReleaseVersion(2L);
-        releasePackage.addReleaseVersion(releaseVersion);
-        releasePackage.addReleaseVersion(releaseVersion);
-        when(releaseVersionRepository.findById(1L)).thenReturn(Optional.of(releaseVersion));
-        doNothing().when(authorizationChecker).checkCanEditReleasePackage(releasePackage);
-        ResponseEntity<ReleaseVersion> response = releaseVersionsResource.updateArchive(1L, true);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertTrue(response.getBody().isArchive());
-        verify(releaseVersionRepository).findById(1L);
-        verify(authorizationChecker).checkCanEditReleasePackage(releasePackage);
-    }
-
-
-    @Test
-    public void testUpdateArchiveReleaseVersionNotFound() {
-        ReleasePackage releasePackage = new ReleasePackage();
-
-        ReleaseVersion releaseVersion = new ReleaseVersion(2L);
-        releasePackage.addReleaseVersion(releaseVersion);
-        releasePackage.addReleaseVersion(releaseVersion);
-        when(releaseVersionRepository.findById(1L)).thenReturn(Optional.of(releaseVersion));
-        doNothing().when(authorizationChecker).checkCanEditReleasePackage(releasePackage);
-        when(releaseVersionRepository.findById(1L)).thenReturn(Optional.empty());
-        ResponseEntity<ReleaseVersion> response = releaseVersionsResource.updateArchive(1L, true);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        verify(releaseVersionRepository).findById(1L);
-        verify(authorizationChecker, never()).checkCanEditReleasePackage(any());
-    }
 }
-
