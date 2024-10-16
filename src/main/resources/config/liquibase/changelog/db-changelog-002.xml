@@ -178,5 +178,17 @@
                       newColumnName="member_org_url"
                       columnDataType="VARCHAR(255)" />
     </changeSet>
+    <changeSet id="MLDS-1140" author="AA">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="release_package" columnName="releasePackageURI"/>
+        </preConditions>
+        <comment>Rename column releasePackageURI to release_package_uri if it exists</comment>
+
+        <renameColumn
+            tableName="release_package"
+            oldColumnName="releasePackageURI"
+            newColumnName="release_package_uri"
+            columnDataType="VARCHAR(255)" />
+    </changeSet>
 
 </databaseChangeLog>
