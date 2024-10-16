@@ -4,7 +4,7 @@
 		<div class="page-header">
 			<h2>Blocklist Domains</h2>
 		</div>
-		<form class="form-inline" ng-submit="domainform.submit()"> 
+		<form class="form-inline" ng-submit="domainform.submit()">
 			<div class="form-group">
 				<label>Add to Blocklist</label>
 				<input type="text" class="form-control" ng-model="domainform.name">
@@ -22,8 +22,8 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="domain in domainBlacklist">
-						<td>{{domain.domainname}}</td>
-						<td><button class="btn btn-danger" ng-click="removeDomain(domain.domainname)"><i class="fa fa-times"></i>Remove Domain</button></td>
+						<td>{{domain.domainName}}</td>
+						<td><button class="btn btn-danger" ng-click="removeDomain(domain.domainName)"><i class="fa fa-times"></i>Remove Domain</button></td>
 					</tr>
 				</tbody>
 			</table>
