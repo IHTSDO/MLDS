@@ -36,7 +36,7 @@ public class ReleasePackage extends BaseEntity {
     @Column(name="copyrights")
     String copyrights;
 
-    @Column(name="releasePackageURI")
+    @Column(name="release_package_uri")
     String releasePackageURI;
 
     @Column(name="updated_at")
