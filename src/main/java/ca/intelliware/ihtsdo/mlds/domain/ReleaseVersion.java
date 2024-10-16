@@ -50,13 +50,13 @@ public class ReleaseVersion extends BaseEntity {
 
 	boolean online;
 
-    @Column(name="versionDependentDerivativeURI")
+    @Column(name="version_dependent_derivative_uri")
     String versionDependentDerivativeURI;
 
-    @Column(name="versionDependentURI")
+    @Column(name="version_dependent_uri")
     String versionDependentURI;
 
-    @Column(name="versionURI")
+    @Column(name="version_uri")
     String versionURI;
 
 	@Column(name="published_at")

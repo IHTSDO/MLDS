@@ -190,5 +190,29 @@
             newColumnName="release_package_uri"
             columnDataType="VARCHAR(255)" />
     </changeSet>
+    <changeSet id="MLDS-1141" author="AA">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="release_version" columnName="versionDependentDerivativeURI"/>
+            <columnExists tableName="release_version" columnName="versionDependentURI"/>
+            <columnExists tableName="release_version" columnName="versionURI"/>
+        </preConditions>
+        <comment>Rename columns in release_version Table</comment>
+
+        <renameColumn
+            tableName="release_version"
+            oldColumnName="versionDependentDerivativeURI"
+            newColumnName="version_dependent_derivative_uri"
+            columnDataType="VARCHAR(255)" />
+        <renameColumn
+            tableName="release_version"
+            oldColumnName="versionDependentURI"
+            newColumnName="version_dependent_uri"
+            columnDataType="VARCHAR(255)" />
+        <renameColumn
+            tableName="release_version"
+            oldColumnName="versionURI"
+            newColumnName="version_uri"
+            columnDataType="VARCHAR(255)" />
+    </changeSet>
 
 </databaseChangeLog>
