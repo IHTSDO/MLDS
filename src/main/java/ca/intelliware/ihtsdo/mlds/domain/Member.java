@@ -25,13 +25,13 @@ public class Member extends BaseEntity {
     @Column(name="created_at")
 	Instant createdAt = Instant.now();
 
-    @Column(name="contactEmail")
+    @Column(name="contact_email")
     public String contactEmail;
 
-    @Column(name="memberOrgName")
+    @Column(name="member_org_name")
     public String memberOrgName;
 
-    @Column(name="memberOrgURL")
+    @Column(name="member_org_url")
     public String memberOrgURL;
 
     @JsonIgnore
