@@ -9,6 +9,6 @@ import java.util.List;
 public interface DomainBlacklistRespository extends JpaRepository<DomainBlacklist, Long> {
 //		extends PagingAndSortingRepository<DomainBlacklist, Long> {
 
-	List<DomainBlacklist> findByDomainname(String domainName);
+	List<DomainBlacklist> findByDomainName(String domainName);
 
 }
