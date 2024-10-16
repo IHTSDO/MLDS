@@ -214,5 +214,17 @@
             newColumnName="version_uri"
             columnDataType="VARCHAR(255)" />
     </changeSet>
+    <changeSet id="MLDS-1142" author="AA">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="email_domain_blacklist"/>
+            <columnExists tableName="email_domain_blacklist" columnName="domainname"/>
+        </preConditions>
+        <comment>Rename column domainname to domain_name in email_domain_blacklist table</comment>
+        <renameColumn
+            tableName="email_domain_blacklist"
+            oldColumnName="domainname"
+            newColumnName="domain_name"
+            columnDataType="VARCHAR(255)"/>
+    </changeSet>
 
 </databaseChangeLog>

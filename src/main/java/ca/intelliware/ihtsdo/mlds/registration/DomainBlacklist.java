@@ -13,14 +13,15 @@ public class DomainBlacklist extends BaseEntity {
 	@Column(name="domain_id")
     private Long domainId;
 
-	String domainname;
+    @Column(name="domain_name")
+	String domainName;
 
-	public String getDomainname() {
-		return domainname;
+	public String getDomainName() {
+		return domainName;
 	}
 
-	public void setDomainname(String domainname) {
-		this.domainname = domainname;
+	public void setDomainName(String domainName) {
+		this.domainName = domainName;
 	}
 
 	@Override
