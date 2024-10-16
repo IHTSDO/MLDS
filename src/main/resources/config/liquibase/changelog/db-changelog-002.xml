@@ -156,4 +156,27 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="MLDS-1139" author="AA">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="member" columnName="contactEmail"/>
+            <columnExists tableName="member" columnName="memberOrgName"/>
+            <columnExists tableName="member" columnName="memberOrgURL"/>
+        </preConditions>
+        <comment>Rename member table columns from camel case to snake case</comment>
+        <renameColumn tableName="member"
+                      oldColumnName="contactEmail"
+                      newColumnName="contact_email"
+                      columnDataType="VARCHAR(255)" />
+
+        <renameColumn tableName="member"
+                      oldColumnName="memberOrgName"
+                      newColumnName="member_org_name"
+                      columnDataType="VARCHAR(255)" />
+
+        <renameColumn tableName="member"
+                      oldColumnName="memberOrgURL"
+                      newColumnName="member_org_url"
+                      columnDataType="VARCHAR(255)" />
+    </changeSet>
+
 </databaseChangeLog>
