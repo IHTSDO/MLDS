@@ -239,5 +239,25 @@
         <comment>Change file_size column to BIGINT in release_file table</comment>
         <modifyDataType tableName="release_file" columnName="file_size" newDataType="BIGINT"/>
     </changeSet>
+    <changeSet id="MLDS-1150" author="AA">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="affiliate_details"/>
+            <columnExists tableName="affiliate_details" columnName="first_name"/>
+            <columnExists tableName="affiliate_details" columnName="last_name"/>
+            <columnExists tableName="affiliate_details" columnName="email"/>
+            <columnExists tableName="affiliate_details" columnName="alternate_email"/>
+            <columnExists tableName="affiliate_details" columnName="third_email"/>
+            <columnExists tableName="affiliate_details" columnName="post"/>
+            <columnExists tableName="affiliate_details" columnName="billing_post"/>
+        </preConditions>
+        <comment>Change column data types to VARCHAR(255) in affiliate_details table</comment>
+        <modifyDataType tableName="affiliate_details" columnName="first_name" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="affiliate_details" columnName="last_name" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="affiliate_details" columnName="email" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="affiliate_details" columnName="alternate_email" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="affiliate_details" columnName="third_email" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="affiliate_details" columnName="post" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="affiliate_details" columnName="billing_post" newDataType="VARCHAR(255)"/>
+    </changeSet>
 
 </databaseChangeLog>
