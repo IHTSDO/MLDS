@@ -42,7 +42,7 @@ public class ReleaseFile extends BaseEntity {
     String md5Hash;
 
     @Column(name="file_size")
-    String fileSize;
+    Long fileSize;
 
 	public ReleaseFile() { }
 
@@ -102,11 +102,11 @@ public class ReleaseFile extends BaseEntity {
         this.md5Hash = md5Hash;
     }
 
-    public String getFileSize() {
+    public Long getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(String fileSize) {
+    public void setFileSize(Long fileSize) {
         this.fileSize = fileSize;
     }
 
