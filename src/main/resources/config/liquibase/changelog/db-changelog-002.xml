@@ -291,4 +291,12 @@
         <renameTable oldTableName="t_authority" newTableName="authority"/>
     </changeSet>
 
+    <changeSet id="MLDS-1144" author="JJ">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="t_user_authority"/>
+        </preConditions>
+        <comment>Rename table t_user_authority to user_authority if it exists</comment>
+        <renameTable oldTableName="t_user_authority" newTableName="user_authority"/>
+    </changeSet>
+
 </databaseChangeLog>
