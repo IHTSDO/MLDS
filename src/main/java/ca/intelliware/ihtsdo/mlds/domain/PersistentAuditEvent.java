@@ -16,7 +16,7 @@ import java.util.Map;
  */
 
 @Entity
-@Table(name = "T_PERSISTENT_AUDIT_EVENT")
+@Table(name = "persistent_audit_event")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class PersistentAuditEvent extends BaseEntity {
 

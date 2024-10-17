@@ -299,4 +299,12 @@
         <renameTable oldTableName="t_user_authority" newTableName="user_authority"/>
     </changeSet>
 
+    <changeSet id="MLDS-1146" author="JJ">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="t_persistent_audit_event"/>
+        </preConditions>
+        <comment>Rename table t_persistent_audit_event to persistent_audit_event if it exists</comment>
+        <renameTable oldTableName="t_persistent_audit_event" newTableName="persistent_audit_event"/>
+    </changeSet>
+
 </databaseChangeLog>
