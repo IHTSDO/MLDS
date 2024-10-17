@@ -34,7 +34,7 @@ mldsApp.controller('EditAffiliateController', [
 					$scope.approved = ApplicationUtilsService.isApplicationApproved(affiliate.application);
 					$scope.isEditable = Session.isAdmin() || (Session.member.key == affiliate.application.member.key);
 					$scope.readOnly = !ApplicationUtilsService.isApplicationApproved(affiliate.application) || !$scope.isEditable;
-					$scope.type = affiliate.type;
+					$scope.type = affiliate.type || affiliate.affiliateDetails.type;
 					$scope.loading = false;
 
 					if (affiliate.affiliateDetails) {
