@@ -260,4 +260,27 @@
         <modifyDataType tableName="affiliate_details" columnName="billing_post" newDataType="VARCHAR(255)"/>
     </changeSet>
 
+    <changeSet id="MLDS-1061" author="AA">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="T_USER"/>
+            <columnExists tableName="T_USER" columnName="login"/>
+            <columnExists tableName="T_USER" columnName="password"/>
+            <columnExists tableName="T_USER" columnName="first_name"/>
+            <columnExists tableName="T_USER" columnName="last_name"/>
+            <columnExists tableName="T_USER" columnName="email"/>
+            <columnExists tableName="T_USER" columnName="activation_key"/>
+            <columnExists tableName="T_USER" columnName="created_by"/>
+            <columnExists tableName="T_USER" columnName="last_modified_by"/>
+        </preConditions>
+        <comment>Change column data types to VARCHAR(255) in affiliate_details table</comment>
+        <modifyDataType tableName="T_USER" columnName="login" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="T_USER" columnName="password" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="T_USER" columnName="first_name" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="T_USER" columnName="last_name" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="T_USER" columnName="email" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="T_USER" columnName="activation_key" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="T_USER" columnName="created_by" newDataType="VARCHAR(255)"/>
+        <modifyDataType tableName="T_USER" columnName="last_modified_by" newDataType="VARCHAR(255)"/>
+    </changeSet>
+    
 </databaseChangeLog>
