@@ -70,7 +70,7 @@ angular.module('MLDS').controller('ContactInfoController', ['$scope', '$http', '
         				return;
         			}
     				$scope.affiliate = affiliate;
-    				$scope.type = affiliate.type;
+    				$scope.type = affiliate.type || affiliate.affiliateDetails.type;
     				$scope.approved = AffiliateService.isApplicationApproved(affiliate);
     				if (checkAddresses($scope.affiliateDetails, $scope.affiliateDetails.billingAddress)) {
     					$scope.isSameAddress = true;
