@@ -59,7 +59,7 @@
 
                                 <div class="form-group" ng-show="affiliateDetails.type && affiliateDetails.type != 'OTHER'">
                                     <label translate="views.contactInfo.admin.subtype.name.label">Subtype:</label>
-                                    <select class="form-control input-md" name="usageSubType" ng-model="affiliateDetails.subType" ng-required="affiliate.type!='OTHER'">
+                                    <select class="form-control input-md" name="usageSubType" ng-model="affiliateDetails.subType" ng-required="affiliateDetails.type!='OTHER'">
 											<!-- TODO MB can we share the options with affiliateRegistration.html? -->
                                     <!--MLDS-997 Safari Issue-->
 											<option value="DEVELOPER" ng-if="affiliateDetails.type=='COMMERCIAL'" translate="affiliate.subType.DEVELOPER">Developer</option>
