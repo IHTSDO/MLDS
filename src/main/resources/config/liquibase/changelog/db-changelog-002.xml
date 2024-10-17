@@ -282,5 +282,13 @@
         <modifyDataType tableName="T_USER" columnName="created_by" newDataType="VARCHAR(255)"/>
         <modifyDataType tableName="T_USER" columnName="last_modified_by" newDataType="VARCHAR(255)"/>
     </changeSet>
-    
+
+    <changeSet id="MLDS-1145" author="JJ">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="t_authority"/>
+        </preConditions>
+        <comment>Rename table t_authority to authority if it exists</comment>
+        <renameTable oldTableName="t_authority" newTableName="authority"/>
+    </changeSet>
+
 </databaseChangeLog>
