@@ -330,4 +330,50 @@
         <comment>Rename table t_user to user if it exists</comment>
         <renameTable oldTableName="t_user" newTableName="user"/>
     </changeSet>
+
+    <changeSet id="MLDS-1146-1" author="JJ">
+        <comment>Rename keys for persistent_audit_event</comment>
+
+        <dropForeignKeyConstraint baseTableName="persistent_audit_event"
+                                  constraintName="FK_t_persistent_audit_event_commercial_usage"/>
+
+        <dropIndex indexName="FK_t_persistent_audit_event_application" tableName="persistent_audit_event"/>
+        <dropIndex indexName="FK_t_persistent_audit_event_affiliate" tableName="persistent_audit_event"/>
+        <dropIndex indexName="FK_t_persistent_audit_event_release_package" tableName="persistent_audit_event"/>
+        <dropIndex indexName="FK_t_persistent_audit_event_release_version" tableName="persistent_audit_event"/>
+        <dropIndex indexName="FK_t_persistent_audit_event_release_file" tableName="persistent_audit_event"/>
+        <dropIndex indexName="FK_t_persistent_audit_event_commercial_usage" tableName="persistent_audit_event"/>
+
+        <addForeignKeyConstraint baseTableName="persistent_audit_event"
+                                 baseColumnNames="commercial_usage_id"
+                                 constraintName="FK_persistent_audit_event_commercial_usage"
+                                 referencedTableName="commercial_usage"
+                                 referencedColumnNames="commercial_usage_id"/>
+
+        <createIndex indexName="FK_persistent_audit_event_application" tableName="persistent_audit_event">
+            <column name="application_id"/>
+        </createIndex>
+
+        <createIndex indexName="FK_persistent_audit_event_affiliate" tableName="persistent_audit_event">
+            <column name="affiliate_id"/>
+        </createIndex>
+
+        <createIndex indexName="FK_persistent_audit_event_release_package" tableName="persistent_audit_event">
+            <column name="release_package_id"/>
+        </createIndex>
+
+        <createIndex indexName="FK_persistent_audit_event_release_version" tableName="persistent_audit_event">
+            <column name="release_version_id"/>
+        </createIndex>
+
+        <createIndex indexName="FK_persistent_audit_event_release_file" tableName="persistent_audit_event">
+            <column name="release_file_id"/>
+        </createIndex>
+
+        <createIndex indexName="FK_persistent_audit_event_commercial_usage" tableName="persistent_audit_event">
+            <column name="commercial_usage_id"/>
+        </createIndex>
+
+    </changeSet>
+
 </databaseChangeLog>
