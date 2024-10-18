@@ -18,10 +18,10 @@ import java.util.Set;
  * A user.
  */
 @Entity
-@Table(name = "T_USER")
+@Table(name = "user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Where(clause = "inactive_at IS NULL")
-@SQLDelete(sql="UPDATE T_USER SET inactive_at = now() WHERE user_id = ?")
+@SQLDelete(sql="UPDATE user SET inactive_at = now() WHERE user_id = ?")
 public class User extends AbstractAuditingEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
