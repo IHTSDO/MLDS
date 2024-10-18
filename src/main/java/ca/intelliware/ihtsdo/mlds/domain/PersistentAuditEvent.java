@@ -38,7 +38,7 @@ public class PersistentAuditEvent extends BaseEntity {
     @ElementCollection
     @MapKeyColumn(name="name")
     @Column(name="value")
-    @CollectionTable(name="T_PERSISTENT_AUDIT_EVENT_DATA", joinColumns=@JoinColumn(name="event_id"))
+    @CollectionTable(name="persistent_audit_event_data", joinColumns=@JoinColumn(name="event_id"))
     private Map<String, String> data = new HashMap<>();
 
 	@Column(name="affiliate_id")
