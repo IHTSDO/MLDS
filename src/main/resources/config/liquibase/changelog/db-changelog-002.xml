@@ -376,4 +376,25 @@
 
     </changeSet>
 
+    <changeSet id="MLDS-1143-1" author="JJ">
+        <comment>Rename Indexes name for release_package</comment>
+
+        <dropIndex indexName="FK_package_t_user" tableName="release_package"/>
+
+        <createIndex indexName="FK_package_user" tableName="release_package">
+            <column name="created_by"/>
+        </createIndex>
+
+    </changeSet>
+
+    <changeSet id="MLDS-1143-2" author="JJ">
+        <comment>Rename Indexes name for release_version</comment>
+
+        <dropIndex indexName="FK_release_version_t_user" tableName="release_version"/>
+
+        <createIndex indexName="FK_release_version_user" tableName="release_version">
+            <column name="created_by"/>
+        </createIndex>
+
+    </changeSet>
 </databaseChangeLog>
