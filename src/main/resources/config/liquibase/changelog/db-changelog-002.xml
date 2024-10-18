@@ -314,4 +314,12 @@
         <comment>Rename table t_persistent_audit_event_data to persistent_audit_event_data if it exists</comment>
         <renameTable oldTableName="t_persistent_audit_event_data" newTableName="persistent_audit_event_data"/>
     </changeSet>
+
+    <changeSet id="MLDS-1148" author="JJ">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="t_persistent_token"/>
+        </preConditions>
+        <comment>Rename table t_persistent_token to persistent_token if it exists</comment>
+        <renameTable oldTableName="t_persistent_token" newTableName="persistent_token"/>
+    </changeSet>
 </databaseChangeLog>
