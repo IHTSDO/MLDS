@@ -322,4 +322,12 @@
         <comment>Rename table t_persistent_token to persistent_token if it exists</comment>
         <renameTable oldTableName="t_persistent_token" newTableName="persistent_token"/>
     </changeSet>
+
+    <changeSet id="MLDS-1143" author="JJ">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="t_user"/>
+        </preConditions>
+        <comment>Rename table t_user to user if it exists</comment>
+        <renameTable oldTableName="t_user" newTableName="user"/>
+    </changeSet>
 </databaseChangeLog>
