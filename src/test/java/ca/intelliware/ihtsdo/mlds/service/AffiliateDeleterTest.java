@@ -144,7 +144,7 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
         assertEquals(1,matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()));
         assertEquals(1,matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+primaryApplication.getApplicationId()));
         assertEquals(1,matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+extensionApplication.getApplicationId()));
-        assertEquals(1,matchingNativeRecords("SELECT user_id FROM T_USER WHERE user_id="+user.getUserId()));
+        assertEquals(1,matchingNativeRecords("SELECT user_id FROM user WHERE user_id="+user.getUserId()));
         assertEquals(1,matchingNativeRecords("SELECT commercial_usage_id FROM commercial_usage WHERE commercial_usage_id="+commercialUsage.getCommercialUsageId()));
         assertEquals(1,matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateDetails.getAffiliateDetailsId()));
         assertEquals(1,matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateExtensionDetails.getAffiliateDetailsId()));
@@ -219,7 +219,7 @@ public class AffiliateDeleterTest extends MySqlTestContainerTest {
         assertEquals(1,matchingNativeRecords("SELECT affiliate_id FROM affiliate WHERE affiliate_id="+affiliate.getAffiliateId()));
         assertEquals(1,matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+primaryApplication.getApplicationId()));
         assertEquals(1,matchingNativeRecords("SELECT application_id FROM application WHERE application_id="+extensionApplication.getApplicationId()));
-        assertEquals(1,matchingNativeRecords("SELECT user_id FROM T_USER WHERE user_id="+user.getUserId()));
+        assertEquals(1,matchingNativeRecords("SELECT user_id FROM user WHERE user_id="+user.getUserId()));
         assertEquals(1,matchingNativeRecords("SELECT commercial_usage_id FROM commercial_usage WHERE commercial_usage_id="+commercialUsage.getCommercialUsageId()));
         assertEquals(1,matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateSharedDetails.getAffiliateDetailsId()));
         assertEquals(1,matchingNativeRecords("SELECT affiliate_details_id FROM affiliate_details WHERE affiliate_details_id="+affiliateExtensionDetails.getAffiliateDetailsId()));
