@@ -19,7 +19,7 @@ import java.time.LocalDate;
 
  */
 @Entity
-@Table(name = "T_PERSISTENT_TOKEN")
+@Table(name = "persistent_token")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class PersistentToken implements Serializable {
 	private static final long serialVersionUID = 1L;
