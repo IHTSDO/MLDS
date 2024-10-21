@@ -19,7 +19,7 @@ The system has a few important roots:
 - Table "member" defines IHTSDO members using the ISO 2 character country code as a key.  The table also include an "IHTSDO" pseudo-member to own the international releases, and administer non-member country affiliates
 - Table "release_package" is the root for the various release versions and files.
 - Table "affiliate" is the root object for all affiliate data
-- "t_user"" and the other t_* tables come from a base framework and implement users, permissions, and event logging.  The t_user table has an "active" flag for disabling locally defined users.
+- user, authority, user_authority, persistent_audit_event, persistent_audit_event_data and persistent_token tables come from a base framework and implement users, permissions, and event logging.  The user table has an "active" flag for disabling locally defined users.
 
 ## Data Administration - New Member Country
 Most administrative activities can be accomplished via the user interface.  One exception is the (infrequent) onboarding of a new member country.  To do this:

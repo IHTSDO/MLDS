@@ -124,7 +124,7 @@
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
       <text x="369.9479" xml:space="preserve" y="225.7453" clip-path="url(#clipPath2)" stroke="none">application_id</text>
-      <text x="448.9479" xml:space="preserve" y="225.7453" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">NUMERIC</text>
+      <text x="448.9479" xml:space="preserve" y="225.7453" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">BIGINT</text>
     </g>
     <g fill="rgb(255,255,204)" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="rgb(255,255,204)">
       <rect x="63" width="131" height="45" y="10" clip-path="url(#clipPath2)" stroke="none"/>
@@ -154,7 +154,7 @@
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
       <text x="230.2175" xml:space="preserve" y="591.4192" clip-path="url(#clipPath2)" stroke="none">iso_code_2</text>
-      <text x="297.2175" xml:space="preserve" y="591.4192" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">CHARACTER VARYING(2)</text>
+      <text x="297.2175" xml:space="preserve" y="591.4192" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">VARCHAR(2)</text>
     </g>
     <g fill="rgb(255,255,204)" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="rgb(255,255,204)">
       <rect x="614" width="185" height="45" y="341" clip-path="url(#clipPath2)" stroke="none"/>
@@ -214,21 +214,21 @@
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
       <text x="1159.2065" xml:space="preserve" y="638.1483" clip-path="url(#clipPath2)" stroke="none">id</text>
-      <text x="1211.2065" xml:space="preserve" y="638.1483" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">CHARACTER VARYING(255)</text>
+      <text x="1211.2065" xml:space="preserve" y="638.1483" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">VARCHAR(255)</text>
     </g>
     <g fill="gray" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991) translate(0.2065,0.4481)" stroke="gray">
       <image x="1137" y="643" clip-path="url(#clipPath11)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABbElEQVR42mNgoBAw&#10;EqOoJs1oHtd/pkgOWeE9RXU7fZHlmAlprovT/xAXqm3hEejAIsD1R81QUbB288H7&#10;TUQZUBqqtTQ20sBUUkWHYfmM3QwWtiYM3MxvmNSVuRx3Hnm+AKSGCZ8Bb+49t9a0&#10;NGRYt3QXQ2rvPsZTx7YzaMj/Zbi47ZktUS4w1xCRYmdlsw4K1WJQ5fzd4B1oy7Bv&#10;zQ+G/fsvr7zz7fdagi5gZWRycg72Yti36j6Do28Iw/LZFxnmLdz4afvrr5EEYyHH&#10;Se7MxDVtxsdmz2BYuevRzrfPPvO+uv1r3d4/X3uR1bEQ1Lzz0dkp+x55EJ0OsGg2&#10;ITohkaoZJRZgmq+sXcRg4OvE4BNtJsX/7VvDztNPGvEZAI8FcQ2pmTOKJjIIi/xk&#10;eHL+BEN+8BKGX18Z/hHtgv2nn5xX4OOce3THl3wzc2HGm585nz58ek/p/N1P30nK&#10;XeEa0mpxuvIf05xUjBjoAQCKpp457ors1AAAAABJRU5ErkJggg==" height="16" preserveAspectRatio="none"/>
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
       <text x="1159.2065" xml:space="preserve" y="654.1483" clip-path="url(#clipPath2)" stroke="none">author</text>
-      <text x="1211.2065" xml:space="preserve" y="654.1483" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">CHARACTER VARYING(255)</text>
+      <text x="1211.2065" xml:space="preserve" y="654.1483" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">VARCHAR(255)</text>
     </g>
     <g fill="gray" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991) translate(0.2065,0.4481)" stroke="gray">
       <image x="1137" y="659" clip-path="url(#clipPath11)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABbElEQVR42mNgoBAw&#10;EqOoJs1oHtd/pkgOWeE9RXU7fZHlmAlprovT/xAXqm3hEejAIsD1R81QUbB288H7&#10;TUQZUBqqtTQ20sBUUkWHYfmM3QwWtiYM3MxvmNSVuRx3Hnm+AKSGCZ8Bb+49t9a0&#10;NGRYt3QXQ2rvPsZTx7YzaMj/Zbi47ZktUS4w1xCRYmdlsw4K1WJQ5fzd4B1oy7Bv&#10;zQ+G/fsvr7zz7fdagi5gZWRycg72Yti36j6Do28Iw/LZFxnmLdz4afvrr5EEYyHH&#10;Se7MxDVtxsdmz2BYuevRzrfPPvO+uv1r3d4/X3uR1bEQ1Lzz0dkp+x55EJ0OsGg2&#10;ITohkaoZJRZgmq+sXcRg4OvE4BNtJsX/7VvDztNPGvEZAI8FcQ2pmTOKJjIIi/xk&#10;eHL+BEN+8BKGX18Z/hHtgv2nn5xX4OOce3THl3wzc2HGm585nz58ek/p/N1P30nK&#10;XeEa0mpxuvIf05xUjBjoAQCKpp457ors1AAAAABJRU5ErkJggg==" height="16" preserveAspectRatio="none"/>
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
       <text x="1159.2065" xml:space="preserve" y="670.1483" clip-path="url(#clipPath2)" stroke="none">filename</text>
-      <text x="1211.2065" xml:space="preserve" y="670.1483" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">CHARACTER VARYING(255)</text>
+      <text x="1211.2065" xml:space="preserve" y="670.1483" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">VARCHAR(255)</text>
     </g>
     <g fill="rgb(255,255,204)" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="rgb(255,255,204)">
       <rect x="1140" width="178" height="45" y="713" clip-path="url(#clipPath2)" stroke="none"/>
@@ -258,7 +258,7 @@
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
       <text x="1168.5377" xml:space="preserve" y="243.3351" clip-path="url(#clipPath2)" stroke="none">domain_id</text>
-      <text x="1266.5377" xml:space="preserve" y="243.3351" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">NUMERIC</text>
+      <text x="1266.5377" xml:space="preserve" y="243.3351" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">BIGINT</text>
     </g>
     <g fill="rgb(255,255,204)" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="rgb(255,255,204)">
       <rect x="1059" width="304" height="45" y="120" clip-path="url(#clipPath2)" stroke="none"/>
@@ -273,7 +273,7 @@
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
       <text x="1085.4127" xml:space="preserve" y="159.6071" clip-path="url(#clipPath2)" stroke="none">password_reset_token_id</text>
-      <text x="1222.4127" xml:space="preserve" y="159.6071" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">CHARACTER VARYING(255)</text>
+      <text x="1222.4127" xml:space="preserve" y="159.6071" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">VARCHAR(255)</text>
     </g>
     <g fill="rgb(255,255,204)" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="rgb(255,255,204)">
       <rect x="38" width="171" height="45" y="304" clip-path="url(#clipPath2)" stroke="none"/>
@@ -325,22 +325,22 @@
       <rect x="827" y="15" clip-path="url(#clipPath2)" fill="none" width="195" height="45" stroke="gray"/>
     </g>
     <g font-size="13" font-family="sans-serif" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
-      <text x="903.6951" xml:space="preserve" y="33.781" clip-path="url(#clipPath2)" stroke="none">t_user</text>
+      <text x="903.6951" xml:space="preserve" y="33.781" clip-path="url(#clipPath2)" stroke="none">user</text>
     </g>
     <g fill="gray" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="gray">
       <line y2="40" fill="none" x1="828" clip-path="url(#clipPath2)" x2="1021" y1="40"/>
       <image x="831" y="43" transform="translate(0.1951,0.5232)" clip-path="url(#clipPath18)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABbElEQVR42mNgoBAw&#10;EqOoJs1oHtd/pkgOWeE9RXU7fZHlmAlprovT/xAXqm3hEejAIsD1R81QUbB288H7&#10;TUQZUBqqtTQ20sBUUkWHYfmM3QwWtiYM3MxvmNSVuRx3Hnm+AKSGCZ8Bb+49t9a0&#10;NGRYt3QXQ2rvPsZTx7YzaMj/Zbi47ZktUS4w1xCRYmdlsw4K1WJQ5fzd4B1oy7Bv&#10;zQ+G/fsvr7zz7fdagi5gZWRycg72Yti36j6Do28Iw/LZFxnmLdz4afvrr5EEYyHH&#10;Se7MxDVtxsdmz2BYuevRzrfPPvO+uv1r3d4/X3uR1bEQ1Lzz0dkp+x55EJ0OsGg2&#10;ITohkaoZJRZgmq+sXcRg4OvE4BNtJsX/7VvDztNPGvEZAI8FcQ2pmTOKJjIIi/xk&#10;eHL+BEN+8BKGX18Z/hHtgv2nn5xX4OOce3THl3wzc2HGm585nz58ek/p/N1P30nK&#10;XeEa0mpxuvIf05xUjBjoAQCKpp457ors1AAAAABJRU5ErkJggg==" height="16" preserveAspectRatio="none"/>
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
-      <text x="853.1951" xml:space="preserve" y="54.2234" clip-path="url(#clipPath2)" stroke="none">login</text>
-      <text x="887.1951" xml:space="preserve" y="54.2234" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">CHARACTER VARYING(50)</text>
+      <text x="853.1951" xml:space="preserve" y="54.2234" clip-path="url(#clipPath2)" stroke="none">user_id</text>
+      <text x="910.1951" xml:space="preserve" y="54.2234" font-weight="normal" clip-path="url(#clipPath2)" stroke="none"> BIGINT</text>
     </g>
     <g fill="rgb(255,255,204)" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="rgb(255,255,204)">
       <rect x="874" width="204" height="45" y="212" clip-path="url(#clipPath2)" stroke="none"/>
       <rect x="874" y="212" clip-path="url(#clipPath2)" fill="none" width="204" height="45" stroke="gray"/>
     </g>
     <g font-size="13" font-family="sans-serif" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
-      <text x="939.4059" xml:space="preserve" y="231.4059" clip-path="url(#clipPath2)" stroke="none">t_authority</text>
+      <text x="939.4059" xml:space="preserve" y="231.4059" clip-path="url(#clipPath2)" stroke="none">authority</text>
     </g>
     <g fill="gray" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="gray">
       <line y2="238" fill="none" x1="875" clip-path="url(#clipPath2)" x2="1077" y1="238"/>
@@ -348,14 +348,14 @@
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
       <text x="900.4059" xml:space="preserve" y="251.8483" clip-path="url(#clipPath2)" stroke="none">name</text>
-      <text x="937.4059" xml:space="preserve" y="251.8483" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">CHARACTER VARYING(255)</text>
+      <text x="937.4059" xml:space="preserve" y="251.8483" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">VARCHAR(255)</text>
     </g>
     <g fill="rgb(255,255,204)" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="rgb(255,255,204)">
       <rect x="1136" width="185" height="45" y="392" clip-path="url(#clipPath2)" stroke="none"/>
       <rect x="1136" y="392" clip-path="url(#clipPath2)" fill="none" width="185" height="45" stroke="gray"/>
     </g>
     <g font-size="13" font-family="sans-serif" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
-      <text x="1145.5747" xml:space="preserve" y="410.7244" clip-path="url(#clipPath2)" stroke="none">t_persistent_audit_event</text>
+      <text x="1145.5747" xml:space="preserve" y="410.7244" clip-path="url(#clipPath2)" stroke="none">persistent_audit_event</text>
     </g>
     <g fill="gray" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="gray">
       <line y2="417" fill="none" x1="1137" clip-path="url(#clipPath2)" x2="1320" y1="417"/>
@@ -370,7 +370,7 @@
       <rect x="1130" y="472" clip-path="url(#clipPath2)" fill="none" width="222" height="61" stroke="gray"/>
     </g>
     <g font-size="13" font-family="sans-serif" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
-      <text x="1139.9467" xml:space="preserve" y="490.8046" clip-path="url(#clipPath2)" stroke="none">t_persistent_audit_event_data</text>
+      <text x="1139.9467" xml:space="preserve" y="490.8046" clip-path="url(#clipPath2)" stroke="none">persistent_audit_event_data</text>
     </g>
     <g fill="gray" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="gray">
       <line y2="497" fill="none" x1="1131" clip-path="url(#clipPath2)" x2="1351" y1="497"/>
@@ -385,14 +385,14 @@
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
       <text x="1156.9467" xml:space="preserve" y="527.247" clip-path="url(#clipPath2)" stroke="none">name</text>
-      <text x="1217.9467" xml:space="preserve" y="527.247" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">CHARACTER VARYING(50)</text>
+      <text x="1217.9467" xml:space="preserve" y="527.247" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">VARCHAR(255)</text>
     </g>
     <g fill="rgb(255,255,204)" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="rgb(255,255,204)">
       <rect x="1089" width="208" height="45" y="18" clip-path="url(#clipPath2)" stroke="none"/>
       <rect x="1089" y="18" clip-path="url(#clipPath2)" fill="none" width="208" height="45" stroke="gray"/>
     </g>
     <g font-size="13" font-family="sans-serif" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
-      <text x="1130.7682" xml:space="preserve" y="37.2378" clip-path="url(#clipPath2)" stroke="none">t_persistent_token</text>
+      <text x="1130.7682" xml:space="preserve" y="37.2378" clip-path="url(#clipPath2)" stroke="none">persistent_token</text>
     </g>
     <g fill="gray" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="gray">
       <line y2="43" fill="none" x1="1090" clip-path="url(#clipPath2)" x2="1296" y1="43"/>
@@ -400,29 +400,29 @@
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
       <text x="1115.2682" xml:space="preserve" y="57.6802" clip-path="url(#clipPath2)" stroke="none">series</text>
-      <text x="1156.2682" xml:space="preserve" y="57.6802" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">CHARACTER VARYING(255)</text>
+      <text x="1156.2682" xml:space="preserve" y="57.6802" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">VARCHAR(255)</text>
     </g>
     <g fill="rgb(255,255,204)" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="rgb(255,255,204)">
       <rect x="827" width="204" height="61" y="105" clip-path="url(#clipPath2)" stroke="none"/>
       <rect x="827" y="105" clip-path="url(#clipPath2)" fill="none" width="204" height="61" stroke="gray"/>
     </g>
     <g font-size="13" font-family="sans-serif" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
-      <text x="873.6788" xml:space="preserve" y="123.646" clip-path="url(#clipPath2)" stroke="none">t_user_authority</text>
+      <text x="873.6788" xml:space="preserve" y="123.646" clip-path="url(#clipPath2)" stroke="none">user_authority</text>
     </g>
     <g fill="gray" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke="gray">
       <line y2="130" fill="none" x1="828" clip-path="url(#clipPath2)" x2="1030" y1="130"/>
       <image x="831" y="133" transform="translate(0.1788,0.3882)" clip-path="url(#clipPath23)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABbElEQVR42mNgoBAw&#10;EqOoJs1oHtd/pkgOWeE9RXU7fZHlmAlprovT/xAXqm3hEejAIsD1R81QUbB288H7&#10;TUQZUBqqtTQ20sBUUkWHYfmM3QwWtiYM3MxvmNSVuRx3Hnm+AKSGCZ8Bb+49t9a0&#10;NGRYt3QXQ2rvPsZTx7YzaMj/Zbi47ZktUS4w1xCRYmdlsw4K1WJQ5fzd4B1oy7Bv&#10;zQ+G/fsvr7zz7fdagi5gZWRycg72Yti36j6Do28Iw/LZFxnmLdz4afvrr5EEYyHH&#10;Se7MxDVtxsdmz2BYuevRzrfPPvO+uv1r3d4/X3uR1bEQ1Lzz0dkp+x55EJ0OsGg2&#10;ITohkaoZJRZgmq+sXcRg4OvE4BNtJsX/7VvDztNPGvEZAI8FcQ2pmTOKJjIIi/xk&#10;eHL+BEN+8BKGX18Z/hHtgv2nn5xX4OOce3THl3wzc2HGm585nz58ek/p/N1P30nK&#10;XeEa0mpxuvIf05xUjBjoAQCKpp457ors1AAAAABJRU5ErkJggg==" height="16" preserveAspectRatio="none"/>
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
-      <text x="853.1788" xml:space="preserve" y="144.0884" clip-path="url(#clipPath2)" stroke="none">login</text>
-      <text x="890.1788" xml:space="preserve" y="144.0884" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">CHARACTER VARYING(50)</text>
+      <text x="853.1788" xml:space="preserve" y="144.0884" clip-path="url(#clipPath2)" stroke="none">user_id</text>
+      <text x="910.1788" xml:space="preserve" y="144.0884" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">BIGINT</text>
     </g>
     <g fill="gray" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991) translate(0.1788,0.3882)" stroke="gray">
       <image x="831" y="149" clip-path="url(#clipPath23)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABbElEQVR42mNgoBAw&#10;EqOoJs1oHtd/pkgOWeE9RXU7fZHlmAlprovT/xAXqm3hEejAIsD1R81QUbB288H7&#10;TUQZUBqqtTQ20sBUUkWHYfmM3QwWtiYM3MxvmNSVuRx3Hnm+AKSGCZ8Bb+49t9a0&#10;NGRYt3QXQ2rvPsZTx7YzaMj/Zbi47ZktUS4w1xCRYmdlsw4K1WJQ5fzd4B1oy7Bv&#10;zQ+G/fsvr7zz7fdagi5gZWRycg72Yti36j6Do28Iw/LZFxnmLdz4afvrr5EEYyHH&#10;Se7MxDVtxsdmz2BYuevRzrfPPvO+uv1r3d4/X3uR1bEQ1Lzz0dkp+x55EJ0OsGg2&#10;ITohkaoZJRZgmq+sXcRg4OvE4BNtJsX/7VvDztNPGvEZAI8FcQ2pmTOKJjIIi/xk&#10;eHL+BEN+8BKGX18Z/hHtgv2nn5xX4OOce3THl3wzc2HGm585nz58ek/p/N1P30nK&#10;XeEa0mpxuvIf05xUjBjoAQCKpp457ors1AAAAABJRU5ErkJggg==" height="16" preserveAspectRatio="none"/>
     </g>
     <g font-size="10" font-family="'Helvetica'" font-weight="bold" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)">
       <text x="853.1788" xml:space="preserve" y="160.0884" clip-path="url(#clipPath2)" stroke="none">name</text>
-      <text x="890.1788" xml:space="preserve" y="160.0884" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">CHARACTER VARYING(255)</text>
+      <text x="890.1788" xml:space="preserve" y="160.0884" font-weight="normal" clip-path="url(#clipPath2)" stroke="none">VARCHAR(255)</text>
     </g>
     <g fill="gray" stroke-miterlimit="1.45" transform="matrix(0.6039,0,0,0.6039,-17.3471,1.6991)" stroke-linecap="butt" stroke="gray">
       <path fill="none" d="M490.8282 52.4407 L572.0595 88.3111" clip-path="url(#clipPath2)"/>

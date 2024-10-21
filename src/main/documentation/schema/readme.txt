@@ -6,7 +6,7 @@ Some notes:
 
 * Tables affiliate and member are important roots.
 
-* t_user and the other t_* tables come from a base framework and implement users, permissions, and event logging.  t_authority and t_user_authority will be obsolete once we finish integrating with the staff authentication service.
+* user, authority, user_authority, persistent_audit_event, persistent_audit_event_data and persistent_token tables come from a base framework and implement users, permissions, and event logging.  authority and user_authority will be obsolete once we finish integrating with the staff authentication service.
 
 * Tables "databasechangelog" and "databasechangeloglock" are bookkeeping for Liquibase which manages our db changes.
 

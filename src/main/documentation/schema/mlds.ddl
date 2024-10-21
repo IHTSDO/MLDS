@@ -57,17 +57,17 @@ CREATE TABLE `affiliate_details` (
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `other_text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `subtype` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `first_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `last_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `alternate_email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `third_email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `alternate_email` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `third_email` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `street` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `post` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `post` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `billing_street` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `billing_city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `billing_post` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `billing_post` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `country_iso_code_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `billing_country_iso_code_2` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `organization_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
@@ -136,6 +136,19 @@ CREATE TABLE `application` (
   CONSTRAINT `FK_application_affiliate` FOREIGN KEY (`affiliate_id`) REFERENCES `affiliate` (`affiliate_id`),
   CONSTRAINT `FK_application_affiliate_details` FOREIGN KEY (`affiliate_details_id`) REFERENCES `affiliate_details` (`affiliate_details_id`),
   CONSTRAINT `FK_application_commercial_usage` FOREIGN KEY (`commercial_usage_id`) REFERENCES `commercial_usage` (`commercial_usage_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `authority`
+--
+
+DROP TABLE IF EXISTS `authority`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `authority` (
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -293,33 +306,9 @@ DROP TABLE IF EXISTS `email_domain_blacklist`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `email_domain_blacklist` (
   `domain_id` bigint NOT NULL AUTO_INCREMENT,
-  `domainname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `domain_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`domain_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=386731 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `event`
---
-
-DROP TABLE IF EXISTS `event`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `event` (
-  `event_id` bigint NOT NULL,
-  `type` varchar(31) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `description` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `timestamp` timestamp NOT NULL,
-  `event_sub_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `principal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `browser_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `browser_version` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `ip_address` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `locale` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `session_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `user_agent` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  PRIMARY KEY (`event_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=384824 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -372,9 +361,9 @@ CREATE TABLE `member` (
   `logo_file` bigint DEFAULT NULL,
   `staff_notification_email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `promote_packages` bit(1) NOT NULL DEFAULT b'0',
-  `contactEmail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `memberOrgName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `memberOrgURL` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `contact_email` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `member_org_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `member_org_url` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`member_id`),
   UNIQUE KEY `member_name_unique` (`key`),
   KEY `member_file` (`license_file`),
@@ -397,7 +386,75 @@ CREATE TABLE `password_reset_token` (
   `user_id` bigint NOT NULL,
   PRIMARY KEY (`password_reset_token_id`),
   KEY `fk_password_reset_token_user_id` (`user_id`),
-  CONSTRAINT `fk_password_reset_token_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`user_id`)
+  CONSTRAINT `fk_password_reset_token_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `persistent_audit_event`
+--
+
+DROP TABLE IF EXISTS `persistent_audit_event`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `persistent_audit_event` (
+  `event_id` bigint NOT NULL,
+  `principal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `event_date` timestamp NULL DEFAULT NULL,
+  `event_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `application_id` bigint DEFAULT NULL,
+  `affiliate_id` bigint DEFAULT NULL,
+  `release_package_id` bigint DEFAULT NULL,
+  `release_version_id` bigint DEFAULT NULL,
+  `release_file_id` bigint DEFAULT NULL,
+  `commercial_usage_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`event_id`),
+  KEY `idx_persistent_audit_event` (`principal`,`event_date`),
+  KEY `FK_persistent_audit_event_application` (`application_id`),
+  KEY `FK_persistent_audit_event_affiliate` (`affiliate_id`),
+  KEY `FK_persistent_audit_event_release_package` (`release_package_id`),
+  KEY `FK_persistent_audit_event_release_version` (`release_version_id`),
+  KEY `FK_persistent_audit_event_release_file` (`release_file_id`),
+  KEY `FK_persistent_audit_event_commercial_usage` (`commercial_usage_id`),
+  CONSTRAINT `FK_persistent_audit_event_commercial_usage` FOREIGN KEY (`commercial_usage_id`) REFERENCES `commercial_usage` (`commercial_usage_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `persistent_audit_event_data`
+--
+
+DROP TABLE IF EXISTS `persistent_audit_event_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `persistent_audit_event_data` (
+  `event_id` bigint NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`event_id`,`name`),
+  KEY `idx_persistent_audit_event_data` (`event_id`),
+  KEY `idx_persistent_audit_event_data_name` (`name`),
+  CONSTRAINT `FK_event_persistent_audit_event_data` FOREIGN KEY (`event_id`) REFERENCES `persistent_audit_event` (`event_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `persistent_token`
+--
+
+DROP TABLE IF EXISTS `persistent_token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `persistent_token` (
+  `series` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `token_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `token_date` date DEFAULT NULL,
+  `ip_address` varchar(39) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`series`),
+  KEY `fk_persistent_token_user_id` (`user_id`),
+  CONSTRAINT `fk_persistent_token_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -416,7 +473,7 @@ CREATE TABLE `release_file` (
   `download_url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `primary_file` bit(1) NOT NULL DEFAULT b'0',
   `md5_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `file_size` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `file_size` bigint DEFAULT NULL,
   PRIMARY KEY (`release_file_id`),
   KEY `FK_release_file_release_version` (`release_version_id`),
   CONSTRAINT `FK_release_file_release_version` FOREIGN KEY (`release_version_id`) REFERENCES `release_version` (`release_version_id`)
@@ -441,12 +498,12 @@ CREATE TABLE `release_package` (
   `licence_file` bigint DEFAULT NULL,
   `priority` int DEFAULT '-1',
   `copyrights` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
-  `releasePackageURI` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `release_package_uri` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`release_package_id`),
-  KEY `FK_package_t_user` (`created_by`),
   KEY `release_package_member` (`member_id`),
   KEY `licence_file` (`licence_file`),
+  KEY `FK_package_user` (`created_by`),
   CONSTRAINT `licence_file` FOREIGN KEY (`licence_file`) REFERENCES `file` (`file_id`),
   CONSTRAINT `release_package_member` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -471,120 +528,39 @@ CREATE TABLE `release_version` (
   `inactive_at` timestamp NULL DEFAULT NULL,
   `release_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `summary` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
-  `versionDependentDerivativeURI` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `versionDependentURI` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `versionURI` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `version_dependent_derivative_uri` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `version_dependent_uri` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `version_uri` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `package_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `archive` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`release_version_id`),
   KEY `FK_release_version_release_package` (`release_package_id`),
-  KEY `FK_release_version_t_user` (`created_by`),
+  KEY `FK_release_version_user` (`created_by`),
   CONSTRAINT `FK_release_version_release_package` FOREIGN KEY (`release_package_id`) REFERENCES `release_package` (`release_package_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `t_authority`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `t_authority`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `t_authority` (
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `t_persistent_audit_event`
---
-
-DROP TABLE IF EXISTS `t_persistent_audit_event`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `t_persistent_audit_event` (
-  `event_id` bigint NOT NULL,
-  `principal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `event_date` timestamp NULL DEFAULT NULL,
-  `event_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `application_id` bigint DEFAULT NULL,
-  `affiliate_id` bigint DEFAULT NULL,
-  `release_package_id` bigint DEFAULT NULL,
-  `release_version_id` bigint DEFAULT NULL,
-  `release_file_id` bigint DEFAULT NULL,
-  `commercial_usage_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`event_id`),
-  KEY `idx_persistent_audit_event` (`principal`,`event_date`),
-  KEY `FK_t_persistent_audit_event_application` (`application_id`),
-  KEY `FK_t_persistent_audit_event_affiliate` (`affiliate_id`),
-  KEY `FK_t_persistent_audit_event_release_package` (`release_package_id`),
-  KEY `FK_t_persistent_audit_event_release_version` (`release_version_id`),
-  KEY `FK_t_persistent_audit_event_release_file` (`release_file_id`),
-  KEY `FK_t_persistent_audit_event_commercial_usage` (`commercial_usage_id`),
-  CONSTRAINT `FK_t_persistent_audit_event_commercial_usage` FOREIGN KEY (`commercial_usage_id`) REFERENCES `commercial_usage` (`commercial_usage_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `t_persistent_audit_event_data`
---
-
-DROP TABLE IF EXISTS `t_persistent_audit_event_data`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `t_persistent_audit_event_data` (
-  `event_id` bigint NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  PRIMARY KEY (`event_id`,`name`),
-  KEY `idx_persistent_audit_event_data` (`event_id`),
-  KEY `idx_persistent_audit_event_data_name` (`name`),
-  CONSTRAINT `FK_event_persistent_audit_event_data` FOREIGN KEY (`event_id`) REFERENCES `t_persistent_audit_event` (`event_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `t_persistent_token`
---
-
-DROP TABLE IF EXISTS `t_persistent_token`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `t_persistent_token` (
-  `series` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `token_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `token_date` date DEFAULT NULL,
-  `ip_address` varchar(39) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `user_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`series`),
-  KEY `fk_persistent_token_user_id` (`user_id`),
-  CONSTRAINT `fk_persistent_token_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `t_user`
---
-
-DROP TABLE IF EXISTS `t_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `t_user` (
-  `login` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `first_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `last_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+CREATE TABLE `user` (
+  `login` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `activated` bit(1) NOT NULL DEFAULT b'1',
   `lang_key` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `activation_key` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `created_by` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT 'system',
+  `activation_key` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `created_by` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_modified_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `last_modified_by` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `last_modified_date` timestamp NULL DEFAULT NULL,
   `user_id` bigint NOT NULL,
   `inactive_at` timestamp NULL DEFAULT NULL,
@@ -596,33 +572,19 @@ CREATE TABLE `t_user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `t_user_authority`
+-- Table structure for table `user_authority`
 --
 
-DROP TABLE IF EXISTS `t_user_authority`;
+DROP TABLE IF EXISTS `user_authority`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `t_user_authority` (
+CREATE TABLE `user_authority` (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `user_id` bigint NOT NULL,
   PRIMARY KEY (`user_id`,`name`),
   KEY `fk_authority_name` (`name`),
-  CONSTRAINT `fk_authority_name` FOREIGN KEY (`name`) REFERENCES `t_authority` (`name`),
-  CONSTRAINT `fk_user_authority_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `user_registration`
---
-
-DROP TABLE IF EXISTS `user_registration`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user_registration` (
-  `user_registration_id` bigint NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  PRIMARY KEY (`user_registration_id`)
+  CONSTRAINT `fk_authority_name` FOREIGN KEY (`name`) REFERENCES `authority` (`name`),
+  CONSTRAINT `fk_user_authority_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
