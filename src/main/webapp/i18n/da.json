@@ -45,7 +45,7 @@
                 "affiliteUserManagement": "Håndtering af brugerlicens",
                 "activityLog": "Aktivitetslog",
                 "packageManagement": "Versionshåndtering",
-                "licenseTC": "Brugervilkår og -betingelser",
+                "licenseTC": "Licensvilkår og -betingelser",
                 "reportsExtracts": "Rapporter og udtræk",
                 "logout": "Log ud"
             },
@@ -71,8 +71,8 @@
             "th": "Thailandsk"
         },
         "form": {
-            "username": "Brugernavn",
-            "username.placeholder": "Dit brugernavn",
+            "username": "Login",
+            "username.placeholder": "Dit login",
             "newpassword": "Ny adgangskode",
             "newpassword.placeholder": "Ny adgangskode",
             "confirmpassword": "Bekræft ny adgangskode",
@@ -84,12 +84,12 @@
         },
         "messages": {
             "info": {
-                "authenticated": "Hvis du ønsker at <a href=\"#/login\">verificere</a>, kan du prøve det med:<br/>- Administrator (login=\"admin\" og adgangskode=\"admin\") <br/>- Bruger (login=\"user\" and password=\"user\").",
+                "authenticated": "Hvis du ønsker at <a href=\"#/login\">verificere</a>, kan du prøve det med:<br/>- Administrator (login=\"admin\" og adgangskode=\"admin\") <br/>- Bruger (login=\"user\" og adgangskode=\"user\").",
                 "register": "Har du ikke en konto endnu? <a href=\"#/register\">Registrer en konto</a>"
             },
             "error": {
                 "dontmatch": "Adgangskode og bekræftelsen er ikke ens!",
-                "server": "Der er opstået en fejl.  Log venligst ind igen ved at trykke på Log ind-knappen igen."
+                "server": "Der er opstået en fejl.  Log venligst ind igen ved at trykke på knappen Log ind."
             },
             "validate": {
                 "newpassword": {
@@ -476,17 +476,17 @@
         "form": {
             "button": "Begynd registrering",
             "confirmemail": "E-mail (bekræft)",
-            "tos": "Accepter vores <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">brugervilkår</a>."
+            "tos": "Accepter vores <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">vilkår og betingelser</a>."
         },
         "messages": {
             "validate": {
                 "login": {
                     "required": "Du skal logge dig ind.",
-                    "minlength": "Dit brugernavn skal minimum være 1 karakter",
-                    "maxlength": "Dit brugernavn må maksimalt være 50 karakterer"
+                    "minlength": "Dit login skal minimum være 1 tegn",
+                    "maxlength": "Dit login må maksimalt være 50 tegn"
                 },
                 "registration": {
-                    "usagetyperequired": "Anvendelse skal angives",
+                    "usagetyperequired": "Anvendelsestype skal angives",
                     "subtyperequired": "Suptype skal angives"
                 },
                 "country": {
@@ -502,9 +502,9 @@
             "excludemessage": {
                 "confirm": "Bekræft",
                 "link": "bruger ikke MLDS til distribution af SNOMED CT. Hvis du vil registrere dig for at downloade SNOMED CT, kan du finde mere information ved at benytte dette link -",
-                "userConfirm": "For at fortsætte din registrering på MLDS beder vi dig venligst om at bekræfte, at du ønsker at anvende SNOMED CT i et andet land.",
+                "userConfirm": "For at fortsætte din registrering på MLDS beder vi dig venligst om at bekræfte, at du ønsker at tage SNOMED CT i brug i et andet land.",
                 "cancel": "Annuller",
-                "accept": "Jeg bekræfter, at jeg ønsker at anvende SNOMED CT i et andet land end"
+                "accept": "Jeg bekræfter, at jeg ønsker at tage SNOMED CT i brug i et andet land end"
             }
         },
         "emailVerification": {
@@ -513,7 +513,7 @@
         },
         "affiliateRegistration": {
             "title": "Registrer licenshaver",
-            "usageType": "Anvendelse",
+            "usageType": "Anvendelsestype",
             "changeRequestedWarning": {
                 "title": "Lisensaftalen skal ændres",
                 "text": "Din registrering som lisenshaver skal opdateres før den kan blive behandlet. Se venligst e-mail vedrørende de nødvendige ændringer for at fulføre din registrering."
@@ -521,7 +521,7 @@
             "license.title": "SNOMED CT-aftale",
             "license": "SNOMED-licens",
             "license.confirm": "Jeg accepterer licensen",
-            "license.error": "Du skal acceptere SNOMED CT-licensens brugervilkår for at registrerer dig. Licensen angiver hvilke eventuelle omkostninger der gælder.",
+            "license.error": "Du skal acceptere SNOMED CT-licensens vilkår og betingelser for at registrere dig. Licensen angiver hvilke eventuelle omkostninger der gælder.",
             "conditions": "Vælg venligst de betingelser, som produktet vil blive anvendt under",
             "typeOfAgreement": "Type af aftale",
             "validation": {
@@ -536,20 +536,20 @@
         "welcome": "Velkommen til SNOMED International-MLDS"
     },
     "login": {
-        "title": "Login",
+        "title": "Log ind",
         "form": {
             "password": "Adgangskode",
             "password.placeholder": "Din adgangskode",
             "rememberme": "Husk mig",
-            "button": "Login",
+            "button": "Log ind",
             "forgot": "Har du glemt din adgangskode?",
             "username": "E-mail eller brugernavn"
         },
         "messages": {
             "error": {
-                "authentication": "<strong>Verifikationen mislykkedes!</strong> Kontroller venligst brugernavn og adgangskode og prøv igen. Adgangskode er case sensitive.",
-                "deregistered": "<strong>Verifikationen mislykkedes!</strong> Denne konto er blevet slettet.  Kontakt venligst support.",
-                "noPermissions": "<strong>Verifikationen mislykkedes!</strong> Vi har verificeret dig, men din konto har ikke adgang til denne applikation eller er fejlkonfigureret.  Kontakt venligst support."
+                "authentication": "<strong>Login mislykkedes!</strong> Kontroller venligst brugernavn og adgangskode og prøv igen. Adgangskode er case sensitive.",
+                "deregistered": "<strong>Login mislykkedes!</strong> Denne konto er blevet slettet.  Kontakt venligst support.",
+                "noPermissions": "<strong>Login mislykkedes!</strong> Vi har genkendt dig, men din konto har ikke adgang til denne applikation eller er fejlkonfigureret.  Kontakt venligst support."
             }
         }
     },
@@ -844,10 +844,10 @@
     "approval": {
         "state": {
             "NOT_SUBMITTED": "Ikke sendt",
-            "CHANGE_REQUESTED": "Ændring efterspurgt",
+            "CHANGE_REQUESTED": "Ændring anmodet",
             "SUBMITTED": "Sendt",
             "RESUBMITTED": "Genfremsendt",
-            "REVIEW_REQUESTED": "Gennemgang efterspurgt",
+            "REVIEW_REQUESTED": "Gennemgang anmodet",
             "APPROVED": "Godkendt",
             "REJECTED": "Afslået"
         }
@@ -863,8 +863,8 @@
         "contactInfo": {
             "admin": {
                 "usageType": {
-                    "name": "Type",
-                    "required": "Feltet Anvendelse skal udfyldes."
+                    "name": "Anvendelsestype",
+                    "required": "Feltet Anvendelsestype skal udfyldes."
                 },
                 "title": "Redigerbar admin",
                 "other": {
@@ -884,7 +884,7 @@
             "messages": {
                 "notApproved": {
                     "title": "Registreringen er endnu ikke godkendt",
-                    "body": "Du kan først ændre kontaktinformation for en licenshaver, når registreringsforespørgslen er blevet godkendt."
+                    "body": "Du kan først ændre kontaktinformation for en licenshaver, når registreringsanmodningen er blevet godkendt."
                 }
             },
             "contact": {
@@ -1003,7 +1003,7 @@
                     "data": "Data",
                     "provideStaff": "Hvor mange hospitaler leverer personale til de angivne klinikker?",
                     "usingDCSNotPract": "Hvor mange hospitaler eller andre institutioner anvender systemer til dataoprettelse, men kan ikke defineres som klinikker i hht. definitionen i licensen?",
-                    "howManyDAS": "Hvor mange dataanalysesystemer har du implementeret i denne region og hvor mange databaser er der pr. implementering?",
+                    "howManyDAS": "Hvor mange dataanalysesystemer har du taget i brug i denne region og hvor mange databaser er der pr. ibrugtagning?",
                     "usingDCSNotHosp": "Hvor mange klinikker anvender systemer til dataoprettelse og er IKKE del af en hospitalsorganisation?",
                     "dataAnalysis": "System til dataanalyse"
                 },
@@ -1085,7 +1085,7 @@
             "member.purpose1": "MLDS er et værktøj anvendt af NRC i ",
             "loginHere": "Login her",
             "member.purpose3": " og hvor det er relevant i ikke-medlemslande.",
-            "appName": "Member Licensing og Distribution Service (MLDS)",
+            "appName": "Member Licensing and Distribution Service (MLDS)",
             "purpose": "Denne service er leveret af SNOMED International til organisationer og personer, der efterspørger anvendelse af og adgang til den internationale udgivelse af SNOMED CT til brug i et ikke-medlemsland samt i visse medlemslande.",
             "furtherDetails": "Se venligst <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED Internationals hjemmeside </a> for mere information eller <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>."
         },
@@ -1144,7 +1144,7 @@
             "tos": "Brugervilkår",
             "pp": "Privatlivspolitik",
             "contact": "Kontakt os",
-            "register": "Registrer din anvendelse"
+            "register": "Registrer din ibrugtagning"
         },
         "releases": {
             "title": "Udgivelser, der er tilgængelige for registrerede brugere",
@@ -1196,10 +1196,10 @@
     },
     "usageReport": {
         "state": {
-            "CHANGE_REQUESTED": "Ændring efterspurgt",
+            "CHANGE_REQUESTED": "Ændring anmodet",
             "SUBMITTED": "Sendt",
             "RESUBMITTED": "Genfremsendt",
-            "REVIEW_REQUESTED": "Gennemgang efterspurgt",
+            "REVIEW_REQUESTED": "Gennemgang anmodet",
             "PENDING_INVOICE": "Afventer faktura",
             "INVOICE_SENT": "Faktura er afsendt",
             "PAID": "Betalt",
