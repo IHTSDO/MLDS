@@ -35,8 +35,10 @@ public interface CommercialUsageRepository extends JpaRepository<CommercialUsage
     @Query("SELECT cu FROM CommercialUsage cu " +
         "JOIN cu.affiliate a " +
         "JOIN a.affiliateDetails ad " +
-        "WHERE LOWER(ad.firstName) LIKE LOWER(CONCAT('%', :searchText, '%')) " +
-        "   OR LOWER(ad.lastName) LIKE LOWER(CONCAT('%', :searchText, '%'))")
-    Page<CommercialUsage> searchUsageReports(@Param("searchText") String searchText, Pageable pageable);
+        "WHERE (LOWER(ad.firstName) LIKE LOWER(CONCAT('%', :searchText, '%')) " +
+        "       OR LOWER(ad.lastName) LIKE LOWER(CONCAT('%', :searchText, '%'))) " +
+        "  AND cu.state != :state " +
+        "  AND cu.effectiveTo IS NULL")
+    Page<CommercialUsage> searchUsageReports(@Param("searchText") String searchText, @Param("state") UsageReportState state,  Pageable pageable);
 
 }
