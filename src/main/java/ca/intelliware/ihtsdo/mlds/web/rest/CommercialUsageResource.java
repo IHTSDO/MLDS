@@ -94,7 +94,7 @@ public class CommercialUsageResource {
 
         // Apply search query if search text is provided
         if (searchText != null && !searchText.trim().isEmpty()) {
-            usageReports = commercialUsageRepository.searchUsageReports(searchText, pageRequest);
+            usageReports = commercialUsageRepository.searchUsageReports(searchText,UsageReportState.NOT_SUBMITTED, pageRequest);
         }
 
         return new ResponseEntity<>(new CommercialUsageCollection(usageReports), HttpStatus.OK);
