@@ -75,8 +75,9 @@ public class CommercialUsageResource {
     @Timed
     public ResponseEntity<CommercialUsageCollection> getAllUsageReports(
         @RequestParam(value="$filter", required=false) String filter,
+        @RequestParam(value ="searchText", required = false) String searchText,
         @RequestParam(value="page", defaultValue="0") int page,
-        @RequestParam(value="size", defaultValue="50") int size,
+        @RequestParam(value="size", defaultValue="100") int size,
         @RequestParam(value="orderby", required=false) String orderby) {
 
         Page<CommercialUsage> usageReports;
@@ -89,6 +90,11 @@ public class CommercialUsageResource {
             usageReports = commercialUsageRepository.findByNotStateAndEffectiveToIsNull(UsageReportState.NOT_SUBMITTED, pageRequest);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        // Apply search query if search text is provided
+        if (searchText != null && !searchText.trim().isEmpty()) {
+            usageReports = commercialUsageRepository.searchUsageReports(searchText, pageRequest);
         }
 
         return new ResponseEntity<>(new CommercialUsageCollection(usageReports), HttpStatus.OK);

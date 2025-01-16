@@ -32,4 +32,11 @@ public interface CommercialUsageRepository extends JpaRepository<CommercialUsage
     Collection<Object[]> findUsageReport();
     /*MLDS 985---To Download Commercial usage CSV files this below code is used*/
 
+    @Query("SELECT cu FROM CommercialUsage cu " +
+        "JOIN cu.affiliate a " +
+        "JOIN a.affiliateDetails ad " +
+        "WHERE LOWER(ad.firstName) LIKE LOWER(CONCAT('%', :searchText, '%')) " +
+        "   OR LOWER(ad.lastName) LIKE LOWER(CONCAT('%', :searchText, '%'))")
+    Page<CommercialUsage> searchUsageReports(@Param("searchText") String searchText, Pageable pageable);
+
 }
