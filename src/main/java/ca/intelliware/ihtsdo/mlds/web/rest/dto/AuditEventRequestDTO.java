@@ -1,19 +1,12 @@
 package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class AuditEventRequestDTO {
     private LocalDate startDate;
     private LocalDate endDate;
+    private boolean isExcludeAdminAndStaff;
 
-    public List<String> getExcludeUsers() {
-        return excludeUsers;
-    }
-
-    public void setExcludeUsers(List<String> excludeUsers) {
-        this.excludeUsers = excludeUsers;
-    }
 
     public LocalDate getStartDate() {
         return startDate;
@@ -31,5 +24,11 @@ public class AuditEventRequestDTO {
         this.endDate = endDate;
     }
 
-    private List<String> excludeUsers;
+    public boolean isExcludeAdminAndStaff() {
+        return isExcludeAdminAndStaff;
+    }
+
+    public void setExcludeAdminAndStaff(boolean excludeAdminAndStaff) {
+        isExcludeAdminAndStaff = excludeAdminAndStaff;
+    }
 }

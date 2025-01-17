@@ -4,12 +4,16 @@ import ca.intelliware.ihtsdo.mlds.config.audit.AuditEventConverter;
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
 import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.AuditEventRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 
@@ -81,5 +85,34 @@ public class AuditEventService {
 		persistentAuditEvent.setData(auditData);
 		return persistentAuditEvent;
 	}
+
+    public Instant[] getStartEndInstant(AuditEventRequestDTO request) {
+        LocalDate startDate = request.getStartDate();
+        LocalDate endDate = request.getEndDate();
+
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+
+        Instant start = startDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        Instant end = endDateTime.atZone(ZoneId.systemDefault()).toInstant();
+
+        return new Instant[]{start, end};
+    }
+
+    public List<PersistentAuditEvent> getAuditEvents(boolean excludeAdminAndStaff, Instant start, Instant end) {
+        if (excludeAdminAndStaff) {
+            return persistenceAuditEventRepository.findTypeAndEventDateWithAffiliateIdNotNull(start, end);
+        } else {
+            return persistenceAuditEventRepository.findTypeAndEventDate(start, end);
+        }
+    }
+
+    public List<PersistentAuditEvent> filterDownloadEvents(List<PersistentAuditEvent> events) {
+        return events.stream()
+            .filter(event -> event.getData() != null &&
+                "200".equals(event.getData().get("download.statusCode")))
+            .toList();
+    }
+
 
 }

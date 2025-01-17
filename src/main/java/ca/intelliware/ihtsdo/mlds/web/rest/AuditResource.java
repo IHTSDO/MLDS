@@ -12,19 +12,14 @@ import jakarta.annotation.security.RolesAllowed;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.audit.AuditEvent;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,19 +90,10 @@ public class AuditResource {
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
     public List<ReleaseFileCountDTO> findReleaseFileDownloadAuditData(@RequestBody AuditEventRequestDTO request) {
-        LocalDate startDate = request.getStartDate();
-        LocalDate endDate = request.getEndDate();
-        List<String> excludeUsers = request.getExcludeUsers();
-
-        LocalDateTime startDateTime = startDate.atStartOfDay();
-        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
-        Instant start = startDateTime.atZone(ZoneId.systemDefault()).toInstant();
-        Instant end = endDateTime.atZone(ZoneId.systemDefault()).toInstant();
-
-        List<PersistentAuditEvent> response = persistenceAuditEventRepository.findTypeAndEventDate(start, end);
-        var result = response.stream()
-            .filter(a -> excludeUsers == null || !excludeUsers.contains(a.getPrincipal()))
-            .toList();
+        Instant[] dateRange = auditEventService.getStartEndInstant(request);
+        boolean excludeAdminAndStaff = request.isExcludeAdminAndStaff();
+        List<PersistentAuditEvent> response = auditEventService.getAuditEvents(excludeAdminAndStaff, dateRange[0], dateRange[1]);
+        List<PersistentAuditEvent> result = auditEventService.filterDownloadEvents(response);
         Map<String, ReleaseFileCountDTO> countMap = new HashMap<>();
         for (PersistentAuditEvent event : result) {
             Map<String, String> data = event.getData();
@@ -124,15 +110,19 @@ public class AuditResource {
         }
         return new ArrayList<>(countMap.values());
     }
-    @GetMapping(value = Routes.RELEASEDOWNLOADUSERS, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAnyAuthority('STAFF', 'ADMIN')")
-    public Set<String> findReleaseFileDownloadUserLists(
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        Instant start = startDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
-        Instant end = endDate.atTime(23, 59, 59).atZone(ZoneId.systemDefault()).toInstant();
-        return persistenceAuditEventRepository.findUniqueUsersByTypeAndEventDate(start, end);
+
+    @PostMapping(value = Routes.AUDITSEVENTS_CSV, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
+    public List<PersistentAuditEvent> findReleaseFileDownloadDataForCsv(@RequestBody AuditEventRequestDTO request) {
+        Instant[] dateRange = auditEventService.getStartEndInstant(request);
+        boolean excludeAdminAndStaff = request.isExcludeAdminAndStaff();
+        List<PersistentAuditEvent> response = auditEventService.getAuditEvents(excludeAdminAndStaff, dateRange[0], dateRange[1]);
+
+        return auditEventService.filterDownloadEvents(response);
     }
+
+
 }
 
 
