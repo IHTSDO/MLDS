@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -27,9 +26,6 @@ import java.util.Set;
 	List<PersistentAuditEvent> findByAffiliateId(Long affiliateId);
 
 	List<PersistentAuditEvent> findByApplicationId(Long applicationId);
-
-    @Query(value="SELECT DISTINCT ae.principal FROM t_persistent_audit_event ae WHERE ae.event_type = 'RELEASE_FILE_DOWNLOADED' AND ae.event_date BETWEEN :start AND :end",nativeQuery = true)
-    Set<String> findUniqueUsersByTypeAndEventDate(@Param("start") Instant start, @Param("end") Instant end);
 
     @Query("SELECT ae FROM PersistentAuditEvent ae WHERE ae.auditEventType = 'RELEASE_FILE_DOWNLOADED' AND ae.auditEventDate BETWEEN :start AND :end")
     List<PersistentAuditEvent> findTypeAndEventDate(@Param("start") Instant start, @Param("end") Instant end);

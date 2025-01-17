@@ -6,14 +6,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
 import java.util.Arrays;
 
-import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,8 +30,6 @@ public class AuditResourceTest {
     @Mock
     private AuditEventService auditEventService;
 
-    @Mock
-    private PersistenceAuditEventRepository persistenceAuditEventRepository;
 
     private MockMvc restUserMockMvc;
 
@@ -45,7 +39,7 @@ public class AuditResourceTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        AuditResource auditResource = new AuditResource(persistenceAuditEventRepository);
+        AuditResource auditResource = new AuditResource();
 
         auditResource.auditEventService = auditEventService;
 
