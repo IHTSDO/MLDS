@@ -19,7 +19,7 @@ public class Routes {
     public static final String AUDITS = "/api/audits";
 
     public static final String AUDITSEVENTS = "/api/audits/getAllAuditEvents";
-    public static final String RELEASEDOWNLOADUSERS = "/api/audits/getAllUsersonSelectedDate";
+    public static final String AUDITSEVENTS_CSV = "/api/audits/getAllAuditEventsCSV";
     /**
      * - get list of all submissions
      * - post period { startDate, endDate } to do start new submission (auto-copy from most recent)

@@ -33,4 +33,7 @@ import java.util.Set;
 
     @Query("SELECT ae FROM PersistentAuditEvent ae WHERE ae.auditEventType = 'RELEASE_FILE_DOWNLOADED' AND ae.auditEventDate BETWEEN :start AND :end")
     List<PersistentAuditEvent> findTypeAndEventDate(@Param("start") Instant start, @Param("end") Instant end);
+
+    @Query("SELECT ae FROM PersistentAuditEvent ae WHERE ae.auditEventType = 'RELEASE_FILE_DOWNLOADED' AND ae.auditEventDate BETWEEN :start AND :end AND ae.affiliateId IS NOT NULL")
+    List<PersistentAuditEvent> findTypeAndEventDateWithAffiliateIdNotNull(@Param("start") Instant start, @Param("end") Instant end);
 }
