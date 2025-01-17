@@ -2,7 +2,6 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 
 
 import ca.intelliware.ihtsdo.mlds.domain.PersistentAuditEvent;
-import ca.intelliware.ihtsdo.mlds.repository.PersistenceAuditEventRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.AuditEventRequestDTO;
@@ -35,16 +34,11 @@ public class AuditResource {
     AuditEventService auditEventService;
 
 
-    private final PersistenceAuditEventRepository persistenceAuditEventRepository;
-
     public static final String FILTER_BY_AUDIT_EVENT_TYPE = "auditEventType eq '(\\w+)'";
     public static final String FILTER_BY_AFFILIATE_ID = "affiliateId eq '(\\w+)'";
     public static final String FILTER_BY_APPLICATION_ID = "applicationId eq '(\\w+)'";
     public static final String FILTER_BY_AUDIT_EVENT_DATE_BETWEEN = "auditEventDate ge '(.*)' and auditEventDate le '(.*)'";
 
-    public AuditResource(PersistenceAuditEventRepository persistenceAuditEventRepository) {
-        this.persistenceAuditEventRepository = persistenceAuditEventRepository;
-    }
 
     @RequestMapping(value = Routes.AUDITS,
         method = RequestMethod.GET,
