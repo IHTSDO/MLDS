@@ -113,6 +113,7 @@ public class Routes {
      * - POST to create
      */
     public static final String RELEASE_PACKAGES = "/api/releasePackages";
+    public static final String ARCHIVE_RELEASE_PACKAGES = "/api/archiveReleasePackages";
 
     /**
      * control endpoint for single release package:
