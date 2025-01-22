@@ -95,11 +95,11 @@ public class ReleasePackagesResource {
             .toList();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @GetMapping(value = Routes.ARCHIEVE_RELEASE_PACKAGES,
+    @GetMapping(value = Routes.ARCHIVE_RELEASE_PACKAGES,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     @Timed
-    public ResponseEntity<List<ReleasePackage>> getArchieveReleasePackages() {
+    public ResponseEntity<List<ReleasePackage>> getArchiveReleasePackages() {
 
         List<ReleasePackage> releasePackages = releasePackageRepository.findAll();
 
