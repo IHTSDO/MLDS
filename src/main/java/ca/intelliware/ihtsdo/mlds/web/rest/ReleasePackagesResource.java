@@ -76,19 +76,54 @@ public class ReleasePackagesResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @PermitAll
     @Timed
-    public ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
-
-        Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
+    public ResponseEntity<List<ReleasePackage>> getReleasePackages() {
+        List<ReleasePackage> releasePackages = releasePackageRepository.findAll();
 
         releasePackages = filterReleasePackagesByOnline(releasePackages);
+        List<ReleasePackage> response = releasePackages.stream()
+            .map(releasePackage -> {
+                Set<ReleaseVersion> notArchivedVersions = releasePackage.getReleaseVersions().stream()
+                    .filter(releaseVersion -> !releaseVersion.isArchive())
+                    .collect(Collectors.toSet());
+                if (!notArchivedVersions.isEmpty()) {
+                    releasePackage.setReleaseVersions(notArchivedVersions); // Keep only archived versions
+                    return releasePackage; // Include this package
+                }
+                return null; // Skip this package
+            })
+            .filter(Objects::nonNull) // Exclude null packages
+            .toList();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    @GetMapping(value = Routes.ARCHIEVE_RELEASE_PACKAGES,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @Timed
+    public ResponseEntity<List<ReleasePackage>> getArchieveReleasePackages() {
 
-        return new ResponseEntity<>(releasePackages, HttpStatus.OK);
+        List<ReleasePackage> releasePackages = releasePackageRepository.findAll();
+
+        releasePackages = filterReleasePackagesByOnline(releasePackages);
+        List<ReleasePackage> response = releasePackages.stream()
+            .map(releasePackage -> {
+                Set<ReleaseVersion> archivedVersions = releasePackage.getReleaseVersions().stream()
+                    .filter(ReleaseVersion::isArchive)
+                    .collect(Collectors.toSet());
+                if (!archivedVersions.isEmpty()) {
+                    releasePackage.setReleaseVersions(archivedVersions); // Keep only archived versions
+                    return releasePackage; // Include this package
+                }
+                return null; // Skip this package
+            })
+            .filter(Objects::nonNull) // Exclude null packages
+            .toList();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    private Collection<ReleasePackage> filterReleasePackagesByOnline(
-        Collection<ReleasePackage> releasePackages) {
+    private List<ReleasePackage> filterReleasePackagesByOnline(
+        List<ReleasePackage> releasePackages) {
 
-        Collection<ReleasePackage> result = releasePackages;
+        List<ReleasePackage> result = releasePackages;
 
         if (!authorizationChecker.shouldSeeOfflinePackages()) {
             result = new ArrayList<>();
