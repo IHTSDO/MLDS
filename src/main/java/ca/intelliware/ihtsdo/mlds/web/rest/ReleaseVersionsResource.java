@@ -125,11 +125,12 @@ public class ReleaseVersionsResource {
 
         releaseVersion.setName(body.getName());
         releaseVersion.setDescription(body.getDescription());
-        releaseVersion.setReleaseType(body.getReleaseType());
+        if(!releaseVersion.isArchive()) {
+            releaseVersion.setReleaseType(body.getReleaseType());
+        }
         releaseVersion.setPublishedAt(body.getPublishedAt());
 
         releaseVersion.setSummary(body.getSummary());
-        releaseVersion.setReleaseType(body.getReleaseType());
         releaseVersion.setVersionDependentURI(body.getVersionDependentURI());
         releaseVersion.setVersionDependentDerivativeURI(body.getVersionDependentDerivativeURI());
         releaseVersion.setVersionURI(body.getVersionURI());
