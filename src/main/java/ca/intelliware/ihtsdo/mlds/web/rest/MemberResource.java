@@ -216,6 +216,11 @@ public class MemberResource {
     @Timed
     public ResponseEntity<?> updateMemberFeedURL(@PathVariable String memberKey, @RequestBody MemberDTO body) throws IOException {
         Member member = memberRepository.findOneByKey(memberKey);
+
+        if (member == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member not found for key: " + memberKey);
+        }
+
         member.setContactEmail(body.getContactEmail());
         member.setMemberOrgURL(body.getMemberOrgURL());
         member.setMemberOrgName(body.getMemberOrgName());
