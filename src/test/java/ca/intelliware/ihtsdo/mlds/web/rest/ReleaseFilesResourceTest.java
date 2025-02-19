@@ -12,14 +12,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.util.NestedServletException;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
@@ -28,8 +25,7 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileNotFoundException;
 import java.util.Optional;
 
 public class ReleaseFilesResourceTest {
@@ -125,5 +121,16 @@ public class ReleaseFilesResourceTest {
         	Assert.assertThat(e.getMessage(), Matchers.containsString("ACCOUNT DEACTIVATED"));
         }
 	}
+
+    @Test
+    public void testCheckIhtsdoFile() throws FileNotFoundException {
+        long releaseFileId = 1L;
+        ReleaseFile mockReleaseFile = new ReleaseFile();
+        mockReleaseFile.setDownloadUrl("https://ire.published.release.ihtsdo.s3.amazonaws.com/international/SnomedCT_Release_INT_20140131.zip");
+        Mockito.when(releaseFileRepository.findById(releaseFileId))
+            .thenReturn(Optional.of(mockReleaseFile));
+        Boolean result = releaseFilesResource.checkIhtsdoFile(1L, 1L, releaseFileId, null, null);
+        Assert.assertTrue("The download URL should contain 'ihtsdo'", result);
+    }
 
 }
