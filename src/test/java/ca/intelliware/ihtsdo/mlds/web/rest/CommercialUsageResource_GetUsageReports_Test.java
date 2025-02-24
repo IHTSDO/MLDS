@@ -1,15 +1,17 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,6 +28,9 @@ import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuditEvents;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageAuthorizationChecker;
 import ca.intelliware.ihtsdo.mlds.service.CommercialUsageResetter;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,7 +39,7 @@ public class CommercialUsageResource_GetUsageReports_Test {
     AffiliateRepository affiliateRepository;
 
     @Mock
-	CommercialUsageAuthorizationChecker authorizationChecker;
+    CommercialUsageAuthorizationChecker authorizationChecker;
 
     @Mock
     CommercialUsageRepository commercialUsageRepository;
@@ -45,7 +50,8 @@ public class CommercialUsageResource_GetUsageReports_Test {
     @Mock
     CommercialUsageResetter commercialUsageResetter;
 
-	CommercialUsageResource commercialUsageResource;
+    @InjectMocks
+    CommercialUsageResource commercialUsageResource;
 
 	private MockMvc restCommercialUsageResource;
 
@@ -65,9 +71,9 @@ public class CommercialUsageResource_GetUsageReports_Test {
         		.build();
     }
 
-	@Test
-	public void getUsageReportsShouldReturn404ForUnknownAffiliate() throws Exception {
-		Mockito.when(affiliateRepository.findById(999L)).thenReturn(Optional.empty());
+    @Test
+    public void getUsageReportsShouldReturn404ForUnknownAffiliate() throws Exception {
+        when(affiliateRepository.findById(999L)).thenReturn(Optional.empty());
 
 		restCommercialUsageResource.perform(MockMvcRequestBuilders.get(Routes.USAGE_REPORTS, 999L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -84,7 +90,7 @@ public class CommercialUsageResource_GetUsageReports_Test {
 		CommercialUsageEntry commercialUsageEntry = new CommercialUsageEntry(4L, commercialUsage);
 		commercialUsageEntry.setName("Test Name");
 		affiliate.addCommercialUsage(commercialUsage);
-		Mockito.when(affiliateRepository.findById(1L)).thenReturn(Optional.of(affiliate));
+		when(affiliateRepository.findById(1L)).thenReturn(Optional.of(affiliate));
 
 		restCommercialUsageResource.perform(MockMvcRequestBuilders.get(Routes.USAGE_REPORTS, 1L)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -95,5 +101,24 @@ public class CommercialUsageResource_GetUsageReports_Test {
                 .andExpect(jsonPath("$[0].entries[0].name").value("Test Name"))
                 ;
 
-	}
+    }
+    @Test
+    public void testReviewUsageReportCsv() {
+        Object[] sampleRow1 = {
+            1, "MemberKey123", "US", "UK", "2024-01-01", "2024-12-31", "Active",
+            "2024-06-01", "AgreementTypeA", "John Doe", "Type-Subtype", "OrganizationName1",
+            "OrganizationType1", 5, 10, "Research", "Completed", "None", 2, 1, 3, 4, 20
+        };
+        Object[] sampleRow2 = {
+            2, "MemberKey456", "CA", "FR", "2024-02-01", "2024-11-30", "Inactive",
+            "2024-06-10", "AgreementTypeB", "Jane Smith", "Type-Subtype", "OrganizationName2",
+            "OrganizationType2", 15, 25, "Education", "In Progress", "Training", 4, 3, 2, 1, 50
+        };
+        List<Object[]> sampleData = Arrays.asList(sampleRow1, sampleRow2);
+        when(commercialUsageRepository.findUsageReport()).thenReturn(sampleData);
+        Collection<Object[]> response = commercialUsageResource.reviewUsageReportCsv();
+        assertEquals(sampleData.size(), response.size());
+        assertTrue(response.containsAll(sampleData), "The response content should match the sample data");
+    }
+
 }
