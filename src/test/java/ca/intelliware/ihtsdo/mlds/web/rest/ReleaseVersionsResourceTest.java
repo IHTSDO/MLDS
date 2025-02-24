@@ -1,7 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import org.springframework.http.HttpStatus;
@@ -256,5 +255,41 @@ public class ReleaseVersionsResourceTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         verify(releaseVersionRepository).findById(1L);
         verify(authorizationChecker, never()).checkCanEditReleasePackage(any());
+    }
+
+    @Test
+    public void testCheckVersionDependency_ReturnsTrue() {
+        long releaseVersionId = 1L;
+        ReleaseVersion releaseVersion = new ReleaseVersion();
+        releaseVersion.setVersionURI("someVersionURI");
+
+        when(releaseVersionRepository.findById(releaseVersionId)).thenReturn(Optional.of(releaseVersion));
+        when(releaseVersionRepository.checkDependent("someVersionURI")).thenReturn(1L);
+
+        Boolean result = releaseVersionsResource.checkVersionDependency(releaseVersionId);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testCheckVersionDependency_ReturnsFalseWhenNoDependency() {
+        long releaseVersionId = 1L;
+        ReleaseVersion releaseVersion = new ReleaseVersion();
+        releaseVersion.setVersionURI("someVersionURI");
+
+        when(releaseVersionRepository.findById(releaseVersionId)).thenReturn(Optional.of(releaseVersion));
+        when(releaseVersionRepository.checkDependent("someVersionURI")).thenReturn(0L);
+
+        Boolean result = releaseVersionsResource.checkVersionDependency(releaseVersionId);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testCheckVersionDependency_ReturnsFalseWhenNotFound() {
+        long releaseVersionId = 1L;
+
+        when(releaseVersionRepository.findById(releaseVersionId)).thenReturn(Optional.empty());
+
+        Boolean result = releaseVersionsResource.checkVersionDependency(releaseVersionId);
+        assertFalse(result);
     }
 }
