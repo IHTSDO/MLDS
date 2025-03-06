@@ -23,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -97,7 +98,9 @@ public class CommercialUsageResource {
             usageReports = commercialUsageRepository.searchUsageReports(searchText,UsageReportState.NOT_SUBMITTED, pageRequest);
         }
 
-        return new ResponseEntity<>(new CommercialUsageCollection(usageReports), HttpStatus.OK);
+        return new ResponseEntity<>(new CommercialUsageCollection(usageReports.stream()
+            .filter(a -> !a.getAffiliate().isDeactivated()) // Filtering out deactivated affiliates
+            .collect(Collectors.toList()) ), HttpStatus.OK);
     }
 
     private Sort createUsageReportsSort(String orderby) {
