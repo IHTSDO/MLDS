@@ -163,7 +163,21 @@
             </column>
         </addColumn>
     </changeSet>
-   
+    <changeSet id="MLDS-1172" author="AA">
+        <comment>Re-add pending_application, invoices_pending, and usage_reports columns to member table with default 0</comment>
+
+        <addColumn tableName="member">
+            <column name="pending_application" type="NUMBER" defaultValue="0">
+                <constraints nullable="false" />
+            </column>
+            <column name="invoices_pending" type="NUMBER" defaultValue="0">
+                <constraints nullable="false" />
+            </column>
+            <column name="usage_reports" type="NUMBER" defaultValue="0">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
 
 
 
