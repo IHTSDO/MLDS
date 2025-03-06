@@ -7,7 +7,6 @@ import ca.intelliware.ihtsdo.mlds.repository.FileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
-import ca.intelliware.ihtsdo.mlds.web.rest.dto.AutoDeactivationMemberDTO;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.MemberDTO;
 import com.codahale.metrics.annotation.Timed;
 import jakarta.annotation.Resource;
@@ -33,7 +32,6 @@ import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 @RestController
@@ -229,41 +227,5 @@ public class MemberResource {
         memberRepository.save(member);
         return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
     }
-    @RequestMapping(value = Routes.MEMBER_AUTO_DEACTIVATION, method = RequestMethod.GET, produces = "application/json")
-    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
-    @Transactional
-    @Timed
-    public ResponseEntity<AutoDeactivationMemberDTO> getAutoDeactivationMemberDeatils(@PathVariable String memberKey){
-        Member member=memberRepository.findOneByKey(memberKey);
-        AutoDeactivationMemberDTO deactivationMemberDTO=new AutoDeactivationMemberDTO();
-        deactivationMemberDTO.setUsageReports(member.getUsageReports());
-        deactivationMemberDTO.setPendingApplications(member.getPendingApplication());
-        deactivationMemberDTO.setInvoicesPending(member.getInvoicesPending());
-        return new ResponseEntity((deactivationMemberDTO), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = Routes.POST_MEMBER_AUTO_DEACTIVATION, method = RequestMethod.PUT, produces = "application/json")
-    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
-    @Transactional
-    @Timed
-    public ResponseEntity<String> postAutoDeactivationMemberDetails(
-        @PathVariable String memberKey,
-        @RequestBody AutoDeactivationMemberDTO autoDeactivationDTO) {
-
-        Member member = memberRepository.findOneByKey(memberKey);
-        if (member == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member not found");
-        }
-
-        member.setInvoicesPending(autoDeactivationDTO.getInvoicesPending());
-        member.setUsageReports(autoDeactivationDTO.getUsageReports());
-        member.setPendingApplication(autoDeactivationDTO.getPendingApplications());
-
-        memberRepository.save(member);
-        return ResponseEntity.ok(Map.of("message", "Data Saved Successfully").toString());
-
-    }
-
-
 
 }
