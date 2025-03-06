@@ -37,7 +37,7 @@ public class Affiliate extends BaseEntity {
 	@GenericField(searchable = Searchable.YES)
 	Long affiliateId;
 
-	Instant created = Instant.now();
+    Instant created = Instant.now();
 
 	@JsonIgnore
 	@Column(name="inactive_at")
@@ -91,7 +91,11 @@ public class Affiliate extends BaseEntity {
 	@Column(name="standing_state")
 	StandingState standingState = StandingState.APPLYING;
 
-	public void addCommercialUsage(CommercialUsage newEntryValue) {
+    @Column(name = "deactivated", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean deactivated = false;
+
+
+    public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
 
 		if (newEntryValue.affiliate != null) {
@@ -123,6 +127,14 @@ public class Affiliate extends BaseEntity {
 
 	}
 
+
+    public Instant getCreated() {
+        return created;
+    }
+
+    public void setCreated(Instant created) {
+        this.created = created;
+    }
 	//For Tests
 	public Affiliate(Long affiliateId) {
 		this.affiliateId = affiliateId;
@@ -211,4 +223,13 @@ public class Affiliate extends BaseEntity {
 	public void setInactiveAt(Instant inactiveAt) {
 		this.inactiveAt = inactiveAt;
 	}
+
+
+    public boolean isDeactivated() {
+        return deactivated;
+    }
+
+    public void setDeactivated(boolean deactivated) {
+        this.deactivated = deactivated;
+    }
 }
