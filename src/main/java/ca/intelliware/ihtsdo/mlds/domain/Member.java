@@ -59,6 +59,39 @@ public class Member extends BaseEntity {
     @Column(name="promote_packages")
     private Boolean promotePackages;
 
+    @Column(name = "pending_application")
+    private int pendingApplication;
+
+    @Column(name = "invoices_pending")
+    private int invoicesPending;
+
+    public int getUsageReports() {
+        return usageReports;
+    }
+
+    public void setUsageReports(int usageReports) {
+        this.usageReports = usageReports;
+    }
+
+    public int getInvoicesPending() {
+        return invoicesPending;
+    }
+
+    public void setInvoicesPending(int invoicesPending) {
+        this.invoicesPending = invoicesPending;
+    }
+
+    public int getPendingApplication() {
+        return pendingApplication;
+    }
+
+    public void setPendingApplication(int pendingApplication) {
+        this.pendingApplication = pendingApplication;
+    }
+
+    @Column(name = "usage_reports")
+    private int usageReports;
+
 	public Member() {}
 
 	public Member(String key, long memberId) {
