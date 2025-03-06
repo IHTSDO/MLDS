@@ -38,7 +38,7 @@ import java.time.Instant;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -213,7 +213,11 @@ public class ApplicationResource {
 				applications = applicationRepository.findByApprovalStateIn(approvalStates, pageRequest);
 			}
 		}
-		return new ResponseEntity<ApplicationCollection>(new ApplicationCollection(applications), HttpStatus.OK);
+        List<Application> activeApplications = applications.stream()
+            .filter(a -> !a.getAffiliate().isDeactivated()) // Filtering out deactivated affiliates
+            .collect(Collectors.toList());
+
+        return new ResponseEntity<ApplicationCollection>(new ApplicationCollection(activeApplications), HttpStatus.OK);
 	}
 
 	private static final Map<String,List<String>> ORDER_BY_FIELD_MAPPINGS = new HashMap<String,List<String>>();
