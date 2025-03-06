@@ -155,5 +155,16 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet id="MLDS-1073" author="AA">
+        <comment>Add deactivated column in affiliate table</comment>
+        <addColumn tableName="affiliate">
+            <column name="deactivated" defaultValueBoolean="false" type="BOOLEAN">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+   
+
+
 
 </databaseChangeLog>

@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @RestController
 public class AffiliateResource {
@@ -150,8 +151,11 @@ public class AffiliateResource {
 				}
 			}
 		}
+
 		AffiliateSearchResult result = new AffiliateSearchResult();
-		result.setAffiliates(affiliates.getContent());
+
+		result.setAffiliates(affiliates.getContent().stream().filter(a -> !a.isDeactivated()) // Filtering out deactivated affiliates
+            .collect(Collectors.toList()));
 		result.setTotalResults(affiliates.getTotalElements());
 		result.setTotalPages(affiliates.getTotalPages());
 
