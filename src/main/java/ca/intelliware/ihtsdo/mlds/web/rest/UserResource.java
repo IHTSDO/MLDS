@@ -99,7 +99,19 @@ public class UserResource {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the email");
         }
     }
+    @RequestMapping(value = "/testRun", method = RequestMethod.GET)
+    @Timed
+    public ResponseEntity<String> testRun() {
+        try {
 
+            userService.removeInvoicesPending();
+            return ResponseEntity.ok("Pendind Applications Removed successfully");
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User or related data not found");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while removing the Pendind Applications");
+        }
+    }
 
 
 

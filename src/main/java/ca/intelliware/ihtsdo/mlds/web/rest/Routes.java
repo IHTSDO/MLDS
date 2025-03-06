@@ -218,6 +218,8 @@ public class Routes {
     public static final String MEMBER_FEED_URL = "/api/members/{memberKey}/memberFeedUrl";
 
     public static final String FEED_URL = "/api/feed";
+    public static final String MEMBER_AUTO_DEACTIVATION = "/api/members/{memberKey}";
+    public static final String POST_MEMBER_AUTO_DEACTIVATION = "/api/members/{memberKey}/autoDeactivation";
 
 
 }
