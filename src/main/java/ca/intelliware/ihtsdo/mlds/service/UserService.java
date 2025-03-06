@@ -287,7 +287,151 @@ public class UserService {
     }
 
 
+    @Scheduled(cron = "0 0 17 * * ?", zone = "Asia/Kolkata")
+    public void removePendingApplication() {
+        Logger logger = LoggerFactory.getLogger(getClass());
+        Instant currentDate = Instant.now();
 
+        // Fetch all applications at once (Avoids multiple DB calls)
+        List<Application> applications = applicationRepository.findAll();
+        logger.info("Total applications retrieved: {}", applications.size());
+
+        List<Long> filteredAffiliateIds = new ArrayList<>();
+
+        for (Application application : applications) {
+            Long memberId = application.getMember().getMemberId();
+            Member member = getMemberById(memberId);
+
+            if (member == null) {
+                logger.warn("Member not found for application ID: {}", application.getApplicationId());
+                continue; // Skip if member not found
+            }
+
+            int pendingApplication = member.getPendingApplication();
+            if (pendingApplication == 0) {
+                logger.info("Skipping application ID {}: PendingApplication is 0", application.getApplicationId());
+                continue; // Skip processing if no pending applications
+            }
+
+            Instant cutoffDate = getCutoffDate(pendingApplication);
+            Instant completedAt = application.getCompletedAt();
+            Instant submittedAt = application.getSubmittedAt();
+            ApprovalState approvalState = application.getApprovalState();
+
+            // Check if the application meets the criteria
+            if ((approvalState == ApprovalState.CHANGE_REQUESTED ||
+                approvalState == ApprovalState.NOT_SUBMITTED ||
+                approvalState == ApprovalState.REJECTED) &&
+                (completedAt == null ? completedAt.isBefore(cutoffDate) : submittedAt.isBefore(cutoffDate))) {
+
+                filteredAffiliateIds.add(application.getAffiliate().getAffiliateId());
+            }
+        }
+
+        logger.info("Total applications meeting the criteria: {}", filteredAffiliateIds.size());
+
+        // Deactivate affiliates using reusable method
+        deactivateAffiliates(filteredAffiliateIds);
+    }
+
+
+    /**
+     * Scheduled process to deactivate affiliates whose invoices are in a pending state
+     * beyond the defined period for their respective member country.
+     *
+     * - Fetches all affiliates with pending invoices.
+     * - Retrieves the defined invoice pending period for the member.
+     * - Identifies affiliates whose invoice pending period has exceeded the cutoff date.
+     * - Performs a bulk deactivation for the identified affiliates.
+     *
+     * This ensures that affiliates who have not cleared their invoices within the allowed timeframe
+     * are deactivated automatically, maintaining compliance with membership policies.
+     */
+    @Scheduled(cron = "0 0 16 * * ?", zone = "Asia/Kolkata")
+    public void removeInvoicesPending() {
+        Logger logger = LoggerFactory.getLogger(getClass());
+
+        Member member = getMemberById(1L);
+        if (member.getInvoicesPending() == 0) {
+            logger.info("Skipping processing: PendingApplication is 0 for Member ID 1");
+            return;
+        }
+
+        Instant cutoffDate = getCutoffDate(member.getInvoicesPending());
+        List<Long> affiliateIds = getFilteredAffiliateIds(cutoffDate);
+
+        deactivateAffiliates(affiliateIds);
+    }
+
+    /*Get filtered affiliate IDs for Pending Incoices State For IHTSDO members*/
+    private List<Long> getFilteredAffiliateIds(Instant cutoffDate) {
+        List<Affiliate> affiliates = affiliateRepository.getIHTSDOPendingInvoices();
+
+        return affiliates.stream()
+            .filter(affiliate -> affiliate.getStandingState() == StandingState.PENDING_INVOICE
+                && affiliate.getCreated().isBefore(cutoffDate))
+            .map(Affiliate::getAffiliateId)
+            .collect(Collectors.toList());
+    }
+
+    /*Fetch member details using the Member Id*/
+    private Member getMemberById(Long memberId) {
+        return memberRepository.findMemberById(memberId);
+    }
+
+    /*Reusable Method to Compute cutoff date based on Standing State , Approval State, Usage Reports*/
+    private Instant getCutoffDate(int invoicesPending) {
+        return Instant.now().minus(invoicesPending, ChronoUnit.DAYS);
+    }
+
+    /*Reusable method for Bulk Deactivate the Affiliates if applicable*/
+    private void deactivateAffiliates(List<Long> affiliateIds) {
+        Logger logger = LoggerFactory.getLogger(getClass());
+
+        if (!affiliateIds.isEmpty()) {
+            int updatedCount = affiliateRepository.bulkDeactivateAffiliates(affiliateIds);
+            logger.info("Total affiliates deactivated: {}", updatedCount);
+        } else {
+            logger.info("No affiliates met the criteria for deactivation.");
+        }
+    }
+
+    @Scheduled(cron = "0 0 15 * * ?", zone = "Asia/Kolkata")
+    public void removeUsageReports() {
+        Logger logger = LoggerFactory.getLogger(getClass());
+
+        List<Affiliate> affiliates = affiliateRepository.findAll();
+        List<Long> affiliateIdsForDeactivation = new ArrayList<>();
+
+        for (Affiliate affiliate : affiliates) {
+            Member member = getMemberById(affiliate.getHomeMember().getMemberId());
+            // Step 1: Skip processing if Usage Reports for Member is 0
+            if (member.getUsageReports() == 0) {
+                logger.info("Skipping processing: Usage Reports is 0 for Member ID {}", affiliate.getHomeMember().getMemberId());
+                continue;
+            }
+            // Step 2: Get commercial usage details
+            Set<CommercialUsage> commercialUsages = affiliate.getCommercialUsages();
+            if (commercialUsages == null || commercialUsages.isEmpty()) {
+                logger.info("Skipping Affiliate ID {}: No CommercialUsage records found.", affiliate.getAffiliateId());
+                continue;
+            }
+            // Step 3: Compute cutoff date
+            Instant cutoffDate = getCutoffDate(member.getUsageReports());
+            // Step 4: Check conditions on CommercialUsage
+            for (CommercialUsage usage : commercialUsages) {
+                if (usage.getState().equals(ApprovalState.NOT_SUBMITTED) && usage.getSubmitted() == null) {
+                    Instant createdDate = usage.getCreated();
+                    if (createdDate.isBefore(cutoffDate)) {
+                        affiliateIdsForDeactivation.add(affiliate.getAffiliateId());
+                        break; // No need to check further for this affiliate
+                    }
+                }
+            }
+        }
+        // Step 5: Bulk update affiliates for deactivation
+        deactivateAffiliates(affiliateIdsForDeactivation);
+    }
 
 }
 
