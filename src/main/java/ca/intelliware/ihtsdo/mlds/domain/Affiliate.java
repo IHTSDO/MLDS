@@ -94,6 +94,13 @@ public class Affiliate extends BaseEntity {
     @Column(name = "deactivated", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean deactivated = false;
 
+    @JsonIgnore
+    @Column(name="last_processed")
+    private Instant lastProcessed;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="reason_for_deactivation")
+    private ReasonForDeactivation reasonForDeactivation;
 
     public void addCommercialUsage(CommercialUsage newEntryValue) {
 		Validate.notNull(newEntryValue.getCommercialUsageId());
@@ -128,6 +135,13 @@ public class Affiliate extends BaseEntity {
 	}
 
 
+    public ReasonForDeactivation getReasonForDeactivation() {
+        return reasonForDeactivation;
+    }
+
+    public void setReasonForDeactivation(ReasonForDeactivation reasonForDeactivation) {
+        this.reasonForDeactivation = reasonForDeactivation;
+    }
     public Instant getCreated() {
         return created;
     }
@@ -162,7 +176,13 @@ public class Affiliate extends BaseEntity {
 			addApplication(application);
 		}
 	}
+    public Instant getLastProcessed() {
+        return lastProcessed;
+    }
 
+    public void setLastProcessed(Instant lastProcessed) {
+        this.lastProcessed = lastProcessed;
+    }
 	public AffiliateDetails getAffiliateDetails() {
 		return affiliateDetails;
 	}
