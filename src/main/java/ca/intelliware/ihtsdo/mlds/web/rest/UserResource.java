@@ -104,7 +104,7 @@ public class UserResource {
     public ResponseEntity<String> testRun() {
         try {
 
-            userService.removeInvoicesPending();
+            userService.removeUsageReports();
             return ResponseEntity.ok("Pendind Applications Removed successfully");
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User or related data not found");

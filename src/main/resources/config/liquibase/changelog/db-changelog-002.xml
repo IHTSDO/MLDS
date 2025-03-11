@@ -168,17 +168,38 @@
 
         <addColumn tableName="member">
             <column name="pending_application" type="NUMBER" defaultValue="0">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="invoices_pending" type="NUMBER" defaultValue="0">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="usage_reports" type="NUMBER" defaultValue="0">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <comment>Add last_processed timestamp column to affiliate, commercial_usage, and application tables with default NULL</comment>
+
+        <addColumn tableName="affiliate">
+            <column name="last_processed" type="TIMESTAMP" defaultValueComputed="NULL">
+                <constraints nullable="true"/>
+            </column>
+            <column name="reason_for_deactivation" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addColumn tableName="commercial_usage">
+            <column name="last_processed" type="TIMESTAMP" defaultValueComputed="NULL">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addColumn tableName="application">
+            <column name="last_processed" type="TIMESTAMP" defaultValueComputed="NULL">
+                <constraints nullable="true"/>
             </column>
         </addColumn>
     </changeSet>
-
-
 
 </databaseChangeLog>

@@ -79,11 +79,21 @@ public abstract class Application extends BaseEntity {
 	@Column(name="application_type", insertable=false, updatable=false)
 	String applicationTypeValue;
 
+    @JsonIgnore
+    @Column(name="last_processed")
+    private Instant lastProcessed;
+
 
 	public Application() {
 
 	}
+    public Instant getLastProcessed() {
+        return lastProcessed;
+    }
 
+    public void setLastProcessed(Instant lastProcessed) {
+        this.lastProcessed = lastProcessed;
+    }
 	// For tests
 	public Application(Long applicationId) {
 		this.applicationId = applicationId;
