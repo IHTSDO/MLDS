@@ -7,9 +7,12 @@ import ca.intelliware.ihtsdo.mlds.domain.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,5 +31,9 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 
     @Query(value = "select * from application where member_id = :memberId",nativeQuery = true)
     List<Application> findMemberById(Long memberId);
+
+    @Modifying
+    @Query("UPDATE Application a SET a.lastProcessed = :timestamp WHERE a.id IN :affiliateIds")
+    void updateLastProcessed(@Param("affiliateIds") List<Long> affiliateIds, @Param("timestamp") Instant timestamp);
 
 }
