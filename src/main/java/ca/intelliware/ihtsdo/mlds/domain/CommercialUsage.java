@@ -73,6 +73,10 @@ public class CommercialUsage extends BaseEntity {
 	@Where(clause = "inactive_at IS NULL")
 	Set<CommercialUsageCountry> countries = new HashSet<>() /*Sets.newHashSet()*/;
 
+    @JsonIgnore
+    @Column(name="last_processed")
+    private Instant lastProcessed;
+
 	public CommercialUsage() {
 
 	}
@@ -82,7 +86,13 @@ public class CommercialUsage extends BaseEntity {
 		this.commercialUsageId = commercialUsageId;
 		this.affiliate = affiliate;
 	}
+    public Instant getLastProcessed() {
+        return lastProcessed;
+    }
 
+    public void setLastProcessed(Instant lastProcessed) {
+        this.lastProcessed = lastProcessed;
+    }
 	public Long getCommercialUsageId() {
 		return commercialUsageId;
 	}

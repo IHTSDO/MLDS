@@ -6,9 +6,11 @@ import ca.intelliware.ihtsdo.mlds.domain.UsageReportState;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -41,4 +43,10 @@ public interface CommercialUsageRepository extends JpaRepository<CommercialUsage
         "  AND cu.effectiveTo IS NULL")
     Page<CommercialUsage> searchUsageReports(@Param("searchText") String searchText, @Param("state") UsageReportState state,  Pageable pageable);
 
+    @Query(value="SELECT * FROM mlds.commercial_usage where state='NOT_SUBMITTED' and inactive_at is null and last_processed is null",nativeQuery = true)
+    List<CommercialUsage> findByState();
+
+    @Modifying
+    @Query("UPDATE CommercialUsage a SET a.lastProcessed = :timestamp WHERE a.id IN :affiliateIds")
+    void updateLastProcessed(@Param("affiliateIds") List<Long> affiliateIds, @Param("timestamp") Instant timestamp);
 }

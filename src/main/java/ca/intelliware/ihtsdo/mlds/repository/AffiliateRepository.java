@@ -1,9 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
-import ca.intelliware.ihtsdo.mlds.domain.Member;
-import ca.intelliware.ihtsdo.mlds.domain.StandingState;
+import ca.intelliware.ihtsdo.mlds.domain.*;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +9,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
@@ -94,12 +92,20 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
     @Query(value = "select * from affiliate where affiliate_details_id = :affiliateDetailsId",nativeQuery = true)
     Affiliate getAllAffiliateByAffiliateDetailsId(Long affiliateDetailsId);
 
-    @Query(value = "SELECT * FROM mlds.affiliate where home_member_id=1 and standing_state='PENDING_INVOICE'",nativeQuery = true)
+    @Query(value = "SELECT * FROM mlds.affiliate where home_member_id=1 and standing_state='PENDING_INVOICE' and last_processed is null",nativeQuery = true)
     List<Affiliate> getIHTSDOPendingInvoices();
 
+
+    @Query("SELECT a.id FROM Affiliate a WHERE a.id IN :affiliateIds AND a.deactivated = false")
+    List<Long> findActiveAffiliateIds(@Param("affiliateIds") List<Long> affiliateIds);
+
     @Modifying
-    @Query("UPDATE Affiliate a SET a.deactivated = true WHERE a.affiliateId IN :affiliateIds")
-    int bulkDeactivateAffiliates(@Param("affiliateIds") List<Long> affiliateIds);
+    @Query("UPDATE Affiliate a SET a.deactivated = true, a.reasonForDeactivation = :reason WHERE a.id = :affiliateId")
+    int updateAffiliateDeactivationReason(@Param("affiliateId") Long affiliateId, @Param("reason") ReasonForDeactivation reason);
+
+    @Modifying
+    @Query("UPDATE Affiliate a SET a.lastProcessed = :timestamp WHERE a.id IN :affiliateIds")
+    void updateLastProcessed(@Param("affiliateIds") List<Long> affiliateIds, @Param("timestamp") Instant timestamp);
 
 
 }

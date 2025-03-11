@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -56,6 +57,8 @@ public class UserService {
     private AffiliateRepository affiliateRepository;
     @Autowired
     private ApplicationRepository applicationRepository;
+    @Autowired
+    private CommercialUsageRepository commercialUsageRepository;
 
     public User activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -166,18 +169,14 @@ public class UserService {
     public AffiliateDetailsResponseDTO getAffiliateDetails(String email, Long affiliateDetailsId) {
         // Fetch user details
         User user = userRepository.findByLoginIgnoreCase(email);
-
         // Fetch affiliates by creator email
         List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(email);
-
         // Return an empty DTO if no affiliates are found
         if (affiliates.isEmpty()) {
             return new AffiliateDetailsResponseDTO(user, null, Collections.emptyList());
         }
-
         // Get first affiliate's details safely
         Affiliate firstAffiliate = affiliates.get(0);
-
         return new AffiliateDetailsResponseDTO(user, firstAffiliate.getAffiliateDetails(), affiliates);
     }
 
@@ -188,16 +187,13 @@ public class UserService {
         if (user == null) {
             throw new NoSuchElementException("User not found for login: " + login);
         }
-
         // Check if the updated email already exists in the system
         User existingUser = userRepository.findByLoginIgnoreCase(updatedEmail);
         if (existingUser != null) {
             handleExistingUserConflict(existingUser, updatedEmail);
         }
-
         // Update the current user's email
         updateUserEmail(user, updatedEmail);
-
         // Update associated records
         updateRelatedEntities(login, updatedEmail);
     }
@@ -207,11 +203,9 @@ public class UserService {
      */
     private void handleExistingUserConflict(User existingUser, String updatedEmail) {
         String modifiedEmail = addOldToEmail(updatedEmail);
-
         updateAffiliates(updatedEmail, modifiedEmail, true); // Deactivate affiliates
         updateAffiliateDetails(updatedEmail, modifiedEmail);
         updateApplications(updatedEmail, modifiedEmail);
-
         // Deactivate and rename existing user
         existingUser.setLogin(modifiedEmail);
         existingUser.setEmail(modifiedEmail);
@@ -257,6 +251,8 @@ public class UserService {
             affiliates.forEach(affiliate -> {
                 affiliate.setCreator(newEmail);
                 if (deactivate) {
+                    affiliate.setReasonForDeactivation(ReasonForDeactivation.PRIMARYCONTACTEMAIL);
+                    affiliate.setLastProcessed(Instant.now());
                     affiliate.setDeactivated(true);
                 }
             });
@@ -290,10 +286,10 @@ public class UserService {
     @Scheduled(cron = "0 0 17 * * ?", zone = "Asia/Kolkata")
     public void removePendingApplication() {
         Logger logger = LoggerFactory.getLogger(getClass());
-        Instant currentDate = Instant.now();
 
         // Fetch all applications at once (Avoids multiple DB calls)
-        List<Application> applications = applicationRepository.findAll();
+        List<Application> newApplication = applicationRepository.findAll();
+        List<Application> applications=newApplication.stream().filter(a->a.getLastProcessed().equals(null)).collect(Collectors.toList());
         logger.info("Total applications retrieved: {}", applications.size());
 
         List<Long> filteredAffiliateIds = new ArrayList<>();
@@ -313,9 +309,9 @@ public class UserService {
                 continue; // Skip processing if no pending applications
             }
 
-            Instant cutoffDate = getCutoffDate(pendingApplication);
-            Instant completedAt = application.getCompletedAt();
-            Instant submittedAt = application.getSubmittedAt();
+            LocalDate cutoffDate = getCutoffDate(pendingApplication);
+            LocalDate completedAt = application.getCompletedAt().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate submittedAt = application.getSubmittedAt().atZone(ZoneId.systemDefault()).toLocalDate();
             ApprovalState approvalState = application.getApprovalState();
 
             // Check if the application meets the criteria
@@ -329,7 +325,7 @@ public class UserService {
         }
 
         logger.info("Total applications meeting the criteria: {}", filteredAffiliateIds.size());
-
+        applicationRepository.updateLastProcessed(filteredAffiliateIds,Instant.now());
         // Deactivate affiliates using reusable method
         deactivateAffiliates(filteredAffiliateIds);
     }
@@ -357,21 +353,28 @@ public class UserService {
             return;
         }
 
-        Instant cutoffDate = getCutoffDate(member.getInvoicesPending());
+        LocalDate cutoffDate = getCutoffDate(member.getInvoicesPending());
         List<Long> affiliateIds = getFilteredAffiliateIds(cutoffDate);
-
+        updateLastProcessedForAffiliates(affiliateIds);
         deactivateAffiliates(affiliateIds);
     }
 
+    private void updateLastProcessedForAffiliates(List<Long> affiliateIds) {
+        if (!affiliateIds.isEmpty()) {
+            affiliateRepository.updateLastProcessed(affiliateIds, Instant.now());
+        }
+    }
+
     /*Get filtered affiliate IDs for Pending Incoices State For IHTSDO members*/
-    private List<Long> getFilteredAffiliateIds(Instant cutoffDate) {
+    private List<Long> getFilteredAffiliateIds(LocalDate cutoffDate) {
         List<Affiliate> affiliates = affiliateRepository.getIHTSDOPendingInvoices();
 
         return affiliates.stream()
             .filter(affiliate -> affiliate.getStandingState() == StandingState.PENDING_INVOICE
-                && affiliate.getCreated().isBefore(cutoffDate))
+                && affiliate.getCreated().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(cutoffDate))
             .map(Affiliate::getAffiliateId)
             .collect(Collectors.toList());
+
     }
 
     /*Fetch member details using the Member Id*/
@@ -380,58 +383,112 @@ public class UserService {
     }
 
     /*Reusable Method to Compute cutoff date based on Standing State , Approval State, Usage Reports*/
-    private Instant getCutoffDate(int invoicesPending) {
-        return Instant.now().minus(invoicesPending, ChronoUnit.DAYS);
+    private LocalDate getCutoffDate(int invoicesPending) {
+        return LocalDate.now().minus(invoicesPending, ChronoUnit.DAYS);
     }
 
-    /*Reusable method for Bulk Deactivate the Affiliates if applicable*/
-    private void deactivateAffiliates(List<Long> affiliateIds) {
+    /* Reusable method for Bulk Deactivate the Affiliates if applicable */
+    private void deactivateAffiliates(List<Long> affiliateid) {
         Logger logger = LoggerFactory.getLogger(getClass());
 
-        if (!affiliateIds.isEmpty()) {
-            int updatedCount = affiliateRepository.bulkDeactivateAffiliates(affiliateIds);
-            logger.info("Total affiliates deactivated: {}", updatedCount);
+        if (!affiliateid.isEmpty()) {
+            // Fetch only active affiliates from the provided IDs
+            List<Long> activeAffiliateIds = affiliateRepository.findActiveAffiliateIds(new ArrayList<>(affiliateid));
+
+            if (!activeAffiliateIds.isEmpty()) {
+                int updatedCount = 0;
+                for (Long affiliateId : activeAffiliateIds) {
+//                    ReasonForDeactivation reason = ReasonForDeactivation.AUTODEACTIVATION;
+                    updatedCount = affiliateRepository.updateAffiliateDeactivationReason(affiliateId, ReasonForDeactivation.AUTODEACTIVATION);
+
+                }
+                logger.info("Total affiliates deactivated: {}", updatedCount);
+            } else {
+                logger.info("No active affiliates found for deactivation.");
+            }
         } else {
-            logger.info("No affiliates met the criteria for deactivation.");
+            logger.info("No affiliates provided for deactivation.");
         }
     }
+
+
 
     @Scheduled(cron = "0 0 15 * * ?", zone = "Asia/Kolkata")
     public void removeUsageReports() {
         Logger logger = LoggerFactory.getLogger(getClass());
 
-        List<Affiliate> affiliates = affiliateRepository.findAll();
+        // Step 1: Fetch CommercialUsage records where state = 'NOT_SUBMITTED'
+        List<CommercialUsage> commercialUsages = commercialUsageRepository.findByState();
+        if (commercialUsages.isEmpty()) {
+            logger.info("No CommercialUsage records found with state 'NOT_SUBMITTED'.");
+            return;
+        }
+
         List<Long> affiliateIdsForDeactivation = new ArrayList<>();
 
-        for (Affiliate affiliate : affiliates) {
-            Member member = getMemberById(affiliate.getHomeMember().getMemberId());
-            // Step 1: Skip processing if Usage Reports for Member is 0
+        // Step 2: Iterate over commercial usage records
+        for (CommercialUsage usage : commercialUsages) {
+            if (usage.getAffiliate()== null) {
+                logger.warn("CommercialUsage ID {} has no associated Affiliate.", usage.getCommercialUsageId());
+                continue;
+            }
+
+            Long affiliateId = usage.getAffiliate().getAffiliateId();
+            if (affiliateId == null) {
+                logger.warn("Affiliate ID is null for CommercialUsage ID {}", usage.getCommercialUsageId());
+                continue;
+            }
+
+            // Step 3: Fetch Affiliate details
+            Affiliate affiliate = affiliateRepository.findById(affiliateId).orElse(null);
+            if (affiliate == null || affiliate.getHomeMember() == null) {
+                logger.warn("Affiliate or HomeMember is null for Affiliate ID {}", affiliateId);
+                continue;
+            }
+
+            Long homeMemberId = affiliate.getHomeMember().getMemberId();
+
+            // Step 4: Fetch Member details using homeMemberId
+            Member member = getMemberById(homeMemberId);
+            if (member == null) {
+                logger.warn("Member not found for ID: {}", homeMemberId);
+                continue;
+            }
+
+            // Step 5: Compute cutoff date
             if (member.getUsageReports() == 0) {
-                logger.info("Skipping processing: Usage Reports is 0 for Member ID {}", affiliate.getHomeMember().getMemberId());
+                logger.info("Skipping processing: Usage Reports is 0 for Member ID {}", homeMemberId);
                 continue;
             }
-            // Step 2: Get commercial usage details
-            Set<CommercialUsage> commercialUsages = affiliate.getCommercialUsages();
-            if (commercialUsages == null || commercialUsages.isEmpty()) {
-                logger.info("Skipping Affiliate ID {}: No CommercialUsage records found.", affiliate.getAffiliateId());
+            LocalDate cutoffDate = getCutoffDate(member.getUsageReports());
+
+            // Step 6: Compare CommercialUsage created date with cutoff date
+            if (usage.getCreated() == null) {
+                logger.warn("Skipping CommercialUsage ID {}: Created date is null.", usage.getCommercialUsageId());
                 continue;
             }
-            // Step 3: Compute cutoff date
-            Instant cutoffDate = getCutoffDate(member.getUsageReports());
-            // Step 4: Check conditions on CommercialUsage
-            for (CommercialUsage usage : commercialUsages) {
-                if (usage.getState().equals(ApprovalState.NOT_SUBMITTED) && usage.getSubmitted() == null) {
-                    Instant createdDate = usage.getCreated();
-                    if (createdDate.isBefore(cutoffDate)) {
-                        affiliateIdsForDeactivation.add(affiliate.getAffiliateId());
-                        break; // No need to check further for this affiliate
-                    }
-                }
+
+            LocalDate createdDate = usage.getCreated().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (createdDate.isBefore(cutoffDate)) {
+                affiliateIdsForDeactivation.add(affiliateId);
+                usage.setLastProcessed(Instant.now());
+//                affiliate.setLastProcessed(Instant.now());
+
+                // ✅ Save updates
+                commercialUsageRepository.save(usage);
             }
         }
-        // Step 5: Bulk update affiliates for deactivation
-        deactivateAffiliates(affiliateIdsForDeactivation);
+
+        // Step 7: Bulk deactivate affiliates
+        if (!affiliateIdsForDeactivation.isEmpty()) {
+            deactivateAffiliates(affiliateIdsForDeactivation);
+            logger.info("Deactivated {} affiliates", affiliateIdsForDeactivation.size());
+        } else {
+            logger.info("No affiliates found for deactivation.");
+        }
     }
+
+
 
 }
 
