@@ -33,7 +33,12 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     List<Application> findMemberById(Long memberId);
 
     @Modifying
-    @Query("UPDATE Application a SET a.lastProcessed = :timestamp WHERE a.id IN :affiliateIds")
+    @Query("UPDATE Application a SET a.lastProcessed = :timestamp WHERE a.affiliate.affiliateId IN :affiliateIds")
     void updateLastProcessed(@Param("affiliateIds") List<Long> affiliateIds, @Param("timestamp") Instant timestamp);
+
+    @Query(value = "SELECT * FROM mlds.application WHERE (approval_state = 'REJECTED' OR approval_state = 'CHANGE_REQUESTED' OR approval_state = 'NOT_SUBMITTED') AND inactive_at IS NULL AND last_processed IS NULL",nativeQuery = true)
+    List<Application> getAllApplication();
+
+
 
 }
