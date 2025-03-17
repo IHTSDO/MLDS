@@ -287,9 +287,8 @@ public class UserService {
     public void removePendingApplication() {
         Logger logger = LoggerFactory.getLogger(getClass());
 
-        // Fetch all applications at once (Avoids multiple DB calls)
-        List<Application> newApplication = applicationRepository.findAll();
-        List<Application> applications=newApplication.stream().filter(a->a.getLastProcessed().equals(null)).collect(Collectors.toList());
+        // Fetch all applications meeting the approval state conditions & lastProcessed is null
+        List<Application> applications = applicationRepository.getAllApplication();
         logger.info("Total applications retrieved: {}", applications.size());
 
         List<Long> filteredAffiliateIds = new ArrayList<>();
@@ -300,34 +299,40 @@ public class UserService {
 
             if (member == null) {
                 logger.warn("Member not found for application ID: {}", application.getApplicationId());
-                continue; // Skip if member not found
+                continue;
             }
 
             int pendingApplication = member.getPendingApplication();
             if (pendingApplication == 0) {
                 logger.info("Skipping application ID {}: PendingApplication is 0", application.getApplicationId());
-                continue; // Skip processing if no pending applications
+                continue;
             }
 
             LocalDate cutoffDate = getCutoffDate(pendingApplication);
-            LocalDate completedAt = application.getCompletedAt().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate submittedAt = application.getSubmittedAt().atZone(ZoneId.systemDefault()).toLocalDate();
-            ApprovalState approvalState = application.getApprovalState();
+            LocalDate submittedAt = application.getSubmittedAt() != null
+                ? application.getSubmittedAt().atZone(ZoneId.systemDefault()).toLocalDate()
+                : null;
+            LocalDate completedAt = application.getCompletedAt() != null
+                ? application.getCompletedAt().atZone(ZoneId.systemDefault()).toLocalDate()
+                : null;
 
-            // Check if the application meets the criteria
-            if ((approvalState == ApprovalState.CHANGE_REQUESTED ||
-                approvalState == ApprovalState.NOT_SUBMITTED ||
-                approvalState == ApprovalState.REJECTED) &&
-                (completedAt == null ? completedAt.isBefore(cutoffDate) : submittedAt.isBefore(cutoffDate))) {
+            if (application.getAffiliate() != null) {
+                if ((completedAt != null && completedAt.isBefore(cutoffDate)) ||
+                    (submittedAt != null && submittedAt.isBefore(cutoffDate))) {
 
-                filteredAffiliateIds.add(application.getAffiliate().getAffiliateId());
+                    filteredAffiliateIds.add(application.getAffiliate().getAffiliateId());
+                }
+            } else {
+                logger.warn("Affiliate is null for application ID: {}", application.getApplicationId());
             }
         }
 
         logger.info("Total applications meeting the criteria: {}", filteredAffiliateIds.size());
-        applicationRepository.updateLastProcessed(filteredAffiliateIds,Instant.now());
-        // Deactivate affiliates using reusable method
-        deactivateAffiliates(filteredAffiliateIds);
+
+        if (!filteredAffiliateIds.isEmpty()) {
+            applicationRepository.updateLastProcessed(filteredAffiliateIds, Instant.now());
+            deactivateAffiliates(filteredAffiliateIds);
+        }
     }
 
 
