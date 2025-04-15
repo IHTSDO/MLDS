@@ -36,10 +36,10 @@ public class UserResource {
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
-    private UserService userService;
+    UserService userService;
 
     @RequestMapping(value = "/users",
             method = RequestMethod.GET,
