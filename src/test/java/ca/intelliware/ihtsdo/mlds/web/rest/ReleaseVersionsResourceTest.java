@@ -1,8 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.ReleaseVersionCheckViewDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.hamcrest.Matchers;
@@ -26,6 +29,8 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class ReleaseVersionsResourceTest {
@@ -269,6 +274,36 @@ public class ReleaseVersionsResourceTest {
         Boolean result = releaseVersionsResource.checkVersionDependency(releaseVersionId);
         assertTrue(result);
     }
+
+    @Test
+    public void shouldReturnDependentVersionsNames() {
+        long releaseVersionId = 1L;
+        String versionURI = "someVersionURI";
+
+        ReleaseVersion releaseVersion = new ReleaseVersion();
+        releaseVersion.setVersionURI(versionURI);
+
+        ReleaseVersionCheckViewDTO version1 = Mockito.mock(ReleaseVersionCheckViewDTO.class);
+        when(version1.getReleaseVersionName()).thenReturn("Version 1");
+        when(version1.getReleasePackageId()).thenReturn(100L);
+
+        ReleaseVersionCheckViewDTO version2 = Mockito.mock(ReleaseVersionCheckViewDTO.class);
+        when(version2.getReleaseVersionName()).thenReturn("Version 2");
+        when(version2.getReleasePackageId()).thenReturn(101L);
+
+        when(releaseVersionRepository.findById(releaseVersionId)).thenReturn(Optional.of(releaseVersion));
+        when(releaseVersionRepository.getDependentVersionNames(versionURI)).thenReturn(Arrays.asList(version1, version2));
+
+        List<ReleaseVersionCheckViewDTO> result = releaseVersionsResource.getDependentVersionsNames(releaseVersionId);
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("Version 1", result.get(0).getReleaseVersionName());
+        assertEquals("Version 2", result.get(1).getReleaseVersionName());
+    }
+
+
+
 
     @Test
     public void testCheckVersionDependency_ReturnsFalseWhenNoDependency() {
