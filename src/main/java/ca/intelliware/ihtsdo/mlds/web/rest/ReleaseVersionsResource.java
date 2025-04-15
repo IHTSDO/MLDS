@@ -6,6 +6,7 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.ReleaseVersionCheckViewDTO;
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Objects;
 import jakarta.annotation.Resource;
@@ -19,8 +20,11 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 public class ReleaseVersionsResource {
@@ -234,4 +238,18 @@ public class ReleaseVersionsResource {
 
         return new ResponseEntity<>(releaseVersion, HttpStatus.OK);
     }
+
+    @GetMapping(value = Routes.RELEASE_VERSION_DEPENDENCY_NAMES,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Timed
+    public List<ReleaseVersionCheckViewDTO> getDependentVersionsNames(@PathVariable long releaseVersionId) {
+        ReleaseVersion releaseVersion = releaseVersionRepository.findById(releaseVersionId).orElse(null);
+        if (releaseVersion == null) {
+            return new ArrayList<>();
+        }
+        return releaseVersionRepository.getDependentVersionNames(releaseVersion.getVersionURI());
+    }
+
 }
