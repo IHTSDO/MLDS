@@ -221,5 +221,7 @@ public class Routes {
     public static final String MEMBER_AUTO_DEACTIVATION = "/api/members/{memberKey}";
     public static final String POST_MEMBER_AUTO_DEACTIVATION = "/api/members/{memberKey}/autoDeactivation";
 
+    static final String RELEASE_VERSION_DEPENDENCY_NAMES = "/api/getVersionDependencyNames/{releaseVersionId}";
+
 
 }
