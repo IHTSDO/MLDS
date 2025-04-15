@@ -56,7 +56,7 @@ public class UserService {
     @Autowired
     private AffiliateRepository affiliateRepository;
     @Autowired
-    private ApplicationRepository applicationRepository;
+    ApplicationRepository applicationRepository;
     @Autowired
     private CommercialUsageRepository commercialUsageRepository;
 
@@ -388,7 +388,7 @@ public class UserService {
     }
 
     /*Reusable Method to Compute cutoff date based on Standing State , Approval State, Usage Reports*/
-    private LocalDate getCutoffDate(int invoicesPending) {
+    public LocalDate getCutoffDate(int invoicesPending) {
         return LocalDate.now().minus(invoicesPending, ChronoUnit.DAYS);
     }
 
