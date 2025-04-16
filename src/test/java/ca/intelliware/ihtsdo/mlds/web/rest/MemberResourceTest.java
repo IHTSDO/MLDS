@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Arrays;
 
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.AutoDeactivationMemberDTO;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -148,4 +149,46 @@ public class MemberResourceTest {
         Mockito.verify(memberRepository, never()).save(Mockito.any(Member.class));
     }
 
+
+    @Test
+    public void postAutoDeactivationMemberDetailsShouldUpdateMember() throws Exception {
+        String memberKey = "SE";
+        Member member = new Member(memberKey, 1L);
+
+        Mockito.when(memberRepository.findOneByKey(memberKey)).thenReturn(member);
+
+        AutoDeactivationMemberDTO autoDeactivationDTO = new AutoDeactivationMemberDTO();
+        autoDeactivationDTO.setInvoicesPending(5);
+        autoDeactivationDTO.setUsageReports(3);
+        autoDeactivationDTO.setPendingApplications(2);
+
+        restUserMockMvc.perform(put(Routes.POST_MEMBER_AUTO_DEACTIVATION, memberKey)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("{ \"invoicesPending\": 5, \"usageReports\": 3, \"pendingApplications\": 2 }")
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string(Matchers.containsString("Data Saved Successfully")));
+
+        Mockito.verify(memberRepository).save(member);
+        assertThat(member.getInvoicesPending(), equalTo(5));
+        assertThat(member.getUsageReports(), equalTo(3));
+        assertThat(member.getPendingApplication(), equalTo(2));
+    }
+
+
+    @Test
+    public void postAutoDeactivationMemberDetailsShouldReturnNotFoundForUnknownMember() throws Exception {
+        String memberKey = "ZZ";
+        Mockito.when(memberRepository.findOneByKey(memberKey)).thenReturn(null);
+
+        restUserMockMvc.perform(put(Routes.POST_MEMBER_AUTO_DEACTIVATION, memberKey)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("{ \"invoicesPending\": 5, \"usageReports\": 3, \"pendingApplications\": 2 }")
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string(Matchers.containsString("Member not found")));
+
+        Mockito.verify(memberRepository, never()).save(Mockito.any(Member.class));
+    }
+    
 }
