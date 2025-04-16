@@ -190,5 +190,37 @@ public class MemberResourceTest {
 
         Mockito.verify(memberRepository, never()).save(Mockito.any(Member.class));
     }
+
+
+    @Test
+    public void getAutoDeactivationMemberDetailsShouldReturnMemberDetails() throws Exception {
+        String memberKey = "SE";
+        Member member = new Member(memberKey, 1L);
+        member.setInvoicesPending(5);
+        member.setUsageReports(3);
+        member.setPendingApplication(2);
+
+        Mockito.when(memberRepository.findOneByKey(memberKey)).thenReturn(member);
+
+        restUserMockMvc.perform(get(Routes.MEMBER_AUTO_DEACTIVATION, memberKey)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().string("{\"pendingApplications\":2,\"usageReports\":3,\"invoicesPending\":5}"));
+    }
+
+    @Test
+    public void getAutoDeactivationMemberDetailsShouldReturnNotFoundForUnknownMember() throws Exception {
+
+        String memberKey = "ZZ";
+        Mockito.when(memberRepository.findOneByKey(memberKey)).thenReturn(null);
+
+        restUserMockMvc.perform(get(Routes.MEMBER_AUTO_DEACTIVATION, memberKey)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string(Matchers.containsString("")));
+
+        Mockito.verify(memberRepository).findOneByKey(memberKey);
+    }
     
 }
