@@ -235,6 +235,9 @@ public class MemberResource {
     @Timed
     public ResponseEntity<AutoDeactivationMemberDTO> getAutoDeactivationMemberDeatils(@PathVariable String memberKey){
         Member member=memberRepository.findOneByKey(memberKey);
+        if (member == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
         AutoDeactivationMemberDTO deactivationMemberDTO=new AutoDeactivationMemberDTO();
         deactivationMemberDTO.setUsageReports(member.getUsageReports());
         deactivationMemberDTO.setPendingApplications(member.getPendingApplication());
