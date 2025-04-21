@@ -47,6 +47,7 @@ public class AffiliateSearchRepository {
 
         // Apply filters based on homeMember and standingState
         List<Affiliate> filteredList = resultList.stream()
+            .filter(affiliate -> !affiliate.isDeactivated())
             .filter(affiliate -> isAffiliateMatching(affiliate, homeMember, standingState, standingStateNot))
             .toList(); // Convert stream to List
 
