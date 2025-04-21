@@ -36,12 +36,19 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 	Page<Affiliate> findByHomeMemberAndTextQuery(@Param("homeMember") Member homeMember, @Param("q") String q, Pageable pageable);
 
 
-	@Query(value = "SELECT a FROM Affiliate a LEFT JOIN a.applications b"
-			+ " WHERE a.homeMember = :homeMember "
-			+ " OR b.member = :homeMember ")
-	Page<Affiliate> findByHomeMember(@Param("homeMember") Member homeMember, Pageable pageable);
+    @Query(value = "SELECT a FROM Affiliate a LEFT JOIN a.applications b "
+        + "WHERE (a.homeMember = :homeMember OR b.member = :homeMember) "
+        + "AND a.deactivated = false")
+    Page<Affiliate> findByHomeMember(@Param("homeMember") Member homeMember, Pageable pageable);
 
 	Iterable<Affiliate> findByStandingStateInAndCreatorNotNull(Collection<StandingState> standingState);
+
+    Page<Affiliate> findAllByDeactivatedFalse(Pageable pageable);
+    Page<Affiliate> findByStandingStateNotAndDeactivatedFalse(StandingState standingState, Pageable pageable);
+    Page<Affiliate> findByStandingStateAndDeactivatedFalse(StandingState standingState, Pageable pageable);
+
+    Page<Affiliate> findByHomeMemberAndStandingStateAndDeactivatedFalse(Member homeMember, StandingState standingState, Pageable pageable);
+    Page<Affiliate> findByHomeMemberAndStandingStateNotAndDeactivatedFalse(Member homeMember, StandingState standingState, Pageable pageable);
 
 	Page<Affiliate> findByHomeMemberAndStandingState(Member homeMember, StandingState standingState, Pageable pageable);
 	Page<Affiliate> findByHomeMemberAndStandingStateNot(Member homeMember, StandingState standingState, Pageable pageable);
