@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 
 import java.util.Collections;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -114,4 +115,62 @@ public class UserResourceTest extends MySqlTestContainerTest {
 
         Mockito.verify(userService, Mockito.times(1)).getAffiliateDetails(login, affiliateDetailsId);
     }
+
+
+    @Test
+    public void updatePrimaryEmailShouldReturnOk_WhenEmailIsUpdatedSuccessfully() throws Exception {
+        String login = "test@test.com";
+        String updatedEmail = "newemail@test.com";
+
+        // Mock successful execution (no exception thrown)
+        doNothing().when(userService).updatePrimaryEmail(login, updatedEmail);
+
+        restUserMockMvc.perform(post("/api/updatePrimaryEmail")
+                .param("login", login)
+                .param("updatedEmail", updatedEmail)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Primary email updated successfully"));
+
+        Mockito.verify(userService, Mockito.times(1)).updatePrimaryEmail(login, updatedEmail);
+    }
+
+    @Test
+    public void updatePrimaryEmailShouldReturnNotFound_WhenUserDoesNotExist() throws Exception {
+        String login = "nonexistent@test.com";
+        String updatedEmail = "testupdate@test.com";
+
+        // Mock userService to throw NoSuchElementException
+        doThrow(new NoSuchElementException("User or related data not found"))
+            .when(userService).updatePrimaryEmail(login, updatedEmail);
+
+        restUserMockMvc.perform(post("/api/updatePrimaryEmail")
+                .param("login", login)
+                .param("updatedEmail", updatedEmail)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("User or related data not found"));
+
+        Mockito.verify(userService, Mockito.times(1)).updatePrimaryEmail(login, updatedEmail);
+    }
+
+    @Test
+    public void updatePrimaryEmailShouldReturnInternalServerError_WhenUnexpectedErrorOccurs() throws Exception {
+        String login = "test@test.com";
+        String updatedEmail = "testupdate@test.com";
+
+        // Mock userService to throw a generic exception
+        doThrow(new RuntimeException("Unexpected error"))
+            .when(userService).updatePrimaryEmail(login, updatedEmail);
+
+        restUserMockMvc.perform(post("/api/updatePrimaryEmail")
+                .param("login", login)
+                .param("updatedEmail", updatedEmail)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isInternalServerError())
+            .andExpect(content().string("An error occurred while updating the email"));
+
+        Mockito.verify(userService, Mockito.times(1)).updatePrimaryEmail(login, updatedEmail);
+    }
+
 }
