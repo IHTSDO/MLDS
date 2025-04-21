@@ -91,7 +91,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 	@Test
 	public void getAffiliates() throws Exception {
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
-    	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
+    	when(affiliateRepository.findAllByDeactivatedFalse(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -104,6 +104,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 	private PageImpl<Affiliate> withAffiliateResultForTestCreator() {
 		Affiliate affiliate = createBlankAffiliate();
     	affiliate.setCreator("testCreator");
+        affiliate.setDeactivated(false);
 
     	PageImpl<Affiliate> matches = new PageImpl<>(Arrays.asList(affiliate));
 		return matches;
@@ -116,7 +117,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 	@Test
 	public void getAffiliatesCanReturnNoResults() throws Exception {
     	PageImpl<Affiliate> matches = new PageImpl<>(Lists.<Affiliate>emptyList());
-    	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
+    	when(affiliateRepository.findAllByDeactivatedFalse(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -128,7 +129,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 	@Test
 	public void getAffiliatesShouldSortByAffiliateIdByDefault() throws Exception {
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
-    	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
+    	when(affiliateRepository.findAllByDeactivatedFalse(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -137,14 +138,14 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(contentMatchesTestCreator());
 
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
-        verify(affiliateRepository).findAll(argument.capture());
+        verify(affiliateRepository).findAllByDeactivatedFalse(argument.capture());
 		assertThat(argument.getValue().getSort().toString(), is("affiliateId: ASC"));
 	}
 
 	@Test
 	public void getAffiliatesShouldBeSortable() throws Exception {
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
-    	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
+    	when(affiliateRepository.findAllByDeactivatedFalse(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$orderby", "member")
@@ -154,14 +155,14 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(contentMatchesTestCreator());
 
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
-        verify(affiliateRepository).findAll(argument.capture());
+        verify(affiliateRepository).findAllByDeactivatedFalse(argument.capture());
 		assertThat(argument.getValue().getSort().toString(), is("homeMember.key: ASC,affiliateId: ASC"));
 	}
 
 	@Test
 	public void getAffiliatesShouldBeSortableDescending() throws Exception {
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
-    	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
+    	when(affiliateRepository.findAllByDeactivatedFalse(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$orderby", "member desc")
@@ -171,14 +172,14 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(contentMatchesTestCreator());
 
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
-        verify(affiliateRepository).findAll(argument.capture());
+        verify(affiliateRepository).findAllByDeactivatedFalse(argument.capture());
 		assertThat(argument.getValue().getSort().toString(), is("homeMember.key: DESC,affiliateId: ASC"));
 	}
 
 	@Test
 	public void getAffiliatesShouldStartOnFirstPageByDefault() throws Exception {
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
-    	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
+    	when(affiliateRepository.findAllByDeactivatedFalse(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -187,7 +188,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(contentMatchesTestCreator());
 
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
-        verify(affiliateRepository).findAll(argument.capture());
+        verify(affiliateRepository).findAllByDeactivatedFalse(argument.capture());
 		assertThat(argument.getValue().getPageNumber(), is(0));
 		assertThat(argument.getValue().getPageSize(), is(50));
 		assertThat(argument.getValue().getSort().toString(), is("affiliateId: ASC"));
@@ -196,7 +197,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 	@Test
 	public void getAffiliatesShouldAllowPaging() throws Exception {
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
-    	when(affiliateRepository.findAll(Mockito.any(Pageable.class))).thenReturn(matches);
+    	when(affiliateRepository.findAllByDeactivatedFalse(Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$page", "2")
@@ -207,7 +208,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(contentMatchesTestCreator());
 
         ArgumentCaptor<Pageable> argument = ArgumentCaptor.forClass(Pageable.class);
-        verify(affiliateRepository).findAll(argument.capture());
+        verify(affiliateRepository).findAllByDeactivatedFalse(argument.capture());
 		assertThat(argument.getValue().getPageNumber(), is(2));
 		assertThat(argument.getValue().getPageSize(), is(20));
 	}
@@ -229,7 +230,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 	@Test
 	public void getAffiliatesShouldFilterByStandingState() throws Exception {
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
-    	when(affiliateRepository.findByStandingState(Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
+    	when(affiliateRepository.findByStandingStateAndDeactivatedFalse(Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$filter", "standingState eq 'APPLYING'")
@@ -242,7 +243,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 	@Test
 	public void getAffiliatesShouldFilterByStandingStateNot() throws Exception {
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
-    	when(affiliateRepository.findByStandingStateNot(Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
+    	when(affiliateRepository.findByStandingStateNotAndDeactivatedFalse(Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$filter", "not standingState eq 'APPLYING'")
@@ -274,7 +275,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 		when(memberRepository.findOneByKey("SE")).thenReturn(member);
 
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
-    	when(affiliateRepository.findByHomeMemberAndStandingState(Mockito.eq(member), Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
+    	when(affiliateRepository.findByHomeMemberAndStandingStateAndDeactivatedFalse(Mockito.eq(member), Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$filter", "homeMember eq 'SE'")
@@ -291,7 +292,7 @@ public class AffiliateResource_AffiliatesFilter_Test {
 		when(memberRepository.findOneByKey("SE")).thenReturn(member);
 
     	PageImpl<Affiliate> matches = withAffiliateResultForTestCreator();
-    	when(affiliateRepository.findByHomeMemberAndStandingStateNot(Mockito.eq(member), Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
+    	when(affiliateRepository.findByHomeMemberAndStandingStateNotAndDeactivatedFalse(Mockito.eq(member), Mockito.eq(StandingState.APPLYING), Mockito.any(Pageable.class))).thenReturn(matches);
 
         restUserMockMvc.perform(get(Routes.AFFILIATES)
         		.param("$filter", "homeMember eq 'SE'")

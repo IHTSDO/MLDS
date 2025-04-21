@@ -131,12 +131,12 @@ public class AffiliateResource {
 		} else {
 			if (member == null) {
 				if (standingState == null) {
-					affiliates = affiliateRepository.findAll(pageRequest);
+					affiliates = affiliateRepository.findAllByDeactivatedFalse(pageRequest);
 				} else {
 					if (standingStateNot) {
-						affiliates = affiliateRepository.findByStandingStateNot(standingState, pageRequest);
+						affiliates = affiliateRepository.findByStandingStateNotAndDeactivatedFalse(standingState, pageRequest);
 					} else {
-						affiliates = affiliateRepository.findByStandingState(standingState, pageRequest);
+						affiliates = affiliateRepository.findByStandingStateAndDeactivatedFalse(standingState, pageRequest);
 					}
 				}
 			} else {
@@ -144,9 +144,9 @@ public class AffiliateResource {
 					affiliates = affiliateRepository.findByHomeMember(member, pageRequest);
 				} else {
 					if (standingStateNot) {
-						affiliates = affiliateRepository.findByHomeMemberAndStandingStateNot(member, standingState, pageRequest);
+						affiliates = affiliateRepository.findByHomeMemberAndStandingStateNotAndDeactivatedFalse(member, standingState, pageRequest);
 					} else {
-						affiliates = affiliateRepository.findByHomeMemberAndStandingState(member, standingState, pageRequest);
+						affiliates = affiliateRepository.findByHomeMemberAndStandingStateAndDeactivatedFalse(member, standingState, pageRequest);
 					}
 				}
 			}
@@ -154,8 +154,7 @@ public class AffiliateResource {
 
 		AffiliateSearchResult result = new AffiliateSearchResult();
 
-		result.setAffiliates(affiliates.getContent().stream().filter(a -> !a.isDeactivated()) // Filtering out deactivated affiliates
-            .collect(Collectors.toList()));
+		result.setAffiliates(affiliates.getContent());
 		result.setTotalResults(affiliates.getTotalElements());
 		result.setTotalPages(affiliates.getTotalPages());
 
