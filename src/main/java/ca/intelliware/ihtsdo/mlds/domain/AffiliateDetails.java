@@ -9,6 +9,7 @@ import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.KeywordField;
 
 import java.time.Instant;
 
@@ -54,15 +55,15 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
     @FullTextField
 	String lastName;
 
-    @FullTextField
+    @KeywordField
 	String email;
 
 	@Column(name="alternate_email")
-    @FullTextField
+    @KeywordField
 	String alternateEmail;
 
 	@Column(name="third_email")
-    @FullTextField
+    @KeywordField
 	String thirdEmail;
 
 	@Column(name="landline_number")
