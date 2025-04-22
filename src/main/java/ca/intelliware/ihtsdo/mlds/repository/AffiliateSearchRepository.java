@@ -36,8 +36,11 @@ public class AffiliateSearchRepository {
         } else {
             result = searchSession.search(Affiliate.class)
                 .where(f -> f.bool()
+                    .should(f.wildcard().field("affiliateDetails.email").matching(q + "*"))
+                    .should(f.wildcard().field("affiliateDetails.alternateEmail").matching(q + "*"))
+                    .should(f.wildcard().field("affiliateDetails.thirdEmail").matching(q + "*"))
                     .should(f.simpleQueryString()
-                        .fields("affiliateDetails.firstName", "affiliateDetails.lastName", "affiliateDetails.email", "affiliateDetails.alternateEmail", "affiliateDetails.thirdEmail", "affiliateDetails.organizationName", "affiliateDetails.organizationType")
+                        .fields("affiliateDetails.firstName", "affiliateDetails.lastName", "affiliateDetails.organizationName", "affiliateDetails.organizationType")
                         .matching(q + "*"))
                 )
                 .fetch(pageable.getPageSize());
