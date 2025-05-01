@@ -25,7 +25,7 @@ termserver-syndication](https://github.com/IHTSDO/termserver-syndication) docume
 
 ## Testing
 
-Feed compliance verification in Dev and UAT has used the [W3C Feed Validation Service](https://validator.w3.org/feed/check.cgi?url=https%3A%2F%2Fuat-mlds-v4.ihtsdotools.org%2Fapi%2Ffeed).
+Feed compliance verification in Dev and UAT has used the [W3C Feed Validation Service](https://validator.w3.org/feed/).
 
 ## Additional information
 
