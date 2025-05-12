@@ -76,7 +76,7 @@ public class UserServiceTest {
 
         verify(affiliateRepository, never()).getIHTSDOPendingInvoices();
         verify(affiliateRepository, never()).updateLastProcessed(anyList(), any(Instant.class));
-        verify(affiliateRepository, never()).updateAffiliateDeactivationReason(anyLong(), any());
+        verify(affiliateRepository, never()).updateAffiliateStandingStateAndDeactivationReason(anyLong(), any(),any());
     }
 
     @Test
@@ -108,8 +108,8 @@ public class UserServiceTest {
         verify(affiliateRepository).updateLastProcessed(eq(Arrays.asList(10L, 11L)), argThat(argument -> {
             return argument.isAfter(now.minusSeconds(1)) && argument.isBefore(now.plusSeconds(1));
         }));
-        verify(affiliateRepository).updateAffiliateDeactivationReason(10L, ReasonForDeactivation.AUTODEACTIVATION);
-        verify(affiliateRepository).updateAffiliateDeactivationReason(11L, ReasonForDeactivation.AUTODEACTIVATION);
+        verify(affiliateRepository).updateAffiliateStandingStateAndDeactivationReason(10L,StandingState.DEREGISTERED, ReasonForDeactivation.AUTODEACTIVATION);
+        verify(affiliateRepository).updateAffiliateStandingStateAndDeactivationReason(11L,StandingState.DEREGISTERED, ReasonForDeactivation.AUTODEACTIVATION);
     }
 
 
@@ -129,7 +129,7 @@ public class UserServiceTest {
         when(commercialUsageRepository.findByState()).thenReturn(List.of(usage));
         when(affiliateRepository.findById(1L)).thenReturn(java.util.Optional.of(affiliate));
         when(affiliateRepository.findActiveAffiliateIds(any())).thenReturn(List.of(1L));
-        when(affiliateRepository.updateAffiliateDeactivationReason(eq(1L), any())).thenReturn(1);
+        when(affiliateRepository.updateAffiliateStandingStateAndDeactivationReason(eq(1L),any(), any())).thenReturn(1);
 
         when(memberRepository.findMemberById(1L)).thenReturn(swedenMember);
 
@@ -137,7 +137,7 @@ public class UserServiceTest {
 
         verify(commercialUsageRepository, times(1)).findByState();
         verify(affiliateRepository, times(1)).findById(1L);
-        verify(affiliateRepository, times(1)).updateAffiliateDeactivationReason(1L, ReasonForDeactivation.AUTODEACTIVATION);
+        verify(affiliateRepository, times(1)).updateAffiliateStandingStateAndDeactivationReason(1L,StandingState.DEREGISTERED, ReasonForDeactivation.AUTODEACTIVATION);
     }
 
     private void setField(Object obj, String fieldName, Object value) throws Exception {
