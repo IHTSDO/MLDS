@@ -107,8 +107,10 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
     List<Long> findActiveAffiliateIds(@Param("affiliateIds") List<Long> affiliateIds);
 
     @Modifying
-    @Query("UPDATE Affiliate a SET a.deactivated = true, a.reasonForDeactivation = :reason WHERE a.id = :affiliateId")
-    int updateAffiliateDeactivationReason(@Param("affiliateId") Long affiliateId, @Param("reason") ReasonForDeactivation reason);
+    @Query("UPDATE Affiliate a SET a.standingState = :standingState, a.reasonForDeactivation = :reason WHERE a.id = :affiliateId")
+    int updateAffiliateStandingStateAndDeactivationReason(@Param("affiliateId") Long affiliateId,
+                                                          @Param("standingState") StandingState standingState,
+                                                          @Param("reason") ReasonForDeactivation reason);
 
     @Modifying
     @Query("UPDATE Affiliate a SET a.lastProcessed = :timestamp WHERE a.id IN :affiliateIds")
