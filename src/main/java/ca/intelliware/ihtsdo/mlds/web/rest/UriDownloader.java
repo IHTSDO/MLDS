@@ -28,6 +28,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class UriDownloader {
@@ -42,7 +47,8 @@ public class UriDownloader {
 
     @Value("${aws.region}")
     private String awsRegion;
-
+    @Value("${aws.regions}")
+    private String awsRegions;
     private final Logger log = LoggerFactory.getLogger(UriDownloader.class);
 
     private S3Location s3BucketName;
@@ -88,7 +94,7 @@ public class UriDownloader {
     }
 
     public int downloadS3(S3Location s3Location, String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse)
-            throws IOException {
+        throws IOException {
         log.debug("Attempting to download {} from S3", s3Location.toString());
         log.debug(s3Location.bucket);
         this.s3BucketName = s3Location;
@@ -107,12 +113,65 @@ public class UriDownloader {
         return clientResponse.getStatus();
     }
 
+    /**
+     * Returns an initialized S3Client based on configured AWS region properties.
+     *
+     * Configuration details:
+     * - Default region: `aws.region`
+     * - Multi-bucket specific region mapping: `aws.regions`
+     *
+     * Format in application.properties:
+     *
+     * # Default region fallback
+     * aws.region=us-east-1
+     *
+     * # AWS Regions Defined Here
+     * # Default will be aws.region, and if new regions are to be added,
+     * # kindly follow the same format as below:
+     * aws.regions=ihtsdo-mlds.de:eu-central-1,snomed-mlds.in:ap-south-1
+     *
+     * Each entry should be in the format: bucket-name:region
+     * Multiple entries are comma-separated.
+     *
+     * @return S3Client - either a live AWS client or Offline client
+     */
     public S3Client getS3Client() throws IOException {
-        S3Client s3Client = null;
-        log.debug("Configuring " + (s3Offline ? "offline" : "online") + " s3 client.");
-        String regionToUse = awsRegion;
-        if ("ihtsdo-mlds.de".equals(s3BucketName.bucket)) {
-            regionToUse = "eu-central-1";
+        S3Client s3Client;
+        // Default region from application.properties
+        String regionsToUse;
+        String regionToUse = awsRegions;
+
+        Map<String, List<String>> regionMap = new HashMap<>();
+
+
+        // Check if awsRegions is not null or empty before processing
+        if (awsRegions != null && !awsRegions.isEmpty()) {
+            regionMap = Arrays.stream(awsRegions.split(","))
+                .map(entry -> entry.split(":")) // Split bucket name and regions
+                .filter(parts -> {
+                    boolean valid = parts.length == 2;
+                    if (!valid) log.warn("Skipping invalid entry: {}", Arrays.toString(parts));
+                    return valid;
+                })
+                .collect(Collectors.toMap(
+                    parts -> parts[0], // Bucket name
+                    parts -> Arrays.asList(parts[1].split(",")) // List of regions
+                ));
+
+
+            regionMap.forEach((bucket, regions) -> log.debug("Bucket: {} -> Regions: {}", bucket, regions));
+        } else {
+            log.warn("awsRegions property is empty or null!");
+        }
+
+        // If the bucket exists in the map, get the first region (or use any logic to select one)
+        if (regionMap.containsKey(s3BucketName.bucket)) {
+            List<String> regions = regionMap.get(s3BucketName.bucket);
+            regionsToUse = regions.get(0); // Choose the first region (modify logic if needed)
+            log.debug("Available regions for {}: {}", s3BucketName.bucket, regions);
+        }else
+        {
+            regionsToUse=awsRegion;
         }
 
 
@@ -121,9 +180,9 @@ public class UriDownloader {
         } else {
             s3Client = new S3ClientImpl(software.amazon.awssdk.services.s3.S3Client.builder()
                 .credentialsProvider(InstanceProfileCredentialsProvider.create())
-                .region(Region.of(regionToUse))
+                .region(Region.of(regionsToUse))
                 .build());
-            log.debug("s3Client:", s3Client);
+            log.debug("s3Client initialized with region: {}", regionToUse);
         }
         return s3Client;
     }
