@@ -283,7 +283,7 @@ public class UserService {
     }
 
 
-    @Scheduled(cron = "0 0 17 * * ?", zone = "Asia/Kolkata")
+    @Scheduled(cron = "${scheduler.remove-pending-application.cron}")
     public void removePendingApplication() {
         Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -348,7 +348,7 @@ public class UserService {
      * This ensures that affiliates who have not cleared their invoices within the allowed timeframe
      * are deactivated automatically, maintaining compliance with membership policies.
      */
-    @Scheduled(cron = "0 0 16 * * ?", zone = "Asia/Kolkata")
+    @Scheduled(cron = "${scheduler.remove-invoices-pending.cron}")
     public void removeInvoicesPending() {
         Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -403,8 +403,7 @@ public class UserService {
             if (!activeAffiliateIds.isEmpty()) {
                 int updatedCount = 0;
                 for (Long affiliateId : activeAffiliateIds) {
-//                    ReasonForDeactivation reason = ReasonForDeactivation.AUTODEACTIVATION;
-                    updatedCount = affiliateRepository.updateAffiliateDeactivationReason(affiliateId, ReasonForDeactivation.AUTODEACTIVATION);
+                    updatedCount = affiliateRepository.updateAffiliateStandingStateAndDeactivationReason(affiliateId,StandingState.DEREGISTERED, ReasonForDeactivation.AUTODEACTIVATION);
 
                 }
                 logger.info("Total affiliates deactivated: {}", updatedCount);
@@ -418,7 +417,7 @@ public class UserService {
 
 
 
-    @Scheduled(cron = "0 0 15 * * ?", zone = "Asia/Kolkata")
+    @Scheduled(cron = "${scheduler.remove-usage-reports.cron}")
     public void removeUsageReports() {
         Logger logger = LoggerFactory.getLogger(getClass());
 
