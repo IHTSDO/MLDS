@@ -452,4 +452,11 @@
         <comment>Drop table user_registration if it exists</comment>
         <dropTable tableName="user_registration"/>
     </changeSet>
+    <changeSet id="MLDS-1137" author="AA">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="event"/>
+        </preConditions>
+        <comment>Drop table event if it exists</comment>
+        <dropTable tableName="event"/>
+    </changeSet>
     </databaseChangeLog>
