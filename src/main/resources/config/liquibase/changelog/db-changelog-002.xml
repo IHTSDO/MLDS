@@ -445,4 +445,11 @@
         </createIndex>
 
     </changeSet>
-</databaseChangeLog>
+    <changeSet id="MLDS-1138" author="AA">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="user_registration"/>
+        </preConditions>
+        <comment>Drop table user_registration if it exists</comment>
+        <dropTable tableName="user_registration"/>
+    </changeSet>
+    </databaseChangeLog>
