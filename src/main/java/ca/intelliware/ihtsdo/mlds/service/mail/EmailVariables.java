@@ -16,4 +16,5 @@ public class EmailVariables {
 	static final String APPLICATION_MEMBER = "applicationMember";
 	static final String BLANK_TITLE = "blankTitle";
 	static final String BLANK_BODY = "blankBody";
+    static final String UNSUBSCRIBE_URL = "unsubscribeUrl";
 }

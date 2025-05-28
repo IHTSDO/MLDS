@@ -459,4 +459,10 @@
         <comment>Drop table event if it exists</comment>
         <dropTable tableName="event"/>
     </changeSet>
-    </databaseChangeLog>
+    <changeSet id="MLDS-1223" author="AA">
+        <addColumn tableName="user">
+            <column name="unsubscribe_key" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

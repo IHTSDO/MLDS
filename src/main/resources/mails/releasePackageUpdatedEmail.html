@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        <title th:utext="#{releasePackageUpdated.title}">SNOMED International - MLDS Release Package Updated</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </head>
+<head>
+    <title th:utext="#{releasePackageUpdated.title}">SNOMED International - MLDS Release Package Updated</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
 
-    <body>
-        <p th:utext="#{email.greeting(${user.firstName + ' ' + user.lastName})}">
-            Dear user,
-        </p>
-        <p th:utext="#{releasePackageUpdated.text(${releasePackage.name}, ${releaseVersion.name})}">
-            The following release package has been updated: ${releasePackage.name}.
-            <br/>
-            <br/> You can view and download the release package by visiting the IHTSD-MLDS system.
-        </p>
-        <p>
-            <a th:href="@{${viewReleasePackageUrl}}" th:utext="#{releasePackageUpdated.viewReleasePackageLinkLabel(${releasePackage.name})}">View Release Package</a>
-        </p>
-        <p>
-            <span th:utext="#{email.close}">Regards, </span>
-            <br/>
-            <em th:utext="#{email.signature}">SNOMED International - MLDS</em>
-        </p>
-    </body>
+<body>
+<p th:utext="#{email.greeting(${user.firstName + ' ' + user.lastName})}">
+    Dear user,
+</p>
+<p th:utext="#{releasePackageUpdated.text(${releasePackage.name}, ${releaseVersion.name})}">
+    The following release package has been updated: ${releasePackage.name}.
+    <br/>
+    <br/> You can view and download the release package by visiting the IHTSD-MLDS system.
+</p>
+<p>
+    <a th:href="@{${viewReleasePackageUrl}}" th:utext="#{releasePackageUpdated.viewReleasePackageLinkLabel(${releasePackage.name})}">View Release Package</a>
+</p>
+<p>
+    <span th:utext="#{email.close}">Regards, </span>
+    <br/>
+    <em th:utext="#{email.signature}">SNOMED International - MLDS</em>
+</p>
+
+<!-- Unsubscribe section -->
+<p style="font-size: 0.9em; color: #888;">
+    <a th:href="@{${unsubscribeUrl}}">Unsubscribe from these notifications</a>
+</p>
+</body>
 
 </html>
