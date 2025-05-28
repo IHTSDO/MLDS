@@ -27,5 +27,10 @@ public class ClientLinkBuilder {
 	public String buildViewReleasePackageLink(long releasePackageId) {
 		return templateEvaluator.getUrlBase() + "#/viewReleases/viewRelease/"+releasePackageId;
 	}
+    public String buildUnsubscribeLink(long affiliateId, String unsubscribeKey) {
+        // Build and return the unsubscribe URL
+        return templateEvaluator.getUrlBase() + "#/unsubscribenotification/" + affiliateId + "/" + unsubscribeKey;
+    }
+
 
 }

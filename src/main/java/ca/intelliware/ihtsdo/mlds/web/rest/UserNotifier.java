@@ -25,10 +25,10 @@ public class UserNotifier {
         ReleasePackage releasePackage = releaseVersion.getReleasePackage();
         Member member = releasePackage.getMember();
         for (User user : userMembershipCalculator.approvedReleaseUsersWithAnyMembership(member)) {
-            if (user.getAcceptNotifications() &&
-                    !(Member.KEY_IHTSDO.equals(member.getKey()) && user.getCountryNotificationsOnly())) {
+            if (user.getAcceptNotifications() && !(Member.KEY_IHTSDO.equals(member.getKey()) && user.getCountryNotificationsOnly())) {
                 releasePackageUpdatedEmailSender.sendRelasePackageUpdatedEmail(user, releasePackage, releaseVersion);
             }
         }
+
     }
 }

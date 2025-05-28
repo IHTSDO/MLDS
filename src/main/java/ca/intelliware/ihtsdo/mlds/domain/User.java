@@ -72,7 +72,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	@Column(name="inactive_at")
 	private
     Instant inactiveAt;
-
+    @Column(name = "unsubscribe_key")
+    private String unsubscribeKey;
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -98,7 +99,13 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public String getPassword() {
         return password;
     }
+    public String getUnsubscribeKey() {
+        return unsubscribeKey;
+    }
 
+    public void setUnsubscribeKey(String unsubscribeKey) {
+        this.unsubscribeKey = unsubscribeKey;
+    }
     public void setPassword(String password) {
         this.password = password;
     }
