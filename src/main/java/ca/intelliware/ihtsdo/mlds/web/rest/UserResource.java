@@ -2,12 +2,8 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
-import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
-import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.User;
-import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
-import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.UserService;
@@ -26,6 +22,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.*;
 
 /**
  * REST controller for managing users.
@@ -157,8 +154,24 @@ public class UserResource {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Affiliate not found.");
     }
+    @GetMapping("/usersList")
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @Timed
+    public ResponseEntity<List<Map<String, Object>>> getUsersWithAuthorities() {
 
+        List<User> users = userRepository.findAll();
 
+        List<Map<String, Object>> userLogins = users.stream()
+            .map(user -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("userId", user.getUserId());
+                map.put("login", user.getLogin());
+                return map;
+            })
+            .toList();
+
+        return ResponseEntity.ok(userLogins);
+    }
 }
 
 

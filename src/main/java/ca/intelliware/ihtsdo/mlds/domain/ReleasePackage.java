@@ -65,6 +65,10 @@ public class ReleasePackage extends BaseEntity {
 	@Fetch(FetchMode.SELECT)
 	Set<ReleaseVersion> releaseVersions = Sets.newHashSet();
 
+    @Enumerated(EnumType.STRING)
+    @Column(name="permission_type")
+    private ReleasePermissionType permissionType;
+
 	public ReleasePackage() {
 
 	}
@@ -176,5 +180,13 @@ public class ReleasePackage extends BaseEntity {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public ReleasePermissionType getPermissionType() {
+        return permissionType;
+    }
+
+    public void setPermissionType(ReleasePermissionType permissionType) {
+        this.permissionType = permissionType;
     }
 }
