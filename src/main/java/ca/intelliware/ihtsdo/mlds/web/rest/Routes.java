@@ -224,4 +224,9 @@ public class Routes {
     static final String RELEASE_VERSION_DEPENDENCY_NAMES = "/api/getVersionDependencyNames/{releaseVersionId}";
 
 
+    public static final String RELEASE_PACKAGES_PERMISSION = "/api/releasePackages/updatePermissionType";
+    public static final String RELEASE_PACKAGES_MASTER_PERMISSION = "/api/releasePackages/ConfigPermissionType";
+    public static final String RELEASE_PACKAGE_PERMISSION = "/api/releasePackages/updatePermissionType/{releasePackageId}";
+
+
 }

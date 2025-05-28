@@ -164,6 +164,7 @@
         </addColumn>
     </changeSet>
     <changeSet id="MLDS-1172" author="AA">
+        <validCheckSum>9:04523831040d5448be91706a5e34dbc0</validCheckSum>
         <comment>Re-add pending_application, invoices_pending, and usage_reports columns to member table with default 0</comment>
 
         <addColumn tableName="member">
@@ -462,6 +463,78 @@
     <changeSet id="MLDS-1223" author="AA">
         <addColumn tableName="user">
             <column name="unsubscribe_key" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet id="MLDS-1128-01" author="JJ">
+        <comment>Add ReleaseType Column</comment>
+        <addColumn tableName="release_package">
+            <column name="permission_type" type="varchar(255)" defaultValue="NOT_SELECTED">
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-1128-02" author="JJ">
+        <createTable tableName="release_package_access">
+            <column name="release_package_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Define the composite primary key for both columns -->
+        <addPrimaryKey
+            tableName="release_package_access"
+            columnNames="release_package_id, user_id"
+            constraintName="pk_release_package_access"/>
+
+        <!-- Foreign key constraint to the release_package table -->
+        <addForeignKeyConstraint
+            baseTableName="release_package_access"
+            baseColumnNames="release_package_id"
+            constraintName="fk_release_package_access_release_package"
+            referencedTableName="release_package"
+            referencedColumnNames="release_package_id"/>
+
+        <!-- Foreign key constraint to the user table -->
+        <addForeignKeyConstraint
+            baseTableName="release_package_access"
+            baseColumnNames="user_id"
+            constraintName="fk_release_package_access_user"
+            referencedTableName="user"
+            referencedColumnNames="user_id"/>
+    </changeSet>
+
+
+    <changeSet id="MLDS-1128-03" author="JJ">
+        <comment>Add Release Config Table</comment>
+        <createTable tableName="release_config_master">
+            <column name="config_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="release_type" type="VARCHAR(255)" defaultValue="NOT_SELECTED"/>
+            <column name="release_package" type="VARCHAR(255)" defaultValue="NOT_SELECTED"/>
+            <column name="release_permission_type" type="VARCHAR(255)" defaultValue="NOT_SELECTED"/>
+        </createTable>
+        <addPrimaryKey columnNames="config_id" constraintName="config_PK" tableName="release_config_master"/>
+    </changeSet>
+
+    <changeSet id="MLDS-1128-04" author="JJ">
+        <comment>Add User list Column</comment>
+        <addColumn tableName="release_config_master">
+            <column name="user_list" type="JSON"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-1128-05" author="JJ">
+        <comment>Add isActive Column</comment>
+        <addColumn tableName="release_config_master">
+            <column name="is_active" defaultValueBoolean="false" type="BOOLEAN">
+                <constraints nullable="false" />
+            </column>
         </addColumn>
     </changeSet>
 
