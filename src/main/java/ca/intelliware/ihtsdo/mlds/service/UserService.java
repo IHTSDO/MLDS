@@ -20,7 +20,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Service class for managing users.
@@ -42,7 +41,6 @@ public class UserService {
 
     @Autowired
     private AuthorityRepository authorityRepository;
-
 
 
     private MemberRepository memberRepository;
@@ -288,50 +286,17 @@ public class UserService {
         throw new IllegalArgumentException("Invalid email format: " + email);
     }
 
-
     @Scheduled(cron = "${scheduler.remove-pending-application.cron}")
     public void removePendingApplication() {
         Logger logger = LoggerFactory.getLogger(getClass());
 
-        // Fetch all applications meeting the approval state conditions & lastProcessed is null
         List<Application> applications = applicationRepository.getAllApplication();
         logger.info("Total applications retrieved: {}", applications.size());
 
-        List<Long> filteredAffiliateIds = new ArrayList<>();
-
-        for (Application application : applications) {
-            Long memberId = application.getMember().getMemberId();
-            Member member = getMemberById(memberId);
-
-            if (member == null) {
-                logger.warn("Member not found for application ID: {}", application.getApplicationId());
-                continue;
-            }
-
-            int pendingApplication = member.getPendingApplication();
-            if (pendingApplication == 0) {
-                logger.info("Skipping application ID {}: PendingApplication is 0", application.getApplicationId());
-                continue;
-            }
-
-            LocalDate cutoffDate = getCutoffDate(pendingApplication);
-            LocalDate submittedAt = application.getSubmittedAt() != null
-                ? application.getSubmittedAt().atZone(ZoneId.systemDefault()).toLocalDate()
-                : null;
-            LocalDate completedAt = application.getCompletedAt() != null
-                ? application.getCompletedAt().atZone(ZoneId.systemDefault()).toLocalDate()
-                : null;
-
-            if (application.getAffiliate() != null) {
-                if ((completedAt != null && completedAt.isBefore(cutoffDate)) ||
-                    (submittedAt != null && submittedAt.isBefore(cutoffDate))) {
-
-                    filteredAffiliateIds.add(application.getAffiliate().getAffiliateId());
-                }
-            } else {
-                logger.warn("Affiliate is null for application ID: {}", application.getApplicationId());
-            }
-        }
+        List<Long> filteredAffiliateIds = applications.stream()
+            .map(this::evaluateApplication)
+            .filter(Objects::nonNull)
+            .toList();
 
         logger.info("Total applications meeting the criteria: {}", filteredAffiliateIds.size());
 
@@ -341,16 +306,49 @@ public class UserService {
         }
     }
 
+    private Long evaluateApplication(Application application) {
+        Logger logger = LoggerFactory.getLogger(getClass());
+
+        Member member = getMemberById(application.getMember().getMemberId());
+        if (member == null) {
+            logger.warn("Member not found for application ID: {}", application.getApplicationId());
+            return null;
+        }
+
+        int pendingApplication = member.getPendingApplication();
+        if (pendingApplication == 0) {
+            logger.info("Skipping application ID {}: PendingApplication is 0", application.getApplicationId());
+            return null;
+        }
+
+        LocalDate cutoffDate = getCutoffDate(pendingApplication);
+        LocalDate submittedAt = getLocalDate(application.getSubmittedAt());
+        LocalDate completedAt = getLocalDate(application.getCompletedAt());
+
+        if (application.getAffiliate() == null) {
+            logger.warn("Affiliate is null for application ID: {}", application.getApplicationId());
+            return null;
+        }
+
+        boolean isOldCompleted = completedAt != null && completedAt.isBefore(cutoffDate);
+        boolean isOldSubmitted = submittedAt != null && submittedAt.isBefore(cutoffDate);
+
+        return (isOldCompleted || isOldSubmitted) ? application.getAffiliate().getAffiliateId() : null;
+    }
+
+    private LocalDate getLocalDate(Instant dateTime) {
+        return dateTime != null ? dateTime.atZone(ZoneId.systemDefault()).toLocalDate() : null;
+    }
 
     /**
      * Scheduled process to deactivate affiliates whose invoices are in a pending state
      * beyond the defined period for their respective member country.
-     *
+     * <p>
      * - Fetches all affiliates with pending invoices.
      * - Retrieves the defined invoice pending period for the member.
      * - Identifies affiliates whose invoice pending period has exceeded the cutoff date.
      * - Performs a bulk deactivation for the identified affiliates.
-     *
+     * <p>
      * This ensures that affiliates who have not cleared their invoices within the allowed timeframe
      * are deactivated automatically, maintaining compliance with membership policies.
      */
@@ -409,7 +407,7 @@ public class UserService {
             if (!activeAffiliateIds.isEmpty()) {
                 int updatedCount = 0;
                 for (Long affiliateId : activeAffiliateIds) {
-                    updatedCount = affiliateRepository.updateAffiliateStandingStateAndDeactivationReason(affiliateId,StandingState.DEREGISTERED, ReasonForDeactivation.AUTODEACTIVATION);
+                    updatedCount = affiliateRepository.updateAffiliateStandingStateAndDeactivationReason(affiliateId, StandingState.DEREGISTERED, ReasonForDeactivation.AUTODEACTIVATION);
 
                 }
                 logger.info("Total affiliates deactivated: {}", updatedCount);
@@ -421,73 +419,22 @@ public class UserService {
         }
     }
 
-
-
     @Scheduled(cron = "${scheduler.remove-usage-reports.cron}")
     public void removeUsageReports() {
         Logger logger = LoggerFactory.getLogger(getClass());
 
-        // Step 1: Fetch CommercialUsage records where state = 'NOT_SUBMITTED'
         List<CommercialUsage> commercialUsages = commercialUsageRepository.findByState();
+
         if (commercialUsages.isEmpty()) {
             logger.info("No CommercialUsage records found with state 'NOT_SUBMITTED'.");
             return;
         }
 
-        List<Long> affiliateIdsForDeactivation = new ArrayList<>();
+        List<Long> affiliateIdsForDeactivation = commercialUsages.stream()
+            .map(this::processUsage)
+            .filter(Objects::nonNull)
+            .toList();
 
-        // Step 2: Iterate over commercial usage records
-        for (CommercialUsage usage : commercialUsages) {
-            if (usage.getAffiliate()== null) {
-                logger.warn("CommercialUsage ID {} has no associated Affiliate.", usage.getCommercialUsageId());
-                continue;
-            }
-
-            Long affiliateId = usage.getAffiliate().getAffiliateId();
-            if (affiliateId == null) {
-                logger.warn("Affiliate ID is null for CommercialUsage ID {}", usage.getCommercialUsageId());
-                continue;
-            }
-
-            // Step 3: Fetch Affiliate details
-            Affiliate affiliate = affiliateRepository.findById(affiliateId).orElse(null);
-            if (affiliate == null || affiliate.getHomeMember() == null) {
-                logger.warn("Affiliate or HomeMember is null for Affiliate ID {}", affiliateId);
-                continue;
-            }
-
-            Long homeMemberId = affiliate.getHomeMember().getMemberId();
-
-            // Step 4: Fetch Member details using homeMemberId
-            Member member = getMemberById(homeMemberId);
-            if (member == null) {
-                logger.warn("Member not found for ID: {}", homeMemberId);
-                continue;
-            }
-
-            // Step 5: Compute cutoff date
-            if (member.getUsageReports() == 0) {
-                logger.info("Skipping processing: Usage Reports is 0 for Member ID {}", homeMemberId);
-                continue;
-            }
-            LocalDate cutoffDate = getCutoffDate(member.getUsageReports());
-
-            // Step 6: Compare CommercialUsage created date with cutoff date
-            if (usage.getCreated() == null) {
-                logger.warn("Skipping CommercialUsage ID {}: Created date is null.", usage.getCommercialUsageId());
-                continue;
-            }
-
-            LocalDate createdDate = usage.getCreated().atZone(ZoneId.systemDefault()).toLocalDate();
-            if (createdDate.isBefore(cutoffDate)) {
-                affiliateIdsForDeactivation.add(affiliateId);
-                usage.setLastProcessed(Instant.now());
-                // ✅ Save updates
-                commercialUsageRepository.save(usage);
-            }
-        }
-
-        // Step 7: Bulk deactivate affiliates
         if (!affiliateIdsForDeactivation.isEmpty()) {
             deactivateAffiliates(affiliateIdsForDeactivation);
             logger.info("Deactivated {} affiliates", affiliateIdsForDeactivation.size());
@@ -496,6 +443,49 @@ public class UserService {
         }
     }
 
+    private Long processUsage(CommercialUsage usage) {
+        Logger logger = LoggerFactory.getLogger(getClass());
+
+        if (usage.getAffiliate() == null || usage.getAffiliate().getAffiliateId() == null) {
+            logger.warn("CommercialUsage ID {} has no valid affiliate.", usage.getCommercialUsageId());
+            return null;
+        }
+
+        Long affiliateId = usage.getAffiliate().getAffiliateId();
+        Affiliate affiliate = affiliateRepository.findById(affiliateId).orElse(null);
+
+        if (affiliate == null || affiliate.getHomeMember() == null) {
+            logger.warn("Affiliate or HomeMember is null for Affiliate ID {}", affiliateId);
+            return null;
+        }
+
+        Member member = getMemberById(affiliate.getHomeMember().getMemberId());
+        if (member == null) {
+            logger.warn("Member not found for ID: {}", affiliate.getHomeMember().getMemberId());
+            return null;
+        }
+
+        if (member.getUsageReports() == 0) {
+            logger.info("Skipping processing: Usage Reports is 0 for Member ID {}", member.getMemberId());
+            return null;
+        }
+
+        if (usage.getCreated() == null) {
+            logger.warn("Skipping CommercialUsage ID {}: Created date is null.", usage.getCommercialUsageId());
+            return null;
+        }
+
+        LocalDate createdDate = usage.getCreated().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate cutoffDate = getCutoffDate(member.getUsageReports());
+
+        if (createdDate.isBefore(cutoffDate)) {
+            usage.setLastProcessed(Instant.now());
+            commercialUsageRepository.save(usage);
+            return affiliateId;
+        }
+
+        return null;
+    }
 
 
 }
