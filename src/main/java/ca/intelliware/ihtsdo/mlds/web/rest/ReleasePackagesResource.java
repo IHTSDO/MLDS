@@ -47,7 +47,6 @@ public class ReleasePackagesResource {
     BlobHelper blobHelper;
     @Autowired
     FileRepository fileRepository;
-    @Autowired
     SessionService sessionService;
 
     @Autowired
@@ -75,16 +74,24 @@ public class ReleasePackagesResource {
     @Autowired
     ReleasePackageAccessRepository releasePackageAccessRepository;
 
-    @Autowired
+
     ReleasePackageConfigRepository releasePackageConfigRepository;
 
-    @Autowired
+
     UserRepository userRepository;
 
-    @Autowired
+
     ReleasePackageService releasePackageService;
 
-    @Autowired
+
+    public ReleasePackagesResource(ReleasePackageAccessService releasePackageAccessService, UserRepository userRepository, ReleasePackageConfigRepository releasePackageConfigRepository, ReleasePackageService releasePackageService, SessionService sessionService) {
+        this.releasePackageAccessService = releasePackageAccessService;
+        this.userRepository = userRepository;
+        this.releasePackageConfigRepository = releasePackageConfigRepository;
+        this.releasePackageService = releasePackageService;
+        this.sessionService = sessionService;
+    }
+
     ReleasePackageAccessService releasePackageAccessService;
 
 //
@@ -554,11 +561,12 @@ public class ReleasePackagesResource {
         List<String> logins = releasePackageAccessRepository.findLoginsByUserIds(userIds);
         return ResponseEntity.ok(logins);
     }
+    private static final String RELEASE_ID = "releaseId";
 
     @PutMapping(value = "/api/userAccessRevoke", produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<String> updateIndividualUserAccess(@RequestBody Map<String, Object> request) {
-        String releaseId = request.get("releaseId") != null ? request.get("releaseId").toString() : null;
+        String releaseId = request.get(RELEASE_ID) != null ? request.get(RELEASE_ID).toString() : null;
         String requestUser = (String) request.get("user");
 
         try {
@@ -575,7 +583,7 @@ public class ReleasePackagesResource {
     @PutMapping(value = "/api/releaseAccessRevoke", produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<String> releaseAccessRevoke(@RequestBody Map<String, Object> request) {
-        String releaseId = request.get("releaseId") != null ? request.get("releaseId").toString() : null;
+        String releaseId = request.get(RELEASE_ID) != null ? request.get(RELEASE_ID).toString() : null;
 
         String resultMessage = releasePackageService.revokeAllReleaseAccess(releaseId);
         if (resultMessage.equals("User access revoked successfully.")) {

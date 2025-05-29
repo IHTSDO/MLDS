@@ -64,7 +64,7 @@ public class UserResourceTest extends MySqlTestContainerTest {
 
     @Before
     public void setup() {
-        userResource = new UserResource();
+        userResource = new UserResource(userService,affiliateRepository);
         userResource.userRepository = userRepository;
         userResource.userService = userService;
         userResource.affiliateRepository = affiliateRepository;
@@ -89,7 +89,7 @@ public class UserResourceTest extends MySqlTestContainerTest {
 
         AffiliateDetailsResponseDTO responseDTO = new AffiliateDetailsResponseDTO(user, null, Collections.emptyList());
 
-        when(userService.getAffiliateDetails(login, affiliateDetailsId)).thenReturn(responseDTO);
+        when(userService.getAffiliateDetails(login)).thenReturn(responseDTO);
 
         restUserMockMvc.perform(post("/api/getUserDetails")
                 .param("login", login)
@@ -100,7 +100,7 @@ public class UserResourceTest extends MySqlTestContainerTest {
             .andExpect(jsonPath("$.affiliateDetails").isEmpty())
             .andExpect(jsonPath("$.affiliate").isEmpty());
 
-        Mockito.verify(userService, Mockito.times(1)).getAffiliateDetails(login, affiliateDetailsId);
+        Mockito.verify(userService, Mockito.times(1)).getAffiliateDetails(login);
     }
 
 
@@ -111,7 +111,7 @@ public class UserResourceTest extends MySqlTestContainerTest {
 
         AffiliateDetailsResponseDTO responseDTO = new AffiliateDetailsResponseDTO(null, null, Collections.emptyList());
 
-        when(userService.getAffiliateDetails(login, affiliateDetailsId)).thenReturn(responseDTO);
+        when(userService.getAffiliateDetails(login)).thenReturn(responseDTO);
 
         restUserMockMvc.perform(post("/api/getUserDetails")
                 .param("login", login)
@@ -122,7 +122,7 @@ public class UserResourceTest extends MySqlTestContainerTest {
             .andExpect(jsonPath("$.affiliateDetails").isEmpty())
             .andExpect(jsonPath("$.affiliate").isEmpty());
 
-        Mockito.verify(userService, Mockito.times(1)).getAffiliateDetails(login, affiliateDetailsId);
+        Mockito.verify(userService, Mockito.times(1)).getAffiliateDetails(login);
     }
 
 

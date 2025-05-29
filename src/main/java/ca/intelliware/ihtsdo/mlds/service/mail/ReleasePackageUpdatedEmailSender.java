@@ -18,10 +18,14 @@ public class ReleasePackageUpdatedEmailSender {
 	@Resource MailService mailService;
 	@Resource TemplateEvaluator templateEvaluator;
 	@Resource ClientLinkBuilder clientLinkBuilder;
-    @Autowired
+
     AffiliateRepository affiliateRepository;
-    @Autowired
     UserRepository userRepository;
+
+    public ReleasePackageUpdatedEmailSender(UserRepository userRepository, AffiliateRepository affiliateRepository) {
+        this.userRepository = userRepository;
+        this.affiliateRepository = affiliateRepository;
+    }
 
     public void sendRelasePackageUpdatedEmail(User user, ReleasePackage releasePackage, ReleaseVersion releaseVersion) {
         final Locale locale = Locale.forLanguageTag(user.getLangKey());
@@ -71,7 +75,7 @@ public class ReleasePackageUpdatedEmailSender {
             return clientLinkBuilder.buildUnsubscribeLink(affiliateId, user.getUnsubscribeKey());
         } else {
             // Handle case where affiliate is not found
-            throw new RuntimeException("Affiliate not found for the user.");
+            throw new IllegalArgumentException("Affiliate not found for the user.");
         }
     }
 

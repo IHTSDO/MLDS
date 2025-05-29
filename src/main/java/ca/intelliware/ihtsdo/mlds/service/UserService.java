@@ -6,7 +6,6 @@ import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
 import ca.intelliware.ihtsdo.mlds.service.util.RandomUtil;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.AffiliateDetailsResponseDTO;
 import jakarta.annotation.Resource;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,6 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static ca.intelliware.ihtsdo.mlds.domain.ApprovalState.CHANGE_REQUESTED;
 
 /**
  * Service class for managing users.
@@ -46,19 +43,28 @@ public class UserService {
     @Autowired
     private AuthorityRepository authorityRepository;
 
-    @Autowired
+
+
     private MemberRepository memberRepository;
 
     @Resource
     AutologinService autologinService;
-    @Autowired
+
     private AffiliateDetailsRepository affiliateDetailsRepository;
-    @Autowired
+
     private AffiliateRepository affiliateRepository;
-    @Autowired
+
     ApplicationRepository applicationRepository;
-    @Autowired
+
     private CommercialUsageRepository commercialUsageRepository;
+
+    public UserService(AffiliateDetailsRepository affiliateDetailsRepository, AffiliateRepository affiliateRepository, ApplicationRepository applicationRepository, MemberRepository memberRepository, CommercialUsageRepository commercialUsageRepository) {
+        this.affiliateDetailsRepository = affiliateDetailsRepository;
+        this.affiliateRepository = affiliateRepository;
+        this.applicationRepository = applicationRepository;
+        this.memberRepository = memberRepository;
+        this.commercialUsageRepository = commercialUsageRepository;
+    }
 
     public User activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -166,7 +172,7 @@ public class UserService {
         }
     }
 
-    public AffiliateDetailsResponseDTO getAffiliateDetails(String email, Long affiliateDetailsId) {
+    public AffiliateDetailsResponseDTO getAffiliateDetails(String email) {
         // Fetch user details
         User user = userRepository.findByLoginIgnoreCase(email);
         // Fetch affiliates by creator email
@@ -378,7 +384,7 @@ public class UserService {
             .filter(affiliate -> affiliate.getStandingState() == StandingState.PENDING_INVOICE
                 && affiliate.getCreated().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(cutoffDate))
             .map(Affiliate::getAffiliateId)
-            .collect(Collectors.toList());
+            .toList();
 
     }
 
@@ -476,8 +482,6 @@ public class UserService {
             if (createdDate.isBefore(cutoffDate)) {
                 affiliateIdsForDeactivation.add(affiliateId);
                 usage.setLastProcessed(Instant.now());
-//                affiliate.setLastProcessed(Instant.now());
-
                 // ✅ Save updates
                 commercialUsageRepository.save(usage);
             }

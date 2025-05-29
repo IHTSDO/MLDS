@@ -6,16 +6,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import ca.intelliware.ihtsdo.mlds.domain.*;
 import ca.intelliware.ihtsdo.mlds.repository.*;
+import ca.intelliware.ihtsdo.mlds.service.ReleasePackageAccessService;
 import ca.intelliware.ihtsdo.mlds.service.ReleasePackageService;
+import ca.intelliware.ihtsdo.mlds.web.SessionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -81,10 +80,27 @@ public class ReleasePackagesResourceTest {
 
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
 
+    @Mock
+    private ReleasePackageAccessService releasePackageAccessService;
+
+    @Mock
+    private UserRepository userRepository;
+
+
+
+    @Mock
+    private SessionService sessionService;
 
 	@Before
     public void setup() {
-        releasePackagesResource = new ReleasePackagesResource();
+        MockitoAnnotations.openMocks(this); // Initialize mocks
+        releasePackagesResource = new ReleasePackagesResource(
+            releasePackageAccessService,
+            userRepository,
+            releasePackageConfigRepository,
+            releasePackageService,
+            sessionService
+        );
 
         releasePackagesResource.releasePackageRepository = releasePackageRepository;
         releasePackagesResource.authorizationChecker = authorizationChecker;

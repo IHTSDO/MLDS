@@ -15,15 +15,6 @@ public class ReleasePackageAccess {
     @Column(name = "user_id")
     private Long userId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "release_package_id", referencedColumnName = "release_package_id", insertable = false, updatable = false)
-//    private ReleasePackage releasePackage;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
-//    private User user;
-
-
     public Long getReleasePackageId() {
         return releasePackageId;
     }
@@ -40,19 +31,5 @@ public class ReleasePackageAccess {
         this.userId = userId;
     }
 
-//    public ReleasePackage getReleasePackage() {
-//        return releasePackage;
-//    }
-//
-//    public void setReleasePackage(ReleasePackage releasePackage) {
-//        this.releasePackage = releasePackage;
-//    }
-//
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+
 }

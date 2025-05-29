@@ -229,7 +229,7 @@ public class MemberResource {
         memberRepository.save(member);
         return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
     }
-    @RequestMapping(value = Routes.MEMBER_AUTO_DEACTIVATION, method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = Routes.MEMBER_AUTO_DEACTIVATION, produces = "application/json")
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Transactional
     @Timed
@@ -242,10 +242,10 @@ public class MemberResource {
         deactivationMemberDTO.setUsageReports(member.getUsageReports());
         deactivationMemberDTO.setPendingApplications(member.getPendingApplication());
         deactivationMemberDTO.setInvoicesPending(member.getInvoicesPending());
-        return new ResponseEntity((deactivationMemberDTO), HttpStatus.OK);
+        return new ResponseEntity<>((deactivationMemberDTO), HttpStatus.OK);
     }
 
-    @RequestMapping(value = Routes.POST_MEMBER_AUTO_DEACTIVATION, method = RequestMethod.PUT, produces = "application/json")
+    @PutMapping(value = Routes.POST_MEMBER_AUTO_DEACTIVATION,produces = "application/json")
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Transactional
     @Timed

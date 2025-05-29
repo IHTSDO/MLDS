@@ -100,7 +100,7 @@ public class CommercialUsageResource {
 
         return new ResponseEntity<>(new CommercialUsageCollection(usageReports.stream()
             .filter(a -> !a.getAffiliate().isDeactivated()) // Filtering out deactivated affiliates
-            .collect(Collectors.toList()) ), HttpStatus.OK);
+            .toList() ), HttpStatus.OK);
     }
 
     private Sort createUsageReportsSort(String orderby) {

@@ -1,6 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.Application;
 import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Member;

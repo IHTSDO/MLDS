@@ -215,9 +215,9 @@ public class ApplicationResource {
 		}
         List<Application> activeApplications = applications.stream()
             .filter(a -> !a.getAffiliate().isDeactivated()) // Filtering out deactivated affiliates
-            .collect(Collectors.toList());
+            .toList();
 
-        return new ResponseEntity<ApplicationCollection>(new ApplicationCollection(activeApplications), HttpStatus.OK);
+        return new ResponseEntity<>(new ApplicationCollection(activeApplications), HttpStatus.OK);
 	}
 
 	private static final Map<String,List<String>> ORDER_BY_FIELD_MAPPINGS = new HashMap<String,List<String>>();

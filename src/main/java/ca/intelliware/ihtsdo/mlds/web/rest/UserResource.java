@@ -35,8 +35,14 @@ public class UserResource {
 
     @Autowired
     UserRepository userRepository;
-    @Autowired AffiliateRepository affiliateRepository;
-    @Autowired
+
+    public UserResource(UserService userService, AffiliateRepository affiliateRepository) {
+        this.userService = userService;
+        this.affiliateRepository = affiliateRepository;
+    }
+
+    AffiliateRepository affiliateRepository;
+
     UserService userService;
 
     @RequestMapping(value = "/users",
@@ -66,13 +72,13 @@ public class UserResource {
         return user;
     }
 
-    @RequestMapping(value = "/getUserDetails", method = RequestMethod.POST)
+    @PostMapping(value = "/getUserDetails")
     @Timed
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<AffiliateDetailsResponseDTO> getUserDetails(@RequestParam String login, @RequestParam Long affiliateDetailsId) {
         log.debug("REST request to get User : {}", login);
 
-        AffiliateDetailsResponseDTO responseDTO = userService.getAffiliateDetails(login, affiliateDetailsId);
+        AffiliateDetailsResponseDTO responseDTO = userService.getAffiliateDetails(login);
 
         // If no affiliate details are found, return an empty DTO with HTTP 200
         if (responseDTO.getAffiliateDetails() == null && responseDTO.getAffiliate().isEmpty()) {
@@ -83,7 +89,7 @@ public class UserResource {
     }
 
 
-    @RequestMapping(value = "/updatePrimaryEmail", method = RequestMethod.POST)
+    @PostMapping(value = "/updatePrimaryEmail")
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<String> updatePrimaryEmail(@RequestParam String login, @RequestParam String updatedEmail) {
@@ -97,7 +103,7 @@ public class UserResource {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the email");
         }
     }
-    @RequestMapping(value = "/testRun", method = RequestMethod.GET)
+    @GetMapping(value = "/testRun")
     @Timed
     public ResponseEntity<String> testRun() {
         try {
@@ -134,10 +140,11 @@ public class UserResource {
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired unsubscribe link.");
                 }
 
-                // Step 5: If already unsubscribed, show a message
-                if (!user.getAcceptNotifications()) {
+                Boolean accept = user.getAcceptNotifications();
+                if (Boolean.FALSE.equals(accept)) {
                     return ResponseEntity.status(HttpStatus.GONE).body("This unsubscribe link has already been used.");
                 }
+
 
                 // Step 6: Unsubscribe the user by setting acceptNotifications to false
                 user.setAcceptNotifications(false);
