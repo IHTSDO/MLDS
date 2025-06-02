@@ -381,6 +381,16 @@
     </changeSet>
 
     <changeSet id="MLDS-1146-1" author="JJ">
+        <preConditions onFail="MARK_RAN">
+            <foreignKeyConstraintExists foreignKeyName="FK_t_persistent_audit_event_commercial_usage"/>
+            <indexExists indexName="FK_t_persistent_audit_event_application" tableName="persistent_audit_event"/>
+            <indexExists indexName="FK_t_persistent_audit_event_affiliate" tableName="persistent_audit_event"/>
+            <indexExists indexName="FK_t_persistent_audit_event_release_package" tableName="persistent_audit_event"/>
+            <indexExists indexName="FK_t_persistent_audit_event_release_version" tableName="persistent_audit_event"/>
+            <indexExists indexName="FK_t_persistent_audit_event_release_file" tableName="persistent_audit_event"/>
+            <indexExists indexName="FK_t_persistent_audit_event_commercial_usage" tableName="persistent_audit_event"/>
+        </preConditions>
+
         <comment>Rename keys for persistent_audit_event</comment>
 
         <dropForeignKeyConstraint baseTableName="persistent_audit_event"
@@ -422,30 +432,32 @@
         <createIndex indexName="FK_persistent_audit_event_commercial_usage" tableName="persistent_audit_event">
             <column name="commercial_usage_id"/>
         </createIndex>
-
     </changeSet>
 
     <changeSet id="MLDS-1143-1" author="JJ">
-        <comment>Rename Indexes name for release_package</comment>
-
+        <preConditions onFail="MARK_RAN">
+            <indexExists indexName="FK_package_t_user" tableName="release_package"/>
+        </preConditions>
+        <comment>Rename index name for release_package</comment>
         <dropIndex indexName="FK_package_t_user" tableName="release_package"/>
 
         <createIndex indexName="FK_package_user" tableName="release_package">
             <column name="created_by"/>
         </createIndex>
-
     </changeSet>
 
     <changeSet id="MLDS-1143-2" author="JJ">
-        <comment>Rename Indexes name for release_version</comment>
-
+        <preConditions onFail="MARK_RAN">
+            <indexExists indexName="FK_release_version_t_user" tableName="release_version"/>
+        </preConditions>
+        <comment>Rename index name for release_version</comment>
         <dropIndex indexName="FK_release_version_t_user" tableName="release_version"/>
 
         <createIndex indexName="FK_release_version_user" tableName="release_version">
             <column name="created_by"/>
         </createIndex>
-
     </changeSet>
+
     <changeSet id="MLDS-1138" author="AA">
         <preConditions onFail="MARK_RAN">
             <tableExists tableName="user_registration"/>
@@ -453,6 +465,7 @@
         <comment>Drop table user_registration if it exists</comment>
         <dropTable tableName="user_registration"/>
     </changeSet>
+
     <changeSet id="MLDS-1137" author="AA">
         <preConditions onFail="MARK_RAN">
             <tableExists tableName="event"/>
@@ -460,12 +473,18 @@
         <comment>Drop table event if it exists</comment>
         <dropTable tableName="event"/>
     </changeSet>
+
     <changeSet id="MLDS-1223" author="AA">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="user" columnName="unsubscribe_key"/>
+            </not>
+        </preConditions>
+        <comment>Add unsubscribe_key column to user table</comment>
         <addColumn tableName="user">
             <column name="unsubscribe_key" type="varchar(255)"/>
         </addColumn>
     </changeSet>
-
 
     <changeSet id="MLDS-1128-01" author="JJ">
         <comment>Add ReleaseType Column</comment>
