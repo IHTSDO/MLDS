@@ -102,13 +102,13 @@ public class ReleasePackageServiceTest {
     public void shouldUpdatePermissionTypeForEachReleasePackage() {
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("releasePackageType", "ADMIN_ONLY");
-        List<Integer> releases = List.of(1);
+        List<Long> releases = List.of(1L);
         requestBody.put("releases", releases);
 
         ReleasePackage rp1 = new ReleasePackage();
         rp1.setPermissionType(ReleasePermissionType.ADMIN_ONLY);
 
-        when(releasePackageRepository.findAllByReleasePackageIdIn(List.of(1L))).thenReturn(List.of(rp1));
+        when(releasePackageRepository.findAllByReleasePackageIdIn(releases)).thenReturn(List.of(rp1));
 
         releasePackageService.updateReleasePackagesPermission(requestBody);
 

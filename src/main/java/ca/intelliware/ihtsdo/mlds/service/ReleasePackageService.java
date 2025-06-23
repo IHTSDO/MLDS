@@ -43,12 +43,11 @@ public class ReleasePackageService {
 
 
     public void updateReleasePackagesPermission(Map<String, Object> request) {
-        List<Integer> releasePackages = (List<Integer>) request.get("releases");
+        List<Long> releasePackages = (List<Long>) request.get("releases");
         String releasePackageType = (String) request.get("releasePackageType");
         List<String> users = (List<String>) request.get("users");
 
-        List<Long> ids = releasePackages.stream().map(Integer::longValue).toList();
-        List<ReleasePackage> packages = releasePackageRepository.findAllByReleasePackageIdIn(ids);
+        List<ReleasePackage> packages = releasePackageRepository.findAllByReleasePackageIdIn(releasePackages);
 
         Set<String> affectedTypes = new HashSet<>();
         List<ReleasePackageAccess> accessList = new ArrayList<>();

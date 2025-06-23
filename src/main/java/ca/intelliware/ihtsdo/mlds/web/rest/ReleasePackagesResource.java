@@ -94,6 +94,9 @@ public class ReleasePackagesResource {
 
     ReleasePackageAccessService releasePackageAccessService;
 
+    private static final String NOT_SELECTED = "NOT_SELECTED";
+
+
 //
 //	////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	// Release Packages
@@ -509,7 +512,7 @@ public class ReleasePackagesResource {
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<List<ReleasePackageConfig>> getMasterReleasePermissions() {
         List<ReleasePackageConfig> masterPermissionList = releasePackageConfigRepository.findAll().stream()
-            .filter(releasePackage -> !"NOT_SELECTED".equals(releasePackage.getReleasePermissionType()))
+            .filter(releasePackage -> !NOT_SELECTED.equals(releasePackage.getReleasePermissionType()))
             .toList();
 
         return ResponseEntity.ok(masterPermissionList);
@@ -613,6 +616,72 @@ public class ReleasePackagesResource {
             PermissionVisibilityResponse response = new PermissionVisibilityResponse(true, permissionType, releaseType);
             return ResponseEntity.ok(response);
         }
+    }
+
+
+    @PostMapping("/api/releasePackages/checkConfigPermissionType")
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @Timed
+    public ResponseEntity<Boolean> checkReleaseMasterConfig(@RequestBody Map<String, Object> request) {
+        String releasePackageType = (String) request.get("releaseType");
+
+        List<ReleasePackage> allReleasePackages = releasePackageRepository.findAll();
+        List<ReleasePackageConfig> configuredReleaseConfigs = releasePackageConfigRepository.findByReleasePermissionTypeNot(NOT_SELECTED);
+
+        boolean hasAnyConfiguredPermission = allReleasePackages.stream()
+            .anyMatch(rp -> rp.getPermissionType() != ReleasePermissionType.NOT_SELECTED);
+
+        boolean hasMasterConfigured = configuredReleaseConfigs.stream()
+            .anyMatch(rp -> !"ALL".equals(rp.getReleaseType()));
+
+        if (Objects.equals(releasePackageType, "ALL")) {
+            return ResponseEntity.ok(hasAnyConfiguredPermission || hasMasterConfigured);
+        } else {
+            boolean hasAllTypeConfigured = configuredReleaseConfigs.stream()
+                .anyMatch(rp -> "ALL".equals(rp.getReleaseType()));
+
+            if (hasAllTypeConfigured) {
+                return ResponseEntity.ok(true);
+            }
+
+            Set<String> categorizationResults = allReleasePackages.stream()
+                .filter(rp -> rp.getPermissionType() != ReleasePermissionType.NOT_SELECTED)
+                .map(rp -> releasePackageService.categorizePackage(rp.getReleaseVersions()))
+                .collect(Collectors.toSet());
+
+            return ResponseEntity.ok(categorizationResults.contains(releasePackageType.toLowerCase()));
+        }
+    }
+
+
+    @PostMapping("/api/releasePackages/checkUpdatePermissionType")
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @Timed
+    public ResponseEntity<Boolean> checkReleasePackageUpdate(@RequestBody Map<String, Object> request) {
+        List<Long> releasePackages = (List<Long>) request.get("releases");
+
+        if(Boolean.TRUE.equals(releasePackageConfigRepository.findByReleaseType("ALL").getActive())){
+            return ResponseEntity.ok(true);
+        }
+
+        List<ReleasePackageConfig> masterConfigurationList = releasePackageConfigRepository.findByReleasePermissionTypeNot(NOT_SELECTED).stream()
+            .filter(rp -> !"ALL".equals(rp.getReleaseType())).toList();
+        if(!masterConfigurationList.isEmpty()) {
+            List<ReleasePackage> updatereleaseList = releasePackageRepository.findAllByReleasePackageIdIn(releasePackages);
+            Set<String> categorizationResults = new HashSet<>();
+            for (ReleasePackage updateReleasePackage : updatereleaseList) {
+                String type = releasePackageService.categorizePackage(updateReleasePackage.getReleaseVersions());
+                categorizationResults.add(type);
+            }
+
+            for (ReleasePackageConfig releasePackageConfig : masterConfigurationList) {
+                if (categorizationResults.contains(releasePackageConfig.getReleaseType().toLowerCase())) {
+                    return ResponseEntity.ok(true);
+                }
+            }
+        }
+
+        return ResponseEntity.ok(false);
     }
 
 }
