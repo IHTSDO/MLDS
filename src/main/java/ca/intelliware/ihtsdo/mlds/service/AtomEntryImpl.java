@@ -299,8 +299,31 @@ public class AtomEntryImpl {
     }
 
     private String getFileExtension(String fileUrl) {
-        String fileExtension = fileUrl.substring(fileUrl.lastIndexOf('.') + 1);
-        return fileExtension;
+        if (fileUrl == null || !fileUrl.contains(".")) {
+            return "";
+        }
+
+        // Remove query params or fragments if any
+        int queryIndex = fileUrl.indexOf('?');
+        int hashIndex = fileUrl.indexOf('#');
+
+        int endIndex = fileUrl.length();
+        if (queryIndex != -1 && hashIndex != -1) {
+            endIndex = Math.min(queryIndex, hashIndex);
+        } else if (queryIndex != -1) {
+            endIndex = queryIndex;
+        } else if (hashIndex != -1) {
+            endIndex = hashIndex;
+        }
+
+        String cleanUrl = fileUrl.substring(0, endIndex);
+        int lastDotIndex = cleanUrl.lastIndexOf('.');
+        if (lastDotIndex == -1 || lastDotIndex == cleanUrl.length() - 1) {
+            return "";
+        }
+
+        return cleanUrl.substring(lastDotIndex + 1);
     }
+
 
 }
