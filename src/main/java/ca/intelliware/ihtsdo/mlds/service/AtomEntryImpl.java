@@ -213,6 +213,33 @@ public class AtomEntryImpl {
 
     private Map<String, String> fileIdToFileHash = new HashMap<>();
 
+    private static final Map<String, String> EXTENSION_TO_MIME = Map.ofEntries(
+        Map.entry("xls", "application/vnd.ms-excel"),
+        Map.entry("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
+        Map.entry("doc", "application/msword"),
+        Map.entry("docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
+        Map.entry("pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation"),
+        Map.entry("xml", "application/xml"),
+        Map.entry("ods", "application/vnd.oasis.opendocument.spreadsheet"),
+        Map.entry("csv", "text/csv"),
+        Map.entry("pdf", "application/pdf"),
+        Map.entry("php", "application/x-httpd-php"),
+        Map.entry("jpg", "image/jpeg"),
+        Map.entry("png", "image/png"),
+        Map.entry("gif", "image/gif"),
+        Map.entry("bmp", "image/bmp"),
+        Map.entry("txt", "text/plain"),
+        Map.entry("js", "application/javascript"),
+        Map.entry("swf", "application/x-shockwave-flash"),
+        Map.entry("mp3", "audio/mpeg"),
+        Map.entry("zip", "application/zip"),
+        Map.entry("rar", "application/vnd.rar"),
+        Map.entry("tar", "application/x-tar"),
+        Map.entry("html", "text/html"),
+        Map.entry("htm", "text/html")
+    );
+
+
     public void addLink(String versionId, String fileId, boolean primaryFile, String downloadUrl,
                         String md5Hash, String fileSize) {
         versionLinks.computeIfAbsent(versionId, k -> new ArrayList<>()).add(fileId);
@@ -225,77 +252,123 @@ public class AtomEntryImpl {
     public String toXml() {
         StringBuilder entryXml = new StringBuilder();
         entryXml.append("    <entry>\n");
+
         entryXml.append("        <title>").append(title).append("</title>\n");
+        // for links
+        entryXml.append(buildLinksXml());
+        // for category
+        entryXml.append(buildCategoryXml(packageType));
+        // for author
+        entryXml.append(buildAuthorXml(memberOrgName, memberOrgURL, contactEmail));
 
-        for (Map.Entry<String, List<String>> entry : versionLinks.entrySet()) {
-            String versionId = entry.getKey();
-            List<String> links = entry.getValue();
-            for (String fileId : links) {
-                String downloadUrl = feedBaseUrl + "api/releasePackages/" + packageId + "/releaseVersions/" + versionId + "/releaseFiles/" + fileId + "/download";
-                boolean checkPrimaryFile = fileIdToPrimaryFileMap.get(fileId);
-                String fileUrl = fileIdToDownloadUrlMap.get(fileId);
-                String checkFileSize = fileIdToFileSizeMap.get(fileId);
-                String fileHash = fileIdToFileHash.get(fileId);
-                String fileExtension = getFileExtension(fileUrl);
-
-                if (!"null".equals(checkFileSize) && !"null".equals(fileHash) && !checkFileSize.isEmpty() && !fileHash.isEmpty()) {
-                    if (checkPrimaryFile) {
-                        entryXml.append("        <link rel=\"alternate\" type=\"application/").append(fileExtension).append("\" href=\"").append(downloadUrl).append("\" length=\"").append(checkFileSize).append("\" sct:md5Hash=\"").append(fileHash).append("\" />\n");
-                    } else {
-                        entryXml.append("        <link rel=\"related\" type=\"application/").append(fileExtension).append("\" href=\"").append(downloadUrl).append("\" length=\"").append(checkFileSize).append("\" sct:md5Hash=\"").append(fileHash).append("\" />\n");
-                    }
-                }
-
-                else {
-                    if(checkPrimaryFile){
-                        entryXml.append("        <link rel=\"alternate\" type=\"application/").append(fileExtension).append("\" href=\"").append(downloadUrl).append("\" />\n");
-                    }
-                    else{
-                        entryXml.append("        <link rel=\"related\" type=\"application/").append(fileExtension).append("\" href=\"").append(downloadUrl).append("\" />\n");
-                    }
-                }
-            }
-        }
-
-        //for category
-        if(packageType.equals("SCT_RF2_SNAPSHOT")) {
-            entryXml.append("        <category term=\"").append(packageType).append("\" label=\"SNOMED CT RF2 Snapshot\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
-        }
-        if(packageType.equals("SCT_RF2_FULL")) {
-            entryXml.append("        <category term=\"").append(packageType).append("\" label=\"SNOMED CT RF2 Full\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
-        }
-        if(packageType.equals("SCT_RF2_ALL")) {
-            entryXml.append("        <category term=\"").append(packageType).append("\" label=\"SNOMED CT RF2 All\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
-        }
-        if(!packageType.equals("SCT_RF2_SNAPSHOT") && !packageType.equals("SCT_RF2_FULL") && !packageType.equals("SCT_RF2_ALL")) {
-            entryXml.append("        <category term=\"OTHER\" label=\"Other Package\" scheme=\"http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0\" />\n");
-        }
-
-        entryXml.append("        <author>\n");
-        entryXml.append("            <name>").append(memberOrgName).append("</name>\n");
-        entryXml.append("            <uri>").append(memberOrgURL).append("</uri>\n");
-        entryXml.append("            <email>").append(contactEmail).append("</email>\n");
-        entryXml.append("        </author>\n");
         entryXml.append("        <id>urn:uuid:").append(id).append("</id>\n");
-        entryXml.append("        <rights>").append(copyrights).append("</rights>\n");
-        entryXml.append("        <updated>").append(updated).append("</updated>\n");
-        entryXml.append("        <published>").append(publishedAt).append("T00:00:00Z</published>\n");
-        entryXml.append("        <summary>").append(summary).append("</summary>\n");
-        entryXml.append("        <ncts:contentItemIdentifier>").append(releasePackageURI).append("</ncts:contentItemIdentifier>\n");
 
-        entryXml.append("        <ncts:contentItemVersion>").append(versionURI).append("</ncts:contentItemVersion>\n");
-        if(versionDependentURI != null && !versionDependentURI.isEmpty() && !Objects.equals(versionDependentURI, "null")){
-            entryXml.append("        <sct:packageDependency>\n");
-            entryXml.append("            <sct:editionDependency>").append(versionDependentURI).append("</sct:editionDependency>\n");
-            if(versionDependentDerivativeURI != null && !versionDependentDerivativeURI.isEmpty() && !Objects.equals(versionDependentDerivativeURI, "null")){
-                entryXml.append("            <sct:derivativeDependency>").append(versionDependentDerivativeURI).append("</sct:derivativeDependency>\n");
-            }
-            entryXml.append("        </sct:packageDependency>\n");
+        if (!"null".equals(copyrights) && !copyrights.isEmpty()) {
+        entryXml.append("        <rights>").append(copyrights).append("</rights>\n");
         }
+
+        entryXml.append("        <updated>").append(updated).append("</updated>\n");
+
+        if (!"null".equals(publishedAt) && !publishedAt.isEmpty()) {
+            entryXml.append("        <published>").append(publishedAt).append("T00:00:00Z</published>\n");
+        }
+
+        if (!"null".equals(summary) && !summary.isEmpty()) {
+            entryXml.append("        <summary>").append(summary).append("</summary>\n");
+        }
+
+        // for content xml
+        entryXml.append(buildContentItemXml(releasePackageURI, versionURI, versionDependentURI, versionDependentDerivativeURI));
 
         entryXml.append("    </entry>\n");
 
         return entryXml.toString();
+    }
+
+    private String buildLinksXml() {
+        StringBuilder linksXml = new StringBuilder();
+
+        for (Map.Entry<String, List<String>> entry : versionLinks.entrySet()) {
+            String releaseVersionId = entry.getKey();
+            List<String> links = entry.getValue();
+            for (String releaseFileId : links) {
+                String fileDownloadUrl = feedBaseUrl + "api/releasePackages/" + packageId
+                    + "/releaseVersions/" + releaseVersionId + "/releaseFiles/" + releaseFileId + "/download";
+                boolean checkPrimaryFile = fileIdToPrimaryFileMap.get(releaseFileId);
+                String fileUrl = fileIdToDownloadUrlMap.get(releaseFileId);
+                String checkFileSize = fileIdToFileSizeMap.get(releaseFileId);
+                String fileHash = fileIdToFileHash.get(releaseFileId);
+                String fileExtension = getFileExtension(fileUrl);
+                String mimeType = getMimeTypeFromExtension(fileExtension);
+
+                appendLinkXml(linksXml, fileDownloadUrl, checkPrimaryFile, mimeType, checkFileSize, fileHash);
+            }
+        }
+        return linksXml.toString();
+    }
+
+    private void appendLinkXml(StringBuilder xml, String downloadUrl, boolean isPrimaryFile, String mimeType, String fileSize, String fileHash) {
+        String rel = isPrimaryFile ? "alternate" : "related";
+        xml.append("        <link rel=\"").append(rel).append("\" type=\"")
+            .append(mimeType).append("\" href=\"").append(downloadUrl).append("\"");
+
+        boolean hasSizeAndHash = !"null".equals(fileSize) && !"null".equals(fileHash) && !fileSize.isEmpty() && !fileHash.isEmpty();
+
+        if (hasSizeAndHash) {
+            String fileSizeDigitsOnly = fileSize.replaceAll("\\D", "");
+            xml.append(" length=\"").append(fileSizeDigitsOnly).append("\" sct:md5Hash=\"").append(fileHash).append("\"");
+        }
+        xml.append(" />\n");
+    }
+
+    private String buildAuthorXml(String memberOrgName, String memberOrgURL, String contactEmail) {
+        StringBuilder authorXml = new StringBuilder();
+        authorXml.append("        <author>\n");
+        authorXml.append("            <name>").append(memberOrgName).append("</name>\n");
+        if (!"null".equals(memberOrgURL) && !memberOrgURL.isEmpty()) {
+            authorXml.append("            <uri>").append(memberOrgURL).append("</uri>\n");
+        }
+        if (!"null".equals(contactEmail) && !contactEmail.isEmpty()) {
+            authorXml.append("            <email>").append(contactEmail).append("</email>\n");
+        }
+        authorXml.append("        </author>\n");
+        return authorXml.toString();
+    }
+
+    private String buildCategoryXml(String packageType) {
+        StringBuilder categoryXml = new StringBuilder();
+        String scheme = "http://ns.electronichealth.net.au/ncts/syndication/asf/scheme/1.0.0";
+        String label = switch (packageType) {
+            case "SCT_RF2_SNAPSHOT" -> "SNOMED CT RF2 Snapshot";
+            case "SCT_RF2_FULL" -> "SNOMED CT RF2 Full";
+            case "SCT_RF2_ALL" -> "SNOMED CT RF2 All";
+            default -> {
+                packageType = "OTHER";
+                yield "Other Package";
+            }
+        };
+
+        categoryXml.append("        <category term=\"").append(packageType).append("\" label=\"").append(label).append("\" scheme=\"").append(scheme).append("\" />\n");
+        return categoryXml.toString();
+    }
+
+
+    private String buildContentItemXml(String releasePackageURI, String versionURI, String versionDependentURI, String versionDependentDerivativeURI) {
+        StringBuilder contentXml = new StringBuilder();
+
+        contentXml.append("        <ncts:contentItemIdentifier>").append(releasePackageURI).append("</ncts:contentItemIdentifier>\n");
+        contentXml.append("        <ncts:contentItemVersion>").append(versionURI).append("</ncts:contentItemVersion>\n");
+
+        if(versionDependentURI != null && !versionDependentURI.isEmpty() && !Objects.equals(versionDependentURI, "null")){
+            contentXml.append("        <sct:packageDependency>\n");
+            contentXml.append("            <sct:editionDependency>").append(versionDependentURI).append("</sct:editionDependency>\n");
+            if(versionDependentDerivativeURI != null && !versionDependentDerivativeURI.isEmpty() && !Objects.equals(versionDependentDerivativeURI, "null")){
+                contentXml.append("            <sct:derivativeDependency>").append(versionDependentDerivativeURI).append("</sct:derivativeDependency>\n");
+            }
+            contentXml.append("        </sct:packageDependency>\n");
+        }
+
+        return contentXml.toString();
     }
 
     private String getFileExtension(String fileUrl) {
@@ -324,6 +397,14 @@ public class AtomEntryImpl {
 
         return cleanUrl.substring(lastDotIndex + 1);
     }
+
+    private String getMimeTypeFromExtension(String extension) {
+        if (extension == null || extension.isBlank()) {
+            return "application/octet-stream";
+        }
+        return EXTENSION_TO_MIME.getOrDefault(extension.toLowerCase(), "application/octet-stream");
+    }
+
 
 
 }
