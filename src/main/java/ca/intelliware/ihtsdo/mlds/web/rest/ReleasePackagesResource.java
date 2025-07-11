@@ -226,6 +226,7 @@ public class ReleasePackagesResource {
         authorizationChecker.checkCanCreateReleasePackages();
 
         releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
+        releasePackage.setPermissionType(ReleasePermissionType.NOT_SELECTED);
 
         // MLDS-740 - Allow Admin to specify the member
         if (releasePackage.getMember() == null || !currentSecurityContext.isAdmin()) {
