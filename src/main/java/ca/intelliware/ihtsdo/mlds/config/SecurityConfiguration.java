@@ -2,9 +2,13 @@ package ca.intelliware.ihtsdo.mlds.config;
 
 import ca.intelliware.ihtsdo.mlds.security.*;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAuthenticationProvider;
+import jakarta.servlet.SessionCookieConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -55,6 +59,27 @@ public class SecurityConfiguration {
     public static PasswordEncoder passwordEncoder() {
         return new StandardPasswordEncoder();
     }
+
+    @Bean
+    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> forceSecureCookies() {
+        return factory -> factory.addConnectorCustomizers(connector -> {
+            connector.setScheme("https");
+            connector.setSecure(true);
+        });
+    }
+
+        @Bean
+        public ServletContextInitializer servletContextInitializer() {
+            return servletContext -> {
+                SessionCookieConfig sessionCookieConfig = servletContext.getSessionCookieConfig();
+                sessionCookieConfig.setHttpOnly(true);
+                sessionCookieConfig.setSecure(true);
+                sessionCookieConfig.setName("JSESSIONID");
+                sessionCookieConfig.setPath("/");
+            };
+        }
+
+
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
