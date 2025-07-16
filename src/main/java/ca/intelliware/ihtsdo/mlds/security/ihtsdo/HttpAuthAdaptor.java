@@ -1,13 +1,11 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
+import ca.intelliware.ihtsdo.mlds.config.UserTokenStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -26,22 +24,24 @@ public class HttpAuthAdaptor implements HeaderConstants {
 
 	private static final String PARAM_LOGIN_USERNAME = "login";
     private static final String PARAM_LOGIN_PASSWORD = "password";
-
+    private UserTokenStore cookieTokenStore;
 	private String queryUrl;
     private RestTemplate restTemplate;
 
-    private String storedCookie;
 
 	@Value("${ims.cookie}")
     private String authenticatedCookieName;
 
-	public HttpAuthAdaptor(String url) {
-        queryUrl = url;
-        this.restTemplate = new RestTemplateBuilder()
+    // Constructor injection – no need for @Autowired
+    public HttpAuthAdaptor(@Value("${your.url.property}") String url,
+                           UserTokenStore cookieTokenStore,
+                           RestTemplateBuilder restTemplateBuilder) {
+        this.queryUrl = url;
+        this.cookieTokenStore = cookieTokenStore;
+        this.restTemplate = restTemplateBuilder
             .additionalMessageConverters(new MappingJackson2HttpMessageConverter())
             .build();
     }
-
 	String checkUsernameAndPasswordValid(String username, String password) throws IOException, IllegalStateException {
         Map<String, String> requestBody = new HashMap<>();
         requestBody.put(PARAM_LOGIN_USERNAME, username);
@@ -71,22 +71,38 @@ public class HttpAuthAdaptor implements HeaderConstants {
 		return null;
 	}
 
-    public CentralAuthUserInfo getUserAccountInfo(String username, String authenticationCookie) throws IOException {
-        HttpHeaders headers = new HttpHeaders();
-        if (authenticationCookie != null) {
-            headers.add("Cookie", authenticationCookie);
-            storedCookie = authenticationCookie;
-        } else if (storedCookie != null) {
-            headers.add("Cookie", storedCookie);
-        }
-        try {
-            ResponseEntity<CentralAuthUserInfo> exchange = restTemplate.exchange(new RequestEntity<>(headers, HttpMethod.GET, URI.create(queryUrl + "api/account")), CentralAuthUserInfo.class);
-            logger.info("Made remote call to get user details for {} HTTP {}", username, exchange.getStatusCodeValue());
 
-            return exchange.getBody();
-        } catch (HttpClientErrorException e) {
-            throw new IOException("Unable to recover user account details for " + username + " received: " + e.getRawStatusCode());
+    public CentralAuthUserInfo getUserAccountInfo(String username, String authenticationCookie) throws IOException {
+        String tokenToUse;
+        if (authenticationCookie != null && !authenticationCookie.isBlank()) {
+            tokenToUse = authenticationCookie;
+            cookieTokenStore.store(username, authenticationCookie);
+        } else {
+            tokenToUse = cookieTokenStore.get(username);
+            if (tokenToUse == null || tokenToUse.isBlank()) {
+                throw new IOException("Missing authentication cookie for user " + username + " and no fallback token found.");
+            }
         }
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cookie", tokenToUse);
+
+        try {
+            ResponseEntity<CentralAuthUserInfo> exchange = restTemplate.exchange(
+                new RequestEntity<>(headers, HttpMethod.GET, URI.create(queryUrl + "api/account")),
+                CentralAuthUserInfo.class
+            );
+
+            logger.info("Made remote call to get user details for '{}' HTTP {}", username, exchange.getStatusCode());
+            return exchange.getBody();
+
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.UNAUTHORIZED || e.getStatusCode() == HttpStatus.FORBIDDEN) {
+                cookieTokenStore.remove(username);
+                logger.warn("Removed stored token for user '{}' due to HTTP {}", username,e.getStatusCode());
+            }
+            throw new IOException("Unable to recover user account details for " + username + ". Received HTTP: " + e.getStatusCode());
+        }
+
     }
 
 }
