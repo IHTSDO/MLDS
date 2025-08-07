@@ -172,7 +172,7 @@ public class UserService {
 
     public AffiliateDetailsResponseDTO getAffiliateDetails(String email) {
         // Fetch user details
-        User user = userRepository.findByLoginIgnoreCase(email);
+        User user = userRepository.findByLoginIgnoreCaseSafe(email);
         // Fetch affiliates by creator email
         List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(email);
         // Return an empty DTO if no affiliates are found
