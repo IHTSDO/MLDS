@@ -91,7 +91,9 @@ public class AuditResource {
         Map<String, ReleaseFileCountDTO> countMap = new HashMap<>();
         for (PersistentAuditEvent event : result) {
             Map<String, String> data = event.getData();
-            String key = data.get("releaseFile.label");
+            String key = data.get("releaseFile.label") + "|" +
+                data.get("releaseVersion.name") + "|" +
+                data.get("releasePackage.name");
 
             countMap.computeIfAbsent(key, k -> {
                 ReleaseFileCountDTO countDTO = new ReleaseFileCountDTO();
