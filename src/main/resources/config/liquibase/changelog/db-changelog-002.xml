@@ -556,5 +556,180 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet id="20250815-01-add-language-footer-active" author="aravinth">
+        <!-- Add new columns if not already present -->
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="member" columnName="language"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="member">
+            <column name="language" type="varchar(50)"/>
+            <column name="footer_active" type="boolean" defaultValueBoolean="true"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-1222" author="AA">
+        <!-- Ensure columns exist -->
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <columnExists tableName="member" columnName="language"/>
+                <columnExists tableName="member" columnName="footer_active"/>
+            </and>
+        </preConditions>
+
+        <!-- Populate language values -->
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'IHTSDO' AND `language` IS NULL</where>
+        </update>
+
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'AD' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="es"/>
+            <where>`key` = 'AR' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="de-at"/>
+            <where>`key` = 'AT' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'BE' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'BN' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="es"/>
+            <where>`key` = 'CL' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'CZ' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'HR' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'CY' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="de"/>
+            <where>`key` = 'DE' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="da"/>
+            <where>`key` = 'DK' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'EE' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'FI' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'HU' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'IS' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'IE' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'IL' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'IN' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="id"/>
+            <where>`key` = 'ID' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'JM' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'JO' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="fr"/>
+            <where>`key` = 'LU' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'MY' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'MT' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="nl"/>
+            <where>`key` = 'NL' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'NZ' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'NO' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="pl"/>
+            <where>`key` = 'PL' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="pt"/>
+            <where>`key` = 'PT' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'SI' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="en"/>
+            <where>`key` = 'KR' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="se"/>
+            <where>`key` = 'SE' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="de-ch"/>
+            <where>`key` = 'CH' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="th"/>
+            <where>`key` = 'TH' AND `language` IS NULL</where>
+        </update>
+        <update tableName="member">
+            <column name="language" value="es"/>
+            <where>`key` = 'UY' AND `language` IS NULL</where>
+        </update>
+
+        <!-- Set footer_active to TRUE where NULL -->
+        <update tableName="member">
+            <column name="footer_active" valueBoolean="true"/>
+            <where>`footer_active` IS NULL</where>
+        </update>
+    </changeSet>
 
 </databaseChangeLog>

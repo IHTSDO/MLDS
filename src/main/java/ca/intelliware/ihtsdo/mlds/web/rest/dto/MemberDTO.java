@@ -39,6 +39,24 @@ public class MemberDTO {
     private String name;
     private FileDTO logo;
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public Boolean getFooterActive() {
+        return footerActive;
+    }
+
+    public void setFooterActive(Boolean footerActive) {
+        this.footerActive = footerActive;
+    }
+
+    private String language;
+    private Boolean footerActive;
     // Sensitive email addresses - intent is to only reveal to other staff/admins
     private String staffNotificationEmail;
 
@@ -64,6 +82,8 @@ public class MemberDTO {
         this.memberOrgURL=member.getMemberOrgURL();
         this.memberOrgName=member.getMemberOrgName();
         this.contactEmail=member.getContactEmail();
+        this.language=member.getLanguage();
+        this.footerActive=member.getFooterActive();
     }
 
     public Long getMemberId() {

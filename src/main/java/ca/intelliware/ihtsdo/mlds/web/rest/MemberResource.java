@@ -206,7 +206,8 @@ public class MemberResource {
 
         member.setPromotePackages(body.getPromotePackages());
         member.setStaffNotificationEmail(body.getStaffNotificationEmail());
-
+        member.setLanguage(body.getLanguage());
+        member.setFooterActive(body.getFooterActive());
         memberRepository.save(member);
 
         return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
@@ -267,6 +268,22 @@ public class MemberResource {
 
     }
 
+    @PutMapping(value = Routes.MEMBERLANGUAGEANDFOOTER,
+        produces = "application/json")
+    @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
+    @Transactional
+    @Timed
+    public ResponseEntity<MemberDTO> updateMemberLanguageAndFooter(@PathVariable String memberKey, @RequestBody MemberDTO body)  {
+        Member member = memberRepository.findOneByKey(memberKey);
+        if (member == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
+        member.setLanguage(body.getLanguage());
+        member.setFooterActive(body.getFooterActive());
+        memberRepository.save(member);
+
+        return new ResponseEntity<>(new MemberDTO(member), HttpStatus.OK);
+    }
 
 }

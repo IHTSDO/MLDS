@@ -65,6 +65,27 @@ public class Member extends BaseEntity {
     @Column(name = "invoices_pending")
     private int invoicesPending;
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public Boolean getFooterActive() {
+        return footerActive;
+    }
+
+    public void setFooterActive(Boolean footerActive) {
+        this.footerActive = footerActive;
+    }
+
+    @Column(name = "language", length = 50)
+    private String language;
+
+    @Column(name = "footer_active")
+    private Boolean footerActive;
     public int getUsageReports() {
         return usageReports;
     }
