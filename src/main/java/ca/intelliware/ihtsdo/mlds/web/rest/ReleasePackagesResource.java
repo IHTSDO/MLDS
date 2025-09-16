@@ -253,7 +253,7 @@ public class ReleasePackagesResource {
 
         ReleasePackage releasePackage = optionalReleasePackage.get();
         String releaseType = releasePackageService.categorizePackage(releasePackage.getReleaseVersions());
-        ReleasePackageConfig config = releasePackageConfigRepository.findByReleaseType(releaseType);
+        ReleasePackageConfig config = releasePackageConfigRepository.findByReleaseType(releaseType.toUpperCase());
         ReleasePackageConfig masterConfig = releasePackageConfigRepository.findByReleaseType("ALL");
 
         if (currentSecurityContext.isAdmin()) {
