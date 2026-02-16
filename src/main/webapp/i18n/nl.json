@@ -67,7 +67,8 @@
             "ru": "Russisch",
             "se": "Zweeds",
             "id": "Indonesisch",
-            "th": "Thais"
+            "th": "Thais",
+            "lv": "Lets"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -120,7 +121,9 @@
             "SA": "Saoedi-Arabië",
             "JO": "Jordanië",
             "FR": "Frankrijk",
-            "HU": "Hongarije"
+            "HU": "Hongarije",
+            "LV": "Letland",
+            "UZ": "Oezbekistan"
         },
         "country": {
             "AC": "Ascension",
