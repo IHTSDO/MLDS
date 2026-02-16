@@ -68,7 +68,8 @@
             "no": "Norsk",
             "pt": "Portugisisk",
             "se": "Svensk",
-            "th": "Thailandsk"
+            "th": "Thailandsk",
+            "lv": "Lettisk"
         },
         "form": {
             "username": "Login",
@@ -166,7 +167,9 @@
             "LT": "Litauen",
             "MY": "Malaysia",
             "MT": "Malta",
-            "NZ": "New Zealand"
+            "NZ": "New Zealand",
+            "LV": "Letland",
+            "UZ": "Usbekistan"
         },
         "country": {
             "AD": "Andorra",
@@ -476,7 +479,8 @@
         "form": {
             "button": "Begynd registrering",
             "confirmemail": "E-mail (bekræft)",
-            "tos": "Accepter vores <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">vilkår og betingelser</a>."
+            "tos": "Accepter vores <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">vilkår og betingelser</a>.",
+            "tc": "Du skal acceptere SNOMED Internationals vilkår og betingelser for at fortsætte."
         },
         "messages": {
             "validate": {
