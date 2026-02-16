@@ -67,7 +67,8 @@
             "ru": "Russisch",
             "se": "Schwedisch",
             "th": "Thailändisch",
-            "id": "Indonesisch"
+            "id": "Indonesisch",
+            "lv": "Lettisch"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -120,7 +121,9 @@
             "FR": "Frankreich",
             "HU": "Ungarn",
             "JM": "Jamaika",
-            "JO": "Jordanien"
+            "JO": "Jordanien",
+            "LV": "Lettland",
+            "UZ": "Usbekistan"
         },
         "country": {
             "AC": "Ascension",
@@ -458,7 +461,8 @@
         "form": {
             "tos": "Stimmen Sie unseren <a href=\"/tos.html\" target=\"_blank\">allgemeinen Geschäftsbedingungen zu</a>.",
             "button": "Starten Sie die Registrierung",
-            "confirmemail": "E-Mail (bestätigen)"
+            "confirmemail": "E-Mail (bestätigen)",
+            "tc": "Um fortzufahren, müssen Sie den Allgemeinen Geschäftsbedingungen von SNOMED International zustimmen."
         },
         "messages": {
             "validate": {
