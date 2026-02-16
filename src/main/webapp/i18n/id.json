@@ -424,7 +424,9 @@
             "HU": "Hongaria",
             "JO": "Yordania",
             "SA": "Arab Saudi",
-            "FR": "Prancis"
+            "FR": "Prancis",
+            "LV": "Latvia",
+            "UZ": "Uzbekistan"
         },
         "language": {
             "th": "Thai",
@@ -443,7 +445,8 @@
             "ee": "Estonia",
             "da": "Orang Denmark",
             "br": "Portugis",
-            "id": "Indonesia"
+            "id": "Indonesia",
+            "lv": "Latvia"
         },
         "browsehappy": "Anda menggunakan browser <strong>kedaluwarsa</strong>. Harap <a href=\"http://browsehappy.com/?locale=en\">tingkatkan versi browser Anda</a> untuk meningkatkan pengalaman Anda."
     },
