@@ -1,5 +1,8 @@
 {
     "global": {
-        "title": "mlds"
+        "title": "mlds",
+        "menu": {
+            "language": "Valoda"
+        }
     }
 }
