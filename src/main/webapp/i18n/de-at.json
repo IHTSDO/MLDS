@@ -67,7 +67,8 @@
             "ru": "Russisch",
             "se": "Schwedisch",
             "th": "Thailändisch",
-            "id": "Indonesisch"
+            "id": "Indonesisch",
+            "lv": "Lettisch"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -120,7 +121,9 @@
             "HU": "Ungarn",
             "JM": "Jamaika",
             "JO": "Jordanien",
-            "SA": "Saudi-Arabien"
+            "SA": "Saudi-Arabien",
+            "LV": "Lettland",
+            "UZ": "Usbekistan"
         },
         "country": {
             "AC": "Ascension",
