@@ -61,6 +61,7 @@
             "de-ch": "German",
             "de": "German",
             "id": "Indonesian",
+            "lv": "Latvian",
             "nl": "Dutch",
             "no": "Norwegian",
             "pl": "Polish",
@@ -101,6 +102,7 @@
             "JO": "Jordan",
             "KZ": "Kazakhstan",
             "KR": "Republic of Korea",
+            "LV": "Latvia",
             "LT": "Lithuania",
             "LU": "Luxembourg",
             "MY": "Malaysia",
@@ -120,7 +122,8 @@
             "TH": "Thailand",
             "GB": "United Kingdom",
             "US": "United States",
-            "UY": "Uruguay"
+            "UY": "Uruguay",
+            "UZ": "Uzbekistan"
         },
         "country": {
             "AC": "Ascension",
