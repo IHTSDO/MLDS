@@ -67,7 +67,8 @@
             "ru": "Ruso",
             "se": "Sueco",
             "th": "Tailandés",
-            "id": "Indonesia"
+            "id": "Indonesia",
+            "lv": "Letón"
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -120,7 +121,9 @@
             "HU": "Hungría",
             "JO": "Jordan",
             "CY": "Chipre",
-            "SA": "Arabia Saudí"
+            "SA": "Arabia Saudí",
+            "LV": "Letonia",
+            "UZ": "Uzbekistán"
         },
         "country": {
             "AC": "Ascensión",
