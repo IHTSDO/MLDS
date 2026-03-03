@@ -99,7 +99,10 @@
             "CY": "Cypr",
             "HU": "Węgry",
             "SA": "Arabia Saudyjska",
-            "FR": "Francja"
+            "FR": "Francja",
+            "UZ": "",
+            "JO": "",
+            "LV": ""
         },
         "language": {
             "br": "portugalski",
@@ -118,7 +121,8 @@
             "pt": "portugalski",
             "pl": "polski",
             "ru": "rosyjski",
-            "th": "tajski"
+            "th": "tajski",
+            "lv": ""
         },
         "country": {
             "AR": "Argentyna",
@@ -480,6 +484,13 @@
                 "fail": "<strong>Rejestracja nie powiodła się!</strong> Spróbuj ponownie później.",
                 "userexists": "<strong>Użytkownik zarejestrował się już przy użyciu tego adresu e-mail.</strong> Czy miałeś na myśli <a href='#/login'>login</a>?",
                 "blocklist": "Ze względu na nasze regulacje IT nie jesteśmy w stanie przetworzyć wprowadzonego adresu e-mail. Prosimy o kontakt z <a href=\"mailto:support@snomed.org\"> support@snomed.org </a> w celu uzyskania dalszej pomocy."
+            },
+            "excludemessage": {
+                "confirm": "",
+                "link": "",
+                "userConfirm": "",
+                "cancel": "",
+                "accept": ""
             }
         },
         "emailVerification": {
