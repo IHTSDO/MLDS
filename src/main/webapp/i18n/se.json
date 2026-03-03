@@ -67,7 +67,8 @@
             "ru": "ryska",
             "se": "svenska",
             "th": "Thai",
-            "id": "Indonesien"
+            "id": "Indonesien",
+            "lv": ""
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -115,7 +116,14 @@
             "ID": "Indonesien",
             "AD": "Andorra",
             "JM": "Jamaica",
-            "HR": "Kroatien"
+            "HR": "Kroatien",
+            "UZ": "",
+            "JO": "",
+            "CY": "",
+            "FR": "",
+            "HU": "",
+            "SA": "",
+            "LV": ""
         },
         "country": {
             "AC": "Ascension",
@@ -738,7 +746,9 @@
             "RELEASE_VERSION_CREATED": "Releaseversion har skapats",
             "RELEASE_VERSION_DELETED": "Releaseversion har tagits bort",
             "USAGE_CREATED": "Användning har skapats",
-            "USAGE_APPROVAL_STATE_CHANGED": "Godkännandestatus för användning har ändrats"
+            "USAGE_APPROVAL_STATE_CHANGED": "Godkännandestatus för användning har ändrats",
+            "AFFILIATE_DELETED": "",
+            "ANNOUNCEMENT_POSTED": ""
         }
     },
     "errors": {
@@ -965,7 +975,8 @@
                     "name": "E-postadress",
                     "placeholder": "JohanSvensson@OrganisationABC.se",
                     "uniqueness": "E-postadressen måste vara unik.",
-                    "invalid": "Ogiltig e-postadress."
+                    "invalid": "Ogiltig e-postadress.",
+                    "unique": ""
                 },
                 "alternativeEmail": {
                     "name": "Alternativ e-postadress",
@@ -1094,7 +1105,8 @@
             "detail": "Vi kommer att skicka ett meddelande med en länk till ett formulär för återställning av lösenord.",
             "button": "Begär återställning av lösenord",
             "back": "Tillbaka till inloggningssidan",
-            "emailNotFound": "Angiven e-post hittades inte i systemet."
+            "emailNotFound": "Angiven e-post hittades inte i systemet.",
+            "resetEmailSent": ""
         },
         "usage": {
             "title": "Användningslogg",
@@ -1215,6 +1227,32 @@
             "publicVersions": "Public Versions",
             "noOnlineVersions": "There are currently no online versions of this release.",
             "noOfflineVersions": "There are currently no offline & alpha/beta versions of this release."
+        },
+        "postAnnouncement": {
+            "title": "",
+            "messageContent": "",
+            "emailSubject": "",
+            "emailBody": "",
+            "salutationMessage": "",
+            "audience": "",
+            "affiliates": "",
+            "myAffiliates": "",
+            "allAffiliates": "",
+            "affiliatesClarification": "",
+            "additionalEmails": "",
+            "additionalEmailsHelp": "",
+            "post": "",
+            "newAnnouncement": ""
+        },
+        "affiliateSummary": {
+            "deleteAffiliate": "",
+            "deleteAffiliateModal": {
+                "sure": "",
+                "explanation": ""
+            }
         }
+    },
+    "postAnnouncement": {
+        "title": ""
     }
 }
