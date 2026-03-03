@@ -2,7 +2,1252 @@
     "global": {
         "title": "mlds",
         "menu": {
-            "language": "Valoda"
+            "language": "Valoda",
+            "home": "",
+            "account": {
+                "main": "",
+                "contactInfo": "",
+                "password": "",
+                "sessions": "",
+                "tracker": "",
+                "metrics": "",
+                "logs": "",
+                "audits": "",
+                "login": "",
+                "logout": "",
+                "apidocs": "",
+                "register": "",
+                "affiliates": "",
+                "dashboard": ""
+            },
+            "dashboard": "",
+            "help": "",
+            "privacyPolicy": "",
+            "usageReports": "",
+            "applications": "",
+            "releasePackages": "",
+            "affiliate": {
+                "accountInformation": "",
+                "changePassword": "",
+                "logout": ""
+            },
+            "staff": {
+                "dashboard": "",
+                "pendingApplications": "",
+                "usageReports": "",
+                "affiliteUserManagement": "",
+                "activityLog": "",
+                "packageManagement": "",
+                "licenseTC": "",
+                "reportsExtracts": "",
+                "logout": ""
+            },
+            "admin": {
+                "importAffiliateRecords": "",
+                "manageBlacklist": "",
+                "nationalRegistrationList": ""
+            },
+            "cookie": ""
+        },
+        "country": {
+            "HT": "",
+            "HU": "",
+            "ID": "",
+            "IE": "",
+            "IL": "",
+            "IM": "",
+            "IN": "",
+            "AC": "",
+            "AD": "",
+            "AE": "",
+            "AF": "",
+            "AG": "",
+            "AI": "",
+            "AL": "",
+            "AM": "",
+            "AN": "",
+            "AO": "",
+            "AQ": "",
+            "AR": "",
+            "AS": "",
+            "AT": "",
+            "AU": "",
+            "AW": "",
+            "AX": "",
+            "AZ": "",
+            "BA": "",
+            "BB": "",
+            "BD": "",
+            "BE": "",
+            "BF": "",
+            "BG": "",
+            "BH": "",
+            "BI": "",
+            "BJ": "",
+            "BM": "",
+            "BN": "",
+            "BO": "",
+            "BR": "",
+            "BS": "",
+            "BT": "",
+            "BV": "",
+            "BW": "",
+            "BY": "",
+            "BZ": "",
+            "CA": "",
+            "CC": "",
+            "CD": "",
+            "CF": "",
+            "CG": "",
+            "CH": "",
+            "CI": "",
+            "CK": "",
+            "CL": "",
+            "CM": "",
+            "CN": "",
+            "CO": "",
+            "CR": "",
+            "CU": "",
+            "CV": "",
+            "CX": "",
+            "CY": "",
+            "CZ": "",
+            "DE": "",
+            "DJ": "",
+            "DK": "",
+            "DM": "",
+            "DO": "",
+            "DZ": "",
+            "EC": "",
+            "EE": "",
+            "EG": "",
+            "ER": "",
+            "ES": "",
+            "ET": "",
+            "FI": "",
+            "FJ": "",
+            "FK": "",
+            "FM": "",
+            "FO": "",
+            "FR": "",
+            "GA": "",
+            "GB": "",
+            "GD": "",
+            "GE": "",
+            "GF": "",
+            "GG": "",
+            "GH": "",
+            "GI": "",
+            "GL": "",
+            "GM": "",
+            "GN": "",
+            "GP": "",
+            "GQ": "",
+            "GR": "",
+            "GS": "",
+            "GT": "",
+            "GU": "",
+            "GW": "",
+            "GY": "",
+            "HK": "",
+            "HM": "",
+            "HN": "",
+            "HR": "",
+            "IO": "",
+            "IQ": "",
+            "IR": "",
+            "IS": "",
+            "IT": "",
+            "JE": "",
+            "JM": "",
+            "JO": "",
+            "JP": "",
+            "KE": "",
+            "KG": "",
+            "KH": "",
+            "KI": "",
+            "KM": "",
+            "KN": "",
+            "KP": "",
+            "KR": "",
+            "KW": "",
+            "KY": "",
+            "KZ": "",
+            "LA": "",
+            "LB": "",
+            "LC": "",
+            "LI": "",
+            "LK": "",
+            "LR": "",
+            "LS": "",
+            "LT": "",
+            "LU": "",
+            "LV": "",
+            "LY": "",
+            "MA": "",
+            "MC": "",
+            "MD": "",
+            "ME": "",
+            "MG": "",
+            "MH": "",
+            "MK": "",
+            "ML": "",
+            "MM": "",
+            "MN": "",
+            "MO": "",
+            "MP": "",
+            "MQ": "",
+            "MR": "",
+            "MS": "",
+            "MT": "",
+            "MU": "",
+            "MV": "",
+            "MW": "",
+            "MX": "",
+            "MY": "",
+            "MZ": "",
+            "NA": "",
+            "NC": "",
+            "NE": "",
+            "NF": "",
+            "NG": "",
+            "NI": "",
+            "NL": "",
+            "NO": "",
+            "NP": "",
+            "NR": "",
+            "NU": "",
+            "NZ": "",
+            "OM": "",
+            "PA": "",
+            "PE": "",
+            "PF": "",
+            "PG": "",
+            "PH": "",
+            "PK": "",
+            "PL": "",
+            "PM": "",
+            "PN": "",
+            "PR": "",
+            "PT": "",
+            "PW": "",
+            "PY": "",
+            "QA": "",
+            "RE": "",
+            "RO": "",
+            "RS": "",
+            "RU": "",
+            "RW": "",
+            "SA": "",
+            "SB": "",
+            "SC": "",
+            "SD": "",
+            "SE": "",
+            "SG": "",
+            "SH": "",
+            "SI": "",
+            "SJ": "",
+            "SK": "",
+            "SL": "",
+            "SM": "",
+            "SN": "",
+            "SO": "",
+            "SR": "",
+            "ST": "",
+            "SV": "",
+            "SY": "",
+            "SZ": "",
+            "TA": "",
+            "TC": "",
+            "TD": "",
+            "TF": "",
+            "TG": "",
+            "TH": "",
+            "TJ": "",
+            "TK": "",
+            "TL": "",
+            "TM": "",
+            "TN": "",
+            "TO": "",
+            "TR": "",
+            "TT": "",
+            "TV": "",
+            "TW": "",
+            "TZ": "",
+            "UA": "",
+            "UG": "",
+            "UM": "",
+            "US": "",
+            "UY": "",
+            "UZ": "",
+            "VA": "",
+            "VC": "",
+            "VE": "",
+            "VG": "",
+            "VI": "",
+            "VN": "",
+            "VU": "",
+            "WF": "",
+            "WS": "",
+            "YE": "",
+            "YT": "",
+            "ZA": "",
+            "ZM": "",
+            "ZW": ""
+        },
+        "member": {
+            "IHTSDO": "",
+            "AD": "",
+            "AE": "",
+            "AM": "",
+            "AR": "",
+            "AT": "",
+            "AU": "",
+            "BE": "",
+            "BN": "",
+            "CA": "",
+            "CH": "",
+            "CL": "",
+            "CY": "",
+            "CZ": "",
+            "DK": "",
+            "DE": "",
+            "EE": "",
+            "FI": "",
+            "FR": "",
+            "HR": "",
+            "HK": "",
+            "HU": "",
+            "IS": "",
+            "ID": "",
+            "IE": "",
+            "IN": "",
+            "IL": "",
+            "JM": "",
+            "JO": "",
+            "KZ": "",
+            "KR": "",
+            "LV": "",
+            "LT": "",
+            "LU": "",
+            "MY": "",
+            "MT": "",
+            "NL": "",
+            "NO": "",
+            "NZ": "",
+            "PL": "",
+            "PT": "",
+            "SA": "",
+            "SG": "",
+            "SK": "",
+            "SI": "",
+            "ES": "",
+            "SE": "",
+            "SV": "",
+            "TH": "",
+            "GB": "",
+            "US": "",
+            "UY": "",
+            "UZ": ""
+        },
+        "form": {
+            "username": "",
+            "username.placeholder": "",
+            "name.placeholder": "",
+            "newpassword": "",
+            "newpassword.placeholder": "",
+            "confirmpassword": "",
+            "confirmpassword.placeholder": "",
+            "email": "",
+            "email.placeholder": "",
+            "country": ""
+        },
+        "language": {
+            "id": "",
+            "th": "",
+            "de": "",
+            "br": "",
+            "da": "",
+            "ee": "",
+            "en": "",
+            "es": "",
+            "fr": "",
+            "de-at": "",
+            "de-ch": "",
+            "ru": "",
+            "se": "",
+            "lv": "",
+            "nl": "",
+            "no": "",
+            "pl": "",
+            "pt": ""
+        },
+        "word": {
+            "publishedOn": "",
+            "license": "",
+            "back": "",
+            "or": "",
+            "add": "",
+            "edit": "",
+            "name": "",
+            "cancel": "",
+            "note": "",
+            "notes": "",
+            "close": "",
+            "delete": "",
+            "update": "",
+            "from": "",
+            "ok": "",
+            "submit": "",
+            "save": "",
+            "welcome": "",
+            "view": "",
+            "viewlicense": "",
+            "viewAll": "",
+            "state": "",
+            "status": "",
+            "type": "",
+            "date": "",
+            "user": "",
+            "yes": "",
+            "no": "",
+            "apply": "",
+            "download": "",
+            "file": ""
+        },
+        "browsehappy": "",
+        "messages": {
+            "info": {
+                "authenticated": "",
+                "register": ""
+            },
+            "error": {
+                "dontmatch": "",
+                "server": ""
+            },
+            "validate": {
+                "newpassword": {
+                    "required": "",
+                    "minlength": "",
+                    "maxlength": "",
+                    "strength": ""
+                },
+                "confirmpassword": {
+                    "required": "",
+                    "minlength": "",
+                    "maxlength": "",
+                    "match": ""
+                },
+                "email": {
+                    "required": "",
+                    "invalid": "",
+                    "minlength": "",
+                    "maxlength": ""
+                },
+                "confirmemail": {
+                    "match": ""
+                }
+            }
+        }
+    },
+    "logout": {
+        "subtitle": "",
+        "title": ""
+    },
+    "register": {
+        "title": "",
+        "welcome": "",
+        "subwelcome": "",
+        "form": {
+            "tc": "",
+            "tos": "",
+            "button": "",
+            "confirmemail": ""
+        },
+        "messages": {
+            "validate": {
+                "login": {
+                    "required": "",
+                    "minlength": "",
+                    "maxlength": ""
+                },
+                "country": {
+                    "notMLDS": ""
+                },
+                "registration": {
+                    "usagetyperequired": "",
+                    "subtyperequired": ""
+                }
+            },
+            "success": "",
+            "error": {
+                "fail": "",
+                "userexists": "",
+                "blocklist": ""
+            },
+            "excludemessage": {
+                "confirm": "",
+                "link": "",
+                "userConfirm": "",
+                "cancel": "",
+                "accept": ""
+            }
+        },
+        "emailVerification": {
+            "intro": "",
+            "detail": ""
+        },
+        "affiliateRegistration": {
+            "title": "",
+            "usageType": "",
+            "conditions": "",
+            "typeOfAgreement": "",
+            "validation": {
+                "other.required": ""
+            },
+            "changeRequestedWarning": {
+                "title": "",
+                "text": ""
+            },
+            "license.title": "",
+            "license": "",
+            "license.confirm": "",
+            "license.error": ""
+        },
+        "affiliateRegistrationReview": {
+            "title": "",
+            "editApp": ""
+        }
+    },
+    "metrics": {
+        "jvm": {
+            "memory": {
+                "nonheap": "",
+                "title": "",
+                "total": "",
+                "heap": ""
+            },
+            "threads": {
+                "title": "",
+                "all": "",
+                "runnable": "",
+                "timedwaiting": "",
+                "waiting": "",
+                "blocked": "",
+                "dump": {
+                    "title": "",
+                    "id": "",
+                    "blockedtime": "",
+                    "blockedcount": "",
+                    "waitedtime": "",
+                    "waitedcount": "",
+                    "lockname": "",
+                    "stacktrace": "",
+                    "show": "",
+                    "hide": ""
+                }
+            },
+            "gc": {
+                "title": "",
+                "marksweepcount": "",
+                "marksweeptime": "",
+                "scavengecount": "",
+                "scavengetime": ""
+            },
+            "http": {
+                "title": "",
+                "active": "",
+                "total": "",
+                "table": {
+                    "code": "",
+                    "count": "",
+                    "mean": "",
+                    "average": ""
+                },
+                "code": {
+                    "ok": "",
+                    "notfound": "",
+                    "servererror": ""
+                }
+            },
+            "title": ""
+        },
+        "servicesstats": {
+            "title": "",
+            "table": {
+                "name": "",
+                "count": "",
+                "mean": "",
+                "min": "",
+                "max": "",
+                "p50": "",
+                "p75": "",
+                "p95": "",
+                "p99": ""
+            }
+        },
+        "ehcache": {
+            "title": "",
+            "cachename": "",
+            "objects": "",
+            "hits": "",
+            "misses": "",
+            "mean": "",
+            "evictioncount": ""
+        },
+        "health": {
+            "stacktrace": "",
+            "title": "",
+            "database": "",
+            "email": ""
+        },
+        "title": "",
+        "refresh.button": ""
+    },
+    "logs": {
+        "title": "",
+        "nbloggers": "",
+        "filter": "",
+        "table": {
+            "name": "",
+            "level": ""
+        }
+    },
+    "audits": {
+        "title": "",
+        "filter": {
+            "title": "",
+            "from": "",
+            "to": "",
+            "button": {
+                "weeks": "",
+                "today": "",
+                "clear": "",
+                "close": ""
+            }
+        },
+        "table": {
+            "header": {
+                "principal": "",
+                "date": "",
+                "status": "",
+                "data": ""
+            },
+            "data": {
+                "remoteAddress": ""
+            }
+        },
+        "type": {
+            "AUTHORIZATION_FAILURE": "",
+            "AUTHENTICATION_SUCCESS": "",
+            "AUTHENTICATION_FAILURE": "",
+            "AFFILIATE_CREATED": "",
+            "AFFILIATE_CREATED_BY_IMPORT": "",
+            "AFFILIATE_DELETED": "",
+            "AFFILIATE_UPDATED": "",
+            "AFFILIATE_UPDATED_BY_IMPORT": "",
+            "AFFILIATEDETAILS_UPDATED": "",
+            "AFFILIATE_EXPORT": "",
+            "AFFILIATE_IMPORT": "",
+            "AFFILIATE_LOGIN_CREATED": "",
+            "AFFILIATE_STANDING_STATE_CHANGED": "",
+            "ANNOUNCEMENT_POSTED": "",
+            "APPLICATION_CREATED": "",
+            "APPLICATION_APPROVAL_STATE_CHANGED": "",
+            "APPLICATION_DELETED": "",
+            "RELEASE_FILE_CREATED": "",
+            "RELEASE_FILE_DELETED": "",
+            "RELEASE_FILE_DOWNLOADED": "",
+            "RELEASE_PACKAGE_DELETED": "",
+            "RELEASE_PACKAGE_CREATED": "",
+            "RELEASE_VERSION_TAKEN_OFFLINE": "",
+            "RELEASE_VERSION_TAKEN_ONLINE": "",
+            "RELEASE_VERSION_CREATED": "",
+            "RELEASE_VERSION_DELETED": "",
+            "USAGE_CREATED": "",
+            "USAGE_APPROVAL_STATE_CHANGED": ""
+        }
+    },
+    "pendingApplications": {
+        "show": {
+            "allApplications": "",
+            "myApplications": ""
+        },
+        "table": {
+            "affiliateName": "",
+            "applicationType": "",
+            "agreementType": "",
+            "useType": "",
+            "dateSubmitted": "",
+            "homeCountry": "",
+            "member": "",
+            "email": "",
+            "review": ""
+        },
+        "title": ""
+    },
+    "affiliateManagement": {
+        "title": ""
+    },
+    "releaseManagement": {
+        "title": ""
+    },
+    "reviewUsageReports": {
+        "title": ""
+    },
+    "memberManagement": {
+        "title": ""
+    },
+    "ihtsdoReleases": {
+        "title": ""
+    },
+    "activityLog": {
+        "title": ""
+    },
+    "importAffiliateRecords": {
+        "title": ""
+    },
+    "manageBlocklist": {
+        "title": ""
+    },
+    "nationalRegistrationList": {
+        "title": ""
+    },
+    "systemLoggers": {
+        "title": ""
+    },
+    "form": {
+        "requiredField": "",
+        "tooLong": "",
+        "invalidNumber": "",
+        "pleaseFix": ""
+    },
+    "views": {
+        "activate": {
+            "title": "",
+            "messages": {
+                "success": {
+                    "title": "",
+                    "body": ""
+                },
+                "error": {
+                    "title": "",
+                    "body": ""
+                }
+            }
+        },
+        "contactInfo": {
+            "contact": {
+                "landline": {
+                    "name": "",
+                    "short": "",
+                    "invalid": ""
+                },
+                "landlineExtension": {
+                    "name": "",
+                    "short": "",
+                    "placeholder": ""
+                },
+                "mobile": {
+                    "name": "",
+                    "placeholder": ""
+                },
+                "address": {
+                    "title": "",
+                    "name": "",
+                    "placeholder": ""
+                },
+                "city": {
+                    "name": "",
+                    "placeholder": ""
+                },
+                "postcode": {
+                    "name": "",
+                    "placeholder": "",
+                    "tooLong": ""
+                },
+                "country": {
+                    "name": "",
+                    "placeholder": "",
+                    "unrecognized": ""
+                },
+                "billingAddress": {
+                    "name": "",
+                    "country": "",
+                    "placeholder": "",
+                    "sameAsAddress": "",
+                    "useOrganizationAddress": ""
+                },
+                "title": "",
+                "fullName": "",
+                "firstName": {
+                    "name": "",
+                    "placeholder": ""
+                },
+                "lastName": {
+                    "name": "",
+                    "placeholder": ""
+                },
+                "email": {
+                    "name": "",
+                    "placeholder": "",
+                    "unique": "",
+                    "invalid": ""
+                },
+                "alternateEmail": {
+                    "name": "",
+                    "placeholder": ""
+                },
+                "thirdEmail": ""
+            },
+            "title": "",
+            "acceptNotifications": "",
+            "countryNotificationsOnly": "",
+            "messages": {
+                "notApproved": {
+                    "title": "",
+                    "body": ""
+                }
+            },
+            "admin": {
+                "title": "",
+                "other": {
+                    "name": "",
+                    "placeholder": "",
+                    "required": ""
+                },
+                "subtype": {
+                    "name": "",
+                    "required": ""
+                },
+                "usageType": {
+                    "name": "",
+                    "required": ""
+                },
+                "agreementType": "",
+                "accountStanding": ""
+            },
+            "organization": {
+                "title": "",
+                "name": {
+                    "name": "",
+                    "placeholder": ""
+                },
+                "type": {
+                    "name": "",
+                    "required": "",
+                    "placeholder": ""
+                }
+            }
+        },
+        "usageLog": {
+            "plannedUsage": "",
+            "purpose": "",
+            "impStatus": "",
+            "countries": {
+                "title": "",
+                "subTitle": "",
+                "list": "",
+                "search": "",
+                "homeCountry": "",
+                "button": ""
+            },
+            "title": "",
+            "retract": "",
+            "usage": "",
+            "subTitle": "",
+            "usageFor": "",
+            "pleaseFill": "",
+            "licenseType": "",
+            "currentUsage": "",
+            "institutions": {
+                "title": "",
+                "selectFirst": "",
+                "noneSelected": "",
+                "country": "",
+                "deleteCountry": "",
+                "hospAndInst": "",
+                "hospAndInst.title": "",
+                "hospAndInst.plural": "",
+                "started": "",
+                "finished": "",
+                "practices.title": "",
+                "practices": "",
+                "dataAnalysis": {
+                    "title": "",
+                    "staff": "",
+                    "dataCreation": "",
+                    "independent": "",
+                    "dataAnalysis": "",
+                    "systems": "",
+                    "data": "",
+                    "provideStaff": "",
+                    "usingDCSNotHosp": "",
+                    "usingDCSNotPract": "",
+                    "howManyDAS": ""
+                },
+                "modal": {
+                    "subtitle": "",
+                    "placeholder": "",
+                    "dateBefore": "",
+                    "sure": "",
+                    "andEntries": "",
+                    "addPractices": ""
+                }
+            },
+            "otherActivities": "",
+            "notificationRequired": "",
+            "pleaseDescribe": "",
+            "submitFor": ""
+        },
+        "usageReports": {
+            "usageType": "",
+            "countries": "",
+            "newReport": "",
+            "hospitals": "",
+            "reportDate": ""
+        },
+        "userDashboard": {
+            "affiliateNo": "",
+            "edit": "",
+            "myPackages": "",
+            "otherPackages": "",
+            "warning": {
+                "required.title": "",
+                "required.msg": "",
+                "change.title": "",
+                "change.msg": "",
+                "declined.title": "",
+                "declined.msg": "",
+                "deactivated.title": "",
+                "deactivated.msg": "",
+                "iPending.title": "",
+                "iPending.msg": "",
+                "dPending.title": "",
+                "dPending.msg": ""
+            }
+        },
+        "postAnnouncement": {
+            "title": "",
+            "messageContent": "",
+            "emailSubject": "",
+            "emailBody": "",
+            "salutationMessage": "",
+            "audience": "",
+            "affiliates": "",
+            "myAffiliates": "",
+            "allAffiliates": "",
+            "affiliatesClarification": "",
+            "additionalEmails": "",
+            "additionalEmailsHelp": "",
+            "post": "",
+            "newAnnouncement": ""
+        },
+        "ihtsdoReleases": {
+            "noOfflineVersions": "",
+            "offline": "",
+            "title": "",
+            "publicReleases": "",
+            "latest": "",
+            "offlineReleases": "",
+            "noPublicReleases": "",
+            "noOfflineReleases": "",
+            "backToReleases": "",
+            "publicVersions": "",
+            "noOnlineVersions": ""
+        },
+        "applicationSummary": {
+            "title": "",
+            "ext.title": "",
+            "reason": "",
+            "affiliateInfo": "",
+            "affiliateInformation": "",
+            "useType": "",
+            "useSubType": "",
+            "billingInfo": "",
+            "context": "",
+            "subLicence": "",
+            "applicationActivity": ""
+        },
+        "extensionApplication": {
+            "title": "",
+            "sure": "",
+            "form": {
+                "title": "",
+                "why": "",
+                "purpose": "",
+                "error": ""
+            },
+            "agreement": "",
+            "license": "",
+            "warning": {
+                "change": "",
+                "change.detail": "",
+                "rejected": "",
+                "rejected.detail": "",
+                "approved": "",
+                "approved.detail": ""
+            },
+            "delete": {
+                "title": "",
+                "sure": "",
+                "sure.detail": ""
+            }
+        },
+        "footer": {
+            "tos": "",
+            "pp": "",
+            "register": "",
+            "contact": ""
+        },
+        "landingPage": {
+            "appName": "",
+            "purpose": "",
+            "furtherDetails": "",
+            "loginHere": "",
+            "member.purpose1": "",
+            "member.purpose2": "",
+            "member.purpose3": ""
+        },
+        "releases": {
+            "title": "",
+            "noAuth": "",
+            "memberCountries": "",
+            "countryIsMissing": "",
+            "notAvailable": "",
+            "releasePackageLicense": "",
+            "reviewLicense": "",
+            "agreeToLicense": "",
+            "warning": {
+                "deactivated": "",
+                "pending": "",
+                "pAttention": "",
+                "pProcessed": "",
+                "apply": "",
+                "aProcessed": "",
+                "aAttention": ""
+            }
+        },
+        "requestPasswordReset": {
+            "title": "",
+            "detail": "",
+            "button": "",
+            "back": "",
+            "emailNotFound": "",
+            "resetEmailSent": ""
+        },
+        "usage": {
+            "title": "",
+            "instructions": "",
+            "modal": {
+                "title": "",
+                "instructions": "",
+                "period": ""
+            },
+            "submit": {
+                "title": "",
+                "instructions": "",
+                "declarationForPeriod": "",
+                "button": ""
+            },
+            "retract": {
+                "title": "",
+                "instructions": "",
+                "button": ""
+            }
+        },
+        "affiliateSummary": {
+            "deleteAffiliate": "",
+            "deleteAffiliateModal": {
+                "sure": "",
+                "explanation": ""
+            }
+        }
+    },
+    "postAnnouncement": {
+        "title": ""
+    },
+    "login": {
+        "title": "",
+        "form": {
+            "username": "",
+            "password": "",
+            "password.placeholder": "",
+            "rememberme": "",
+            "button": "",
+            "forgot": ""
+        },
+        "messages": {
+            "error": {
+                "authentication": "",
+                "deregistered": "",
+                "noPermissions": ""
+            }
+        }
+    },
+    "settings": {
+        "title": "",
+        "form": {
+            "countryOfResidence": "",
+            "countryOfResidence.placeholder": "",
+            "firstname": "",
+            "firstname.placeholder": "",
+            "lastname": "",
+            "lastname.placeholder": "",
+            "button": ""
+        },
+        "messages": {
+            "error": "",
+            "success": "",
+            "validate": {
+                "firstname": {
+                    "required": "",
+                    "minlength": "",
+                    "maxlength": ""
+                },
+                "lastname": {
+                    "required": "",
+                    "minlength": "",
+                    "maxlength": ""
+                }
+            }
+        }
+    },
+    "password": {
+        "title": "",
+        "form": {
+            "button": ""
+        },
+        "reset": {
+            "title": "",
+            "instructions": ""
+        },
+        "messages": {
+            "error": "",
+            "success": "",
+            "expired": ""
+        }
+    },
+    "sessions": {
+        "title": "",
+        "table": {
+            "ipaddress": "",
+            "useragent": "",
+            "button": ""
+        },
+        "messages": {
+            "success": "",
+            "error": ""
+        }
+    },
+    "tracker": {
+        "title": "",
+        "table": {
+            "userlogin": "",
+            "ipaddress": "",
+            "userAgent": "",
+            "page": "",
+            "time": ""
+        }
+    },
+    "errors": {
+        "403": "",
+        "title": ""
+    },
+    "footer": "",
+    "affiliate": {
+        "title": "",
+        "type": {
+            "title": "",
+            "COMMERCIAL": "",
+            "ACADEMIC": "",
+            "OTHER": "",
+            "INDIVIDUAL": ""
+        },
+        "type.extended": {
+            "COMMERCIAL": "",
+            "ACADEMIC": "",
+            "OTHER": "",
+            "INDIVIDUAL": ""
+        },
+        "subType": {
+            "DEVELOPER": "",
+            "DEVELOPMENT": "",
+            "EDUCATIONAL": "",
+            "HEALTHCAREPROVIDER": "",
+            "PERSONAL": "",
+            "RESEARCH": "",
+            "VENDOR": ""
+        },
+        "agreementType": {
+            "AFFILIATE_NORMAL": "",
+            "AFFILIATE_RESEARCH": "",
+            "AFFILIATE_PUBLIC_GOOD": ""
+        },
+        "organizationType": {
+            "PUBLIC_HEALTH_ORGANIZATION": "",
+            "PRIVATE_HEALTH_ORGANIZATION": "",
+            "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "",
+            "HEALTHERCARE_APPLICATION_DEVELOPER": "",
+            "GENERAL_PRACTITIONER_PRACTICE": "",
+            "EDUCATIONAL_INSTITUTE": "",
+            "OTHER": ""
+        },
+        "implementationStatus": {
+            "IMPLEMENTED": "",
+            "DEVELOPMENT": "",
+            "PLANNING": ""
+        },
+        "standingState": {
+            "APPLYING": "",
+            "IN_GOOD_STANDING": "",
+            "REJECTED": "",
+            "DEACTIVATION_PENDING": "",
+            "DEACTIVATED": "",
+            "DEREGISTERED": "",
+            "PENDING_INVOICE": "",
+            "INVOICE_SENT": ""
+        },
+        "standingStateWithExplanation": {
+            "APPLYING": "",
+            "IN_GOOD_STANDING": "",
+            "REJECTED": "",
+            "DEACTIVATION_PENDING": "",
+            "DEACTIVATED": "",
+            "DEREGISTERED": "",
+            "PENDING_INVOICE": "",
+            "INVOICE_SENT": ""
+        }
+    },
+    "approval": {
+        "state": {
+            "NOT_SUBMITTED": "",
+            "CHANGE_REQUESTED": "",
+            "SUBMITTED": "",
+            "RESUBMITTED": "",
+            "REVIEW_REQUESTED": "",
+            "APPROVED": "",
+            "REJECTED": ""
+        }
+    },
+    "usageReport": {
+        "state": {
+            "NOT_SUBMITTED": "",
+            "CHANGE_REQUESTED": "",
+            "SUBMITTED": "",
+            "RESUBMITTED": "",
+            "REVIEW_REQUESTED": "",
+            "PENDING_INVOICE": "",
+            "INVOICE_SENT": "",
+            "PAID": "",
+            "REJECTED": ""
+        }
+    },
+    "application": {
+        "applicationType": {
+            "PRIMARY": "",
+            "EXTENSION": "",
+            "IMPORT": ""
         }
     }
 }
