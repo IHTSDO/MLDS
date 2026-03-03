@@ -66,7 +66,9 @@
             "pt": "portugisisk",
             "ru": "russisk",
             "se": "svensk",
-            "th": "Thai"
+            "th": "Thai",
+            "id": "",
+            "lv": ""
         },
         "member": {
             "IHTSDO": "SNOMED International",
@@ -112,7 +114,17 @@
             "TH": "Thailand",
             "SV": "El Salvador",
             "KR": "Sør-Korea",
-            "ID": "Indonesia"
+            "ID": "Indonesia",
+            "AD": "",
+            "FR": "",
+            "HR": "",
+            "HU": "",
+            "JM": "",
+            "JO": "",
+            "LV": "",
+            "SA": "",
+            "UZ": "",
+            "CY": ""
         },
         "country": {
             "AC": "Ascension",
@@ -450,7 +462,8 @@
         "form": {
             "tos": "Godta våre<a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">brukervilkår</a>.",
             "button": "Start registreringen",
-            "confirmemail": "Bekreft e-post adresse"
+            "confirmemail": "Bekreft e-post adresse",
+            "tc": ""
         },
         "messages": {
             "validate": {
@@ -465,6 +478,10 @@
                 "registrering": {
                     "usagetyperequired": "Obligatorisk felt",
                     "subtyperequired": "Obligatorisk felt"
+                },
+                "registration": {
+                    "usagetyperequired": "",
+                    "subtyperequired": ""
                 }
             },
             "suksess": "<strong>Registreringen er lagret!</strong> Kontroller at du har fått en bekreftelse sendt til din e-post adresse.",
@@ -472,6 +489,14 @@
                 "fail": "<strong>Registreringen feilet!</strong> Prøv igjen senere.",
                 "userexists": "<strong>En bruker har allerede registrert seg med denne e-post adressen.</strong> Ville du egentlig <a href='#/logg inn'>login</a>?",
                 "blocklist": "På grunn av vår IKT-policy kan vi ikke behandle angitt e-post adresse. Vennligst ta kontakt<a href=\"mailto:support@snomed.org\">support@snomed.org</a> for å få ytterligere hjelp."
+            },
+            "success": "",
+            "excludemessage": {
+                "confirm": "",
+                "link": "",
+                "userConfirm": "",
+                "cancel": "",
+                "accept": ""
             }
         },
         "emailVerification": {
@@ -580,7 +605,8 @@
             "ipaddresse": "IP-adresse",
             "userAgent": "Brukeragent",
             "page": "Aktuell side",
-            "time": "Tid"
+            "time": "Tid",
+            "ipaddress": ""
         }
     },
     "metrics": {
@@ -666,6 +692,12 @@
             "misses": "Misser",
             "evictioncount": "Utkastelser",
             "mean": "Gjennomsnitt get time (ms)"
+        },
+        "health": {
+            "title": "",
+            "database": "",
+            "email": "",
+            "stacktrace": ""
         }
     },
     "logs": {
@@ -959,7 +991,8 @@
                     "name": "E-postadresse",
                     "placeholder": "JonnyNilsen@OrganisationABC.no",
                     "uniqueness": "E-postadressen må være unik.",
-                    "invalid": "Ugyldig e-postadresse."
+                    "invalid": "Ugyldig e-postadresse.",
+                    "unique": ""
                 },
                 "alternativeEmail": {
                     "name": "Alternativ e-postadresse",
@@ -1005,6 +1038,10 @@
                     "placeholder": "Adresse",
                     "sameAsAddress": "Bruk adressen som fakturaadresse",
                     "useOrganizationAddress": "Benytt organisasjonsadressen som fakturaadresse"
+                },
+                "alternateEmail": {
+                    "name": "",
+                    "placeholder": ""
                 }
             },
             "organization": {
