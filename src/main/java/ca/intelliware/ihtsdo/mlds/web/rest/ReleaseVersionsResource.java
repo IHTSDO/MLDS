@@ -137,7 +137,9 @@ public class ReleaseVersionsResource {
         releaseVersion.setVersionDependentURI(body.getVersionDependentURI());
         releaseVersion.setVersionDependentDerivativeURI(body.getVersionDependentDerivativeURI());
         releaseVersion.setVersionURI(body.getVersionURI());
-        releaseVersion.setId(String.valueOf(UUID.randomUUID()));
+        if (releaseVersion.getId() == null || releaseVersion.getId().isBlank()) {
+            releaseVersion.setId(UUID.randomUUID().toString());
+        }
         releaseVersion.setLastUpdated(Instant.now());
         releaseVersion.setPackageType(body.getPackageType());
 
