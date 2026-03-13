@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,6 +54,9 @@ public class CommercialUsageResource_GetUsageReports_Test {
     @InjectMocks
     CommercialUsageResource commercialUsageResource;
 
+    @Mock
+    CurrentSecurityContext currentSecurityContext;
+
 	private MockMvc restCommercialUsageResource;
 
 	@Before
@@ -64,6 +68,7 @@ public class CommercialUsageResource_GetUsageReports_Test {
         commercialUsageResource.commercialUsageRepository = commercialUsageRepository;
         commercialUsageResource.commercialUsageAuditEvents = commercialUsageAuditEvents;
         commercialUsageResource.commercialUsageResetter = commercialUsageResetter;
+        commercialUsageResource.currentSecurityContext = currentSecurityContext;
 
         this.restCommercialUsageResource = MockMvcBuilders
         		.standaloneSetup(commercialUsageResource)
@@ -110,12 +115,13 @@ public class CommercialUsageResource_GetUsageReports_Test {
             "OrganizationType1", 5, 10, "Research", "Completed", "None", 2, 1, 3, 4, 20
         };
         Object[] sampleRow2 = {
-            2, "MemberKey456", "CA", "FR", "2024-02-01", "2024-11-30", "Inactive",
+            2, "MemberKey456", "CA", "US", "2024-02-01", "2024-11-30", "Inactive",
             "2024-06-10", "AgreementTypeB", "Jane Smith", "Type-Subtype", "OrganizationName2",
             "OrganizationType2", 15, 25, "Education", "In Progress", "Training", 4, 3, 2, 1, 50
         };
         List<Object[]> sampleData = Arrays.asList(sampleRow1, sampleRow2);
-        when(commercialUsageRepository.findUsageReport()).thenReturn(sampleData);
+        when(currentSecurityContext.getStaffMemberKey()).thenReturn("US");
+        when(commercialUsageRepository.findUsageReportByMemberKey("US")).thenReturn(sampleData);
         Collection<Object[]> response = commercialUsageResource.reviewUsageReportCsv();
         assertEquals(sampleData.size(), response.size());
         assertTrue(response.containsAll(sampleData), "The response content should match the sample data");

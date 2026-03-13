@@ -6,6 +6,7 @@ import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageCountryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageEntryRepository;
 import ca.intelliware.ihtsdo.mlds.repository.CommercialUsageRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.service.*;
 import com.codahale.metrics.annotation.Timed;
 import jakarta.annotation.Resource;
@@ -53,6 +54,9 @@ public class CommercialUsageResource {
 
 	@Resource
 	CommercialUsageService commercialUsageService;
+
+    @Resource
+    CurrentSecurityContext currentSecurityContext;
 
     @RequestMapping(value = Routes.USAGE_REPORTS,
     		method = RequestMethod.GET,
@@ -479,7 +483,7 @@ public class CommercialUsageResource {
     @Timed
     @Transactional
     public @ResponseBody Collection<Object[]> reviewUsageReportCsv(){
-        Collection<Object[]> collections=commercialUsageRepository.findUsageReport();
+        Collection<Object[]> collections=commercialUsageRepository.findUsageReportByMemberKey(currentSecurityContext.getStaffMemberKey());
         return ResponseEntity.ok().body(collections).getBody();
     }
     /*MLDS 985---To Download Commercial usage CSV files this below code is used*/
