@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.*;
 
 /**
@@ -122,20 +121,16 @@ public class UserResource {
         @PathVariable Long affiliateId,
         @PathVariable String key) {
 
-        // Step 1: Get the Affiliate using the affiliateId
         Optional<Affiliate> affiliateOpt = affiliateRepository.findById(affiliateId);
 
         if (affiliateOpt.isPresent()) {
             Affiliate affiliate = affiliateOpt.get();
 
-            // Step 2: Get the creator from the Affiliate
             String creatorLogin = affiliate.getCreator();
 
-            // Step 3: Fetch the User by matching the creator's login (no need for Optional here)
             User user = userRepository.findByLoginIgnoreCase(creatorLogin);
 
             if (user != null) {
-                // Step 4: Check if the key matches
                 if (!key.equals(user.getUnsubscribeKey())) {
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired unsubscribe link.");
                 }
@@ -145,12 +140,9 @@ public class UserResource {
                     return ResponseEntity.status(HttpStatus.GONE).body("This unsubscribe link has already been used.");
                 }
 
-
-                // Step 6: Unsubscribe the user by setting acceptNotifications to false
                 user.setAcceptNotifications(false);
 
-                // Step 7: Invalidate the unsubscribe key by generating a new one
-                user.setUnsubscribeKey(UUID.randomUUID().toString());
+                user.setUnsubscribeKey(null);
                 userRepository.save(user);
 
                 return ResponseEntity.ok("You have successfully unsubscribed.");
@@ -161,6 +153,7 @@ public class UserResource {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Affiliate not found.");
     }
+
     @GetMapping("/usersList")
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     @Timed

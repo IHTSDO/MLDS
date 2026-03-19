@@ -451,5 +451,9 @@ public class AffiliateResource {
 		user.setLogin(body.getEmail());
 		user.setAcceptNotifications(body.isAcceptNotifications());
         user.setCountryNotificationsOnly(body.isCountryNotificationsOnly());
+        // If user enables notifications again, clear unsubscribe key
+        if (body.isAcceptNotifications()) {
+            user.setUnsubscribeKey(null);
+        }
 	}
 }
