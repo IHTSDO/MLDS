@@ -6,8 +6,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import ca.intelliware.ihtsdo.mlds.domain.*;
 import ca.intelliware.ihtsdo.mlds.repository.*;
-import ca.intelliware.ihtsdo.mlds.service.ReleasePackageAccessService;
-import ca.intelliware.ihtsdo.mlds.service.ReleasePackageService;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
@@ -61,7 +59,7 @@ public class ReleasePackagesResourceTest {
 	ReleasePackagePrioritizer releasePackagePrioritizer;
 
     @Mock
-    ReleasePackageAccessRepository releasePackageAccessRepository;
+    ReleaseVersionAccessRepository releaseVersionAccessRepository;
 
     @Mock
     private ReleasePackageConfigRepository releasePackageConfigRepository;
@@ -75,13 +73,8 @@ public class ReleasePackagesResourceTest {
 
 	ReleasePackagesResource releasePackagesResource;
 
-    @Mock
-    ReleasePackageService releasePackageService;
 
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
-
-    @Mock
-    private ReleasePackageAccessService releasePackageAccessService;
 
     @Mock
     private UserRepository userRepository;
@@ -95,10 +88,8 @@ public class ReleasePackagesResourceTest {
     public void setup() {
         MockitoAnnotations.openMocks(this); // Initialize mocks
         releasePackagesResource = new ReleasePackagesResource(
-            releasePackageAccessService,
             userRepository,
             releasePackageConfigRepository,
-            releasePackageService,
             sessionService
         );
 
@@ -108,8 +99,7 @@ public class ReleasePackagesResourceTest {
         releasePackagesResource.releasePackageAuditEvents = releasePackageAuditEvents;
         releasePackagesResource.userMembershipAccessor = userMembershipAccessor;
         releasePackagesResource.releasePackagePrioritizer = releasePackagePrioritizer;
-        releasePackagesResource.releasePackageAccessRepository = releasePackageAccessRepository;
-        releasePackagesResource.releasePackageService =  releasePackageService;
+        releasePackagesResource.releaseVersionAccessRepository = releaseVersionAccessRepository;
 
 
         when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(new Member("IHTSDO", 1));
@@ -330,40 +320,21 @@ public class ReleasePackagesResourceTest {
 	}
 
     @Test
-    public void testUpdateReleasePackageType_AdminStaffSelectedUsers_ShouldSaveAccess() throws Exception {
+    public void shouldFilterVersionsBasedOnAccess() throws Exception {
 
-        ReleasePackage releasePackage = Mockito.spy(new ReleasePackage());
-        when(releasePackage.getReleasePackageId()).thenReturn(1L);
-        when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
+        ReleasePackage rp = new ReleasePackage();
 
-        Mockito.doNothing().when(authorizationChecker).checkCanEditReleasePackage(Mockito.any());
+        ReleaseVersion v1 = new ReleaseVersion(1L);
+        v1.setArchive(false);
 
-        String requestBody = """
-    {
-        "releasePackageType": "ADMIN_STAFF_SELECTED_USERS",
-        "users": ["100", "101"]
-    }
-    """;
+        rp.addReleaseVersion(v1);
 
-        restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE_PERMISSION, 1L)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody)
-                .accept(MediaType.APPLICATION_JSON))
+        when(releasePackageRepository.findAll()).thenReturn(List.of(rp));
+        when(authorizationChecker.buildAccessContext(any())).thenReturn(mock(ReleasePackageAuthorizationChecker.AccessContext.class));
+        when(authorizationChecker.canAccessReleaseVersion(eq(v1), any())).thenReturn(true);
+
+        restReleasePackagesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_PACKAGES))
             .andExpect(status().isOk());
-
-        assertEquals(ReleasePermissionType.ADMIN_STAFF_SELECTED_USERS, releasePackage.getPermissionType());
-
-        ArgumentCaptor<ReleasePackageAccess> captor = ArgumentCaptor.forClass(ReleasePackageAccess.class);
-        verify(releasePackageAccessRepository, times(2)).save(captor.capture());
-
-        List<Long> savedUserIds = captor.getAllValues().stream()
-            .map(ReleasePackageAccess::getUserId)
-            .toList();
-
-        assertTrue(savedUserIds.contains(100L));
-        assertTrue(savedUserIds.contains(101L));
-
-        verify(releasePackageRepository).save(releasePackage);
     }
 
 }

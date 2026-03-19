@@ -1,11 +1,14 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
 
+import ca.intelliware.ihtsdo.mlds.domain.ReleasePermissionType;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.ReleaseVersionCheckViewDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -22,4 +25,34 @@ public interface ReleaseVersionRepository extends JpaRepository<ReleaseVersion, 
     @Query(value = "SELECT rv.name AS releaseVersionName, rv.release_package_id AS releasePackageId, rp.inactive_at AS inactiveAt FROM release_version rv JOIN release_package rp ON rv.release_package_id = rp.release_package_id WHERE rv.version_dependent_uri = :releaseVersionURI AND rp.inactive_at IS NULL", nativeQuery = true)
     List<ReleaseVersionCheckViewDTO> getDependentVersionNames(@Param("releaseVersionURI") String releaseVersionURI);
 
+    @Transactional
+    @Modifying
+    @Query("""
+        UPDATE ReleaseVersion rv
+        SET rv.permissionType = :permissionType
+        WHERE rv.releaseVersionId IN :versionIds
+        """)
+    void updatePermissionTypeForVersions(
+        @Param("permissionType") ReleasePermissionType permissionType,
+        @Param("versionIds") List<Long> versionIds
+    );
+
+
+    @Transactional
+    @Modifying
+    @Query("""
+        UPDATE ReleaseVersion rv
+        SET rv.permissionType = :permissionType
+        """)
+    void updatePermissionTypeForAllVersions(
+        @Param("permissionType") ReleasePermissionType permissionType
+    );
+
+    @Query("""
+        SELECT rv
+        FROM ReleaseVersion rv
+        WHERE rv.releasePackage.releasePackageId = :releasePackageId
+        AND rv.archive = false
+        """)
+    List<ReleaseVersion> findByReleasePackageIdAndArchiveFalse(@Param("releasePackageId") Long releasePackageId);
 }

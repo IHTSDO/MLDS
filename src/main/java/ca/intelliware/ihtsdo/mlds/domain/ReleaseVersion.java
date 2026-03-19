@@ -74,6 +74,10 @@ public class ReleaseVersion extends BaseEntity {
     @Column(name="archive")
     boolean archive;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name="permission_type")
+    private ReleasePermissionType permissionType;
+
 	public ReleaseVersion() {
 
 	}
@@ -244,5 +248,13 @@ public void setOnline(boolean online) {
 
     public void setArchive(boolean archive) {
         this.archive = archive;
+    }
+
+    public ReleasePermissionType getPermissionType() {
+        return permissionType;
+    }
+
+    public void setPermissionType(ReleasePermissionType permissionType) {
+        this.permissionType = permissionType;
     }
 }

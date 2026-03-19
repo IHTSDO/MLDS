@@ -3,30 +3,46 @@ package ca.intelliware.ihtsdo.mlds.web.rest.dto;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePermissionType;
 
 public class ReleasePermissionRequestDTO {
-    private Long releasePackageId;
-    private String name;
+    private Long releaseVersionId;
+    private String packageName;
+    private String versionName;
     private ReleasePermissionType permissionType;
+    private String releaseType;
 
-    public ReleasePermissionRequestDTO(Long releasePackageId, String name, ReleasePermissionType permissionType) {
-        this.releasePackageId = releasePackageId;
-        this.name = name;
+    public ReleasePermissionRequestDTO(Long releaseVersionId,
+                                       String packageName,
+                                       String versionName,
+                                       ReleasePermissionType permissionType, String releaseType) {
+
+        this.releaseVersionId = releaseVersionId;
+        this.packageName = packageName;
+        this.versionName = versionName;
         this.permissionType = permissionType;
+        this.releaseType = releaseType;
     }
 
-    public Long getReleasePackageId() {
-        return releasePackageId;
+    public Long getReleaseVersionId() {
+        return releaseVersionId;
     }
 
-    public void setReleasePackageId(Long releasePackageId) {
-        this.releasePackageId = releasePackageId;
+    public void setReleaseVersionId(Long releaseVersionId) {
+        this.releaseVersionId = releaseVersionId;
     }
 
-    public String getName() {
-        return name;
+    public String getPackageName() {
+        return packageName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public String getVersionName() {
+        return versionName;
+    }
+
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
     }
 
     public ReleasePermissionType getPermissionType() {
@@ -35,5 +51,13 @@ public class ReleasePermissionRequestDTO {
 
     public void setPermissionType(ReleasePermissionType permissionType) {
         this.permissionType = permissionType;
+    }
+
+    public String getReleaseType() {
+        return releaseType;
+    }
+
+    public void setReleaseType(String releaseType) {
+        this.releaseType = releaseType;
     }
 }

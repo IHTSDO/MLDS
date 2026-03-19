@@ -86,9 +86,9 @@
         <addDefaultValue tableName="country" columnName="exclude_usage"  defaultValueBoolean="false" columnDataType="BOOLEAN"/>
 
         <createIndex indexName="idx_persistent_audit_event_data_name"
-                         tableName="T_PERSISTENT_AUDIT_EVENT_DATA"
-                         unique="false">
-                <column name="name" type="varchar(255)"/>
+                     tableName="T_PERSISTENT_AUDIT_EVENT_DATA"
+                     unique="false">
+            <column name="name" type="varchar(255)"/>
         </createIndex>
     </changeSet>
 
@@ -730,6 +730,63 @@
             <column name="footer_active" valueBoolean="true"/>
             <where>`footer_active` IS NULL</where>
         </update>
+    </changeSet>
+
+    <changeSet id="MLDS-1167-01" author="JJ">
+        <comment>Add Permission type Column</comment>
+        <addColumn tableName="release_version">
+            <column name="permission_type" type="varchar(255)" defaultValue="NOT_SELECTED">
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="MLDS-1167-02" author="JJ">
+        <createTable tableName="release_version_access">
+            <column name="release_version_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+        <addPrimaryKey
+            tableName="release_version_access"
+            columnNames="release_version_id, user_id"
+            constraintName="pk_release_version_access"/>
+
+
+        <addForeignKeyConstraint
+            baseTableName="release_version_access"
+            baseColumnNames="release_version_id"
+            constraintName="fk_release_version_access_id"
+            referencedTableName="release_version"
+            referencedColumnNames="release_version_id"/>
+
+
+        <addForeignKeyConstraint
+            baseTableName="release_version_access"
+            baseColumnNames="user_id"
+            constraintName="fk_release_version_access_user"
+            referencedTableName="user"
+            referencedColumnNames="user_id"/>
+    </changeSet>
+
+    <changeSet id="MLDS-1128-rollback-01" author="JJ">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="release_package" columnName="permission_type"/>
+        </preConditions>
+
+        <dropColumn tableName="release_package" columnName="permission_type"/>
+    </changeSet>
+
+
+    <changeSet id="MLDS-1128-rollback-02" author="JJ">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="release_package_access"/>
+        </preConditions>
+        <dropTable tableName="release_package_access"/>
     </changeSet>
 
 </databaseChangeLog>

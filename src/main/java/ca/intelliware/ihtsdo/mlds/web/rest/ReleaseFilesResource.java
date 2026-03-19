@@ -60,6 +60,10 @@ public class ReleaseFilesResource {
 
         ReleaseFile releaseFile = optionalReleaseFile.get();
 
+        if (!authorizationChecker.canAccessReleaseVersion(releaseFile.getReleaseVersion())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
         //FIXME should we check children being consistent?
         authorizationChecker.checkCanEditReleasePackage(releaseFile.getReleaseVersion().getReleasePackage());
 
@@ -171,6 +175,10 @@ public class ReleaseFilesResource {
         ReleaseFile releaseFile = releaseFileOptional.get();
 
         //FIXME should we check children being consistent?
+        if (!authorizationChecker.canAccessReleaseVersion(releaseFile.getReleaseVersion())) {
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+            return;
+        }
         authorizationChecker.checkCanDownloadReleaseVersion(releaseFile.getReleaseVersion());
 
         int statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();

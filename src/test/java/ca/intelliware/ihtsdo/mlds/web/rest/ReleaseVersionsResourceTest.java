@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionAccessRepository;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.ReleaseVersionCheckViewDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,9 @@ public class ReleaseVersionsResourceTest {
 	@Mock
 	UserNotifier userNotifier;
 
+    @Mock
+    ReleaseVersionAccessRepository releaseVersionAccessRepository;
+
 	ReleaseVersionsResource releaseVersionsResource;
 
 	@Before
@@ -72,6 +76,7 @@ public class ReleaseVersionsResourceTest {
 		releaseVersionsResource.currentSecurityContext = currentSecurityContext;
 		releaseVersionsResource.releasePackageAuditEvents = releasePackageAuditEvents;
 		releaseVersionsResource.userNotifier = userNotifier;
+        releaseVersionsResource.releaseVersionAccessRepository = releaseVersionAccessRepository;
 
 		this.restReleasePackagesResource = MockMvcBuilders.standaloneSetup(releaseVersionsResource).build();
 	}

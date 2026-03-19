@@ -2,24 +2,35 @@ package ca.intelliware.ihtsdo.mlds.domain;
 
 public class PermissionVisibilityResponse {
 
-    private boolean isMasterPermission;
+    private Long releaseVersionId;
+    private String versionName;
     private String permissionType;
     private String releaseType;
 
-    // Constructor
-    public PermissionVisibilityResponse(boolean isMasterPermission, String permissionType, String releaseType) {
-        this.isMasterPermission = isMasterPermission;
+    public PermissionVisibilityResponse(Long releaseVersionId,
+                                        String versionName,
+                                        String permissionType,
+                                        String releaseType) {
+        this.releaseVersionId = releaseVersionId;
+        this.versionName = versionName;
         this.permissionType = permissionType;
         this.releaseType = releaseType;
     }
 
-    // Getters and Setters
-    public boolean isMasterPermission() {
-        return isMasterPermission;
+    public Long getReleaseVersionId() {
+        return releaseVersionId;
     }
 
-    public void setMasterPermission(boolean isMasterPermission) {
-        this.isMasterPermission = isMasterPermission;
+    public void setReleaseVersionId(Long releaseVersionId) {
+        this.releaseVersionId = releaseVersionId;
+    }
+
+    public String getVersionName() {
+        return versionName;
+    }
+
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
     }
 
     public String getPermissionType() {

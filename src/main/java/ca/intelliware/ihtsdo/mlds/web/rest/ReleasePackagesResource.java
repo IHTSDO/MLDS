@@ -5,12 +5,9 @@ import ca.intelliware.ihtsdo.mlds.domain.*;
 import ca.intelliware.ihtsdo.mlds.repository.*;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-import ca.intelliware.ihtsdo.mlds.service.ReleasePackageAccessService;
 import ca.intelliware.ihtsdo.mlds.service.ReleasePackagePrioritizer;
-import ca.intelliware.ihtsdo.mlds.service.ReleasePackageService;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
-import ca.intelliware.ihtsdo.mlds.web.rest.dto.ReleasePermissionRequestDTO;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -37,6 +34,7 @@ import java.sql.SQLException;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
+
 
 @RestController
 public class ReleasePackagesResource {
@@ -72,7 +70,7 @@ public class ReleasePackagesResource {
 
 
     @Autowired
-    ReleasePackageAccessRepository releasePackageAccessRepository;
+    ReleaseVersionAccessRepository releaseVersionAccessRepository;
 
 
     ReleasePackageConfigRepository releasePackageConfigRepository;
@@ -81,18 +79,12 @@ public class ReleasePackagesResource {
     UserRepository userRepository;
 
 
-    ReleasePackageService releasePackageService;
 
-
-    public ReleasePackagesResource(ReleasePackageAccessService releasePackageAccessService, UserRepository userRepository, ReleasePackageConfigRepository releasePackageConfigRepository, ReleasePackageService releasePackageService, SessionService sessionService) {
-        this.releasePackageAccessService = releasePackageAccessService;
+    public ReleasePackagesResource(UserRepository userRepository, ReleasePackageConfigRepository releasePackageConfigRepository, SessionService sessionService) {
         this.userRepository = userRepository;
         this.releasePackageConfigRepository = releasePackageConfigRepository;
-        this.releasePackageService = releasePackageService;
         this.sessionService = sessionService;
     }
-
-    ReleasePackageAccessService releasePackageAccessService;
 
     private static final String NOT_SELECTED = "NOT_SELECTED";
 
@@ -107,68 +99,44 @@ public class ReleasePackagesResource {
     @Timed
     public ResponseEntity<Collection<ReleasePackage>> getReleasePackages() {
 
-            Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
+        Collection<ReleasePackage> releasePackages = releasePackageRepository.findAll();
 
-            //admin role checks - no restriction to admin role returns all the packages
-            if(currentSecurityContext.isAdmin()){
-                return new ResponseEntity<>(releasePackages, HttpStatus.OK);
-            }
+        if (currentSecurityContext.isAdmin()) {
+            return ResponseEntity.ok(releasePackages);
+        }
 
-            // split online alphabeta offline package logic
-            List<ReleasePackage> onlinePackages = new ArrayList<>();
-            List<ReleasePackage> alphaBetaPackages = new ArrayList<>();
-            List<ReleasePackage> offlinePackages = new ArrayList<>();
-            List<ReleasePackage> finalMasterResult = new ArrayList<>();
+        ReleasePackageAuthorizationChecker.AccessContext context =
+            authorizationChecker.buildAccessContext(releasePackages);
 
-            for (ReleasePackage eachReleasePackage : releasePackages) {
-                releasePackageService.classifyPackage(eachReleasePackage, onlinePackages, alphaBetaPackages, offlinePackages);
-            }
+        for (ReleasePackage releasePackage : releasePackages) {
 
-            if (currentSecurityContext.isStaff() || currentSecurityContext.isMember()) {
-                Collection<ReleasePackage> staffAccessiblePackages = releasePackageAccessService.getAccessiblePackagesForStaff(
-                    releasePackages,
-                    onlinePackages,
-                    alphaBetaPackages,
-                    offlinePackages,
-                    currentSecurityContext.getStaffMemberKey()
-                );
-                return ResponseEntity.ok(staffAccessiblePackages);
-            }
+            Set<ReleaseVersion> filteredVersions = releasePackage.getReleaseVersions().stream()
+                .filter(version -> {
+                    if (version.isArchive()) {
+                        return currentSecurityContext.isStaffFor(releasePackage.getMember());
+                    }
+                    return authorizationChecker.canAccessReleaseVersion(version, context);
+                })
+                .collect(Collectors.toSet());
 
-            if (currentSecurityContext.isUser()) {
-                Collection<ReleasePackage> userAccessiblePackages =
-                    releasePackageAccessService.getAccessiblePackagesForUser(
-                        releasePackages,
-                        onlinePackages,
-                        alphaBetaPackages,
-                        offlinePackages,
-                        currentSecurityContext.getCurrentUserName()
-                    );
+            releasePackage.setReleaseVersions(filteredVersions);
+        }
 
-                return new ResponseEntity<>(userAccessiblePackages, HttpStatus.OK);
-            }
-
-            if (!currentSecurityContext.isUser()
-                && !currentSecurityContext.isAdmin()
-                && !currentSecurityContext.isStaff()) {
-
-                Collection<ReleasePackage> result = releasePackageAccessService
-                    .getAccessiblePackagesForUnauthenticatedUser(
-                        releasePackages,
-                        onlinePackages,
-                        alphaBetaPackages,
-                        offlinePackages
-                    );
-
-                return new ResponseEntity<>(result, HttpStatus.OK);
-            }
-
-            return new ResponseEntity<>(finalMasterResult, HttpStatus.OK);
+        return ResponseEntity.ok(
+            releasePackages.stream()
+                .filter(rp ->
+                    !rp.getReleaseVersions().isEmpty()
+                        || (rp.getReleaseVersions().isEmpty()
+                        && currentSecurityContext.isStaffFor(rp.getMember()))
+                )
+                .toList()
+        );
     }
+
 
     @GetMapping(value = Routes.ARCHIVE_RELEASE_PACKAGES,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @RolesAllowed({AuthoritiesConstants.ADMIN, AuthoritiesConstants.STAFF})
     @Timed
     public ResponseEntity<List<ReleasePackage>> getArchiveReleasePackages() {
 
@@ -226,7 +194,6 @@ public class ReleasePackagesResource {
         authorizationChecker.checkCanCreateReleasePackages();
 
         releasePackage.setCreatedBy(currentSecurityContext.getCurrentUserName());
-        releasePackage.setPermissionType(ReleasePermissionType.NOT_SELECTED);
 
         // MLDS-740 - Allow Admin to specify the member
         if (releasePackage.getMember() == null || !currentSecurityContext.isAdmin()) {
@@ -243,34 +210,42 @@ public class ReleasePackagesResource {
         return result;
     }
 
-
     @GetMapping(value = Routes.RELEASE_PACKAGE, produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
     public ResponseEntity<ReleasePackage> getReleasePackage(@PathVariable long releasePackageId) {
+
         Optional<ReleasePackage> optionalReleasePackage = releasePackageRepository.findById(releasePackageId);
-        if (optionalReleasePackage.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        if (optionalReleasePackage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
         ReleasePackage releasePackage = optionalReleasePackage.get();
-        String releaseType = releasePackageService.categorizePackage(releasePackage.getReleaseVersions());
-        ReleasePackageConfig config = releasePackageConfigRepository.findByReleaseType(releaseType.toUpperCase());
-        ReleasePackageConfig masterConfig = releasePackageConfigRepository.findByReleaseType("ALL");
 
         if (currentSecurityContext.isAdmin()) {
             return ResponseEntity.ok(releasePackage);
         }
 
-        if (currentSecurityContext.isStaff() || currentSecurityContext.isMember()) {
-            if (releasePackageAccessService.isStaffOwner(releasePackage)) return ResponseEntity.ok(releasePackage);
-            if (releasePackageAccessService.isAdminOnly(releasePackage, config, masterConfig)) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            return ResponseEntity.ok(releasePackage);
+        boolean isStaffOwner = currentSecurityContext.isStaffFor(releasePackage.getMember());
+
+        Set<ReleaseVersion> allowedVersions = releasePackage.getReleaseVersions().stream()
+            .filter(version -> {
+                if (version.isArchive()) {
+                    return isStaffOwner;
+                }
+                return authorizationChecker.canAccessReleaseVersion(version);
+            })
+            .collect(Collectors.toSet());
+
+        if (allowedVersions.isEmpty()
+            && !isStaffOwner) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        if (currentSecurityContext.isUser()) {
-            return releasePackageAccessService.handleUserAccess(releasePackage, config, masterConfig, releasePackageId);
-        }
+        releasePackage.setReleaseVersions(allowedVersions);
 
-        return releasePackageAccessService.handlePublicAccess(releasePackage, config, masterConfig);
+        return ResponseEntity.ok(releasePackage);
     }
 
     private ReleasePackage filterReleasePackageByAuthority(ReleasePackage releasePackage) {
@@ -440,76 +415,7 @@ public class ReleasePackagesResource {
         return newFile;
     }
 
-    @PutMapping(value = Routes.RELEASE_PACKAGE_PERMISSION, produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    @Timed
-    public ResponseEntity<ReleasePackage> updateReleasePackageType(@PathVariable long releasePackageId, @RequestBody Map<String, Object> request) {
-
-        Optional<ReleasePackage> optionalReleasePackage = releasePackageRepository.findById(releasePackageId);
-        if (optionalReleasePackage.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        ReleasePackage releasePackage = optionalReleasePackage.get();
-        authorizationChecker.checkCanEditReleasePackage(releasePackage);
-        String releasePackageType = (String) request.get("releasePackageType");
-        if (releasePackageType != null) {
-            releasePackage.setPermissionType(ReleasePermissionType.valueOf(releasePackageType));
-        }
-
-        if(releasePackage.getPermissionType() == ReleasePermissionType.ADMIN_STAFF_SELECTED_USERS) {
-            List<String> users = (List<String>) request.get("users");
-            if (users != null && !users.isEmpty()) {
-                users.forEach(user ->{
-                    ReleasePackageAccess access = new ReleasePackageAccess();
-                    access.setReleasePackageId(releasePackage.getReleasePackageId());
-                    access.setUserId(Long.parseLong(user));
-                    releasePackageAccessRepository.save(access);
-                });
-            }
-        }
-
-        releasePackageRepository.save(releasePackage);
-        return new ResponseEntity<>(releasePackage, HttpStatus.OK);
-    }
-
-    @PutMapping(value = Routes.RELEASE_PACKAGES_PERMISSION, produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    @Timed
-    public ResponseEntity<Void> updateReleasePackagesType(@RequestBody Map<String, Object> request) {
-        releasePackageService.updateReleasePackagesPermission(request);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PostMapping(value = Routes.RELEASE_PACKAGES_MASTER_PERMISSION, produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    @Timed
-    public ResponseEntity<String> updateReleaseMasterConfig(@RequestBody Map<String, Object> request) {
-        try {
-            releasePackageService.updateReleaseMasterConfig(request);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
-    }
-
-
-    @GetMapping(value = "/api/releasePermission", produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<List<ReleasePermissionRequestDTO>> getReleasePermissions() {
-        List<ReleasePermissionRequestDTO> permissionDTOList = releasePackageRepository.findAll().stream()
-            .filter(releasePackage -> releasePackage.getPermissionType() != ReleasePermissionType.NOT_SELECTED)
-            .map(releasePackage -> new ReleasePermissionRequestDTO(
-                releasePackage.getReleasePackageId(),
-                releasePackage.getName(),
-                releasePackage.getPermissionType())
-            )
-            .toList();
-
-        return ResponseEntity.ok(permissionDTOList);
-    }
-
-
-    @GetMapping(value = "/api/masterReleasePermission", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = Routes.MASTER_RELEASE_PERMISSION, produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<List<ReleasePackageConfig>> getMasterReleasePermissions() {
         List<ReleasePackageConfig> masterPermissionList = releasePackageConfigRepository.findAll().stream()
@@ -519,28 +425,7 @@ public class ReleasePackagesResource {
         return ResponseEntity.ok(masterPermissionList);
     }
 
-
-    @GetMapping("/api/{releasePackageId}/usersAccess")
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<List<String>> getUsersByReleasePackageId(@PathVariable Long releasePackageId) {
-        List<String> logins = releasePackageAccessRepository.findLoginsByReleasePackageId(releasePackageId);
-        return ResponseEntity.ok(logins);
-    }
-
-    @GetMapping("/api/releaseTypes")
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<List<String>> getAllReleaseTypes() {
-        List<String> releaseTypes = releasePackageConfigRepository.findAll()
-            .stream()
-            .map(ReleasePackageConfig::getReleaseType)
-            .distinct()
-            .toList();
-
-        return ResponseEntity.ok(releaseTypes);
-    }
-
-
-    @GetMapping("/api/masterUsersAccess")
+    @GetMapping(value = Routes.MASTER_CONFIG_USER_ACCESS, produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<List<String>> getMasterAccessUsersByReleasePackageId(@RequestParam String releaseType) {
         ReleasePackageConfig result = releasePackageConfigRepository.findByReleaseType(releaseType);
@@ -562,127 +447,8 @@ public class ReleasePackagesResource {
             return ResponseEntity.ok(Collections.emptyList());
         }
 
-        List<String> logins = releasePackageAccessRepository.findLoginsByUserIds(userIds);
+        List<String> logins = releaseVersionAccessRepository.findLoginsByUserIds(userIds);
         return ResponseEntity.ok(logins);
-    }
-    private static final String RELEASE_ID = "releaseId";
-
-    @PutMapping(value = "/api/userAccessRevoke", produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<String> updateIndividualUserAccess(@RequestBody Map<String, Object> request) {
-        String releaseId = request.get(RELEASE_ID) != null ? request.get(RELEASE_ID).toString() : null;
-        String requestUser = (String) request.get("user");
-
-        try {
-            String resultMessage = releasePackageService.revokeIndividualUserAccess(releaseId, requestUser);
-            if (resultMessage.equals("User access revoked successfully.")) {
-                return ResponseEntity.ok(resultMessage);
-            }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resultMessage);
-        } catch (JsonProcessingException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing user list.");
-        }
-    }
-
-    @PutMapping(value = "/api/releaseAccessRevoke", produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<String> releaseAccessRevoke(@RequestBody Map<String, Object> request) {
-        String releaseId = request.get(RELEASE_ID) != null ? request.get(RELEASE_ID).toString() : null;
-
-        String resultMessage = releasePackageService.revokeAllReleaseAccess(releaseId);
-        if (resultMessage.equals("User access revoked successfully.")) {
-            return ResponseEntity.ok(resultMessage);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resultMessage);
-    }
-
-
-    @GetMapping("/api/viewVisiblity/{releasePackageId}")
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<PermissionVisibilityResponse> getVisibilityDetails(@PathVariable Long releasePackageId) {
-        String releaseType = "ALL";
-        ReleasePackageConfig masterPermission = releasePackageService.getMasterPermission(releaseType);
-
-        if (masterPermission != null && Boolean.FALSE.equals(masterPermission.getActive())) {
-            Optional<ReleasePackage> releasePackage = releasePackageRepository.findById(releasePackageId);
-
-            if (releasePackage.isPresent()) {
-                PermissionVisibilityResponse response = releasePackageService.getVisibilityDetails(releasePackage.get());
-                return ResponseEntity.ok(response);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } else {
-            String permissionType = masterPermission != null ? masterPermission.getReleasePermissionType() : "";
-            PermissionVisibilityResponse response = new PermissionVisibilityResponse(true, permissionType, releaseType);
-            return ResponseEntity.ok(response);
-        }
-    }
-
-
-    @PostMapping("/api/releasePackages/checkConfigPermissionType")
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    @Timed
-    public ResponseEntity<Boolean> checkReleaseMasterConfig(@RequestBody Map<String, Object> request) {
-        String releasePackageType = (String) request.get("releaseType");
-
-        List<ReleasePackage> allReleasePackages = releasePackageRepository.findAll();
-        List<ReleasePackageConfig> configuredReleaseConfigs = releasePackageConfigRepository.findByReleasePermissionTypeNot(NOT_SELECTED);
-
-        boolean hasAnyConfiguredPermission = allReleasePackages.stream()
-            .anyMatch(rp -> rp.getPermissionType() != ReleasePermissionType.NOT_SELECTED);
-
-        boolean hasMasterConfigured = configuredReleaseConfigs.stream()
-            .anyMatch(rp -> !"ALL".equals(rp.getReleaseType()));
-
-        if (Objects.equals(releasePackageType, "ALL")) {
-            return ResponseEntity.ok(hasAnyConfiguredPermission || hasMasterConfigured);
-        } else {
-            boolean hasAllTypeConfigured = configuredReleaseConfigs.stream()
-                .anyMatch(rp -> "ALL".equals(rp.getReleaseType()));
-
-            if (hasAllTypeConfigured) {
-                return ResponseEntity.ok(true);
-            }
-
-            Set<String> categorizationResults = allReleasePackages.stream()
-                .filter(rp -> rp.getPermissionType() != ReleasePermissionType.NOT_SELECTED)
-                .map(rp -> releasePackageService.categorizePackage(rp.getReleaseVersions()))
-                .collect(Collectors.toSet());
-
-            return ResponseEntity.ok(categorizationResults.contains(releasePackageType.toLowerCase()));
-        }
-    }
-
-
-    @PostMapping("/api/releasePackages/checkUpdatePermissionType")
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    @Timed
-    public ResponseEntity<Boolean> checkReleasePackageUpdate(@RequestBody Map<String, Object> request) {
-        List<Long> releasePackages = (List<Long>) request.get("releases");
-
-        if(Boolean.TRUE.equals(releasePackageConfigRepository.findByReleaseType("ALL").getActive())){
-            return ResponseEntity.ok(true);
-        }
-
-        List<ReleasePackageConfig> masterConfigurationList = releasePackageConfigRepository.findByReleasePermissionTypeNot(NOT_SELECTED).stream()
-            .filter(rp -> !"ALL".equals(rp.getReleaseType())).toList();
-        if(!masterConfigurationList.isEmpty()) {
-            List<ReleasePackage> updatereleaseList = releasePackageRepository.findAllByReleasePackageIdIn(releasePackages);
-            Set<String> categorizationResults = new HashSet<>();
-            for (ReleasePackage updateReleasePackage : updatereleaseList) {
-                String type = releasePackageService.categorizePackage(updateReleasePackage.getReleaseVersions());
-                categorizationResults.add(type);
-            }
-
-            for (ReleasePackageConfig releasePackageConfig : masterConfigurationList) {
-                if (categorizationResults.contains(releasePackageConfig.getReleaseType().toLowerCase())) {
-                    return ResponseEntity.ok(true);
-                }
-            }
-        }
-
-        return ResponseEntity.ok(false);
     }
 
 }

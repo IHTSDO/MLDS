@@ -1,13 +1,17 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
-import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
-import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
+import ca.intelliware.ihtsdo.mlds.domain.*;
+import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageConfigRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
+import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionAccessRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
+import ca.intelliware.ihtsdo.mlds.service.ReleaseVersionService;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.ReleasePermissionRequestDTO;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.ReleaseVersionCheckViewDTO;
 import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Objects;
 import jakarta.annotation.Resource;
 import jakarta.annotation.security.RolesAllowed;
@@ -20,10 +24,10 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static ca.intelliware.ihtsdo.mlds.domain.ReleasePermissionType.NOT_SELECTED;
 
 @RestController
 public class ReleaseVersionsResource {
@@ -47,6 +51,15 @@ public class ReleaseVersionsResource {
 
     @Resource
     UserNotifier userNotifier;
+
+    @Resource
+    ReleaseVersionAccessRepository releaseVersionAccessRepository;
+
+    @Resource
+    ReleaseVersionService releaseVersionService;
+
+    @Resource
+    ReleasePackageConfigRepository releasePackageConfigRepository;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Release Versions
@@ -72,6 +85,7 @@ public class ReleaseVersionsResource {
         releaseVersion.setId(String.valueOf(UUID.randomUUID()));
 
         releaseVersion.setCreatedBy(currentSecurityContext.getCurrentUserName());
+        releaseVersion.setPermissionType(NOT_SELECTED);
 
         releaseVersionRepository.save(releaseVersion);
 
@@ -99,7 +113,12 @@ public class ReleaseVersionsResource {
         }
 
         ReleaseVersion releaseVersion = releaseVersionOptional.get();
-        authorizationChecker.checkCanAccessReleaseVersion(releaseVersion);
+
+
+        if (!authorizationChecker.canAccessReleaseVersion(releaseVersion)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
         releaseVersion = releaseFilePrivacyFilter.filterReleaseVersionByAuthority(releaseVersion);
 
         return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
@@ -179,8 +198,8 @@ public class ReleaseVersionsResource {
     }
 
     @RequestMapping(value = Routes.RELEASE_VERSION,
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.DELETE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
@@ -200,9 +219,12 @@ public class ReleaseVersionsResource {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         releasePackageAuditEvents.logDeletionOf(releaseVersion);
+        releaseVersionAccessRepository.deleteByReleaseVersionId(
+            releaseVersion.getReleaseVersionId());
         releaseVersionRepository.delete(releaseVersion);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @GetMapping(value = Routes.RELEASE_VERSION_DEPENDENCY,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
@@ -236,6 +258,8 @@ public class ReleaseVersionsResource {
         authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
 
         releaseVersion.setArchive(isArchive);
+        releaseVersion.setPermissionType(NOT_SELECTED);
+        releaseVersionAccessRepository.deleteReleaseVersionAccessByVersionId(releaseVersionId);
 
         return new ResponseEntity<>(releaseVersion, HttpStatus.OK);
     }
@@ -251,6 +275,255 @@ public class ReleaseVersionsResource {
             return new ArrayList<>();
         }
         return releaseVersionRepository.getDependentVersionNames(releaseVersion.getVersionURI());
+    }
+
+    @PostMapping(value = Routes.RELEASE_PACKAGES_MASTER_PERMISSION, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @Timed
+    public ResponseEntity<String> updateReleaseMasterConfig(@RequestBody Map<String, Object> request) {
+        try {
+            releaseVersionService.updateReleaseMasterConfig(request);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PutMapping(value = Routes.RELEASE_VERSIONS_PERMISSION, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @Timed
+    public ResponseEntity<Void> updateReleaseVersionPermissions(@RequestBody Map<String, Object> request) {
+
+        List<Long> releases = (List<Long>) request.get("releases");
+        String permissionType = (String) request.get("releasePackageType");
+        List<String> users = (List<String>) request.get("users");
+
+        if (releases == null || releases.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        ReleasePermissionType newPermission = ReleasePermissionType.valueOf(permissionType);
+
+        List<ReleaseVersion> versions = releaseVersionRepository.findAllById(releases);
+
+        if (versions.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Set<String> affectedTypes = new HashSet<>();
+
+        for (ReleaseVersion releaseVersion : versions) {
+
+            releaseVersion.setPermissionType(newPermission);
+
+            if (releaseVersion.getReleaseType() != null) {
+                affectedTypes.add(releaseVersion.getReleaseType().toUpperCase());
+            }
+
+            releaseVersionAccessRepository.deleteByReleaseVersionId(
+                releaseVersion.getReleaseVersionId());
+
+            if (newPermission == ReleasePermissionType.ADMIN_STAFF_SELECTED_USERS
+                && users != null && !users.isEmpty()) {
+
+                List<ReleaseVersionAccess> accessList = users.stream()
+                    .map(userId -> {
+                        ReleaseVersionAccess access = new ReleaseVersionAccess();
+                        access.setReleaseVersionId(releaseVersion.getReleaseVersionId());
+                        access.setUserId(Long.valueOf(userId));
+                        return access;
+                    })
+                    .toList();
+
+                releaseVersionAccessRepository.saveAll(accessList);
+            }
+        }
+
+        releaseVersionRepository.saveAll(versions);
+
+        releaseVersionService.revokePermissions(affectedTypes);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @PostMapping(value = Routes.VERSION_PERMISSION_UPDATE_CHECK, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @Timed
+    public ResponseEntity<Boolean> checkReleaseVersionUpdate(@RequestBody Map<String, Object> request) {
+
+        List<Long> releaseVersions = (List<Long>) request.get("releases");
+
+        if (releaseVersions == null || releaseVersions.isEmpty()) {
+            return ResponseEntity.ok(false);
+        }
+
+        ReleasePackageConfig allConfig = releasePackageConfigRepository.findByReleaseType("ALL");
+        if (allConfig != null && Boolean.TRUE.equals(allConfig.getActive())) {
+            return ResponseEntity.ok(true);
+        }
+
+        List<ReleasePackageConfig> masterConfigurationList =
+            releasePackageConfigRepository
+                .findByReleasePermissionTypeNot(String.valueOf(NOT_SELECTED))
+                .stream()
+                .filter(rp -> !"ALL".equalsIgnoreCase(rp.getReleaseType()))
+                .toList();
+
+        if (!masterConfigurationList.isEmpty()) {
+
+            List<ReleaseVersion> versions =
+                releaseVersionRepository.findAllById(releaseVersions);
+
+            Set<String> releaseTypes = versions.stream()
+                .filter(v -> !v.isArchive())
+                .map(v -> v.getReleaseType().toLowerCase())
+                .collect(Collectors.toSet());
+
+            for (ReleasePackageConfig config : masterConfigurationList) {
+
+                if (releaseTypes.contains(config.getReleaseType().toLowerCase())) {
+                    return ResponseEntity.ok(true);
+                }
+            }
+        }
+
+        return ResponseEntity.ok(false);
+    }
+
+    @PostMapping(value = Routes.VERSION_MASTER_CONFIG_CHECK, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @Timed
+    public ResponseEntity<Boolean> checkReleaseMasterConfig(@RequestBody Map<String, Object> request) {
+
+        String releaseType = (String) request.get("releaseType");
+
+        List<ReleaseVersion> allVersions = releaseVersionRepository.findAll();
+
+        List<ReleasePackageConfig> configuredReleaseConfigs =
+            releasePackageConfigRepository.findByReleasePermissionTypeNot(String.valueOf(NOT_SELECTED));
+
+        boolean hasAnyConfiguredPermission = allVersions.stream()
+            .anyMatch(v -> v.getPermissionType() != ReleasePermissionType.NOT_SELECTED);
+
+        boolean hasMasterConfigured = configuredReleaseConfigs.stream()
+            .anyMatch(config -> !"ALL".equalsIgnoreCase(config.getReleaseType()));
+
+        if ("ALL".equalsIgnoreCase(releaseType)) {
+            return ResponseEntity.ok(hasAnyConfiguredPermission || hasMasterConfigured);
+        }
+
+        boolean hasAllTypeConfigured = configuredReleaseConfigs.stream()
+            .anyMatch(config -> "ALL".equalsIgnoreCase(config.getReleaseType()));
+
+        if (hasAllTypeConfigured) {
+            return ResponseEntity.ok(true);
+        }
+
+        Set<String> versionTypes = allVersions.stream()
+            .filter(v -> !v.isArchive())
+            .filter(v -> v.getPermissionType() != ReleasePermissionType.NOT_SELECTED)
+            .map(v -> v.getReleaseType().toLowerCase())
+            .collect(Collectors.toSet());
+
+        return ResponseEntity.ok(versionTypes.contains(releaseType.toLowerCase()));
+    }
+
+    @GetMapping(value = Routes.RELEASE_PERMISSION, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<List<ReleasePermissionRequestDTO>> getReleasePermissions() {
+
+        List<ReleasePermissionRequestDTO> permissionDTOList =
+            releaseVersionRepository.findAll().stream()
+
+                .filter(version -> version.getPermissionType() != NOT_SELECTED)
+
+                .map(version -> new ReleasePermissionRequestDTO(
+                    version.getReleaseVersionId(),
+                    version.getReleasePackage().getName(),
+                    version.getName(),
+                    version.getPermissionType(),
+                    version.getReleaseType()
+                ))
+
+                .toList();
+
+        return ResponseEntity.ok(permissionDTOList);
+    }
+
+    @GetMapping(value = Routes.RELEASE_PERMISSION_VISIBILITY, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<List<String>> getUsersForReleaseVersion(
+        @PathVariable Long releaseVersionId) {
+
+        List<String> users = releaseVersionService.getUsersForReleaseVersion(releaseVersionId);
+
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping(value = Routes.VERSION_USER_ACCESS, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<List<String>> getUsersByReleaseVersionId(@PathVariable Long releaseVersionId) {
+        List<String> logins = releaseVersionAccessRepository.findLoginsByReleaseVersionId(releaseVersionId);
+        return ResponseEntity.ok(logins);
+    }
+
+    private static final String RELEASE_ID = "releaseId";
+
+    @PutMapping(value = Routes.REVOKE_USER_ACCESS, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<String> updateIndividualUserAccess(@RequestBody Map<String, Object> request) {
+        String releaseId = request.get(RELEASE_ID) != null ? request.get(RELEASE_ID).toString() : null;
+        String requestUser = (String) request.get("user");
+
+        try {
+            String resultMessage = releaseVersionService.revokeIndividualUserAccess(releaseId, requestUser);
+            if (resultMessage.equals("User access revoked successfully.")) {
+                return ResponseEntity.ok(resultMessage);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resultMessage);
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing user list.");
+        }
+    }
+
+    @PutMapping(value = Routes.REVOKE_RELEASE_ACCESS, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<String> releaseAccessRevoke(@RequestBody Map<String, Object> request) {
+        String releaseId = request.get(RELEASE_ID) != null ? request.get(RELEASE_ID).toString() : null;
+
+        String resultMessage = releaseVersionService.revokeAllReleaseAccess(releaseId);
+        if (resultMessage.equals("User access revoked successfully.")) {
+            return ResponseEntity.ok(resultMessage);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resultMessage);
+    }
+
+    @GetMapping(value = Routes.RELEASE_PACKAGE_PERMISSION_VISIBILITY, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<List<PermissionVisibilityResponse>> getPackageVisibility(
+        @PathVariable Long releasePackageId) {
+
+        List<ReleaseVersion> versions =
+            releaseVersionRepository.findByReleasePackageIdAndArchiveFalse(releasePackageId);
+
+        List<PermissionVisibilityResponse> response =
+            releaseVersionService.getVisibilityForVersions(versions);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(value = Routes.RELEASE_TYPES, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<List<String>> getAllReleaseTypes() {
+        List<String> releaseTypes = releasePackageConfigRepository.findAll()
+            .stream()
+            .map(ReleasePackageConfig::getReleaseType)
+            .distinct()
+            .toList();
+
+        return ResponseEntity.ok(releaseTypes);
     }
 
 }
