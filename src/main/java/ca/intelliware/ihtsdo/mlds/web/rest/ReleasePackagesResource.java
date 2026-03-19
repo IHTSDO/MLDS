@@ -178,7 +178,7 @@ public class ReleasePackagesResource {
 
     private boolean isPackagePublished(ReleasePackage releasePackage) {
         for (ReleaseVersion version : releasePackage.getReleaseVersions()) {
-            if (version.getReleaseType().equalsIgnoreCase("online") || version.getReleaseType().equalsIgnoreCase("alpha/beta")) {
+            if (version.getReleaseType().equalsIgnoreCase(RELEASE_TYPE_ONLINE) || version.getReleaseType().equalsIgnoreCase("alpha/beta")) {
                 return true;
             }
         }
@@ -254,7 +254,7 @@ public class ReleasePackagesResource {
         }
 
         Set<ReleaseVersion> releaseVersions = releasePackage.getReleaseVersions().stream()
-            .filter(version -> version.getReleaseType().equalsIgnoreCase("online") ||
+            .filter(version -> version.getReleaseType().equalsIgnoreCase(RELEASE_TYPE_ONLINE) ||
                 (authorizationChecker.shouldSeeAlphaBetaPackages() && version.getReleaseType().equalsIgnoreCase("alpha/beta")))
             .map(releaseFilePrivacyFilter::filterReleaseVersionByAuthority)
             .collect(Collectors.toSet());
@@ -262,6 +262,7 @@ public class ReleasePackagesResource {
         releasePackage.setReleaseVersions(releaseVersions);
         return releasePackage;
     }
+
 
     @RequestMapping(value = Routes.RELEASE_PACKAGE,
         method = RequestMethod.PUT,
@@ -294,7 +295,7 @@ public class ReleasePackagesResource {
 
         return new ResponseEntity<ReleasePackage>(releasePackage, HttpStatus.OK);
     }
-
+    private static final String RELEASE_TYPE_ONLINE = "online";
     @RequestMapping(value = Routes.RELEASE_PACKAGE,
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -313,7 +314,7 @@ public class ReleasePackagesResource {
         authorizationChecker.checkCanEditReleasePackage(releasePackage);
 
         for (ReleaseVersion releaseVersion : releasePackage.getReleaseVersions()) {
-            if (releaseVersion.isOnline()) {
+            if (RELEASE_TYPE_ONLINE.equalsIgnoreCase(releaseVersion.getReleaseType())) {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
         }

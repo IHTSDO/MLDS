@@ -275,7 +275,7 @@ public class ReleasePackagesResourceTest {
 	public void testReleasePackageDeleteShouldFailForActiveVersion() throws Exception {
 		ReleasePackage releasePackage = new ReleasePackage();
 		ReleaseVersion activeVersion = new ReleaseVersion(2L);
-		activeVersion.setOnline(true);
+		activeVersion.setReleaseType("online");
 		releasePackage.addReleaseVersion(activeVersion);
 
 		when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
@@ -292,7 +292,7 @@ public class ReleasePackagesResourceTest {
 	public void testReleasePackageDeleteShouldSucceedForInactiveVersion() throws Exception {
 		ReleasePackage releasePackage = new ReleasePackage();
 		ReleaseVersion inactiveVersion = new ReleaseVersion(2L);
-		inactiveVersion.setOnline(false);
+		inactiveVersion.setReleaseType("offline");
 		releasePackage.addReleaseVersion(inactiveVersion);
 
 		when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));

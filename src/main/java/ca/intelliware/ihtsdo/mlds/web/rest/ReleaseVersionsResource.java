@@ -424,8 +424,10 @@ public class ReleaseVersionsResource {
         Set<String> versionTypes = allVersions.stream()
             .filter(v -> !v.isArchive())
             .filter(v -> v.getPermissionType() != ReleasePermissionType.NOT_SELECTED)
-            .map(v -> v.getReleaseType().toLowerCase())
-            .collect(Collectors.toSet());
+            .map(ReleaseVersion::getReleaseType)
+            .filter(java.util.Objects::nonNull)
+            .map(String::toLowerCase)
+            .collect(java.util.stream.Collectors.toSet());
 
         return ResponseEntity.ok(versionTypes.contains(releaseType.toLowerCase()));
     }
@@ -436,17 +438,19 @@ public class ReleaseVersionsResource {
 
         List<ReleasePermissionRequestDTO> permissionDTOList =
             releaseVersionRepository.findAll().stream()
-
-                .filter(version -> version.getPermissionType() != NOT_SELECTED)
-
+                .filter(java.util.Objects::nonNull)
+                .filter(version -> version.getPermissionType() != null
+                    && version.getPermissionType() != NOT_SELECTED)
+                .filter(version -> version.getReleasePackage() != null)
                 .map(version -> new ReleasePermissionRequestDTO(
                     version.getReleaseVersionId(),
-                    version.getReleasePackage().getName(),
+                    version.getReleasePackage().getName() != null
+                        ? version.getReleasePackage().getName()
+                        : "",
                     version.getName(),
                     version.getPermissionType(),
                     version.getReleaseType()
                 ))
-
                 .toList();
 
         return ResponseEntity.ok(permissionDTOList);

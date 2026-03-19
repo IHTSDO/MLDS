@@ -79,12 +79,18 @@ public class ReleaseVersionService {
         List<String> masterConfigIds = Arrays.asList("ONLINE", "ALPHA/BETA", "OFFLINE", "ALL");
 
         User user = userRepository.findByLoginIgnoreCase(requestUser);
+        if (user == null) {
+            return "User not found.";
+        }
         long userId = user.getUserId();
 
         if (masterConfigIds.contains(releaseVersionId)) {
             ReleasePackageConfig masterPermission = releasePackageConfigRepository.findByReleaseType(releaseVersionId);
             List<Long> userList = objectMapper.readValue(masterPermission.getUserList(), new TypeReference<List<Long>>() {
             });
+            if (masterPermission.getUserList() == null) {
+                return "No user list found.";
+            }
 
             if (userList.remove(userId)) {
                 masterPermission.setUserList(objectMapper.writeValueAsString(userList));
@@ -111,8 +117,9 @@ public class ReleaseVersionService {
             Optional<ReleaseVersion> config = releaseVersionRepository.findById(Long.valueOf(releaseId));
             if (config.isPresent()) {
                 ReleaseVersion releaseVersion = config.get();
+                ReleasePermissionType perm = releaseVersion.getPermissionType();
 
-                if (releaseVersion.getPermissionType().equals(ReleasePermissionType.ADMIN_STAFF_SELECTED_USERS)) {
+                if (ReleasePermissionType.ADMIN_STAFF_SELECTED_USERS.equals(perm)) {
                     releaseVersionAccessRepository.deleteReleaseVersionAccessByVersionId(Long.valueOf(releaseId));
                 }
 
@@ -136,11 +143,13 @@ public class ReleaseVersionService {
 
         for (ReleaseVersion version : releaseVersions) {
 
-            if (version.isArchive()) {
+            if (version.isArchive() || version.getReleaseType() == null) {
                 continue;
             }
 
             String type = version.getReleaseType().toLowerCase();
+
+            type = type.toLowerCase();
 
             if (RELEASE_TYPE_ONLINE.equals(type)) {
                 onlineVersions.add(version);
@@ -232,7 +241,9 @@ public class ReleaseVersionService {
 
         return versions.stream().map(version -> {
 
-            String releaseType = version.getReleaseType().toUpperCase();
+            String releaseType = version.getReleaseType() != null
+                ? version.getReleaseType().toUpperCase()
+                : "";
 
             ReleasePackageConfig typeConfig = configMap.get(releaseType);
 
@@ -250,7 +261,9 @@ public class ReleaseVersionService {
 
             } else {
 
-                permission = version.getPermissionType().toString();
+                permission = version.getPermissionType() != null
+                    ? version.getPermissionType().toString()
+                    : ReleasePermissionType.NOT_SELECTED.toString();
 
             }
 
@@ -270,7 +283,9 @@ public class ReleaseVersionService {
             .findById(releaseVersionId)
             .orElseThrow(() -> new IllegalArgumentException("Release version not found"));
 
-        String releaseType = version.getReleaseType().toUpperCase();
+        String releaseType = version.getReleaseType() != null
+            ? version.getReleaseType().toUpperCase()
+            : "";
 
         ReleasePackageConfig masterAll =
             releasePackageConfigRepository.findByReleaseType("ALL");
