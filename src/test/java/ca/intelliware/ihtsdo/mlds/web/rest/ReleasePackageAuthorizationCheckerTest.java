@@ -3,6 +3,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import ca.intelliware.ihtsdo.mlds.security.DownloadException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -163,7 +164,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test(expected= DownloadException.class)
 	public void memberCannotDownloadOtherPackageVersion() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 		onlineIhtsdoVersion.getReleasePackage().setMember(sweden);
@@ -194,7 +195,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 		return onlineIhtsdoVersion;
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test(expected=DownloadException.class)
 	public void userCannotDownloadUnapprovedPackageVersion() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
@@ -205,7 +206,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test(expected=DownloadException.class)
 	public void userCannotDownloadApprovedPackageVersionWhenAccountDeactivated() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
@@ -218,7 +219,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test(expected= DownloadException.class)
 	public void userCannotDownloadApprovedPackageVersionWhenAccountDeregistered() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
@@ -231,7 +232,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 		authorizationChecker.checkCanDownloadReleaseVersion(onlineIhtsdoVersion);
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test(expected= DownloadException.class)
 	public void userCannotDownloadApprovedPackageVersionWhenAccountPendingInvoice() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 

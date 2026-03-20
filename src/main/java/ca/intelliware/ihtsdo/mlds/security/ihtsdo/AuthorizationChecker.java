@@ -4,8 +4,12 @@ package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.security.DownloadErrorMessages;
+import ca.intelliware.ihtsdo.mlds.security.DownloadException;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
+
 
 import java.util.Objects;
 
@@ -38,6 +42,15 @@ public class AuthorizationChecker {
 		//FIXME which exception should actually be used? Something that turns into an appropriate HTTP security response code
 		throw new IllegalStateException(description);
 	}
+
+    protected void failDownloadCheck(String description) {
+        throw new DownloadException(
+            HttpStatus.FORBIDDEN,
+            DownloadErrorMessages.PERMISSION_TITLE,
+            DownloadErrorMessages.PERMISSION_SUBTITLE,
+            DownloadErrorMessages.PERMISSION_REASON
+        );
+    }
 
 	protected void checkCurrentUserIsMemberOfAffiliate(Affiliate affiliate) {
 		if (affiliate != null) {

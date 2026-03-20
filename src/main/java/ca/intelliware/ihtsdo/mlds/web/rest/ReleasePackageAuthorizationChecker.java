@@ -91,7 +91,7 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
             return;
         }
 
-        failCheck("User not authorized to download release version.");
+        failDownloadCheck("User not authorized to download release version.");
     }
 
 
@@ -356,5 +356,50 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
         AccessContext context = buildAccessContextForSingle(version);
 
         return canAccessReleaseVersion(version, context);
+    }
+
+    public ReleasePermissionType resolveEffectivePermission(ReleaseVersion version) {
+
+        ReleasePackageConfig masterConfig =
+            releasePackageConfigRepository.findByReleaseType("ALL");
+
+        if (masterConfig != null && Boolean.TRUE.equals(masterConfig.getActive())) {
+            ReleasePermissionType masterPerm = safeEnum(masterConfig.getReleasePermissionType());
+            if (masterPerm != null) {
+                return masterPerm;
+            }
+            return ReleasePermissionType.ADMIN_ONLY;
+        }
+
+        if (version.getReleaseType() != null) {
+            ReleasePackageConfig moduleConfig =
+                releasePackageConfigRepository.findByReleaseType(version.getReleaseType().toUpperCase());
+
+            if (moduleConfig != null && Boolean.TRUE.equals(moduleConfig.getActive())) {
+                ReleasePermissionType modulePerm = safeEnum(moduleConfig.getReleasePermissionType());
+                if (modulePerm != null) {
+                    return modulePerm;
+                }
+                return ReleasePermissionType.ADMIN_ONLY;
+            }
+        }
+
+        if (version.getPermissionType() != null) {
+            return version.getPermissionType();
+        }
+
+        return ReleasePermissionType.ADMIN_ONLY;
+    }
+
+    public String getPermissionDescription(ReleasePermissionType permission) {
+
+        if (permission == null) return "appropriate";
+
+        return switch (permission) {
+            case EVERYONE, ADMIN_ONLY, NOT_SELECTED -> "ADMIN";
+            case ADMIN_AND_STAFF -> "ADMIN, STAFF or MEMBER";
+            case ADMIN_STAFF_AFFILIATES -> "ADMIN, STAFF, MEMBER or AFFILIATE";
+            case ADMIN_STAFF_SELECTED_USERS -> "ADMIN, STAFF, MEMBER or specific approved users";
+        };
     }
 }

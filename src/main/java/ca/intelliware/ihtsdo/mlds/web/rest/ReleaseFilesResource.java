@@ -1,10 +1,13 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
+import ca.intelliware.ihtsdo.mlds.domain.ReleasePermissionType;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseFileRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.security.DownloadErrorMessages;
+import ca.intelliware.ihtsdo.mlds.security.DownloadException;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import com.codahale.metrics.annotation.Timed;
 import jakarta.annotation.security.RolesAllowed;
@@ -168,18 +171,37 @@ public class ReleaseFilesResource {
         Optional<ReleaseFile> releaseFileOptional = releaseFileRepository.findById(releaseFileId);
 
         if (releaseFileOptional.isEmpty()) {
-            //TODO better 404 handling
-            throw new RuntimeException("no such file found");
+            throw new DownloadException(
+                HttpStatus.NOT_FOUND,
+                DownloadErrorMessages.NOT_FOUND_TITLE,
+                DownloadErrorMessages.NOT_FOUND_SUBTITLE,
+                DownloadErrorMessages.NOT_FOUND_REASON
+            );
         }
 
         ReleaseFile releaseFile = releaseFileOptional.get();
+        ReleaseVersion releaseVersion = releaseFile.getReleaseVersion();
 
-        //FIXME should we check children being consistent?
-        if (!authorizationChecker.canAccessReleaseVersion(releaseFile.getReleaseVersion())) {
-            response.setStatus(HttpStatus.FORBIDDEN.value());
-            return;
-        }
         authorizationChecker.checkCanDownloadReleaseVersion(releaseFile.getReleaseVersion());
+
+        if (!authorizationChecker.canAccessReleaseVersion(releaseVersion)) {
+
+            ReleasePermissionType permission =
+                authorizationChecker.resolveEffectivePermission(releaseVersion);
+
+            String requiredPermission =
+                authorizationChecker.getPermissionDescription(permission);
+
+            throw new DownloadException(
+                HttpStatus.FORBIDDEN,
+                DownloadErrorMessages.PERMISSION_TITLE,
+                DownloadErrorMessages.PERMISSION_SUBTITLE,
+                String.format(
+                    "You need \"%s\" permissions to download this content. Please request access to this release.",
+                    requiredPermission
+                )
+            );
+        }
 
         int statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
         try {

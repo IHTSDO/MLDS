@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Your request cannot be processed</title>
+    <style>
+        ::-moz-selection {
+            background: #b3d4fc;
+            text-shadow: none;
+        }
+
+        ::selection {
+            background: #b3d4fc;
+            text-shadow: none;
+        }
+
+        html {
+            padding: 30px 10px;
+            font-size: 20px;
+            line-height: 1.4;
+            color: #737373;
+            background: #f0f0f0;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        html,
+        input {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            max-width: 600px;
+            _width: 600px;
+            padding: 30px 20px 50px;
+            border: 1px solid #b3b3b3;
+            border-radius: 4px;
+            margin: 0 auto;
+            box-shadow: 0 1px 10px #a7a7a7, inset 0 1px 0 #fff;
+            background: #fcfcfc;
+        }
+
+        h1 {
+            margin: 0 10px;
+            font-size: 38px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        h1 span {
+            display: none;
+        }
+
+        h3 {
+            margin: 1.5em 0 0.5em;
+        }
+
+        p {
+            margin: 1em 0;
+        }
+
+        ul {
+            padding: 0 0 0 40px;
+            margin: 1em 0;
+        }
+
+        .container {
+            max-width: 540px;
+            _width: 540px;
+            margin: 0 auto;
+        }
+
+       .reason-box {
+            background: #fff3f3;
+            border-left: 4px solid #c0392b;
+            border-radius: 2px;
+            padding: 10px 14px;
+            margin: 1em 0;
+            font-size: 16px;
+            color: #5a1b1b;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+            font-style: italic;
+        }
+
+        .contact-info {
+            font-size: 16px;
+            color: #555;
+            margin-top: 1.5em;
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding-top: 1.5em;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1 th:text="${title}">Access Denied</h1>
+
+    <p th:text="${subtitle}">Sorry, you do not have permission to access this content.</p>
+
+    <div class="reason-box" th:text="${reason}">
+        You are not authorized to download this release file.
+    </div>
+
+    <div class="contact-info" th:if="${contactMessage != null}" th:utext="${contactMessage}">
+        If you believe you should have access, please contact your
+        <strong>Member's helpdesk</strong> or <strong>IHTSDO support</strong>.
+    </div>
+</div>
+</body>
+
+</html>

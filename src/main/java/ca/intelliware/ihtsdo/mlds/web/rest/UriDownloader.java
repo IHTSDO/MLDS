@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import ca.intelliware.ihtsdo.mlds.security.DownloadErrorMessages;
+import ca.intelliware.ihtsdo.mlds.security.DownloadException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.http.Header;
@@ -53,7 +55,7 @@ public class UriDownloader {
 
     private S3Location s3BucketName;
 
-    public int download(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) throws IOException {
+    public int download(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) throws IOException, DownloadException {
         // Are we dealing with an HTTP request or S3?
         // Can we determine an S3 Bucket?
         S3Location s3Location = determineS3Location(downloadUrl);
@@ -94,26 +96,39 @@ public class UriDownloader {
     }
 
     public int downloadS3(S3Location s3Location, String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse)
-        throws IOException {
-        log.debug("Attempting to download {} from S3", s3Location.toString());
-        log.debug(s3Location.bucket);
-        this.s3BucketName = s3Location;
-        S3Client s3Client = getS3Client();
-        FileHelper s3Helper = new FileHelper(s3Location.bucket, s3Client);
-        InputStream fileContents = s3Helper.getFileStream(s3Location.filePath);
-        if (fileContents != null) {
-            // Recover the filename from the path
+        throws IOException, DownloadException {
+        try {
+            log.debug("Attempting to download {} from S3", s3Location.toString());
+            log.debug(s3Location.bucket);
+            this.s3BucketName = s3Location;
+            S3Client s3Client = getS3Client();
+            FileHelper s3Helper = new FileHelper(s3Location.bucket, s3Client);
+            InputStream fileContents = s3Helper.getFileStream(s3Location.filePath);
             Path p = Paths.get(s3Location.filePath);
-            String fileName = p.getFileName().toString();
-            clientResponse.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-            StreamUtils.copy(fileContents, clientResponse.getOutputStream());
-        } else {
-            clientResponse.sendError(HttpStatus.SC_NOT_FOUND);
+            String fileName = (p.getFileName() != null) ? p.getFileName().toString() : "this release";
+            if (fileContents != null) {
+                clientResponse.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+                StreamUtils.copy(fileContents, clientResponse.getOutputStream());
+            } else {
+                throw new DownloadException(
+                    org.springframework.http.HttpStatus.NOT_FOUND,
+                    DownloadErrorMessages.NOT_FOUND_TITLE,
+                    DownloadErrorMessages.NOT_FOUND_SUBTITLE,
+                    String.format(
+                        "The release content \"%s\" was not found. It may have been removed or renamed.",
+                        fileName
+                    )
+                );
+            }
+            return clientResponse.getStatus();
+        } catch (DownloadException e) {
+            throw e;
+        } catch (IOException e) {
+            throw new DownloadException("Download Error", "An error occurred while processing your download.",
+                "A network error occurred while downloading the file from S3. Please try again.", e);
         }
-        return clientResponse.getStatus();
     }
-
-    /**
+        /**
      * Returns an initialized S3Client based on configured AWS region properties.
      *
      * Configuration details:
@@ -187,7 +202,7 @@ public class UriDownloader {
         return s3Client;
     }
 
-    public int downloadHTTP(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) {
+    public int downloadHTTP(String downloadUrl, HttpServletRequest clientRequest, HttpServletResponse clientResponse) throws DownloadException{
         log.debug("Attempting to download {} via HTTP", downloadUrl);
         try {
             CloseableHttpClient httpClient = createHttpClient();
@@ -202,8 +217,20 @@ public class UriDownloader {
                         setContentDispositionIfMissing(hostingResponse, clientResponse, downloadUrl);
                         HttpEntity hostingEntity = hostingResponse.getEntity();
                         hostingEntity.writeTo(clientResponse.getOutputStream());
-                    } else {
-                        clientResponse.sendError(statusCode);
+                    } else if (statusCode == HttpStatus.SC_NOT_FOUND) {
+                        throw new DownloadException(
+                            org.springframework.http.HttpStatus.NOT_FOUND,
+                            DownloadErrorMessages.NOT_FOUND_TITLE,
+                            DownloadErrorMessages.NOT_FOUND_SUBTITLE,
+                            DownloadErrorMessages.NOT_FOUND_REASON
+                        );
+                    }else {
+                        throw new DownloadException(
+                            org.springframework.http.HttpStatus.valueOf(statusCode),
+                            DownloadErrorMessages.DOWNLOAD_FAILED_TITLE,
+                            DownloadErrorMessages.DOWNLOAD_FAILED_SUBTITLE,
+                            DownloadErrorMessages.DOWNLOAD_FAILED_REASON
+                        );
                     }
                     return statusCode;
                 } finally {
@@ -213,7 +240,12 @@ public class UriDownloader {
                 httpClient.close();
             }
         } catch (IOException ex) {
-            throw new RuntimeException("Error while downloading file", ex);
+            throw new DownloadException(
+                DownloadErrorMessages.DOWNLOAD_FAILED_TITLE,
+                DownloadErrorMessages.DOWNLOAD_FAILED_SUBTITLE,
+                DownloadErrorMessages.DOWNLOAD_FAILED_REASON,
+                ex
+            );
         }
     }
 
