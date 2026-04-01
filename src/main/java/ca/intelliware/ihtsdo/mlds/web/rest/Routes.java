@@ -227,8 +227,6 @@ public class Routes {
     public static final String RELEASE_TYPES = "/api/releaseTypes";
     public static final String RELEASE_VERSIONS_PERMISSION = "/api/releaseVersion/updatePermissionType";
     public static final String RELEASE_PACKAGES_MASTER_PERMISSION = "/api/releasePackages/ConfigPermissionType";
-    public static final String VERSION_PERMISSION_UPDATE_CHECK = "/api/releasePackages/checkUpdatePermissionType";
-    public static final String VERSION_MASTER_CONFIG_CHECK = "/api/releasePackages/checkConfigPermissionType";
     public static final String RELEASE_PERMISSION = "/api/releasePermission";
     public static final String RELEASE_PERMISSION_VISIBILITY = "/api/releaseVisibility/users/{releaseVersionId}";
     public static final String RELEASE_PACKAGE_PERMISSION_VISIBILITY = "/api/viewVisibility/package/{releasePackageId}";
@@ -237,6 +235,7 @@ public class Routes {
     public static final String REVOKE_RELEASE_ACCESS = "/api/releaseAccessRevoke";
     public static final String MASTER_RELEASE_PERMISSION = "/api/masterReleasePermission";
     public static final String MASTER_CONFIG_USER_ACCESS = "/api/masterUsersAccess";
+    public static final String REVOKE_ALL_RELEASE_ACCESS= "/api/revokeAllReleaseVersionAccess";
 
 
 

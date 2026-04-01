@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 import static ca.intelliware.ihtsdo.mlds.domain.ReleasePermissionType.NOT_SELECTED;
 
@@ -342,94 +342,7 @@ public class ReleaseVersionsResource {
 
         releaseVersionRepository.saveAll(versions);
 
-        releaseVersionService.revokePermissions(affectedTypes);
-
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-
-    @PostMapping(value = Routes.VERSION_PERMISSION_UPDATE_CHECK, produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    @Timed
-    public ResponseEntity<Boolean> checkReleaseVersionUpdate(@RequestBody Map<String, Object> request) {
-
-        List<Long> releaseVersions = (List<Long>) request.get("releases");
-
-        if (releaseVersions == null || releaseVersions.isEmpty()) {
-            return ResponseEntity.ok(false);
-        }
-
-        ReleasePackageConfig allConfig = releasePackageConfigRepository.findByReleaseType("ALL");
-        if (allConfig != null && Boolean.TRUE.equals(allConfig.getActive())) {
-            return ResponseEntity.ok(true);
-        }
-
-        List<ReleasePackageConfig> masterConfigurationList =
-            releasePackageConfigRepository
-                .findByReleasePermissionTypeNot(String.valueOf(NOT_SELECTED))
-                .stream()
-                .filter(rp -> !"ALL".equalsIgnoreCase(rp.getReleaseType()))
-                .toList();
-
-        if (!masterConfigurationList.isEmpty()) {
-
-            List<ReleaseVersion> versions =
-                releaseVersionRepository.findAllById(releaseVersions);
-
-            Set<String> releaseTypes = versions.stream()
-                .filter(v -> !v.isArchive())
-                .map(v -> v.getReleaseType().toLowerCase())
-                .collect(Collectors.toSet());
-
-            for (ReleasePackageConfig config : masterConfigurationList) {
-
-                if (releaseTypes.contains(config.getReleaseType().toLowerCase())) {
-                    return ResponseEntity.ok(true);
-                }
-            }
-        }
-
-        return ResponseEntity.ok(false);
-    }
-
-    @PostMapping(value = Routes.VERSION_MASTER_CONFIG_CHECK, produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    @Timed
-    public ResponseEntity<Boolean> checkReleaseMasterConfig(@RequestBody Map<String, Object> request) {
-
-        String releaseType = (String) request.get("releaseType");
-
-        List<ReleaseVersion> allVersions = releaseVersionRepository.findAll();
-
-        List<ReleasePackageConfig> configuredReleaseConfigs =
-            releasePackageConfigRepository.findByReleasePermissionTypeNot(String.valueOf(NOT_SELECTED));
-
-        boolean hasAnyConfiguredPermission = allVersions.stream()
-            .anyMatch(v -> v.getPermissionType() != ReleasePermissionType.NOT_SELECTED);
-
-        boolean hasMasterConfigured = configuredReleaseConfigs.stream()
-            .anyMatch(config -> !"ALL".equalsIgnoreCase(config.getReleaseType()));
-
-        if ("ALL".equalsIgnoreCase(releaseType)) {
-            return ResponseEntity.ok(hasAnyConfiguredPermission || hasMasterConfigured);
-        }
-
-        boolean hasAllTypeConfigured = configuredReleaseConfigs.stream()
-            .anyMatch(config -> "ALL".equalsIgnoreCase(config.getReleaseType()));
-
-        if (hasAllTypeConfigured) {
-            return ResponseEntity.ok(true);
-        }
-
-        Set<String> versionTypes = allVersions.stream()
-            .filter(v -> !v.isArchive())
-            .filter(v -> v.getPermissionType() != ReleasePermissionType.NOT_SELECTED)
-            .map(ReleaseVersion::getReleaseType)
-            .filter(java.util.Objects::nonNull)
-            .map(String::toLowerCase)
-            .collect(java.util.stream.Collectors.toSet());
-
-        return ResponseEntity.ok(versionTypes.contains(releaseType.toLowerCase()));
     }
 
     @GetMapping(value = Routes.RELEASE_PERMISSION, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -528,6 +441,13 @@ public class ReleaseVersionsResource {
             .toList();
 
         return ResponseEntity.ok(releaseTypes);
+    }
+
+    @PutMapping(value = Routes.REVOKE_ALL_RELEASE_ACCESS, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<String> revokeAllVersionPermissions() {
+        String result = releaseVersionService.revokeAllVersionLevelPermissions();
+        return ResponseEntity.ok(result);
     }
 
 }

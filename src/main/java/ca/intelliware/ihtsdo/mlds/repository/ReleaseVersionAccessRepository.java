@@ -38,5 +38,10 @@ public interface ReleaseVersionAccessRepository extends JpaRepository<ReleaseVer
         """)
     void deleteByReleaseVersionIds(@Param("versionIds") List<Long> versionIds);
 
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM ReleaseVersionAccess")
+    void deleteAllAccess();
+
     void deleteByReleaseVersionId(Long releaseVersionId);
 }

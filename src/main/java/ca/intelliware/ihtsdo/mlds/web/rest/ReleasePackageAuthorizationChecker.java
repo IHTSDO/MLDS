@@ -121,11 +121,10 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
         }
 
         try {
-            List<String> allowedUsers =
-                objectMapper.readValue(jsonUserList, new TypeReference<List<String>>() {
-                });
+            List<Long> allowedUsers =
+                objectMapper.readValue(jsonUserList, new TypeReference<List<Long>>() {});
 
-            return allowedUsers.contains(String.valueOf(user.getUserId()));
+            return allowedUsers.contains(user.getUserId());
 
         } catch (Exception e) {
             return false;
@@ -140,29 +139,50 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
         ReleasePackageConfig masterConfig
     ) {
 
-        List<PermissionContext> contexts = List.of(
-            new PermissionContext(version.getPermissionType(), null),
-            new PermissionContext(
-                (moduleConfig != null && Boolean.TRUE.equals(moduleConfig.getActive()))
-                    ? safeEnum(moduleConfig.getReleasePermissionType())
-                    : null,
-                moduleConfig),
-            new PermissionContext(
-                (masterConfig != null && Boolean.TRUE.equals(masterConfig.getActive()))
-                    ? safeEnum(masterConfig.getReleasePermissionType())
-                    : null,
-                masterConfig)
-        );
 
-        for (PermissionContext ctx : contexts) {
-            if (ctx.permission == null) {
-                continue; // only ONE continue in loop
-            }
+        if (version.getPermissionType() != null &&
+            version.getPermissionType() != ReleasePermissionType.NOT_SELECTED) {
 
-            if (hasAccess(ctx, version, user, isStaffOrMember)) {
-                return true;
+            return hasAccess(
+                new PermissionContext(version.getPermissionType(), null),
+                version,
+                user,
+                isStaffOrMember
+            );
+        }
+
+
+        if (moduleConfig != null && Boolean.TRUE.equals(moduleConfig.getActive())) {
+
+            ReleasePermissionType modulePerm =
+                safeEnum(moduleConfig.getReleasePermissionType());
+
+            if (modulePerm != null) {
+                return hasAccess(
+                    new PermissionContext(modulePerm, moduleConfig),
+                    version,
+                    user,
+                    isStaffOrMember
+                );
             }
         }
+
+
+        if (masterConfig != null && Boolean.TRUE.equals(masterConfig.getActive())) {
+
+            ReleasePermissionType masterPerm =
+                safeEnum(masterConfig.getReleasePermissionType());
+
+            if (masterPerm != null) {
+                return hasAccess(
+                    new PermissionContext(masterPerm, masterConfig),
+                    version,
+                    user,
+                    isStaffOrMember
+                );
+            }
+        }
+
 
         return false;
     }
@@ -337,9 +357,22 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
                 : null;
 
         if (context.isAnonymous) {
-            return isEveryone(version.getPermissionType())
-                || (moduleConfig != null && Boolean.TRUE.equals(moduleConfig.getActive()) && isEveryone(moduleConfig))
-                || (context.masterConfig != null && Boolean.TRUE.equals(context.masterConfig.getActive()) && isEveryone(context.masterConfig));
+
+            if (version.getPermissionType() != null &&
+                version.getPermissionType() != ReleasePermissionType.NOT_SELECTED) {
+
+                return isEveryone(version.getPermissionType());
+            }
+
+            if (moduleConfig != null && Boolean.TRUE.equals(moduleConfig.getActive())) {
+                return isEveryone(moduleConfig);
+            }
+
+            if (context.masterConfig != null && Boolean.TRUE.equals(context.masterConfig.getActive())) {
+                return isEveryone(context.masterConfig);
+            }
+
+            return false;
         }
 
         return evaluateAccess(
@@ -360,16 +393,12 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 
     public ReleasePermissionType resolveEffectivePermission(ReleaseVersion version) {
 
-        ReleasePackageConfig masterConfig =
-            releasePackageConfigRepository.findByReleaseType("ALL");
 
-        if (masterConfig != null && Boolean.TRUE.equals(masterConfig.getActive())) {
-            ReleasePermissionType masterPerm = safeEnum(masterConfig.getReleasePermissionType());
-            if (masterPerm != null) {
-                return masterPerm;
-            }
-            return ReleasePermissionType.ADMIN_ONLY;
+        if (version.getPermissionType() != null
+            && version.getPermissionType() != ReleasePermissionType.NOT_SELECTED) {
+            return version.getPermissionType();
         }
+
 
         if (version.getReleaseType() != null) {
             ReleasePackageConfig moduleConfig =
@@ -377,15 +406,17 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 
             if (moduleConfig != null && Boolean.TRUE.equals(moduleConfig.getActive())) {
                 ReleasePermissionType modulePerm = safeEnum(moduleConfig.getReleasePermissionType());
-                if (modulePerm != null) {
-                    return modulePerm;
-                }
-                return ReleasePermissionType.ADMIN_ONLY;
+                if (modulePerm != null) return modulePerm;
             }
         }
 
-        if (version.getPermissionType() != null) {
-            return version.getPermissionType();
+
+        ReleasePackageConfig masterConfig =
+            releasePackageConfigRepository.findByReleaseType("ALL");
+
+        if (masterConfig != null && Boolean.TRUE.equals(masterConfig.getActive())) {
+            ReleasePermissionType masterPerm = safeEnum(masterConfig.getReleasePermissionType());
+            if (masterPerm != null) return masterPerm;
         }
 
         return ReleasePermissionType.ADMIN_ONLY;

@@ -27,10 +27,6 @@ public class ReleaseVersionService {
 
     private static final String USER_ACCESS_REVOKED_SUCCESS = "User access revoked successfully.";
 
-    private static final String RELEASE_TYPE_ONLINE = "online";
-    private static final String RELEASE_TYPE_ALPHA_BETA = "alpha/beta";
-    private static final String RELEASE_TYPE_OFFLINE = "offline";
-
     public ReleaseVersionService(
         ReleaseVersionAccessRepository releaseVersionAccessRepository,
         ReleasePackageConfigRepository releasePackageConfigRepository,
@@ -62,14 +58,17 @@ public class ReleaseVersionService {
         config.setActive(true);
         config.setUserList(userListJson);
         releasePackageConfigRepository.save(config);
-
-        classifyAndRevokePackages(releaseType);
     }
 
     private String serializeUserList(List<String> users) {
         try {
-            return objectMapper.writeValueAsString(users);
-        } catch (JsonProcessingException e) {
+            List<Long> userIds = users.stream()
+                .map(Long::valueOf)
+                .toList();
+
+            return objectMapper.writeValueAsString(userIds);
+
+        } catch (Exception e) {
             throw new IllegalStateException("Failed to serialize user list", e);
         }
     }
@@ -133,97 +132,6 @@ public class ReleaseVersionService {
         return USER_ACCESS_REVOKED_SUCCESS;
     }
 
-    private void classifyAndRevokePackages(String releaseType) {
-
-        Collection<ReleaseVersion> releaseVersions = releaseVersionRepository.findAll();
-
-        List<ReleaseVersion> onlineVersions = new ArrayList<>();
-        List<ReleaseVersion> alphaBetaVersions = new ArrayList<>();
-        List<ReleaseVersion> offlineVersions = new ArrayList<>();
-
-        for (ReleaseVersion version : releaseVersions) {
-
-            if (version.isArchive() || version.getReleaseType() == null) {
-                continue;
-            }
-
-            String type = version.getReleaseType().toLowerCase();
-
-            type = type.toLowerCase();
-
-            if (RELEASE_TYPE_ONLINE.equals(type)) {
-                onlineVersions.add(version);
-            } else if (RELEASE_TYPE_ALPHA_BETA.equals(type)) {
-                alphaBetaVersions.add(version);
-            } else {
-                offlineVersions.add(version);
-            }
-        }
-
-        switch (releaseType.toLowerCase()) {
-            case RELEASE_TYPE_ONLINE -> revokeAndUpdateVersions(onlineVersions);
-            case RELEASE_TYPE_ALPHA_BETA -> revokeAndUpdateVersions(alphaBetaVersions);
-            case RELEASE_TYPE_OFFLINE -> revokeAndUpdateVersions(offlineVersions);
-            case "all" -> revokeAllVersions();
-            default -> throw new IllegalArgumentException("Unsupported release type: " + releaseType);
-        }
-    }
-
-    private void revokeAndUpdateVersions(List<ReleaseVersion> versions) {
-
-        List<Long> ids = versions.stream()
-            .map(ReleaseVersion::getReleaseVersionId)
-            .toList();
-
-        releaseVersionRepository
-            .updatePermissionTypeForVersions(ReleasePermissionType.NOT_SELECTED, ids);
-
-        releaseVersionAccessRepository
-            .deleteByReleaseVersionIds(ids);
-
-        deactivateConfig("ALL");
-    }
-
-    private void revokeAllVersions() {
-
-        releaseVersionRepository
-            .updatePermissionTypeForAllVersions(ReleasePermissionType.NOT_SELECTED);
-
-        releaseVersionAccessRepository.deleteAll();
-
-        List<ReleasePackageConfig> configs = releasePackageConfigRepository.findAll();
-
-        for (ReleasePackageConfig config : configs) {
-
-            if (!"ALL".equalsIgnoreCase(config.getReleaseType())) {
-
-                config.setReleasePermissionType(ReleasePermissionType.NOT_SELECTED.name());
-                config.setActive(false);
-                config.setUserList("[]");
-
-                releasePackageConfigRepository.save(config);
-            }
-        }
-    }
-
-
-    public void revokePermissions(Set<String> releaseTypes) {
-        for (String type : releaseTypes) {
-            deactivateConfig(type);
-        }
-        deactivateConfig("ALL");
-    }
-
-    private void deactivateConfig(String type) {
-        ReleasePackageConfig config = releasePackageConfigRepository.findByReleaseType(type);
-
-        if (config != null) {
-            config.setReleasePermissionType(ReleasePermissionType.NOT_SELECTED.toString());
-            config.setActive(false);
-            config.setUserList("[]");
-            releasePackageConfigRepository.save(config);
-        }
-    }
 
     public List<PermissionVisibilityResponse> getVisibilityForVersions(List<ReleaseVersion> versions) {
 
@@ -247,24 +155,24 @@ public class ReleaseVersionService {
 
             ReleasePackageConfig typeConfig = configMap.get(releaseType);
 
-            boolean isMaster = masterAll != null && Boolean.TRUE.equals(masterAll.getActive());
-
             String permission;
 
-            if (isMaster) {
+            if (version.getPermissionType() != null
+                && version.getPermissionType() != ReleasePermissionType.NOT_SELECTED) {
 
-                permission = masterAll.getReleasePermissionType();
+                permission = version.getPermissionType().toString();
 
             } else if (typeConfig != null && Boolean.TRUE.equals(typeConfig.getActive())) {
 
                 permission = typeConfig.getReleasePermissionType();
 
+            } else if (masterAll != null && Boolean.TRUE.equals(masterAll.getActive())) {
+
+                permission = masterAll.getReleasePermissionType();
+
             } else {
 
-                permission = version.getPermissionType() != null
-                    ? version.getPermissionType().toString()
-                    : ReleasePermissionType.NOT_SELECTED.toString();
-
+                permission = ReleasePermissionType.NOT_SELECTED.toString();
             }
 
             return new PermissionVisibilityResponse(
@@ -283,16 +191,16 @@ public class ReleaseVersionService {
             .findById(releaseVersionId)
             .orElseThrow(() -> new IllegalArgumentException("Release version not found"));
 
+
+        if (version.getPermissionType() == ReleasePermissionType.ADMIN_STAFF_SELECTED_USERS) {
+            return releaseVersionAccessRepository
+                .findLoginsByReleaseVersionId(releaseVersionId);
+        }
+
         String releaseType = version.getReleaseType() != null
             ? version.getReleaseType().toUpperCase()
             : "";
 
-        ReleasePackageConfig masterAll =
-            releasePackageConfigRepository.findByReleaseType("ALL");
-
-        if (masterAll != null && masterAll.getActive()) {
-            return extractUsers(masterAll);
-        }
 
         ReleasePackageConfig typeConfig =
             releasePackageConfigRepository.findByReleaseTypeIgnoreCase(releaseType);
@@ -301,8 +209,15 @@ public class ReleaseVersionService {
             return extractUsers(typeConfig);
         }
 
-        return releaseVersionAccessRepository
-            .findLoginsByReleaseVersionId(releaseVersionId);
+
+        ReleasePackageConfig masterAll =
+            releasePackageConfigRepository.findByReleaseType("ALL");
+
+        if (masterAll != null && masterAll.getActive()) {
+            return extractUsers(masterAll);
+        }
+
+        return Collections.emptyList();
     }
 
     private List<String> extractUsers(ReleasePackageConfig config) {
@@ -329,5 +244,15 @@ public class ReleaseVersionService {
             return Collections.emptyList();
 
         }
+    }
+
+    @Transactional
+    public String revokeAllVersionLevelPermissions() {
+        releaseVersionRepository.updatePermissionTypeForAllVersions(
+            ReleasePermissionType.NOT_SELECTED
+        );
+        releaseVersionAccessRepository.deleteAllAccess();
+
+        return "All version-level permissions revoked successfully.";
     }
 }
