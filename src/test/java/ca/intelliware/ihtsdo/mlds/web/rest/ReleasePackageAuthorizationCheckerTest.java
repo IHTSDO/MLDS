@@ -2,6 +2,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 import ca.intelliware.ihtsdo.mlds.security.DownloadException;
 import org.junit.Before;
@@ -148,12 +149,23 @@ public class ReleasePackageAuthorizationCheckerTest {
 		authorizationChecker.checkCanDownloadReleaseVersion(offlineReleaseVersion);
 	}
 
-	@Test
-	public void staffCanDownloadPackageVersion() {
-		securityContextSetup.asIHTSDOStaff();
+    @Test
+    public void staffCanDownloadPackageVersion() {
 
-		authorizationChecker.checkCanDownloadReleaseVersion(offlineReleaseVersion);
-	}
+        securityContextSetup.asIHTSDOStaff();
+
+        ReleaseVersion releaseVersion = Mockito.mock(ReleaseVersion.class);
+        ReleasePackage releasePackage = Mockito.mock(ReleasePackage.class);
+        Member member = Mockito.mock(Member.class);
+
+        when(releaseVersion.getReleasePackage()).thenReturn(releasePackage);
+        when(releasePackage.getMember()).thenReturn(member);
+        when(member.getKey()).thenReturn(Member.KEY_IHTSDO);
+
+        when(releaseVersion.isArchive()).thenReturn(false);
+
+        authorizationChecker.checkCanDownloadReleaseVersion(releaseVersion);
+    }
 
 	@Test
 	public void memberCanDownloadIhtsdoPackageVersion() {
@@ -178,7 +190,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 	public void userCanDownloadApprovedPackageVersion() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
-		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
+		when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
 
 		securityContextSetup.asAffiliateUser();
 
@@ -199,7 +211,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 	public void userCannotDownloadUnapprovedPackageVersion() {
 		ReleaseVersion onlineIhtsdoVersion = withOnlineIhtsdoReleasePackageVersion();
 
-		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(false);
+		when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(false);
 
 		securityContextSetup.asAffiliateUser();
 
@@ -212,7 +224,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 
 //		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
 
-		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeactivated()).thenReturn(true);
+		when(userStandingCalculator.isLoggedInUserAffiliateDeactivated()).thenReturn(true);
 
 		securityContextSetup.asAffiliateUser();
 
@@ -225,7 +237,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 
 //		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
 
-		Mockito.when(userStandingCalculator.isLoggedInUserAffiliateDeregistered()).thenReturn(true);
+		when(userStandingCalculator.isLoggedInUserAffiliateDeregistered()).thenReturn(true);
 
 		securityContextSetup.asAffiliateUser();
 
@@ -238,7 +250,7 @@ public class ReleasePackageAuthorizationCheckerTest {
 
 //		Mockito.when(userMembershipAccessor.isAffiliateMemberApplicationAccepted(ihtsdo)).thenReturn(true);
 
-		Mockito.when(userStandingCalculator.isLoggedInUserAffiliatePendingInvoice()).thenReturn(true);
+		when(userStandingCalculator.isLoggedInUserAffiliatePendingInvoice()).thenReturn(true);
 
 		securityContextSetup.asAffiliateUser();
 

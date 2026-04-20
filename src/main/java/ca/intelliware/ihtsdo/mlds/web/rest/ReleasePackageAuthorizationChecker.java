@@ -68,16 +68,28 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
 
     public void checkCanDownloadReleaseVersion(ReleaseVersion releaseVersion) {
 
-        if (isStaffOrAdmin()) {
+        if (isAdmin()) {
             return;
         }
 
-        boolean isIhtsdoMember =
-            isMember() &&
-                Objects.equals(
-                    releaseVersion.getReleasePackage().getMember().getKey(),
-                    Member.KEY_IHTSDO
-                );
+        Member member = releaseVersion.getReleasePackage().getMember();
+        boolean isArchive = releaseVersion.isArchive();
+
+        if (currentSecurityContext.isStaff() || currentSecurityContext.isMember()) {
+
+            if (isArchive) {
+                if (!currentSecurityContext.isStaffFor(member)) {
+                    failDownloadCheck("Archive versions only available for own member staff.");
+                }
+                return;
+            }
+
+            if (!canAccessOwnMemberPackage(member)) {
+                failDownloadCheck("Not authorized to access this package.");
+            }
+
+            return;
+        }
 
         boolean isAllowedAffiliate =
             !userStandingCalculator.isLoggedInUserAffiliateDeactivated()
@@ -87,7 +99,10 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
                 releaseVersion.getReleasePackage().getMember()
             );
 
-        if (isIhtsdoMember || isAllowedAffiliate) {
+        if (isAllowedAffiliate) {
+            if (isArchive) {
+                failDownloadCheck("Archive versions are not available for the users.");
+            }
             return;
         }
 

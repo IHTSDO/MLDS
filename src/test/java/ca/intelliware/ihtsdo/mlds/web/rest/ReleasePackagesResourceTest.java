@@ -24,6 +24,7 @@ import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.ReleasePackagePrioritizer;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -323,6 +324,9 @@ public class ReleasePackagesResourceTest {
     public void shouldFilterVersionsBasedOnAccess() throws Exception {
 
         ReleasePackage rp = new ReleasePackage();
+        Member member = new Member();
+        member.setKey(Member.KEY_IHTSDO);
+        rp.setMember(member);
 
         ReleaseVersion v1 = new ReleaseVersion(1L);
         v1.setArchive(false);
@@ -330,10 +334,23 @@ public class ReleasePackagesResourceTest {
         rp.addReleaseVersion(v1);
 
         when(releasePackageRepository.findAll()).thenReturn(List.of(rp));
-        when(authorizationChecker.buildAccessContext(any())).thenReturn(mock(ReleasePackageAuthorizationChecker.AccessContext.class));
-        when(authorizationChecker.canAccessReleaseVersion(eq(v1), any())).thenReturn(true);
+        User user = mock(User.class);
+        ReleasePackageConfig config = mock(ReleasePackageConfig.class);
 
-        restReleasePackagesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_PACKAGES))
+        ReleasePackageAuthorizationChecker.AccessContext context =
+            new ReleasePackageAuthorizationChecker.AccessContext(
+                user,
+                true,
+                false,
+                config,
+                Collections.emptyMap()
+            );
+
+        when(authorizationChecker.buildAccessContext(any()))
+            .thenReturn(context);
+
+        restReleasePackagesResource.perform(
+                MockMvcRequestBuilders.get(Routes.RELEASE_PACKAGES))
             .andExpect(status().isOk());
     }
 
