@@ -105,6 +105,12 @@ public class ReleasePackagesResource {
             return ResponseEntity.ok(releasePackages);
         }
 
+        if (currentSecurityContext.isStaff() || currentSecurityContext.isMember()) {
+            releasePackages = releasePackages.stream()
+                .filter(rp -> authorizationChecker.canAccessOwnMemberPackage(rp.getMember()))
+                .toList();
+        }
+
         ReleasePackageAuthorizationChecker.AccessContext context =
             authorizationChecker.buildAccessContext(releasePackages);
 
@@ -225,6 +231,10 @@ public class ReleasePackagesResource {
 
         if (currentSecurityContext.isAdmin()) {
             return ResponseEntity.ok(releasePackage);
+        }
+
+        if ((currentSecurityContext.isStaff() || currentSecurityContext.isMember()) && !authorizationChecker.canAccessOwnMemberPackage(releasePackage.getMember())){
+                    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         boolean isStaffOwner = currentSecurityContext.isStaffFor(releasePackage.getMember());

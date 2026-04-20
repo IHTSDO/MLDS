@@ -433,4 +433,14 @@ public class ReleasePackageAuthorizationChecker extends AuthorizationChecker {
             case ADMIN_STAFF_SELECTED_USERS -> "ADMIN, STAFF, MEMBER or specific approved users";
         };
     }
+
+    public boolean canAccessOwnMemberPackage(Member member) {
+
+        if (currentSecurityContext.isStaffFor(member)
+            || currentSecurityContext.isMemberFor(member)) {
+            return true;
+        }
+
+        return Member.KEY_IHTSDO.equals(member.getKey());
+    }
 }
