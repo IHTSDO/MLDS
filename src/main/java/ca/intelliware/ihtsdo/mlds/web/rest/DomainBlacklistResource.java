@@ -12,10 +12,7 @@ import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -27,8 +24,8 @@ public class DomainBlacklistResource {
 	@Resource
 	DomainBlacklistService domainBlacklistService;
 
-	@RolesAllowed({ AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.USER, AuthoritiesConstants.MEMBER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
-	@RequestMapping(value="api/domain-blacklist")
+    @GetMapping(value = "api/domain-blacklist")
+	@RolesAllowed({ AuthoritiesConstants.ADMIN })
 	@Timed
 	public @ResponseBody Iterable<DomainBlacklist> getDomainBlacklist() {
 		return domainBlacklistRespository.findAll();

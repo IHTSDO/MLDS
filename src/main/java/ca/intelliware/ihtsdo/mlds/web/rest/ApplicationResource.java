@@ -74,7 +74,7 @@ public class ApplicationResource {
 	@Resource
 	CommercialUsageService commercialUsageService;
 
-	@RequestMapping(value="api/applications")
+    @GetMapping(value = "api/applications")
 	@RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
 	@Timed
 	public @ResponseBody Iterable<Application> getApplications() {

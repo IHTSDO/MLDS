@@ -1,8 +1,10 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,6 +37,8 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
     @Mock CommercialUsageAuditEvents commercialUsageAuditEvents;
     @Mock CommercialUsageResetter commercialUsageResetter;
     @Mock CommercialUsageService commercialUsageService;
+    @Mock
+    CurrentSecurityContext currentSecurityContext;
 
 	CommercialUsageResource commercialUsageResource;
 
@@ -52,6 +56,7 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
         commercialUsageResource.commercialUsageAuditEvents = commercialUsageAuditEvents;
         commercialUsageResource.commercialUsageResetter = commercialUsageResetter;
         commercialUsageResource.commercialUsageService = commercialUsageService;
+        commercialUsageResource.currentSecurityContext = currentSecurityContext;
 
         this.restCommercialUsageResource = MockMvcBuilders
         		.standaloneSetup(commercialUsageResource)
@@ -74,7 +79,7 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
 		withCommercialUsage(2L, UsageReportState.NOT_SUBMITTED);
 
 		CommercialUsage transformedCommercialUsage = createCommercialUsage(2L, UsageReportState.SUBMITTED);
-		Mockito.when(
+		when(
 				commercialUsageService.transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class),
 						Mockito.eq(UsageReportTransition.SUBMIT))).thenReturn(transformedCommercialUsage);
 
@@ -87,7 +92,10 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
 	public void transitionCommercialUsageApprovalShouldFailForUnsupportedTransitions() throws Exception {
 		withCommercialUsage(2L, UsageReportState.NOT_SUBMITTED);
 
-		Mockito.when(
+
+        when(currentSecurityContext.isStaff()).thenReturn(false);
+
+		when(
 				commercialUsageService.transitionCommercialUsageApproval(Mockito.any(CommercialUsage.class),
 						Mockito.eq(UsageReportTransition.SUBMIT))).thenThrow(new IllegalStateException("UNSUPPORTED TRANSITION"));
 
@@ -101,7 +109,7 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
 
 	private CommercialUsage withCommercialUsage(long commercialUsageId, UsageReportState state) {
 		CommercialUsage commercialUsage = createCommercialUsage(commercialUsageId, state);
-		Mockito.when(commercialUsageRepository.findById(commercialUsageId)).thenReturn(Optional.of(commercialUsage));
+		when(commercialUsageRepository.findById(commercialUsageId)).thenReturn(Optional.of(commercialUsage));
 		return commercialUsage;
 	}
 

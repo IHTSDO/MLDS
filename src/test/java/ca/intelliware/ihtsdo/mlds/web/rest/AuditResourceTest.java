@@ -84,12 +84,14 @@ public class AuditResourceTest {
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "unknownField eq 999")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isBadRequest());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").isEmpty());
     }
 
 	@Test
     public void findByFilterShouldProvideAccessToAllAuditsWhenNoFilterProvided() throws Exception {
-		when(auditEventService.findAll()).thenReturn(Arrays.asList(createAuditEvent("TypeA"), createAuditEvent("TypeB")));
+        when(auditEventService.findByFilter(null))
+            .thenReturn(Arrays.asList(createAuditEvent("TypeA"), createAuditEvent("TypeB")));
 
         restUserMockMvc.perform(get(Routes.AUDITS)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -101,7 +103,8 @@ public class AuditResourceTest {
 
 	@Test
     public void findByFilterShouldAllowFilteringByAuditType() throws Exception {
-		when(auditEventService.findByAuditEventType("TypeA")).thenReturn(Arrays.asList(createAuditEvent("TypeA")));
+        when(auditEventService.findByFilter("auditEventType eq 'TypeA'"))
+            .thenReturn(Arrays.asList(createAuditEvent("TypeA")));
 
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "auditEventType eq 'TypeA'")
@@ -117,7 +120,9 @@ public class AuditResourceTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Instant fromDate = dateFormat.parse("2014-01-02").toInstant();
         Instant toDate = dateFormat.parse("2014-01-10").toInstant();
-		when(auditEventService.findByDates(fromDate, toDate)).thenReturn(Arrays.asList(createAuditEvent("TypeA")));
+        when(auditEventService.findByFilter(
+            "auditEventDate ge '2014-01-02' and auditEventDate le '2014-01-10'"
+        )).thenReturn(Arrays.asList(createAuditEvent("TypeA")));
 
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "auditEventDate ge '2014-01-02' and auditEventDate le '2014-01-10'")
@@ -136,8 +141,8 @@ public class AuditResourceTest {
 	        restUserMockMvc.perform(get(Routes.AUDITS)
 	        		.param("$filter", "auditEventDate ge '2014-01-02' and auditEventDate le 'NOT A DATE'")
 	                .accept(MediaType.APPLICATION_JSON_UTF8))
-	                .andExpect(status().is4xxClientError())
-	                ;
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isEmpty());
 		} catch (NestedServletException e) {
 			assertEquals("Invalid format: \"NOT A DATE\"", e.getCause().getMessage());
 		}
@@ -146,7 +151,8 @@ public class AuditResourceTest {
 
 	@Test
     public void findByFilterShouldAllowFilteringByAffiliate() throws Exception {
-		when(auditEventService.findByAffiliateId(123L)).thenReturn(Arrays.asList(createAuditEvent("TypeA")));
+        when(auditEventService.findByFilter("affiliateId eq '123'"))
+            .thenReturn(Arrays.asList(createAuditEvent("TypeA")));
 
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "affiliateId eq '123'")
@@ -158,7 +164,8 @@ public class AuditResourceTest {
 
 	@Test
     public void findByFilterShouldAllowFilteringByApplication() throws Exception {
-		when(auditEventService.findByApplicationId(123L)).thenReturn(Arrays.asList(createAuditEvent("TypeA")));
+        when(auditEventService.findByFilter("applicationId eq '123'"))
+            .thenReturn(Arrays.asList(createAuditEvent("TypeA")));
 
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "applicationId eq '123'")

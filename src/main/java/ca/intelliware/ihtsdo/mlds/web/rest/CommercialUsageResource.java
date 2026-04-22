@@ -258,6 +258,10 @@ public class CommercialUsageResource {
     	}
         CommercialUsage commercialUsage = commercialUsageOptional.get();
 
+        if(currentSecurityContext.isStaff() && !currentSecurityContext.isStaffFor(commercialUsage.getAffiliate().getHomeMember())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
     	commercialUsage = commercialUsageService.transitionCommercialUsageApproval(commercialUsage, applyTransition.getTransition());
 
 		return new ResponseEntity<CommercialUsage>(commercialUsage, HttpStatus.OK);
