@@ -8,6 +8,7 @@ import ca.intelliware.ihtsdo.mlds.service.*;
 import ca.intelliware.ihtsdo.mlds.service.mail.ApplicationApprovedEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.RouteLinkBuilder;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.ApplicationFilter;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,11 +18,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,8 +35,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 @RestController
@@ -163,9 +160,6 @@ public class ApplicationResource {
 		return affiliate;
 	}
 
-	private static final String FILTER_PENDING = "approvalState/pending eq true";
-	public static final String FILTER_HOME_MEMBER = "homeMember eq '(\\w+)'";
-
 	@RequestMapping(value = Routes.APPLICATIONS,
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -176,47 +170,23 @@ public class ApplicationResource {
     		@RequestParam(value="$pageSize", defaultValue="50", required=false) Integer pageSize,
     		@RequestParam(value="$orderby", required=false) String orderby,
 			@RequestParam(value="$filter", required=false) List<String> filters) {
+        Sort sort = createApplicationsSort(orderby);
 
-		Page<Application> applications;
-		Sort sort = createApplicationsSort(orderby);
         Pageable pageRequest = PageRequest.of(page, pageSize, sort);
-        Member member = null;
-		List<ApprovalState> approvalStates = null;
+        try {
+            ApplicationFilter applicationFilter = applicationService.parseFilters(filters);
 
-		if (filters == null || filters.size() == 0 || StringUtils.isBlank(filters.get(0))) {
-			applications = applicationRepository.findAll(pageRequest);
-		} else {
-			for (String filter : filters) {
-				Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
-				if (homeMemberMatcher.matches()) {
-					String homeMember = homeMemberMatcher.group(1);
-					member = memberRepository.findOneByKey(homeMember);
-					continue;
-				}
-				Matcher pendingMatcher = Pattern.compile(FILTER_PENDING).matcher(filter);
-				if (pendingMatcher.matches()) {
-					approvalStates = Lists.newArrayList(ApprovalState.SUBMITTED, ApprovalState.RESUBMITTED, ApprovalState.REVIEW_REQUESTED, ApprovalState.CHANGE_REQUESTED);
-					continue;
-				}
-				//FIXME Limited OData implementation - expand or use real OData library in the future
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
+            Page<Application> applications = applicationService.findApplications(applicationFilter, pageRequest);
 
-			if (member != null) {
-				if (approvalStates != null) {
-					applications = applicationRepository.findByApprovalStateInAndMember(approvalStates, member, pageRequest);
-				} else {
-					applications = applicationRepository.findByMember(member, pageRequest);
-				}
-			} else {
-				applications = applicationRepository.findByApprovalStateIn(approvalStates, pageRequest);
-			}
-		}
-        List<Application> activeApplications = applications.stream()
-            .filter(a -> !a.getAffiliate().isDeactivated()) // Filtering out deactivated affiliates
-            .toList();
+            List<Application> activeApplications = applications.stream()
+                .filter(a -> !a.getAffiliate().isDeactivated())
+                .toList();
 
-        return new ResponseEntity<>(new ApplicationCollection(activeApplications), HttpStatus.OK);
+            return new ResponseEntity<>(new ApplicationCollection(activeApplications), HttpStatus.OK);
+
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 	}
 
 	private static final Map<String,List<String>> ORDER_BY_FIELD_MAPPINGS = new HashMap<String,List<String>>();

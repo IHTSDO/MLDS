@@ -38,6 +38,30 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     @Query(value = "SELECT * FROM mlds.application WHERE (approval_state = 'REJECTED' OR approval_state = 'CHANGE_REQUESTED' OR approval_state = 'NOT_SUBMITTED') AND inactive_at IS NULL AND last_processed IS NULL",nativeQuery = true)
     List<Application> getAllApplication();
 
+    Page<Application> findByAffiliateDetailsAddressCountryIsoCode2(
+        String isoCode2,
+        Pageable pageable
+    );
+
+    Page<Application> findByApprovalStateInAndAffiliateDetailsAddressCountryIsoCode2(
+        Collection<ApprovalState> approvalState,
+        String isoCode2,
+        Pageable pageable
+    );
+
+    Page<Application> findByMemberAndAffiliateDetailsAddressCountryIsoCode2(
+        Member member,
+        String isoCode2,
+        Pageable pageable
+    );
+
+    Page<Application> findByApprovalStateInAndMemberAndAffiliateDetailsAddressCountryIsoCode2(
+        Collection<ApprovalState> approvalState,
+        Member member,
+        String isoCode2,
+        Pageable pageable
+    );
+
 
 
 }
