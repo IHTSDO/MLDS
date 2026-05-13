@@ -191,10 +191,14 @@ public class ReleaseVersionsResource {
         ReleaseVersion releaseVersion = releaseVersionOptional.get();
 
         authorizationChecker.checkCanEditReleasePackage(releaseVersion.getReleasePackage());
-
+        if (releaseVersion.isNotified()) {
+            return new ResponseEntity<>(releaseVersion, HttpStatus.OK);
+        }
         userNotifier.notifyReleasePackageUpdated(releaseVersion);
+        releaseVersion.setNotified(true);
+        releaseVersionRepository.save(releaseVersion);
 
-        return new ResponseEntity<ReleaseVersion>(releaseVersion, HttpStatus.OK);
+        return new ResponseEntity<>(releaseVersion, HttpStatus.OK);
     }
 
     @RequestMapping(value = Routes.RELEASE_VERSION,

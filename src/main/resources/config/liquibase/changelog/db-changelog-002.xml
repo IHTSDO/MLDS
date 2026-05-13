@@ -788,5 +788,12 @@
         </preConditions>
         <dropTable tableName="release_package_access"/>
     </changeSet>
-
+    <changeSet id="MLDS-1272" author="AA">
+        <comment>Add notified column to release_version table</comment>
+        <addColumn tableName="release_version">
+            <column name="notified" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

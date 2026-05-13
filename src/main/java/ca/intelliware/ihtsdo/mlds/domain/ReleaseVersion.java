@@ -78,6 +78,16 @@ public class ReleaseVersion extends BaseEntity {
     @Column(name="permission_type")
     private ReleasePermissionType permissionType;
 
+    public boolean isNotified() {
+        return notified;
+    }
+
+    public void setNotified(boolean notified) {
+        this.notified = notified;
+    }
+
+    @Column(name = "notified")
+    private boolean notified;
 	public ReleaseVersion() {
 
 	}
