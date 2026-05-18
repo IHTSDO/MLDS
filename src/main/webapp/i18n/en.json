@@ -83,6 +83,7 @@
             "CA": "Canada",
             "CH": "Switzerland",
             "CL": "Chile",
+            "CR": "Costa Rica",
             "CY": "Cyprus",
             "CZ": "Czech Republic",
             "DK": "Denmark",
@@ -112,6 +113,7 @@
             "NZ": "New Zealand",
             "PL": "Poland",
             "PT": "Portugal",
+            "QA": "Qatar",
             "SA": "Saudi Arabia",
             "SG": "Singapore",
             "SK": "Slovak Republic",
@@ -123,7 +125,8 @@
             "GB": "United Kingdom",
             "US": "United States",
             "UY": "Uruguay",
-            "UZ": "Uzbekistan"
+            "UZ": "Uzbekistan",
+            "ZA": "South Africa"
         },
         "country": {
             "AC": "Ascension",
