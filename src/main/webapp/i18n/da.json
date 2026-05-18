@@ -169,7 +169,10 @@
             "MT": "Malta",
             "NZ": "New Zealand",
             "LV": "Letland",
-            "UZ": "Usbekistan"
+            "UZ": "Usbekistan",
+            "CR": "Costa Rica",
+            "QA": "Qatar",
+            "ZA": "Sydafrika"
         },
         "country": {
             "AD": "Andorra",
