@@ -123,7 +123,10 @@
             "HU": "Ungarn",
             "SA": "Saudi-Arabien",
             "LV": "Lettland",
-            "UZ": "Usbekistan"
+            "UZ": "Usbekistan",
+            "CR": "Costa Rica",
+            "QA": "Katar",
+            "ZA": "Südafrika"
         },
         "country": {
             "AC": "Ascension",
