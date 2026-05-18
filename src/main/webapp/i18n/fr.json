@@ -123,7 +123,10 @@
             "JO": "Jordanie",
             "SA": "Arabie Saoudite",
             "LV": "Lettonie",
-            "UZ": "Ouzbékistan"
+            "UZ": "Ouzbékistan",
+            "CR": "Costa Rica",
+            "QA": "Qatar",
+            "ZA": "Afrique du Sud"
         },
         "country": {
             "AC": "Ascension",
