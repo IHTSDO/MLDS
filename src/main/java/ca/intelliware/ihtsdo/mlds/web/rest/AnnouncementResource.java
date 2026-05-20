@@ -6,6 +6,7 @@ import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipCalculator;
 import ca.intelliware.ihtsdo.mlds.service.mail.AnnouncementEmailSender;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.AnnouncementDTO;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.TestAnnouncementDTO;
 import com.codahale.metrics.annotation.Timed;
 import jakarta.annotation.security.RolesAllowed;
 import org.apache.commons.lang3.StringUtils;
@@ -86,5 +87,20 @@ public class AnnouncementResource {
 			return userMembershipCalculator.approvedActiveUsersWithHomeMembership(announcement.getMember());
 		}
 	}
+
+    @PostMapping(value = Routes.ANNOUNCEMENT_TEST,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
+    @Timed
+    public ResponseEntity<Void> sendTestAnnouncement(@RequestBody TestAnnouncementDTO request) {
+        if (request.getTestEmails() != null) {
+            for (String email : request.getTestEmails()) {
+                if (StringUtils.isNotBlank(email)) {
+                    announcementEmailSender.sendAnnouncementEmail(email,null,request.getSubject(),request.getBody()
+                    );
+                }
+            }
+        }
+        return ResponseEntity.ok().build();
+    }
 
 }

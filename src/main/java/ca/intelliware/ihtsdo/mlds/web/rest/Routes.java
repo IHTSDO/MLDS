@@ -211,7 +211,10 @@ public class Routes {
      * - POST announcement to send announcement to users in member's space
      */
     public static final String ANNOUNCEMENTS = "/api/announcements";
-
+    public static final String ANNOUNCEMENT_TEST = "/api/announcements/test";
+    public static final String TEST_EMAIL_DOMAINS = "/api/test-email-domains";
+    public static final String GET_TEST_EMAIL_DOMAIN_BY_ID="/api/test-email-domains/{id}";
+    public static final String GET_COUNT ="/api/test-email/max-count";
     /*MLDS 985---To Download Commercial usage CSV files*/
     public static final String REVIEW_USAGE_REPORTS = "/api/reviewUsageReports";
     /*MLDS 985---To Download Commercial usage CSV files */
