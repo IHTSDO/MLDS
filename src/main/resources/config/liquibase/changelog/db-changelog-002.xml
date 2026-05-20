@@ -796,4 +796,15 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet id="MLDS-1271" author="AA">
+        <comment>Create test_email_domain table</comment>
+        <createTable tableName="test_email_domain">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="domain_name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
