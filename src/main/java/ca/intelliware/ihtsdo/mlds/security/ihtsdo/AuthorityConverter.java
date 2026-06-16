@@ -20,7 +20,7 @@ public class AuthorityConverter {
 	static final String REMOTE_ROLE_STAFF = "ROLE_mlds-staff-"; //Followed by the country code
 	static final String REMOTE_ROLE_MEMBER = "ROLE_mlds-member";
 
-	static List<GrantedAuthority> buildAuthoritiesList(List<String> userRoles) {
+	public static List<GrantedAuthority> buildAuthoritiesList(List<String> userRoles) {
 		List<GrantedAuthority> authorities = Lists.newArrayList();
 		for (String role : userRoles) {
 			if (REMOTE_ROLE_ADMIN.equals(role)) {

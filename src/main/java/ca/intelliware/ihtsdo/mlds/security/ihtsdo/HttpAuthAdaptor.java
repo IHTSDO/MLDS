@@ -20,16 +20,16 @@ import java.util.Map;
  */
 public class HttpAuthAdaptor implements HeaderConstants {
 
-	private final Logger logger = LoggerFactory.getLogger(HttpAuthAdaptor.class);
+    private final Logger logger = LoggerFactory.getLogger(HttpAuthAdaptor.class);
 
-	private static final String PARAM_LOGIN_USERNAME = "login";
+    private static final String PARAM_LOGIN_USERNAME = "login";
     private static final String PARAM_LOGIN_PASSWORD = "password";
     private UserTokenStore cookieTokenStore;
-	private String queryUrl;
+    private String queryUrl;
     private RestTemplate restTemplate;
 
 
-	@Value("${ims.cookie}")
+    @Value("${ims.cookie}")
     private String authenticatedCookieName;
 
     // Constructor injection – no need for @Autowired
@@ -42,12 +42,12 @@ public class HttpAuthAdaptor implements HeaderConstants {
             .additionalMessageConverters(new MappingJackson2HttpMessageConverter())
             .build();
     }
-	String checkUsernameAndPasswordValid(String username, String password) throws IOException, IllegalStateException {
+    String checkUsernameAndPasswordValid(String username, String password) throws IOException, IllegalStateException {
         Map<String, String> requestBody = new HashMap<>();
         requestBody.put(PARAM_LOGIN_USERNAME, username);
         requestBody.put(PARAM_LOGIN_PASSWORD, password);
 
-		try {
+        try {
             ResponseEntity<Void> exchange = restTemplate.exchange(new RequestEntity<>(requestBody, HttpMethod.POST, URI.create(queryUrl + "api/authenticate")), Void.class);
             if (exchange.getStatusCodeValue() == 200) {
                 return recoverAuthenticationCookie(exchange);
@@ -59,17 +59,17 @@ public class HttpAuthAdaptor implements HeaderConstants {
                 throw new IOException("Authentication service returned unexpected value: " + e.getRawStatusCode());
             }
         }
-		return null;
+        return null;
     }
 
-	private String recoverAuthenticationCookie(ResponseEntity<Void> response) {
+    private String recoverAuthenticationCookie(ResponseEntity<Void> response) {
         for (String header : response.getHeaders().get(SET_COOKIE)) {
-			if (header.startsWith(authenticatedCookieName)) {
-				return header;
-			}
-		}
-		return null;
-	}
+            if (header.startsWith(authenticatedCookieName)) {
+                return header;
+            }
+        }
+        return null;
+    }
 
 
     public CentralAuthUserInfo getUserAccountInfo(String username, String authenticationCookie) throws IOException {
@@ -105,4 +105,32 @@ public class HttpAuthAdaptor implements HeaderConstants {
 
     }
 
+    public String getAuthenticatedCookieName() {
+        return authenticatedCookieName;
+    }
+
+    public CentralAuthUserInfo getUserAccountInfoByCookie(String cookieValue) throws IOException {
+        String tokenToUse = authenticatedCookieName + "=" + cookieValue;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cookie", tokenToUse);
+
+        try {
+            ResponseEntity<CentralAuthUserInfo> exchange = restTemplate.exchange(
+                new RequestEntity<>(headers, HttpMethod.GET, URI.create(queryUrl + "api/account")),
+                CentralAuthUserInfo.class
+            );
+
+            CentralAuthUserInfo userInfo = exchange.getBody();
+            if (userInfo != null && userInfo.getLogin() != null) {
+                cookieTokenStore.store(userInfo.getLogin(), tokenToUse);
+            }
+            logger.info("Made remote call to get user details by cookie HTTP {}", exchange.getStatusCode());
+            return userInfo;
+
+        } catch (HttpClientErrorException e) {
+            throw new IOException("Unable to recover user account details by cookie. Received HTTP: " + e.getStatusCode());
+        }
+    }
+
 }
+

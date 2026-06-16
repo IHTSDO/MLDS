@@ -25,6 +25,8 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,6 +34,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
+
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.AuthorityConverter;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.RemoteUserDetails;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import jakarta.servlet.http.Cookie;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -66,8 +78,9 @@ public class AccountResource {
     private PersistentTokenRepository persistentTokenRepository;
 
     @Autowired
-	MailService mailService;
-
+    MailService mailService;
+    @Resource
+    private AuditEventRepository auditEventRepository;
     @Resource
 	DuplicateRegistrationEmailSender duplicateRegistrationEmailSender;
 
@@ -405,6 +418,168 @@ public class AccountResource {
     	return new ResponseEntity<>(HttpStatus.CREATED);
 
 
+    }
+
+
+    private static final String REMOTE_ADDRESS = "remoteAddress";
+    private static final String UNKNOWN_USER = "UNKNOWN";
+    private static final String AUTH_FAILURE = "AUTHENTICATION_FAILURE";
+
+    @PostMapping(
+        value = "/auth/restore",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @RolesAllowed({
+        AuthoritiesConstants.ANONYMOUS,
+        AuthoritiesConstants.USER,
+        AuthoritiesConstants.MEMBER,
+        AuthoritiesConstants.STAFF,
+        AuthoritiesConstants.ADMIN
+    })
+    @Timed
+    public ResponseEntity<Void> restoreSession(HttpServletRequest request, HttpServletResponse response) {
+
+        String cookieName = httpAuthAdaptor.getAuthenticatedCookieName();
+
+        String cookieValue = null;
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if (cookieName.equals(cookie.getName())) {
+                    cookieValue = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        if (cookieValue == null || cookieValue.trim().isEmpty()) {
+
+            Map<String, Object> auditData = new HashMap<>();
+            auditData.put(REMOTE_ADDRESS, request.getRemoteAddr());
+
+            auditEventRepository.add(
+                new AuditEvent(
+                    UNKNOWN_USER,
+                    AUTH_FAILURE,
+                    auditData
+                )
+            );
+
+            log.debug("IMS cookie not found");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        try {
+
+            CentralAuthUserInfo remoteUserInfo =
+                httpAuthAdaptor.getUserAccountInfoByCookie(cookieValue);
+
+            if (remoteUserInfo == null || remoteUserInfo.getLogin() == null) {
+
+                Map<String, Object> auditData = new HashMap<>();
+                auditData.put(REMOTE_ADDRESS, request.getRemoteAddr());
+
+                auditEventRepository.add(
+                    new AuditEvent(
+                        UNKNOWN_USER,
+                        AUTH_FAILURE,
+                        auditData
+                    )
+                );
+
+                log.warn("Invalid IMS cookie");
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            List<GrantedAuthority> authorities =
+                AuthorityConverter.buildAuthoritiesList(remoteUserInfo.getRoles());
+
+            if (authorities.isEmpty()) {
+
+                Map<String, Object> auditData = new HashMap<>();
+                auditData.put(REMOTE_ADDRESS, request.getRemoteAddr());
+
+                auditEventRepository.add(
+                    new AuditEvent(
+                        remoteUserInfo.getLogin(),
+                        AUTH_FAILURE,
+                        auditData
+                    )
+                );
+
+                log.warn(
+                    "User authenticated but has no permissions assigned: {}",
+                    remoteUserInfo.getLogin()
+                );
+
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            }
+
+            authorities.add(
+                new SimpleGrantedAuthority(
+                    AuthoritiesConstants.USER
+                )
+            );
+
+            RemoteUserDetails userDetails =
+                new RemoteUserDetails(
+                    remoteUserInfo,
+                    authorities
+                );
+
+            UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(
+                    userDetails,
+                    "",
+                    authorities
+                );
+
+            SecurityContext context =
+                SecurityContextHolder.createEmptyContext();
+            context.setAuthentication(authentication);
+
+            request.getSession(true);
+
+            HttpSessionSecurityContextRepository secRepo =
+                new HttpSessionSecurityContextRepository();
+
+            secRepo.saveContext(context, request, response);
+
+            // Audit Success
+            Map<String, Object> auditData = new HashMap<>();
+            auditData.put(REMOTE_ADDRESS, request.getRemoteAddr());
+
+            auditEventRepository.add(
+                new AuditEvent(
+                    remoteUserInfo.getLogin(),
+                    "AUTHENTICATION_SUCCESS",
+                    auditData
+                )
+            );
+
+            log.info(
+                "Session successfully restored for remote user: {}",
+                remoteUserInfo.getLogin()
+            );
+
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } catch (IOException e) {
+
+            Map<String, Object> auditData = new HashMap<>();
+            auditData.put(REMOTE_ADDRESS, request.getRemoteAddr());
+
+            auditEventRepository.add(
+                new AuditEvent(
+                    UNKNOWN_USER,
+                    AUTH_FAILURE,
+                    auditData
+                )
+            );
+
+            log.error("Failed to contact IMS", e);
+
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }
