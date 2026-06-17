@@ -18,6 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
 
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
@@ -58,6 +60,12 @@ public class ReleaseFilesResourceTest {
 	@Mock
 	UserMembershipAccessor userMembershipAccessor;
 
+	@Mock
+	PlatformTransactionManager transactionManager;
+
+	@Mock
+	TransactionStatus transactionStatus;
+
 	ReleaseFilesResource releaseFilesResource;
 
 	@Before
@@ -72,6 +80,9 @@ public class ReleaseFilesResourceTest {
         releaseFilesResource.releasePackageAuditEvents = releasePackageAuditEvents;
         releaseFilesResource.uriDownloader = uriDownloader;
         releaseFilesResource.userMembershipAccessor = userMembershipAccessor;
+        releaseFilesResource.transactionManager = transactionManager;
+
+        when(transactionManager.getTransaction(any())).thenReturn(transactionStatus);
 
         this.restReleaseFilesResource = MockMvcBuilders.standaloneSetup(releaseFilesResource).build();
     }

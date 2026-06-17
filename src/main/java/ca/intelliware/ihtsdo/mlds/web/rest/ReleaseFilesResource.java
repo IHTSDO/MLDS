@@ -8,13 +8,17 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.DownloadErrorMessages;
 import ca.intelliware.ihtsdo.mlds.security.DownloadException;
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import com.codahale.metrics.annotation.Timed;
+import jakarta.annotation.Resource;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +48,9 @@ public class ReleaseFilesResource {
 
     @Autowired
     UserMembershipAccessor userMembershipAccessor;
+
+    @Resource
+    PlatformTransactionManager transactionManager;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Release Files
@@ -168,47 +175,82 @@ public class ReleaseFilesResource {
     void downloadReleaseFile(@PathVariable long releasePackageId, @PathVariable long releaseVersionId, @PathVariable long releaseFileId,
                              HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        Optional<ReleaseFile> releaseFileOptional = releaseFileRepository.findById(releaseFileId);
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        transactionTemplate.setReadOnly(true);
 
-        if (releaseFileOptional.isEmpty()) {
+        DownloadAuthorizationResult authResult = transactionTemplate.execute(status -> {
+            Optional<ReleaseFile> releaseFileOptional = releaseFileRepository.findById(releaseFileId);
+
+            if (releaseFileOptional.isEmpty()) {
+                throw new DownloadException(
+                    HttpStatus.NOT_FOUND,
+                    DownloadErrorMessages.NOT_FOUND_TITLE,
+                    DownloadErrorMessages.NOT_FOUND_SUBTITLE,
+                    DownloadErrorMessages.NOT_FOUND_REASON
+                );
+            }
+
+            ReleaseFile releaseFile = releaseFileOptional.get();
+            ReleaseVersion releaseVersion = releaseFile.getReleaseVersion();
+
+            authorizationChecker.checkCanDownloadReleaseVersion(releaseFile.getReleaseVersion());
+
+            if (!authorizationChecker.canAccessReleaseVersion(releaseVersion)) {
+
+                ReleasePermissionType permission =
+                    authorizationChecker.resolveEffectivePermission(releaseVersion);
+
+                String requiredPermission =
+                    authorizationChecker.getPermissionDescription(permission);
+
+                throw new DownloadException(
+                    HttpStatus.FORBIDDEN,
+                    DownloadErrorMessages.PERMISSION_TITLE,
+                    DownloadErrorMessages.PERMISSION_SUBTITLE,
+                    String.format(
+                        "You need \"%s\" permissions to download this content. Please request access to this release.",
+                        requiredPermission
+                    )
+                );
+            }
+
+            Affiliate affiliate = userMembershipAccessor.getAffiliate();
+
+            if (releaseVersion != null) {
+                releaseVersion.getName();
+                if (releaseVersion.getReleasePackage() != null) {
+                    releaseVersion.getReleasePackage().getName();
+                }
+            }
+
+            return new DownloadAuthorizationResult(releaseFile, affiliate);
+        });
+
+        if (authResult == null) {
             throw new DownloadException(
-                HttpStatus.NOT_FOUND,
-                DownloadErrorMessages.NOT_FOUND_TITLE,
-                DownloadErrorMessages.NOT_FOUND_SUBTITLE,
-                DownloadErrorMessages.NOT_FOUND_REASON
-            );
-        }
-
-        ReleaseFile releaseFile = releaseFileOptional.get();
-        ReleaseVersion releaseVersion = releaseFile.getReleaseVersion();
-
-        authorizationChecker.checkCanDownloadReleaseVersion(releaseFile.getReleaseVersion());
-
-        if (!authorizationChecker.canAccessReleaseVersion(releaseVersion)) {
-
-            ReleasePermissionType permission =
-                authorizationChecker.resolveEffectivePermission(releaseVersion);
-
-            String requiredPermission =
-                authorizationChecker.getPermissionDescription(permission);
-
-            throw new DownloadException(
-                HttpStatus.FORBIDDEN,
-                DownloadErrorMessages.PERMISSION_TITLE,
-                DownloadErrorMessages.PERMISSION_SUBTITLE,
-                String.format(
-                    "You need \"%s\" permissions to download this content. Please request access to this release.",
-                    requiredPermission
-                )
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "Download Error",
+                "An error occurred while authorizing your download.",
+                "Transaction returned null authorization result"
             );
         }
 
         int statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
         try {
-            String downloadUrl = releaseFile.getDownloadUrl();
+            String downloadUrl = authResult.releaseFile.getDownloadUrl();
             statusCode = uriDownloader.download(downloadUrl, request, response);
         } finally {
-            releasePackageAuditEvents.logDownload(releaseFile, statusCode, userMembershipAccessor.getAffiliate());
+            releasePackageAuditEvents.logDownload(authResult.releaseFile, statusCode, authResult.affiliate);
+        }
+    }
+
+    private static class DownloadAuthorizationResult {
+        final ReleaseFile releaseFile;
+        final Affiliate affiliate;
+
+        public DownloadAuthorizationResult(ReleaseFile releaseFile, Affiliate affiliate) {
+            this.releaseFile = releaseFile;
+            this.affiliate = affiliate;
         }
     }
     /*MLDS-1013 Add disclaimers or warnings for externally linked release packages -- Check whether file is from IHTSDO Domain*/
