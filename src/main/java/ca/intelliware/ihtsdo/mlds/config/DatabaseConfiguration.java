@@ -19,6 +19,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
+import ca.intelliware.ihtsdo.mlds.web.filter.MldsOpenEntityManagerInViewFilter;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -64,6 +66,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
             throw new ApplicationContextException("Database connection pool is not configured correctly");
         }
         HikariConfig config = new HikariConfig();
+        config.setMaximumPoolSize(binder.bind("spring.datasource.hikari.maximum-pool-size", Integer.class).orElse(50));
         config.setDataSourceClassName(binder.bind("spring.datasource.data-source-class-name", String.class).orElse(null));
         if (url == null || "".equals(url)) {
             config.addDataSourceProperty("databaseName", binder.bind("spring.datasource.database-name", String.class).orElse(null));
@@ -190,6 +193,11 @@ public class DatabaseConfiguration implements EnvironmentAware {
 	@Bean
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
 		return new PersistenceExceptionTranslationPostProcessor();
+	}
+
+	@Bean
+	public OpenEntityManagerInViewFilter openEntityManagerInViewFilter() {
+		return new MldsOpenEntityManagerInViewFilter();
 	}
 
     static void setDataSource(DataSource dataSource) {
