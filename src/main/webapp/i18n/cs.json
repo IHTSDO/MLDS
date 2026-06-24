@@ -404,8 +404,8 @@
                 },
                 "confirmpassword": {
                     "required": "Je vyžadováno vaše potvrzovací heslo.",
-                    "minlength": "Vaše potvrzovací heslo musí mít alespoň 5 znaků.",
-                    "maxlength": "Vaše potvrzovací heslo nesmí být delší než 50 znaků.",
+                    "minlength": "Vaše potvrzovací heslo musí mít alespoň 5 znaků",
+                    "maxlength": "Vaše potvrzovací heslo nesmí být delší než 50 znaků",
                     "match": "Potvrzení hesla se neshoduje s heslem"
                 },
                 "email": {
@@ -498,7 +498,7 @@
         },
         "emailVerification": {
             "intro": "Poslali jsme vám e-mail.",
-            "detail": "Otevřete prosím e-mail, který jsme vám právě poslali, abyste ověřili svůj účet a získali přístup k MLDS."
+            "detail": "Otevřete prosím e-mail, který jsme vám právě poslali, abyste ověřili svůj účet a získali přístup k MLDS"
         },
         "affiliateRegistration": {
             "title": "Registrace affiliate partnerů",
@@ -557,7 +557,7 @@
             "validate": {
                 "firstname": {
                     "required": "Vaše křestní jméno je povinné.",
-                    "minlength": "Vaše křestní jméno musí mít alespoň 1 znak.",
+                    "minlength": "Vaše křestní jméno musí mít alespoň 1 znak",
                     "maxlength": "Vaše křestní jméno nesmí být delší než 50 znaků"
                 },
                 "lastname": {
@@ -1037,7 +1037,7 @@
                 },
                 "type": {
                     "name": "Typ organizace",
-                    "required": "Je vyžadován typ organizace.",
+                    "required": "Je vyžadován typ organizace",
                     "placeholder": "Jiný typ organizace"
                 }
             }
@@ -1098,7 +1098,7 @@
                 "pProcessed": "Primární žádost se zpracovává",
                 "apply": "Požádat o rozšíření",
                 "aProcessed": "Žádost se zpracovává",
-                "aAttention": "Aplikace vyžaduje pozornost, kliknutím pokračujte v aplikaci."
+                "aAttention": "Aplikace vyžaduje pozornost, kliknutím pokračujte v aplikaci"
             }
         },
         "requestPasswordReset": {
