@@ -1,1 +1,1256 @@
-{}
+{
+    "global": {
+        "title": "mlds",
+        "browsehappy": "Používáte <strong>zastaralý</strong> prohlížeč. Pro zlepšení uživatelského prostředí prosím <a href=\"http://browsehappy.com/?locale=en\">aktualizujte svůj prohlížeč</a>.",
+        "menu": {
+            "home": "Domov",
+            "account": {
+                "main": "Účet",
+                "contactInfo": "Kontaktní informace",
+                "password": "Heslo",
+                "sessions": "Relace",
+                "tracker": "Sledování uživatelů",
+                "metrics": "Metriky",
+                "logs": "Protokoly",
+                "audits": "Audity",
+                "login": "Přihlášení",
+                "logout": "Odhlásit se",
+                "apidocs": "API",
+                "register": "Registr",
+                "affiliates": "Affiliate partneři",
+                "dashboard": "Dashboard"
+            },
+            "dashboard": "Dashboard",
+            "help": "Pomoc",
+            "privacyPolicy": "Zásady ochrany osobních údajů",
+            "usageReports": "Zprávy o využití",
+            "applications": "Aplikace",
+            "releasePackages": "Balíčky vydání",
+            "affiliate": {
+                "accountInformation": "Informace o účtu",
+                "changePassword": "Změnit heslo",
+                "logout": "Odhlásit se"
+            },
+            "staff": {
+                "dashboard": "Dashboard",
+                "pendingApplications": "Čekající žádosti",
+                "usageReports": "Zprávy o využití",
+                "affiliteUserManagement": "Správa uživatelů affiliate partnerů",
+                "activityLog": "Záznam aktivit",
+                "packageManagement": "Správa balíčků",
+                "licenseTC": "Licence T a C",
+                "reportsExtracts": "Zprávy a souhrny",
+                "logout": "Odhlásit se"
+            },
+            "admin": {
+                "importAffiliateRecords": "Import záznamů o affiliate partnerech",
+                "manageBlacklist": "Spravovat černou listinu",
+                "nationalRegistrationList": "Národní registrační seznam"
+            },
+            "language": "Jazyk",
+            "cookie": "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"//cookie-script.com/s/43e68e5dbb274c2d65ae9b31deb30d2a.js\"></script>"
+        },
+        "language": {
+            "br": "portugalština",
+            "da": "dánština",
+            "ee": "estonština",
+            "en": "angličtina",
+            "es": "španělština",
+            "fr": "francouzština",
+            "de-at": "němčina-Rakousko",
+            "de-ch": "němčina-Švýcarsko",
+            "de": "němčina",
+            "id": "indonéština",
+            "lv": "lotyština",
+            "nl": "holandština",
+            "no": "norština",
+            "pl": "polština",
+            "pt": "portugalština",
+            "ru": "ruština",
+            "se": "švédština",
+            "th": "thajština"
+        },
+        "member": {
+            "IHTSDO": "SNOMED International",
+            "AD": "Andora",
+            "AE": "Spojené arabské emiráty",
+            "AM": "Arménie",
+            "AR": "Argentina",
+            "AT": "Rakousko",
+            "AU": "Austrálie",
+            "BE": "Belgie",
+            "BN": "Brunej",
+            "CA": "Kanada",
+            "CH": "Švýcarsko",
+            "CL": "Chile",
+            "CR": "Kostarika",
+            "CY": "Kypr",
+            "CZ": "Česká republika",
+            "DK": "Dánsko",
+            "DE": "Německo",
+            "EE": "Estonsko",
+            "FI": "Finsko",
+            "FR": "Francie",
+            "HR": "Chorvatsko",
+            "HK": "Hongkong, Čína",
+            "HU": "Maďarsko",
+            "IS": "Island",
+            "ID": "Indonésie",
+            "IE": "Irsko",
+            "IN": "Indie",
+            "IL": "Izrael",
+            "JM": "Jamajka",
+            "JO": "Jordán",
+            "KZ": "Kazachstán",
+            "KR": "Korejská republika",
+            "LV": "Lotyšsko",
+            "LT": "Litva",
+            "LU": "Lucembursko",
+            "MY": "Malajsie",
+            "MT": "Malta",
+            "NL": "Nizozemí",
+            "NO": "Norsko",
+            "NZ": "Nový Zéland",
+            "PL": "Polsko",
+            "PT": "Portugalsko",
+            "QA": "Katar",
+            "SA": "Saúdská Arábie",
+            "SG": "Singapur",
+            "SK": "Slovensko",
+            "SI": "Slovinsko",
+            "ES": "Španělsko",
+            "SE": "Švédsko",
+            "SV": "Salvador",
+            "TH": "Thajsko",
+            "GB": "Spojené království",
+            "US": "Spojené státy",
+            "UY": "Uruguay",
+            "UZ": "Uzbekistán",
+            "ZA": "Jižní Afrika"
+        },
+        "country": {
+            "AC": "Ascension",
+            "AD": "Andorra",
+            "AE": "Spojené arabské emiráty",
+            "AF": "Afghánistán",
+            "AG": "Antigua a Barbuda",
+            "AI": "Anguilla",
+            "AL": "Albánie",
+            "AM": "Arménie",
+            "AN": "Nizozemské Antily",
+            "AO": "Angola",
+            "AQ": "Australské antarktické území",
+            "AR": "Argentina",
+            "AS": "Americká Samoa",
+            "AT": "Rakousko",
+            "AU": "Austrálie",
+            "AW": "Aruba",
+            "AX": "Alandy",
+            "AZ": "Ázerbájdžán",
+            "BA": "Bosna a Hercegovina",
+            "BB": "Barbados",
+            "BD": "Bangladéš",
+            "BE": "Belgie",
+            "BF": "Burkina Faso",
+            "BG": "Bulharsko",
+            "BH": "Bahrajn",
+            "BI": "Burundi",
+            "BJ": "Benin",
+            "BM": "Bermudy",
+            "BN": "Brunej",
+            "BO": "Bolívie",
+            "BR": "Brazílie",
+            "BS": "Bahamy",
+            "BT": "Bhútán",
+            "BV": "Bouvetův ostrov",
+            "BW": "Botswana",
+            "BY": "Bělorusko",
+            "BZ": "Belize",
+            "CA": "Kanada",
+            "CC": "Kokosové (Keelingovy) ostrovy",
+            "CD": "Kongo, (Konžská Kinshasa)",
+            "CF": "Středoafrická republika",
+            "CG": "Kongo, (Kongo Brazzaville)",
+            "CH": "Švýcarsko",
+            "CI": "Pobřeží slonoviny (Pobřeží slonoviny)",
+            "CK": "Cookovy ostrovy",
+            "CL": "Chile",
+            "CM": "Kamerun",
+            "CN": "Čína, lidová republika",
+            "CO": "Kolumbie",
+            "CR": "Kostarika",
+            "CU": "Kuba",
+            "CV": "Kapverdy",
+            "CX": "Vánoční ostrov",
+            "CY": "Kypr",
+            "CZ": "Česká republika",
+            "DE": "Německo",
+            "DJ": "Džibutsko",
+            "DK": "Dánsko",
+            "DM": "Dominika",
+            "DO": "Dominikánská republika",
+            "DZ": "Alžírsko",
+            "EC": "Ekvádor",
+            "EE": "Estonsko",
+            "EG": "Egypt",
+            "ER": "Eritrea",
+            "ES": "Španělsko",
+            "ET": "Etiopie",
+            "FI": "Finsko",
+            "FJ": "Fidži",
+            "FK": "Falklandské ostrovy (Malvíny)",
+            "FM": "Mikronésie",
+            "FO": "Faerské ostrovy",
+            "FR": "Francie",
+            "GA": "Gabon",
+            "GB": "Spojené království",
+            "GD": "Grenada",
+            "GE": "Gruzie",
+            "GF": "Francouzská Guyana",
+            "GG": "Guernsey",
+            "GH": "Ghana",
+            "GI": "Gibraltar",
+            "GL": "Grónsko",
+            "GM": "Gambie",
+            "GN": "Guinea",
+            "GP": "Guadeloupe",
+            "GQ": "Rovníková Guinea",
+            "GR": "Řecko",
+            "GS": "Jižní Georgie a Jižní Sandwichovy ostrovy",
+            "GT": "Guatemala",
+            "GU": "Guam",
+            "GW": "Guinea-Bissau",
+            "GY": "Guyana",
+            "HK": "Hongkong, Čína",
+            "HM": "Heardův ostrov a McDonaldovi ostrovy",
+            "HN": "Honduras",
+            "HR": "Chorvatsko",
+            "HT": "Haiti",
+            "HU": "Maďarsko",
+            "ID": "Indonésie",
+            "IE": "Irsko",
+            "IL": "Izrael",
+            "IM": "Ostrov Man",
+            "IN": "Indie",
+            "IO": "Britské indickooceánské území",
+            "IQ": "Irák",
+            "IR": "Írán",
+            "IS": "Island",
+            "IT": "Itálie",
+            "JE": "Jersey",
+            "JM": "Jamajka",
+            "JO": "Jordán",
+            "JP": "Japonsko",
+            "KE": "Keňa",
+            "KG": "Kyrgyzstán",
+            "KH": "Kambodža",
+            "KI": "Kiribati",
+            "KM": "Komory",
+            "KN": "Svatý Kryštof a Nevis",
+            "KP": "Severní Korea",
+            "KR": "Korejská republika",
+            "KW": "Kuvajt",
+            "KY": "Kajmanské ostrovy",
+            "KZ": "Kazachstán",
+            "LA": "Laos",
+            "LB": "Libanon",
+            "LC": "Svatá Lucie",
+            "LI": "Lichtenštejnsko",
+            "LK": "Srí Lanka",
+            "LR": "Libérie",
+            "LS": "Lesotho",
+            "LT": "Litva",
+            "LU": "Lucembursko",
+            "LV": "Lotyšsko",
+            "LY": "Libye",
+            "MA": "Maroko",
+            "MC": "Monako",
+            "MD": "Moldavsko",
+            "ME": "Černá Hora",
+            "MG": "Madagaskar",
+            "MH": "Marshallovy ostrovy",
+            "MK": "Makedonie",
+            "ML": "Mali",
+            "MM": "Myanmar (Barma)",
+            "MN": "Mongolsko",
+            "MO": "Macao",
+            "MP": "Severní Mariany",
+            "MQ": "Martinik",
+            "MR": "Mauritánie",
+            "MS": "Montserrat",
+            "MT": "Malta",
+            "MU": "Mauricius",
+            "MV": "Maledivy",
+            "MW": "Malawi",
+            "MX": "Mexiko",
+            "MY": "Malajsie",
+            "MZ": "Mosambik",
+            "NA": "Namibie",
+            "NC": "Nová Kaledonie",
+            "NE": "Niger",
+            "NF": "Norfolkský ostrov",
+            "NG": "Nigérie",
+            "NI": "Nikaragua",
+            "NL": "Nizozemí",
+            "NO": "Norsko",
+            "NP": "Nepál",
+            "NR": "Nauru",
+            "NU": "Niue",
+            "NZ": "Nový Zéland",
+            "OM": "Omán",
+            "PA": "Panama",
+            "PE": "Peru",
+            "PF": "Francouzská Polynésie",
+            "PG": "Papua Nová Guinea",
+            "PH": "Filipíny",
+            "PK": "Pákistán",
+            "PL": "Polsko",
+            "PM": "Saint-Pierre a Miquelon",
+            "PN": "Pitcairnovy ostrovy",
+            "PR": "Portoriko",
+            "PT": "Portugalsko",
+            "PW": "Palau",
+            "PY": "Paraguay",
+            "QA": "Katar",
+            "RE": "Shledání",
+            "RO": "Rumunsko",
+            "RS": "Srbsko",
+            "RU": "Rusko",
+            "RW": "Rwanda",
+            "SA": "Saúdská Arábie",
+            "SB": "Šalamounovy ostrovy",
+            "SC": "Seychely",
+            "SD": "Súdán",
+            "SE": "Švédsko",
+            "SG": "Singapur",
+            "SH": "Svatá Helena",
+            "SI": "Slovinsko",
+            "SJ": "Špicberky",
+            "SK": "Slovensko",
+            "SL": "Sierra Leone",
+            "SM": "San Marino",
+            "SN": "Senegal",
+            "SO": "Somálsko",
+            "SR": "Surinam",
+            "ST": "Svatý Tomáš a Princův ostrov",
+            "SV": "Salvador",
+            "SY": "Sýrie",
+            "SZ": "Svazijsko",
+            "TA": "Tristan da Cunha",
+            "TC": "Ostrovy Turks a Caicos",
+            "TD": "Čad",
+            "TF": "Francouzská jižní a antarktická území",
+            "TG": "Togo",
+            "TH": "Thajsko",
+            "TJ": "Tádžikistán",
+            "TK": "Tokelau",
+            "TL": "Východní Timor (Východní Timor)",
+            "TM": "Turkmenistán",
+            "TN": "Tunisko",
+            "TO": "Tonga",
+            "TR": "Turecko",
+            "TT": "Trinidad a Tobago",
+            "TV": "Tuvalu",
+            "TW": "Čínská republika (Tchaj-wan)",
+            "TZ": "Tanzanie",
+            "UA": "Ukrajina",
+            "UG": "Uganda",
+            "UM": "Ostrov Wake",
+            "US": "Spojené státy",
+            "UY": "Uruguay",
+            "UZ": "Uzbekistán",
+            "VA": "Vatikán",
+            "VC": "Svatý Vincenc a Grenadiny",
+            "VE": "Venezuela",
+            "VG": "Britské Panenské ostrovy",
+            "VI": "Americké Panenské ostrovy",
+            "VN": "Vietnam",
+            "VU": "Vanuatu",
+            "WF": "Wallis a Futuna",
+            "WS": "Samoa",
+            "YE": "Jemen",
+            "YT": "Mayotte",
+            "ZA": "Jižní Afrika",
+            "ZM": "Zambie",
+            "ZW": "Zimbabwe"
+        },
+        "form": {
+            "username": "Přihlášení",
+            "username.placeholder": "Vaše přihlašovací údaje",
+            "name.placeholder": "Vaše jméno",
+            "newpassword": "Nové heslo",
+            "newpassword.placeholder": "Nové heslo",
+            "confirmpassword": "Potvrzení nového hesla",
+            "confirmpassword.placeholder": "Potvrďte nové heslo",
+            "email": "E-mail",
+            "email.placeholder": "Vaše e-mailová adresa",
+            "country": "Země bydliště"
+        },
+        "messages": {
+            "info": {
+                "authenticated": "Pokud se chcete <a href=\"#/login\">ověřit</a>, můžete vyzkoušet výchozí účty:<br/>- Administrátor (login=\"admin\" a password=\"admin\") <br/>- Uživatel (login=\"user\" a password=\"user\").",
+                "register": "Ještě nemáte účet? <a href=\"#/register\">Zaregistrovat nový účet</a>"
+            },
+            "error": {
+                "dontmatch": "Heslo a jeho potvrzení se neshodují!",
+                "server": "Došlo k chybě. Přihlaste se prosím znovu stisknutím tlačítka Přihlásit."
+            },
+            "validate": {
+                "newpassword": {
+                    "required": "Je vyžadováno vaše heslo.",
+                    "minlength": "Vaše heslo musí mít alespoň 5 znaků",
+                    "maxlength": "Vaše heslo nesmí být delší než 50 znaků",
+                    "strength": "Síla hesla:"
+                },
+                "confirmpassword": {
+                    "required": "Je vyžadováno vaše potvrzovací heslo.",
+                    "minlength": "Vaše potvrzovací heslo musí mít alespoň 5 znaků.",
+                    "maxlength": "Vaše potvrzovací heslo nesmí být delší než 50 znaků.",
+                    "match": "Potvrzení hesla se neshoduje s heslem"
+                },
+                "email": {
+                    "required": "Váš e-mail je povinný.",
+                    "invalid": "Váš e-mail je neplatný.",
+                    "minlength": "Váš e-mail musí mít alespoň 1 znak",
+                    "maxlength": "Váš e-mail nesmí být delší než 50 znaků"
+                },
+                "confirmemail": {
+                    "match": "Váš potvrzovací e-mail se neshoduje s e-mailem"
+                }
+            }
+        },
+        "word": {
+            "or": "nebo",
+            "add": "Přidat",
+            "edit": "Upravit",
+            "name": "Jméno",
+            "cancel": "Zrušit",
+            "note": "Poznámka",
+            "notes": "Poznámky",
+            "close": "zavřít",
+            "delete": "Odstranit",
+            "update": "Aktualizovat",
+            "from": "z",
+            "ok": "OK",
+            "submit": "Poslat",
+            "save": "Uložit",
+            "welcome": "Vítejte",
+            "view": "Zobrazit",
+            "viewlicense": "Zobrazit licenci",
+            "viewAll": "Zobrazit vše",
+            "state": "Stát",
+            "status": "Stav",
+            "type": "Typ",
+            "date": "Datum",
+            "user": "Uživatel",
+            "yes": "Ano",
+            "no": "Ne",
+            "apply": "Použít",
+            "download": "Stáhnout",
+            "file": "Soubor",
+            "publishedOn": "Publikováno dne",
+            "license": "Licence",
+            "back": "Zpět"
+        }
+    },
+    "logout": {
+        "title": "MLDS-Odhlášení",
+        "subtitle": "Odhlašujeme vás z vaší relace."
+    },
+    "register": {
+        "title": "Registr",
+        "welcome": "Vítejte v SNOMED International-MLDS",
+        "subwelcome": "Brána pro přístup k orientaci v systému SNOMED CT",
+        "form": {
+            "tc": "Pro pokračování musíte souhlasit s obchodními podmínkami SNOMED International.",
+            "tos": "Souhlasíte s našimi <a href=\"https://confluence.ihtsdotools.org/display/MLDSDOC/MLDS+Terms+of+Service\" target=\"_blank\">smluvními podmínkami</a>.",
+            "button": "Zahájit registraci",
+            "confirmemail": "E-mail (potvrdit)"
+        },
+        "messages": {
+            "validate": {
+                "login": {
+                    "required": "Je vyžadováno vaše přihlášení.",
+                    "minlength": "Vaše přihlašovací jméno musí mít alespoň 1 znak",
+                    "maxlength": "Vaše přihlašovací jméno nesmí být delší než 50 znaků"
+                },
+                "country": {
+                    "notMLDS": "Žádosti o používání SNOMED CT v zemi vašeho bydliště musí být podány příslušnému zástupci ve vaší zemi - <a href=\"{{link}}\" target=\"_blank\">zde</a>. Pokud si přejete požádat o dohodu o veřejném zájmu pro používání SNOMED CT v jiné zemi nebo se chcete dozvědět více, kontaktujte prosím SNOMED International na adrese <a href=\"mailto:info@snomed.org\">info@snomed.org</a>"
+                },
+                "registration": {
+                    "usagetyperequired": "Požadovaný typ použití",
+                    "subtyperequired": "Požadovaný podtyp"
+                }
+            },
+            "success": "<strong>Registrace uložena!</strong> Zkontrolujte prosím svůj e-mail pro potvrzení.",
+            "error": {
+                "fail": "<strong>Registrace selhala!</strong> Zkuste to prosím znovu později.",
+                "userexists": "<strong>Uživatel se již s touto e-mailovou adresou zaregistroval.</strong> Měli jste v úmyslu <a href='#/login'>se přihlásit</a>?",
+                "blocklist": "Vzhledem k našim IT zásadám nemůžeme zpracovat zadanou e-mailovou adresu. Pro další pomoc prosím kontaktujte <a href=\"mailto:support@snomed.org\">support@snomed.org</a>."
+            },
+            "excludemessage": {
+                "confirm": "Potvrzení",
+                "link": "nepoužívá MLDS k distribuci SNOMED CT. Chcete-li se zaregistrovat ke stažení SNOMED CT, další informace naleznete na tomto odkazu -",
+                "userConfirm": "Chcete-li pokračovat v registraci na MLDS, potvrďte prosím, že chcete nasadit SNOMED CT v jiné zemi.",
+                "cancel": "Zrušit",
+                "accept": "Potvrzuji, že chci používat a nasadit SNOMED CT v jiné zemi než"
+            }
+        },
+        "emailVerification": {
+            "intro": "Poslali jsme vám e-mail.",
+            "detail": "Otevřete prosím e-mail, který jsme vám právě poslali, abyste ověřili svůj účet a získali přístup k MLDS."
+        },
+        "affiliateRegistration": {
+            "title": "Registrace affiliate partnerů",
+            "usageType": "Typ použití",
+            "conditions": "Vyberte prosím podmínky, za kterých bude produkt používán",
+            "typeOfAgreement": "Typ dohody",
+            "validation": {
+                "other.required": "Ostatní pole je povinné."
+            },
+            "changeRequestedWarning": {
+                "title": "Registrace affiliate partnera vyžaduje úpravy",
+                "text": "Před zpracováním je nutné aktualizovat vaši registraci jako affiliate partnera. Informace o nezbytných změnách k dokončení registrace naleznete v e-mailu."
+            },
+            "license.title": "Dohoda SNOMED CT",
+            "license": "Licence SNOMED",
+            "license.confirm": "Souhlasím s licencí",
+            "license.error": "Pro registraci musíte souhlasit s podmínkami licence SNOMED CT, které také uvádějí případné poplatky, které mohou být vyžadovány."
+        },
+        "affiliateRegistrationReview": {
+            "title": "Zkontrolovat žádost",
+            "editApp": "Upravit žádost"
+        }
+    },
+    "login": {
+        "title": "Přihlášení",
+        "form": {
+            "username": "E-mail nebo uživatelské jméno",
+            "password": "Heslo",
+            "password.placeholder": "Vaše heslo",
+            "rememberme": "Pamatuj si mě",
+            "button": "Přihlášení",
+            "forgot": "Zapomněli jste heslo?"
+        },
+        "messages": {
+            "error": {
+                "authentication": "<strong>Ověření se nezdařilo!</strong> Zkontrolujte prosím své přihlašovací údaje a zkuste to znovu. Hesla rozlišují velká a malá písmena.",
+                "deregistered": "<strong>Ověření selhalo!</strong> Registrace tohoto účtu byla zrušena. Kontaktujte prosím podporu.",
+                "noPermissions": "<strong>Ověření se nezdařilo!</strong> Ověřili jsme vás, ale váš účet nemá přístup k této aplikaci nebo je špatně nakonfigurován. Kontaktujte prosím podporu."
+            }
+        }
+    },
+    "settings": {
+        "title": "Kontaktní informace pro [<b>{{username}}</b>]",
+        "form": {
+            "countryOfResidence": "Země pobytu",
+            "countryOfResidence.placeholder": "Vaše země pobytu",
+            "firstname": "Křestní jméno",
+            "firstname.placeholder": "Vaše křestní jméno",
+            "lastname": "Příjmení",
+            "lastname.placeholder": "Vaše příjmení",
+            "button": "Uložit"
+        },
+        "messages": {
+            "error": "<strong>Došlo k chybě!</strong> Nastavení se nepodařilo uložit.",
+            "success": "<strong>Nastavení uloženo!</strong>",
+            "validate": {
+                "firstname": {
+                    "required": "Vaše křestní jméno je povinné.",
+                    "minlength": "Vaše křestní jméno musí mít alespoň 1 znak.",
+                    "maxlength": "Vaše křestní jméno nesmí být delší než 50 znaků"
+                },
+                "lastname": {
+                    "required": "Vaše příjmení je povinné.",
+                    "minlength": "Vaše příjmení musí mít alespoň 1 znak",
+                    "maxlength": "Vaše příjmení nesmí být delší než 50 znaků"
+                }
+            }
+        }
+    },
+    "password": {
+        "title": "Heslo pro {{username}}",
+        "form": {
+            "button": "Uložit"
+        },
+        "reset": {
+            "title": "Obnovit heslo účtu",
+            "instructions": "Zadejte níže nové heslo."
+        },
+        "messages": {
+            "error": "<strong>Došlo k chybě!</strong> Heslo se nepodařilo změnit.",
+            "success": "<strong>Heslo změněno!</strong> Pokračovat na <a href='#/contactInfo'>Informace o účtu</a>",
+            "expired": "<strong>Platnost odkazu pro obnovení vypršela nebo byl odkaz neplatný.</strong> <a href='#/requestPasswordReset'>Požádejte o další obnovení</a>"
+        }
+    },
+    "sessions": {
+        "title": "Aktivní relace pro [<b>{{username}}</b>]",
+        "table": {
+            "ipaddress": "IP adresa",
+            "useragent": "Uživatelský agent",
+            "button": "Zrušit platnost"
+        },
+        "messages": {
+            "success": "<strong>Relace byla zrušena!</strong>",
+            "error": "<strong>Došlo k chybě!</strong> Relaci se nepodařilo zneplatnit."
+        }
+    },
+    "tracker": {
+        "title": "Real-time aktivity uživatelů",
+        "table": {
+            "userlogin": "Uživatel",
+            "ipaddress": "IP adresa",
+            "userAgent": "Uživatelský agent",
+            "page": "Aktuální stránka",
+            "time": "Čas"
+        }
+    },
+    "metrics": {
+        "title": "Systémové metriky",
+        "refresh.button": "Obnovit",
+        "health": {
+            "title": "Health checks",
+            "database": "Databáze",
+            "email": "E-mail",
+            "stacktrace": "Stacktrace"
+        },
+        "jvm": {
+            "title": "JVM metriky",
+            "memory": {
+                "title": "Memory",
+                "total": "Total Memory",
+                "heap": "Heap Memory",
+                "nonheap": "Non-Heap Memory"
+            },
+            "threads": {
+                "title": "Threads",
+                "all": "All",
+                "runnable": "Runnable",
+                "timedwaiting": "Timed waiting",
+                "waiting": "Waiting",
+                "blocked": "Blocked",
+                "dump": {
+                    "title": "Threads dump",
+                    "id": "Id",
+                    "blockedtime": "Blocked Time",
+                    "blockedcount": "Blocked Count",
+                    "waitedtime": "Waited Time",
+                    "waitedcount": "Waited Count",
+                    "lockname": "Lock name",
+                    "stacktrace": "Stacktrace",
+                    "show": "Zobrazit",
+                    "hide": "Skrýt"
+                }
+            },
+            "gc": {
+                "title": "Garbage collections",
+                "marksweepcount": "Mark Sweep count",
+                "marksweeptime": "Mark Sweep time",
+                "scavengecount": "Scavenge count",
+                "scavengetime": "Scavenge time"
+            },
+            "http": {
+                "title": "HTTP requests (events per second)",
+                "active": "Active requests",
+                "total": "Total requests",
+                "table": {
+                    "code": "Code",
+                    "count": "Count",
+                    "mean": "Mean",
+                    "average": "Average"
+                },
+                "code": {
+                    "ok": "Ok",
+                    "notfound": "Not found",
+                    "servererror": "Server Error"
+                }
+            }
+        },
+        "servicesstats": {
+            "title": "Statistiky služeb (čas v milisekundách)",
+            "table": {
+                "name": "Název služby",
+                "count": "Count",
+                "mean": "Mean",
+                "min": "Min.",
+                "max": "Max",
+                "p50": "p50",
+                "p75": "p75",
+                "p95": "p95",
+                "p99": "p99"
+            }
+        },
+        "ehcache": {
+            "title": "Ehcache statistics",
+            "cachename": "Cache name",
+            "objects": "Objects",
+            "hits": "Hits",
+            "misses": "Misses",
+            "evictioncount": "Eviction count",
+            "mean": "Mean get time (ms)"
+        }
+    },
+    "logs": {
+        "title": "Protokoly",
+        "nbloggers": "Existuje {{ total }} loggerů.",
+        "filter": "Filtr",
+        "table": {
+            "name": "Jméno",
+            "level": "Úroveň"
+        }
+    },
+    "audits": {
+        "title": "Audity",
+        "filter": {
+            "title": "Filtrovat podle data",
+            "from": "od",
+            "to": "do",
+            "button": {
+                "weeks": "Týdny",
+                "today": "dnes",
+                "clear": "vyčistit",
+                "close": "zavřít"
+            }
+        },
+        "table": {
+            "header": {
+                "principal": "Uživatel",
+                "date": "Datum (místní)",
+                "status": "Stát",
+                "data": "Další data"
+            },
+            "data": {
+                "remoteAddress": "Vzdálená adresa:"
+            }
+        },
+        "type": {
+            "AUTHORIZATION_FAILURE": "Selhání autorizace",
+            "AUTHENTICATION_SUCCESS": "Autorizace úspěšná",
+            "AUTHENTICATION_FAILURE": "Chyba autentizace",
+            "AFFILIATE_CREATED": "Affiliate partner byl vytvořen",
+            "AFFILIATE_CREATED_BY_IMPORT": "Affiliate partner byl vytvořen z importu",
+            "AFFILIATE_DELETED": "Affiliate partner byl smazán",
+            "AFFILIATE_UPDATED": "Affiliate partner byl aktualizován",
+            "AFFILIATE_UPDATED_BY_IMPORT": "Affiliate partner byl aktualizován z importu",
+            "AFFILIATEDETAILS_UPDATED": "Aktualizace údajů affiliate partnera",
+            "AFFILIATE_EXPORT": "Dávkový export affiliate programu",
+            "AFFILIATE_IMPORT": "Dávkový import affiliate programu",
+            "AFFILIATE_LOGIN_CREATED": "Přihlášení affiliate partnera bylo vytvořeno",
+            "AFFILIATE_STANDING_STATE_CHANGED": "Změna statusu affiliate partnera",
+            "ANNOUNCEMENT_POSTED": "Oznámení zveřejněno",
+            "APPLICATION_CREATED": "Žádost vytvořena",
+            "APPLICATION_APPROVAL_STATE_CHANGED": "Stav schválení žádosti změněn",
+            "APPLICATION_DELETED": "Žádost smazána",
+            "RELEASE_FILE_CREATED": "Vytvořen soubor s vydáním",
+            "RELEASE_FILE_DELETED": "Soubor vydání smazán",
+            "RELEASE_FILE_DOWNLOADED": "Soubor vydání stažen",
+            "RELEASE_PACKAGE_DELETED": "Balíček vydání smazán",
+            "RELEASE_PACKAGE_CREATED": "Balíček vydání vytvořen",
+            "RELEASE_VERSION_TAKEN_OFFLINE": "Verze nastavena off-line",
+            "RELEASE_VERSION_TAKEN_ONLINE": "Verze nastavena online",
+            "RELEASE_VERSION_CREATED": "Vytvořena verze vydání",
+            "RELEASE_VERSION_DELETED": "Verze vydání smazána",
+            "USAGE_CREATED": "Vytvořeno",
+            "USAGE_APPROVAL_STATE_CHANGED": "Stav schválení použití změněn"
+        }
+    },
+    "errors": {
+        "403": "Nemáte oprávnění k přístupu na stránku.",
+        "title": "Chybová stránka!"
+    },
+    "footer": "Toto je vaše patička",
+    "affiliate": {
+        "title": "Partnerský program",
+        "type": {
+            "title": "Typ",
+            "COMMERCIAL": "Komerční",
+            "ACADEMIC": "Akademický",
+            "OTHER": "Ostatní",
+            "INDIVIDUAL": "Individuální"
+        },
+        "type.extended": {
+            "COMMERCIAL": "Komerční - Vývojář, dodavatel nebo poskytovatel terminologie",
+            "ACADEMIC": "Akademické – pro interní použití v rámci organizace (vzdělávací, výzkumné, vývojové nebo poskytovatel zdravotní péče)",
+            "OTHER": "Jiné - Použití neuvedené v jiných možnostech",
+            "INDIVIDUAL": "Individuální – osobní, vzdělávací nebo výzkumný"
+        },
+        "subType": {
+            "DEVELOPER": "Vývojář",
+            "DEVELOPMENT": "Vývoj",
+            "EDUCATIONAL": "Vzdělávací",
+            "HEALTHCAREPROVIDER": "Poskytovatel zdravotní péče",
+            "PERSONAL": "Osobní",
+            "RESEARCH": "Výzkum",
+            "VENDOR": "Dodavatel"
+        },
+        "agreementType": {
+            "AFFILIATE_NORMAL": "Partnerský program - Normální",
+            "AFFILIATE_RESEARCH": "Partnerský program - Výzkum",
+            "AFFILIATE_PUBLIC_GOOD": "Partnerský program - Veřejný prospěch"
+        },
+        "organizationType": {
+            "PUBLIC_HEALTH_ORGANIZATION": "Veřejný poskytovatel zdravotní péče",
+            "PRIVATE_HEALTH_ORGANIZATION": "Privátní poskytovatel zdravotní péče",
+            "RESEARCH_AND_DEVELOPMENT_ORGANIZATION": "Organizace pro výzkum a vývoj",
+            "HEALTHERCARE_APPLICATION_DEVELOPER": "Vývojář aplikací pro zdravotnictví",
+            "GENERAL_PRACTITIONER_PRACTICE": "Praxe praktického lékaře",
+            "EDUCATIONAL_INSTITUTE": "Vzdělávací institut",
+            "OTHER": "Ostatní"
+        },
+        "implementationStatus": {
+            "IMPLEMENTED": "Živé/Implementované",
+            "DEVELOPMENT": "Ve vývoji",
+            "PLANNING": "Ve fázi plánování"
+        },
+        "standingState": {
+            "APPLYING": "V implementaci",
+            "IN_GOOD_STANDING": "v dobrém stavu",
+            "REJECTED": "Odmítnuto",
+            "DEACTIVATION_PENDING": "Deaktivace čeká na vyřízení",
+            "DEACTIVATED": "Deaktivováno",
+            "DEREGISTERED": "Odhlášeno",
+            "PENDING_INVOICE": "Čekající faktura",
+            "INVOICE_SENT": "Faktura odeslána"
+        },
+        "standingStateWithExplanation": {
+            "APPLYING": "Uplatňování",
+            "IN_GOOD_STANDING": "V dobrém stavu – Schválený plný přístup, Účet zaplacen, Není vyžadována žádná platba nebo Problém s účtem vyřešen",
+            "REJECTED": "Odmítnuto",
+            "DEACTIVATION_PENDING": "Deaktivace čeká na vyřízení – přístup pouze k účtu, bez možnosti stahování",
+            "DEACTIVATED": "Deaktivováno – přístup pouze k účtu, bez možnosti stahování",
+            "DEREGISTERED": "Zrušena registrace – žádný přístup k účtu MLDS",
+            "PENDING_INVOICE": "Nevyřízená faktura – přístup pouze k účtu, platba neuhrazena",
+            "INVOICE_SENT": "Faktura odeslána - přístup pouze k účtu, platba neuhrazena"
+        }
+    },
+    "approval": {
+        "state": {
+            "NOT_SUBMITTED": "Neodesláno",
+            "CHANGE_REQUESTED": "Požadovaná změna",
+            "SUBMITTED": "Odesláno",
+            "RESUBMITTED": "Znovu odesláno",
+            "REVIEW_REQUESTED": "Žádost o kontrolu",
+            "APPROVED": "Schválený",
+            "REJECTED": "Odmítnuto"
+        }
+    },
+    "usageReport": {
+        "state": {
+            "NOT_SUBMITTED": "Neodesláno",
+            "CHANGE_REQUESTED": "Požadovaná změna",
+            "SUBMITTED": "Odesláno",
+            "RESUBMITTED": "Znovu odesláno",
+            "REVIEW_REQUESTED": "Žádost o kontrolu",
+            "PENDING_INVOICE": "Čekající faktura",
+            "INVOICE_SENT": "Faktura odeslána",
+            "PAID": "Placené",
+            "REJECTED": "Odmítnuto"
+        }
+    },
+    "application": {
+        "applicationType": {
+            "PRIMARY": "Primární",
+            "EXTENSION": "Extenze",
+            "IMPORT": "Importovat"
+        }
+    },
+    "pendingApplications": {
+        "title": "Čekající žádosti",
+        "show": {
+            "myApplications": "Moje čekající žádosti",
+            "allApplications": "Všechny čekající žádosti"
+        },
+        "table": {
+            "affiliateName": "Jméno affiliate partnera",
+            "applicationType": "Typ aplikace",
+            "agreementType": "Typ dohody",
+            "useType": "Typ použití",
+            "dateSubmitted": "Datum odeslání",
+            "homeCountry": "Domovská země",
+            "member": "Člen",
+            "email": "E-mail",
+            "review": "Kontrola"
+        }
+    },
+    "affiliateManagement": {
+        "title": "Správa affiliate partnerů"
+    },
+    "releaseManagement": {
+        "title": "Správa vydání"
+    },
+    "reviewUsageReports": {
+        "title": "Kontrola zprávy o využití"
+    },
+    "memberManagement": {
+        "title": "Správa členů"
+    },
+    "postAnnouncement": {
+        "title": "Zveřejnit oznámení"
+    },
+    "ihtsdoReleases": {
+        "title": "Vydání SNOMED"
+    },
+    "activityLog": {
+        "title": "Záznam aktivit"
+    },
+    "importAffiliateRecords": {
+        "title": "Import záznamů affiliate partnera"
+    },
+    "manageBlocklist": {
+        "title": "Spravovat seznam blokovaných"
+    },
+    "nationalRegistrationList": {
+        "title": "Národní seznam registrací"
+    },
+    "systemLoggers": {
+        "title": "Systémové loggery"
+    },
+    "form": {
+        "requiredField": "Povinné pole.",
+        "tooLong": "Vstupní hodnota je příliš dlouhá.",
+        "invalidNumber": "Neplatné číslo",
+        "pleaseFix": "Prosím o opravu výše uvedených chyb."
+    },
+    "views": {
+        "activate": {
+            "title": "Aktivace",
+            "messages": {
+                "success": {
+                    "title": "Uživatelský účet byl vytvořen.",
+                    "body": "Systém vás za chvíli přesměruje k pokračování v procesu registrace. Pokud nebudete automaticky přesměrováni, klikněte prosím {{linkbegin}} zde.{{linkend}}"
+                },
+                "error": {
+                    "title": "Vašeho uživatele se nepodařilo aktivovat.",
+                    "body": "Pro registraci prosím použijte registrační formulář. Pokud máte stále potíže, kontaktujte prosím podporu."
+                }
+            }
+        },
+        "applicationSummary": {
+            "title": "Souhrn žádosti",
+            "ext.title": "Informace o žádosti o extenzi",
+            "reason": "Důvod",
+            "affiliateInfo": "Informace o partnerském programu",
+            "affiliateInformation": "Informace o partnerském programu",
+            "useType": "Typ použití",
+            "useSubType": "Podtyp použití",
+            "billingInfo": "Fakturační údaje",
+            "context": "Informace o kontextu použití",
+            "subLicence": "Využití sublicencí",
+            "applicationActivity": "Aktivita žádosti"
+        },
+        "contactInfo": {
+            "title": "Informace o účtu",
+            "acceptNotifications": "Ano, upozornit mě na aktualizaci balíčku SNOMED.",
+            "countryNotificationsOnly": "Pouze pro mé národní extenze",
+            "messages": {
+                "notApproved": {
+                    "title": "Registrace zatím nebyla schválena",
+                    "body": "Kontaktní informace přidruženého subjektu můžete upravit až po schválení žádosti o registraci."
+                }
+            },
+            "admin": {
+                "title": "Upravitelné administrátorem",
+                "other": {
+                    "name": "Ostatní",
+                    "placeholder": "Ostatní",
+                    "required": "Pole Ostatní je povinné."
+                },
+                "subtype": {
+                    "name": "Podtyp",
+                    "required": "Pole Podtyp je povinné."
+                },
+                "usageType": {
+                    "name": "Typ",
+                    "required": "Pole Typ použití je povinné."
+                },
+                "agreementType": "Typ dohody",
+                "accountStanding": "Stav účtu"
+            },
+            "contact": {
+                "title": "Kontaktní informace",
+                "fullName": "Jméno",
+                "firstName": {
+                    "name": "Křestní jméno",
+                    "placeholder": "Jan"
+                },
+                "lastName": {
+                    "name": "Příjmení",
+                    "placeholder": "Novák"
+                },
+                "email": {
+                    "name": "E-mail",
+                    "placeholder": "JanNovák@organizaceABC.cz",
+                    "unique": "E-mailové adresy musí být jedinečné.",
+                    "invalid": "Neplatná e-mailová adresa."
+                },
+                "alternateEmail": {
+                    "name": "Alternativní e-mail",
+                    "placeholder": "alternative@email.com"
+                },
+                "thirdEmail": "Třetí e-mail",
+                "landline": {
+                    "name": "Pevná linka telefonního čísla",
+                    "short": "Telefonní číslo",
+                    "invalid": "Neplatné telefonní číslo."
+                },
+                "landlineExtension": {
+                    "name": "Extenze",
+                    "short": "Ext",
+                    "placeholder": "Extenze"
+                },
+                "mobile": {
+                    "name": "Číslo mobilního telefonu",
+                    "placeholder": "číslo"
+                },
+                "address": {
+                    "title": "Adresa",
+                    "name": "Adresa",
+                    "placeholder": "123 Somewhere Avenue"
+                },
+                "city": {
+                    "name": "Město",
+                    "placeholder": "Město"
+                },
+                "postcode": {
+                    "name": "PSČ",
+                    "placeholder": "PSČ",
+                    "tooLong": "PSČ je příliš dlouhé."
+                },
+                "country": {
+                    "name": "Země",
+                    "placeholder": "Země",
+                    "unrecognized": "Neznámá země."
+                },
+                "billingAddress": {
+                    "name": "Fakturační adresa",
+                    "country": "Fakturační země",
+                    "placeholder": "Adresa",
+                    "sameAsAddress": "Použít adresu jako fakturační adresu",
+                    "useOrganizationAddress": "Použít adresu organizace jako fakturační adresu"
+                }
+            },
+            "organization": {
+                "title": "Organizace",
+                "name": {
+                    "name": "Název organizace",
+                    "placeholder": "Název organizace"
+                },
+                "type": {
+                    "name": "Typ organizace",
+                    "required": "Je vyžadován typ organizace.",
+                    "placeholder": "Jiný typ organizace"
+                }
+            }
+        },
+        "extensionApplication": {
+            "title": "Zahájit proces žádosti o extenzi",
+            "sure": "Jste si jisti, že chcete požádat o tuto extenzi?",
+            "form": {
+                "title": "Žádost o extenzi",
+                "why": "Popište prosím, proč byste chtěli mít přístup k této extenzi.",
+                "purpose": "Účel použití",
+                "error": "Důvod by měl být delší."
+            },
+            "agreement": "Dohoda o extenzi",
+            "license": "Licence pro extenzi",
+            "warning": {
+                "change": "Registrace extenze vyžaduje změnu",
+                "change.detail": "Před zpracováním je nutné aktualizovat registraci vaší extenze. Informace o nezbytných změnách k dokončení registrace naleznete v e-mailu.",
+                "rejected": "Registrace extenze zamítnuta",
+                "rejected.detail": "Před zpracováním je nutné aktualizovat registraci vaší extenze. Informace o nezbytných změnách k dokončení registrace naleznete v e-mailu.",
+                "approved": "Schválena registrace extenze",
+                "approved.detail": "Vaše žádost byla schválena."
+            },
+            "delete": {
+                "title": "Zrušit žádost",
+                "sure": "Opravdu chcete tuto žádost zrušit?",
+                "sure.detail": "Pokud tak učiníte, ztratíte všechny uložené informace v této žádosti."
+            }
+        },
+        "footer": {
+            "tos": "Podmínky služby",
+            "pp": "Zásady ochrany osobních údajů",
+            "register": "Zaregistrujte své nasazení",
+            "contact": "Kontaktujte nás"
+        },
+        "landingPage": {
+            "appName": "Služba licencování a distribuce",
+            "purpose": "Tuto službu poskytuje společnost SNOMED International organizacím a jednotlivcům, kteří si mohou vyžádat použití a přístup k mezinárodní verzi SNOMED CT pro použití v nečlenských zemích i v některých členských zemích.",
+            "furtherDetails": "Další podrobnosti naleznete na webových stránkách <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International</a> nebo v sekci <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Často kladené otázky</a>.",
+            "loginHere": "přihlásit se zde",
+            "member.purpose1": "MLDS je nástroj používaný NRC v ",
+            "member.purpose2": " spravovat licencování affiliate partnerů SNOMED CT, včetně nových žádostí, obnovení a hlášení o užívání v rámci ",
+            "member.purpose3": " a případně i v nečlenských zemích."
+        },
+        "releases": {
+            "title": "Verze dostupné pro registrované uživatele",
+            "noAuth": "<a href=\"#/login\">Přihlaste se</a> pro stažení nebo klikněte na <a href=\"#/register\">registrovat</a> pro zahájení procesu podávání žádostí.",
+            "memberCountries": "Členské země",
+            "countryIsMissing": "Pokud hledaná země není v tomto seznamu, podívejte se prosím na webové stránky <a href=\"http://www.snomed.org/\">SNOMED International</a>, kde najdete informace o stažení verze.",
+            "notAvailable": "Momentálně nejsou k dispozici žádné balíčky vydání",
+            "releasePackageLicense": "Licence k balíčku vydání",
+            "reviewLicense": "Před stažením balíčku s verzí si prosím přečtěte následující licenci a přijměte ji:",
+            "agreeToLicense": "Souhlasím s licencí",
+            "warning": {
+                "deactivated": "Účet deaktivován",
+                "pending": "Čekající faktura",
+                "pAttention": "Primární aplikace vyžaduje pozornost",
+                "pProcessed": "Primární žádost se zpracovává",
+                "apply": "Požádat o rozšíření",
+                "aProcessed": "Žádost se zpracovává",
+                "aAttention": "Aplikace vyžaduje pozornost, kliknutím pokračujte v aplikaci."
+            }
+        },
+        "requestPasswordReset": {
+            "title": "Obnovení hesla",
+            "detail": "Zašleme vám e-mail s odkazem na formulář pro obnovení hesla.",
+            "button": "Žádost o obnovení hesla",
+            "back": "Zpět na přihlašovací stránku",
+            "emailNotFound": "Zadaný e-mail nebyl v systému nalezen.",
+            "resetEmailSent": "Proces obnovení hesla byl zahájen, zkontrolujte prosím svůj e-mail."
+        },
+        "usage": {
+            "title": "Protokol použití",
+            "instructions": "Vyplňte prosím prohlášení o užívání pro zvolené časové období.",
+            "modal": {
+                "title": "Vytvořit prohlášení o použití",
+                "instructions": "Vyplňte prosím prohlášení o užívání za všechna časová období. Přiložte prosím zprávy o minulém i současném užívání.",
+                "period": "Období prohlášení"
+            },
+            "submit": {
+                "title": "Odeslat prohlášení o užívání",
+                "instructions": "Před odesláním prosím zkontrolujte a ujistěte se, že je vaše níže uvedené prohlášení o použití správné.",
+                "declarationForPeriod": "Prohlášení za období",
+                "button": "Odeslat prohlášení"
+            },
+            "retract": {
+                "title": "Odvolat prohlášení o užívání",
+                "instructions": "Jste si jisti, že chcete toto hlášení stáhnout? Vrátíte se ke stejnému hlášení o užívání, abyste ho upravili a znovu odeslali. Pro nové časové období musíte odeslat nové prohlášení.",
+                "button": "Odvolat prohlášení"
+            }
+        },
+        "usageLog": {
+            "title": "Odeslaná zpráva o užívání",
+            "retract": "Odvolat prohlášení",
+            "usage": "Používání",
+            "subTitle": "Využití licence",
+            "usageFor": "Použití pro",
+            "pleaseFill": "Vyplňte prosím v tuto chvíli veškeré známé informace o použití. Po schválení vaší žádosti budete požádáni o potvrzení použití.",
+            "licenseType": "Typ licence",
+            "currentUsage": "Aktuální využití",
+            "plannedUsage": "Plánované využití",
+            "purpose": "Účel",
+            "impStatus": "Stav implementace",
+            "countries": {
+                "title": "Používané země",
+                "subTitle": "Vyberte nečlenské země, ve kterých bude SNOMED CT používán.",
+                "list": "Seznam zemí",
+                "search": "Vyhledávání zemí",
+                "homeCountry": "Domovská země",
+                "button": "Přidat zemi"
+            },
+            "institutions": {
+                "title": "Sublicencované instituce",
+                "selectFirst": "Před vstupem do kategorie Sublicencované instituce je nutné vybrat zemi.",
+                "noneSelected": "Nebyly vybrány žádné země.",
+                "country": "Země",
+                "deleteCountry": "Odebrat zemi",
+                "hospAndInst": "Nemocnice/instituce",
+                "hospAndInst.title": "Nemocnice/instituce",
+                "hospAndInst.plural": "Nemocnice/instituce",
+                "started": "Začal používat",
+                "finished": "Ukončeno používání",
+                "practices.title": "Obor(y)",
+                "practices": "Odborné ambulance",
+                "dataAnalysis": {
+                    "title": "Analýza dat",
+                    "staff": "Nemocnice poskytující personál odborným ambulancím",
+                    "dataCreation": "Systémy pro tvorbu dat",
+                    "independent": "Nezávislé praxe",
+                    "dataAnalysis": "Systémy pro analýzu dat",
+                    "systems": "Systémy",
+                    "data": "Data",
+                    "provideStaff": "Kolik nemocnic poskytuje personál uvedeným ordinacím?",
+                    "usingDCSNotHosp": "Kolik ordinací používá systémy pro tvorbu dat a NENÍ součástí nemocniční organizace?",
+                    "usingDCSNotPract": "Kolik nemocnic nebo jiných institucí používá systémy pro tvorbu dat a nelze je definovat jako ordinace podle definice licence?",
+                    "howManyDAS": "Kolik systémů pro analýzu dat jste v tomto regionu nasadili a kolik databází je v každém nasazení?"
+                },
+                "modal": {
+                    "subtitle": "Název nemocnice/instituce",
+                    "placeholder": "Zadejte název nemocnice/instituce",
+                    "dateBefore": "Datum před datem zahájení používání",
+                    "sure": "Jste si jisti, že chcete odstranit",
+                    "andEntries": "a s ním spojené záznamy?",
+                    "addPractices": "Prosím, přidejte počet ordinací využívajících SNOMED"
+                }
+            },
+            "otherActivities": "Další aktivity",
+            "notificationRequired": "Affiliate partneři jsou povinny informovat společnost SNOMED International před zahájením jakýchkoli aktivit, které nespadají do stávajících kategorií, a v tomto okamžiku společnost SNOMED International určí vhodnou strukturu poplatků pro danou činnost.",
+            "pleaseDescribe": "Prosím, popište aktivitu níže.",
+            "submitFor": "Odeslat prohlášení pro"
+        },
+        "usageReports": {
+            "reportDate": "Datum zprávy",
+            "hospitals": "Nemocnice",
+            "usageType": "Typ použití",
+            "countries": "Země",
+            "newReport": "Nová zpráva"
+        },
+        "userDashboard": {
+            "affiliateNo": "Číslo affiliate partnera",
+            "edit": "Upravit žádost o partnerský program",
+            "myPackages": "Moje balíčky vydání",
+            "otherPackages": "Další dostupná vydání",
+            "warning": {
+                "required.title": "Vyžaduje se prohlášení o použití",
+                "required.msg": "Vaše předběžné prohlášení o užívání bylo uloženo. Upozorňujeme však, že do 15. ledna budete muset odevzdat konečné prohlášení o užívání za aktuální rok. Upozorňujeme, že pro stažení SNOMED CT je nutné odevzdat všechny zprávy o užívání za předchozí roky.",
+                "change.title": "Registrace affiliate partnera vyžaduje změnu",
+                "change.msg": "Před zpracováním je nutné aktualizovat vaši registraci jako affiliate partnera. Informace o nezbytných změnách k dokončení registrace naleznete v e-mailu.",
+                "declined.title": "Registrace affiliate partnera zamítnuta",
+                "declined.msg": "Vaše registrace jako affiliate partner byla zamítnuta. Podrobnosti o rozhodnutí naleznete v e-mailu.",
+                "deactivated.title": "Účet deaktivován",
+                "deactivated.msg": "Váš účet byl deaktivován. Stahování balíčků vydaných verzí a žádosti o rozšíření byly pozastaveny. Pro vyřešení problému kontaktujte prosím <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>.",
+                "iPending.title": "Faktura čekající na vyřízení účtu",
+                "iPending.msg": "Váš účet má čekající fakturu. Stahování balíčků vydání bylo pozastaveno. Pro vyřešení problému kontaktujte prosím <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>.",
+                "dPending.title": "Probíhá deaktivace účtu",
+                "dPending.msg": "Váš účet bude deaktivován. Pro vyřešení problému kontaktujte prosím <a href=\"mailto:mlds@snomed.org\">mlds@snomed.org</a>."
+            }
+        },
+        "postAnnouncement": {
+            "title": "Zveřejnit oznámení",
+            "messageContent": "Obsah zprávy",
+            "emailSubject": "Předmět e-mailu",
+            "emailBody": "Tělo e-mailu",
+            "salutationMessage": "Nezapomeňte do těla e-mailu přidat pozdrav a rozloučení.",
+            "audience": "Publikum",
+            "affiliates": "Affiliate partneři",
+            "myAffiliates": "Moji partneři",
+            "allAffiliates": "Všichni partneři",
+            "affiliatesClarification": "Schválení partneři s hodnocením účtu:",
+            "additionalEmails": "Další e-mailové adresy",
+            "additionalEmailsHelp": "Odeslat oznámení na další e-mailové adresy.",
+            "post": "Oznámení příspěvku",
+            "newAnnouncement": "Nové oznámení"
+        },
+        "affiliateSummary": {
+            "deleteAffiliate": "Smazat affiliate partnera",
+            "deleteAffiliateModal": {
+                "sure": "Jste si jisti, že chcete smazat affiliate partnera?",
+                "explanation": "Smazáním affiliate partnera se smažou také jeho žádosti a informace o užívání. Uživatel se již nebude moci přihlásit k účtu."
+            }
+        },
+        "ihtsdoReleases": {
+            "title": "Vydání SNOMED",
+            "offline": "Off-line",
+            "publicReleases": "Veřejná vydání",
+            "latest": "Nejnovější",
+            "offlineReleases": "Off-line a alfa/beta verze",
+            "noPublicReleases": "V současné době nejsou k dispozici žádná veřejná vydání.",
+            "noOfflineReleases": "Momentálně nejsou k dispozici žádné off-line a alfa/beta vydání.",
+            "backToReleases": "Zpět k vydáním SNOMED",
+            "publicVersions": "Veřejné verze",
+            "noOnlineVersions": "V současné době neexistují žádné online verze tohoto vydání.",
+            "noOfflineVersions": "Momentálně nejsou k dispozici žádné off-line ani alfa/beta verze tohoto vydání."
+        }
+    }
+}
