@@ -1074,7 +1074,7 @@
         },
         "landingPage": {
             "appName": "Licens- och distributionsportalen för Snomed CT",
-            "purpose": "Denna portal används av det svenska nationella releasecentret på Socialstyrelsen för att administrera licenser och användningsrapportering för den internationella och svenska releasen av Snomed CT vid användning i Sverige.",
+            "purpose": "Denna portal används av det svenska nationella releasecentret på <strong>E-hälsomyndigheten</strong> för att administrera licenser och användningsrapportering för den internationella och svenska releasen av Snomed CT vid användning i Sverige.",
             "furtherDetails": "Läs om <a href=\"https://www.socialstyrelsen.se/om-socialstyrelsen/behandling-av-personuppgifter/\" target=\"_blank\">GDPR</a>. Mer information om Snomed CT finns på <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International:s webbplats</a> och på webbsidan med <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">vanliga frågor</a>.",
             "loginHere": "logga in här",
             "member.purpose1": "Denna portal används i ",
