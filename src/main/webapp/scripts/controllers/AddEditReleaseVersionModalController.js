@@ -10,6 +10,33 @@ angular.module('MLDS').controller('AddEditReleaseVersionModalController',
 	$scope.releasePackage = releasePackage;
 	$scope.releaseVersion = releaseVersion;
 	
+	// SNOMED CT version URI
+	var SCT_VERSION_URI_RE = /^http:\/\/snomed\.info\/x?sct\/[0-9]{6,18}\/version\/(19|20)[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/;
+
+	var ANY_RE = /^.*$/;
+
+	function isOtherPackage() {
+		return $scope.releaseVersion && $scope.releaseVersion.packageType === 'OTHER';
+	};
+
+	// NB: these return shared constants, never freshly-constructed values, so the
+	// ngPattern and interpolation watchers stay reference-stable across digests.
+	$scope.versionUriPattern = function() {
+		return isOtherPackage() ? ABSOLUTE_URI_RE : SCT_VERSION_URI_RE;
+	};
+
+	$scope.versionUriPlaceholder = function() {
+		return isOtherPackage()
+			? 'Enter release version'
+			: 'http://snomed.info/sct/<moduleId>/version/<YYYYMMDD>';
+	};
+
+	$scope.versionUriError = function() {
+		return isOtherPackage()
+			? ''
+			: 'Must be a valid SNOMED CT version URI, e.g. http://snomed.info/sct/32506021000036107/version/20260601 (scheme must be http, not https)';
+	};
+
 	$scope.submitAttempted = false;
 	$scope.submitting = false;
 	$scope.alerts = [];
