@@ -24,6 +24,8 @@ public class ReleasePackageAuditEvents {
     private static final String EVENT_RELEASE_VERSION_DELETED = "RELEASE_VERSION_DELETED";
 
     private static final String EVENT_RELEASE_VERSION_TAKEN_ALPHA_AND_BETA = "RELEASE_VERSION_TAKEN_ALPHA/BETA";
+    private static final String EVENT_RELEASE_VERSION_ARCHIVED = "RELEASE_VERSION_ARCHIVED";
+    private static final String EVENT_RELEASE_VERSION_UNARCHIVED = "RELEASE_VERSION_UNARCHIVED";
 
     @Resource
     AuditEventService auditEventService;
@@ -138,5 +140,12 @@ public class ReleasePackageAuditEvents {
             auditEvent.setAffiliateId(affiliate.getAffiliateId());
         }
         auditEventService.logAuditableEvent(auditEvent);
+    }
+
+    public void logArchived(ReleaseVersion releaseVersion) {
+        logReleaseVersionEvent(EVENT_RELEASE_VERSION_ARCHIVED, releaseVersion);
+    }
+    public void logUnarchived(ReleaseVersion releaseVersion) {
+        logReleaseVersionEvent(EVENT_RELEASE_VERSION_UNARCHIVED, releaseVersion);
     }
 }

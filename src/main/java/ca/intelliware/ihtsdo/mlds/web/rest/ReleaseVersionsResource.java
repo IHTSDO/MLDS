@@ -265,6 +265,12 @@ public class ReleaseVersionsResource {
         releaseVersion.setPermissionType(NOT_SELECTED);
         releaseVersionAccessRepository.deleteReleaseVersionAccessByVersionId(releaseVersionId);
 
+        if (isArchive) {
+            releasePackageAuditEvents.logArchived(releaseVersion);
+        } else {
+            releasePackageAuditEvents.logUnarchived(releaseVersion);
+        }
+
         return new ResponseEntity<>(releaseVersion, HttpStatus.OK);
     }
 

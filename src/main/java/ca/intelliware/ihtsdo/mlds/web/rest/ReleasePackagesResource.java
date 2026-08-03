@@ -148,7 +148,17 @@ public class ReleasePackagesResource {
 
         List<ReleasePackage> releasePackages = releasePackageRepository.findAll();
 
+
+        if (!currentSecurityContext.isAdmin() && currentSecurityContext.isStaff()) {
+            releasePackages = releasePackages.stream()
+                .filter(rp -> currentSecurityContext.isStaffFor(rp.getMember()))
+                .toList();
+        }
+
+
         releasePackages = filterReleasePackagesByOnline(releasePackages);
+
+
         List<ReleasePackage> response = releasePackages.stream()
             .map(releasePackage -> {
                 Set<ReleaseVersion> archivedVersions = releasePackage.getReleaseVersions().stream()
@@ -162,8 +172,10 @@ public class ReleasePackagesResource {
             })
             .filter(Objects::nonNull) // Exclude null packages
             .toList();
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 
     private List<ReleasePackage> filterReleasePackagesByOnline(
         List<ReleasePackage> releasePackages) {
