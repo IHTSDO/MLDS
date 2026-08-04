@@ -10,22 +10,38 @@ import java.util.Map;
 
 @Service
 public class ApplicationApprovedEmailSender {
-	@Resource MailService mailService;
-	@Resource TemplateEvaluator templateEvaluator;
-	@Resource ClientLinkBuilder clientLinkBuilder;
 
-	public void sendApplicationApprovalEmail(User user, String memberKey, long affiliateId) {
-		final Locale locale = Locale.forLanguageTag(user.getLangKey());
-		Map<String, Object> variables = Maps.newHashMap();
-		variables.put(EmailVariables.AFFILIATE_ID, Long.toString(affiliateId));
-		variables.put(EmailVariables.USER, user);
-		variables.put(EmailVariables.MEMBERKEY, memberKey);
-		variables.put(EmailVariables.LOGIN_URL, clientLinkBuilder.buildLoginLink());
-		variables.put(EmailVariables.VIEW_PACKAGES_URL, clientLinkBuilder.buildViewReleasesLink());
-		String content = templateEvaluator.evaluateTemplate("applicationApprovedEmail", locale, variables);
-		String subject = templateEvaluator.getTitleFor("applicationApproved", locale);
+    @Resource
+    private MailService mailService;
 
-		mailService.sendEmail(user.getEmail(), subject, content, false, true);
-	}
+    @Resource
+    private TemplateEvaluator templateEvaluator;
 
+    @Resource
+    private ClientLinkBuilder clientLinkBuilder;
+
+    public void sendApplicationApprovalEmail(User user,
+                                             String memberKey,
+                                             long affiliateId,
+                                             boolean includeInvoiceParagraph) {
+
+        final Locale locale = Locale.forLanguageTag(user.getLangKey());
+
+        Map<String, Object> variables = Maps.newHashMap();
+        variables.put(EmailVariables.AFFILIATE_ID, Long.toString(affiliateId));
+        variables.put(EmailVariables.USER, user);
+        variables.put(EmailVariables.MEMBERKEY, memberKey);
+        variables.put(EmailVariables.LOGIN_URL, clientLinkBuilder.buildLoginLink());
+        variables.put(EmailVariables.VIEW_PACKAGES_URL, clientLinkBuilder.buildViewReleasesLink());
+
+        variables.put("includeInvoicingInfo", includeInvoiceParagraph);
+        String content = templateEvaluator.evaluateTemplate(
+            "applicationApprovedEmail",
+            locale,
+            variables);
+
+        String subject = templateEvaluator.getTitleFor("applicationApproved", locale);
+
+        mailService.sendEmail(user.getEmail(), subject, content, false, true);
+    }
 }
