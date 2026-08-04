@@ -1,30 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        <title th:utext="#{applicationApproved.title}">IHTSDO-MLDS Application Approved</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </head>
+<head>
+    <title th:utext="#{applicationApproved.title}">IHTSDO-MLDS Application Approved</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
 
-    <body>
-        <p th:utext="#{email.greeting(${user.firstName + ' ' + user.lastName})}">
-            Dear user,
-        </p>
-        <p th:utext="#{applicationApproved.text(${affiliateId})}">
-            Your application for using SNOMED CT has been approved, your affiliate number is X.
-            <br/>
-            <br/> If applicable, you will be sent an invoice based upon your use of SNOMED CT. Once the invoice has been paid, you will be able to download SNOMED CT.
-            <br/>
-            <br/> You can view your Account Standing by logging into your MLDS account and looking in the Account Information section on your Dashboard view.
-        </p>
-        <p>
-            <a th:href="@{${loginUrl}}" th:utext="#{duplicateRegistration.loginLinkLabel}">Login</a>
-        </p>
-        <p>
-            <span th:utext="#{email.close}">Regards, </span>
-            <br/>
-            <em th:utext="#{email.signature}">SNOMED International - MLDS</em>
-        </p>
-    </body>
+<body>
+<p th:utext="#{email.greeting(${user.firstName + ' ' + user.lastName})}">
+    Dear user,
+</p>
+<p th:if="${includeInvoicingInfo == null or includeInvoicingInfo}"
+   th:utext="#{applicationApproved.text(${affiliateId})}">
+    Your application for using SNOMED CT has been approved, your affiliate number is X.
+
+
+    If applicable, you will be sent an invoice based upon your use of SNOMED CT. Once the invoice has been paid, you
+    will be able to download SNOMED CT.
+
+
+    You can view your Account Standing by logging into your MLDS account and looking in the Account Information section
+    on your Dashboard view.
+</p>
+<p th:if="${includeInvoicingInfo != null and !includeInvoicingInfo}"
+   th:utext="#{applicationApproved.text.member(${affiliateId})}">
+    Your application for using SNOMED CT has been approved, your affiliate number is X.
+
+    You can view your Account Standing by logging into your MLDS account and looking in the Account Information section
+    on your Dashboard view.
+</p>
+<p>
+    <a th:href="@{${loginUrl}}" th:utext="#{duplicateRegistration.loginLinkLabel}">Login</a>
+</p>
+<p>
+    <span th:utext="#{email.close}">Regards, </span>
+
+
+    <em th:utext="#{email.signature}">SNOMED International - MLDS</em>
+</p>
+</body>
 
 </html>
+

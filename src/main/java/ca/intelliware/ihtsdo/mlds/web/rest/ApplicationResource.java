@@ -140,10 +140,19 @@ public class ApplicationResource {
 
 		applicationRepository.save(application);
 
-		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
-			User user = userRepository.getUserByEmailIgnoreCase(application.getAffiliateDetails().getEmail());
-			applicationApprovedEmailSender.sendApplicationApprovalEmail(user, application.getMember().getKey(), affiliate.getAffiliateId());
-		}
+        if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
+
+            User user = userRepository.getUserByEmailIgnoreCase(
+                application.getAffiliateDetails().getEmail());
+
+            boolean hasInvoiceParagraph = application.getMember() != null && Member.KEY_IHTSDO.equals(application.getMember().getKey());
+
+            applicationApprovedEmailSender.sendApplicationApprovalEmail(
+                user,
+                application.getMember() != null ? application.getMember().getKey() : null,
+                affiliate.getAffiliateId(),
+                hasInvoiceParagraph);
+        }
 
 		applicationAuditEvents.logApprovalStateChange(application);
 
@@ -184,7 +193,7 @@ public class ApplicationResource {
 
             return new ResponseEntity<>(new ApplicationCollection(activeApplications), HttpStatus.OK);
 
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException _) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 	}
