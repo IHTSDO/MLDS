@@ -58,6 +58,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "lang_key")
     private String langKey;
 
+    @JsonIgnore
     @Size(min = 0, max = 20)
     @Column(name = "activation_key")
     private String activationKey;
@@ -72,6 +73,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	@Column(name="inactive_at")
 	private
     Instant inactiveAt;
+
+    @JsonIgnore
     @Column(name = "unsubscribe_key")
     private String unsubscribeKey;
     @JsonIgnore

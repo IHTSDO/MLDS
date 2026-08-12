@@ -343,7 +343,7 @@ public class AccountResource {
     public ResponseEntity<List<PersistentToken>> getCurrentSessions() {
         User user = userRepository.findByLoginIgnoreCase(SecurityUtils.getCurrentLogin());
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(java.util.Collections.emptyList(), HttpStatus.OK);
         }
         return new ResponseEntity<>(
             persistentTokenRepository.findByUser(user),
@@ -370,6 +370,9 @@ public class AccountResource {
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
         String decodedSeries = URLDecoder.decode(series, "UTF-8");
         User user = userRepository.findByLoginIgnoreCase(SecurityUtils.getCurrentLogin());
+        if (user == null) {
+            return;
+        }
         List<PersistentToken> persistentTokens = persistentTokenRepository.findByUser(user);
         for (PersistentToken persistentToken : persistentTokens) {
             if (StringUtils.equals(persistentToken.getSeries(), decodedSeries)) {
