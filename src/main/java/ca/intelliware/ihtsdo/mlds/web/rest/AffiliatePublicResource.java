@@ -41,7 +41,7 @@ public class AffiliatePublicResource {
 	    		method = RequestMethod.GET,
 	            produces = MediaType.APPLICATION_JSON_VALUE)
 		@Timed
-	    @RolesAllowed({ AuthoritiesConstants.ANONYMOUS })
+	    @RolesAllowed({ AuthoritiesConstants.ADMIN })
 	    public @ResponseBody ResponseEntity<AffiliateCheckDTO> getAffiliates(
 	    		@RequestParam(value="member", defaultValue="") String memberKey,
 	    		@RequestParam(value="affiliateId", defaultValue="", required=false) String affiliateId,

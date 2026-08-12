@@ -1,6 +1,8 @@
 package ca.intelliware.ihtsdo.mlds.service.util;
 
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+
+import java.security.SecureRandom;
 
 /**
  * Utility class for generating random Strings.
@@ -8,6 +10,7 @@ import org.apache.commons.lang.RandomStringUtils;
 public final class RandomUtil {
 
     private static final int DEF_COUNT = 20;
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     private RandomUtil() {
     }
@@ -18,15 +21,15 @@ public final class RandomUtil {
      * @return the generated password
      */
     public static String generatePassword() {
-        return RandomStringUtils.randomAlphanumeric(DEF_COUNT);
+        return RandomStringUtils.random(DEF_COUNT, 0, 0, true, true, null, SECURE_RANDOM);
     }
 
     /**
-     * Generates an activation key.
+     * Generates a cryptographically secure activation key.
      *
      * @return the generated activation key
      */
     public static String generateActivationKey() {
-        return RandomStringUtils.randomNumeric(DEF_COUNT);
+        return RandomStringUtils.random(DEF_COUNT, 0, 0, true, true, null, SECURE_RANDOM);
     }
 }

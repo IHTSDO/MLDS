@@ -20,6 +20,8 @@ import java.io.IOException;
 @ControllerAdvice
 public class BadRequestControllerAdvice {
 
+    private static final String ACCESS_DENIED = "Access Denied";
+
     private final TemplateEngine templateEngine;
 
     @Value("${support.contact.email}")
@@ -47,11 +49,11 @@ public class BadRequestControllerAdvice {
         HttpServletRequest request,
         HttpServletResponse response) throws IOException {
 
-        if (!isBrowserDownloadRequest(request) || response.isCommitted()) {
-            return fallbackResponse(ex);
+        if (!isBrowserRequest(request) || response.isCommitted()) {
+            return fallbackResponse(ex, request);
         }
 
-        ErrorDetails error = resolveErrorDetails(ex);
+        ErrorDetails error = resolveErrorDetails(ex, request);
 
         String contactMessage = resolveContactMessage(error.status, error.title);
 
@@ -60,19 +62,13 @@ public class BadRequestControllerAdvice {
         return null;
     }
 
-    private boolean isBrowserDownloadRequest(HttpServletRequest request) {
+    private boolean isBrowserRequest(HttpServletRequest request) {
         String accept = request.getHeader("Accept");
-        String uri = request.getRequestURI();
-
-        boolean isDownloadFlow = (uri != null && uri.contains("/download"));
-
-        boolean isBrowser = (accept == null || accept.contains("text/html") || accept.contains("*/*"));
-
-        return isDownloadFlow && isBrowser;
+        return accept != null && accept.contains("text/html");
     }
 
 
-    private ErrorDetails resolveErrorDetails(Exception ex) {
+    private ErrorDetails resolveErrorDetails(Exception ex, HttpServletRequest request) {
 
         if (ex instanceof DownloadException dex) {
             return new ErrorDetails(
@@ -84,16 +80,17 @@ public class BadRequestControllerAdvice {
         }
 
         if (ex instanceof org.springframework.security.access.AccessDeniedException) {
+            boolean isDownload = request != null && request.getRequestURI() != null && request.getRequestURI().contains("/download");
             return new ErrorDetails(
-                DownloadErrorMessages.LOGIN_REQUIRED_TITLE,
-                DownloadErrorMessages.LOGIN_REQUIRED_SUBTITLE,
-                DownloadErrorMessages.LOGIN_REQUIRED_REASON,
+                isDownload ? DownloadErrorMessages.LOGIN_REQUIRED_TITLE : ACCESS_DENIED,
+                isDownload ? DownloadErrorMessages.LOGIN_REQUIRED_SUBTITLE : "Authentication required",
+                isDownload ? DownloadErrorMessages.LOGIN_REQUIRED_REASON : "You must be logged in with appropriate permissions to access this content.",
                 HttpStatus.UNAUTHORIZED
             );
         }
 
         return new ErrorDetails(
-            "Access Denied",
+            ACCESS_DENIED,
             "Sorry, you do not have permission to access this content.",
             ex.getMessage(),
             HttpStatus.FORBIDDEN
@@ -128,14 +125,16 @@ public class BadRequestControllerAdvice {
     }
 
 
-    private ResponseEntity<String> fallbackResponse(Exception ex) {
+    private ResponseEntity<String> fallbackResponse(Exception ex, HttpServletRequest request) {
         if (ex instanceof DownloadException dex) {
             return ResponseEntity.status(dex.getStatus()).body(dex.getMessage());
         }
 
         if (ex instanceof org.springframework.security.access.AccessDeniedException) {
+            boolean isDownload = request != null && request.getRequestURI() != null && request.getRequestURI().contains("/download");
+            String message = isDownload ? DownloadErrorMessages.LOGIN_REQUIRED_REASON : ACCESS_DENIED;
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(DownloadErrorMessages.LOGIN_REQUIRED_REASON);
+                .body(message);
         }
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());

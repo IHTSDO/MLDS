@@ -4,6 +4,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import ca.intelliware.ihtsdo.mlds.domain.Country;
 import ca.intelliware.ihtsdo.mlds.repository.CountryRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.CountryDTO;
 import com.codahale.metrics.annotation.Timed;
 import jakarta.annotation.Resource;
 import jakarta.annotation.security.PermitAll;
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +31,14 @@ public class CountriesResource {
             method = RequestMethod.GET,
             produces = "application/json")
     @PermitAll
-    public List<Country> getCountries() {
-    	return countryRepository.findAll();
+    public List<CountryDTO> getCountries() {
+        List<CountryDTO> countryDTOs = new ArrayList<>();
+
+        for (Country country : countryRepository.findAll()) {
+            countryDTOs.add(new CountryDTO(country));
+        }
+
+        return countryDTOs;
     }
 
     @RequestMapping(value = Routes.COUNTRIES +"/{isoCode2}",
@@ -38,14 +46,14 @@ public class CountriesResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @PermitAll
-    public ResponseEntity<Country> get(@PathVariable String isoCode2) {
+    public ResponseEntity<CountryDTO> get(@PathVariable String isoCode2) {
         log.debug("REST request to get Country : {}", isoCode2);
         Optional<Country> optionalCountry = countryRepository.findById(isoCode2);
         if (optionalCountry.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Country country = optionalCountry.get();
-        return new ResponseEntity<>(country, HttpStatus.OK);
+        return new ResponseEntity<>(new CountryDTO(country), HttpStatus.OK);
     }
 
 
