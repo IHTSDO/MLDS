@@ -9,55 +9,56 @@ import java.util.Collection;
  * Adapt the CentralAuthUserInfo to the Spring UserDetails interface.
  */
 public class RemoteUserDetails implements UserDetails {
-	private static final long serialVersionUID = 1L;
-	
-	final CentralAuthUserInfo centralAuthUserInfo;
-	final Collection<? extends GrantedAuthority> authorities;
 
-	public RemoteUserDetails(CentralAuthUserInfo centralAuthUserInfo, Collection<? extends GrantedAuthority> authorities) {
-		super();
-		this.centralAuthUserInfo = centralAuthUserInfo;
-		this.authorities = authorities;
-	}
-	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authorities;
-	}
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public String getPassword() {
-		return null;
-	}
+    private final CentralAuthUserInfo centralAuthUserInfo;
+    private final Collection<? extends GrantedAuthority> authorities;
 
-	@Override
-	public String getUsername() {
-		return centralAuthUserInfo.getLogin();
-	}
+    public RemoteUserDetails(
+        CentralAuthUserInfo centralAuthUserInfo,
+        Collection<? extends GrantedAuthority> authorities) {
 
+        this.centralAuthUserInfo = centralAuthUserInfo;
+        this.authorities = authorities;
+    }
 
-	public CentralAuthUserInfo getCentralAuthUserInfo() {
-		return centralAuthUserInfo;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public String getPassword() {
+        return null;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public String getUsername() {
+        return centralAuthUserInfo.getLogin();
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    public CentralAuthUserInfo getCentralAuthUserInfo() {
+        return centralAuthUserInfo;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-	
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

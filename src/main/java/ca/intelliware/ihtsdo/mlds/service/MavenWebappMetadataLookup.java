@@ -7,7 +7,6 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -16,64 +15,85 @@ import java.util.Properties;
  * Lookup our webapp maven metadata to include on pages for debugging.
  */
 public class MavenWebappMetadataLookup implements ServletContextListener {
+
     final Logger log = LoggerFactory.getLogger(MavenWebappMetadataLookup.class);
-    
-	ServletContext servletContext;
-	String artifactId;
-	String groupId;
-	String text = "not loaded";
-	Properties properties = new Properties();
-	
-	public void contextDestroyed(ServletContextEvent ctx) {
-	}
 
-	public void contextInitialized(ServletContextEvent ctx) {
-		setServletContext(ctx.getServletContext());
-		loadProperties();
-	}
+    ServletContext servletContext;
+    String artifactId;
+    String groupId;
+    String text = "not loaded";
+    Properties properties = new Properties();
 
-	void loadProperties() {
-		if (servletContext == null) {
-			return;
-		}
-		InputStream resourceAsStream = getPropertiesStream();
-		if (resourceAsStream == null) {
-			this.text = "Failed to lookup metadata for " + groupId +"/" + artifactId + " : not found";
-			// Missing?  Are we running in development?
-			log.error(text);
-		} else {
-			try {
-				this.text = IOUtils.toString(resourceAsStream, "ISO-8859-1");
-				properties.load(getPropertiesStream());
-				log.debug("Loaded maven info for {} {} OK.", groupId, artifactId);
-			} catch (IOException e) {
-				this.text = "Failed to lookup metadata for " + groupId +"/" + artifactId + " due to "+ e;
-				log.error(text, e);
-			}
-		}
-	}
+    @Override
+    public void contextDestroyed(ServletContextEvent ctx) {
+        /*
+         * No cleanup is required because this listener does not create or
+         * manage any resources that need to be released when the application
+         * context is destroyed.
+         */
+    }
 
-	private InputStream getPropertiesStream() {
-		return servletContext.getResourceAsStream("/META-INF/maven/" + groupId + "/" + artifactId + "/pom.properties");
-	}
+    @Override
+    public void contextInitialized(ServletContextEvent ctx) {
+        setServletContext(ctx.getServletContext());
+        loadProperties();
+    }
 
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext = servletContext;
-	}
+    void loadProperties() {
+        if (servletContext == null) {
+            return;
+        }
 
-	public String getText() {
-		return text;
-	}
+        InputStream resourceAsStream = getPropertiesStream();
 
-	public Properties getProperties() {
-		return (Properties) properties.clone();
-	}
+        if (resourceAsStream == null) {
+            this.text = "Failed to lookup metadata for "
+                + groupId + "/" + artifactId + " : not found";
 
-	public void setArtifactId(String artifactId) {
-		this.artifactId = artifactId;
-	}
+            // Missing? Are we running in development?
+            log.error(text);
+        } else {
+            try {
+                this.text = IOUtils.toString(resourceAsStream, "ISO-8859-1");
+                properties.load(getPropertiesStream());
+                log.debug(
+                    "Loaded maven info for {} {} OK.",
+                    groupId,
+                    artifactId);
+            } catch (IOException e) {
+                this.text = "Failed to lookup metadata for "
+                    + groupId + "/" + artifactId + " due to " + e;
+                log.error(text, e);
+            }
+        }
+    }
 
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
-	}
+    private InputStream getPropertiesStream() {
+        return servletContext.getResourceAsStream(
+            "/META-INF/maven/"
+                + groupId
+                + "/"
+                + artifactId
+                + "/pom.properties");
+    }
+
+    public void setServletContext(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public Properties getProperties() {
+        return (Properties) properties.clone();
+    }
+
+    public void setArtifactId(String artifactId) {
+        this.artifactId = artifactId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
 }

@@ -16,6 +16,9 @@ public class HealthCheckResource {
     @Autowired
     private DatabaseHealthCheckIndicator databaseHealthCheckIndicator;
 
+    private static final String MAIL = "mail";
+    private static final String DATABASE = "database";
+
     @GetMapping("/health")
     public Health checkHealth() {
         Health.Builder healthBuilder = new Health.Builder();
@@ -26,28 +29,28 @@ public class HealthCheckResource {
         try {
             Health mailHealth = checkMailServiceHealth();
             if (mailHealth.getStatus().equals(Status.UP)) {
-                healthBuilder.withDetail("mail", mailHealth);
+                healthBuilder.withDetail(MAIL, mailHealth);
             } else {
                 isMailHealthy = false;
-                healthBuilder.down().withDetail("mail", mailHealth);
+                healthBuilder.down().withDetail(MAIL, mailHealth);
             }
         } catch (Exception e) {
             isMailHealthy = false;
-            healthBuilder.down().withDetail("mail", "Mail service check failed: " + e.getMessage());
+            healthBuilder.down().withDetail(MAIL, "Mail service check failed: " + e.getMessage());
         }
 
         // Check database health
         try {
             Health databaseHealth = checkDatabaseHealth();
             if (databaseHealth.getStatus().equals(Status.UP)) {
-                healthBuilder.withDetail("database", databaseHealth);
+                healthBuilder.withDetail(DATABASE, databaseHealth);
             } else {
                 isDatabaseHealthy = false;
-                healthBuilder.down().withDetail("database", databaseHealth);
+                healthBuilder.down().withDetail(DATABASE, databaseHealth);
             }
         } catch (Exception e) {
             isDatabaseHealthy = false;
-            healthBuilder.down().withDetail("database", "Database check failed: " + e.getMessage());
+            healthBuilder.down().withDetail(DATABASE, "Database check failed: " + e.getMessage());
         }
 
         // Set overall health status

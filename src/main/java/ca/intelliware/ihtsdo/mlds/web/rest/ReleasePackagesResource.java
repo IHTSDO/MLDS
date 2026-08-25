@@ -323,7 +323,7 @@ public class ReleasePackagesResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
-    public @ResponseBody ResponseEntity<?> deactivateReleasePackage(@PathVariable long releasePackageId) {
+    public @ResponseBody ResponseEntity<Void> deactivateReleasePackage(@PathVariable long releasePackageId) {
 
         Optional<ReleasePackage> optionalReleasePackage = releasePackageRepository.findById(releasePackageId);
 
@@ -354,7 +354,7 @@ public class ReleasePackagesResource {
     @PermitAll
     @Transactional
     @Timed
-    public ResponseEntity<?> getReleasePackageLicense(@PathVariable long releasePackageId, HttpServletRequest request) throws SQLException, IOException {
+    public ResponseEntity<org.springframework.core.io.Resource> getReleasePackageLicense(@PathVariable long releasePackageId, HttpServletRequest request) throws SQLException, IOException {
 
         Optional<ReleasePackage> optionalReleasePackage = releasePackageRepository.findById(releasePackageId);
         if (optionalReleasePackage.isEmpty()) {
@@ -365,7 +365,7 @@ public class ReleasePackagesResource {
         return downloadFile(request, license);
     }
 
-    private ResponseEntity<?> downloadFile(HttpServletRequest request, File file) throws SQLException, IOException {
+    private ResponseEntity<org.springframework.core.io.Resource> downloadFile(HttpServletRequest request, File file) throws SQLException, IOException {
         if (file == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else if (file.getLastUpdated() != null) {
@@ -400,7 +400,7 @@ public class ReleasePackagesResource {
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Transactional
     @Timed
-    public ResponseEntity<?> updateReleasePackageLicense(@PathVariable long releasePackageId, @RequestParam(value = "file", required = false) MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<Void> updateReleasePackageLicense(@PathVariable long releasePackageId, @RequestParam(value = "file", required = false) MultipartFile multipartFile) throws IOException {
 
         Optional<ReleasePackage> optionalReleasePackage = releasePackageRepository.findById(releasePackageId);
 

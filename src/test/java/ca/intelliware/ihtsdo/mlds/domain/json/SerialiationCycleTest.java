@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.domain.json;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Arrays;
 
 import org.junit.Before;
@@ -31,10 +33,12 @@ public class SerialiationCycleTest {
 
 		String affiliateJson = objectMapper.writeValueAsString(affiliate);
 		String applicationJson = objectMapper.writeValueAsString(primaryApplication);
+		String listJson = objectMapper.writeValueAsString(Arrays.asList(extension, primaryApplication));
+		String collectionJson = objectMapper.writeValueAsString(new ApplicationCollection(Arrays.asList(extension, primaryApplication)));
 		
-		System.out.println("affiliate " + affiliateJson);
-		System.out.println("primaryApplication " + applicationJson);
-		System.out.println("list of apps " + objectMapper.writeValueAsString(Arrays.asList(extension, primaryApplication)));
-		System.out.println("list of apps " + objectMapper.writeValueAsString(new ApplicationCollection(Arrays.asList(extension, primaryApplication))));
+		assertNotNull(affiliateJson);
+		assertNotNull(applicationJson);
+		assertNotNull(listJson);
+		assertNotNull(collectionJson);
 	}
 }

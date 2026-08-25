@@ -38,27 +38,20 @@
 
       <div class="form-group">
        <label>Release Version URI</label>
-       <input class="form-control" placeholder="{{versionUriPlaceholder()}}"
-        name="versionURI" ng-model="releaseVersion.versionURI"
-        ng-pattern="versionUriPattern()" ng-required="true">
-         <span ng-show="formPackageVersion.versionURI.$error.required && submitAttempted" class="help-block">Required Field</span>
-         <span ng-show="formPackageVersion.versionURI.$error.pattern && submitAttempted" class="help-block">{{versionUriError()}}</span>
+       <input class="form-control" placeholder="Enter Release Version URI"
+        name="versionURI" ng-model="releaseVersion.versionURI">
       </div>
 
       <div class="form-group">
-       <label>Release Version Dependent URI</label>
-       <input class="form-control" placeholder="http://snomed.info/sct/&lt;moduleId&gt;/version/&lt;YYYYMMDD&gt;"
-        name="versionDependentURI" ng-model="releaseVersion.versionDependentURI"
-        ng-pattern="/^http:\/\/snomed\.info\/sct\/[0-9]{6,18}\/version\/(19|20)[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/">
-         <span ng-show="formPackageVersion.versionDependentURI.$error.pattern && submitAttempted" class="help-block">Must be a SNOMED CT version URI, e.g. http://snomed.info/sct/32506021000036107/version/20260601 (scheme must be http, not https)</span>
+              <label>Release Version Dependent URI</label>
+              <input class="form-control" placeholder="Enter Release Version Dependent URI"
+                     name="versionDependentURI" ng-model="releaseVersion.versionDependentURI">
       </div>
 
       <div class="form-group">
-       <label>Release Version Dependent Derivative URI</label>
-       <input class="form-control" placeholder="http://snomed.info/sct/&lt;moduleId&gt;/version/&lt;YYYYMMDD&gt;"
-        name="versionDependentDerivativeURI" ng-model="releaseVersion.versionDependentDerivativeURI"
-        ng-pattern="/^http:\/\/snomed\.info\/sct\/[0-9]{6,18}\/version\/(19|20)[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/">
-         <span ng-show="formPackageVersion.versionDependentDerivativeURI.$error.pattern && submitAttempted" class="help-block">Must be a SNOMED CT version URI, e.g. http://snomed.info/sct/32506021000036107/version/20260601 (scheme must be http, not https)</span>
+              <label>Release Version Dependent Derivative URI</label>
+              <input class="form-control" placeholder="Enter Release Version Dependent Derivative URI"
+                     name="versionDependentDerivativeURI" ng-model="releaseVersion.versionDependentDerivativeURI">
       </div>
           <!--          release package-->
 

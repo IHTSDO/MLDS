@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.domain.application;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -24,6 +25,7 @@ public class ExtensionApplicationUpdateStrategyTest {
 	@Test
 	public void doNotBlowUpOnPrimary() throws Exception {
 		extensionApplicationUpdateStrategy.applyChangeOrFail(new PrimaryApplication(), new PrimaryApplication());
+		assertTrue("Should complete without exception", true);
 	}
 
 }

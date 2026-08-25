@@ -107,7 +107,7 @@ public class UriDownloader {
             Path p = Paths.get(s3Location.filePath);
             String fileName = (p.getFileName() != null) ? p.getFileName().toString() : "this release";
             if (fileContents != null) {
-                clientResponse.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+                clientResponse.setHeader(HEADER_CONTENT_DISPOSITION, "attachment;filename=" + fileName);
                 StreamUtils.copy(fileContents, clientResponse.getOutputStream());
             } else {
                 throw new DownloadException(

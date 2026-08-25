@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.domain.json;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 
 import org.junit.Before;
@@ -36,8 +38,8 @@ public class UsageJsonTest {
 	
 	@Test
 	public void roundTripWithChildrenIsOK() throws JsonParseException, JsonMappingException, IOException {
-		
 		String jsonOutput = objectMapper.writeValueAsString(usage);
-		objectMapper.readValue(jsonOutput, CommercialUsage.class);
+		CommercialUsage result = objectMapper.readValue(jsonOutput, CommercialUsage.class);
+		assertNotNull("Deserialized CommercialUsage should not be null", result);
 	}
 }

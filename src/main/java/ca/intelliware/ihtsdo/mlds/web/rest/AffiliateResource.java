@@ -86,6 +86,15 @@ public class AffiliateResource {
 
 	public static final String FILTER_HOME_MEMBER = "homeMember eq '(\\w+)'";
 	public static final String FILTER_STANDING = "(not)?\\s?standingState eq '(\\w+)'";
+	private static final Pattern FILTER_HOME_MEMBER_PATTERN = Pattern.compile(FILTER_HOME_MEMBER);
+	private static final Pattern FILTER_STANDING_PATTERN = Pattern.compile(FILTER_STANDING);
+
+	private static class AffiliateFilterCriteria {
+		Member member;
+		StandingState standingState;
+		boolean standingStateNot;
+		boolean invalid;
+	}
 
 	@RolesAllowed({ AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN })
     @RequestMapping(value = Routes.AFFILIATES,
@@ -98,61 +107,17 @@ public class AffiliateResource {
     		@RequestParam(value="$pageSize", defaultValue="50", required=false) Integer pageSize,
     		@RequestParam(value="$filter", required=false) List<String> filters,
     		@RequestParam(value="$orderby", required=false) String orderby) {
-		Page<Affiliate> affiliates;
+
+		AffiliateFilterCriteria criteria = parseFilters(filters);
+		if (criteria.invalid) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
 		Sort sort = createAffiliatesSort(orderby);
 		PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
-		Member member = null;
-		StandingState standingState = null;
-		boolean standingStateNot = false;
-
-		if (filters != null && filters.size() > 0 && StringUtils.isNotBlank(filters.get(0))) {
-			for (String filter : filters) {
-				Matcher homeMemberMatcher = Pattern.compile(FILTER_HOME_MEMBER).matcher(filter);
-				if (homeMemberMatcher.matches()) {
-					String homeMember = homeMemberMatcher.group(1);
-					member = memberRepository.findOneByKey(homeMember);
-					continue;
-				}
-				Matcher standingStateMatcher = Pattern.compile(FILTER_STANDING).matcher(filter);
-				if (standingStateMatcher.matches()) {
-					standingStateNot = StringUtils.equalsIgnoreCase("not", standingStateMatcher.group(1));
-					String standingStateString = standingStateMatcher.group(2);
-					standingState = StandingState.valueOf(standingStateString);
-					continue;
-				}
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-		}
-
-		if (!StringUtils.isBlank(q)) {
-			//Note that sorting in the pageRequest is not currently respected by lucene
-			affiliates = affiliateSearchRepository.findFullTextAndMember(q, member, standingState, standingStateNot, pageRequest);
-		} else {
-			if (member == null) {
-				if (standingState == null) {
-					affiliates = affiliateRepository.findAllByDeactivatedFalse(pageRequest);
-				} else {
-					if (standingStateNot) {
-						affiliates = affiliateRepository.findByStandingStateNotAndDeactivatedFalse(standingState, pageRequest);
-					} else {
-						affiliates = affiliateRepository.findByStandingStateAndDeactivatedFalse(standingState, pageRequest);
-					}
-				}
-			} else {
-				if (standingState == null) {
-					affiliates = affiliateRepository.findByHomeMember(member, pageRequest);
-				} else {
-					if (standingStateNot) {
-						affiliates = affiliateRepository.findByHomeMemberAndStandingStateNotAndDeactivatedFalse(member, standingState, pageRequest);
-					} else {
-						affiliates = affiliateRepository.findByHomeMemberAndStandingStateAndDeactivatedFalse(member, standingState, pageRequest);
-					}
-				}
-			}
-		}
+		Page<Affiliate> affiliates = fetchAffiliates(q, criteria, pageRequest);
 
 		AffiliateSearchResult result = new AffiliateSearchResult();
-
 		result.setAffiliates(affiliates.getContent());
 		result.setTotalResults(affiliates.getTotalElements());
 		result.setTotalPages(affiliates.getTotalPages());
@@ -160,10 +125,64 @@ public class AffiliateResource {
 		return new ResponseEntity<AffiliateSearchResult>(result, HttpStatus.OK);
 	}
 
+	private AffiliateFilterCriteria parseFilters(List<String> filters) {
+		AffiliateFilterCriteria criteria = new AffiliateFilterCriteria();
+		if (filters != null && !filters.isEmpty() && StringUtils.isNotBlank(filters.get(0))) {
+			for (String filter : filters) {
+				Matcher homeMemberMatcher = FILTER_HOME_MEMBER_PATTERN.matcher(filter);
+				if (homeMemberMatcher.matches()) {
+					String homeMember = homeMemberMatcher.group(1);
+					criteria.member = memberRepository.findOneByKey(homeMember);
+					continue;
+				}
+				Matcher standingStateMatcher = FILTER_STANDING_PATTERN.matcher(filter);
+				if (standingStateMatcher.matches()) {
+					criteria.standingStateNot = StringUtils.equalsIgnoreCase("not", standingStateMatcher.group(1));
+					String standingStateString = standingStateMatcher.group(2);
+					criteria.standingState = StandingState.valueOf(standingStateString);
+					continue;
+				}
+				criteria.invalid = true;
+				return criteria;
+			}
+		}
+		return criteria;
+	}
+
+	private Page<Affiliate> fetchAffiliates(String q, AffiliateFilterCriteria criteria, PageRequest pageRequest) {
+		if (StringUtils.isNotBlank(q)) {
+			//Note that sorting in the pageRequest is not currently respected by lucene
+			return affiliateSearchRepository.findFullTextAndMember(q, criteria.member, criteria.standingState, criteria.standingStateNot, pageRequest);
+		}
+		if (criteria.member == null) {
+			return findAffiliatesWithoutMember(criteria.standingState, criteria.standingStateNot, pageRequest);
+		}
+		return findAffiliatesWithMember(criteria.member, criteria.standingState, criteria.standingStateNot, pageRequest);
+	}
+
+	private Page<Affiliate> findAffiliatesWithoutMember(StandingState standingState, boolean standingStateNot, PageRequest pageRequest) {
+		if (standingState == null) {
+			return affiliateRepository.findAllByDeactivatedFalse(pageRequest);
+		}
+		return standingStateNot
+				? affiliateRepository.findByStandingStateNotAndDeactivatedFalse(standingState, pageRequest)
+				: affiliateRepository.findByStandingStateAndDeactivatedFalse(standingState, pageRequest);
+	}
+
+	private Page<Affiliate> findAffiliatesWithMember(Member member, StandingState standingState, boolean standingStateNot, PageRequest pageRequest) {
+		if (standingState == null) {
+			return affiliateRepository.findByHomeMember(member, pageRequest);
+		}
+		return standingStateNot
+				? affiliateRepository.findByHomeMemberAndStandingStateNotAndDeactivatedFalse(member, standingState, pageRequest)
+				: affiliateRepository.findByHomeMemberAndStandingStateAndDeactivatedFalse(member, standingState, pageRequest);
+	}
+
+	private static final String AFFILIATE_ID = "affiliateId";
 	private static final Map<String,List<String>> ORDER_BY_FIELD_MAPPINGS = new HashMap<String,List<String>>();
 	static {
 		//FIXME using both the affiliateDetails and the application.affiliateDetails causes discrepancies in the order and text shown on the front end. Perhaps we should keep affiliateDetails up to date with primary application affiliateDetail updates?
-		ORDER_BY_FIELD_MAPPINGS.put("affiliateId", Arrays.asList("affiliateId"));
+		ORDER_BY_FIELD_MAPPINGS.put(AFFILIATE_ID, Arrays.asList(AFFILIATE_ID));
 		ORDER_BY_FIELD_MAPPINGS.put("name", Arrays.asList("affiliateDetails.firstName", "affiliateDetails.lastName"));
 		ORDER_BY_FIELD_MAPPINGS.put("agreementType", Arrays.asList("affiliateDetails.type", "affiliateDetails.subType"));
 		ORDER_BY_FIELD_MAPPINGS.put("standingState", Arrays.asList("standingState"));
@@ -173,7 +192,7 @@ public class AffiliateResource {
 	}
 
 	private Sort createAffiliatesSort(String orderby) {
-		Sort defaultSort = Sort.by(Sort.Order.asc("affiliateId"));
+		Sort defaultSort = Sort.by(Sort.Order.asc(AFFILIATE_ID));
 		return new SortBuilder().createSort(orderby, ORDER_BY_FIELD_MAPPINGS, defaultSort);
 	}
 
@@ -354,14 +373,13 @@ public class AffiliateResource {
     	return new ResponseEntity<AffiliateDetails>(affiliate.getAffiliateDetails(), HttpStatus.OK);
     }
 
-	@SuppressWarnings("unchecked")
 	@RolesAllowed({AuthoritiesConstants.USER, AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @RequestMapping(value = Routes.AFFILIATE_DETAIL,
     		method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@Transactional
-    public @ResponseBody ResponseEntity<?> updateAffiliateDetail(@PathVariable Long affiliateId, @RequestBody AffiliateDetails body) {
+    public ResponseEntity<Object> updateAffiliateDetail(@PathVariable Long affiliateId, @RequestBody AffiliateDetails body) {
 
 		Optional<Affiliate> optionalAffiliate = affiliateRepository.findById(affiliateId);
 
@@ -403,7 +421,7 @@ public class AffiliateResource {
     	affiliateAuditEvents.logUpdateOfAffiliateDetails(affiliate,body);
     	copyAffiliateDetailsFields(affiliateDetails, body);
         affiliateSearchRepository.reindex(affiliate);
-    	return new ResponseEntity<AffiliateDetails>(affiliateDetails, HttpStatus.OK);
+    	return new ResponseEntity<>(affiliateDetails, HttpStatus.OK);
     }
 
 	private void copyAffiliateDetailsFields(AffiliateDetails affiliateDetails, AffiliateDetails body) {
