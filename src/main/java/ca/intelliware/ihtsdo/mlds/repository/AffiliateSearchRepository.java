@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 public class AffiliateSearchRepository {
 
-
     public final EntityManager entityManager;
 
     public AffiliateSearchRepository(EntityManager entityManager) {
@@ -28,11 +27,12 @@ public class AffiliateSearchRepository {
         SearchSession searchSession = Search.session(entityManager);
         SearchResult<Affiliate> result;
 
+        int fetchLimit = 1000;
         if (isNumeric(q)) {
             long affiliateId = Long.parseLong(q);
             result = searchSession.search(Affiliate.class)
                 .where(f -> f.match().field("affiliateId").matching(affiliateId))
-                .fetch(pageable.getPageSize());
+                .fetch(fetchLimit);
         } else {
             result = searchSession.search(Affiliate.class)
                 .where(f -> f.bool()
@@ -43,7 +43,7 @@ public class AffiliateSearchRepository {
                         .fields("affiliateDetails.firstName", "affiliateDetails.lastName", "affiliateDetails.organizationName", "affiliateDetails.organizationType")
                         .matching(q + "*"))
                 )
-                .fetch(pageable.getPageSize());
+                .fetch(fetchLimit);
         }
 
         List<Affiliate> resultList = result.hits();
@@ -54,12 +54,21 @@ public class AffiliateSearchRepository {
             .filter(affiliate -> isAffiliateMatching(affiliate, homeMember, standingState, standingStateNot))
             .toList(); // Convert stream to List
 
-        return new PageImpl<>(filteredList, pageable, filteredList.size());
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), filteredList.size());
+        List<Affiliate> pagedList = (start <= end) ? filteredList.subList(start, end) : List.of();
+
+        return new PageImpl<>(pagedList, pageable, filteredList.size());
     }
 
-    private boolean isAffiliateMatching(Affiliate affiliate, Member homeMember, StandingState standingState, boolean standingStateNot) {
-        if (homeMember != null && !homeMember.equals(affiliate.getHomeMember())) {
-            return false; // Not matching homeMember
+    boolean isAffiliateMatching(Affiliate affiliate, Member homeMember, StandingState standingState, boolean standingStateNot) {
+        if (homeMember != null) {
+            boolean matchesHomeMember = homeMember.equals(affiliate.getHomeMember());
+            boolean matchesApplicationMember = affiliate.getApplications() != null && affiliate.getApplications().stream()
+                .anyMatch(app -> app.getMember() != null && homeMember.equals(app.getMember()));
+            if (!matchesHomeMember && !matchesApplicationMember) {
+                return false; // Not matching homeMember or any application member
+            }
         }
         if (standingState != null) {
             if (standingStateNot && affiliate.getStandingState() == StandingState.APPLYING) {
@@ -71,8 +80,6 @@ public class AffiliateSearchRepository {
         }
         return true; // Matches all conditions
     }
-
-
 
     // Method to check if a string is numeric
     private boolean isNumeric(String str) {
