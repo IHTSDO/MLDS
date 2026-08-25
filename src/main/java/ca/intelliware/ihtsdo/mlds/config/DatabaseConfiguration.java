@@ -41,7 +41,11 @@ public class DatabaseConfiguration implements EnvironmentAware {
 
     private static DataSource dataSource;
 
-    private static LocalContainerEntityManagerFactoryBean entityManagerFactory;
+    public static void setDataSource(DataSource ds) {
+        dataSource = ds;
+    }
+
+    private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
     @Override
     public void setEnvironment(Environment environment) {
@@ -200,8 +204,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
 		return new MldsOpenEntityManagerInViewFilter();
 	}
 
-    static void setDataSource(DataSource dataSource) {
-        DatabaseConfiguration.dataSource = dataSource;
-    }
+
 }
 

@@ -208,7 +208,7 @@ public class ReleaseVersionsResource {
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Timed
     public @ResponseBody
-    ResponseEntity<?> deactivateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
+    ResponseEntity<Void> deactivateReleaseVersion(@PathVariable long releasePackageId, @PathVariable long releaseVersionId) {
 
         Optional<ReleaseVersion> releaseVersionOptional = releaseVersionRepository.findById(releaseVersionId);
 

@@ -19,7 +19,37 @@ import java.time.Instant;
 @Indexed
 @SQLRestriction("inactive_at IS NULL")
 @SQLDelete(sql="UPDATE affiliate_details SET inactive_at = now() WHERE affiliate_details_id = ?")
-public class AffiliateDetails extends BaseEntity implements Cloneable {
+public class AffiliateDetails extends BaseEntity {
+
+	public AffiliateDetails() {
+	}
+
+	public AffiliateDetails(AffiliateDetails other) {
+		if (other != null) {
+			this.affiliateDetailsId = other.affiliateDetailsId;
+			this.inactiveAt = other.inactiveAt;
+			this.type = other.type;
+			this.otherText = other.otherText;
+			this.subType = other.subType;
+			this.agreementType = other.agreementType;
+			this.firstName = other.firstName;
+			this.lastName = other.lastName;
+			this.email = other.email;
+			this.alternateEmail = other.alternateEmail;
+			this.thirdEmail = other.thirdEmail;
+			this.landlineNumber = other.landlineNumber;
+			this.landlineExtension = other.landlineExtension;
+			this.mobileNumber = other.mobileNumber;
+			this.organizationType = other.organizationType;
+			this.organizationTypeOther = other.organizationTypeOther;
+			this.organizationName = other.organizationName;
+			this.address = other.address != null ? new MailingAddress(other.address) : null;
+			this.billingAddress = other.billingAddress != null ? new MailingAddress(other.billingAddress) : null;
+			this.affiliate = other.affiliate;
+			this.acceptNotifications = other.acceptNotifications;
+			this.countryNotificationsOnly = other.countryNotificationsOnly;
+		}
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence_generator")
@@ -248,19 +278,9 @@ public class AffiliateDetails extends BaseEntity implements Cloneable {
 		this.organizationTypeOther = organizationTypeOther;
 	}
 
-	public Object clone() {
-		try {
-			return super.clone();
-		} catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 	public AffiliateDetails copyNoId() {
-		AffiliateDetails detailsCopy = (AffiliateDetails) clone();
+		AffiliateDetails detailsCopy = new AffiliateDetails(this);
 		detailsCopy.setAffiliateDetailsId(null);
-		detailsCopy.setAddress((MailingAddress) address.clone());
-		detailsCopy.setBillingAddress((MailingAddress) billingAddress.clone());
 		return detailsCopy;
 	}
 

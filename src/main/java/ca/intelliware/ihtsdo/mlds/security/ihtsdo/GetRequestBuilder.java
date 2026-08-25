@@ -5,8 +5,10 @@ import org.apache.http.client.methods.HttpGet;
 
 import java.net.HttpCookie;
 
-public class GetRequestBuilder implements HeaderConstants {
-	
+import static ca.intelliware.ihtsdo.mlds.security.ihtsdo.HeaderConstants.SET_COOKIE;
+
+public class GetRequestBuilder {
+
 	private final HttpGet request;
 
 	public GetRequestBuilder(String queryUrl) {
@@ -24,5 +26,5 @@ public class GetRequestBuilder implements HeaderConstants {
 		}
 		return request;
 	}
-	
+
 }

@@ -9,7 +9,7 @@ public class CommercialUsagePeriod {
 	String description;
 	
 	public CommercialUsagePeriod() {
-		
+		// Default constructor for Jackson JSON deserialization
 	}
 	
 	public String getDescription() {

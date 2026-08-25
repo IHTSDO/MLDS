@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.domain.application;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
@@ -11,6 +13,7 @@ public class ClassMatchCheckerTest {
 	@Test
 	public void sameClassOK() {
 		classMatchChecker.applyChangeOrFail(new ExtensionApplication(), new ExtensionApplication());
+		assertTrue("Should complete without exception", true);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)

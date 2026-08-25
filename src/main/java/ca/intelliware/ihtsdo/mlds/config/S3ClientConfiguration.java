@@ -31,6 +31,7 @@ public class S3ClientConfiguration implements EnvironmentAware {
     private Environment environment;
 
     public S3ClientConfiguration() {
+        // Intentionally empty to provide the required no-argument constructor.
     }
 
     @Override

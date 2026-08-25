@@ -48,7 +48,7 @@ public class AffiliateDetailsDifferenceCalculatorTest {
 	}
 
 	private void cloneOldToNew() {
-		newDetails = (AffiliateDetails) originalDetails.clone();
+		newDetails = new AffiliateDetails(originalDetails);
 	}
 
 }

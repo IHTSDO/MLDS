@@ -46,9 +46,9 @@ public class AffiliateJsonTest {
 	
 	@Test
 	public void roundTripWithChildrenIsOK() throws JsonParseException, JsonMappingException, IOException {
-		
 		String jsonOutput = objectMapper.writeValueAsString(affiliate);
-		objectMapper.readValue(jsonOutput, Affiliate.class);
+		Affiliate result = objectMapper.readValue(jsonOutput, Affiliate.class);
+		assertNotNull("Deserialized affiliate should not be null", result);
 	}
 	
 	@Test

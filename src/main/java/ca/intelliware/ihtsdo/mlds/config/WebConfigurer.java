@@ -6,14 +6,17 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import ca.intelliware.ihtsdo.mlds.web.filter.CachingHttpHeadersFilter;
 import ca.intelliware.ihtsdo.mlds.web.filter.StaticResourcesProductionFilter;
 import ca.intelliware.ihtsdo.mlds.web.filter.gzip.GZipServletFilter;
 import com.codahale.metrics.MetricRegistry;
 import io.dropwizard.metrics.servlet.InstrumentedFilter;
 import io.dropwizard.metrics.servlets.MetricsServlet;
-import jakarta.servlet.*;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.FilterRegistration;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
 import org.apache.coyote.http11.Http11NioProtocol;
 import org.apache.tomcat.util.net.SSLHostConfig;
 import org.apache.tomcat.util.net.SSLHostConfigCertificate;
@@ -22,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -35,11 +37,6 @@ import org.springframework.core.env.Profiles;
 import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
-
-
-
-
-import com.fasterxml.jackson.databind.Module;
 
 
 /**
@@ -57,57 +54,72 @@ public class WebConfigurer implements ServletContextInitializer {
     @Autowired
     private MetricRegistry metricRegistry;
 
-    @Autowired
-    ApplicationContext applicationContext;
-
-
     /**
      * Wire up the Jackson serialization for Jodatime
+     *
      * @return
      */
 
-
     // you can run this with SSL/TLS. For example, build the application (`mvn clean install`) in the `oauth` directory, then run:
     //   java -Dspring.profiles.active=production -Dserver.keystore.file=file:///`pwd`/src/main/resources/keystore.p12 -jar target/oauth-1.0.0.BUILD-SNAPSHOT.jar
-    // In SB3 Migration, this following setKeystoreFile, setKeystorePass methods are deprecated, so we modified code accordingly it compatable with SB3.
+    // In SB3 Migration, the following setKeystoreFile and setKeystorePass methods are deprecated,
+    // so we modified the code accordingly for compatibility with SB3.
     @Bean
     @Profile("ssl")
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> containerCustomizer(
-            @Value("${keystore.file}") Resource keystoreFile,
-            @Value("${keystore.pass}") final String keystorePass) throws Exception {
+        @Value("${keystore.file}") Resource keystoreFile,
+        @Value("${keystore.pass}") final String keystorePass) throws Exception {
+
         final String absoluteKeystoreFile = keystoreFile.getFile().getAbsolutePath();
 
         log.info("Web application configuration, SSL keystore: {}", absoluteKeystoreFile);
 
-        return (TomcatServletWebServerFactory factory) -> {
-            factory.addConnectorCustomizers((TomcatConnectorCustomizer) connector -> {
-                connector.setPort(8443);
-                connector.setSecure(true);
-                connector.setScheme("https");
+        return factory -> factory.addConnectorCustomizers(connector -> {
+            connector.setPort(8443);
+            connector.setSecure(true);
+            connector.setScheme("https");
 
-                Http11NioProtocol proto = (Http11NioProtocol) connector.getProtocolHandler();
-                proto.setSSLEnabled(true);
-                SSLHostConfig sslHostConfig = new SSLHostConfig();
-                SSLHostConfigCertificate sslHostConfigCertificate = new SSLHostConfigCertificate(sslHostConfig, SSLHostConfigCertificate.Type.UNDEFINED);
+            Http11NioProtocol proto =
+                (Http11NioProtocol) connector.getProtocolHandler();
+            proto.setSSLEnabled(true);
 
-                sslHostConfigCertificate.setCertificateKeystoreFile(absoluteKeystoreFile);
-                sslHostConfigCertificate.setCertificateKeystorePassword(keystorePass);
-                sslHostConfig.addCertificate(sslHostConfigCertificate);
-                proto.addSslHostConfig(sslHostConfig);
-            });
-        };
+            SSLHostConfig sslHostConfig = new SSLHostConfig();
+            SSLHostConfigCertificate sslHostConfigCertificate =
+                new SSLHostConfigCertificate(
+                    sslHostConfig,
+                    SSLHostConfigCertificate.Type.UNDEFINED);
+
+            sslHostConfigCertificate.setCertificateKeystoreFile(
+                absoluteKeystoreFile);
+            sslHostConfigCertificate.setCertificateKeystorePassword(
+                keystorePass);
+            sslHostConfig.addCertificate(sslHostConfigCertificate);
+            proto.addSslHostConfig(sslHostConfig);
+        });
     }
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
-        EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
+    public void onStartup(
+        ServletContext servletContext) throws ServletException {
+
+        if (log.isInfoEnabled()) {
+            log.info("Web application configuration, using profiles: {}",
+                Arrays.toString(env.getActiveProfiles()));
+        }
+
+        EnumSet<DispatcherType> disps = EnumSet.of(
+            DispatcherType.REQUEST,
+            DispatcherType.FORWARD,
+            DispatcherType.ASYNC);
 
         initMetrics(servletContext, disps);
-        if (env.acceptsProfiles(Profiles.of(Constants.SPRING_PROFILE_PRODUCTION))) {
+
+        if (env.acceptsProfiles(
+            Profiles.of(Constants.SPRING_PROFILE_PRODUCTION))) {
             initStaticResourcesProductionFilter(servletContext, disps);
             initCachingHttpHeadersFilter(servletContext, disps);
         }
+
         initGzipFilter(servletContext, disps);
 
         log.info("Web application fully configured");
@@ -116,20 +128,33 @@ public class WebConfigurer implements ServletContextInitializer {
     /**
      * Initializes the GZip filter.
      */
-    private void initGzipFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
+    private void initGzipFilter(
+        ServletContext servletContext,
+        EnumSet<DispatcherType> disps) {
+
         log.debug("Registering GZip Filter");
 
-        FilterRegistration.Dynamic compressingFilter = servletContext.addFilter("gzipFilter", new GZipServletFilter());
+        FilterRegistration.Dynamic compressingFilter =
+            servletContext.addFilter(
+                "gzipFilter",
+                new GZipServletFilter());
+
         Map<String, String> parameters = new HashMap<>();
 
         compressingFilter.setInitParameters(parameters);
 
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.css");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.json");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.html");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.js");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "/api/*");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "/metrics/*");
+        compressingFilter.addMappingForUrlPatterns(
+            disps, true, "*.css");
+        compressingFilter.addMappingForUrlPatterns(
+            disps, true, "*.json");
+        compressingFilter.addMappingForUrlPatterns(
+            disps, true, "*.html");
+        compressingFilter.addMappingForUrlPatterns(
+            disps, true, "*.js");
+        compressingFilter.addMappingForUrlPatterns(
+            disps, true, "/api/*");
+        compressingFilter.addMappingForUrlPatterns(
+            disps, true, "/metrics/*");
 
         compressingFilter.setAsyncSupported(true);
     }
@@ -137,62 +162,96 @@ public class WebConfigurer implements ServletContextInitializer {
     /**
      * Initializes the static resources production Filter.
      */
-    private void initStaticResourcesProductionFilter(ServletContext servletContext,
-                                                     EnumSet<DispatcherType> disps) {
+    private void initStaticResourcesProductionFilter(
+        ServletContext servletContext,
+        EnumSet<DispatcherType> disps) {
 
         log.debug("Registering static resources production Filter");
-        FilterRegistration.Dynamic staticResourcesProductionFilter =
-                servletContext.addFilter("staticResourcesProductionFilter",
-                        new StaticResourcesProductionFilter());
 
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/index.html");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/tos.html");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/privacyPolicy.html");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/images/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/styles/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/views/*");
+        FilterRegistration.Dynamic staticResourcesProductionFilter =
+            servletContext.addFilter(
+                "staticResourcesProductionFilter",
+                new StaticResourcesProductionFilter());
+
+        staticResourcesProductionFilter.addMappingForUrlPatterns(
+            disps, true, "/");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(
+            disps, true, "/index.html");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(
+            disps, true, "/tos.html");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(
+            disps, true, "/privacyPolicy.html");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(
+            disps, true, "/images/*");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(
+            disps, true, "/fonts/*");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(
+            disps, true, "/scripts/*");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(
+            disps, true, "/styles/*");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(
+            disps, true, "/views/*");
         staticResourcesProductionFilter.setAsyncSupported(true);
     }
 
     /**
-     * Initializes the cachig HTTP Headers Filter.
+     * Initializes the caching HTTP Headers Filter.
      */
-    private void initCachingHttpHeadersFilter(ServletContext servletContext,
-                                              EnumSet<DispatcherType> disps) {
-        log.debug("Registering Cachig HTTP Headers Filter");
-        FilterRegistration.Dynamic cachingHttpHeadersFilter =
-                servletContext.addFilter("cachingHttpHeadersFilter",
-                        new CachingHttpHeadersFilter());
+    private void initCachingHttpHeadersFilter(
+        ServletContext servletContext,
+        EnumSet<DispatcherType> disps) {
 
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/images/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/styles/*");
+        log.debug("Registering Caching HTTP Headers Filter");
+
+        FilterRegistration.Dynamic cachingHttpHeadersFilter =
+            servletContext.addFilter(
+                "cachingHttpHeadersFilter",
+                new CachingHttpHeadersFilter());
+
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(
+            disps, true, "/images/*");
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(
+            disps, true, "/fonts/*");
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(
+            disps, true, "/scripts/*");
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(
+            disps, true, "/styles/*");
         cachingHttpHeadersFilter.setAsyncSupported(true);
     }
 
     /**
      * Initializes Metrics.
      */
-    private void initMetrics(ServletContext servletContext, EnumSet<DispatcherType> disps) {
+    private void initMetrics(
+        ServletContext servletContext,
+        EnumSet<DispatcherType> disps) {
+
         log.debug("Initializing Metrics registries");
-        servletContext.setAttribute(InstrumentedFilter.REGISTRY_ATTRIBUTE,
-                metricRegistry);
-        servletContext.setAttribute(MetricsServlet.METRICS_REGISTRY,
-                metricRegistry);
+
+        servletContext.setAttribute(
+            InstrumentedFilter.REGISTRY_ATTRIBUTE,
+            metricRegistry);
+        servletContext.setAttribute(
+            MetricsServlet.METRICS_REGISTRY,
+            metricRegistry);
 
         log.debug("Registering Metrics Filter");
-        FilterRegistration.Dynamic metricsFilter = servletContext.addFilter("webappMetricsFilter",
-               new InstrumentedFilter());
-        metricsFilter.addMappingForUrlPatterns(disps, true, "/*");
+
+        FilterRegistration.Dynamic metricsFilter =
+            servletContext.addFilter(
+                "webappMetricsFilter",
+                new InstrumentedFilter());
+
+        metricsFilter.addMappingForUrlPatterns(
+            disps, true, "/*");
         metricsFilter.setAsyncSupported(true);
 
         log.debug("Registering Metrics Servlet");
+
         ServletRegistration.Dynamic metricsAdminServlet =
-                servletContext.addServlet("metricsServlet", new MetricsServlet());
+            servletContext.addServlet(
+                "metricsServlet",
+                new MetricsServlet());
 
         metricsAdminServlet.addMapping("/metrics/metrics/*");
         metricsAdminServlet.setAsyncSupported(true);
@@ -200,23 +259,29 @@ public class WebConfigurer implements ServletContextInitializer {
     }
 
     @Bean
-    public SimpleUrlHandlerMapping myFaviconHandlerMapping()
-    {
+    public SimpleUrlHandlerMapping myFaviconHandlerMapping(
+        ResourceHttpRequestHandler myFaviconRequestHandler) {
+
         SimpleUrlHandlerMapping mapping = new SimpleUrlHandlerMapping();
         mapping.setOrder(Integer.MIN_VALUE);
-        mapping.setUrlMap(Collections.singletonMap("/favicon.ico",
-                myFaviconRequestHandler()));
+        mapping.setUrlMap(Collections.singletonMap(
+            "/favicon.ico",
+            myFaviconRequestHandler));
+
         return mapping;
     }
 
     @Bean
-    protected ResourceHttpRequestHandler myFaviconRequestHandler()
-    {
+    protected ResourceHttpRequestHandler myFaviconRequestHandler(
+        ApplicationContext applicationContext) {
+
         ResourceHttpRequestHandler requestHandler =
-                new ResourceHttpRequestHandler();
+            new ResourceHttpRequestHandler();
+
         requestHandler.setLocations(Arrays
-                .<Resource> asList(applicationContext.getResource("/")));
+            .<Resource>asList(applicationContext.getResource("/")));
         requestHandler.setCacheSeconds(0);
+
         return requestHandler;
     }
 }

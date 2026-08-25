@@ -108,7 +108,7 @@ public class ApplicationResource {
 		}
 
 		if (Objects.equal(approvalState, ApprovalState.APPROVED)) {
-			AffiliateDetails affiliateDetails = (AffiliateDetails) application.getAffiliateDetails().clone();
+			AffiliateDetails affiliateDetails = new AffiliateDetails(application.getAffiliateDetails());
 
 			affiliateDetailsResetter.detach(affiliateDetails);
 
@@ -301,7 +301,7 @@ public class ApplicationResource {
 		affiliate.setHomeMember(application.getMember());
 
 		{
-			AffiliateDetails affiliateDetails = (AffiliateDetails) application.getAffiliateDetails().clone();
+			AffiliateDetails affiliateDetails = new AffiliateDetails(application.getAffiliateDetails());
 			affiliateDetailsResetter.detach(affiliateDetails);
 			affiliate.setAffiliateDetails(affiliateDetails);
 		}

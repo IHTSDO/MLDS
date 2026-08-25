@@ -36,9 +36,12 @@ public enum MySqlTestContainerConfig {
         return INSTANCE;
     }
 
-    public void setupDataSource() {
+    public void setupDataSource(DatabaseConfiguration databaseConfiguration) {
         DatabaseConfiguration.setDataSource(dataSource);
     }
 
+    public void setupDataSource() {
+        DatabaseConfiguration.setDataSource(dataSource);
+    }
 
 }

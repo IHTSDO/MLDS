@@ -71,13 +71,13 @@ public class MemberResource {
     @PermitAll
     @Transactional
     @Timed
-    public ResponseEntity<?> getMemberLicense(@PathVariable String memberKey, HttpServletRequest request) throws SQLException, IOException {
+    public ResponseEntity<org.springframework.core.io.Resource> getMemberLicense(@PathVariable String memberKey, HttpServletRequest request) throws SQLException, IOException {
         File license = memberRepository.findOneByKey(memberKey).getLicense();
 
         return downloadFile(request, license);
     }
 
-    private ResponseEntity<?> downloadFile(HttpServletRequest request, File file) throws SQLException, IOException {
+    private ResponseEntity<org.springframework.core.io.Resource> downloadFile(HttpServletRequest request, File file) throws SQLException, IOException {
         if (file == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else if (file.getLastUpdated() != null) {
@@ -109,7 +109,7 @@ public class MemberResource {
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Transactional
     @Timed
-    public ResponseEntity<?> updateMemberLicense(@PathVariable String memberKey, @RequestParam(value = "file", required = false) MultipartFile multipartFile, @RequestParam("licenseName") String licenseName, @RequestParam("licenseVersion") String licenseVersion) throws IOException {
+    public ResponseEntity<MemberDTO> updateMemberLicense(@PathVariable String memberKey, @RequestParam(value = "file", required = false) MultipartFile multipartFile, @RequestParam("licenseName") String licenseName, @RequestParam("licenseVersion") String licenseVersion) throws IOException {
         Member member = memberRepository.findOneByKey(memberKey);
 
         if (multipartFile != null && !multipartFile.isEmpty()) {
@@ -130,7 +130,7 @@ public class MemberResource {
     @PermitAll
     @Transactional
     @Timed
-    public ResponseEntity<?> getMemberLogo(@PathVariable String memberKey, HttpServletRequest request) throws SQLException, IOException {
+    public ResponseEntity<org.springframework.core.io.Resource> getMemberLogo(@PathVariable String memberKey, HttpServletRequest request) throws SQLException, IOException {
         File logo = memberRepository.findOneByKey(memberKey).getLogo();
 
         return downloadFile(request, logo);
@@ -143,7 +143,7 @@ public class MemberResource {
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Transactional
     @Timed
-    public ResponseEntity<?> updateMemberBrand(@PathVariable String memberKey, @RequestParam(value = "file", required = false) MultipartFile multipartFile, @RequestParam("name") String name) throws IOException {
+    public ResponseEntity<MemberDTO> updateMemberBrand(@PathVariable String memberKey, @RequestParam(value = "file", required = false) MultipartFile multipartFile, @RequestParam("name") String name) throws IOException {
         Member member = memberRepository.findOneByKey(memberKey);
 
         if (multipartFile != null && !multipartFile.isEmpty()) {
@@ -182,7 +182,7 @@ public class MemberResource {
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Transactional
     @Timed
-    public ResponseEntity<?> updateMemberNotifications(@PathVariable String memberKey, @RequestBody MemberDTO body) throws IOException {
+    public ResponseEntity<MemberDTO> updateMemberNotifications(@PathVariable String memberKey, @RequestBody MemberDTO body) throws IOException {
         Member member = memberRepository.findOneByKey(memberKey);
 
         member.setStaffNotificationEmail(body.getStaffNotificationEmail());
@@ -198,7 +198,7 @@ public class MemberResource {
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Transactional
     @Timed
-    public ResponseEntity<?> updateMember(@PathVariable String memberKey, @RequestBody MemberDTO body) throws IOException {
+    public ResponseEntity<MemberDTO> updateMember(@PathVariable String memberKey, @RequestBody MemberDTO body) throws IOException {
         Member member = memberRepository.findOneByKey(memberKey);
         if (member == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -217,7 +217,7 @@ public class MemberResource {
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})
     @Transactional
     @Timed
-    public ResponseEntity<?> updateMemberFeedURL(@PathVariable String memberKey, @RequestBody MemberDTO body) throws IOException {
+    public ResponseEntity<Object> updateMemberFeedURL(@PathVariable String memberKey, @RequestBody MemberDTO body) throws IOException {
         Member member = memberRepository.findOneByKey(memberKey);
 
         if (member == null) {
@@ -228,7 +228,7 @@ public class MemberResource {
         member.setMemberOrgURL(body.getMemberOrgURL());
         member.setMemberOrgName(body.getMemberOrgName());
         memberRepository.save(member);
-        return new ResponseEntity<MemberDTO>(new MemberDTO(member), HttpStatus.OK);
+        return new ResponseEntity<>(new MemberDTO(member), HttpStatus.OK);
     }
     @GetMapping(value = Routes.MEMBER_AUTO_DEACTIVATION, produces = "application/json")
     @RolesAllowed({AuthoritiesConstants.STAFF, AuthoritiesConstants.ADMIN})

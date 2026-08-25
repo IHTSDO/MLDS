@@ -12,7 +12,7 @@ public class AnnouncementDTO {
 	private List<String> additionalEmails;
 	
 	public AnnouncementDTO() {
-		
+		// Default constructor for Jackson JSON deserialization
 	}
 
 	public String getSubject() {

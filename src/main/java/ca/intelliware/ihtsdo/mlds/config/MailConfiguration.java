@@ -35,6 +35,7 @@ public class MailConfiguration implements EnvironmentAware {
     private Environment env;
 
     public MailConfiguration() {
+        // Default constructor required for Spring configuration binding.
     }
 
     @Override

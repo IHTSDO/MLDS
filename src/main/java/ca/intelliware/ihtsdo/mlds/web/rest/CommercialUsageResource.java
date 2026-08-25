@@ -344,7 +344,7 @@ public class CommercialUsageResource {
     		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN })
     @Timed
-    public @ResponseBody ResponseEntity<?> deleteCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId) {
+    public @ResponseBody ResponseEntity<Void> deleteCommercialUsageEntry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageEntryId") long commercialUsageEntryId) {
     	authorizationChecker.checkCanAccessCommercialUsageEntry(commercialUsageId, commercialUsageEntryId);
         commercialUsageEntryRepository.deleteById(commercialUsageEntryId);
     	return new ResponseEntity<>(HttpStatus.OK);
@@ -363,7 +363,7 @@ public class CommercialUsageResource {
     		produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN })
     @Timed
-    public @ResponseBody ResponseEntity<?> deleteCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
+    public @ResponseBody ResponseEntity<Void> deleteCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId, @PathVariable("commercialUsageCountId") long commercialUsageCountId) {
     	authorizationChecker.checkCanAccessCommercialUsageCount(commercialUsageId, commercialUsageCountId);
 
 
@@ -399,7 +399,7 @@ public class CommercialUsageResource {
     @RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN })
     @Timed
 	public @ResponseBody
-	ResponseEntity<?> addCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId,
+	ResponseEntity<Object> addCommercialUsageCountry(@PathVariable("commercialUsageId") long commercialUsageId,
 			@RequestBody CommercialUsageCountry newCountValue) {
     	authorizationChecker.checkCanAccessUsageReport(commercialUsageId);
 
@@ -415,7 +415,7 @@ public class CommercialUsageResource {
 		synchronized (commercialUsage) {
 			// If this new Value is not known as already being in the database, check if we have anything for the same country
 			if (newCountValue.getCommercialUsageCountId() == null && commercialUsage.exists(newCountValue)) {
-				return new ResponseEntity<String>("Country already exists for this usage report.", HttpStatus.CONFLICT);
+				return new ResponseEntity<>("Country already exists for this usage report.", HttpStatus.CONFLICT);
 			}
 			commercialUsageCountryRepository.save(newCountValue);
 			commercialUsage.addCount(newCountValue);
@@ -425,8 +425,7 @@ public class CommercialUsageResource {
         // FIXME flush and get ids back
         //headers.setLocation(ServletUriComponentsBuilder.fromPath(Routes.USAGE_REPORT_ENTRY).build().expand(newEntry.getCommercialUsageEntryId()).toUri());
 
-		ResponseEntity<CommercialUsageCountry> responseEntity = new ResponseEntity<CommercialUsageCountry>(newCountValue, headers, HttpStatus.CREATED);
-		return responseEntity;
+		return new ResponseEntity<>(newCountValue, headers, HttpStatus.CREATED);
     }
 
 	private void synchronize() {

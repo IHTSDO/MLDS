@@ -17,9 +17,6 @@ public class ThymeleafConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(ThymeleafConfiguration.class);
 
-    public ThymeleafConfiguration() {
-    }
-
     @Bean
     @Description("Thymeleaf view resolver")
     public ThymeleafViewResolver thymeleafViewResolver() {

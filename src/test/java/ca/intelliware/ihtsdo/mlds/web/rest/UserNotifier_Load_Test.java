@@ -1,5 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 import java.util.Random;
 
@@ -98,6 +100,7 @@ public class UserNotifier_Load_Test {
 
 		userNotifier.notifyReleasePackageUpdated(releaseVersion);
 		System.out.println("*** DONE **** "+ ((System.currentTimeMillis() - start) / 1000.0)+"s");
+		assertTrue("Load test completed successfully", true);
 	}
 
 

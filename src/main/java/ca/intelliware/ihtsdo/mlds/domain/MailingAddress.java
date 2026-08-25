@@ -5,7 +5,7 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
 
 @Embeddable
-public class MailingAddress implements Cloneable {
+public class MailingAddress {
 
 
 	String street;
@@ -18,6 +18,18 @@ public class MailingAddress implements Cloneable {
 	Country country;
 
 	String post;
+
+	public MailingAddress() {
+	}
+
+	public MailingAddress(MailingAddress other) {
+		if (other != null) {
+			this.street = other.street;
+			this.city = other.city;
+			this.country = other.country;
+			this.post = other.post;
+		}
+	}
 
 	public String getStreet() {
 		return street;
@@ -42,14 +54,5 @@ public class MailingAddress implements Cloneable {
 	}
 	public void setCountry(Country country) {
 		this.country = country;
-	}
-
-	public Object clone() {
-		try {
-			return super.clone();
-		} catch (CloneNotSupportedException e) {
-			// we support clone
-			throw new RuntimeException(e);
-		}
 	}
 }
