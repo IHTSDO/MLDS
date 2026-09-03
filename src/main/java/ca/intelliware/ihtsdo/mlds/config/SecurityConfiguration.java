@@ -16,7 +16,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -91,19 +90,6 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-            .requestMatchers(
-                "/fonts/**",
-                "/images/**",
-                "/scripts/**",
-                "/styles/**",
-                "/views/**",
-                "/swagger-ui/**"
-            );
-    }
-
-    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .exceptionHandling((exception) -> exception.authenticationEntryPoint(authenticationEntryPoint))
@@ -163,29 +149,6 @@ public class SecurityConfiguration {
                     "/api-docs/**",
                     "/actuator/**"
                 ).hasAuthority(AuthoritiesConstants.ADMIN)
-
-                .requestMatchers("/protected/**").authenticated()
-
-                // MLDS-988 (block sensitive files)
-                .requestMatchers(
-                    "/.htaccess/**",
-                    "/bower_components/html5shiv/package.json",
-                    "/bower_components/es5-shim/package.json",
-                    "/bower_components/placeholders/package.json",
-                    "/bower_components/ng-csv/package.json",
-                    "/bower_components/jquery/package.json",
-                    "/bower_components/intl-tel-input/package.json",
-                    "/bower_components/angular-dynamic-locale/package.json",
-                    "/bower_components/ngInfiniteScroll/package.json",
-                    "/bower_components/ng-csv/package.json",
-                    "/bower_components/modernizr/.travis.yml",
-                    "/bower_components/ng-csv/.travis.yml",
-                    "/bower_components/intl-tel-input/.travis.yml",
-                    "/bower_components/angular-dynamic-locale/.travis.yml",
-                    "/bower_components/ngInfiniteScroll/.travis.yml",
-                    "/bower_components/jquery/composer.json"
-
-                ).denyAll()
             );
         return http.build();
     }
