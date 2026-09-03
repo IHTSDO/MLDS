@@ -103,6 +103,7 @@ public class UserResource {
         }
     }
     @GetMapping(value = "/testRun")
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     @Timed
     public ResponseEntity<String> testRun() {
         try {

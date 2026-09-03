@@ -6,8 +6,6 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-import ca.intelliware.ihtsdo.mlds.web.filter.CachingHttpHeadersFilter;
-import ca.intelliware.ihtsdo.mlds.web.filter.StaticResourcesProductionFilter;
 import ca.intelliware.ihtsdo.mlds.web.filter.gzip.GZipServletFilter;
 import com.codahale.metrics.MetricRegistry;
 import io.dropwizard.metrics.servlet.InstrumentedFilter;
@@ -33,7 +31,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.Profiles;
 import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
@@ -114,12 +111,6 @@ public class WebConfigurer implements ServletContextInitializer {
 
         initMetrics(servletContext, disps);
 
-        if (env.acceptsProfiles(
-            Profiles.of(Constants.SPRING_PROFILE_PRODUCTION))) {
-            initStaticResourcesProductionFilter(servletContext, disps);
-            initCachingHttpHeadersFilter(servletContext, disps);
-        }
-
         initGzipFilter(servletContext, disps);
 
         log.info("Web application fully configured");
@@ -157,66 +148,6 @@ public class WebConfigurer implements ServletContextInitializer {
             disps, true, "/metrics/*");
 
         compressingFilter.setAsyncSupported(true);
-    }
-
-    /**
-     * Initializes the static resources production Filter.
-     */
-    private void initStaticResourcesProductionFilter(
-        ServletContext servletContext,
-        EnumSet<DispatcherType> disps) {
-
-        log.debug("Registering static resources production Filter");
-
-        FilterRegistration.Dynamic staticResourcesProductionFilter =
-            servletContext.addFilter(
-                "staticResourcesProductionFilter",
-                new StaticResourcesProductionFilter());
-
-        staticResourcesProductionFilter.addMappingForUrlPatterns(
-            disps, true, "/");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(
-            disps, true, "/index.html");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(
-            disps, true, "/tos.html");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(
-            disps, true, "/privacyPolicy.html");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(
-            disps, true, "/images/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(
-            disps, true, "/fonts/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(
-            disps, true, "/scripts/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(
-            disps, true, "/styles/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(
-            disps, true, "/views/*");
-        staticResourcesProductionFilter.setAsyncSupported(true);
-    }
-
-    /**
-     * Initializes the caching HTTP Headers Filter.
-     */
-    private void initCachingHttpHeadersFilter(
-        ServletContext servletContext,
-        EnumSet<DispatcherType> disps) {
-
-        log.debug("Registering Caching HTTP Headers Filter");
-
-        FilterRegistration.Dynamic cachingHttpHeadersFilter =
-            servletContext.addFilter(
-                "cachingHttpHeadersFilter",
-                new CachingHttpHeadersFilter());
-
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(
-            disps, true, "/images/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(
-            disps, true, "/fonts/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(
-            disps, true, "/scripts/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(
-            disps, true, "/styles/*");
-        cachingHttpHeadersFilter.setAsyncSupported(true);
     }
 
     /**

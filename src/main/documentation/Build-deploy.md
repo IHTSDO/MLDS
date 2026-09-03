@@ -5,15 +5,10 @@ The project is built with Maven, producing a war file.
 ##Build dependencies:
 To run Maven, we need:
 
-- a recent JDK (>=17)
+- a recent JDK (>=25)
 - Maven
-- NodeJS: apt-get install nodejs (or nodejs-legacy, depending on os version).  Make sure that "node --version" returns something > 0.10.10
-- ruby: apt-get install ruby
-- compass: apt-get install ruby-compass
-- bower: npm install -g bower
-- grunt: npm install -g grunt-cli
 
-Note:  It requires at least JDK 17 and you think you have that already, then check what's actually being used 
+Note:  It requires at least JDK 25 and you think you have that already, then check what's actually being used 
 by typing 
 	mvn -version
 If maven is using the wrong version of java, then you might want to set the JAVA_HOME environmental variable in your ~/.bash_profile file.
