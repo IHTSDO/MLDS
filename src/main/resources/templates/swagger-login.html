@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLDS Swagger Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            width: 380px;
+            padding: 32px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .login-container h1 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .login-container p {
+            text-align: center;
+            color: #666666;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .remember-me input {
+            width: auto;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            border: 0;
+            border-radius: 4px;
+            background: #4caf50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error {
+            display: none;
+            margin-bottom: 16px;
+            padding: 10px;
+            border-radius: 4px;
+            background: #f8d7da;
+            color: #842029;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <h1>MLDS Swagger</h1>
+
+    <p>Sign in using your MLDS / IMS account</p>
+
+    <div id="errorMessage" class="error">
+        Authentication failed. Please check your username and password.
+    </div>
+
+    <form id="swaggerLoginForm">
+
+        <div class="form-group">
+            <label for="username">Username</label>
+
+            <input
+                id="username"
+                name="j_username"
+                type="text"
+                autocomplete="username"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+
+            <input
+                id="password"
+                name="j_password"
+                type="password"
+                autocomplete="current-password"
+                required>
+        </div>
+
+        <div class="remember-me">
+            <input
+                id="rememberMe"
+                name="remember-me"
+                type="checkbox">
+
+            <label for="rememberMe">
+                Remember me
+            </label>
+        </div>
+
+        <button
+            id="loginButton"
+            class="login-button"
+            type="submit">
+            Login
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+    const form = document.getElementById('swaggerLoginForm');
+    const loginButton = document.getElementById('loginButton');
+    const errorMessage = document.getElementById('errorMessage');
+
+    form.addEventListener('submit', async function (event) {
+
+        event.preventDefault();
+
+        errorMessage.style.display = 'none';
+        loginButton.disabled = true;
+        loginButton.textContent = 'Signing in...';
+
+        const formData = new URLSearchParams();
+
+        formData.set(
+            'j_username',
+            document.getElementById('username').value
+        );
+
+        formData.set(
+            'j_password',
+            document.getElementById('password').value
+        );
+
+        formData.set(
+            'remember-me',
+            document.getElementById('rememberMe').checked
+        );
+
+        try {
+
+            const response = await fetch(
+                '/app/authentication',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':
+                            'application/x-www-form-urlencoded'
+                    },
+                    credentials: 'include',
+                    body: formData.toString()
+                }
+            );
+
+            if (response.ok) {
+
+                window.location.replace(
+                    '/swagger-ui/index.html'
+                );
+
+                return;
+            }
+
+            errorMessage.style.display = 'block';
+
+        } catch (error) {
+
+            console.error(
+                'Swagger authentication failed:',
+                error
+            );
+
+            errorMessage.style.display = 'block';
+
+        } finally {
+
+            loginButton.disabled = false;
+            loginButton.textContent = 'Login';
+        }
+    });
+</script>
+
+</body>
+</html>

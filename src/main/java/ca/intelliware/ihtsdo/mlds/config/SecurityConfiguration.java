@@ -32,7 +32,8 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class SecurityConfiguration {
 
-    private final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
+    private final Logger logger =
+        LoggerFactory.getLogger(SecurityConfiguration.class);
 
     @Autowired
     private Environment env;
@@ -60,81 +61,225 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> forceSecureCookies() {
+    public WebServerFactoryCustomizer<TomcatServletWebServerFactory>
+    forceSecureCookies() {
+
         return factory -> factory.addConnectorCustomizers(connector -> {
             connector.setScheme("https");
             connector.setSecure(true);
         });
     }
 
-        @Bean
-        public ServletContextInitializer servletContextInitializer() {
-            return servletContext -> {
-                SessionCookieConfig sessionCookieConfig = servletContext.getSessionCookieConfig();
-                sessionCookieConfig.setHttpOnly(true);
-                sessionCookieConfig.setSecure(true);
-                sessionCookieConfig.setName("JSESSIONID");
-                sessionCookieConfig.setPath("/");
-            };
-        }
+    @Bean
+    public ServletContextInitializer servletContextInitializer() {
 
+        return servletContext -> {
 
+            SessionCookieConfig sessionCookieConfig =
+                servletContext.getSessionCookieConfig();
+
+            sessionCookieConfig.setHttpOnly(true);
+            sessionCookieConfig.setSecure(true);
+            sessionCookieConfig.setName("JSESSIONID");
+            sessionCookieConfig.setPath("/");
+        };
+    }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(
+        AuthenticationManagerBuilder auth) throws Exception {
+
         logger.debug("Configuring Global Security");
+
         auth
             .userDetailsService(userDetailsService)
             .passwordEncoder(passwordEncoder());
-        auth.authenticationProvider(httpAuthAuthenticationProvider);
+
+        auth.authenticationProvider(
+            httpAuthAuthenticationProvider
+        );
     }
 
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(
+        HttpSecurity http) throws Exception {
+
         http
-            .exceptionHandling((exception) -> exception.authenticationEntryPoint(authenticationEntryPoint))
-            .rememberMe(rememberMe -> rememberMe
-                .rememberMeServices(rememberMeServices)
-                .key(env.getProperty("jhipster.security.rememberme.key")))
-            .formLogin(formLogin -> formLogin
-//                                .loginPage("/login")
-                    .loginProcessingUrl("/app/authentication")
-                    .successHandler(ajaxAuthenticationSuccessHandler)
-                    .failureHandler(ajaxAuthenticationFailureHandler)
+            .exceptionHandling(exception ->
+                exception.authenticationEntryPoint(
+                    authenticationEntryPoint
+                )
+            )
+
+            .rememberMe(rememberMe ->
+                rememberMe
+                    .rememberMeServices(rememberMeServices)
+                    .key(
+                        env.getProperty(
+                            "jhipster.security.rememberme.key"
+                        )
+                    )
+            )
+
+            .formLogin(formLogin ->
+                formLogin
+                    .loginProcessingUrl(
+                        "/app/authentication"
+                    )
+                    .successHandler(
+                        ajaxAuthenticationSuccessHandler
+                    )
+                    .failureHandler(
+                        ajaxAuthenticationFailureHandler
+                    )
                     .usernameParameter("j_username")
                     .passwordParameter("j_password")
                     .permitAll()
             )
-            .securityContext((securityContext) -> securityContext
-                .requireExplicitSave(true)
+
+            .securityContext(securityContext ->
+                securityContext.requireExplicitSave(true)
             )
-            .logout(
-                logout -> logout
+
+            .logout(logout ->
+                logout
                     .logoutUrl("/app/logout")
                     .deleteCookies("JSESSIONID")
-                    .logoutSuccessHandler(ajaxLogoutSuccessHandler)
+                    .logoutSuccessHandler(
+                        ajaxLogoutSuccessHandler
+                    )
                     .permitAll()
             )
-            .cors(httpSecurityCorsConfigurer -> {
-                CorsConfiguration configuration = new CorsConfiguration();
-                configuration.setAllowedOrigins(Arrays.asList("*"));
-                configuration.setAllowedMethods(Arrays.asList("*"));
-                configuration.setAllowedHeaders(Arrays.asList("*"));
-                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-                source.registerCorsConfiguration("/**", configuration);
-                httpSecurityCorsConfigurer.configurationSource(source);
-            })
-            .csrf(AbstractHttpConfigurer::disable)
-            .httpBasic(httpBasic -> httpBasic
-                    .authenticationEntryPoint(authenticationEntryPoint))
-//                .authorizeHttpRequests((authorize) ->
-//                        authorize
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                .requestMatchers("/api/**").permitAll()
 
-                .requestMatchers("/websocket/tracker").hasAuthority(AuthoritiesConstants.ADMIN)
-                .requestMatchers("/websocket/**").permitAll()
+            .cors(cors -> {
+
+                CorsConfiguration configuration =
+                    new CorsConfiguration();
+
+                configuration.setAllowedOriginPatterns(
+                    Arrays.asList("*")
+                );
+
+                configuration.setAllowedMethods(
+                    Arrays.asList("*")
+                );
+
+                configuration.setAllowedHeaders(
+                    Arrays.asList("*")
+                );
+
+                configuration.setAllowCredentials(true);
+
+                UrlBasedCorsConfigurationSource source =
+                    new UrlBasedCorsConfigurationSource();
+
+                source.registerCorsConfiguration(
+                    "/**",
+                    configuration
+                );
+
+                cors.configurationSource(source);
+            })
+
+            .csrf(AbstractHttpConfigurer::disable)
+
+            .httpBasic(httpBasic ->
+                httpBasic.authenticationEntryPoint(
+                    authenticationEntryPoint
+                )
+            )
+
+            .authorizeHttpRequests(auth -> auth
+
+                /*
+                 * ==========================================
+                 * SWAGGER / OPENAPI
+                 * ==========================================
+                 */
+
+                .requestMatchers(
+                    "/api/**",
+                    "/swagger-ui.html",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs",
+                    "/v3/api-docs/swagger-config",
+                    "/api-docs/**",
+                    "/webjars/**"
+                ).permitAll()
+
+                /*
+                 * Swagger authentication endpoints.
+                 */
+                .requestMatchers(
+                    "/swagger-login",
+                    "/swagger-authenticated",
+                    "/swagger-custom.js"
+                ).permitAll()
+
+                /*
+                 * Existing MLDS authentication endpoint.
+                 */
+                .requestMatchers(
+                    "/app/authentication"
+                ).permitAll()
+
+                /*
+                 * Error endpoint.
+                 *
+                 * Important because an unauthorized Swagger
+                 * request can otherwise result in another
+                 * 401 on /error.
+                 */
+                .requestMatchers(
+                    "/error"
+                ).permitAll()
+
+                /*
+                 * ==========================================
+                 * ADMIN API
+                 * ==========================================
+                 */
+
+                .requestMatchers(
+                    "/api/logs/**"
+                ).hasAuthority(
+                    AuthoritiesConstants.ADMIN
+                )
+
+                /*
+                 * ==========================================
+                 * MLDS API
+                 * ==========================================
+                 *
+                 * APIs require an authenticated MLDS session.
+                 */
+                .requestMatchers(
+                    "/api/**"
+                ).authenticated()
+
+                /*
+                 * ==========================================
+                 * WEBSOCKET
+                 * ==========================================
+                 */
+
+                .requestMatchers(
+                    "/websocket/tracker"
+                ).hasAuthority(
+                    AuthoritiesConstants.ADMIN
+                )
+
+                .requestMatchers(
+                    "/websocket/**"
+                ).permitAll()
+
+                /*
+                 * ==========================================
+                 * ACTUATOR / MONITORING
+                 * ==========================================
+                 */
 
                 .requestMatchers(
                     "/metrics/**",
@@ -146,11 +291,20 @@ public class SecurityConfiguration {
                     "/info/**",
                     "/autoconfig/**",
                     "/env/**",
-                    "/api-docs/**",
                     "/actuator/**"
-                ).hasAuthority(AuthoritiesConstants.ADMIN)
+                ).hasAuthority(
+                    AuthoritiesConstants.ADMIN
+                )
+
+                /*
+                 * ==========================================
+                 * EVERYTHING ELSE
+                 * ==========================================
+                 */
+
+                .anyRequest().authenticated()
             );
+
         return http.build();
     }
-
 }
