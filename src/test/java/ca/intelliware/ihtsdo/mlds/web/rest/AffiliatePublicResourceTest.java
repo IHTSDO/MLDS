@@ -28,24 +28,27 @@ import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 public class AffiliatePublicResourceTest {
 	@Mock AffiliateRepository affiliateRepository;
 	@Mock MemberRepository memberRepository;
-	
-	private MockMvc restAffiliatePublicResource;
 
-	@Before
+	private MockMvc restAffiliatePublicResource;
+    @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
-        
-        AffiliatePublicResource affiliatePublicResource = new AffiliatePublicResource();
-        
-        affiliatePublicResource.affiliateRepository = affiliateRepository;
-        affiliatePublicResource.memberRepository = memberRepository;
-        
+        MockitoAnnotations.openMocks(this);
+
+        AffiliatePublicResource affiliatePublicResource =
+            new AffiliatePublicResource(
+               affiliateRepository,
+                memberRepository
+            );
+
         restAffiliatePublicResource = MockMvcBuilders
-        		.standaloneSetup(affiliatePublicResource)
-        		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
-        		.build();
+            .standaloneSetup(affiliatePublicResource)
+            .setMessageConverters(
+                new MockMvcJacksonTestSupport()
+                    .getConfiguredMessageConverters()
+            )
+            .build();
     }
-	
+
 	@Test
 	public void memberKeyShouldByMandatory() throws Exception {
 		restAffiliatePublicResource.perform(
@@ -92,7 +95,7 @@ public class AffiliatePublicResourceTest {
 	@Test
 	public void unknownMemberShouldProduceErrorAndListOptions() throws Exception {
 		Mockito.when(memberRepository.findAll()).thenReturn(Arrays.asList(new Member("us", 10L), new Member("es",11L)));
-		
+
 		restAffiliatePublicResource.perform(
 				MockMvcRequestBuilders
 					.get(Routes.AFFILIATES_CHECK)
@@ -111,7 +114,7 @@ public class AffiliatePublicResourceTest {
 	@Test
 	public void nonLongAffiliateIdShouldReturnFalse() throws Exception {
 		withMember("se", 1L);
-		
+
 		restAffiliatePublicResource.perform(
 				MockMvcRequestBuilders
 					.get(Routes.AFFILIATES_CHECK)
@@ -128,9 +131,9 @@ public class AffiliatePublicResourceTest {
 	@Test
 	public void affiateIdWithGoodMatchShouldReturnTrue() throws Exception {
 		Member member = withMember("se", 1L);
-		
+
 		Mockito.when(affiliateRepository.findForCheck(Mockito.eq(123L), Mockito.eq(member), Mockito.eq("test hospital"), Mockito.any(PageRequest.class))).thenReturn(pageResult(createAffiliate(1L)));
-		
+
 		restAffiliatePublicResource.perform(
 				MockMvcRequestBuilders
 					.get(Routes.AFFILIATES_CHECK)
@@ -147,28 +150,28 @@ public class AffiliatePublicResourceTest {
 	@Test
 	public void affiateIdWithBadMatchShouldReturnFalse() throws Exception {
 		Member member = withMember("se", 1L);
-		
+
 		Mockito.when(affiliateRepository.findForCheck(Mockito.eq(123L), Mockito.eq(member), Mockito.eq("test hospital"), Mockito.any(PageRequest.class))).thenReturn(pageResult());
-		
-		restAffiliatePublicResource.perform(
-				MockMvcRequestBuilders
-					.get(Routes.AFFILIATES_CHECK)
-					.param("match", "test hospital")
-					.param("member", "se")
-					.param("affiliateId", "123")
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-					.accept(MediaType.APPLICATION_JSON_UTF8))
-			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-			.andExpect(jsonPath("$.matched").value(false));
+
+        restAffiliatePublicResource.perform(
+                MockMvcRequestBuilders
+                    .get(Routes.AFFILIATES_CHECK)
+                    .param("match", "test hospital")
+                    .param("member", "se")
+                    .param("affiliateId", "123")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.matched").value(false));
 	}
-	
+
 	@Test
 	public void anyAffiliateWithSingleMatchShouldReturnTrue() throws Exception {
 		Member member = withMember("se", 1L);
-		
+
 		Mockito.when(affiliateRepository.findForCheck(Mockito.eq(-1L), Mockito.eq(member), Mockito.eq("test hospital"), Mockito.any(PageRequest.class))).thenReturn(pageResult(createAffiliate(1L)));
-		
+
 		restAffiliatePublicResource.perform(
 				MockMvcRequestBuilders
 					.get(Routes.AFFILIATES_CHECK)
@@ -184,9 +187,9 @@ public class AffiliatePublicResourceTest {
 	@Test
 	public void anyAffiliateWithNoMatchesShouldReturnFalse() throws Exception {
 		Member member = withMember("se", 1L);
-		
+
 		Mockito.when(affiliateRepository.findForCheck(Mockito.eq(-1L), Mockito.eq(member), Mockito.eq("test hospital"), Mockito.any(PageRequest.class))).thenReturn(pageResult());
-		
+
 		restAffiliatePublicResource.perform(
 				MockMvcRequestBuilders
 					.get(Routes.AFFILIATES_CHECK)
@@ -202,9 +205,9 @@ public class AffiliatePublicResourceTest {
 	@Test
 	public void anyAffiliateWithMultipleatchesShouldReturnFalse() throws Exception {
 		Member member = withMember("se", 1L);
-		
+
 		Mockito.when(affiliateRepository.findForCheck(Mockito.eq(-1L), Mockito.eq(member), Mockito.eq("test hospital"), Mockito.any(PageRequest.class))).thenReturn(pageResult(createAffiliate(1L), createAffiliate(2L)));
-		
+
 		restAffiliatePublicResource.perform(
 				MockMvcRequestBuilders
 					.get(Routes.AFFILIATES_CHECK)
