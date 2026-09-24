@@ -6,9 +6,11 @@ import ca.intelliware.ihtsdo.mlds.registration.DomainBlacklistService;
 import ca.intelliware.ihtsdo.mlds.repository.*;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.SecurityUtils;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.AuthorityConverter;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAdaptor;
+import ca.intelliware.ihtsdo.mlds.security.ihtsdo.RemoteUserDetails;
 import ca.intelliware.ihtsdo.mlds.service.*;
 import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
@@ -17,31 +19,28 @@ import ca.intelliware.ihtsdo.mlds.web.rest.dto.UserDTO;
 import com.codahale.metrics.annotation.Timed;
 import jakarta.annotation.Resource;
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.spring6.SpringTemplateEngine;
-
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.AuthorityConverter;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.RemoteUserDetails;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import jakarta.servlet.http.Cookie;
+import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -56,12 +55,6 @@ import java.util.*;
 public class AccountResource {
 
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
-
-    @Autowired
-    private ServletContext servletContext;
-
-    @Autowired
-    private ApplicationContext applicationContext;
 
     @Autowired
     private SpringTemplateEngine templateEngine;
@@ -112,7 +105,6 @@ public class AccountResource {
 
     /**
      * POST  /rest/register -> register the user.
-     * @throws IOException
      */
     @RequestMapping(value = "/register",
             method = RequestMethod.POST,
@@ -122,8 +114,7 @@ public class AccountResource {
     @RolesAllowed({AuthoritiesConstants.ANONYMOUS})
     public ResponseEntity<Void> registerAccount(
         @RequestBody UserDTO userDTO,
-        HttpServletRequest request,
-        HttpServletResponse response) throws IOException {
+        HttpServletRequest request) {
 
         User user = userRepository.findByLoginIgnoreCase(userDTO.getLogin());
 
@@ -140,10 +131,75 @@ public class AccountResource {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
         } else {
-            // Existing account registration logic remains unchanged.
+            createUserAccount(userDTO, request);
 
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
+    }
+
+    private void createUserAccount(UserDTO userDTO, HttpServletRequest request) {
+        List<Application> applications = applicationRepository.findByUsernameIgnoreCase(userDTO.getLogin());
+        List<Affiliate> affiliates = affiliateRepository.findByCreatorIgnoreCase(userDTO.getLogin());
+        PrimaryApplication application = new PrimaryApplication();
+        Affiliate affiliate = new Affiliate();
+        AffiliateDetails affiliateDetails = new AffiliateDetails();
+        MailingAddress mailingAddress = new MailingAddress();
+
+        if (!applications.isEmpty()) {
+            // FIXME MLDS-308 can we assume the first one is the primary?
+            application = (PrimaryApplication) applications.get(0);
+        }
+
+        if (!affiliates.isEmpty()) {
+            affiliate = affiliates.get(0);
+        }
+
+        application.setUsername(userDTO.getLogin());
+        affiliateDetails.setFirstName(userDTO.getFirstName());
+        affiliateDetails.setLastName(userDTO.getLastName());
+        affiliateDetails.setEmail(userDTO.getEmail());
+        mailingAddress.setCountry(userDTO.getCountry());
+        affiliateDetails.setAddress(mailingAddress);
+        application.setAffiliateDetails(affiliateDetails);
+
+        //set a default type for application to create affiliate and usagelog
+        affiliate.setCreator(userDTO.getLogin());
+        // MLDS-719 don't default type affiliateDetails.setType(AffiliateType.COMMERCIAL);
+        //affiliate.setType(AffiliateType.COMMERCIAL);
+
+        Validate.notNull(userDTO.getCountry(), "Country is mandatory");
+        Member member = userDTO.getCountry().getMember();
+        Validate.notNull(member, "Country must have a responsible member");
+        application.setMember(member);
+        affiliate.setHomeMember(member);
+
+        affiliateRepository.save(affiliate);
+        affiliateDetailsRepository.save(affiliateDetails);
+
+        applicationRepository.save(application);
+
+        affiliate.setApplication(application);
+        affiliateRepository.save(affiliate);
+
+        CommercialUsage commercialUsage = new CommercialUsage();
+        commercialUsage.setType(affiliate.getType());
+
+        commercialUsageResetter.detachAndReset(commercialUsage, userDTO.getInitialUsagePeriod().getStartDate(), userDTO.getInitialUsagePeriod().getEndDate());
+
+        commercialUsage = commercialUsageRepository.save(commercialUsage);
+
+        affiliate.addCommercialUsage(commercialUsage);
+
+        application.setCommercialUsage(commercialUsage);
+
+        affiliateAuditEvents.logCreationOf(affiliate);
+
+        //FIXME: JH-Add terms of service check and create new exception layer to pass back to angular
+        User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
+                userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey(), false);
+        final Locale locale = Locale.forLanguageTag(user.getLangKey());
+        String content = createHtmlContentFromTemplate(user, locale, request);
+        mailService.sendActivationEmail(user.getEmail(), content, locale);
     }
 
     /**
@@ -329,13 +385,18 @@ public class AccountResource {
         }
     }
 
+    private String createHtmlContentFromTemplate(final User user, final Locale locale, final HttpServletRequest request) {
+        Context context = new Context(locale);
+        context.setVariable("user", user);
+        context.setVariable("baseUrl", request.getScheme() + "://" + request.getServerName() +
+            ":" + request.getServerPort());
+        return templateEngine.process(MailService.EMAIL_ACTIVATION_PREFIX + MailService.TEMPLATE_SUFFIX, context);
+    }
+
     @RequestMapping(value = "/account/create", method = RequestMethod.POST)
     @RolesAllowed({AuthoritiesConstants.ADMIN})
     @Timed
-    public ResponseEntity<Void> createLogin(
-        @RequestBody Affiliate body,
-        HttpServletRequest request,
-        HttpServletResponse response) {
+    public ResponseEntity<Void> createLogin(@RequestBody Affiliate body) {
 
         User user = userRepository.findByLoginIgnoreCase(
             body.getAffiliateDetails().getEmail());
@@ -344,9 +405,29 @@ public class AccountResource {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        // Existing account creation logic remains unchanged.
+        Optional<Affiliate> optionalAffiliate = affiliateRepository.findById(body.getAffiliateId());
+        if (!optionalAffiliate.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Affiliate affiliate = optionalAffiliate.get();
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        affiliate.setCreator(body.getAffiliateDetails().getEmail().toLowerCase());
+        affiliate.getAffiliateDetails().setEmail(body.getAffiliateDetails().getEmail().toLowerCase());
+        user = userService.createUserInformation(
+            body.getAffiliateDetails().getEmail().toLowerCase(),
+            "",
+            body.getAffiliateDetails().getFirstName(),
+            body.getAffiliateDetails().getLastName(),
+            body.getAffiliateDetails().getEmail().toLowerCase(),
+            "en",
+            true);
+
+        final String tokenKey = passwordResetService.createTokenForUser(user);
+        passwordResetEmailSender.sendPasswordResetEmail(user, tokenKey);
+
+        affiliateAuditEvents.logCreationOfAffiliateLogin(affiliate);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
