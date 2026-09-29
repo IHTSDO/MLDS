@@ -199,13 +199,17 @@ public class SecurityConfiguration {
                  */
 
                 .requestMatchers(
-                    "/api/**",
                     "/swagger-ui.html",
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
                     "/v3/api-docs",
                     "/v3/api-docs/swagger-config",
-                    "/api-docs/**",
+                    "/api-docs/**"
+                ).hasAuthority(
+                    AuthoritiesConstants.ADMIN
+                )
+
+                .requestMatchers(
                     "/webjars/**"
                 ).permitAll()
 
@@ -257,7 +261,7 @@ public class SecurityConfiguration {
                  */
                 .requestMatchers(
                     "/api/**"
-                ).authenticated()
+                ).permitAll()
 
                 /*
                  * ==========================================
@@ -308,3 +312,4 @@ public class SecurityConfiguration {
         return http.build();
     }
 }
+ 

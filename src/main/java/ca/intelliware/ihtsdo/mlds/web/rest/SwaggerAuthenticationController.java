@@ -390,6 +390,61 @@ public class SwaggerAuthenticationController {
                 window.MLDS_SWAGGER_AUTHENTICATED = false;
                 window.MLDS_CURRENT_USER = null;
 
+
+                let _rawUi = window.ui;
+                try {
+                    Object.defineProperty(window, "ui", {
+                        configurable: true,
+                        enumerable: true,
+                        get: function () {
+                            return _rawUi;
+                        },
+                        set: function (newUi) {
+                            _rawUi = newUi;
+                            if (newUi && window.MLDS_SWAGGER_AUTHENTICATED) {
+                                tryPreauthorize(newUi);
+                                updateUiState();
+                            }
+                        }
+                    });
+                } catch (e) {
+                    console.warn("[MLDS Swagger Auth] Could not define property on window.ui:", e);
+                }
+
+                function tryPreauthorize(swaggerUiInstance) {
+                    const ui = swaggerUiInstance || window.ui;
+                    if (!ui) return false;
+
+                    let applied = false;
+                    try {
+                        if (typeof ui.preauthorizeApiKey === "function") {
+                            ui.preauthorizeApiKey("mldsSession", "authenticated");
+                            applied = true;
+                        }
+                    } catch (err) {
+                        console.warn("[MLDS Swagger Auth] preauthorizeApiKey error:", err);
+                    }
+
+                    try {
+                        if (ui.authActions && typeof ui.authActions.authorize === "function") {
+                            ui.authActions.authorize({
+                                mldsSession: {
+                                    name: "mldsSession",
+                                    schema: {
+                                        type: "apiKey",
+                                        in: "cookie",
+                                        name: "JSESSIONID"
+                                    },
+                                    value: "authenticated"
+                                }
+                            });
+                            applied = true;
+                        }
+                    } catch (err) {}
+
+                    return applied;
+                }
+
                 // Inject custom styling for clean modal and buttons
                 if (!document.getElementById("mlds-swagger-custom-styles")) {
                     const style = document.createElement("style");
@@ -551,27 +606,73 @@ public class SwaggerAuthenticationController {
                     }
                 }
 
+
+                function ensurePreauthorizedUntilUiReady() {
+                    let attempts = 0;
+                    const interval = setInterval(function () {
+                        attempts++;
+                        if (!window.MLDS_SWAGGER_AUTHENTICATED) {
+                            clearInterval(interval);
+                            return;
+                        }
+                        if (window.ui) {
+                            tryPreauthorize(window.ui);
+                            updateUiState();
+                            if (attempts >= 15) {
+                                clearInterval(interval);
+                            }
+                        } else if (attempts >= 40) {
+                            clearInterval(interval);
+                        }
+                    }, 200);
+                }
+
                 async function checkAuthStatus() {
                     try {
-                        const response = await fetch("/api/authenticate", {
+                        let response = await fetch("/api/authenticate", {
                             method: "GET",
                             credentials: "include"
                         });
 
+                        let username = null;
                         if (response.ok) {
-                            const username = await response.text();
-                            if (username && username.trim().length > 0 && username.trim() !== "anonymousUser") {
-                                window.MLDS_SWAGGER_AUTHENTICATED = true;
-                                window.MLDS_CURRENT_USER = username.replace(/"/g, "").trim();
-
-                                if (window.ui && typeof window.ui.preauthorizeApiKey === "function") {
-                                    try {
-                                        window.ui.preauthorizeApiKey("mldsSession", "authenticated");
-                                    } catch (e) {}
-                                }
-                                updateUiState();
-                                return true;
+                            const text = await response.text();
+                            if (text && text.trim().length > 0 && text.trim() !== "anonymousUser") {
+                                username = text.replace(/"/g, "").trim();
                             }
+                        }
+
+                        if (!username) {
+                            try {
+                                const restoreResponse = await fetch("/api/auth/restore", {
+                                    method: "POST",
+                                    credentials: "include"
+                                });
+                                if (restoreResponse.ok) {
+                                    const verifyResponse = await fetch("/api/authenticate", {
+                                        method: "GET",
+                                        credentials: "include"
+                                    });
+                                    if (verifyResponse.ok) {
+                                        const verifiedText = await verifyResponse.text();
+                                        if (verifiedText && verifiedText.trim().length > 0 && verifiedText.trim() !== "anonymousUser") {
+                                            username = verifiedText.replace(/"/g, "").trim();
+                                        }
+                                    }
+                                }
+                            } catch (e) {
+                                console.debug("[MLDS Swagger Auth] Session restore check:", e);
+                            }
+                        }
+
+                        if (username) {
+                            window.MLDS_SWAGGER_AUTHENTICATED = true;
+                            window.MLDS_CURRENT_USER = username;
+
+                            tryPreauthorize();
+                            ensurePreauthorizedUntilUiReady();
+                            updateUiState();
+                            return true;
                         }
                     } catch (e) {
                         console.warn("[MLDS Swagger Auth] Error checking auth status:", e);
@@ -674,7 +775,7 @@ public class SwaggerAuthenticationController {
                                         el.style.removeProperty("display");
                                     }
                                     if (window.MLDS_CURRENT_USER && text.includes("User")) {
-                                        el.innerHTML = el.innerHTML.replace(/\bUser\b/g, window.MLDS_CURRENT_USER);
+                                        el.innerHTML = el.innerHTML.replace(/\\bUser\\b/g, window.MLDS_CURRENT_USER);
                                     }
                                 } else {
                                     if (el.style.display !== "none") {
@@ -834,7 +935,17 @@ public class SwaggerAuthenticationController {
                 } else {
                     init();
                 }
+
+                window.addEventListener("load", function () {
+                    if (window.MLDS_SWAGGER_AUTHENTICATED) {
+                        tryPreauthorize();
+                        updateUiState();
+                    } else {
+                        checkAuthStatus();
+                    }
+                });
             })();
             """;
     }
 }
+
