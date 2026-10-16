@@ -9,9 +9,9 @@ import ca.intelliware.ihtsdo.mlds.service.ReleasePackagePrioritizer;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import ca.intelliware.ihtsdo.mlds.web.SessionService;
 import com.codahale.metrics.annotation.Timed;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -63,6 +63,9 @@ public class ReleasePackagesResource {
     CurrentSecurityContext currentSecurityContext;
 
     @Resource
+    ObjectMapper objectMapper;
+
+    @Resource
     ReleasePackageAuditEvents releasePackageAuditEvents;
 
     @Resource
@@ -111,17 +114,17 @@ public class ReleasePackagesResource {
             """
     )
 
-        @ApiResponse(
-            responseCode = "200",
-            description = "Release packages returned successfully.",
-            content = @Content(
-                mediaType = MediaType.APPLICATION_JSON_VALUE,
-                schema = @Schema(
-                    implementation = ReleasePackage.class
-                ),
-                examples = @ExampleObject(
-                    name = "Release packages",
-                    value = """
+    @ApiResponse(
+        responseCode = "200",
+        description = "Release packages returned successfully.",
+        content = @Content(
+            mediaType = MediaType.APPLICATION_JSON_VALUE,
+            schema = @Schema(
+                implementation = ReleasePackage.class
+            ),
+            examples = @ExampleObject(
+                name = "Release packages",
+                value = """
                         [
                           {
                             "id": 1,
@@ -131,9 +134,9 @@ public class ReleasePackagesResource {
                           }
                         ]
                         """
-                )
             )
         )
+    )
 
     @GetMapping(
         value = Routes.RELEASE_PACKAGES,
@@ -975,12 +978,12 @@ public class ReleasePackagesResource {
 
         try {
             userIds =
-                new ObjectMapper().readValue(
+                objectMapper.readValue(
                     result.getUserList(),
                     new TypeReference<List<Long>>() {}
                 );
 
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
 
             return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -1008,3 +1011,4 @@ public class ReleasePackagesResource {
     }
 
 }
+

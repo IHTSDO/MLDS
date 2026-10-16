@@ -94,8 +94,8 @@ public class ReleaseFilesResourceTest {
         when(authorizationChecker.canAccessReleaseVersion(any())).thenReturn(true);
 
 		restReleaseFilesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
 		Mockito.verify(uriDownloader).download(Mockito.eq("http://test.com/file"), any(HttpServletRequest.class), any(HttpServletResponse.class));
@@ -113,8 +113,8 @@ public class ReleaseFilesResourceTest {
         when(authorizationChecker.canAccessReleaseVersion(any())).thenReturn(true);
 
 		restReleaseFilesResource.perform(MockMvcRequestBuilders.get(Routes.RELEASE_FILE_DOWNLOAD, 1L, 2L, 3L)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
 		Mockito.verify(releasePackageAuditEvents).logDownload(any(ReleaseFile.class), Mockito.anyInt(), any());

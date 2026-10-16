@@ -8,15 +8,12 @@ import ca.intelliware.ihtsdo.mlds.repository.AffiliateDetailsRepository;
 import ca.intelliware.ihtsdo.mlds.repository.AffiliateRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.repository.UserRepository;
-import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CentralAuthUserInfo;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.HttpAuthAdaptor;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.*;
 import ca.intelliware.ihtsdo.mlds.service.mail.DuplicateRegistrationEmailSender;
 import ca.intelliware.ihtsdo.mlds.service.mail.MailService;
 
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -132,9 +129,9 @@ public class AccountResource_Register_Test {
 		return restUserMockMvc.perform(
 			MockMvcRequestBuilders
 				.post("/api/register")
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(content)
-				.accept(MediaType.APPLICATION_JSON_UTF8));
+				.accept(MediaType.APPLICATION_JSON_VALUE));
 	}
 
 }

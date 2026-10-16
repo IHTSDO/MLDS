@@ -6,17 +6,18 @@ import jakarta.servlet.SessionCookieConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
@@ -29,32 +30,29 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(jsr250Enabled = true)
+@EnableMethodSecurity(jsr250Enabled = true)
 public class SecurityConfiguration {
 
     private final Logger logger =
         LoggerFactory.getLogger(SecurityConfiguration.class);
 
-    @Autowired
-    private Environment env;
 
-    @Autowired
-    private AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
-    @Autowired
-    private AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler;
-    @Autowired
-    private AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    private Http401UnauthorizedEntryPoint authenticationEntryPoint;
+    private final HttpAuthAuthenticationProvider httpAuthAuthenticationProvider;
+    public SecurityConfiguration(UserDetailsService userDetailsService, HttpAuthAuthenticationProvider httpAuthAuthenticationProvider) {
+        this.userDetailsService = userDetailsService;
+        this.httpAuthAuthenticationProvider = httpAuthAuthenticationProvider;
+    }
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-    @Autowired
-    private RememberMeServices rememberMeServices;
-    @Autowired
-    private HttpAuthAuthenticationProvider httpAuthAuthenticationProvider;
+    @Bean
+    public static GrantedAuthorityDefaults grantedAuthorityDefaults() {
+        return new GrantedAuthorityDefaults("");
+    }
 
+    /**
+     * Uses BCrypt for password hashing.
+     */
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new StandardPasswordEncoder();
@@ -87,7 +85,8 @@ public class SecurityConfiguration {
 
     @Autowired
     public void configureGlobal(
-        AuthenticationManagerBuilder auth) throws Exception {
+        AuthenticationManagerBuilder auth
+    ) {
 
         logger.debug("Configuring Global Security");
 
@@ -100,10 +99,16 @@ public class SecurityConfiguration {
         );
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(
-        HttpSecurity http) throws Exception {
+        HttpSecurity http,
+        Environment env,
+        AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler,
+        AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler,
+        AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler,
+        Http401UnauthorizedEntryPoint authenticationEntryPoint,
+        RememberMeServices rememberMeServices
+    )  {
 
         http
             .exceptionHandling(exception ->
@@ -124,9 +129,7 @@ public class SecurityConfiguration {
 
             .formLogin(formLogin ->
                 formLogin
-                    .loginProcessingUrl(
-                        "/app/authentication"
-                    )
+                    .loginProcessingUrl("/app/authentication")
                     .successHandler(
                         ajaxAuthenticationSuccessHandler
                     )
@@ -153,22 +156,18 @@ public class SecurityConfiguration {
             )
 
             .cors(cors -> {
-
                 CorsConfiguration configuration =
                     new CorsConfiguration();
 
                 configuration.setAllowedOriginPatterns(
                     Arrays.asList("*")
                 );
-
                 configuration.setAllowedMethods(
                     Arrays.asList("*")
                 );
-
                 configuration.setAllowedHeaders(
                     Arrays.asList("*")
                 );
-
                 configuration.setAllowCredentials(true);
 
                 UrlBasedCorsConfigurationSource source =
@@ -193,11 +192,8 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(auth -> auth
 
                 /*
-                 * ==========================================
                  * SWAGGER / OPENAPI
-                 * ==========================================
                  */
-
                 .requestMatchers(
                     "/swagger-ui.html",
                     "/swagger-ui/**",
@@ -231,21 +227,14 @@ public class SecurityConfiguration {
 
                 /*
                  * Error endpoint.
-                 *
-                 * Important because an unauthorized Swagger
-                 * request can otherwise result in another
-                 * 401 on /error.
                  */
                 .requestMatchers(
                     "/error"
                 ).permitAll()
 
                 /*
-                 * ==========================================
                  * ADMIN API
-                 * ==========================================
                  */
-
                 .requestMatchers(
                     "/api/logs/**"
                 ).hasAuthority(
@@ -253,22 +242,16 @@ public class SecurityConfiguration {
                 )
 
                 /*
-                 * ==========================================
                  * MLDS API
-                 * ==========================================
-                 *
-                 * APIs require an authenticated MLDS session.
+                 * Retained from the original configuration.
                  */
                 .requestMatchers(
                     "/api/**"
                 ).permitAll()
 
                 /*
-                 * ==========================================
                  * WEBSOCKET
-                 * ==========================================
                  */
-
                 .requestMatchers(
                     "/websocket/tracker"
                 ).hasAuthority(
@@ -280,11 +263,8 @@ public class SecurityConfiguration {
                 ).permitAll()
 
                 /*
-                 * ==========================================
                  * ACTUATOR / MONITORING
-                 * ==========================================
                  */
-
                 .requestMatchers(
                     "/metrics/**",
                     "/health/**",
@@ -301,15 +281,12 @@ public class SecurityConfiguration {
                 )
 
                 /*
-                 * ==========================================
                  * EVERYTHING ELSE
-                 * ==========================================
                  */
-
                 .anyRequest().authenticated()
             );
 
         return http.build();
     }
 }
- 
+

@@ -1,29 +1,31 @@
 package ca.intelliware.ihtsdo.mlds.domain.json;
 
+
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ValueDeserializer;
 
-import java.io.IOException;
+public class MemberJsonDeserializer extends ValueDeserializer<Member> {
 
-public class MemberJsonDeserializer extends
-		JsonDeserializer<Member> {
-	MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
-	public MemberJsonDeserializer(MemberRepository memberRepository) {
-		this.memberRepository = memberRepository;
-	}
+    public MemberJsonDeserializer(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
-	@Override
-	public Member deserialize(JsonParser jp, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
-		JsonNode node = jp.getCodec().readTree(jp);
-		String key = node.get("key").textValue();
-		Member result = memberRepository.findOneByKey(key);
-		return result;
-	}
+    @Override
+    public Member deserialize(
+        JsonParser jp,
+        DeserializationContext ctxt) throws JacksonException {
+
+        JsonNode node = jp.readValueAsTree();
+
+        String key = node.get("key").asString();
+
+        return memberRepository.findOneByKey(key);
+    }
 }

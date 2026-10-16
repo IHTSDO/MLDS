@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.util.NestedServletException;
 
 import ca.intelliware.ihtsdo.mlds.domain.Application.ApplicationType;
 import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
@@ -115,9 +114,9 @@ public class ApplicationResource_CreateApplication_Test {
 		return mockMvc.perform(
 				MockMvcRequestBuilders
 						.post(Routes.APPLICATIONS)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content("{ \"applicationType\": \"EXTENSION\", \"memberKey\":\"SE\" }")
-						.accept(MediaType.APPLICATION_JSON_UTF8));
+						.accept(MediaType.APPLICATION_JSON_VALUE));
 	}
 
 	private void withNewSwedishExtensionApplication(int applicationId) {

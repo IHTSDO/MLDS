@@ -137,7 +137,7 @@ public class AffiliateResource {
 				}
 				Matcher standingStateMatcher = FILTER_STANDING_PATTERN.matcher(filter);
 				if (standingStateMatcher.matches()) {
-					criteria.standingStateNot = StringUtils.equalsIgnoreCase("not", standingStateMatcher.group(1));
+                    criteria.standingStateNot ="not".equalsIgnoreCase(standingStateMatcher.group(1));
 					String standingStateString = standingStateMatcher.group(2);
 					criteria.standingState = StandingState.valueOf(standingStateString);
 					continue;

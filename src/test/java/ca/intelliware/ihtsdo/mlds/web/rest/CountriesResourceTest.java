@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -37,7 +37,7 @@ public class CountriesResourceTest {
     @Test
     public void countriesListContainsDenmark() throws Exception {
         mockMvc.perform(get(Routes.COUNTRIES)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().isOk())
             .andExpect(jsonPath("[?(@.isoCode2=='DK')]").exists());
     }
@@ -45,7 +45,7 @@ public class CountriesResourceTest {
     @Test
     public void nonAuthenticatedUserCanFetchListOfCountries() throws Exception {
         mockMvc.perform(get(Routes.COUNTRIES)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().isOk())
             .andExpect(content().string(not(isEmptyOrNullString())));
     }

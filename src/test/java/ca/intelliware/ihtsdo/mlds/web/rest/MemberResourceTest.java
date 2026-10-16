@@ -6,6 +6,7 @@ import static org.mockito.Mockito.never;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
@@ -28,90 +29,120 @@ import ca.intelliware.ihtsdo.mlds.web.SessionService;
 
 public class MemberResourceTest {
 
-	@Mock private MemberRepository memberRepository;
-	@Mock private FileRepository fileRepository;
-	@Mock private SessionService sessionService;
+    @Mock
+    private MemberRepository memberRepository;
 
-	private MockMvc restUserMockMvc;
+    @Mock
+    private FileRepository fileRepository;
 
-	@Before
+    @Mock
+    private SessionService sessionService;
+
+    private MockMvc restUserMockMvc;
+
+    @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        MemberResource memberResource = new MemberResource();
 
+        MemberResource memberResource = new MemberResource();
         memberResource.memberRepository = memberRepository;
         memberResource.fileRepository = fileRepository;
         memberResource.sessionService = sessionService;
 
-        this.restUserMockMvc = MockMvcBuilders
-        		.standaloneSetup(memberResource)
-        		.setMessageConverters(new MockMvcJacksonTestSupport().getConfiguredMessageConverters())
-        		.build();
+        restUserMockMvc = MockMvcBuilders
+            .standaloneSetup(memberResource)
+            .setMessageConverters(
+                new MockMvcJacksonTestSupport()
+                    .getConfiguredMessageConverters())
+            .build();
 
-        Mockito.when(memberRepository.findAll()).thenReturn(Arrays.asList(new Member("SE", 1), new Member("IHTSDO", 2)));
-	}
+        Mockito.when(memberRepository.findAll())
+            .thenReturn(Arrays.asList(
+                new Member("SE", 1),
+                new Member("IHTSDO", 2)));
+    }
 
     @Test
     public void getMembersShouldIncludeAllMembers() throws Exception {
-    	restUserMockMvc.perform(get(Routes.MEMBERS)
-    			.accept(MediaType.APPLICATION_JSON_UTF8))
-    			.andExpect(status().isOk())
-    			.andExpect(content().string(Matchers.allOf(Matchers.containsString("SE"), Matchers.containsString("IHTSDO"))));
-
+        restUserMockMvc.perform(get(Routes.MEMBERS)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(
+                MediaType.APPLICATION_JSON))
+            .andExpect(content().string(
+                Matchers.allOf(
+                    Matchers.containsString("SE"),
+                    Matchers.containsString("IHTSDO"))));
     }
 
-	@Test
-	public void getMembersShouldReturnPopulatedDTOs() throws Exception {
+    @Test
+    public void getMembersShouldReturnPopulatedDTOs() throws Exception {
         restUserMockMvc.perform(get(Routes.MEMBERS)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.containsString("\"memberId\":1,\"key\":\"SE\"")));
-	}
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(
+                MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$[0].memberId").value(1))
+            .andExpect(jsonPath("$[0].key").value("SE"))
+            .andExpect(jsonPath("$[1].memberId").value(2))
+            .andExpect(jsonPath("$[1].key").value("IHTSDO"));
+    }
 
-	@Test
-	public void postMembersNotificationsShouldUpdateStaffNotifications() throws Exception {
-		Member member = new Member("SE", 1L);
-		Mockito.when(memberRepository.findOneByKey("SE")).thenReturn(member);
+    @Test
+    public void postMembersNotificationsShouldUpdateStaffNotifications()
+        throws Exception {
+
+        Member member = new Member("SE", 1L);
+        Mockito.when(memberRepository.findOneByKey("SE"))
+            .thenReturn(member);
 
         restUserMockMvc.perform(put(Routes.MEMBER_NOTIFICATIONS, "SE")
-        		.contentType(MediaType.APPLICATION_JSON_UTF8)
-				.content("{ \"staffNotificationEmail\": \"staff@test.com\" }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"staffNotificationEmail\": \"staff@test.com\" }")
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
 
         Mockito.verify(memberRepository).save(member);
-        assertThat(member.getStaffNotificationEmail(), equalTo("staff@test.com"));
-	}
+        assertThat(
+            member.getStaffNotificationEmail(),
+            equalTo("staff@test.com"));
+    }
 
-	@Test
-	public void updateMemberShouldFailForUnknownMember() throws Exception {
+    @Test
+    public void updateMemberShouldFailForUnknownMember() throws Exception {
         restUserMockMvc.perform(put(Routes.MEMBER, "ZZ")
-        		.contentType(MediaType.APPLICATION_JSON_UTF8)
-				.content("{ \"staffNotificationEmail\": \"new@test.com\" }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
-        .andExpect(status().isNotFound());
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"staffNotificationEmail\": \"new@test.com\" }")
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound());
 
-        Mockito.verify(memberRepository, never()).save(Mockito.any(Member.class));
-	}
+        Mockito.verify(memberRepository, never())
+            .save(Mockito.any(Member.class));
+    }
 
-	@Test
-	public void updateMemberShouldUpdateFields() throws Exception {
-		Member member = new Member("SE", 1L);
-		member.setStaffNotificationEmail("old@test.com");
-		member.setPromotePackages(false);
-		Mockito.when(memberRepository.findOneByKey("SE")).thenReturn(member);
+    @Test
+    public void updateMemberShouldUpdateFields() throws Exception {
+        Member member = new Member("SE", 1L);
+        member.setStaffNotificationEmail("old@test.com");
+        member.setPromotePackages(false);
+
+        Mockito.when(memberRepository.findOneByKey("SE"))
+            .thenReturn(member);
 
         restUserMockMvc.perform(put(Routes.MEMBER, "SE")
-        		.contentType(MediaType.APPLICATION_JSON_UTF8)
-				.content("{ \"promotePackages\": true, \"staffNotificationEmail\": \"new@test.com\" }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"promotePackages\": true, "
+                    + "\"staffNotificationEmail\": \"new@test.com\" }")
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
 
         Mockito.verify(memberRepository).save(member);
 
-        assertThat(member.getStaffNotificationEmail(), equalTo("new@test.com"));
+        assertThat(
+            member.getStaffNotificationEmail(),
+            equalTo("new@test.com"));
         assertThat(member.getPromotePackages(), equalTo(true));
-	}
+    }
 
     @Test
     public void updateMemberFeedURLShouldUpdateFields() throws Exception {
@@ -119,108 +150,146 @@ public class MemberResourceTest {
         member.setContactEmail("oldemail@example.com");
         member.setMemberOrgURL("http://old-url.com");
         member.setMemberOrgName("Old Org");
-        Mockito.when(memberRepository.findOneByKey("SE")).thenReturn(member);
+
+        Mockito.when(memberRepository.findOneByKey("SE"))
+            .thenReturn(member);
 
         restUserMockMvc.perform(put(Routes.MEMBER_FEED_URL, "SE")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content( "{ \"contactEmail\": \"newemail@example.com\", " +
-                    "\"memberOrgURL\": \"http://new-url.com\", " +
-                    "\"memberOrgName\": \"New Org\" }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"contactEmail\": \"newemail@example.com\", "
+                    + "\"memberOrgURL\": \"http://new-url.com\", "
+                    + "\"memberOrgName\": \"New Org\" }")
+                .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
 
         Mockito.verify(memberRepository).save(member);
-        assertThat(member.getContactEmail(), equalTo("newemail@example.com"));
-        assertThat(member.getMemberOrgURL(), equalTo("http://new-url.com"));
-        assertThat(member.getMemberOrgName(), equalTo("New Org"));
+
+        assertThat(
+            member.getContactEmail(),
+            equalTo("newemail@example.com"));
+        assertThat(
+            member.getMemberOrgURL(),
+            equalTo("http://new-url.com"));
+        assertThat(
+            member.getMemberOrgName(),
+            equalTo("New Org"));
     }
 
     @Test
-    public void updateMemberFeedURLShouldReturnNotFoundForUnknownMember() throws Exception {
-        Mockito.when(memberRepository.findOneByKey("ZZ")).thenReturn(null);
+    public void updateMemberFeedURLShouldReturnNotFoundForUnknownMember()
+        throws Exception {
+
+        Mockito.when(memberRepository.findOneByKey("ZZ"))
+            .thenReturn(null);
 
         restUserMockMvc.perform(put(Routes.MEMBER_FEED_URL, "ZZ")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{ \"contactEmail\": \"newemail@example.com\", " +
-                    "\"memberOrgURL\": \"http://new-url.com\", " +
-                    "\"memberOrgName\": \"New Org\" }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"contactEmail\": \"newemail@example.com\", "
+                    + "\"memberOrgURL\": \"http://new-url.com\", "
+                    + "\"memberOrgName\": \"New Org\" }")
+                .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNotFound());
-        Mockito.verify(memberRepository, never()).save(Mockito.any(Member.class));
+
+        Mockito.verify(memberRepository, never())
+            .save(Mockito.any(Member.class));
     }
 
-
     @Test
-    public void postAutoDeactivationMemberDetailsShouldUpdateMember() throws Exception {
+    public void postAutoDeactivationMemberDetailsShouldUpdateMember()
+        throws Exception {
+
         String memberKey = "SE";
         Member member = new Member(memberKey, 1L);
 
-        Mockito.when(memberRepository.findOneByKey(memberKey)).thenReturn(member);
+        Mockito.when(memberRepository.findOneByKey(memberKey))
+            .thenReturn(member);
 
-        AutoDeactivationMemberDTO autoDeactivationDTO = new AutoDeactivationMemberDTO();
+        AutoDeactivationMemberDTO autoDeactivationDTO =
+            new AutoDeactivationMemberDTO();
         autoDeactivationDTO.setInvoicesPending(5);
         autoDeactivationDTO.setUsageReports(3);
         autoDeactivationDTO.setPendingApplications(2);
 
-        restUserMockMvc.perform(put(Routes.POST_MEMBER_AUTO_DEACTIVATION, memberKey)
-            .contentType(MediaType.APPLICATION_JSON)
-            .content("{ \"invoicesPending\": 5, \"usageReports\": 3, \"pendingApplications\": 2 }")
-            .accept(MediaType.APPLICATION_JSON))
+        restUserMockMvc.perform(
+                put(Routes.POST_MEMBER_AUTO_DEACTIVATION, memberKey)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{ \"invoicesPending\": 5, "
+                        + "\"usageReports\": 3, "
+                        + "\"pendingApplications\": 2 }")
+                    .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().string(Matchers.containsString("Data Saved Successfully")));
+            .andExpect(content().string(
+                Matchers.containsString("Data Saved Successfully")));
 
         Mockito.verify(memberRepository).save(member);
+
         assertThat(member.getInvoicesPending(), equalTo(5));
         assertThat(member.getUsageReports(), equalTo(3));
         assertThat(member.getPendingApplication(), equalTo(2));
     }
 
-
     @Test
-    public void postAutoDeactivationMemberDetailsShouldReturnNotFoundForUnknownMember() throws Exception {
+    public void postAutoDeactivationMemberDetailsShouldReturnNotFoundForUnknownMember()
+        throws Exception {
+
         String memberKey = "ZZ";
-        Mockito.when(memberRepository.findOneByKey(memberKey)).thenReturn(null);
 
-        restUserMockMvc.perform(put(Routes.POST_MEMBER_AUTO_DEACTIVATION, memberKey)
-            .contentType(MediaType.APPLICATION_JSON)
-            .content("{ \"invoicesPending\": 5, \"usageReports\": 3, \"pendingApplications\": 2 }")
-            .accept(MediaType.APPLICATION_JSON))
+        Mockito.when(memberRepository.findOneByKey(memberKey))
+            .thenReturn(null);
+
+        restUserMockMvc.perform(
+                put(Routes.POST_MEMBER_AUTO_DEACTIVATION, memberKey)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{ \"invoicesPending\": 5, "
+                        + "\"usageReports\": 3, "
+                        + "\"pendingApplications\": 2 }")
+                    .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNotFound())
-            .andExpect(content().string(Matchers.containsString("Member not found")));
+            .andExpect(content().string(
+                Matchers.containsString("Member not found")));
 
-        Mockito.verify(memberRepository, never()).save(Mockito.any(Member.class));
+        Mockito.verify(memberRepository, never())
+            .save(Mockito.any(Member.class));
     }
 
-
     @Test
-    public void getAutoDeactivationMemberDetailsShouldReturnMemberDetails() throws Exception {
+    public void getAutoDeactivationMemberDetailsShouldReturnMemberDetails()
+        throws Exception {
+
         String memberKey = "SE";
         Member member = new Member(memberKey, 1L);
         member.setInvoicesPending(5);
         member.setUsageReports(3);
         member.setPendingApplication(2);
 
-        Mockito.when(memberRepository.findOneByKey(memberKey)).thenReturn(member);
+        Mockito.when(memberRepository.findOneByKey(memberKey))
+            .thenReturn(member);
 
-        restUserMockMvc.perform(get(Routes.MEMBER_AUTO_DEACTIVATION, memberKey)
-            .accept(MediaType.APPLICATION_JSON))
+        restUserMockMvc.perform(
+                get(Routes.MEMBER_AUTO_DEACTIVATION, memberKey)
+                    .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(content().string("{\"pendingApplications\":2,\"usageReports\":3,\"invoicesPending\":5}"));
+            .andExpect(content().contentTypeCompatibleWith(
+                MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.pendingApplications").value(2))
+            .andExpect(jsonPath("$.usageReports").value(3))
+            .andExpect(jsonPath("$.invoicesPending").value(5));
     }
 
     @Test
-    public void getAutoDeactivationMemberDetailsShouldReturnNotFoundForUnknownMember() throws Exception {
+    public void getAutoDeactivationMemberDetailsShouldReturnNotFoundForUnknownMember()
+        throws Exception {
 
         String memberKey = "ZZ";
-        Mockito.when(memberRepository.findOneByKey(memberKey)).thenReturn(null);
 
-        restUserMockMvc.perform(get(Routes.MEMBER_AUTO_DEACTIVATION, memberKey)
-            .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNotFound())
-            .andExpect(content().string(Matchers.containsString("")));
+        Mockito.when(memberRepository.findOneByKey(memberKey))
+            .thenReturn(null);
+
+        restUserMockMvc.perform(
+                get(Routes.MEMBER_AUTO_DEACTIVATION, memberKey)
+                    .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound());
 
         Mockito.verify(memberRepository).findOneByKey(memberKey);
     }
-    
 }

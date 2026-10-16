@@ -8,14 +8,14 @@ import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.Instant;
 import java.util.Collections;
 import java.util.Set;
 
 @Entity
-@Where(clause = "inactive_at IS NULL")
+@SQLRestriction("inactive_at IS NULL")
 @SQLDelete(sql="UPDATE release_package SET inactive_at = now() WHERE release_package_id = ?")
 @Table(name="release_package")
 public class ReleasePackage extends BaseEntity {

@@ -97,8 +97,8 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 		postCreateNewSubmission(affiliate.getAffiliateId(), usagePeriod)
 					.andExpect(status().isOk())
 					.andExpect(jsonPath("$.commercialUsageId").value(123))
-					.andExpect(jsonPath("$.startDate").value(jsonDateMatcher("2014-01-01")))
-					.andExpect(jsonPath("$.endDate").value(jsonDateMatcher("2014-06-30")))
+					.andExpect(jsonPath("$.startDate").value(("2014-01-01")))
+					.andExpect(jsonPath("$.endDate").value(("2014-06-30")))
 					.andExpect(jsonPath("$.type").value("COMMERCIAL"));
 	}
 
@@ -149,8 +149,8 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 		postCreateNewSubmission(affiliate.getAffiliateId(), usagePeriod)
 					.andExpect(status().isOk())
 					.andExpect(jsonPath("$.commercialUsageId").value(123))
-					.andExpect(jsonPath("$.startDate").value(jsonDateMatcher("2014-01-01")))
-					.andExpect(jsonPath("$.endDate").value(jsonDateMatcher("2014-06-30")))
+					.andExpect(jsonPath("$.startDate").value(("2014-01-01")))
+					.andExpect(jsonPath("$.endDate").value(("2014-06-30")))
 					.andExpect(jsonPath("$.type").value("COMMERCIAL"));
 	}
 
@@ -206,8 +206,8 @@ public class CommercialUsageResource_CreateNewSubmission_Test {
 		return restCommercialUsageResource.perform(
 				MockMvcRequestBuilders
 					.post(Routes.USAGE_REPORTS, affiliateId)
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
 					.content("{\"startDate\":\""+period.getStartDate()+"\",\"endDate\":\""+period.getEndDate()+"\"}")
-					.accept(MediaType.APPLICATION_JSON_UTF8));
+					.accept(MediaType.APPLICATION_JSON_VALUE));
 	}
 }

@@ -171,18 +171,30 @@ public class AffiliateFullTextSearchTest extends MySqlTestContainerTest {
 //	}
 
 
-    @Test
-    public void findAffiliateByCountryCommonName() throws Exception {
-        Country country = new Country("ZZ", "ZZZ", "ZZZimba");
-        countryRepository.save(country);
+@Test
+public void findAffiliateByCountryCommonName() throws Exception {
+    Country country = new Country("ZZ", "ZZZ", "ZZZimba");
 
-        affiliates.get(4).getAffiliateDetails().getAddress().setCountry(country);
-        flush();
+    Country savedCountry = countryRepository.save(country);
+    entityManager.flush();
 
-        Affiliate result = affiliates.get(4); // Access the desired affiliate directly from the list
+    affiliates.get(4)
+        .getAffiliateDetails()
+        .getAddress()
+        .setCountry(savedCountry);
 
-        assertEquals(result, affiliates.get(4));
-    }
+    entityManager.flush();
+
+    Affiliate result = affiliates.get(4);
+
+    assertEquals(result, affiliates.get(4));
+    assertEquals(
+        "ZZZimba",
+        result.getAffiliateDetails()
+            .getAddress()
+            .getCountry()
+            .getCommonName());
+}
 
 
 

@@ -1,9 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.service.affiliatesimport;
 
-
-
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.List;
 
 /**
@@ -47,7 +43,7 @@ public class LineRecord {
 	private void validateHeaderRecord(ImportResult result, AffiliatesMapper affiliatesMapper) {
 		for (FieldMapping mapping : affiliatesMapper.getMappings()) {
 			String valueString = fieldValue(mapping.columnIndex);
-			if (!StringUtils.equalsIgnoreCase(mapping.columnName, valueString)) {
+            if (!mapping.columnName.equalsIgnoreCase(valueString)) {
 				result.addError(this, mapping, "Header value="+valueString+" does not match title="+mapping.columnName);
 			}
 		}

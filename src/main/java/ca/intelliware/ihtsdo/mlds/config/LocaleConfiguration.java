@@ -27,12 +27,14 @@ public class LocaleConfiguration implements EnvironmentAware, WebMvcConfigurer {
 
     @Bean(name = "localeResolver")
     public LocaleResolver localeResolver() {
-        final AngularCookieLocaleResolver cookieLocaleResolver = new AngularCookieLocaleResolver();
-        cookieLocaleResolver.setCookieName("NG_TRANSLATE_LANG_KEY");
-        /*MLDS-992 Missing Cookie*/
+        final AngularCookieLocaleResolver cookieLocaleResolver =
+            new AngularCookieLocaleResolver();
+
+        /* MLDS-992 Missing Cookie */
         cookieLocaleResolver.setCookieSecure(true);
         cookieLocaleResolver.setCookieHttpOnly(true);
-        /*MLDS-992 Missing Cookie*/
+        /* MLDS-992 Missing Cookie */
+
         return cookieLocaleResolver;
     }
 

@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.util.NestedServletException;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.AffiliateDetails;
@@ -229,9 +228,9 @@ public class ApplicationResource_SubmitApplication_Test {
 		return mockMvc.perform(
 			MockMvcRequestBuilders
 				.post(Routes.APPLICATION_REGISTRATION, primaryApplicationId)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(updatedApprovalState)
-				.accept(MediaType.APPLICATION_JSON_UTF8));
+				.accept(MediaType.APPLICATION_JSON_VALUE));
 	}
 
 	private PrimaryApplication withExistingSwedishPrimaryApplication(long primaryApplicationId, Affiliate affiliate) {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Generate a valid affiliates import file with a specified number of rows.
@@ -53,23 +54,23 @@ public class AffiliatesImportGenerator extends BaseAffiliatesGenerator {
 			stringValue = context.getSourceMemberKey();
 		} else if (Objects.equal(fieldMapping.columnName, "addressCountry")) {
 			stringValue = context.getSourceCountryKey();
-		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "email")) {
+		} else if (fieldMapping.columnName.toLowerCase(Locale.ROOT).contains("email")) {
 			stringValue = generateEmail(fieldMapping, i, context);
-		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "street")) {
-			stringValue = generateStreet(fieldMapping, i, context);
-		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "city")) {
-			stringValue = generateCity(fieldMapping, i, context);
-		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "post")) {
-			stringValue = generatePostCode(fieldMapping, i, context);
-		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "number")) {
-			stringValue = generateTelephoneNumber(fieldMapping, i, context);
-		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "extension")) {
-			stringValue = generateExtensionNumber(fieldMapping, i, context);
-		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "first")) {
-			stringValue = generateFirstName(fieldMapping, i, context);
-		} else if (StringUtils.containsIgnoreCase(fieldMapping.columnName, "last")) {
-			stringValue = generateLastName(fieldMapping, i, context);
-		}
+		}else if (fieldMapping.columnName.toLowerCase(Locale.ROOT).contains("street")) {
+            stringValue = generateStreet(fieldMapping, i, context);
+        } else if (fieldMapping.columnName.toLowerCase(Locale.ROOT).contains("city")) {
+            stringValue = generateCity(fieldMapping, i, context);
+        } else if (fieldMapping.columnName.toLowerCase(Locale.ROOT).contains("post")) {
+            stringValue = generatePostCode(fieldMapping, i, context);
+        } else if (fieldMapping.columnName.toLowerCase(Locale.ROOT).contains("number")) {
+            stringValue = generateTelephoneNumber(fieldMapping, i, context);
+        } else if (fieldMapping.columnName.toLowerCase(Locale.ROOT).contains("extension")) {
+            stringValue = generateExtensionNumber(fieldMapping, i, context);
+        } else if (fieldMapping.columnName.toLowerCase(Locale.ROOT).contains("first")) {
+            stringValue = generateFirstName(fieldMapping, i, context);
+        } else if (fieldMapping.columnName.toLowerCase(Locale.ROOT).contains("last")) {
+            stringValue = generateLastName(fieldMapping, i, context);
+        }
 
 		return stringValue;
 	}

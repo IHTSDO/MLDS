@@ -11,7 +11,6 @@ import ca.intelliware.ihtsdo.mlds.service.ReleaseVersionService;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.ReleasePermissionRequestDTO;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.ReleaseVersionCheckViewDTO;
 import com.codahale.metrics.annotation.Timed;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Objects;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -943,33 +942,25 @@ public class ReleaseVersionsResource {
         String requestUser =
             (String) request.get("user");
 
-        try {
+        String resultMessage =
+            releaseVersionService.revokeIndividualUserAccess(
+                releaseId,
+                requestUser
+            );
 
-            String resultMessage =
-                releaseVersionService.revokeIndividualUserAccess(
-                    releaseId,
-                    requestUser
-                );
+        if (resultMessage.equals(
+            "User access revoked successfully."
+        )) {
 
-            if (resultMessage.equals(
-                "User access revoked successfully."
-            )) {
-
-                return ResponseEntity.ok(
-                    resultMessage
-                );
-            }
-
-            return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(resultMessage);
-
-        } catch (JsonProcessingException e) {
-
-            return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error processing user list.");
+            return ResponseEntity.ok(
+                resultMessage
+            );
         }
+
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(resultMessage);
+
     }
 
 

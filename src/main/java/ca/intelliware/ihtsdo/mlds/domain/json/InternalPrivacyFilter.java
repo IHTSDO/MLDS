@@ -1,37 +1,39 @@
 package ca.intelliware.ihtsdo.mlds.domain.json;
 
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
-import com.fasterxml.jackson.databind.ser.PropertyWriter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.google.common.collect.Sets;
+import tools.jackson.databind.ser.BeanPropertyWriter;
+import tools.jackson.databind.ser.PropertyWriter;
+import tools.jackson.databind.ser.std.SimpleBeanPropertyFilter;
 
-
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Simple filter that excludes the listed properties unless the user is staff or admin.
  */
 public class InternalPrivacyFilter extends SimpleBeanPropertyFilter {
-	final Set<String> privateFields;
 
-	/**
-	 * @param privateFields the list of fields to hide from the affiliate user
-	 */
-	public InternalPrivacyFilter(String... privateFields) {
-		this.privateFields = Sets.newHashSet(privateFields);
-	}
-	@Override
-	protected boolean include(PropertyWriter writer) {
+    private final Set<String> privateFields;
 
-		if (new CurrentSecurityContext().isStaffOrAdmin()) {
-			return true;
-		}
-		return !privateFields.contains(writer.getName());
-	}
+    /**
+     * @param privateFields the list of fields to hide from affiliate users
+     */
+    public InternalPrivacyFilter(String... privateFields) {
+        this.privateFields = new HashSet<>(Arrays.asList(privateFields));
+    }
 
-	@Override
-	protected boolean include(BeanPropertyWriter writer) {
-		return this.include((PropertyWriter)writer);
-	}
+    @Override
+    protected boolean include(PropertyWriter writer) {
+        if (new CurrentSecurityContext().isStaffOrAdmin()) {
+            return true;
+        }
+
+        return !privateFields.contains(writer.getName());
+    }
+
+    @Override
+    protected boolean include(BeanPropertyWriter writer) {
+        return include((PropertyWriter) writer);
+    }
 }

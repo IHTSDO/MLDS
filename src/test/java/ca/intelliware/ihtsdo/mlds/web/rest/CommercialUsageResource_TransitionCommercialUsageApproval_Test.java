@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.util.NestedServletException;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
@@ -124,8 +123,8 @@ public class CommercialUsageResource_TransitionCommercialUsageApproval_Test {
 		return restCommercialUsageResource.perform(
 				MockMvcRequestBuilders
 					.post(Routes.USAGE_REPORT_APPROVAL, commercialUsageId)
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
 					.content("{\"transition\":\""+approvalTransition+"\"}")
-					.accept(MediaType.APPLICATION_JSON_UTF8));
+					.accept(MediaType.APPLICATION_JSON_VALUE));
 	}
 }

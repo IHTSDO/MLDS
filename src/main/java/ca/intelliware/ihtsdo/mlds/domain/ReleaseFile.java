@@ -1,98 +1,117 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
-
 import ca.intelliware.ihtsdo.mlds.domain.json.ReleaseFileSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import jakarta.persistence.*;
+import tools.jackson.databind.annotation.JsonSerialize;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+
 
 import java.time.Instant;
 
 @Entity
-@Table(name="release_file")
-@JsonIgnoreProperties(ignoreUnknown=true) // we're attaching a clientDownloadUrl that we should ignore when de-serializing
+@Table(name = "release_file")
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonSerialize(using = ReleaseFileSerializer.class)
 public class ReleaseFile extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence_generator")
-	@SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "mlds.hibernate_sequence", allocationSize = 1)
-	@Column(name="release_file_id")
-	Long releaseFileId;
+    @Id
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "hibernate_sequence_generator"
+    )
+    @SequenceGenerator(
+        name = "hibernate_sequence_generator",
+        sequenceName = "mlds.hibernate_sequence",
+        allocationSize = 1
+    )
+    @Column(name = "release_file_id")
+    private Long releaseFileId;
 
-	// the parent
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="release_version_id")
-	ReleaseVersion releaseVersion;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "release_version_id")
+    private ReleaseVersion releaseVersion;
 
-	@Column(name="created_at")
-	Instant createdAt = Instant.now();
+    @Column(name = "created_at")
+    private Instant createdAt = Instant.now();
 
-	String label;
+    private String label;
 
-	@Column(name="download_url")
-	String downloadUrl;
+    @Column(name = "download_url")
+    private String downloadUrl;
 
-    @Column(name="primary_file")
-    boolean primaryFile;
+    @Column(name = "primary_file")
+    private boolean primaryFile;
 
-    @Column(name="md5_hash")
-    String md5Hash;
+    @Column(name = "md5_hash")
+    private String md5Hash;
 
-    @Column(name="file_size")
-    Long fileSize;
+    @Column(name = "file_size")
+    private Long fileSize;
 
-	public ReleaseFile() { }
+    public ReleaseFile() {
+    }
 
-	public ReleaseFile(long releaseFileId) {
-		this.releaseFileId = releaseFileId;
-	}
+    public ReleaseFile(Long releaseFileId) {
+        this.releaseFileId = releaseFileId;
+    }
 
-	// Note:
-	// String clientDownloadUrl = rest endpoint calculated in JSON JacksonConfigurer
+    public Long getReleaseFileId() {
+        return releaseFileId;
+    }
 
-	public Object getCreatedAt() {
-		return createdAt;
-	}
+    public void setReleaseFileId(Long releaseFileId) {
+        this.releaseFileId = releaseFileId;
+    }
 
+    public ReleaseVersion getReleaseVersion() {
+        return releaseVersion;
+    }
 
-	public Long getReleaseFileId() {
-		return releaseFileId;
-	}
+    public void setReleaseVersion(ReleaseVersion releaseVersion) {
+        this.releaseVersion = releaseVersion;
+    }
 
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 
-	public ReleaseVersion getReleaseVersion() {
-		return releaseVersion;
-	}
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
 
+    public String getLabel() {
+        return label;
+    }
 
-	public String getLabel() {
-		return label;
-	}
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
 
-	public String getDownloadUrl() {
-		return downloadUrl;
-	}
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
 
-	public void setDownloadUrl(String downloadUrl) {
-		this.downloadUrl = downloadUrl;
-	}
-
-    public boolean isPrimaryFile() {
+    public boolean getPrimaryFile() {
         return primaryFile;
     }
 
     public void setPrimaryFile(boolean primaryFile) {
         this.primaryFile = primaryFile;
     }
-
-    public boolean getPrimaryFile() { return primaryFile; }
 
     public String getMd5Hash() {
         return md5Hash;
@@ -111,8 +130,7 @@ public class ReleaseFile extends BaseEntity {
     }
 
     @Override
-	protected Object getPK() {
-		return releaseFileId;
-	}
-
+    protected Object getPK() {
+        return releaseFileId;
+    }
 }

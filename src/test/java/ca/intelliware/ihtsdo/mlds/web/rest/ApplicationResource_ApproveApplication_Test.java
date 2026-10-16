@@ -148,9 +148,9 @@ public class ApplicationResource_ApproveApplication_Test {
         return mockMvc.perform(
             MockMvcRequestBuilders
                 .post(Routes.APPLICATION_APPROVE, primaryApplicationId)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(updatedApprovalState)
-                .accept(MediaType.APPLICATION_JSON_UTF8));
+                .accept(MediaType.APPLICATION_JSON_VALUE));
     }
 
     private PrimaryApplication withExistingSwedishPrimaryApplication(long primaryApplicationId) {

@@ -28,7 +28,6 @@ import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.util.NestedServletException;
 
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
@@ -83,7 +82,7 @@ public class AuditResourceTest {
     public void findByFilterShouldFailForUnknownFilter() throws Exception {
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "unknownField eq 999")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$").isEmpty());
     }
@@ -94,7 +93,7 @@ public class AuditResourceTest {
             .thenReturn(Arrays.asList(createAuditEvent("TypeA"), createAuditEvent("TypeB")));
 
         restUserMockMvc.perform(get(Routes.AUDITS)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].type", Matchers.is("TypeA")))
                 .andExpect(jsonPath("$[1].type", Matchers.is("TypeB")))
@@ -108,7 +107,7 @@ public class AuditResourceTest {
 
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "auditEventType eq 'TypeA'")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
             .andDo(print())
                 .andExpect(jsonPath("$[0].type", Matchers.is("TypeA")))
@@ -140,10 +139,10 @@ public class AuditResourceTest {
 		try {
 	        restUserMockMvc.perform(get(Routes.AUDITS)
 	        		.param("$filter", "auditEventDate ge '2014-01-02' and auditEventDate le 'NOT A DATE'")
-	                .accept(MediaType.APPLICATION_JSON_UTF8))
+	                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isEmpty());
-		} catch (NestedServletException e) {
+		} catch (Exception e) {
 			assertEquals("Invalid format: \"NOT A DATE\"", e.getCause().getMessage());
 		}
 
@@ -156,7 +155,7 @@ public class AuditResourceTest {
 
         restUserMockMvc.perform(get(Routes.AUDITS)
         		.param("$filter", "affiliateId eq '123'")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].type", Matchers.is("TypeA")))
                 ;

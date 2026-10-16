@@ -143,15 +143,17 @@ public class ReleaseVersion extends BaseEntity {
 		return publishedAt;
 	}
 
-	public void addReleaseFile(ReleaseFile newReleaseFile) {
-		Validate.notNull(newReleaseFile.releaseFileId);
+    public void addReleaseFile(ReleaseFile newReleaseFile) {
+        Validate.notNull(newReleaseFile, "ReleaseFile must not be null");
 
-		if (newReleaseFile.releaseVersion != null) {
-			newReleaseFile.releaseVersion.releaseFiles.remove(newReleaseFile);
-		}
-		newReleaseFile.releaseVersion = this;
-		releaseFiles.add(newReleaseFile);
-	}
+        if (newReleaseFile.getReleaseVersion() != null) {
+            newReleaseFile.getReleaseVersion()
+                .releaseFiles.remove(newReleaseFile);
+        }
+
+        newReleaseFile.setReleaseVersion(this);
+        releaseFiles.add(newReleaseFile);
+    }
 
 	public Set<ReleaseFile> getReleaseFiles() {
 		return Collections.unmodifiableSet(releaseFiles);
@@ -267,4 +269,5 @@ public void setOnline(boolean online) {
     public void setPermissionType(ReleasePermissionType permissionType) {
         this.permissionType = permissionType;
     }
+
 }
