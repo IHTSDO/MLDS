@@ -5,15 +5,16 @@ import ca.intelliware.ihtsdo.mlds.domain.MemberSerializer;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
 import ca.intelliware.ihtsdo.mlds.repository.MemberRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.jackson.databind.module.SimpleModule;
 
 public class MLDSJacksonModule extends SimpleModule {
 
     private static final long serialVersionUID = 1L;
 
-    private transient Logger logger = LoggerFactory.getLogger(MLDSJacksonModule.class);
+    private transient Logger logger =
+        LoggerFactory.getLogger(MLDSJacksonModule.class);
 
     final transient MemberRepository memberRepository;
     final transient CurrentSecurityContext currentSecurityContext;
@@ -24,17 +25,25 @@ public class MLDSJacksonModule extends SimpleModule {
 
         super("MLDS Jackson");
 
-        logger.debug("Initialising Jackson for MLDS, adding custom serializers");
+        logger.debug(
+            "Initialising Jackson for MLDS, adding custom serializers");
 
         this.memberRepository = memberRepository;
         this.currentSecurityContext = securityContext;
 
-        addSerializer(ReleaseFile.class, new ReleaseFileSerializer());
+        addSerializer(
+            ReleaseFile.class,
+            new ReleaseFileSerializer()
+        );
 
-        addSerializer(Member.class, new MemberSerializer());
+        addSerializer(
+            Member.class,
+            new MemberSerializer()
+        );
 
         addDeserializer(
             Member.class,
-            new MemberJsonDeserializer(memberRepository));
+            new MemberJsonDeserializer(memberRepository)
+        );
     }
 }

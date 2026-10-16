@@ -88,9 +88,9 @@ public class ReleaseVersionsResourceTest {
 		stubSaveReleaseVersion(2L);
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_VERSIONS, 1L)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content("{ \"name\": \"name\", \"description\": \"description\", \"releaseType\": \"releaseType\"}")
-						.accept(MediaType.APPLICATION_JSON_UTF8))
+						.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 
 		Mockito.verify(releaseVersionRepository).save(Mockito.any(ReleaseVersion.class));
@@ -122,9 +122,9 @@ public class ReleaseVersionsResourceTest {
 		stubSaveReleaseVersion(2L);
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_VERSIONS, 1L)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content("{ \"name\": \"name\", \"description\": \"description\" }")
-						.accept(MediaType.APPLICATION_JSON_UTF8))
+						.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 
 		Mockito.verify(releasePackageAuditEvents).logCreationOf(Mockito.any(ReleaseVersion.class));
@@ -136,9 +136,9 @@ public class ReleaseVersionsResourceTest {
 		Mockito.when(releaseVersionRepository.findById(999L)).thenReturn(Optional.empty());
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_VERSION, 1L, 999L)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content("{ \"releaseVersionId\": 999, \"name\": \"name\", \"description\": \"description\" }")
-						.accept(MediaType.APPLICATION_JSON_UTF8))
+						.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isNotFound());
 
 		Mockito.verify(releaseVersionRepository, Mockito.never()).save(Mockito.any(ReleaseVersion.class));
@@ -155,9 +155,9 @@ public class ReleaseVersionsResourceTest {
 		Mockito.when(releaseVersionRepository.findById(2L)).thenReturn(Optional.of(releaseVersion));
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_VERSION, 1L, 2L)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content("{ \"releaseVersionId\": 1, \"name\": \"newName\", \"description\": \"newDescription\", \"createdBy\": \"newCreatedBy\", \"createdBy\": \"newCreatedBy\", \"releaseType\": \"newReleaseType\" }")
-						.accept(MediaType.APPLICATION_JSON_UTF8))
+						.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 
 
@@ -176,8 +176,8 @@ public class ReleaseVersionsResourceTest {
 		Mockito.when(releaseVersionRepository.findById(2L)).thenReturn(Optional.of(releaseVersion));
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_VERSION_NOTIFICATIONS, 1L, 2L)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
-						.accept(MediaType.APPLICATION_JSON_UTF8))
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
+						.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 
 		Mockito.verify(userNotifier, Mockito.times(1)).notifyReleasePackageUpdated(Mockito.any(ReleaseVersion.class));
@@ -195,8 +195,8 @@ public class ReleaseVersionsResourceTest {
 		Mockito.when(releaseVersionRepository.findById(2L)).thenReturn(Optional.of(activeVersion));
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_VERSION, 1L, 2L)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
-						.accept(MediaType.APPLICATION_JSON_UTF8))
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
+						.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isConflict());
 
 		Mockito.verify(releaseVersionRepository, Mockito.never()).delete(Mockito.any(ReleaseVersion.class));
@@ -211,8 +211,8 @@ public class ReleaseVersionsResourceTest {
 		Mockito.when(releaseVersionRepository.findById(2L)).thenReturn(Optional.of(inactiveVersion));
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_VERSION, 1L, 2L)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
-						.accept(MediaType.APPLICATION_JSON_UTF8))
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
+						.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 
 		Mockito.verify(releaseVersionRepository).delete(Mockito.any(ReleaseVersion.class));
@@ -226,8 +226,8 @@ public class ReleaseVersionsResourceTest {
 		Mockito.when(releaseVersionRepository.findById(1L)).thenReturn(Optional.of(releaseVersion));
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_VERSION, 55L, 1L)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
-						.accept(MediaType.APPLICATION_JSON_UTF8))
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
+						.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 
 		Mockito.verify(releasePackageAuditEvents).logDeletionOf(Mockito.any(ReleaseVersion.class));

@@ -10,7 +10,7 @@ import com.google.common.collect.Sets;
 import jakarta.persistence.*;
 import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.search.engine.backend.types.Searchable;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
@@ -25,7 +25,7 @@ import java.util.Set;
 @Entity
 @Indexed
 @JsonFilter("affiliatePrivacyFilter")
-@Where(clause = "inactive_at IS NULL")
+@SQLRestriction("inactive_at IS NULL")
 @SQLDelete(sql="UPDATE affiliate SET inactive_at = now() WHERE affiliate_id = ?")
 public class Affiliate extends BaseEntity {
 	public static final String[] PRIVATE_FIELDS = {"notesInternal"};

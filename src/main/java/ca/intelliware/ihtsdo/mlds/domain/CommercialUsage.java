@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.apache.commons.lang3.Validate;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="commercial_usage")
-@Where(clause = "inactive_at IS NULL")
+@SQLRestriction("inactive_at IS NULL")
 @SQLDelete(sql="UPDATE commercial_usage SET inactive_at = now() WHERE commercial_usage_id = ?")
 public class CommercialUsage extends BaseEntity {
 	@Id
@@ -65,12 +65,12 @@ public class CommercialUsage extends BaseEntity {
 
 	@JsonProperty("entries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
-	@Where(clause = "inactive_at IS NULL")
+    @SQLRestriction("inactive_at IS NULL")
 	Set<CommercialUsageEntry> usage = new HashSet<>() /*Sets.newHashSet()*/;
 
 	@JsonProperty("countries")
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="commercialUsage")
-	@Where(clause = "inactive_at IS NULL")
+    @SQLRestriction("inactive_at IS NULL")
 	Set<CommercialUsageCountry> countries = new HashSet<>() /*Sets.newHashSet()*/;
 
     @JsonIgnore

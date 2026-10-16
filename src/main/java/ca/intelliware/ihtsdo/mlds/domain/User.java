@@ -9,7 +9,8 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Set;
@@ -20,7 +21,7 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Where(clause = "inactive_at IS NULL")
+@SQLRestriction("inactive_at IS NULL")
 @SQLDelete(sql="UPDATE user SET inactive_at = now() WHERE user_id = ?")
 public class User extends AbstractAuditingEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

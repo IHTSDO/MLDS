@@ -54,10 +54,10 @@ public class AffiliatePublicResourceTest {
 		restAffiliatePublicResource.perform(
 				MockMvcRequestBuilders
 					.get(Routes.AFFILIATES_CHECK)
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-					.accept(MediaType.APPLICATION_JSON_UTF8))
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
+					.accept(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(status().isBadRequest())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(jsonPath("$.error", containsString("Bad Request")))
 		.andExpect(jsonPath("$.message", containsString("Missing mandatory parameter: member")));
 	}
@@ -68,10 +68,10 @@ public class AffiliatePublicResourceTest {
 				MockMvcRequestBuilders
 					.get(Routes.AFFILIATES_CHECK)
 					.param("member", "se")
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-					.accept(MediaType.APPLICATION_JSON_UTF8))
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
+					.accept(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(status().isBadRequest())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(jsonPath("$.error", containsString("Bad Request")))
 		.andExpect(jsonPath("$.message", containsString("Missing mandatory parameter: match")));
 	}
@@ -84,10 +84,10 @@ public class AffiliatePublicResourceTest {
 					.get(Routes.AFFILIATES_CHECK)
 					.param("match", "sm")
 					.param("member", "se")
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-					.accept(MediaType.APPLICATION_JSON_UTF8))
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
+					.accept(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(status().isBadRequest())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(jsonPath("$.error", containsString("Bad Request")))
 		.andExpect(jsonPath("$.message", containsString("Match parameter value: 'sm' was shorter than the minimum length: 3")));
 	}
@@ -102,10 +102,10 @@ public class AffiliatePublicResourceTest {
 					.param("match", "test hospital")
 					.param("member", "xy")
 					.param("affiliateId", "123")
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-					.accept(MediaType.APPLICATION_JSON_UTF8))
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
+					.accept(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(status().isBadRequest())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(jsonPath("$.error", containsString("Bad Request")))
 		.andExpect(jsonPath("$.message", containsString("Unknown member: 'xy'")))
 		.andExpect(jsonPath("$.message", containsString("options: es us")));
@@ -121,10 +121,10 @@ public class AffiliatePublicResourceTest {
 					.param("match", "test hospital")
 					.param("member", "se")
 					.param("affiliateId", "word")
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-					.accept(MediaType.APPLICATION_JSON_UTF8))
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
+					.accept(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(status().isOk())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(jsonPath("$.matched").value(false));
 	}
 
@@ -140,10 +140,10 @@ public class AffiliatePublicResourceTest {
 					.param("match", "test hospital")
 					.param("member", "se")
 					.param("affiliateId", "123")
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-					.accept(MediaType.APPLICATION_JSON_UTF8))
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
+					.accept(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(jsonPath("$.matched").value(true));
 	}
 
@@ -177,10 +177,10 @@ public class AffiliatePublicResourceTest {
 					.get(Routes.AFFILIATES_CHECK)
 					.param("match", "test hospital")
 					.param("member", "se")
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-					.accept(MediaType.APPLICATION_JSON_UTF8))
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
+					.accept(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(jsonPath("$.matched").value(true));
 	}
 
@@ -195,10 +195,10 @@ public class AffiliatePublicResourceTest {
 					.get(Routes.AFFILIATES_CHECK)
 					.param("match", "test hospital")
 					.param("member", "se")
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-					.accept(MediaType.APPLICATION_JSON_UTF8))
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
+					.accept(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(jsonPath("$.matched").value(false));
 	}
 
@@ -213,10 +213,10 @@ public class AffiliatePublicResourceTest {
 					.get(Routes.AFFILIATES_CHECK)
 					.param("match", "test hospital")
 					.param("member", "se")
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-					.accept(MediaType.APPLICATION_JSON_UTF8))
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
+					.accept(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(jsonPath("$.matched").value(false));
 	}
 

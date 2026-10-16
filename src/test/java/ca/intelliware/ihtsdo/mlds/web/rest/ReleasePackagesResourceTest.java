@@ -116,9 +116,9 @@ public class ReleasePackagesResourceTest {
 	@Test
 	public void testReleasePackageCreateSavesRecord() throws Exception {
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"name\": \"name\", \"description\": \"description\" }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
 		verify(releasePackageRepository).save(Mockito.any(ReleasePackage.class));
@@ -130,9 +130,9 @@ public class ReleasePackagesResourceTest {
 		when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(userMember);
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"name\": \"name\", \"description\": \"description\", \"member\": { \"key\": \"DK\" } }")
-				.accept(MediaType.APPLICATION_JSON_UTF8))
+				.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 
 		verify(releasePackageRepository).save(releasePacakgeCaptor.capture());
@@ -148,9 +148,9 @@ public class ReleasePackagesResourceTest {
 		securityContextSetup.asAdmin();
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"name\": \"name\", \"description\": \"description\", \"member\": { \"key\": \"DK\"} }")
-				.accept(MediaType.APPLICATION_JSON_UTF8))
+				.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 
 		verify(releasePackageRepository).save(releasePacakgeCaptor.capture());
@@ -164,9 +164,9 @@ public class ReleasePackagesResourceTest {
 		securityContextSetup.asAdmin();
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"name\": \"name\", \"description\": \"description\"}")
-				.accept(MediaType.APPLICATION_JSON_UTF8))
+				.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 
 		verify(releasePackageRepository).save(releasePacakgeCaptor.capture());
@@ -176,9 +176,9 @@ public class ReleasePackagesResourceTest {
 	@Test
 	public void testReleasePackageLogsAuditEvent() throws Exception {
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"name\": \"name\", \"description\": \"description\" }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
 		verify(releasePackageAuditEvents).logCreationOf(Mockito.any(ReleasePackage.class));
@@ -187,9 +187,9 @@ public class ReleasePackagesResourceTest {
 	@Test
 	public void testReleasePackageCreateShouldInitializePackagesPriorityToEndOfList() throws Exception {
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_PACKAGES)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"name\": \"name\", \"description\": \"description\" }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
 		verify(releasePackageRepository).save(Mockito.any(ReleasePackage.class));
@@ -203,9 +203,9 @@ public class ReleasePackagesResourceTest {
 		when(releasePackageRepository.findById(999L)).thenReturn(Optional.empty());
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 999L)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"releasePackageId\": 999, \"name\": \"name\", \"description\": \"description\" }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isNotFound());
 
 		verify(releasePackageRepository, Mockito.never()).save(Mockito.any(ReleasePackage.class));
@@ -218,9 +218,9 @@ public class ReleasePackagesResourceTest {
 		when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 1L)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"releasePackageId\": 1, \"name\": \"newName\", \"description\": \"newDescription\" }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
 		verify(releasePackageRepository).save(Mockito.any(ReleasePackage.class));
@@ -236,9 +236,9 @@ public class ReleasePackagesResourceTest {
 		when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 1L)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"releasePackageId\": 1, \"name\": \"newName\", \"description\": \"newDescription\", \"createdBy\": \"newCreatedBy\" }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
 		ArgumentCaptor<ReleasePackage> savedReleasePackage = ArgumentCaptor.forClass(ReleasePackage.class);
@@ -261,9 +261,9 @@ public class ReleasePackagesResourceTest {
 		when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.put(Routes.RELEASE_PACKAGE, 1L)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content("{ \"releasePackageId\": 1, \"priority\": 9 }")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
 		ArgumentCaptor<ReleasePackage> savedReleasePackage = ArgumentCaptor.forClass(ReleasePackage.class);
@@ -282,8 +282,8 @@ public class ReleasePackagesResourceTest {
 		when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isConflict());
 
 		verify(releasePackageRepository, Mockito.never()).delete(Mockito.any(ReleasePackage.class));
@@ -299,8 +299,8 @@ public class ReleasePackagesResourceTest {
 		when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
 		verify(releasePackageRepository).delete(Mockito.any(ReleasePackage.class));
@@ -313,8 +313,8 @@ public class ReleasePackagesResourceTest {
 		when(releasePackageRepository.findById(1L)).thenReturn(Optional.of(releasePackage));
 
 		restReleasePackagesResource.perform(MockMvcRequestBuilders.delete(Routes.RELEASE_PACKAGE, 1L)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
 		verify(releasePackageAuditEvents).logDeletionOf(Mockito.any(ReleasePackage.class));

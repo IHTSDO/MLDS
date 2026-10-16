@@ -10,12 +10,13 @@ import org.junit.Test;
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.domain.PrimaryApplication;
-import ca.intelliware.ihtsdo.mlds.domain.json.ApplicationCollection;
+
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 public class SerialiationCycleTest {
-	ObjectMapper objectMapper;
+	JsonMapper objectMapper;
 
 	@Before
 	public void configureJackson() {
@@ -35,7 +36,7 @@ public class SerialiationCycleTest {
 		String applicationJson = objectMapper.writeValueAsString(primaryApplication);
 		String listJson = objectMapper.writeValueAsString(Arrays.asList(extension, primaryApplication));
 		String collectionJson = objectMapper.writeValueAsString(new ApplicationCollection(Arrays.asList(extension, primaryApplication)));
-		
+
 		assertNotNull(affiliateJson);
 		assertNotNull(applicationJson);
 		assertNotNull(listJson);

@@ -2,8 +2,8 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import ca.intelliware.ihtsdo.mlds.config.metrics.DatabaseHealthCheckIndicator;
 import ca.intelliware.ihtsdo.mlds.config.metrics.JavaMailHealthCheckIndicator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.health.contributor.Health;
+import org.springframework.boot.health.contributor.Status;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

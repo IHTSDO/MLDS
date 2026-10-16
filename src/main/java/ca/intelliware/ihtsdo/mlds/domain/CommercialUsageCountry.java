@@ -1,16 +1,17 @@
 package ca.intelliware.ihtsdo.mlds.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.Instant;
 
 @Entity
 @Table(name="commercial_usage_count")
-@Where(clause = "inactive_at IS NULL")
+@SQLRestriction("inactive_at IS NULL")
 @SQLDelete(sql="UPDATE commercial_usage_count SET inactive_at = now() WHERE commercial_usage_count_id = ?")
 public class CommercialUsageCountry extends BaseEntity {
 	@Id
@@ -58,14 +59,18 @@ public class CommercialUsageCountry extends BaseEntity {
 	@Column(name="databases_per_deployment")
 	Integer databasesPerDeployment = 0;
 
+	@JsonCreator
 	public CommercialUsageCountry() {
 
 	}
 
 	// For Testing
+	@JsonIgnore
 	public CommercialUsageCountry(long commercialUsageCountId, CommercialUsage commercialUsage) {
 		this.commercialUsageCountId = commercialUsageCountId;
-		commercialUsage.addCount(this);
+		if (commercialUsage != null) {
+			commercialUsage.addCount(this);
+		}
 	}
 
 	public Long getCommercialUsageCountId() {

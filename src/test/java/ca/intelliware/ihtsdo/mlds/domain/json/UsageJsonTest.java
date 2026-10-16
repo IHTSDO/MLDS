@@ -1,9 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.domain.json;
 
 import static org.junit.Assert.assertNotNull;
-
-import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,10 +8,7 @@ import ca.intelliware.ihtsdo.mlds.domain.CommercialUsage;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageCountry;
 import ca.intelliware.ihtsdo.mlds.domain.CommercialUsageEntry;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class UsageJsonTest {
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
@@ -30,14 +24,14 @@ public class UsageJsonTest {
 		country.setSnomedPractices(5);
 		usage.addCount(country);
 	}
-	
+
 	@Before
 	public void configureJackson() {
 		objectMapper = new ObjectMapperTestBuilder(null).buildObjectMapper();
 	}
-	
+
 	@Test
-	public void roundTripWithChildrenIsOK() throws JsonParseException, JsonMappingException, IOException {
+	public void roundTripWithChildrenIsOK() throws Exception {
 		String jsonOutput = objectMapper.writeValueAsString(usage);
 		CommercialUsage result = objectMapper.readValue(jsonOutput, CommercialUsage.class);
 		assertNotNull("Deserialized CommercialUsage should not be null", result);

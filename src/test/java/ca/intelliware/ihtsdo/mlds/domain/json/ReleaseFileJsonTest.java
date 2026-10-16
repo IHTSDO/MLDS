@@ -13,8 +13,8 @@ import ca.intelliware.ihtsdo.mlds.domain.ReleasePackage;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.SecurityContextSetup;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 public class ReleaseFileJsonTest {
 	SecurityContextSetup securityContextSetup = new SecurityContextSetup();
@@ -25,45 +25,45 @@ public class ReleaseFileJsonTest {
 	public void configureJackson() {
 		objectMapper = new ObjectMapperTestBuilder(null).buildObjectMapper();
 	}
-	
+
 	@Before
 	public void buildObjectGraph() {
 		releaseFile = new ReleaseFile(55L);
 		ReleasePackage releasePackage = new ReleasePackage(22L);
 		ReleaseVersion releaseVersion = new ReleaseVersion(33L);
-		
+
 		releasePackage.addReleaseVersion(releaseVersion);
 		releaseVersion.addReleaseFile(releaseFile);
 	}
-	
+
 	@Test
 	public void adminSeesRawDownloadUrl() throws Exception {
 		securityContextSetup.asAdmin();
 		releaseFile.setDownloadUrl("http://example.com/file.zip");
-		
+
 		JsonNode tree = objectMapper.readTree(objectMapper.writeValueAsString(releaseFile));
-		
+
 		String downloadUrl = tree.get("downloadUrl").asText();
 		assertEquals("http://example.com/file.zip", downloadUrl);
 	}
-	
+
 	@Test
 	public void affiliateDoesNotSeeRawDownloadUrl() throws Exception {
 		securityContextSetup.asAffiliateUser();
 		releaseFile.setDownloadUrl("http://example.com/file.zip");
-		
+
 		JsonNode tree = objectMapper.readTree(objectMapper.writeValueAsString(releaseFile));
-		
+
 		assertNull("downloadUrl missing from tree", tree.get("downloadUrl"));
 	}
-	
+
 	@Test
 	public void affiliateDoesSeeProxiedDownloadUrl() throws Exception {
 		securityContextSetup.asAffiliateUser();
 		releaseFile.setDownloadUrl("http://example.com/file.zip");
-		
+
 		JsonNode tree = objectMapper.readTree(objectMapper.writeValueAsString(releaseFile));
-		
+
 		assertThat("clientDownloadUrl contains releaseFileId", tree.get("clientDownloadUrl").asText(), containsString("releaseFiles/"+releaseFile.getReleaseFileId()));
 	}
 }

@@ -24,7 +24,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -58,17 +58,30 @@ public class UserResourceTest extends MySqlTestContainerTest {
     @Mock
     public UserService userService;
 
+    private AutoCloseable mocks;
+
     private MockMvc restUserMockMvc;
 
     UserResource userResource;
 
     @Before
     public void setup() {
-        userResource = new UserResource(userService,affiliateRepository);
+        mocks = MockitoAnnotations.openMocks(this);
+
+        userResource = new UserResource(userService, affiliateRepository);
         userResource.userRepository = userRepository;
         userResource.userService = userService;
         userResource.affiliateRepository = affiliateRepository;
-        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource).build();
+
+        this.restUserMockMvc =
+            MockMvcBuilders.standaloneSetup(userResource).build();
+    }
+
+    @org.junit.After
+    public void tearDown() throws Exception {
+        if (mocks != null) {
+            mocks.close();
+        }
     }
 
     @Test

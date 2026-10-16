@@ -24,7 +24,11 @@ import java.util.TimeZone;
 public class AngularCookieLocaleResolver extends CookieLocaleResolver {
 
     protected final Log logger = LogFactory.getLog(this.getClass());
+    private static final String COOKIE_NAME = "NG_TRANSLATE_LANG_KEY";
 
+    public AngularCookieLocaleResolver() {
+        super(COOKIE_NAME);
+    }
     @Override
     public Locale resolveLocale(HttpServletRequest request) {
         parseLocaleCookieIfNecessary(request);
@@ -65,7 +69,7 @@ public class AngularCookieLocaleResolver extends CookieLocaleResolver {
             return;
         }
 
-        Cookie cookie = WebUtils.getCookie(request, "NG_TRANSLATE_LANG_KEY");
+        Cookie cookie = WebUtils.getCookie(request, COOKIE_NAME);
         Locale locale = null;
         TimeZone timeZone = null;
 

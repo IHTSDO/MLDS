@@ -37,14 +37,14 @@ public class AccountResourceTest {
 
     @Mock
     private UserService userService;
-    
+
     @Mock
     private UserMembershipAccessor userMembershipAccessor;
 
     private MockMvc restUserMockMvc;
-    
+
     private SecurityContextSetup securityContextSetup = new SecurityContextSetup();
-    
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -60,7 +60,7 @@ public class AccountResourceTest {
     @Test
     public void testNonAuthenticatedUser() throws Exception {
         restUserMockMvc.perform(get("/api/authenticate")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(content().string(""));
 
@@ -75,7 +75,7 @@ public class AccountResourceTest {
                         return request;
                     }
                 })
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(content().string("test"));
     }
@@ -83,7 +83,7 @@ public class AccountResourceTest {
     @Test
     public void testGetExistingAccount() throws Exception {
     	securityContextSetup.asAffiliateUser();
-    	
+
         Set<Authority> authorities = new HashSet<>();
         Authority authority = new Authority();
         authority.setName(AuthoritiesConstants.USER);
@@ -99,9 +99,9 @@ public class AccountResourceTest {
         when(userMembershipAccessor.getMemberAssociatedWithUser()).thenReturn(new Member("IHTSDO", 1));
 
         restUserMockMvc.perform(get("/api/account")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.login").value("test"))
                 .andExpect(jsonPath("$.firstName").value("john"))
                 .andExpect(jsonPath("$.lastName").value("doe"))

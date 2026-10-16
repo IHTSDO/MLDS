@@ -1,13 +1,9 @@
 package ca.intelliware.ihtsdo.mlds.security.ihtsdo;
 
-
-
-
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.security.DownloadErrorMessages;
 import ca.intelliware.ihtsdo.mlds.security.DownloadException;
 import jakarta.annotation.Resource;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 
 
@@ -59,7 +55,7 @@ public class AuthorizationChecker {
 	}
 
 	protected void checkCurrentUserIsUser(String username) {
-		if (! StringUtils.equalsIgnoreCase(currentSecurityContext.getCurrentUserName(), username)) {
+        if (!currentSecurityContext.getCurrentUserName().equalsIgnoreCase(username)) {
 			failCheck("User not authorized to access Affiliate");
 		}
 	}

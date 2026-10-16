@@ -81,7 +81,7 @@ public class CommercialUsageResource_GetUsageReports_Test {
         when(affiliateRepository.findById(999L)).thenReturn(Optional.empty());
 
 		restCommercialUsageResource.perform(MockMvcRequestBuilders.get(Routes.USAGE_REPORTS, 999L)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isNotFound());
 	}
 
@@ -98,9 +98,9 @@ public class CommercialUsageResource_GetUsageReports_Test {
 		when(affiliateRepository.findById(1L)).thenReturn(Optional.of(affiliate));
 
 		restCommercialUsageResource.perform(MockMvcRequestBuilders.get(Routes.USAGE_REPORTS, 1L)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$[0].note").value("Test Note"))
                 .andExpect(jsonPath("$[0].countries[0].snomedPractices").value(3))
                 .andExpect(jsonPath("$[0].entries[0].name").value("Test Name"))

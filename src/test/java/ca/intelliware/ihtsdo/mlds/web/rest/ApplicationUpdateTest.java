@@ -23,7 +23,7 @@ import ca.intelliware.ihtsdo.mlds.repository.ApplicationRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.service.ApplicationService;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.Optional;
 
@@ -48,7 +48,7 @@ public class ApplicationUpdateTest {
 		applicationResource.applicationAuditEvents = applicationAuditEvents;
 		applicationResource.applicationApprovalStateChangeNotifier = applicationApprovalStateChangeNotifier;
 		applicationResource.objectMapper = new ObjectMapper();
-        applicationResource.objectMapper.registerModule(new JavaTimeModule());
+        applicationResource.objectMapper.registeredModules();
 		applicationResource.applicationService = new ApplicationService();
 
 		this.mockMvc = MockMvcBuilders
@@ -73,7 +73,7 @@ public class ApplicationUpdateTest {
 		withApplication(extensionApplication);
 		extensionApplication.setApprovalState(ApprovalState.NOT_SUBMITTED);
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
+        mapper.registeredModules();
 		makeUpdateRequest("{ \"approvalState\": \"SUBMITTED\"}")
 		.andExpect(status().isOk());
 
@@ -103,9 +103,9 @@ public class ApplicationUpdateTest {
 		return mockMvc.perform(
 				MockMvcRequestBuilders
 						.post(Routes.APPLICATION, 22L)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content(requestBody)
-						.accept(MediaType.APPLICATION_JSON_UTF8));
+						.accept(MediaType.APPLICATION_JSON_VALUE));
 	}
 
 }

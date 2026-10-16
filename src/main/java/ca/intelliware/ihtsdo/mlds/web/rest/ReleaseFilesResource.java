@@ -1,5 +1,6 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
 
+import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseFile;
 import ca.intelliware.ihtsdo.mlds.domain.ReleasePermissionType;
 import ca.intelliware.ihtsdo.mlds.domain.ReleaseVersion;
@@ -8,7 +9,6 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.AuthoritiesConstants;
 import ca.intelliware.ihtsdo.mlds.security.DownloadErrorMessages;
 import ca.intelliware.ihtsdo.mlds.security.DownloadException;
-import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
 import ca.intelliware.ihtsdo.mlds.service.UserMembershipAccessor;
 import com.codahale.metrics.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,16 +23,23 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
+
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class ReleaseFilesResource {
@@ -58,12 +65,13 @@ public class ReleaseFilesResource {
     @Resource
     PlatformTransactionManager transactionManager;
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Release Files
+    // -------------------------------------------------------------------------
+    // Get Release File
+    // -------------------------------------------------------------------------
 
     @Operation(
         summary = "Get a single Release File",
-        description = "Returns a single Release File identified by the Release Package, Release Version and Release File IDs."
+        description = "Returns a Release File identified by its IDs."
     )
     @ApiResponse(
         responseCode = "200",
@@ -105,7 +113,6 @@ public class ReleaseFilesResource {
     })
     @Timed
     public ResponseEntity<ReleaseFile> getReleaseFile(
-
         @Parameter(
             description = "Unique identifier of the Release Package.",
             required = true,
@@ -142,15 +149,16 @@ public class ReleaseFilesResource {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
-        //FIXME should we check children being consistent?
+        // Release Version and Release Package?
         authorizationChecker.checkCanEditReleasePackage(
             releaseFile.getReleaseVersion().getReleasePackage());
 
-        return new ResponseEntity<>(
-            releaseFile,
-            HttpStatus.OK
-        );
+        return new ResponseEntity<>(releaseFile, HttpStatus.OK);
     }
+
+    // -------------------------------------------------------------------------
+    // Create Release File
+    // -------------------------------------------------------------------------
 
     @PostMapping(
         value = Routes.RELEASE_FILES,
@@ -174,22 +182,35 @@ public class ReleaseFilesResource {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        ReleaseVersion releaseVersion =
-            releaseVersionOptional.get();
+        ReleaseVersion releaseVersion = releaseVersionOptional.get();
 
         authorizationChecker.checkCanEditReleasePackage(
             releaseVersion.getReleasePackage());
 
-        releaseFileRepository.save(body);
+        /*
+         * This is a create operation. Do not allow an incoming ID such as 0
+         * to make Spring Data JPA treat this entity as an existing record.
+         * Hibernate must generate the ID using the configured sequence.
+         */
+        body.setReleaseFileId(null);
+
+        /*
+         * Set the owning side of the relationship before saving.
+         */
+        body.setReleaseVersion(releaseVersion);
         releaseVersion.addReleaseFile(body);
 
-        releasePackageAuditEvents.logCreationOf(body);
+        ReleaseFile savedReleaseFile =
+            releaseFileRepository.save(body);
 
-        return new ResponseEntity<>(
-            body,
-            HttpStatus.OK
-        );
+        releasePackageAuditEvents.logCreationOf(savedReleaseFile);
+
+        return new ResponseEntity<>(savedReleaseFile, HttpStatus.OK);
     }
+
+    // -------------------------------------------------------------------------
+    // Update Release File
+    // -------------------------------------------------------------------------
 
     @PutMapping(
         value = Routes.RELEASE_FILES,
@@ -213,22 +234,23 @@ public class ReleaseFilesResource {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        ReleaseVersion releaseVersion =
-            releaseVersionOptional.get();
+        ReleaseVersion releaseVersion = releaseVersionOptional.get();
 
         authorizationChecker.checkCanEditReleasePackage(
             releaseVersion.getReleasePackage());
 
+        if (body.getReleaseFileId() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         Optional<ReleaseFile> releaseFileOptional =
-            releaseFileRepository.findById(
-                body.getReleaseFileId());
+            releaseFileRepository.findById(body.getReleaseFileId());
 
         if (releaseFileOptional.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        ReleaseFile releaseFile =
-            releaseFileOptional.get();
+        ReleaseFile releaseFile = releaseFileOptional.get();
 
         releaseFile.setLabel(body.getLabel());
         releaseFile.setDownloadUrl(body.getDownloadUrl());
@@ -236,11 +258,12 @@ public class ReleaseFilesResource {
         releaseFile.setFileSize(body.getFileSize());
         releaseFile.setPrimaryFile(body.getPrimaryFile());
 
-        return new ResponseEntity<>(
-            releaseFile,
-            HttpStatus.OK
-        );
+        return new ResponseEntity<>(releaseFile, HttpStatus.OK);
     }
+
+    // -------------------------------------------------------------------------
+    // Delete Release File
+    // -------------------------------------------------------------------------
 
     @RolesAllowed({
         AuthoritiesConstants.STAFF,
@@ -264,8 +287,7 @@ public class ReleaseFilesResource {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        ReleaseFile releaseFile =
-            releaseFileOptional.get();
+        ReleaseFile releaseFile = releaseFileOptional.get();
 
         authorizationChecker.checkCanEditReleasePackage(
             releaseFile.getReleaseVersion().getReleasePackage());
@@ -274,10 +296,12 @@ public class ReleaseFilesResource {
 
         releasePackageAuditEvents.logDeletionOf(releaseFile);
 
-        return new ResponseEntity<>(
-            HttpStatus.OK
-        );
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    // -------------------------------------------------------------------------
+    // Download Release File
+    // -------------------------------------------------------------------------
 
     @Operation(
         summary = "Download Release File Content",
@@ -320,9 +344,7 @@ public class ReleaseFilesResource {
         responseCode = "404",
         description = "Release File not found."
     )
-    @GetMapping(
-        value = Routes.RELEASE_FILE_DOWNLOAD
-    )
+    @GetMapping(value = Routes.RELEASE_FILE_DOWNLOAD)
     @RolesAllowed({
         AuthoritiesConstants.USER,
         AuthoritiesConstants.MEMBER,
@@ -331,7 +353,6 @@ public class ReleaseFilesResource {
     })
     @Timed
     public void downloadReleaseFile(
-
         @Parameter(
             description = "Unique identifier of the Release Package.",
             required = true,
@@ -354,8 +375,7 @@ public class ReleaseFilesResource {
         @PathVariable long releaseFileId,
 
         HttpServletRequest request,
-        HttpServletResponse response)
-        throws IOException {
+        HttpServletResponse response) throws IOException {
 
         TransactionTemplate transactionTemplate =
             new TransactionTemplate(transactionManager);
@@ -377,14 +397,12 @@ public class ReleaseFilesResource {
                     );
                 }
 
-                ReleaseFile releaseFile =
-                    releaseFileOptional.get();
-
+                ReleaseFile releaseFile = releaseFileOptional.get();
                 ReleaseVersion releaseVersion =
                     releaseFile.getReleaseVersion();
 
                 authorizationChecker.checkCanDownloadReleaseVersion(
-                    releaseFile.getReleaseVersion());
+                    releaseVersion);
 
                 if (!authorizationChecker.canAccessReleaseVersion(
                     releaseVersion)) {
@@ -434,20 +452,17 @@ public class ReleaseFilesResource {
             );
         }
 
-        int statusCode =
-            HttpStatus.INTERNAL_SERVER_ERROR.value();
+        int statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
 
         try {
             String downloadUrl =
                 authResult.releaseFile.getDownloadUrl();
 
-            statusCode =
-                uriDownloader.download(
-                    downloadUrl,
-                    request,
-                    response
-                );
-
+            statusCode = uriDownloader.download(
+                downloadUrl,
+                request,
+                response
+            );
         } finally {
             releasePackageAuditEvents.logDownload(
                 authResult.releaseFile,
@@ -471,7 +486,10 @@ public class ReleaseFilesResource {
         }
     }
 
-    /*MLDS-1013 Add disclaimers or warnings for externally linked release packages -- Check whether file is from IHTSDO Domain*/
+    // -------------------------------------------------------------------------
+    // Check IHTSDO File
+    // -------------------------------------------------------------------------
+
     @GetMapping(value = Routes.CHECK_IHTSDO_FILE)
     @RolesAllowed({
         AuthoritiesConstants.USER,
@@ -485,24 +503,18 @@ public class ReleaseFilesResource {
         @PathVariable long releaseVersionId,
         @PathVariable long releaseFileId,
         HttpServletRequest request,
-        HttpServletResponse response)
-        throws FileNotFoundException {
+        HttpServletResponse response) throws FileNotFoundException {
 
         Optional<ReleaseFile> releaseFileOptional =
             releaseFileRepository.findById(releaseFileId);
 
         if (releaseFileOptional.isEmpty()) {
-            throw new FileNotFoundException(
-                "no such file found"
-            );
+            throw new FileNotFoundException("no such file found");
         }
 
-        ReleaseFile releaseFile =
-            releaseFileOptional.get();
+        ReleaseFile releaseFile = releaseFileOptional.get();
+        String downloadUrl = releaseFile.getDownloadUrl();
 
-        String downloadUrl =
-            releaseFile.getDownloadUrl();
-
-        return downloadUrl.contains("ihtsdo");
+        return downloadUrl != null && downloadUrl.contains("ihtsdo");
     }
 }
