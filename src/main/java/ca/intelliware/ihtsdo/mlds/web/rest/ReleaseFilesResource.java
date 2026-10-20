@@ -65,6 +65,9 @@ public class ReleaseFilesResource {
     @Resource
     PlatformTransactionManager transactionManager;
 
+    @Resource
+    ReleaseUrlTrustChecker releaseUrlTrustChecker;
+
     // -------------------------------------------------------------------------
     // Get Release File
     // -------------------------------------------------------------------------
@@ -512,9 +515,9 @@ public class ReleaseFilesResource {
             throw new FileNotFoundException("no such file found");
         }
 
-        ReleaseFile releaseFile = releaseFileOptional.get();
-        String downloadUrl = releaseFile.getDownloadUrl();
+        String downloadUrl =
+            releaseFileOptional.get().getDownloadUrl();
 
-        return downloadUrl != null && downloadUrl.contains("ihtsdo");
+        return releaseUrlTrustChecker.isInternalUrl(downloadUrl);
     }
 }

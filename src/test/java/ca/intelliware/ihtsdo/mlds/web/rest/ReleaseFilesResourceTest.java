@@ -81,6 +81,12 @@ public class ReleaseFilesResourceTest {
         releaseFilesResource.uriDownloader = uriDownloader;
         releaseFilesResource.userMembershipAccessor = userMembershipAccessor;
         releaseFilesResource.transactionManager = transactionManager;
+        releaseFilesResource.releaseUrlTrustChecker = new ReleaseUrlTrustChecker(
+            "snomed.org,ihtsdo.org",
+            "snomed-releases,snomed-versioned-content," +
+                "release-ihtsdo-prod-published," +
+                "ire.published.release.ihtsdo,ihtsdo-mlds.*"
+        );
 
         when(transactionManager.getTransaction(any())).thenReturn(transactionStatus);
 
@@ -140,13 +146,125 @@ public class ReleaseFilesResourceTest {
 
     @Test
     public void testCheckIhtsdoFile() throws FileNotFoundException {
+        Assert.assertTrue(
+            checkFileUrl("https://ire.published.release.ihtsdo.s3.amazonaws.com/international/SnomedCT_Release_INT_20140131.zip")
+        );
+    }
+
+    @Test
+    public void testCheckModernS3Buckets() throws FileNotFoundException {
+        Assert.assertTrue(
+            checkFileUrl("https://snomed-releases.s3.amazonaws.com/release_2024.zip")
+        );
+        Assert.assertTrue(
+            checkFileUrl("https://snomed-versioned-content.s3.amazonaws.com/edition/snomed.zip")
+        );
+    }
+
+    @Test
+    public void testCheckLegacyS3Buckets() throws FileNotFoundException {
+        Assert.assertTrue(
+            checkFileUrl("https://release-ihtsdo-prod-published.s3.amazonaws.com/release.zip")
+        );
+        Assert.assertTrue(
+            checkFileUrl("https://ire.published.release.ihtsdo.s3.amazonaws.com/release.zip")
+        );
+    }
+
+    @Test
+    public void testCheckRegionalAndPathStyleS3Urls() throws FileNotFoundException {
+        // Virtual-host regional (dot and hyphen notation)
+        Assert.assertTrue(
+            checkFileUrl("https://snomed-releases.s3.us-east-1.amazonaws.com/file.zip")
+        );
+        Assert.assertTrue(
+            checkFileUrl("https://snomed-releases.s3-eu-west-1.amazonaws.com/file.zip")
+        );
+
+        // Path-style S3 URLs
+        Assert.assertTrue(
+            checkFileUrl("https://s3.amazonaws.com/snomed-releases/file.zip")
+        );
+        Assert.assertTrue(
+            checkFileUrl("https://s3.us-east-1.amazonaws.com/snomed-releases/file.zip")
+        );
+        Assert.assertTrue(
+            checkFileUrl("https://s3-eu-west-1.amazonaws.com/snomed-releases/file.zip")
+        );
+
+        // S3 scheme
+        Assert.assertTrue(
+            checkFileUrl("s3://snomed-releases/release.zip")
+        );
+    }
+
+    @Test
+    public void testCheckWildcardBucketMatching() throws FileNotFoundException {
+        Assert.assertTrue(
+            checkFileUrl("https://ihtsdo-mlds.de.s3.amazonaws.com/release.zip")
+        );
+    }
+
+    @Test
+    public void testCheckSnomedAndIhtsdoDomains() throws FileNotFoundException {
+        Assert.assertTrue(
+            checkFileUrl("https://download.snomed.org/releases/current.zip")
+        );
+        Assert.assertTrue(
+            checkFileUrl("https://sub.release.ihtsdo.org/file.zip")
+        );
+    }
+
+    @Test
+    public void testCheckExternalDomainsReturnFalse() throws FileNotFoundException {
+        Assert.assertFalse(
+            checkFileUrl("https://www.dropbox.com/s/snomed-edition.zip")
+        );
+        Assert.assertFalse(
+            checkFileUrl("https://drive.google.com/file/d/12345/view")
+        );
+        Assert.assertFalse(
+            checkFileUrl("https://member-country.org/downloads/snomed.zip")
+        );
+    }
+
+    @Test
+    public void testCheckSpoofedUrlsReturnFalse() throws FileNotFoundException {
+        // Path spoofing
+        Assert.assertFalse(
+            checkFileUrl("https://external-site.org/downloads/snomed_ihtsdo_extension.zip")
+        );
+        // Query param spoofing
+        Assert.assertFalse(
+            checkFileUrl("https://attacker.org/file.zip?bucket=snomed-releases&domain=snomed.org")
+        );
+        // Domain suffix spoofing
+        Assert.assertFalse(
+            checkFileUrl("https://snomed.org.attacker.com/file.zip")
+        );
+    }
+
+    @Test
+    public void testCheckUrlWithSpaces() throws FileNotFoundException {
+        Assert.assertTrue(
+            checkFileUrl("https://snomed-releases.s3.amazonaws.com/SnomedCT Release INT 2024.zip")
+        );
+    }
+
+    @Test
+    public void testCheckNullOrBlankUrlReturnsFalse() throws FileNotFoundException {
+        Assert.assertFalse(checkFileUrl(null));
+        Assert.assertFalse(checkFileUrl(""));
+        Assert.assertFalse(checkFileUrl("   "));
+    }
+
+    private Boolean checkFileUrl(String url) throws FileNotFoundException {
         long releaseFileId = 1L;
         ReleaseFile mockReleaseFile = new ReleaseFile();
-        mockReleaseFile.setDownloadUrl("https://ire.published.release.ihtsdo.s3.amazonaws.com/international/SnomedCT_Release_INT_20140131.zip");
+        mockReleaseFile.setDownloadUrl(url);
         when(releaseFileRepository.findById(releaseFileId))
             .thenReturn(Optional.of(mockReleaseFile));
-        Boolean result = releaseFilesResource.checkIhtsdoFile(1L, 1L, releaseFileId, null, null);
-        Assert.assertTrue("The download URL should contain 'ihtsdo'", result);
+        return releaseFilesResource.checkIhtsdoFile(1L, 1L, releaseFileId, null, null);
     }
 
 }
