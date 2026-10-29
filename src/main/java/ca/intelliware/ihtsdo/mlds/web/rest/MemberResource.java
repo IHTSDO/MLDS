@@ -286,4 +286,33 @@ public class MemberResource {
         return new ResponseEntity<>(new MemberDTO(member), HttpStatus.OK);
     }
 
+    @PostMapping(value = Routes.CREATE_MEMBER_ACTIVE,
+        produces = "application/json")
+    @PermitAll
+    @Transactional
+    @Timed
+    public ResponseEntity<Member> createMemberActive(
+        @PathVariable String memberKey) {
+
+        Member member = memberRepository.findOneByKey(memberKey);
+
+        member.setMemberActive(true);
+
+        return ResponseEntity.ok(member);
+    }
+
+    @PutMapping(value = Routes.UPDATE_MEMBER_ACTIVE,
+        produces = "application/json")
+    @PermitAll
+    @Timed
+    @Transactional
+    public ResponseEntity<Member> updateMemberActive(
+        @PathVariable String memberKey,
+        @RequestParam Boolean memberActive) {
+
+        Member member = memberRepository.findOneByKey(memberKey);
+        member.setMemberActive(memberActive);
+
+        return ResponseEntity.ok(member);
+    }
 }
