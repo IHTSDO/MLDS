@@ -11,6 +11,9 @@ public class Routes {
     public static final String MEMBER = "/api/members/{memberKey}";
     // FIXME MLDS-309 spelling
     public static final String MEMBERLANGUAGEANDFOOTER = "/api/members/{memberKey}/language";
+    public static final String CREATE_MEMBER_ACTIVE = "/api/members/{memberKey}/active";
+    public static final String UPDATE_MEMBER_ACTIVE = "/api/members/{memberKey}/active";
+
     public static final String MEMBER_LICENSE = "/api/members/{memberKey}/license";
 
     public static final String MEMBER_LOGO = "/api/members/{memberKey}/logo";

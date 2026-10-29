@@ -807,4 +807,12 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="MLDS-1350" author="AA">
+        <comment>Add member_active column to member table</comment>
+        <addColumn tableName="member">
+            <column name="member_active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

@@ -112,6 +112,8 @@ public class Member extends BaseEntity {
 
     @Column(name = "usage_reports")
     private int usageReports;
+    @Column(name = "member_active", nullable = false)
+    private Boolean memberActive = true;
 
 	public Member() {}
 
@@ -186,6 +188,13 @@ public class Member extends BaseEntity {
 		this.name = name;
 	}
 
+    public Boolean getMemberActive() {
+        return memberActive;
+    }
+
+    public void setMemberActive(Boolean memberActive) {
+        this.memberActive = memberActive;
+    }
 	@JsonIgnore
 	public File getLogo() {
 		return logoFile;

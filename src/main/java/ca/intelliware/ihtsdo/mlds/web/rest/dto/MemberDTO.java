@@ -48,7 +48,7 @@ public class MemberDTO {
 
     // Sensitive email address - intended to be revealed only to staff/admins
     private String staffNotificationEmail;
-
+    private Boolean memberActive;
     public MemberDTO() {
     }
 
@@ -77,6 +77,7 @@ public class MemberDTO {
         this.contactEmail = member.getContactEmail();
         this.language = member.getLanguage();
         this.footerActive = member.getFooterActive();
+        this.memberActive = member.getMemberActive();
     }
 
     public Long getMemberId() {
@@ -145,6 +146,13 @@ public class MemberDTO {
 
     public void setFooterActive(Boolean footerActive) {
         this.footerActive = footerActive;
+    }
+    public Boolean getMemberActive() {
+        return memberActive;
+    }
+
+    public void setMemberActive(Boolean memberActive) {
+        this.memberActive = memberActive;
     }
 
 }
