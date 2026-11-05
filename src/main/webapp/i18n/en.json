@@ -489,7 +489,7 @@
                 "blocklist": "Due to our IT policies we are unable to process the entered email address. Please contact <a href=\"mailto:support@snomed.org\">support@snomed.org</a> for further assistance."
             },
             "excludemessage": {
-                "confirm":"Confirmation",
+                "confirm": "Confirmation",
                 "link": "does not use MLDS to distribute SNOMED CT. To register to download SNOMED CT, you can find more information by going to this link -",
                 "userConfirm": "To continue your registration on MLDS, please can you confirm that you would like to deploy SNOMED CT in a different country.",
                 "cancel": "Cancel",
@@ -1076,7 +1076,7 @@
         "landingPage": {
             "appName": "Member Licensing and Distribution Service",
             "purpose": "This service is provided by SNOMED International for organizations and individuals to request use and access to the International Release of SNOMED CT for use in non-Member as well as some Member countries.",
-            "furtherDetails": "For further details, please refer to the <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International website</a> or the <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>.",
+            "furtherDetails": "For particular details on specific national publications, please select the corresponding flag below, or choose an alternative language from the header menu. For further general information, please refer to the <a href=\"http://www.snomed.org\" target=\"_blank\">SNOMED International website</a> or the <a href=\"https://ihtsdo.freshdesk.com/support/solutions/4000002199\" target=\"_blank\">Frequently Asked Questions</a>.",
             "loginHere": "login here",
             "member.purpose1": "MLDS is a tool used by the NRC in ",
             "member.purpose2": " to manage the Affiliate Licensing of SNOMED CT including new applications, renewals and usage reporting within ",
