@@ -1,5 +1,5 @@
 package ca.intelliware.ihtsdo.mlds.web.rest;
-
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.NotificationResponseDTO;
 import ca.intelliware.ihtsdo.mlds.domain.*;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageConfigRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
@@ -487,30 +487,20 @@ public class ReleaseVersionsResource {
         AuthoritiesConstants.ADMIN
     })
     @Timed
-    public ResponseEntity<ReleaseVersion>
+    public ResponseEntity<NotificationResponseDTO>
     updateReleaseVersionNotification(
 
-        @Parameter(
-            description = "Unique identifier of the Release Package.",
-            required = true,
-            example = "211920"
-        )
         @PathVariable long releasePackageId,
 
-        @Parameter(
-            description = "Unique identifier of the Release Version.",
-            required = true,
-            example = "211924"
-        )
-        @PathVariable long releaseVersionId) {
+        @PathVariable long releaseVersionId
+
+    ) {
 
         Optional<ReleaseVersion> releaseVersionOptional =
             releaseVersionRepository.findById(releaseVersionId);
 
         if (releaseVersionOptional.isEmpty()) {
-            return new ResponseEntity<>(
-                HttpStatus.NOT_FOUND
-            );
+            return ResponseEntity.notFound().build();
         }
 
         ReleaseVersion releaseVersion =
@@ -520,29 +510,50 @@ public class ReleaseVersionsResource {
             releaseVersion.getReleasePackage()
         );
 
+        // Prevent duplicate notification requests
         if (releaseVersion.isNotified()) {
-            return new ResponseEntity<>(
+
+            NotificationResponseDTO response =
+                new NotificationResponseDTO(
+                    0,
+                    0,
+                    0,
+                    "ALREADY_NOTIFIED",
+                    new ArrayList<>()
+                );
+
+            // Record notification activity
+            releasePackageAuditEvents.logNotification(
                 releaseVersion,
-                HttpStatus.OK
+                response
             );
+
+            return ResponseEntity.ok(response);
         }
 
-        userNotifier.notifyReleasePackageUpdated(
-            releaseVersion
-        );
+        // Process email notifications
+        NotificationResponseDTO response =
+            userNotifier.notifyReleasePackageUpdated(releaseVersion);
 
-        releaseVersion.setNotified(true);
-
-        releaseVersionRepository.save(
-            releaseVersion
-        );
-
-        return new ResponseEntity<>(
+        // Record notification activity with package and version IDs
+        releasePackageAuditEvents.logNotification(
             releaseVersion,
-            HttpStatus.OK
+            response
         );
-    }
 
+        // Mark notified only when all eligible emails are sent
+        if (
+            "SUCCESS".equals(response.getStatus())
+                || "NO_RECIPIENTS".equals(response.getStatus())
+        ) {
+
+            releaseVersion.setNotified(true);
+
+            releaseVersionRepository.save(releaseVersion);
+        }
+
+        return ResponseEntity.ok(response);
+    }
 
     @DeleteMapping(
         value = Routes.RELEASE_VERSION,

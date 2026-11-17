@@ -4,6 +4,7 @@ package ca.intelliware.ihtsdo.mlds.web.rest;
 import ca.intelliware.ihtsdo.mlds.domain.*;
 import ca.intelliware.ihtsdo.mlds.service.AuditDataBuilder;
 import ca.intelliware.ihtsdo.mlds.service.AuditEventService;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.NotificationResponseDTO;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,8 @@ public class ReleasePackageAuditEvents {
     private static final String EVENT_RELEASE_VERSION_TAKEN_ONLINE = "RELEASE_VERSION_TAKEN_ONLINE";
     private static final String EVENT_RELEASE_VERSION_CREATED = "RELEASE_VERSION_CREATED";
     private static final String EVENT_RELEASE_VERSION_DELETED = "RELEASE_VERSION_DELETED";
-
+    private static final String EVENT_RELEASE_VERSION_NOTIFICATION =
+        "RELEASE_VERSION_NOTIFICATION";
     private static final String EVENT_RELEASE_VERSION_TAKEN_ALPHA_AND_BETA = "RELEASE_VERSION_TAKEN_ALPHA/BETA";
     private static final String EVENT_RELEASE_VERSION_ARCHIVED = "RELEASE_VERSION_ARCHIVED";
     private static final String EVENT_RELEASE_VERSION_UNARCHIVED = "RELEASE_VERSION_UNARCHIVED";
@@ -147,5 +149,50 @@ public class ReleasePackageAuditEvents {
     }
     public void logUnarchived(ReleaseVersion releaseVersion) {
         logReleaseVersionEvent(EVENT_RELEASE_VERSION_UNARCHIVED, releaseVersion);
+    }
+    public void logNotification(
+        ReleaseVersion releaseVersion,
+        NotificationResponseDTO response
+    ) {
+
+        Map<String, String> auditData = createReleaseVersionData(releaseVersion);
+
+        auditData.put(
+            "notification.totalRecipients",
+            String.valueOf(response.getTotalRecipients())
+        );
+
+        auditData.put(
+            "notification.sentCount",
+            String.valueOf(response.getSentCount())
+        );
+
+        auditData.put(
+            "notification.failedCount",
+            String.valueOf(response.getFailedCount())
+        );
+
+        auditData.put(
+            "notification.status",
+            response.getStatus()
+        );
+
+        PersistentAuditEvent auditEvent =
+            auditEventService.createAuditEvent(
+                EVENT_RELEASE_VERSION_NOTIFICATION,
+                auditData
+            );
+
+        // Capture Release Package ID
+        auditEvent.setReleasePackageId(
+            releaseVersion.getReleasePackage().getReleasePackageId()
+        );
+
+        // Capture Release Version ID
+        auditEvent.setReleaseVersionId(
+            releaseVersion.getReleaseVersionId()
+        );
+
+        auditEventService.logAuditableEvent(auditEvent);
     }
 }

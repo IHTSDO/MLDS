@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionAccessRepository;
+import ca.intelliware.ihtsdo.mlds.web.rest.dto.NotificationResponseDTO;
 import ca.intelliware.ihtsdo.mlds.web.rest.dto.ReleaseVersionCheckViewDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ import ca.intelliware.ihtsdo.mlds.repository.ReleasePackageRepository;
 import ca.intelliware.ihtsdo.mlds.repository.ReleaseVersionRepository;
 import ca.intelliware.ihtsdo.mlds.security.ihtsdo.CurrentSecurityContext;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -168,21 +170,46 @@ public class ReleaseVersionsResourceTest {
 		Assert.assertEquals("newReleaseType", releaseVersion.getReleaseType());
 	}
 
-	@Test
-	public void testReleaseVersionNotification() throws Exception {
-		ReleaseVersion releaseVersion = new ReleaseVersion();
-		releaseVersion.setOnline(false);
+    @Test
+    public void testReleaseVersionNotification() throws Exception {
 
-		Mockito.when(releaseVersionRepository.findById(2L)).thenReturn(Optional.of(releaseVersion));
+        ReleaseVersion releaseVersion = new ReleaseVersion();
+        releaseVersion.setOnline(false);
 
-		restReleasePackagesResource.perform(MockMvcRequestBuilders.post(Routes.RELEASE_VERSION_NOTIFICATIONS, 1L, 2L)
-						.contentType(MediaType.APPLICATION_JSON_VALUE)
-						.accept(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(status().isOk());
+        Mockito.when(releaseVersionRepository.findById(2L))
+            .thenReturn(Optional.of(releaseVersion));
 
-		Mockito.verify(userNotifier, Mockito.times(1)).notifyReleasePackageUpdated(Mockito.any(ReleaseVersion.class));
-	}
+        NotificationResponseDTO notificationResponse =
+            new NotificationResponseDTO(
+                1,
+                1,
+                0,
+                "SUCCESS",
+                new ArrayList<>()
+            );
 
+        Mockito.when(
+            userNotifier.notifyReleasePackageUpdated(
+                Mockito.any(ReleaseVersion.class)
+            )
+        ).thenReturn(notificationResponse);
+
+        restReleasePackagesResource.perform(
+                MockMvcRequestBuilders.post(
+                        Routes.RELEASE_VERSION_NOTIFICATIONS,
+                        1L,
+                        2L
+                    )
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .accept(MediaType.APPLICATION_JSON_VALUE)
+            )
+            .andExpect(status().isOk());
+
+        Mockito.verify(userNotifier, Mockito.times(1))
+            .notifyReleasePackageUpdated(
+                Mockito.any(ReleaseVersion.class)
+            );
+    }
 	@Test
 	public void testReleaseVersionDeleteShouldFailForActiveVersion() throws Exception {
 		ReleasePackage releasePackage = new ReleasePackage();
