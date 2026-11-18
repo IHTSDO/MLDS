@@ -10,7 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
+import java.util.List;
 
+import ca.intelliware.ihtsdo.mlds.domain.ExtensionApplication;
 import ca.intelliware.ihtsdo.mlds.repository.*;
 import org.assertj.core.util.Lists;
 import org.hamcrest.Matchers;
@@ -21,7 +23,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -303,9 +307,52 @@ public class AffiliateResource_AffiliatesFilter_Test {
                 .andExpect(contentMatchesTestCreator());
 	}
 
+	@Test
+	public void getAffiliatesShouldReturnFullTotalCountAcrossPageBoundaryForMemberWithMultipleApplications() throws Exception {
+		Member member = new Member("DK", 1L);
+		when(memberRepository.findOneByKey("DK")).thenReturn(member);
+        
+		List<Affiliate> affiliatesPage0 = Lists.newArrayList();
+		for (long i = 1; i <= 50; i++) {
+			Affiliate affiliate = createBlankAffiliate(i);
+			affiliate.setCreator("creator" + i);
+			affiliate.setHomeMember(member);
+			if (i == 1) {
+				ExtensionApplication extApp1 = new ExtensionApplication(101L);
+				extApp1.setMember(member);
+				affiliate.addApplication(extApp1);
+
+				ExtensionApplication extApp2 = new ExtensionApplication(102L);
+				extApp2.setMember(member);
+				affiliate.addApplication(extApp2);
+			}
+			affiliatesPage0.add(affiliate);
+		}
+
+		PageRequest pageRequest = PageRequest.of(0, 50, Sort.by(Sort.Order.asc("affiliateId")));
+		long totalAffiliates = 177L;
+		PageImpl<Affiliate> pageResult = new PageImpl<>(affiliatesPage0, pageRequest, totalAffiliates);
+		when(affiliateRepository.findByHomeMember(Mockito.eq(member), Mockito.any(Pageable.class))).thenReturn(pageResult);
+
+		restUserMockMvc.perform(get(Routes.AFFILIATES)
+				.param("$filter", "homeMember eq 'DK'")
+				.param("$page", "0")
+				.param("$pageSize", "50")
+				.accept(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(jsonPath("$.affiliates", Matchers.hasSize(50)))
+				.andExpect(jsonPath("$.totalResults", is(177)))
+				.andExpect(jsonPath("$.totalPages", is(4)));
+	}
+
 
 	private Affiliate createBlankAffiliate() {
-    	Affiliate affiliate = new Affiliate();
+		return createBlankAffiliate(null);
+	}
+
+	private Affiliate createBlankAffiliate(Long affiliateId) {
+		Affiliate affiliate = affiliateId != null ? new Affiliate(affiliateId) : new Affiliate();
 
     	AffiliateDetails affiliateDetails = new AffiliateDetails();
     	affiliateDetails.setAddress(new MailingAddress());

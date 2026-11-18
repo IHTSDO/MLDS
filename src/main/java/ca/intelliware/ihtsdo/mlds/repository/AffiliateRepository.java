@@ -58,7 +58,7 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
     @Query(value = "SELECT a FROM Affiliate a "
         + "LEFT JOIN a.affiliateDetails ad "
         + "LEFT JOIN ad.address.country c "
-        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM a.applications b WHERE b.member = :homeMember)) "
+        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM Application b WHERE b.affiliate = a AND b.member = :homeMember)) "
         + "AND a.deactivated = false")
     Page<Affiliate> findByHomeMember(@Param("homeMember") Member homeMember, Pageable pageable);
 

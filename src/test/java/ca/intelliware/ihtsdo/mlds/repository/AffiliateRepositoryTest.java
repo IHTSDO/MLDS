@@ -197,6 +197,31 @@ public class AffiliateRepositoryTest extends MySqlTestContainerTest {
 		assertThat(matches, not(hasItem(affiliate)));
 	}
 
+	@Test
+	public void findByHomeMemberShouldReturnCorrectCountAndPagingWithoutDuplicatesWhenAffiliateHasMultipleApplications() throws Exception {
+		Affiliate affiliateWithMultipleApps = withAffiliateUser(StandingState.IN_GOOD_STANDING, sweden, "multi"+uniqueKey+"@email.com");
+		withPrimaryApplication(affiliateWithMultipleApps, sweden, ApprovalState.APPROVED);
+		withExtensionApplication(affiliateWithMultipleApps, sweden, ApprovalState.APPROVED);
+		withExtensionApplication(affiliateWithMultipleApps, sweden, ApprovalState.APPROVED);
+
+		Affiliate belgiumAffiliate = withAffiliateUser(StandingState.IN_GOOD_STANDING, belgium, "be"+uniqueKey+"@email.com");
+		withExtensionApplication(belgiumAffiliate, sweden, ApprovalState.APPROVED);
+
+		flush();
+
+		Pageable page0 = PageRequest.of(0, 1, org.springframework.data.domain.Sort.by("affiliateId"));
+		Page<Affiliate> resultPage0 = affiliateRepository.findByHomeMember(sweden, page0);
+
+		assertThat(resultPage0.getNumberOfElements(), is(1));
+		assertThat(resultPage0.getTotalElements() >= 2, is(true));
+
+		Pageable page1 = PageRequest.of(1, 1, org.springframework.data.domain.Sort.by("affiliateId"));
+		Page<Affiliate> resultPage1 = affiliateRepository.findByHomeMember(sweden, page1);
+		assertThat(resultPage1.getNumberOfElements(), is(1));
+
+		assertThat(resultPage0.getContent().get(0).getAffiliateId(), not(is(resultPage1.getContent().get(0).getAffiliateId())));
+	}
+
 	private void persistAffiliate(Affiliate affiliate) {
 		affiliateRepository.save(affiliate);
 	}
