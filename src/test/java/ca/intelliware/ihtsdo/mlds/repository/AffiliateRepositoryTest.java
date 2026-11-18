@@ -222,6 +222,28 @@ public class AffiliateRepositoryTest extends MySqlTestContainerTest {
 		assertThat(resultPage0.getContent().get(0).getAffiliateId(), not(is(resultPage1.getContent().get(0).getAffiliateId())));
 	}
 
+	@Test
+	public void findByHomeMemberShouldExcludeForeignAffiliatesWithRejectedOrNotSubmittedApplications() throws Exception {
+		Affiliate rejectedForeignAffiliate = withAffiliateUser(StandingState.IN_GOOD_STANDING, belgium, "rejected"+uniqueKey+"@email.com");
+		withExtensionApplication(rejectedForeignAffiliate, sweden, ApprovalState.REJECTED);
+
+		Affiliate notSubmittedForeignAffiliate = withAffiliateUser(StandingState.IN_GOOD_STANDING, belgium, "notsubmitted"+uniqueKey+"@email.com");
+		withExtensionApplication(notSubmittedForeignAffiliate, sweden, ApprovalState.NOT_SUBMITTED);
+        
+		Affiliate approvedForeignAffiliate = withAffiliateUser(StandingState.IN_GOOD_STANDING, belgium, "approved"+uniqueKey+"@email.com");
+		withExtensionApplication(approvedForeignAffiliate, sweden, ApprovalState.APPROVED);
+
+		flush();
+
+		Pageable allPage = PageRequest.of(0, 100);
+		Page<Affiliate> result = affiliateRepository.findByHomeMember(sweden, allPage);
+
+		List<Long> resultIds = result.getContent().stream().map(Affiliate::getAffiliateId).toList();
+		assertThat(resultIds, not(hasItem(rejectedForeignAffiliate.getAffiliateId())));
+		assertThat(resultIds, not(hasItem(notSubmittedForeignAffiliate.getAffiliateId())));
+		assertThat(resultIds, hasItem(approvedForeignAffiliate.getAffiliateId()));
+	}
+
 	private void persistAffiliate(Affiliate affiliate) {
 		affiliateRepository.save(affiliate);
 	}

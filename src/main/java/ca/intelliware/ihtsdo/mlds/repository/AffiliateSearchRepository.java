@@ -1,6 +1,7 @@
 package ca.intelliware.ihtsdo.mlds.repository;
 
 import ca.intelliware.ihtsdo.mlds.domain.Affiliate;
+import ca.intelliware.ihtsdo.mlds.domain.ApprovalState;
 import ca.intelliware.ihtsdo.mlds.domain.Member;
 import ca.intelliware.ihtsdo.mlds.domain.StandingState;
 import jakarta.persistence.EntityManager;
@@ -65,9 +66,11 @@ public class AffiliateSearchRepository {
         if (homeMember != null) {
             boolean matchesHomeMember = homeMember.equals(affiliate.getHomeMember());
             boolean matchesApplicationMember = affiliate.getApplications() != null && affiliate.getApplications().stream()
-                .anyMatch(app -> app.getMember() != null && homeMember.equals(app.getMember()));
+                .anyMatch(app -> app.getMember() != null && homeMember.equals(app.getMember())
+                    && app.getApprovalState() != ApprovalState.NOT_SUBMITTED
+                    && app.getApprovalState() != ApprovalState.REJECTED);
             if (!matchesHomeMember && !matchesApplicationMember) {
-                return false; // Not matching homeMember or any application member
+                return false; // Not matching homeMember or any valid application member
             }
         }
         if (standingState != null) {

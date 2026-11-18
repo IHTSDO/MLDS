@@ -28,7 +28,7 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
 	@Query(value="SELECT a from Affiliate a "
 			+ "LEFT JOIN a.affiliateDetails ad "
 			+ "LEFT JOIN ad.address.country c "
-			+ "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM a.applications b WHERE b.member = :homeMember)) "
+			+ "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM Application b WHERE b.affiliate = a AND b.member = :homeMember AND b.approvalState NOT IN (ca.intelliware.ihtsdo.mlds.domain.ApprovalState.NOT_SUBMITTED, ca.intelliware.ihtsdo.mlds.domain.ApprovalState.REJECTED))) "
 			+ "and (LOWER(a.application.affiliateDetails.lastName) like :q "
 				+ "OR LOWER(a.application.affiliateDetails.firstName) like :q "
 				+ "OR LOWER(a.application.affiliateDetails.organizationName) like :q "
@@ -58,14 +58,14 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
     @Query(value = "SELECT a FROM Affiliate a "
         + "LEFT JOIN a.affiliateDetails ad "
         + "LEFT JOIN ad.address.country c "
-        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM Application b WHERE b.affiliate = a AND b.member = :homeMember)) "
+        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM Application b WHERE b.affiliate = a AND b.member = :homeMember AND b.approvalState NOT IN (ca.intelliware.ihtsdo.mlds.domain.ApprovalState.NOT_SUBMITTED, ca.intelliware.ihtsdo.mlds.domain.ApprovalState.REJECTED))) "
         + "AND a.deactivated = false")
     Page<Affiliate> findByHomeMember(@Param("homeMember") Member homeMember, Pageable pageable);
 
     @Query(value = "SELECT a FROM Affiliate a "
         + "LEFT JOIN a.affiliateDetails ad "
         + "LEFT JOIN ad.address.country c "
-        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM a.applications b WHERE b.member = :homeMember)) "
+        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM Application b WHERE b.affiliate = a AND b.member = :homeMember AND b.approvalState NOT IN (ca.intelliware.ihtsdo.mlds.domain.ApprovalState.NOT_SUBMITTED, ca.intelliware.ihtsdo.mlds.domain.ApprovalState.REJECTED))) "
         + "AND a.standingState = :standingState "
         + "AND a.deactivated = false")
     Page<Affiliate> findByHomeMemberAndStandingStateAndDeactivatedFalse(@Param("homeMember") Member homeMember, @Param("standingState") StandingState standingState, Pageable pageable);
@@ -73,7 +73,7 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
     @Query(value = "SELECT a FROM Affiliate a "
         + "LEFT JOIN a.affiliateDetails ad "
         + "LEFT JOIN ad.address.country c "
-        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM a.applications b WHERE b.member = :homeMember)) "
+        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM Application b WHERE b.affiliate = a AND b.member = :homeMember AND b.approvalState NOT IN (ca.intelliware.ihtsdo.mlds.domain.ApprovalState.NOT_SUBMITTED, ca.intelliware.ihtsdo.mlds.domain.ApprovalState.REJECTED))) "
         + "AND a.standingState <> :standingState "
         + "AND a.deactivated = false")
     Page<Affiliate> findByHomeMemberAndStandingStateNotAndDeactivatedFalse(@Param("homeMember") Member homeMember, @Param("standingState") StandingState standingState, Pageable pageable);
@@ -81,14 +81,14 @@ public interface AffiliateRepository extends JpaRepository<Affiliate, Long> {
     @Query(value = "SELECT a FROM Affiliate a "
         + "LEFT JOIN a.affiliateDetails ad "
         + "LEFT JOIN ad.address.country c "
-        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM a.applications b WHERE b.member = :homeMember)) "
+        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM Application b WHERE b.affiliate = a AND b.member = :homeMember AND b.approvalState NOT IN (ca.intelliware.ihtsdo.mlds.domain.ApprovalState.NOT_SUBMITTED, ca.intelliware.ihtsdo.mlds.domain.ApprovalState.REJECTED))) "
         + "AND a.standingState = :standingState")
 	Page<Affiliate> findByHomeMemberAndStandingState(@Param("homeMember") Member homeMember, @Param("standingState") StandingState standingState, Pageable pageable);
 
     @Query(value = "SELECT a FROM Affiliate a "
         + "LEFT JOIN a.affiliateDetails ad "
         + "LEFT JOIN ad.address.country c "
-        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM a.applications b WHERE b.member = :homeMember)) "
+        + "WHERE (a.homeMember = :homeMember OR EXISTS (SELECT 1 FROM Application b WHERE b.affiliate = a AND b.member = :homeMember AND b.approvalState NOT IN (ca.intelliware.ihtsdo.mlds.domain.ApprovalState.NOT_SUBMITTED, ca.intelliware.ihtsdo.mlds.domain.ApprovalState.REJECTED))) "
         + "AND a.standingState <> :standingState")
 	Page<Affiliate> findByHomeMemberAndStandingStateNot(@Param("homeMember") Member homeMember, @Param("standingState") StandingState standingState, Pageable pageable);
 
