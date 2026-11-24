@@ -426,6 +426,19 @@ public class DatabaseConfiguration implements EnvironmentAware {
             );
         }
 
+        String searchDirRoot =
+            env.getProperty(
+                "spring.jpa.properties.hibernate.search.backend.directory.root",
+                env.getProperty("hibernate.search.backend.directory.root")
+            );
+
+        if (searchDirRoot != null && !searchDirRoot.isBlank()) {
+            additionalProperties.put(
+                "hibernate.search.backend.directory.root",
+                searchDirRoot
+            );
+        }
+
         String batchSize =
             env.getProperty(
                 "spring.jpa.properties.hibernate.default_batch_fetch_size"
@@ -501,4 +514,5 @@ public class DatabaseConfiguration implements EnvironmentAware {
         return new MldsOpenEntityManagerInViewFilter();
     }
 }
+
 
